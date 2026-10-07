@@ -23,6 +23,8 @@ enum class AccentColor(
     RED(0xFFE8414D.toInt(), R.string.accent_red, R.drawable.ic_app_logo_red_dark, R.drawable.ic_app_logo_red_light, "Red"),
     BLUE(0xFF3B78F0.toInt(), R.string.accent_blue, R.drawable.ic_app_logo_blue_dark, R.drawable.ic_app_logo_blue_light, "Blue"),
     GREEN(0xFF22A96C.toInt(), R.string.accent_green, R.drawable.ic_app_logo_green_dark, R.drawable.ic_app_logo_green_light, "Green"),
+    /** Marrs Green (#4BACA5), «Lieblingsfarbe der Welt» der G.F-Smith-Umfrage 2017. Am Ende angehängt: gespeicherte Namen bleiben gültig. */
+    MARRS_GREEN(0xFF4BACA5.toInt(), R.string.accent_marrs_green, R.drawable.ic_app_logo_marrs_green_dark, R.drawable.ic_app_logo_marrs_green_light, "MarrsGreen"),
     ;
 
     fun logoRes(dark: Boolean): Int = if (dark) logoDark else logoLight

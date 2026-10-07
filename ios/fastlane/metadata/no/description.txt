@@ -55,8 +55,8 @@ MER
 • Opplesning av kurser og alarmer
 • Sikkerhetskopi og gjenoppretting via Filer-appen
 • Hurtighandlinger på appsymbolet, lyst og mørkt modus
-• Fire aksentfarger med matchende appsymboler
-• Applås: Face ID, Touch ID eller kode
+• Fem aksentfarger med matchende appsymboler
+• Porteføljelås: Face ID, Touch ID eller kode
 • Tilgjengelig på 31 språk
 
 PERSONVERN FØRST

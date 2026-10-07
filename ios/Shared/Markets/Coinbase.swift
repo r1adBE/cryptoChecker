@@ -62,6 +62,11 @@ final class Coinbase: Market {
             ticker.last = try json.double("price")
             ticker.timestamp = try Coinbase.isoToMillis(json.string("time"))
         } else {
+            // /stats: „open“ = Kurs vor 24 h (gleitend). Bezug ist der Kurs aus /ticker.
+            let open = json.optDouble("open")
+            ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: open)
+                ?? Change24h.fromOpen(last: json.optDouble("last"), open: open)
+
             ticker.high = try json.double("high")
             ticker.low = try json.double("low")
         }

@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Tot</string>
     <string name="channel_alarms_quiet">Alarmen (stille uren)</string>
     <string name="channel_alarms_quiet_description">Geluidloze alarmen tijdens stille uren.</string>
-    <string name="settings_app_lock">App-vergrendeling</string>
-    <string name="settings_app_lock_hint">Ontgrendelen met vingerafdruk, gezicht of apparaatpincode als de app langer dan een minuut op de achtergrond was.</string>
-    <string name="app_lock_title">Crypto Checker is vergrendeld</string>
     <string name="app_lock_unlock">Ontgrendelen</string>
-    <string name="app_lock_reason">Crypto Checker ontgrendelen</string>
     <string name="app_lock_unavailable">Op dit apparaat is geen schermvergrendeling ingesteld. Stel er eerst een in via de systeeminstellingen.</string>
     <string name="widget_portfolio_name">Portfolio</string>
     <string name="widget_portfolio_description">Totale waarde van je portfolio en de verandering van vandaag</string>
     <string name="widget_portfolio_today">vandaag %1$s</string>
     <string name="widget_portfolio_empty">Voeg aankopen toe op het tabblad Portfolio</string>
-    <string name="widget_portfolio_locked">Verborgen – app-vergrendeling staat aan</string>
     <string name="a11y_portfolio_widget">Portfolio %1$s, vandaag %2$s</string>
     <string name="settings_section_advanced">Geavanceerd</string>
     <string name="settings_advanced_hint">Live-modus, vaste melding, futures en ontwikkelaarsopties</string>

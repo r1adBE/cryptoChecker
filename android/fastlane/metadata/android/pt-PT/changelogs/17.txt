@@ -5,6 +5,6 @@ Novidades da 16.2.2
 • Preços e alarmes na sua moeda
 • Exportação à data de referência: valor do portefólio em CSV
 • Acessível: azul/laranja, alto contraste, cores trocadas, TalkBack
-• Comece com um toque, horas de silêncio, bloqueio, widget Portfólio, alarme como frase
+• Comece com um toque, horas de silêncio, bloqueio e widget Portfólio, alarme como frase
 • 15 novas exchanges, taxas de rede com alarme de gas
 • Velas no widget, capitalização

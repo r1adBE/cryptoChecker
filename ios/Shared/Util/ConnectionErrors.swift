@@ -23,7 +23,7 @@ enum ConnectionErrors {
     static func isOffline(_ stored: String?) -> Bool { stored == offlineMarker }
 
     /// Paar wird an der Börse nicht mehr gehandelt — ein Zustand, kein Fehler.
-    static func isNotTraded(_ stored: String?) -> Bool { stored == PriceRefresher.notTradedError }
+    static func isNotTraded(_ stored: String?) -> Bool { NotTraded.isMarker(stored) }
 
     /// Gespeicherter Fehler → Anzeige.
     static func display(_ stored: String) -> String {

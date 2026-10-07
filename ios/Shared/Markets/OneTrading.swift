@@ -38,6 +38,8 @@ final class OneTrading: SimpleMarket {
         ticker.vol = json.optDoubleNoData("base_volume")
         ticker.volQuote = json.optDoubleNoData("quote_volume")
         // Kein Zeitstempel in der Antwort → Abfragezeit
+        // price_change_percentage = 24 h in Prozent
+        ticker.change24hPercent = Change24h.percent(json.optDouble("price_change_percentage"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

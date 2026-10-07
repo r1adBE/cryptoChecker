@@ -52,8 +52,8 @@ TOVÁBBI FUNKCIÓK
 • Árfolyamok és riasztások felolvasása
 • Mentés és visszaállítás a Fájlok appal
 • Gyorsműveletek az app ikonján, világos és sötét mód
-• Négy kiemelőszín hozzájuk illő app-ikonokkal
-• Alkalmazászár: Face ID, Touch ID vagy kód
+• Öt kiemelőszín hozzájuk illő app-ikonokkal
+• Portfóliózár: Face ID, Touch ID vagy kód
 • 31 nyelven érhető el
 
 ELSŐ AZ ADATVÉDELEM

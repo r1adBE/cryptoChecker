@@ -478,7 +478,7 @@ struct WatchlistRow: View {
                             ? AnyTransition.opacity.combined(with: .scale(scale: 0.85, anchor: .trailing))
                             : AnyTransition.opacity)
                 if watch.lastPrice != nil {
-                    WatchlistDayChangePill(change: watch.change24h)
+                    WatchlistDayChangePill(change: watch.shownChange24h)
                 }
                 if let converted {
                     Text(converted)

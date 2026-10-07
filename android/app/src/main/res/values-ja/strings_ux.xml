@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">終了</string>
     <string name="channel_alarms_quiet">アラーム（おやすみ時間）</string>
     <string name="channel_alarms_quiet_description">おやすみ時間中の無音アラーム。</string>
-    <string name="settings_app_lock">アプリロック</string>
-    <string name="settings_app_lock_hint">アプリが1分以上バックグラウンドにあった場合、指紋・顔・端末のPINでロックを解除します。</string>
-    <string name="app_lock_title">Crypto Checker はロックされています</string>
     <string name="app_lock_unlock">ロック解除</string>
-    <string name="app_lock_reason">Crypto Checker のロックを解除</string>
     <string name="app_lock_unavailable">この端末には画面ロックが設定されていません。先にシステム設定で設定してください。</string>
     <string name="widget_portfolio_name">ポートフォリオ</string>
     <string name="widget_portfolio_description">ポートフォリオの合計額と今日の変動</string>
     <string name="widget_portfolio_today">今日 %1$s</string>
     <string name="widget_portfolio_empty">「ポートフォリオ」タブで購入を追加</string>
-    <string name="widget_portfolio_locked">非表示 – アプリロックがオン</string>
     <string name="a11y_portfolio_widget">ポートフォリオ %1$s、今日 %2$s</string>
     <string name="settings_section_advanced">詳細設定</string>
     <string name="settings_advanced_hint">ライブモード、常駐通知、先物、開発者向けオプション</string>

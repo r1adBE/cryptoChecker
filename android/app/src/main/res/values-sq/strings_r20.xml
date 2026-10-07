@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Hiq çiftet që nuk tregtohen (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Hiq çiftet që nuk tregtohen</string>
+    <string name="watchlist_remove_not_traded_action">Hiq</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Të hiqet %1$d çift që nuk tregtohet më në bursën e vet? Bashkë me të hiqen edhe alarmet e tij.</item>
+        <item quantity="other">Të hiqen %1$d çifte që nuk tregtohen më në bursën e tyre? Bashkë me to hiqen edhe alarmet e tyre.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">U hoq %1$d çift që nuk tregtohet</item>
+        <item quantity="other">U hoqën %1$d çifte që nuk tregtohen</item>
+    </plurals>
+</resources>

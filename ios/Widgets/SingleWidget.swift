@@ -71,7 +71,8 @@ struct SingleProvider: AppIntentTimelineProvider {
         _ = await refreshed
         let candles = await chart
         let watch = Self.watch(for: configuration)
-        let entry = SingleEntry(date: Date(), watch: watch, candles: watch == nil ? nil : candles,
+        // Erst diese Aktualisierung kann «nicht mehr gehandelt» ergeben haben: dann kein Chart
+        let entry = SingleEntry(date: Date(), watch: watch, candles: watch?.isNotTraded == false ? candles : nil,
                                 range: configuration.range, chartType: configuration.chartType,
                                 theme: configuration.theme, accent: SharedStorage.loadSettings().accentColor)
         // Zweiter Eintrag, sobald der Kurs veraltet («veraltet · 06:42»)
@@ -98,7 +99,8 @@ struct SingleProvider: AppIntentTimelineProvider {
     }
 
     private static func candles(for watch: Watch?, range: WidgetChartRangeOption) async -> [MarketCandle]? {
-        guard let watch else { return nil }
+        // Nicht mehr gehandelt: kein Chart (nur alte Daten)
+        guard let watch, !watch.isNotTraded else { return nil }
         return await WidgetSparkline.candles(base: watch.baseAsset, quote: watch.quoteAsset, range: range)
     }
 }
@@ -208,7 +210,7 @@ private struct SingleHeader: View {
             .layoutPriority(1)
             Spacer(minLength: 4)
             // Veränderung über 24 Stunden (wie die Pille der App); der Chart kann einen anderen Zeitraum zeigen
-            WidgetChangeLabel(change: watch.change24h, palette: palette, size: 11.5, showsArrow: true, day: true,
+            WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 11.5, showsArrow: true, day: true,
                               suffix: L("widget_range_short_24h"))
                 .fixedSize(horizontal: true, vertical: false)
                 .layoutPriority(2)
@@ -300,7 +302,7 @@ private struct SingleMediumView: View {
                 Spacer(minLength: 4)
                 WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 28, palette: palette)
                 if watch.lastPrice != nil {
-                    let change = watch.change24h
+                    let change = watch.shownChange24h
                     WidgetChangeLabel(change: change, palette: palette, size: 12, showsArrow: true, day: true,
                                       suffix: L("widget_range_short_24h"))
                         .padding(.horizontal, 7)
@@ -380,9 +382,9 @@ private struct SingleRectangularView: View {
                         .font(.system(size: 13, weight: .semibold))
                         .lineLimit(1)
                     Spacer(minLength: 2)
-                    if let change = PriceFormat.changePercent(watch.change24h) {
+                    if let change = PriceFormat.changePercent(watch.shownChange24h) {
                         HStack(spacing: 2) {
-                            ChangeArrowIcon(change: watch.change24h)
+                            ChangeArrowIcon(change: watch.shownChange24h)
                                 .font(.system(size: 9, weight: .bold))
                             Text(change)
                                 .font(.system(size: 12, weight: .semibold))
@@ -417,7 +419,7 @@ private struct SingleInlineView: View {
 
     var body: some View {
         if let watch {
-            let parts = [watch.baseAsset, PriceFormat.price(watch.lastPrice), PriceFormat.changePercent(watch.change24h)]
+            let parts = [watch.baseAsset, PriceFormat.price(watch.lastPrice), PriceFormat.changePercent(watch.shownChange24h)]
             Text(parts.compactMap { $0 }.joined(separator: " "))
                 .accessibilityLabel(A11y.watchRow(watch))
         } else {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Poista parit, joilla ei käydä kauppaa (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Poista parit, joilla ei käydä kauppaa</string>
+    <string name="watchlist_remove_not_traded_action">Poista</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Poistetaanko %1$d pari, jolla ei enää käydä kauppaa pörssissään? Myös sen hälytykset poistetaan.</item>
+        <item quantity="other">Poistetaanko %1$d paria, joilla ei enää käydä kauppaa pörssissään? Myös niiden hälytykset poistetaan.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d pari ilman kaupankäyntiä poistettu</item>
+        <item quantity="other">%1$d paria ilman kaupankäyntiä poistettu</item>
+    </plurals>
+</resources>

@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">До</string>
     <string name="channel_alarms_quiet">Оповещения (тихие часы)</string>
     <string name="channel_alarms_quiet_description">Беззвучные оповещения в тихие часы.</string>
-    <string name="settings_app_lock">Блокировка приложения</string>
-    <string name="settings_app_lock_hint">Разблокировка отпечатком пальца, лицом или PIN-кодом устройства, если приложение было в фоне больше минуты.</string>
-    <string name="app_lock_title">Crypto Checker заблокирован</string>
     <string name="app_lock_unlock">Разблокировать</string>
-    <string name="app_lock_reason">Разблокировать Crypto Checker</string>
     <string name="app_lock_unavailable">На этом устройстве не настроена блокировка экрана. Сначала настройте её в системных настройках.</string>
     <string name="widget_portfolio_name">Портфель</string>
     <string name="widget_portfolio_description">Общая стоимость портфеля и изменение за сегодня</string>
     <string name="widget_portfolio_today">сегодня %1$s</string>
     <string name="widget_portfolio_empty">Добавьте покупки на вкладке «Портфель»</string>
-    <string name="widget_portfolio_locked">Скрыто – включена блокировка приложения</string>
     <string name="a11y_portfolio_widget">Портфель %1$s, сегодня %2$s</string>
     <string name="settings_section_advanced">Дополнительно</string>
     <string name="settings_advanced_hint">Режим реального времени, постоянное уведомление, фьючерсы и параметры разработчика</string>

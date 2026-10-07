@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">移除已停止交易的交易对 (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">移除已停止交易的交易对</string>
+    <string name="watchlist_remove_not_traded_action">移除</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">要移除 %1$d 个已在其交易所停止交易的交易对吗？其提醒也将一并删除。</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">已移除 %1$d 个已停止交易的交易对</item>
+    </plurals>
+</resources>

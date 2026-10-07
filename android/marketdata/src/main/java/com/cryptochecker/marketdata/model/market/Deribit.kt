@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
@@ -52,6 +53,8 @@ class Deribit : Market("Deribit", "Deribit") {
             ticker.low = stats.optDoubleNoData("low")
             ticker.vol = stats.optDoubleNoData("volume")
             ticker.volQuote = stats.optDoubleNoData("volume_usd")
+            // price_change = gleitende 24 h in Prozent
+            ticker.change24hPercent = Change24h.percent(stats.optDouble("price_change"))
         }
     }
 
@@ -80,6 +83,7 @@ class Deribit : Market("Deribit", "Deribit") {
                 volQuote = item.optDouble("volume_usd").takeUnless { it.isNaN() }
                     ?: item.optDoubleNoData("volume_notional")
                 timestamp = item.optLong("creation_timestamp")
+                change24hPercent = Change24h.percent(item.optDouble("price_change"))
             }
         }
     }

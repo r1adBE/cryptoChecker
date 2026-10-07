@@ -5,6 +5,6 @@ Të reja në 16.2.2
 • Çmime dhe alarme në monedhën tënde
 • Eksport CSV në datën e referencës
 • Aksesueshmëri: blu/portokalli, kontrast i lartë, ndërrim ngjyrash, TalkBack
-• Fillo me një prekje, orët e heshtjes, kyçje, widget Portofoli, alarm si fjali
+• Fillo me një prekje, orët e heshtjes, kyçje dhe widget Portofoli, alarm si fjali
 • 15 bursa të reja, tarifat e rrjetit me alarm gas
 • Grafik me qirinj në widget, kapitalizimi

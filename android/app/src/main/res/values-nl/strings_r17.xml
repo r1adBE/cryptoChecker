@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Portfolio-vergrendeling</string>
+    <string name="settings_portfolio_lock_hint">Beschermt alleen de portfolio: ontgrendelen met vingerafdruk, gezicht of pincode van het apparaat. Vergrendelt opnieuw na meer dan een minuut op de achtergrond. Volglijst, alarmen en andere widgets blijven open.</string>
+    <string name="portfolio_locked_title">Portfolio is vergrendeld</string>
+    <string name="portfolio_locked_text">Ontgrendel om je posities en waarden te zien.</string>
+    <string name="portfolio_lock_reason">Portfolio ontgrendelen</string>
+    <string name="widget_portfolio_locked_hint">Vergrendeld – ontgrendel in de app</string>
+    <string name="portfolio_history_range_since_first">Sinds 1e aankoop</string>
+    <string name="portfolio_history_period_since_first">sinds de eerste aankoop</string>
+    <string name="portfolio_history_range_since_first_a11y">Verloop sinds je eerste aankoop tonen</string>
+    <string name="portfolio_history_change_since_first_a11y">Waarde sinds je eerste aankoop: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Toont alleen de laatste 5 jaar.</string>
+    <string name="portfolio_history_expand">Waardeverloop tonen</string>
+    <string name="portfolio_history_collapse">Waardeverloop verbergen</string>
+</resources>

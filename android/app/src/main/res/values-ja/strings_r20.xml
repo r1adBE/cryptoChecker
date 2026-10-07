@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">取引終了のペアを削除 (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">取引終了のペアを削除</string>
+    <string name="watchlist_remove_not_traded_action">削除</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">取引所で取引が終了した %1$d 件のペアを削除しますか？各ペアのアラームも削除されます。</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">取引終了のペアを %1$d 件削除しました</item>
+    </plurals>
+</resources>

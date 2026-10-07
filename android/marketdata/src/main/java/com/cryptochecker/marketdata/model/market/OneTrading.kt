@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -41,6 +42,8 @@ class OneTrading : SimpleMarket(
         ticker.vol = json.optDoubleNoData("base_volume")
         ticker.volQuote = json.optDoubleNoData("quote_volume")
         // Kein Zeitstempel in der Antwort → Abfragezeit
+        // price_change_percentage = 24 h in Prozent
+        ticker.change24hPercent = Change24h.percent(json.optDouble("price_change_percentage"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

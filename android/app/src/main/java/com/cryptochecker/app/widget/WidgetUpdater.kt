@@ -13,6 +13,8 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.data.CachedValue
 import com.cryptochecker.app.data.CycleCacheCodecs
 import com.cryptochecker.app.data.CycleCacheStore
@@ -31,6 +33,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSize
 import com.cryptochecker.app.domain.portfolio.PositionRows
 import com.cryptochecker.app.domain.portfolio.TopPositions
 import com.cryptochecker.app.domain.refresh.OutdatedRule
+import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
@@ -172,8 +175,9 @@ class WidgetUpdater @Inject constructor(
                 views.setTextColor(R.id.single_price, colors.textColor)
 
                 // Veränderung über 24 Stunden wie die Pille in der Merkliste, mit «24h» — der
-                // Chart daneben kann einen anderen Zeitraum zeigen. Ohne 24-h-Bezug «—».
-                val change = watch.change24h?.takeIf { it.isFinite() }
+                // Chart daneben kann einen anderen Zeitraum zeigen. Ohne 24-h-Bezug «—»,
+                // ebenso bei nicht mehr gehandelten Paaren (dann auch kein Chart).
+                val change = watch.shownChange24h?.takeIf { it.isFinite() }
                 val day = context.getString(R.string.widget_range_short_24h)
                 // Pfeil wie in der Merkliste (folgt dem Vorzeichen, nie dem Farbtausch)
                 val changeText = when {
@@ -212,7 +216,7 @@ class WidgetUpdater @Inject constructor(
                 views.setTextColor(R.id.single_time, colors.secondaryTextColor)
 
                 val chartType = widgetPrefs.getChartType(appWidgetId)
-                val candles = sparkline(watch.baseAsset, watch.quoteAsset, range)
+                val candles = if (watch.isNotTraded) null else sparkline(watch.baseAsset, watch.quoteAsset, range)
                 // Screenreader: Verlauf als Satz (Zeitraum, Start, Ende, Änderung, Hoch, Tief);
                 // Kerzen: erste Eröffnung, letzter Schluss, höchstes Hoch, tiefstes Tief
                 val chartDescription = candles?.takeIf { it.size >= 2 }?.let {
@@ -288,10 +292,10 @@ class WidgetUpdater @Inject constructor(
             if (hasList) add(refreshStats.lastRefresh())
             if (hasList || hasSingle) {
                 watchRepository.getWatches()
-                    .filter { it.lastError != com.cryptochecker.app.domain.refresh.NOT_TRADED_MARKER }
+                    .filterNot { it.isNotTraded }
                     .forEach { add(it.lastUpdate) }
             }
-            if (hasPortfolio && !settings.appLock) portfolioSnapshotStore.snapshot()?.let { add(it.time) }
+            if (hasPortfolio && !PortfolioLockPolicy.widgetLocked(settings.appLock)) portfolioSnapshotStore.snapshot()?.let { add(it.time) }
         }
         WidgetOutdated.schedule(context, times, WidgetOutdated.afterMillis(settings))
     }
@@ -491,7 +495,7 @@ class WidgetUpdater @Inject constructor(
      * ohne Netz. Was sichtbar ist, richtet sich nach der Widget-Grösse ([PortfolioWidgetMath.size]):
      * klein = Gesamtwert, je Widget wählbar «≈ … USDT», Uhrzeit; mittel = dazu «heute» als
      * Pille in den Kursfarben und der Wertverlauf; gross = dazu die grössten Positionen.
-     * Mit App-Sperre nur der Hinweis, ohne Werte.
+     * Mit Portfolio-Sperre nur Titel, Schloss und «Gesperrt – in der App entsperren», ohne Werte.
      */
     suspend fun updatePortfolio(appWidgetIds: IntArray) {
         if (appWidgetIds.isEmpty()) return
@@ -521,10 +525,19 @@ class WidgetUpdater @Inject constructor(
             // setzen: Der Launcher wendet neue RemoteViews auf die bestehenden Views an.
             compactPortfolio(views, compact = false)
 
+            // Portfolio-Sperre: normaler Rahmen mit Titel, Schloss und Hinweis; Tipp öffnet den Portfolio-Tab
+            val locked = PortfolioLockPolicy.widgetLocked(settings.appLock)
             val message: String? = when {
-                settings.appLock -> context.getString(R.string.widget_portfolio_locked)
+                locked -> context.getString(R.string.widget_portfolio_locked_hint)
                 snapshot == null || snapshot.empty -> context.getString(R.string.widget_portfolio_empty)
                 else -> null
+            }
+
+            if (locked) {
+                views.setViewVisibility(R.id.portfolio_lock_icon, View.VISIBLE)
+                views.setInt(R.id.portfolio_lock_icon, "setColorFilter", colors.secondaryTextColor)
+            } else {
+                views.setViewVisibility(R.id.portfolio_lock_icon, View.GONE)
             }
 
             if (message != null || snapshot == null) {

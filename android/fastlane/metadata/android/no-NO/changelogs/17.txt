@@ -5,6 +5,6 @@ Nytt i 16.2.2
 • Kurser og alarmer i din valuta
 • Eksport per skjæringsdato: porteføljens verdi som CSV
 • Tilgjengelig: blå/oransje, høy kontrast, byttede farger, TalkBack
-• Kom i gang med ett trykk, nattro, applås, portefølje-widget, alarm som setning
+• Kom i gang med ett trykk, nattro, porteføljelås og -widget, alarm som setning
 • 15 nye børser, nettverksgebyrer med gass-alarm
 • Lysdiagram i widget, markedsverdi

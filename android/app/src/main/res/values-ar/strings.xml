@@ -127,7 +127,7 @@
     <string name="settings_theme_mode">الوضع</string>
     <string name="theme_light">فاتح</string>
     <string name="theme_dark">داكن</string>
-    <string name="settings_accent">اللون</string>
+    <string name="settings_accent">السمة</string>
     <string name="accent_orange">برتقالي</string>
     <string name="accent_red">أحمر</string>
     <string name="accent_blue">أزرق</string>

@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Till</string>
     <string name="channel_alarms_quiet">Larm (tysta timmar)</string>
     <string name="channel_alarms_quiet_description">Ljudlösa larm under tysta timmar.</string>
-    <string name="settings_app_lock">Applås</string>
-    <string name="settings_app_lock_hint">Lås upp med fingeravtryck, ansikte eller enhetens pinkod när appen har legat i bakgrunden i mer än en minut.</string>
-    <string name="app_lock_title">Crypto Checker är låst</string>
     <string name="app_lock_unlock">Lås upp</string>
-    <string name="app_lock_reason">Lås upp Crypto Checker</string>
     <string name="app_lock_unavailable">Inget skärmlås är konfigurerat på den här enheten. Ställ in ett i systeminställningarna först.</string>
     <string name="widget_portfolio_name">Portfölj</string>
     <string name="widget_portfolio_description">Det totala värdet av din portfölj och dagens förändring</string>
     <string name="widget_portfolio_today">i dag %1$s</string>
     <string name="widget_portfolio_empty">Lägg till köp på fliken Portfölj</string>
-    <string name="widget_portfolio_locked">Dold – applåset är på</string>
     <string name="a11y_portfolio_widget">Portfölj %1$s, i dag %2$s</string>
     <string name="settings_section_advanced">Avancerat</string>
     <string name="settings_advanced_hint">Liveläge, fast avisering, futures och utvecklaralternativ</string>

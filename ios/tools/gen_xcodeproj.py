@@ -31,7 +31,8 @@ WIDGET_ID = "com.cryptochecker.app.widgets"
 APP_TARGET = "CryptoChecker"
 WIDGET_TARGET = "CryptoCheckerWidgetsExtension"
 ALTERNATE_ICONS = ["AppIconOrangeLight", "AppIconRed", "AppIconRedLight", "AppIconBlue",
-                   "AppIconBlueLight", "AppIconGreen", "AppIconGreenLight"]
+                   "AppIconBlueLight", "AppIconGreen", "AppIconGreenLight",
+                   "AppIconMarrsGreen", "AppIconMarrsGreenLight"]
 TOP_FOLDERS = ["Shared", "App", "Widgets"]
 APP_ONLY_RESOURCES = {"InfoPlist.xcstrings"}
 # Ressourcen aus App/, die auch die Widget-Erweiterung braucht (eigenes Bundle,

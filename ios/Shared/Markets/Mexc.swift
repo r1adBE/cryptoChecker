@@ -37,6 +37,9 @@ final class Mexc: SimpleMarket {
         ticker.vol = json.optDoubleNoData("volume")
         ticker.volQuote = json.optDoubleNoData("quoteVolume")
         ticker.timestamp = json.optLong("closeTime")
+        // openPrice = Kurs vor 24 h; priceChangePercent ist bei MEXC ein Bruchteil.
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("openPrice"))
+            ?? Change24h.fraction(json.optDouble("priceChangePercent"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }
@@ -97,6 +100,8 @@ final class MexcFutures: SimpleMarket {
         ticker.vol = Ticker.noData
         ticker.volQuote = json.optDoubleNoData("amount24")
         ticker.timestamp = json.optLong("timestamp")
+        // riseFallRate = gleitende 24 h als Bruchteil (die Tageswerte stehen in riseFallRates)
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("riseFallRate"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

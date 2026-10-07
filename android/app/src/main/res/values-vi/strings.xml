@@ -121,7 +121,7 @@
     <string name="settings_theme_mode">Chế độ</string>
     <string name="theme_light">Sáng</string>
     <string name="theme_dark">Tối</string>
-    <string name="settings_accent">Màu</string>
+    <string name="settings_accent">Chủ đề</string>
     <string name="accent_orange">Cam</string>
     <string name="accent_red">Đỏ</string>
     <string name="accent_blue">Xanh dương</string>

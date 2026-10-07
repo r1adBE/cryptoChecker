@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import kotlinx.coroutines.Dispatchers
@@ -15,11 +16,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /** Kerzenintervall, unabhängig von der Börse. */
-enum class CandleInterval(val binanceCode: String) {
-    H1("1h"),
-    H4("4h"),
-    D1("1d"),
-    W1("1w"),
+enum class CandleInterval(val binanceCode: String, val millis: Long) {
+    H1("1h", 60 * 60_000L),
+    H4("4h", 4 * 60 * 60_000L),
+    D1("1d", 24 * 60 * 60_000L),
+    W1("1w", 7 * 24 * 60 * 60_000L),
 }
 
 /**
@@ -58,8 +59,11 @@ internal object BlockedSources {
  *  4. api.binance.us (Binance.US; USDT, sonst USD)
  *  5. Coinbase Exchange (USD, sonst USDC; 4 h und 1 Woche zusammengesetzt)
  *
- * Die erste Quelle mit mindestens zwei Kerzen gewinnt und wird je Paar und
- * Intervall eine Stunde lang zuerst gefragt. Gesperrte Quellen siehe [BlockedSources].
+ * Die erste Quelle mit mindestens zwei LAUFENDEN Kerzen gewinnt (endet die Reihe vor
+ * langem, z. B. Spot nach einem Delisting, ist die nächste Quelle dran, siehe
+ * [CandleSeries.isLive]) und wird je Paar und Intervall eine Stunde lang zuerst gefragt.
+ * Für Futures-Paare kommt USDⓈ-M zuerst ([candles] mit preferFutures).
+ * Gesperrte Quellen siehe [BlockedSources].
  * Rückgabe zeitlich aufsteigend; die letzte Kerze läuft in der Regel noch.
  * Als Kerzentyp dient [HourCandle] (gilt hier für jedes Intervall).
  */
@@ -81,24 +85,37 @@ class CandleDataSource @Inject constructor(
     /**
      * Bis zu [limit] Kerzen, aufsteigend; null, wenn keine Quelle das Paar liefert.
      * Coinbase liefert höchstens 300 Rohkerzen — bei langen Reihen also weniger.
+     * [preferFutures] = Futures-Paar (Perpetual usw.): zuerst die Kerzen von
+     * fapi.binance.com, Spot erst danach.
      */
-    suspend fun candles(base: String, quote: String, interval: CandleInterval, limit: Int): List<HourCandle>? {
+    suspend fun candles(
+        base: String,
+        quote: String,
+        interval: CandleInterval,
+        limit: Int,
+        preferFutures: Boolean = false,
+    ): List<HourCandle>? {
         val b = base.trim().uppercase()
         val q = quote.trim().uppercase()
         if (!isAsset(b) || !isAsset(q)) return null
         val n = limit.coerceIn(2, MAX_LIMIT)
-        val memoKey = "$b|$q|${interval.name}"
+        val memoKey = "$b|$q|${interval.name}|${if (preferFutures) "F" else "S"}"
 
         return withContext(Dispatchers.IO) {
             val preferred = working[memoKey]
                 ?.takeIf { System.currentTimeMillis() - it.second in 0 until WORKING_MILLIS }
                 ?.first
-            val order = if (preferred == null) Source.entries else listOf(preferred) + (Source.entries - preferred)
+            val chain = if (preferFutures) listOf(Source.BINANCE_FUTURES) + (Source.entries - Source.BINANCE_FUTURES)
+            else Source.entries
+            val order = if (preferred == null) chain else listOf(preferred) + (chain - preferred)
 
             for (source in order) {
                 if (BlockedSources.isBlocked(source.key)) continue
                 val result = fetchFrom(source, b, q, interval, n)
-                if (result != null && result.size >= 2) {
+                // Reihe, die vor langem endet (Paar dort nicht mehr gehandelt): nächste Quelle
+                if (result != null && result.size >= 2 &&
+                    CandleSeries.isLive(result, interval.millis, System.currentTimeMillis())
+                ) {
                     working[memoKey] = source to System.currentTimeMillis()
                     return@withContext result
                 }

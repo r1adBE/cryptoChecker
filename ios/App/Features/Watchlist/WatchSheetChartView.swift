@@ -275,7 +275,7 @@ struct WatchSheetChartView: View {
 
 /// Setzt das Etikett beim Ziehen mittig über die Markierung, aber ganz in die Fläche
 /// (`SheetChart.labelLeft`).
-private struct ScrubLabelLayout: Layout {
+struct ScrubLabelLayout: Layout {
     let centerX: CGFloat
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {

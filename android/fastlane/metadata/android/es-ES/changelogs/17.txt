@@ -5,6 +5,6 @@ Novedades 16.2.2
 • Precios y alarmas en tu moneda
 • Exportación CSV a fecha de corte
 • Accesible: azul/naranja, alto contraste, colores intercambiados, TalkBack
-• Empieza con un toque, horas de silencio, bloqueo, widget de cartera, alarma como frase
+• Empieza con un toque, horas de silencio, bloqueo y widget de cartera, alarma como frase
 • 15 exchanges nuevos, comisiones de red con alarma de gas
 • Gráfico de velas en el widget, capitalización

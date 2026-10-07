@@ -20,8 +20,11 @@ data class DayReference(val open: Double, val lastClose: Double) {
 /**
  * Veränderung über 24 Stunden für Prozent-Pille, Puls-Zeile und Widgets.
  *
- * Die Börsen-Ticker liefern keinen eigenen 24-h-Wert (das Ticker-Modell kennt nur
- * bid/ask/vol/high/low/last), deshalb kommt der Bezug aus Stundenkerzen:
+ * Reihenfolge ([choose]):
+ *  0. Rollende 24-h-Veränderung, die die Börse im Ticker mitliefert
+ *     (`Ticker.change24hPercent`, siehe DEVELOPMENT.md «24 h change») — gilt für das Paar
+ *     selbst, also schon in seiner Quote. Nur endlich und |x| < [MAX_TICKER_CHANGE].
+ * Fehlt er, kommt der Bezug aus Stundenkerzen ([select]):
  *  1. Kerzen des Paars selbst (USD-artige Quotes teilen sich die USDT-Reihe des
  *     Mini-Charts): aktueller Kurs gegen die Eröffnung vor 24 h.
  *  2. Fiat-Quote ohne eigene Kerzen (z. B. BTC/CHF): Verlauf der USDT-Reihe allein
@@ -29,6 +32,23 @@ data class DayReference(val open: Double, val lastClose: Double) {
  *  3. Sonst nichts (null → Pille «—»), nie die Veränderung seit der letzten Abfrage.
  */
 object DayChange {
+
+    /** Grösster plausibler Betrag (Prozent) für den 24-h-Wert aus dem Ticker. */
+    const val MAX_TICKER_CHANGE = 10_000.0
+
+    /** 24-h-Wert aus dem Ticker, wenn brauchbar (endlich, |x| < [MAX_TICKER_CHANGE]); sonst null. */
+    fun fromTicker(change24hPercent: Double?): Double? =
+        change24hPercent?.takeIf { it.isFinite() && abs(it) < MAX_TICKER_CHANGE }
+
+    /** Kerzen nötig? Nur wenn der Ticker keinen brauchbaren 24-h-Wert hat. */
+    fun needsCandles(tickerChange: Double?): Boolean = fromTicker(tickerChange) == null
+
+    /**
+     * Endgültiger Wert: Ticker vor Kerzen. [candles] wird nur ausgewertet, wenn der Ticker
+     * nichts Brauchbares liefert (Kerzenwert mit den Prüfungen aus [select]).
+     */
+    inline fun choose(tickerChange: Double?, candles: () -> Double?): Double? =
+        fromTicker(tickerChange) ?: candles()?.takeIf { it.isFinite() }
 
     /** Quotes, für die die USDT-Reihe des Mini-Charts gilt. */
     val USD_LIKE_QUOTES = setOf("USDT", "USD", "USDC", "FDUSD")

@@ -54,8 +54,8 @@ MORE
 • Prices and alarms read aloud
 • Backup & restore via the Files app
 • Quick actions on the app icon, light and dark mode
-• Four accent colors with matching app icons
-• App lock: Face ID, Touch ID or passcode
+• Five accent colors with matching app icons
+• Portfolio lock: Face ID, Touch ID, code
 • Available in 31 languages
 
 PRIVACY FIRST

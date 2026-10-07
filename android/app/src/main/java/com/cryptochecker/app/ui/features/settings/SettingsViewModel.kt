@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.lock.AppLockState
+import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.AlarmSoundStore
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.NotificationChannels
@@ -46,6 +47,7 @@ class SettingsViewModel @Inject constructor(
     private val appLockState: AppLockState,
     private val portfolioSnapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
     private val alarmTester: com.cryptochecker.app.notification.AlarmTester,
+    private val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
 ) : ViewModel() {
 
     /** «Alarm testen»: echter Alarm über den Weg der Kursalarme, ohne Nachtruhe. */
@@ -63,7 +65,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun restoreBackup(uri: android.net.Uri) = update {
-        // Wer hier wiederherstellt, ist schon drin: Schaltet die Sicherung die App-Sperre
+        // Wer hier wiederherstellt, ist schon drin: Schaltet die Sicherung die Portfolio-Sperre
         // ein, gilt sie erst ab dem nächsten Kaltstart bzw. nach dem Hintergrund-Limit —
         // nicht sofort in dieser Sitzung (vor dem Schreiben, damit nichts aufblitzt).
         // Nur wenn die Sperre bisher aus war: sonst höbe ein Wiederherstellen nach über
@@ -178,6 +180,10 @@ class SettingsViewModel @Inject constructor(
 
     fun setActivityAlerts(enabled: Boolean) = update {
         settingsRepository.setActivityAlerts(enabled)
+    }
+
+    fun setActivitySensitivity(sensitivity: com.cryptochecker.app.domain.activity.ActivitySensitivity) = update {
+        settingsRepository.setActivitySensitivity(sensitivity)
     }
 
     /** Morgen-Meldung zu Wirtschaftsdaten; plant bzw. entfernt die tägliche Prüfung um 08:00. */
@@ -298,9 +304,9 @@ class SettingsViewModel @Inject constructor(
 
     fun setQuietHoursEnd(minute: Int) = update { settingsRepository.setQuietHoursEnd(minute) }
 
-    // ---------------- App-Sperre ----------------
+    // ---------------- Portfolio-Sperre ----------------
 
-    /** Ausschalten geht ohne Abfrage; das Portfolio-Widget zeigt danach wieder Werte. */
+    /** Ausschalten (nach [disableAppLock]); das Portfolio-Widget zeigt danach wieder Werte. */
     fun setAppLock(enabled: Boolean) = update {
         settingsRepository.setAppLock(enabled)
         widgetUpdater.updateAll()
@@ -319,6 +325,41 @@ class SettingsViewModel @Inject constructor(
                 appLockState.unlock()
                 setAppLock(true)
             }
+        }
+    }
+
+    /** Ausschalten verlangt Entsperren, solange das Portfolio gesperrt ist (sonst wäre die Sperre umgangen). */
+    fun disableAppLock(activity: androidx.fragment.app.FragmentActivity?, reason: String) =
+        gate(activity, reason, PortfolioLockPolicy::disableNeedsUnlock) { setAppLock(false) }
+
+    /** Sichern: Enthält die Datei Portfolio-Daten und ist gesperrt, erst entsperren. */
+    fun startBackupExport(activity: androidx.fragment.app.FragmentActivity?, reason: String, launch: () -> Unit) {
+        viewModelScope.launch {
+            val hasPortfolio = try {
+                portfolioRepository.getTransactions().isNotEmpty()
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                true
+            }
+            gate(activity, reason, { locked -> PortfolioLockPolicy.backupExportNeedsUnlock(locked, hasPortfolio) }, launch)
+        }
+    }
+
+    /** Wiederherstellen: solange gesperrt, erst entsperren (die Sicherung kann die Sperre ausschalten). */
+    fun startRestore(activity: androidx.fragment.app.FragmentActivity?, reason: String, launch: () -> Unit) =
+        gate(activity, reason, PortfolioLockPolicy::restoreNeedsUnlock, launch)
+
+    /** [onUnlocked] sofort, wenn [needsUnlock] für den aktuellen Sperr-Zustand false ist; sonst nach der Abfrage. */
+    private fun gate(
+        activity: androidx.fragment.app.FragmentActivity?,
+        reason: String,
+        needsUnlock: (Boolean) -> Boolean,
+        onUnlocked: () -> Unit,
+    ) {
+        viewModelScope.launch {
+            val locked = PortfolioLockPolicy.isLocked(settingsRepository.current().appLock, appLockState.lockRequested.value)
+            appLockState.requireUnlock(activity, needsUnlock(locked), reason, onUnlocked)
         }
     }
 

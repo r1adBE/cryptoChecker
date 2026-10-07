@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">Lên đầu</string>
+    <string name="watchlist_jump_end">Xuống cuối</string>
+    <string name="settings_activity_sensitivity">Độ nhạy</string>
+    <string name="settings_activity_sensitivity_hint">Mức dễ để một coin bị coi là bất thường – giống nhau cho thẻ trong danh sách theo dõi và thông báo. Với “Ít hơn”, thẻ chỉ hiện 3 coin mạnh nhất.</string>
+    <string name="activity_sensitivity_less">Ít hơn</string>
+    <string name="activity_sensitivity_normal">Bình thường</string>
+    <string name="activity_sensitivity_more">Nhiều hơn</string>
+    <string name="activity_adjust">Điều chỉnh</string>
+    <string name="activity_adjust_a11y">Điều chỉnh độ nhạy</string>
+</resources>

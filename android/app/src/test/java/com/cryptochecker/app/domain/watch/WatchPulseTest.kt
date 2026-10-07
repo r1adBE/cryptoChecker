@@ -60,4 +60,37 @@ class WatchPulseTest {
         assertEquals(0.9, pulse.average, 1e-12)
         assertNull(WatchPulse.of(listOf(1.8, null, null)))
     }
+
+    @Test
+    fun `missing counts null and invalid values by default`() {
+        val pulse = WatchPulse.of(listOf(2.4, null, -0.6, Double.NaN))!!
+        assertEquals(2, pulse.missing)
+        assertEquals(0, WatchPulse.of(listOf(1.0, 2.0))!!.missing)
+    }
+
+    @Test
+    fun `missing only counts pairs that have a price`() {
+        // Paar 3 ohne Kurs (keine Pille) zählt nicht als «ohne 24h-Wert»
+        val pulse = WatchPulse.of(
+            changes = listOf(1.0, -2.0, null, null, null),
+            hasPrice = listOf(true, true, false, true, true),
+        )!!
+        assertEquals(1, pulse.up)
+        assertEquals(1, pulse.down)
+        assertEquals(2, pulse.missing)
+    }
+
+    @Test
+    fun `honest pulse - many pairs without value`() {
+        val changes = List(19) { 1.0 } + List(80) { -1.0 } + List(510) { null }
+        val pulse = WatchPulse.of(changes, List(changes.size) { true })!!
+        assertEquals(19, pulse.up)
+        assertEquals(80, pulse.down)
+        assertEquals(510, pulse.missing)
+    }
+
+    @Test
+    fun `still hidden with fewer than two values even if pairs are missing`() {
+        assertNull(WatchPulse.of(listOf(1.0, null, null), listOf(true, true, true)))
+    }
 }

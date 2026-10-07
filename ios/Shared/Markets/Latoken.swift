@@ -53,6 +53,8 @@ final class Latoken: SimpleMarket {
         ticker.vol = json.optDoubleNoData("amount24h")
         ticker.volQuote = json.optDoubleNoData("volume24h")
         ticker.timestamp = json.optLong("updateTimestamp")
+        // change24h = 24 h in Prozent
+        ticker.change24hPercent = Change24h.percent(json.optDouble("change24h"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

@@ -202,9 +202,14 @@ struct SettingsAccentPicker: View {
                             .overlay(Circle().strokeBorder(selected ? seed : .clear, lineWidth: 2.5))
                             .scaleEffect(selected ? 1.06 : 1)
 
+                            // Fünf gleich breite Spalten: lange Namen («Marrs Green») brechen auf
+                            // schmalen Geräten (iPhone SE) in die zweite Zeile um.
                             Text(L(accent.labelKey))
                                 .font(.caption.weight(selected ? .semibold : .regular))
                                 .foregroundStyle(selected ? AppColors.onSurface : AppColors.onSurfaceVariant)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.85)
                         }
                         .frame(maxWidth: .infinity)
                         .contentShape(Rectangle())

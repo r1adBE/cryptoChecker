@@ -59,7 +59,13 @@ enum ActivityMonitor {
         }
     }
 
-    private static func analyzeLocked(watches: [Watch], settings: AppSettings) async {
+    private static func analyzeLocked(watches all: [Watch], settings: AppSettings) async {
+        // Nicht mehr gehandelte Paare: keine Auswertung, gespeicherte Signale (und ihre
+        // Mitteilung) weg — sonst stünde ⚡ samt «Ungewöhnliche Bewegung» auf alten Kerzen da.
+        let notTraded = NotTraded.ids(all)
+        let stored = ActivityRepository.reports()
+        for id in notTraded where stored[id] != nil { Notifier.cancelActivity(id) }
+        let watches = all.filter { !notTraded.contains($0.id) }
         ActivityRepository.retain(Set(watches.map(\.id)))
         guard !watches.isEmpty else { return }
 
@@ -67,6 +73,7 @@ enum ActivityMonitor {
         let previous = ActivityRepository.reports()
         let due = watches.filter { ActivityAnalyzer.isDue(previous[$0.id], now: now) }
         guard !due.isEmpty else { return }
+        let sensitivity = settings.activitySensitivity
 
         let collector = Collector()
         // Höchstens vier gleichzeitig; das Zeitbudget bricht den Rest ab.
@@ -76,13 +83,19 @@ enum ActivityMonitor {
                 while index < min(maxParallel, due.count) {
                     let watch = due[index]
                     index += 1
-                    group.addTask { await analyzeOne(watch, previous: previous[watch.id], now: now, into: collector) }
+                    group.addTask {
+                        await analyzeOne(watch, previous: previous[watch.id], now: now,
+                                         sensitivity: sensitivity, into: collector)
+                    }
                 }
                 while await group.next() != nil {
                     guard index < due.count, !Task.isCancelled else { continue }
                     let watch = due[index]
                     index += 1
-                    group.addTask { await analyzeOne(watch, previous: previous[watch.id], now: now, into: collector) }
+                    group.addTask {
+                        await analyzeOne(watch, previous: previous[watch.id], now: now,
+                                         sensitivity: sensitivity, into: collector)
+                    }
                 }
             }
         }
@@ -114,24 +127,31 @@ enum ActivityMonitor {
         }
     }
 
-    private static func analyzeOne(_ watch: Watch, previous: ActivityReport?, now: Int64, into collector: Collector) async {
-        async let candlesJob = timed { await VolumeDataSource.hourlyCandles(base: watch.baseAsset, quote: watch.quoteAsset) }
+    private static func analyzeOne(_ watch: Watch, previous: ActivityReport?, now: Int64,
+                                   sensitivity: ActivitySensitivity, into collector: Collector) async {
+        let futuresPair = isFutures(watch)
+        async let candlesJob = timed {
+            await VolumeDataSource.hourlyCandles(base: watch.baseAsset, quote: watch.quoteAsset, futures: futuresPair)
+        }
         async let futuresJob = perpetualFutures(watch)
         let candles = await candlesJob
         let futures = await futuresJob
         // Abbruch des ganzen Durchlaufs (Zeitbudget): Ergebnis verwerfen
         guard !Task.isCancelled else { return }
 
-        let stats = candles.flatMap { ActivityAnalyzer.hourStats($0) }
+        // Veraltete oder unplausible Reihen (z. B. Spot nach Delisting) liefern keine Signale
+        let valid = CandleSeries.usable(candles, now: now, tickerChange24h: watch.change24h)
+        let stats = valid.flatMap { ActivityAnalyzer.hourStats($0) }
         let oi = openInterest(watch, futures, now: now, store: true)
         let fresh = ActivityAnalyzer.signals(
             stats: stats,
             fundingPercent: futures?.fundingRatePercent,
             oiChangePercent: oi?.changePercent,
             oiMinutes: oi?.minutes,
-            now: now
+            now: now,
+            sensitivity: sensitivity
         )
-        collector.put(watch, ActivityAnalyzer.merge(previous: previous, fresh: fresh, now: now))
+        collector.put(watch, ActivityAnalyzer.merge(previous: previous, fresh: fresh, now: now, sensitivity: sensitivity))
     }
 
     private static func perpetualFutures(_ watch: Watch) async -> FuturesInfo? {
@@ -157,8 +177,14 @@ enum ActivityMonitor {
     /// Lädt alles für das «Warum»-Blatt gleichzeitig, jede Quelle mit eigener Zeitgrenze.
     /// nil nur, wenn der Aufrufer abgebrochen hat.
     static func explain(_ watch: Watch) async -> WhyReport? {
+        // Nicht mehr gehandelt: nichts laden, nichts einordnen
+        if watch.isNotTraded { return ActivityAnalyzer.notLive(now: TimeUtils.nowMillis) }
         let isBtc = watch.baseAsset.uppercased() == "BTC"
-        async let candlesJob = timed { await VolumeDataSource.hourlyCandles(base: watch.baseAsset, quote: watch.quoteAsset) }
+        // Futures-Paar: Kerzen seines eigenen Markts (USDⓈ-M), nicht die des Spot-Paars
+        let futuresPair = isFutures(watch)
+        async let candlesJob = timed {
+            await VolumeDataSource.hourlyCandles(base: watch.baseAsset, quote: watch.quoteAsset, futures: futuresPair)
+        }
         async let referenceJob = timed { await VolumeDataSource.hourlyCandles(base: isBtc ? "ETH" : "BTC", quote: "USDT") }
         async let futuresJob = timed { await whyFutures(watch) }
         async let fearGreedJob = timed { await fearGreed() }
@@ -179,9 +205,15 @@ enum ActivityMonitor {
             openInterestChangePercent: oi?.changePercent,
             fearGreed: fng?.value,
             fearGreedYesterday: fng?.yesterday,
-            now: TimeUtils.nowMillis
+            now: TimeUtils.nowMillis,
+            // Dieselbe 24-h-Veränderung wie Pille und Merkliste
+            tickerChange24h: watch.change24h,
+            marketLive: !watch.isNotTraded
         ))
     }
+
+    /// Kontrakt statt Spot: Kerzen kommen dann zuerst vom Futures-Markt.
+    private static func isFutures(_ watch: Watch) -> Bool { watch.contractType != .none }
 
     /// Perpetual: dessen Kennzahlen; sonst das USDT-Perpetual desselben Coins als Richtwert.
     private static func whyFutures(_ watch: Watch) async -> FuturesInfo? {

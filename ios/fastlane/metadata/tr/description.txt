@@ -53,8 +53,8 @@ DAHA FAZLASI
 • Fiyatları ve alarmları sesli okuma
 • Dosyalar uygulamasıyla yedekleme ve geri yükleme
 • Uygulama simgesinde hızlı işlemler, açık ve koyu mod
-• Uyumlu uygulama simgeleriyle dört vurgu rengi
-• Uygulama kilidi: Face ID, Touch ID veya parola
+• Uyumlu uygulama simgeleriyle beş vurgu rengi
+• Portföy kilidi: Face ID, Touch ID veya parola
 • 31 dilde kullanılabilir
 
 ÖNCE GİZLİLİK

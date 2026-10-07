@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Päättyy</string>
     <string name="channel_alarms_quiet">Hälytykset (hiljaiset tunnit)</string>
     <string name="channel_alarms_quiet_description">Äänettömät hälytykset hiljaisina tunteina.</string>
-    <string name="settings_app_lock">Sovelluslukitus</string>
-    <string name="settings_app_lock_hint">Avaa lukitus sormenjäljellä, kasvoilla tai laitteen PIN-koodilla, kun sovellus on ollut taustalla yli minuutin.</string>
-    <string name="app_lock_title">Crypto Checker on lukittu</string>
     <string name="app_lock_unlock">Avaa lukitus</string>
-    <string name="app_lock_reason">Avaa Crypto Checkerin lukitus</string>
     <string name="app_lock_unavailable">Tässä laitteessa ei ole näytön lukitusta. Määritä se ensin järjestelmän asetuksissa.</string>
     <string name="widget_portfolio_name">Salkku</string>
     <string name="widget_portfolio_description">Salkkusi kokonaisarvo ja tämän päivän muutos</string>
     <string name="widget_portfolio_today">tänään %1$s</string>
     <string name="widget_portfolio_empty">Lisää ostot Salkku-välilehdellä</string>
-    <string name="widget_portfolio_locked">Piilotettu – sovelluslukitus on päällä</string>
     <string name="a11y_portfolio_widget">Salkku %1$s, tänään %2$s</string>
     <string name="settings_section_advanced">Lisäasetukset</string>
     <string name="settings_advanced_hint">Live-tila, pysyvä ilmoitus, futuurit ja kehittäjäasetukset</string>

@@ -10,23 +10,14 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
-import com.cryptochecker.app.R
 import com.cryptochecker.app.service.PriceServiceController
-import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.lock.AppLockState
-import com.cryptochecker.app.ui.lock.LockScreen
 import com.cryptochecker.app.ui.navigation.AppNavHost
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.AppearanceApplier
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,20 +45,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             openTarget.value = intent?.getStringExtra(EXTRA_OPEN)
-            // Neue Oberfläche: ein neuer Prozess ist gesperrt (sofern die App-Sperre an ist),
+            // Neue Oberfläche: ein neuer Prozess sperrt das Portfolio (sofern die Sperre an ist),
             // ein Neuaufbau kurz nach dem Verlassen nicht (siehe AppLockState.onColdStart)
             appLockState.onColdStart()
         }
 
         setContent {
-            // null, bis die Einstellungen gelesen sind — erst dann ist klar, ob gesperrt wird
-            val loadedSettings: AppSettings? by settingsRepository.settings.collectAsState(initial = null)
-            val settings = loadedSettings ?: settingsRepository.cached
-            val lockRequested by appLockState.lockRequested.collectAsState()
-            // Ausserhalb der Sperre gemerkt: Nach dem Entsperren geht es im selben Tab weiter
+            val settings by settingsRepository.settings.collectAsState(initial = settingsRepository.cached)
+            // Ausserhalb der Navigation gemerkt: Tab-Zustand bleibt über Neuzusammensetzungen
             val navController = rememberNavController()
 
-            // Vorschaubild in «Zuletzt verwendet» ohne Kurse, solange die Sperre an ist
+            // Vorschaubild in «Zuletzt verwendet» ohne Werte, solange die Portfolio-Sperre an ist
             LaunchedEffect(settings.appLock) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     setRecentsScreenshotEnabled(!settings.appLock)
@@ -81,30 +69,15 @@ class MainActivity : AppCompatActivity() {
                 highContrast = rememberHighContrast(settings.highContrast),
                 priceColorsInverted = settings.priceColorsInverted,
             ) {
-                when {
-                    // Einstellungen noch nicht gelesen: nichts zeigen statt kurz die Kurse
-                    loadedSettings == null && lockRequested -> Box(
-                        Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
-                    )
-                    settings.appLock && lockRequested -> LockScreen(onUnlock = { promptUnlock() })
-                    // Benachrichtigungs-Erlaubnis erst, wenn eine Meldung eingeschaltet wird.
-                    else -> AppNavHost(
-                        navigation = navController,
-                        openTarget = openTarget.value,
-                        onOpenTargetHandled = { openTarget.value = null }
-                    )
-                }
+                // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
+                // für den Portfolio-Tab und seine Unterseiten.
+                // Benachrichtigungs-Erlaubnis erst, wenn eine Meldung eingeschaltet wird.
+                AppNavHost(
+                    navigation = navController,
+                    openTarget = openTarget.value,
+                    onOpenTargetHandled = { openTarget.value = null }
+                )
             }
-        }
-    }
-
-    /** System-Abfrage der App-Sperre; nur eine gleichzeitig. */
-    private fun promptUnlock() {
-        if (appLockState.authenticating) return
-        appLockState.authenticating = true
-        AppLockAuth.authenticate(this, getString(R.string.app_lock_reason)) { ok ->
-            appLockState.authenticating = false
-            if (ok) appLockState.unlock()
         }
     }
 

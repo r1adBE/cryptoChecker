@@ -2,6 +2,7 @@ package com.cryptochecker.marketdata.model.market
 
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.*
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -46,6 +47,8 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
 
                 // Optional
                 ticker.volQuote = optDoubleNoData("quoteVolume")
+                // Gleitende 24 h, schon in Prozent
+                ticker.change24hPercent = Change24h.percent(optDouble("priceChangePercent"))
             }
         }
     }

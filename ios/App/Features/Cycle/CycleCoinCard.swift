@@ -278,7 +278,8 @@ struct CycleCoinPickerSheet: View {
                 }
             }
         }
-        .presentationDetents([.medium, .large])
+        // Volle Höhe: das Suchfeld (Tastatur) würde ein halbes Blatt sonst auf «gross» springen lassen
+        .presentationDetents([.large])
         .presentationDragIndicator(.visible)
     }
 

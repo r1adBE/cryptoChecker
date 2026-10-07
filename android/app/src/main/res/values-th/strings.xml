@@ -117,7 +117,7 @@
     <string name="settings_theme_mode">โหมด</string>
     <string name="theme_light">สว่าง</string>
     <string name="theme_dark">มืด</string>
-    <string name="settings_accent">สี</string>
+    <string name="settings_accent">ธีม</string>
     <string name="accent_orange">ส้ม</string>
     <string name="accent_red">แดง</string>
     <string name="accent_blue">น้ำเงิน</string>

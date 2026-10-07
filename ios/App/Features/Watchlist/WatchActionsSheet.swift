@@ -23,6 +23,7 @@ struct WatchActionsSheet: View {
     @EnvironmentObject private var data: AppData
     @Environment(\.appAccent) private var accent
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var futures: FuturesInfo? = nil
     @State private var editGroup = false
     @State private var editNote = false
@@ -110,7 +111,8 @@ struct WatchActionsSheet: View {
             .padding(.horizontal, 20)
             .padding(.top, 24)
             .padding(.bottom, 16)
-            .animation(.spring(duration: 0.35), value: futures)
+            // Kennzahlen kommen später: weich einfügen (bei reduzierter Bewegung sofort)
+            .animation(reduceMotion ? nil : .spring(duration: 0.35), value: futures)
         }
         .scrollIndicators(.hidden)
         .background(AppColors.background.ignoresSafeArea())
@@ -124,7 +126,8 @@ struct WatchActionsSheet: View {
                 if let w = data.watch(watchId) { data.setNote(w, note) }
             }
             .environment(\.appAccent, accent)
-            .presentationDetents([.medium])
+            // Volle Höhe: das Feld fokussiert beim Öffnen, die Tastatur schiebt das Blatt so nicht hoch
+            .presentationDetents([.large])
             .presentationDragIndicator(.visible)
             .presentationCornerRadius(28)
             .presentationBackground(AppColors.background)
@@ -132,7 +135,8 @@ struct WatchActionsSheet: View {
         .sheet(isPresented: $showWidgetHelp) {
             AddWidgetHelpSheet(portfolioEnabled: data.settings.portfolioEnabled)
                 .environment(\.appAccent, accent)
-                .presentationDetents([.medium, .large])
+                // Eine feste Höhe (wie in den Einstellungen): Inhalt höher als «halb»
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $editGroup) {
@@ -140,7 +144,8 @@ struct WatchActionsSheet: View {
                 if let w = data.watch(watchId) { data.setGroup(w, group) }
             }
             .environment(\.appAccent, accent)
-            .presentationDetents([.medium, .large])
+            // Volle Höhe: «Neue Gruppe» blendet ein Feld samt Tastatur ein, das Blatt springt nicht
+            .presentationDetents([.large])
             .presentationDragIndicator(.visible)
             .presentationCornerRadius(28)
             .presentationBackground(AppColors.background)
@@ -224,14 +229,17 @@ struct WatchActionsSheet: View {
                 onOpenAlarms(watch.id)
                 dismiss()
             }
-            WatchActionTile(
-                systemImage: "lightbulb",
-                title: L("watch_action_why"),
-                badge: hasActivity
-            ) {
-                WatchlistHaptics.selection()
-                onWhy(watch.id)
-                dismiss()
+            // Nicht mehr gehandelt: kein «Warum?» (es gäbe nur alte Daten)
+            if !watch.isNotTraded {
+                WatchActionTile(
+                    systemImage: "lightbulb",
+                    title: L("watch_action_why"),
+                    badge: hasActivity
+                ) {
+                    WatchlistHaptics.selection()
+                    onWhy(watch.id)
+                    dismiss()
+                }
             }
             WatchActionTile(
                 systemImage: watch.favorite ? "star.fill" : "star",
@@ -405,7 +413,7 @@ struct WatchActionsSheet: View {
                     .minimumScaleFactor(0.5)
                     .contentTransition(.numericText(value: watch.lastPrice ?? 0))
                 if watch.lastPrice != nil {
-                    WatchlistDayChangePill(change: watch.change24h, large: true)
+                    WatchlistDayChangePill(change: watch.shownChange24h, large: true)
                 }
             }
             if let error = watch.lastError, !error.isEmpty {

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 21: fünfte Akzentfarbe «Marrs Green» (Eigenname, in allen Sprachen gleich) -->
+    <string name="accent_marrs_green">Marrs Green</string>
+</resources>

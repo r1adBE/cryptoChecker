@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">ถึง</string>
     <string name="channel_alarms_quiet">สัญญาณเตือน (ช่วงเวลาเงียบ)</string>
     <string name="channel_alarms_quiet_description">สัญญาณเตือนแบบเงียบระหว่างช่วงเวลาเงียบ</string>
-    <string name="settings_app_lock">ล็อกแอป</string>
-    <string name="settings_app_lock_hint">ปลดล็อกด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของอุปกรณ์ เมื่อแอปอยู่เบื้องหลังนานกว่าหนึ่งนาที</string>
-    <string name="app_lock_title">Crypto Checker ถูกล็อก</string>
     <string name="app_lock_unlock">ปลดล็อก</string>
-    <string name="app_lock_reason">ปลดล็อก Crypto Checker</string>
     <string name="app_lock_unavailable">อุปกรณ์นี้ยังไม่ได้ตั้งค่าการล็อกหน้าจอ โปรดตั้งค่าในการตั้งค่าระบบก่อน</string>
     <string name="widget_portfolio_name">พอร์ตโฟลิโอ</string>
     <string name="widget_portfolio_description">มูลค่ารวมของพอร์ตโฟลิโอและการเปลี่ยนแปลงวันนี้</string>
     <string name="widget_portfolio_today">วันนี้ %1$s</string>
     <string name="widget_portfolio_empty">เพิ่มรายการซื้อในแท็บพอร์ตโฟลิโอ</string>
-    <string name="widget_portfolio_locked">ซ่อนอยู่ – เปิดล็อกแอปอยู่</string>
     <string name="a11y_portfolio_widget">พอร์ตโฟลิโอ %1$s วันนี้ %2$s</string>
     <string name="settings_section_advanced">ขั้นสูง</string>
     <string name="settings_advanced_hint">โหมดสด การแจ้งเตือนถาวร ฟิวเจอร์ส และตัวเลือกนักพัฒนา</string>

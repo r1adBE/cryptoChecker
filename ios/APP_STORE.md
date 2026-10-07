@@ -22,7 +22,7 @@ Alles, was du in App Store Connect einfügen musst, liegt bereits im Projekt:
 
 **Markenfarbe Orange:** Orange ist die Erkennungsfarbe (App-Icon, Standard-Akzent
 bei neuen Installationen). Alle Marketing-Bilder – Screenshots, Promo-Bilder –
-zeigen den Akzent Orange und das orange Icon. Blau, Grün und Rot sind optionale
+zeigen den Akzent Orange und das orange Icon. Blau, Grün, Rot und Marrs Green sind optionale
 Themes (alternative App-Icons); sie dürfen im Text erwähnt werden, gehören aber
 nicht in die Store-Bilder. Die alten blauen Globus-Grafiken sind entfernt.
 
@@ -411,7 +411,7 @@ Fragebogen, Manifest und Datenschutzerklärung **vor** dem Update angepasst werd
 
 ---
 
-**App-Sperre (Face ID):** ändert am Fragebogen nichts – iOS prüft selbst, die App
+**Portfolio-Sperre (Face ID):** ändert am Fragebogen nichts – iOS prüft selbst, die App
 erhält keine biometrischen Daten. Pflicht ist nur `NSFaceIDUsageDescription` in
 `App/Info.plist` (lokalisiert über `Shared/Resources/InfoPlist.xcstrings`); fehlt
 der Text, beendet iOS die App beim ersten Face-ID-Aufruf.

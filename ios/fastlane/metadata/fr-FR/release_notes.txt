@@ -12,7 +12,7 @@ Version 16.2.2
 • Balayez vers la gauche pour supprimer (avec Annuler), vers la droite pour un favori
 • L’onglet Marché s’ouvre instantanément avec les dernières données et se met à jour en arrière-plan
 • Heures calmes : la nuit (p. ex. 23 h–7 h), alertes silencieuses, sans son, vibration ni voix
-• Verrouillage de l’app par Face ID, Touch ID ou code
+• Verrouillage du portefeuille par Face ID, Touch ID ou code
 • Widget Portefeuille (écran d’accueil et verrouillé) : valeur totale dans votre devise et variation du jour
 • Chaque alerte en une phrase : « Me prévenir quand BTC passe sous 60 000 CHF. »
 • Courtes explications : taux de financement, intérêt ouvert, RSI et Pi Cycle
@@ -30,4 +30,4 @@ Version 16.2.2
 • Widget d’une crypto : bougies ou ligne, période du graphique 24 h, 7 jours ou 30 jours, repères haut, milieu et bas, cours actuel mis en évidence
 • Onglet Marché : capitalisation totale du marché crypto et volume 24 h dans votre devise
 • Futures : funding rate et open interest
-• Quatre couleurs d’accent avec icônes assorties
+• Cinq couleurs d’accent avec icônes assorties

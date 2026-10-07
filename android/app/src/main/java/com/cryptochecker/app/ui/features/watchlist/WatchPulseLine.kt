@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -30,8 +32,9 @@ import com.cryptochecker.app.util.PriceFormat
 /**
  * Schmale Puls-Zeile ganz oben in der Merkliste: «▲ 7 steigen · ▼ 3 fallen · Ø ▲ +1.80% 24h»
  * als kleine Pillen im Stil der Prozent-Pille der Zeilen (Veränderung über 24 Stunden). Zahlen rollen bei Änderungen.
- * Leere Zähler (0) werden weggelassen. Der Screenreader liest einen Satz
- * ([R.string.a11y_watchlist_pulse]) mit dem Durchschnitt in Worten.
+ * Leere Zähler (0) werden weggelassen. Haben gezeigte Paare mit Kurs keinen 24-h-Wert,
+ * folgt klein «· 510 ohne 24h-Wert» ([WatchPulse.missing]). Der Screenreader liest einen Satz
+ * ([R.string.a11y_watchlist_pulse]) mit dem Durchschnitt in Worten, ggf. plus die fehlenden.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -43,12 +46,20 @@ internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
         ?: "0.00%"
     val averageColor = if (pulse.flat) MaterialTheme.colorScheme.onSurfaceVariant
     else PriceColors.forChange(pulse.average)
-    val spoken = stringResource(
+    val spokenPulse = stringResource(
         R.string.a11y_watchlist_pulse,
         pluralStringResource(R.plurals.a11y_watchlist_pulse_rising, pulse.up, pulse.up),
         pluralStringResource(R.plurals.a11y_watchlist_pulse_falling, pulse.down, pulse.down),
         A11yText.change24h(context, pulse.average),
     )
+    // Ehrlich: Paare mit Kurs, aber ohne 24-h-Wert, werden mitgesagt
+    val spoken = if (pulse.missing > 0) {
+        stringResource(
+            R.string.a11y_watchlist_pulse_combined,
+            spokenPulse,
+            pluralStringResource(R.plurals.a11y_watchlist_pulse_missing, pulse.missing, pulse.missing),
+        )
+    } else spokenPulse
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -78,6 +89,16 @@ internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
             value = pulse.average,
             color = averageColor,
         )
+        // Klein und grau, ohne Pille: «· 510 ohne 24h-Wert»
+        if (pulse.missing > 0) {
+            Text(
+                text = "· " + pluralStringResource(R.plurals.watchlist_pulse_missing, pulse.missing, pulse.missing),
+                style = MaterialTheme.typography.labelSmall.amountNumbers(),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                modifier = Modifier.align(Alignment.CenterVertically).padding(vertical = 2.dp),
+            )
+        }
     }
 }
 

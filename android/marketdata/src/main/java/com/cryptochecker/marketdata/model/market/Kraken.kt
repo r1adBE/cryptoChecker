@@ -62,6 +62,7 @@ class Kraken : SimpleMarket(
 
         ticker.vol = getDoubleFromJsonArrayObject(json, "v")
         ticker.last = getDoubleFromJsonArrayObject(json, "c")
+        // Kein 24-h-Wert: „o“ ist die Eröffnung des UTC-Tages, nicht der Kurs vor 24 h.
     }
 
     /** Ohne pair-Parameter liefert der Endpunkt alle handelbaren Paare. */

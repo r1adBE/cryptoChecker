@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -145,6 +146,8 @@ fun PortfolioTxSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
+                .fillMaxHeight()
                 .verticalScroll(rememberScrollState())
                 .navigationBarsPadding()
                 .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)

@@ -53,8 +53,8 @@ LISÄKSI
 • Hinnat ja hälytykset ääneen luettuina
 • Varmuuskopio ja palautus Tiedostot-apin kautta
 • Pikatoiminnot appikuvakkeessa, vaalea ja tumma tila
-• Neljä korostusväriä ja niihin sopivat appikuvakkeet
-• Sovelluslukitus: Face ID, Touch ID tai koodi
+• Viisi korostusväriä ja niihin sopivat appikuvakkeet
+• Salkun lukitus: Face ID, Touch ID tai koodi
 • Saatavilla 31 kielellä
 
 YKSITYISYYS ENSIN

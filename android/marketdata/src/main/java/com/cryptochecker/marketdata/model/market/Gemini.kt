@@ -53,6 +53,8 @@ class Gemini : SimpleMarket(
             val pair = item.optString("pair").ifEmpty { return@forEachJSONObject }
             val price = item.optDouble("price", Double.NaN)
             if (price.isNaN()) return@forEachJSONObject
+            // Kein 24-h-Wert: Einheit von percentChange24h unklar (Doku «5.23» = Prozent,
+            // echte Antworten eher Bruchteil wie «0.0146») — dann lieber Kerzen.
             tickers[pair.lowercase(Locale.ROOT)] = SimpleTicker().apply { last = price }
         }
     }

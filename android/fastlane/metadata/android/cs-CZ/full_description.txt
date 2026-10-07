@@ -54,8 +54,8 @@ A NAVÍC
 • Hlasový výstup: předčítání cen a alarmů
 • Záloha a obnovení do zvoleného souboru – i mezi Androidem a iPhonem
 • Zkratky aplikace, světlý a tmavý režim
-• Čtyři barvy zvýraznění s odpovídající ikonou aplikace
-• Zámek aplikace: otisk prstu, obličej nebo PIN
+• Pět barev zvýraznění s odpovídající ikonou aplikace
+• Zámek portfolia: otisk prstu, obličej nebo PIN
 • K dispozici ve 31 jazycích
 
 SOUKROMÍ NA PRVNÍM MÍSTĚ

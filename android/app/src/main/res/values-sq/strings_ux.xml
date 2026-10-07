@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Deri</string>
     <string name="channel_alarms_quiet">Alarmet (orët e heshtjes)</string>
     <string name="channel_alarms_quiet_description">Alarme të heshtura gjatë orëve të heshtjes.</string>
-    <string name="settings_app_lock">Kyçja e aplikacionit</string>
-    <string name="settings_app_lock_hint">Shkyç me gjurmë gishti, fytyrë ose PIN-in e pajisjes kur aplikacioni ka qenë në sfond për më shumë se një minutë.</string>
-    <string name="app_lock_title">Crypto Checker është i kyçur</string>
     <string name="app_lock_unlock">Shkyç</string>
-    <string name="app_lock_reason">Shkyç Crypto Checker</string>
     <string name="app_lock_unavailable">Në këtë pajisje nuk është konfiguruar kyçja e ekranit. Konfiguroje fillimisht te cilësimet e sistemit.</string>
     <string name="widget_portfolio_name">Portofoli</string>
     <string name="widget_portfolio_description">Vlera totale e portofolit tënd dhe ndryshimi i sotëm</string>
     <string name="widget_portfolio_today">sot %1$s</string>
     <string name="widget_portfolio_empty">Shto blerje te skeda Portofoli</string>
-    <string name="widget_portfolio_locked">E fshehur – kyçja e aplikacionit është aktive</string>
     <string name="a11y_portfolio_widget">Portofoli %1$s, sot %2$s</string>
     <string name="settings_section_advanced">Të avancuara</string>
     <string name="settings_advanced_hint">Modaliteti live, njoftim i përhershëm, futures dhe opsionet e zhvilluesit</string>

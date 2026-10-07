@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Bis</string>
     <string name="channel_alarms_quiet">Alarme (Nachtruhe)</string>
     <string name="channel_alarms_quiet_description">Lautlose Alarme während der Nachtruhe.</string>
-    <string name="settings_app_lock">App-Sperre</string>
-    <string name="settings_app_lock_hint">Entsperren mit Fingerabdruck, Gesicht oder Geräte-PIN, wenn die App länger als eine Minute im Hintergrund war.</string>
-    <string name="app_lock_title">Crypto Checker ist gesperrt</string>
     <string name="app_lock_unlock">Entsperren</string>
-    <string name="app_lock_reason">Crypto Checker entsperren</string>
     <string name="app_lock_unavailable">Auf diesem Gerät ist keine Displaysperre eingerichtet. Richte zuerst eine in den Systemeinstellungen ein.</string>
     <string name="widget_portfolio_name">Portfolio</string>
     <string name="widget_portfolio_description">Gesamtwert deines Portfolios und Veränderung heute</string>
     <string name="widget_portfolio_today">heute %1$s</string>
     <string name="widget_portfolio_empty">Käufe im Portfolio-Tab erfassen</string>
-    <string name="widget_portfolio_locked">Verborgen – App-Sperre ist an</string>
     <string name="a11y_portfolio_widget">Portfolio %1$s, heute %2$s</string>
     <string name="settings_section_advanced">Erweitert</string>
     <string name="settings_advanced_hint">Live-Modus, feste Mitteilung, Futures und Entwickleroptionen</string>

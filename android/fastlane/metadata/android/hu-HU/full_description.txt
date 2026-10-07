@@ -51,8 +51,8 @@ TOVÁBBÁ
 • Hangkimenet: árfolyamok és riasztások felolvasása
 • Mentés és visszaállítás egy választott fájlba – Android és iPhone között is
 • Alkalmazás-parancsikonok, világos és sötét mód
-• Négy kiemelőszín hozzáillő alkalmazásikonnal
-• Alkalmazászár: ujjlenyomat, arc vagy PIN
+• Öt kiemelőszín hozzáillő alkalmazásikonnal
+• Portfóliózár: ujjlenyomat, arc vagy PIN
 • 31 nyelven érhető el
 
 ELŐSZÖR AZ ADATVÉDELEM

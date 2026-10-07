@@ -5,6 +5,6 @@ New in 16.2.2
 • Swipe to delete (with Undo) or mark a favorite
 • Prices and alarms in your currency, cut-off export (CSV)
 • Accessible: blue/orange, high contrast, swap colors, TalkBack
-• Quiet hours, test alarm, alarm as a sentence, app lock, portfolio widget
+• Quiet hours, test alarm, alarm as a sentence, portfolio lock and widget
 • 15 new exchanges, gas alarm, widget candles
 • Market tab opens instantly

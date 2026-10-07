@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Έως</string>
     <string name="channel_alarms_quiet">Ειδοποιήσεις τιμής (ώρες ησυχίας)</string>
     <string name="channel_alarms_quiet_description">Αθόρυβες ειδοποιήσεις τιμής κατά τις ώρες ησυχίας.</string>
-    <string name="settings_app_lock">Κλείδωμα εφαρμογής</string>
-    <string name="settings_app_lock_hint">Ξεκλείδωμα με δακτυλικό αποτύπωμα, πρόσωπο ή PIN συσκευής, όταν η εφαρμογή ήταν στο παρασκήνιο για πάνω από ένα λεπτό.</string>
-    <string name="app_lock_title">Το Crypto Checker είναι κλειδωμένο</string>
     <string name="app_lock_unlock">Ξεκλείδωμα</string>
-    <string name="app_lock_reason">Ξεκλείδωμα του Crypto Checker</string>
     <string name="app_lock_unavailable">Δεν έχει ρυθμιστεί κλείδωμα οθόνης σε αυτή τη συσκευή. Ρυθμίστε πρώτα ένα στις ρυθμίσεις συστήματος.</string>
     <string name="widget_portfolio_name">Χαρτοφυλάκιο</string>
     <string name="widget_portfolio_description">Συνολική αξία του χαρτοφυλακίου σας και σημερινή μεταβολή</string>
     <string name="widget_portfolio_today">σήμερα %1$s</string>
     <string name="widget_portfolio_empty">Προσθέστε αγορές στην καρτέλα Χαρτοφυλάκιο</string>
-    <string name="widget_portfolio_locked">Κρυφό – το κλείδωμα εφαρμογής είναι ενεργό</string>
     <string name="a11y_portfolio_widget">Χαρτοφυλάκιο %1$s, σήμερα %2$s</string>
     <string name="settings_section_advanced">Για προχωρημένους</string>
     <string name="settings_advanced_hint">Λειτουργία live, μόνιμη ειδοποίηση, futures και επιλογές προγραμματιστή</string>

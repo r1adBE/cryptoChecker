@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">إزالة الأزواج غير المتداولة (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">إزالة الأزواج غير المتداولة</string>
+    <string name="watchlist_remove_not_traded_action">إزالة</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="zero">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="one">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="two">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="few">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="many">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="other">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="zero">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="one">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="two">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="few">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="many">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="other">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+    </plurals>
+</resources>

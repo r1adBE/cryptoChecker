@@ -39,6 +39,8 @@ final class BinanceFutures: Market {
 
         // Optional
         ticker.volQuote = json.optDoubleNoData("quoteVolume")
+        // Gleitende 24 h, schon in Prozent
+        ticker.change24hPercent = Change24h.percent(json.optDouble("priceChangePercent"))
     }
 
     init() {

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsSummary
@@ -62,6 +63,14 @@ internal fun marketAlertsSummary(settings: AppSettings): String {
     val count = settings.activeMarketAlerts()
     return if (count == 0) stringResource(R.string.option_off)
     else pluralStringResource(R.plurals.settings_market_alerts_active, count, count)
+}
+
+/** Beschriftung der Stufe «Weniger» / «Normal» / «Mehr». */
+@androidx.annotation.StringRes
+private fun sensitivityLabel(sensitivity: ActivitySensitivity): Int = when (sensitivity) {
+    ActivitySensitivity.LESS -> R.string.activity_sensitivity_less
+    ActivitySensitivity.NORMAL -> R.string.activity_sensitivity_normal
+    ActivitySensitivity.MORE -> R.string.activity_sensitivity_more
 }
 
 /** Kurzwert der Zeile «Sprachausgabe»: «Aus», «Ein» oder «Nur Alarme». */
@@ -223,6 +232,15 @@ fun MarketAlertsSettingsScreen(
                     viewModel.setActivityAlerts(it)
                 }
             )
+            // Empfindlichkeit: gilt für die Karte in der Merkliste und die Meldungen gleich
+            ChoiceRow(
+                label = stringResource(R.string.settings_activity_sensitivity),
+                options = ActivitySensitivity.entries.map { it.ordinal },
+                selected = settings.activitySensitivity.ordinal,
+                optionLabel = { stringResource(sensitivityLabel(ActivitySensitivity.entries[it])) },
+                onSelected = { viewModel.setActivitySensitivity(ActivitySensitivity.entries[it]) }
+            )
+            Hint(stringResource(R.string.settings_activity_sensitivity_hint))
             RowDivider()
             // Wirtschaftstermine: Morgen-Meldung um 08:00 an Tagen mit US-Daten (CPI, Fed …)
             SwitchRow(

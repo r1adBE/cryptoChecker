@@ -37,6 +37,9 @@ final class Bitstamp: SimpleMarket {
         ticker.low = json.optDoubleNoData("low")
         ticker.vol = json.optDoubleNoData("volume")
         ticker.timestamp = json.optLong("timestamp")
+        // open_24 = Kurs vor 24 h („open“ wäre der Tagesbeginn und passt nicht).
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("open_24"))
+            ?? Change24h.percent(json.optDouble("percent_change_24"))
     }
 
     // Alle Ticker auf einmal; Kennung „BTC/USD“ → url_symbol „btcusd“.

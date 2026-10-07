@@ -100,6 +100,10 @@ data class AppSettings(
     /** Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Benachrichtigung melden. */
     val activityAlerts: Boolean = false,
 
+    /** Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Meldungen); Standard = bisherige Schwellen. */
+    val activitySensitivity: com.cryptochecker.app.domain.activity.ActivitySensitivity =
+        com.cryptochecker.app.domain.activity.ActivitySensitivity.NORMAL,
+
     /** Morgen-Meldung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten. */
     val macroNotifications: Boolean = false,
 
@@ -142,7 +146,11 @@ data class AppSettings(
     /** Ende der Nachtruhe in Minuten seit Mitternacht (Standard 07:00). */
     val quietHoursEnd: Int = com.cryptochecker.app.domain.alarm.QuietHours.DEFAULT_END,
 
-    /** App-Sperre: Entsperren per Biometrie oder Geräte-PIN (Kaltstart, nach > 60 s im Hintergrund). */
+    /**
+     * Portfolio-Sperre (Schlüssel «app_lock» wie bisher): Portfolio-Tab, seine Unterseiten,
+     * Sicherung mit Portfolio-Daten und Portfolio-Widget erst nach Biometrie oder Geräte-PIN
+     * (Kaltstart, nach > 60 s im Hintergrund). Die übrige App ist nie gesperrt.
+     */
     val appLock: Boolean = false,
 
     /**
@@ -162,6 +170,13 @@ data class AppSettings(
      * Paare gleich). Nur auf diesem Gerät, nicht in der Sicherung.
      */
     val sheetChartLine: Boolean = false,
+
+    /** Karte «Wertverlauf» im Portfolio aufgeklappt (Standard zu). Nur auf diesem Gerät, nicht in der Sicherung. */
+    val portfolioHistoryExpanded: Boolean = false,
+
+    /** Zuletzt gewählter Zeitraum des Wertverlaufs. Nur auf diesem Gerät, nicht in der Sicherung. */
+    val portfolioHistoryRange: com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange =
+        com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange.MONTH,
 ) {
     companion object {
         const val MIN_BACKGROUND_INTERVAL_MINUTES = 15

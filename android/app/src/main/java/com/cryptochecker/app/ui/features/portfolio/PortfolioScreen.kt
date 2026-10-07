@@ -88,6 +88,7 @@ fun PortfolioScreen(
     val todayPercent by viewModel.todayPercent.collectAsStateWithLifecycle()
     val history by viewModel.history.collectAsStateWithLifecycle()
     val historyRange by viewModel.historyRange.collectAsStateWithLifecycle()
+    val historyExpanded by viewModel.historyExpanded.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) { viewModel.start() }
     // Beim Öffnen des Tabs Kurse auffrischen (60 s Zwischenspeicher)
@@ -212,7 +213,9 @@ fun PortfolioScreen(
                         PortfolioHistoryCard(
                             history = history,
                             range = historyRange,
-                            onRange = viewModel::setHistoryRange
+                            onRange = viewModel::setHistoryRange,
+                            expanded = historyExpanded,
+                            onExpandedChange = viewModel::setHistoryExpanded
                         )
                     }
                     items(current.open, key = { "open:${it.coin}" }) { position ->

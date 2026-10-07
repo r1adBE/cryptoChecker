@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Til</string>
     <string name="channel_alarms_quiet">Alarmer (nattero)</string>
     <string name="channel_alarms_quiet_description">Lydløse alarmer under nattero.</string>
-    <string name="settings_app_lock">Applås</string>
-    <string name="settings_app_lock_hint">Lås op med fingeraftryk, ansigt eller enhedens pinkode, når appen har været i baggrunden i mere end et minut.</string>
-    <string name="app_lock_title">Crypto Checker er låst</string>
     <string name="app_lock_unlock">Lås op</string>
-    <string name="app_lock_reason">Lås Crypto Checker op</string>
     <string name="app_lock_unavailable">Der er ikke konfigureret skærmlås på denne enhed. Opret en i systemindstillingerne først.</string>
     <string name="widget_portfolio_name">Portefølje</string>
     <string name="widget_portfolio_description">Samlet værdi af din portefølje og dagens ændring</string>
     <string name="widget_portfolio_today">i dag %1$s</string>
     <string name="widget_portfolio_empty">Tilføj køb under fanen Portefølje</string>
-    <string name="widget_portfolio_locked">Skjult – applås er slået til</string>
     <string name="a11y_portfolio_widget">Portefølje %1$s, i dag %2$s</string>
     <string name="settings_section_advanced">Avanceret</string>
     <string name="settings_advanced_hint">Live-tilstand, fast notifikation, futures og udviklerindstillinger</string>

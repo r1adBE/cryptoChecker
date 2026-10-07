@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Fine</string>
     <string name="channel_alarms_quiet">Allarmi (ore di silenzio)</string>
     <string name="channel_alarms_quiet_description">Allarmi silenziosi durante le ore di silenzio.</string>
-    <string name="settings_app_lock">Blocco app</string>
-    <string name="settings_app_lock_hint">Sblocca con impronta, volto o PIN del dispositivo se l\'app è rimasta in background per più di un minuto.</string>
-    <string name="app_lock_title">Crypto Checker è bloccato</string>
     <string name="app_lock_unlock">Sblocca</string>
-    <string name="app_lock_reason">Sblocca Crypto Checker</string>
     <string name="app_lock_unavailable">Su questo dispositivo non è impostato alcun blocco schermo. Impostane prima uno nelle impostazioni di sistema.</string>
     <string name="widget_portfolio_name">Portafoglio</string>
     <string name="widget_portfolio_description">Valore totale del tuo portafoglio e variazione di oggi</string>
     <string name="widget_portfolio_today">oggi %1$s</string>
     <string name="widget_portfolio_empty">Aggiungi acquisti nella scheda Portafoglio</string>
-    <string name="widget_portfolio_locked">Nascosto – blocco app attivo</string>
     <string name="a11y_portfolio_widget">Portafoglio %1$s, oggi %2$s</string>
     <string name="settings_section_advanced">Avanzate</string>
     <string name="settings_advanced_hint">Modalità live, notifica permanente, futures e opzioni sviluppatore</string>

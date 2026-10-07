@@ -53,8 +53,8 @@ WIĘCEJ
 • Głosowe odczytywanie kursów i alarmów
 • Kopia zapasowa i przywracanie przez aplikację Pliki
 • Szybkie czynności na ikonie aplikacji, tryb jasny i ciemny
-• Cztery kolory akcentu z pasującymi ikonami aplikacji
-• Blokada aplikacji: Face ID, Touch ID lub kod
+• Pięć kolorów akcentu z pasującymi ikonami aplikacji
+• Blokada portfela: Face ID, Touch ID lub kod
 • Dostępna w 31 językach
 
 PRYWATNOŚĆ PRZEDE WSZYSTKIM

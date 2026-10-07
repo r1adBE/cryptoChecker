@@ -36,6 +36,9 @@ final class Btcturk: SimpleMarket {
         ticker.low = json.optDoubleNoData("low")
         ticker.vol = json.optDoubleNoData("volume")
         ticker.timestamp = json.optLong("timestamp")
+        // „open“ = Kurs vor 24 h; dailyPercent (Prozent) nur als Ersatz.
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("open"))
+            ?? Change24h.percent(json.optDouble("dailyPercent"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

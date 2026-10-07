@@ -132,6 +132,12 @@ struct WhyInput: Sendable {
     let fearGreed: Int?
     let fearGreedYesterday: Int?
     let now: Int64
+    /// 24-h-Veränderung in % aus dem Ticker des Paars (dieselbe wie Pille und Merkliste);
+    /// nil = unbekannt, dann aus den Kerzen.
+    var tickerChange24h: Double? = nil
+    /// false = das Paar wird an seiner Börse nicht mehr gehandelt (`NotTraded`):
+    /// dann gar keine Einordnung — nie ein Urteil auf alten Daten.
+    var marketLive: Bool = true
 }
 
 /// Ergebnis für das «Warum»-Blatt.

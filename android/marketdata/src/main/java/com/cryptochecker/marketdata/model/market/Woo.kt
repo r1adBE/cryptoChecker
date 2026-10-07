@@ -6,8 +6,10 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -44,6 +46,19 @@ class Woo : WooBase("WOO X", "SPOT", FuturesContractType.NONE) {
         ticker.vol = vol
         ticker.volQuote = volQuote
         ticker.timestamp = jsonObject.optLong("timestamp")
+
+        // Eröffnung der ältesten der 24 Stundenkerzen ≈ Kurs vor 24 h (nur mit vollem Fenster)
+        val oldest = oldestRow(rows)
+        ticker.change24hPercent =
+            if (rows.length() >= 24 && oldest != null) Change24h.fromOpen(ticker.last, oldest.optDouble("open")) else null
+    }
+
+    private fun oldestRow(rows: JSONArray): JSONObject? {
+        var oldest: JSONObject? = null
+        rows.forEachJSONObject { row ->
+            if (oldest == null || row.optLong("startTimestamp") < oldest!!.optLong("startTimestamp")) oldest = row
+        }
+        return oldest
     }
 }
 
@@ -63,6 +78,8 @@ class WooFutures : WooBase("WOO X Futures", "PERP", FuturesContractType.PERPETUA
         ticker.low = json.optDoubleNoData("24hLow")
         ticker.vol = json.optDoubleNoData("24hVolume")
         ticker.volQuote = json.optDoubleNoData("24hAmount")
+        // 24hOpen = Kurs vor 24 h
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("24hOpen"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

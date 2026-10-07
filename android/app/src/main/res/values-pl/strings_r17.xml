@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Blokada portfela</string>
+    <string name="settings_portfolio_lock_hint">Chroni tylko portfel: odblokowanie odciskiem palca, twarzą lub PIN-em urządzenia. Blokuje się ponownie po ponad minucie w tle. Lista obserwowanych, alarmy i pozostałe widżety pozostają dostępne.</string>
+    <string name="portfolio_locked_title">Portfel jest zablokowany</string>
+    <string name="portfolio_locked_text">Odblokuj, aby zobaczyć pozycje i wartości.</string>
+    <string name="portfolio_lock_reason">Odblokuj portfel</string>
+    <string name="widget_portfolio_locked_hint">Zablokowany – odblokuj w aplikacji</string>
+    <string name="portfolio_history_range_since_first">Od 1. zakupu</string>
+    <string name="portfolio_history_period_since_first">od pierwszego zakupu</string>
+    <string name="portfolio_history_range_since_first_a11y">Pokaż historię od pierwszego zakupu</string>
+    <string name="portfolio_history_change_since_first_a11y">Wartość od pierwszego zakupu: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Pokazuje tylko ostatnie 5 lat.</string>
+    <string name="portfolio_history_expand">Pokaż historię wartości</string>
+    <string name="portfolio_history_collapse">Ukryj historię wartości</string>
+</resources>

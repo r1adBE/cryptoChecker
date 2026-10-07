@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">Başa git</string>
+    <string name="watchlist_jump_end">Sona git</string>
+    <string name="settings_activity_sensitivity">Hassasiyet</string>
+    <string name="settings_activity_sensitivity_hint">Bir coinin ne kadar kolay olağandışı sayılacağı – izleme listesi kartı ve bildirimler için aynı. “Daha az” seçiliyken kart yalnızca en güçlü 3 taneyi gösterir.</string>
+    <string name="activity_sensitivity_less">Daha az</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_sensitivity_more">Daha fazla</string>
+    <string name="activity_adjust">Ayarla</string>
+    <string name="activity_adjust_a11y">Hassasiyeti ayarla</string>
+</resources>

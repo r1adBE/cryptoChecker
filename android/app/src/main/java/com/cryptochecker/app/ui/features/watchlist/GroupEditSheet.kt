@@ -159,7 +159,8 @@ internal fun GroupEditSheet(
 
         // Alle Paare mit Häkchen — lazy, auch bei vielen Paaren flüssig
         LazyColumn(
-            modifier = Modifier.weight(1f, fill = false).fillMaxWidth(),
+            // Füllt die Höhe: beim Suchen schrumpft die Liste, das Blatt bleibt stehen
+            modifier = Modifier.weight(1f).fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
         ) {
             if (shown.isEmpty()) {

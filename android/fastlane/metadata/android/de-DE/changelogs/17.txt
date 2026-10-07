@@ -5,6 +5,6 @@ Neu in 16.2.2
 • Wischen: löschen (mit «Rückgängig») oder Favorit
 • Kurse und Alarme in deiner Währung, Stichtag-Export (CSV)
 • Barrierefrei: Blau/Orange, hoher Kontrast, Farben tauschen, TalkBack
-• Nachtruhe, Alarm testen, Alarm als Satz, App-Sperre, Portfolio-Widget
+• Nachtruhe, Alarm testen, Alarm als Satz, Portfolio-Sperre und -Widget
 • 15 neue Börsen, Gas-Alarm, Kerzen im Widget
 • Markt-Tab öffnet sofort

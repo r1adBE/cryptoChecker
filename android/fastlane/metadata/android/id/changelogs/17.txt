@@ -5,6 +5,6 @@ Baru di 16.2.2
 • Harga dan alarm dalam mata uang Anda
 • Ekspor tanggal acuan: nilai portofolio sebagai CSV
 • Aksesibel: biru/oranye, kontras tinggi, tukar warna, TalkBack
-• Mulai dengan satu ketukan, jam tenang, kunci, widget portofolio, alarm sebagai kalimat
+• Mulai dengan satu ketukan, jam tenang, kunci dan widget portofolio, alarm sebagai kalimat
 • 15 bursa baru, biaya jaringan dengan alarm gas
 • Grafik candle di widget, kapitalisasi pasar

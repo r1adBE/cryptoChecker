@@ -108,6 +108,23 @@ class AppNotifier @Inject constructor(
     fun cancelPrice(watchId: Long) = manager.cancel(priceNotificationId(watchId))
 
     /**
+     * Ids aller gerade gezeigten Meldungen der App — EIN Aufruf an den Systemdienst;
+     * null, wenn das nicht geht (dann gilt jede Meldung als möglicherweise gezeigt).
+     */
+    fun activeNotificationIds(): Set<Int>? = runCatching {
+        context.getSystemService(android.app.NotificationManager::class.java)
+            ?.activeNotifications?.mapTo(HashSet()) { it.id }
+    }.getOrNull()
+
+    /**
+     * Wie [cancelPrice], aber nur, wenn die Kurs-Meldung laut [shown] ([activeNotificationIds])
+     * gezeigt wird; [shown] null = unbekannt, dann immer entfernen.
+     */
+    fun cancelPriceIfShown(watchId: Long, shown: Set<Int>?) {
+        if (shown == null || priceNotificationId(watchId) in shown) cancelPrice(watchId)
+    }
+
+    /**
      * Nach einem Wechsel der Akzentfarbe: sichtbare Kurs-Meldungen und die
      * Dienst-Meldung neu zeichnen, damit sie die neue Farbe übernehmen. Sonst
      * blieben sie in der alten Farbe, bis sich der Kurs genug bewegt.

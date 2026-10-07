@@ -4,6 +4,7 @@ package com.cryptochecker.app.ui.features.about
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -71,6 +72,8 @@ fun LicensesSheet(onDismiss: () -> Unit) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
+                    .fillMaxHeight()
                     .verticalScroll(rememberScrollState())
                     .navigationBarsPadding()
                     .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)

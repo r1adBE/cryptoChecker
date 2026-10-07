@@ -27,6 +27,7 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 8. [Registering the exchange](#8-registering-the-exchange)
 9. [Tests and checks](#9-tests-and-checks)
 10. [Advanced cases](#10-advanced-cases)
+11. [24 h change](#11-24-h-change)
 
 ## 1. Structure
 
@@ -152,6 +153,7 @@ private fun read(json: JSONObject, ticker: Ticker) {
     ticker.low = json.optDoubleNoData("low")
     ticker.vol = json.optDoubleNoData("volume")    // 24 h volume in the base currency
     ticker.timestamp = json.optLong("timestamp")
+    ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("open_24"))  // see section 11
 }
 ```
 
@@ -162,6 +164,8 @@ private fun read(json: JSONObject, ticker: Ticker) {
   quote volume as well.
 * `timestamp` may be seconds, milliseconds or nanoseconds – the library converts
   it. Leave it 0 if the exchange sends none; the time of the request is used.
+* Set `change24hPercent` only if the response carries a **rolling** 24 h change
+  or the price 24 hours ago – see [section 11](#11-24-h-change).
 * Keep the parsing in one `read` function so single and bulk ticker share it.
 
 If the response is not a JSON object (e.g. a JSON array), override
@@ -261,3 +265,72 @@ symbol details), set `currencyPairsCombined = true` and implement
 
 **Futures.** Use a separate adapter (e.g. `BinanceFutures` next to `Binance`)
 and set the `contractType` of `CurrencyPairInfo`.
+
+## 11. 24 h change
+
+`Ticker.change24hPercent` (Swift: `change24hPercent`) is the **rolling** 24 h
+change in **percent** (`1.5` = +1.5 %) as the exchange reports it. The watchlist
+pill, the pulse line and the widgets use it first. Only if it is `null`/`nil`
+does the app load hourly candles for the pair and compute the change itself –
+one extra request per coin, which gets slow with hundreds of pairs.
+
+Rules:
+
+* Use only what the ticker requests the adapter already makes (single **and**
+  bulk ticker). Never add a request just for the 24 h value.
+* Use only **rolling** 24 h values. A change since midnight (UTC, KST, Singapore
+  time …) is a different number and must stay `null` – the candle fallback is
+  better than a wrong value.
+* Convert with the helpers in `android/marketdata/…/util/Change24h.kt`
+  (Swift: `enum Change24h` in `ios/Shared/Markets/MarketModels.swift`); they
+  return `null`/`nil` for missing, non-finite or non-positive input:
+  * `Change24h.percent(x)` – value already in percent;
+  * `Change24h.fraction(x)` – value is a fraction (`0.015` = +1.5 %), multiplied by 100;
+  * `Change24h.fromOpen(last, open)` – from the price 24 hours ago: (last − open) / open × 100;
+  * `Change24h.fromAbsolute(last, change)` – from the absolute 24 h change (open = last − change).
+* Pass the raw field with `optDouble(name)` – a missing field gives NaN and thus `null`.
+* If the response has both a price 24 hours ago and a percentage, prefer the
+  price (more digits); use the percentage only as a fallback.
+* Keep Android and iOS identical and update the table below.
+
+| Exchange / market | Field used | Unit / note |
+|---|---|---|
+| Binance, Binance.US | `priceChangePercent` (`/ticker/24hr`) | percent |
+| Binance Futures (USD-M, COIN-M) | `priceChangePercent` (`/ticker/24hr`) | percent |
+| bitFlyer | – fallback candles | ticker has no 24 h change |
+| Bitfinex | `DAILY_CHANGE_RELATIVE` (index 5, bulk 6) | fraction × 100 |
+| Bitget, Bitget Futures | `change24h` | fraction × 100; `changeUtc24h` (since 00:00 UTC) not used |
+| Bitso | `change_24` | absolute change → open = last − change |
+| Bitstamp | `open_24`, else `percent_change_24` | `open` is the start of the day and not used |
+| Bitvavo | `open` (`/ticker/24h`) | price 24 h ago |
+| BtcTurk | `open`, else `dailyPercent` | price 24 h ago / percent |
+| Bybit, Bybit Futures | `price24hPcnt` | fraction × 100 |
+| Coinbase | `open` from `/stats` (request 2), against `last` of `/ticker` | price 24 h ago |
+| Crypto.com | `c` | fraction × 100; `null` without trades |
+| Deribit | `stats.price_change` (single), `price_change` (bulk) | percent |
+| DexScreener | `priceChange.h24` | percent |
+| Gate.io | `change_percentage` | percent; `change_utc0`/`change_utc8` not used |
+| Gemini | – fallback candles | `/pricefeed` `percentChange24h`: unit unclear (docs show percent «5.23», real responses look like fractions «0.0146»); `pubticker` has no 24 h change |
+| HTX, HTX Futures | – fallback candles | `open` of the bulk ticker is documented as the open of the calendar day (Singapore time) |
+| Hyperliquid | `prevDayPx` against the shown price (`midPx`, else `markPx`) | mark price 24 h ago |
+| Independent Reserve | – fallback candles | no change/open in `GetMarketSummary` |
+| Indodax | – fallback candles | no change/open in `ticker` / `ticker_all` |
+| Kraken | – fallback candles | `o` is today's open (UTC day), not rolling |
+| KuCoin | `changeRate` | fraction × 100 |
+| LATOKEN | `change24h` | percent |
+| MEXC | `openPrice`, else `priceChangePercent` | price 24 h ago / **fraction** × 100 |
+| MEXC Futures | `riseFallRate` | fraction × 100; the day values in `riseFallRates` are not used |
+| NonKYC | – fallback candles | no documented rolling 24 h field |
+| OKX, OKX Futures | `open24h` | price 24 h ago; `sodUtc0`/`sodUtc8` not used |
+| One Trading | `price_change_percentage` | percent |
+| Phemex | `openEp` (scaled 10^8) | price 24 h ago |
+| Phemex Futures | `openRp` | price 24 h ago |
+| Poloniex | `open` (`ticker24h`), else `dailyChange` | price 24 h ago / fraction × 100 |
+| Upbit, Bithumb | – fallback candles | `signed_change_rate` is against the previous day's close (KST) |
+| WOO X | `open` of the oldest of the 24 hourly candles the adapter loads anyway | only with all 24 candles |
+| WOO X Futures | `24hOpen` | price 24 h ago |
+| ZebPay | – fallback candles | 24 h window of `priceChangePercent` not documented |
+
+Unit-check a new field with a sample response from the documentation: a value
+of `0.0123` can be 1.23 % (fraction) or 0.0123 % (percent) – compare it with
+`last` and the 24 h open or high/low to be sure.

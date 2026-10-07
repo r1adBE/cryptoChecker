@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -58,6 +59,8 @@ class Latoken : SimpleMarket(
         ticker.vol = json.optDoubleNoData("amount24h")
         ticker.volQuote = json.optDoubleNoData("volume24h")
         ticker.timestamp = json.optLong("updateTimestamp")
+        // change24h = 24 h in Prozent
+        ticker.change24hPercent = Change24h.percent(json.optDouble("change24h"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

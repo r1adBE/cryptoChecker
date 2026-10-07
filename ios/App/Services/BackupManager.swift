@@ -275,6 +275,7 @@ enum BackupManager {
             "gasAlertEthTenths": s.gasAlertEthTenths,
             "gasAlertBtc": s.gasAlertBtc,
             "activityAlerts": s.activityAlerts,
+            "activitySensitivity": s.activitySensitivity.rawValue,
             "macroNotifications": s.macroNotifications,
             "portfolioEnabled": s.portfolioEnabled,
             "portfolioCurrency": s.portfolioCurrency,
@@ -313,6 +314,8 @@ enum BackupManager {
         if let v = int(o, "gasAlertEthTenths") { s.gasAlertEthTenths = min(max(v, 0), 10_000) }
         if let v = int(o, "gasAlertBtc") { s.gasAlertBtc = min(max(v, 0), 10_000) }
         if let v = bool(o, "activityAlerts") { s.activityAlerts = v }
+        // Fehlt der Schlüssel (ältere Sicherung) oder ist er unbekannt: «Normal» (wie Android)
+        s.activitySensitivity = ActivitySensitivity.from(name: isNull(o, "activitySensitivity") ? nil : string(o, "activitySensitivity"))
         if let v = bool(o, "macroNotifications") { s.macroNotifications = v }
         if let v = bool(o, "portfolioEnabled") { s.portfolioEnabled = v }
         // Dreistelliger Währungscode, sonst bleibt die bisherige Währung (wie `setPortfolioCurrency`)
@@ -332,7 +335,7 @@ enum BackupManager {
         if let v = bool(o, "quietHoursEnabled") { s.quietHoursEnabled = v }
         if let v = minute(o, "quietHoursStart") { s.quietHoursStart = v }
         if let v = minute(o, "quietHoursEnd") { s.quietHoursEnd = v }
-        // App-Sperre nur, wenn das Gerät entsperren kann (sonst bliebe die App gesperrt)
+        // Portfolio-Sperre nur, wenn das Gerät entsperren kann (sonst bliebe das Portfolio gesperrt)
         if let v = bool(o, "appLock"), !v || AppLock.canAuthenticate() { s.appLock = v }
         return s
     }

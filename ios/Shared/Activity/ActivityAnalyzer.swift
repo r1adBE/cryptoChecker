@@ -143,49 +143,51 @@ enum ActivityAnalyzer {
 
     // MARK: Signale
 
-    /// Alle Signale eines Paars, stärkstes zuerst.
+    /// Alle Signale eines Paars, stärkstes zuerst. Die Schwellen kommen aus der
+    /// `sensitivity` (Standard = bisherige Werte) — für Karte und Meldungen gleich.
     static func signals(stats: HourStats?, fundingPercent: Double?, oiChangePercent: Double?,
-                        oiMinutes: Int?, now: Int64) -> [ActivitySignal] {
-        var out: [ActivitySignal] = []
+                        oiMinutes: Int?, now: Int64,
+                        sensitivity: ActivitySensitivity = .NORMAL) -> [ActivitySignal] {
+        // Kandidaten mit allen Werten; ob und wie stark sie zählen, entscheiden die Schwellen
+        var candidates: [ActivitySignal] = []
         if let stats {
-            let z = abs(stats.zScore)
-            let move = abs(stats.movePercent)
-            if z >= signalPriceZ && move >= signalPriceMinMovePercent {
-                out.append(ActivitySignal(
-                    kind: .PRICE_MOVE,
-                    severity: z >= signalPriceStrongZ || move >= signalPriceStrongMovePercent ? .STRONG : .NOTABLE,
-                    value: stats.movePercent,
-                    factor: z,
-                    seenAt: now
-                ))
-            }
-            if let ratio = stats.volumeRatio, ratio >= signalVolumeRatio {
-                out.append(ActivitySignal(
-                    kind: .VOLUME_SPIKE,
-                    severity: ratio >= signalVolumeStrongRatio ? .STRONG : .NOTABLE,
-                    value: ratio,
-                    seenAt: now
-                ))
+            candidates.append(ActivitySignal(
+                kind: .PRICE_MOVE,
+                severity: .NOTABLE,
+                value: stats.movePercent,
+                factor: abs(stats.zScore),
+                seenAt: now
+            ))
+            if let ratio = stats.volumeRatio {
+                candidates.append(ActivitySignal(kind: .VOLUME_SPIKE, severity: .NOTABLE, value: ratio, seenAt: now))
             }
         }
-        if let oi = oiChangePercent, abs(oi) >= signalOiPercent {
-            out.append(ActivitySignal(
+        if let oi = oiChangePercent {
+            candidates.append(ActivitySignal(
                 kind: .OPEN_INTEREST_JUMP,
-                severity: abs(oi) >= signalOiStrongPercent ? .STRONG : .NOTABLE,
+                severity: .NOTABLE,
                 value: oi,
                 factor: oiMinutes.map { Double($0) },
                 seenAt: now
             ))
         }
-        if let funding = fundingPercent, abs(funding) >= signalFundingPercent {
-            out.append(ActivitySignal(
-                kind: .FUNDING_EXTREME,
-                severity: abs(funding) >= signalFundingStrongPercent ? .STRONG : .NOTABLE,
-                value: funding,
-                seenAt: now
-            ))
+        if let funding = fundingPercent {
+            candidates.append(ActivitySignal(kind: .FUNDING_EXTREME, severity: .NOTABLE, value: funding, seenAt: now))
         }
-        return sortedSignals(out)
+        return applySensitivity(candidates, sensitivity)
+    }
+
+    /// Beurteilt Signale neu nach der `sensitivity`: was unter den Schwellen liegt, fällt
+    /// weg, die Stärke wird neu bestimmt. So wirkt eine geänderte Einstellung sofort auch
+    /// auf gespeicherte Signale (Karte, ⚡ an den Zeilen); stärkstes zuerst.
+    static func applySensitivity(_ signals: [ActivitySignal], _ sensitivity: ActivitySensitivity) -> [ActivitySignal] {
+        let thresholds = SignalThresholds.of(sensitivity)
+        return sortedSignals(signals.compactMap { signal in
+            thresholds.severity(of: signal).map { severity in
+                ActivitySignal(kind: signal.kind, severity: severity, value: signal.value,
+                               factor: signal.factor, seenAt: signal.seenAt)
+            }
+        })
     }
 
     /// Neuer Bericht plus die Arten, die vorher nicht aktiv waren (für die Meldung).
@@ -196,8 +198,10 @@ enum ActivityAnalyzer {
 
     /// Frische Signale ersetzen gleichartige alte; alte, die nicht mehr erkannt
     /// werden, bleiben bis 1 Std. nach dem letzten Erkennen stehen.
-    static func merge(previous: ActivityReport?, fresh: [ActivitySignal], now: Int64) -> Merge {
-        let before = previous?.active(now: now) ?? []
+    static func merge(previous: ActivityReport?, fresh: [ActivitySignal], now: Int64,
+                      sensitivity: ActivitySensitivity = .NORMAL) -> Merge {
+        // Alte Signale nach der aktuellen Empfindlichkeit: nach «Weniger» zählt nur noch, was dort auffällt
+        let before = applySensitivity(previous?.active(now: now) ?? [], sensitivity)
         let freshKinds = Set(fresh.map(\.kind))
         let kept = before.filter { !freshKinds.contains($0.kind) }
         let renewed = fresh.map { s -> ActivitySignal in
@@ -236,11 +240,17 @@ enum ActivityAnalyzer {
     /// Ordnet ein Paar ein: Markt vs. Coin, Volumen, Hebel, Volatilität, Stimmung.
     static func explain(_ input: WhyInput) -> WhyReport {
         let now = input.now
-        let candles: [MarketCandle]? = (input.candles?.count ?? 0) >= 2 ? input.candles : nil
+        // Nicht mehr gehandelt: nichts ausgeben (keine Kennzahlen, keine Gründe)
+        guard input.marketLive else { return notLive(now: now) }
+        // Veraltete, leere oder unplausibel flache Reihen zählen als «keine Daten» (siehe CandleSeries)
+        let candles = CandleSeries.usable(input.candles, now: now, tickerChange24h: input.tickerChange24h)
         let change1h = changeOver(candles, hours: 1, now: now)
-        let change24h = changeOver(candles, hours: 24, now: now)
+        // 24 h wie Pille und Merkliste (Ticker des Paars), sonst aus den Kerzen
+        let candleChange24h = changeOver(candles, hours: 24, now: now)
+        let change24h = CandleSeries.change24h(ticker: input.tickerChange24h, candles: candleChange24h)
         let stats = candles.flatMap { hourStats($0) }
-        let reference24h = changeOver(input.referenceCandles, hours: 24, now: now)
+        let reference = CandleSeries.usable(input.referenceCandles, now: now, tickerChange24h: nil)
+        let reference24h = changeOver(reference, hours: 24, now: now)
 
         var reasons: [WhyReason] = []
 
@@ -319,6 +329,11 @@ enum ActivityAnalyzer {
             hasMarketData: candles != nil,
             dataTime: now
         )
+    }
+
+    /// Leerer Bericht für Paare, die nicht mehr gehandelt werden.
+    static func notLive(now: Int64) -> WhyReport {
+        WhyReport(price: nil, change1h: nil, change24h: nil, reasons: [], hasMarketData: false, dataTime: now)
     }
 
     private static func marketReason(coin: Double, btc: Double) -> WhyReason {

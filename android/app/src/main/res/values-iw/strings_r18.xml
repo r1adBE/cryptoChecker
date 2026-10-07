@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">להתחלה</string>
+    <string name="watchlist_jump_end">לסוף</string>
+    <string name="settings_activity_sensitivity">רגישות</string>
+    <string name="settings_activity_sensitivity_hint">כמה בקלות מטבע נחשב חריג – זהה לכרטיס ברשימת המעקב ולהתראות. ב„פחות” הכרטיס מציג רק את 3 החזקים ביותר.</string>
+    <string name="activity_sensitivity_less">פחות</string>
+    <string name="activity_sensitivity_normal">רגיל</string>
+    <string name="activity_sensitivity_more">יותר</string>
+    <string name="activity_adjust">התאמה</string>
+    <string name="activity_adjust_a11y">התאמת רגישות</string>
+</resources>

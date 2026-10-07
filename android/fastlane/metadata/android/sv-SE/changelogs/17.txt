@@ -5,6 +5,6 @@ Nytt i 16.2.2
 • Kurser och larm i din valuta
 • Export per avstämningsdag: portföljens värde som CSV, t.ex. för deklarationen
 • Tillgängligt: blå/orange, hög kontrast, bytta färger, TalkBack
-• Kom igång med ett tryck, tysta timmar, applås, portföljwidget, larm som mening
+• Kom igång med ett tryck, tysta timmar, portföljlås och -widget, larm som mening
 • 15 nya börser, nätverksavgifter med gaslarm
 • Ljusdiagram i widget, börsvärde

@@ -128,6 +128,16 @@ data class WhyInput(
     val fearGreed: Int?,
     val fearGreedYesterday: Int?,
     val now: Long,
+    /**
+     * 24-h-Veränderung in % aus dem Ticker des Paars (dieselbe wie Pille und Merkliste);
+     * null = unbekannt, dann aus den Kerzen.
+     */
+    val tickerChange24h: Double? = null,
+    /**
+     * false = das Paar wird an seiner Börse nicht mehr gehandelt ([com.cryptochecker.app.domain.watch.NotTraded]):
+     * dann gar keine Einordnung — nie ein Urteil auf alten Daten.
+     */
+    val marketLive: Boolean = true,
 )
 
 /** Ergebnis für das «Warum»-Blatt. */

@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -38,6 +39,9 @@ class Bitstamp : SimpleMarket(
         ticker.low = json.optDoubleNoData("low")
         ticker.vol = json.optDoubleNoData("volume")
         ticker.timestamp = json.optLong("timestamp")
+        // open_24 = Kurs vor 24 h („open“ wäre der Tagesbeginn und passt nicht).
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("open_24"))
+            ?: Change24h.percent(json.optDouble("percent_change_24"))
     }
 
     // Alle Ticker auf einmal; Kennung „BTC/USD“ → url_symbol „btcusd“.

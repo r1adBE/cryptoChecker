@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">قفل المحفظة</string>
+    <string name="settings_portfolio_lock_hint">يحمي المحفظة فقط: افتح القفل ببصمة الإصبع أو الوجه أو رمز PIN للجهاز. يُقفل مجددًا بعد أكثر من دقيقة في الخلفية. تبقى قائمة المتابعة والتنبيهات والأدوات الأخرى مفتوحة.</string>
+    <string name="portfolio_locked_title">المحفظة مقفلة</string>
+    <string name="portfolio_locked_text">افتح القفل لرؤية ممتلكاتك وقيمها.</string>
+    <string name="portfolio_lock_reason">فتح قفل المحفظة</string>
+    <string name="widget_portfolio_locked_hint">مقفلة – افتح القفل في التطبيق</string>
+    <string name="portfolio_history_range_since_first">منذ أول شراء</string>
+    <string name="portfolio_history_period_since_first">منذ أول شراء</string>
+    <string name="portfolio_history_range_since_first_a11y">عرض التطور منذ أول شراء</string>
+    <string name="portfolio_history_change_since_first_a11y">القيمة منذ أول شراء: %1$s، %2$s</string>
+    <string name="portfolio_history_capped">يعرض آخر 5 سنوات فقط.</string>
+    <string name="portfolio_history_expand">عرض تطور القيمة</string>
+    <string name="portfolio_history_collapse">إخفاء تطور القيمة</string>
+</resources>

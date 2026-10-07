@@ -54,8 +54,8 @@ DESSUTOM
 • Uppläsning av kurser och larm (text till tal)
 • Säkerhetskopiering och återställning till en fil du väljer – även mellan Android och iPhone
 • Appgenvägar, ljust och mörkt läge
-• Fyra accentfärger med matchande appikon
-• Applås: fingeravtryck, ansikte eller pinkod
+• Fem accentfärger med matchande appikon
+• Portföljlås: fingeravtryck, ansikte eller pinkod
 • Finns på 31 språk
 
 INTEGRITET FÖRST

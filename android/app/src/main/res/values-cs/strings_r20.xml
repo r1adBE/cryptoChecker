@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Odebrat neobchodované páry (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Odebrat neobchodované páry</string>
+    <string name="watchlist_remove_not_traded_action">Odebrat</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Odebrat %1$d pár, se kterým se na jeho burze již neobchoduje? Odstraní se i jeho alarmy.</item>
+        <item quantity="few">Odebrat %1$d páry, se kterými se na jejich burze již neobchoduje? Odstraní se i jejich alarmy.</item>
+        <item quantity="many">Odebrat %1$d páru, se kterými se na jejich burze již neobchoduje? Odstraní se i jejich alarmy.</item>
+        <item quantity="other">Odebrat %1$d párů, se kterými se na jejich burze již neobchoduje? Odstraní se i jejich alarmy.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Odebrán %1$d neobchodovaný pár</item>
+        <item quantity="few">Odebrány %1$d neobchodované páry</item>
+        <item quantity="many">Odebráno %1$d neobchodovaného páru</item>
+        <item quantity="other">Odebráno %1$d neobchodovaných párů</item>
+    </plurals>
+</resources>

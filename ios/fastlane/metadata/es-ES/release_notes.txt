@@ -12,7 +12,7 @@ Versión 16.2.2
 • Desliza a la izquierda para eliminar (con Deshacer) y a la derecha para marcar como favorito
 • La pestaña Mercado se abre al instante con los últimos datos y se actualiza en segundo plano
 • Horas de silencio: de noche (p. ej. 23–7 h) las alarmas llegan sin sonido, vibración ni voz
-• Bloqueo de la app con Face ID, Touch ID o código
+• Bloqueo de la cartera con Face ID, Touch ID o código
 • Widget de cartera para inicio y pantalla bloqueada: valor total en tu moneda y cambio de hoy
 • Cada alarma como frase: «Avísame cuando BTC baje por debajo de 60.000 CHF.»
 • Explicaciones breves de tasa de financiación, interés abierto, RSI y Pi Cycle
@@ -30,4 +30,4 @@ Versión 16.2.2
 • Widget de una moneda: velas o línea, rango del gráfico 24 h, 7 días o 30 días, marcas de máximo, medio y mínimo, precio actual resaltado
 • Pestaña Mercado: capitalización total del mercado cripto y volumen 24 h en tu moneda
 • Futuros: funding rate y open interest
-• Cuatro colores de acento con iconos a juego
+• Cinco colores de acento con iconos a juego

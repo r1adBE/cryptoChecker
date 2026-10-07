@@ -53,8 +53,8 @@ VERDER
 • Koersen en alarmen worden voorgelezen
 • Back-up en herstel via de app Bestanden
 • Snelle taken op het appsymbool, lichte en donkere modus
-• Vier accentkleuren met bijpassende appsymbolen
-• App-vergrendeling: Face ID, Touch ID of code
+• Vijf accentkleuren met bijpassende appsymbolen
+• Portfolio-vergrendeling: Face ID, Touch ID, code
 • Beschikbaar in 31 talen
 
 PRIVACY VOOROP

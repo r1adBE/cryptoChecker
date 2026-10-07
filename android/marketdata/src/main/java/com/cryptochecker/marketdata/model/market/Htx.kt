@@ -78,6 +78,8 @@ class HtxFutures : SimpleMarket(
 /** Spot und Swap nutzen dieselben Feldnamen; bid/ask mal als Zahl, mal als [Preis, Menge]. */
 internal object HtxTicker {
     fun read(json: JSONObject, ticker: Ticker) {
+        // Kein 24-h-Wert: „open“ ist laut Doku der Massenabfrage die Eröffnung des
+        // Kalendertags (Singapur-Zeit) — Einzel- und Massenabfrage wären uneinheitlich.
         ticker.last = json.getDouble("close")
         ticker.high = json.optDoubleNoData("high")
         ticker.low = json.optDoubleNoData("low")

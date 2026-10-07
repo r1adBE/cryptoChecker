@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Do</string>
     <string name="channel_alarms_quiet">Alarmy (noční klid)</string>
     <string name="channel_alarms_quiet_description">Tiché alarmy během nočního klidu.</string>
-    <string name="settings_app_lock">Zámek aplikace</string>
-    <string name="settings_app_lock_hint">Odemknutí otiskem prstu, obličejem nebo PIN zařízení, pokud byla aplikace déle než minutu na pozadí.</string>
-    <string name="app_lock_title">Crypto Checker je uzamčen</string>
     <string name="app_lock_unlock">Odemknout</string>
-    <string name="app_lock_reason">Odemknout Crypto Checker</string>
     <string name="app_lock_unavailable">V tomto zařízení není nastaven zámek obrazovky. Nejprve ho nastavte v nastavení systému.</string>
     <string name="widget_portfolio_name">Portfolio</string>
     <string name="widget_portfolio_description">Celková hodnota vašeho portfolia a dnešní změna</string>
     <string name="widget_portfolio_today">dnes %1$s</string>
     <string name="widget_portfolio_empty">Nákupy zadejte na kartě Portfolio</string>
-    <string name="widget_portfolio_locked">Skryto – zámek aplikace je zapnutý</string>
     <string name="a11y_portfolio_widget">Portfolio %1$s, dnes %2$s</string>
     <string name="settings_section_advanced">Pokročilé</string>
     <string name="settings_advanced_hint">Živý režim, trvalé oznámení, futures a možnosti pro vývojáře</string>

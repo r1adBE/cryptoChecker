@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">Në fillim</string>
+    <string name="watchlist_jump_end">Në fund</string>
+    <string name="settings_activity_sensitivity">Ndjeshmëria</string>
+    <string name="settings_activity_sensitivity_hint">Sa lehtë një monedhë quhet e pazakontë – njësoj për kartën e listës dhe njoftimet. Me «Më pak», karta tregon vetëm 3 më të fortat.</string>
+    <string name="activity_sensitivity_less">Më pak</string>
+    <string name="activity_sensitivity_normal">Normale</string>
+    <string name="activity_sensitivity_more">Më shumë</string>
+    <string name="activity_adjust">Rregullo</string>
+    <string name="activity_adjust_a11y">Rregullo ndjeshmërinë</string>
+</resources>

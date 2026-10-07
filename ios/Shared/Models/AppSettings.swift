@@ -44,6 +44,8 @@ struct AppSettings: Codable, Equatable, Sendable {
     var watchlistGroup: String? = nil
     /// Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Mitteilung melden.
     var activityAlerts: Bool = false
+    /// Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Mitteilungen); Standard = bisherige Schwellen.
+    var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
     var macroNotifications: Bool = false
     /// Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen).
@@ -68,8 +70,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var quietHoursEnabled: Bool = false
     var quietHoursStart: Int = QuietHours.defaultStart
     var quietHoursEnd: Int = QuietHours.defaultEnd
-    /// App-Sperre: Entsperren mit Face ID / Touch ID / Code beim Start und nach
-    /// mehr als einer Minute im Hintergrund.
+    /// Portfolio-Sperre (Schlüssel «appLock» wie bisher): Portfolio-Tab, Unterseiten, Sicherung mit
+    /// Portfolio-Daten und Portfolio-Widget erst nach Face ID / Touch ID / Code — beim Start und
+    /// nach mehr als einer Minute im Hintergrund. Die übrige App ist nie gesperrt.
     var appLock: Bool = false
     /// Bestätigung nach dem ersten gespeicherten Alarm schon gezeigt (oder es gab
     /// schon Alarme). Gleicher Schlüssel wie Android; nicht in der Sicherung.
@@ -80,6 +83,10 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Chart im Aktionsblatt eines Paars als Linie statt Kerzen (zuletzt gewählt, für alle Paare
     /// gleich), wie `sheetChartLine` in Android; nicht in der Sicherung.
     var sheetChartLine: Bool = false
+    /// Karte «Wertverlauf» im Portfolio aufgeklappt (Standard zu), wie Android; nicht in der Sicherung.
+    var portfolioHistoryExpanded: Bool = false
+    /// Zuletzt gewählter Zeitraum des Wertverlaufs, wie Android; nicht in der Sicherung.
+    var portfolioHistoryRange: PortfolioHistoryRange = .month
 
     static let minBackgroundIntervalMinutes = 15
     static let minLiveIntervalSeconds = 15
@@ -123,6 +130,8 @@ struct AppSettings: Codable, Equatable, Sendable {
         aboutSeen = try c.decodeIfPresent(Bool.self, forKey: .aboutSeen) ?? d.aboutSeen
         watchlistGroup = try? c.decodeIfPresent(String.self, forKey: .watchlistGroup)
         activityAlerts = (try? c.decodeIfPresent(Bool.self, forKey: .activityAlerts)) ?? d.activityAlerts
+        // Fehlt (ältere Einstellungen) oder unbekannt: «Normal»
+        activitySensitivity = ActivitySensitivity.from(name: try? c.decodeIfPresent(String.self, forKey: .activitySensitivity))
         macroNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .macroNotifications)) ?? d.macroNotifications
         portfolioEnabled = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioEnabled)) ?? d.portfolioEnabled
         portfolioCurrency = (try? c.decodeIfPresent(String.self, forKey: .portfolioCurrency)) ?? d.portfolioCurrency
@@ -145,6 +154,11 @@ struct AppSettings: Codable, Equatable, Sendable {
         firstAlarmShown = (try? c.decodeIfPresent(Bool.self, forKey: .firstAlarmShown)) ?? d.firstAlarmShown
         firstPairAdded = (try? c.decodeIfPresent(Bool.self, forKey: .firstPairAdded)) ?? d.firstPairAdded
         sheetChartLine = (try? c.decodeIfPresent(Bool.self, forKey: .sheetChartLine)) ?? d.sheetChartLine
+        portfolioHistoryExpanded = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioHistoryExpanded))
+            ?? d.portfolioHistoryExpanded
+        // Unbekannter Zeitraum (neuere Version): Standard 30 Tage
+        portfolioHistoryRange = (try? c.decodeIfPresent(PortfolioHistoryRange.self, forKey: .portfolioHistoryRange))
+            ?? d.portfolioHistoryRange
     }
 }
 

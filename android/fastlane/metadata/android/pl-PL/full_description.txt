@@ -52,8 +52,8 @@ DODATKOWO
 • Komunikaty głosowe: odczytywanie cen i alarmów
 • Kopia zapasowa i przywracanie do wybranego pliku – także między Androidem a iPhone’em
 • Skróty aplikacji, tryb jasny i ciemny
-• Cztery kolory akcentu z dopasowaną ikoną aplikacji
-• Blokada aplikacji: odcisk palca, twarz lub PIN
+• Pięć kolorów akcentu z dopasowaną ikoną aplikacji
+• Blokada portfela: odcisk palca, twarz lub PIN
 • Dostępna w 31 językach
 
 PRYWATNOŚĆ NA PIERWSZYM MIEJSCU

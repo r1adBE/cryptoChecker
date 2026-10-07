@@ -24,7 +24,7 @@ struct RootView: View {
                 .tag(AppTab.cycle)
 
             if data.settings.portfolioEnabled {
-                NavigationStack { PortfolioScreen() }
+                PortfolioTab()
                     .tabItem { Label(L("portfolio_title"), systemImage: "chart.pie") }
                     .tag(AppTab.portfolio)
             }
@@ -51,6 +51,22 @@ struct RootView: View {
             .environment(\.priceColorScheme, data.settings.priceColorScheme)
             .environment(\.priceColorsInverted, data.settings.priceColorsInverted)
             .interactiveDismissDisabled()
+        }
+    }
+}
+
+/// Portfolio-Tab hinter der Portfolio-Sperre: gesperrt nur der ruhige Sperr-Zustand (ohne
+/// Beträge). Beim Sperren wird der ganze Stapel ersetzt — Detailansicht, Erfassen-Blätter und
+/// Stichtag-Export schliessen sich damit.
+private struct PortfolioTab: View {
+    @ObservedObject private var lock = AppLock.shared
+
+    var body: some View {
+        switch lock.access {
+        case .open:
+            NavigationStack { PortfolioScreen() }
+        case .locked, .pending:
+            NavigationStack { PortfolioLockedView(lock: lock) }
         }
     }
 }

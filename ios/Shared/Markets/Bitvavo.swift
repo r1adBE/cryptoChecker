@@ -34,6 +34,8 @@ final class Bitvavo: SimpleMarket {
         ticker.vol = json.optDoubleNoData("volume")
         ticker.volQuote = json.optDoubleNoData("volumeQuote")
         ticker.timestamp = json.optLong("timestamp")
+        // /ticker/24h: „open“ = Kurs am Anfang des gleitenden 24-h-Fensters
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("open"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

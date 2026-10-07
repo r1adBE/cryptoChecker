@@ -52,8 +52,8 @@ WIDGETURI PENTRU ECRANUL PRINCIPAL ȘI ECRANUL DE BLOCARE
 • Citirea cu voce tare a prețurilor și alarmelor
 • Backup și restaurare prin aplicația Fișiere
 • Acțiuni rapide pe pictograma aplicației, mod luminos și întunecat
-• Patru culori de accent cu pictograme potrivite
-• Blocare: Face ID, Touch ID sau cod
+• Cinci culori de accent cu pictograme potrivite
+• Blocarea portofoliului: Face ID, Touch ID sau cod
 • Disponibilă în 31 de limbi
 
 CONFIDENȚIALITATEA ÎNAINTE DE TOATE

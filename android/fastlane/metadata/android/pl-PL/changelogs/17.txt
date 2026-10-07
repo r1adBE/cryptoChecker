@@ -5,6 +5,6 @@ Nowości w 16.2.2
 • Ceny i alarmy w twojej walucie
 • Eksport stanu na dzień do CSV
 • Dostępność: niebieski/pomarańczowy, wysoki kontrast, zamiana kolorów, TalkBack
-• Start jednym dotknięciem, godziny ciszy, blokada, widżet Portfel, alarm jako zdanie
+• Start jednym dotknięciem, godziny ciszy, blokada i widżet Portfel, alarm jako zdanie
 • 15 nowych giełd, opłaty sieciowe z alarmem gas
 • Wykres świecowy w widżecie, kapitalizacja

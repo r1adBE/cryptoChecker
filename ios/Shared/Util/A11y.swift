@@ -62,7 +62,7 @@ enum A11y {
         let note = watch.note.flatMap { $0.isEmpty ? nil : L("a11y_note", $0) }
         let alarms = alarmCount > 0 ? L("a11y_alarm_count", alarmCount) : nil
         let error = watch.lastError.flatMap { $0.isEmpty ? nil : ConnectionErrors.display($0) }
-        return join([L("a11y_row_pair", pair, watch.marketName), price, Self.change24h(watch.change24h),
+        return join([L("a11y_row_pair", pair, watch.marketName), price, Self.change24h(watch.shownChange24h),
                      convertedText, chart, note, alarms] + extra + [error, stale])
     }
 }

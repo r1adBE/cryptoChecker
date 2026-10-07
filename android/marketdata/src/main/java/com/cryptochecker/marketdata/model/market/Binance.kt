@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONArray
 import org.json.JSONObject
@@ -82,6 +83,9 @@ open class BinanceBase(name: String, domain: String) : SimpleMarket(
 
         ticker.last = jsonObject.getDouble("lastPrice")
         ticker.timestamp = jsonObject.getLong("closeTime")
+
+        // Gleitende 24 h, schon in Prozent
+        ticker.change24hPercent = Change24h.percent(jsonObject.optDouble("priceChangePercent"))
     }
 
     @Throws(Exception::class)

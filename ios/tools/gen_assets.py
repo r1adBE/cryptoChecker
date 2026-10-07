@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the iOS asset catalogs from the Android VectorDrawables of cryptoChecker.
 
-  App/Resources/Assets.xcassets   AppIcon (+7 alternates), Logo* image sets, AccentColor, WidgetBackground
+  App/Resources/Assets.xcassets   AppIcon (+9 alternates), Logo* image sets, AccentColor, WidgetBackground
                                   Every icon set carries the iOS 18 appearance variants: any = dark icon
                                   (white glyph, the brand look, also used on iOS 17), dark = the same dark
                                   icon, tinted = dark glyph on black. The light renders are not used here.
@@ -39,17 +39,22 @@ DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "ap
 A = "{http://schemas.android.com/apk/res/android}"
 AAPT = "{http://schemas.android.com/aapt}"
 
-COLORS = ["orange", "red", "blue", "green"]
+COLORS = ["orange", "red", "blue", "green", "marrs_green"]
 VARIANTS = ["dark", "light"]
 ACCENT = "#DD6F48"
 WIDGET_BG = {"light": "#EEEEEE", "dark": "#1F1F1F"}  # WidgetColors.kt baseColor
+
+
+def camel(color):
+    """orange -> Orange, marrs_green -> MarrsGreen (asset names, like aliasBase in AccentColor.kt)"""
+    return "".join(part.capitalize() for part in color.split("_"))
 
 
 def icon_set_name(color, variant):
     """AppIcon (orange), AppIconOrangeLight, AppIconRed, AppIconRedLight, ... (see module doc)"""
     if color == "orange" and variant == "dark":
         return "AppIcon"
-    return "AppIcon" + color.capitalize() + ("Light" if variant == "light" else "")
+    return "AppIcon" + camel(color) + ("Light" if variant == "light" else "")
 
 
 def tinted_icon(flat):
@@ -697,7 +702,7 @@ def main():
             logo = Vector(os.path.join(drawable, f"ic_app_logo_{color}_{variant}.xml"), res)
             with open(os.path.join(svg_dir, logo.name + ".svg"), "w") as f:
                 f.write(to_svg(logo))
-            logo_name = f"Logo{color.capitalize()}{variant.capitalize()}"
+            logo_name = f"Logo{camel(color)}{variant.capitalize()}"
             for cat in (app_cat, widget_cat):
                 iset = os.path.join(cat, logo_name + ".imageset")
                 os.makedirs(iset)

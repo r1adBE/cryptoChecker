@@ -38,6 +38,8 @@ final class Bitso: SimpleMarket {
         ticker.low = json.optDoubleNoData("low")
         ticker.vol = json.optDoubleNoData("volume")
         ticker.timestamp = TimeUtils.isoToMillis(json.optString("created_at"))
+        // change_24 = absolute Veränderung der letzten 24 h
+        ticker.change24hPercent = Change24h.fromAbsolute(last: ticker.last, change: json.optDouble("change_24"))
     }
 
     override func parseError(requestId: Int, json: JObject, info: CheckerInfo) throws -> String? {

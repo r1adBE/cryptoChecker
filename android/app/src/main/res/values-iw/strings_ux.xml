@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">סיום</string>
     <string name="channel_alarms_quiet">התראות מחיר (שעות דממה)</string>
     <string name="channel_alarms_quiet_description">התראות מחיר שקטות בשעות הדממה.</string>
-    <string name="settings_app_lock">נעילת אפליקציה</string>
-    <string name="settings_app_lock_hint">ביטול נעילה בטביעת אצבע, בזיהוי פנים או ב־PIN של המכשיר כשהאפליקציה הייתה ברקע יותר מדקה.</string>
-    <string name="app_lock_title">Crypto Checker נעולה</string>
     <string name="app_lock_unlock">ביטול נעילה</string>
-    <string name="app_lock_reason">ביטול נעילת Crypto Checker</string>
     <string name="app_lock_unavailable">לא הוגדרה נעילת מסך במכשיר זה. הגדירו נעילה בהגדרות המערכת תחילה.</string>
     <string name="widget_portfolio_name">תיק השקעות</string>
     <string name="widget_portfolio_description">השווי הכולל של תיק ההשקעות שלכם והשינוי היום</string>
     <string name="widget_portfolio_today">היום %1$s</string>
     <string name="widget_portfolio_empty">הוסיפו רכישות בלשונית תיק השקעות</string>
-    <string name="widget_portfolio_locked">מוסתר – נעילת האפליקציה פעילה</string>
     <string name="a11y_portfolio_widget">תיק השקעות %1$s, היום %2$s</string>
     <string name="settings_section_advanced">מתקדם</string>
     <string name="settings_advanced_hint">מצב חי, התראה קבועה, חוזים עתידיים ואפשרויות מפתחים</string>

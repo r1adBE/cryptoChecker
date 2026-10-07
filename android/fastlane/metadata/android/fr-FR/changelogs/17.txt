@@ -5,6 +5,6 @@ Nouveautés 16.2.2
 • Prix et alertes dans votre devise
 • Export CSV à date de référence
 • Accessibilité : bleu/orange, contraste élevé, couleurs inversées, TalkBack
-• Démarrer en un geste, heures calmes, verrouillage, widget Portefeuille, alerte en phrase
+• Démarrer en un geste, heures calmes, widget et verrouillage du portefeuille, alerte en phrase
 • 15 nouvelles plateformes, frais réseau et alerte gas
 • Bougies dans le widget, capitalisation

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">הסרת צמדים שלא נסחרים (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">הסרת צמדים שלא נסחרים</string>
+    <string name="watchlist_remove_not_traded_action">הסרה</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">להסיר צמד %1$d שכבר לא נסחר בבורסה שלו? גם ההתראות שלו יימחקו.</item>
+        <item quantity="two">להסיר %1$d צמדים שכבר לא נסחרים בבורסה שלהם? גם ההתראות שלהם יימחקו.</item>
+        <item quantity="other">להסיר %1$d צמדים שכבר לא נסחרים בבורסה שלהם? גם ההתראות שלהם יימחקו.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">הוסר צמד %1$d שלא נסחר</item>
+        <item quantity="two">הוסרו %1$d צמדים שלא נסחרים</item>
+        <item quantity="other">הוסרו %1$d צמדים שלא נסחרים</item>
+    </plurals>
+</resources>

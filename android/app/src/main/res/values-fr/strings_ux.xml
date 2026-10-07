@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">À</string>
     <string name="channel_alarms_quiet">Alertes (heures calmes)</string>
     <string name="channel_alarms_quiet_description">Alertes silencieuses pendant les heures calmes.</string>
-    <string name="settings_app_lock">Verrouillage de l\'app</string>
-    <string name="settings_app_lock_hint">Déverrouillage par empreinte, visage ou code PIN de l\'appareil lorsque l\'app est restée plus d\'une minute en arrière-plan.</string>
-    <string name="app_lock_title">Crypto Checker est verrouillé</string>
     <string name="app_lock_unlock">Déverrouiller</string>
-    <string name="app_lock_reason">Déverrouiller Crypto Checker</string>
     <string name="app_lock_unavailable">Aucun verrouillage d\'écran n\'est configuré sur cet appareil. Configurez-en d\'abord un dans les paramètres système.</string>
     <string name="widget_portfolio_name">Portefeuille</string>
     <string name="widget_portfolio_description">Valeur totale de votre portefeuille et variation du jour</string>
     <string name="widget_portfolio_today">aujourd\'hui %1$s</string>
     <string name="widget_portfolio_empty">Ajoutez des achats dans l\'onglet Portefeuille</string>
-    <string name="widget_portfolio_locked">Masqué – verrouillage de l\'app activé</string>
     <string name="a11y_portfolio_widget">Portefeuille %1$s, aujourd\'hui %2$s</string>
     <string name="settings_section_advanced">Avancé</string>
     <string name="settings_advanced_hint">Mode live, notification permanente, futures et options développeur</string>

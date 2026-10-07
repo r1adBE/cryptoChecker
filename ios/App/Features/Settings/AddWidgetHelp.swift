@@ -17,7 +17,8 @@ struct WidgetsSettingsRow: View {
         }
         .sheet(isPresented: $showHelp) {
             AddWidgetHelpSheet(portfolioEnabled: portfolioEnabled)
-                .presentationDetents([.medium, .large])
+                // Eine feste Höhe: Schritte und Widget-Arten sind höher als «halb», nie ein Stufenwechsel
+                .presentationDetents([.large])
         }
     }
 }

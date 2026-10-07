@@ -153,6 +153,24 @@ class WidgetColors(
                 neutralColor = 0xFF777777.toInt(),
                 dark = false,
             )
+            AccentColor.MARRS_GREEN to true -> WidgetColors(
+                baseColor = 0xFF1F1F1F.toInt(),
+                textColor = 0xFFE2E2E2.toInt(),
+                secondaryTextColor = 0xFFC6C6C6.toInt(),
+                accentColor = 0xFF5FB8B1.toInt(),
+                onAccentColor = 0xFF072826.toInt(),
+                neutralColor = 0xFF919191.toInt(),
+                dark = true,
+            )
+            AccentColor.MARRS_GREEN to false -> WidgetColors(
+                baseColor = 0xFFEEEEEE.toInt(),
+                textColor = 0xFF1B1B1B.toInt(),
+                secondaryTextColor = 0xFF474747.toInt(),
+                accentColor = 0xFF22706B.toInt(),
+                onAccentColor = 0xFFFFFFFF.toInt(),
+                neutralColor = 0xFF777777.toInt(),
+                dark = false,
+            )
                 else -> error("unerreichbar")
             }
     }

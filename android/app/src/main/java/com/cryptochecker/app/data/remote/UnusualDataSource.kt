@@ -93,10 +93,15 @@ class UnusualDataSource @Inject constructor(
         val url = BINANCE_TICKER_URL + URLEncoder.encode(MarketUniverse.binanceSymbols(universe), "UTF-8")
         val array = JSONArray(httpClient.callMarket(url, null))
         val out = HashMap<String, Pair<Double, Double?>>()
+        val now = System.currentTimeMillis()
         for (i in 0 until array.length()) {
             val o = array.optJSONObject(i) ?: continue
             val symbol = o.optString("symbol").uppercase()
             if (!symbol.endsWith("USDT")) continue
+            // Delistetes Spot-Paar: eingefrorener Ticker — nicht als «heute auffällig» zeigen
+            val closeTime = if (o.has("closeTime")) o.optLong("closeTime") else null
+            val count = if (o.has("count")) o.optLong("count") else null
+            if (!MarketUnusual.isLiveTicker(closeTime, count, now)) continue
             val change = o.optString("priceChangePercent").toDoubleOrNull()?.takeIf { it.isFinite() } ?: continue
             val volume = o.optString("quoteVolume").toDoubleOrNull()?.takeIf { it.isFinite() && it >= 0.0 }
             out[symbol.removeSuffix("USDT")] = change to volume

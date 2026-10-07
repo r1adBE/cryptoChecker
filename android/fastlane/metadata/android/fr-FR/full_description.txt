@@ -48,11 +48,11 @@ WIDGETS ET NOTIFICATIONS
 • Mode live : mise à jour toutes les 15 s, en arrière-plan dès 15 min
 
 ET AUSSI
-• Annonce vocale des prix et des alertes (synthèse vocale)
+• Annonce vocale des prix et des alertes
 • Sauvegarde et restauration dans un fichier de votre choix – aussi entre Android et iPhone
 • Raccourcis d'app, mode clair et sombre
-• Quatre couleurs d'accent avec icône d'app assortie
-• Verrouillage : empreinte, visage ou PIN
+• Cinq couleurs d'accent avec icône d'app assortie
+• Verrouillage du portefeuille : empreinte, visage ou PIN
 • Disponible en 31 langues
 
 LA VIE PRIVÉE D'ABORD

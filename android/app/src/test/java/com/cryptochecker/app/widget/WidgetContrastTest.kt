@@ -8,7 +8,7 @@ class WidgetContrastTest {
 
     private val accents = listOf(
         0xFFED835E.toInt(), 0xFFB14D29.toInt(), 0xFFFF7173.toInt(), 0xFFCA2E3C.toInt(),
-        0xFF73A3FC.toInt(), 0xFF2E66D6.toInt(), 0xFF4ABE83.toInt(), 0xFF117C4D.toInt(),
+        0xFF73A3FC.toInt(), 0xFF2E66D6.toInt(), 0xFF4ABE83.toInt(), 0xFF117C4D.toInt(), 0xFF5FB8B1.toInt(), 0xFF22706B.toInt(),
     )
 
     @Test

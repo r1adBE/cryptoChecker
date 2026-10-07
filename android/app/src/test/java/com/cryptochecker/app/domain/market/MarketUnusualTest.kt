@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.market
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -181,5 +182,17 @@ class MarketUnusualTest {
         val more = samples + TurnoverSample(5L, 0.05)
         // Vortage 1–5: 0.01 … 0.05 → Median 0.03 (heute zählt nicht)
         assertEquals(0.03, MarketUnusual.ownTypical(more, today = 10L)!!, 1e-12)
+    }
+
+    @Test
+    fun isLiveTicker_frozenTickerOfDelistedPair() {
+        val now = 1_800_000_000_000L
+        assertTrue(MarketUnusual.isLiveTicker(now - 1_000L, 52_000L, now))
+        assertTrue(MarketUnusual.isLiveTicker(now - MarketUnusual.TICKER_STALE_MILLIS, 1L, now))
+        // Fenster endet vor Monaten (Delisting) oder kein einziger Abschluss
+        assertFalse(MarketUnusual.isLiveTicker(now - MarketUnusual.TICKER_STALE_MILLIS - 1L, 52_000L, now))
+        assertFalse(MarketUnusual.isLiveTicker(now - 1_000L, 0L, now))
+        // Felder fehlen: nicht ausschliessen
+        assertTrue(MarketUnusual.isLiveTicker(null, null, now))
     }
 }

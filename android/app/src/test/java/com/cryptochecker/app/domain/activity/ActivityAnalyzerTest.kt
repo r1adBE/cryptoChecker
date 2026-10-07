@@ -166,7 +166,8 @@ class ActivityAnalyzerTest {
 
     @Test
     fun merge_keepsSignalsForOneHourAndReportsNewKinds() {
-        val volume = ActivitySignal(SignalKind.VOLUME_SPIKE, SignalSeverity.NOTABLE, 4.0, seenAt = now)
+        // Über der Schwelle (5×): alte Signale werden beim Zusammenführen nach der Empfindlichkeit neu beurteilt
+        val volume = ActivitySignal(SignalKind.VOLUME_SPIKE, SignalSeverity.NOTABLE, 6.0, seenAt = now)
         val first = ActivityAnalyzer.merge(null, listOf(volume), now)
         assertEquals(setOf(SignalKind.VOLUME_SPIKE), first.newKinds)
 

@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">结束</string>
     <string name="channel_alarms_quiet">提醒（静音时段）</string>
     <string name="channel_alarms_quiet_description">静音时段内的无声提醒。</string>
-    <string name="settings_app_lock">应用锁</string>
-    <string name="settings_app_lock_hint">应用在后台超过一分钟后，需用指纹、面容或设备 PIN 解锁。</string>
-    <string name="app_lock_title">Crypto Checker 已锁定</string>
     <string name="app_lock_unlock">解锁</string>
-    <string name="app_lock_reason">解锁 Crypto Checker</string>
     <string name="app_lock_unavailable">此设备未设置屏幕锁定。请先在系统设置中设置。</string>
     <string name="widget_portfolio_name">投资组合</string>
     <string name="widget_portfolio_description">投资组合总价值及今日变化</string>
     <string name="widget_portfolio_today">今日 %1$s</string>
     <string name="widget_portfolio_empty">在“投资组合”标签页中添加买入记录</string>
-    <string name="widget_portfolio_locked">已隐藏 – 应用锁已开启</string>
     <string name="a11y_portfolio_widget">投资组合 %1$s，今日 %2$s</string>
     <string name="settings_section_advanced">高级</string>
     <string name="settings_advanced_hint">实时模式、常驻通知、合约和开发者选项</string>

@@ -55,8 +55,8 @@ MER
 • Uppläsning av kurser och larm
 • Säkerhetskopiering och återställning via appen Filer
 • Snabbåtgärder på appsymbolen, ljust och mörkt läge
-• Fyra accentfärger med matchande appsymboler
-• Applås: Face ID, Touch ID eller kod
+• Fem accentfärger med matchande appsymboler
+• Portföljlås: Face ID, Touch ID eller kod
 • Finns på 31 språk
 
 INTEGRITET FÖRST

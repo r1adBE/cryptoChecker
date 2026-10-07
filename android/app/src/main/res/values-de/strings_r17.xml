@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Portfolio-Sperre</string>
+    <string name="settings_portfolio_lock_hint">Schützt nur das Portfolio: entsperren mit Fingerabdruck, Gesicht oder Geräte-PIN. Sperrt wieder nach mehr als einer Minute im Hintergrund. Merkliste, Alarme und übrige Widgets bleiben offen.</string>
+    <string name="portfolio_locked_title">Portfolio ist gesperrt</string>
+    <string name="portfolio_locked_text">Entsperre es, um Bestände und Werte zu sehen.</string>
+    <string name="portfolio_lock_reason">Portfolio entsperren</string>
+    <string name="widget_portfolio_locked_hint">Gesperrt – in der App entsperren</string>
+    <string name="portfolio_history_range_since_first">Seit 1. Kauf</string>
+    <string name="portfolio_history_period_since_first">seit dem ersten Kauf</string>
+    <string name="portfolio_history_range_since_first_a11y">Verlauf seit dem ersten Kauf zeigen</string>
+    <string name="portfolio_history_change_since_first_a11y">Wert seit dem ersten Kauf: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Zeigt nur die letzten 5 Jahre.</string>
+    <string name="portfolio_history_expand">Wertverlauf aufklappen</string>
+    <string name="portfolio_history_collapse">Wertverlauf zuklappen</string>
+</resources>

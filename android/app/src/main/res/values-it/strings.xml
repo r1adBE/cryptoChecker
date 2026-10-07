@@ -125,7 +125,7 @@
     <string name="settings_theme_mode">Modalità</string>
     <string name="theme_light">Chiaro</string>
     <string name="theme_dark">Scuro</string>
-    <string name="settings_accent">Colore</string>
+    <string name="settings_accent">Tema</string>
     <string name="accent_orange">Arancione</string>
     <string name="accent_red">Rosso</string>
     <string name="accent_blue">Blu</string>

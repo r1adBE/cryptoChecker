@@ -48,6 +48,7 @@ final class Kraken: SimpleMarket {
 
         ticker.vol = try Kraken.doubleFromArray(json, "v")
         ticker.last = try Kraken.doubleFromArray(json, "c")
+        // Kein 24-h-Wert: „o“ ist die Eröffnung des UTC-Tages, nicht der Kurs vor 24 h.
     }
 
     /// Ohne pair-Parameter liefert der Endpunkt alle handelbaren Paare.

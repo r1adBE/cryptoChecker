@@ -44,6 +44,8 @@ final class DexScreener: Market {
         if let volume = pair.optObject("volume") {
             ticker.volQuote = volume.optDouble("h24", Ticker.noData)
         }
+        // priceChange.h24 = gleitende 24 h in Prozent
+        ticker.change24hPercent = pair.optObject("priceChange").flatMap { Change24h.percent($0.optDouble("h24")) }
     }
 
     // MARK: Suche

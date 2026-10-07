@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -36,6 +37,8 @@ class Bitvavo : SimpleMarket(
         ticker.vol = json.optDoubleNoData("volume")
         ticker.volQuote = json.optDoubleNoData("volumeQuote")
         ticker.timestamp = json.optLong("timestamp")
+        // /ticker/24h: „open“ = Kurs am Anfang des gleitenden 24-h-Fensters
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("open"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

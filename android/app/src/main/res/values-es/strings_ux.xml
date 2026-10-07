@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Hasta</string>
     <string name="channel_alarms_quiet">Alarmas (horas de silencio)</string>
     <string name="channel_alarms_quiet_description">Alarmas silenciosas durante las horas de silencio.</string>
-    <string name="settings_app_lock">Bloqueo de la app</string>
-    <string name="settings_app_lock_hint">Desbloquea con huella, rostro o PIN del dispositivo cuando la app haya estado en segundo plano más de un minuto.</string>
-    <string name="app_lock_title">Crypto Checker está bloqueada</string>
     <string name="app_lock_unlock">Desbloquear</string>
-    <string name="app_lock_reason">Desbloquear Crypto Checker</string>
     <string name="app_lock_unavailable">Este dispositivo no tiene bloqueo de pantalla. Configura uno primero en los ajustes del sistema.</string>
     <string name="widget_portfolio_name">Cartera</string>
     <string name="widget_portfolio_description">Valor total de tu cartera y variación de hoy</string>
     <string name="widget_portfolio_today">hoy %1$s</string>
     <string name="widget_portfolio_empty">Añade compras en la pestaña Cartera</string>
-    <string name="widget_portfolio_locked">Oculto – el bloqueo de la app está activado</string>
     <string name="a11y_portfolio_widget">Cartera %1$s, hoy %2$s</string>
     <string name="settings_section_advanced">Avanzado</string>
     <string name="settings_advanced_hint">Modo en vivo, notificación permanente, futuros y opciones de desarrollador</string>

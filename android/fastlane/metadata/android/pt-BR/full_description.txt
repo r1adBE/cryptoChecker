@@ -51,8 +51,8 @@ E MAIS
 • Leitura em voz alta de preços e alarmes (texto para fala)
 • Backup e restauração em um arquivo de sua escolha – também entre Android e iPhone
 • Atalhos do app, modo claro e escuro
-• Quatro cores de destaque com ícone do app combinando
-• Bloqueio: impressão digital, rosto ou PIN
+• Cinco cores de destaque com ícone do app combinando
+• Bloqueio do portfólio: biometria ou PIN
 • Disponível em 31 idiomas
 
 PRIVACIDADE EM PRIMEIRO LUGAR

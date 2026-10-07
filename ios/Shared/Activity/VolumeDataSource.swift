@@ -30,15 +30,18 @@ enum VolumeDataSource {
 
     /// Die letzten `limit` Stundenkerzen, aufsteigend; die letzte läuft noch.
     /// nil, wenn keine Quelle der Ausweich-Kette das Paar führt.
-    static func hourlyCandles(base: String, quote: String) async -> [MarketCandle]? {
+    /// `futures` = Futures-Paar: Kerzen zuerst vom USDⓈ-M-Markt (fapi), nicht vom Spot.
+    static func hourlyCandles(base: String, quote: String, futures: Bool = false) async -> [MarketCandle]? {
         guard let symbol = symbol(base: base, quote: quote) else { return nil }
+        let key = futures ? symbol + "|F" : symbol
         let now = TimeUtils.nowMillis
-        if let hit = cached(symbol, now: now) { return hit.candles }
+        if let hit = cached(key, now: now) { return hit.candles }
 
-        let result = await CandleDataSource.candles(base: base, quote: quote, interval: .h1, limit: limit)
+        let result = await CandleDataSource.candles(base: base, quote: quote, interval: .h1, limit: limit,
+                                                    preferFutures: futures)
         // Abgebrochen (Zeitbudget): «nicht gefunden» nicht merken
         if Task.isCancelled && result == nil { return nil }
-        store(symbol, result)
+        store(key, result)
         return result
     }
 

@@ -49,8 +49,10 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
+import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.watchlist.WhySheet
@@ -201,20 +203,37 @@ fun MarketPhaseScreen(
         }
     }
 
-    whyFor?.let { id -> watches.firstOrNull { it.id == id } }?.let { watch ->
+    whyFor?.let { id -> watches.firstOrNull { it.id == id && !it.isNotTraded } }?.let { watch ->
         WhySheet(
             watch = watch,
-            signals = activity[watch.id]?.active(System.currentTimeMillis()).orEmpty(),
+            // Wie in der Merkliste nach der gewählten Empfindlichkeit
+            signals = com.cryptochecker.app.domain.activity.ActivityAnalyzer.applySensitivity(
+                activity[watch.id]?.active(System.currentTimeMillis()).orEmpty(),
+                settings.activitySensitivity,
+            ),
             load = viewModel::explain,
             onDismiss = { whyFor = null }
         )
     }
 }
 
-/** Paar der Merkliste zu einem Coin (Spot zuerst); null = nicht beobachtet. */
+/**
+ * Paar der Merkliste zu einem Coin: Spot zuerst (wie die Karte, USDT/USD vor anderen
+ * Quotes), sonst das Perpetual; null = nicht beobachtet. Das Blatt rechnet dann mit
+ * den Daten genau dieses Paars (Futures-Paar: Futures-Kerzen).
+ */
 private fun watchFor(watches: List<WatchEntity>, symbol: String): WatchEntity? =
-    watches.filter { it.baseAsset.equals(symbol, ignoreCase = true) }
-        .minByOrNull { if (it.contractType == FuturesContractType.NONE) 0 else 1 }
+    CandleSeries.pickWatch(
+        // Nicht mehr gehandelte Paare zählen nicht als beobachtet (kein «Warum?» auf alten Daten)
+        items = watches.filterNot { it.isNotTraded },
+        symbol = symbol,
+        base = { it.baseAsset },
+        quote = { it.quoteAsset },
+        isSpot = { it.contractType == FuturesContractType.NONE },
+        isPerpetual = {
+            it.contractType == FuturesContractType.PERPETUAL || it.contractType == FuturesContractType.INVERSE_PERPETUAL
+        },
+    )
 
 /**
  * Ein Teil des Tabs ([slot]): erst da, wenn [MarketReveal] ihn freigibt — vorher weder

@@ -59,6 +59,7 @@ abstract class UpbitStyleMarket(
         ticker.vol = json.optDoubleNoData("acc_trade_volume_24h")
         ticker.volQuote = json.optDoubleNoData("acc_trade_price_24h")
         ticker.timestamp = json.optLong("timestamp")
+        // Kein 24-h-Wert: signed_change_rate bezieht sich auf den Vortagesschluss (KST).
     }
 
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? {

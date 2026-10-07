@@ -12,7 +12,7 @@ Version 16.2.2
 • Swipe left to delete (with Undo), swipe right to mark a favorite
 • The Market tab opens instantly with the latest data and refreshes in the background
 • Quiet hours: at night (e.g. 11 pm–7 am) alarms arrive silently – no sound, vibration or speech
-• App lock with Face ID, Touch ID or device passcode
+• Portfolio lock with Face ID, Touch ID or device passcode
 • Portfolio widget for Home and Lock Screen: total value in your currency and today’s change
 • Each alarm reads as a sentence: “Tell me when BTC falls below 60,000 CHF.”
 • Short explanations for funding rate, open interest, RSI and Pi cycle
@@ -29,4 +29,4 @@ Version 16.2.2
 • Single-coin widget: candles or line, chart range 24 h, 7 or 30 days, high/mid/low marks, current price highlighted
 • Market tab: total crypto market cap and 24h volume in your currency
 • Futures: funding rate and open interest
-• Four accent colors with matching app icons
+• Five accent colors with matching app icons

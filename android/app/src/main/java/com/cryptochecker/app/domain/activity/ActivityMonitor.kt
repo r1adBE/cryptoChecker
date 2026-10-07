@@ -8,6 +8,8 @@ import com.cryptochecker.app.data.remote.FuturesInfo
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.market.FearGreed
+import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -68,7 +70,12 @@ class ActivityMonitor @Inject constructor(
     }
 
     private suspend fun analyzeLocked() {
-        val watches = watchRepository.getWatches()
+        val all = watchRepository.getWatches()
+        // Nicht mehr gehandelte Paare: keine Auswertung, gespeicherte Signale (und ihre
+        // Meldung) weg — sonst stünde ⚡ samt «Ungewöhnliche Bewegung» auf alten Kerzen da.
+        val notTraded = NotTraded.ids(all, { it.id }, { it.lastError })
+        notTraded.filter { repository.report(it) != null }.forEach { notifier.cancelActivity(it) }
+        val watches = all.filter { it.id !in notTraded }
         repository.retain(watches.map { it.id }.toSet())
         if (watches.isEmpty()) return
 
@@ -84,7 +91,7 @@ class ActivityMonitor @Inject constructor(
                 due.map { watch ->
                     async {
                         permits.withPermit {
-                            val merge = runCatching { analyzeOne(watch, now) }
+                            val merge = runCatching { analyzeOne(watch, now, settings.activitySensitivity) }
                                 .onFailure { Timber.d(it, "Aktivität nicht prüfbar: %s", watch.displayName) }
                                 .getOrNull()
                             // Abbruch des ganzen Durchlaufs (Zeitbudget) nicht verschlucken
@@ -113,12 +120,17 @@ class ActivityMonitor @Inject constructor(
         }
     }
 
-    private suspend fun analyzeOne(watch: WatchEntity, now: Long): ActivityAnalyzer.Merge = coroutineScope {
-        val candlesJob = async { timed { volumeDataSource.hourlyCandles(watch.baseAsset, watch.quoteAsset) } }
+    private suspend fun analyzeOne(
+        watch: WatchEntity,
+        now: Long,
+        sensitivity: ActivitySensitivity,
+    ): ActivityAnalyzer.Merge = coroutineScope {
+        val candlesJob = async { timed { volumeDataSource.hourlyCandles(watch.baseAsset, watch.quoteAsset, isFutures(watch)) } }
         val futuresJob = async {
             if (watch.contractType == FuturesContractType.PERPETUAL) futures { futuresDataSource.fetch(watch) } else null
         }
-        val stats = candlesJob.await()?.let { ActivityAnalyzer.hourStats(it) }
+        // Veraltete oder unplausible Reihen (z. B. Spot nach Delisting) liefern keine Signale
+        val stats = CandleSeries.usable(candlesJob.await(), now, watch.change24h)?.let { ActivityAnalyzer.hourStats(it) }
         val futures = futuresJob.await()
 
         val oi = openInterest(watch, futures, now, store = true)
@@ -128,8 +140,9 @@ class ActivityMonitor @Inject constructor(
             oiChangePercent = oi?.changePercent,
             oiMinutes = oi?.minutes,
             now = now,
+            sensitivity = sensitivity,
         )
-        ActivityAnalyzer.merge(repository.report(watch.id), fresh, now)
+        ActivityAnalyzer.merge(repository.report(watch.id), fresh, now, sensitivity)
     }
 
     /**
@@ -150,9 +163,12 @@ class ActivityMonitor @Inject constructor(
 
     /** Lädt alles für das «Warum»-Blatt gleichzeitig, jede Quelle mit eigener Zeitgrenze. */
     suspend fun explain(watch: WatchEntity): WhyReport = withContext(Dispatchers.IO) {
+        // Nicht mehr gehandelt: nichts laden, nichts einordnen
+        if (watch.isNotTraded) return@withContext ActivityAnalyzer.notLive(System.currentTimeMillis())
         coroutineScope {
             val isBtc = watch.baseAsset.equals("BTC", ignoreCase = true)
-            val candlesJob = async { timed { volumeDataSource.hourlyCandles(watch.baseAsset, watch.quoteAsset) } }
+            // Futures-Paar: Kerzen seines eigenen Markts (USDⓈ-M), nicht die des Spot-Paars
+            val candlesJob = async { timed { volumeDataSource.hourlyCandles(watch.baseAsset, watch.quoteAsset, isFutures(watch)) } }
             val referenceJob = async { timed { volumeDataSource.hourlyCandles(if (isBtc) "ETH" else "BTC", "USDT") } }
             val futuresJob = async {
                 futures {
@@ -177,10 +193,16 @@ class ActivityMonitor @Inject constructor(
                     fearGreed = fearGreed?.value,
                     fearGreedYesterday = fearGreed?.yesterday,
                     now = System.currentTimeMillis(),
+                    // Dieselbe 24-h-Veränderung wie Pille und Merkliste
+                    tickerChange24h = watch.change24h,
+                    marketLive = !watch.isNotTraded,
                 )
             )
         }
     }
+
+    /** Kontrakt statt Spot: Kerzen kommen dann zuerst vom Futures-Markt. */
+    private fun isFutures(watch: WatchEntity): Boolean = watch.contractType != FuturesContractType.NONE
 
     private suspend fun fearGreed(): FearGreed {
         val now = System.currentTimeMillis()

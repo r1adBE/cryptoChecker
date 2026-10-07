@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONObject
 
@@ -57,6 +58,9 @@ class Okex : SimpleMarket(
 
         ticker.last = json.getDouble("last")
         ticker.timestamp = json.getLong("ts")
+
+        // open24h = Kurs vor 24 h (sodUtc0/sodUtc8 wären Tageswerte)
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("open24h"))
     }
 
     /** Derselbe Endpunkt wie für die Paarliste liefert alle Ticker mit. */

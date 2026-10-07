@@ -46,6 +46,9 @@ final class Okex: SimpleMarket {
 
         ticker.last = try json.double("last")
         ticker.timestamp = try json.long("ts")
+
+        // open24h = Kurs vor 24 h (sodUtc0/sodUtc8 wären Tageswerte)
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("open24h"))
     }
 
     /// Derselbe Endpunkt wie für die Paarliste liefert alle Ticker mit.

@@ -48,11 +48,11 @@ WIDGETS Y NOTIFICACIONES
 • Modo en vivo con actualización cada 15 segundos; en segundo plano desde 15 minutos
 
 ADEMÁS
-• Lectura en voz alta de precios y alarmas (texto a voz)
+• Lectura en voz alta de precios y alarmas
 • Copia de seguridad y restauración en un archivo que tú eliges, también entre Android y iPhone
 • Accesos directos, modo claro y oscuro
-• Cuatro colores de acento con icono de app a juego
-• Bloqueo: huella, rostro o PIN
+• Cinco colores de acento con icono de app a juego
+• Bloqueo de la cartera: huella, rostro o PIN
 • Disponible en 31 idiomas
 
 PRIVACIDAD ANTE TODO

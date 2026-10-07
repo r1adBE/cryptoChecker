@@ -30,6 +30,9 @@ final class Kucoin: SimpleMarket {
         ticker.low = json.optDouble("low", Ticker.noData)
 
         ticker.last = json.optDouble("last", Ticker.noData)
+
+        // changeRate = gleitende 24 h als Bruchteil
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("changeRate"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

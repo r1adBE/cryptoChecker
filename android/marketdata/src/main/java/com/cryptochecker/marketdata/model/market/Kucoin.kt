@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONObject
 
@@ -39,6 +40,9 @@ class Kucoin : SimpleMarket(
         ticker.low = json.optDouble("low", Ticker.NO_DATA.toDouble())
 
         ticker.last = json.optDouble("last", Ticker.NO_DATA.toDouble())
+
+        // changeRate = gleitende 24 h als Bruchteil
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("changeRate"))
     }
 
     override val bulkTickersNumOfRequests: Int

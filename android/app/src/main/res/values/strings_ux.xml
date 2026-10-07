@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">To</string>
     <string name="channel_alarms_quiet">Alarms (quiet hours)</string>
     <string name="channel_alarms_quiet_description">Silent alarms during quiet hours.</string>
-    <string name="settings_app_lock">App lock</string>
-    <string name="settings_app_lock_hint">Unlock with fingerprint, face or device PIN when the app was in the background for more than a minute.</string>
-    <string name="app_lock_title">Crypto Checker is locked</string>
     <string name="app_lock_unlock">Unlock</string>
-    <string name="app_lock_reason">Unlock Crypto Checker</string>
     <string name="app_lock_unavailable">No screen lock is set up on this device. Set one up in the system settings first.</string>
     <string name="widget_portfolio_name">Portfolio</string>
     <string name="widget_portfolio_description">Total value of your portfolio and today\'s change</string>
     <string name="widget_portfolio_today">today %1$s</string>
     <string name="widget_portfolio_empty">Add purchases in the Portfolio tab</string>
-    <string name="widget_portfolio_locked">Hidden – app lock is on</string>
     <string name="a11y_portfolio_widget">Portfolio %1$s, today %2$s</string>
     <string name="settings_section_advanced">Advanced</string>
     <string name="settings_advanced_hint">Live mode, permanent notification, futures and developer options</string>

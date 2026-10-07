@@ -5,6 +5,6 @@ Noutăți 16.2.2
 • Prețuri și alarme în moneda ta
 • Export CSV la data de referință, de ex. pentru taxe
 • Accesibil: albastru/portocaliu, contrast ridicat, culori inversate, TalkBack
-• Start cu o atingere, ore de liniște, blocare, widget Portofoliu, alarmă ca propoziție
+• Start cu o atingere, ore de liniște, blocare și widget Portofoliu, alarmă ca propoziție
 • 15 burse noi, comisioane de rețea cu alarmă de gas
 • Grafic cu lumânări în widget, capitalizare

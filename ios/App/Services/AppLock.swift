@@ -2,17 +2,16 @@ import LocalAuthentication
 import SwiftUI
 import UIKit
 
-/// App-Sperre — wie `AppLock.kt`. Gesperrt wird beim Kaltstart und nach mehr als
-/// 60 Sekunden im Hintergrund, sofern die Einstellung an ist. Entsperrt wird mit
-/// Face ID / Touch ID oder dem Gerätecode (`.deviceOwnerAuthentication`).
-/// Widgets und Mitteilungen sind nicht gesperrt (ausser dem Portfolio-Widget).
+/// Portfolio-Sperre — wie `AppLock.kt` / `PortfolioLockPolicy`. Gesperrt ist nur das Portfolio
+/// (Tab, Detailansicht, Erfassen-Blätter, Stichtag-Export, Sicherung mit Portfolio-Daten,
+/// Portfolio-Widget); die übrige App ist nie gesperrt. Gesperrt wird beim Kaltstart und nach
+/// mehr als 60 Sekunden im Hintergrund, sofern die Einstellung an ist. Entsperrt wird einmal je
+/// Sitzung mit Face ID / Touch ID oder dem Gerätecode (`.deviceOwnerAuthentication`).
 @MainActor
 final class AppLock: ObservableObject {
     static let shared = AppLock()
 
-    /// Länger im Hintergrund → beim Zurückkehren sperren.
-    static let graceSeconds: TimeInterval = 60
-
+    /// Portfolio gerade gesperrt (Einstellung an und in dieser Sitzung nicht entsperrt)?
     @Published private(set) var locked: Bool {
         didSet { updateCoverWindow() }
     }
@@ -20,22 +19,22 @@ final class AppLock: ObservableObject {
 
     private var backgroundedAt: Date?
     /// Szene aktiv (nicht im App-Umschalter, Kontrollzentrum o. ä.).
-    private var sceneActive = true
-    /// Eigenes Fenster über allem: Ein Overlay der Hauptansicht verdeckt keine
-    /// offenen Blätter (Sheets) — diese lägen sonst über der Sperre bzw. wären im
-    /// App-Umschalter sichtbar.
+    private(set) var sceneActive = true
+    /// Eigenes Fenster über allem für den Sichtschutz im App-Umschalter: Ein Overlay der
+    /// Hauptansicht verdeckt keine offenen Blätter (Sheets).
     private var coverWindow: UIWindow?
-    /// Beim nächsten Aktivwerden einmal von selbst nach Face ID fragen.
-    private var autoPromptPending: Bool
 
     private init() {
-        // Kaltstart der App-Oberfläche: gesperrt, wenn eingeschaltet
-        let enabled = SharedStorage.loadSettings().appLock
-        autoPromptPending = enabled
-        locked = enabled
+        // Kaltstart der App-Oberfläche: Portfolio gesperrt, wenn eingeschaltet
+        locked = SharedStorage.loadSettings().appLock
     }
 
     private var enabled: Bool { AppData.shared.settings.appLock }
+
+    /// Zustand des Portfolio-Bereichs (die Einstellungen sind auf iOS immer schon gelesen).
+    var access: PortfolioAccess {
+        PortfolioLockPolicy.access(lockSetting: enabled, lockRequested: locked)
+    }
 
     /// Kann das Gerät überhaupt entsperren (Code, Face ID oder Touch ID eingerichtet)?
     nonisolated static func canAuthenticate() -> Bool {
@@ -47,7 +46,7 @@ final class AppLock: ObservableObject {
         let context = LAContext()
         guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) else { return false }
         do {
-            return try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: L("app_lock_reason"))
+            return try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: L("portfolio_lock_reason"))
         } catch {
             return false
         }
@@ -72,25 +71,16 @@ final class AppLock: ObservableObject {
     }
 
     func didBecomeActive() {
-        if let since = backgroundedAt {
-            backgroundedAt = nil
-            if enabled && !locked && Date().timeIntervalSince(since) > Self.graceSeconds {
-                locked = true
-                autoPromptPending = true
-            }
+        let since = backgroundedAt
+        backgroundedAt = nil
+        if enabled && !locked && PortfolioLockPolicy.relockAfterBackground(backgroundSince: since, now: Date()) {
+            locked = true
         }
         // Ausgeschaltet (z. B. durch eine Wiederherstellung): nicht mehr sperren
-        if !enabled && locked {
-            locked = false
-            autoPromptPending = false
-        }
-        if locked && autoPromptPending {
-            autoPromptPending = false
-            Task { await unlock() }
-        }
+        if !enabled && locked { locked = false }
     }
 
-    /// Knopf «Entsperren» bzw. automatische Abfrage.
+    /// Knopf «Entsperren» bzw. automatische Abfrage beim Öffnen des Portfolio-Tabs.
     func unlock() async {
         guard locked, !authenticating else { return }
         // Keine Displaysperre mehr eingerichtet: Sperre wäre nicht aufzuheben
@@ -104,18 +94,25 @@ final class AppLock: ObservableObject {
         if ok { locked = false }
     }
 
+    /// Vor einer Portfolio-Aktion ausserhalb des Tabs: true sofort, wenn `needsUnlock` für den
+    /// aktuellen Zustand false ist; sonst nach der Abfrage, ob entsperrt wurde.
+    func requireUnlock(_ needsUnlock: (Bool) -> Bool) async -> Bool {
+        guard needsUnlock(PortfolioLockPolicy.isLocked(lockSetting: enabled, lockRequested: locked)) else { return true }
+        await unlock()
+        return !locked
+    }
+
     /// Einstellung ausgeschaltet: sofort frei.
     func disabled() {
         locked = false
-        autoPromptPending = false
         updateCoverWindow()
     }
 
     // MARK: Fenster über allem
 
-    /// Gesperrt: Sperransicht; Sperre an und Szene nicht aktiv: Sichtschutz.
+    /// Sperre an und Szene nicht aktiv: Sichtschutz (App-Umschalter, auch über offenen Blättern).
     private func updateCoverWindow() {
-        let show = locked || (enabled && !sceneActive)
+        let show = enabled && !sceneActive
         guard show else {
             coverWindow?.isHidden = true
             return
@@ -128,58 +125,54 @@ final class AppLock: ObservableObject {
             let window = UIWindow(windowScene: scene)
             window.windowLevel = .alert + 1
             window.backgroundColor = .clear
-            let host = UIHostingController(rootView: AppLockWindowContent(lock: self, data: AppData.shared))
+            let host = UIHostingController(rootView: AppLockWindowContent(data: AppData.shared))
             host.view.backgroundColor = .clear
             window.rootViewController = host
             coverWindow = window
-        }
-        // Gesperrt: offene Tastatur (eigenes Fenster) schliessen, damit sie nicht über der Sperre liegt
-        if locked {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
         coverWindow?.isHidden = false
     }
 }
 
-/// Inhalt des Sperr-Fensters: dieselben Ansichten wie in der Hauptansicht.
+/// Inhalt des Sichtschutz-Fensters.
 @MainActor
 private struct AppLockWindowContent: View {
-    @ObservedObject var lock: AppLock
     @ObservedObject var data: AppData
 
     var body: some View {
-        Group {
-            if lock.locked {
-                AppLockView(lock: lock)
-            } else {
-                AppPrivacyCover()
-            }
-        }
-        .environment(\.appAccent, data.settings.accentColor)
-        .highContrastRoot(data.settings.highContrast)
-        .preferredColorScheme(data.settings.darkMode.map { $0 ? .dark : .light })
+        AppPrivacyCover()
+            .environment(\.appAccent, data.settings.accentColor)
+            .highContrastRoot(data.settings.highContrast)
+            .preferredColorScheme(data.settings.darkMode.map { $0 ? .dark : .light })
     }
 }
 
 // MARK: Ansichten
 
-/// Vollbild über der App, solange gesperrt: Logo, «Crypto Checker ist gesperrt», «Entsperren».
+/// Ruhiger Sperr-Zustand im Portfolio-Tab: Schloss, kurzer Text, «Entsperren» — keine Beträge,
+/// keine Coins. Fragt beim Erscheinen (Szene aktiv) einmal von selbst nach; danach per Knopf.
 @MainActor
-struct AppLockView: View {
+struct PortfolioLockedView: View {
     @ObservedObject var lock: AppLock
     @Environment(\.appAccent) private var accent
 
     var body: some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 14) {
             Spacer()
-            WatchlistLogo(size: 72)
-                .padding(18)
+            Image(systemName: "lock.fill")
+                .font(.system(size: 30, weight: .semibold))
+                .foregroundStyle(accent.primary)
+                .frame(width: 72, height: 72)
                 .background(accent.container.opacity(0.5), in: Circle())
                 .accessibilityHidden(true)
-            Text(L("app_lock_title"))
+            Text(L("portfolio_locked_title"))
                 .font(.title3.weight(.semibold))
                 .multilineTextAlignment(.center)
                 .accessibilityAddTraits(.isHeader)
+            Text(L("portfolio_locked_text"))
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .multilineTextAlignment(.center)
             Button {
                 Task { await lock.unlock() }
             } label: {
@@ -190,15 +183,21 @@ struct AppLockView: View {
             }
             .buttonStyle(AccentButtonStyle())
             .disabled(lock.authenticating)
+            .padding(.top, 6)
             Spacer()
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(AppColors.background.ignoresSafeArea())
+        .navigationTitle(L("portfolio_title"))
+        .onAppear {
+            guard lock.sceneActive else { return }
+            Task { await lock.unlock() }
+        }
     }
 }
 
-/// Sichtschutz im App-Umschalter (Szene nicht aktiv), solange die Sperre an ist.
+/// Sichtschutz im App-Umschalter (Szene nicht aktiv), solange die Portfolio-Sperre an ist.
 @MainActor
 struct AppPrivacyCover: View {
     @Environment(\.appAccent) private var accent

@@ -16,9 +16,15 @@ Rich1e — riad.work@outlook.com
 
 ## Neu in 16.2.2
 
+* **Theme «Marrs Green»** — fünfte Akzentfarbe (#4BACA5, das Türkis aus der
+  G.F-Smith-Umfrage 2017) mit eigenem App-Icon und Logo; die Einstellung heisst jetzt
+  **Theme** (vorher «Farbe»). Themes: Orange, Rot, Blau, Grün und Marrs Green.
 * **⚡ Ungewöhnliche Aktivität** — erkennt ungewöhnliche Kursbewegungen im
   Vergleich zur normalen Volatilität, Volumen-Spikes, extreme Funding Rates und
   Sprünge im Open Interest; Benachrichtigungen optional (standardmässig aus).
+  **Empfindlichkeit** Weniger/Normal/Mehr (Schwellen ×1,5/×1/×0,75, eine Stelle in
+  `ActivitySensitivity.kt`, gilt für Karte und Meldungen; «Anpassen» in der Karte).
+* **Sprungknopf** in langen Merklisten (> 30 Paare): «Zum Anfang» / «Zum Ende» beim Scrollen (`WatchJump.kt`).
 * **💡 «Warum bewegt sich das?»** — Markt vs. Coin, Volumen, Hebel
   (Funding/Open Interest), Volatilität und Fear & Greed. Nur Daten, keine News,
   keine Anlageberatung.
@@ -193,16 +199,30 @@ Rich1e — riad.work@outlook.com
 * **Nachtruhe** — Alarme (Kurs, Volumen, Gas, ungewöhnliche Aktivität) kommen
   im gewählten Zeitraum (Standard 23–7 Uhr, aus) lautlos über den Kanal
   `alarms_quiet`, ohne Sprachausgabe (`domain/alarm/QuietHours.kt`).
-* **App-Sperre** — `androidx.biometric`: Fingerabdruck, Gesicht oder Geräte-PIN;
-  sperrt beim Neustart und nach > 60 s im Hintergrund; ab Android 13 kein
-  Vorschaubild in den letzten Apps (`lock/`, `ui/lock/LockScreen.kt`).
+* **Portfolio-Sperre** — `androidx.biometric`: Fingerabdruck, Gesicht oder Geräte-PIN;
+  sperrt nur das Portfolio (Tab, Coin-Detail, Erfassen-Blätter, Stichtag-Export,
+  «Zum Portfolio hinzufügen» aus der Merkliste, Sichern mit Portfolio-Daten,
+  Wiederherstellen und Ausschalten der Sperre, Portfolio-Widget) — Merkliste,
+  Hinzufügen, Zyklus, Optionen und die übrigen Widgets bleiben frei. Einmal je
+  Sitzung entsperren; wieder gesperrt beim Neustart und nach > 60 s im Hintergrund;
+  gesperrt zeigt der Tab einen ruhigen Zustand (Schloss, «Entsperren»). Zeile in den
+  Optionen nur mit eingeschaltetem Portfolio (Wert bleibt erhalten); ab Android 13 kein
+  Vorschaubild in den letzten Apps (`lock/`, Regeln in `lock/PortfolioLockPolicy.kt`,
+  Oberfläche `ui/lock/PortfolioLock.kt`).
+* **Wertverlauf** im Portfolio — standardmässig zugeklappt: eine Zeile «Wertverlauf ·
+  30 T ▲ +4.20%» (nur der gewählte Zeitraum wird geladen und gerechnet); aufgeklappt
+  Chips 7 T / 30 T / 1 J / Seit 1. Kauf. «Seit 1. Kauf» lädt so viele Tageskerzen wie
+  nötig in Stücken von höchstens 1000 (`PortfolioHistory.candleChunks`), höchstens
+  5 Jahre zurück (Hinweis darunter). Auf-/Zuklappen und Zeitraum werden gemerkt
+  (nicht in der Sicherung).
 * **Portfolio-Widget** — passt sich der Grösse an: klein Gesamtwert in der
   Umrechnungswährung und (je Widget wählbar, «Umrechnung + USDT») «≈ … USDT»;
   ab 110 dp Höhe dazu die Veränderung heute als Pille (Vergleich mit gespeicherten
   Kursen ≥ 20 h alt, Käufe/Verkäufe zählen nicht als Gewinn) und der Wertverlauf
   des heutigen Bestands (bis 48 h, Linie ohne Achsen); ab 250 × 180 dp die
   grössten Positionen (bis 5, Wert, Anteil, Veränderung, «+ n weitere»). Einrichten
-  optional (`PortfolioWidgetConfigureActivity`); bei App-Sperre ohne Werte
+  optional (`PortfolioWidgetConfigureActivity`); bei Portfolio-Sperre nur Titel,
+  Schloss und «Gesperrt – in der App entsperren», ohne Werte
   (`widget/Portfolio*`, Regeln in `domain/portfolio/PortfolioWidgetMath.kt`).
   Klein (z. B. 2 × 1) kompakter, damit «≈ … USDT» noch passt; ist «heute» zu
   breit, nur der Prozentwert.

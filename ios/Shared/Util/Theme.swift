@@ -28,7 +28,8 @@ extension Color {
 /// Akzentfarbe der App — wie `AccentColor.kt`. Die Namen sind die Kotlin-Enum-Namen
 /// (Sicherungen bleiben zwischen Android und iOS austauschbar).
 enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
-    case ORANGE, RED, BLUE, GREEN
+    /// MARRS_GREEN am Ende (wie Android): gespeicherte Namen bleiben gültig.
+    case ORANGE, RED, BLUE, GREEN, MARRS_GREEN
 
     static let `default`: AccentColor = .ORANGE
 
@@ -41,6 +42,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xE8414D
         case .BLUE: 0x3B78F0
         case .GREEN: 0x22A96C
+        case .MARRS_GREEN: 0x4BACA5
         }
     }
 
@@ -51,6 +53,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xCA2E3C
         case .BLUE: 0x2E66D6
         case .GREEN: 0x117C4D
+        case .MARRS_GREEN: 0x22706B
         }
     }
 
@@ -60,6 +63,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xFF7173
         case .BLUE: 0x73A3FC
         case .GREEN: 0x4ABE83
+        case .MARRS_GREEN: 0x5FB8B1
         }
     }
 
@@ -72,6 +76,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0x871E28
         case .BLUE: 0x1F448F
         case .GREEN: 0x0B5233
+        case .MARRS_GREEN: 0x18514D
         }
     }
 
@@ -81,6 +86,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xFFAFB1
         case .BLUE: 0xA8C6FD
         case .GREEN: 0x88D4AD
+        case .MARRS_GREEN: 0x95D0CC
         }
     }
 
@@ -90,6 +96,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xFEE0DE
         case .BLUE: 0xDCE9FE
         case .GREEN: 0xD3F1DE
+        case .MARRS_GREEN: 0xD7EFEC
         }
     }
 
@@ -99,6 +106,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0x870D1F
         case .BLUE: 0x184194
         case .GREEN: 0x035633
+        case .MARRS_GREEN: 0x19534F
         }
     }
 
@@ -108,6 +116,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0x480008
         case .BLUE: 0x001A57
         case .GREEN: 0x002A16
+        case .MARRS_GREEN: 0x072826
         }
     }
 
@@ -140,18 +149,30 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: "accent_red"
         case .BLUE: "accent_blue"
         case .GREEN: "accent_green"
+        case .MARRS_GREEN: "accent_marrs_green"
         }
     }
 
     /// Name des alternativen App-Icons (nil = Standard-Icon Orange). Hell/Dunkel/Getönt
     /// liefert der Asset-Katalog selbst (Darstellungsvarianten, ab iOS 18).
     var iconName: String? {
-        self == .ORANGE ? nil : "AppIcon" + rawValue.capitalized
+        self == .ORANGE ? nil : "AppIcon" + assetBase
+    }
+
+    /// Namensteil der Assets: Orange, Red, Blue, Green, MarrsGreen (wie `aliasBase` in Android).
+    private var assetBase: String {
+        switch self {
+        case .ORANGE: "Orange"
+        case .RED: "Red"
+        case .BLUE: "Blue"
+        case .GREEN: "Green"
+        case .MARRS_GREEN: "MarrsGreen"
+        }
     }
 
     /// Logo im Asset-Katalog.
     func logoName(dark: Bool) -> String {
-        "Logo" + rawValue.capitalized + (dark ? "Dark" : "Light")
+        "Logo" + assetBase + (dark ? "Dark" : "Light")
     }
 }
 

@@ -52,8 +52,8 @@ E AINDA
 • Leitura em voz alta de preços e alarmes
 • Cópia de segurança e restauro na app Ficheiros
 • Ações rápidas no ícone da app, modo claro e escuro
-• Quatro cores de destaque com ícones da app a condizer
-• Bloqueio: Face ID, Touch ID ou código
+• Cinco cores de destaque com ícones da app a condizer
+• Bloqueio do portfólio: Face ID, Touch ID ou código
 • Disponível em 31 idiomas
 
 PRIVACIDADE EM PRIMEIRO LUGAR

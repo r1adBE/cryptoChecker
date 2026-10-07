@@ -53,8 +53,8 @@ THÊM NỮA
 • Đọc to giá và cảnh báo
 • Sao lưu & khôi phục qua ứng dụng Tệp
 • Tác vụ nhanh trên biểu tượng ứng dụng, chế độ sáng và tối
-• Bốn màu nhấn với biểu tượng ứng dụng tương ứng
-• Khóa ứng dụng: Face ID, Touch ID hoặc mật mã
+• Năm màu nhấn với biểu tượng ứng dụng tương ứng
+• Khóa danh mục: Face ID, Touch ID hoặc mật mã
 • Có sẵn 31 ngôn ngữ
 
 QUYỀN RIÊNG TƯ TRÊN HẾT

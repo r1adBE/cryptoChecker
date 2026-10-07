@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Αφαίρεση ζευγών χωρίς διαπραγμάτευση (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Αφαίρεση ζευγών χωρίς διαπραγμάτευση</string>
+    <string name="watchlist_remove_not_traded_action">Αφαίρεση</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Να αφαιρεθεί %1$d ζεύγος που δεν διαπραγματεύεται πλέον στο χρηματιστήριό του; Θα διαγραφούν και οι ειδοποιήσεις τιμής του.</item>
+        <item quantity="other">Να αφαιρεθούν %1$d ζεύγη που δεν διαπραγματεύονται πλέον στο χρηματιστήριό τους; Θα διαγραφούν και οι ειδοποιήσεις τιμής τους.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Αφαιρέθηκε %1$d ζεύγος χωρίς διαπραγμάτευση</item>
+        <item quantity="other">Αφαιρέθηκαν %1$d ζεύγη χωρίς διαπραγμάτευση</item>
+    </plurals>
+</resources>

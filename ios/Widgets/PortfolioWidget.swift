@@ -8,7 +8,7 @@ struct PortfolioEntry: TimelineEntry {
     var date: Date
     /// nil = noch nie berechnet (wie leer behandelt).
     let snapshot: PortfolioWidgetSnapshot?
-    /// App-Sperre an: keine Werte zeigen.
+    /// Portfolio-Sperre an: Titel, Schloss und «Gesperrt – in der App entsperren», keine Werte.
     let locked: Bool
     let accent: AccentColor
     /// Anzeige je Widget: nur Umrechnung oder zusätzlich «≈ … USDT».
@@ -29,7 +29,8 @@ struct PortfolioEntry: TimelineEntry {
     static func current(display: PortfolioDisplayOption = .conversionUsdt,
                         theme: WidgetThemeOption = .system) -> PortfolioEntry {
         let settings = SharedStorage.loadSettings()
-        return PortfolioEntry(date: Date(), snapshot: PortfolioWidgetStore.load(), locked: settings.appLock,
+        return PortfolioEntry(date: Date(), snapshot: PortfolioWidgetStore.load(),
+                              locked: PortfolioLockPolicy.widgetLocked(lockSetting: settings.appLock),
                               accent: settings.accentColor, display: display, theme: theme,
                               priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
                               priceColorsInverted: settings.priceColorsInverted)
@@ -73,7 +74,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
     func snapshot(for configuration: PortfolioWidgetIntent, in context: Context) async -> PortfolioEntry {
         let entry = PortfolioEntry.current(display: configuration.display, theme: configuration.theme)
         let empty = entry.snapshot?.empty ?? true
-        // Galerie: leer oder mit App-Sperre das Beispiel (keine echten Werte, also auch gesperrt unbedenklich)
+        // Galerie: leer oder mit Portfolio-Sperre das Beispiel (keine echten Werte, also auch gesperrt unbedenklich)
         if context.isPreview && (empty || entry.locked) {
             return .sample(display: configuration.display, theme: configuration.theme)
         }
@@ -86,7 +87,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         let settings = SharedStorage.loadSettings()
         let snapshot = PortfolioWidgetStore.load()
         let age = TimeUtils.nowMillis - (snapshot?.updatedAt ?? 0)
-        if !settings.appLock && age >= WidgetRefresh.staleAfterMillis {
+        if !PortfolioLockPolicy.widgetLocked(lockSetting: settings.appLock) && age >= WidgetRefresh.staleAfterMillis {
             await PortfolioWidgetStore.refresh(reload: false)
         }
         let entry = PortfolioEntry.current(display: configuration.display, theme: configuration.theme)
@@ -266,7 +267,9 @@ private struct PortfolioHomeView: View {
 
     var body: some View {
         Group {
-            if !entry.locked, let s = entry.snapshot, !s.empty {
+            if entry.locked {
+                lockedBody
+            } else if let s = entry.snapshot, !s.empty {
                 switch family {
                 case .systemMedium: mediumBody(s)
                 case .systemLarge: largeBody(s)
@@ -276,7 +279,7 @@ private struct PortfolioHomeView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     header
                     Spacer(minLength: 4)
-                    message(entry.locked ? L("widget_portfolio_locked") : L("widget_portfolio_empty"))
+                    message(L("widget_portfolio_empty"))
                 }
             }
         }
@@ -292,13 +295,25 @@ private struct PortfolioHomeView: View {
                 .foregroundStyle(palette.text)
                 .lineLimit(1)
             Spacer(minLength: 0)
-            if entry.locked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 11, weight: .semibold))
-                    .foregroundStyle(palette.secondary)
-                    .accessibilityHidden(true)
-            }
         }
+    }
+
+    /// Portfolio-Sperre: normaler Rahmen mit Titel, Schloss und Hinweis — keine Beträge, kein
+    /// Chart, keine Positionen. Tippen öffnet den Portfolio-Tab (`widgetURL`).
+    private var lockedBody: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            header
+            Spacer(minLength: 4)
+            Image(systemName: "lock.fill")
+                .font(.system(size: family == .systemSmall ? 18 : 20, weight: .semibold))
+                .foregroundStyle(palette.secondary)
+                .accessibilityHidden(true)
+            message(L("widget_portfolio_locked_hint"))
+                .padding(.top, 6)
+            Spacer(minLength: 0)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(A11y.join([L("widget_portfolio_name"), L("widget_portfolio_locked_hint")]))
     }
 
     private func message(_ text: String) -> some View {
@@ -611,10 +626,15 @@ private struct PortfolioRectangularView: View {
                 .font(.system(size: 13, weight: .semibold))
                 .lineLimit(1)
             if entry.locked {
-                Text(L("widget_portfolio_locked"))
-                    .font(.system(size: 12))
-                    .foregroundStyle(.secondary)
-                    .lineLimit(2)
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 10, weight: .semibold))
+                        .accessibilityHidden(true)
+                    Text(L("widget_portfolio_locked_hint"))
+                        .font(.system(size: 12))
+                        .lineLimit(2)
+                }
+                .foregroundStyle(.secondary)
             } else if let s = entry.snapshot, !s.empty {
                 Text(PortfolioWidgetText.total(s))
                     .font(.system(size: 17, weight: .bold, design: .rounded))

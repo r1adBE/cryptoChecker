@@ -54,8 +54,8 @@ MORE
 • Prices and alarms read aloud (text-to-speech)
 • Backup & restore to a file you choose – also between Android and iPhone
 • App shortcuts, light and dark mode
-• Four accent colors with matching app icon
-• App lock: fingerprint, face or PIN
+• Five accent colors with matching app icon
+• Portfolio lock: fingerprint, face or PIN
 • Available in 31 languages
 
 PRIVACY FIRST

@@ -1,8 +1,10 @@
 package com.cryptochecker.app.domain.watch
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class DayChangeTest {
@@ -69,5 +71,45 @@ class DayChangeTest {
         assertEquals(20.0, DayChange.select(55.0, null, usdt, quoteIsFiat = true)!!, 1e-9)
         assertNull(DayChange.select(55.0, null, usdt, quoteIsFiat = false))
         assertNull(DayChange.select(55.0, null, null, quoteIsFiat = true))
+    }
+
+    @Test
+    fun `ticker value is used when finite and plausible`() {
+        assertEquals(3.5, DayChange.fromTicker(3.5)!!, 0.0)
+        assertEquals(-99.9, DayChange.fromTicker(-99.9)!!, 0.0)
+        assertEquals(0.0, DayChange.fromTicker(0.0)!!, 0.0)
+        assertNull(DayChange.fromTicker(null))
+        assertNull(DayChange.fromTicker(Double.NaN))
+        assertNull(DayChange.fromTicker(Double.POSITIVE_INFINITY))
+        assertNull(DayChange.fromTicker(10_000.0))
+        assertNull(DayChange.fromTicker(-10_000.0))
+        assertEquals(9_999.0, DayChange.fromTicker(9_999.0)!!, 0.0)
+    }
+
+    @Test
+    fun `candles only needed without a usable ticker value`() {
+        assertFalse(DayChange.needsCandles(1.2))
+        assertTrue(DayChange.needsCandles(null))
+        assertTrue(DayChange.needsCandles(Double.NaN))
+        assertTrue(DayChange.needsCandles(50_000.0))
+    }
+
+    @Test
+    fun `choose prefers ticker and does not evaluate candles then`() {
+        var evaluated = false
+        val value = DayChange.choose(2.0) { evaluated = true; 5.0 }
+        assertEquals(2.0, value!!, 0.0)
+        assertFalse(evaluated)
+    }
+
+    @Test
+    fun `choose falls back to candles with their sanity checks`() {
+        val ref = DayReference(open = 100.0, lastClose = 101.0)
+        assertEquals(2.0, DayChange.choose(null) { DayChange.fromPrice(102.0, ref) }!!, 1e-9)
+        // Unplausibler Tickerwert → Kerzen
+        assertEquals(2.0, DayChange.choose(1e6) { DayChange.fromPrice(102.0, ref) }!!, 1e-9)
+        // Kerzen passen nicht zum Kurs (Kursabstand) → kein Wert
+        assertNull(DayChange.choose(null) { DayChange.fromPrice(200.0, ref) })
+        assertNull(DayChange.choose(null) { Double.NaN })
     }
 }

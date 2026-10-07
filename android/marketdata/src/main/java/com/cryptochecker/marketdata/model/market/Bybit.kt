@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
@@ -51,6 +52,8 @@ open class BybitBase(
         ticker.low = json.optDoubleNoData("lowPrice24h")
         ticker.vol = json.optDoubleNoData("volume24h")
         ticker.volQuote = json.optDoubleNoData("turnover24h")
+        // Gleitende 24 h als Bruchteil
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("price24hPcnt"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

@@ -51,6 +51,8 @@ class BybitBase: SimpleMarket {
         ticker.low = json.optDoubleNoData("lowPrice24h")
         ticker.vol = json.optDoubleNoData("volume24h")
         ticker.volQuote = json.optDoubleNoData("turnover24h")
+        // Gleitende 24 h als Bruchteil
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("price24hPcnt"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

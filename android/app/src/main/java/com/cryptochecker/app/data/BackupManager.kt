@@ -232,6 +232,7 @@ class BackupManager @Inject constructor(
             .put("gasAlertEthTenths", s.gasAlertEthTenths)
             .put("gasAlertBtc", s.gasAlertBtc)
             .put("activityAlerts", s.activityAlerts)
+            .put("activitySensitivity", s.activitySensitivity.name)
             .put("macroNotifications", s.macroNotifications)
             .put("portfolioEnabled", s.portfolioEnabled)
             .put("portfolioCurrency", s.portfolioCurrency)
@@ -267,6 +268,12 @@ class BackupManager @Inject constructor(
         if (o.has("gasAlertEthTenths")) setGasAlertEth(o.getInt("gasAlertEthTenths"))
         if (o.has("gasAlertBtc")) setGasAlertBtc(o.getInt("gasAlertBtc"))
         if (o.has("activityAlerts")) setActivityAlerts(o.getBoolean("activityAlerts"))
+        // Fehlt der Schlüssel (ältere Sicherung) oder ist er unbekannt: «Normal»
+        setActivitySensitivity(
+            com.cryptochecker.app.domain.activity.ActivitySensitivity.fromName(
+                if (o.isNull("activitySensitivity")) null else o.optString("activitySensitivity")
+            )
+        )
         if (o.has("macroNotifications")) setMacroNotifications(o.optBoolean("macroNotifications", false))
         if (o.has("portfolioEnabled")) setPortfolioEnabled(o.getBoolean("portfolioEnabled"))
         if (o.has("portfolioCurrency") && !o.isNull("portfolioCurrency")) setPortfolioCurrency(o.getString("portfolioCurrency"))
@@ -282,7 +289,7 @@ class BackupManager @Inject constructor(
         if (o.has("quietHoursEnabled")) setQuietHoursEnabled(o.optBoolean("quietHoursEnabled", false))
         o.optMinute("quietHoursStart")?.let { setQuietHoursStart(it) }
         o.optMinute("quietHoursEnd")?.let { setQuietHoursEnd(it) }
-        // App-Sperre nur, wenn dieses Gerät entsperren kann — sonst sperrte sie die App aus
+        // Portfolio-Sperre nur, wenn dieses Gerät entsperren kann — sonst sperrte sie das Portfolio aus
         if (o.has("appLock")) {
             val wanted = o.optBoolean("appLock", false)
             if (!wanted || AppLockAuth.canAuthenticate(this@BackupManager.context)) setAppLock(wanted)

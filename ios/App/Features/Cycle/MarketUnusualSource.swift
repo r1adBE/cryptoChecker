@@ -67,10 +67,15 @@ actor MarketUnusualSource {
         let list = "[" + universe.map { "\"\($0.symbol)USDT\"" }.joined(separator: ",") + "]"
         let text = try await MarketHTTP.call(tickerURL + list.urlQueryEncoded)
         var out: [String: (change: Double, volume: Double?)] = [:]
+        let now = TimeUtils.nowMillis
         for item in try JArray(string: text).objects {
             let symbol = item.optString("symbol").uppercased()
             let change = item.optDouble("priceChangePercent")
             guard symbol.hasSuffix("USDT"), symbol.count > 4, change.isFinite else { continue }
+            // Delistetes Spot-Paar: eingefrorener Ticker — nicht als «heute auffällig» zeigen
+            let closeTime: Int64? = item.has("closeTime") ? item.optLong("closeTime") : nil
+            let count: Int64? = item.has("count") ? item.optLong("count") : nil
+            guard MarketUnusual.isLiveTicker(closeTime: closeTime, tradeCount: count, now: now) else { continue }
             let volume = item.optDouble("quoteVolume")
             out[String(symbol.dropLast(4))] = (change: change, volume: volume.isFinite && volume >= 0 ? volume : nil)
         }

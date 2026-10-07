@@ -123,7 +123,7 @@
     <string name="settings_theme_mode">मोड</string>
     <string name="theme_light">लाइट</string>
     <string name="theme_dark">डार्क</string>
-    <string name="settings_accent">रंग</string>
+    <string name="settings_accent">थीम</string>
     <string name="accent_orange">नारंगी</string>
     <string name="accent_red">लाल</string>
     <string name="accent_blue">नीला</string>

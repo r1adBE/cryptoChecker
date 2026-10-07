@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -40,6 +41,9 @@ class Mexc : SimpleMarket(
         ticker.vol = json.optDoubleNoData("volume")
         ticker.volQuote = json.optDoubleNoData("quoteVolume")
         ticker.timestamp = json.optLong("closeTime")
+        // openPrice = Kurs vor 24 h; priceChangePercent ist bei MEXC ein Bruchteil.
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("openPrice"))
+            ?: Change24h.fraction(json.optDouble("priceChangePercent"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1
@@ -86,6 +90,8 @@ class MexcFutures : SimpleMarket(
         ticker.vol = Ticker.NO_DATA.toDouble()
         ticker.volQuote = json.optDoubleNoData("amount24")
         ticker.timestamp = json.optLong("timestamp")
+        // riseFallRate = gleitende 24 h als Bruchteil (die Tageswerte stehen in riseFallRates)
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("riseFallRate"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

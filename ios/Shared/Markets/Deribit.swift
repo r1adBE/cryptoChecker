@@ -42,6 +42,8 @@ final class Deribit: Market {
             ticker.low = stats.optDoubleNoData("low")
             ticker.vol = stats.optDoubleNoData("volume")
             ticker.volQuote = stats.optDoubleNoData("volume_usd")
+            // price_change = gleitende 24 h in Prozent
+            ticker.change24hPercent = Change24h.percent(stats.optDouble("price_change"))
         }
     }
 
@@ -73,6 +75,7 @@ final class Deribit: Market {
             let usd = item.optDouble("volume_usd")
             t.volQuote = usd.isNaN ? item.optDoubleNoData("volume_notional") : usd
             t.timestamp = item.optLong("creation_timestamp")
+            t.change24hPercent = Change24h.percent(item.optDouble("price_change"))
             tickers[name] = t
         }
         return tickers

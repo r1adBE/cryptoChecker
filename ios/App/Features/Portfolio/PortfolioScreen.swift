@@ -61,7 +61,8 @@ struct PortfolioScreen: View {
                 }
             )
             .environment(\.appAccent, accent)
-            .presentationDetents([.medium, .large])
+            // Eine feste Höhe: Hinweis «heute» und grosse Schrift lassen nur den Inhalt wachsen
+            .presentationDetents([.large])
             .presentationDragIndicator(.visible)
             .presentationCornerRadius(28)
             .presentationBackground(AppColors.background)
@@ -83,7 +84,8 @@ struct PortfolioScreen: View {
                 .padding(.bottom, 4)
 
                 // Wertverlauf über den Positionen
-                PortfolioHistoryCard(history: model.history, range: $model.historyRange)
+                PortfolioHistoryCard(history: model.history, range: $model.historyRange,
+                                     expanded: $data.settings.portfolioHistoryExpanded)
                     .padding(.bottom, 4)
 
                 ForEach(summary.open) { position in

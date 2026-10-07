@@ -121,7 +121,7 @@
     <string name="settings_theme_mode">מצב</string>
     <string name="theme_light">בהיר</string>
     <string name="theme_dark">כהה</string>
-    <string name="settings_accent">צבע</string>
+    <string name="settings_accent">ערכת נושא</string>
     <string name="accent_orange">כתום</string>
     <string name="accent_red">אדום</string>
     <string name="accent_blue">כחול</string>

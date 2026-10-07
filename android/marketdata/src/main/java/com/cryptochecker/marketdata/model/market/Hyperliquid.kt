@@ -8,6 +8,7 @@ import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.PostRequestInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
 import org.json.JSONObject
@@ -34,6 +35,7 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid", null) {
         ticker.last = found.last
         ticker.vol = found.vol
         ticker.volQuote = found.volQuote
+        ticker.change24hPercent = found.change24hPercent
     }
 
     override fun parseError(requestId: Int, responseString: String, checkerInfo: CheckerInfo): String? =
@@ -78,6 +80,8 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid", null) {
                 last = price
                 vol = ctx.optDoubleNoData("dayBaseVlm")
                 volQuote = ctx.optDoubleNoData("dayNtlVlm")
+                // prevDayPx = Mark-Preis vor 24 h
+                change24hPercent = Change24h.fromOpen(price, ctx.optDouble("prevDayPx"))
             }
         }
         return result

@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">तक</string>
     <string name="channel_alarms_quiet">अलार्म (मौन घंटे)</string>
     <string name="channel_alarms_quiet_description">मौन घंटों के दौरान बिना आवाज़ वाले अलार्म।</string>
-    <string name="settings_app_lock">ऐप लॉक</string>
-    <string name="settings_app_lock_hint">अगर ऐप एक मिनट से ज़्यादा बैकग्राउंड में रहा हो, तो फ़िंगरप्रिंट, चेहरे या डिवाइस PIN से अनलॉक करें।</string>
-    <string name="app_lock_title">Crypto Checker लॉक है</string>
     <string name="app_lock_unlock">अनलॉक करें</string>
-    <string name="app_lock_reason">Crypto Checker अनलॉक करें</string>
     <string name="app_lock_unavailable">इस डिवाइस पर कोई स्क्रीन लॉक सेट नहीं है। पहले सिस्टम सेटिंग्स में एक सेट करें।</string>
     <string name="widget_portfolio_name">पोर्टफोलियो</string>
     <string name="widget_portfolio_description">आपके पोर्टफोलियो का कुल मूल्य और आज का बदलाव</string>
     <string name="widget_portfolio_today">आज %1$s</string>
     <string name="widget_portfolio_empty">पोर्टफोलियो टैब में खरीदारी जोड़ें</string>
-    <string name="widget_portfolio_locked">छिपा हुआ – ऐप लॉक चालू है</string>
     <string name="a11y_portfolio_widget">पोर्टफोलियो %1$s, आज %2$s</string>
     <string name="settings_section_advanced">उन्नत</string>
     <string name="settings_advanced_hint">लाइव मोड, स्थायी नोटिफ़िकेशन, फ़्यूचर्स और डेवलपर विकल्प</string>

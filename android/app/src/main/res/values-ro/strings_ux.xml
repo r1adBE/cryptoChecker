@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Până la</string>
     <string name="channel_alarms_quiet">Alarme (ore de liniște)</string>
     <string name="channel_alarms_quiet_description">Alarme silențioase în orele de liniște.</string>
-    <string name="settings_app_lock">Blocarea aplicației</string>
-    <string name="settings_app_lock_hint">Deblocare cu amprenta, fața sau codul PIN al dispozitivului când aplicația a stat în fundal mai mult de un minut.</string>
-    <string name="app_lock_title">Crypto Checker este blocat</string>
     <string name="app_lock_unlock">Deblocați</string>
-    <string name="app_lock_reason">Deblocați Crypto Checker</string>
     <string name="app_lock_unavailable">Pe acest dispozitiv nu este configurată nicio blocare a ecranului. Configurați mai întâi una în setările sistemului.</string>
     <string name="widget_portfolio_name">Portofoliu</string>
     <string name="widget_portfolio_description">Valoarea totală a portofoliului și variația de azi</string>
     <string name="widget_portfolio_today">azi %1$s</string>
     <string name="widget_portfolio_empty">Adăugați achiziții în fila Portofoliu</string>
-    <string name="widget_portfolio_locked">Ascuns – blocarea aplicației este activă</string>
     <string name="a11y_portfolio_widget">Portofoliu %1$s, azi %2$s</string>
     <string name="settings_section_advanced">Avansat</string>
     <string name="settings_advanced_hint">Mod live, notificare permanentă, futures și opțiuni pentru dezvoltatori</string>

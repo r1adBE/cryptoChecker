@@ -46,6 +46,9 @@ final class GateIo: SimpleMarket {
         ticker.high = try json.double("high_24h")
         ticker.low = try json.double("low_24h")
         ticker.last = try json.double("last")
+
+        // change_percentage = gleitende 24 h in Prozent (change_utc0/utc8 wären Tageswerte)
+        ticker.change24hPercent = Change24h.percent(json.optDouble("change_percentage"))
     }
 
     /// Ohne currency_pair-Parameter liefert der Endpunkt alle Paare.

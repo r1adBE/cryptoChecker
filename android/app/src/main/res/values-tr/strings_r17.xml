@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Portföy kilidi</string>
+    <string name="settings_portfolio_lock_hint">Yalnızca portföyü korur: parmak izi, yüz veya cihaz PIN\'i ile kilidi açın. Arka planda bir dakikadan uzun kaldıktan sonra yeniden kilitlenir. İzleme listesi, alarmlar ve diğer widget\'lar açık kalır.</string>
+    <string name="portfolio_locked_title">Portföy kilitli</string>
+    <string name="portfolio_locked_text">Varlıklarınızı ve değerlerini görmek için kilidi açın.</string>
+    <string name="portfolio_lock_reason">Portföyün kilidini aç</string>
+    <string name="widget_portfolio_locked_hint">Kilitli – uygulamada kilidi açın</string>
+    <string name="portfolio_history_range_since_first">İlk alımdan beri</string>
+    <string name="portfolio_history_period_since_first">ilk alımdan beri</string>
+    <string name="portfolio_history_range_since_first_a11y">İlk alımdan beri geçmişi göster</string>
+    <string name="portfolio_history_change_since_first_a11y">İlk alımdan beri değer: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Yalnızca son 5 yılı gösterir.</string>
+    <string name="portfolio_history_expand">Değer geçmişini göster</string>
+    <string name="portfolio_history_collapse">Değer geçmişini gizle</string>
+</resources>

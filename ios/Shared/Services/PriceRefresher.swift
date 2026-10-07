@@ -116,7 +116,7 @@ enum PriceRefresher {
         var notTraded = false
     }
 
-    static let notTradedError = "Wird an der Börse nicht mehr gehandelt"
+    static let notTradedError = NotTraded.marker
 
     /// So lange wartet ein Durchlauf auf die Lease der Alarm-Auswertung; sonst diesmal ohne Alarme.
     static let alarmLeaseWaitSeconds: Double = 5
@@ -139,8 +139,11 @@ enum PriceRefresher {
             return outcome
         }
 
-        // 24-h-Bezüge (Kerzen) parallel zu den Kursen anstossen
-        let dayLoads = startDayReferenceLoads(watches)
+        // 24-h-Bezüge (Kerzen) nur noch als Ausweich-Weg: parallel zu den Kursen nur für Paare,
+        // deren Ticker beim letzten Mal keinen 24-h-Wert hatte; der Rest nach den Kursen.
+        let remembered = candleNeeds.ids
+        let earlyKeys = dayReferenceKeys(watches.filter { remembered.contains($0.id) })
+        let earlyLoads = startDayReferenceLoads(earlyKeys)
 
         // 1) Netz: alle Börsen gleichzeitig, je Börse erst die Sammelabfrage.
         let groups = Dictionary(grouping: watches, by: \.marketKey)
@@ -161,8 +164,16 @@ enum PriceRefresher {
                 if !line.isEmpty { lines.append(line) }
             }
         }
+        let needingCandles = watchesNeedingCandles(watches, fetched: fetched, remember: onlyWatchId == nil)
+        let startedKeys = Set(earlyKeys.map { "\($0.base)|\($0.quote)" })
+        let lateKeys = dayReferenceKeys(needingCandles).filter { !startedKeys.contains("\($0.base)|\($0.quote)") }
+        let lateLoads = startDayReferenceLoads(lateKeys)
+        let dayLoads = Task {
+            await earlyLoads.value
+            await lateLoads.value
+        }
         await waitAtMost(nanos: dayReferenceWaitNanos, for: dayLoads)
-        let dayReferences = await cachedDayReferences(watches)
+        let dayReferences = await cachedDayReferences(needingCandles)
         let networkMillis = TimeUtils.nowMillis - started
 
         // 2) Auswerten
@@ -257,18 +268,20 @@ enum PriceRefresher {
             }
         }
 
+        // Kurs-Mitteilungen entfernen: gesammelt in EINEM Aufruf statt einmal je Paar
+        var cancelIds: [Int64] = []
         for watch in watches {
             outcome.checked += 1
             let result = fetched[watch.id]
             guard let ticker = result?.ticker, result?.error == nil, ticker.last > 0 else {
                 outcome.failed += 1
                 outcome.prices[watch.id] = PriceUpdate(price: nil, time: now, error: result?.error)
-                Notifier.cancelPrice(watch.id)
+                cancelIds.append(watch.id)
                 continue
             }
             let price = ticker.last
             let time = ticker.timestamp > 0 ? ticker.timestamp : now
-            let dayChange = change24h(watch, price: price, references: dayReferences)
+            let dayChange = change24h(watch, price: price, ticker: ticker, references: dayReferences)
             outcome.prices[watch.id] = PriceUpdate(price: price, time: time, error: nil, change24h: dayChange)
 
             var updated = watch
@@ -383,7 +396,7 @@ enum PriceRefresher {
                     outcome.notified[watch.id] = (price, now)
                 }
             } else {
-                Notifier.cancelPrice(watch.id)
+                cancelIds.append(watch.id)
             }
 
             // Ansage
@@ -391,6 +404,8 @@ enum PriceRefresher {
                 outcome.priceSpeech.append((watch.id, SpokenText.price(updated, price)))
             }
         }
+
+        Notifier.cancelPrices(cancelIds)
 
         outcome.durationMillis = TimeUtils.nowMillis - started
         if onlyWatchId == nil {
@@ -427,14 +442,27 @@ enum PriceRefresher {
         return keys
     }
 
+    /// Paare, die beim letzten vollen Durchlauf Kerzen brauchten (Ticker ohne 24-h-Wert).
+    private static let candleNeeds = CandleNeeds()
+
+    /// Paare mit Kurs, deren Ticker keinen brauchbaren 24-h-Wert hat (`DayChange.needsCandles`).
+    /// `remember`: Menge für den nächsten Durchlauf merken (nur bei vollen Durchläufen).
+    private static func watchesNeedingCandles(_ watches: [Watch], fetched: [Int64: Fetched], remember: Bool) -> [Watch] {
+        let needing = watches.filter { watch in
+            guard let ticker = fetched[watch.id]?.ticker else { return false }
+            return DayChange.needsCandles(ticker.change24hPercent)
+        }
+        if remember { candleNeeds.ids = Set(needing.map(\.id)) }
+        return needing
+    }
+
     /// Lädt die 24-h-Bezüge in einer eigenen Aufgabe: Was nach dem Warten noch fehlt,
     /// wird trotzdem fertig geladen und liegt beim nächsten Durchlauf bereit.
-    private static func startDayReferenceLoads(_ watches: [Watch]) -> Task<Void, Never> {
-        let keys = dayReferenceKeys(watches)
-        return Task {
+    private static func startDayReferenceLoads(_ keys: [(base: String, quote: String)]) -> Task<Void, Never> {
+        Task {
             await withTaskGroup(of: Void.self) { group in
                 for key in keys {
-                    group.addTask { _ = await DayReferenceStore.shared.series(base: key.base, quote: key.quote) }
+                    group.addTask { _ = await DayReferenceStore.shared.dayReference(base: key.base, quote: key.quote) }
                 }
             }
         }
@@ -467,16 +495,20 @@ enum PriceRefresher {
         return result
     }
 
-    /// Veränderung über 24 Stunden zum neuen Kurs (siehe `DayChange.select`); nil ohne
-    /// passende Kerzen — nie die Veränderung seit der letzten Abfrage.
-    private static func change24h(_ watch: Watch, price: Double, references: [String: DayReference]) -> Double? {
-        let base = watch.baseAsset.trimmingCharacters(in: .whitespaces).uppercased()
-        let quote = DayChange.candleQuote(watch.quoteAsset)
-        let value = DayChange.select(price: price,
-                                     pairReference: references["\(base)|\(quote)"],
-                                     usdtReference: references["\(base)|\(DayChange.usdtQuote)"],
-                                     quoteIsFiat: DayChange.isFiat(watch.quoteAsset))
-        return value.flatMap { $0.isFinite ? $0 : nil }
+    /// Veränderung über 24 Stunden zum neuen Kurs: zuerst der rollende 24-h-Wert aus dem Ticker
+    /// (gilt für das Paar selbst, also schon in seiner Quote — auch bei Fiat-Quotes), sonst aus
+    /// Kerzen (`DayChange.select`, mit Kursabstand-Prüfung); nil ohne beides — nie die
+    /// Veränderung seit der letzten Abfrage.
+    private static func change24h(_ watch: Watch, price: Double, ticker: Ticker,
+                                  references: [String: DayReference]) -> Double? {
+        DayChange.choose(tickerChange: ticker.change24hPercent) {
+            let base = watch.baseAsset.trimmingCharacters(in: .whitespaces).uppercased()
+            let quote = DayChange.candleQuote(watch.quoteAsset)
+            return DayChange.select(price: price,
+                                    pairReference: references["\(base)|\(quote)"],
+                                    usdtReference: references["\(base)|\(DayChange.usdtQuote)"],
+                                    quoteIsFiat: DayChange.isFiat(watch.quoteAsset))
+        }
     }
 
     // MARK: Netz
@@ -505,14 +537,24 @@ enum PriceRefresher {
             }
         }
 
-        // Einzelabfragen, höchstens vier gleichzeitig je Börse
-        var index = 0
-        while index < singles.count {
-            let batch = Array(singles[index..<min(index + maxParallelPerMarket, singles.count)])
-            index += batch.count
+        // Einzelabfragen, höchstens vier gleichzeitig je Börse — gleitend: sobald eine fertig
+        // ist, startet die nächste (bisher wartete jeder Viererblock auf seine langsamste).
+        if !singles.isEmpty {
             await withTaskGroup(of: (Int64, Fetched).self) { tg in
-                for w in batch { tg.addTask { (w.id, await fetchSingle(w)) } }
-                for await (id, f) in tg { results[id] = f }
+                var next = 0
+                while next < min(maxParallelPerMarket, singles.count) {
+                    let w = singles[next]
+                    tg.addTask { (w.id, await fetchSingle(w)) }
+                    next += 1
+                }
+                while let item = await tg.next() {
+                    results[item.0] = item.1
+                    if next < singles.count {
+                        let w = singles[next]
+                        tg.addTask { (w.id, await fetchSingle(w)) }
+                        next += 1
+                    }
+                }
             }
         }
 
@@ -543,6 +585,18 @@ enum PriceRefresher {
         } catch {
             return Fetched(ticker: nil, error: ConnectionErrors.describe(error), fromSingle: true, millis: TimeUtils.nowMillis - started)
         }
+    }
+}
+
+/// Gemerkte Watch-Ids, deren Ticker beim letzten vollen Durchlauf keinen 24-h-Wert hatte
+/// (threadsicher; App und Hintergrund können gleichzeitig aktualisieren).
+private final class CandleNeeds: @unchecked Sendable {
+    private let lock = NSLock()
+    private var stored = Set<Int64>()
+
+    var ids: Set<Int64> {
+        get { lock.lock(); defer { lock.unlock() }; return stored }
+        set { lock.lock(); stored = newValue; lock.unlock() }
     }
 }
 

@@ -53,8 +53,8 @@ DESUDEN
 • Oplæsning af kurser og alarmer (tekst til tale)
 • Backup og gendannelse til en fil, du selv vælger – også mellem Android og iPhone
 • App-genveje, lys og mørk tilstand
-• Fire accentfarver med matchende appikon
-• Applås: fingeraftryk, ansigt eller pinkode
+• Fem accentfarver med matchende appikon
+• Porteføljelås: fingeraftryk, ansigt eller pinkode
 • Fås på 31 sprog
 
 PRIVATLIV FØRST

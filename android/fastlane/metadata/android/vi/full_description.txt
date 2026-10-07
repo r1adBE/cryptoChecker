@@ -52,8 +52,8 @@ NGOÀI RA
 • Đọc giá và cảnh báo bằng giọng nói
 • Sao lưu & khôi phục vào tệp bạn chọn – cả giữa Android và iPhone
 • Lối tắt ứng dụng, giao diện sáng và tối
-• Bốn màu nhấn với biểu tượng ứng dụng tương ứng
-• Khóa ứng dụng: vân tay, khuôn mặt hoặc PIN
+• Năm màu nhấn với biểu tượng ứng dụng tương ứng
+• Khóa danh mục: vân tay, khuôn mặt hoặc PIN
 • Hỗ trợ 31 ngôn ngữ
 
 QUYỀN RIÊNG TƯ LÀ TRÊN HẾT

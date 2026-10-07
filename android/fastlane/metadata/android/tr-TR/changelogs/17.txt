@@ -5,6 +5,6 @@
 • Kendi para biriminde fiyatlar ve alarmlar
 • Referans tarihli CSV dışa aktarımı
 • Erişilebilir: mavi/turuncu, yüksek kontrast, renk değişimi, TalkBack
-• Tek dokunuşla başlangıç, sessiz saatler, kilit, portföy widget'ı, cümle olarak alarm
+• Tek dokunuşla başlangıç, sessiz saatler, portföy kilidi ve widget'ı, cümle olarak alarm
 • 15 yeni borsa, gas alarmlı ağ ücretleri
 • Widget’ta mum grafik, piyasa değeri

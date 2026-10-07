@@ -119,7 +119,7 @@
     <string name="settings_theme_mode">Tila</string>
     <string name="theme_light">Vaalea</string>
     <string name="theme_dark">Tumma</string>
-    <string name="settings_accent">Väri</string>
+    <string name="settings_accent">Teema</string>
     <string name="accent_orange">Oranssi</string>
     <string name="accent_red">Punainen</string>
     <string name="accent_blue">Sininen</string>

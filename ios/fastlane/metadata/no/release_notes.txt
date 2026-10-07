@@ -12,7 +12,7 @@ Versjon 16.2.2
 • Sveip til venstre for å slette (med Angre), til høyre for favoritt
 • Fanen Marked åpnes umiddelbart med siste data og oppdateres i bakgrunnen
 • Nattro: om natten (f.eks. 23–7) kommer alarmer lydløst – uten lyd, vibrasjon eller opplesning
-• Applås med Face ID, Touch ID eller kode
+• Porteføljelås med Face ID, Touch ID eller kode
 • Portefølje-widget for Hjem- og låseskjerm: samlet verdi i din valuta og endring i dag
 • Hver alarm som en setning: «Gi meg beskjed når BTC faller under 60 000 CHF.»
 • Korte forklaringer av funding rate, open interest, RSI og Pi Cycle
@@ -30,4 +30,4 @@ Versjon 16.2.2
 • Widget med én mynt: lys eller linje, grafperiode 24 t, 7 eller 30 dager, merker for høy, midt og lav, gjeldende kurs uthevet
 • Fanen Marked: kryptomarkedets samlede markedsverdi og 24 t-volum i din valuta
 • Futures: funding rate og open interest
-• Fire aksentfarger med matchende appsymboler
+• Fem aksentfarger med matchende appsymboler

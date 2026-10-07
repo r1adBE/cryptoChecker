@@ -146,6 +146,36 @@ struct Ticker: Sendable, Codable, Equatable {
     var last: Double = Ticker.noData
     /// Millisekunden seit 1970; 0 = unbekannt.
     var timestamp: Int64 = 0
+    /// Gleitende 24-h-Veränderung in Prozent (1.5 = +1,5 %), wie sie die Börse
+    /// im Ticker liefert; nil, wenn die Börse keinen gleitenden 24-h-Wert hat
+    /// (dann rechnet die App mit Stundenkerzen). Tageswerte seit Mitternacht
+    /// (UTC, KST, …) gehören nicht hierher. Siehe DEVELOPMENT.md, «24 h change».
+    var change24hPercent: Double? = nil
+}
+
+/// Rechnet die 24-h-Angaben der Börsen in Prozent um (1.5 = +1,5 %) — wie
+/// `Change24h` in der Android-Fassung. Nur für GLEITENDE 24-h-Werte verwenden;
+/// Tageswerte seit Mitternacht (Kraken „o“, Upbit/Bithumb „signed_change_rate“)
+/// bleiben weg. Fehlt ein Wert oder ist er unbrauchbar (NaN, ∞, Eröffnung ≤ 0),
+/// ist das Ergebnis nil. `optDouble(_:)` liefert für ein fehlendes Feld NaN.
+enum Change24h {
+    /// Wert ist schon in Prozent (z. B. Binance „priceChangePercent“).
+    static func percent(_ value: Double) -> Double? { value.isFinite ? value : nil }
+
+    /// Wert ist ein Bruchteil, 0.015 = +1,5 % (z. B. Bybit „price24hPcnt“).
+    static func fraction(_ value: Double) -> Double? { value.isFinite ? value * 100 : nil }
+
+    /// Aus dem Kurs von vor 24 Stunden (z. B. OKX „open24h“).
+    static func fromOpen(last: Double, open: Double) -> Double? {
+        guard last.isFinite, open.isFinite, last > 0, open > 0 else { return nil }
+        return (last - open) / open * 100
+    }
+
+    /// Aus der absoluten Veränderung in 24 Stunden: Eröffnung = letzter Kurs − Veränderung.
+    static func fromAbsolute(last: Double, change: Double) -> Double? {
+        guard change.isFinite else { return nil }
+        return fromOpen(last: last, open: last - change)
+    }
 }
 
 /// Body (und Kopfzeilen) für eine POST-Anfrage.

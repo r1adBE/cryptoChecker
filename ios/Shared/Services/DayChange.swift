@@ -16,8 +16,11 @@ struct DayReference: Sendable, Equatable {
 /// Veränderung über 24 Stunden für Prozent-Pille, Puls-Zeile, Widgets und Live Activity —
 /// wie `DayChange.kt`.
 ///
-/// Die Börsen-Ticker liefern keinen eigenen 24-h-Wert (`Ticker` kennt nur
-/// bid/ask/vol/high/low/last), deshalb kommt der Bezug aus Stundenkerzen:
+/// Reihenfolge (`choose`):
+///  0. Rollende 24-h-Veränderung, die die Börse im Ticker mitliefert (`Ticker.change24hPercent`,
+///     siehe DEVELOPMENT.md «24 h change») — gilt für das Paar selbst, also schon in seiner
+///     Quote. Nur endlich und |x| < `maxTickerChange`.
+/// Fehlt er, kommt der Bezug aus Stundenkerzen (`select`):
 ///  1. Kerzen des Paars selbst (USD-artige Quotes teilen sich die USDT-Reihe des
 ///     Mini-Charts): aktueller Kurs gegen die Eröffnung vor 24 h.
 ///  2. Fiat-Quote ohne eigene Kerzen (z. B. BTC/CHF): Verlauf der USDT-Reihe allein
@@ -63,6 +66,26 @@ enum DayChange {
         if let pairReference { return fromPrice(price, pairReference) }
         if quoteIsFiat { return fromSeries(usdtReference) }
         return nil
+    }
+
+    /// Grösster plausibler Betrag (Prozent) für den 24-h-Wert aus dem Ticker.
+    static let maxTickerChange = 10_000.0
+
+    /// 24-h-Wert aus dem Ticker, wenn brauchbar (endlich, |x| < `maxTickerChange`); sonst nil.
+    static func fromTicker(_ change24hPercent: Double?) -> Double? {
+        guard let value = change24hPercent, value.isFinite, abs(value) < maxTickerChange else { return nil }
+        return value
+    }
+
+    /// Kerzen nötig? Nur wenn der Ticker keinen brauchbaren 24-h-Wert hat.
+    static func needsCandles(_ tickerChange: Double?) -> Bool { fromTicker(tickerChange) == nil }
+
+    /// Endgültiger Wert: Ticker vor Kerzen. `candles` wird nur ausgewertet, wenn der Ticker
+    /// nichts Brauchbares liefert (Kerzenwert mit den Prüfungen aus `select`).
+    static func choose(tickerChange: Double?, candles: () -> Double?) -> Double? {
+        if let value = fromTicker(tickerChange) { return value }
+        guard let value = candles(), value.isFinite else { return nil }
+        return value
     }
 
     /// Quote ist eine Landeswährung (gleiche Liste wie die Umrechnung).

@@ -52,8 +52,8 @@ E INOLTRE
 • Lettura vocale di prezzi e allarmi (sintesi vocale)
 • Backup e ripristino in un file a tua scelta – anche tra Android e iPhone
 • Scorciatoie dell'app, tema chiaro e scuro
-• Quattro colori d'accento con icona dell'app abbinata
-• Blocco app: impronta, volto o PIN
+• Cinque colori d'accento con icona dell'app abbinata
+• Blocco portafoglio: impronta, volto, PIN
 • Disponibile in 31 lingue
 
 PRIVACY AL PRIMO POSTO

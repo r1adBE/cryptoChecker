@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">إلى</string>
     <string name="channel_alarms_quiet">التنبيهات (ساعات الصمت)</string>
     <string name="channel_alarms_quiet_description">تنبيهات صامتة خلال ساعات الصمت.</string>
-    <string name="settings_app_lock">قفل التطبيق</string>
-    <string name="settings_app_lock_hint">افتح القفل ببصمة الإصبع أو الوجه أو رمز PIN للجهاز إذا بقي التطبيق في الخلفية أكثر من دقيقة.</string>
-    <string name="app_lock_title">Crypto Checker مقفل</string>
     <string name="app_lock_unlock">فتح القفل</string>
-    <string name="app_lock_reason">فتح قفل Crypto Checker</string>
     <string name="app_lock_unavailable">لم يتم إعداد قفل شاشة على هذا الجهاز. أعِدّ قفلًا في إعدادات النظام أولًا.</string>
     <string name="widget_portfolio_name">المحفظة</string>
     <string name="widget_portfolio_description">القيمة الإجمالية لمحفظتك وتغيّر اليوم</string>
     <string name="widget_portfolio_today">اليوم %1$s</string>
     <string name="widget_portfolio_empty">أضف عمليات الشراء في تبويب «المحفظة»</string>
-    <string name="widget_portfolio_locked">مخفي – قفل التطبيق مفعّل</string>
     <string name="a11y_portfolio_widget">المحفظة %1$s، اليوم %2$s</string>
     <string name="settings_section_advanced">متقدم</string>
     <string name="settings_advanced_hint">الوضع المباشر، الإشعار الدائم، العقود الآجلة وخيارات المطوّر</string>

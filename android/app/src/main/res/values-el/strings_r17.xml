@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Κλείδωμα χαρτοφυλακίου</string>
+    <string name="settings_portfolio_lock_hint">Προστατεύει μόνο το χαρτοφυλάκιο: ξεκλείδωμα με δακτυλικό αποτύπωμα, πρόσωπο ή PIN συσκευής. Κλειδώνει ξανά μετά από περισσότερο από ένα λεπτό στο παρασκήνιο. Η λίστα παρακολούθησης, οι ειδοποιήσεις και τα άλλα widget μένουν ανοιχτά.</string>
+    <string name="portfolio_locked_title">Το χαρτοφυλάκιο είναι κλειδωμένο</string>
+    <string name="portfolio_locked_text">Ξεκλειδώστε για να δείτε τις θέσεις και τις αξίες σας.</string>
+    <string name="portfolio_lock_reason">Ξεκλείδωμα χαρτοφυλακίου</string>
+    <string name="widget_portfolio_locked_hint">Κλειδωμένο – ξεκλειδώστε στην εφαρμογή</string>
+    <string name="portfolio_history_range_since_first">Από 1η αγορά</string>
+    <string name="portfolio_history_period_since_first">από την πρώτη αγορά</string>
+    <string name="portfolio_history_range_since_first_a11y">Εμφάνιση εξέλιξης από την πρώτη αγορά</string>
+    <string name="portfolio_history_change_since_first_a11y">Αξία από την πρώτη αγορά: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Εμφανίζει μόνο τα τελευταία 5 έτη.</string>
+    <string name="portfolio_history_expand">Εμφάνιση εξέλιξης αξίας</string>
+    <string name="portfolio_history_collapse">Απόκρυψη εξέλιξης αξίας</string>
+</resources>

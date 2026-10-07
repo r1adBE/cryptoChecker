@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONArray
 import org.json.JSONObject
@@ -51,6 +52,9 @@ class GateIo : SimpleMarket(
         ticker.high = json.getDouble("high_24h")
         ticker.low = json.getDouble("low_24h")
         ticker.last = json.getDouble("last")
+
+        // change_percentage = gleitende 24 h in Prozent (change_utc0/utc8 wären Tageswerte)
+        ticker.change24hPercent = Change24h.percent(json.optDouble("change_percentage"))
     }
 
     /** Ohne currency_pair-Parameter liefert der Endpunkt alle Paare. */

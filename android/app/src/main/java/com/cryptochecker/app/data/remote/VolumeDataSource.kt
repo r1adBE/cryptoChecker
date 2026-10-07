@@ -34,22 +34,24 @@ class VolumeDataSource @Inject constructor(
     /**
      * Die letzten [LIMIT] Stundenkerzen, zeitlich aufsteigend; die letzte läuft noch.
      * null, wenn keine Quelle der Ausweich-Kette das Paar führt.
+     * [futures] = Futures-Paar: Kerzen zuerst vom USDⓈ-M-Markt (fapi), nicht vom Spot.
      */
-    suspend fun hourlyCandles(baseAsset: String, quoteAsset: String): List<HourCandle>? {
+    suspend fun hourlyCandles(baseAsset: String, quoteAsset: String, futures: Boolean = false): List<HourCandle>? {
         val symbol = symbol(baseAsset, quoteAsset) ?: return null
+        val key = if (futures) "$symbol|F" else symbol
         val now = System.currentTimeMillis()
-        cache[symbol]?.let { (time, value) ->
+        cache[key]?.let { (time, value) ->
             if (now - time in 0 until CACHE_MILLIS) return value
         }
 
-        val result = fetch(baseAsset, quoteAsset)
-        cache[symbol] = System.currentTimeMillis() to result
+        val result = fetch(baseAsset, quoteAsset, futures)
+        cache[key] = System.currentTimeMillis() to result
         return result
     }
 
     /** Über die Ausweich-Kette (Binance, Binance.US, Coinbase), siehe [CandleDataSource]. */
-    private suspend fun fetch(baseAsset: String, quoteAsset: String): List<HourCandle>? =
-        candleDataSource.candles(baseAsset, quoteAsset, CandleInterval.H1, LIMIT)
+    private suspend fun fetch(baseAsset: String, quoteAsset: String, futures: Boolean): List<HourCandle>? =
+        candleDataSource.candles(baseAsset, quoteAsset, CandleInterval.H1, LIMIT, preferFutures = futures)
 
     companion object {
         /** Genug für 24 Vergleichsrenditen + letzte abgeschlossene + laufende Stunde, mit Reserve. */

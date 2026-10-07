@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Nem kereskedett párok eltávolítása (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Nem kereskedett párok eltávolítása</string>
+    <string name="watchlist_remove_not_traded_action">Eltávolítás</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Eltávolítja a párt (%1$d), amellyel már nem kereskednek a tőzsdéjén? A riasztásai is törlődnek.</item>
+        <item quantity="other">Eltávolítja a párokat (%1$d), amelyekkel már nem kereskednek a tőzsdéjükön? A riasztásaik is törlődnek.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d nem kereskedett pár eltávolítva</item>
+        <item quantity="other">%1$d nem kereskedett pár eltávolítva</item>
+    </plurals>
+</resources>

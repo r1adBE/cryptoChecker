@@ -127,7 +127,7 @@
     <string name="settings_theme_mode">Tryb</string>
     <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
-    <string name="settings_accent">Kolor</string>
+    <string name="settings_accent">Motyw</string>
     <string name="accent_orange">Pomarańczowy</string>
     <string name="accent_red">Czerwony</string>
     <string name="accent_blue">Niebieski</string>

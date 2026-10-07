@@ -58,6 +58,12 @@ enum Notifier {
         center.removeDeliveredNotifications(withIdentifiers: [priceId(watchId)])
     }
 
+    /// Wie `cancelPrice`, für viele Paare in EINEM Aufruf (Aktualisierung mit hunderten Paaren).
+    static func cancelPrices(_ watchIds: [Int64]) {
+        guard !watchIds.isEmpty else { return }
+        center.removeDeliveredNotifications(withIdentifiers: watchIds.map(priceId))
+    }
+
     // MARK: Alarm
 
     /// `volumeRatio` nur beim Volumen-Spike: Volumen der letzten Stunde im Vergleich zum Schnitt.

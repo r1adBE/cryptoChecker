@@ -51,8 +51,8 @@ GJITHASHTU
 • Dalja zanore: çmimet dhe alarmet lexohen me zë
 • Ruajtje dhe rikthim në një skedar që zgjedh vetë – edhe mes Android dhe iPhone
 • Shkurtore të aplikacionit, modalitet i çelët dhe i errët
-• Katër ngjyra theksi me ikonë përkatëse të aplikacionit
-• Kyçja: gjurmë gishti, fytyrë ose PIN
+• Pesë ngjyra theksi me ikonë përkatëse të aplikacionit
+• Kyçja e portofolit: gjurmë, fytyrë ose PIN
 • E disponueshme në 31 gjuhë
 
 PRIVATËSIA NË RADHË TË PARË

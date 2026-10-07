@@ -38,7 +38,7 @@ Inhalt der Sicherung:
 - Notiz bei BTC: «Ø 77 500 USDT» (sprachneutral)
 - Alarm: BTC/USDT unter 90 000 CHF (Alarmwährung CHF)
 - Portfolio: Kauf 0,05 BTC zu 77 500 USDT (8.4.2025), 1,2 ETH zu 2400 USDT (20.6.2025), 10 SOL zu 165 USDT (1.8.2025)
-- Einstellungen: Umrechnungswährung CHF, umgerechnete Kurse an, Mini-Chart an, Portfolio an, heller Modus, Akzent Orange, Kursfarben Grün/Rot, keine dauernde Kurs-Mitteilung, App-Sperre aus, Nachtruhe aus
+- Einstellungen: Umrechnungswährung CHF, umgerechnete Kurse an, Mini-Chart an, Portfolio an, heller Modus, Akzent Orange, Kursfarben Grün/Rot, keine dauernde Kurs-Mitteilung, Portfolio-Sperre aus, Nachtruhe aus
 
 «Farben tauschen» ist bewusst **nicht** in der Sicherung: In China, Japan, Korea und Taiwan bleibt so die Gerätevorgabe (Rot steigend) erhalten. Wer für `ja-JP`, `ko-KR` und `zh-CN` die ostasiatischen Farben zeigen will, prüft das in den Einstellungen.
 
@@ -116,7 +116,7 @@ python3 tools/frame_screenshots.py --align center                     # Text zen
 
 Orange ist die Erkennungsfarbe von Crypto Checker: App-Icon (Glocke), Standard-Akzent bei neuen Installationen, Rahmen-Hintergrund von `frame_screenshots.py` (#DD6F48 → #BE532C) und die Feature-Grafiken in `docs/store/`. **Alle Marketing-Bilder** (Screenshots, Feature-Grafik, Promo-Bilder) zeigen deshalb den Akzent Orange und das orange Icon.
 
-Blau, Grün und Rot sind optionale Themes, die man in der App wählen kann. Sie können im Beschreibungstext erwähnt werden, gehören aber nicht in die Store-Bilder. Die alten blauen Globus-Grafiken sind nicht mehr Teil der Marke und dürfen nicht verwendet werden.
+Blau, Grün, Rot und Marrs Green sind optionale Themes, die man in der App wählen kann. Sie können im Beschreibungstext erwähnt werden, gehören aber nicht in die Store-Bilder. Die alten blauen Globus-Grafiken sind nicht mehr Teil der Marke und dürfen nicht verwendet werden.
 
 ## Inhaltliche Regeln
 

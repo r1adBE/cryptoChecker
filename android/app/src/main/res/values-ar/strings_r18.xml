@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">إلى البداية</string>
+    <string name="watchlist_jump_end">إلى النهاية</string>
+    <string name="settings_activity_sensitivity">الحساسية</string>
+    <string name="settings_activity_sensitivity_hint">مدى سهولة اعتبار العملة غير عادية – بالتساوي لبطاقة قائمة المتابعة والإشعارات. مع «أقل» تعرض البطاقة أقوى 3 فقط.</string>
+    <string name="activity_sensitivity_less">أقل</string>
+    <string name="activity_sensitivity_normal">عادي</string>
+    <string name="activity_sensitivity_more">أكثر</string>
+    <string name="activity_adjust">ضبط</string>
+    <string name="activity_adjust_a11y">ضبط الحساسية</string>
+</resources>

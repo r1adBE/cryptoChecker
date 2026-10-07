@@ -25,6 +25,8 @@ final class Phemex: PhemexBase {
         ticker.vol = scaled("volumeEv")
         ticker.volQuote = scaled("turnoverEv")
         ticker.timestamp = PhemexBase.nanosToMillis(json)
+        // 24-h-Ticker: openEp = Kurs vor 24 h
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: scaled("openEp"))
     }
 
     override func bulkTickersURL(requestId: Int) -> String? { "https://api.phemex.com/md/spot/ticker/24hr/all" }
@@ -46,6 +48,8 @@ final class PhemexFutures: PhemexBase {
         ticker.vol = json.optDoubleNoData("volumeRq")
         ticker.volQuote = json.optDoubleNoData("turnoverRv")
         ticker.timestamp = PhemexBase.nanosToMillis(json)
+        // 24-h-Ticker: openRp = Kurs vor 24 h
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("openRp"))
     }
 
     override func bulkTickersURL(requestId: Int) -> String? { "https://api.phemex.com/md/v2/ticker/24hr/all" }

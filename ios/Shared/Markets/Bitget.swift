@@ -87,6 +87,8 @@ enum BitgetTicker {
         ticker.vol = json.optDoubleNoData("baseVolume")
         ticker.volQuote = json.optDoubleNoData("quoteVolume")
         ticker.timestamp = json.optLong("ts")
+        // change24h = gleitende 24 h als Bruchteil; changeUtc24h (seit 0 Uhr UTC) bleibt weg.
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("change24h"))
     }
 
     static func readAll(_ response: String) throws -> [String: Ticker] {

@@ -44,6 +44,9 @@ final class Poloniex: SimpleMarket {
         ticker.vol = json.optDoubleNoData("quantity")
         ticker.volQuote = json.optDoubleNoData("amount")
         ticker.timestamp = json.optLong("ts")
+        // ticker24h: open = Kurs vor 24 h; dailyChange (Bruchteil) nur als Ersatz.
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("open"))
+            ?? Change24h.fraction(json.optDouble("dailyChange"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

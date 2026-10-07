@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Ta bort par utan handel (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Ta bort par utan handel</string>
+    <string name="watchlist_remove_not_traded_action">Ta bort</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Ta bort %1$d par som inte längre handlas på sin börs? Dess larm tas också bort.</item>
+        <item quantity="other">Ta bort %1$d par som inte längre handlas på sin börs? Deras larm tas också bort.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d par utan handel borttaget</item>
+        <item quantity="other">%1$d par utan handel borttagna</item>
+    </plurals>
+</resources>

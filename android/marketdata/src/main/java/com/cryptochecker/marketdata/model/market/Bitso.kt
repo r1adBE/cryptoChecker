@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.TimeUtils
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
@@ -40,6 +41,8 @@ class Bitso : SimpleMarket(
         ticker.low = json.optDoubleNoData("low")
         ticker.vol = json.optDoubleNoData("volume")
         ticker.timestamp = runCatching { TimeUtils.convertISODateToTimestamp(json.optString("created_at")) }.getOrDefault(0L)
+        // change_24 = absolute Veränderung der letzten 24 h
+        ticker.change24hPercent = Change24h.fromAbsolute(ticker.last, json.optDouble("change_24"))
     }
 
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? =

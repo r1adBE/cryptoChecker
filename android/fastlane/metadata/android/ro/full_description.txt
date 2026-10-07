@@ -51,8 +51,8 @@ WIDGETURI ȘI NOTIFICĂRI
 • Ieșire vocală: prețurile și alarmele sunt citite cu voce tare
 • Backup și restaurare într-un fișier ales de tine – și între Android și iPhone
 • Comenzi rapide, mod luminos și întunecat
-• Patru culori de accent cu pictogramă a aplicației asortată
-• Blocare: amprentă, față sau PIN
+• Cinci culori de accent cu pictogramă a aplicației asortată
+• Blocarea portofoliului: amprentă, față sau PIN
 • Disponibilă în 31 de limbi
 
 CONFIDENȚIALITATEA ÎNAINTE DE TOATE

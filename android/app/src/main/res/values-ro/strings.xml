@@ -121,7 +121,7 @@
     <string name="settings_theme_mode">Mod</string>
     <string name="theme_light">Luminos</string>
     <string name="theme_dark">Întunecat</string>
-    <string name="settings_accent">Culoare</string>
+    <string name="settings_accent">Temă</string>
     <string name="accent_orange">Portocaliu</string>
     <string name="accent_red">Roșu</string>
     <string name="accent_blue">Albastru</string>

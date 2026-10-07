@@ -52,8 +52,8 @@ DAHASI
 • Sesli çıkış: fiyatlar ve alarmlar yüksek sesle okunur
 • Seçtiğin bir dosyaya yedekleme ve geri yükleme – Android ile iPhone arasında da
 • Uygulama kısayolları, açık ve koyu mod
-• Uyumlu uygulama simgesiyle dört vurgu rengi
-• Uygulama kilidi: parmak izi, yüz veya PIN
+• Uyumlu uygulama simgesiyle beş vurgu rengi
+• Portföy kilidi: parmak izi, yüz veya PIN
 • 31 dilde kullanılabilir
 
 ÖNCE GİZLİLİK

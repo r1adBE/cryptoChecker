@@ -14,13 +14,21 @@ enum WatchlistActivityColors {
 
 /// Noch gültige Signale je Paar (stärkstes zuerst); Paare ohne Signal fehlen.
 enum WatchlistActivity {
-    static func activeSignals(_ reports: [Int64: ActivityReport], now: Int64) -> [Int64: [ActivitySignal]] {
+    /// Nach der gewählten Empfindlichkeit neu beurteilt (gleiche Schwellen wie die Mitteilungen).
+    static func activeSignals(_ reports: [Int64: ActivityReport], now: Int64,
+                              sensitivity: ActivitySensitivity) -> [Int64: [ActivitySignal]] {
         var out: [Int64: [ActivitySignal]] = [:]
         for (id, report) in reports {
-            let active = report.active(now: now)
-            if !active.isEmpty { out[id] = active }
+            let signals = active(report, now: now, sensitivity: sensitivity)
+            if !signals.isEmpty { out[id] = signals }
         }
         return out
+    }
+
+    /// Gültige Signale eines Paars nach der Empfindlichkeit, stärkstes zuerst.
+    static func active(_ report: ActivityReport?, now: Int64, sensitivity: ActivitySensitivity) -> [ActivitySignal] {
+        guard let report else { return [] }
+        return ActivityAnalyzer.applySensitivity(report.active(now: now), sensitivity)
     }
 
     /// Paare der aktuellen Ansicht mit Signalen, starke zuerst, sonst Listenreihenfolge.
@@ -64,15 +72,22 @@ struct WatchlistActivityBolt: View {
 @MainActor
 struct WatchlistActivityCard: View {
     let hot: [Watch]
+    /// Höchstens so viele Coins (Empfindlichkeit «Weniger»: die 3 stärksten); nil = alle.
+    var limit: Int? = nil
     let onOpen: (Watch) -> Void
+    /// «Anpassen»: öffnet die Einstellung «Empfindlichkeit»; nil = ohne Link.
+    var onAdjust: (() -> Void)? = nil
 
+    @Environment(\.appAccent) private var accent
     @State private var expanded = false
     private static let maxCoins = 4
 
     var body: some View {
         // Gleicher Coin an mehreren Börsen: einmal zeigen
         var seen = Set<String>()
-        let coins = hot.filter { seen.insert($0.baseAsset.uppercased()).inserted }
+        let distinct = hot.filter { seen.insert($0.baseAsset.uppercased()).inserted }
+        // `hot` ist nach Stärke sortiert
+        let coins = limit.map { Array(distinct.prefix($0)) } ?? distinct
         let shown = Array(coins.prefix(Self.maxCoins))
         let more = coins.count - shown.count
         let visible = expanded ? coins : shown
@@ -91,6 +106,19 @@ struct WatchlistActivityCard: View {
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
                     .minimumScaleFactor(0.85)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                // Kleiner Link zur Empfindlichkeit (zu viele/zu wenige Coins markiert?)
+                if let onAdjust {
+                    Button(L("activity_adjust")) {
+                        WatchlistHaptics.selection()
+                        onAdjust()
+                    }
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(accent.primary)
+                    .buttonStyle(.borderless)
+                    .lineLimit(1)
+                    .accessibilityLabel(L("activity_adjust_a11y"))
+                }
             }
 
             FlowLayout(spacing: 8) {
@@ -175,10 +203,10 @@ struct WatchlistWhySheet: View {
     @State private var attempt = 0
 
     var body: some View {
-        if let watch = data.watch(watchId) {
+        if let watch = data.watch(watchId), !watch.isNotTraded {
             content(watch)
         } else {
-            // Paar wurde inzwischen gelöscht
+            // Paar wurde inzwischen gelöscht — oder wird nicht mehr gehandelt (kein Urteil auf alten Daten)
             Color.clear.onAppear { dismiss() }
         }
     }
@@ -188,7 +216,8 @@ struct WatchlistWhySheet: View {
             if case .loaded(let r) = state { return r }
             return nil
         }()
-        let signals = data.activityReports[watch.id]?.active(now: TimeUtils.nowMillis) ?? []
+        let signals = WatchlistActivity.active(data.activityReports[watch.id], now: TimeUtils.nowMillis,
+                                               sensitivity: data.settings.activitySensitivity)
 
         return ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -228,11 +257,17 @@ struct WatchlistWhySheet: View {
                 .padding(.bottom, 16)
 
                 // «Kurz gesagt»: erstes und wichtigstes Element, aus denselben Gründen wie darunter
-                if let report, report.hasMarketData {
+                // (beim Laden ein form-gleicher Platzhalter an derselben Stelle)
+                if state == .loading {
+                    WatchlistWhySkeleton(part: .summary)
+                        .padding(.bottom, 12)
+                        .transition(.opacity)
+                } else if let report, report.hasMarketData {
                     let summary = WhySummary.keys(report.reasons)
                     if !summary.isEmpty {
                         WatchlistWhySummaryCard(text: summary.map { L($0) }.joined(separator: " "))
                             .padding(.bottom, 12)
+                            .transition(.opacity)
                     }
                 }
 
@@ -257,7 +292,7 @@ struct WatchlistWhySheet: View {
 
                 switch state {
                 case .loading:
-                    WatchlistWhySkeleton()
+                    WatchlistWhySkeleton(part: .reasons)
                         .transition(.opacity)
                 case .failed:
                     WatchlistWhyEmpty(onRetry: { attempt += 1 })
@@ -270,7 +305,8 @@ struct WatchlistWhySheet: View {
                             WatchlistWhyChecklist(reasons: r.reasons)
                         }
                     }
-                    .transition(reduceMotion ? .opacity : .opacity.combined(with: .move(edge: .bottom)))
+                    // Nur überblenden: der Platzhalter hat dieselbe Form, nichts rückt nach
+                    .transition(.opacity)
                 }
 
                 // Fusszeile: Hinweis und Datenzeit
@@ -346,6 +382,7 @@ private struct WatchlistWhyChecklist: View {
     let reasons: [WhyReason]
 
     @Environment(\.appAccent) private var accent
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showDetails = false
 
     var body: some View {
@@ -362,7 +399,10 @@ private struct WatchlistWhyChecklist: View {
             if hasHidden {
                 Button {
                     WatchlistHaptics.selection()
-                    showDetails.toggle()
+                    // Karte wächst weich im ScrollView; das Blatt (feste Höhe) bleibt stehen
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.22)) {
+                        showDetails.toggle()
+                    }
                 } label: {
                     Text(L(showDetails ? "why_details_hide" : "why_details"))
                         .font(.subheadline.weight(.semibold))
@@ -513,15 +553,21 @@ private struct WatchlistWhySummaryCard: View {
     }
 }
 
-/// Drei ruhig pulsierende Platzhalter-Karten (bei reduzierter Bewegung stehend).
+/// Platzhalter in der Form des geladenen Inhalts — «Kurz gesagt» bzw. die Checkliste mit
+/// fünf Zeilen und «Details anzeigen» —, mit echten Schriften und `.redacted`, damit die
+/// Höhen auch bei grosser Schrift stimmen und beim Eintreffen nichts springt. Pulsiert
+/// ruhig, bei reduzierter Bewegung stehend.
 private struct WatchlistWhySkeleton: View {
+    enum Part { case summary, reasons }
+    let part: Part
+
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         if reduceMotion {
-            rows.opacity(0.7).accessibilityHidden(true)
+            shape.opacity(0.7).accessibilityHidden(true)
         } else {
-            rows
+            shape
                 .phaseAnimator([0.45, 1.0]) { view, phase in
                     view.opacity(phase)
                 } animation: { _ in
@@ -531,25 +577,28 @@ private struct WatchlistWhySkeleton: View {
         }
     }
 
-    private var rows: some View {
-        VStack(spacing: 10) {
-            ForEach(0..<3, id: \.self) { _ in
-                HStack(spacing: 12) {
-                    Circle().fill(AppColors.containerHighest).frame(width: 36, height: 36)
-                    VStack(alignment: .leading, spacing: 8) {
-                        RoundedRectangle(cornerRadius: 7, style: .continuous)
-                            .fill(AppColors.containerHighest)
-                            .frame(width: 180, height: 14)
-                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                            .fill(AppColors.containerHighest)
-                            .frame(maxWidth: 230)
-                            .frame(height: 10)
-                    }
-                    Spacer(minLength: 0)
+    @ViewBuilder
+    private var shape: some View {
+        switch part {
+        case .summary:
+            WatchlistWhySummaryCard(text: L("why_summary_market"))
+                .redacted(reason: .placeholder)
+        case .reasons:
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(0..<ActivityAnalyzer.maxReasons, id: \.self) { _ in
+                    FactorRow(mark: .neutral, title: L("factor_volume"), value: "0.00×")
                 }
-                .padding(14)
-                .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                // Höhe des Knopfs «Details anzeigen»
+                Text(L("why_details"))
+                    .font(.subheadline.weight(.semibold))
+                    .padding(.vertical, 6)
+                    .padding(.top, 4)
             }
+            .redacted(reason: .placeholder)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
     }
 }

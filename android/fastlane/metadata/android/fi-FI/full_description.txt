@@ -52,8 +52,8 @@ LISÄKSI
 • Puhuttu tuloste: hinnat ja hälytykset luetaan ääneen
 • Varmuuskopio ja palautus valitsemaasi tiedostoon – myös Androidin ja iPhonen välillä
 • Sovelluksen pikakuvakkeet, vaalea ja tumma tila
-• Neljä korostusväriä ja niihin sopiva sovelluskuvake
-• Sovelluslukitus: sormenjälki, kasvot tai PIN
+• Viisi korostusväriä ja niihin sopiva sovelluskuvake
+• Salkun lukitus: sormenjälki, kasvot tai PIN
 • Saatavilla 31 kielellä
 
 YKSITYISYYS ENSIN

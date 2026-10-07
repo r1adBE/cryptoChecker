@@ -66,6 +66,8 @@ struct TurnoverSample: Codable, Equatable, Sendable {
 /// ≤ −0.03 %. Keine Prognose, keine Empfehlung.
 enum MarketUnusual {
     static let relativePp = 3.0
+    /// Ein 24-h-Ticker gilt als laufend, wenn sein Fenster höchstens so lange zurück endet.
+    static let tickerStaleMillis: Int64 = 2 * 60 * 60_000
     static let againstMinPercent = 2.0
     static let btcDirectionMinPercent = 0.5
     static let volumeRatio = 2.0
@@ -77,6 +79,15 @@ enum MarketUnusual {
     static let historyDays: Int64 = 14
     private static let extraFactBonus = 0.25
     private static let againstWeight = 1.25
+
+    /// Wird das Paar im Spot noch gehandelt? Ein delistetes Paar (Binance: Status BREAK)
+    /// liefert weiter einen Ticker, aber mit eingefrorenen Werten: Fensterende (`closeTime`,
+    /// ms) lange vorbei oder keine Abschlüsse (`tradeCount`). Fehlt ein Feld, zählt der Ticker.
+    static func isLiveTicker(closeTime: Int64?, tradeCount: Int64?, now: Int64) -> Bool {
+        if let tradeCount, tradeCount <= 0 { return false }
+        if let closeTime, closeTime > 0, now - closeTime > tickerStaleMillis { return false }
+        return true
+    }
 
     static func turnover(_ coin: UnusualCoin) -> Double? {
         guard let volume = coin.quoteVolume, let cap = coin.marketCap,

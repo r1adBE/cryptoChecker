@@ -17,6 +17,8 @@ private struct WatchlistSheetTarget: Identifiable, Equatable {
 struct WatchlistScreen: View {
     @EnvironmentObject private var data: AppData
     @EnvironmentObject private var router: AppRouter
+    /// Portfolio-Sperre: «Zum Portfolio hinzufügen» erst nach dem Entsperren.
+    @ObservedObject private var lock = AppLock.shared
     @Environment(\.appAccent) private var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// Mit VoiceOver keine Wisch-Aktionen — dort gibt es dieselben Aktionen im Rotor.
@@ -35,6 +37,8 @@ struct WatchlistScreen: View {
     @State private var pendingPortfolio: Int64?
     @State private var portfolioDraft: PortfolioTxDraft?
     @State private var askClearAll = false
+    /// «Nicht gehandelte Paare entfernen»: Rückfrage offen?
+    @State private var askRemoveNotTraded = false
     @State private var showReport = false
     @State private var showOverview = false
     @State private var alarmsFor: Int64?
@@ -62,6 +66,15 @@ struct WatchlistScreen: View {
     /// Haptik beim Wischen: Favorit (leicht) bzw. Löschen.
     @State private var swipeFavoriteTick = 0
     @State private var swipeDeleteTick = 0
+    /// «Anpassen» in der Aktivitätskarte: Markt-Meldungen (Empfindlichkeit) öffnen.
+    @State private var showActivitySettings = false
+    /// Sprungknopf «Zum Anfang» / «Zum Ende»: sichtbare Zeilen, Richtung, Scrollzustand.
+    @State private var jumpTracker = WatchlistJumpTracker()
+    @State private var jumpDown = true
+    @State private var jumpScrolled = false
+    @State private var jumpHideTask: Task<Void, Never>?
+    /// iOS 18: Liste wird gerade gescrollt (Scrollphase nicht «idle»).
+    @State private var scrollActive = false
 
     init() {}
 
@@ -76,7 +89,7 @@ struct WatchlistScreen: View {
                 if watches.isEmpty {
                     emptyState
                 } else {
-                    list(visible)
+                    list(visible, proxy: proxy)
                 }
             }
             .onChange(of: router.focusWatchId, initial: true) { _, id in
@@ -138,7 +151,10 @@ struct WatchlistScreen: View {
         .sheet(item: $actionsFor, onDismiss: afterSheet) { target in
             WatchActionsSheet(
                 watchId: target.id,
-                hasActivity: !(data.activityReports[target.id]?.active(now: TimeUtils.nowMillis).isEmpty ?? true),
+                // Nicht mehr gehandelt: kein ⚡ (das Blatt zeigt dann auch kein «Warum?»)
+                hasActivity: data.watch(target.id)?.isNotTraded != true &&
+                    !WatchlistActivity.active(data.activityReports[target.id], now: TimeUtils.nowMillis,
+                                                       sensitivity: data.settings.activitySensitivity).isEmpty,
                 onOpenAlarms: { pendingAlarms = $0 },
                 onDelete: { pendingDelete = $0 },
                 onWhy: { pendingWhy = $0 },
@@ -146,20 +162,26 @@ struct WatchlistScreen: View {
             )
             .environmentObject(data)
             .environment(\.appAccent, accent)
-            .presentationDetents([.medium, .large])
+            // Eine feste Höhe: Chart und Kennzahlen laden nach, das Blatt wechselt nie die Stufe
+            .presentationDetents([.large])
             .presentationDragIndicator(.visible)
             .presentationCornerRadius(28)
             .presentationBackground(AppColors.background)
         }
-        // «Warum bewegt sich das?» — halbe Höhe, aufziehbar
+        // «Warum bewegt sich das?» — gleich in voller Höhe: Laden und «Details» lassen
+        // nur den Inhalt im ScrollView wachsen, das Blatt springt nicht
         .sheet(item: $whyFor) { target in
             WatchlistWhySheet(watchId: target.id)
                 .environmentObject(data)
                 .environment(\.appAccent, accent)
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(28)
                 .presentationBackground(AppColors.background)
+        }
+        // Wieder gesperrt (Hintergrund-Limit), während das Erfassen-Blatt offen ist: schliessen
+        .onChange(of: lock.locked) { _, locked in
+            if locked { portfolioDraft = nil }
         }
         // Erfassen-Blatt aus der Merkliste: Coin (und Kurs, falls in USD) vorbelegt
         .sheet(item: $portfolioDraft) { draft in
@@ -194,8 +216,16 @@ struct WatchlistScreen: View {
         .sheet(isPresented: $showReport) {
             WatchlistReportSheet(report: data.lastRefreshReport)
                 .environment(\.appAccent, accent)
-                .presentationDetents([.medium, .large])
+                // Eine feste Höhe: der Bericht kann lang sein, kein Stufenwechsel
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
+        }
+        // Nicht mehr gehandelte Paare (ganze Merkliste) samt Alarmen entfernen, mit «Rückgängig»
+        .alert(L("watchlist_remove_not_traded_title"), isPresented: $askRemoveNotTraded) {
+            Button(L("watchlist_remove_not_traded_action"), role: .destructive) { removeNotTraded() }
+            Button(L("action_cancel"), role: .cancel) {}
+        } message: {
+            Text(L("watchlist_remove_not_traded_confirm", count: data.notTradedCount))
         }
         .alert(L("watchlist_clear"), isPresented: $askClearAll) {
             Button(L("watchlist_clear"), role: .destructive) {
@@ -212,6 +242,10 @@ struct WatchlistScreen: View {
         }
         .navigationDestination(item: $alarmsFor) { id in
             AlarmsScreen(watchId: id)
+                .toolbar(.visible, for: .navigationBar)
+        }
+        .navigationDestination(isPresented: $showActivitySettings) {
+            MarketAlertsSettingsPage()
                 .toolbar(.visible, for: .navigationBar)
         }
     }
@@ -232,7 +266,7 @@ struct WatchlistScreen: View {
     // MARK: Liste
 
     /// `watches`: die sichtbaren Paare (ggf. nur die der gewählten Gruppe).
-    private func list(_ watches: [Watch]) -> some View {
+    private func list(_ watches: [Watch], proxy: ScrollViewProxy) -> some View {
         // Aktive Suche filtert zusätzlich zur gewählten Gruppe
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         let filtering = searching && !trimmed.isEmpty
@@ -242,8 +276,12 @@ struct WatchlistScreen: View {
         let counts = data.activeAlarmCounts
         let groups = data.watchGroups
         let selectedGroup = data.selectedWatchlistGroup
-        // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst
-        let signals = WatchlistActivity.activeSignals(data.activityReports, now: now)
+        // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst —
+        // nach der gewählten Empfindlichkeit (gleiche Schwellen wie die Mitteilungen)
+        let sensitivity = data.settings.activitySensitivity
+        // Nicht mehr gehandelte Paare: kein ⚡, nicht in der Karte (auch bevor die Auswertung aufräumt)
+        let reports = NotTraded.withoutIds(data.activityReports, NotTraded.ids(data.watches))
+        let signals = WatchlistActivity.activeSignals(reports, now: now, sensitivity: sensitivity)
         let hot = WatchlistActivity.hot(watches, signals: signals)
         // Puls ganz oben in der Liste: nur die sichtbare Gruppe; nicht beim Suchen und Sortieren
         let pulse = sorting || searching ? nil : WatchlistPulseStats.make(watches)
@@ -258,11 +296,17 @@ struct WatchlistScreen: View {
             moved.move(fromOffsets: from, toOffset: to)
             commitOrder(favorites + moved)
         }
+        // Sprungknopf: nur bei mehr als 30 sichtbaren (ggf. gesuchten) Paaren, nicht beim Sortieren;
+        // mit VoiceOver immer da, damit er erreichbar bleibt
+        let rows = favorites + others
+        let jumpEligible = WatchlistJump.eligible(pairs: rows.count, sorting: sorting)
+        let jumpVisible = jumpEligible && (jumpScrolled || voiceOver)
         return List {
             // Kopfzeile der Liste (ersetzt die frühere Leiste mit Logo und App-Namen):
             // kleines Logo links, Gruppen-Chips scrollen dahinter, Knöpfe fest rechts.
             headerRow(watches, groups: groups, selectedGroup: selectedGroup)
                 .plainRow(top: 0, bottom: 0)
+                .id(WatchlistJump.topId)
 
             // «▲ 7 steigen · ▼ 3 fallen · Ø +1.80%» — direkt unter der Kopfzeile
             if let pulse {
@@ -287,9 +331,12 @@ struct WatchlistScreen: View {
             // «⚡ Hier passiert gerade etwas» — nur mit Signalen in der aktuellen Ansicht,
             // beim Suchen ausgeblendet
             if !hot.isEmpty && !sorting && !searching {
-                WatchlistActivityCard(hot: hot) { watch in
-                    whyFor = WatchlistSheetTarget(id: watch.id)
-                }
+                WatchlistActivityCard(
+                    hot: hot,
+                    limit: sensitivity.maxCardCoins,
+                    onOpen: { watch in whyFor = WatchlistSheetTarget(id: watch.id) },
+                    onAdjust: { showActivitySettings = true }
+                )
                 .plainRow(top: 4, bottom: 2)
                 .transition(.opacity.combined(with: .move(edge: .top)))
             }
@@ -331,9 +378,29 @@ struct WatchlistScreen: View {
             }
             .onMove(perform: moveOthers)
 
-            Color.clear.frame(height: 12).plainRow(top: 0, bottom: 0)
+            // Mit Sprungknopf unten mehr Platz, damit er die letzte Zeile nicht verdeckt
+            Color.clear
+                .frame(height: jumpEligible ? 12 + WatchlistJump.buttonSize + WatchlistJump.margin : 12)
+                .plainRow(top: 0, bottom: 0)
+                .id(WatchlistJump.endId)
+                .accessibilityHidden(true)
         }
         .listStyle(.plain)
+        .modifier(WatchlistScrollPhaseModifier { scrolling in scrollPhaseChanged(scrolling) })
+        .overlay(alignment: .bottomTrailing) {
+            // Ein- und Ausblenden nur hier animiert, nicht die Liste darunter
+            ZStack {
+                if jumpVisible {
+                    WatchlistJumpButton(down: jumpDown) { jump(rows: rows, proxy: proxy) }
+                        .transition(.opacity)
+                }
+            }
+            .padding(.trailing, WatchlistJump.margin)
+            // Über dem Banner («… entfernt», «Rückgängig»), solange er steht
+            .padding(.bottom, banner == nil ? WatchlistJump.margin : WatchlistJump.margin + 64)
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: jumpVisible)
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: banner == nil)
+        }
         .scrollContentBackground(.hidden)
         // iPad/Querformat: Zeilen höchstens 640 pt breit, mittig
         .readableListMargins()
@@ -366,7 +433,8 @@ struct WatchlistScreen: View {
             sorting: sorting,
             hasActivity: signals[watch.id] != nil,
             converted: WatchlistConversion.text(watch, target: convertTarget, rates: convertRates),
-            sparklineEnabled: data.settings.watchlistSparkline,
+            // Nicht mehr gehandelt: kein Mini-Chart
+            sparklineEnabled: data.settings.watchlistSparkline && !watch.isNotTraded,
             celebrationIndex: celebrating[watch.id],
             onTap: { actionsFor = WatchlistSheetTarget(id: watch.id) },
             onToggleFavorite: { toggleFavorite(watch) },
@@ -408,8 +476,97 @@ struct WatchlistScreen: View {
                 .tint(.red)
             }
         }
+        // Sprungknopf: welche Zeilen sichtbar sind (Richtung) und ob gescrollt wird
+        .onAppear { rowVisibilityChanged(watch.id, visible: true) }
+        .onDisappear { rowVisibilityChanged(watch.id, visible: false) }
         .id(watch.id)
         .plainRow(top: 4, bottom: 4)
+    }
+
+    // MARK: Sprungknopf
+
+    /// Sichtbare Paare in Listenreihenfolge (Gruppe, Suche, Favoriten zuerst) — wie `list(_:proxy:)`.
+    private func currentRows() -> [Watch] {
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let filtering = searching && !trimmed.isEmpty
+        let watches = data.visibleWatches
+        let found = filtering ? watches.filter { WatchlistSearch.matches($0, query: trimmed) } : watches
+        return found.filter(\.favorite) + found.filter { !$0.favorite }
+    }
+
+    /// Erste und letzte sichtbare Position in `rows`; nil, wenn keine Zeile sichtbar ist.
+    private func visibleRange(in rows: [Watch]) -> ClosedRange<Int>? {
+        let visible = jumpTracker.visible
+        let indices = rows.indices.filter { visible.contains(rows[$0].id) }
+        guard let first = indices.first, let last = indices.last else { return nil }
+        return first...last
+    }
+
+    /// Zeile kommt oder geht: Richtung nachführen; geht eine Zeile, die noch in der Liste
+    /// steht, wird gescrollt (gelöschte oder weggefilterte Zeilen zählen nicht).
+    private func rowVisibilityChanged(_ id: Int64, visible: Bool) {
+        if visible {
+            jumpTracker.visible.insert(id)
+        } else {
+            jumpTracker.visible.remove(id)
+        }
+        let rows = currentRows()
+        guard WatchlistJump.eligible(pairs: rows.count, sorting: sorting) else { return }
+        if let range = visibleRange(in: rows) {
+            let down = WatchlistJump.pointsDown(firstVisible: range.lowerBound, lastVisible: range.upperBound,
+                                                total: rows.count)
+            if down != jumpDown { jumpDown = down }
+        }
+        if !visible, rows.contains(where: { $0.id == id }) {
+            showJump()
+            if !scrollActive { scheduleJumpHide() }
+        }
+    }
+
+    /// iOS 18: Scrollphase — sichtbar ab Beginn, ausblenden 2 s nach dem Ende.
+    private func scrollPhaseChanged(_ scrolling: Bool) {
+        scrollActive = scrolling
+        guard WatchlistJump.eligible(pairs: currentRows().count, sorting: sorting) else { return }
+        if scrolling {
+            showJump()
+        } else {
+            scheduleJumpHide()
+        }
+    }
+
+    private func showJump() {
+        jumpHideTask?.cancel()
+        jumpHideTask = nil
+        if !jumpScrolled { jumpScrolled = true }
+    }
+
+    private func scheduleJumpHide() {
+        jumpHideTask?.cancel()
+        jumpHideTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: WatchlistJump.hideDelayNanos)
+            guard !Task.isCancelled else { return }
+            jumpScrolled = false
+        }
+    }
+
+    /// Oben → ans Ende, unten → an den Anfang. Kurze Strecken sanft, lange sofort
+    /// (keine lange Animation); mit «Bewegung reduzieren» immer sofort.
+    private func jump(rows: [Watch], proxy: ScrollViewProxy) {
+        guard !rows.isEmpty else { return }
+        WatchlistHaptics.impact(.light)
+        let down = jumpDown
+        let range = visibleRange(in: rows)
+        let distance = down ? rows.count - 1 - (range?.upperBound ?? 0) : (range?.lowerBound ?? rows.count)
+        let target = down ? WatchlistJump.endId : WatchlistJump.topId
+        let anchor: UnitPoint = down ? .bottom : .top
+        if WatchlistJump.animate(distance: distance, reduceMotion: reduceMotion) {
+            withAnimation(.easeInOut(duration: 0.35)) { proxy.scrollTo(target, anchor: anchor) }
+        } else {
+            proxy.scrollTo(target, anchor: anchor)
+        }
+        // Richtung gleich umstellen (die Zeilen melden sich erst nach dem Sprung)
+        jumpDown = !down
+        if !scrollActive { scheduleJumpHide() }
     }
 
     /// Wisch-Aktionen: nicht beim Sortieren (Ziehgriffe) und nicht mit VoiceOver.
@@ -436,6 +593,29 @@ struct WatchlistScreen: View {
         guard let deleted = result else { return }
         let text = L("watchlist_removed", deleted.watch.displayPair)
         banner = WatchlistBannerMessage(text: text, icon: "trash", undo: deleted)
+        Task { @MainActor in
+            // Nach dem Fokuswechsel ansagen, sonst geht es unter
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            AccessibilityNotification.Announcement(text).post()
+        }
+    }
+
+    /// «Nicht gehandelte Paare entfernen» bestätigt: alle auf einmal löschen, Banner mit
+    /// «Rückgängig» (holt alle zurück) und Ansage.
+    private func removeNotTraded() {
+        var deleted: [DeletedWatch] = []
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteNotTradedForUndo() }
+        guard !deleted.isEmpty else { return }
+        let removed = deleted
+        swipeDeleteTick += 1
+        let text = L("watchlist_removed_not_traded", count: removed.count)
+        banner = WatchlistBannerMessage(
+            text: text,
+            icon: "trash",
+            action: WatchlistBannerAction(title: L("action_undo")) {
+                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
+            }
+        )
         Task { @MainActor in
             // Nach dem Fokuswechsel ansagen, sonst geht es unter
             try? await Task.sleep(nanoseconds: 300_000_000)
@@ -909,8 +1089,19 @@ struct WatchlistScreen: View {
                     } label: {
                         Label(L("watchlist_refresh_report"), systemImage: "info.circle")
                     }
-                    if !watches.isEmpty {
+                    let notTraded = data.notTradedCount
+                    if !watches.isEmpty || notTraded > 0 {
                         Divider()
+                    }
+                    // Nur wenn es nicht gehandelte Paare gibt; direkt vor «Merkliste leeren»
+                    if notTraded > 0 {
+                        Button {
+                            askRemoveNotTraded = true
+                        } label: {
+                            Label(L("watchlist_remove_not_traded_menu", notTraded), systemImage: "xmark.bin")
+                        }
+                    }
+                    if !watches.isEmpty {
                         Button(role: .destructive) {
                             askClearAll = true
                         } label: {
@@ -969,7 +1160,12 @@ struct WatchlistScreen: View {
         }
         if let id = pendingPortfolio {
             pendingPortfolio = nil
-            if let watch = data.watch(id) { portfolioDraft = Self.makePortfolioDraft(for: watch) }
+            // Portfolio-Sperre: Das Erfassen-Blatt zeigt Bestände — erst nach dem Entsperren
+            Task { @MainActor in
+                let open = await lock.requireUnlock(PortfolioLockPolicy.quickAddNeedsUnlock(locked:))
+                guard open, let watch = data.watch(id) else { return }
+                portfolioDraft = Self.makePortfolioDraft(for: watch)
+            }
         }
     }
 

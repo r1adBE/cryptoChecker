@@ -119,7 +119,7 @@
     <string name="settings_theme_mode">Modus</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
-    <string name="settings_accent">Farbe</string>
+    <string name="settings_accent">Theme</string>
     <string name="accent_orange">Orange</string>
     <string name="accent_red">Rot</string>
     <string name="accent_blue">Blau</string>

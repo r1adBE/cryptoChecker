@@ -54,8 +54,8 @@ MERE
 • Oplæsning af kurser og alarmer
 • Backup og gendannelse via appen Filer
 • Hurtige handlinger på appikonet, lyst og mørkt tema
-• Fire accentfarver med matchende appikoner
-• Applås: Face ID, Touch ID eller kode
+• Fem accentfarver med matchende appikoner
+• Porteføljelås: Face ID, Touch ID eller kode
 • Tilgængelig på 31 sprog
 
 PRIVATLIV FØRST

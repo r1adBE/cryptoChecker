@@ -117,7 +117,7 @@
     <string name="settings_theme_mode">モード</string>
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
-    <string name="settings_accent">カラー</string>
+    <string name="settings_accent">テーマ</string>
     <string name="accent_orange">オレンジ</string>
     <string name="accent_red">レッド</string>
     <string name="accent_blue">ブルー</string>

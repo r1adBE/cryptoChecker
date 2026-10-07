@@ -123,7 +123,7 @@
     <string name="settings_theme_mode">Λειτουργία</string>
     <string name="theme_light">Φωτεινό</string>
     <string name="theme_dark">Σκοτεινό</string>
-    <string name="settings_accent">Χρώμα</string>
+    <string name="settings_accent">Θέμα</string>
     <string name="accent_orange">Πορτοκαλί</string>
     <string name="accent_red">Κόκκινο</string>
     <string name="accent_blue">Μπλε</string>

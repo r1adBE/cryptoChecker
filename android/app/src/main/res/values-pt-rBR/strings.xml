@@ -125,7 +125,7 @@
     <string name="settings_theme_mode">Modo</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Escuro</string>
-    <string name="settings_accent">Cor</string>
+    <string name="settings_accent">Tema</string>
     <string name="accent_orange">Laranja</string>
     <string name="accent_red">Vermelho</string>
     <string name="accent_blue">Azul</string>

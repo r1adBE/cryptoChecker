@@ -51,8 +51,8 @@ VERDER
 • Koersen en alarmen worden voorgelezen (tekst-naar-spraak)
 • Back-up en herstel naar een bestand naar keuze – ook tussen Android en iPhone
 • App-snelkoppelingen, lichte en donkere modus
-• Vier accentkleuren met bijpassend app-pictogram
-• App-vergrendeling: vingerafdruk, gezicht of pincode
+• Vijf accentkleuren met bijpassend app-pictogram
+• Portfolio-vergrendeling: vingerafdruk, gezicht of pincode
 • Beschikbaar in 31 talen
 
 PRIVACY VOOROP

@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
@@ -74,6 +75,8 @@ internal object BitgetTicker {
         ticker.vol = json.optDoubleNoData("baseVolume")
         ticker.volQuote = json.optDoubleNoData("quoteVolume")
         ticker.timestamp = json.optLong("ts")
+        // change24h = gleitende 24 h als Bruchteil; changeUtc24h (seit 0 Uhr UTC) bleibt weg.
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("change24h"))
     }
 
     fun readAll(responseString: String, tickers: MutableMap<String, Ticker>) {

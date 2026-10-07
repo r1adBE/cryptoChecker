@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Xóa cặp không còn giao dịch (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Xóa cặp không còn giao dịch</string>
+    <string name="watchlist_remove_not_traded_action">Xóa</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">Xóa %1$d cặp không còn giao dịch trên sàn của chúng? Các cảnh báo của chúng cũng sẽ bị xóa.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">Đã xóa %1$d cặp không còn giao dịch</item>
+    </plurals>
+</resources>

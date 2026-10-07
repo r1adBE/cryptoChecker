@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Porteføljelås</string>
+    <string name="settings_portfolio_lock_hint">Beskytter kun porteføljen: lås op med fingeraftryk, ansigt eller enhedens PIN. Låser igen efter mere end et minut i baggrunden. Overvågningsliste, alarmer og andre widgets forbliver åbne.</string>
+    <string name="portfolio_locked_title">Porteføljen er låst</string>
+    <string name="portfolio_locked_text">Lås op for at se dine beholdninger og værdier.</string>
+    <string name="portfolio_lock_reason">Lås portefølje op</string>
+    <string name="widget_portfolio_locked_hint">Låst – lås op i appen</string>
+    <string name="portfolio_history_range_since_first">Siden 1. køb</string>
+    <string name="portfolio_history_period_since_first">siden første køb</string>
+    <string name="portfolio_history_range_since_first_a11y">Vis udvikling siden dit første køb</string>
+    <string name="portfolio_history_change_since_first_a11y">Værdi siden dit første køb: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Viser kun de seneste 5 år.</string>
+    <string name="portfolio_history_expand">Vis værdiudvikling</string>
+    <string name="portfolio_history_collapse">Skjul værdiudvikling</string>
+</resources>

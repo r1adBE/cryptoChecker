@@ -52,8 +52,8 @@ Y ADEMÁS
 • Lectura en voz alta de precios y alarmas
 • Copia de seguridad y restauración con la app Archivos
 • Acciones rápidas en el icono de la app, modo claro y oscuro
-• Cuatro colores de acento con iconos de app a juego
-• Bloqueo: Face ID, Touch ID o código
+• Cinco colores de acento con iconos de app a juego
+• Bloqueo de cartera: Face ID, Touch ID, código
 • Disponible en 31 idiomas
 
 PRIVACIDAD ANTE TODO

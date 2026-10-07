@@ -224,6 +224,15 @@ struct MarketAlertsSettingsPage: View {
                     }
                 )
             )
+            // Empfindlichkeit: gilt für die Karte in der Merkliste und die Mitteilungen gleich
+            ChoiceRow(
+                title: L("settings_activity_sensitivity"),
+                options: ActivitySensitivity.allCases,
+                selection: settings.activitySensitivity,
+                label: { Self.sensitivityLabel($0) },
+                onSelect: { data.settings.activitySensitivity = $0 }
+            )
+            SettingsHint(text: L("settings_activity_sensitivity_hint"))
             RowDivider()
             // Wirtschaftstermine: Morgen-Mitteilung um 08:00 an Tagen mit US-Daten (CPI, Fed …)
             SwitchRow(
@@ -243,6 +252,15 @@ struct MarketAlertsSettingsPage: View {
 
     private func requestNotifications() {
         Task { _ = await Notifier.requestPermission() }
+    }
+
+    /// «Weniger» / «Normal» / «Mehr».
+    static func sensitivityLabel(_ sensitivity: ActivitySensitivity) -> String {
+        switch sensitivity {
+        case .LESS: return L("activity_sensitivity_less")
+        case .NORMAL: return L("activity_sensitivity_normal")
+        case .MORE: return L("activity_sensitivity_more")
+        }
     }
 }
 

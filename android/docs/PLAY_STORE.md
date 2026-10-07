@@ -203,8 +203,8 @@ Für Sprachen ohne eigene Feature-Grafik zeigt Play die englische an.
 **Markenfarbe Orange:** Orange ist die Erkennungsfarbe (Icon, Standard-Akzent bei
 neuen Installationen). Alle Marketing-Bilder – Symbol, Feature-Grafik,
 Screenshots – zeigen den Akzent Orange und das orange Icon (Kit:
-`docs/store/screenshots/README.md`). Blau, Grün und Rot sind optionale Themes in
-der App (Icon-Varianten `AppIconBlue…`, `AppIconGreen…`, `AppIconRed…`); sie
+`docs/store/screenshots/README.md`). Blau, Grün, Rot und Marrs Green sind optionale Themes in
+der App (Icon-Varianten `LauncherBlue…`, `LauncherGreen…`, `LauncherRed…`, `LauncherMarrsGreen…`); sie
 können im Text erwähnt werden, gehören aber nicht in die Store-Grafiken. Die alten
 blauen Globus-Grafiken sind entfernt und werden nicht mehr verwendet.
 

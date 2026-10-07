@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -32,6 +33,8 @@ class Phemex : PhemexBase(
         ticker.vol = json.scaled("volumeEv")
         ticker.volQuote = json.scaled("turnoverEv")
         ticker.timestamp = nanosToMillis(json)
+        // 24-h-Ticker: openEp = Kurs vor 24 h
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.scaled("openEp"))
     }
 
     override fun getBulkTickersUrl(requestId: Int): String = "https://api.phemex.com/md/spot/ticker/24hr/all"
@@ -60,6 +63,8 @@ class PhemexFutures : PhemexBase(
         ticker.vol = json.optDoubleNoData("volumeRq")
         ticker.volQuote = json.optDoubleNoData("turnoverRv")
         ticker.timestamp = nanosToMillis(json)
+        // 24-h-Ticker: openRp = Kurs vor 24 h
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("openRp"))
     }
 
     override fun getBulkTickersUrl(requestId: Int): String = "https://api.phemex.com/md/v2/ticker/24hr/all"

@@ -12,7 +12,7 @@ Versione 16.2.2
 • Scorri a sinistra per eliminare (con Annulla), a destra per i preferiti
 • La scheda Mercato si apre subito con gli ultimi dati e si aggiorna in background
 • Ore di silenzio: di notte (ad es. 23–7) gli allarmi arrivano senza suono, vibrazione o voce
-• Blocco app con Face ID, Touch ID o codice
+• Blocco portafoglio con Face ID, Touch ID o codice
 • Widget Portafoglio per Home e schermata di blocco: valore totale nella tua valuta e variazione di oggi
 • Ogni allarme come frase: «Avvisami quando BTC scende sotto 60.000 CHF.»
 • Brevi spiegazioni di funding rate, open interest, RSI e Pi Cycle
@@ -30,4 +30,4 @@ Versione 16.2.2
 • Widget di una moneta: candele o linea, intervallo del grafico 24 ore, 7 o 30 giorni, livelli massimo, medio e minimo, prezzo attuale evidenziato
 • Scheda Mercato: capitalizzazione totale del mercato crypto e volume 24 h nella tua valuta
 • Futures: funding rate e open interest
-• Quattro colori d’accento con icone abbinate
+• Cinque colori d’accento con icone abbinate

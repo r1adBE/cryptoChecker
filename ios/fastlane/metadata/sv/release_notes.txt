@@ -12,7 +12,7 @@ Version 16.2.2
 • Svep åt vänster för att ta bort (med Ångra), åt höger för favorit
 • Fliken Marknad öppnas direkt med senaste data och uppdateras i bakgrunden
 • Tysta timmar: på natten (t.ex. 23–7) kommer larm tyst – utan ljud, vibration eller uppläsning
-• Applås med Face ID, Touch ID eller lösenkod
+• Portföljlås med Face ID, Touch ID eller lösenkod
 • Portföljwidget för hem- och låsskärm: totalt värde i din valuta och förändring i dag
 • Varje larm som en mening: ”Meddela mig när BTC sjunker under 60 000 CHF.”
 • Korta förklaringar av funding rate, open interest, RSI och Pi Cycle
@@ -30,4 +30,4 @@ Version 16.2.2
 • Widget för ett mynt: ljus eller linje, diagramperiod 24 h, 7 eller 30 dagar, markeringar för högsta, mitt och lägsta, aktuell kurs framhävd
 • Fliken Marknad: kryptomarknadens totala börsvärde och 24 h-volym i din valuta
 • Terminer: funding rate och open interest
-• Fyra accentfärger med matchande appsymboler
+• Fem accentfärger med matchande appsymboler

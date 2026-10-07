@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -49,6 +50,9 @@ class Poloniex : SimpleMarket(
         ticker.vol = json.optDoubleNoData("quantity")
         ticker.volQuote = json.optDoubleNoData("amount")
         ticker.timestamp = json.optLong("ts")
+        // ticker24h: open = Kurs vor 24 h; dailyChange (Bruchteil) nur als Ersatz.
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("open"))
+            ?: Change24h.fraction(json.optDouble("dailyChange"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

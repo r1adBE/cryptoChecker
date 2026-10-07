@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Salkun lukitus</string>
+    <string name="settings_portfolio_lock_hint">Suojaa vain salkun: avaa sormenjäljellä, kasvoilla tai laitteen PIN-koodilla. Lukittuu uudelleen, kun sovellus on ollut taustalla yli minuutin. Seurantalista, hälytykset ja muut widgetit pysyvät avoimina.</string>
+    <string name="portfolio_locked_title">Salkku on lukittu</string>
+    <string name="portfolio_locked_text">Avaa lukitus nähdäksesi omistukset ja arvot.</string>
+    <string name="portfolio_lock_reason">Avaa salkun lukitus</string>
+    <string name="widget_portfolio_locked_hint">Lukittu – avaa sovelluksessa</string>
+    <string name="portfolio_history_range_since_first">1. ostosta</string>
+    <string name="portfolio_history_period_since_first">ensimmäisestä ostosta</string>
+    <string name="portfolio_history_range_since_first_a11y">Näytä kehitys ensimmäisestä ostosta</string>
+    <string name="portfolio_history_change_since_first_a11y">Arvo ensimmäisestä ostosta: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Näyttää vain viimeiset 5 vuotta.</string>
+    <string name="portfolio_history_expand">Näytä arvon kehitys</string>
+    <string name="portfolio_history_collapse">Piilota arvon kehitys</string>
+</resources>

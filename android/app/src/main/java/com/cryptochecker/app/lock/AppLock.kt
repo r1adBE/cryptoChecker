@@ -18,7 +18,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Entsperren mit Biometrie (schwach/stark) ODER Geräte-Sperre (PIN, Muster, Passwort),
+ * Portfolio-Sperre: Entsperren mit Biometrie (schwach/stark) ODER Geräte-Sperre (PIN, Muster, Passwort),
  * über androidx.biometric.
  *  - ab API 30: setAllowedAuthenticators(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
  *  - API 26–29: BIOMETRIC_WEAK mit setDeviceCredentialAllowed(true) (dort so verlangt)
@@ -28,7 +28,7 @@ object AppLockAuth {
 
     private const val AUTHENTICATORS = BIOMETRIC_WEAK or DEVICE_CREDENTIAL
 
-    /** Kann dieses Gerät die App entsperren (Biometrie oder eingerichtete Displaysperre)? */
+    /** Kann dieses Gerät entsperren (Biometrie oder eingerichtete Displaysperre)? */
     fun canAuthenticate(context: Context): Boolean {
         val biometric = runCatching {
             BiometricManager.from(context).canAuthenticate(AUTHENTICATORS) == BiometricManager.BIOMETRIC_SUCCESS
@@ -53,7 +53,7 @@ object AppLockAuth {
                 }
 
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    Timber.d("App-Sperre: %d %s", errorCode, errString)
+                    Timber.d("Portfolio-Sperre: %d %s", errorCode, errString)
                     onResult(false)
                 }
             }
@@ -67,7 +67,7 @@ object AppLockAuth {
         }
         runCatching { prompt.authenticate(builder.build()) }
             .onFailure {
-                Timber.w(it, "App-Sperre: Abfrage nicht möglich")
+                Timber.w(it, "Portfolio-Sperre: Abfrage nicht möglich")
                 onResult(false)
             }
     }
@@ -81,11 +81,13 @@ tailrec fun Context.findFragmentActivity(): FragmentActivity? = when (this) {
 }
 
 /**
- * Zustand der App-Sperre für die laufende App (Prozess).
+ * Zustand der Portfolio-Sperre für die laufende App (Prozess).
  *
- * Gesperrt wird beim Kaltstart (neuer Prozess) und nach mehr als [BACKGROUND_LIMIT_MILLIS]
- * im Hintergrund — aber nur, wenn die Einstellung «App-Sperre» an ist (das prüft die
- * Oberfläche, weil die Einstellungen beim Kaltstart erst geladen werden müssen).
+ * Gesperrt wird beim Kaltstart (neuer Prozess) und nach mehr als
+ * [PortfolioLockPolicy.BACKGROUND_LIMIT_MILLIS] im Hintergrund — wirksam nur, wenn die
+ * Einstellung «Portfolio-Sperre» an ist (siehe [PortfolioLockPolicy.access]; die Oberfläche
+ * prüft das, weil die Einstellungen beim Kaltstart erst geladen werden müssen). Die übrige
+ * App ist nie gesperrt.
  */
 @Singleton
 class AppLockState @Inject constructor() {
@@ -106,13 +108,11 @@ class AppLockState @Inject constructor() {
      * Kaltstart der Oberfläche (Activity ohne gespeicherten Zustand). Ein neuer Prozess ist
      * ohnehin gesperrt (Startwert). Baut ein Tipp auf Mitteilung oder Widget die Activity
      * neu auf (FLAG_ACTIVITY_CLEAR_TOP), während die App sichtbar ist oder erst kurz im
-     * Hintergrund war, wird nicht erneut gesperrt — sonst verlangte jeder Tipp auf einen
-     * Alarm das Entsperren. Länger als [BACKGROUND_LIMIT_MILLIS] weg: sperrt [onForeground].
+     * Hintergrund war, wird nicht erneut gesperrt. Länger weg: sperrt [onForeground].
      */
     fun onColdStart(now: Long = System.currentTimeMillis()) {
         authenticating = false
-        val since = backgroundSince
-        if (since > 0L && now - since > BACKGROUND_LIMIT_MILLIS) _lockRequested.value = true
+        if (PortfolioLockPolicy.relockAfterBackground(backgroundSince, now)) _lockRequested.value = true
     }
 
     fun onBackground(now: Long = System.currentTimeMillis()) {
@@ -123,7 +123,7 @@ class AppLockState @Inject constructor() {
     fun onForeground(now: Long = System.currentTimeMillis()) {
         val since = backgroundSince
         backgroundSince = 0L
-        if (since > 0L && now - since > BACKGROUND_LIMIT_MILLIS) _lockRequested.value = true
+        if (PortfolioLockPolicy.relockAfterBackground(since, now)) _lockRequested.value = true
         // Eine Abfrage, die nie zurückgemeldet hat (z. B. nicht angezeigt), blockiert sonst den Knopf
         authenticating = false
     }
@@ -133,7 +133,29 @@ class AppLockState @Inject constructor() {
         _lockRequested.value = false
     }
 
-    companion object {
-        const val BACKGROUND_LIMIT_MILLIS = 60_000L
+    /**
+     * Portfolio entsperren, falls nötig: Ist [locked] false, sofort [onUnlocked]; sonst die
+     * System-Abfrage (nur eine gleichzeitig) und bei Erfolg entsperren und [onUnlocked].
+     */
+    fun requireUnlock(activity: FragmentActivity?, locked: Boolean, reason: String, onUnlocked: () -> Unit) {
+        if (!locked) {
+            onUnlocked()
+            return
+        }
+        if (activity == null || authenticating) return
+        // Keine Displaysperre mehr eingerichtet: Die Sperre wäre nicht aufzuheben
+        if (!AppLockAuth.canAuthenticate(activity)) {
+            unlock()
+            onUnlocked()
+            return
+        }
+        authenticating = true
+        AppLockAuth.authenticate(activity, reason) { ok ->
+            authenticating = false
+            if (ok) {
+                unlock()
+                onUnlocked()
+            }
+        }
     }
 }

@@ -123,7 +123,7 @@
     <string name="settings_theme_mode">Modus</string>
     <string name="theme_light">Licht</string>
     <string name="theme_dark">Donker</string>
-    <string name="settings_accent">Kleur</string>
+    <string name="settings_accent">Thema</string>
     <string name="accent_orange">Oranje</string>
     <string name="accent_red">Rood</string>
     <string name="accent_blue">Blauw</string>

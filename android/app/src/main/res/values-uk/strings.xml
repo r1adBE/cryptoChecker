@@ -123,7 +123,7 @@
     <string name="settings_theme_mode">Режим</string>
     <string name="theme_light">Світлий</string>
     <string name="theme_dark">Темний</string>
-    <string name="settings_accent">Колір</string>
+    <string name="settings_accent">Тема</string>
     <string name="accent_orange">Помаранчевий</string>
     <string name="accent_red">Червоний</string>
     <string name="accent_blue">Синій</string>

@@ -4,6 +4,7 @@ import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.CheckerInfo
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONObject
 import java.net.URLEncoder
@@ -45,6 +46,8 @@ class DexScreener : Market("DexScreener", "Dex Screener", null) {
 
         ticker.last = pair.getString("priceUsd").toDouble()
         pair.optJSONObject("volume")?.let { ticker.volQuote = it.optDouble("h24", Ticker.NO_DATA.toDouble()) }
+        // priceChange.h24 = gleitende 24 h in Prozent
+        ticker.change24hPercent = pair.optJSONObject("priceChange")?.let { Change24h.percent(it.optDouble("h24")) }
     }
 
     companion object {

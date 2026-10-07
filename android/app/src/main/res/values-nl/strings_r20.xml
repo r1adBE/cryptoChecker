@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Niet-verhandelde paren verwijderen (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Niet-verhandelde paren verwijderen</string>
+    <string name="watchlist_remove_not_traded_action">Verwijderen</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">%1$d paar verwijderen dat niet meer op zijn beurs wordt verhandeld? Zijn alarmen worden ook verwijderd.</item>
+        <item quantity="other">%1$d paren verwijderen die niet meer op hun beurs worden verhandeld? Hun alarmen worden ook verwijderd.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d niet-verhandeld paar verwijderd</item>
+        <item quantity="other">%1$d niet-verhandelde paren verwijderd</item>
+    </plurals>
+</resources>

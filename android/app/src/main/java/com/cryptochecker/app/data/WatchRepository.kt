@@ -107,6 +107,12 @@ class WatchRepository @Inject constructor(
 
     suspend fun deleteWatch(id: Long) = watchDao.deleteWatch(id)
 
+    /** Mehrere Paare (samt Alarmen, per Fremdschlüssel) in einem Vorgang löschen. */
+    suspend fun deleteWatches(ids: Collection<Long>) {
+        if (ids.isEmpty()) return
+        database.withTransaction { ids.forEach { watchDao.deleteWatch(it) } }
+    }
+
     /** Paar mit allen Alarmen festhalten (vor dem Löschen); null, wenn es das Paar nicht gibt. */
     suspend fun snapshot(id: Long): WatchSnapshot? = database.withTransaction {
         watchDao.getWatch(id)?.let { WatchSnapshot(it, watchDao.getAlarms(id)) }

@@ -12,7 +12,7 @@ Sürüm 16.2.2
 • Silmek için sola kaydırın (Geri al ile), favori için sağa
 • Piyasa sekmesi son verilerle anında açılır ve arka planda yenilenir
 • Sessiz saatler: gece (örn. 23–7) alarmlar sessiz gelir – ses, titreşim ve sesli okuma olmadan
-• Face ID, Touch ID veya parola ile uygulama kilidi
+• Face ID, Touch ID veya parola ile portföy kilidi
 • Ana ekran ve kilit ekranı için portföy widget'ı: kendi para biriminde toplam değer ve bugünkü değişim
 • Her alarm bir cümle olarak: “BTC fiyatı 60.000 CHF altına düştüğünde bana haber ver.”
 • Fonlama oranı, açık pozisyon, RSI ve Pi Cycle için kısa açıklamalar
@@ -30,4 +30,4 @@ Sürüm 16.2.2
 • Tek coin widget'ı: mum veya çizgi, grafik aralığı 24 sa, 7 veya 30 gün, en yüksek, orta ve en düşük işaretleri, güncel fiyat vurgulu
 • Piyasa sekmesi: kendi para biriminde toplam kripto piyasa değeri ve 24 sa hacim
 • Vadeli: fonlama oranı ve açık pozisyon
-• Uyumlu simgelerle dört vurgu rengi
+• Uyumlu simgelerle beş vurgu rengi

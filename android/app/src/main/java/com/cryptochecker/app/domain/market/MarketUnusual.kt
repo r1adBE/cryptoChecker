@@ -135,6 +135,20 @@ object MarketUnusual {
     private const val AGAINST_WEIGHT = 1.25
 
     /** Umsatz-Anteil (24-h-Umsatz ÷ Marktkapitalisierung); null ohne gültige Werte. */
+    /** Ein 24-h-Ticker gilt als laufend, wenn sein Fenster höchstens so lange zurück endet. */
+    const val TICKER_STALE_MILLIS = 2 * 60 * 60_000L
+
+    /**
+     * Wird das Paar im Spot noch gehandelt? Ein delistetes Paar (Binance: Status BREAK)
+     * liefert weiter einen Ticker, aber mit eingefrorenen Werten: Fensterende ([closeTime],
+     * ms) lange vorbei oder keine Abschlüsse ([tradeCount]). Fehlt ein Feld, zählt der Ticker.
+     */
+    fun isLiveTicker(closeTime: Long?, tradeCount: Long?, now: Long): Boolean {
+        if (tradeCount != null && tradeCount <= 0L) return false
+        if (closeTime != null && closeTime > 0L && now - closeTime > TICKER_STALE_MILLIS) return false
+        return true
+    }
+
     fun turnover(coin: UnusualCoin): Double? {
         val volume = coin.quoteVolume ?: return null
         val cap = coin.marketCap ?: return null

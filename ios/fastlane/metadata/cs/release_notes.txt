@@ -12,7 +12,7 @@ Verze 16.2.2
 • Přejetím doleva smažete (s možností Zpět), doprava označíte oblíbené
 • Karta Trh se otevře okamžitě s posledními daty a aktualizuje se na pozadí
 • Noční klid: v noci (např. 23–7 h) přicházejí alarmy potichu – bez zvuku, vibrací a hlasu
-• Zámek aplikace přes Face ID, Touch ID nebo kód
+• Zámek portfolia přes Face ID, Touch ID nebo kód
 • Widget Portfolio pro plochu i zamčenou obrazovku: celková hodnota ve vaší měně a dnešní změna
 • Každý alarm jako věta: „Upozornit, až BTC klesne pod 60 000 CHF.“
 • Krátká vysvětlení k funding rate, open interest, RSI a Pi Cycle
@@ -30,4 +30,4 @@ Verze 16.2.2
 • Widget jednoho coinu: svíčky nebo čára, rozsah grafu 24 h, 7 dní nebo 30 dní, značky maxima, středu a minima, zvýrazněná aktuální cena
 • Karta Trh: celková tržní kapitalizace kryptoměn a objem za 24 h ve vaší měně
 • Futures: funding rate a open interest
-• Čtyři barvy zvýraznění s odpovídajícími ikonami
+• Pět barev zvýraznění s odpovídajícími ikonami

@@ -117,7 +117,7 @@
     <string name="settings_theme_mode">模式</string>
     <string name="theme_light">浅色</string>
     <string name="theme_dark">深色</string>
-    <string name="settings_accent">颜色</string>
+    <string name="settings_accent">主题</string>
     <string name="accent_orange">橙色</string>
     <string name="accent_red">红色</string>
     <string name="accent_blue">蓝色</string>

@@ -30,6 +30,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.cryptochecker.app.R
+import com.cryptochecker.app.lock.PortfolioAccess
+import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.about.WelcomeDialog
 import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
@@ -43,6 +45,9 @@ import com.cryptochecker.app.ui.features.settings.MarketAlertsSettingsScreen
 import com.cryptochecker.app.ui.features.settings.SettingsScreen
 import com.cryptochecker.app.ui.features.settings.SpeechSettingsScreen
 import com.cryptochecker.app.ui.features.watchlist.WatchlistScreen
+import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
+import com.cryptochecker.app.ui.lock.PortfolioLockedState
+import com.cryptochecker.app.ui.lock.PortfolioPendingState
 
 private data class BottomTab(
     val route: String,
@@ -68,17 +73,30 @@ fun AppNavHost(
     openTarget: String? = null,
     onOpenTargetHandled: () -> Unit = {},
     navViewModel: AppNavViewModel = hiltViewModel(),
+    lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
     val backStackEntry by navigation.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
     val portfolioEnabled by navViewModel.portfolioEnabled.collectAsStateWithLifecycle()
     val bottomTabs = remember(portfolioEnabled) { buildBottomTabs(portfolioEnabled) }
+    // Portfolio-Sperre: gilt nur für den Portfolio-Tab und seine Unterseiten
+    val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val unlockReason = stringResource(R.string.portfolio_lock_reason)
+    val requestUnlock = { lockViewModel.requireUnlock(context.findFragmentActivity(), unlockReason) {} }
     // Besitzer ausserhalb des Navigationsgraphen (die Activity): Der Markt-Tab behält
     // so sein ViewModel samt geladener Daten über Tab-Wechsel hinweg.
     val activityOwner = checkNotNull(LocalViewModelStoreOwner.current) { "Kein ViewModelStoreOwner" }
     // Suche, mit der der Hinzufügen-Tab geöffnet werden soll («Heute auffällig» im Markt-Tab)
     var explorerSearch by androidx.compose.runtime.saveable.rememberSaveable {
         androidx.compose.runtime.mutableStateOf<String?>(null)
+    }
+
+    // Gesperrt, während eine Coin-Detailansicht offen ist: zurück zum (gesperrten) Portfolio-Tab
+    androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
+        if (portfolioAccess == PortfolioAccess.LOCKED && currentRoute == ScreenRoute.PortfolioCoin) {
+            runCatching { navigation.popBackStack(ScreenRoute.Portfolio, inclusive = false) }
+        }
     }
 
     // Portfolio ausgeschaltet, während es offen ist: zurück zur Merkliste
@@ -136,7 +154,10 @@ fun AppNavHost(
                 WatchlistScreen(
                     onAddClick = { navigation.navigateToTab(ScreenRoute.Explorer) },
                     onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.alarms(watchId)) },
-                    onOpenAllAlarms = { navigation.navigate(ScreenRoute.AlarmsOverview) }
+                    onOpenAllAlarms = { navigation.navigate(ScreenRoute.AlarmsOverview) },
+                    onOpenActivitySettings = {
+                        navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
+                    }
                 )
             }
 
@@ -181,7 +202,9 @@ fun AppNavHost(
             }
 
             composable(ScreenRoute.Portfolio) {
-                PortfolioScreen(onOpenCoin = { coin -> navigation.navigate(ScreenRoute.portfolioCoin(coin)) })
+                PortfolioGate(portfolioAccess, requestUnlock) {
+                    PortfolioScreen(onOpenCoin = { coin -> navigation.navigate(ScreenRoute.portfolioCoin(coin)) })
+                }
             }
 
             composable(
@@ -190,10 +213,12 @@ fun AppNavHost(
                     navArgument(ScreenRoute.PortfolioArgCoin) { type = NavType.StringType }
                 )
             ) { entry ->
-                PortfolioDetailScreen(
-                    coin = entry.arguments?.getString(ScreenRoute.PortfolioArgCoin).orEmpty(),
-                    onBack = { navigation.popBackStack() }
-                )
+                PortfolioGate(portfolioAccess, requestUnlock) {
+                    PortfolioDetailScreen(
+                        coin = entry.arguments?.getString(ScreenRoute.PortfolioArgCoin).orEmpty(),
+                        onBack = { navigation.popBackStack() }
+                    )
+                }
             }
 
             composable(
@@ -212,6 +237,16 @@ fun AppNavHost(
                 )
             }
         }
+    }
+}
+
+/** Inhalt des Portfolios nur frei; gesperrt der ruhige Sperr-Zustand, beim Kaltstart leer. */
+@Composable
+private fun PortfolioGate(access: PortfolioAccess, onUnlock: () -> Unit, content: @Composable () -> Unit) {
+    when (access) {
+        PortfolioAccess.OPEN -> content()
+        PortfolioAccess.LOCKED -> PortfolioLockedState(onUnlock = onUnlock)
+        PortfolioAccess.PENDING -> PortfolioPendingState()
     }
 }
 

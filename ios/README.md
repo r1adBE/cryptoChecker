@@ -11,6 +11,8 @@ Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, 
 
 Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 
+- **Theme «Marrs Green»** (#4BACA5) als fünfte Akzentfarbe mit alternativem App-Icon
+  (`AppIconMarrsGreen`) und Logo; die Einstellung heisst jetzt **Theme** (vorher «Farbe»).
 - **15 neue Börsen** (41 Märkte, 32 Börsen), **Notiz pro Coin**, **Alarmton** zur Auswahl,
   **Netzwerkgebühren** (Ethereum, L2s, Bitcoin) mit Gas-Alarm im Markt-Tab.
 - **Zyklus-Vergleich** mit Doppel-Top/-Bottom (`Shared/Insights/CycleExtremes.swift`).
@@ -25,6 +27,7 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 - **Stichtag-Export** des Portfolios als CSV (`App/Features/Portfolio/PortfolioCutoffExport.swift`),
   gleiches Format wie Android: UTF-8 mit BOM, `;`, `cryptochecker-stichtag-JJJJ-MM-TT.csv`.
 - **Mini-Chart** (24 Std.) in jeder Zeile der Merkliste.
+- **Sprungknopf** in langen Merklisten (> 30 Paare): «Zum Anfang» / «Zum Ende» beim Scrollen (`WatchlistJump.swift`); **Empfindlichkeit** der ungewöhnlichen Aktivität Weniger/Normal/Mehr (`Shared/Activity/ActivitySensitivity.swift`, Karte und Mitteilungen gleich).
 - **Barrierefreiheit** (Einstellungen › Darstellung, auch in Widgets): Kursfarben Grün/Rot oder
   Blau/Orange (bei jeder Farbsehschwäche unterscheidbar, Richtung immer zusätzlich als +/−);
   **Farben tauschen** (Rot steigend wie in China, Japan, Korea, Taiwan; dort standardmässig an);
@@ -33,8 +36,16 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
   Chart und jedes Widget als ein Satz (`Shared/Util/A11y.swift`).
 - **Mit einem Tipp starten** (die fünf grössten Coins ohne Stablecoins, je mit Live-Kurs und
   24-Std.-Veränderung, alle vorausgewählt, ein Knopf «Zur Merkliste hinzufügen (5)»), **Nachtruhe** für Alarme (lautlos,
-  `interruptionLevel = .passive`, ohne Sprache), **App-Sperre** (Face ID / Touch ID / Code, eigenes
-  Fenster über allen Sheets, Abdeckung im App-Umschalter; `App/Services/AppLock.swift`),
+  `interruptionLevel = .passive`, ohne Sprache), **Portfolio-Sperre** (Face ID / Touch ID / Code; sperrt nur den
+  Portfolio-Tab samt Detailansicht, Erfassen-Blättern und Stichtag-Export, «Zum Portfolio hinzufügen»,
+  Sichern mit Portfolio-Daten und das Portfolio-Widget — Merkliste, Hinzufügen, Zyklus, Optionen und
+  die übrigen Widgets bleiben frei; einmal je Sitzung entsperren, nach > 60 s im Hintergrund wieder
+  gesperrt; Abdeckung im App-Umschalter; Zeile in den Optionen nur mit eingeschaltetem Portfolio;
+  `App/Services/AppLock.swift`, Regeln in `Shared/Portfolio/PortfolioLockPolicy.swift`),
+  **Wertverlauf** im Portfolio (standardmässig zugeklappt: eine Zeile «Wertverlauf · 30 T ▲ +4.20%»;
+  aufgeklappt Chips 7 T / 30 T / 1 J / Seit 1. Kauf — «Seit 1. Kauf» lädt so viele Tageskerzen wie
+  nötig in Stücken von höchstens 1000, höchstens 5 Jahre zurück mit Hinweis; Zustand und Zeitraum
+  gemerkt, nicht in der Sicherung),
   **Portfolio-Widget** (Home klein/mittel/gross und Sperrbildschirm, `Widgets/PortfolioWidget.swift`:
   klein Gesamtwert und wählbar «≈ … USDT», mittel dazu «heute» und Wertverlauf bis 48 h, gross
   dazu die bis 5 grössten Positionen mit Anteil und Veränderung; Einrichtung `PortfolioWidgetIntent`),
@@ -202,4 +213,5 @@ iOS erlaubt einiges nicht, was die Android-App kann:
 Sicherungsdateien sind zwischen Android und iOS **austauschbar**: Eine auf Android erstellte Sicherung
 lässt sich unter iOS wiederherstellen und umgekehrt. Die JSON-Datei (`cryptochecker-backup-JJJJ-MM-TT`)
 enthält Merkliste (inkl. Notizen und Gruppen), Alarme (inkl. Alarmwährung), Favoriten, Portfolio und
-Einstellungen (inkl. Umrechnung, Kursfarben, Farbtausch, hoher Kontrast, Mini-Chart, Nachtruhe, App-Sperre) im selben Format wie unter Android.
+Einstellungen (inkl. Umrechnung, Kursfarben, Farbtausch, hoher Kontrast, Mini-Chart, Nachtruhe, Portfolio-Sperre) im selben Format wie unter Android. Ist die Portfolio-Sperre
+gesperrt, verlangen Sichern (mit Portfolio-Daten) und Wiederherstellen zuerst das Entsperren.

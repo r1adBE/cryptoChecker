@@ -250,7 +250,8 @@ struct ExplorerPickerSheet: View {
             }
         }
         .tint(accent.primary)
-        .presentationDetents([.medium, .large])
+        // Volle Höhe: das Suchfeld (Tastatur) würde ein halbes Blatt sonst auf «gross» springen lassen
+        .presentationDetents([.large])
         .presentationDragIndicator(.visible)
         .presentationBackground(AppColors.background)
     }
@@ -381,6 +382,8 @@ struct ExplorerSyncSheet: View {
                 .frame(maxWidth: .infinity)
         }
         .padding(24)
+        // Oben angeschlagen: Fehlerzeile und Ladeanzeige verschieben den Inhalt nicht (fixe Höhe)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
         .presentationBackground(AppColors.background)

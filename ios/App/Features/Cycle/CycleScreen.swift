@@ -122,22 +122,29 @@ struct CycleScreen: View {
         .refreshable { await viewModel.refreshAll() }
         .navigationTitle(L("tab_market_phase"))
         .onAppear { viewModel.onAppear() }
-        // «Warum bewegt sich das?» wie in der Merkliste — halbe Höhe, aufziehbar
+        // «Warum bewegt sich das?» wie in der Merkliste — gleich in voller Höhe, springt nicht
         .sheet(item: $whyFor) { target in
             WatchlistWhySheet(watchId: target.id)
                 .environmentObject(data)
                 .environment(\.appAccent, accent)
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(28)
                 .presentationBackground(AppColors.background)
         }
     }
 
-    /// Paar der Merkliste zu einem Coin (Spot zuerst); nil = nicht beobachtet.
+    /// Paar der Merkliste zu einem Coin: Spot zuerst (wie die Karte, USDT/USD vor anderen
+    /// Quotes), sonst das Perpetual; nil = nicht beobachtet. Das Blatt rechnet dann mit den
+    /// Daten genau dieses Paars (Futures-Paar: Futures-Kerzen).
     private func watchId(for symbol: String) -> Int64? {
-        let matches = data.watches.filter { $0.baseAsset.uppercased() == symbol.uppercased() }
-        return (matches.first { $0.contractType == .none } ?? matches.first)?.id
+        CandleSeries.pickWatch(
+            // Nicht mehr gehandelte Paare zählen nicht als beobachtet (kein «Warum?» auf alten Daten)
+            data.watches.filter { !$0.isNotTraded }, symbol: symbol,
+            base: { $0.baseAsset }, quote: { $0.quoteAsset },
+            isSpot: { $0.contractType == .none },
+            isPerpetual: { $0.contractType == .perpetual || $0.contractType == .inversePerpetual }
+        )?.id
     }
 
     /// Art des Zustands je Karte — unabhängig davon, ob sie schon sichtbar ist: so ändert das

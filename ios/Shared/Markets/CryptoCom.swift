@@ -35,6 +35,8 @@ final class CryptoCom: SimpleMarket {
         ticker.vol = json.optDoubleNoData("v")
         ticker.volQuote = json.optDoubleNoData("vv")
         ticker.timestamp = json.optLong("t")
+        // c = gleitende 24 h als Bruchteil (0.0583 = +5,83 %), null ohne Handel
+        ticker.change24hPercent = Change24h.fraction(json.optDouble("c"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

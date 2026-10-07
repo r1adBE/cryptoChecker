@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
@@ -66,8 +67,28 @@ data class PortfolioHistoryUi(
     val converted: Boolean,
 )
 
-/** Geladene Tagesschlusskurse und für welche Coins sie angefragt wurden. */
-private data class HistoryCloses(val coins: Set<String>, val closes: Map<String, Map<Long, Double>>)
+/** Welche Tagesschlusskurse der gewählte Zeitraum braucht: Coins und Tage bis heute. */
+private data class HistoryRequest(val coins: Set<String>, val days: Int)
+
+/** Geladene Tagesschlusskurse und für welche Anfrage. */
+private data class HistoryCloses(val request: HistoryRequest, val closes: Map<String, Map<Long, Double>>) {
+    /** Deckt diese Ladung [needed] ab (alle Coins, genug Tage)? */
+    fun covers(needed: HistoryRequest): Boolean =
+        request.coins.containsAll(needed.coins) && request.days >= needed.days
+}
+
+/** Letzte Millisekunde eines Tags in [zone]. */
+private fun dayEndIn(zone: ZoneId): (Long) -> Long = { day ->
+    LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1
+}
+
+/** Anfrage für [range]: «Seit 1. Kauf» braucht je nach erstem Kauf mehr Tage (siehe [PortfolioHistory.candleDays]). */
+private fun historyRequest(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): HistoryRequest {
+    val zone = ZoneId.systemDefault()
+    val first = txs.filter { it.amount > 0.0 && !it.amount.isInfinite() }.minOfOrNull { it.time }
+    val days = PortfolioHistory.candleDays(range, first, LocalDate.now(zone).toEpochDay(), dayEndIn(zone))
+    return HistoryRequest(txs.map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet(), days)
+}
 
 /** Was das Portfolio-Widget aus einer Berechnung braucht. */
 private data class PortfolioWidgetInput(
@@ -122,25 +143,34 @@ class PortfolioViewModel @Inject constructor(
         txs?.let { list -> PortfolioCalculator.summarize(list.map { it.toTrade() }, p.prices) }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    private val _historyRange = MutableStateFlow(PortfolioHistoryRange.MONTH)
-    val historyRange: StateFlow<PortfolioHistoryRange> = _historyRange.asStateFlow()
+    /** Zeitraum des Wertverlaufs (zuletzt gewählt, nur auf diesem Gerät). */
+    val historyRange: StateFlow<PortfolioHistoryRange> = settingsRepository.settings
+        .map { it.portfolioHistoryRange }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.portfolioHistoryRange)
+
+    /** Karte «Wertverlauf» aufgeklappt (Standard zu; nur auf diesem Gerät). */
+    val historyExpanded: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.portfolioHistoryExpanded }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.portfolioHistoryExpanded)
 
     private val _closes = MutableStateFlow<HistoryCloses?>(null)
 
     /**
-     * Wertverlauf des gewählten Zeitraums; null, solange die Tageskurse der aktuellen
-     * Coins noch laden (Platzhalter). Gerechnet abseits des Hauptthreads.
+     * Wertverlauf des gewählten Zeitraums; null, solange dessen Tageskurse noch laden
+     * (Platzhalter). Auch zugeklappt gerechnet — die Zeile zeigt die Änderung —, aber nur
+     * für den gewählten Zeitraum. Gerechnet abseits des Hauptthreads.
      */
     val history: StateFlow<PortfolioHistoryUi?> = combine(
         transactions,
         _closes,
         _prices,
-        _historyRange,
+        historyRange,
         combine(currency, _fxRate) { code, fx -> code to fx },
     ) { txs, loaded, p, range, (code, fx) ->
         if (txs == null || loaded == null) return@combine null
-        val coins = txs.map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
-        if (!loaded.coins.containsAll(coins)) return@combine null
+        if (!loaded.covers(historyRequest(txs, range))) return@combine null
         val converted = code != "USD" && fx != null
         val zone = ZoneId.systemDefault()
         val series = PortfolioHistory.build(
@@ -149,7 +179,7 @@ class PortfolioViewModel @Inject constructor(
             livePrices = p.prices,
             range = range,
             todayEpochDay = LocalDate.now(zone).toEpochDay(),
-            dayEndMillis = { day -> LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1 },
+            dayEndMillis = dayEndIn(zone),
             fxRate = fx?.takeIf { converted } ?: 1.0,
         )
         PortfolioHistoryUi(range, series, if (converted) code else PortfolioFormat.USDT, converted)
@@ -191,10 +221,15 @@ class PortfolioViewModel @Inject constructor(
                 .distinctUntilChanged()
                 .collect { coins ->
                     _prices.value = priceSource.cached(coins)
-                    // Verlauf parallel: Tageskerzen sind je Coin 12 h zwischengespeichert
-                    launch { loadCloses(coins) }
                     loadPrices(coins, force = false)
                 }
+        }
+        // Verlauf parallel und nur für den gewählten Zeitraum: Tageskerzen sind je Coin 12 h
+        // zwischengespeichert; ein überholter Abruf (Coins oder Zeitraum geändert) wird abgebrochen
+        viewModelScope.launch {
+            combine(transactions.filterNotNull(), historyRange) { txs, range -> historyRequest(txs, range) }
+                .distinctUntilChanged()
+                .collectLatest { request -> loadCloses(request) }
         }
         viewModelScope.launch {
             currency.collect { code ->
@@ -210,10 +245,10 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch {
             _refreshing.value = true
             try {
-                val coins = (transactions.value ?: repository.getTransactions()).map { it.coin }.toSet()
-                loadPrices(coins, force)
+                val txs = transactions.value ?: repository.getTransactions()
+                loadPrices(txs.map { it.coin }.toSet(), force)
                 // Fehlgeschlagene Coins erneut versuchen (der Rest kommt aus dem Zwischenspeicher)
-                loadCloses(coins)
+                loadCloses(historyRequest(txs, historyRange.value))
                 _fxRate.value = safe { fxSource.usdTo(currency.value) } ?: _fxRate.value
             } finally {
                 _refreshing.value = false
@@ -226,16 +261,19 @@ class PortfolioViewModel @Inject constructor(
         safe { priceSource.prices(coins, force) }?.let { _prices.value = it }
     }
 
-    private suspend fun loadCloses(coins: Set<String>) {
-        val normalized = coins.map { PortfolioCalculator.normalizeCoin(it) }.toSet()
-        val closes = safe { historySource.dailyCloses(normalized) } ?: emptyMap()
-        // Ein überholter Abruf (Coins inzwischen geändert) darf den neueren nicht ersetzen
-        val current = transactions.value.orEmpty().map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
-        if (normalized.containsAll(current)) _closes.value = HistoryCloses(normalized, closes)
+    private suspend fun loadCloses(request: HistoryRequest) {
+        val closes = safe { historySource.dailyCloses(request.coins, request.days) } ?: emptyMap()
+        // Ein überholter Abruf (Coins oder Zeitraum inzwischen geändert) darf den neueren nicht ersetzen
+        val current = historyRequest(transactions.value.orEmpty(), historyRange.value)
+        if (HistoryCloses(request, closes).covers(current)) _closes.value = HistoryCloses(request, closes)
     }
 
     fun setHistoryRange(range: PortfolioHistoryRange) {
-        _historyRange.value = range
+        viewModelScope.launch { settingsRepository.setPortfolioHistoryRange(range) }
+    }
+
+    fun setHistoryExpanded(expanded: Boolean) {
+        viewModelScope.launch { settingsRepository.setPortfolioHistoryExpanded(expanded) }
     }
 
     fun loadCoins() {

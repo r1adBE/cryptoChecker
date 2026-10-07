@@ -72,6 +72,9 @@ class BinanceBase: SimpleMarket {
 
         ticker.last = try json.double("lastPrice")
         ticker.timestamp = try json.long("closeTime")
+
+        // Gleitende 24 h, schon in Prozent
+        ticker.change24hPercent = Change24h.percent(json.optDouble("priceChangePercent"))
     }
 
     override func parseCurrencyPairs(requestId: Int, json: JObject) throws -> [CurrencyPairInfo] {

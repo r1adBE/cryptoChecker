@@ -12,7 +12,7 @@ Versie 16.2.2
 • Veeg naar links om te verwijderen (met Ongedaan maken), naar rechts voor een favoriet
 • Het tabblad Markt opent direct met de laatste gegevens en ververst op de achtergrond
 • Stille uren: ’s nachts (bijv. 23–7 uur) komen alarmen stil binnen – zonder geluid, trilling of spraak
-• App-vergrendeling met Face ID, Touch ID of toegangscode
+• Portfolio-vergrendeling met Face ID, Touch ID of toegangscode
 • Portfolio-widget voor beginscherm en toegangsscherm: totale waarde in je valuta en verandering vandaag
 • Elk alarm als zin: ‘Laat het me weten als BTC onder 60.000 CHF daalt.’
 • Korte uitleg bij funding rate, open interest, RSI en Pi Cycle
@@ -30,4 +30,4 @@ Versie 16.2.2
 • Widget voor één munt: candles of lijn, grafiekperiode 24 uur, 7 of 30 dagen, markeringen voor hoog, midden en laag, huidige koers uitgelicht
 • Tabblad Markt: totale marktwaarde van de cryptomarkt en 24-uursvolume in je eigen valuta
 • Futures: funding rate en open interest
-• Vier accentkleuren met bijpassende symbolen
+• Vijf accentkleuren met bijpassende symbolen

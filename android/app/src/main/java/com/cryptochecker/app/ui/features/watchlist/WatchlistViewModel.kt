@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.domain.activity.ActivityMonitor
 import com.cryptochecker.app.domain.activity.ActivityReport
+import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -19,6 +20,7 @@ import com.cryptochecker.app.data.WatchSnapshot
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.UndoSlot
+import com.cryptochecker.app.domain.watch.isNotTraded
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import com.cryptochecker.app.settings.deviceRegionLocale
@@ -37,6 +39,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -64,6 +68,15 @@ class WatchlistViewModel @Inject constructor(
     private val addMoments: com.cryptochecker.app.data.AddMoments,
     private val sheetChartRepository: com.cryptochecker.app.data.SheetChartRepository,
 ) : ViewModel() {
+
+    /**
+     * EINE Datenbank-Beobachtung der Merkliste für alle Ableitungen unten (bisher vier):
+     * Room führte nach jedem Schreibvorgang dieselbe Abfrage über alle Paare sonst
+     * mehrfach aus — bei hunderten Paaren und jeder Aktualisierung spürbar.
+     */
+    private val watchList: SharedFlow<List<WatchEntity>> = watchRepository.observeWatches()
+        .distinctUntilChanged()
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), replay = 1)
 
     /**
      * Coins der Start-Merkliste: sofort aus dem Zwischenspeicher bzw. die
@@ -170,7 +183,7 @@ class WatchlistViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val convertRates: StateFlow<Map<String, Double>> = combine(
         conversionSetting,
-        watchRepository.observeWatches()
+        watchList
             .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
             .distinctUntilChanged(),
     ) { setting, quotes -> setting to quotes }
@@ -204,6 +217,12 @@ class WatchlistViewModel @Inject constructor(
 
     /** Ergebnisse «Ungewöhnliche Aktivität» je Paar; abgelaufene Signale filtert die Oberfläche. */
     val activity: StateFlow<Map<Long, ActivityReport>> = activityRepository.reports
+
+    /** Empfindlichkeit «Ungewöhnliche Aktivität»: filtert auch gespeicherte Signale sofort neu. */
+    val activitySensitivity: StateFlow<ActivitySensitivity> = settingsRepository.settings
+        .map { it.activitySensitivity }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached.activitySensitivity)
 
     /** Daten für «Warum bewegt sich das?»; null, wenn gar nichts geladen werden konnte. */
     suspend fun explain(watch: WatchEntity): WhyReport? =
@@ -327,7 +346,7 @@ class WatchlistViewModel @Inject constructor(
      * Liste Platzhalter statt kurz «leer». Eine Quelle für beides, damit
      * «geladen» und Inhalt nie auseinanderlaufen.
      */
-    val watchesOrNull: StateFlow<List<WatchEntity>?> = watchRepository.observeWatches()
+    val watchesOrNull: StateFlow<List<WatchEntity>?> = watchList
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /**
@@ -337,7 +356,7 @@ class WatchlistViewModel @Inject constructor(
      * so blitzt beim Öffnen nicht kurz die ungefilterte Liste auf.
      */
     val groupFilter: StateFlow<GroupFilter?> = combine(
-        watchRepository.observeWatches(),
+        watchList,
         settingsRepository.settings.map { it.watchlistGroup }.distinctUntilChanged(),
     ) { list, group ->
         val groups = groupsOf(list)
@@ -404,7 +423,7 @@ class WatchlistViewModel @Inject constructor(
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
     val lastRefreshReport: StateFlow<String> = refreshStats.lastReport
 
-    val watches: StateFlow<List<WatchEntity>> = watchRepository.observeWatches()
+    val watches: StateFlow<List<WatchEntity>> = watchList
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     /** Anzahl aktiver Alarme je Paar, für die Anzeige in der Liste. */
@@ -452,7 +471,7 @@ class WatchlistViewModel @Inject constructor(
         viewModelScope.launch {
             undoMutex.withLock {
                 val snapshot = watchRepository.snapshot(watch.id) ?: return@withLock
-                undo.put(watch.id, snapshot)
+                undo.put(watch.id, listOf(snapshot))
                 notifier.cancelPrice(watch.id)
                 notifier.cancelActivity(watch.id)
                 watchRepository.deleteWatch(watch.id)
@@ -465,20 +484,51 @@ class WatchlistViewModel @Inject constructor(
     fun undoDelete(watchId: Long) {
         viewModelScope.launch {
             undoMutex.withLock {
-                val snapshot = undo.take(watchId) ?: return@withLock
-                if (!watchRepository.restore(snapshot)) return@withLock
-                val restored = snapshot.watch
-                // Dauer-Meldung wie vorher wieder zeigen (mit dem letzten bekannten Kurs)
-                if (restored.notificationEnabled && restored.lastPrice != null) {
-                    notifier.showPrice(restored, ongoing = true)
+                val snapshots = undo.take(watchId) ?: return@withLock
+                var any = false
+                for (snapshot in snapshots) {
+                    if (!watchRepository.restore(snapshot)) continue
+                    any = true
+                    val restored = snapshot.watch
+                    // Dauer-Meldung wie vorher wieder zeigen (mit dem letzten bekannten Kurs)
+                    if (restored.notificationEnabled && restored.lastPrice != null && !restored.isNotTraded) {
+                        notifier.showPrice(restored, ongoing = true)
+                    }
                 }
-                widgetUpdater.updateAll()
+                if (any) widgetUpdater.updateAll()
             }
         }
     }
 
+    /**
+     * «Nicht gehandelte Paare entfernen» (Überlaufmenü, nach Rückfrage): alle Paare, die ihre
+     * Börse nicht mehr führt, samt Alarmen löschen — wie [deleteWithUndo] festgehalten, damit
+     * «Rückgängig» ([undoDelete] mit [NOT_TRADED_UNDO_KEY]) alle zurückholt.
+     * [onDone] bekommt die Zahl der gelöschten Paare (0 = nichts geschehen).
+     */
+    fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) {
+        viewModelScope.launch {
+            val count = undoMutex.withLock {
+                val ids = watchRepository.getWatches().filter { it.isNotTraded }.map { it.id }
+                val snapshots = ids.mapNotNull { watchRepository.snapshot(it) }
+                if (snapshots.isEmpty()) return@withLock 0
+                undo.put(NOT_TRADED_UNDO_KEY, snapshots)
+                snapshots.forEach {
+                    notifier.cancelPrice(it.watch.id)
+                    notifier.cancelActivity(it.watch.id)
+                }
+                watchRepository.deleteWatches(snapshots.map { it.watch.id })
+                widgetUpdater.updateAll()
+                snapshots.size
+            }
+            onDone(count)
+        }
+    }
+
     private val undoMutex = Mutex()
-    private val undo = UndoSlot<Long, WatchSnapshot>()
+
+    /** Zuletzt Gelöschtes: ein Paar (Schlüssel = seine Id) oder alle nicht gehandelten ([NOT_TRADED_UNDO_KEY]). */
+    private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
     fun deleteAll() {
         viewModelScope.launch {
@@ -549,3 +599,6 @@ data class GroupFilter(val groups: List<String>, val selected: String?)
 
 /** Umrechnungsfaktoren der Merkliste höchstens so oft neu holen. */
 private const val CONVERT_REFRESH_MILLIS = 60_000L
+
+/** «Rückgängig»-Schlüssel für «Nicht gehandelte Paare entfernen» (Watch-Ids sind immer positiv). */
+internal const val NOT_TRADED_UNDO_KEY = -1L

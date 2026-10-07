@@ -12,7 +12,7 @@ Wersja 16.2.2
 • Przesuń w lewo, aby usunąć (z opcją Cofnij), w prawo, aby dodać do ulubionych
 • Zakładka Rynek otwiera się od razu z ostatnimi danymi i odświeża w tle
 • Godziny ciszy: w nocy (np. 23–7) alarmy przychodzą bez dźwięku, wibracji i głosu
-• Blokada aplikacji przez Face ID, Touch ID lub kod
+• Blokada portfela przez Face ID, Touch ID lub kod
 • Widżet Portfel na ekran główny i blokady: łączna wartość w twojej walucie i dzisiejsza zmiana
 • Każdy alarm jako zdanie: „Powiadom mnie, gdy BTC spadnie poniżej 60 000 CHF.”
 • Krótkie wyjaśnienia: stopa finansowania, otwarte pozycje, RSI i Pi Cycle
@@ -30,4 +30,4 @@ Wersja 16.2.2
 • Widżet jednej monety: świece lub linia, zakres wykresu 24 h, 7 lub 30 dni, znaczniki maksimum, środka i minimum, wyróżniona aktualna cena
 • Karta Rynek: łączna kapitalizacja rynku kryptowalut i wolumen 24 h w twojej walucie
 • Futures: funding rate i open interest
-• Cztery kolory akcentu z pasującymi ikonami
+• Pięć kolorów akcentu z pasującymi ikonami

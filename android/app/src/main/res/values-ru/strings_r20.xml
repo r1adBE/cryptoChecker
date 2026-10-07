@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Удалить неторгуемые пары (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Удалить неторгуемые пары</string>
+    <string name="watchlist_remove_not_traded_action">Удалить</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Удалить %1$d пару, которая больше не торгуется на своей бирже? Её оповещения тоже будут удалены.</item>
+        <item quantity="few">Удалить %1$d пары, которые больше не торгуются на своей бирже? Их оповещения тоже будут удалены.</item>
+        <item quantity="many">Удалить %1$d пар, которые больше не торгуются на своей бирже? Их оповещения тоже будут удалены.</item>
+        <item quantity="other">Удалить %1$d пары, которые больше не торгуются на своей бирже? Их оповещения тоже будут удалены.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Удалена %1$d неторгуемая пара</item>
+        <item quantity="few">Удалено %1$d неторгуемые пары</item>
+        <item quantity="many">Удалено %1$d неторгуемых пар</item>
+        <item quantity="other">Удалено %1$d неторгуемой пары</item>
+    </plurals>
+</resources>

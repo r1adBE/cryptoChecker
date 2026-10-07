@@ -58,6 +58,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -75,6 +76,7 @@ import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.components.rememberAlarmTest
 import com.cryptochecker.app.ui.features.about.AboutContent
 import com.cryptochecker.app.lock.AppLockAuth
+import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.util.BatteryOptimization
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
@@ -341,30 +343,32 @@ fun SettingsScreen(
                 }
             }
 
-            // 6 Sicherheit & Backup: App-Sperre, dann Sichern & Wiederherstellen
+            // 6 Sicherheit & Backup: Portfolio-Sperre (nur mit Portfolio), dann Sichern & Wiederherstellen
             SettingsGroup(stringResource(R.string.settings_group_security)) {
                 GroupCard {
                     val unavailableText = stringResource(R.string.app_lock_unavailable)
-                    val reason = stringResource(R.string.app_lock_reason)
-                    SwitchRow(
-                        title = stringResource(R.string.settings_app_lock),
-                        subtitle = stringResource(R.string.settings_app_lock_hint),
-                        checked = settings.appLock,
-                        onCheckedChange = { on ->
-                            if (!on) {
-                                viewModel.setAppLock(false)
-                            } else {
-                                // Einschalten erst nach einer erfolgreichen Entsperrung
+                    val reason = stringResource(R.string.portfolio_lock_reason)
+                    // Nur mit eingeschaltetem Portfolio; der Wert bleibt beim Ausblenden erhalten
+                    if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled)) {
+                        SwitchRow(
+                            title = stringResource(R.string.settings_portfolio_lock),
+                            subtitle = stringResource(R.string.settings_portfolio_lock_hint),
+                            checked = settings.appLock,
+                            onCheckedChange = { on ->
                                 val activity = context.findFragmentActivity()
-                                if (activity == null || !AppLockAuth.canAuthenticate(context)) {
+                                if (!on) {
+                                    // Solange gesperrt, erst entsperren — sonst wäre die Sperre hier zu umgehen
+                                    viewModel.disableAppLock(activity, reason)
+                                } else if (activity == null || !AppLockAuth.canAuthenticate(context)) {
                                     Toast.makeText(context, unavailableText, Toast.LENGTH_LONG).show()
                                 } else {
+                                    // Einschalten erst nach einer erfolgreichen Entsperrung
                                     viewModel.enableAppLock(activity, reason)
                                 }
                             }
-                        }
-                    )
-                    RowDivider()
+                        )
+                        RowDivider()
+                    }
                     // Sichern & Wiederherstellen: eine Datei, die der Nutzer selbst ablegt
                     Text(
                         stringResource(R.string.backup_title),
@@ -386,11 +390,20 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)
                     ) {
                         FilledTonalButton(
-                            onClick = { exportLauncher.launch("cryptochecker-backup-${java.time.LocalDate.now()}.json") },
+                            onClick = {
+                                // Mit Portfolio-Daten und gesperrt: erst entsperren
+                                viewModel.startBackupExport(context.findFragmentActivity(), reason) {
+                                    exportLauncher.launch("cryptochecker-backup-${java.time.LocalDate.now()}.json")
+                                }
+                            },
                             modifier = Modifier.weight(1f)
                         ) { Text(stringResource(R.string.backup_export), maxLines = 1) }
                         FilledTonalButton(
-                            onClick = { importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream")) },
+                            onClick = {
+                                viewModel.startRestore(context.findFragmentActivity(), reason) {
+                                    importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
+                                }
+                            },
                             modifier = Modifier.weight(1f)
                         ) { Text(stringResource(R.string.backup_import), maxLines = 1) }
                     }
@@ -782,15 +795,19 @@ private fun ThemeModeRow(dark: Boolean?, onSelected: (Boolean?) -> Unit) {
 private fun AccentColorRow(selected: AccentColor, onSelected: (AccentColor) -> Unit) {
     Column(modifier = Modifier.padding(vertical = 6.dp)) {
         Text(stringResource(R.string.settings_accent), style = MaterialTheme.typography.bodyMedium)
+        // Fünf Farben: gleich breite Spalten über die ganze Zeile, damit sie auch auf
+        // schmalen Geräten (360 dp) und bei grosser Schrift nebeneinander passen;
+        // lange Namen («Marrs Green») brechen in die zweite Zeile um.
         Row(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             AccentColor.entries.forEach { accent ->
                 val isSelected = accent == selected
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
+                        .weight(1f)
                         .clip(RoundedCornerShape(12.dp))
                         .clickable { onSelected(accent) }
                         .padding(4.dp)
@@ -813,6 +830,8 @@ private fun AccentColorRow(selected: AccentColor, onSelected: (AccentColor) -> U
                         style = MaterialTheme.typography.labelSmall,
                         color = if (isSelected) MaterialTheme.colorScheme.onSurface
                         else MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }

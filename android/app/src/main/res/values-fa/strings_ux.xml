@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">تا</string>
     <string name="channel_alarms_quiet">هشدارها (ساعات بی‌صدا)</string>
     <string name="channel_alarms_quiet_description">هشدارهای بی‌صدا در ساعات بی‌صدا.</string>
-    <string name="settings_app_lock">قفل برنامه</string>
-    <string name="settings_app_lock_hint">اگر برنامه بیش از یک دقیقه در پس‌زمینه بوده باشد، با اثر انگشت، چهره یا PIN دستگاه قفل آن را باز کنید.</string>
-    <string name="app_lock_title">Crypto Checker قفل است</string>
     <string name="app_lock_unlock">باز کردن قفل</string>
-    <string name="app_lock_reason">باز کردن قفل Crypto Checker</string>
     <string name="app_lock_unavailable">روی این دستگاه قفل صفحه تنظیم نشده است. ابتدا یکی را در تنظیمات سیستم تنظیم کنید.</string>
     <string name="widget_portfolio_name">پرتفوی</string>
     <string name="widget_portfolio_description">ارزش کل پرتفوی شما و تغییر امروز</string>
     <string name="widget_portfolio_today">امروز %1$s</string>
     <string name="widget_portfolio_empty">خریدها را در زبانه پرتفوی ثبت کنید</string>
-    <string name="widget_portfolio_locked">پنهان – قفل برنامه روشن است</string>
     <string name="a11y_portfolio_widget">پرتفوی %1$s، امروز %2$s</string>
     <string name="settings_section_advanced">پیشرفته</string>
     <string name="settings_advanced_hint">حالت زنده، اعلان دائمی، فیوچرز و گزینه‌های توسعه‌دهنده</string>

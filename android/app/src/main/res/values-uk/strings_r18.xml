@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">На початок</string>
+    <string name="watchlist_jump_end">У кінець</string>
+    <string name="settings_activity_sensitivity">Чутливість</string>
+    <string name="settings_activity_sensitivity_hint">Наскільки легко монета вважається незвичною – однаково для картки в списку та для сповіщень. За «Менше» картка показує лише 3 найсильніші.</string>
+    <string name="activity_sensitivity_less">Менше</string>
+    <string name="activity_sensitivity_normal">Звичайна</string>
+    <string name="activity_sensitivity_more">Більше</string>
+    <string name="activity_adjust">Налаштувати</string>
+    <string name="activity_adjust_a11y">Налаштувати чутливість</string>
+</resources>

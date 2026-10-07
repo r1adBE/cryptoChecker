@@ -53,8 +53,8 @@ AUSSERDEM
 • Sprachausgabe: Kurse und Alarme werden vorgelesen
 • Sichern & Wiederherstellen über die App «Dateien»
 • Schnellaktionen am App-Symbol, heller und dunkler Modus
-• Vier Akzentfarben mit passendem App-Icon
-• App-Sperre: Face ID, Touch ID oder Code
+• Fünf Akzentfarben mit passendem App-Icon
+• Portfolio-Sperre: Face ID/Touch ID/Code
 • In 31 Sprachen verfügbar
 
 DATENSCHUTZ ZUERST

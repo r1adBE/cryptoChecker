@@ -9,7 +9,7 @@ import com.cryptochecker.app.settings.AccentColor
 /*
  * Farbschemata je Akzentfarbe, hell und dunkel.
  * Erzeugt aus den Grundfarben (Claude-Orange #DD6F48, Rubinrot #E8414D,
- * Königsblau #3B78F0, Smaragdgrün #22A96C) nach dem Tonstufen-Prinzip von Material 3:
+ * Königsblau #3B78F0, Smaragdgrün #22A96C, Marrs Green #4BACA5) nach dem Tonstufen-Prinzip von Material 3:
  * gleicher Farbton, abgestufte Helligkeit. Hintergründe, Flächen und Karten
  * sind bewusst neutral grau — die Akzentfarbe steckt nur in Knöpfen,
  * Schaltern und Hervorhebungen.
@@ -20,6 +20,7 @@ fun appColorScheme(accent: AccentColor, dark: Boolean): ColorScheme = when (acce
     AccentColor.RED -> if (dark) redDark else redLight
     AccentColor.BLUE -> if (dark) blueDark else blueLight
     AccentColor.GREEN -> if (dark) greenDark else greenLight
+    AccentColor.MARRS_GREEN -> if (dark) marrsGreenDark else marrsGreenLight
 }
 
 private val orangeLight = lightColorScheme(
@@ -292,4 +293,74 @@ private val greenDark = darkColorScheme(
     inverseSurface = Color(0xFFE2E2E2),
     inverseOnSurface = Color(0xFF303030),
     inversePrimary = Color(0xFF117C4D),
+)
+
+// Marrs Green: Farbtöne und Helligkeiten wie Grün, Farbton auf #4BACA5 gedreht, Sättigung
+// wie die gedämpfte Grundfarbe. primary hell etwas dunkler, damit AA (≥ 4.5:1) auch auf #E2E2E2 hält.
+private val marrsGreenLight = lightColorScheme(
+    primary = Color(0xFF22706B),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFFD7EFEC),
+    onPrimaryContainer = Color(0xFF072826),
+    secondary = Color(0xFF4A6360),
+    onSecondary = Color(0xFFFFFFFF),
+    secondaryContainer = Color(0xFFCBE8E5),
+    onSecondaryContainer = Color(0xFF071F1E),
+    tertiary = Color(0xFF436372),
+    onTertiary = Color(0xFFFFFFFF),
+    tertiaryContainer = Color(0xFFC0E8FE),
+    onTertiaryContainer = Color(0xFF111E23),
+    background = Color(0xFFF9F9F9),
+    onBackground = Color(0xFF1B1B1B),
+    surface = Color(0xFFF9F9F9),
+    onSurface = Color(0xFF1B1B1B),
+    surfaceVariant = Color(0xFFE2E2E2),
+    onSurfaceVariant = Color(0xFF474747),
+    outline = Color(0xFF777777),
+    outlineVariant = Color(0xFFC6C6C6),
+    surfaceTint = Color(0xFF22706B),
+    surfaceDim = Color(0xFFDADADA),
+    surfaceBright = Color(0xFFF9F9F9),
+    surfaceContainerLowest = Color(0xFFFFFFFF),
+    surfaceContainerLow = Color(0xFFF3F3F3),
+    surfaceContainer = Color(0xFFEEEEEE),
+    surfaceContainerHigh = Color(0xFFE8E8E8),
+    surfaceContainerHighest = Color(0xFFE2E2E2),
+    inverseSurface = Color(0xFF303030),
+    inverseOnSurface = Color(0xFFF1F1F1),
+    inversePrimary = Color(0xFF5FB8B1),
+)
+
+private val marrsGreenDark = darkColorScheme(
+    primary = Color(0xFF5FB8B1),
+    onPrimary = Color(0xFF072826),
+    primaryContainer = Color(0xFF19534F),
+    onPrimaryContainer = Color(0xFFD7EFEC),
+    secondary = Color(0xFFB0CCC9),
+    onSecondary = Color(0xFF1C3432),
+    secondaryContainer = Color(0xFF334B49),
+    onSecondaryContainer = Color(0xFFCBE8E5),
+    tertiary = Color(0xFFA4CDE1),
+    onTertiary = Color(0xFF21323B),
+    tertiaryContainer = Color(0xFF314A56),
+    onTertiaryContainer = Color(0xFFC0E8FE),
+    background = Color(0xFF131313),
+    onBackground = Color(0xFFE2E2E2),
+    surface = Color(0xFF131313),
+    onSurface = Color(0xFFE2E2E2),
+    surfaceVariant = Color(0xFF474747),
+    onSurfaceVariant = Color(0xFFC6C6C6),
+    outline = Color(0xFF919191),
+    outlineVariant = Color(0xFF474747),
+    surfaceTint = Color(0xFF5FB8B1),
+    surfaceDim = Color(0xFF131313),
+    surfaceBright = Color(0xFF393939),
+    surfaceContainerLowest = Color(0xFF0E0E0E),
+    surfaceContainerLow = Color(0xFF1B1B1B),
+    surfaceContainer = Color(0xFF1F1F1F),
+    surfaceContainerHigh = Color(0xFF2A2A2A),
+    surfaceContainerHighest = Color(0xFF353535),
+    inverseSurface = Color(0xFFE2E2E2),
+    inverseOnSurface = Color(0xFF303030),
+    inversePrimary = Color(0xFF22706B),
 )

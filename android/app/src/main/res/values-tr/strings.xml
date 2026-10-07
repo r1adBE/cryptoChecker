@@ -123,7 +123,7 @@
     <string name="settings_theme_mode">Mod</string>
     <string name="theme_light">Açık</string>
     <string name="theme_dark">Koyu</string>
-    <string name="settings_accent">Renk</string>
+    <string name="settings_accent">Tema</string>
     <string name="accent_orange">Turuncu</string>
     <string name="accent_red">Kırmızı</string>
     <string name="accent_blue">Mavi</string>

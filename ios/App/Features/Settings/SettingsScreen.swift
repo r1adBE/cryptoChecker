@@ -478,18 +478,22 @@ struct SettingsScreen: View {
 
     // MARK: Sicherheit & Backup
 
-    /// App-Sperre, darunter Sichern & Wiederherstellen — eine Karte wie Android.
+    /// Portfolio-Sperre (nur mit eingeschaltetem Portfolio), darunter Sichern & Wiederherstellen —
+    /// eine Karte wie Android.
     private var securitySection: some View {
         SettingsGroup(L("settings_group_security"), icon: "lock.fill") {
-            SwitchRow(
-                title: L("settings_app_lock"),
-                subtitle: L("settings_app_lock_hint"),
-                isOn: Binding(
-                    get: { data.settings.appLock },
-                    set: { on in setAppLock(on) }
+            // Ausgeblendet ohne Portfolio; der Wert bleibt erhalten (Widget und Sicherung bleiben geschützt)
+            if PortfolioLockPolicy.showSetting(portfolioEnabled: data.settings.portfolioEnabled) {
+                SwitchRow(
+                    title: L("settings_portfolio_lock"),
+                    subtitle: L("settings_portfolio_lock_hint"),
+                    isOn: Binding(
+                        get: { data.settings.appLock },
+                        set: { on in setAppLock(on) }
+                    )
                 )
-            )
-            RowDivider()
+                RowDivider()
+            }
             // Sichern & Wiederherstellen: eine Datei, die man selbst ablegt
             Text(L("backup_title"))
                 .font(.body)
@@ -521,7 +525,7 @@ struct SettingsScreen: View {
                     }
                 }
 
-                Button { importing = true } label: {
+                Button(action: startImport) {
                     Label(L("backup_import"), systemImage: "square.and.arrow.down")
                         .font(.subheadline.weight(.semibold))
                         .lineLimit(1)
@@ -557,9 +561,14 @@ struct SettingsScreen: View {
     }
 
     /// Einschalten erst nach einmaligem Entsperren; ohne Displaysperre bleibt es aus.
+    /// Ausschalten verlangt Entsperren, solange das Portfolio gesperrt ist (sonst wäre die
+    /// Sperre hier zu umgehen).
     private func setAppLock(_ on: Bool) {
         guard on else {
-            data.settings.appLock = false
+            Task {
+                let open = await AppLock.shared.requireUnlock(PortfolioLockPolicy.disableNeedsUnlock(locked:))
+                if open { data.settings.appLock = false }
+            }
             return
         }
         guard AppLock.canAuthenticate() else {
@@ -573,12 +582,28 @@ struct SettingsScreen: View {
         }
     }
 
+    /// Sichern: Enthält die Datei Portfolio-Daten und ist gesperrt, erst entsperren.
     private func startExport() {
-        do {
-            exportDocument = BackupDocument(data: try BackupManager.exportData(data))
-            exporting = true
-        } catch {
-            toast = L("backup_failed")
+        let hasPortfolio = !data.portfolio.isEmpty
+        Task {
+            let open = await AppLock.shared.requireUnlock { locked in
+                PortfolioLockPolicy.backupExportNeedsUnlock(locked: locked, hasPortfolioData: hasPortfolio)
+            }
+            guard open else { return }
+            do {
+                exportDocument = BackupDocument(data: try BackupManager.exportData(data))
+                exporting = true
+            } catch {
+                toast = L("backup_failed")
+            }
+        }
+    }
+
+    /// Wiederherstellen: solange gesperrt, erst entsperren (die Sicherung kann die Sperre ausschalten).
+    private func startImport() {
+        Task {
+            let open = await AppLock.shared.requireUnlock(PortfolioLockPolicy.restoreNeedsUnlock(locked:))
+            if open { importing = true }
         }
     }
 

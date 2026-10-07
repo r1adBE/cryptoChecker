@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONArray
 import org.json.JSONArray
 
@@ -36,6 +37,8 @@ class Bitfinex : Market("Bitfinex", "Bitfinex", null) {
         ticker.vol = array.getDouble(offset + 7)
         ticker.high = array.getDouble(offset + 8)
         ticker.low = array.getDouble(offset + 9)
+        // DAILY_CHANGE_RELATIVE: gleitende 24 h als Bruchteil
+        ticker.change24hPercent = Change24h.fraction(array.optDouble(offset + 5))
     }
 
     // ---- Massenabfrage

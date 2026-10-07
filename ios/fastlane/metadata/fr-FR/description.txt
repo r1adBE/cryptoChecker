@@ -51,9 +51,9 @@ ET AUSSI
 • Mode live quand l’app est ouverte ; iOS planifie les mises à jour en arrière-plan
 • Lecture vocale des cours et des alertes
 • Sauvegarde et restauration via l'app Fichiers
-• Actions rapides sur l’icône de l’app, mode clair et sombre
-• Quatre couleurs d’accent avec icônes d’app assorties
-• Verrouillage : Face ID, Touch ID ou code
+• Actions rapides sur l’icône, mode clair et sombre
+• Cinq couleurs d’accent avec icônes d’app assorties
+• Verrouillage du portefeuille : Face ID, Touch ID, code
 • Disponible en 31 langues
 
 LA CONFIDENTIALITÉ D’ABORD

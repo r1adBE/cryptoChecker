@@ -184,4 +184,119 @@ class PortfolioHistoryTest {
         assertEquals(0L, PortfolioHistory.epochDayOfUtcMillis(86_399_999L))
         assertEquals(-1L, PortfolioHistory.epochDayOfUtcMillis(-1L))
     }
+
+    // ---------------- «Seit 1. Kauf» ----------------
+
+    /** Kerzen mit gleichem Schluss 50 über [days] Tage bis heute. */
+    private fun flatCloses(days: Int): Map<Long, Double> = (0 until days).associate { i -> (today - i) to 50.0 }
+
+    @Test
+    fun sinceFirstStartsAtTheFirstTransaction() {
+        val first = noon(today - 800)
+        val trades = listOf(buy("BTC", 1.0, first), buy("BTC", 1.0, noon(today - 10)))
+        assertEquals(today - 800, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        val s = PortfolioHistory.build(
+            trades, mapOf("BTC" to flatCloses(900)), emptyMap(),
+            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+        )
+        assertEquals(801, s.points.size)
+        assertEquals(today - 800, s.points.first().epochDay)
+        assertTrue(s.tradesInRange)
+        assertFalse(s.capped)
+        assertEquals(50.0, s.points.first().value, d)
+        assertEquals(100.0, s.points.last().value, d)
+    }
+
+    @Test
+    fun sinceFirstIsCappedAtFiveYears() {
+        val first = noon(today - 4000)
+        val trades = listOf(buy("BTC", 1.0, first))
+        val max = PortfolioHistory.SINCE_FIRST_MAX_DAYS.toLong()
+        assertEquals(1826L, max)
+        assertEquals(today - max, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        assertTrue(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        val s = PortfolioHistory.build(
+            trades, mapOf("BTC" to flatCloses(2000)), emptyMap(),
+            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+        )
+        assertEquals(max + 1, s.points.size.toLong())
+        assertTrue(s.capped)
+        // Erster Kauf genau am ältesten gezeigten Tag: nicht begrenzt
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, noon(today - max), today, dayEnd))
+        // Andere Zeiträume sind nie «begrenzt»
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.YEAR, first, today, dayEnd))
+    }
+
+    @Test
+    fun startDayMatchesTheFixedRanges() {
+        val old = noon(today - 5000)
+        assertEquals(today - 7, PortfolioHistory.startDay(PortfolioHistoryRange.WEEK, old, today, dayEnd))
+        assertEquals(today - 30, PortfolioHistory.startDay(PortfolioHistoryRange.MONTH, old, today, dayEnd))
+        assertEquals(today - 365, PortfolioHistory.startDay(PortfolioHistoryRange.YEAR, old, today, dayEnd))
+        // Erster Kauf nach dem Beginn: dessen Tag; heute gekauft: heute
+        assertEquals(today - 3, PortfolioHistory.startDay(PortfolioHistoryRange.MONTH, noon(today - 3), today, dayEnd))
+        assertEquals(today, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, noon(today), today, dayEnd))
+        // Kurz nach Mitternacht (lokal) zählt schon der neue Tag
+        val justAfterMidnight = dayEnd(today - 2) + 1
+        assertEquals(today - 1, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, justAfterMidnight, today, dayEnd))
+    }
+
+    @Test
+    fun candleDaysOnlyGrowForSinceFirst() {
+        val old = noon(today - 1500)
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.WEEK, old, today, dayEnd))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.MONTH, old, today, dayEnd))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.YEAR, old, today, dayEnd))
+        assertEquals(1502, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, old, today, dayEnd))
+        // Junges Portfolio: nicht weniger als die gemeinsame Jahres-Abfrage
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, noon(today - 20), today, dayEnd))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, null, today, dayEnd))
+        // Begrenzt: 5 Jahre samt heute und einem Tag davor
+        assertEquals(1828, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, noon(today - 9000), today, dayEnd))
+    }
+
+    @Test
+    fun candleChunksAreContiguousAndAtMostOneThousand() {
+        assertEquals(listOf((today - 365)..today), PortfolioHistory.candleChunks(366, today))
+        assertEquals(listOf((today - 999)..today), PortfolioHistory.candleChunks(1000, today))
+        val chunks = PortfolioHistory.candleChunks(1828, today)
+        assertEquals(listOf((today - 1827)..(today - 1000), (today - 999)..today), chunks)
+        val many = PortfolioHistory.candleChunks(2500, today, perRequest = 1000)
+        assertEquals(3, many.size)
+        assertEquals(today - 2499, many.first().first)
+        assertEquals(today, many.last().last)
+        many.zipWithNext().forEach { (a, b) -> assertEquals(a.last + 1, b.first) }
+        assertTrue(many.all { it.last - it.first + 1 <= 1000 })
+        assertEquals(2500L, many.sumOf { it.last - it.first + 1 })
+        assertTrue(PortfolioHistory.candleChunks(0, today).isEmpty())
+    }
+
+    @Test
+    fun rangeFromStoredName() {
+        assertEquals(PortfolioHistoryRange.SINCE_FIRST, PortfolioHistoryRange.fromName("SINCE_FIRST"))
+        assertEquals(PortfolioHistoryRange.WEEK, PortfolioHistoryRange.fromName("WEEK"))
+        assertEquals(PortfolioHistoryRange.MONTH, PortfolioHistoryRange.fromName(null))
+        assertEquals(PortfolioHistoryRange.MONTH, PortfolioHistoryRange.fromName("bogus"))
+    }
+
+    @Test
+    fun scrubIndexPicksNearestPoint() {
+        // 5 Punkte auf 0..100 (Abstand 25), Rand 2
+        assertEquals(0, PortfolioHistory.scrubIndex(2f, 2f, 100f, 5))
+        assertEquals(0, PortfolioHistory.scrubIndex(14f, 2f, 100f, 5))
+        assertEquals(1, PortfolioHistory.scrubIndex(15f, 2f, 100f, 5))
+        assertEquals(2, PortfolioHistory.scrubIndex(52f, 2f, 100f, 5))
+        assertEquals(4, PortfolioHistory.scrubIndex(102f, 2f, 100f, 5))
+    }
+
+    @Test
+    fun scrubIndexClampsAndHandlesEdgeCases() {
+        assertEquals(0, PortfolioHistory.scrubIndex(-50f, 2f, 100f, 5))
+        assertEquals(4, PortfolioHistory.scrubIndex(500f, 2f, 100f, 5))
+        assertEquals(0, PortfolioHistory.scrubIndex(40f, 2f, 100f, 1))
+        assertEquals(0, PortfolioHistory.scrubIndex(40f, 2f, 0f, 5))
+        assertNull(PortfolioHistory.scrubIndex(40f, 2f, 100f, 0))
+        assertNull(PortfolioHistory.scrubIndex(Float.NaN, 2f, 100f, 5))
+    }
 }

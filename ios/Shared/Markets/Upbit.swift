@@ -52,6 +52,7 @@ class UpbitStyleMarket: SimpleMarket {
         ticker.vol = json.optDoubleNoData("acc_trade_volume_24h")
         ticker.volQuote = json.optDoubleNoData("acc_trade_price_24h")
         ticker.timestamp = json.optLong("timestamp")
+        // Kein 24-h-Wert: signed_change_rate bezieht sich auf den Vortagesschluss (KST).
     }
 
     override func parseError(requestId: Int, json: JObject, info: CheckerInfo) throws -> String? {

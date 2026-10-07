@@ -12,7 +12,7 @@ Versio 16.2.2
 • Pyyhkäise vasemmalle poistaaksesi (Kumoa-toiminnolla), oikealle merkitäksesi suosikiksi
 • Markkinat-välilehti avautuu heti viimeisimmillä tiedoilla ja päivittyy taustalla
 • Hiljaiset tunnit: yöllä (esim. 23–7) hälytykset tulevat äänettä – ei ääntä, värinää eikä puhetta
-• Sovelluslukitus Face ID:llä, Touch ID:llä tai pääsykoodilla
+• Salkun lukitus Face ID:llä, Touch ID:llä tai pääsykoodilla
 • Salkku-widget koti- ja lukitusnäytölle: kokonaisarvo omassa valuutassasi ja tämän päivän muutos
 • Jokainen hälytys lauseena: ”Ilmoita, kun BTC laskee alle 60 000 CHF.”
 • Lyhyet selitykset: rahoituskorko, avoimet positiot, RSI ja Pi Cycle
@@ -30,4 +30,4 @@ Versio 16.2.2
 • Yhden kolikon widget: kynttilät tai viiva, kaavion jakso 24 h, 7 tai 30 päivää, ylä-, keski- ja alamerkit, nykyinen hinta korostettuna
 • Markkinat-välilehti: kryptomarkkinan kokonaismarkkina-arvo ja 24 h volyymi omassa valuutassasi
 • Futuurit: funding rate ja open interest
-• Neljä korostusväriä ja sopivat appikuvakkeet
+• Viisi korostusväriä ja sopivat appikuvakkeet

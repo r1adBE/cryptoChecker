@@ -30,6 +30,7 @@ final class Hyperliquid: Market {
         ticker.last = found.last
         ticker.vol = found.vol
         ticker.volQuote = found.volQuote
+        ticker.change24hPercent = found.change24hPercent
     }
 
     override func parseError(requestId: Int, response: String, info: CheckerInfo) throws -> String? {
@@ -83,6 +84,8 @@ final class Hyperliquid: Market {
             ticker.last = price
             ticker.vol = ctx.optDoubleNoData("dayBaseVlm")
             ticker.volQuote = ctx.optDoubleNoData("dayNtlVlm")
+            // prevDayPx = Mark-Preis vor 24 h
+            ticker.change24hPercent = Change24h.fromOpen(last: price, open: ctx.optDouble("prevDayPx"))
             let name = try coin.string("name")
             result[name] = ticker
         }

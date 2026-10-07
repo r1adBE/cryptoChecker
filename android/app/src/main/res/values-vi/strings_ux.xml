@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Đến</string>
     <string name="channel_alarms_quiet">Cảnh báo (giờ yên lặng)</string>
     <string name="channel_alarms_quiet_description">Cảnh báo im lặng trong giờ yên lặng.</string>
-    <string name="settings_app_lock">Khóa ứng dụng</string>
-    <string name="settings_app_lock_hint">Mở khóa bằng vân tay, khuôn mặt hoặc mã PIN thiết bị khi ứng dụng ở chế độ nền hơn một phút.</string>
-    <string name="app_lock_title">Crypto Checker đang bị khóa</string>
     <string name="app_lock_unlock">Mở khóa</string>
-    <string name="app_lock_reason">Mở khóa Crypto Checker</string>
     <string name="app_lock_unavailable">Thiết bị này chưa thiết lập khóa màn hình. Hãy thiết lập trong cài đặt hệ thống trước.</string>
     <string name="widget_portfolio_name">Danh mục</string>
     <string name="widget_portfolio_description">Tổng giá trị danh mục của bạn và thay đổi hôm nay</string>
     <string name="widget_portfolio_today">hôm nay %1$s</string>
     <string name="widget_portfolio_empty">Thêm giao dịch mua trong tab Danh mục</string>
-    <string name="widget_portfolio_locked">Đã ẩn – khóa ứng dụng đang bật</string>
     <string name="a11y_portfolio_widget">Danh mục %1$s, hôm nay %2$s</string>
     <string name="settings_section_advanced">Nâng cao</string>
     <string name="settings_advanced_hint">Chế độ live, thông báo cố định, hợp đồng tương lai và tùy chọn nhà phát triển</string>

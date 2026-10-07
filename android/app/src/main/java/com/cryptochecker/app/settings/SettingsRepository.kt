@@ -10,7 +10,9 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -52,6 +54,7 @@ class SettingsRepository @Inject constructor(
         val batteryPromptSeen = booleanPreferencesKey("battery_prompt_seen")
         val watchlistGroup = stringPreferencesKey("watchlist_group")
         val activityAlerts = booleanPreferencesKey("activity_alerts")
+        val activitySensitivity = stringPreferencesKey("activity_sensitivity")
         val macroNotifications = booleanPreferencesKey("macro_notifications")
         val portfolioEnabled = booleanPreferencesKey("portfolio_enabled")
         val portfolioCurrency = stringPreferencesKey("portfolio_currency")
@@ -72,6 +75,8 @@ class SettingsRepository @Inject constructor(
         val firstAlarmShown = booleanPreferencesKey("first_alarm_shown")
         val firstPairAdded = booleanPreferencesKey("first_pair_added")
         val sheetChartLine = booleanPreferencesKey("sheet_chart_line")
+        val portfolioHistoryExpanded = booleanPreferencesKey("portfolio_history_expanded")
+        val portfolioHistoryRange = stringPreferencesKey("portfolio_history_range")
     }
 
     val settings: Flow<AppSettings> = context.settingsDataStore.data.map { prefs ->
@@ -106,6 +111,7 @@ class SettingsRepository @Inject constructor(
             batteryPromptSeen = prefs[Keys.batteryPromptSeen] ?: defaults.batteryPromptSeen,
             watchlistGroup = prefs[Keys.watchlistGroup],
             activityAlerts = prefs[Keys.activityAlerts] ?: defaults.activityAlerts,
+            activitySensitivity = ActivitySensitivity.fromName(prefs[Keys.activitySensitivity]),
             macroNotifications = prefs[Keys.macroNotifications] ?: defaults.macroNotifications,
             portfolioEnabled = prefs[Keys.portfolioEnabled] ?: defaults.portfolioEnabled,
             portfolioCurrency = prefs[Keys.portfolioCurrency] ?: defaults.portfolioCurrency,
@@ -129,6 +135,8 @@ class SettingsRepository @Inject constructor(
             firstAlarmShown = prefs[Keys.firstAlarmShown] ?: defaults.firstAlarmShown,
             firstPairAdded = prefs[Keys.firstPairAdded] ?: defaults.firstPairAdded,
             sheetChartLine = prefs[Keys.sheetChartLine] ?: defaults.sheetChartLine,
+            portfolioHistoryExpanded = prefs[Keys.portfolioHistoryExpanded] ?: defaults.portfolioHistoryExpanded,
+            portfolioHistoryRange = PortfolioHistoryRange.fromName(prefs[Keys.portfolioHistoryRange]),
         ).also { cached = it }
     }
 
@@ -228,6 +236,8 @@ class SettingsRepository @Inject constructor(
     }
 
     suspend fun setActivityAlerts(enabled: Boolean) = edit { it[Keys.activityAlerts] = enabled }
+    suspend fun setActivitySensitivity(sensitivity: ActivitySensitivity) =
+        edit { it[Keys.activitySensitivity] = sensitivity.name }
     suspend fun setMacroNotifications(enabled: Boolean) = edit { it[Keys.macroNotifications] = enabled }
 
     suspend fun setPortfolioEnabled(enabled: Boolean) = edit { it[Keys.portfolioEnabled] = enabled }
@@ -279,7 +289,7 @@ class SettingsRepository @Inject constructor(
         if (QuietHours.isValidMinute(minute)) it[Keys.quietHoursEnd] = minute
     }
 
-    /** App-Sperre ein/aus. Einschalten erst nach einer erfolgreichen Entsperrung (siehe SettingsScreen). */
+    /** Portfolio-Sperre ein/aus. Ein- und (solange gesperrt) Ausschalten erst nach einer Entsperrung (siehe SettingsScreen). */
     suspend fun setAppLock(enabled: Boolean) = edit { it[Keys.appLock] = enabled }
 
     /** Bestätigung nach dem ersten Alarm erledigt (nicht in der Sicherung). */
@@ -290,6 +300,12 @@ class SettingsRepository @Inject constructor(
 
     /** Chart im Aktionsblatt: Linie (true) oder Kerzen (nicht in der Sicherung). */
     suspend fun setSheetChartLine(line: Boolean) = edit { it[Keys.sheetChartLine] = line }
+
+    /** Wertverlauf im Portfolio auf- oder zugeklappt (nicht in der Sicherung). */
+    suspend fun setPortfolioHistoryExpanded(expanded: Boolean) = edit { it[Keys.portfolioHistoryExpanded] = expanded }
+
+    /** Zeitraum des Wertverlaufs (nicht in der Sicherung). */
+    suspend fun setPortfolioHistoryRange(range: PortfolioHistoryRange) = edit { it[Keys.portfolioHistoryRange] = range.name }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         context.settingsDataStore.edit(block)

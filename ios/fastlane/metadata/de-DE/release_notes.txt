@@ -12,7 +12,7 @@ Version 16.2.2
 • Wischen in der Merkliste: nach links löschen (mit «Rückgängig»), nach rechts Favorit
 • Der Markt-Tab öffnet sofort mit den letzten Daten und aktualisiert im Hintergrund
 • Nachtruhe: Nachts (z. B. 23–7 Uhr) kommen Alarme still – ohne Ton, Vibration und Ansage
-• App-Sperre mit Face ID, Touch ID oder Gerätecode
+• Portfolio-Sperre mit Face ID, Touch ID oder Gerätecode
 • Portfolio-Widget für Home- und Sperrbildschirm: Gesamtwert in deiner Währung und Veränderung heute
 • Jeder Alarm als Satz: «Sag mir Bescheid, wenn BTC unter 60 000 CHF fällt.»
 • Kurze Erklärungen zu Funding Rate, Open Interest, RSI und Pi-Cycle
@@ -29,4 +29,4 @@ Version 16.2.2
 • Einzel-Widget: Kerzen oder Linie, Chart-Zeitraum 24 Std., 7 Tage oder 30 Tage, Marken für Hoch, Mitte und Tief, aktueller Kurs hervorgehoben
 • Markt-Tab: gesamte Krypto-Marktkapitalisierung und 24-Std.-Volumen in deiner Währung
 • Futures: Funding Rate und Open Interest
-• Vier Akzentfarben mit passendem App-Icon
+• Fünf Akzentfarben mit passendem App-Icon

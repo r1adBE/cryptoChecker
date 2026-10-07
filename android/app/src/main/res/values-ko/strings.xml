@@ -117,7 +117,7 @@
     <string name="settings_theme_mode">모드</string>
     <string name="theme_light">라이트</string>
     <string name="theme_dark">다크</string>
-    <string name="settings_accent">색상</string>
+    <string name="settings_accent">테마</string>
     <string name="accent_orange">주황</string>
     <string name="accent_red">빨강</string>
     <string name="accent_blue">파랑</string>

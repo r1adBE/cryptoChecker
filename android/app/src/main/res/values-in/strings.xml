@@ -121,7 +121,7 @@
     <string name="settings_theme_mode">Mode</string>
     <string name="theme_light">Terang</string>
     <string name="theme_dark">Gelap</string>
-    <string name="settings_accent">Warna</string>
+    <string name="settings_accent">Tema</string>
     <string name="accent_orange">Oranye</string>
     <string name="accent_red">Merah</string>
     <string name="accent_blue">Biru</string>

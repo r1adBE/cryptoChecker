@@ -297,7 +297,7 @@ private struct WatchlistWidgetRow: View {
                         .font(.system(size: 9))
                         .foregroundStyle(palette.down)
                 } else {
-                    WidgetChangeLabel(change: watch.change24h, palette: palette, size: 10, showsArrow: true, day: true)
+                    WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 10, showsArrow: true, day: true)
                 }
             }
             .layoutPriority(2)
@@ -343,7 +343,7 @@ private struct WatchlistSmallView: View {
                     WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 24, palette: palette)
                         .padding(.top, 2)
                     HStack {
-                        WidgetChangeLabel(change: watch.change24h, palette: palette, size: 11, showsArrow: true, day: true)
+                        WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 11, showsArrow: true, day: true)
                         Spacer(minLength: 4)
                         Text(WidgetOutdated.timeText(watch.lastUpdate, outdated: outdated, at: entry.date))
                             .font(.system(size: 9.5, weight: .medium))

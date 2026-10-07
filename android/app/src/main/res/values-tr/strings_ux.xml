@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Bitiş</string>
     <string name="channel_alarms_quiet">Alarmlar (sessiz saatler)</string>
     <string name="channel_alarms_quiet_description">Sessiz saatlerde sessiz alarmlar.</string>
-    <string name="settings_app_lock">Uygulama kilidi</string>
-    <string name="settings_app_lock_hint">Uygulama bir dakikadan uzun süre arka planda kaldıysa parmak izi, yüz veya cihaz PIN\'i ile kilidi açın.</string>
-    <string name="app_lock_title">Crypto Checker kilitli</string>
     <string name="app_lock_unlock">Kilidi aç</string>
-    <string name="app_lock_reason">Crypto Checker kilidini aç</string>
     <string name="app_lock_unavailable">Bu cihazda ekran kilidi ayarlanmamış. Önce sistem ayarlarından bir tane ayarlayın.</string>
     <string name="widget_portfolio_name">Portföy</string>
     <string name="widget_portfolio_description">Portföyünüzün toplam değeri ve bugünkü değişim</string>
     <string name="widget_portfolio_today">bugün %1$s</string>
     <string name="widget_portfolio_empty">Alımları Portföy sekmesinde ekleyin</string>
-    <string name="widget_portfolio_locked">Gizli – uygulama kilidi açık</string>
     <string name="a11y_portfolio_widget">Portföy %1$s, bugün %2$s</string>
     <string name="settings_section_advanced">Gelişmiş</string>
     <string name="settings_advanced_hint">Canlı mod, kalıcı bildirim, vadeli işlemler ve geliştirici seçenekleri</string>

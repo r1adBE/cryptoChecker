@@ -52,8 +52,8 @@ AUSSERDEM
 • Sprachausgabe: Kurse und Alarme werden vorgelesen
 • Sichern & Wiederherstellen in eine Datei deiner Wahl – auch zwischen Android und iPhone
 • App-Verknüpfungen, heller und dunkler Modus
-• Vier Akzentfarben mit passendem App-Icon
-• App-Sperre: Fingerabdruck, Gesicht oder PIN
+• Fünf Akzentfarben mit passendem App-Icon
+• Portfolio-Sperre: Fingerabdruck/Gesicht/PIN
 • In 31 Sprachen verfügbar
 
 DATENSCHUTZ ZUERST

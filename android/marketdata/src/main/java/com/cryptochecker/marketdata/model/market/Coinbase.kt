@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.currency.CurrencyPairsMap
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.TimeUtils
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONArray
@@ -83,6 +84,11 @@ class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
             ticker.timestamp = TimeUtils.convertISODateToTimestamp(jsonObject.getString("time"))
         }
         else {
+            // /stats: „open“ = Kurs vor 24 h (gleitend). Bezug ist der Kurs aus /ticker.
+            val open = jsonObject.optDouble("open")
+            ticker.change24hPercent = Change24h.fromOpen(ticker.last, open)
+                ?: Change24h.fromOpen(jsonObject.optDouble("last"), open)
+
             ticker.high = jsonObject.getDouble("high")
             ticker.low = jsonObject.getDouble("low")
         }

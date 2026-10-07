@@ -15,6 +15,7 @@ class SimpleTicker : Ticker {
     override var low: Double = NO_DATA_DOUBLE
     override var last: Double = NO_DATA_DOUBLE
     override var timestamp: Long = NO_DATA.toLong()
+    override var change24hPercent: Double? = null
 
     private companion object {
         const val NO_DATA_DOUBLE: Double = NO_DATA.toDouble()

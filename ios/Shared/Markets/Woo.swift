@@ -25,6 +25,14 @@ final class Woo: WooBase {
         ticker.vol = rows.reduce(0) { $0 + $1.optDouble("volume", 0) }
         ticker.volQuote = rows.reduce(0) { $0 + $1.optDouble("amount", 0) }
         ticker.timestamp = json.optLong("timestamp")
+
+        // Eröffnung der ältesten der 24 Stundenkerzen ≈ Kurs vor 24 h (nur mit vollem Fenster)
+        let oldest = rows.min(by: { $0.optLong("startTimestamp") < $1.optLong("startTimestamp") })
+        if rows.count >= 24, let oldest {
+            ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: oldest.optDouble("open"))
+        } else {
+            ticker.change24hPercent = nil
+        }
     }
 }
 
@@ -47,6 +55,8 @@ final class WooFutures: WooBase {
         ticker.low = json.optDoubleNoData("24hLow")
         ticker.vol = json.optDoubleNoData("24hVolume")
         ticker.volQuote = json.optDoubleNoData("24hAmount")
+        // 24hOpen = Kurs vor 24 h
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("24hOpen"))
     }
 
     override var bulkTickersNumOfRequests: Int { 1 }

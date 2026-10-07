@@ -9,17 +9,12 @@
     <string name="settings_quiet_hours_to">Vége</string>
     <string name="channel_alarms_quiet">Riasztások (csendes órák)</string>
     <string name="channel_alarms_quiet_description">Néma riasztások a csendes órákban.</string>
-    <string name="settings_app_lock">Alkalmazászár</string>
-    <string name="settings_app_lock_hint">Feloldás ujjlenyomattal, arccal vagy az eszköz PIN-kódjával, ha az alkalmazás egy percnél tovább volt a háttérben.</string>
-    <string name="app_lock_title">A Crypto Checker zárolva van</string>
     <string name="app_lock_unlock">Feloldás</string>
-    <string name="app_lock_reason">A Crypto Checker feloldása</string>
     <string name="app_lock_unavailable">Ezen az eszközön nincs beállítva képernyőzár. Először állítson be egyet a rendszerbeállításokban.</string>
     <string name="widget_portfolio_name">Portfólió</string>
     <string name="widget_portfolio_description">Portfóliója teljes értéke és mai változása</string>
     <string name="widget_portfolio_today">ma %1$s</string>
     <string name="widget_portfolio_empty">Vásárlások rögzítése a Portfólió lapon</string>
-    <string name="widget_portfolio_locked">Rejtett – az alkalmazászár be van kapcsolva</string>
     <string name="a11y_portfolio_widget">Portfólió %1$s, ma %2$s</string>
     <string name="settings_section_advanced">Speciális</string>
     <string name="settings_advanced_hint">Élő mód, állandó értesítés, futures és fejlesztői beállítások</string>

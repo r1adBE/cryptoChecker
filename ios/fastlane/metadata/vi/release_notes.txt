@@ -12,7 +12,7 @@ Phiên bản 16.2.2
 • Vuốt trái để xóa (có Hoàn tác), vuốt phải để thêm vào yêu thích
 • Tab Thị trường mở ngay với dữ liệu gần nhất và làm mới trong nền
 • Giờ yên lặng: ban đêm (ví dụ 23–7 giờ) cảnh báo đến im lặng – không âm thanh, rung hay giọng đọc
-• Khóa ứng dụng bằng Face ID, Touch ID hoặc mật mã
+• Khóa danh mục bằng Face ID, Touch ID hoặc mật mã
 • Widget danh mục cho màn hình chính và màn hình khóa: tổng giá trị bằng đồng tiền của bạn và thay đổi hôm nay
 • Mỗi cảnh báo là một câu: “Báo cho tôi khi BTC giảm xuống dưới 60.000 CHF.”
 • Giải thích ngắn về funding rate, open interest, RSI và Pi Cycle
@@ -30,4 +30,4 @@ Phiên bản 16.2.2
 • Widget một coin: nến hoặc đường, khoảng biểu đồ 24 giờ, 7 hoặc 30 ngày, mốc cao, giữa và thấp, giá hiện tại được làm nổi bật
 • Tab Thị trường: tổng vốn hóa thị trường crypto và khối lượng 24h bằng đồng tiền của bạn
 • Hợp đồng tương lai: funding rate và open interest
-• Bốn màu nhấn với biểu tượng tương ứng
+• Năm màu nhấn với biểu tượng tương ứng

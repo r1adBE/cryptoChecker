@@ -525,6 +525,17 @@
                 android:textSize="10sp" />
         </LinearLayout>
 
+        <!-- Portfolio-Sperre an: Schloss über dem Hinweis (keine Werte, kein Chart, keine Positionen) -->
+        <ImageView
+            android:id="@+id/portfolio_lock_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_lock"
+            android:importantForAccessibility="no"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/portfolio_message"
             android:layout_width="match_parent"

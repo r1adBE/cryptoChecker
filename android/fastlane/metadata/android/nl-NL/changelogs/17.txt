@@ -5,6 +5,6 @@ Nieuw in 16.2.2
 • Koersen en alarmen in je eigen valuta
 • Peildatum-export als CSV
 • Toegankelijk: blauw/oranje, hoog contrast, kleuren omwisselen, TalkBack
-• Begin met één tik, stille uren, app-vergrendeling, portfolio-widget, alarm als zin
+• Begin met één tik, stille uren, portfolio-vergrendeling en -widget, alarm als zin
 • 15 nieuwe exchanges, netwerkkosten met gasalarm
 • Candlegrafiek in widget, marktwaarde

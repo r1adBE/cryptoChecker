@@ -119,7 +119,7 @@
     <string name="settings_theme_mode">Mód</string>
     <string name="theme_light">Világos</string>
     <string name="theme_dark">Sötét</string>
-    <string name="settings_accent">Szín</string>
+    <string name="settings_accent">Téma</string>
     <string name="accent_orange">Narancs</string>
     <string name="accent_red">Piros</string>
     <string name="accent_blue">Kék</string>

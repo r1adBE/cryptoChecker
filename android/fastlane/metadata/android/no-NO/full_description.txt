@@ -54,8 +54,8 @@ I TILLEGG
 • Opplesning av kurser og alarmer (tekst til tale)
 • Sikkerhetskopi og gjenoppretting til en fil du velger – også mellom Android og iPhone
 • Snarveier, lys og mørk modus
-• Fire aksentfarger med matchende appikon
-• Applås: fingeravtrykk, ansikt eller PIN
+• Fem aksentfarger med matchende appikon
+• Porteføljelås: fingeravtrykk, ansikt eller PIN
 • Tilgjengelig på 31 språk
 
 PERSONVERN FØRST

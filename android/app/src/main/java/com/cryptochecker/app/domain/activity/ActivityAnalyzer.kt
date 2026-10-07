@@ -145,58 +145,57 @@ object ActivityAnalyzer {
 
     // ---------------- Signale ----------------
 
-    /** Alle Signale eines Paars, stärkstes zuerst. */
+    /**
+     * Alle Signale eines Paars, stärkstes zuerst. Die Schwellen kommen aus der
+     * [sensitivity] (Standard = bisherige Werte) — für Karte und Meldungen gleich.
+     */
     fun signals(
         stats: HourStats?,
         fundingPercent: Double?,
         oiChangePercent: Double?,
         oiMinutes: Int?,
         now: Long,
+        sensitivity: ActivitySensitivity = ActivitySensitivity.NORMAL,
     ): List<ActivitySignal> {
-        val out = ArrayList<ActivitySignal>()
+        // Kandidaten mit allen Werten; ob und wie stark sie zählen, entscheiden die Schwellen
+        val candidates = ArrayList<ActivitySignal>()
         if (stats != null) {
-            val z = abs(stats.zScore)
-            val move = abs(stats.movePercent)
-            if (z >= SIGNAL_PRICE_Z && move >= SIGNAL_PRICE_MIN_MOVE_PERCENT) {
-                out += ActivitySignal(
-                    kind = SignalKind.PRICE_MOVE,
-                    severity = if (z >= SIGNAL_PRICE_STRONG_Z || move >= SIGNAL_PRICE_STRONG_MOVE_PERCENT)
-                        SignalSeverity.STRONG else SignalSeverity.NOTABLE,
-                    value = stats.movePercent,
-                    factor = z,
-                    seenAt = now,
-                )
-            }
-            val ratio = stats.volumeRatio
-            if (ratio != null && ratio >= SIGNAL_VOLUME_RATIO) {
-                out += ActivitySignal(
-                    kind = SignalKind.VOLUME_SPIKE,
-                    severity = if (ratio >= SIGNAL_VOLUME_STRONG_RATIO) SignalSeverity.STRONG else SignalSeverity.NOTABLE,
-                    value = ratio,
-                    seenAt = now,
-                )
+            candidates += ActivitySignal(
+                kind = SignalKind.PRICE_MOVE,
+                severity = SignalSeverity.NOTABLE,
+                value = stats.movePercent,
+                factor = abs(stats.zScore),
+                seenAt = now,
+            )
+            stats.volumeRatio?.let { ratio ->
+                candidates += ActivitySignal(SignalKind.VOLUME_SPIKE, SignalSeverity.NOTABLE, ratio, seenAt = now)
             }
         }
-        if (oiChangePercent != null && abs(oiChangePercent) >= SIGNAL_OI_PERCENT) {
-            out += ActivitySignal(
+        if (oiChangePercent != null) {
+            candidates += ActivitySignal(
                 kind = SignalKind.OPEN_INTEREST_JUMP,
-                severity = if (abs(oiChangePercent) >= SIGNAL_OI_STRONG_PERCENT) SignalSeverity.STRONG
-                else SignalSeverity.NOTABLE,
+                severity = SignalSeverity.NOTABLE,
                 value = oiChangePercent,
                 factor = oiMinutes?.toDouble(),
                 seenAt = now,
             )
         }
-        if (fundingPercent != null && abs(fundingPercent) >= SIGNAL_FUNDING_PERCENT) {
-            out += ActivitySignal(
-                kind = SignalKind.FUNDING_EXTREME,
-                severity = if (abs(fundingPercent) >= SIGNAL_FUNDING_STRONG_PERCENT) SignalSeverity.STRONG
-                else SignalSeverity.NOTABLE,
-                value = fundingPercent,
-                seenAt = now,
-            )
+        if (fundingPercent != null) {
+            candidates += ActivitySignal(SignalKind.FUNDING_EXTREME, SignalSeverity.NOTABLE, fundingPercent, seenAt = now)
         }
-        return out.sortedWith(SIGNAL_ORDER)
+        return applySensitivity(candidates, sensitivity)
+    }
+
+    /**
+     * Beurteilt Signale neu nach der [sensitivity]: was unter den Schwellen liegt, fällt
+     * weg, die Stärke wird neu bestimmt. So wirkt eine geänderte Einstellung sofort auch
+     * auf gespeicherte Signale (Karte, ⚡ an den Zeilen); stärkstes zuerst.
+     */
+    fun applySensitivity(signals: List<ActivitySignal>, sensitivity: ActivitySensitivity): List<ActivitySignal> {
+        val thresholds = SignalThresholds.of(sensitivity)
+        return signals.mapNotNull { signal ->
+            thresholds.severityOf(signal)?.let { signal.copy(severity = it) }
+        }.sortedWith(SIGNAL_ORDER)
     }
 
     /** Neuer Bericht plus die Arten, die vorher nicht aktiv waren (für die Meldung). */
@@ -206,8 +205,14 @@ object ActivityAnalyzer {
      * Frische Signale ersetzen gleichartige alte; alte, die nicht mehr erkannt
      * werden, bleiben bis 1 Std. nach dem letzten Erkennen stehen.
      */
-    fun merge(previous: ActivityReport?, fresh: List<ActivitySignal>, now: Long): Merge {
-        val before = previous?.active(now).orEmpty()
+    fun merge(
+        previous: ActivityReport?,
+        fresh: List<ActivitySignal>,
+        now: Long,
+        sensitivity: ActivitySensitivity = ActivitySensitivity.NORMAL,
+    ): Merge {
+        // Alte Signale nach der aktuellen Empfindlichkeit: nach «Weniger» zählt nur noch, was dort auffällt
+        val before = applySensitivity(previous?.active(now).orEmpty(), sensitivity)
         val freshKinds = fresh.map { it.kind }.toSet()
         val kept = before.filter { it.kind !in freshKinds }
         val signals = (fresh.map { it.copy(seenAt = now) } + kept).sortedWith(SIGNAL_ORDER)
@@ -238,11 +243,15 @@ object ActivityAnalyzer {
     /** Ordnet ein Paar ein: Markt vs. Coin, Volumen, Hebel, Volatilität, Stimmung. */
     fun explain(input: WhyInput): WhyReport {
         val now = input.now
-        val candles = input.candles?.takeIf { it.size >= 2 }
+        // Nicht mehr gehandelt: nichts ausgeben (keine Kennzahlen, keine Gründe)
+        if (!input.marketLive) return notLive(now)
+        // Veraltete, leere oder unplausibel flache Reihen zählen als «keine Daten» (siehe CandleSeries)
+        val candles = CandleSeries.usable(input.candles, now, input.tickerChange24h)
         val change1h = changeOver(candles, 1, now)
-        val change24h = changeOver(candles, 24, now)
+        // 24 h wie Pille und Merkliste (Ticker des Paars), sonst aus den Kerzen
+        val change24h = CandleSeries.change24h(input.tickerChange24h, changeOver(candles, 24, now))
         val stats = candles?.let { hourStats(it) }
-        val reference24h = changeOver(input.referenceCandles, 24, now)
+        val reference24h = changeOver(CandleSeries.usable(input.referenceCandles, now, null), 24, now)
 
         val reasons = ArrayList<Reason>()
 
@@ -323,6 +332,16 @@ object ActivityAnalyzer {
             dataTime = now,
         )
     }
+
+    /** Leerer Bericht für Paare, die nicht mehr gehandelt werden. */
+    fun notLive(now: Long): WhyReport = WhyReport(
+        price = null,
+        change1h = null,
+        change24h = null,
+        reasons = emptyList(),
+        hasMarketData = false,
+        dataTime = now,
+    )
 
     private fun marketReason(coin: Double, btc: Double): Reason {
         val btcMoves = abs(btc) >= MARKET_MOVE_PERCENT

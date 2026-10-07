@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.settings.AccentColor
@@ -104,7 +105,8 @@ private class WatchlistViewsFactory(
         views.setTextColor(R.id.item_price, background.textColor)
 
         // Veränderung über 24 Stunden — derselbe Wert wie die Pille in der Merkliste
-        val change = watch.change24h?.takeIf { it.isFinite() }
+        // (nicht mehr gehandelt: «—»)
+        val change = watch.shownChange24h?.takeIf { it.isFinite() }
         val changeText = PriceFormat.changePercent(change)
 
         // Immer ein Wert, damit alle Zeilen gleich aussehen: Pfeil und Vorzeichen

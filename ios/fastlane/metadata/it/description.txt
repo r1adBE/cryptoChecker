@@ -52,8 +52,8 @@ E INOLTRE
 • Lettura vocale di prezzi e allarmi
 • Backup e ripristino tramite l'app File
 • Azioni rapide sull’icona dell’app, tema chiaro e scuro
-• Quattro colori d’accento con icone dell’app abbinate
-• Blocco app: Face ID, Touch ID o codice
+• Cinque colori d’accento con icone dell’app abbinate
+• Blocco portafoglio: Face ID, Touch ID o codice
 • Disponibile in 31 lingue
 
 PRIMA LA PRIVACY

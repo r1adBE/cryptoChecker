@@ -5,6 +5,6 @@
 • Árak és riasztások a saját pénznemedben
 • Fordulónapi export: portfólióérték CSV-ben
 • Akadálymentes: kék/narancs, nagy kontraszt, színcsere, TalkBack
-• Kezdés egy koppintással, csendes órák, zár, portfólió widget, riasztás mondatként
+• Kezdés egy koppintással, csendes órák, portfóliózár és -widget, riasztás mondatként
 • 15 új tőzsde, hálózati díjak gas-riasztással
 • Gyertyás grafikon a widgetben, piaci kapitalizáció

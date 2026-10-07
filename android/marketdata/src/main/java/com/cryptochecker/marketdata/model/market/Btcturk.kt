@@ -5,6 +5,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
@@ -38,6 +39,9 @@ class Btcturk : SimpleMarket(
         ticker.low = json.optDoubleNoData("low")
         ticker.vol = json.optDoubleNoData("volume")
         ticker.timestamp = json.optLong("timestamp")
+        // „open“ = Kurs vor 24 h; dailyPercent (Prozent) nur als Ersatz.
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, json.optDouble("open"))
+            ?: Change24h.percent(json.optDouble("dailyPercent"))
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

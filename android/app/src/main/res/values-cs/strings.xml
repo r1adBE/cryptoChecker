@@ -123,7 +123,7 @@
     <string name="settings_theme_mode">Režim</string>
     <string name="theme_light">Světlý</string>
     <string name="theme_dark">Tmavý</string>
-    <string name="settings_accent">Barva</string>
+    <string name="settings_accent">Motiv</string>
     <string name="accent_orange">Oranžová</string>
     <string name="accent_red">Červená</string>
     <string name="accent_blue">Modrá</string>

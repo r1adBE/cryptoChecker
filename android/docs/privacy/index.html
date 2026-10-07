@@ -164,7 +164,7 @@
     <li>von dir eingetragene Käufe und Verkäufe (Datum, Menge, Preis) für das Portfolio</li>
     <li>Alarme und deren Bedingungen</li>
     <li>zuletzt abgerufene Kurse, Marktdaten (z.&nbsp;B. für den Markt-Tab) und zwischengespeicherte Handelspaar-Listen</li>
-    <li>Einstellungen (Sprache, Farbe, Umrechnungswährung, Aktualisierungsintervall, Benachrichtigungen, Nachtruhe, Sprachausgabe, App-Sperre, Widget-Optionen)</li>
+    <li>Einstellungen (Sprache, Farbe, Umrechnungswährung, Aktualisierungsintervall, Benachrichtigungen, Nachtruhe, Sprachausgabe, Portfolio-Sperre, Widget-Optionen)</li>
     <li>für das Portfolio-Widget: Gesamtwert (in der Umrechnungswährung und in USDT), Veränderung heute, Wertverlauf der letzten bis zu 48 Stunden und die grössten Positionen (Kürzel, Wert, Anteil, Veränderung) — im Widget-Speicher der App auf dem Gerät</li>
   </ul>
   <h4>Android <span class="badge">ANDROID</span></h4>
@@ -256,7 +256,7 @@
     <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Nach einem Neustart die Hintergrundaktualisierung und Alarme wieder einplanen.</td></tr>
     <tr><td><code>VIBRATE</code></td><td>Vibration bei Alarmen, wenn du sie eingeschaltet hast.</td></tr>
     <tr><td><code>WAKE_LOCK</code></td><td>Kurzzeitig verhindern, dass das Gerät während einer laufenden Aktualisierung einschläft (über WorkManager).</td></tr>
-    <tr><td><code>USE_BIOMETRIC</code></td><td>Nur wenn du die App-Sperre einschaltest: Entsperren mit Fingerabdruck, Gesicht oder Geräte-PIN über das Android-System. Die App erhält dabei nur «entsperrt» oder «abgebrochen», nie biometrische Daten.</td></tr>
+    <tr><td><code>USE_BIOMETRIC</code></td><td>Nur wenn du die Portfolio-Sperre einschaltest: Entsperren des Portfolios mit Fingerabdruck, Gesicht oder Geräte-PIN über das Android-System (der Rest der App bleibt frei). Die App erhält dabei nur «entsperrt» oder «abgebrochen», nie biometrische Daten.</td></tr>
   </table>
   </div>
   <h4>iPhone und iPad <span class="badge">iOS</span></h4>
@@ -266,8 +266,8 @@
     <tr><td>Mitteilungen</td><td>Kurs-Mitteilungen und Alarme anzeigen. iOS fragt einmal um Erlaubnis; du kannst ablehnen und es jederzeit unter <i>Einstellungen › Mitteilungen › Crypto Checker</i> ändern.</td></tr>
     <tr><td>Dringende Mitteilungen (Time Sensitive)</td><td>Alarme auch bei aktivem Fokus zustellen. Abschaltbar in den Mitteilungs-Einstellungen der App.</td></tr>
     <tr><td>Hintergrundaktualisierung</td><td>Kurse, Alarme und Widgets im Hintergrund aktualisieren. Wann das geschieht, entscheidet iOS. Abschaltbar unter <i>Einstellungen › Allgemein › Hintergrundaktualisierung</i>.</td></tr>
-    <tr><td>App Group</td><td>Lokaler, gemeinsamer Speicher von App und Widgets (keine Abfrage, keine Übertragung). Das Portfolio-Widget liest dort Gesamtwert, Veränderung, Wertverlauf und die grössten Positionen; bei eingeschalteter App-Sperre zeigt es keine Werte.</td></tr>
-    <tr><td>Face ID / Touch ID / Code</td><td>Nur wenn du die App-Sperre einschaltest. iOS prüft selbst und meldet der App nur «entsperrt» oder «abgebrochen»; biometrische Daten erhält die App nie.</td></tr>
+    <tr><td>App Group</td><td>Lokaler, gemeinsamer Speicher von App und Widgets (keine Abfrage, keine Übertragung). Das Portfolio-Widget liest dort Gesamtwert, Veränderung, Wertverlauf und die grössten Positionen; bei eingeschalteter Portfolio-Sperre zeigt es keine Werte, nur «Gesperrt – in der App entsperren».</td></tr>
+    <tr><td>Face ID / Touch ID / Code</td><td>Nur wenn du die Portfolio-Sperre einschaltest (sie sperrt nur das Portfolio). iOS prüft selbst und meldet der App nur «entsperrt» oder «abgebrochen»; biometrische Daten erhält die App nie.</td></tr>
   </table>
   </div>
   <p>Die App fordert auf keiner Plattform Zugriff auf Standort, Kontakte, Fotos, Kamera, Mikrofon, Kalender, Bluetooth, Health-Daten, Dateien (ausser der von dir gewählten Sicherungsdatei), Werbe-ID oder andere Geräte-Kennungen an.</p>
@@ -325,7 +325,7 @@
     <li>buys and sells you enter (date, amount, price) for the portfolio</li>
     <li>alarms and their conditions</li>
     <li>last fetched prices, market data (e.g. for the Market tab) and cached lists of trading pairs</li>
-    <li>settings (language, color, conversion currency, update interval, notifications, quiet hours, speech output, app lock, widget options)</li>
+    <li>settings (language, color, conversion currency, update interval, notifications, quiet hours, speech output, portfolio lock, widget options)</li>
     <li>for the portfolio widget: total value (in the conversion currency and in USDT), today’s change, the value history of up to the last 48 hours and the largest positions (symbol, value, share, change) — in the app’s widget storage on the device</li>
   </ul>
   <h4>Android <span class="badge">ANDROID</span></h4>
@@ -417,7 +417,7 @@
     <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Reschedule background updates and alarms after a reboot.</td></tr>
     <tr><td><code>VIBRATE</code></td><td>Vibrate on alarms if you enabled it.</td></tr>
     <tr><td><code>WAKE_LOCK</code></td><td>Briefly keep the device awake while an update is running (via WorkManager).</td></tr>
-    <tr><td><code>USE_BIOMETRIC</code></td><td>Only if you turn on the app lock: unlock with fingerprint, face or device PIN through the Android system. The app only learns “unlocked” or “cancelled”, never any biometric data.</td></tr>
+    <tr><td><code>USE_BIOMETRIC</code></td><td>Only if you turn on the portfolio lock: unlock the portfolio with fingerprint, face or device PIN through the Android system (the rest of the app stays open). The app only learns “unlocked” or “cancelled”, never any biometric data.</td></tr>
   </table>
   </div>
   <h4>iPhone and iPad <span class="badge">iOS</span></h4>
@@ -427,8 +427,8 @@
     <tr><td>Notifications</td><td>Show price notifications and alarms. iOS asks once; you may decline and change it any time under <i>Settings › Notifications › Crypto Checker</i>.</td></tr>
     <tr><td>Time Sensitive notifications</td><td>Deliver alarms even while a Focus is active. Can be turned off in the app’s notification settings.</td></tr>
     <tr><td>Background App Refresh</td><td>Update prices, alarms and widgets in the background. iOS decides when this happens. Can be turned off under <i>Settings › General › Background App Refresh</i>.</td></tr>
-    <tr><td>App Group</td><td>Local storage shared by the app and its widgets (no prompt, no transfer). The portfolio widget reads total value, change, value history and the largest positions from there; with the app lock on it shows no values.</td></tr>
-    <tr><td>Face ID / Touch ID / passcode</td><td>Only if you turn on the app lock. iOS checks it itself and only tells the app “unlocked” or “cancelled”; the app never receives biometric data.</td></tr>
+    <tr><td>App Group</td><td>Local storage shared by the app and its widgets (no prompt, no transfer). The portfolio widget reads total value, change, value history and the largest positions from there; with the portfolio lock on it shows no values, only “Locked – unlock in the app”.</td></tr>
+    <tr><td>Face ID / Touch ID / passcode</td><td>Only if you turn on the portfolio lock (it locks only the portfolio). iOS checks it itself and only tells the app “unlocked” or “cancelled”; the app never receives biometric data.</td></tr>
   </table>
   </div>
   <p>On no platform does the app request access to location, contacts, photos, camera, microphone, calendars, Bluetooth, health data, files (other than the backup file you pick), the advertising identifier or other device identifiers.</p>

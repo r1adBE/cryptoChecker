@@ -18,7 +18,7 @@
 
 ### Privacy policy
 * Lists all exchanges and data providers, exchange-rate sources (Frankfurter,
-  ExchangeRate-API), network-fee providers, app lock and portfolio widget.
+  ExchangeRate-API), network-fee providers, portfolio lock and portfolio widget.
 * Also covers notes, portfolio transactions and cached market data stored on
   the device, and questions via GitHub issues.
 * The apps contain no payment or donation feature.

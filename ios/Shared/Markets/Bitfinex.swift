@@ -32,6 +32,8 @@ final class Bitfinex: Market {
         ticker.vol = try array.double(offset + 7)
         ticker.high = try array.double(offset + 8)
         ticker.low = try array.double(offset + 9)
+        // DAILY_CHANGE_RELATIVE: gleitende 24 h als Bruchteil
+        ticker.change24hPercent = Change24h.fraction(array.optDouble(offset + 5))
     }
 
     // ---- Massenabfrage

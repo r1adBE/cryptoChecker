@@ -12,7 +12,7 @@ Versiunea 16.2.2
 • Glisați la stânga pentru ștergere (cu Anulează), la dreapta pentru favorite
 • Fila Piață se deschide imediat cu ultimele date și se actualizează în fundal
 • Ore de liniște: noaptea (de ex. 23–7) alarmele sosesc fără sunet, vibrație sau voce
-• Blocarea aplicației cu Face ID, Touch ID sau cod
+• Blocarea portofoliului cu Face ID, Touch ID sau cod
 • Widget Portofoliu pentru ecranul principal și de blocare: valoarea totală în moneda ta și variația de azi
 • Fiecare alarmă ca propoziție: „Anunță-mă când BTC coboară sub 60.000 CHF.”
 • Explicații scurte pentru rata de finanțare, interesul deschis, RSI și Pi Cycle
@@ -30,4 +30,4 @@ Versiunea 16.2.2
 • Widget pentru o monedă: lumânări sau linie, perioada graficului 24 h, 7 sau 30 de zile, repere de maxim, mijloc și minim, prețul curent evidențiat
 • Fila Piață: capitalizarea totală a pieței cripto și volumul pe 24 h în moneda ta
 • Futures: funding rate și open interest
-• Patru culori de accent cu pictograme potrivite
+• Cinci culori de accent cu pictograme potrivite

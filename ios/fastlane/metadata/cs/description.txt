@@ -55,8 +55,8 @@ DALŠÍ FUNKCE
 • Hlasové čtení cen a alarmů
 • Záloha a obnovení přes aplikaci Soubory
 • Rychlé akce na ikoně aplikace, světlý a tmavý režim
-• Čtyři barvy zvýraznění s odpovídajícími ikonami aplikace
-• Zámek aplikace: Face ID, Touch ID nebo kód
+• Pět barev zvýraznění s odpovídajícími ikonami aplikace
+• Zámek portfolia: Face ID, Touch ID nebo kód
 • K dispozici ve 31 jazycích
 
 SOUKROMÍ NA PRVNÍM MÍSTĚ

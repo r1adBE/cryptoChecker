@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">बिना ट्रेडिंग वाले पेयर हटाएँ (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">बिना ट्रेडिंग वाले पेयर हटाएँ</string>
+    <string name="watchlist_remove_not_traded_action">हटाएँ</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">%1$d पेयर हटाएँ जो अपने एक्सचेंज पर अब ट्रेड नहीं होते? उनके अलार्म भी हट जाएँगे।</item>
+        <item quantity="other">%1$d पेयर हटाएँ जो अपने एक्सचेंज पर अब ट्रेड नहीं होते? उनके अलार्म भी हट जाएँगे।</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">बिना ट्रेडिंग वाले %1$d पेयर हटाए गए</item>
+        <item quantity="other">बिना ट्रेडिंग वाले %1$d पेयर हटाए गए</item>
+    </plurals>
+</resources>

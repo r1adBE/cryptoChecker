@@ -63,13 +63,10 @@ struct CryptoCheckerApp: App {
             RootView()
                 .environmentObject(data)
                 .environmentObject(router)
-                // Gesperrt: Inhalt auch für VoiceOver verbergen
-                .accessibilityHidden(lock.locked)
+                // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
+                // Sichtschutz im App-Umschalter, solange die Sperre an ist
                 .overlay {
-                    if lock.locked {
-                        AppLockView(lock: lock)
-                    } else if data.settings.appLock && scenePhase != .active {
-                        // Sichtschutz im App-Umschalter
+                    if data.settings.appLock && scenePhase != .active {
                         AppPrivacyCover()
                     }
                 }
@@ -88,7 +85,7 @@ struct CryptoCheckerApp: App {
                 }
         }
         .onChange(of: scenePhase) { _, phase in
-            // App-Sperre: Zeit im Hintergrund, Sperren, Sichtschutz-Fenster (alle Phasen)
+            // Portfolio-Sperre: Zeit im Hintergrund, Sperren, Sichtschutz-Fenster (alle Phasen)
             lock.scenePhaseChanged(phase)
             switch phase {
             case .active:

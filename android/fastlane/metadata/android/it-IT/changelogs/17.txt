@@ -5,6 +5,6 @@ Novità della 16.2.2
 • Prezzi e allarmi nella tua valuta
 • Export CSV alla data di riferimento
 • Accessibile: blu/arancione, contrasto elevato, colori invertiti, TalkBack
-• Inizia con un tocco, ore di silenzio, blocco app, widget Portafoglio, allarme come frase
+• Inizia con un tocco, ore di silenzio, blocco e widget Portafoglio, allarme come frase
 • 15 nuovi exchange, commissioni di rete con allarme gas
 • Grafico a candele nel widget, capitalizzazione

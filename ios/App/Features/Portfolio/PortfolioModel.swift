@@ -18,21 +18,31 @@ final class PortfolioModel: ObservableObject {
     /// Wählbare Coins für die Suche (leer, solange nicht geladen).
     @Published private(set) var coins: [String] = []
 
-    /// Zeitraum des Wertverlaufs (Chips 7 T / 30 T / 1 J).
+    /// Zeitraum des Wertverlaufs (Chips 7 T / 30 T / 1 J / Seit 1. Kauf) — zuletzt gewählt, nur auf
+    /// diesem Gerät (`AppSettings.portfolioHistoryRange`, nicht in der Sicherung).
     @Published var historyRange: PortfolioHistoryRange = .month {
-        didSet { if historyRange != oldValue { recomputeHistory() } }
+        didSet {
+            guard historyRange != oldValue else { return }
+            if data.settings.portfolioHistoryRange != historyRange { data.settings.portfolioHistoryRange = historyRange }
+            recomputeHistory()
+            // Nur der gewählte Zeitraum lädt; «Seit 1. Kauf» braucht evtl. mehr Tage
+            Task { await loadHistory() }
+        }
     }
-    /// Wertverlauf; nil, solange die Tageskurse der aktuellen Coins noch laden (Platzhalter).
+    /// Wertverlauf des gewählten Zeitraums; nil, solange dessen Tageskurse noch laden (Platzhalter).
+    /// Auch zugeklappt gerechnet — die Zeile zeigt die Änderung.
     @Published private(set) var history: PortfolioHistoryUi?
 
-    /// Geladene Tagesschlusskurse und für welche Coins sie angefragt wurden.
-    private var historyCloses: (coins: Set<String>, closes: [String: [Int: Double]])?
+    /// Geladene Tagesschlusskurse und für welche Anfrage.
+    private var historyCloses: (request: PortfolioHistoryRequest, closes: [String: [Int: Double]])?
     private var historyTask: Task<Void, Never>?
 
     private var activeRefreshes = 0
     private var loadingCoins = false
 
-    private init() {}
+    private init() {
+        historyRange = AppData.shared.settings.portfolioHistoryRange
+    }
 
     private var data: AppData { AppData.shared }
 
@@ -78,14 +88,18 @@ final class PortfolioModel: ObservableObject {
 
     // MARK: Wertverlauf
 
-    /// Tageskurse der aktuellen Coins laden; ein überholter Abruf (Coins inzwischen
-    /// geändert) ersetzt den neueren nicht.
+    /// Welche Tageskurse der gewählte Zeitraum braucht (Coins und Tage bis heute).
+    private func historyRequest() -> PortfolioHistoryRequest {
+        PortfolioHistoryRequest.make(data.portfolio, range: historyRange)
+    }
+
+    /// Tageskurse der aktuellen Coins für den gewählten Zeitraum laden; ein überholter Abruf
+    /// (Coins oder Zeitraum inzwischen geändert) ersetzt den neueren nicht.
     func loadHistory() async {
-        let coins = Set(data.portfolio.map { PortfolioCalculator.normalizeCoin($0.coin) })
-        let closes = await PortfolioHistorySource.dailyCloses(Array(coins))
-        let current = Set(data.portfolio.map { PortfolioCalculator.normalizeCoin($0.coin) })
-        guard coins.isSuperset(of: current) else { return }
-        historyCloses = (coins: coins, closes: closes)
+        let request = historyRequest()
+        let closes = await PortfolioHistorySource.dailyCloses(Array(request.coins), days: request.days)
+        guard request.covers(historyRequest()) else { return }
+        historyCloses = (request: request, closes: closes)
         recomputeHistory()
     }
 
@@ -93,8 +107,7 @@ final class PortfolioModel: ObservableObject {
     /// abseits des Hauptthreads; der bisherige Verlauf bleibt stehen, bis der neue fertig ist.
     func recomputeHistory() {
         let txs = data.portfolio
-        let coins = Set(txs.map { PortfolioCalculator.normalizeCoin($0.coin) })
-        guard let loaded = historyCloses, loaded.coins.isSuperset(of: coins) else {
+        guard let loaded = historyCloses, loaded.request.covers(historyRequest()) else {
             historyTask?.cancel()
             history = nil
             return
@@ -147,6 +160,26 @@ private func portfolioPairCacheCoins() async -> [String]? {
         .map { $0.base.uppercased() }
         .filter { PortfolioPriceSource.isSymbol($0) }
     return list.isEmpty ? nil : list
+}
+
+/// Welche Tagesschlusskurse ein Zeitraum braucht: Coins und Tage bis heute — wie `HistoryRequest` (Android).
+struct PortfolioHistoryRequest: Equatable {
+    let coins: Set<String>
+    let days: Int
+
+    /// Deckt eine Ladung für diese Anfrage `needed` ab (alle Coins, genug Tage)?
+    func covers(_ needed: PortfolioHistoryRequest) -> Bool {
+        coins.isSuperset(of: needed.coins) && days >= needed.days
+    }
+
+    /// «Seit 1. Kauf» braucht je nach erstem Kauf mehr Tage (`PortfolioHistory.candleDays`).
+    static func make(_ txs: [PortfolioTx], range: PortfolioHistoryRange) -> PortfolioHistoryRequest {
+        let first = txs.filter { $0.amount > 0 && !$0.amount.isInfinite }.map(\.time).min()
+        let days = PortfolioHistory.candleDays(range: range, firstTradeMillis: first,
+                                               todayEpochDay: LocalDay.today().epochDay,
+                                               dayEndMillis: { PortfolioHistory.dayEndMillis($0) })
+        return PortfolioHistoryRequest(coins: Set(txs.map { PortfolioCalculator.normalizeCoin($0.coin) }), days: days)
+    }
 }
 
 /// Wertverlauf für die Karte über den Positionen: `series` in `unit`

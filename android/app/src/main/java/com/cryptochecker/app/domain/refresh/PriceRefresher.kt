@@ -85,7 +85,7 @@ class PriceRefresher @Inject constructor(
     private val currencyConverter: CurrencyConverter,
     private val portfolioSnapshotUpdater: PortfolioSnapshotUpdater,
     private val nearExtremeDataSource: NearExtremeDataSource,
-    /** 24-h-Bezug der Prozent-Pille (gleiche Kerzen wie der Mini-Chart). */
+    /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
     private val sparklineRepository: SparklineRepository,
 ) {
     private val mutex = Mutex()
@@ -155,8 +155,11 @@ class PriceRefresher @Inject constructor(
             )
         }
 
-        // 24-h-Bezüge (Kerzen) parallel zu den Kursen anstossen
-        val dayLoads = startDayReferenceLoads(watches)
+        // 24-h-Bezüge (Kerzen) nur noch als Ausweich-Weg: parallel zu den Kursen nur für
+        // Paare, deren Ticker beim letzten Mal keinen 24-h-Wert hatte; der Rest nach den Kursen.
+        sparklineRepository.awaitRestored()
+        val startedKeys = HashSet<Pair<String, String>>()
+        val earlyLoads = startDayReferenceLoads(watches.filter { it.id in candleWatchIds }, startedKeys)
 
         // 1) Netz: alle Börsen gleichzeitig. Je Börse erst die Massenabfrage,
         //    was dort fehlt, parallel einzeln. Früher lief das strikt
@@ -170,7 +173,8 @@ class PriceRefresher @Inject constructor(
             fetched.putAll(results)
             report
         }
-        awaitDayReferenceLoads(dayLoads)
+        val lateLoads = startDayReferenceLoads(watchesNeedingCandles(watches, fetched, remember = true), startedKeys)
+        awaitDayReferenceLoads(earlyLoads + lateLoads)
         val networkMillis = System.currentTimeMillis() - startedAt
 
         // 2) Auswerten: erst alle Kurse in EINEM Datenbank-Vorgang speichern,
@@ -330,9 +334,10 @@ class PriceRefresher @Inject constructor(
 
             val watch = watchRepository.getWatch(watchId) ?: return@withContext RefreshSummary()
             val settings = settingsRepository.current()
-            val dayLoads = startDayReferenceLoads(listOf(watch))
+            sparklineRepository.awaitRestored()
             val single = fetchSingle(watch)
-            awaitDayReferenceLoads(dayLoads)
+            // Kerzen nur, wenn der Ticker keinen 24-h-Wert liefert
+            awaitDayReferenceLoads(startDayReferenceLoads(watchesNeedingCandles(listOf(watch), mapOf(watch.id to single), remember = false), HashSet()))
             val processed = processResults(listOf(watch), mapOf(watch.id to single), settings)
 
             // Ein einzelnes Paar sagt nichts über die Dauer eines vollen Durchlaufs,
@@ -383,7 +388,7 @@ class PriceRefresher @Inject constructor(
             }
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
-            val dayChange = change24h(watch, price)
+            val dayChange = change24h(watch, price, ticker)
             priceWrites += PriceWrite(watch.id, price, time, dayChange)
             // Entspricht dem, was das UPDATE in der Datenbank setzt.
             updatedWatches += watch.copy(
@@ -401,8 +406,12 @@ class PriceRefresher @Inject constructor(
 
         val effectsStartedAt = System.currentTimeMillis()
 
+        // Gezeigte Meldungen EINMAL abfragen: Bei hunderten Paaren ohne Kurs-Meldung kostete
+        // sonst jedes Paar je Durchlauf einen Aufruf an den Systemdienst (cancel).
+        val shownNotifications = notifier.activeNotificationIds()
+
         // Ohne Kurs gibt es nichts zu melden.
-        errorWrites.forEach { notifier.cancelPrice(it.id) }
+        errorWrites.forEach { notifier.cancelPriceIfShown(it.id, shownNotifications) }
 
         val alarmsByWatch: Map<Long, List<AlarmEntity>> = if (updatedWatches.isEmpty()) emptyMap()
         else watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
@@ -418,7 +427,7 @@ class PriceRefresher @Inject constructor(
             )
             alarms += triggered
 
-            if (updateNotification(watch, settings)) notifiedPrices += watch.id to price
+            if (updateNotification(watch, settings, shownNotifications)) notifiedPrices += watch.id to price
             speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
         }
 
@@ -587,15 +596,15 @@ class PriceRefresher @Inject constructor(
      * @return true, wenn gemeldet wurde; der Aufrufer setzt dann den neuen
      *   Bezugspunkt (gesammelt für alle Paare in einem Schreibvorgang).
      */
-    private fun updateNotification(watch: WatchEntity, settings: AppSettings): Boolean {
+    private fun updateNotification(watch: WatchEntity, settings: AppSettings, shown: Set<Int>?): Boolean {
         if (!settings.priceNotifications || !watch.notificationEnabled) {
-            notifier.cancelPrice(watch.id)
+            notifier.cancelPriceIfShown(watch.id, shown)
             return false
         }
 
         val price = watch.lastPrice
         if (price == null || price <= 0.0) {
-            notifier.cancelPrice(watch.id)
+            notifier.cancelPriceIfShown(watch.id, shown)
             return false
         }
 
@@ -630,12 +639,38 @@ class PriceRefresher @Inject constructor(
     }
 
     /**
+     * Paare, die beim letzten vollen Durchlauf Kerzen brauchten (Ticker ohne 24-h-Wert) —
+     * deren Bezüge werden gleich zu Beginn parallel zu den Kursen angestossen.
+     */
+    @Volatile
+    private var candleWatchIds: Set<Long> = emptySet()
+
+    /**
+     * Paare mit Kurs, deren Ticker keinen brauchbaren 24-h-Wert hat ([DayChange.needsCandles]).
+     * [remember]: Menge für den nächsten Durchlauf merken (nur bei vollen Durchläufen,
+     * damit [refreshOne] sie nicht verkleinert).
+     */
+    private fun watchesNeedingCandles(
+        watches: List<WatchEntity>,
+        fetched: Map<Long, Fetched>,
+        remember: Boolean,
+    ): List<WatchEntity> {
+        val needing = watches.filter { watch ->
+            val ticker = fetched[watch.id]?.ticker ?: return@filter false
+            DayChange.needsCandles(ticker.change24hPercent)
+        }
+        if (remember) candleWatchIds = needing.mapTo(HashSet()) { it.id }
+        return needing
+    }
+
+    /**
      * Stösst das Laden der 24-h-Bezüge an: je Basis-Asset die Reihe in der Quote des Paars
      * (USD-artige teilen sich die USDT-Reihe des Mini-Charts), bei Fiat-Quotes zusätzlich
      * die USDT-Reihe als Ausweich. Läuft im eigenen Scope, damit ein Abruf nach dem
      * Warten ([awaitDayReferenceLoads]) fertig wird und beim nächsten Durchlauf bereitliegt.
+     * Schlüssel in [started] werden übersprungen und ergänzt (kein doppelter Start).
      */
-    private fun startDayReferenceLoads(watches: List<WatchEntity>): List<Job> =
+    private fun startDayReferenceLoads(watches: List<WatchEntity>, started: MutableSet<Pair<String, String>>): List<Job> =
         watches.flatMap { watch ->
             val quote = DayChange.candleQuote(watch.quoteAsset)
             if (quote != DAY_QUOTE && isFiat(watch.quoteAsset)) {
@@ -645,7 +680,7 @@ class PriceRefresher @Inject constructor(
             }
         }
             .map { (base, quote) -> base.trim().uppercase() to quote }
-            .distinct()
+            .filter { started.add(it) }
             .map { (base, quote) ->
                 activityScope.launch { runCatching { sparklineRepository.dayReference(base, quote) } }
             }
@@ -657,18 +692,21 @@ class PriceRefresher @Inject constructor(
     }
 
     /**
-     * Veränderung über 24 Stunden zum neuen Kurs (siehe [DayChange.select]); null ohne
-     * passende Kerzen — nie die Veränderung seit der letzten Abfrage.
+     * Veränderung über 24 Stunden zum neuen Kurs: zuerst der rollende 24-h-Wert aus dem
+     * Ticker (gilt für das Paar selbst, also schon in seiner Quote — auch bei Fiat-Quotes),
+     * sonst aus Kerzen ([DayChange.select], mit Kursabstand-Prüfung); null ohne beides —
+     * nie die Veränderung seit der letzten Abfrage.
      */
-    private fun change24h(watch: WatchEntity, price: Double): Double? {
-        val quote = DayChange.candleQuote(watch.quoteAsset)
-        return DayChange.select(
-            price = price,
-            pairReference = sparklineRepository.cachedDayReference(watch.baseAsset, quote),
-            usdtReference = sparklineRepository.cachedDayReference(watch.baseAsset, DAY_QUOTE),
-            quoteIsFiat = isFiat(watch.quoteAsset),
-        )
-    }
+    private fun change24h(watch: WatchEntity, price: Double, ticker: Ticker): Double? =
+        DayChange.choose(ticker.change24hPercent) {
+            val quote = DayChange.candleQuote(watch.quoteAsset)
+            DayChange.select(
+                price = price,
+                pairReference = sparklineRepository.cachedDayReference(watch.baseAsset, quote),
+                usdtReference = sparklineRepository.cachedDayReference(watch.baseAsset, DAY_QUOTE),
+                quoteIsFiat = isFiat(watch.quoteAsset),
+            )
+        }
 
     private fun isFiat(quote: String): Boolean = quote.trim().uppercase() in FxRateSource.CURRENCIES
 
@@ -737,4 +775,4 @@ private fun secs(millis: Long): String = "%.1f s".format(java.util.Locale.ROOT, 
  * kein Fehler, sondern ein Zustand: Die Merkliste zeigt ihn neutral an und
  * zählt ihn weder als veraltet noch als «ohne Kurs».
  */
-const val NOT_TRADED_MARKER = "Wird an der Börse nicht mehr gehandelt"
+const val NOT_TRADED_MARKER = com.cryptochecker.app.domain.watch.NotTraded.MARKER

@@ -25,6 +25,16 @@ enum CandleInterval: String, Sendable, CaseIterable {
         case .w1: return "1w"
         }
     }
+
+    /// Länge eines Intervalls in ms.
+    var millis: Int64 {
+        switch self {
+        case .h1: return 60 * 60_000
+        case .h4: return 4 * 60 * 60_000
+        case .d1: return 24 * 60 * 60_000
+        case .w1: return 7 * 24 * 60 * 60_000
+        }
+    }
 }
 
 /// Quellen, die mit 451/403 geantwortet haben (Geo-Sperre, z. B. Binance in den USA).
@@ -60,8 +70,11 @@ enum BlockedSources {
 ///  4. api.binance.us (Binance.US; USDT, sonst USD)
 ///  5. Coinbase Exchange (USD, sonst USDC; 4 h und 1 Woche zusammengesetzt)
 ///
-/// Die erste Quelle mit mindestens zwei Kerzen gewinnt und wird je Paar und
-/// Intervall eine Stunde lang zuerst gefragt. Gesperrte Quellen siehe `BlockedSources`.
+/// Die erste Quelle mit mindestens zwei LAUFENDEN Kerzen gewinnt (endet die Reihe vor
+/// langem, z. B. Spot nach einem Delisting, ist die nächste Quelle dran, siehe
+/// `CandleSeries.isLive`) und wird je Paar und Intervall eine Stunde lang zuerst gefragt.
+/// Für Futures-Paare kommt USDⓈ-M zuerst (`preferFutures`).
+/// Gesperrte Quellen siehe `BlockedSources`.
 enum CandleDataSource {
 
     private enum Source: String, CaseIterable {
@@ -112,21 +125,31 @@ enum CandleDataSource {
 
     /// Bis zu `limit` Kerzen, aufsteigend; nil, wenn keine Quelle das Paar liefert.
     /// Coinbase liefert höchstens 300 Rohkerzen — bei langen Reihen also weniger.
-    static func candles(base: String, quote: String, interval: CandleInterval, limit: Int) async -> [MarketCandle]? {
+    /// `preferFutures` = Futures-Paar (Perpetual usw.): zuerst die Kerzen von
+    /// fapi.binance.com, Spot erst danach.
+    static func candles(base: String, quote: String, interval: CandleInterval, limit: Int,
+                        preferFutures: Bool = false) async -> [MarketCandle]? {
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
         guard isAsset(b), isAsset(q) else { return nil }
         let n = min(max(limit, 2), maxLimit)
-        let memoKey = "\(b)|\(q)|\(interval.rawValue)"
+        let memoKey = "\(b)|\(q)|\(interval.rawValue)|\(preferFutures ? "F" : "S")"
 
         var order = Source.allCases
+        if preferFutures {
+            order = [.binanceFutures] + order.filter { $0 != .binanceFutures }
+        }
         if let preferred = preferredSource(memoKey) {
             order = [preferred] + order.filter { $0 != preferred }
         }
         for source in order {
             if Task.isCancelled { return nil }
             if BlockedSources.isBlocked(source.rawValue) { continue }
-            if let result = await fetch(from: source, base: b, quote: q, interval: interval, limit: n), result.count >= 2 {
+            guard let result = await fetch(from: source, base: b, quote: q, interval: interval, limit: n),
+                  result.count >= 2 else { continue }
+            // Reihe, die vor langem endet (Paar dort nicht mehr gehandelt): nächste Quelle
+            let live = CandleSeries.isLive(result, intervalMillis: interval.millis, now: TimeUtils.nowMillis)
+            if live {
                 remember(memoKey, source)
                 return result
             }

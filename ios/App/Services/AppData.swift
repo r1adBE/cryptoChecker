@@ -426,6 +426,75 @@ final class AppData: ObservableObject {
         return true
     }
 
+    /// Paare der Merkliste, die ihre Börse nicht mehr führt (`NotTraded`).
+    var notTradedCount: Int { snapshot.watches.filter(\.isNotTraded).count }
+
+    /// «Nicht gehandelte Paare entfernen»: alle nicht mehr gehandelten Paare samt Alarmen in
+    /// EINEM Vorgang löschen (wie `deleteForUndo` festgehalten); `restore(_:)` mit der Liste holt
+    /// sie zurück. Leer, wenn es keine gibt.
+    func deleteNotTradedForUndo() -> [DeletedWatch] {
+        let targets = snapshot.watches.filter(\.isNotTraded)
+        guard !targets.isEmpty else { return [] }
+        let ids = Set(targets.map(\.id))
+        let group = settings.watchlistGroup
+        let deleted = targets.map { w in
+            DeletedWatch(
+                watch: w,
+                alarms: snapshot.alarms.filter { $0.watchId == w.id },
+                activity: activityReports[w.id],
+                selectedGroup: group,
+                liveActivity: LiveActivityController.isRunning(watchId: w.id)
+            )
+        }
+        for w in targets {
+            Notifier.cancelPrice(w.id)
+            Notifier.cancelActivity(w.id)
+            activityReports[w.id] = nil
+        }
+        // Live-Aktivitäten der Paare enden mit ihnen
+        let live = deleted.filter(\.liveActivity).map(\.watch.id)
+        if !live.isEmpty {
+            Task { for id in live { await LiveActivityController.stop(watchId: id) } }
+        }
+        mutate { s in
+            s.watches.removeAll { ids.contains($0.id) }
+            s.alarms.removeAll { ids.contains($0.watchId) }
+        }
+        return deleted
+    }
+
+    /// «Rückgängig» für mehrere Paare in einem Vorgang (siehe `restore(_:)` für eines).
+    /// Paare, die inzwischen neu hinzugefügt wurden, bleiben aus. Liefert die Zahl der zurückgeholten.
+    @discardableResult
+    func restore(_ deleted: [DeletedWatch]) -> Int {
+        var restored: [DeletedWatch] = []
+        mutate { s in
+            for d in deleted {
+                let w = d.watch
+                guard !s.watches.contains(where: { $0.id == w.id || $0.samePair(as: w) }) else { continue }
+                s.watches.append(w)
+                let taken = Set(s.alarms.map(\.id))
+                s.alarms.append(contentsOf: d.alarms.filter { !taken.contains($0.id) })
+                s.nextWatchId = max(s.nextWatchId, w.id + 1)
+                if let maxAlarm = d.alarms.map(\.id).max() { s.nextAlarmId = max(s.nextAlarmId, maxAlarm + 1) }
+                restored.append(d)
+            }
+        }
+        for d in restored {
+            if let activity = d.activity { activityReports[d.watch.id] = activity }
+            if d.liveActivity {
+                let w = d.watch
+                Task { _ = await LiveActivityController.start(w) }
+            }
+        }
+        // Gruppe war mit den Paaren verschwunden: Ansicht wieder auf sie stellen
+        if let group = restored.first?.selectedGroup, settings.watchlistGroup == nil,
+           restored.contains(where: { $0.watch.groupName == group }) {
+            settings.watchlistGroup = group
+        }
+        return restored.count
+    }
+
     func deleteAll() {
         snapshot.watches.forEach {
             Notifier.cancelPrice($0.id)
@@ -756,7 +825,8 @@ final class AppData: ObservableObject {
 
     /// Gespeicherte Ergebnisse neu übernehmen (z. B. nach der Hintergrund-Aktualisierung).
     func reloadActivity() {
-        let ids = Set(snapshot.watches.map(\.id))
+        // Nicht mehr gehandelte Paare haben keine Signale (siehe `NotTraded`)
+        let ids = Set(snapshot.watches.filter { !$0.isNotTraded }.map(\.id))
         activityReports = ActivityRepository.reports().filter { ids.contains($0.key) }
     }
 

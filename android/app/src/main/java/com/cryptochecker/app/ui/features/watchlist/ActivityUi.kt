@@ -4,6 +4,7 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.animation.core.RepeatMode
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -127,10 +129,19 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
  */
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-internal fun ActivityCard(hot: List<WatchEntity>, onOpen: (WatchEntity) -> Unit) {
+internal fun ActivityCard(
+    hot: List<WatchEntity>,
+    onOpen: (WatchEntity) -> Unit,
+    /** Höchstens so viele Coins (Empfindlichkeit «Weniger»: die 3 stärksten); null = alle. */
+    limit: Int? = null,
+    /** «Anpassen»: öffnet die Einstellung «Empfindlichkeit»; null = ohne Link. */
+    onAdjust: (() -> Unit)? = null,
+) {
     if (hot.isEmpty()) return
-    // Gleicher Coin an mehreren Börsen: einmal zeigen
-    val coins = remember(hot) { hot.distinctBy { it.baseAsset.uppercase() } }
+    // Gleicher Coin an mehreren Börsen: einmal zeigen; [hot] ist nach Stärke sortiert
+    val coins = remember(hot, limit) {
+        hot.distinctBy { it.baseAsset.uppercase() }.let { if (limit != null) it.take(limit) else it }
+    }
     val shown = coins.take(MAX_CARD_COINS)
     val more = coins.size - shown.size
     val amber = ActivityColors.amber
@@ -153,8 +164,22 @@ internal fun ActivityCard(hot: List<WatchEntity>, onOpen: (WatchEntity) -> Unit)
                     text = stringResource(R.string.activity_card_title),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier.padding(start = 10.dp).weight(1f)
                 )
+                // Kleiner Link zur Empfindlichkeit (zu viele/zu wenige Coins markiert?)
+                if (onAdjust != null) {
+                    val adjustA11y = stringResource(R.string.activity_adjust_a11y)
+                    TextButton(
+                        onClick = onAdjust,
+                        modifier = Modifier.semantics { contentDescription = adjustA11y }
+                    ) {
+                        Text(
+                            text = stringResource(R.string.activity_adjust),
+                            style = MaterialTheme.typography.labelMedium,
+                            maxLines = 1
+                        )
+                    }
+                }
             }
             // Alle Coins umbrechend; «+n» klappt den Rest auf, «−» wieder zu.
             var expanded by rememberSaveable { mutableStateOf(false) }
@@ -195,6 +220,9 @@ internal fun ActivityCard(hot: List<WatchEntity>, onOpen: (WatchEntity) -> Unit)
 
 private const val MAX_CARD_COINS = 4
 
+/** Platzhalter → Inhalt und «Details»: Dauer der Überblendung bzw. Grössenänderung. */
+private const val SWAP_MILLIS = 220
+
 /** Ladezustand des «Warum»-Blatts. */
 private sealed interface WhyState {
     data object Loading : WhyState
@@ -223,10 +251,17 @@ internal fun WhySheet(
     }
     val context = LocalContext.current
 
+    val motion = !rememberReduceMotion()
+    // Platzhalter → Inhalt: überblenden (bei reduzierter Bewegung sofort)
+    val fade = tween<Float>(durationMillis = if (motion) SWAP_MILLIS else 0)
+    val resize = if (motion) Modifier.animateContentSize(tween(SWAP_MILLIS)) else Modifier
+
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                // Gleich in voller Höhe: wächst der Inhalt (Laden, «Details»), springt das Blatt nicht
+                .fillMaxHeight()
                 .verticalScroll(rememberScrollState())
                 .navigationBarsPadding()
                 .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
@@ -277,7 +312,15 @@ internal fun WhySheet(
             }
 
             // «Kurz gesagt»: ein Satz aus denselben Gründen, die unten stehen
-            report?.takeIf { it.hasMarketData }?.let { WhyBriefBox(it) }
+            // (beim Laden ein form-gleicher Platzhalter an derselben Stelle)
+            Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyBrief") { s ->
+                // Fehler: kein «Kurz gesagt»
+                if (s is WhyState.Loaded) {
+                    if (s.report.hasMarketData) WhyBriefBox(s.report)
+                } else if (s == WhyState.Loading) {
+                    BriefSkeleton()
+                }
+            }
 
             // Was gerade auffällt (die Signale hinter dem ⚡)
             if (signals.isNotEmpty()) {
@@ -302,16 +345,18 @@ internal fun WhySheet(
                 }
             }
 
-            when (val s = state) {
-                WhyState.Loading -> ReasonSkeleton()
-                WhyState.Failed -> EmptyReasons(onRetry = { attempt++ })
-                is WhyState.Loaded -> {
-                    val r = s.report
-                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        if (!r.hasMarketData) {
-                            EmptyReasons(onRetry = null)
+            Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyReasons") { s ->
+                when (s) {
+                    WhyState.Loading -> ReasonSkeleton()
+                    WhyState.Failed -> EmptyReasons(onRetry = { attempt++ })
+                    is WhyState.Loaded -> {
+                        val r = s.report
+                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            if (!r.hasMarketData) {
+                                EmptyReasons(onRetry = null)
+                            }
+                            if (r.reasons.isNotEmpty()) ReasonChecklist(r.reasons, animate = motion)
                         }
-                        if (r.reasons.isNotEmpty()) ReasonChecklist(r.reasons)
                     }
                 }
             }
@@ -381,13 +426,15 @@ private fun ChangeBadge(label: String, change: Double?) {
  * «Details anzeigen» (nur angeboten, wenn es etwas aufzuklappen gibt).
  */
 @Composable
-private fun ReasonChecklist(reasons: List<Reason>) {
+private fun ReasonChecklist(reasons: List<Reason>, animate: Boolean) {
     var showDetails by rememberSaveable { mutableStateOf(false) }
     val marks = reasons.map { WhySummary.mark(it) }
     val hasHidden = marks.any { it != WhyMark.CAUTION }
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            // Details auf-/zuklappen: die Karte wächst weich, das Blatt bleibt stehen
+            .then(if (animate) Modifier.animateContentSize(tween(SWAP_MILLIS)) else Modifier)
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .padding(horizontal = 14.dp, vertical = 8.dp)
@@ -520,9 +567,9 @@ private fun WhyBriefBox(report: WhyReport) {
     }
 }
 
-/** Drei ruhig pulsierende Platzhalter-Karten (bei reduzierter Bewegung stehend). */
+/** Platzhalter blinken ruhig; bei reduzierter Bewegung stehend. */
 @Composable
-private fun ReasonSkeleton() {
+private fun skeletonAlpha(): Float {
     val transition = rememberInfiniteTransition(label = "why")
     val animated by transition.animateFloat(
         initialValue = 0.45f,
@@ -530,28 +577,72 @@ private fun ReasonSkeleton() {
         animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
         label = "pulse"
     )
-    // Bewegung reduziert: ruhiger, stehender Platzhalter
-    val pulse = if (rememberReduceMotion()) 0.7f else animated
+    return if (rememberReduceMotion()) 0.7f else animated
+}
+
+/** Platzhalter für «Kurz gesagt»: gleiche Fläche, Abstände und Zeilenhöhen wie [WhyBriefBox]. */
+@Composable
+private fun BriefSkeleton() {
+    val pulse = skeletonAlpha()
+    val block = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.14f)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 12.dp)
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f))
+            .clearAndSetSemantics { }
+            .padding(14.dp)
+    ) {
+        // Titel (labelLarge, 20 dp) und ein Satz (bodyLarge, 24 dp, 4 dp darüber)
+        Box(Modifier.height(20.dp), contentAlignment = Alignment.CenterStart) {
+            Box(Modifier.alpha(pulse).width(84.dp).height(12.dp).clip(RoundedCornerShape(6.dp)).background(block))
+        }
+        Box(Modifier.padding(top = 4.dp).height(24.dp), contentAlignment = Alignment.CenterStart) {
+            Box(
+                Modifier.alpha(pulse).fillMaxWidth(0.85f).height(14.dp)
+                    .clip(RoundedCornerShape(7.dp)).background(block)
+            )
+        }
+    }
+}
+
+/**
+ * Platzhalter für die Checkliste: dieselbe Karte, fünf Zeilen in der Höhe von
+ * [FactorRow] und Platz für «Details anzeigen» — beim Eintreffen springt nichts.
+ */
+@Composable
+private fun ReasonSkeleton() {
+    val pulse = skeletonAlpha()
     val block = MaterialTheme.colorScheme.surfaceContainerHighest
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.alpha(pulse)) {
-        repeat(3) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+            .clearAndSetSemantics { }
+            .padding(horizontal = 14.dp, vertical = 8.dp)
+    ) {
+        repeat(ActivityAnalyzer.MAX_REASONS) { index ->
+            // Wie FactorRow: 5 dp oben/unten, eine Zeile bodyMedium (20 dp)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.medium)
-                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                    .padding(14.dp)
+                modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp).height(20.dp).alpha(pulse)
             ) {
-                Box(Modifier.size(36.dp).clip(CircleShape).background(block))
-                Column(modifier = Modifier.padding(start = 12.dp)) {
-                    Box(Modifier.width(180.dp).height(14.dp).clip(RoundedCornerShape(7.dp)).background(block))
-                    Box(
-                        Modifier.padding(top = 8.dp).width(230.dp).height(10.dp)
-                            .clip(RoundedCornerShape(5.dp)).background(block)
-                    )
-                }
+                Box(Modifier.width(20.dp))
+                Box(
+                    Modifier.weight(1f).padding(end = 48.dp + 12.dp * (index % 3)).height(12.dp)
+                        .clip(RoundedCornerShape(6.dp)).background(block)
+                )
+                Box(Modifier.width(44.dp).height(12.dp).clip(RoundedCornerShape(6.dp)).background(block))
             }
+        }
+        // Höhe des Knopfs «Details anzeigen» (TextButton, 40 dp)
+        Box(Modifier.height(40.dp), contentAlignment = Alignment.CenterStart) {
+            Box(
+                Modifier.padding(start = 12.dp).alpha(pulse).width(110.dp).height(12.dp)
+                    .clip(RoundedCornerShape(6.dp)).background(block)
+            )
         }
     }
 }

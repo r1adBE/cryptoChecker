@@ -56,6 +56,8 @@ final class Gemini: SimpleMarket {
             if price.isNaN { continue }
             var ticker = Ticker()
             ticker.last = price
+            // Kein 24-h-Wert: Einheit von percentChange24h unklar (Doku «5.23» = Prozent,
+            // echte Antworten eher Bruchteil wie «0.0146») — dann lieber Kerzen.
             tickers[pair.lowercased()] = ticker
         }
         return tickers
