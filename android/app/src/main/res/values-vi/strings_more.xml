@@ -44,7 +44,7 @@
     <string name="welcome_understand">Hiểu – vì sao thị trường đang biến động?</string>
     <string name="welcome_start">Bắt đầu</string>
     <string name="portfolio_empty_example">Ví dụ: 0,01 BTC mua ngày 1 tháng 3 với giá %1$s. Ứng dụng sẽ hiển thị giá trị, giá mua trung bình và lãi/lỗ – chỉ lưu trên thiết bị này.</string>
-    <string name="about_why">Crypto Checker là dự án độc lập của Rich1e: tổng quan giá bình yên, không tài khoản, không quảng cáo, không theo dõi. Câu hỏi và góp ý: %1$s</string>
+    <string name="about_why">Crypto Checker là dự án độc lập của r1AD: tổng quan giá bình yên, không tài khoản, không quảng cáo, không theo dõi. Câu hỏi và góp ý: %1$s</string>
     <string name="a11y_move_up">Di chuyển lên</string>
     <string name="a11y_move_down">Di chuyển xuống</string>
     <string name="a11y_in_watchlist">Đã có trong danh sách theo dõi</string>

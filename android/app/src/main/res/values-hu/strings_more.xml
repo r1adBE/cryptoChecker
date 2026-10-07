@@ -44,7 +44,7 @@
     <string name="welcome_understand">Megértés – miért mozog most a piac?</string>
     <string name="welcome_start">Kezdjük</string>
     <string name="portfolio_empty_example">Példa: 0,01 BTC március 1-jén %1$s áron vásárolva. Az alkalmazás ezután mutatja az értéket, az átlagos vételárat és a nyereséget/veszteséget – csak ezen az eszközön tárolva.</string>
-    <string name="about_why">A Crypto Checker Rich1e független projektje: nyugodt árfolyam-áttekintés fiók, reklám és követés nélkül. Kérdések és kívánságok: %1$s</string>
+    <string name="about_why">A Crypto Checker r1AD független projektje: nyugodt árfolyam-áttekintés fiók, reklám és követés nélkül. Kérdések és kívánságok: %1$s</string>
     <string name="a11y_move_up">Mozgatás felfelé</string>
     <string name="a11y_move_down">Mozgatás lefelé</string>
     <string name="a11y_in_watchlist">Már a figyelőlistán van</string>

@@ -33,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /** Eigene Zeile für die Änderungen an der Börsen-Anbindung, wie in der Datei `LICENSE` des Projekts. */
-const val OWNER_COPYRIGHT = "Copyright (c) 2026 r1adBE <riad.work@outlook.com>"
+const val OWNER_COPYRIGHT = "Copyright (c) 2026 r1AD <riad.work@outlook.com>"
 
 private const val ASSET_MARKETDATA = "licenses/MIT-marketdata.txt"
 private const val ASSET_FONT = "licenses/Rubik-OFL.txt"

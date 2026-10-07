@@ -44,7 +44,7 @@
     <string name="welcome_understand">Pochopit – proč se trh právě hýbe?</string>
     <string name="welcome_start">Začít</string>
     <string name="portfolio_empty_example">Příklad: 0,01 BTC koupeno 1. března za %1$s. Aplikace pak ukáže hodnotu, průměrnou nákupní cenu a zisk/ztrátu – uloženo jen v tomto zařízení.</string>
-    <string name="about_why">Crypto Checker je nezávislý projekt od Rich1e: klidný přehled kurzů bez účtu, reklam a sledování. Dotazy a přání: %1$s</string>
+    <string name="about_why">Crypto Checker je nezávislý projekt od r1AD: klidný přehled kurzů bez účtu, reklam a sledování. Dotazy a přání: %1$s</string>
     <string name="a11y_move_up">Posunout nahoru</string>
     <string name="a11y_move_down">Posunout dolů</string>
     <string name="a11y_in_watchlist">Už je ve sledovaných</string>

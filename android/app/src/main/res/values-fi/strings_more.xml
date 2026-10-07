@@ -44,7 +44,7 @@
     <string name="welcome_understand">Ymmärrä – miksi markkina liikkuu juuri nyt?</string>
     <string name="welcome_start">Aloita</string>
     <string name="portfolio_empty_example">Esimerkki: 0,01 BTC ostettu 1. maaliskuuta hintaan %1$s. Sovellus näyttää sitten arvon, keskiostohinnan ja voiton/tappion – tallennettu vain tälle laitteelle.</string>
-    <string name="about_why">Crypto Checker on Rich1en itsenäinen projekti: rauhallinen kurssinäkymä ilman tiliä, mainoksia tai seurantaa. Kysymykset ja toiveet: %1$s</string>
+    <string name="about_why">Crypto Checker on r1AD:n itsenäinen projekti: rauhallinen kurssinäkymä ilman tiliä, mainoksia tai seurantaa. Kysymykset ja toiveet: %1$s</string>
     <string name="a11y_move_up">Siirrä ylös</string>
     <string name="a11y_move_down">Siirrä alas</string>
     <string name="a11y_in_watchlist">Jo seurantalistalla</string>

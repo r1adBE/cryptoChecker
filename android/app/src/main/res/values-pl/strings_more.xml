@@ -44,7 +44,7 @@
     <string name="welcome_understand">Zrozum – dlaczego rynek właśnie się porusza?</string>
     <string name="welcome_start">Zaczynajmy</string>
     <string name="portfolio_empty_example">Przykład: 0,01 BTC kupione 1 marca po %1$s. Aplikacja pokaże wtedy wartość, średnią cenę zakupu i zysk/stratę – zapisane tylko na tym urządzeniu.</string>
-    <string name="about_why">Crypto Checker to niezależny projekt Rich1e: spokojny przegląd kursów bez konta, reklam i śledzenia. Pytania i życzenia: %1$s</string>
+    <string name="about_why">Crypto Checker to niezależny projekt r1AD: spokojny przegląd kursów bez konta, reklam i śledzenia. Pytania i życzenia: %1$s</string>
     <string name="a11y_move_up">Przenieś w górę</string>
     <string name="a11y_move_down">Przenieś w dół</string>
     <string name="a11y_in_watchlist">Już na liście obserwowanych</string>

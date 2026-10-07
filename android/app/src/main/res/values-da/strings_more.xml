@@ -44,7 +44,7 @@
     <string name="welcome_understand">Forstå – hvorfor bevæger markedet sig lige nu?</string>
     <string name="welcome_start">Kom i gang</string>
     <string name="portfolio_empty_example">Eksempel: 0,01 BTC købt den 1. marts til %1$s. Appen viser derefter værdi, gns. købspris og gevinst/tab – kun gemt på denne enhed.</string>
-    <string name="about_why">Crypto Checker er et uafhængigt projekt af Rich1e: et roligt kursoverblik uden konto, reklamer eller sporing. Spørgsmål og ønsker: %1$s</string>
+    <string name="about_why">Crypto Checker er et uafhængigt projekt af r1AD: et roligt kursoverblik uden konto, reklamer eller sporing. Spørgsmål og ønsker: %1$s</string>
     <string name="a11y_move_up">Flyt op</string>
     <string name="a11y_move_down">Flyt ned</string>
     <string name="a11y_in_watchlist">Allerede på overvågningslisten</string>

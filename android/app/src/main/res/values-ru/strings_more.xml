@@ -44,7 +44,7 @@
     <string name="welcome_understand">Понимать – почему рынок движется прямо сейчас?</string>
     <string name="welcome_start">Начать</string>
     <string name="portfolio_empty_example">Пример: 0,01 BTC куплено 1 марта по %1$s. Затем приложение покажет стоимость, среднюю цену покупки и прибыль/убыток – данные хранятся только на этом устройстве.</string>
-    <string name="about_why">Crypto Checker – независимый проект Rich1e: спокойный обзор курсов без аккаунта, рекламы и отслеживания. Вопросы и пожелания: %1$s</string>
+    <string name="about_why">Crypto Checker – независимый проект r1AD: спокойный обзор курсов без аккаунта, рекламы и отслеживания. Вопросы и пожелания: %1$s</string>
     <string name="a11y_move_up">Переместить вверх</string>
     <string name="a11y_move_down">Переместить вниз</string>
     <string name="a11y_in_watchlist">Уже в избранном</string>

@@ -44,7 +44,7 @@
     <string name="welcome_understand">เข้าใจ – ทำไมตลาดถึงเคลื่อนไหวตอนนี้?</string>
     <string name="welcome_start">เริ่มต้นใช้งาน</string>
     <string name="portfolio_empty_example">ตัวอย่าง: ซื้อ 0.01 BTC เมื่อ 1 มีนาคม ที่ราคา %1$s จากนั้นแอปจะแสดงมูลค่า ราคาซื้อเฉลี่ย และกำไร/ขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น</string>
-    <string name="about_why">Crypto Checker เป็นโปรเจกต์อิสระของ Rich1e: ภาพรวมราคาที่สงบ ไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม คำถามและข้อเสนอแนะ: %1$s</string>
+    <string name="about_why">Crypto Checker เป็นโปรเจกต์อิสระของ r1AD: ภาพรวมราคาที่สงบ ไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม คำถามและข้อเสนอแนะ: %1$s</string>
     <string name="a11y_move_up">ย้ายขึ้น</string>
     <string name="a11y_move_down">ย้ายลง</string>
     <string name="a11y_in_watchlist">อยู่ในรายการติดตามแล้ว</string>

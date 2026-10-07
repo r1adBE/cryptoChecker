@@ -44,7 +44,7 @@
     <string name="welcome_understand">הבנה – למה השוק זז עכשיו?</string>
     <string name="welcome_start">בואו נתחיל</string>
     <string name="portfolio_empty_example">דוגמה: 0.01 BTC נקנה ב-1 במרץ במחיר %1$s. האפליקציה תציג אז שווי, מחיר קנייה ממוצע ורווח/הפסד – נשמר רק במכשיר הזה.</string>
-    <string name="about_why">Crypto Checker הוא פרויקט עצמאי של Rich1e: סקירת שערים רגועה בלי חשבון, פרסומות או מעקב. שאלות ובקשות: %1$s</string>
+    <string name="about_why">Crypto Checker הוא פרויקט עצמאי של r1AD: סקירת שערים רגועה בלי חשבון, פרסומות או מעקב. שאלות ובקשות: %1$s</string>
     <string name="a11y_move_up">הזזה למעלה</string>
     <string name="a11y_move_down">הזזה למטה</string>
     <string name="a11y_in_watchlist">כבר ברשימת המעקב</string>

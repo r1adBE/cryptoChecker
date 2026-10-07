@@ -44,7 +44,7 @@
     <string name="welcome_understand">Kupto – pse po lëviz tregu tani?</string>
     <string name="welcome_start">Fillo</string>
     <string name="portfolio_empty_example">Shembull: 0,01 BTC blerë më 1 mars me %1$s. Aplikacioni tregon pastaj vlerën, çmimin mesatar të blerjes dhe fitimin/humbjen – ruajtur vetëm në këtë pajisje.</string>
-    <string name="about_why">Crypto Checker është një projekt i pavarur nga Rich1e: një pasqyrë e qetë e çmimeve pa llogari, reklama ose gjurmim. Pyetje dhe dëshira: %1$s</string>
+    <string name="about_why">Crypto Checker është një projekt i pavarur nga r1AD: një pasqyrë e qetë e çmimeve pa llogari, reklama ose gjurmim. Pyetje dhe dëshira: %1$s</string>
     <string name="a11y_move_up">Lëviz lart</string>
     <string name="a11y_move_down">Lëviz poshtë</string>
     <string name="a11y_in_watchlist">Tashmë në listën e ndjekjes</string>

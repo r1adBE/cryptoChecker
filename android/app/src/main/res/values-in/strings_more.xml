@@ -44,7 +44,7 @@
     <string name="welcome_understand">Pahami – mengapa pasar bergerak saat ini?</string>
     <string name="welcome_start">Mulai</string>
     <string name="portfolio_empty_example">Contoh: 0,01 BTC dibeli pada 1 Maret seharga %1$s. Aplikasi lalu menampilkan nilai, harga beli rata-rata, dan untung/rugi – hanya tersimpan di perangkat ini.</string>
-    <string name="about_why">Crypto Checker adalah proyek independen dari Rich1e: ringkasan harga yang tenang tanpa akun, iklan, atau pelacakan. Pertanyaan dan saran: %1$s</string>
+    <string name="about_why">Crypto Checker adalah proyek independen dari r1AD: ringkasan harga yang tenang tanpa akun, iklan, atau pelacakan. Pertanyaan dan saran: %1$s</string>
     <string name="a11y_move_up">Pindahkan ke atas</string>
     <string name="a11y_move_down">Pindahkan ke bawah</string>
     <string name="a11y_in_watchlist">Sudah ada di daftar pantau</string>

@@ -44,7 +44,7 @@
     <string name="welcome_understand">افهم – لماذا يتحرك السوق الآن؟</string>
     <string name="welcome_start">ابدأ الآن</string>
     <string name="portfolio_empty_example">مثال: 0.01 BTC اشتُريت في 1 مارس بسعر %1$s. يعرض التطبيق بعدها القيمة ومتوسط سعر الشراء والربح/الخسارة – محفوظة على هذا الجهاز فقط.</string>
-    <string name="about_why">Crypto Checker مشروع مستقل من Rich1e: نظرة هادئة على الأسعار دون حساب أو إعلانات أو تتبع. للأسئلة والاقتراحات: %1$s</string>
+    <string name="about_why">Crypto Checker مشروع مستقل من r1AD: نظرة هادئة على الأسعار دون حساب أو إعلانات أو تتبع. للأسئلة والاقتراحات: %1$s</string>
     <string name="a11y_move_up">نقل لأعلى</string>
     <string name="a11y_move_down">نقل لأسفل</string>
     <string name="a11y_in_watchlist">موجود بالفعل في قائمة المتابعة</string>

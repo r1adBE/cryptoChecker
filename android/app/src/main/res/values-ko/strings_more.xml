@@ -44,7 +44,7 @@
     <string name="welcome_understand">이해하기 – 지금 시장은 왜 움직일까요?</string>
     <string name="welcome_start">시작하기</string>
     <string name="portfolio_empty_example">예: 3월 1일에 0.01 BTC를 %1$s에 매수. 앱이 평가액, 평균 매수가, 손익을 보여 줍니다 – 이 기기에만 저장됩니다.</string>
-    <string name="about_why">Crypto Checker는 Rich1e의 독립 프로젝트입니다: 계정, 광고, 추적 없는 차분한 시세 개요. 질문과 요청: %1$s</string>
+    <string name="about_why">Crypto Checker는 r1AD의 독립 프로젝트입니다: 계정, 광고, 추적 없는 차분한 시세 개요. 질문과 요청: %1$s</string>
     <string name="a11y_move_up">위로 이동</string>
     <string name="a11y_move_down">아래로 이동</string>
     <string name="a11y_in_watchlist">이미 관심 목록에 있음</string>

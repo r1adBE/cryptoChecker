@@ -5,7 +5,7 @@ import SwiftUI
 /// Titel und Einleitung. Swift-Pakete von Dritten nutzt die App nicht (wie `LicensesSheet.kt`).
 enum LicenseNotices {
     /// Eigene Zeile für die Änderungen, wie in der Datei `LICENSE` des Projekts.
-    static let ownerCopyright = "Copyright (c) 2026 r1adBE <riad.work@outlook.com>"
+    static let ownerCopyright = "Copyright (c) 2026 r1AD <riad.work@outlook.com>"
 
     /// Lizenztext aus dem App-Bundle (leer, falls die Datei fehlt).
     static func text(_ name: String) -> String {

@@ -1,7 +1,7 @@
 # Crypto Checker im Apple App Store veröffentlichen
 
 Schritt-für-Schritt-Anleitung für die iOS-App, Version **16.2.2 (Build 17)**,
-Bundle-ID `com.cryptochecker.app`, Entwickler Rich1e (Schweiz).
+Bundle-ID `com.cryptochecker.app`, Entwickler r1AD (Schweiz).
 
 Alles, was du in App Store Connect einfügen musst, liegt bereits im Projekt:
 
@@ -86,7 +86,7 @@ Die **Spendenadressen** sind seit 16.2.2 aus der App entfernt (Abschnitt 11.1).
      Mitgliedschaft aus, verschwindet die App aus dem Store.
    * Ausweis-Prüfung durch Apple, Freischaltung meist innerhalb von 1–2 Tagen.
 3. Wichtig: Bei einem Einzelpersonen-Konto zeigt der App Store als Anbieter
-   deinen **bürgerlichen Namen**, nicht «Rich1e». «Rich1e» erscheint nur im
+   deinen **bürgerlichen Namen**, nicht «r1AD». «r1AD» erscheint nur im
    Copyright-Vermerk und in der Beschreibung.
 4. In App Store Connect unter **Business** (früher «Agreements, Tax, and
    Banking») ist für Gratis-Apps nur der **Free Apps Agreement** nötig – er ist
@@ -374,7 +374,7 @@ durchsucht und stehen deshalb nicht noch einmal in den Keywords.
 * Inhaltsrechte: «Enthält, zeigt oder greift auf Inhalte Dritter zu?» → **Ja**
   (öffentliche Kursdaten von Börsen-APIs) – und bestätigen, dass du die Rechte
   dazu hast bzw. die Daten öffentlich und frei abrufbar sind.
-* Copyright (je Version): `2026 Rich1e`
+* Copyright (je Version): `2026 r1AD`
 
 ### 7.5 Preis und Verfügbarkeit
 
@@ -624,7 +624,7 @@ Den **Werbetext** kannst du jederzeit ohne neue Prüfung ändern.
       Platzhalter `VORNAME` / `NACHNAME` / `+41 00 000 00 00` eingetragen
 - [ ] App-Datenschutz: «Keine Daten erfasst», veröffentlicht
 - [ ] Altersfreigabe ausgefüllt (4+)
-- [ ] Kategorien Finanzen / Dienstprogramme, Copyright `2026 Rich1e`
+- [ ] Kategorien Finanzen / Dienstprogramme, Copyright `2026 r1AD`
 - [ ] Screenshots iPhone 6,9" (und iPad 13", falls iPad aktiv)
 - [ ] China (Festland) abgewählt
 - [x] Keine Spendenadressen in der App (11.1)

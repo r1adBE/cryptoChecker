@@ -44,7 +44,7 @@
     <string name="welcome_understand">समझें – बाज़ार अभी क्यों चल रहा है?</string>
     <string name="welcome_start">शुरू करें</string>
     <string name="portfolio_empty_example">उदाहरण: 1 मार्च को %1$s पर 0.01 BTC ख़रीदा। फिर ऐप मूल्य, औसत ख़रीद मूल्य और लाभ/हानि दिखाता है – सिर्फ़ इसी डिवाइस पर सहेजा जाता है।</string>
-    <string name="about_why">Crypto Checker, Rich1e का एक स्वतंत्र प्रोजेक्ट है: बिना खाते, विज्ञापन या ट्रैकिंग के भावों का शांत ओवरव्यू। सवाल और सुझाव: %1$s</string>
+    <string name="about_why">Crypto Checker, r1AD का एक स्वतंत्र प्रोजेक्ट है: बिना खाते, विज्ञापन या ट्रैकिंग के भावों का शांत ओवरव्यू। सवाल और सुझाव: %1$s</string>
     <string name="a11y_move_up">ऊपर ले जाएँ</string>
     <string name="a11y_move_down">नीचे ले जाएँ</string>
     <string name="a11y_in_watchlist">पहले से वॉचलिस्ट में</string>

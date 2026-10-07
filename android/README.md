@@ -5,7 +5,7 @@ Sprachausgabe und Startbildschirm-Widgets über 41 Märkte – 32 Börsen (teils
 mit Spot und Futures) plus DexScreener für DEX-Token. 31 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
-Rich1e — riad.work@outlook.com
+r1AD — riad.work@outlook.com
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app`

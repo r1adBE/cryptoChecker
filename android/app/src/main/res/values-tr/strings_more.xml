@@ -44,7 +44,7 @@
     <string name="welcome_understand">Anla – piyasa şu anda neden hareket ediyor?</string>
     <string name="welcome_start">Başlayalım</string>
     <string name="portfolio_empty_example">Örnek: 1 Mart\'ta %1$s fiyatından 0,01 BTC alındı. Uygulama ardından değeri, ortalama alış fiyatını ve kâr/zararı gösterir – yalnızca bu cihazda saklanır.</string>
-    <string name="about_why">Crypto Checker, Rich1e\'ın bağımsız bir projesidir: hesap, reklam ve takip olmadan sakin bir fiyat görünümü. Sorular ve istekler: %1$s</string>
+    <string name="about_why">Crypto Checker, r1AD\'ın bağımsız bir projesidir: hesap, reklam ve takip olmadan sakin bir fiyat görünümü. Sorular ve istekler: %1$s</string>
     <string name="a11y_move_up">Yukarı taşı</string>
     <string name="a11y_move_down">Aşağı taşı</string>
     <string name="a11y_in_watchlist">Zaten izleme listesinde</string>

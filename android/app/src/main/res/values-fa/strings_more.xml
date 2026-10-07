@@ -44,7 +44,7 @@
     <string name="welcome_understand">بفهمید – چرا بازار همین حالا حرکت می‌کند؟</string>
     <string name="welcome_start">شروع کنید</string>
     <string name="portfolio_empty_example">مثال: 0.01 BTC در ۱ مارس به قیمت %1$s خریده شده. سپس برنامه ارزش، میانگین قیمت خرید و سود/زیان را نشان می‌دهد – فقط روی همین دستگاه ذخیره می‌شود.</string>
-    <string name="about_why">Crypto Checker یک پروژه مستقل از Rich1e است: نمایی آرام از قیمت‌ها بدون حساب، تبلیغات یا ردیابی. پرسش‌ها و پیشنهادها: %1$s</string>
+    <string name="about_why">Crypto Checker یک پروژه مستقل از r1AD است: نمایی آرام از قیمت‌ها بدون حساب، تبلیغات یا ردیابی. پرسش‌ها و پیشنهادها: %1$s</string>
     <string name="a11y_move_up">انتقال به بالا</string>
     <string name="a11y_move_down">انتقال به پایین</string>
     <string name="a11y_in_watchlist">از قبل در واچ‌لیست است</string>

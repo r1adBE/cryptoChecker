@@ -44,7 +44,7 @@
     <string name="welcome_understand">理解——市场为什么正在波动？</string>
     <string name="welcome_start">开始使用</string>
     <string name="portfolio_empty_example">示例：3 月 1 日以 %1$s 买入 0.01 BTC。应用随后会显示市值、平均买入价和盈亏——仅保存在此设备上。</string>
-    <string name="about_why">Crypto Checker 是 Rich1e 的独立项目：一个平静的行情概览，无需账号、没有广告、不做追踪。问题和建议：%1$s</string>
+    <string name="about_why">Crypto Checker 是 r1AD 的独立项目：一个平静的行情概览，无需账号、没有广告、不做追踪。问题和建议：%1$s</string>
     <string name="a11y_move_up">上移</string>
     <string name="a11y_move_down">下移</string>
     <string name="a11y_in_watchlist">已在自选中</string>

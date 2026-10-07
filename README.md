@@ -115,4 +115,4 @@ Font License 1.1) are listed in the apps under *About › Licenses*.
 
 ## Contact
 
-Rich1e · riad.work@outlook.com · security issues: see [`SECURITY.md`](SECURITY.md)
+r1AD · riad.work@outlook.com · security issues: see [`SECURITY.md`](SECURITY.md)
