@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Markt vandaag</string>
+    <string name="pulse_alts_stronger">Altcoins sterker dan Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin sterker dan altcoins</string>
+    <string name="pulse_alts_even">Altcoins en Bitcoin bewegen gelijk op</string>
+    <string name="pulse_volume_high">Handelsvolume ongewoon hoog (%1$s× normaal)</string>
+    <string name="pulse_volume_low">Handelsvolume laag (%1$s× normaal)</string>
+    <string name="pulse_volume_normal">Handelsvolume normaal</string>
+    <string name="pulse_funding_high">Funding duidelijk positief: veel longs met hefboom</string>
+    <string name="pulse_funding_slight">Funding licht positief</string>
+    <string name="pulse_funding_neutral">Funding neutraal</string>
+    <string name="pulse_funding_negative">Funding negatief: veel shorts</string>
+    <string name="pulse_gas_low">Ethereum-gas laag (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum-gas normaal (%1$s gwei)</string>
+    <string name="pulse_gas_high">Ethereum-gas hoog (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Geen voorspelling · Geen beleggingsadvies</string>
+    <string name="pulse_less">Minder tonen</string>
+    <string name="pulse_updated">Stand %1$s</string>
+    <string name="pulse_unavailable">Marktgegevens momenteel niet beschikbaar</string>
+    <string name="why_summary_title">Kortom</string>
+    <string name="why_summary_market_volume">De beweging gaat samen met hoger handelsvolume en een breed bewegende markt.</string>
+    <string name="why_summary_market">De beweging volgt de totale markt.</string>
+    <string name="why_summary_coin_volume">Alleen deze munt beweegt, bij hoger volume – waarschijnlijk een reden bij de munt zelf.</string>
+    <string name="why_summary_coin">Alleen deze munt beweegt – waarschijnlijk een reden bij de munt zelf.</string>
+    <string name="why_summary_against">De munt beweegt tegen de markt in.</string>
+    <string name="why_summary_thin">De beweging is dun: weinig volume erachter.</string>
+    <string name="why_summary_calm">Geen opvallende beweging: markt en munt zijn rustig.</string>
+    <string name="why_summary_longs">Futures: veel longposities met hefboom.</string>
+    <string name="why_summary_shorts">Futures: veel shortposities.</string>
+    <string name="why_dot_supports">ondersteunt de beweging</string>
+    <string name="why_dot_caution">verhoogd</string>
+    <string name="why_dot_neutral">neutraal</string>
+    <string name="alarm_test">Alarm testen</string>
+    <string name="alarm_test_hint">Stuurt een voorbeeldalarm met je instellingen voor geluid, trillen en voorlezen.</string>
+    <string name="alarm_test_title">Test: alarm van Crypto Checker</string>
+    <string name="alarm_test_text">Zo ziet een alarm eruit en zo klinkt het.</string>
+    <string name="alarm_test_quiet">Stille uren zijn nu actief: echte alarmen zouden geluidloos binnenkomen.</string>
+    <string name="alarm_test_denied">Meldingen zijn uitgeschakeld voor Crypto Checker.</string>
+    <string name="alarm_test_open_settings">Instellingen openen</string>
+    <string name="alarm_first_title">Alles ingesteld</string>
+    <string name="welcome_watch">Volgen – je munten, koersen, grafieken en widgets</string>
+    <string name="welcome_alert">Alarmeren – koers, procent, volume en ongewone bewegingen</string>
+    <string name="welcome_understand">Begrijpen – waarom beweegt de markt nu?</string>
+    <string name="welcome_start">Aan de slag</string>
+    <string name="portfolio_empty_example">Voorbeeld: 0,01 BTC gekocht op 1 maart tegen %1$s. De app toont dan waarde, gem. aankoopprijs en winst/verlies – alleen opgeslagen op dit apparaat.</string>
+    <string name="about_why">Crypto Checker is een onafhankelijk project van Rich1e: een rustig koersoverzicht zonder account, advertenties of tracking. Vragen en wensen: %1$s</string>
+    <string name="a11y_move_up">Omhoog verplaatsen</string>
+    <string name="a11y_move_down">Omlaag verplaatsen</string>
+    <string name="a11y_in_watchlist">Al in de volglijst</string>
+    <string name="portfolio_export_today_hint">Vandaag is nog niet afgelopen: in plaats van de slotkoers wordt de huidige koers gebruikt.</string>
+    <string name="about_privacy_policy">Privacybeleid</string>
+    <string name="widget_chart_type">Grafiektype</string>
+    <string name="widget_chart_line">Lijn</string>
+    <string name="widget_chart_candles">Candles</string>
+    <string name="pair_added_watching">%1$s wordt nu gevolgd</string>
+    <string name="market_cap_title">Cryptomarkt</string>
+    <string name="market_cap_label">Marktkapitalisatie</string>
+    <string name="market_volume_label">Volume 24 u</string>
+    <string name="market_cap_source">Alle munten · CoinGecko</string>
+    <string name="market_data_empty_error">Geen gegevens ontvangen van de beurs.</string>
+    <string name="sync_pairs_count">Handelsparen: %1$d</string>
+    <string name="market_unavailable_error">Beurs niet beschikbaar</string>
+    <string name="refresh_report_aborted">Vernieuwen afgebroken:</string>
+    <string name="refresh_report_wait">Wachttijd tot start: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Totaal %1$s · %2$d paar</item>
+        <item quantity="other">Totaal %1$s · %2$d paren</item>
+    </plurals>
+    <string name="refresh_report_network">Netwerk %1$s</string>
+    <string name="refresh_report_database">Database %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Alarmen/meldingen %1$s · %2$d melding</item>
+        <item quantity="other">Alarmen/meldingen %1$s · %2$d meldingen</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widgets %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d paar, %3$s</item>
+        <item quantity="other">%1$s: %2$d paren, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">bulkverzoek %1$s (%2$d koers)</item>
+        <item quantity="other">bulkverzoek %1$s (%2$d koersen)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">bulkverzoek %1$s (mislukt)</string>
+    <string name="refresh_report_singles">%1$d afzonderlijk</string>
+    <string name="refresh_report_slowest">traagste %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d niet meer verhandeld</item>
+        <item quantity="other">%1$d niet meer verhandeld</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d fout</item>
+        <item quantity="other">%1$d fouten</item>
+    </plurals>
+    <string name="starter_add_selected">Aan volglijst toevoegen (%1$d)</string>
+    <string name="starter_select_all">Alles selecteren</string>
+    <string name="starter_select_none">Niets selecteren</string>
+    <string name="starter_loading_prices">Koersen laden…</string>
+    <string name="watchlist_removed">%1$s verwijderd</string>
+    <string name="action_undo">Ongedaan maken</string>
+    <string name="favorite_added">%1$s toegevoegd aan favorieten</string>
+    <string name="favorite_removed">%1$s verwijderd uit favorieten</string>
+    <string name="cycle_data_as_of">Gegevens van %1$s · bijwerken…</string>
+    <string name="settings_conversion_currency_hint">Ook gebruikt voor de portfolio, alarmen in je valuta, de kaart Cryptomarkt en de Portfolio-widget.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d stijgt</item>
+        <item quantity="other">%1$d stijgen</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d daalt</item>
+        <item quantity="other">%1$d dalen</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, gemiddeld %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d paar stijgt</item>
+        <item quantity="other">%1$d paren stijgen</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d daalt</item>
+        <item quantity="other">%1$d dalen</item>
+    </plurals>
+    <string name="pulse_headline_up">Brede kracht</string>
+    <string name="pulse_headline_down">Brede zwakte</string>
+    <string name="pulse_headline_mixed">Gemengd beeld</string>
+    <string name="pulse_headline_calm">Rustige markt</string>
+    <string name="pulse_chip_funding_high">Funding verhoogd</string>
+    <string name="pulse_chip_funding_negative">Funding negatief</string>
+    <string name="market_signal_top">Tekenen van top %1$d/10</string>
+    <string name="market_signal_bottom">Tekenen van bodem %1$d/10</string>
+    <string name="market_section_now">Nu</string>
+    <string name="market_section_context">Context</string>
+    <string name="market_section_data">Gegevens</string>
+</resources>

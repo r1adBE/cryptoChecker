@@ -1,0 +1,145 @@
+package com.cryptochecker.app.ui.features.portfolio
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.PriceFormat
+import java.text.DateFormat
+import java.text.DecimalFormat
+import java.util.Date
+import kotlin.math.abs
+
+/** Gemeinsame Bausteine und Formate für das Portfolio. */
+internal object PortfolioFormat {
+    const val USDT = "USDT"
+
+    /** Beträge unter einem halben Cent gelten als 0 (grau, ohne Vorzeichen). */
+    fun isZero(value: Double): Boolean = abs(value) < 0.005
+
+    fun usdt(value: Double): String = PriceFormat.valueWithCurrency(value, USDT)
+
+    fun price(value: Double?): String = PriceFormat.priceWithCurrency(value, USDT)
+
+    /** «+1’234.56 USDT» / «−12.00 USDT» / «0.00 USDT». */
+    fun signedUsdt(value: Double): String {
+        val sign = when {
+            isZero(value) -> ""
+            value > 0 -> "+"
+            else -> "−"
+        }
+        return sign + DecimalFormat("#,##0.00").format(abs(value)) + " " + USDT
+    }
+
+    /** «+12.34%», bei praktisch 0 «0.00%». */
+    fun signedPercent(value: Double): String = PriceFormat.changePercent(value) ?: "0.00%"
+
+    fun amount(value: Double, coin: String): String = "${PriceFormat.amount(value)} $coin"
+
+    fun date(millis: Long): String = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(millis))
+}
+
+/** Grün/Rot für ±, grau bei 0 oder unbekannt. */
+@Composable
+@ReadOnlyComposable
+internal fun plColor(value: Double?): Color = when {
+    value == null || PortfolioFormat.isZero(value) -> MaterialTheme.colorScheme.onSurfaceVariant
+    value > 0 -> PriceColors.up
+    else -> PriceColors.down
+}
+
+/** Prozent als Pille wie in der Merkliste. */
+@Composable
+internal fun PlPill(percent: Double?, modifier: Modifier = Modifier) {
+    val color = plColor(percent?.takeUnless { abs(it) < 0.005 })
+    // Screenreader: Richtungswort statt Vorzeichen
+    val spoken = percent?.let { A11yText.change(LocalContext.current, it) }
+    // Pfeil wie in der Merkliste (folgt dem Vorzeichen, nie dem Farbtausch)
+    val arrow = percent?.takeUnless { PortfolioFormat.isZero(it) }?.let { PriceFormat.changeArrow(it) }.orEmpty()
+    Text(
+        text = percent?.let { p ->
+            PortfolioFormat.signedPercent(p).let { if (arrow.isEmpty()) it else "$arrow $it" }
+        } ?: "—",
+        style = MaterialTheme.typography.labelMedium.amountNumbers(),
+        fontWeight = FontWeight.SemiBold,
+        color = color,
+        maxLines = 1,
+        modifier = modifier
+            .then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)
+            .clip(RoundedCornerShape(50))
+            .background(color.copy(alpha = 0.14f))
+            .padding(horizontal = 8.dp, vertical = 2.dp)
+    )
+}
+
+/** Runde Plakette mit den ersten Buchstaben des Coins. */
+@Composable
+internal fun CoinBadge(coin: String, size: Dp = 40.dp) {
+    val accent = MaterialTheme.colorScheme.primary
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(size)
+            .clip(CircleShape)
+            .background(accent.copy(alpha = 0.14f))
+    ) {
+        Text(
+            text = coin.take(if (coin.length <= 4) coin.length else 3),
+            color = accent,
+            fontWeight = FontWeight.Bold,
+            fontSize = if (coin.length <= 3) 13.sp else 11.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Clip
+        )
+    }
+}
+
+/** Kleine Kennzahl: Beschriftung oben, Wert darunter. */
+@Composable
+internal fun Metric(
+    label: String,
+    value: String,
+    modifier: Modifier = Modifier,
+    valueColor: Color = MaterialTheme.colorScheme.onSurface,
+) {
+    Column(modifier = modifier) {
+        // Zwei Zeilen: Beschriftungen wie «Gewinn/Verlust, noch nicht verkauft» nicht abschneiden
+        Text(
+            label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        Text(
+            value,
+            style = MaterialTheme.typography.titleSmall.amountNumbers(),
+            fontWeight = FontWeight.Medium,
+            color = valueColor,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}

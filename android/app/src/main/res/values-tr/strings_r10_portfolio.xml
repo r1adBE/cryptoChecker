@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Değer geçmişi</string>
+    <string name="portfolio_history_range_7d">7 G</string>
+    <string name="portfolio_history_range_30d">30 G</string>
+    <string name="portfolio_history_range_1y">1 Y</string>
+    <string name="portfolio_history_period_7d">7 gün</string>
+    <string name="portfolio_history_period_30d">30 gün</string>
+    <string name="portfolio_history_period_1y">1 yıl</string>
+    <string name="portfolio_history_range_a11y">%1$s için geçmişi göster</string>
+    <string name="portfolio_history_change_a11y">%1$s boyunca değer: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Bugün</string>
+    <string name="portfolio_history_converted">Bugünkü kurla çevrildi</string>
+    <string name="portfolio_history_without">%1$s hariç (günlük fiyat yok)</string>
+    <string name="portfolio_history_includes_trades">Bu dönemdeki alım ve satımları içerir</string>
+    <string name="portfolio_history_too_short">Geçmiş, ilk tam gününüzden sonra başlar.</string>
+    <string name="portfolio_history_unavailable">Şu anda geçmiş mevcut değil.</string>
+    <string name="portfolio_history_loading">Değer geçmişi yükleniyor</string>
+</resources>

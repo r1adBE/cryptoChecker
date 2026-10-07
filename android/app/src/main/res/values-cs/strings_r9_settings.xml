@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_currency">Měna a převod</string>
+    <string name="settings_group_alerts">Alarmy a oznámení</string>
+    <string name="settings_group_data">Data a aktualizace</string>
+    <string name="settings_group_security">Zabezpečení a záloha</string>
+    <string name="settings_portfolio_tab">Zobrazit kartu Portfolio</string>
+</resources>

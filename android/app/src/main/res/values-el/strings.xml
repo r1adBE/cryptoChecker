@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Σφάλμα: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Δεν υπάρχουν ζεύγη νομισμάτων</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Πατήστε εδώ για λήψη των τελευταίων ζευγών από το επιλεγμένο ανταλλακτήριο.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Ενημέρωση ζευγών νομισμάτων</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Συγχρονισμός τώρα!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Τελευταίος συγχρονισμός: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">ποτέ</string>
+
+    <string name="market_screen_sync">Συγχρονισμός</string>
+    <string name="market_screen_base">Βάση</string>
+    <string name="market_screen_quote">Τιμολόγηση</string>
+    <string name="market_screen_market">Αγορά</string>
+    <string name="market_screen_contract_type">Τύπος συμβολαίου</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Υψηλό</string>
+    <string name="ticker_low">Χαμηλό</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_vol_base">Όγκος (βάση)</string>
+    <string name="ticker_vol_quote">Όγκος (τιμολόγηση)</string>
+    <string name="ticker_timestamp">Ώρα</string>
+
+
+    <string name="try_again">Δοκιμάστε ξανά</string>
+    <string name="no_internet_connection">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="something_went_wrong">Κάτι πήγε στραβά</string>
+
+    <string name="bulk_all_pairs">Όλα τα ζεύγη %1$s αυτού του ανταλλακτηρίου</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Βρέθηκε %1$d ζεύγος %2$s</item>
+        <item quantity="other">Βρέθηκαν %1$d ζεύγη %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Δεν υπάρχουν ζεύγη %1$s σε αυτό το ανταλλακτήριο για τον επιλεγμένο τύπο συμβολαίου. Συγχρονίστε πρώτα το ανταλλακτήριο ή δοκιμάστε άλλο τύπο συμβολαίου.</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">Ανανέωση</string>
+    <string name="action_add_pair">Προσθήκη ζεύγους</string>
+    <string name="action_delete">Διαγραφή</string>
+    <string name="action_edit">Επεξεργασία</string>
+    <string name="action_back">Πίσω</string>
+    <string name="action_save">Αποθήκευση</string>
+    <string name="action_cancel">Ακύρωση</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Δεν υπάρχουν ζεύγη ακόμα</string>
+    <string name="watchlist_empty_hint">Ή επιλέξτε ανταλλακτήριο και ζεύγος στην «Προσθήκη». Κάθε ζεύγος μπορεί να έχει ειδοποίηση, φωνητική ενημέρωση και ειδοποιήσεις τιμής.</string>
+    <string name="watchlist_updated">Ενημέρωση: %1$s</string>
+    <string name="watchlist_notification">Ειδοποίηση</string>
+    <string name="watchlist_tts">Εκφώνηση τιμής</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Ειδοποίηση τιμής (%1$d)</item>
+        <item quantity="other">Ειδοποιήσεις τιμής (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">Ειδοποιήσεις τιμής</string>
+    <string name="alarms_add">Νέα ειδοποίηση</string>
+    <string name="alarms_edit">Επεξεργασία ειδοποίησης</string>
+    <string name="alarms_empty">Δεν υπάρχουν ακόμα ειδοποιήσεις για αυτό το ζεύγος.</string>
+    <string name="alarm_condition_above">Τιμή πάνω από</string>
+    <string name="alarm_condition_below">Τιμή κάτω από</string>
+    <string name="alarm_condition_up_percent">Άνοδος κατά</string>
+    <string name="alarm_condition_down_percent">Πτώση κατά</string>
+    <string name="alarm_repeating">Επαναλαμβανόμενη</string>
+    <string name="alarm_once">Μία φορά</string>
+    <string name="alarm_last_triggered">τελευταία: %1$s</string>
+    <string name="alarm_field_price">Τιμή</string>
+    <string name="alarm_field_percent">Ποσοστό</string>
+    <string name="alarm_option_repeating">Διατήρηση μετά την ενεργοποίηση</string>
+    <string name="alarm_option_sound">Ήχος</string>
+    <string name="alarm_option_vibrate">Δόνηση</string>
+    <string name="alarm_option_speak">Εκφώνηση ειδοποίησης</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">Τιμές</string>
+    <string name="channel_prices_description">Αθόρυβη ειδοποίηση με την τρέχουσα τιμή ενός ζεύγους.</string>
+    <string name="channel_alarms">Ειδοποιήσεις τιμής</string>
+    <string name="channel_alarms_description">Ειδοποίηση όταν ενεργοποιείται μια ειδοποίηση τιμής.</string>
+    <string name="channel_service">Λειτουργία live</string>
+    <string name="channel_service_description">Ένδειξη όσο οι τιμές ενημερώνονται σε σύντομα διαστήματα.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, από %2$s (πριν από %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, από %2$s</string>
+    <string name="notification_price_first">Πρώτη ειδοποίηση για αυτό το ζεύγος</string>
+    <string name="notification_alarm_title">Ειδοποίηση: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — τώρα %2$s</string>
+    <string name="market_phase_title">Φάση αγοράς Bitcoin</string>
+    <string name="market_phase_trend_loading">Φόρτωση δεδομένων τιμών…</string>
+    <string name="market_phase_trend_failed">Τα δεδομένα τιμών δεν είναι διαθέσιμα</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Πολλά ιστορικά σήματα bottom ταυτόχρονα – ιστορική ζώνη συσσώρευσης.</string>
+    <string name="zone_hint_bear">Πτωτική τάση ή σχηματισμός bottom, χωρίς ακόμη ευρεία συνθηκολόγηση.</string>
+    <string name="zone_hint_neutral">Μικτά σήματα, χωρίς σαφή κατεύθυνση.</string>
+    <string name="zone_hint_bull">Ανοδική τάση χωρίς ακραία υπερθέρμανση.</string>
+    <string name="zone_hint_extreme_bull">Πολλά ιστορικά σήματα top ταυτόχρονα – αυξημένος κίνδυνος top.</string>
+    <string name="market_scores">Ενδείξεις πιθανής κορυφής %1$d/10 · πυθμένα %2$d/10</string>
+    <string name="market_show_indicators">Εμφάνιση δεικτών</string>
+    <string name="market_hide_indicators">Απόκρυψη δεικτών</string>
+    <string name="market_onchain_missing">Τα on-chain δεδομένα (Coin Metrics) δεν είναι διαθέσιμα τώρα – βαθμολογία μόνο από δεδομένα τιμών.</string>
+    <string name="market_source">Δεδομένα: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Τιμή έναντι μέσου όρου 200 εβδομάδων</string>
+    <string name="ind_drawdown">Πτώση από το ιστορικό υψηλό</string>
+    <string name="ind_hash">Συνθηκολόγηση εξορυκτών (hash ribbons)</string>
+    <string name="ind_parabolic">Παραβολική άνοδος (30 ημέρες)</string>
+    <string name="ind_halving">Μήνες από το halving</string>
+    <string name="ind_ath">Μήνες από το ιστορικό υψηλό</string>
+    <string name="ind_points_top">+%1$d top</string>
+    <string name="ind_points_bottom">+%1$d bottom</string>
+    <string name="market_phase_disclaimer">Βασίζεται σε προηγούμενους κύκλους και στην τάση της τιμής. Δεν αποτελεί πρόβλεψη ούτε επενδυτική συμβουλή.</string>
+    <string name="action_retry">Επανάληψη</string>
+    <string name="settings_section_language">Γλώσσα</string>
+    <string name="settings_language_system">Γλώσσα συστήματος</string>
+    <string name="settings_language_choose">Επιλογή γλώσσας</string>
+    <string name="settings_section_appearance">Εμφάνιση</string>
+    <string name="settings_theme_mode">Λειτουργία</string>
+    <string name="theme_light">Φωτεινό</string>
+    <string name="theme_dark">Σκοτεινό</string>
+    <string name="settings_accent">Χρώμα</string>
+    <string name="accent_orange">Πορτοκαλί</string>
+    <string name="accent_red">Κόκκινο</string>
+    <string name="accent_blue">Μπλε</string>
+    <string name="accent_green">Πράσινο</string>
+    <string name="settings_rolling_futures">Μαζί με τριμηνιαία &amp; άλλα futures με λήξη</string>
+    <string name="settings_rolling_futures_hint">Ανενεργό: τα futures με λήξη που λείπουν από τη λίστα του ανταλλακτηρίου επισημαίνονται ως εκτός διαπραγμάτευσης αντί να ελέγχονται ένα-ένα. Εξοικονομεί χρόνο σε κάθε ανανέωση.</string>
+    <string name="notification_refreshing">Ενημέρωση τιμών…</string>
+    <string name="notification_service_title">Crypto Checker – λειτουργία live</string>
+    <string name="notification_service_starting">Εκκίνηση…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d ζεύγος · %2$s</item>
+        <item quantity="other">%1$d ζεύγη · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">Δεν υπάρχουν ζεύγη στη λίστα παρακολούθησης</string>
+    <string name="notification_service_error">Η ενημέρωση απέτυχε</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="settings_background_updates">Ενημερώσεις στο παρασκήνιο</string>
+    <string name="settings_background_updates_hint">Τιμές, ειδοποιήσεις τιμής και widget ενημερώνονται ακόμα και όταν η εφαρμογή είναι κλειστή.</string>
+    <string name="settings_background_interval">Διάστημα</string>
+    <string name="settings_live_service">Λειτουργία live</string>
+    <string name="settings_live_service_hint">Διατηρεί μια υπηρεσία σε λειτουργία για σύντομα διαστήματα. Καταναλώνει περισσότερη μπαταρία.</string>
+    <string name="settings_live_interval">Διάστημα live</string>
+    <string name="settings_minutes">%1$d λεπ.</string>
+    <string name="settings_seconds">%1$d δευτ.</string>
+    <string name="settings_price_notifications">Ειδοποιήσεις τιμών</string>
+    <string name="settings_price_notifications_hint">Εμφάνιση της τρέχουσας τιμής των ενεργών ζευγών στη γραμμή κατάστασης.</string>
+    <string name="settings_ongoing_notifications">Χωρίς απόρριψη με σύρσιμο</string>
+    <string name="settings_ongoing_notifications_hint">Οι ειδοποιήσεις τιμών παραμένουν καρφιτσωμένες.</string>
+    <string name="settings_notification_change">Ειδοποίηση μόνο σε αλλαγή τιμής</string>
+    <string name="settings_notification_change_always">Πάντα</string>
+    <string name="settings_notification_change_hint">Η ειδοποίηση εμφανίζεται μόνο όταν η τιμή έχει κινηθεί τουλάχιστον τόσο από την προηγούμενη. Όσο λείπουν δεδομένα, δεν εμφανίζεται τίποτα. Οι ειδοποιήσεις τιμής δεν επηρεάζονται.</string>
+    <string name="settings_alarm_cooldown">Χρόνος αναμονής πριν από νέα ενεργοποίηση</string>
+    <string name="settings_tts">Φωνητική έξοδος</string>
+    <string name="settings_tts_alarms_only">Μόνο ειδοποιήσεις τιμής</string>
+    <string name="settings_tts_alarms_only_hint">Ανενεργό: κάθε ενημέρωση ζεύγους με «Εκφώνηση τιμής» εκφωνείται.</string>
+    <string name="settings_speech_rate">Ταχύτητα ομιλίας: %1$.1f×</string>
+    <string name="settings_tts_test">Δοκιμή φωνής</string>
+    <string name="battery_title">Διατηρήστε τις τιμές ενημερωμένες</string>
+    <string name="battery_message">Το Android καθυστερεί τις εργασίες παρασκηνίου για εξοικονόμηση ενέργειας — έτσι τιμές και widget μπορεί να είναι ώρες παλιά. Με απεριόριστη χρήση μπαταρίας παραμένουν ενημερωμένα. Μπορείτε να το αλλάξετε ανά πάσα στιγμή στις ρυθμίσεις του Android.</string>
+    <string name="battery_later">Αργότερα</string>
+    <string name="settings_battery_ok">Χρήση μπαταρίας: απεριόριστη</string>
+    <string name="settings_battery_restricted">Χρήση μπαταρίας: περιορισμένη</string>
+    <string name="settings_battery_hint">Περιορισμένη σημαίνει ότι το Android μπορεί να καθυστερήσει τις ενημερώσεις παρασκηνίου κατά ώρες.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Εμφανίζει την τιμή ενός ζεύγους από τη λίστα παρακολούθησης.</string>
+    <string name="widget_empty">Δεν υπάρχουν ζεύγη στη λίστα παρακολούθησης ακόμα.</string>
+    <string name="widget_opacity">Αδιαφάνεια φόντου: %1$d%%</string>
+    <string name="settings_section_about">Σχετικά</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Οι τιμές έρχονται απευθείας από τα ανταλλακτήρια· χωρίς λογαριασμό και χωρίς παρακολούθηση.</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">Tokens εκτός των μεγάλων ανταλλακτηρίων, από αποκεντρωμένα ανταλλακτήρια (Uniswap, PancakeSwap, Raydium …) μέσω DexScreener. Αναζητήστε ένα token και προσθέστε το pool συναλλαγών του – τιμές σε δολάρια ΗΠΑ.</string>
+    <string name="dex_search_hint">Όνομα, σύμβολο ή διεύθυνση token</string>
+    <string name="dex_search">Αναζήτηση</string>
+    <string name="dex_no_results">Δεν βρέθηκαν pools.</string>
+    <string name="dex_added">Το %1$s προστέθηκε στη λίστα.</string>
+    <string name="dex_already">Το %1$s είναι ήδη στη λίστα.</string>
+    <string name="dex_liquidity">Ρευστότητα %1$s</string>
+    <string name="dex_add">Προσθήκη</string>
+    <string name="action_sort">Ταξινόμηση</string>
+    <string name="action_sort_done">Τέλος</string>
+    <string name="sort_move_top">Στην κορυφή</string>
+    <string name="sort_move_up">Πάνω</string>
+    <string name="sort_move_down">Κάτω</string>
+    <string name="sort_move_bottom">Στο τέλος</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Προσθήκη του %1$d ζεύγους στη λίστα</item>
+        <item quantity="other">Προσθήκη και των %1$d ζευγών στη λίστα</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">Προστέθηκε %1$d, %2$d υπάρχουν ήδη στη λίστα παρακολούθησης.</item>
+        <item quantity="other">Προστέθηκαν %1$d, %2$d υπάρχουν ήδη στη λίστα παρακολούθησης.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Προσθήκη στη λίστα</string>
+    <string name="explorer_added_to_watchlist">Προστέθηκε στη λίστα παρακολούθησης.</string>
+    <string name="explorer_already_in_watchlist">Αυτό το ζεύγος υπάρχει ήδη στη λίστα παρακολούθησης.</string>
+    <string name="explorer_no_pair_selected">Επιλέξτε πρώτα ένα ζεύγος.</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Ειδοποίηση. %1$s, %2$s %3$s %4$s, τώρα %5$s</string>
+    <string name="tts_direction_up">ανέβηκε</string>
+    <string name="tts_direction_down">έπεσε</string>
+    <string name="watchlist_refresh_report">Τελευταία ανανέωση</string>
+    <string name="watchlist_refresh_report_empty">Δεν υπάρχει ανάλυση ακόμα: αυτή η έκδοση δεν έχει ολοκληρώσει πλήρη ανανέωση. Πατήστε ανανέωση και περιμένετε να σταματήσει η ένδειξη φόρτωσης.</string>
+    <string name="action_close">Κλείσιμο</string>
+    <string name="watchlist_clear">Εκκαθάριση λίστας</string>
+    <string name="watchlist_clear_confirm">Να αφαιρεθούν όλα τα ζεύγη από τη λίστα παρακολούθησης; Θα διαγραφούν και οι ειδοποιήσεις τιμής τους.</string>
+    <string name="market_scores_hint">Κορυφή = ενδείξεις όπως σε προηγούμενες κορυφές κύκλου, πυθμένας = ενδείξεις όπως σε προηγούμενους πυθμένες κύκλου. Από 4 πόντους κυριαρχεί μία πλευρά, από 7 είναι ακραία. Καμία τιμή-στόχος και καμία πρόβλεψη.</string>
+    <string name="market_scores_none">Καμία ένδειξη κορυφής ή πυθμένα δεν είναι ενεργή: ήρεμη ενδιάμεση φάση, αποφασίζει η τάση της τιμής.</string>
+    <string name="market_scores_info_title">Σήματα κύκλου</string>
+    <string name="market_scores_info_text">Οι ενδείξεις πιθανής κορυφής μετρούν σήματα που εμφανίστηκαν σε κορυφές προηγούμενων κύκλων: ισχυρή υπερτίμηση (MVRV), πολύ υψηλά έσοδα miners (Puell), τιμή πολύ πάνω από τον μέσο όρο 200 ημερών ή 200 εβδομάδων, παραβολική άνοδος και το διάστημα 12–18 μηνών μετά το halving.\n\nΟι ενδείξεις πιθανού πυθμένα μετρούν σήματα προηγούμενων πυθμένων: χαμηλό MVRV, αδύναμα έσοδα miners, μεγάλη πτώση από το ιστορικό υψηλό, τιμή κοντά στον μέσο όρο 200 εβδομάδων, πτωτικό hashrate και κορυφή πριν από πάνω από έναν χρόνο.\n\nΜε προβάδισμα 4 πόντων η ζώνη είναι Bull ή Bear, από 7 Ακραία. Αν καμία πλευρά δεν προηγείται, αποφασίζει η τάση της τιμής. 0/10 και στις δύο πλευρές σημαίνει: ούτε ευφορία ούτε συνθηκολόγηση.\n\nΚαμία τιμή-στόχος και καμία πρόβλεψη: τα σήματα περιγράφουν μόνο πώς έμοιαζαν οι προηγούμενοι κύκλοι.</string>
+    <string name="battery_open_settings">Άνοιγμα ρυθμίσεων μπαταρίας</string>
+    <string name="battery_steps">Στις πληροφορίες εφαρμογής πατήστε Μπαταρία (ή Χρήση μπαταρίας εφαρμογής) και επιλέξτε Χωρίς περιορισμούς.</string>
+    <string name="explorer_select_placeholder">Επιλέξτε</string>
+    <string name="explorer_bulk_title">Πολλά ζεύγη μαζί</string>
+    <string name="watchlist_sort_hint">Κρατήστε και σύρετε ένα ζεύγος ή χρησιμοποιήστε τη λαβή. Τα αγαπημένα μένουν πάνω.</string>
+    <string name="sort_drag_handle">Σύρετε για μετακίνηση</string>
+    <string name="explorer_step_pair">Επιλογή ζεύγους</string>
+    <string name="theme_system">Σύστημα</string>
+    <string name="settings_section_developer">Προγραμματιστής</string>
+    <string name="settings_http_log">Εμφάνιση αρχείου HTTP</string>
+    <string name="settings_http_log_hint">Δείχνει στο κάτω μέρος της καρτέλας «Προσθήκη» τα αιτήματα προς τα ανταλλακτήρια – για αντιμετώπιση προβλημάτων.</string>
+    <string name="language_search">Αναζήτηση γλώσσας</string>
+    <string name="alarm_delete_title">Διαγραφή ειδοποίησης;</string>
+    <string name="alarm_delete_confirm">Αυτή η ειδοποίηση θα αφαιρεθεί.</string>
+    <string name="alarms_overview_title">Όλες οι ειδοποιήσεις</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d ενεργή</item>
+        <item quantity="other">%1$d ενεργές</item>
+    </plurals>
+    <string name="alarms_overview_empty">Δεν υπάρχουν ειδοποιήσεις. Ανοίξτε ένα ζεύγος και προσθέστε μία στις Ειδοποιήσεις.</string>
+    <string name="action_more">Περισσότερες επιλογές</string>
+    <string name="watchlist_last_run">Τελευταία εκτέλεση %1$s</string>
+    <string name="watchlist_pull_to_refresh">Σύρετε προς τα κάτω για ανανέωση</string>
+    <string name="favorite_add">Προσθήκη στα αγαπημένα</string>
+    <string name="favorite_remove">Αφαίρεση από τα αγαπημένα</string>
+    <string name="action_view">Προβολή</string>
+    <string name="explorer_loading_pairs">Φόρτωση ζευγών…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d ζεύγος · ενημέρωση %2$s</item>
+        <item quantity="other">%1$d ζεύγη · ενημέρωση %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Προσθήκη %1$d ζεύγους;</item>
+        <item quantity="other">Προσθήκη %1$d ζευγών;</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">Το %1$d ζεύγος %2$s του %3$s θα προστεθεί στη λίστα, εκτός αν υπάρχει ήδη.</item>
+        <item quantity="other">Και τα %1$d ζεύγη %2$s του %3$s θα προστεθούν στη λίστα. Όσα υπάρχουν ήδη παραλείπονται.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Πατήστε ένα ζεύγος για να το επιλέξετε παραπάνω.</string>
+    <string name="loading_hint">Φόρτωση…</string>
+    <string name="explorer_select_market_hint">Επιλέξτε ανταλλακτήριο – τα ζεύγη φορτώνονται αυτόματα.</string>
+    <string name="explorer_precise_title">Ακριβής επιλογή</string>
+    <string name="explorer_search_hint">Αναζήτηση νομίσματος, π.χ. BTC ή ETH USDT</string>
+    <string name="explorer_search_loading">Αναζήτηση στα ανταλλακτήρια… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Κανένα αποτέλεσμα.</string>
+    <string name="action_clear">Καθαρισμός</string>
+    <string name="explorer_bulk_show_list">Εμφάνιση λίστας</string>
+    <string name="explorer_bulk_hide_list">Απόκρυψη λίστας</string>
+    <string name="time_just_now">μόλις τώρα</string>
+    <string name="welcome_title">Crypto Checker</string>
+    <string name="welcome_text">Οι τιμές σας. Οι ειδοποιήσεις σας. Η επισκόπησή σας.\nΧωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.</string>
+    <string name="welcome_later">Αργότερα</string>
+    <string name="developer_unlocked">Οι επιλογές προγραμματιστή ξεκλειδώθηκαν</string>
+    <string name="hint_favorites_list">Συμβουλή: πατήστε ☆ για αγαπημένο – τα αγαπημένα μένουν πάνω.</string>
+    <string name="tab_watchlist">Λίστα</string>
+    <string name="tab_markets">Προσθήκη</string>
+    <string name="tab_market_phase">Αγορά</string>
+    <string name="tab_settings">Ρυθμίσεις</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d από %2$d παρωχημένο</item>
+        <item quantity="other">%1$d από %2$d παρωχημένα</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Όλα ενημερωμένα · %1$s</string>
+    <string name="explorer_price_loading">Φόρτωση τιμής…</string>
+    <string name="zone_top_risk">Κίνδυνος κορυφής</string>
+    <string name="zone_bottom_chance">Σχηματισμός πυθμένα</string>
+    <string name="timeout_error_message">Το ανταλλακτήριο δεν απαντά αυτή τη στιγμή.</string>
+    <string name="widget_background">Φόντο</string>
+    <string name="widget_configure_title">Ρύθμιση widget</string>
+    <string name="widget_configure_hint">Επιλέξτε φόντο και αδιαφάνεια. Το χρώμα ακολουθεί την εφαρμογή. Το widget δείχνει όλη τη λίστα· πατήστε μια γραμμή για να ανοίξει η εφαρμογή.</string>
+    <string name="settings_custom_value">Άλλο</string>
+    <string name="insights_halving_title">Halving του Bitcoin</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">Επόμενο halving σε περίπου %1$d ημέρα (%2$s)</item>
+        <item quantity="other">Επόμενο halving σε περίπου %1$d ημέρες (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% του τρέχοντος κύκλου</string>
+    <string name="insights_cycle_chart">Κύκλοι από το halving</string>
+    <string name="insights_chart_axis">Έτη από το halving</string>
+    <string name="insights_chart_hint">Τιμή ως πολλαπλάσιο της τιμής την ημέρα του halving (λογαριθμική κλίμακα). Οι παλιοί κύκλοι είναι μοτίβο, όχι πρόβλεψη.</string>
+    <string name="insights_source_history">Πηγή: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="fng_extreme_fear">Ακραίος φόβος</string>
+    <string name="fng_fear">Φόβος</string>
+    <string name="fng_neutral">Ουδέτερο</string>
+    <string name="fng_greed">Απληστία</string>
+    <string name="fng_extreme_greed">Ακραία απληστία</string>
+    <string name="insights_fng_history">Χθες %1$s · πριν μία εβδομάδα %2$s · πριν έναν μήνα %3$s</string>
+    <string name="insights_source_fng">Πηγή: alternative.me</string>
+    <string name="insights_dominance_title">Κυριαρχία Bitcoin</string>
+    <string name="insights_altseason_title">Εποχή altcoin</string>
+    <string name="altseason_alt">Εποχή altcoin</string>
+    <string name="altseason_btc">Εποχή Bitcoin</string>
+    <string name="altseason_mixed">Μικτό</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d από %2$d μεγάλα altcoin ξεπερνά το Bitcoin σε 90 ημέρες</item>
+        <item quantity="other">%1$d από %2$d μεγάλα altcoin ξεπερνούν το Bitcoin σε 90 ημέρες</item>
+    </plurals>
+    <string name="insights_source_dominance">Πηγή: CoinGecko, Binance</string>
+    <string name="coin_title">Ανάλυση νομίσματος</string>
+    <string name="coin_choose">Νόμισμα</string>
+    <string name="coin_no_data">Δεν υπάρχουν δεδομένα τιμής για αυτό το νόμισμα σε Binance ή Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Μόνο %1$d ημέρα ιστορικού – λείπουν κάποιοι δείκτες.</item>
+        <item quantity="other">Μόνο %1$d ημέρες ιστορικού – λείπουν κάποιοι δείκτες.</item>
+    </plurals>
+    <string name="coin_price_only">Μόνο με βάση την τιμή – τα on-chain δεδομένα (MVRV, Puell, hashrate) είναι ελεύθερα μόνο για το Bitcoin.</string>
+    <string name="ind_rsi_weekly">RSI (εβδομάδα)</string>
+    <string name="ind_rsi_daily">RSI (ημέρα)</string>
+    <string name="ind_pi_cycle">Pi cycle (111/350 ημέρες)</string>
+    <string name="ind_cross">Τάση 50/200 ημερών</string>
+    <string name="ind_vs_btc">Δύναμη έναντι Bitcoin (90 ημέρες)</string>
+    <string name="ind_missing">λίγα δεδομένα</string>
+    <string name="channel_market">Φάση αγοράς</string>
+    <string name="channel_market_description">Ειδοποιεί όταν αλλάζει η φάση αγοράς του Bitcoin</string>
+    <string name="notification_zone_title">Bitcoin: %1$s</string>
+    <string name="notification_zone_text">Η φάση αγοράς άλλαξε από %1$s σε %2$s.</string>
+    <string name="settings_zone_alerts">Ειδοποίηση σε αλλαγή φάσης</string>
+    <string name="settings_zone_alerts_hint">Ελέγχει δύο φορές την ημέρα και ειδοποιεί όταν το Bitcoin αλλάζει ζώνη, π.χ. από Ουδέτερο σε Bull.</string>
+    <string name="alarm_condition_move_percent">Κινείται κατά</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">σε %1$d ώρα</item>
+        <item quantity="other">σε %1$d ώρες</item>
+    </plurals>
+    <string name="alarm_window_label">Χρονικό παράθυρο</string>
+    <string name="tts_direction_move">κινείται έντονα</string>
+    <string name="settings_fng_below">Fear &amp; Greed: ειδοποίηση κάτω από</string>
+    <string name="settings_fng_above">Fear &amp; Greed: ειδοποίηση πάνω από</string>
+    <string name="option_off">Ανενεργό</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">Ο δείκτης έπεσε κάτω από %1$d – η αγορά φοβάται.</string>
+    <string name="notification_fng_above">Ο δείκτης ανέβηκε πάνω από %1$d – η αγορά είναι άπληστη.</string>
+    <string name="futures_title">Δεδομένα futures</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_next_funding">επόμενο σε %1$d ώ %2$d λ</string>
+    <string name="futures_open_interest">Ανοιχτό ενδιαφέρον</string>
+    <string name="futures_source">Πηγή: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – ένα νόμισμα</string>
+    <string name="single_widget_description">Δείχνει ένα νόμισμα μεγάλο με τιμή, μεταβολή και γράφημα 24 ωρών.</string>
+    <string name="single_widget_choose">Επιλογή ζεύγους</string>
+    <string name="single_widget_title">Ρύθμιση μεμονωμένου widget</string>
+    <string name="shortcut_add">Προσθήκη ζεύγους</string>
+    <string name="shortcut_alarms">Όλες οι ειδοποιήσεις</string>
+    <string name="shortcut_cycle">Αγορά</string>
+    <string name="backup_title">Αντίγραφο ασφαλείας</string>
+    <string name="backup_hint">Αποθηκεύει λίστα με σημειώσεις και ομάδες, ειδοποιήσεις, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις σε αρχείο που κρατάτε εσείς – π.χ. για νέο κινητό.</string>
+    <string name="backup_export">Εξαγωγή</string>
+    <string name="backup_import">Εισαγωγή</string>
+    <string name="backup_restore_confirm">Η εισαγωγή αντικαθιστά λίστα (με σημειώσεις και ομάδες), ειδοποιήσεις, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις με το αντίγραφο.</string>
+    <string name="backup_exported">Το αντίγραφο αποθηκεύτηκε.</string>
+    <string name="backup_failed">Δεν πέτυχε. Είναι αντίγραφο του Crypto Checker;</string>
+    <string name="backup_restored">Επαναφέρθηκαν: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d ζεύγος</item>
+        <item quantity="other">%1$d ζεύγη</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d ειδοποίηση</item>
+        <item quantity="other">%1$d ειδοποιήσεις</item>
+    </plurals>
+</resources>

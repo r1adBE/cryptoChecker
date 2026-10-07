@@ -1,0 +1,1 @@
+bitcoin,btc,ethereum,eth,criptomonedas,precio,cartera,altcoin,miedo,codicia,futuros,dex,monedas

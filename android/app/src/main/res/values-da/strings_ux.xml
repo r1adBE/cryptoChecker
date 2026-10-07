@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Kom i gang med ét tryk</string>
+    <string name="starter_text">Vælg mønter, og tilføj dem på én gang. Du kan ændre børs og par senere.</string>
+    <string name="starter_custom">Vælg børs og par</string>
+    <string name="settings_quiet_hours">Nattero</string>
+    <string name="settings_quiet_hours_hint">Mellem %1$s og %2$s kommer alarmer lydløst: uden lyd, vibration eller oplæsning.</string>
+    <string name="settings_quiet_hours_from">Fra</string>
+    <string name="settings_quiet_hours_to">Til</string>
+    <string name="channel_alarms_quiet">Alarmer (nattero)</string>
+    <string name="channel_alarms_quiet_description">Lydløse alarmer under nattero.</string>
+    <string name="settings_app_lock">Applås</string>
+    <string name="settings_app_lock_hint">Lås op med fingeraftryk, ansigt eller enhedens pinkode, når appen har været i baggrunden i mere end et minut.</string>
+    <string name="app_lock_title">Crypto Checker er låst</string>
+    <string name="app_lock_unlock">Lås op</string>
+    <string name="app_lock_reason">Lås Crypto Checker op</string>
+    <string name="app_lock_unavailable">Der er ikke konfigureret skærmlås på denne enhed. Opret en i systemindstillingerne først.</string>
+    <string name="widget_portfolio_name">Portefølje</string>
+    <string name="widget_portfolio_description">Samlet værdi af din portefølje og dagens ændring</string>
+    <string name="widget_portfolio_today">i dag %1$s</string>
+    <string name="widget_portfolio_empty">Tilføj køb under fanen Portefølje</string>
+    <string name="widget_portfolio_locked">Skjult – applås er slået til</string>
+    <string name="a11y_portfolio_widget">Portefølje %1$s, i dag %2$s</string>
+    <string name="settings_section_advanced">Avanceret</string>
+    <string name="settings_advanced_hint">Live-tilstand, fast notifikation, futures og udviklerindstillinger</string>
+    <string name="explain_funding">Gebyr mellem long- og short-positioner. Stærkt positiv betyder, at mange satser på stigende kurser.</string>
+    <string name="explain_open_interest">Værdien af alle åbne futures-positioner. Stiger den, satser flere penge på bevægelsen.</string>
+    <string name="explain_rsi">Relative Strength Index, 0–100. Over 70 ofte overophedet, under 30 ofte oversolgt.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Forklaring</string>
+    <string name="explain_pi_cycle">Sammenligner 111-dages gennemsnittet med det dobbelte af 350-dages gennemsnittet. En krydsning har markeret tidligere cyklustoppe.</string>
+    <string name="alarm_sentence_above">Giv mig besked, når %1$s stiger over %2$s.</string>
+    <string name="alarm_sentence_below">Giv mig besked, når %1$s falder under %2$s.</string>
+    <string name="alarm_sentence_up_percent">Giv mig besked, når %1$s stiger med %2$s.</string>
+    <string name="alarm_sentence_down_percent">Giv mig besked, når %1$s falder med %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Giv mig besked, når %1$s bevæger sig %2$s inden for %3$d time.</item>
+        <item quantity="other">Giv mig besked, når %1$s bevæger sig %2$s inden for %3$d timer.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Giv mig besked, når %1$s handles med %2$s× den normale volumen.</string>
+    <string name="alarm_sentence_incomplete">Indtast en værdi for at se alarmen som en sætning.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s kan ikke nås</string>
+    <string name="watchlist_row_outdated">%1$s · forældet</string>
+</resources>

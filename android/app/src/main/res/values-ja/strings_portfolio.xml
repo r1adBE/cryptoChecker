@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">保有量</string>
+    <string name="portfolio_invalid">無効な数量</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">グループ</string>
+    <string name="group_value">グループ：%1$s</string>
+    <string name="group_all">すべて</string>
+    <string name="group_none">グループなし</string>
+    <string name="group_new">新しいグループ…</string>
+    <string name="group_name">グループ名</string>
+    <string name="widget_group_hint">このグループのペアだけを表示します。</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">ポートフォリオ</string>
+    <string name="portfolio_setting_hint">任意：売買を記録し、評価額と損益を別タブで確認できます。</string>
+    <string name="portfolio_total_value">評価額合計</string>
+    <string name="portfolio_invested">投資額</string>
+    <string name="portfolio_unrealized">損益（未売却）</string>
+    <string name="portfolio_realized">損益（売却済み）</string>
+    <string name="portfolio_value">評価額</string>
+    <string name="portfolio_avg_price">平均取得価格</string>
+    <string name="portfolio_current_price">現在価格</string>
+    <string name="portfolio_avg_and_now">平均 %1$s · 現在 %2$s</string>
+    <string name="portfolio_updated">%1$s 時点の価格</string>
+    <string name="portfolio_convert_to">換算通貨</string>
+    <string name="portfolio_convert_to_value">換算通貨：%1$s</string>
+    <string name="portfolio_price_missing">価格なし</string>
+    <string name="portfolio_price_missing_hint">一部の購入に価格がありません。損益を表示するには取得価格を入力してください。</string>
+    <string name="portfolio_current_missing">%1$s の現在価格がありません</string>
+    <string name="portfolio_oversold">売却が保有量を超えています。取引を確認してください。</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">決済済みポジション（%1$d）</item>
+    </plurals>
+    <string name="portfolio_transactions">取引</string>
+    <string name="portfolio_add_tx">売買を記録</string>
+    <string name="portfolio_edit_tx">取引を編集</string>
+    <string name="portfolio_buy">購入</string>
+    <string name="portfolio_sell">売却</string>
+    <string name="portfolio_coin">コイン</string>
+    <string name="portfolio_coin_search">シンボルを検索（例: BTC）</string>
+    <string name="portfolio_coin_invalid">コインのシンボルを入力してください</string>
+    <string name="portfolio_tx_amount">数量</string>
+    <string name="portfolio_tx_price">1コインあたりの価格</string>
+    <string name="portfolio_tx_price_hint">USDT建て。不明な場合は空欄のまま。</string>
+    <string name="portfolio_tx_price_invalid">無効な価格</string>
+    <string name="portfolio_tx_date">日付</string>
+    <string name="portfolio_tx_note">メモ（任意）</string>
+    <string name="portfolio_tx_total">合計：%1$s</string>
+    <string name="portfolio_sell_exceeds">保有量を超えています（%1$s）</string>
+    <string name="portfolio_tx_delete_title">取引を削除しますか？</string>
+    <string name="portfolio_tx_delete_confirm">この取引はポートフォリオから削除されます。</string>
+    <string name="portfolio_empty_title">まだ取引がありません</string>
+    <string name="portfolio_empty_text">売買を記録しましょう。評価額と損益は USDT 建ての現在価格で計算されます。</string>
+    <string name="portfolio_empty_action">最初の購入を記録</string>
+    <string name="portfolio_disclaimer">この端末にのみ保存されます。投資助言ではありません。</string>
+    <string name="portfolio_add_from_watch">ポートフォリオに追加</string>
+</resources>

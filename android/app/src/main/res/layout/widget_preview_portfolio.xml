@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vorschau des Portfolio-Widgets im Auswahlmenü (previewLayout, ab Android 12): statisch wie
+     widget_portfolio.xml in mittlerer Grösse — Gesamtwert, ≈ USDT, Pille der Tagesänderung,
+     Wertverlauf (drawable/widget_preview_value_line), Uhrzeit. Standard-Palette (dunkel,
+     Akzent ORANGE). Die Pille ohne das Wort «heute»: es gibt es nur im Format-String
+     widget_portfolio_today, der sich statisch nicht füllen lässt. Nur RemoteViews-taugliche
+     Views, keine IDs. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_preview_background"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:baselineAligned="false">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ic_app_logo_orange_dark"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/widget_portfolio_name"
+            android:textColor="@color/widget_preview_text"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="14sp"
+        android:autoSizeMaxTextSize="28sp"
+        android:text="@string/widget_preview_portfolio_total"
+        android:textColor="@color/widget_preview_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFeatureSettings="tnum" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/widget_preview_portfolio_usdt"
+        android:textColor="@color/widget_preview_text_secondary"
+        android:textSize="11sp"
+        android:fontFeatureSettings="tnum" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/widget_preview_pill_up"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/widget_preview_portfolio_change"
+        android:textColor="@color/widget_preview_up"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:fontFeatureSettings="tnum" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="6dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_preview_value_line"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/widget_preview_time_sep"
+            android:textColor="@color/widget_preview_text_secondary"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/widget_range_short_24h"
+            android:textColor="@color/widget_preview_text_secondary"
+            android:textSize="10sp" />
+    </LinearLayout>
+</LinearLayout>

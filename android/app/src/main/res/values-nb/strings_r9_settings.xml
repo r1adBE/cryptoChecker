@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_currency">Valuta og omregning</string>
+    <string name="settings_group_alerts">Alarmer og varsler</string>
+    <string name="settings_group_data">Data og oppdateringer</string>
+    <string name="settings_group_security">Sikkerhet og sikkerhetskopi</string>
+    <string name="settings_portfolio_tab">Vis fanen Portefølje</string>
+</resources>

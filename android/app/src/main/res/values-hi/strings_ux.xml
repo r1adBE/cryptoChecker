@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">एक टैप में शुरू करें</string>
+    <string name="starter_text">कॉइन चुनें और उन्हें एक साथ जोड़ें। एक्सचेंज और पेयर आप बाद में बदल सकते हैं।</string>
+    <string name="starter_custom">एक्सचेंज और पेयर चुनें</string>
+    <string name="settings_quiet_hours">मौन घंटे</string>
+    <string name="settings_quiet_hours_hint">%1$s से %2$s के बीच अलार्म चुपचाप आते हैं: न आवाज़, न वाइब्रेशन, न बोलकर सूचना।</string>
+    <string name="settings_quiet_hours_from">से</string>
+    <string name="settings_quiet_hours_to">तक</string>
+    <string name="channel_alarms_quiet">अलार्म (मौन घंटे)</string>
+    <string name="channel_alarms_quiet_description">मौन घंटों के दौरान बिना आवाज़ वाले अलार्म।</string>
+    <string name="settings_app_lock">ऐप लॉक</string>
+    <string name="settings_app_lock_hint">अगर ऐप एक मिनट से ज़्यादा बैकग्राउंड में रहा हो, तो फ़िंगरप्रिंट, चेहरे या डिवाइस PIN से अनलॉक करें।</string>
+    <string name="app_lock_title">Crypto Checker लॉक है</string>
+    <string name="app_lock_unlock">अनलॉक करें</string>
+    <string name="app_lock_reason">Crypto Checker अनलॉक करें</string>
+    <string name="app_lock_unavailable">इस डिवाइस पर कोई स्क्रीन लॉक सेट नहीं है। पहले सिस्टम सेटिंग्स में एक सेट करें।</string>
+    <string name="widget_portfolio_name">पोर्टफोलियो</string>
+    <string name="widget_portfolio_description">आपके पोर्टफोलियो का कुल मूल्य और आज का बदलाव</string>
+    <string name="widget_portfolio_today">आज %1$s</string>
+    <string name="widget_portfolio_empty">पोर्टफोलियो टैब में खरीदारी जोड़ें</string>
+    <string name="widget_portfolio_locked">छिपा हुआ – ऐप लॉक चालू है</string>
+    <string name="a11y_portfolio_widget">पोर्टफोलियो %1$s, आज %2$s</string>
+    <string name="settings_section_advanced">उन्नत</string>
+    <string name="settings_advanced_hint">लाइव मोड, स्थायी नोटिफ़िकेशन, फ़्यूचर्स और डेवलपर विकल्प</string>
+    <string name="explain_funding">लॉन्ग और शॉर्ट पोज़िशन के बीच शुल्क। काफ़ी पॉज़िटिव होने का मतलब है कि कई लोग कीमतें बढ़ने पर दांव लगा रहे हैं।</string>
+    <string name="explain_open_interest">सभी खुली फ़्यूचर्स पोज़िशन का मूल्य। अगर यह बढ़ता है, तो उस चाल पर ज़्यादा पैसा लगा है।</string>
+    <string name="explain_rsi">रिलेटिव स्ट्रेंथ इंडेक्स, 0–100। 70 से ऊपर अक्सर ओवरहीटेड, 30 से नीचे अक्सर ओवरसोल्ड।</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">व्याख्या</string>
+    <string name="explain_pi_cycle">111-दिन के औसत की तुलना 350-दिन के औसत के दोगुने से करता है। इनके क्रॉस होने ने पिछले चक्रों के शिखर दर्शाए हैं।</string>
+    <string name="alarm_sentence_above">जब %1$s %2$s से ऊपर जाए, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_below">जब %1$s %2$s से नीचे जाए, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_up_percent">जब %1$s %2$s बढ़े, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_down_percent">जब %1$s %2$s गिरे, तो मुझे बताएँ।</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">जब %1$s %3$d घंटे के भीतर %2$s ऊपर या नीचे जाए, तो मुझे बताएँ।</item>
+        <item quantity="other">जब %1$s %3$d घंटों के भीतर %2$s ऊपर या नीचे जाए, तो मुझे बताएँ।</item>
+    </plurals>
+    <string name="alarm_sentence_volume">जब %1$s का वॉल्यूम सामान्य का %2$s× हो जाए, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_incomplete">अलार्म को वाक्य के रूप में देखने के लिए कोई मान दर्ज करें।</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s से संपर्क नहीं हो पा रहा</string>
+    <string name="watchlist_row_outdated">%1$s · पुराना डेटा</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Volumen-Spike-Alarm -->
+    <string name="alarm_condition_volume_spike">거래량 급증</string>
+    <string name="alarm_volume_factor_label">최근 1시간 거래량 대비 평소</string>
+    <string name="alarm_volume_hint">거래량 데이터는 Binance에서 가져옵니다. Binance에 상장되지 않은 거래쌍은 발동하지 않습니다.</string>
+    <string name="notification_volume_spike_text">최근 1시간 거래량이 평소의 %1$s×</string>
+    <string name="tts_direction_volume_spike">거래량 급증과 함께</string>
+
+    <!-- Einzel-Widget: Chart-Zeitraum -->
+    <string name="widget_chart_range">차트 기간</string>
+    <string name="widget_range_24h">24시간</string>
+    <string name="widget_range_7d">7일</string>
+    <string name="widget_range_30d">30일</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_7d">7일</string>
+    <string name="widget_range_short_30d">30일</string>
+</resources>

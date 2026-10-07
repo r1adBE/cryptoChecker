@@ -1,0 +1,33 @@
+16.2.2-es verzió
+• Crypto Pulse: mi történik most a piacon
+• Miért mozog? most rövid összefoglalóval
+• Riasztás tesztelése: hang, rezgés és felolvasás
+• Átváltott árak: egy második sor „≈ érték” a választott átváltási pénznemben – 31 pénznem, pl. EUR, CHF, USD, GBP vagy JPY, alapértelmezés szerint a készülék régiója alapján
+• Riasztások a saját pénznemedben, pl. 60 000 EUR-nál egy USDT-páron
+• Fordulónapi export: a portfóliód értéke bármely napon, pl. december 31-én, a saját pénznemedben CSV-fájlként – hasznos az adóbevalláshoz (nem adótanácsadás)
+• Akadálymentesség: a kék/narancs minden színlátási zavar (vörös-zöld és kék-sárga) esetén jól megkülönböztethető; „Emelkedés/esés színeinek felcserélése”: piros emelkedés, zöld esés, ahogy Kínában, Japánban, Koreában és Tajvanon szokás (ott automatikus); „Nagy kontraszt”: erősebb árszínek, sötétebb másodlagos szöveg és kiemelőszín, a rendszerbeállítást is követi; teljes VoiceOver-támogatás: minden sor, grafikon és widget egy mondatként hangzik el
+• Minidiagram minden sorban: 24 órás alakulás az ár mellett
+• „Kezdés egy koppintással”: az üres lista az 5 legnagyobb coint kínálja piaci kapitalizáció szerint (stablecoinok nélkül)
+• A kezdőlista élő árat és 24 órás változást mutat – mind az öt előre kijelölve, egy gombbal hozzáadható
+• Balra húzva törlés (Visszavonással), jobbra húzva kedvenc
+• A Piac lap azonnal megnyílik a legutóbbi adatokkal, és a háttérben frissül
+• Csendes órák: éjjel (pl. 23–7) a riasztások némán érkeznek – hang, rezgés és felolvasás nélkül
+• Alkalmazászár Face ID-val, Touch ID-val vagy kóddal
+• Portfólió widget a kezdő- és zárolási képernyőre: teljes érték a saját pénznemedben és a mai változás
+• Minden riasztás mondatként: „BTC – értesítés, ha az ár 60 000 CHF alá esik.”
+• Rövid magyarázatok: finanszírozási ráta, nyitott pozíciók, RSI és Pi Cycle
+• A sor „elavult” vagy „nem érhető el” jelzést mutat, ha az ár nem friss
+• 15 új tőzsde: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Hálózati díjak: Ethereum, Base, Arbitrum, Polygon, BNB Chain és Bitcoin a Piac lapon, gas-riasztással
+• Jegyzet minden coinhoz a figyelőlistán
+• Választható riasztási hang
+• Szokatlan aktivitás: észleli a szokatlan ár- és volumenmozgásokat, opcionális értesítésekkel
+• Miért mozog? Adatokon alapuló magyarázat
+• Portfólió külön lapon: vételek és eladások, átlagár, nyereség/veszteség
+• Ciklus-összehasonlítás: megjelölt csúcsok és mélypontok, a dupla csúcsot és a dupla mélypontot is beleértve
+• Csoportok a figyelőlistához
+• Új riasztások: X %-os mozgás Y órán belül és volumenugrás
+• Egycoinos widget: gyertyák vagy vonal, grafikon 24 óra, 7 vagy 30 nap, csúcs-, közép- és mélypontjelölés, kiemelt aktuális ár
+• Piac lap: a kriptopiac teljes kapitalizációja és 24 órás forgalma a saját pénznemedben
+• Határidős adatok: funding rate és open interest
+• Négy kiemelőszín illő ikonokkal

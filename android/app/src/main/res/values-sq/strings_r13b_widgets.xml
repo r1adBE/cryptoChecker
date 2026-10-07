@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">i vjetëruar</string>
+    <string name="widget_outdated_time">i vjetëruar · %1$s</string>
+
+    <string name="settings_widgets">Widget-et</string>
+    <string name="settings_widgets_hint">Shto çmime në ekranin bazë</string>
+    <string name="widgets_sheet_title">Shto një widget</string>
+    <string name="widget_kind_single">Një monedhë</string>
+    <string name="widgets_add">Shto</string>
+    <string name="widgets_add_named">Shto widget-in %1$s</string>
+    <string name="watch_action_add_widget">Shto si widget</string>
+    <string name="widgets_manual_title">Shtoje widget-in vetë</string>
+    <string name="widgets_manual_text">Ekrani yt bazë nuk mund të shtojë widget-e nga aplikacioni. Mbaj shtypur një vend bosh në ekranin bazë, zgjidh «Widget-et» dhe kërko «Crypto Checker».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS nuk i lejon aplikacionet të shtojnë vetë widget-e. Zgjat vetëm një çast:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Mbaj shtypur një vend bosh në ekranin bazë derisa aplikacionet të fillojnë të lëkunden.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Prek lart «Ndrysho» › «Shto widget» (ose «+» në versionet më të vjetra të iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Kërko «Crypto Checker», zgjidh një widget dhe prek «Shto widget».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widget-et e disponueshme</string>
+</resources>

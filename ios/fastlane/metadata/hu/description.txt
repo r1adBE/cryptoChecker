@@ -1,0 +1,62 @@
+Tartsd szemmel a kriptoárfolyamokat anélkül, hogy folyton tőzsdei appokat nyitogatnál. Állíts be riasztásokat, vedd észre a szokatlan mozgásokat, és értsd meg másodpercek alatt, miért mozog egy coin.
+
+Figyelés – árak közvetlenül a tőzsdéről, a saját pénznemedben
+Riasztás – ár, %, mozgás és forgalom, egyszerű mondatként
+Megértés – „Miért mozog?” rövid összefoglalóval
+Áttekintés – Crypto Pulse, Fear & Greed, ciklus és portfólió
+
+Mindenkinek olvasható: zöld/piros vagy kék/narancs árfolyamszínek, igény szerint felcserélve, nagy kontraszt, előjel és nyíl a puszta szín helyett, a VoiceOver minden sort egy mondatként olvas fel.
+
+FIGYELŐLISTA 41 PIACCAL
+• Azonnali és határidős piacok: Binance, Coinbase, Kraken, OKX, Bybit és még sok más
+• DEX tokenek a DexScreeneren keresztül
+• Csoportok, kedvencek és rendezés húzással
+• Jegyzet minden érméhez, pl. a beszálló árad
+• Második sor „≈ érték” a saját pénznemedben: 31 pénznem (EUR, CHF, USD, GBP, JPY…), alapból régió szerint
+• Minidiagram minden sorban: 24 órás alakulás az ár mellett
+• Portfólió külön lapon: vételek és eladások, átlagár, nyereség/veszteség és teljes érték CHF-ben vagy a saját devizádban
+• Fordulónapi export: a portfólió értéke bármely napon (pl. 12. 31.) a saját pénznemedben CSV-ként – hasznos az adóbevalláshoz, nem adótanácsadás
+
+RIASZTÁSOK A STRATÉGIÁDHOZ
+• Ár egy szint felett vagy alatt, emelkedés vagy esés adott százalékkal
+• Riasztások a saját pénznemedben, pl. 60 000 EUR-nál egy USDT-páron
+• Riasztás mondatként: „BTC – értesítés, ha az ár 60 000 CHF alá esik.”
+• X %-os mozgás Y órán belül, pl. 5 % 1 óra alatt
+• Volumenugrás: a forgalom hirtelen jóval az átlag felett
+• Egyszeri vagy ismétlődő, értesítésként, igény szerint felolvasással
+• Válaszd ki a riasztási hangot
+• Állítható szünetidő akadályozza meg a riasztásáradatot
+• Csendes órák: éjjel (pl. 23–7) riasztás hang, rezgés és felolvasás nélkül
+• „Riasztás tesztelése”: előre hallod és érzed, hogyan érkezik a riasztás
+
+SZOKATLAN AKTIVITÁS ÉS MIÉRT MOZOG?
+• A Szokatlan aktivitás észleli a szokatlan ár- és volumenmozgásokat a listádon
+• A „Miért mozog?” a forgalom, a teljes piac és a határidős adatok alapján magyarázza a mozgást, rövid összefoglalóval – nem befektetési tanács
+
+PIACI ÁTTEKINTÉS
+• Crypto Pulse: mi történik most? BTC, ETH, SOL, altcoinok a BTC-hez képest, forgalom, Fear & Greed, funding, ETH gas és egymondatos összegzés, előrejelzés nélkül
+• Fear & Greed index előzményekkel
+• Kriptopiac: teljes piaci kapitalizáció és 24 órás forgalom a saját pénznemedben
+• Piac lap: piaci fázis egy lehetséges csúcs vagy mélypont jeleivel (nem előrejelzés), felezési visszaszámlálás, ciklusok összevetése, dominancia és altcoin-szezon
+• Coinelemzés: RSI, trend, Pi Cycle és erő a bitcoinhoz képest
+• Határidős adatok: funding rate és open interest
+• Hálózati díjak Ethereumhoz, Base-hez, Arbitrumhoz, Polygonhoz, BNB Chainhez és Bitcoinhoz, gas-riasztással
+
+WIDGETEK A FŐ- ÉS A ZÁROLÁSI KÉPERNYŐRE
+• Widgetek három méretben: lista, portfólió (a zárolási képernyőn is), egy coin grafikonnal 24 óra, 7 vagy 30 nap – gyertyák vagy vonal, csúcs/közép/mélypont jelöléssel
+• Frissítés közvetlenül a widgetből
+• Élő tevékenység a zárolási képernyőn: egy coin ára egy pillantással
+
+TOVÁBBI FUNKCIÓK
+• Élő mód rövid időközökkel, amíg az app nyitva van; a háttérfrissítéseket az iOS ütemezi
+• Árfolyamok és riasztások felolvasása
+• Mentés és visszaállítás a Fájlok appal
+• Gyorsműveletek az app ikonján, világos és sötét mód
+• Négy kiemelőszín hozzájuk illő app-ikonokkal
+• Alkalmazászár: Face ID, Touch ID vagy kód
+• 31 nyelven érhető el
+
+ELSŐ AZ ADATVÉDELEM
+Nincs fiók, nincs reklám, nincs analitika, nincs követés. Az árfolyamok közvetlenül a tőzsdék nyilvános API-jaiból érkeznek. A listád, a riasztásaid és az állományod a készülékeden marad. Nyílt forráskódú (MIT-licenc) – a kód nyilvános a GitHubon.
+
+Megjegyzés: a Crypto Checker csak árfolyamokat jelenít meg. Nem tőzsde és nem tárca, nem kereskedik, és nem nyújt befektetési tanácsadást.

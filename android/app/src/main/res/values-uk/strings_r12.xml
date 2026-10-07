@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 12: Kurs-Chart im Aktionsblatt -->
+    <!-- %1$s Veränderung mit Pfeil («▲ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s за %2$s</string>
+    <!-- Keine Kerzen für das Paar (Chart im Aktionsblatt) -->
+    <string name="sheet_chart_no_data">Немає даних про ціну для цієї пари</string>
+</resources>

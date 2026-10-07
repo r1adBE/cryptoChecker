@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Editează grupul</string>
+    <string name="group_rename">Redenumește</string>
+    <string name="group_delete">Șterge grupul</string>
+    <string name="group_delete_confirm">Perechile rămân în lista ta de urmărire.</string>
+    <string name="group_done">Gata</string>
+    <string name="group_add">Grup nou</string>
+    <string name="group_in_other">în %1$s</string>
+    <string name="group_target">În grup</string>
+    <string name="group_search_hint">Caută pereche</string>
+    <string name="group_next">Înainte</string>
+</resources>

@@ -1,0 +1,62 @@
+Suivez vos cours crypto sans ouvrir sans cesse les apps des plateformes. Créez des alertes, repérez les mouvements inhabituels et comprenez en secondes pourquoi une crypto bouge.
+
+Suivre – cours direct des plateformes, dans votre devise
+Alerter – prix, %, mouvements, volume, en une phrase
+Comprendre – « Pourquoi ça bouge ? » avec un résumé
+Vue d'ensemble – Crypto Pulse, Fear & Greed, cycle, portefeuille
+
+Lisible par tous : couleurs de cours vert/rouge ou bleu/orange, inversables au choix, contraste élevé, signe et flèche plutôt que la seule couleur, et VoiceOver lit chaque ligne en une phrase.
+
+LISTE DE SUIVI : 41 MARCHÉS
+• Spot et futures de Binance, Coinbase, Kraken, OKX, Bybit et bien d'autres
+• Tokens DEX via DexScreener
+• Groupes, favoris et tri par glisser-déposer
+• Une note pour chaque crypto, p. ex. votre prix d’entrée
+• Ligne « ≈ valeur » dans votre devise : 31 devises (EUR, CHF, USD…), selon la région
+• Mini-graphique 24 h sur chaque ligne
+• Onglet Portefeuille : achats et ventes, prix moyen, gains/pertes, valeur totale dans votre devise
+• Export à date de référence (p. ex. 31 déc.) en CSV dans votre devise – utile pour les impôts, sans conseil fiscal
+
+DES ALERTES ADAPTÉES À VOTRE STRATÉGIE
+• Prix au-dessus ou en dessous d'un seuil, hausse ou baisse d'un pourcentage
+• Alertes dans votre devise, p. ex. à 60 000 EUR sur une paire USDT
+• Alerte en phrase : « Me prévenir quand BTC passe sous 60 000 CHF. »
+• Mouvement de X % en Y heures, p. ex. 5 % en 1 heure
+• Pic de volume : volume d’échanges soudain très supérieur à la moyenne
+• Ponctuelle ou répétée, en notification avec lecture vocale facultative
+• Choisissez votre son d’alerte
+• Un délai de repos réglable évite les avalanches d’alertes
+• Heures calmes : la nuit (p. ex. 23 h–7 h), alertes sans son, vibration ni voix
+• « Tester l'alerte » : découvrez à l'avance comment arrive une alerte
+
+ACTIVITÉ INHABITUELLE ET POURQUOI ÇA BOUGE ?
+• Activité inhabituelle repère les mouvements anormaux de prix et de volume, notifications en option
+• « Pourquoi ça bouge ? » explique un mouvement par le volume, le marché global et les futures, avec un court résumé – sans conseil en investissement
+
+APERÇU DU MARCHÉ
+• Crypto Pulse : que se passe-t-il ? BTC, ETH, SOL, altcoins vs BTC, volume, Fear & Greed, funding, gas ETH, résumé en une phrase, sans prévision
+• Indice Fear & Greed avec historique
+• Marché crypto : capitalisation totale et volume 24 h dans votre devise
+• Onglet Marché : phase du marché, signes d'un possible sommet ou creux (sans prévision), compte à rebours du halving, comparaison des cycles, dominance, saison des altcoins
+• Analyse des cryptos : RSI, tendance, Pi Cycle et force face au Bitcoin
+• Données futures : funding rate et open interest
+• Frais de réseau pour Ethereum, Base, Arbitrum, Polygon, BNB Chain et Bitcoin, avec alerte gas
+
+WIDGETS POUR L’ÉCRAN D’ACCUEIL ET L’ÉCRAN VERROUILLÉ
+• Widgets en trois tailles : liste, portefeuille (aussi écran verrouillé), une crypto avec graphique 24 h/7 j/30 j – bougies ou ligne, repères haut/milieu/bas
+• Actualisation directement depuis le widget
+• Activité en direct sur l'écran verrouillé : le cours d'une crypto d'un coup d'œil
+
+ET AUSSI
+• Mode live quand l’app est ouverte ; iOS planifie les mises à jour en arrière-plan
+• Lecture vocale des cours et des alertes
+• Sauvegarde et restauration via l'app Fichiers
+• Actions rapides sur l’icône de l’app, mode clair et sombre
+• Quatre couleurs d’accent avec icônes d’app assorties
+• Verrouillage : Face ID, Touch ID ou code
+• Disponible en 31 langues
+
+LA CONFIDENTIALITÉ D’ABORD
+Ni compte, ni publicité, ni analyse, ni pistage. Les cours proviennent directement des API publiques des plateformes. Votre liste, vos alertes et vos avoirs restent sur votre appareil. Open source (licence MIT) : le code est public sur GitHub.
+
+Remarque : Crypto Checker affiche uniquement des cours. Ni plateforme d’échange ni portefeuille ; l’app ne trade pas et ne donne aucun conseil en investissement.

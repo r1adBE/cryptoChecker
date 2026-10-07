@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">評価額の推移</string>
+    <string name="portfolio_history_range_7d">7日</string>
+    <string name="portfolio_history_range_30d">30日</string>
+    <string name="portfolio_history_range_1y">1年</string>
+    <string name="portfolio_history_period_7d">7日間</string>
+    <string name="portfolio_history_period_30d">30日間</string>
+    <string name="portfolio_history_period_1y">1年間</string>
+    <string name="portfolio_history_range_a11y">%1$sの推移を表示</string>
+    <string name="portfolio_history_change_a11y">%1$sの評価額：%2$s、%3$s</string>
+    <string name="portfolio_history_today">今日</string>
+    <string name="portfolio_history_converted">今日のレートで換算</string>
+    <string name="portfolio_history_without">%1$s を除く（日次価格なし）</string>
+    <string name="portfolio_history_includes_trades">この期間の購入・売却を含みます</string>
+    <string name="portfolio_history_too_short">推移は最初の丸1日が経過してから表示されます。</string>
+    <string name="portfolio_history_unavailable">現在、推移を表示できません。</string>
+    <string name="portfolio_history_loading">評価額の推移を読み込み中</string>
+</resources>

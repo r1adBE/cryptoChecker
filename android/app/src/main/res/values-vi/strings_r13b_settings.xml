@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Thông báo thị trường</string>
+    <string name="settings_market_alerts_hint">Giai đoạn thị trường, Sợ hãi &amp; Tham lam, phí gas, hoạt động bất thường, lịch kinh tế</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d đang bật</item>
+    </plurals>
+    <string name="settings_tts_row_hint">Đọc to giá và cảnh báo</string>
+    <string name="settings_summary_on">Bật</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker giờ đang theo dõi %1$s cho bạn. Khi %1$s chạm ngưỡng của bạn, bạn sẽ nhận được thông báo ngay khi ứng dụng kiểm tra giá. Khi ứng dụng đóng, việc này diễn ra theo chu kỳ cập nhật nền – muộn hơn nếu chế độ tối ưu pin hạn chế ứng dụng.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker giờ đang theo dõi %1$s cho bạn. Bạn sẽ nhận được thông báo ngay khi ứng dụng kiểm tra giá. Khi ứng dụng đóng, iOS quyết định khi nào việc này diễn ra – có thể mất một lúc. Khi ứng dụng đang mở, giá được kiểm tra đúng giờ.</string>
+
+    <string name="about_request_exchange">Đề xuất sàn</string>
+    <string name="explorer_exchange_missing">Thiếu sàn?</string>
+</resources>

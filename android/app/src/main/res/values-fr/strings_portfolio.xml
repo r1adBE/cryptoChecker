@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Avoirs</string>
+    <string name="portfolio_invalid">Quantité non valide</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Groupe</string>
+    <string name="group_value">Groupe : %1$s</string>
+    <string name="group_all">Tous</string>
+    <string name="group_none">Aucun groupe</string>
+    <string name="group_new">Nouveau groupe…</string>
+    <string name="group_name">Nom du groupe</string>
+    <string name="widget_group_hint">Afficher uniquement les paires de ce groupe.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portefeuille</string>
+    <string name="portfolio_setting_hint">Facultatif : enregistrer achats et ventes et voir la valeur et les gains/pertes dans un onglet séparé.</string>
+    <string name="portfolio_total_value">Valeur totale</string>
+    <string name="portfolio_invested">Investi</string>
+    <string name="portfolio_unrealized">Gain/perte, pas encore vendu</string>
+    <string name="portfolio_realized">Gain/perte, vendu</string>
+    <string name="portfolio_value">Valeur</string>
+    <string name="portfolio_avg_price">Prix d\'achat moyen</string>
+    <string name="portfolio_current_price">Cours actuel</string>
+    <string name="portfolio_avg_and_now">Moy. %1$s · actuel %2$s</string>
+    <string name="portfolio_updated">Cours du %1$s</string>
+    <string name="portfolio_convert_to">Convertir en</string>
+    <string name="portfolio_convert_to_value">Convertir en : %1$s</string>
+    <string name="portfolio_price_missing">Prix manquant</string>
+    <string name="portfolio_price_missing_hint">Certains achats n\'ont pas de prix. Ajoutez le prix d\'achat pour voir les gains/pertes.</string>
+    <string name="portfolio_current_missing">Aucun cours actuel pour %1$s</string>
+    <string name="portfolio_oversold">Les ventes dépassent les avoirs – vérifiez les transactions.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Position clôturée (%1$d)</item>
+        <item quantity="many">Positions clôturées (%1$d)</item>
+        <item quantity="other">Positions clôturées (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transactions</string>
+    <string name="portfolio_add_tx">Saisir un achat/une vente</string>
+    <string name="portfolio_edit_tx">Modifier la transaction</string>
+    <string name="portfolio_buy">Achat</string>
+    <string name="portfolio_sell">Vente</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Rechercher un symbole, p. ex. BTC</string>
+    <string name="portfolio_coin_invalid">Saisissez un symbole</string>
+    <string name="portfolio_tx_amount">Quantité</string>
+    <string name="portfolio_tx_price">Prix par coin</string>
+    <string name="portfolio_tx_price_hint">En USDT. Laisser vide si inconnu.</string>
+    <string name="portfolio_tx_price_invalid">Prix non valide</string>
+    <string name="portfolio_tx_date">Date</string>
+    <string name="portfolio_tx_note">Note (facultatif)</string>
+    <string name="portfolio_tx_total">Total : %1$s</string>
+    <string name="portfolio_sell_exceeds">Plus que vos avoirs (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Supprimer la transaction ?</string>
+    <string name="portfolio_tx_delete_confirm">Cette transaction sera retirée du portefeuille.</string>
+    <string name="portfolio_empty_title">Aucune transaction</string>
+    <string name="portfolio_empty_text">Saisissez vos achats et ventes. La valeur et les gains/pertes sont calculés avec les cours actuels en USDT.</string>
+    <string name="portfolio_empty_action">Saisir le premier achat</string>
+    <string name="portfolio_disclaimer">Enregistré uniquement sur cet appareil. Pas un conseil en investissement.</string>
+    <string name="portfolio_add_from_watch">Ajouter au portefeuille</string>
+</resources>

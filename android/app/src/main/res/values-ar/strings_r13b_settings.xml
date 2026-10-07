@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">إشعارات السوق</string>
+    <string name="settings_market_alerts_hint">مرحلة السوق، مؤشر الخوف والطمع، رسوم الغاز، النشاط غير العادي، المواعيد الاقتصادية</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="zero">%1$d مفعّل</item>
+        <item quantity="one">%1$d مفعّل</item>
+        <item quantity="two">%1$d مفعّل</item>
+        <item quantity="few">%1$d مفعّل</item>
+        <item quantity="many">%1$d مفعّل</item>
+        <item quantity="other">%1$d مفعّل</item>
+    </plurals>
+    <string name="settings_tts_row_hint">يقرأ الأسعار والتنبيهات بصوت عالٍ</string>
+    <string name="settings_summary_on">تشغيل</string>
+
+    <string name="alarm_first_text_checked">يراقب Crypto Checker الآن %1$s من أجلك. عندما يصل %1$s إلى حدّك، ستتلقى إشعارًا بمجرد أن يتحقق التطبيق من السعر. عندما يكون التطبيق مغلقًا، يحدث ذلك وفق فاصل التحديث في الخلفية – وقد يتأخر إذا قيّد تحسين البطارية التطبيق.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">يراقب Crypto Checker الآن %1$s من أجلك. ستتلقى إشعارًا بمجرد أن يتحقق التطبيق من السعر. عندما يكون التطبيق مغلقًا، يقرر iOS متى يحدث ذلك – وقد يستغرق بعض الوقت. أثناء فتح التطبيق، تُفحص الأسعار في موعدها.</string>
+
+    <string name="about_request_exchange">اطلب منصة</string>
+    <string name="explorer_exchange_missing">منصة غير موجودة؟</string>
+</resources>

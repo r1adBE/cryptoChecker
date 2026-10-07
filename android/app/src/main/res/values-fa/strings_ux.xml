@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">با یک لمس شروع کنید</string>
+    <string name="starter_text">ارزها را انتخاب کنید و یک‌جا اضافه کنید. صرافی و جفت را بعداً می‌توانید تغییر دهید.</string>
+    <string name="starter_custom">انتخاب صرافی و جفت</string>
+    <string name="settings_quiet_hours">ساعات بی‌صدا</string>
+    <string name="settings_quiet_hours_hint">بین %1$s و %2$s هشدارها بی‌صدا می‌رسند: بدون صدا، لرزش یا گفتار.</string>
+    <string name="settings_quiet_hours_from">از</string>
+    <string name="settings_quiet_hours_to">تا</string>
+    <string name="channel_alarms_quiet">هشدارها (ساعات بی‌صدا)</string>
+    <string name="channel_alarms_quiet_description">هشدارهای بی‌صدا در ساعات بی‌صدا.</string>
+    <string name="settings_app_lock">قفل برنامه</string>
+    <string name="settings_app_lock_hint">اگر برنامه بیش از یک دقیقه در پس‌زمینه بوده باشد، با اثر انگشت، چهره یا PIN دستگاه قفل آن را باز کنید.</string>
+    <string name="app_lock_title">Crypto Checker قفل است</string>
+    <string name="app_lock_unlock">باز کردن قفل</string>
+    <string name="app_lock_reason">باز کردن قفل Crypto Checker</string>
+    <string name="app_lock_unavailable">روی این دستگاه قفل صفحه تنظیم نشده است. ابتدا یکی را در تنظیمات سیستم تنظیم کنید.</string>
+    <string name="widget_portfolio_name">پرتفوی</string>
+    <string name="widget_portfolio_description">ارزش کل پرتفوی شما و تغییر امروز</string>
+    <string name="widget_portfolio_today">امروز %1$s</string>
+    <string name="widget_portfolio_empty">خریدها را در زبانه پرتفوی ثبت کنید</string>
+    <string name="widget_portfolio_locked">پنهان – قفل برنامه روشن است</string>
+    <string name="a11y_portfolio_widget">پرتفوی %1$s، امروز %2$s</string>
+    <string name="settings_section_advanced">پیشرفته</string>
+    <string name="settings_advanced_hint">حالت زنده، اعلان دائمی، فیوچرز و گزینه‌های توسعه‌دهنده</string>
+    <string name="explain_funding">کارمزدی بین موقعیت‌های لانگ و شورت. مثبتِ زیاد یعنی بسیاری روی افزایش قیمت شرط بسته‌اند.</string>
+    <string name="explain_open_interest">ارزش همه موقعیت‌های باز فیوچرز. اگر بالا برود، پول بیشتری روی این حرکت شرط بسته شده است.</string>
+    <string name="explain_rsi">شاخص قدرت نسبی، ۰ تا ۱۰۰. بالای ۷۰ اغلب بیش‌ازحد داغ، زیر ۳۰ اغلب بیش‌فروش.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">توضیح</string>
+    <string name="explain_pi_cycle">میانگین ۱۱۱ روزه را با دو برابر میانگین ۳۵۰ روزه مقایسه می‌کند. تقاطع آن‌ها سقف‌های چرخه‌های گذشته را نشان داده است.</string>
+    <string name="alarm_sentence_above">وقتی %1$s از %2$s بالاتر رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_below">وقتی %1$s از %2$s پایین‌تر رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_up_percent">وقتی %1$s به اندازه %2$s بالا رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_down_percent">وقتی %1$s به اندازه %2$s پایین آمد، به من خبر بده.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
+        <item quantity="other">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">وقتی حجم معاملات %1$s به %2$s× حالت عادی رسید، به من خبر بده.</string>
+    <string name="alarm_sentence_incomplete">یک مقدار وارد کنید تا هشدار به صورت جمله نمایش داده شود.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s در دسترس نیست</string>
+    <string name="watchlist_row_outdated">%1$s · قدیمی</string>
+</resources>

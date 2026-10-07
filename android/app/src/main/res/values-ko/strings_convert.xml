@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">환산 가격</string>
+    <string name="settings_show_converted_hint">관심 목록의 가격을 %1$s(으)로도 표시</string>
+    <string name="settings_conversion_currency">환산 통화</string>
+    <string name="alarm_currency_label">통화</string>
+</resources>

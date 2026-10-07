@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Rediger gruppe</string>
+    <string name="group_rename">Omdøb</string>
+    <string name="group_delete">Slet gruppe</string>
+    <string name="group_delete_confirm">Parrene bliver i din overvågningsliste.</string>
+    <string name="group_done">Færdig</string>
+    <string name="group_add">Ny gruppe</string>
+    <string name="group_in_other">i %1$s</string>
+    <string name="group_target">I gruppe</string>
+    <string name="group_search_hint">Søg par</string>
+    <string name="group_next">Næste</string>
+</resources>

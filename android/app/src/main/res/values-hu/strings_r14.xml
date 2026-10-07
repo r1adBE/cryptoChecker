@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">Licencek</string>
+    <string name="licenses_marketdata_title">Árfolyamadat-könyvtár</string>
+    <string name="licenses_marketdata_intro">A tőzsdei kapcsolat egyes részei MIT-licenc alá tartozó szoftveren alapulnak:</string>
+    <string name="licenses_marketdata_changes">Módosítások: %1$s</string>
+    <string name="licenses_font_title">Rubik betűtípus</string>
+    <string name="licenses_libraries_title">Android-könyvtárak</string>
+    <string name="licenses_libraries_intro">Az app ezeket a könyvtárakat a(z) Apache License 2.0 alapján használja:</string>
+</resources>

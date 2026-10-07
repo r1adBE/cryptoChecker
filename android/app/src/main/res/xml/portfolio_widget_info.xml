@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Inhalt je nach Grösse (klein / mittel ab 110 dp Höhe / gross ab 250 × 180 dp; was nicht in die Höhe passt, entfällt).
+     Einrichten optional (ab Android 12): ohne Einrichten gilt «Umrechnung + USDT». -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="80dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="60dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:description="@string/widget_portfolio_description"
+    android:initialLayout="@layout/widget_portfolio"
+    android:configure="com.cryptochecker.app.widget.PortfolioWidgetConfigureActivity"
+    android:previewImage="@drawable/widget_preview_portfolio_img"
+    android:previewLayout="@layout/widget_preview_portfolio"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"
+    android:widgetFeatures="reconfigurable|configuration_optional" />

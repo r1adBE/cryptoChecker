@@ -1,0 +1,10 @@
+Nieuw in 16.2.2
+• Crypto Pulse: wat er nu in de markt gebeurt
+• Ongewone activiteit, Waarom beweegt dit? nu met korte samenvatting
+• Alarm testen: geluid, trillen en spraak
+• Koersen en alarmen in je eigen valuta
+• Peildatum-export als CSV
+• Toegankelijk: blauw/oranje, hoog contrast, kleuren omwisselen, TalkBack
+• Begin met één tik, stille uren, app-vergrendeling, portfolio-widget, alarm als zin
+• 15 nieuwe exchanges, netwerkkosten met gasalarm
+• Candlegrafiek in widget, marktwaarde

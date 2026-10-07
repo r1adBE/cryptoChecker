@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Газ Ethereum ниже (gwei)</string>
+    <string name="settings_gas_btc_below">Комиссия Bitcoin ниже (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Сообщает один раз, когда обычная комиссия опускается ниже порога. Проверяется при обновлении курсов, не чаще раза в 10 минут.</string>
+    <string name="notification_gas_eth_title">Газ Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Ниже вашего порога %1$s gwei · Перевод ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Комиссия Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Ниже вашего порога %1$s sat/vB · Перевод ≈ %2$s</string>
+    <string name="gas_title">Комиссии сети</string>
+    <string name="gas_slow_fast">Медленно %1$s · Быстро %2$s</string>
+    <string name="gas_alert_active">Оповещение: %1$s</string>
+    <string name="gas_source">Публичные RPC-узлы и mempool.space · Стоимость простого перевода, для L2 без доли L1</string>
+    <string name="gas_transfer_cost">Перевод ≈ %1$s</string>
+</resources>

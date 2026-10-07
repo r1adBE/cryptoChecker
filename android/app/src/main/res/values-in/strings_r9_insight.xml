@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Yang menonjol</string>
+    <string name="pulse_why_action">Kenapa? →</string>
+    <string name="pulse_section_factors">Faktor</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin memimpin pasar.</string>
+    <string name="pulse_lead_alts_stronger">Altcoin lebih kuat daripada Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin lebih kuat daripada altcoin.</string>
+    <string name="pulse_lead_broad_up">Pasar naik secara luas.</string>
+    <string name="pulse_lead_broad_down">Pasar turun secara luas.</string>
+    <string name="pulse_lead_drift_up">Pasar naik sedikit.</string>
+    <string name="pulse_lead_drift_down">Pasar turun sedikit.</string>
+    <string name="pulse_lead_mixed">Koin-koin besar bergerak ke arah berbeda.</string>
+    <string name="pulse_lead_calm">Pasar nyaris tidak bergerak.</string>
+
+    <string name="pulse_detail_vol_above">Volume %1$d%% di atas normal.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$d%% di atas normal, funding netral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$d%% di atas normal, funding tinggi.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$d%% di atas normal, funding negatif.</string>
+    <string name="pulse_detail_vol_below">Volume %1$d%% di bawah normal.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$d%% di bawah normal, funding netral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$d%% di bawah normal, funding tinggi.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$d%% di bawah normal, funding negatif.</string>
+    <string name="pulse_detail_vol_normal">Volume normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, funding netral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normal, funding tinggi.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, funding negatif.</string>
+    <string name="pulse_detail_fund_neutral">Funding netral.</string>
+    <string name="pulse_detail_fund_high">Funding tinggi.</string>
+    <string name="pulse_detail_fund_negative">Funding negatif.</string>
+
+    <string name="factor_volume">Volume</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Fluktuasi (1h)</string>
+    <string name="factor_spoken_volume">%1$s kali normal</string>
+    <string name="factor_spoken_volatility">%1$s kali ayunan biasa</string>
+
+    <string name="why_title_coin">Kenapa %1$s bergerak?</string>
+    <string name="why_details">Lihat detail</string>
+    <string name="why_details_hide">Sembunyikan detail</string>
+    <string name="why_f_market_wide">Seluruh pasar bergerak</string>
+    <string name="why_f_coin_only">Hanya koin ini</string>
+    <string name="why_f_against">Melawan pasar</string>
+    <string name="why_f_market_calm">Pasar tenang</string>
+    <string name="why_f_leader">Bitcoin menentukan arah</string>
+    <string name="why_f_leverage_longs">Leverage: banyak long</string>
+    <string name="why_f_leverage_shorts">Leverage: banyak short</string>
+    <string name="why_f_leverage_balanced">Leverage seimbang</string>
+    <string name="insights_dominance_eth">ETH %1$s dari total pasar</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="other">%1$d bulan sejak halving pada %2$s</item>
+    </plurals>
+</resources>

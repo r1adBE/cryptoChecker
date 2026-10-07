@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">نکات قابل توجه امروز</string>
+    <string name="unusual_nothing">امروز چیز غیرعادی‌ای نیست</string>
+    <string name="unusual_fact_stronger">خیلی قوی‌تر از BTC حرکت می‌کند</string>
+    <string name="unusual_fact_weaker">خیلی ضعیف‌تر از BTC حرکت می‌کند</string>
+    <string name="unusual_fact_against">خلاف جهت بازار حرکت می‌کند</string>
+    <string name="unusual_fact_volume">حجم %1$s× حالت عادی</string>
+    <string name="unusual_fact_funding_high">فاندینگ بالا (%1$s)</string>
+    <string name="unusual_fact_funding_negative">فاندینگ منفی (%1$s)</string>
+    <string name="unusual_source">حدود ۳۰ ارز بزرگ بدون استیبل‌کوین‌ها · Binance، CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s، %2$s. %3$s.</string>
+    <string name="unusual_action_why">چرا این حرکت می‌کند؟</string>
+    <string name="unusual_action_add">یافتن جفت برای افزودن</string>
+
+    <string name="macro_title">داده‌های اقتصادی</string>
+    <string name="macro_cpi">تورم آمریکا (CPI)</string>
+    <string name="macro_ppi">شاخص قیمت تولیدکننده آمریکا (PPI)</string>
+    <string name="macro_nfp">گزارش اشتغال آمریکا</string>
+    <string name="macro_fomc">تصمیم نرخ بهره فدرال رزرو</string>
+    <string name="macro_pce">شاخص قیمت PCE آمریکا</string>
+    <string name="macro_hint_today">امروز %1$s: %2$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_tomorrow">فردا %1$s: %2$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_today_list">امروز: %1$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_tomorrow_list">فردا: %1$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_list">%1$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_released_one">امروز ساعت %1$s منتشر شد: %2$s.</string>
+    <string name="macro_released_list">امروز منتشر شد: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">امروز %1$s %2$s</string>
+    <string name="macro_item_tomorrow">فردا %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">تقویم اقتصادی</string>
+    <string name="settings_macro_notifications_hint">ساعت 08:00 در روزهایی که داده‌های مهم اقتصادی آمریکا منتشر می‌شود (تورم، اشتغال، تصمیم فدرال رزرو). تقویم روزی یک بار از وب‌سایت برنامه بارگیری می‌شود.</string>
+    <string name="notification_macro_title">امروز داده‌های اقتصادی</string>
+</resources>

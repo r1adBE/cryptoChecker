@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Dźwięk alarmu</string>
+    <string name="settings_alarm_sound_default">Domyślny dźwięk</string>
+    <string name="settings_alarm_sound_custom">Własny dźwięk</string>
+    <string name="settings_alarm_sound_system">Wybierz dźwięk systemowy…</string>
+    <string name="settings_alarm_sound_file">Własny plik audio…</string>
+    <string name="settings_alarm_sound_reset">Użyj domyślnego dźwięku</string>
+    <string name="settings_alarm_sound_error">Nie udało się użyć dźwięku.</string>
+</resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Marknaden i dag</string>
+    <string name="pulse_alts_stronger">Altcoins starkare än Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin starkare än altcoins</string>
+    <string name="pulse_alts_even">Altcoins och Bitcoin rör sig likadant</string>
+    <string name="pulse_volume_high">Handelsvolym ovanligt hög (%1$s× normalt)</string>
+    <string name="pulse_volume_low">Handelsvolym låg (%1$s× normalt)</string>
+    <string name="pulse_volume_normal">Handelsvolym normal</string>
+    <string name="pulse_funding_high">Funding tydligt positiv: många hävstångslongs</string>
+    <string name="pulse_funding_slight">Funding något positiv</string>
+    <string name="pulse_funding_neutral">Funding neutral</string>
+    <string name="pulse_funding_negative">Funding negativ: många shorts</string>
+    <string name="pulse_gas_low">Ethereum-gas låg (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum-gas normal (%1$s gwei)</string>
+    <string name="pulse_gas_high">Ethereum-gas hög (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Ingen prognos · Ingen investeringsrådgivning</string>
+    <string name="pulse_less">Visa mindre</string>
+    <string name="pulse_updated">Per %1$s</string>
+    <string name="pulse_unavailable">Marknadsdata är inte tillgängliga just nu</string>
+    <string name="why_summary_title">Kort sagt</string>
+    <string name="why_summary_market_volume">Rörelsen åtföljs av högre handelsvolym och en brett rörlig marknad.</string>
+    <string name="why_summary_market">Rörelsen följer marknaden som helhet.</string>
+    <string name="why_summary_coin_volume">Bara det här myntet rör sig, med högre volym – troligen en orsak hos myntet självt.</string>
+    <string name="why_summary_coin">Bara det här myntet rör sig – troligen en orsak hos myntet självt.</string>
+    <string name="why_summary_against">Myntet rör sig mot marknaden.</string>
+    <string name="why_summary_thin">Rörelsen är tunn: lite volym bakom den.</string>
+    <string name="why_summary_calm">Ingen påfallande rörelse: marknad och mynt är lugna.</string>
+    <string name="why_summary_longs">Terminer: många hävstångsbelånade long-positioner.</string>
+    <string name="why_summary_shorts">Terminer: många short-positioner.</string>
+    <string name="why_dot_supports">stöder rörelsen</string>
+    <string name="why_dot_caution">förhöjd</string>
+    <string name="why_dot_neutral">neutral</string>
+    <string name="alarm_test">Testa larm</string>
+    <string name="alarm_test_hint">Skickar ett exempellarm med dina inställningar för ljud, vibration och uppläsning.</string>
+    <string name="alarm_test_title">Test: larm från Crypto Checker</string>
+    <string name="alarm_test_text">Så här ser ett larm ut och så här låter det.</string>
+    <string name="alarm_test_quiet">Tysta timmar är på just nu: riktiga larm skulle komma ljudlöst.</string>
+    <string name="alarm_test_denied">Aviseringar är avstängda för Crypto Checker.</string>
+    <string name="alarm_test_open_settings">Öppna inställningar</string>
+    <string name="alarm_first_title">Allt klart</string>
+    <string name="welcome_watch">Bevaka – dina mynt, kurser, diagram och widgetar</string>
+    <string name="welcome_alert">Larma – kurs, procent, volym och ovanliga rörelser</string>
+    <string name="welcome_understand">Förstå – varför rör sig marknaden just nu?</string>
+    <string name="welcome_start">Kom igång</string>
+    <string name="portfolio_empty_example">Exempel: 0,01 BTC köpt den 1 mars för %1$s. Appen visar sedan värde, snittköppris och vinst/förlust – sparat endast på den här enheten.</string>
+    <string name="about_why">Crypto Checker är ett oberoende projekt av Rich1e: en lugn kursöversikt utan konto, reklam eller spårning. Frågor och önskemål: %1$s</string>
+    <string name="a11y_move_up">Flytta upp</string>
+    <string name="a11y_move_down">Flytta ned</string>
+    <string name="a11y_in_watchlist">Redan i bevakningslistan</string>
+    <string name="portfolio_export_today_hint">Dagen är inte slut än: aktuell kurs används i stället för dagens stängningskurs.</string>
+    <string name="about_privacy_policy">Integritetspolicy</string>
+    <string name="widget_chart_type">Diagramtyp</string>
+    <string name="widget_chart_line">Linje</string>
+    <string name="widget_chart_candles">Ljus</string>
+    <string name="pair_added_watching">%1$s bevakas nu</string>
+    <string name="market_cap_title">Kryptomarknaden</string>
+    <string name="market_cap_label">Börsvärde</string>
+    <string name="market_volume_label">Volym 24 h</string>
+    <string name="market_cap_source">Alla mynt · CoinGecko</string>
+    <string name="market_data_empty_error">Inga data mottogs från börsen.</string>
+    <string name="sync_pairs_count">Handelspar: %1$d</string>
+    <string name="market_unavailable_error">Börsen är inte tillgänglig</string>
+    <string name="refresh_report_aborted">Uppdateringen avbröts:</string>
+    <string name="refresh_report_wait">Väntetid till start: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Totalt %1$s · %2$d par</item>
+        <item quantity="other">Totalt %1$s · %2$d par</item>
+    </plurals>
+    <string name="refresh_report_network">Nätverk %1$s</string>
+    <string name="refresh_report_database">Databas %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Larm/aviseringar %1$s · %2$d avisering</item>
+        <item quantity="other">Larm/aviseringar %1$s · %2$d aviseringar</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widgetar %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d par, %3$s</item>
+        <item quantity="other">%1$s: %2$d par, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">samlad förfrågan %1$s (%2$d kurs)</item>
+        <item quantity="other">samlad förfrågan %1$s (%2$d kurser)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">samlad förfrågan %1$s (misslyckades)</string>
+    <string name="refresh_report_singles">%1$d var för sig</string>
+    <string name="refresh_report_slowest">långsammast %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d handlas inte längre</item>
+        <item quantity="other">%1$d handlas inte längre</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d fel</item>
+        <item quantity="other">%1$d fel</item>
+    </plurals>
+    <string name="starter_add_selected">Lägg till i bevakningslistan (%1$d)</string>
+    <string name="starter_select_all">Markera alla</string>
+    <string name="starter_select_none">Avmarkera alla</string>
+    <string name="starter_loading_prices">Läser in kurser…</string>
+    <string name="watchlist_removed">%1$s borttagen</string>
+    <string name="action_undo">Ångra</string>
+    <string name="favorite_added">%1$s har lagts till i favoriter</string>
+    <string name="favorite_removed">%1$s har tagits bort från favoriter</string>
+    <string name="cycle_data_as_of">Data per %1$s · uppdaterar…</string>
+    <string name="settings_conversion_currency_hint">Används även för portföljen, larm i din valuta, kortet Kryptomarknaden och widgeten Portfölj.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d stiger</item>
+        <item quantity="other">%1$d stiger</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d faller</item>
+        <item quantity="other">%1$d faller</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, i snitt %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d par stiger</item>
+        <item quantity="other">%1$d par stiger</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d faller</item>
+        <item quantity="other">%1$d faller</item>
+    </plurals>
+    <string name="pulse_headline_up">Bred styrka</string>
+    <string name="pulse_headline_down">Bred svaghet</string>
+    <string name="pulse_headline_mixed">Blandad bild</string>
+    <string name="pulse_headline_calm">Lugn marknad</string>
+    <string name="pulse_chip_funding_high">Funding förhöjd</string>
+    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="market_signal_top">Tecken på topp %1$d/10</string>
+    <string name="market_signal_bottom">Tecken på botten %1$d/10</string>
+    <string name="market_section_now">Just nu</string>
+    <string name="market_section_context">Sammanhang</string>
+    <string name="market_section_data">Data</string>
+</resources>

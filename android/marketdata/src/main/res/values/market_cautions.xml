@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="market_caution_unknown">Selected market was probably removed and does not exist. Please choose another one.</string>
+
+</resources>

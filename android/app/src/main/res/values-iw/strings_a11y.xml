@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">צבעי מחירים</string>
+    <string name="price_colors_green_red">ירוק / אדום</string>
+    <string name="price_colors_blue_orange">כחול / כתום</string>
+    <string name="settings_price_colors_hint">כחול / כתום קל להבחנה בכל סוג של ליקוי בראיית צבעים (אדום-ירוק וכחול-צהוב). הכיוון מוצג תמיד גם באמצעות + / −.</string>
+    <string name="settings_watchlist_sparkline">מיני גרף ברשימת המעקב</string>
+    <string name="settings_watchlist_sparkline_hint">מגמת 24 שעות ליד המחיר</string>
+
+    <string name="settings_price_colors_inverted">החלפת צבעי עלייה/ירידה</string>
+    <string name="settings_price_colors_inverted_hint">אדום לעלייה, ירוק לירידה, כמקובל בסין, ביפן, בקוריאה ובטייוואן. ברירת המחדל תלויה באזור של המכשיר.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">ניגודיות גבוהה</string>
+    <string name="settings_high_contrast_hint">צבעי מחיר חזקים יותר וטקסט משני כהה יותר. פעיל גם כשהמערכת מבקשת ניגודיות גבוהה יותר.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s ב־%2$s</string>
+    <string name="a11y_price">מחיר %1$s</string>
+    <string name="a11y_change_up">עלייה של %1$s</string>
+    <string name="a11y_change_down">ירידה של %1$s</string>
+    <string name="a11y_change_flat">ללא שינוי</string>
+    <string name="a11y_converted">בערך %1$s</string>
+    <string name="a11y_note">הערה: %1$s</string>
+    <string name="a11y_alarm_count">התראות מחיר: %1$d</string>
+    <string name="a11y_stale">לא עדכני, עדכון אחרון %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">גרף %1$s: מ־%2$s ל־%3$s, %4$s. גבוה %5$s, נמוך %6$s.</string>
+    <string name="a11y_chart_empty">גרף: אין נתונים</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">מחזור %1$s: %2$s מאז ההלווינג, יום %3$d.</string>
+    <string name="a11y_cycle_top">שיא %1$s ביום %2$d.</string>
+    <string name="a11y_cycle_bottom">שפל %1$s ביום %2$d.</string>
+    <string name="a11y_cycle_double_top">שיא כפול %1$s ביום %2$d.</string>
+    <string name="a11y_cycle_double_bottom">שפל כפול %1$s ביום %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">סקלה מ־%1$s עד %2$s: %3$d מתוך 100</string>
+</resources>

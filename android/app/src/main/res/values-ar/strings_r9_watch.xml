@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">انقر للإجراءات · اسحب للإجراءات السريعة · اضغط مطولًا للترتيب</string>
+    <string name="watch_action_alarm">تنبيه</string>
+    <string name="watch_action_why">لماذا؟</string>
+    <string name="watch_action_favorite">المفضلة</string>
+    <string name="add_alarm_action">ضبط تنبيه</string>
+    <string name="welcome_watch_q">ماذا يحدث؟</string>
+    <string name="welcome_alert_q">متى أتصرف؟</string>
+    <string name="welcome_understand_q">لماذا؟</string>
+</resources>

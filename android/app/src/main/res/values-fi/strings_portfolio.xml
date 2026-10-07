@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Omistus</string>
+    <string name="portfolio_invalid">Virheellinen määrä</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Ryhmä</string>
+    <string name="group_value">Ryhmä: %1$s</string>
+    <string name="group_all">Kaikki</string>
+    <string name="group_none">Ei ryhmää</string>
+    <string name="group_new">Uusi ryhmä…</string>
+    <string name="group_name">Ryhmän nimi</string>
+    <string name="widget_group_hint">Näytä vain tämän ryhmän parit.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Salkku</string>
+    <string name="portfolio_setting_hint">Valinnainen: kirjaa ostot ja myynnit ja näe arvo sekä voitto/tappio omalla välilehdellä.</string>
+    <string name="portfolio_total_value">Kokonaisarvo</string>
+    <string name="portfolio_invested">Sijoitettu</string>
+    <string name="portfolio_unrealized">Voitto/tappio, ei vielä myyty</string>
+    <string name="portfolio_realized">Voitto/tappio, myyty</string>
+    <string name="portfolio_value">Arvo</string>
+    <string name="portfolio_avg_price">Keskim. ostohinta</string>
+    <string name="portfolio_current_price">Nykyinen kurssi</string>
+    <string name="portfolio_avg_and_now">Keskim. %1$s · nyt %2$s</string>
+    <string name="portfolio_updated">Kurssit klo %1$s</string>
+    <string name="portfolio_convert_to">Muunna valuuttaan</string>
+    <string name="portfolio_convert_to_value">Muunna valuuttaan: %1$s</string>
+    <string name="portfolio_price_missing">Hinta puuttuu</string>
+    <string name="portfolio_price_missing_hint">Joistakin ostoista puuttuu hinta. Lisää ostohinta nähdäksesi voiton/tappion.</string>
+    <string name="portfolio_current_missing">Ei nykyistä kurssia: %1$s</string>
+    <string name="portfolio_oversold">Myynnit ylittävät omistuksen – tarkista tapahtumat.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Suljettu positio (%1$d)</item>
+        <item quantity="other">Suljetut positiot (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Tapahtumat</string>
+    <string name="portfolio_add_tx">Kirjaa osto/myynti</string>
+    <string name="portfolio_edit_tx">Muokkaa tapahtumaa</string>
+    <string name="portfolio_buy">Osto</string>
+    <string name="portfolio_sell">Myynti</string>
+    <string name="portfolio_coin">Kolikko</string>
+    <string name="portfolio_coin_search">Hae symbolia, esim. BTC</string>
+    <string name="portfolio_coin_invalid">Anna symboli</string>
+    <string name="portfolio_tx_amount">Määrä</string>
+    <string name="portfolio_tx_price">Hinta per kolikko</string>
+    <string name="portfolio_tx_price_hint">USDT:nä. Jätä tyhjäksi, jos et tiedä.</string>
+    <string name="portfolio_tx_price_invalid">Virheellinen hinta</string>
+    <string name="portfolio_tx_date">Päivämäärä</string>
+    <string name="portfolio_tx_note">Muistiinpano (valinnainen)</string>
+    <string name="portfolio_tx_total">Yhteensä: %1$s</string>
+    <string name="portfolio_sell_exceeds">Enemmän kuin omistuksesi (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Poistetaanko tapahtuma?</string>
+    <string name="portfolio_tx_delete_confirm">Tämä tapahtuma poistetaan salkusta.</string>
+    <string name="portfolio_empty_title">Ei vielä tapahtumia</string>
+    <string name="portfolio_empty_text">Kirjaa ostot ja myynnit. Arvo ja voitto/tappio lasketaan nykyisillä USDT-kursseilla.</string>
+    <string name="portfolio_empty_action">Kirjaa ensimmäinen osto</string>
+    <string name="portfolio_disclaimer">Tallennettu vain tälle laitteelle. Ei sijoitusneuvontaa.</string>
+    <string name="portfolio_add_from_watch">Lisää salkkuun</string>
+</resources>

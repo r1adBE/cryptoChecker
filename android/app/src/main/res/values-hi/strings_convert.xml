@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">बदली हुई कीमतें</string>
+    <string name="settings_show_converted_hint">वॉचलिस्ट में कीमतें %1$s में भी दिखाता है</string>
+    <string name="settings_conversion_currency">रूपांतरण मुद्रा</string>
+    <string name="alarm_currency_label">मुद्रा</string>
+</resources>

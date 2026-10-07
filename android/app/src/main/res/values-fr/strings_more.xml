@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Le marché aujourd\'hui</string>
+    <string name="pulse_alts_stronger">Altcoins plus forts que Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin plus fort que les altcoins</string>
+    <string name="pulse_alts_even">Altcoins et Bitcoin évoluent de pair</string>
+    <string name="pulse_volume_high">Volume d\'échanges inhabituellement élevé (%1$s× l\'habituel)</string>
+    <string name="pulse_volume_low">Volume d\'échanges faible (%1$s× l\'habituel)</string>
+    <string name="pulse_volume_normal">Volume d\'échanges habituel</string>
+    <string name="pulse_funding_high">Funding nettement positif : beaucoup de longs à effet de levier</string>
+    <string name="pulse_funding_slight">Funding légèrement positif</string>
+    <string name="pulse_funding_neutral">Funding neutre</string>
+    <string name="pulse_funding_negative">Funding négatif : beaucoup de shorts</string>
+    <string name="pulse_gas_low">Gas Ethereum bas (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum habituel (%1$s gwei)</string>
+    <string name="pulse_gas_high">Gas Ethereum élevé (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Aucune prévision · Pas un conseil en investissement</string>
+    <string name="pulse_less">Voir moins</string>
+    <string name="pulse_updated">À %1$s</string>
+    <string name="pulse_unavailable">Données de marché indisponibles pour le moment</string>
+    <string name="why_summary_title">En bref</string>
+    <string name="why_summary_market_volume">Le mouvement s\'accompagne d\'un volume d\'échanges plus élevé et d\'un marché qui bouge dans son ensemble.</string>
+    <string name="why_summary_market">Le mouvement suit l\'ensemble du marché.</string>
+    <string name="why_summary_coin_volume">Seule cette crypto bouge, avec un volume plus élevé – probablement une raison propre à la crypto.</string>
+    <string name="why_summary_coin">Seule cette crypto bouge – probablement une raison propre à la crypto.</string>
+    <string name="why_summary_against">La crypto évolue à contre-courant du marché.</string>
+    <string name="why_summary_thin">Le mouvement est faible : peu de volume derrière.</string>
+    <string name="why_summary_calm">Aucun mouvement notable : marché et crypto sont calmes.</string>
+    <string name="why_summary_longs">Futures : beaucoup de positions long à effet de levier.</string>
+    <string name="why_summary_shorts">Futures : beaucoup de positions short.</string>
+    <string name="why_dot_supports">soutient le mouvement</string>
+    <string name="why_dot_caution">élevé</string>
+    <string name="why_dot_neutral">neutre</string>
+    <string name="alarm_test">Tester l\'alerte</string>
+    <string name="alarm_test_hint">Envoie une alerte d\'exemple avec vos réglages de son, de vibration et de lecture vocale.</string>
+    <string name="alarm_test_title">Test : alerte de Crypto Checker</string>
+    <string name="alarm_test_text">Voici à quoi ressemble une alerte et comment elle sonne.</string>
+    <string name="alarm_test_quiet">Les heures calmes sont actives : les vraies alertes arriveraient en silence.</string>
+    <string name="alarm_test_denied">Les notifications sont désactivées pour Crypto Checker.</string>
+    <string name="alarm_test_open_settings">Ouvrir les paramètres</string>
+    <string name="alarm_first_title">Tout est prêt</string>
+    <string name="welcome_watch">Suivre – vos cryptos, cours, graphiques et widgets</string>
+    <string name="welcome_alert">Alerter – prix, pourcentage, volume et mouvements inhabituels</string>
+    <string name="welcome_understand">Comprendre – pourquoi le marché bouge-t-il en ce moment ?</string>
+    <string name="welcome_start">Commencer</string>
+    <string name="portfolio_empty_example">Exemple : 0,01 BTC acheté le 1er mars à %1$s. L\'app affiche ensuite la valeur, le prix d\'achat moyen et le gain/la perte – enregistrés uniquement sur cet appareil.</string>
+    <string name="about_why">Crypto Checker est un projet indépendant de Rich1e : un aperçu calme des cours, sans compte, ni publicité, ni pistage. Questions et suggestions : %1$s</string>
+    <string name="a11y_move_up">Monter</string>
+    <string name="a11y_move_down">Descendre</string>
+    <string name="a11y_in_watchlist">Déjà dans la liste de suivi</string>
+    <string name="portfolio_export_today_hint">La journée n\'est pas encore terminée : le cours actuel est utilisé à la place du cours de clôture.</string>
+    <string name="about_privacy_policy">Politique de confidentialité</string>
+    <string name="widget_chart_type">Type de graphique</string>
+    <string name="widget_chart_line">Ligne</string>
+    <string name="widget_chart_candles">Bougies</string>
+    <string name="pair_added_watching">%1$s est désormais surveillé</string>
+    <string name="market_cap_title">Marché crypto</string>
+    <string name="market_cap_label">Capitalisation</string>
+    <string name="market_volume_label">Volume 24 h</string>
+    <string name="market_cap_source">Toutes les cryptos · CoinGecko</string>
+    <string name="market_data_empty_error">Aucune donnée reçue de la plateforme.</string>
+    <string name="sync_pairs_count">Paires de trading : %1$d</string>
+    <string name="market_unavailable_error">Plateforme indisponible</string>
+    <string name="refresh_report_aborted">Actualisation interrompue :</string>
+    <string name="refresh_report_wait">Attente avant le début : %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Total %1$s · %2$d paire</item>
+        <item quantity="many">Total %1$s · %2$d paires</item>
+        <item quantity="other">Total %1$s · %2$d paires</item>
+    </plurals>
+    <string name="refresh_report_network">Réseau %1$s</string>
+    <string name="refresh_report_database">Base de données %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Alertes/notifications %1$s · %2$d notification</item>
+        <item quantity="many">Alertes/notifications %1$s · %2$d notifications</item>
+        <item quantity="other">Alertes/notifications %1$s · %2$d notifications</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widgets %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s : %2$d paire, %3$s</item>
+        <item quantity="many">%1$s : %2$d paires, %3$s</item>
+        <item quantity="other">%1$s : %2$d paires, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">requête groupée %1$s (%2$d cours)</item>
+        <item quantity="many">requête groupée %1$s (%2$d cours)</item>
+        <item quantity="other">requête groupée %1$s (%2$d cours)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">requête groupée %1$s (échec)</string>
+    <string name="refresh_report_singles">%1$d individuellement</string>
+    <string name="refresh_report_slowest">plus lent %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d plus négociée</item>
+        <item quantity="many">%1$d plus négociées</item>
+        <item quantity="other">%1$d plus négociées</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d erreur</item>
+        <item quantity="many">%1$d erreurs</item>
+        <item quantity="other">%1$d erreurs</item>
+    </plurals>
+    <string name="starter_add_selected">Ajouter à la liste de suivi (%1$d)</string>
+    <string name="starter_select_all">Tout sélectionner</string>
+    <string name="starter_select_none">Tout désélectionner</string>
+    <string name="starter_loading_prices">Chargement des prix…</string>
+    <string name="watchlist_removed">%1$s retiré</string>
+    <string name="action_undo">Annuler</string>
+    <string name="favorite_added">%1$s ajouté aux favoris</string>
+    <string name="favorite_removed">%1$s retiré des favoris</string>
+    <string name="cycle_data_as_of">Données de %1$s · mise à jour…</string>
+    <string name="settings_conversion_currency_hint">Également utilisée pour le portefeuille, les alertes dans votre devise, la carte Marché crypto et le widget Portefeuille.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d en hausse</item>
+        <item quantity="many">%1$d en hausse</item>
+        <item quantity="other">%1$d en hausse</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d en baisse</item>
+        <item quantity="many">%1$d en baisse</item>
+        <item quantity="other">%1$d en baisse</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, en moyenne %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d paire en hausse</item>
+        <item quantity="many">%1$d paires en hausse</item>
+        <item quantity="other">%1$d paires en hausse</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d en baisse</item>
+        <item quantity="many">%1$d en baisse</item>
+        <item quantity="other">%1$d en baisse</item>
+    </plurals>
+    <string name="pulse_headline_up">Force générale</string>
+    <string name="pulse_headline_down">Faiblesse générale</string>
+    <string name="pulse_headline_mixed">Tableau mitigé</string>
+    <string name="pulse_headline_calm">Marché calme</string>
+    <string name="pulse_chip_funding_high">Funding élevé</string>
+    <string name="pulse_chip_funding_negative">Funding négatif</string>
+    <string name="market_signal_top">Signes de sommet %1$d/10</string>
+    <string name="market_signal_bottom">Signes de creux %1$d/10</string>
+    <string name="market_section_now">En ce moment</string>
+    <string name="market_section_context">Contexte</string>
+    <string name="market_section_data">Données</string>
+</resources>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Ab Android 11 muss die Sprachausgabe ausdrücklich sichtbar gemacht werden. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".CryptoCheckerApp"
+        android:icon="@mipmap/ic_launcher_orange_dark"
+        android:roundIcon="@mipmap/ic_launcher_orange_dark_round"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.CryptoChecker"
+        android:supportsRtl="true"
+        android:localeConfig="@xml/locales_config"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:allowBackup="true"
+        tools:targetApi="31">
+
+        <!-- Startpunkt ohne eigenes Launcher-Icon: Die Einträge im Launcher
+             kommen von den activity-alias unten, je einer pro Akzentfarbe.
+             Aktiv ist immer genau einer (siehe AppearanceApplier). -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true" />
+
+        <activity-alias
+            android:name=".LauncherOrange"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_orange_dark"
+            android:roundIcon="@mipmap/ic_launcher_orange_dark_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherOrangeLight"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_orange_light"
+            android:roundIcon="@mipmap/ic_launcher_orange_light_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherRed"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_red_dark"
+            android:roundIcon="@mipmap/ic_launcher_red_dark_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherRedLight"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_red_light"
+            android:roundIcon="@mipmap/ic_launcher_red_light_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherBlue"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_blue_dark"
+            android:roundIcon="@mipmap/ic_launcher_blue_dark_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherBlueLight"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_blue_light"
+            android:roundIcon="@mipmap/ic_launcher_blue_light_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherGreen"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_green_dark"
+            android:roundIcon="@mipmap/ic_launcher_green_dark_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+        <activity-alias
+            android:name=".LauncherGreenLight"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_green_light"
+            android:roundIcon="@mipmap/ic_launcher_green_light_round"
+            android:targetActivity=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity-alias>
+
+
+        <!-- Auswahl des Paares beim Ablegen eines Widgets -->
+        <activity
+            android:name=".widget.WidgetConfigureActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CryptoChecker">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!-- Kurs-Widget -->
+        <receiver
+            android:name=".widget.PriceWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.cryptochecker.app.action.WIDGET_REFRESH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/price_widget_info" />
+        </receiver>
+
+        <!-- Einzel-Widget: ein Coin gross -->
+        <activity
+            android:name=".widget.SingleWidgetConfigureActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CryptoChecker">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".widget.SingleWidgetProvider"
+            android:exported="false"
+            android:label="@string/single_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/single_widget_info" />
+        </receiver>
+
+        <!-- Portfolio-Widget: Einrichten (Anzeige ≈ USDT, Hintergrund, Deckkraft); optional ab Android 12 -->
+        <activity
+            android:name=".widget.PortfolioWidgetConfigureActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CryptoChecker">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!-- Portfolio-Widget: Gesamtwert, heute, Wertverlauf und grösste Positionen je nach Grösse -->
+        <receiver
+            android:name=".widget.PortfolioWidgetProvider"
+            android:exported="false"
+            android:label="@string/widget_portfolio_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/portfolio_widget_info" />
+        </receiver>
+
+        <!-- Widget «Was gerade auffällt» (Crypto Pulse): Einrichten optional (Hintergrund, Deckkraft) -->
+        <activity
+            android:name=".widget.PulseWidgetConfigureActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CryptoChecker">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".widget.PulseWidgetProvider"
+            android:exported="false"
+            android:label="@string/pulse_now_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pulse_widget_info" />
+        </receiver>
+
+        <!-- Widget aus der App hinzugefügt (requestPinAppWidget): Rückmeldung mit der neuen Widget-Id -->
+        <receiver
+            android:name=".widget.WidgetPinReceiver"
+            android:exported="false" />
+
+        <!-- Wiederherstellung nach Neustart -->
+        <receiver
+            android:name=".work.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Liefert die Zeilen der Widget-Liste -->
+        <service
+            android:name=".widget.PriceWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <!-- Live-Modus -->
+        <service
+            android:name=".service.PriceService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- WorkManager wird über Hilt konfiguriert, daher kein Auto-Start. -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
+        <!-- Bis Android 11 läuft eine bevorzugte (expedited) WorkManager-Aufgabe
+             als Vordergrunddienst; ab Android 14 muss der Typ angegeben sein. -->
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="dataSync"
+            tools:node="merge" />
+    </application>
+
+</manifest>

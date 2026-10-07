@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Det falder i øjnene</string>
+    <string name="pulse_why_action">Hvorfor? →</string>
+    <string name="pulse_section_factors">Faktorer</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin fører an på markedet.</string>
+    <string name="pulse_lead_alts_stronger">Altcoins er stærkere end Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin er stærkere end altcoins.</string>
+    <string name="pulse_lead_broad_up">Markedet stiger bredt.</string>
+    <string name="pulse_lead_broad_down">Markedet falder bredt.</string>
+    <string name="pulse_lead_drift_up">Markedet stiger let.</string>
+    <string name="pulse_lead_drift_down">Markedet falder let.</string>
+    <string name="pulse_lead_mixed">De store mønter går hver sin vej.</string>
+    <string name="pulse_lead_calm">Markedet bevæger sig næsten ikke.</string>
+
+    <string name="pulse_detail_vol_above">Volumen %1$d %% over normalt.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$d %% over normalt, funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$d %% over normalt, funding forhøjet.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$d %% over normalt, funding negativ.</string>
+    <string name="pulse_detail_vol_below">Volumen %1$d %% under normalt.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$d %% under normalt, funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$d %% under normalt, funding forhøjet.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$d %% under normalt, funding negativ.</string>
+    <string name="pulse_detail_vol_normal">Volumen normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen normal, funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen normal, funding forhøjet.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen normal, funding negativ.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_fund_high">Funding forhøjet.</string>
+    <string name="pulse_detail_fund_negative">Funding negativ.</string>
+
+    <string name="factor_volume">Volumen</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Udsving (1h)</string>
+    <string name="factor_spoken_volume">%1$s gange det normale</string>
+    <string name="factor_spoken_volatility">%1$s gange det normale udsving</string>
+
+    <string name="why_title_coin">Hvorfor bevæger %1$s sig?</string>
+    <string name="why_details">Vis detaljer</string>
+    <string name="why_details_hide">Skjul detaljer</string>
+    <string name="why_f_market_wide">Hele markedet bevæger sig</string>
+    <string name="why_f_coin_only">Kun denne mønt</string>
+    <string name="why_f_against">Mod markedet</string>
+    <string name="why_f_market_calm">Roligt marked</string>
+    <string name="why_f_leader">Bitcoin sætter retningen</string>
+    <string name="why_f_leverage_longs">Gearing: mange longs</string>
+    <string name="why_f_leverage_shorts">Gearing: mange shorts</string>
+    <string name="why_f_leverage_balanced">Gearing i balance</string>
+    <string name="insights_dominance_eth">ETH %1$s af det samlede marked</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d måned siden halveringen den %2$s</item>
+        <item quantity="other">%1$d måneder siden halveringen den %2$s</item>
+    </plurals>
+</resources>

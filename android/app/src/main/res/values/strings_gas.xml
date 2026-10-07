@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum gas below (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin fee below (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Notifies once when the normal fee drops below the limit. Checked during price updates, at most every 10 minutes.</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Below your limit of %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin fee: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Below your limit of %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="gas_title">Network fees</string>
+    <string name="gas_slow_fast">Slow %1$s · Fast %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Public RPC nodes and mempool.space · Cost of a simple transfer, without the L1 share on L2s</string>
+    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+</resources>

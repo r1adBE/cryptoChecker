@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Checker – Datenschutz / Privacy Policy</title>
+<meta name="description" content="Datenschutzerklärung der App Crypto Checker für Android und iOS (com.cryptochecker.app). Privacy policy of the Crypto Checker app for Android and iOS.">
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --bg: #faf7f5;
+    --surface: #ffffff;
+    --text: #1f2328;
+    --muted: #5d636b;
+    --border: #e7e1dc;
+    --accent: #d2693f;
+    --accent-soft: #fbe9e1;
+    --code: #f3eeea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171b;
+      --surface: #1d2026;
+      --text: #e8e9eb;
+      --muted: #a1a7b0;
+      --border: #2e323a;
+      --accent: #ef9571;
+      --accent-soft: #33241e;
+      --code: #262a31;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 16px 64px; }
+  header.top {
+    padding: 40px 0 24px;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .logo {
+    width: 56px; height: 56px; flex: none; border-radius: 14px;
+    background: linear-gradient(135deg, #ee9571, #b04e2d);
+    display: grid; place-items: center;
+  }
+  .logo svg { width: 34px; height: 34px; }
+  header.top h1 { margin: 0; font-size: 1.6rem; line-height: 1.2; }
+  header.top p { margin: 2px 0 0; color: var(--muted); }
+  nav.lang {
+    position: sticky; top: 0; z-index: 2;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -16px; padding: 10px 16px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  nav.lang a {
+    text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); background: var(--surface);
+    padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: .92rem;
+  }
+  nav.lang a:hover { border-color: var(--accent); color: var(--accent); }
+  section.policy {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 8px 24px 24px; margin-top: 28px;
+  }
+  section.policy > h2 {
+    font-size: 1.35rem; margin: 20px 0 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .badge {
+    font-size: .75rem; font-weight: 700; letter-spacing: .04em;
+    background: var(--accent-soft); color: var(--accent);
+    padding: 2px 8px; border-radius: 6px;
+  }
+  .meta { color: var(--muted); font-size: .92rem; margin: 0 0 12px; }
+  h3 { font-size: 1.08rem; margin: 26px 0 6px; }
+  p, li { overflow-wrap: anywhere; }
+  ul { padding-left: 1.25rem; }
+  li { margin: 4px 0; }
+  a { color: var(--accent); }
+  .summary {
+    background: var(--accent-soft); border-radius: 12px;
+    padding: 12px 16px; margin: 16px 0;
+  }
+  .summary strong { display: block; margin-bottom: 4px; }
+  .summary ul { margin: 0; }
+  .providers {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px 16px; padding: 0; list-style: none;
+  }
+  .providers li { margin: 0; }
+  .providers small { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+  th { font-weight: 600; }
+  code { background: var(--code); padding: 1px 5px; border-radius: 5px; font-size: .88em; overflow-wrap: anywhere; }
+  .table-scroll { overflow-x: auto; }
+  h4 { font-size: 1rem; margin: 18px 0 4px; display: flex; align-items: center; gap: 8px; }
+  footer { color: var(--muted); font-size: .9rem; text-align: center; margin-top: 32px; }
+  @media (max-width: 560px) {
+    section.policy { padding: 4px 16px 18px; border-radius: 12px; }
+    header.top h1 { font-size: 1.3rem; }
+    th, td { padding: 6px 4px; }
+    td code { font-size: .8em; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="logo" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M9 13l2-2 1.5 1.5L15 10"/><path d="M10.5 20.5a1.6 1.6 0 0 0 3 0"/>
+    </svg>
+  </div>
+  <div>
+    <h1>Crypto Checker</h1>
+    <p>Datenschutzerklärung · Privacy Policy</p>
+  </div>
+</header>
+
+<nav class="lang" aria-label="Sprache / Language">
+  <a href="#de" hreflang="de">Deutsch</a>
+  <a href="#en" hreflang="en">English</a>
+</nav>
+
+<!-- ============================ DEUTSCH ============================ -->
+<section class="policy" id="de" lang="de">
+  <h2>Datenschutzerklärung <span class="badge">DE</span></h2>
+  <p class="meta">Gültig für die App «Crypto Checker» für <b>Android</b> (Paket <code>com.cryptochecker.app</code>) und für <b>iPhone und iPad</b> (iOS/iPadOS, Bundle-ID <code>com.cryptochecker.app</code>, inkl. Widgets) · Stand: 6. Oktober 2026</p>
+
+  <div class="summary">
+    <strong>Kurz gesagt</strong>
+    <ul>
+      <li>Der Entwickler erhebt, speichert und erhält <b>keine</b> personenbezogenen Daten – weder unter Android noch unter iOS.</li>
+      <li>Kein Konto, keine Werbung, keine Analyse- oder Tracking-Dienste, keine Absturzberichte an Dritte, kein Tracking über Apps und Websites anderer Unternehmen.</li>
+      <li>Alle Einstellungen, die Merkliste, Alarme und Bestände bleiben auf deinem Gerät.</li>
+      <li>Kursdaten ruft die App direkt und verschlüsselt (HTTPS) bei öffentlichen Schnittstellen von Börsen und Datenanbietern ab.</li>
+      <li>Der Quellcode ist öffentlich (MIT-Lizenz) und lässt sich nachprüfen: <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">github.com/r1adBE/cryptoChecker</a>.</li>
+    </ul>
+  </div>
+
+  <h3 id="de-verantwortlich">1. Verantwortlicher</h3>
+  <p>Rich1e (Privatperson, Entwickler der App)<br>
+  Schweiz<br>
+  E-Mail: <a href="mailto:riad.work@outlook.com">riad.work@outlook.com</a></p>
+  <p>Diese Erklärung richtet sich nach dem Schweizer Bundesgesetz über den Datenschutz (DSG) und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung (DSGVO).</p>
+
+  <h3 id="de-daten">2. Welche Daten der Entwickler erhebt</h3>
+  <p>Keine. Die App hat keinen eigenen Server, kein Benutzerkonto und enthält weder Werbe-, Analyse-, Tracking- noch Crash-Reporting-Bibliotheken (z.&nbsp;B. kein Firebase, kein Google Analytics, kein AdMob, keine Werbe- oder Analyse-SDKs unter iOS). Der Entwickler erhält keinerlei Informationen darüber, wer die App nutzt oder wie sie genutzt wird.</p>
+  <p>Unter iOS liest die App <b>keine Werbe-ID (IDFA)</b> und betreibt kein Tracking im Sinne von Apples «App Tracking Transparency»; deshalb erscheint auch keine Tracking-Abfrage. Absturz- und Nutzungsdaten, die du Apple bzw. Google über die Systemeinstellungen freigibst («Analysedaten teilen» bzw. «Nutzungs- und Diagnosedaten»), verarbeiten diese Unternehmen nach ihren eigenen Bestimmungen; der Entwickler kann solche Berichte allenfalls in anonymisierter, zusammengefasster Form einsehen.</p>
+
+  <h3 id="de-lokal">3. Daten auf deinem Gerät</h3>
+  <p>Folgendes speichert die App ausschliesslich lokal auf deinem Gerät:</p>
+  <ul>
+    <li>Merkliste (gewählte Börsen und Handelspaare), Gruppen, Favoriten und deine Notizen</li>
+    <li>von dir eingetragene Käufe und Verkäufe (Datum, Menge, Preis) für das Portfolio</li>
+    <li>Alarme und deren Bedingungen</li>
+    <li>zuletzt abgerufene Kurse, Marktdaten (z.&nbsp;B. für den Markt-Tab) und zwischengespeicherte Handelspaar-Listen</li>
+    <li>Einstellungen (Sprache, Farbe, Umrechnungswährung, Aktualisierungsintervall, Benachrichtigungen, Nachtruhe, Sprachausgabe, App-Sperre, Widget-Optionen)</li>
+    <li>für das Portfolio-Widget: Gesamtwert (in der Umrechnungswährung und in USDT), Veränderung heute, Wertverlauf der letzten bis zu 48 Stunden und die grössten Positionen (Kürzel, Wert, Anteil, Veränderung) — im Widget-Speicher der App auf dem Gerät</li>
+  </ul>
+  <h4>Android <span class="badge">ANDROID</span></h4>
+  <p>Gespeichert wird im privaten App-Speicher (Room-Datenbank und Android DataStore / SharedPreferences). Beim Deinstallieren der App oder über «Speicher löschen» in den Android-Einstellungen werden die Daten entfernt.</p>
+  <p><b>Android-Sicherung:</b> Die App erlaubt die systemeigene Android-Sicherung bzw. die Übertragung auf ein neues Gerät. Ob und wohin gesichert wird (z.&nbsp;B. in dein Google-Konto), entscheidest du in den Android-Einstellungen; diese Sicherung wird von Google bzw. vom Gerätehersteller verarbeitet, nicht vom Entwickler.</p>
+  <h4>iPhone und iPad <span class="badge">iOS</span></h4>
+  <p>Gespeichert wird im Container der App und in einem <b>App-Group-Container</b> (<code>group.com.cryptochecker.app</code>). Dieser gemeinsame Speicher liegt ebenfalls nur auf deinem Gerät und dient einzig dazu, dass die App und ihre eigenen Widgets (Home-Bildschirm und Sperrbildschirm) dieselbe Merkliste und dieselben Kurse anzeigen. Andere Apps haben darauf keinen Zugriff. Beim Löschen der App entfernt iOS diese Daten.</p>
+  <p><b>iCloud:</b> Die App nutzt iCloud nicht – kein iCloud Drive, kein CloudKit und keine iCloud-Synchronisierung von Einstellungen. Wie bei jeder App können die App-Daten aber in einem <b>Geräte-Backup</b> enthalten sein (iCloud-Backup oder Backup auf einem Computer), wenn du es in den iOS-Einstellungen eingeschaltet hast. Solche Backups verarbeitet Apple bzw. dein Computer, nicht der Entwickler.</p>
+  <p>Diese Daten verlassen dein Gerät nicht über den Entwickler.</p>
+
+  <h3 id="de-netz">4. Netzwerkzugriffe und Drittanbieter</h3>
+  <p>Um Kurse, Handelspaare, Diagramme, Futures-Kennzahlen (Funding Rate, Open Interest) und Marktindikatoren anzuzeigen, ruft die App öffentliche, schlüsselfreie Programmierschnittstellen (APIs) direkt von deinem Gerät aus ab. Alle Verbindungen sind per HTTPS verschlüsselt. Es werden keine Konto- oder Login-Daten übertragen.</p>
+  <p>Wie bei jedem Internetabruf erhält der jeweilige Anbieter technisch notwendige Verbindungsdaten, insbesondere deine IP-Adresse, Zeitpunkt der Anfrage, die abgefragte Adresse (z.&nbsp;B. das Handelspaar) und eine technische Kennung der App bzw. Netzwerkbibliothek (User-Agent, z.&nbsp;B. <code>cryptoChecker-iOS</code>). Auf die Verarbeitung durch diese Anbieter hat der Entwickler keinen Einfluss; es gelten deren Datenschutzerklärungen, die du auf den verlinkten Websites findest. Abgefragt werden nur die Anbieter, die du in der App nutzt (bzw. für die Auswertungen im Markt-Tab, in Widgets, bei Alarmen und bei der Erkennung ungewöhnlicher Aktivität benötigt werden):</p>
+  <p><b>Börsen</b></p>
+  <ul class="providers">
+    <li><a href="https://www.binance.com" rel="noopener">Binance</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://www.binance.us" rel="noopener">Binance.US</a></li>
+    <li><a href="https://www.bitfinex.com" rel="noopener">Bitfinex</a></li>
+    <li><a href="https://bitflyer.com" rel="noopener">bitFlyer</a></li>
+    <li><a href="https://www.bitget.com" rel="noopener">Bitget</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://www.bithumb.com" rel="noopener">Bithumb</a></li>
+    <li><a href="https://bitso.com" rel="noopener">Bitso</a></li>
+    <li><a href="https://www.bitstamp.net" rel="noopener">Bitstamp</a></li>
+    <li><a href="https://bitvavo.com" rel="noopener">Bitvavo</a></li>
+    <li><a href="https://www.btcturk.com" rel="noopener">BtcTurk</a></li>
+    <li><a href="https://www.bybit.com" rel="noopener">Bybit</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://www.coinbase.com" rel="noopener">Coinbase</a></li>
+    <li><a href="https://crypto.com" rel="noopener">Crypto.com</a></li>
+    <li><a href="https://www.deribit.com" rel="noopener">Deribit</a> <small>(Futures)</small></li>
+    <li><a href="https://www.gate.com" rel="noopener">Gate</a></li>
+    <li><a href="https://www.gemini.com" rel="noopener">Gemini</a></li>
+    <li><a href="https://www.htx.com" rel="noopener">HTX</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://hyperliquid.xyz" rel="noopener">Hyperliquid</a></li>
+    <li><a href="https://www.independentreserve.com" rel="noopener">Independent Reserve</a></li>
+    <li><a href="https://indodax.com" rel="noopener">Indodax</a></li>
+    <li><a href="https://www.kraken.com" rel="noopener">Kraken</a></li>
+    <li><a href="https://www.kucoin.com" rel="noopener">KuCoin</a></li>
+    <li><a href="https://latoken.com" rel="noopener">LATOKEN</a></li>
+    <li><a href="https://www.mexc.com" rel="noopener">MEXC</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://nonkyc.io" rel="noopener">NonKYC</a></li>
+    <li><a href="https://www.okx.com" rel="noopener">OKX</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://www.onetrading.com" rel="noopener">One Trading</a></li>
+    <li><a href="https://phemex.com" rel="noopener">Phemex</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://poloniex.com" rel="noopener">Poloniex</a></li>
+    <li><a href="https://upbit.com" rel="noopener">Upbit</a></li>
+    <li><a href="https://woox.io" rel="noopener">WOO X</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://zebpay.com" rel="noopener">ZebPay</a></li>
+  </ul>
+  <p><b>Datenanbieter</b></p>
+  <ul class="providers">
+    <li><a href="https://dexscreener.com" rel="noopener">DexScreener</a> <small>(DEX-Kurse)</small></li>
+    <li><a href="https://www.binance.com" rel="noopener">Binance Market Data</a> <small>(<code>data-api.binance.vision</code>, öffentlicher Marktdaten-Spiegel von Binance: Charts, Volumen, Zyklus)</small></li>
+    <li><a href="https://exchange.coinbase.com" rel="noopener">Coinbase Exchange Market Data</a> <small>(<code>api.exchange.coinbase.com</code>, öffentliche Kursverläufe: Ersatzquelle für Charts, Volumen und Zyklus)</small></li>
+    <li><a href="https://alternative.me/crypto/fear-and-greed-index/" rel="noopener">alternative.me</a> <small>(Fear &amp; Greed Index)</small></li>
+    <li><a href="https://www.coingecko.com" rel="noopener">CoinGecko</a> <small>(Bitcoin-Dominanz, Marktkapitalisierung und Volumen, Liste der grössten Coins)</small></li>
+    <li><a href="https://coinmetrics.io" rel="noopener">Coin Metrics</a> <small>(On-Chain-Daten, Kursverlauf)</small></li>
+    <li><a href="https://mempool.space" rel="noopener">mempool.space</a> <small>(Bitcoin-Netzwerkgebühren)</small></li>
+    <li><a href="https://www.publicnode.com" rel="noopener">PublicNode (Allnodes)</a> <small>(öffentliche RPC-Knoten für Ethereum, Base, Arbitrum, Polygon und BNB Chain: Netzwerkgebühren)</small></li>
+    <li>Ersatzknoten für Netzwerkgebühren: <a href="https://llamarpc.com" rel="noopener">LlamaRPC</a>, <a href="https://www.cloudflare.com/web3/" rel="noopener">Cloudflare Ethereum Gateway</a>, <a href="https://base.org" rel="noopener">Base</a>, <a href="https://arbitrum.io" rel="noopener">Arbitrum</a>, <a href="https://polygon.technology" rel="noopener">Polygon</a>, <a href="https://www.bnbchain.org" rel="noopener">BNB Chain</a> <small>(nur wenn PublicNode nicht antwortet)</small></li>
+    <li><a href="https://www.coinbase.com" rel="noopener">Coinbase</a> <small>(<code>api.coinbase.com</code>, Wechselkurse: Ersatzquelle, um Gebühren in USD umzurechnen)</small></li>
+    <li><a href="https://frankfurter.dev" rel="noopener">Frankfurter</a> <small>(<code>api.frankfurter.app</code>, <code>api.frankfurter.dev</code>: aktuelle und historische Devisenkurse der Europäischen Zentralbank für Portfolio, «≈»-Umrechnung, Alarme in deiner Währung und Stichtag-Export)</small></li>
+    <li><a href="https://www.exchangerate-api.com" rel="noopener">ExchangeRate-API</a> <small>(<code>open.er-api.com</code>, Devisenkurse: Ersatzquelle, wenn Frankfurter nicht antwortet oder eine Währung fehlt)</small></li>
+    <li><a href="https://pages.github.com" rel="noopener">GitHub Pages</a> <small>(<code>r1adbe.github.io</code>: öffentliche Kalenderdatei mit den Terminen wichtiger US-Wirtschaftsdaten für den Hinweis «Wirtschaftsdaten» im Markt-Tab und die optionale Benachrichtigung «Wirtschaftstermine»; höchstens einmal pro Tag abgerufen, es werden keine persönlichen Daten übermittelt. Die Termine stammen aus den öffentlichen Kalendern von U.S. Bureau of Labor Statistics, Federal Reserve und U.S. Bureau of Economic Analysis; diese Seiten ruft die App nicht selbst auf.)</small></li>
+  </ul>
+  <p><b>Ersatzquellen:</b> Ist Binance in deinem Land gesperrt oder nicht erreichbar, holt die App Kursverläufe (Charts, Volumen, Zyklus) ersatzweise bei <b>Binance.US</b> und <b>Coinbase Exchange</b> sowie Futures-Kennzahlen (Funding Rate, Open Interest) bei <b>Bybit</b> und <b>OKX</b> – mit denselben technisch notwendigen Verbindungsdaten wie oben.</p>
+  <p>Die Kurs-Abfragen erfolgen auch im Hintergrund, sofern du die entsprechenden Funktionen aktiviert hast: unter Android über die Hintergrundaktualisierung, den Live-Modus, Widgets und Alarme; unter iOS über die Hintergrundaktualisierung von iOS (siehe Abschnitt&nbsp;7) und die Aktualisierung der Widgets. Der Live-Modus läuft unter iOS nur, solange die App geöffnet ist.</p>
+  <p>Auswertungen wie «⚡ Ungewöhnliche Aktivität» oder «💡 Warum bewegt sich das?» berechnet die App auf deinem Gerät aus diesen öffentlichen Marktdaten. Es werden dafür keine Daten an den Entwickler oder an KI- bzw. Analysedienste gesendet.</p>
+  <p>Für den <b>Mini-Chart</b> in der Merkliste und den <b>Stichtag-Export</b> lädt die App öffentliche Tageskurse bzw. Stundenkurse bei Binance (inkl. Marktdaten-Spiegel, Futures und Binance.US) bzw. Coinbase Exchange, für die Umrechnung Devisenkurse bei Frankfurter. Abgefragt werden dabei nur das Handelspaar bzw. die Währung und das Datum – nie deine Bestände oder Portfolio-Werte. Die Umrechnung und die Bewertung deines Portfolios rechnet die App ausschliesslich auf deinem Gerät.</p>
+
+  <h3 id="de-backup">5. Sichern und Wiederherstellen</h3>
+  <p>Mit «Sichern &amp; Wiederherstellen» exportiert die App Merkliste (inkl. deiner Notizen und Gruppen), Alarme, Favoriten, Portfolio und Einstellungen als JSON-Datei an einen Ort, den du selbst wählst – unter Android über die Android-Dateiauswahl (z.&nbsp;B. «Downloads»), unter iOS über den Dialog der App <b>«Dateien»</b> (z.&nbsp;B. «Auf meinem iPhone» oder ein Speicheranbieter deiner Wahl wie iCloud Drive). Beim Wiederherstellen liest die App nur die Datei, die du dort auswählst. Die App sendet diese Datei nirgendwohin. Wählst du einen Cloud-Speicher, gelten dessen Datenschutzbestimmungen. Sicherungsdateien sind zwischen Android und iOS austauschbar.</p>
+  <p><b>Stichtag-Export:</b> Den Wert deines Portfolios an einem Datum speichert die App als CSV-Datei ebenfalls nur an dem Ort, den du im Dateidialog wählst. Die Datei wird nicht übertragen.</p>
+
+  <h3 id="de-lokalverarbeitung">6. Benachrichtigungen, Sprachausgabe und Widgets</h3>
+  <p>Benachrichtigungen, Alarme und Widgets werden vollständig auf dem Gerät erzeugt; es wird kein Push-Dienst verwendet (unter iOS kein Apple Push Notification Service, unter Android kein Firebase Cloud Messaging). Unter iOS kann die App Alarme als <b>dringende Mitteilungen</b> («Time Sensitive») zustellen, damit sie auch bei aktivem Fokus erscheinen; das lässt sich in den iOS-Einstellungen abschalten.</p>
+  <p><b>Eigener Alarmton (Android):</b> Wählst du eine eigene Audiodatei als Alarmton, kopiert die App diese Datei auf deinem Gerät in die Mediathek (Ordner «Notifications/CryptoChecker»), damit Android sie für Mitteilungen abspielen kann. Die Datei bleibt auf dem Gerät und wird nicht übertragen; du kannst sie dort jederzeit löschen. Unter iOS stehen nur mitgelieferte Töne zur Wahl.</p>
+  <p>Für die Sprachausgabe nutzt die App unter Android die auf deinem Gerät installierte Text-to-Speech-Engine (z.&nbsp;B. «Sprachdienste von Google») und unter iOS die Systemstimmen von iOS. Der vorzulesende Text (Kurs, Alarm) wird an diese Engine übergeben; wie sie ihn verarbeitet, richtet sich nach deren Anbieter. Die App selbst speichert oder übermittelt diese Texte nicht.</p>
+  <p>Die Widgets lesen ihre Daten aus dem lokalen Speicher der App (unter iOS aus dem App-Group-Container, siehe Abschnitt&nbsp;3) und rufen Kurse bei Bedarf direkt bei den oben genannten Anbietern ab.</p>
+
+  <h3 id="de-berechtigungen">7. Berechtigungen</h3>
+  <h4>Android <span class="badge">ANDROID</span></h4>
+  <div class="table-scroll">
+  <table>
+    <tr><th>Berechtigung</th><th>Wofür</th></tr>
+    <tr><td><code>INTERNET</code></td><td>Abruf von Kursen und Marktdaten bei den oben genannten Anbietern.</td></tr>
+    <tr><td><code>ACCESS_NETWORK_STATE</code></td><td>Prüfen, ob eine Internetverbindung besteht, bevor abgefragt wird.</td></tr>
+    <tr><td><code>POST_NOTIFICATIONS</code></td><td>Kurs-Benachrichtigungen und Alarme anzeigen (ab Android 13 fragt die App danach; du kannst ablehnen).</td></tr>
+    <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_DATA_SYNC</code></td><td>Live-Modus: Kurse in kurzen Abständen aktualisieren, während eine sichtbare Benachrichtigung angezeigt wird.</td></tr>
+    <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Nach einem Neustart die Hintergrundaktualisierung und Alarme wieder einplanen.</td></tr>
+    <tr><td><code>VIBRATE</code></td><td>Vibration bei Alarmen, wenn du sie eingeschaltet hast.</td></tr>
+    <tr><td><code>WAKE_LOCK</code></td><td>Kurzzeitig verhindern, dass das Gerät während einer laufenden Aktualisierung einschläft (über WorkManager).</td></tr>
+    <tr><td><code>USE_BIOMETRIC</code></td><td>Nur wenn du die App-Sperre einschaltest: Entsperren mit Fingerabdruck, Gesicht oder Geräte-PIN über das Android-System. Die App erhält dabei nur «entsperrt» oder «abgebrochen», nie biometrische Daten.</td></tr>
+  </table>
+  </div>
+  <h4>iPhone und iPad <span class="badge">iOS</span></h4>
+  <div class="table-scroll">
+  <table>
+    <tr><th>Funktion</th><th>Wofür</th></tr>
+    <tr><td>Mitteilungen</td><td>Kurs-Mitteilungen und Alarme anzeigen. iOS fragt einmal um Erlaubnis; du kannst ablehnen und es jederzeit unter <i>Einstellungen › Mitteilungen › Crypto Checker</i> ändern.</td></tr>
+    <tr><td>Dringende Mitteilungen (Time Sensitive)</td><td>Alarme auch bei aktivem Fokus zustellen. Abschaltbar in den Mitteilungs-Einstellungen der App.</td></tr>
+    <tr><td>Hintergrundaktualisierung</td><td>Kurse, Alarme und Widgets im Hintergrund aktualisieren. Wann das geschieht, entscheidet iOS. Abschaltbar unter <i>Einstellungen › Allgemein › Hintergrundaktualisierung</i>.</td></tr>
+    <tr><td>App Group</td><td>Lokaler, gemeinsamer Speicher von App und Widgets (keine Abfrage, keine Übertragung). Das Portfolio-Widget liest dort Gesamtwert, Veränderung, Wertverlauf und die grössten Positionen; bei eingeschalteter App-Sperre zeigt es keine Werte.</td></tr>
+    <tr><td>Face ID / Touch ID / Code</td><td>Nur wenn du die App-Sperre einschaltest. iOS prüft selbst und meldet der App nur «entsperrt» oder «abgebrochen»; biometrische Daten erhält die App nie.</td></tr>
+  </table>
+  </div>
+  <p>Die App fordert auf keiner Plattform Zugriff auf Standort, Kontakte, Fotos, Kamera, Mikrofon, Kalender, Bluetooth, Health-Daten, Dateien (ausser der von dir gewählten Sicherungsdatei), Werbe-ID oder andere Geräte-Kennungen an.</p>
+
+  <h3 id="de-zahlungen">8. Keine Zahlungen in der App</h3>
+  <p>Die App enthält keine Kauf-, Abo-, Zahlungs- oder Spendenfunktion und verbindet sich mit keiner Wallet.</p>
+
+  <h3 id="de-rechte">9. Deine Rechte</h3>
+  <p>Da der Entwickler keine personenbezogenen Daten über dich besitzt, kann er dazu auch keine Auskunft geben oder Daten löschen. Alle Daten der App kontrollierst du selbst auf deinem Gerät. Für Fragen kannst du dich jederzeit an die oben genannte E-Mail-Adresse wenden. Bei Datenverarbeitungen durch die genannten Börsen und Datenanbieter, durch Apple oder Google wende dich bitte an diese direkt.</p>
+
+  <h3 id="de-kinder">10. Kinder</h3>
+  <p>Die App richtet sich an Erwachsene (18+) und nicht an Kinder. Sie erhebt wissentlich keine Daten von Kindern – und überhaupt keine Daten durch den Entwickler.</p>
+
+  <h3 id="de-hinweis">11. Kein Finanzdienst</h3>
+  <p>Crypto Checker zeigt ausschliesslich öffentlich verfügbare Kurs- und Marktdaten an. Die App ist keine Börse und keine Wallet, ermöglicht keinen Handel und keine Zahlungen und stellt keine Anlageberatung dar. Auch die Erklärungen unter «Warum bewegt sich das?» sind automatisch aus Marktdaten abgeleitete Hinweise, keine Empfehlungen.</p>
+
+  <h3 id="de-aenderungen">12. Änderungen</h3>
+  <p>Ändert sich die App so, dass diese Erklärung angepasst werden muss, wird diese Seite aktualisiert und das Datum oben angepasst.</p>
+
+  <h3 id="de-kontakt">13. Kontakt</h3>
+  <p>Rich1e · <a href="mailto:riad.work@outlook.com">riad.work@outlook.com</a></p>
+  <p>Fragen und Wünsche kannst du auch als <a href="https://github.com/r1adBE/cryptoChecker/issues/new/choose" rel="noopener">Issue auf GitHub</a> stellen (Link in der App unter «Über»). Solche Beiträge sind öffentlich; dafür gelten die Datenschutzbestimmungen von GitHub.</p>
+</section>
+
+<!-- ============================ ENGLISH ============================ -->
+<section class="policy" id="en" lang="en">
+  <h2>Privacy Policy <span class="badge">EN</span></h2>
+  <p class="meta">Applies to the “Crypto Checker” app for <b>Android</b> (package <code>com.cryptochecker.app</code>) and for <b>iPhone and iPad</b> (iOS/iPadOS, bundle ID <code>com.cryptochecker.app</code>, including its widgets) · Last updated: 6 October 2026</p>
+
+  <div class="summary">
+    <strong>In short</strong>
+    <ul>
+      <li>The developer does <b>not</b> collect, store or receive any personal data – neither on Android nor on iOS.</li>
+      <li>No account, no ads, no analytics or tracking services, no crash reports sent to third parties, no tracking across other companies’ apps and websites.</li>
+      <li>All settings, the watchlist, alarms and holdings stay on your device.</li>
+      <li>The app fetches price data directly and encrypted (HTTPS) from public APIs of exchanges and data providers.</li>
+      <li>The source code is public (MIT License) and can be checked: <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">github.com/r1adBE/cryptoChecker</a>.</li>
+    </ul>
+  </div>
+
+  <h3 id="en-controller">1. Who is responsible</h3>
+  <p>Rich1e (private individual, developer of the app)<br>
+  Switzerland<br>
+  Email: <a href="mailto:riad.work@outlook.com">riad.work@outlook.com</a></p>
+  <p>This policy follows the Swiss Federal Act on Data Protection (FADP) and, where applicable, the EU General Data Protection Regulation (GDPR).</p>
+
+  <h3 id="en-data">2. Data collected by the developer</h3>
+  <p>None. The app has no backend server and no user account, and it contains no advertising, analytics, tracking or crash-reporting libraries (e.g. no Firebase, no Google Analytics, no AdMob, no advertising or analytics SDKs on iOS). The developer receives no information about who uses the app or how it is used.</p>
+  <p>On iOS the app does <b>not read the advertising identifier (IDFA)</b> and does not track you in the sense of Apple’s “App Tracking Transparency”; that is why no tracking prompt appears. Crash and usage data that you choose to share with Apple or Google in the system settings (“Share Analytics” or “Usage &amp; diagnostics”) are processed by those companies under their own terms; the developer can at most see such reports in anonymized, aggregated form.</p>
+
+  <h3 id="en-local">3. Data stored on your device</h3>
+  <p>The app stores the following only locally on your device:</p>
+  <ul>
+    <li>watchlist (chosen exchanges and trading pairs), groups, favorites and your notes</li>
+    <li>buys and sells you enter (date, amount, price) for the portfolio</li>
+    <li>alarms and their conditions</li>
+    <li>last fetched prices, market data (e.g. for the Market tab) and cached lists of trading pairs</li>
+    <li>settings (language, color, conversion currency, update interval, notifications, quiet hours, speech output, app lock, widget options)</li>
+    <li>for the portfolio widget: total value (in the conversion currency and in USDT), today’s change, the value history of up to the last 48 hours and the largest positions (symbol, value, share, change) — in the app’s widget storage on the device</li>
+  </ul>
+  <h4>Android <span class="badge">ANDROID</span></h4>
+  <p>Data is kept in the app’s private storage (Room database and Android DataStore / SharedPreferences). It is removed when you uninstall the app or use “Clear storage” in Android settings.</p>
+  <p><b>Android backup:</b> The app allows Android’s built-in backup and device-to-device transfer. Whether and where data is backed up (e.g. to your Google account) is controlled by you in Android settings; such backups are processed by Google or your device manufacturer, not by the developer.</p>
+  <h4>iPhone and iPad <span class="badge">iOS</span></h4>
+  <p>Data is kept in the app’s container and in an <b>App Group container</b> (<code>group.com.cryptochecker.app</code>). This shared storage also stays on your device; its only purpose is to let the app and its own widgets (Home Screen and Lock Screen) show the same watchlist and prices. Other apps cannot access it. iOS removes this data when you delete the app.</p>
+  <p><b>iCloud:</b> The app does not use iCloud – no iCloud Drive, no CloudKit and no iCloud sync of settings. As with any app, its data may be included in a <b>device backup</b> (iCloud Backup or a backup on a computer) if you have enabled this in iOS settings. Such backups are processed by Apple or your computer, not by the developer.</p>
+  <p>This data never leaves your device via the developer.</p>
+
+  <h3 id="en-network">4. Network requests and third parties</h3>
+  <p>To show prices, trading pairs, charts, futures metrics (funding rate, open interest) and market indicators, the app calls public, key-free APIs directly from your device. All connections are encrypted via HTTPS. No account or login data is transmitted.</p>
+  <p>As with any internet request, the respective provider receives technically necessary connection data, in particular your IP address, the time of the request, the requested URL (e.g. the trading pair) and a technical identifier of the app or networking library (user agent, e.g. <code>cryptoChecker-iOS</code>). The developer has no control over how these providers process this data; their own privacy policies apply, which you can find on the linked websites. Only the providers you use in the app are contacted (or those needed for the Market tab, widgets, alarms and unusual-activity detection):</p>
+  <p><b>Exchanges</b></p>
+  <ul class="providers">
+    <li><a href="https://www.binance.com" rel="noopener">Binance</a> <small>(spot, futures)</small></li>
+    <li><a href="https://www.binance.us" rel="noopener">Binance.US</a></li>
+    <li><a href="https://www.bitfinex.com" rel="noopener">Bitfinex</a></li>
+    <li><a href="https://bitflyer.com" rel="noopener">bitFlyer</a></li>
+    <li><a href="https://www.bitget.com" rel="noopener">Bitget</a> <small>(spot, futures)</small></li>
+    <li><a href="https://www.bithumb.com" rel="noopener">Bithumb</a></li>
+    <li><a href="https://bitso.com" rel="noopener">Bitso</a></li>
+    <li><a href="https://www.bitstamp.net" rel="noopener">Bitstamp</a></li>
+    <li><a href="https://bitvavo.com" rel="noopener">Bitvavo</a></li>
+    <li><a href="https://www.btcturk.com" rel="noopener">BtcTurk</a></li>
+    <li><a href="https://www.bybit.com" rel="noopener">Bybit</a> <small>(spot, futures)</small></li>
+    <li><a href="https://www.coinbase.com" rel="noopener">Coinbase</a></li>
+    <li><a href="https://crypto.com" rel="noopener">Crypto.com</a></li>
+    <li><a href="https://www.deribit.com" rel="noopener">Deribit</a> <small>(Futures)</small></li>
+    <li><a href="https://www.gate.com" rel="noopener">Gate</a></li>
+    <li><a href="https://www.gemini.com" rel="noopener">Gemini</a></li>
+    <li><a href="https://www.htx.com" rel="noopener">HTX</a> <small>(spot, futures)</small></li>
+    <li><a href="https://hyperliquid.xyz" rel="noopener">Hyperliquid</a></li>
+    <li><a href="https://www.independentreserve.com" rel="noopener">Independent Reserve</a></li>
+    <li><a href="https://indodax.com" rel="noopener">Indodax</a></li>
+    <li><a href="https://www.kraken.com" rel="noopener">Kraken</a></li>
+    <li><a href="https://www.kucoin.com" rel="noopener">KuCoin</a></li>
+    <li><a href="https://latoken.com" rel="noopener">LATOKEN</a></li>
+    <li><a href="https://www.mexc.com" rel="noopener">MEXC</a> <small>(spot, futures)</small></li>
+    <li><a href="https://nonkyc.io" rel="noopener">NonKYC</a></li>
+    <li><a href="https://www.okx.com" rel="noopener">OKX</a> <small>(spot, futures)</small></li>
+    <li><a href="https://www.onetrading.com" rel="noopener">One Trading</a></li>
+    <li><a href="https://phemex.com" rel="noopener">Phemex</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://poloniex.com" rel="noopener">Poloniex</a></li>
+    <li><a href="https://upbit.com" rel="noopener">Upbit</a></li>
+    <li><a href="https://woox.io" rel="noopener">WOO X</a> <small>(Spot, Futures)</small></li>
+    <li><a href="https://zebpay.com" rel="noopener">ZebPay</a></li>
+  </ul>
+  <p><b>Data providers</b></p>
+  <ul class="providers">
+    <li><a href="https://dexscreener.com" rel="noopener">DexScreener</a> <small>(DEX prices)</small></li>
+    <li><a href="https://www.binance.com" rel="noopener">Binance Market Data</a> <small>(<code>data-api.binance.vision</code>, Binance’s public market-data mirror: charts, volume, cycle)</small></li>
+    <li><a href="https://exchange.coinbase.com" rel="noopener">Coinbase Exchange Market Data</a> <small>(<code>api.exchange.coinbase.com</code>, public price history: fallback for charts, volume and cycle)</small></li>
+    <li><a href="https://alternative.me/crypto/fear-and-greed-index/" rel="noopener">alternative.me</a> <small>(Fear &amp; Greed Index)</small></li>
+    <li><a href="https://www.coingecko.com" rel="noopener">CoinGecko</a> <small>(Bitcoin dominance, market cap and volume, list of the largest coins)</small></li>
+    <li><a href="https://coinmetrics.io" rel="noopener">Coin Metrics</a> <small>(on-chain data, price history)</small></li>
+    <li><a href="https://mempool.space" rel="noopener">mempool.space</a> <small>(Bitcoin network fees)</small></li>
+    <li><a href="https://www.publicnode.com" rel="noopener">PublicNode (Allnodes)</a> <small>(public RPC nodes for Ethereum, Base, Arbitrum, Polygon and BNB Chain: network fees)</small></li>
+    <li>Fallback nodes for network fees: <a href="https://llamarpc.com" rel="noopener">LlamaRPC</a>, <a href="https://www.cloudflare.com/web3/" rel="noopener">Cloudflare Ethereum Gateway</a>, <a href="https://base.org" rel="noopener">Base</a>, <a href="https://arbitrum.io" rel="noopener">Arbitrum</a>, <a href="https://polygon.technology" rel="noopener">Polygon</a>, <a href="https://www.bnbchain.org" rel="noopener">BNB Chain</a> <small>(only if PublicNode does not respond)</small></li>
+    <li><a href="https://www.coinbase.com" rel="noopener">Coinbase</a> <small>(<code>api.coinbase.com</code>, exchange rates: fallback for converting fees to USD)</small></li>
+    <li><a href="https://frankfurter.dev" rel="noopener">Frankfurter</a> <small>(<code>api.frankfurter.app</code>, <code>api.frankfurter.dev</code>: current and historical foreign exchange rates of the European Central Bank for the portfolio, the «≈» conversion, alarms in your currency and the cut-off export)</small></li>
+    <li><a href="https://www.exchangerate-api.com" rel="noopener">ExchangeRate-API</a> <small>(<code>open.er-api.com</code>, exchange rates: fallback if Frankfurter does not respond or lacks a currency)</small></li>
+    <li><a href="https://pages.github.com" rel="noopener">GitHub Pages</a> <small>(<code>r1adbe.github.io</code>: public calendar file with the dates of major US economic releases for the economic-data hint in the Market tab and the optional economic-calendar notification; fetched at most once a day, no personal data is sent. The dates come from the public calendars of the U.S. Bureau of Labor Statistics, the Federal Reserve and the U.S. Bureau of Economic Analysis; the app does not contact those sites itself.)</small></li>
+  </ul>
+  <p><b>Fallback sources:</b> If Binance is blocked in your country or unreachable, the app fetches price history (charts, volume, cycle) from <b>Binance.US</b> and <b>Coinbase Exchange</b> instead, and futures metrics (funding rate, open interest) from <b>Bybit</b> and <b>OKX</b> – with the same technically necessary connection data as above.</p>
+  <p>Price requests also happen in the background if you have enabled the related features: on Android via background updates, live mode, widgets and alarms; on iOS via iOS Background App Refresh (see section&nbsp;7) and widget updates. On iOS, live mode only runs while the app is open.</p>
+  <p>Analyses such as “⚡ Unusual Activity” or “💡 Why is this moving?” are computed on your device from this public market data. No data is sent to the developer or to any AI or analytics service for this.</p>
+  <p>For the <b>mini chart</b> in the watchlist and the <b>cut-off export</b> the app loads public daily or hourly prices from Binance (including its market data mirror, futures and Binance.US) or Coinbase Exchange, and exchange rates from Frankfurter for the conversion. Only the trading pair or currency and the date are requested – never your holdings or portfolio values. Conversion and the valuation of your portfolio are calculated exclusively on your device.</p>
+
+  <h3 id="en-backup">5. Backup and restore</h3>
+  <p>With “Backup &amp; restore” the app exports your watchlist (including your notes and groups), alarms, favorites, portfolio and settings as a JSON file to a location you choose yourself – on Android via the Android file picker (e.g. “Downloads”), on iOS via the <b>Files</b> app dialog (e.g. “On My iPhone” or a storage provider of your choice such as iCloud Drive). When restoring, the app only reads the file you pick there. The app does not send this file anywhere. If you choose a cloud storage, its privacy terms apply. Backup files can be exchanged between Android and iOS.</p>
+  <p><b>Cut-off export:</b> The value of your portfolio on a date is saved as a CSV file only to the location you choose in the file dialog. The file is not transmitted.</p>
+
+  <h3 id="en-local-processing">6. Notifications, speech output and widgets</h3>
+  <p>Notifications, alarms and widgets are generated entirely on the device; no push service is used (no Apple Push Notification service on iOS, no Firebase Cloud Messaging on Android). On iOS the app can deliver alarms as <b>Time Sensitive notifications</b> so that they also appear while a Focus is active; you can turn this off in iOS settings.</p>
+  <p><b>Custom alarm sound (Android):</b> If you pick your own audio file as the alarm sound, the app copies it on your device into the media library (folder “Notifications/CryptoChecker”) so that Android can play it for notifications. The file stays on the device and is not transmitted; you can delete it there at any time. On iOS only the bundled sounds are available.</p>
+  <p>For speech output the app uses the text-to-speech engine installed on your Android device (e.g. “Speech Services by Google”) or the built-in iOS system voices. The text to be spoken (price, alarm) is handed to that engine; how it processes the text depends on its provider. The app itself neither stores nor transmits these texts.</p>
+  <p>Widgets read their data from the app’s local storage (on iOS from the App Group container, see section&nbsp;3) and fetch prices directly from the providers listed above when needed.</p>
+
+  <h3 id="en-permissions">7. Permissions</h3>
+  <h4>Android <span class="badge">ANDROID</span></h4>
+  <div class="table-scroll">
+  <table>
+    <tr><th>Permission</th><th>Purpose</th></tr>
+    <tr><td><code>INTERNET</code></td><td>Fetch prices and market data from the providers listed above.</td></tr>
+    <tr><td><code>ACCESS_NETWORK_STATE</code></td><td>Check whether a connection is available before fetching.</td></tr>
+    <tr><td><code>POST_NOTIFICATIONS</code></td><td>Show price notifications and alarms (on Android 13+ the app asks; you may decline).</td></tr>
+    <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_DATA_SYNC</code></td><td>Live mode: update prices at short intervals while a visible notification is shown.</td></tr>
+    <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Reschedule background updates and alarms after a reboot.</td></tr>
+    <tr><td><code>VIBRATE</code></td><td>Vibrate on alarms if you enabled it.</td></tr>
+    <tr><td><code>WAKE_LOCK</code></td><td>Briefly keep the device awake while an update is running (via WorkManager).</td></tr>
+    <tr><td><code>USE_BIOMETRIC</code></td><td>Only if you turn on the app lock: unlock with fingerprint, face or device PIN through the Android system. The app only learns “unlocked” or “cancelled”, never any biometric data.</td></tr>
+  </table>
+  </div>
+  <h4>iPhone and iPad <span class="badge">iOS</span></h4>
+  <div class="table-scroll">
+  <table>
+    <tr><th>Feature</th><th>Purpose</th></tr>
+    <tr><td>Notifications</td><td>Show price notifications and alarms. iOS asks once; you may decline and change it any time under <i>Settings › Notifications › Crypto Checker</i>.</td></tr>
+    <tr><td>Time Sensitive notifications</td><td>Deliver alarms even while a Focus is active. Can be turned off in the app’s notification settings.</td></tr>
+    <tr><td>Background App Refresh</td><td>Update prices, alarms and widgets in the background. iOS decides when this happens. Can be turned off under <i>Settings › General › Background App Refresh</i>.</td></tr>
+    <tr><td>App Group</td><td>Local storage shared by the app and its widgets (no prompt, no transfer). The portfolio widget reads total value, change, value history and the largest positions from there; with the app lock on it shows no values.</td></tr>
+    <tr><td>Face ID / Touch ID / passcode</td><td>Only if you turn on the app lock. iOS checks it itself and only tells the app “unlocked” or “cancelled”; the app never receives biometric data.</td></tr>
+  </table>
+  </div>
+  <p>On no platform does the app request access to location, contacts, photos, camera, microphone, calendars, Bluetooth, health data, files (other than the backup file you pick), the advertising identifier or other device identifiers.</p>
+
+  <h3 id="en-payments">8. No payments in the app</h3>
+  <p>The app contains no purchase, subscription, payment or donation feature and does not connect to any wallet.</p>
+
+  <h3 id="en-rights">9. Your rights</h3>
+  <p>Since the developer holds no personal data about you, there is nothing to disclose or delete. You control all app data yourself on your device. For questions, contact the email address above at any time. For processing by the exchanges and data providers listed above, by Apple or by Google, please contact them directly.</p>
+
+  <h3 id="en-children">10. Children</h3>
+  <p>The app is intended for adults (18+) and not directed at children. It does not knowingly collect data from children – and the developer collects no data at all.</p>
+
+  <h3 id="en-notice">11. Not a financial service</h3>
+  <p>Crypto Checker only displays publicly available price and market data. It is not an exchange or a wallet, does not enable trading or payments and does not provide investment advice. The explanations under “Why is this moving?” are hints derived automatically from market data, not recommendations.</p>
+
+  <h3 id="en-changes">12. Changes</h3>
+  <p>If the app changes in a way that requires this policy to be updated, this page will be updated and the date above adjusted.</p>
+
+  <h3 id="en-contact">13. Contact</h3>
+  <p>Rich1e · <a href="mailto:riad.work@outlook.com">riad.work@outlook.com</a></p>
+  <p>You can also post questions and wishes as an <a href="https://github.com/r1adBE/cryptoChecker/issues/new/choose" rel="noopener">issue on GitHub</a> (linked in the app under “About”). Such posts are public; GitHub’s privacy terms apply.</p>
+</section>
+
+<footer>
+  Crypto Checker
+</footer>
+</div>
+</body>
+</html>

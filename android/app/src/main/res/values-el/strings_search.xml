@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">Αναζήτηση ζεύγους ή ανταλλακτηρίου</string>
+    <string name="watchlist_search_open">Αναζήτηση</string>
+    <string name="watchlist_search_close">Κλείσιμο αναζήτησης</string>
+    <string name="watchlist_search_empty">Κανένα αποτέλεσμα για «%1$s»</string>
+</resources>

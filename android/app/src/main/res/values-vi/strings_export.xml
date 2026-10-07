@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Xuất theo ngày chốt…</string>
+    <string name="portfolio_export_title">Xuất theo ngày chốt</string>
+    <string name="portfolio_export_date">Ngày chốt</string>
+    <string name="portfolio_export_currency">Tiền tệ: %1$s</string>
+    <string name="portfolio_export_hint">Số lượng nắm giữ vào cuối ngày đã chọn, định giá theo giá đóng cửa ngày (UTC) bằng USDT và quy đổi theo tỷ giá tham chiếu ECB của ngày đó. Đổi tiền tệ trong «Quy đổi sang».</string>
+    <string name="portfolio_export_button">Xuất CSV</string>
+    <string name="portfolio_export_running">Đang lấy giá lịch sử…</string>
+    <string name="portfolio_export_done">Đã lưu bản xuất</string>
+    <string name="portfolio_export_failed">Xuất thất bại</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Ngày chốt %1$s, tiền tệ %2$s, tỷ giá ngày %3$s</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_amount">Số lượng</string>
+    <string name="portfolio_export_col_price">Giá USDT</string>
+    <string name="portfolio_export_col_value">Giá trị USDT</string>
+    <string name="portfolio_export_col_rate">Tỷ giá USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Giá trị %1$s</string>
+    <string name="portfolio_export_col_note">Ghi chú</string>
+    <string name="portfolio_export_total">Tổng</string>
+    <string name="portfolio_export_no_price">không có giá</string>
+    <string name="portfolio_export_no_fx">không có tỷ giá</string>
+    <string name="portfolio_export_incomplete">chưa đầy đủ</string>
+</resources>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Kesalahan: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Tidak ada pasangan mata uang</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Ketuk di sini untuk mengunduh pasangan mata uang terbaru dari bursa yang dipilih.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Perbarui pasangan mata uang</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sinkronkan sekarang!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Sinkronisasi terakhir: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">belum pernah</string>
+
+    <string name="market_screen_sync">Sinkron</string>
+    <string name="market_screen_base">Base</string>
+    <string name="market_screen_quote">Quote</string>
+    <string name="market_screen_market">Pasar</string>
+    <string name="market_screen_contract_type">Jenis kontrak</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Tertinggi</string>
+    <string name="ticker_low">Terendah</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_vol_base">Volume (base)</string>
+    <string name="ticker_vol_quote">Volume (quote)</string>
+    <string name="ticker_timestamp">Waktu</string>
+
+
+    <string name="try_again">Coba lagi</string>
+    <string name="no_internet_connection">Tidak ada koneksi internet</string>
+    <string name="something_went_wrong">Terjadi kesalahan</string>
+
+    <string name="bulk_all_pairs">Semua pasangan %1$s di bursa ini</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">%1$d pasangan %2$s ditemukan</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Tidak ada pasangan %1$s di bursa ini untuk jenis kontrak yang dipilih. Sinkronkan bursa terlebih dahulu, atau coba jenis kontrak lain.</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">Muat ulang</string>
+    <string name="action_add_pair">Tambah pasangan</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_back">Kembali</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_cancel">Batal</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Belum ada pasangan</string>
+    <string name="watchlist_empty_hint">Atau pilih bursa dan pasangan di “Tambah”. Setiap pasangan bisa memiliki notifikasi, pembaruan suara, dan alarm harga.</string>
+    <string name="watchlist_updated">Diperbarui: %1$s</string>
+    <string name="watchlist_notification">Notifikasi</string>
+    <string name="watchlist_tts">Ucapkan harga</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">Alarm (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">Alarm</string>
+    <string name="alarms_add">Alarm baru</string>
+    <string name="alarms_edit">Edit alarm</string>
+    <string name="alarms_empty">Belum ada alarm untuk pasangan ini.</string>
+    <string name="alarm_condition_above">Harga di atas</string>
+    <string name="alarm_condition_below">Harga di bawah</string>
+    <string name="alarm_condition_up_percent">Naik sebesar</string>
+    <string name="alarm_condition_down_percent">Turun sebesar</string>
+    <string name="alarm_repeating">Berulang</string>
+    <string name="alarm_once">Sekali</string>
+    <string name="alarm_last_triggered">terakhir %1$s</string>
+    <string name="alarm_field_price">Harga</string>
+    <string name="alarm_field_percent">Persen</string>
+    <string name="alarm_option_repeating">Pertahankan alarm setelah berbunyi</string>
+    <string name="alarm_option_sound">Suara</string>
+    <string name="alarm_option_vibrate">Getar</string>
+    <string name="alarm_option_speak">Ucapkan alarm</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">Harga</string>
+    <string name="channel_prices_description">Notifikasi senyap berisi harga terkini sebuah pasangan.</string>
+    <string name="channel_alarms">Alarm</string>
+    <string name="channel_alarms_description">Notifikasi saat alarm harga berbunyi.</string>
+    <string name="channel_service">Mode live</string>
+    <string name="channel_service_description">Pemberitahuan selama harga diperbarui dengan interval singkat.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, dari %2$s (%3$s lalu)</string>
+    <string name="notification_price_change_no_age">%1$s, dari %2$s</string>
+    <string name="notification_price_first">Notifikasi pertama untuk pasangan ini</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — sekarang %2$s</string>
+    <string name="market_phase_title">Fase pasar Bitcoin</string>
+    <string name="market_phase_trend_loading">Memuat data harga…</string>
+    <string name="market_phase_trend_failed">Data harga tidak tersedia</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Banyak sinyal dasar historis sekaligus – zona akumulasi historis.</string>
+    <string name="zone_hint_bear">Tren turun atau fase pembentukan dasar, belum ada kapitulasi luas.</string>
+    <string name="zone_hint_neutral">Sinyal campuran, tanpa arah yang jelas.</string>
+    <string name="zone_hint_bull">Tren naik tanpa overheating ekstrem.</string>
+    <string name="zone_hint_extreme_bull">Banyak sinyal puncak historis sekaligus – risiko puncak meningkat.</string>
+    <string name="market_scores">Tanda kemungkinan puncak %1$d/10 · dasar %2$d/10</string>
+    <string name="market_show_indicators">Tampilkan indikator</string>
+    <string name="market_hide_indicators">Sembunyikan indikator</string>
+    <string name="market_onchain_missing">Data on-chain (Coin Metrics) sedang tidak tersedia – skor hanya dari data harga.</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Harga vs. rata-rata 200 minggu</string>
+    <string name="ind_drawdown">Penurunan dari harga tertinggi sepanjang masa</string>
+    <string name="ind_hash">Kapitulasi penambang (hash ribbons)</string>
+    <string name="ind_parabolic">Kenaikan parabolik (30 hari)</string>
+    <string name="ind_halving">Bulan sejak halving</string>
+    <string name="ind_ath">Bulan sejak harga tertinggi sepanjang masa</string>
+    <string name="ind_points_top">+%1$d puncak</string>
+    <string name="ind_points_bottom">+%1$d dasar</string>
+    <string name="market_phase_disclaimer">Berdasarkan siklus sebelumnya dan tren harga. Bukan prediksi dan bukan saran investasi.</string>
+    <string name="action_retry">Coba lagi</string>
+    <string name="settings_section_language">Bahasa</string>
+    <string name="settings_language_system">Bahasa sistem</string>
+    <string name="settings_language_choose">Pilih bahasa</string>
+    <string name="settings_section_appearance">Tampilan</string>
+    <string name="settings_theme_mode">Mode</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="settings_accent">Warna</string>
+    <string name="accent_orange">Oranye</string>
+    <string name="accent_red">Merah</string>
+    <string name="accent_blue">Biru</string>
+    <string name="accent_green">Hijau</string>
+    <string name="settings_rolling_futures">Termasuk futures kuartalan &amp; berjangka lainnya</string>
+    <string name="settings_rolling_futures_hint">Nonaktif: futures berjangka yang tidak ada di daftar bursa ditandai tidak lagi diperdagangkan, alih-alih diperiksa satu per satu. Menghemat waktu setiap kali memuat ulang.</string>
+    <string name="notification_refreshing">Memperbarui harga…</string>
+    <string name="notification_service_title">Mode live Crypto Checker</string>
+    <string name="notification_service_starting">Memulai…</string>
+    <plurals name="notification_service_running">
+        <item quantity="other">%1$d pasangan · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">Tidak ada pasangan di daftar pantau</string>
+    <string name="notification_service_error">Pembaruan gagal</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="settings_background_updates">Pembaruan latar belakang</string>
+    <string name="settings_background_updates_hint">Harga, alarm, dan widget tetap diperbarui meskipun aplikasi ditutup.</string>
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_live_service">Mode live</string>
+    <string name="settings_live_service_hint">Menjalankan layanan untuk interval singkat. Lebih boros baterai.</string>
+    <string name="settings_live_interval">Interval live</string>
+    <string name="settings_minutes">%1$d mnt</string>
+    <string name="settings_seconds">%1$d dtk</string>
+    <string name="settings_price_notifications">Notifikasi harga</string>
+    <string name="settings_price_notifications_hint">Tampilkan harga terkini pasangan yang diaktifkan di bilah status.</string>
+    <string name="settings_ongoing_notifications">Tidak bisa digeser untuk menutup</string>
+    <string name="settings_ongoing_notifications_hint">Notifikasi harga tetap disematkan.</string>
+    <string name="settings_notification_change">Beri tahu hanya saat harga berubah</string>
+    <string name="settings_notification_change_always">Selalu</string>
+    <string name="settings_notification_change_hint">Notifikasi hanya muncul jika harga sudah bergerak setidaknya sebesar ini sejak notifikasi terakhir. Tidak ada yang ditampilkan selama data belum tersedia. Alarm tidak terpengaruh.</string>
+    <string name="settings_alarm_cooldown">Jeda sebelum alarm berbunyi lagi</string>
+    <string name="settings_tts">Output suara</string>
+    <string name="settings_tts_alarms_only">Hanya alarm</string>
+    <string name="settings_tts_alarms_only_hint">Nonaktif: setiap pembaruan pasangan dengan «Ucapkan harga» akan dibacakan.</string>
+    <string name="settings_speech_rate">Kecepatan bicara: %1$.1f×</string>
+    <string name="settings_tts_test">Tes suara</string>
+    <string name="battery_title">Jaga harga tetap terkini</string>
+    <string name="battery_message">Android menunda pekerjaan latar belakang untuk menghemat daya — harga dan widget bisa tertinggal berjam-jam. Mengatur penggunaan baterai ke tidak dibatasi menjaganya tetap terkini. Anda bisa mengubahnya kapan saja di pengaturan Android.</string>
+    <string name="battery_later">Nanti</string>
+    <string name="settings_battery_ok">Penggunaan baterai: tidak dibatasi</string>
+    <string name="settings_battery_restricted">Penggunaan baterai: dibatasi</string>
+    <string name="settings_battery_hint">Dibatasi berarti Android bisa menunda pembaruan latar belakang hingga berjam-jam.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Menampilkan harga sebuah pasangan dari daftar pantau Anda.</string>
+    <string name="widget_empty">Belum ada pasangan di daftar pantau.</string>
+    <string name="widget_opacity">Opasitas latar: %1$d%%</string>
+    <string name="settings_section_about">Tentang</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Harga langsung dari bursa; tanpa akun dan tanpa pelacakan.</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">Token di luar bursa besar, dari bursa terdesentralisasi (Uniswap, PancakeSwap, Raydium …) melalui DexScreener. Cari token dan tambahkan pool perdagangannya – harga dalam dolar AS.</string>
+    <string name="dex_search_hint">Nama token, simbol, atau alamat</string>
+    <string name="dex_search">Cari</string>
+    <string name="dex_no_results">Pool tidak ditemukan.</string>
+    <string name="dex_added">%1$s ditambahkan ke daftar pantau.</string>
+    <string name="dex_already">%1$s sudah ada di daftar pantau.</string>
+    <string name="dex_liquidity">Likuiditas %1$s</string>
+    <string name="dex_add">Tambah</string>
+    <string name="action_sort">Urutkan</string>
+    <string name="action_sort_done">Selesai</string>
+    <string name="sort_move_top">Ke paling atas</string>
+    <string name="sort_move_up">Naik</string>
+    <string name="sort_move_down">Turun</string>
+    <string name="sort_move_bottom">Ke paling bawah</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">Tambahkan semua %1$d pasangan ke daftar pantau</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">%1$d ditambahkan, %2$d sudah ada di daftar pantau.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Tambah ke daftar pantau</string>
+    <string name="explorer_added_to_watchlist">Ditambahkan ke daftar pantau.</string>
+    <string name="explorer_already_in_watchlist">Pasangan ini sudah ada di daftar pantau.</string>
+    <string name="explorer_no_pair_selected">Pilih pasangan terlebih dahulu.</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, sekarang %5$s</string>
+    <string name="tts_direction_up">telah naik</string>
+    <string name="tts_direction_down">telah turun</string>
+    <string name="watchlist_refresh_report">Pembaruan terakhir</string>
+    <string name="watchlist_refresh_report_empty">Belum ada rincian: versi ini belum menyelesaikan pembaruan penuh. Ketuk muat ulang dan tunggu hingga ikon putar berhenti.</string>
+    <string name="action_close">Tutup</string>
+    <string name="watchlist_clear">Kosongkan daftar pantau</string>
+    <string name="watchlist_clear_confirm">Hapus semua pasangan dari daftar pantau? Alarmnya juga akan ikut terhapus.</string>
+    <string name="market_scores_hint">Puncak = tanda seperti pada puncak siklus sebelumnya, dasar = tanda seperti pada dasar siklus sebelumnya. Mulai 4 poin satu sisi dominan, mulai 7 ekstrem. Tanpa target harga dan tanpa prakiraan.</string>
+    <string name="market_scores_none">Tidak ada tanda puncak atau dasar yang aktif: fase tengah yang tenang, tren harga yang menentukan.</string>
+    <string name="market_scores_info_title">Sinyal siklus</string>
+    <string name="market_scores_info_text">Tanda kemungkinan puncak menghitung sinyal yang muncul di puncak siklus sebelumnya: overvaluasi kuat (MVRV), pendapatan penambang sangat tinggi (Puell), harga jauh di atas rata-rata 200 hari atau 200 minggu, kenaikan parabolik, dan jendela 12–18 bulan setelah halving.\n\nTanda kemungkinan dasar menghitung sinyal dasar sebelumnya: MVRV rendah, pendapatan penambang lemah, penurunan tajam dari harga tertinggi sepanjang masa, harga dekat rata-rata 200 minggu, hashrate menurun, dan puncak lebih dari setahun lalu.\n\nDengan keunggulan 4 poin zonanya Bull atau Bear, mulai 7 Ekstrem. Jika tidak ada sisi yang unggul, tren harga yang menentukan. 0/10 di kedua sisi berarti: bukan euforia, bukan kapitulasi.\n\nTanpa target harga dan tanpa prakiraan: sinyal hanya menggambarkan seperti apa siklus-siklus sebelumnya.</string>
+    <string name="battery_open_settings">Buka setelan baterai</string>
+    <string name="battery_steps">Di info aplikasi, ketuk Baterai (atau Penggunaan baterai aplikasi) lalu pilih Tidak dibatasi.</string>
+    <string name="explorer_select_placeholder">Silakan pilih</string>
+    <string name="explorer_bulk_title">Beberapa pasangan sekaligus</string>
+    <string name="watchlist_sort_hint">Tahan dan seret pasangan, atau gunakan pegangan. Favorit tetap di atas.</string>
+    <string name="sort_drag_handle">Seret untuk memindahkan</string>
+    <string name="explorer_step_pair">Pilih pasangan</string>
+    <string name="theme_system">Sistem</string>
+    <string name="settings_section_developer">Pengembang</string>
+    <string name="settings_http_log">Tampilkan log HTTP</string>
+    <string name="settings_http_log_hint">Menampilkan permintaan ke bursa di bagian bawah tab “Tambah” – untuk pemecahan masalah.</string>
+    <string name="language_search">Cari bahasa</string>
+    <string name="alarm_delete_title">Hapus alarm?</string>
+    <string name="alarm_delete_confirm">Alarm ini akan dihapus.</string>
+    <string name="alarms_overview_title">Semua alarm</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">%1$d aktif</item>
+    </plurals>
+    <string name="alarms_overview_empty">Belum ada alarm. Buka pasangan dan tambahkan di Alarm.</string>
+    <string name="action_more">Opsi lainnya</string>
+    <string name="watchlist_last_run">Proses terakhir %1$s</string>
+    <string name="watchlist_pull_to_refresh">Tarik ke bawah untuk memperbarui</string>
+    <string name="favorite_add">Tambahkan ke favorit</string>
+    <string name="favorite_remove">Hapus dari favorit</string>
+    <string name="action_view">Lihat</string>
+    <string name="explorer_loading_pairs">Memuat pasangan…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d pasangan · diperbarui %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">Tambahkan %1$d pasangan?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">Semua %1$d pasangan %2$s dari %3$s akan ditambahkan ke daftar. Yang sudah ada dilewati.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Ketuk pasangan untuk memilihnya di atas.</string>
+    <string name="loading_hint">Memuat…</string>
+    <string name="explorer_select_market_hint">Pilih bursa – pasangannya dimuat otomatis.</string>
+    <string name="explorer_precise_title">Pilih tepat</string>
+    <string name="explorer_search_hint">Cari koin, mis. BTC atau ETH USDT</string>
+    <string name="explorer_search_loading">Mencari di bursa… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Tidak ada hasil.</string>
+    <string name="action_clear">Hapus</string>
+    <string name="explorer_bulk_show_list">Tampilkan daftar</string>
+    <string name="explorer_bulk_hide_list">Sembunyikan daftar</string>
+    <string name="time_just_now">baru saja</string>
+    <string name="welcome_title">Crypto Checker</string>
+    <string name="welcome_text">Harga Anda. Alarm Anda. Ringkasan Anda.\nTanpa akun. Tanpa iklan. Tanpa pelacakan.</string>
+    <string name="welcome_later">Nanti</string>
+    <string name="developer_unlocked">Opsi pengembang terbuka</string>
+    <string name="hint_favorites_list">Tips: ketuk ☆ untuk favorit – favorit tetap di atas.</string>
+    <string name="tab_watchlist">Daftar</string>
+    <string name="tab_markets">Tambah</string>
+    <string name="tab_market_phase">Pasar</string>
+    <string name="tab_settings">Setelan</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%1$d dari %2$d usang</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Semua terbaru · %1$s</string>
+    <string name="explorer_price_loading">Memuat harga…</string>
+    <string name="zone_top_risk">Risiko puncak</string>
+    <string name="zone_bottom_chance">Pembentukan dasar</string>
+    <string name="timeout_error_message">Bursa sedang tidak merespons.</string>
+    <string name="widget_background">Latar</string>
+    <string name="widget_configure_title">Atur widget</string>
+    <string name="widget_configure_hint">Pilih latar dan opasitas. Warna mengikuti aplikasi. Widget menampilkan seluruh daftar; ketuk baris untuk membuka aplikasi.</string>
+    <string name="settings_custom_value">Kustom</string>
+    <string name="insights_halving_title">Halving Bitcoin</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="other">Halving berikutnya sekitar %1$d hari lagi (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% dari siklus saat ini</string>
+    <string name="insights_cycle_chart">Siklus sejak halving</string>
+    <string name="insights_chart_axis">Tahun sejak halving</string>
+    <string name="insights_chart_hint">Harga sebagai kelipatan harga pada hari halving (skala log). Siklus lalu adalah pola, bukan ramalan.</string>
+    <string name="insights_source_history">Sumber: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="fng_extreme_fear">Ketakutan ekstrem</string>
+    <string name="fng_fear">Ketakutan</string>
+    <string name="fng_neutral">Netral</string>
+    <string name="fng_greed">Keserakahan</string>
+    <string name="fng_extreme_greed">Keserakahan ekstrem</string>
+    <string name="insights_fng_history">Kemarin %1$s · seminggu lalu %2$s · sebulan lalu %3$s</string>
+    <string name="insights_source_fng">Sumber: alternative.me</string>
+    <string name="insights_dominance_title">Dominasi Bitcoin</string>
+    <string name="insights_altseason_title">Musim altcoin</string>
+    <string name="altseason_alt">Musim altcoin</string>
+    <string name="altseason_btc">Musim Bitcoin</string>
+    <string name="altseason_mixed">Campuran</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="other">%1$d dari %2$d altcoin besar mengungguli Bitcoin dalam 90 hari</item>
+    </plurals>
+    <string name="insights_source_dominance">Sumber: CoinGecko, Binance</string>
+    <string name="coin_title">Analisis koin</string>
+    <string name="coin_choose">Koin</string>
+    <string name="coin_no_data">Tidak ada data harga untuk koin ini di Binance atau Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">Hanya %1$d hari riwayat – beberapa indikator tidak ada.</item>
+    </plurals>
+    <string name="coin_price_only">Hanya berdasarkan harga – data on-chain (MVRV, Puell, hashrate) gratis hanya untuk Bitcoin.</string>
+    <string name="ind_rsi_weekly">RSI (mingguan)</string>
+    <string name="ind_rsi_daily">RSI (harian)</string>
+    <string name="ind_pi_cycle">Pi cycle (111/350 hari)</string>
+    <string name="ind_cross">Tren 50/200 hari</string>
+    <string name="ind_vs_btc">Kekuatan vs Bitcoin (90 hari)</string>
+    <string name="ind_missing">data kurang</string>
+    <string name="channel_market">Fase pasar</string>
+    <string name="channel_market_description">Memberi tahu saat fase pasar Bitcoin berubah</string>
+    <string name="notification_zone_title">Bitcoin: %1$s</string>
+    <string name="notification_zone_text">Fase pasar telah berubah dari %1$s ke %2$s.</string>
+    <string name="settings_zone_alerts">Beri tahu saat fase berubah</string>
+    <string name="settings_zone_alerts_hint">Memeriksa dua kali sehari dan memberi tahu saat Bitcoin berpindah zona, mis. dari Netral ke Bull.</string>
+    <string name="alarm_condition_move_percent">Bergerak sebesar</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">dalam %1$d jam</item>
+    </plurals>
+    <string name="alarm_window_label">Jendela waktu</string>
+    <string name="tts_direction_move">bergerak tajam</string>
+    <string name="settings_fng_below">Fear &amp; Greed: beri tahu di bawah</string>
+    <string name="settings_fng_above">Fear &amp; Greed: beri tahu di atas</string>
+    <string name="option_off">Mati</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">Indeks turun di bawah %1$d – pasar takut.</string>
+    <string name="notification_fng_above">Indeks naik di atas %1$d – pasar serakah.</string>
+    <string name="futures_title">Data futures</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_next_funding">berikutnya dalam %1$d j %2$d mnt</string>
+    <string name="futures_open_interest">Open interest</string>
+    <string name="futures_source">Sumber: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – satu koin</string>
+    <string name="single_widget_description">Menampilkan satu koin besar dengan harga, perubahan, dan grafik 24 jam.</string>
+    <string name="single_widget_choose">Pilih pasangan</string>
+    <string name="single_widget_title">Atur widget tunggal</string>
+    <string name="shortcut_add">Tambah pasangan</string>
+    <string name="shortcut_alarms">Semua alarm</string>
+    <string name="shortcut_cycle">Pasar</string>
+    <string name="backup_title">Cadangkan &amp; pulihkan</string>
+    <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan setelan ke file yang Anda simpan sendiri – mis. untuk ponsel baru.</string>
+    <string name="backup_export">Ekspor</string>
+    <string name="backup_import">Impor</string>
+    <string name="backup_restore_confirm">Impor mengganti daftar (beserta catatan dan grup), alarm, favorit, portofolio, dan setelan Anda dengan cadangan.</string>
+    <string name="backup_exported">Cadangan disimpan.</string>
+    <string name="backup_failed">Gagal. Apakah ini cadangan Crypto Checker?</string>
+    <string name="backup_restored">Dipulihkan: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d pasangan</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">%1$d alarm</item>
+    </plurals>
+</resources>

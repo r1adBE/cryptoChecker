@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">صدای هشدار</string>
+    <string name="settings_alarm_sound_default">صدای پیش‌فرض</string>
+    <string name="settings_alarm_sound_custom">صدای سفارشی</string>
+    <string name="settings_alarm_sound_system">انتخاب صدای سیستم…</string>
+    <string name="settings_alarm_sound_file">فایل صوتی شخصی…</string>
+    <string name="settings_alarm_sound_reset">استفاده از صدای پیش‌فرض</string>
+    <string name="settings_alarm_sound_error">استفاده از این صدا ممکن نشد.</string>
+</resources>

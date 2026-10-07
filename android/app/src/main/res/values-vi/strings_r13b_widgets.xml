@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">đã cũ</string>
+    <string name="widget_outdated_time">đã cũ · %1$s</string>
+
+    <string name="settings_widgets">Tiện ích</string>
+    <string name="settings_widgets_hint">Thêm giá vào màn hình chính</string>
+    <string name="widgets_sheet_title">Thêm tiện ích</string>
+    <string name="widget_kind_single">Một coin</string>
+    <string name="widgets_add">Thêm</string>
+    <string name="widgets_add_named">Thêm tiện ích %1$s</string>
+    <string name="watch_action_add_widget">Thêm dưới dạng tiện ích</string>
+    <string name="widgets_manual_title">Tự thêm tiện ích</string>
+    <string name="widgets_manual_text">Màn hình chính của bạn không thể thêm tiện ích từ ứng dụng. Chạm và giữ một chỗ trống trên màn hình chính, chọn “Tiện ích” rồi tìm “Crypto Checker”.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS không cho phép ứng dụng tự thêm tiện ích. Chỉ mất một chút thời gian:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Chạm và giữ một chỗ trống trên Màn hình chính cho đến khi các ứng dụng rung lên.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Chạm vào “Sửa” › “Thêm tiện ích” ở trên cùng (hoặc “+” trên các phiên bản iOS cũ hơn).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Tìm “Crypto Checker”, chọn một tiện ích rồi chạm vào “Thêm tiện ích”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tiện ích có sẵn</string>
+</resources>

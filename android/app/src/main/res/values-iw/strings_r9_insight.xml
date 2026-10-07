@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">מה בולט עכשיו</string>
+    <string name="pulse_why_action">למה? →</string>
+    <string name="pulse_section_factors">גורמים</string>
+
+    <string name="pulse_lead_btc_leads">ביטקוין מוביל את השוק.</string>
+    <string name="pulse_lead_alts_stronger">האלטקוינים חזקים מביטקוין.</string>
+    <string name="pulse_lead_btc_stronger">ביטקוין חזק מהאלטקוינים.</string>
+    <string name="pulse_lead_broad_up">השוק עולה באופן רחב.</string>
+    <string name="pulse_lead_broad_down">השוק יורד באופן רחב.</string>
+    <string name="pulse_lead_drift_up">השוק עולה מעט.</string>
+    <string name="pulse_lead_drift_down">השוק יורד מעט.</string>
+    <string name="pulse_lead_mixed">המטבעות הגדולים נעים בכיוונים שונים.</string>
+    <string name="pulse_lead_calm">השוק כמעט לא זז.</string>
+
+    <string name="pulse_detail_vol_above">נפח גבוה ב-%1$d%% מהרגיל.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">נפח גבוה ב-%1$d%% מהרגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_above_fund_high">נפח גבוה ב-%1$d%% מהרגיל, מימון גבוה.</string>
+    <string name="pulse_detail_vol_above_fund_negative">נפח גבוה ב-%1$d%% מהרגיל, מימון שלילי.</string>
+    <string name="pulse_detail_vol_below">נפח נמוך ב-%1$d%% מהרגיל.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">נפח נמוך ב-%1$d%% מהרגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_below_fund_high">נפח נמוך ב-%1$d%% מהרגיל, מימון גבוה.</string>
+    <string name="pulse_detail_vol_below_fund_negative">נפח נמוך ב-%1$d%% מהרגיל, מימון שלילי.</string>
+    <string name="pulse_detail_vol_normal">נפח רגיל.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">נפח רגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_normal_fund_high">נפח רגיל, מימון גבוה.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">נפח רגיל, מימון שלילי.</string>
+    <string name="pulse_detail_fund_neutral">מימון ניטרלי.</string>
+    <string name="pulse_detail_fund_high">מימון גבוה.</string>
+    <string name="pulse_detail_fund_negative">מימון שלילי.</string>
+
+    <string name="factor_volume">נפח</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">מימון</string>
+    <string name="factor_volatility">תנודתיות (1h)</string>
+    <string name="factor_spoken_volume">פי %1$s מהרגיל</string>
+    <string name="factor_spoken_volatility">פי %1$s מהתנודה הרגילה</string>
+
+    <string name="why_title_coin">למה %1$s זז?</string>
+    <string name="why_details">הצגת פרטים</string>
+    <string name="why_details_hide">הסתרת פרטים</string>
+    <string name="why_f_market_wide">כל השוק זז</string>
+    <string name="why_f_coin_only">רק המטבע הזה</string>
+    <string name="why_f_against">נגד השוק</string>
+    <string name="why_f_market_calm">שוק רגוע</string>
+    <string name="why_f_leader">ביטקוין מכתיב את הכיוון</string>
+    <string name="why_f_leverage_longs">מינוף: הרבה לונגים</string>
+    <string name="why_f_leverage_shorts">מינוף: הרבה שורטים</string>
+    <string name="why_f_leverage_balanced">מינוף מאוזן</string>
+    <string name="insights_dominance_eth">ETH %1$s מכלל השוק</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d חודש מאז ה־halving ב־%2$s</item>
+        <item quantity="two">%1$d חודשים מאז ה־halving ב־%2$s</item>
+        <item quantity="other">%1$d חודשים מאז ה־halving ב־%2$s</item>
+    </plurals>
+</resources>

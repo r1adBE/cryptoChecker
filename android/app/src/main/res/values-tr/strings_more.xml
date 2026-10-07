@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Bugün piyasa</string>
+    <string name="pulse_alts_stronger">Altcoin\'ler Bitcoin\'den güçlü</string>
+    <string name="pulse_alts_weaker">Bitcoin altcoin\'lerden güçlü</string>
+    <string name="pulse_alts_even">Altcoin\'ler ve Bitcoin benzer hareket ediyor</string>
+    <string name="pulse_volume_high">İşlem hacmi olağandışı yüksek (normalin %1$s×)</string>
+    <string name="pulse_volume_low">İşlem hacmi düşük (normalin %1$s×)</string>
+    <string name="pulse_volume_normal">İşlem hacmi normal</string>
+    <string name="pulse_funding_high">Fonlama belirgin şekilde pozitif: çok sayıda kaldıraçlı long</string>
+    <string name="pulse_funding_slight">Fonlama hafif pozitif</string>
+    <string name="pulse_funding_neutral">Fonlama nötr</string>
+    <string name="pulse_funding_negative">Fonlama negatif: çok sayıda short</string>
+    <string name="pulse_gas_low">Ethereum gas düşük (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum gas normal (%1$s gwei)</string>
+    <string name="pulse_gas_high">Ethereum gas yüksek (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Tahmin değildir · Yatırım tavsiyesi değildir</string>
+    <string name="pulse_less">Daha az göster</string>
+    <string name="pulse_updated">%1$s itibarıyla</string>
+    <string name="pulse_unavailable">Piyasa verileri şu anda kullanılamıyor</string>
+    <string name="why_summary_title">Kısaca</string>
+    <string name="why_summary_market_volume">Harekete daha yüksek işlem hacmi ve geniş çapta hareket eden bir piyasa eşlik ediyor.</string>
+    <string name="why_summary_market">Hareket genel piyasayı izliyor.</string>
+    <string name="why_summary_coin_volume">Yalnızca bu coin hareket ediyor, daha yüksek hacimle – muhtemelen coin\'in kendisine özgü bir neden.</string>
+    <string name="why_summary_coin">Yalnızca bu coin hareket ediyor – muhtemelen coin\'in kendisine özgü bir neden.</string>
+    <string name="why_summary_against">Coin piyasaya ters yönde hareket ediyor.</string>
+    <string name="why_summary_thin">Hareket zayıf: arkasında az hacim var.</string>
+    <string name="why_summary_calm">Dikkat çekici hareket yok: piyasa ve coin sakin.</string>
+    <string name="why_summary_longs">Vadeli işlemler: çok sayıda kaldıraçlı long pozisyon.</string>
+    <string name="why_summary_shorts">Vadeli işlemler: çok sayıda short pozisyon.</string>
+    <string name="why_dot_supports">hareketi destekliyor</string>
+    <string name="why_dot_caution">yüksek</string>
+    <string name="why_dot_neutral">nötr</string>
+    <string name="alarm_test">Alarmı test et</string>
+    <string name="alarm_test_hint">Ses, titreşim ve sesli okuma ayarlarınızla örnek bir alarm gönderir.</string>
+    <string name="alarm_test_title">Test: Crypto Checker alarmı</string>
+    <string name="alarm_test_text">Bir alarm böyle görünür ve böyle ses çıkarır.</string>
+    <string name="alarm_test_quiet">Şu anda sessiz saatler etkin: gerçek alarmlar sessiz gelirdi.</string>
+    <string name="alarm_test_denied">Crypto Checker için bildirimler kapalı.</string>
+    <string name="alarm_test_open_settings">Ayarları aç</string>
+    <string name="alarm_first_title">Her şey hazır</string>
+    <string name="welcome_watch">İzle – coin\'leriniz, fiyatlar, grafikler ve widget\'lar</string>
+    <string name="welcome_alert">Alarm – fiyat, yüzde, hacim ve olağandışı hareketler</string>
+    <string name="welcome_understand">Anla – piyasa şu anda neden hareket ediyor?</string>
+    <string name="welcome_start">Başlayalım</string>
+    <string name="portfolio_empty_example">Örnek: 1 Mart\'ta %1$s fiyatından 0,01 BTC alındı. Uygulama ardından değeri, ortalama alış fiyatını ve kâr/zararı gösterir – yalnızca bu cihazda saklanır.</string>
+    <string name="about_why">Crypto Checker, Rich1e\'ın bağımsız bir projesidir: hesap, reklam ve takip olmadan sakin bir fiyat görünümü. Sorular ve istekler: %1$s</string>
+    <string name="a11y_move_up">Yukarı taşı</string>
+    <string name="a11y_move_down">Aşağı taşı</string>
+    <string name="a11y_in_watchlist">Zaten izleme listesinde</string>
+    <string name="portfolio_export_today_hint">Bugün henüz bitmedi: günlük kapanış fiyatı yerine güncel fiyat kullanılıyor.</string>
+    <string name="about_privacy_policy">Gizlilik politikası</string>
+    <string name="widget_chart_type">Grafik türü</string>
+    <string name="widget_chart_line">Çizgi</string>
+    <string name="widget_chart_candles">Mumlar</string>
+    <string name="pair_added_watching">%1$s artık izleniyor</string>
+    <string name="market_cap_title">Kripto piyasası</string>
+    <string name="market_cap_label">Piyasa değeri</string>
+    <string name="market_volume_label">Hacim 24 sa</string>
+    <string name="market_cap_source">Tüm coin\'ler · CoinGecko</string>
+    <string name="market_data_empty_error">Borsadan veri alınamadı.</string>
+    <string name="sync_pairs_count">İşlem çiftleri: %1$d</string>
+    <string name="market_unavailable_error">Borsa kullanılamıyor</string>
+    <string name="refresh_report_aborted">Yenileme iptal edildi:</string>
+    <string name="refresh_report_wait">Başlangıca kadar bekleme: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Toplam %1$s · %2$d çift</item>
+        <item quantity="other">Toplam %1$s · %2$d çift</item>
+    </plurals>
+    <string name="refresh_report_network">Ağ %1$s</string>
+    <string name="refresh_report_database">Veritabanı %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Alarmlar/bildirimler %1$s · %2$d bildirim</item>
+        <item quantity="other">Alarmlar/bildirimler %1$s · %2$d bildirim</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widget\'lar %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d çift, %3$s</item>
+        <item quantity="other">%1$s: %2$d çift, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">toplu istek %1$s (%2$d fiyat)</item>
+        <item quantity="other">toplu istek %1$s (%2$d fiyat)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">toplu istek %1$s (başarısız)</string>
+    <string name="refresh_report_singles">%1$d tek tek</string>
+    <string name="refresh_report_slowest">en yavaş %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d artık işlem görmüyor</item>
+        <item quantity="other">%1$d artık işlem görmüyor</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d hata</item>
+        <item quantity="other">%1$d hata</item>
+    </plurals>
+    <string name="starter_add_selected">İzleme listesine ekle (%1$d)</string>
+    <string name="starter_select_all">Tümünü seç</string>
+    <string name="starter_select_none">Hiçbirini seçme</string>
+    <string name="starter_loading_prices">Fiyatlar yükleniyor…</string>
+    <string name="watchlist_removed">%1$s kaldırıldı</string>
+    <string name="action_undo">Geri al</string>
+    <string name="favorite_added">%1$s favorilere eklendi</string>
+    <string name="favorite_removed">%1$s favorilerden çıkarıldı</string>
+    <string name="cycle_data_as_of">Veriler: %1$s · güncelleniyor…</string>
+    <string name="settings_conversion_currency_hint">Portföy, kendi para biriminizdeki alarmlar, Kripto piyasası kartı ve Portföy widget\'ı için de kullanılır.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d yükseliyor</item>
+        <item quantity="other">%1$d yükseliyor</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d düşüyor</item>
+        <item quantity="other">%1$d düşüyor</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, ortalama %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d çift yükseliyor</item>
+        <item quantity="other">%1$d çift yükseliyor</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d düşüyor</item>
+        <item quantity="other">%1$d düşüyor</item>
+    </plurals>
+    <string name="pulse_headline_up">Geniş güç</string>
+    <string name="pulse_headline_down">Geniş zayıflık</string>
+    <string name="pulse_headline_mixed">Karışık görünüm</string>
+    <string name="pulse_headline_calm">Sakin piyasa</string>
+    <string name="pulse_chip_funding_high">Fonlama yüksek</string>
+    <string name="pulse_chip_funding_negative">Fonlama negatif</string>
+    <string name="market_signal_top">Tepe işaretleri %1$d/10</string>
+    <string name="market_signal_bottom">Dip işaretleri %1$d/10</string>
+    <string name="market_section_now">Şu an</string>
+    <string name="market_section_context">Bağlam</string>
+    <string name="market_section_data">Veriler</string>
+</resources>

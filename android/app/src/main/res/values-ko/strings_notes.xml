@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">메모</string>
+    <string name="note_add">메모 추가</string>
+    <string name="note_edit">메모 편집</string>
+    <string name="note_hint">예: 0.42에 진입, 목표 0.60</string>
+    <string name="note_remove">제거</string>
+</resources>

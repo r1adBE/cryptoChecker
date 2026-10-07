@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hintergrund der Prozent-Pillen im Portfolio-Widget; Farbe und Deckkraft setzt der Code
+     (setColorFilter / setImageAlpha), damit es ab API 26 ohne Tönung des Hintergrunds geht. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="50dp" />
+    <solid android:color="#FFFFFFFF" />
+</shape>

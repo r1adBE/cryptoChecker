@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Fără conexiune</string>
+    <string name="watchlist_offline_since">Fără conexiune · stare %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d din %2$d fără preț</item>
+        <item quantity="few">%1$d din %2$d fără preț</item>
+        <item quantity="other">%1$d din %2$d fără preț</item>
+    </plurals>
+    <string name="watch_not_traded">Nu se mai tranzacționează pe această bursă</string>
+</resources>

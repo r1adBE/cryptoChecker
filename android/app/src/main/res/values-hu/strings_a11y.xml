@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Árszínek</string>
+    <string name="price_colors_green_red">Zöld / piros</string>
+    <string name="price_colors_blue_orange">Kék / narancs</string>
+    <string name="settings_price_colors_hint">A kék / narancs minden színlátási zavar (vörös-zöld és kék-sárga) esetén jól megkülönböztethető. Az irányt ezenfelül mindig + / − is jelzi.</string>
+    <string name="settings_watchlist_sparkline">Minidiagram a figyelőlistán</string>
+    <string name="settings_watchlist_sparkline_hint">24 órás alakulás az ár mellett</string>
+
+    <string name="settings_price_colors_inverted">Emelkedés/esés színeinek felcserélése</string>
+    <string name="settings_price_colors_inverted_hint">Piros az emelkedésnél, zöld az esésnél, ahogy Kínában, Japánban, Koreában és Tajvanon szokás. Az alapértelmezés az eszköz régiójától függ.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Nagy kontraszt</string>
+    <string name="settings_high_contrast_hint">Erősebb árszínek és sötétebb másodlagos szöveg. Akkor is bekapcsol, ha a rendszer nagyobb kontrasztot kér.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, tőzsde: %2$s</string>
+    <string name="a11y_price">ár: %1$s</string>
+    <string name="a11y_change_up">%1$s emelkedés</string>
+    <string name="a11y_change_down">%1$s esés</string>
+    <string name="a11y_change_flat">változatlan</string>
+    <string name="a11y_converted">körülbelül %1$s</string>
+    <string name="a11y_note">jegyzet: %1$s</string>
+    <string name="a11y_alarm_count">riasztások: %1$d</string>
+    <string name="a11y_stale">elavult, utolsó frissítés: %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafikon, %1$s: kezdet %2$s, vég %3$s, %4$s. Csúcs %5$s, mélypont %6$s.</string>
+    <string name="a11y_chart_empty">Grafikon: nincs adat</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciklus %1$s: %2$s a felezés óta, %3$d. nap.</string>
+    <string name="a11y_cycle_top">Csúcs %1$s, %2$d. nap.</string>
+    <string name="a11y_cycle_bottom">Mélypont %1$s, %2$d. nap.</string>
+    <string name="a11y_cycle_double_top">Dupla csúcs %1$s, %2$d. nap.</string>
+    <string name="a11y_cycle_double_bottom">Dupla mélypont %1$s, %2$d. nap.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skála %1$s és %2$s között: %3$d a 100-ból</string>
+</resources>

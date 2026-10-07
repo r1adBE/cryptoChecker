@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">یادداشت</string>
+    <string name="note_add">افزودن یادداشت</string>
+    <string name="note_edit">ویرایش یادداشت</string>
+    <string name="note_hint">مثلاً ورود در 0.42، هدف 0.60</string>
+    <string name="note_remove">حذف</string>
+</resources>

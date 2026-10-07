@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">表示</string>
+    <string name="widget_portfolio_display_conversion">換算のみ</string>
+    <string name="widget_portfolio_display_conversion_usdt">換算 + USDT</string>
+    <string name="widget_portfolio_display_hint">換算通貨が USD の場合、USDT の行は表示されません。</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">他 %1$d 件</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48時間</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s、ポートフォリオの %3$s</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s、ポートフォリオの %3$s、今日 %4$s</string>
+    <string name="a11y_portfolio_positions">上位ポジション: %1$s</string>
+</resources>

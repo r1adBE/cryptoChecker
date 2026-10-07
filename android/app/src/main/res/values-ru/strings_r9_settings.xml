@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_currency">Валюта и конвертация</string>
+    <string name="settings_group_alerts">Оповещения и уведомления</string>
+    <string name="settings_group_data">Данные и обновления</string>
+    <string name="settings_group_security">Безопасность и резервная копия</string>
+    <string name="settings_portfolio_tab">Показывать вкладку «Портфель»</string>
+</resources>

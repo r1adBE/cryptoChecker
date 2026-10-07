@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Dekat titik tertinggi</string>
+    <string name="alarm_condition_near_low">Dekat titik terendah</string>
+    <string name="alarm_near_field_distance">Jarak</string>
+    <string name="alarm_near_window_label">Periode</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d hari</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 tahun</string>
+    <string name="alarm_near_hint">Juga memberi tahu saat titik tertinggi atau terendah baru tercapai. Berdasarkan candle harian, diperbarui setiap 6 jam.</string>
+    <string name="alarm_near_extreme_high_30">titik tertinggi 30 hari</string>
+    <string name="alarm_near_extreme_high_90">titik tertinggi 90 hari</string>
+    <string name="alarm_near_extreme_high_365">titik tertinggi 1 tahun</string>
+    <string name="alarm_near_extreme_low_30">titik terendah 30 hari</string>
+    <string name="alarm_near_extreme_low_90">titik terendah 90 hari</string>
+    <string name="alarm_near_extreme_low_365">titik terendah 1 tahun</string>
+    <string name="alarm_sentence_near_high">Beri tahu saya saat %1$s berada paling jauh %2$s di bawah %3$s.</string>
+    <string name="alarm_sentence_near_low">Beri tahu saya saat %1$s berada paling jauh %2$s di atas %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s berada %2$s di bawah %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s berada %2$s di atas %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s mencetak %1$s baru: %3$s (sebelumnya %4$s)</string>
+    <string name="tts_direction_near_high">mendekati titik tertinggi</string>
+    <string name="tts_direction_near_low">mendekati titik terendah</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Round 9: watchlist (gesture hint, actions sheet, alarm hint after add) and welcome -->
+    <string name="watch_gesture_hint_short">Tap for actions · swipe for quick actions · hold to sort</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_why">Why?</string>
+    <string name="watch_action_favorite">Favorite</string>
+    <string name="add_alarm_action">Set alarm</string>
+    <string name="welcome_watch_q">What\'s happening?</string>
+    <string name="welcome_alert_q">When to act?</string>
+    <string name="welcome_understand_q">Why?</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">가치 추이</string>
+    <string name="portfolio_history_range_7d">7일</string>
+    <string name="portfolio_history_range_30d">30일</string>
+    <string name="portfolio_history_range_1y">1년</string>
+    <string name="portfolio_history_period_7d">7일</string>
+    <string name="portfolio_history_period_30d">30일</string>
+    <string name="portfolio_history_period_1y">1년</string>
+    <string name="portfolio_history_range_a11y">%1$s 추이 보기</string>
+    <string name="portfolio_history_change_a11y">%1$s 동안의 가치: %2$s, %3$s</string>
+    <string name="portfolio_history_today">오늘</string>
+    <string name="portfolio_history_converted">오늘 환율로 환산</string>
+    <string name="portfolio_history_without">%1$s 제외 (일별 가격 없음)</string>
+    <string name="portfolio_history_includes_trades">이 기간의 매수와 매도 포함</string>
+    <string name="portfolio_history_too_short">추이는 첫 하루가 지난 뒤부터 표시됩니다.</string>
+    <string name="portfolio_history_unavailable">지금은 추이를 볼 수 없습니다.</string>
+    <string name="portfolio_history_loading">가치 추이 불러오는 중</string>
+</resources>

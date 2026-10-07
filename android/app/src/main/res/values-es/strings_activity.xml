@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Algo está pasando ahora mismo</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Actividad inusual</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Movimiento inusual: %1$s en una hora (%2$s× lo normal)</string>
+    <string name="activity_signal_volume">Volumen %1$s× lo normal en la última hora</string>
+    <string name="activity_signal_open_interest">Interés abierto %1$s en %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Interés abierto %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — muchos longs apalancados</string>
+    <string name="activity_signal_funding_short">Funding %1$s — muchos shorts</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Avisar de actividad inusual</string>
+    <string name="settings_activity_alerts_hint">Como máximo una vez por hora y par: movimientos de precio inusuales, picos de volumen y extremos en futuros (datos de Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">¿Por qué se mueve?</string>
+    <string name="why_title">¿Por qué se mueve?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Valoración automática a partir de datos de mercado, no es asesoramiento de inversión.</string>
+    <string name="why_data_time">Datos de %1$s</string>
+    <string name="why_no_data">No hay datos de Binance para este par</string>
+    <string name="why_no_data_hint">Precio, volumen y volatilidad provienen de las velas horarias de Binance.</string>
+
+    <string name="why_market_wide_text">Esta moneda: %1$s en 24h — lo más probable es que el impulso venga del mercado en general, no de la moneda.</string>
+    <string name="why_coin_only_text">%1$s en 24h con el mercado en calma: el motivo probablemente sea propio de esta moneda.</string>
+    <string name="why_against_market_text">Esta moneda %1$s, BTC %2$s en 24h — un movimiento notablemente independiente.</string>
+    <string name="why_market_calm_text">Esta moneda: %1$s en 24h. Ni el mercado ni la moneda se mueven mucho.</string>
+    <string name="why_market_leader_text">Como líder del mercado, BTC suele arrastrar al resto del mercado. ETH: %1$s en 24h.</string>
+    <string name="why_market_leader_text_no_eth">Como líder del mercado, BTC suele arrastrar al resto del mercado.</string>
+
+    <string name="why_volume_high_text">Mucha más negociación de lo habitual en la última hora — el movimiento tiene un respaldo amplio.</string>
+    <string name="why_volume_low_text">El movimiento es débil y puede revertirse rápidamente.</string>
+    <string name="why_volume_normal_text">La negociación de la última hora está en línea con las últimas 24 horas.</string>
+
+    <string name="why_leverage_longs_text">Los longs pagan a los shorts — mayor riesgo de liquidaciones si el precio cae.</string>
+    <string name="why_leverage_shorts_text">Los shorts pagan a los longs — una subida del precio puede provocar un short squeeze.</string>
+    <string name="why_leverage_balanced_text">Sin acumulación de posiciones long ni short en el mercado de futuros.</string>
+    <string name="why_open_interest_change">Interés abierto %1$s desde la última comprobación.</string>
+
+    <string name="why_volatility_high_text">Última hora: %1$s — comparado con la oscilación horaria típica de las últimas 24 horas.</string>
+    <string name="why_volatility_normal_text">Última hora: %1$s — dentro del rango habitual.</string>
+
+    <string name="why_sentiment_text">Índice Fear &amp; Greed de todo el mercado cripto, %1$s respecto a ayer.</string>
+    <string name="why_sentiment_text_no_change">Índice Fear &amp; Greed de todo el mercado cripto.</string>
+</resources>

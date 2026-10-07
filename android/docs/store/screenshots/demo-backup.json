@@ -1,0 +1,137 @@
+{
+  "format": "cryptochecker-backup",
+  "version": 1,
+  "createdAt": 1791190800000,
+  "watches": [
+    {
+      "id": 1,
+      "marketKey": "Binance",
+      "marketName": "Binance",
+      "baseAsset": "BTC",
+      "quoteAsset": "USDT",
+      "contractType": "NONE",
+      "pairId": "BTCUSDT",
+      "sortOrder": 0,
+      "notificationEnabled": false,
+      "ttsEnabled": false,
+      "favorite": false,
+      "holdings": null,
+      "group": "Layer 1",
+      "note": "Ø 77 500 USDT"
+    },
+    {
+      "id": 2,
+      "marketKey": "Binance",
+      "marketName": "Binance",
+      "baseAsset": "ETH",
+      "quoteAsset": "USDT",
+      "contractType": "NONE",
+      "pairId": "ETHUSDT",
+      "sortOrder": 1,
+      "notificationEnabled": false,
+      "ttsEnabled": false,
+      "favorite": false,
+      "holdings": null,
+      "group": "Layer 1",
+      "note": null
+    },
+    {
+      "id": 3,
+      "marketKey": "Binance",
+      "marketName": "Binance",
+      "baseAsset": "SOL",
+      "quoteAsset": "USDT",
+      "contractType": "NONE",
+      "pairId": "SOLUSDT",
+      "sortOrder": 2,
+      "notificationEnabled": false,
+      "ttsEnabled": false,
+      "favorite": false,
+      "holdings": null,
+      "group": "Layer 1",
+      "note": null
+    }
+  ],
+  "alarms": [
+    {
+      "id": 1,
+      "watchId": 1,
+      "condition": "PRICE_BELOW",
+      "threshold": 90000.0,
+      "enabled": true,
+      "repeating": false,
+      "sound": true,
+      "vibrate": true,
+      "speak": false,
+      "referencePrice": null,
+      "windowHours": 1,
+      "currency": "CHF"
+    }
+  ],
+  "favorites": {
+    "MARKET": [],
+    "COIN": [],
+    "QUOTE": []
+  },
+  "settings": {
+    "backgroundUpdates": true,
+    "backgroundIntervalMinutes": 15,
+    "liveService": false,
+    "liveIntervalSeconds": 60,
+    "priceNotifications": false,
+    "ongoingNotifications": false,
+    "notificationChangePercent": 5.0,
+    "ttsEnabled": false,
+    "ttsAlarmsOnly": true,
+    "ttsSpeechRate": 1.0,
+    "alarmCooldownMinutes": 0,
+    "includeRollingFutures": false,
+    "accentColor": "ORANGE",
+    "darkMode": false,
+    "zoneAlerts": true,
+    "fearGreedBelow": 0,
+    "fearGreedAbove": 0,
+    "gasAlertEthTenths": 0,
+    "gasAlertBtc": 0,
+    "activityAlerts": false,
+    "portfolioEnabled": true,
+    "portfolioCurrency": "CHF",
+    "showConverted": true,
+    "priceColorScheme": "GREEN_RED",
+    "watchlistSparkline": true,
+    "highContrast": false,
+    "quietHoursEnabled": false,
+    "quietHoursStart": 1380,
+    "quietHoursEnd": 420,
+    "appLock": false
+  },
+  "portfolio": [
+    {
+      "id": 3,
+      "coin": "SOL",
+      "type": "BUY",
+      "amount": 10.0,
+      "priceUsdt": 165.0,
+      "time": 1754049600000,
+      "note": null
+    },
+    {
+      "id": 2,
+      "coin": "ETH",
+      "type": "BUY",
+      "amount": 1.2,
+      "priceUsdt": 2400.0,
+      "time": 1750420800000,
+      "note": null
+    },
+    {
+      "id": 1,
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": 0.05,
+      "priceUsdt": 77500.0,
+      "time": 1744113600000,
+      "note": null
+    }
+  ]
+}

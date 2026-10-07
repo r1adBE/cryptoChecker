@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Utmärkande i dag</string>
+    <string name="unusual_nothing">Inget utmärkande i dag</string>
+    <string name="unusual_fact_stronger">Rör sig mycket kraftigare än BTC</string>
+    <string name="unusual_fact_weaker">Rör sig mycket svagare än BTC</string>
+    <string name="unusual_fact_against">Går mot marknaden</string>
+    <string name="unusual_fact_volume">Volym %1$s× normalt</string>
+    <string name="unusual_fact_funding_high">Funding förhöjd (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_source">Ungefär 30 största mynten utan stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Varför rör den sig?</string>
+    <string name="unusual_action_add">Hitta par att lägga till</string>
+
+    <string name="macro_title">Ekonomisk statistik</string>
+    <string name="macro_cpi">amerikansk inflation (KPI)</string>
+    <string name="macro_ppi">amerikanska producentpriser (PPI)</string>
+    <string name="macro_nfp">amerikansk jobbrapport</string>
+    <string name="macro_fomc">Fed:s räntebesked</string>
+    <string name="macro_pce">amerikansk PCE-inflation</string>
+    <string name="macro_hint_today">I dag %1$s: %2$s – sådana dagar svänger marknaden ofta mer.</string>
+    <string name="macro_hint_tomorrow">I morgon %1$s: %2$s – sådana dagar svänger marknaden ofta mer.</string>
+    <string name="macro_hint_today_list">I dag: %1$s – sådana dagar svänger marknaden ofta mer.</string>
+    <string name="macro_hint_tomorrow_list">I morgon: %1$s – sådana dagar svänger marknaden ofta mer.</string>
+    <string name="macro_hint_list">%1$s – sådana dagar svänger marknaden ofta mer.</string>
+    <string name="macro_released_one">Publicerat i dag kl. %1$s: %2$s.</string>
+    <string name="macro_released_list">Publicerat i dag: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">I dag %1$s %2$s</string>
+    <string name="macro_item_tomorrow">I morgon %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Ekonomisk kalender</string>
+    <string name="settings_macro_notifications_hint">Kl. 08:00 dagar med viktig amerikansk ekonomisk statistik (inflation, jobbrapport, räntebesked). Kalendern hämtas från appens webbplats en gång om dagen.</string>
+    <string name="notification_macro_title">Ekonomisk statistik i dag</string>
+</resources>

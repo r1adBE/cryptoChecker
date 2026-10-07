@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">ข้อมูลเก่า</string>
+    <string name="widget_outdated_time">ข้อมูลเก่า · %1$s</string>
+
+    <string name="settings_widgets">วิดเจ็ต</string>
+    <string name="settings_widgets_hint">เพิ่มราคาลงในหน้าจอหลัก</string>
+    <string name="widgets_sheet_title">เพิ่มวิดเจ็ต</string>
+    <string name="widget_kind_single">เหรียญเดียว</string>
+    <string name="widgets_add">เพิ่ม</string>
+    <string name="widgets_add_named">เพิ่มวิดเจ็ต %1$s</string>
+    <string name="watch_action_add_widget">เพิ่มเป็นวิดเจ็ต</string>
+    <string name="widgets_manual_title">เพิ่มวิดเจ็ตด้วยตัวเอง</string>
+    <string name="widgets_manual_text">หน้าจอหลักของคุณเพิ่มวิดเจ็ตจากแอปไม่ได้ ให้แตะค้างที่พื้นที่ว่างบนหน้าจอหลัก เลือก “วิดเจ็ต” แล้วค้นหา “Crypto Checker”</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ไม่อนุญาตให้แอปเพิ่มวิดเจ็ตเอง ใช้เวลาเพียงครู่เดียว:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">แตะค้างที่พื้นที่ว่างบนหน้าจอโฮมจนกว่าแอปจะเริ่มสั่น</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">แตะ “แก้ไข” › “เพิ่มวิดเจ็ต” ที่ด้านบน (หรือ “+” ใน iOS รุ่นเก่า)</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">ค้นหา “Crypto Checker” เลือกวิดเจ็ต แล้วแตะ “เพิ่มวิดเจ็ต”</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">วิดเจ็ตที่มีให้ใช้</string>
+</resources>

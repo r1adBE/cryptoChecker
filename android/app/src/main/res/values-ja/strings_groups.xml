@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">グループを編集</string>
+    <string name="group_rename">名前を変更</string>
+    <string name="group_delete">グループを削除</string>
+    <string name="group_delete_confirm">ペアはウォッチリストに残ります。</string>
+    <string name="group_done">完了</string>
+    <string name="group_add">新しいグループ</string>
+    <string name="group_in_other">%1$s内</string>
+    <string name="group_target">グループ</string>
+    <string name="group_search_hint">ペアを検索</string>
+    <string name="group_next">次へ</string>
+</resources>

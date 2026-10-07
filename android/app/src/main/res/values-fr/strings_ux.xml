@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Démarrer en un geste</string>
+    <string name="starter_text">Choisissez des cryptos et ajoutez-les en une fois. Vous pourrez changer la plateforme et la paire plus tard.</string>
+    <string name="starter_custom">Choisir plateforme et paire</string>
+    <string name="settings_quiet_hours">Heures calmes</string>
+    <string name="settings_quiet_hours_hint">Entre %1$s et %2$s, les alertes arrivent en silence : sans son, vibration ni voix.</string>
+    <string name="settings_quiet_hours_from">De</string>
+    <string name="settings_quiet_hours_to">À</string>
+    <string name="channel_alarms_quiet">Alertes (heures calmes)</string>
+    <string name="channel_alarms_quiet_description">Alertes silencieuses pendant les heures calmes.</string>
+    <string name="settings_app_lock">Verrouillage de l\'app</string>
+    <string name="settings_app_lock_hint">Déverrouillage par empreinte, visage ou code PIN de l\'appareil lorsque l\'app est restée plus d\'une minute en arrière-plan.</string>
+    <string name="app_lock_title">Crypto Checker est verrouillé</string>
+    <string name="app_lock_unlock">Déverrouiller</string>
+    <string name="app_lock_reason">Déverrouiller Crypto Checker</string>
+    <string name="app_lock_unavailable">Aucun verrouillage d\'écran n\'est configuré sur cet appareil. Configurez-en d\'abord un dans les paramètres système.</string>
+    <string name="widget_portfolio_name">Portefeuille</string>
+    <string name="widget_portfolio_description">Valeur totale de votre portefeuille et variation du jour</string>
+    <string name="widget_portfolio_today">aujourd\'hui %1$s</string>
+    <string name="widget_portfolio_empty">Ajoutez des achats dans l\'onglet Portefeuille</string>
+    <string name="widget_portfolio_locked">Masqué – verrouillage de l\'app activé</string>
+    <string name="a11y_portfolio_widget">Portefeuille %1$s, aujourd\'hui %2$s</string>
+    <string name="settings_section_advanced">Avancé</string>
+    <string name="settings_advanced_hint">Mode live, notification permanente, futures et options développeur</string>
+    <string name="explain_funding">Frais entre positions longues et courtes. Fortement positif signifie que beaucoup parient sur la hausse.</string>
+    <string name="explain_open_interest">Valeur de toutes les positions ouvertes sur les futures. S\'il augmente, davantage d\'argent parie sur le mouvement.</string>
+    <string name="explain_rsi">Indice de force relative, 0–100. Au-dessus de 70, souvent en surchauffe ; en dessous de 30, souvent survendu.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explication</string>
+    <string name="explain_pi_cycle">Compare la moyenne sur 111 jours au double de la moyenne sur 350 jours. Un croisement a marqué les sommets des cycles passés.</string>
+    <string name="alarm_sentence_above">Me prévenir quand %1$s dépasse %2$s.</string>
+    <string name="alarm_sentence_below">Me prévenir quand %1$s passe sous %2$s.</string>
+    <string name="alarm_sentence_up_percent">Me prévenir quand %1$s monte de %2$s.</string>
+    <string name="alarm_sentence_down_percent">Me prévenir quand %1$s baisse de %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Me prévenir quand %1$s varie de %2$s en %3$d heure.</item>
+        <item quantity="many">Me prévenir quand %1$s varie de %2$s en %3$d heures.</item>
+        <item quantity="other">Me prévenir quand %1$s varie de %2$s en %3$d heures.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Me prévenir quand le volume de %1$s atteint %2$s× la normale.</string>
+    <string name="alarm_sentence_incomplete">Saisissez une valeur pour voir l\'alerte sous forme de phrase.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s injoignable</string>
+    <string name="watchlist_row_outdated">%1$s · obsolète</string>
+</resources>

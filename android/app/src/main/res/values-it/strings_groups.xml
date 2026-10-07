@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Modifica gruppo</string>
+    <string name="group_rename">Rinomina</string>
+    <string name="group_delete">Elimina gruppo</string>
+    <string name="group_delete_confirm">Le coppie restano nella tua watchlist.</string>
+    <string name="group_done">Fatto</string>
+    <string name="group_add">Nuovo gruppo</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_target">Nel gruppo</string>
+    <string name="group_search_hint">Cerca coppia</string>
+    <string name="group_next">Avanti</string>
+</resources>

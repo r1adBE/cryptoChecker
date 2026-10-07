@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_currency">मुद्रा और रूपांतरण</string>
+    <string name="settings_group_alerts">अलार्म और नोटिफ़िकेशन</string>
+    <string name="settings_group_data">डेटा और अपडेट</string>
+    <string name="settings_group_security">सुरक्षा और बैकअप</string>
+    <string name="settings_portfolio_tab">पोर्टफोलियो टैब दिखाएँ</string>
+</resources>

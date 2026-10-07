@@ -1,0 +1,62 @@
+Tieni d'occhio i prezzi delle tue crypto senza aprire di continuo le app degli exchange. Imposta allarmi, individua movimenti insoliti e capisci in pochi secondi perché una moneta si muove.
+
+Osservare – prezzi diretti dall'exchange, nella tua valuta
+Avvisare – prezzo, %, movimenti e volume, in una frase
+Capire – «Perché si muove?» con un breve riepilogo
+Panoramica – Crypto Pulse, Fear & Greed, ciclo e portafoglio
+
+Leggibile per tutti: colori dei prezzi verde/rosso o blu/arancione, invertibili a scelta, contrasto elevato, segno e freccia oltre al colore, e TalkBack legge ogni riga in una frase.
+
+UNA LISTA PER 32 EXCHANGE
+• Lista vuota: le 5 maggiori monete per capitalizzazione con un tocco
+• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e molti altri
+• Token DEX tramite DexScreener
+• Organizza le coppie in gruppi, segna i preferiti, riordina trascinando
+• Una nota per ogni moneta, ad es. il tuo prezzo di ingresso
+• Riga «≈ valore» nella tua valuta: 31 valute (EUR, CHF, USD, GBP, JPY…), predefinita secondo la regione
+• Mini grafico 24 ore in ogni riga
+• Portafoglio in una scheda dedicata: acquisti e vendite, prezzo medio, utile/perdita e valore totale nella tua valuta
+• Export alla data di riferimento (ad es. 31/12) nella tua valuta come CSV – utile per le tasse, non è consulenza fiscale
+
+ALLARMI SU MISURA PER LA TUA STRATEGIA
+• Prezzo sopra o sotto una soglia, rialzo o ribasso di una percentuale
+• Allarmi nella tua valuta, ad es. a 60.000 EUR su una coppia USDT
+• Allarme come frase: «Avvisami quando BTC scende sotto 60.000 CHF.»
+• Movimento di x % in una finestra di tempo, ad es. 5 % in 1 ora
+• Picco di volume: volume improvvisamente molto sopra la media
+• Singolo o ripetuto, con suono, vibrazione e annuncio vocale opzionale
+• Il tuo suono di allarme: suono di sistema o un tuo file audio
+• Un tempo di pausa regolabile evita raffiche di allarmi
+• Ore di silenzio: di notte (ad es. 23–7) allarmi senza suono, vibrazione o voce
+• «Prova allarme»: senti in anticipo come arriva un allarme
+
+ATTIVITÀ INSOLITA E PERCHÉ SI MUOVE?
+• Attività insolita rileva movimenti di prezzo e volume fuori dal normale nella tua lista
+• «Perché si muove?» spiega un movimento con volume, mercato generale e dati futures, con un breve riepilogo – nessuna consulenza finanziaria
+
+PANORAMICA DEL MERCATO
+• Crypto Pulse: cosa succede ora? BTC, ETH, SOL, altcoin rispetto a BTC, volume, Fear & Greed, funding, gas ETH e un riepilogo in una frase, senza previsioni
+• Indice Fear & Greed con storico e notifica opzionale
+• Mercato crypto: capitalizzazione totale e volume 24 h nella tua valuta
+• Scheda Mercato: fase di mercato con segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia per l'halving, confronto dei cicli, dominanza e altcoin season
+• Analisi moneta: RSI, trend, Pi Cycle e forza rispetto a Bitcoin
+• Dati futures: funding rate e open interest
+• Commissioni di rete per Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, con allarme gas
+
+WIDGET E NOTIFICHE
+• Widget: tutta la lista, valore del portafoglio con variazione di oggi, una moneta in grande con grafico – candele o linea, livelli max/medio/min
+• Notifica silenziosa del prezzo per ogni coppia
+• Modalità live con aggiornamento ogni 15 secondi, in background da 15 minuti
+
+E INOLTRE
+• Lettura vocale di prezzi e allarmi (sintesi vocale)
+• Backup e ripristino in un file a tua scelta – anche tra Android e iPhone
+• Scorciatoie dell'app, tema chiaro e scuro
+• Quattro colori d'accento con icona dell'app abbinata
+• Blocco app: impronta, volto o PIN
+• Disponibile in 31 lingue
+
+PRIVACY AL PRIMO POSTO
+Nessun account, nessuna pubblicità, nessuna analisi. I prezzi arrivano direttamente dalle API pubbliche degli exchange. Lista, allarmi e quantità restano sul tuo dispositivo. Open source (licenza MIT): il codice è pubblico su GitHub.
+
+Nota: Crypto Checker mostra solo i prezzi. Non è un exchange né un wallet, non esegue operazioni e non costituisce consulenza finanziaria.

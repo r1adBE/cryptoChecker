@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">Licencat</string>
+    <string name="licenses_marketdata_title">Biblioteka e të dhënave të çmimeve</string>
+    <string name="licenses_marketdata_intro">Pjesë të lidhjes me bursat bazohen në softuer nën licencën MIT:</string>
+    <string name="licenses_marketdata_changes">Ndryshime: %1$s</string>
+    <string name="licenses_font_title">Shkronja Rubik</string>
+    <string name="licenses_libraries_title">Bibliotekat e Android</string>
+    <string name="licenses_libraries_intro">Aplikacioni i përdor këto biblioteka nën Apache License 2.0:</string>
+</resources>

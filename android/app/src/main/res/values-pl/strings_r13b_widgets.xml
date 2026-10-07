@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">nieaktualne</string>
+    <string name="widget_outdated_time">nieaktualne · %1$s</string>
+
+    <string name="settings_widgets">Widżety</string>
+    <string name="settings_widgets_hint">Dodaj ceny do ekranu głównego</string>
+    <string name="widgets_sheet_title">Dodaj widżet</string>
+    <string name="widget_kind_single">Jedna moneta</string>
+    <string name="widgets_add">Dodaj</string>
+    <string name="widgets_add_named">Dodaj widżet %1$s</string>
+    <string name="watch_action_add_widget">Dodaj jako widżet</string>
+    <string name="widgets_manual_title">Dodaj widżet samodzielnie</string>
+    <string name="widgets_manual_text">Twój ekran główny nie może dodawać widżetów z aplikacji. Przytrzymaj puste miejsce na ekranie głównym, wybierz „Widżety” i znajdź „Crypto Checker”.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS nie pozwala aplikacjom samodzielnie dodawać widżetów. To zajmie tylko chwilę:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Przytrzymaj puste miejsce na ekranie początkowym, aż aplikacje zaczną drgać.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Stuknij u góry „Edycja” › „Dodaj widżet” (lub „+” w starszych wersjach iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Wyszukaj „Crypto Checker”, wybierz widżet i stuknij „Dodaj widżet”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Dostępne widżety</string>
+</resources>

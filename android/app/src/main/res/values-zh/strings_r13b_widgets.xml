@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">已过时</string>
+    <string name="widget_outdated_time">已过时 · %1$s</string>
+
+    <string name="settings_widgets">小部件</string>
+    <string name="settings_widgets_hint">将价格添加到主屏幕</string>
+    <string name="widgets_sheet_title">添加小部件</string>
+    <string name="widget_kind_single">单币</string>
+    <string name="widgets_add">添加</string>
+    <string name="widgets_add_named">添加小部件 %1$s</string>
+    <string name="watch_action_add_widget">添加为小部件</string>
+    <string name="widgets_manual_title">手动添加小部件</string>
+    <string name="widgets_manual_text">你的主屏幕无法从应用内添加小部件。请长按主屏幕上的空白处，选择“小部件”，然后查找“Crypto Checker”。</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS 不允许应用自行添加小部件。只需片刻：</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">长按主屏幕上的空白处，直到应用开始晃动。</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">轻点顶部的“编辑”›“添加小组件”（旧版 iOS 中为“+”）。</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">搜索“Crypto Checker”，选择一个小部件，然后轻点“添加小组件”。</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">可用的小部件</string>
+</resources>

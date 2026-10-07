@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Tržní upozornění</string>
+    <string name="settings_market_alerts_hint">Fáze trhu, Strach a chamtivost, poplatky za gas, neobvyklá aktivita, ekonomické termíny</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktivní</item>
+        <item quantity="few">%1$d aktivní</item>
+        <item quantity="many">%1$d aktivních</item>
+        <item quantity="other">%1$d aktivních</item>
+    </plurals>
+    <string name="settings_tts_row_hint">Čte ceny a alarmy nahlas</string>
+    <string name="settings_summary_on">Zap.</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker teď za vás sleduje %1$s. Když %1$s dosáhne vašeho limitu, dostanete oznámení, jakmile aplikace ověří cenu. Při zavřené aplikaci se to děje v intervalu aktualizace na pozadí – později, pokud aplikaci omezuje optimalizace baterie.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker teď za vás sleduje %1$s. Oznámení dostanete, jakmile aplikace ověří cenu. Při zavřené aplikaci rozhoduje iOS, kdy se to stane – může to chvíli trvat. Když je aplikace otevřená, ceny se kontrolují včas.</string>
+
+    <string name="about_request_exchange">Navrhnout burzu</string>
+    <string name="explorer_exchange_missing">Chybí burza?</string>
+</resources>

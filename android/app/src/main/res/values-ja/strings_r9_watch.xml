@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">タップで操作 · スワイプでクイック操作 · 長押しで並べ替え</string>
+    <string name="watch_action_alarm">アラーム</string>
+    <string name="watch_action_why">なぜ？</string>
+    <string name="watch_action_favorite">お気に入り</string>
+    <string name="add_alarm_action">アラームを設定</string>
+    <string name="welcome_watch_q">いま何が起きている？</string>
+    <string name="welcome_alert_q">いつ動く？</string>
+    <string name="welcome_understand_q">なぜ？</string>
+</resources>

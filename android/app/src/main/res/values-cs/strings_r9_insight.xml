@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Co je teď nápadné</string>
+    <string name="pulse_why_action">Proč? →</string>
+    <string name="pulse_section_factors">Faktory</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin vede trh.</string>
+    <string name="pulse_lead_alts_stronger">Altcoiny jsou silnější než Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin je silnější než altcoiny.</string>
+    <string name="pulse_lead_broad_up">Trh plošně roste.</string>
+    <string name="pulse_lead_broad_down">Trh plošně klesá.</string>
+    <string name="pulse_lead_drift_up">Trh mírně roste.</string>
+    <string name="pulse_lead_drift_down">Trh mírně klesá.</string>
+    <string name="pulse_lead_mixed">Velké mince se rozcházejí.</string>
+    <string name="pulse_lead_calm">Trh se téměř nehýbe.</string>
+
+    <string name="pulse_detail_vol_above">Objem o %1$d %% nad normálem.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Objem o %1$d %% nad normálem, funding neutrální.</string>
+    <string name="pulse_detail_vol_above_fund_high">Objem o %1$d %% nad normálem, funding zvýšený.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Objem o %1$d %% nad normálem, funding záporný.</string>
+    <string name="pulse_detail_vol_below">Objem o %1$d %% pod normálem.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Objem o %1$d %% pod normálem, funding neutrální.</string>
+    <string name="pulse_detail_vol_below_fund_high">Objem o %1$d %% pod normálem, funding zvýšený.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Objem o %1$d %% pod normálem, funding záporný.</string>
+    <string name="pulse_detail_vol_normal">Objem normální.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Objem normální, funding neutrální.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Objem normální, funding zvýšený.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Objem normální, funding záporný.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutrální.</string>
+    <string name="pulse_detail_fund_high">Funding zvýšený.</string>
+    <string name="pulse_detail_fund_negative">Funding záporný.</string>
+
+    <string name="factor_volume">Objem</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Kolísání (1h)</string>
+    <string name="factor_spoken_volume">%1$s krát víc než obvykle</string>
+    <string name="factor_spoken_volatility">%1$s krát silnější výkyv než obvykle</string>
+
+    <string name="why_title_coin">Proč se hýbe %1$s?</string>
+    <string name="why_details">Zobrazit podrobnosti</string>
+    <string name="why_details_hide">Skrýt podrobnosti</string>
+    <string name="why_f_market_wide">Hýbe se celý trh</string>
+    <string name="why_f_coin_only">Jen tato mince</string>
+    <string name="why_f_against">Proti trhu</string>
+    <string name="why_f_market_calm">Klidný trh</string>
+    <string name="why_f_leader">Bitcoin udává směr</string>
+    <string name="why_f_leverage_longs">Páka: mnoho longů</string>
+    <string name="why_f_leverage_shorts">Páka: mnoho shortů</string>
+    <string name="why_f_leverage_balanced">Páka vyrovnaná</string>
+    <string name="insights_dominance_eth">ETH %1$s celého trhu</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d měsíc od halvingu %2$s</item>
+        <item quantity="few">%1$d měsíce od halvingu %2$s</item>
+        <item quantity="many">%1$d měsíců od halvingu %2$s</item>
+        <item quantity="other">%1$d měsíců od halvingu %2$s</item>
+    </plurals>
+</resources>

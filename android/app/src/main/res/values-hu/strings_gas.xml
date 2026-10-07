@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum gas: értesítés alatta (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin díj: értesítés alatta (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Egyszer értesít, ha a normál díj a határ alá esik. Az árfrissítéskor ellenőrizzük, legfeljebb 10 percenként.</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">A határod alatt (%1$s gwei) · Átutalás ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin díj: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">A határod alatt (%1$s sat/vB) · Átutalás ≈ %2$s</string>
+    <string name="gas_title">Hálózati díjak</string>
+    <string name="gas_slow_fast">Lassú %1$s · Gyors %2$s</string>
+    <string name="gas_alert_active">Riasztás: %1$s</string>
+    <string name="gas_source">Nyilvános RPC-csomópontok és mempool.space · Egy egyszerű átutalás költsége, L2-n az L1-rész nélkül</string>
+    <string name="gas_transfer_cost">Átutalás ≈ %1$s</string>
+</resources>

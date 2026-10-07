@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Esporta alla data di riferimento…</string>
+    <string name="portfolio_export_title">Export alla data di riferimento</string>
+    <string name="portfolio_export_date">Data di riferimento</string>
+    <string name="portfolio_export_currency">Valuta: %1$s</string>
+    <string name="portfolio_export_hint">Possesso alla fine del giorno scelto, valutato al prezzo di chiusura giornaliero (UTC) in USDT e convertito con il tasso di riferimento BCE di quel giorno. Cambia la valuta con «Converti in».</string>
+    <string name="portfolio_export_button">Esporta CSV</string>
+    <string name="portfolio_export_running">Recupero prezzi storici…</string>
+    <string name="portfolio_export_done">Export salvato</string>
+    <string name="portfolio_export_failed">Export non riuscito</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Data di riferimento %1$s, valuta %2$s, cambio del %3$s</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_amount">Quantità</string>
+    <string name="portfolio_export_col_price">Prezzo USDT</string>
+    <string name="portfolio_export_col_value">Valore USDT</string>
+    <string name="portfolio_export_col_rate">Cambio USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Valore %1$s</string>
+    <string name="portfolio_export_col_note">Nota</string>
+    <string name="portfolio_export_total">Totale</string>
+    <string name="portfolio_export_no_price">nessun prezzo</string>
+    <string name="portfolio_export_no_fx">nessun cambio</string>
+    <string name="portfolio_export_incomplete">incompleto</string>
+</resources>

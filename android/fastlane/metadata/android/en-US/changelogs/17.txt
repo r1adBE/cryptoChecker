@@ -1,0 +1,10 @@
+New in 16.2.2
+• Crypto Pulse: what is happening right now
+• Unusual Activity, “Why is this moving?” with a summary
+• Start with one tap: top 5 coins, live prices
+• Swipe to delete (with Undo) or mark a favorite
+• Prices and alarms in your currency, cut-off export (CSV)
+• Accessible: blue/orange, high contrast, swap colors, TalkBack
+• Quiet hours, test alarm, alarm as a sentence, app lock, portfolio widget
+• 15 new exchanges, gas alarm, widget candles
+• Market tab opens instantly

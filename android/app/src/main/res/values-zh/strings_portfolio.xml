@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">持仓</string>
+    <string name="portfolio_invalid">数量无效</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">分组</string>
+    <string name="group_value">分组：%1$s</string>
+    <string name="group_all">全部</string>
+    <string name="group_none">无分组</string>
+    <string name="group_new">新建分组…</string>
+    <string name="group_name">分组名称</string>
+    <string name="widget_group_hint">仅显示此分组的交易对。</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">投资组合</string>
+    <string name="portfolio_setting_hint">可选：记录买入和卖出，并在单独的标签页中查看市值和盈亏。</string>
+    <string name="portfolio_total_value">总市值</string>
+    <string name="portfolio_invested">投入</string>
+    <string name="portfolio_unrealized">盈亏（尚未卖出）</string>
+    <string name="portfolio_realized">盈亏（已卖出）</string>
+    <string name="portfolio_value">市值</string>
+    <string name="portfolio_avg_price">平均买入价</string>
+    <string name="portfolio_current_price">当前价格</string>
+    <string name="portfolio_avg_and_now">均价 %1$s · 现价 %2$s</string>
+    <string name="portfolio_updated">价格更新于 %1$s</string>
+    <string name="portfolio_convert_to">换算为</string>
+    <string name="portfolio_convert_to_value">换算为：%1$s</string>
+    <string name="portfolio_price_missing">缺少价格</string>
+    <string name="portfolio_price_missing_hint">部分买入没有价格。补充买入价即可查看盈亏。</string>
+    <string name="portfolio_current_missing">%1$s 暂无当前价格</string>
+    <string name="portfolio_oversold">卖出数量超过持仓，请检查交易记录。</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">已平仓（%1$d）</item>
+    </plurals>
+    <string name="portfolio_transactions">交易记录</string>
+    <string name="portfolio_add_tx">记录买入/卖出</string>
+    <string name="portfolio_edit_tx">编辑交易</string>
+    <string name="portfolio_buy">买入</string>
+    <string name="portfolio_sell">卖出</string>
+    <string name="portfolio_coin">币种</string>
+    <string name="portfolio_coin_search">搜索代码，例如 BTC</string>
+    <string name="portfolio_coin_invalid">请输入币种代码</string>
+    <string name="portfolio_tx_amount">数量</string>
+    <string name="portfolio_tx_price">每枚价格</string>
+    <string name="portfolio_tx_price_hint">以 USDT 计。未知可留空。</string>
+    <string name="portfolio_tx_price_invalid">价格无效</string>
+    <string name="portfolio_tx_date">日期</string>
+    <string name="portfolio_tx_note">备注（可选）</string>
+    <string name="portfolio_tx_total">合计：%1$s</string>
+    <string name="portfolio_sell_exceeds">超过你的持仓（%1$s）</string>
+    <string name="portfolio_tx_delete_title">删除此交易？</string>
+    <string name="portfolio_tx_delete_confirm">此交易将从投资组合中移除。</string>
+    <string name="portfolio_empty_title">暂无交易</string>
+    <string name="portfolio_empty_text">记录你的买入和卖出。市值和盈亏按 USDT 当前价格计算。</string>
+    <string name="portfolio_empty_action">记录第一笔买入</string>
+    <string name="portfolio_disclaimer">仅保存在本设备上。不构成投资建议。</string>
+    <string name="portfolio_add_from_watch">添加到投资组合</string>
+</resources>

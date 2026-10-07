@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">탭하여 작업 · 스와이프하여 빠른 작업 · 길게 눌러 정렬</string>
+    <string name="watch_action_alarm">경보</string>
+    <string name="watch_action_why">왜?</string>
+    <string name="watch_action_favorite">즐겨찾기</string>
+    <string name="add_alarm_action">경보 설정</string>
+    <string name="welcome_watch_q">무슨 일이 있나요?</string>
+    <string name="welcome_alert_q">언제 행동할까요?</string>
+    <string name="welcome_understand_q">왜?</string>
+</resources>

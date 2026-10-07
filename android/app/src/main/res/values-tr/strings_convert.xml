@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Çevrilmiş fiyatlar</string>
+    <string name="settings_show_converted_hint">İzleme listesindeki fiyatları ayrıca %1$s cinsinden gösterir</string>
+    <string name="settings_conversion_currency">Çevrim para birimi</string>
+    <string name="alarm_currency_label">Para birimi</string>
+</resources>

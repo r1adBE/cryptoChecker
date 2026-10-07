@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Edit group</string>
+    <string name="group_rename">Rename</string>
+    <string name="group_delete">Delete group</string>
+    <string name="group_delete_confirm">The pairs stay in your watchlist.</string>
+    <string name="group_done">Done</string>
+    <string name="group_add">New group</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_target">In group</string>
+    <string name="group_search_hint">Search pair</string>
+    <string name="group_next">Next</string>
+</resources>

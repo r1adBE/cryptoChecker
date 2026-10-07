@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Звук оповещения</string>
+    <string name="settings_alarm_sound_default">Стандартный звук</string>
+    <string name="settings_alarm_sound_custom">Свой звук</string>
+    <string name="settings_alarm_sound_system">Выбрать системный звук…</string>
+    <string name="settings_alarm_sound_file">Свой аудиофайл…</string>
+    <string name="settings_alarm_sound_reset">Использовать стандартный звук</string>
+    <string name="settings_alarm_sound_error">Не удалось использовать звук.</string>
+</resources>

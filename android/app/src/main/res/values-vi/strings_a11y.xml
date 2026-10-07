@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Màu giá</string>
+    <string name="price_colors_green_red">Xanh lá / đỏ</string>
+    <string name="price_colors_blue_orange">Xanh dương / cam</string>
+    <string name="settings_price_colors_hint">Xanh dương / cam dễ phân biệt với mọi dạng rối loạn sắc giác (đỏ-xanh lá và xanh dương-vàng). Hướng thay đổi cũng luôn được hiển thị bằng + / −.</string>
+    <string name="settings_watchlist_sparkline">Biểu đồ mini trong danh sách</string>
+    <string name="settings_watchlist_sparkline_hint">Xu hướng 24 giờ cạnh giá</string>
+
+    <string name="settings_price_colors_inverted">Đổi màu tăng/giảm</string>
+    <string name="settings_price_colors_inverted_hint">Đỏ cho tăng, xanh lá cho giảm, như thông lệ ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan. Mặc định tùy theo khu vực của thiết bị.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Độ tương phản cao</string>
+    <string name="settings_high_contrast_hint">Màu giá đậm hơn và chữ phụ tối hơn. Cũng bật khi hệ thống yêu cầu độ tương phản cao hơn.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s trên %2$s</string>
+    <string name="a11y_price">giá %1$s</string>
+    <string name="a11y_change_up">tăng %1$s</string>
+    <string name="a11y_change_down">giảm %1$s</string>
+    <string name="a11y_change_flat">không đổi</string>
+    <string name="a11y_converted">khoảng %1$s</string>
+    <string name="a11y_note">ghi chú: %1$s</string>
+    <string name="a11y_alarm_count">cảnh báo: %1$d</string>
+    <string name="a11y_stale">đã cũ, cập nhật lần cuối %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Biểu đồ %1$s: từ %2$s đến %3$s, %4$s. Cao nhất %5$s, thấp nhất %6$s.</string>
+    <string name="a11y_chart_empty">Biểu đồ: không có dữ liệu</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Chu kỳ %1$s: %2$s kể từ halving, ngày %3$d.</string>
+    <string name="a11y_cycle_top">Đỉnh %1$s vào ngày %2$d.</string>
+    <string name="a11y_cycle_bottom">Đáy %1$s vào ngày %2$d.</string>
+    <string name="a11y_cycle_double_top">Đỉnh đôi %1$s vào ngày %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Đáy đôi %1$s vào ngày %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Thang từ %1$s đến %2$s: %3$d trên 100</string>
+</resources>

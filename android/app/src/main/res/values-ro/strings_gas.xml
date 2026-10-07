@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum sub (gwei)</string>
+    <string name="settings_gas_btc_below">Comision Bitcoin sub (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Anunță o dată când comisionul normal scade sub limită. Verificat la actualizarea cursurilor, cel mult la 10 minute.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Sub limita ta de %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Comision Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Sub limita ta de %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="gas_title">Comisioane de rețea</string>
+    <string name="gas_slow_fast">Lent %1$s · Rapid %2$s</string>
+    <string name="gas_alert_active">Alarmă: %1$s</string>
+    <string name="gas_source">Noduri RPC publice și mempool.space · Costul unui transfer simplu, pe L2 fără partea L1</string>
+    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+</resources>

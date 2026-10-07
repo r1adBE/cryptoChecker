@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 13b: veraltete Kurse in den Widgets (Regel wie in der Merkliste: 3 × Intervall, mind. 15 Min.) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">outdated</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">outdated · %1$s</string>
+
+    <!-- Runde 13b: Widgets aus der App hinzufügen -->
+    <string name="settings_widgets">Widgets</string>
+    <string name="settings_widgets_hint">Add prices to your home screen</string>
+    <string name="widgets_sheet_title">Add a widget</string>
+    <string name="widget_kind_single">Single coin</string>
+    <string name="widgets_add">Add</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Add widget %1$s</string>
+    <string name="watch_action_add_widget">Add as widget</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Add the widget yourself</string>
+    <string name="widgets_manual_text">Your home screen can\'t add widgets from the app. Touch and hold an empty spot on the home screen, choose “Widgets” and look for “Crypto Checker”.</string>
+
+    <!-- Nur iOS: Apps können keine Widgets selbst hinzufügen — drei Schritte -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS doesn\'t let apps add widgets themselves. It only takes a moment:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Touch and hold an empty spot on the Home Screen until the apps jiggle.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tap “Edit” › “Add Widget” at the top (or “+” on older iOS versions).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Search for “Crypto Checker”, choose a widget and tap “Add Widget”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Available widgets</string>
+</resources>

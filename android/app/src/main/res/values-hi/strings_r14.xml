@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">लाइसेंस</string>
+    <string name="licenses_marketdata_title">मूल्य डेटा लाइब्रेरी</string>
+    <string name="licenses_marketdata_intro">एक्सचेंज कनेक्शन के कुछ हिस्से MIT लाइसेंस वाले सॉफ़्टवेयर पर आधारित हैं:</string>
+    <string name="licenses_marketdata_changes">बदलाव: %1$s</string>
+    <string name="licenses_font_title">Rubik फ़ॉन्ट</string>
+    <string name="licenses_libraries_title">Android लाइब्रेरी</string>
+    <string name="licenses_libraries_intro">ऐप इन लाइब्रेरी का उपयोग Apache License 2.0 के तहत करता है:</string>
+</resources>

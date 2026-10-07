@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">त्रुटि: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">कोई करेंसी पेयर नहीं</string>
+    <string name="checker_add_check_currency_empty_warning_summary">चुने गए एक्सचेंज से नवीनतम करेंसी पेयर डाउनलोड करने के लिए यहाँ टैप करें।</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">करेंसी पेयर अपडेट करें</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">अभी सिंक करें!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">पिछला सिंक: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">कभी नहीं</string>
+
+    <string name="market_screen_sync">सिंक</string>
+    <string name="market_screen_base">बेस</string>
+    <string name="market_screen_quote">कोट</string>
+    <string name="market_screen_market">मार्केट</string>
+    <string name="market_screen_contract_type">कॉन्ट्रैक्ट प्रकार</string>
+    <string name="market_screen_spot">स्पॉट</string>
+
+    <string name="ticker_high">उच्च</string>
+    <string name="ticker_low">निम्न</string>
+    <string name="ticker_bid">बिड</string>
+    <string name="ticker_ask">आस्क</string>
+    <string name="ticker_vol_base">वॉल्यूम (बेस)</string>
+    <string name="ticker_vol_quote">वॉल्यूम (कोट)</string>
+    <string name="ticker_timestamp">समय</string>
+
+
+    <string name="try_again">फिर से कोशिश करें</string>
+    <string name="no_internet_connection">इंटरनेट कनेक्शन नहीं है</string>
+    <string name="something_went_wrong">कुछ गड़बड़ हो गई</string>
+
+    <string name="bulk_all_pairs">इस एक्सचेंज के सभी %1$s पेयर</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s पेयर मिले</item>
+        <item quantity="other">%1$d %2$s पेयर मिले</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">चुने गए कॉन्ट्रैक्ट प्रकार के लिए इस एक्सचेंज पर कोई %1$s पेयर नहीं है। पहले एक्सचेंज सिंक करें या कोई दूसरा कॉन्ट्रैक्ट प्रकार आज़माएँ।</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">रीफ़्रेश</string>
+    <string name="action_add_pair">पेयर जोड़ें</string>
+    <string name="action_delete">हटाएँ</string>
+    <string name="action_edit">बदलें</string>
+    <string name="action_back">वापस</string>
+    <string name="action_save">सेव करें</string>
+    <string name="action_cancel">रद्द करें</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">अभी कोई पेयर नहीं</string>
+    <string name="watchlist_empty_hint">या “जोड़ें” में एक एक्सचेंज और पेयर चुनें। हर पेयर के लिए नोटिफ़िकेशन, बोलकर अपडेट और प्राइस अलार्म सेट किए जा सकते हैं।</string>
+    <string name="watchlist_updated">अपडेट: %1$s</string>
+    <string name="watchlist_notification">नोटिफ़िकेशन</string>
+    <string name="watchlist_tts">कीमत बोलें</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">अलार्म (%1$d)</item>
+        <item quantity="other">अलार्म (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">अलार्म</string>
+    <string name="alarms_add">नया अलार्म</string>
+    <string name="alarms_edit">अलार्म बदलें</string>
+    <string name="alarms_empty">इस पेयर के लिए अभी कोई अलार्म नहीं है।</string>
+    <string name="alarm_condition_above">कीमत इससे ऊपर</string>
+    <string name="alarm_condition_below">कीमत इससे नीचे</string>
+    <string name="alarm_condition_up_percent">इतना बढ़े</string>
+    <string name="alarm_condition_down_percent">इतना गिरे</string>
+    <string name="alarm_repeating">बार-बार</string>
+    <string name="alarm_once">एक बार</string>
+    <string name="alarm_last_triggered">पिछली बार %1$s</string>
+    <string name="alarm_field_price">कीमत</string>
+    <string name="alarm_field_percent">प्रतिशत</string>
+    <string name="alarm_option_repeating">बजने के बाद भी अलार्म रखें</string>
+    <string name="alarm_option_sound">आवाज़</string>
+    <string name="alarm_option_vibrate">वाइब्रेशन</string>
+    <string name="alarm_option_speak">अलार्म बोलें</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">कीमतें</string>
+    <string name="channel_prices_description">किसी पेयर की मौजूदा कीमत के साथ साइलेंट नोटिफ़िकेशन।</string>
+    <string name="channel_alarms">अलार्म</string>
+    <string name="channel_alarms_description">प्राइस अलार्म बजने पर नोटिफ़िकेशन।</string>
+    <string name="channel_service">लाइव मोड</string>
+    <string name="channel_service_description">जब कीमतें कम अंतराल पर अपडेट हो रही हों, तब दिखने वाली सूचना।</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, %2$s से (%3$s पहले)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s से</string>
+    <string name="notification_price_first">इस पेयर के लिए पहला नोटिफ़िकेशन</string>
+    <string name="notification_alarm_title">अलार्म: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — अभी %2$s</string>
+    <string name="market_phase_title">Bitcoin मार्केट फ़ेज़</string>
+    <string name="market_phase_trend_loading">कीमत का डेटा लोड हो रहा है…</string>
+    <string name="market_phase_trend_failed">कीमत का डेटा उपलब्ध नहीं है</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">एक साथ कई ऐतिहासिक बॉटम संकेत – ऐतिहासिक संचय क्षेत्र।</string>
+    <string name="zone_hint_bear">गिरावट का रुझान या बॉटम बनने का चरण, अभी व्यापक कैपिटुलेशन के बिना।</string>
+    <string name="zone_hint_neutral">मिले-जुले संकेत, कोई स्पष्ट दिशा नहीं।</string>
+    <string name="zone_hint_bull">अत्यधिक ओवरहीटिंग के बिना बढ़त का रुझान।</string>
+    <string name="zone_hint_extreme_bull">एक साथ कई ऐतिहासिक टॉप संकेत – टॉप का बढ़ा हुआ जोखिम।</string>
+    <string name="market_scores">संभावित शिखर के संकेत %1$d/10 · तल %2$d/10</string>
+    <string name="market_show_indicators">इंडिकेटर दिखाएँ</string>
+    <string name="market_hide_indicators">इंडिकेटर छिपाएँ</string>
+    <string name="market_onchain_missing">ऑन-चेन डेटा (Coin Metrics) अभी उपलब्ध नहीं – स्कोर केवल कीमत डेटा पर आधारित।</string>
+    <string name="market_source">डेटा: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">कीमत बनाम 200-सप्ताह औसत</string>
+    <string name="ind_drawdown">सर्वकालिक उच्च से गिरावट</string>
+    <string name="ind_hash">माइनर कैपिटुलेशन (हैश रिबन्स)</string>
+    <string name="ind_parabolic">परवलयिक उछाल (30 दिन)</string>
+    <string name="ind_halving">हॉल्विंग के बाद से महीने</string>
+    <string name="ind_ath">सर्वकालिक उच्च के बाद से महीने</string>
+    <string name="ind_points_top">+%1$d टॉप</string>
+    <string name="ind_points_bottom">+%1$d बॉटम</string>
+    <string name="market_phase_disclaimer">पिछले साइकिल और कीमत के ट्रेंड पर आधारित। यह कोई पूर्वानुमान या निवेश सलाह नहीं है।</string>
+    <string name="action_retry">फिर से कोशिश करें</string>
+    <string name="settings_section_language">भाषा</string>
+    <string name="settings_language_system">सिस्टम भाषा</string>
+    <string name="settings_language_choose">भाषा चुनें</string>
+    <string name="settings_section_appearance">रूप</string>
+    <string name="settings_theme_mode">मोड</string>
+    <string name="theme_light">लाइट</string>
+    <string name="theme_dark">डार्क</string>
+    <string name="settings_accent">रंग</string>
+    <string name="accent_orange">नारंगी</string>
+    <string name="accent_red">लाल</string>
+    <string name="accent_blue">नीला</string>
+    <string name="accent_green">हरा</string>
+    <string name="settings_rolling_futures">तिमाही &amp; अन्य एक्सपायरी वाले फ़्यूचर्स सहित</string>
+    <string name="settings_rolling_futures_hint">बंद: एक्सचेंज की सूची में न मिलने वाले एक्सपायरी फ़्यूचर्स को एक-एक करके जाँचने के बजाय ट्रेड न होने वाले के रूप में चिह्नित किया जाता है। हर रीफ़्रेश में समय बचता है।</string>
+    <string name="notification_refreshing">कीमतें अपडेट हो रही हैं…</string>
+    <string name="notification_service_title">Crypto Checker लाइव मोड</string>
+    <string name="notification_service_starting">शुरू हो रहा है…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d पेयर · %2$s</item>
+        <item quantity="other">%1$d पेयर · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">वॉचलिस्ट में कोई पेयर नहीं</string>
+    <string name="notification_service_error">अपडेट विफल रहा</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="settings_background_updates">बैकग्राउंड अपडेट</string>
+    <string name="settings_background_updates_hint">ऐप बंद होने पर भी कीमतें, अलार्म और विजेट अपडेट होते हैं।</string>
+    <string name="settings_background_interval">अंतराल</string>
+    <string name="settings_live_service">लाइव मोड</string>
+    <string name="settings_live_service_hint">कम अंतराल के लिए एक सर्विस चालू रखता है। ज़्यादा बैटरी खर्च होती है।</string>
+    <string name="settings_live_interval">लाइव अंतराल</string>
+    <string name="settings_minutes">%1$d मिनट</string>
+    <string name="settings_seconds">%1$d सेकंड</string>
+    <string name="settings_price_notifications">प्राइस नोटिफ़िकेशन</string>
+    <string name="settings_price_notifications_hint">चालू किए गए पेयर की मौजूदा कीमत स्टेटस बार में दिखाएँ।</string>
+    <string name="settings_ongoing_notifications">स्वाइप करके हटाया नहीं जा सकता</string>
+    <string name="settings_ongoing_notifications_hint">प्राइस नोटिफ़िकेशन को पिन करके रखता है।</string>
+    <string name="settings_notification_change">केवल कीमत बदलने पर सूचित करें</string>
+    <string name="settings_notification_change_always">हमेशा</string>
+    <string name="settings_notification_change_hint">पिछले नोटिफ़िकेशन के बाद कीमत कम से कम इतनी बदलने पर ही नोटिफ़िकेशन दिखता है। डेटा न होने पर कुछ नहीं दिखाया जाता। अलार्म पर इसका असर नहीं पड़ता।</string>
+    <string name="settings_alarm_cooldown">अलार्म दोबारा बजने से पहले शांत समय</string>
+    <string name="settings_tts">बोलकर आउटपुट</string>
+    <string name="settings_tts_alarms_only">केवल अलार्म</string>
+    <string name="settings_tts_alarms_only_hint">बंद: «कीमत बोलें» वाले हर पेयर का हर अपडेट बोला जाता है।</string>
+    <string name="settings_speech_rate">बोलने की गति: %1$.1f×</string>
+    <string name="settings_tts_test">आवाज़ जाँचें</string>
+    <string name="battery_title">कीमतें अप-टू-डेट रखें</string>
+    <string name="battery_message">बैटरी बचाने के लिए Android बैकग्राउंड काम में देरी करता है — तब कीमतें और विजेट घंटों पुराने हो सकते हैं। बैटरी उपयोग को अप्रतिबंधित करने से वे अपडेट रहते हैं। आप इसे कभी भी Android सेटिंग्स में बदल सकते हैं।</string>
+    <string name="battery_later">बाद में</string>
+    <string name="settings_battery_ok">बैटरी उपयोग: अप्रतिबंधित</string>
+    <string name="settings_battery_restricted">बैटरी उपयोग: प्रतिबंधित</string>
+    <string name="settings_battery_hint">प्रतिबंधित होने पर Android बैकग्राउंड अपडेट में घंटों की देरी कर सकता है।</string>
+
+    <!-- Widget -->
+    <string name="widget_description">आपकी वॉचलिस्ट के किसी पेयर की कीमत दिखाता है।</string>
+    <string name="widget_empty">वॉचलिस्ट में अभी कोई पेयर नहीं।</string>
+    <string name="widget_opacity">बैकग्राउंड अपारदर्शिता: %1$d%%</string>
+    <string name="settings_section_about">ऐप के बारे में</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">कीमतें सीधे एक्सचेंजों से आती हैं; कोई अकाउंट नहीं और कोई ट्रैकिंग नहीं।</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">बड़े एक्सचेंजों से बाहर के टोकन, विकेंद्रीकृत एक्सचेंजों (Uniswap, PancakeSwap, Raydium …) से DexScreener के ज़रिए। टोकन खोजें और उसका ट्रेडिंग पूल जोड़ें – कीमतें अमेरिकी डॉलर में।</string>
+    <string name="dex_search_hint">टोकन का नाम, सिंबल या पता</string>
+    <string name="dex_search">खोजें</string>
+    <string name="dex_no_results">कोई पूल नहीं मिला।</string>
+    <string name="dex_added">%1$s वॉचलिस्ट में जोड़ा गया।</string>
+    <string name="dex_already">%1$s पहले से वॉचलिस्ट में है।</string>
+    <string name="dex_liquidity">लिक्विडिटी %1$s</string>
+    <string name="dex_add">जोड़ें</string>
+    <string name="action_sort">क्रमबद्ध करें</string>
+    <string name="action_sort_done">हो गया</string>
+    <string name="sort_move_top">सबसे ऊपर</string>
+    <string name="sort_move_up">ऊपर</string>
+    <string name="sort_move_down">नीचे</string>
+    <string name="sort_move_bottom">सबसे नीचे</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">सभी %1$d पेयर वॉचलिस्ट में जोड़ें</item>
+        <item quantity="other">सभी %1$d पेयर वॉचलिस्ट में जोड़ें</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d जोड़ा गया, %2$d पहले से वॉचलिस्ट में हैं।</item>
+        <item quantity="other">%1$d जोड़े गए, %2$d पहले से वॉचलिस्ट में हैं।</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">वॉचलिस्ट में जोड़ें</string>
+    <string name="explorer_added_to_watchlist">वॉचलिस्ट में जोड़ दिया गया।</string>
+    <string name="explorer_already_in_watchlist">यह पेयर पहले से वॉचलिस्ट में है।</string>
+    <string name="explorer_no_pair_selected">पहले एक पेयर चुनें।</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">अलार्म। %1$s, %2$s %3$s %4$s, अभी %5$s</string>
+    <string name="tts_direction_up">बढ़ गया</string>
+    <string name="tts_direction_down">गिर गया</string>
+    <string name="watchlist_refresh_report">पिछला रीफ़्रेश</string>
+    <string name="watchlist_refresh_report_empty">अभी कोई विवरण नहीं: इस वर्ज़न ने अभी तक पूरा रीफ़्रेश नहीं किया है। रीफ़्रेश पर टैप करें और स्पिनर रुकने तक इंतज़ार करें।</string>
+    <string name="action_close">बंद करें</string>
+    <string name="watchlist_clear">वॉचलिस्ट खाली करें</string>
+    <string name="watchlist_clear_confirm">वॉचलिस्ट से सभी पेयर हटाएँ? उनके अलार्म भी हट जाएँगे।</string>
+    <string name="market_scores_hint">शिखर = पिछले चक्र-शिखरों जैसे संकेत, तल = पिछले चक्र-तलों जैसे संकेत। 4 अंकों से एक पक्ष हावी होता है, 7 से यह चरम है। कोई मूल्य लक्ष्य नहीं और कोई पूर्वानुमान नहीं।</string>
+    <string name="market_scores_none">शिखर या तल का कोई संकेत सक्रिय नहीं: शांत मध्य चरण, मूल्य रुझान तय करता है।</string>
+    <string name="market_scores_info_title">चक्र संकेत</string>
+    <string name="market_scores_info_text">संभावित शिखर के संकेत पिछले चक्रों के शिखरों पर दिखे संकेत गिनते हैं: भारी ओवरवैल्यूएशन (MVRV), माइनरों की बहुत ऊँची आय (Puell), कीमत 200-दिन या 200-सप्ताह औसत से बहुत ऊपर, परवलयिक उछाल और हॉल्विंग के 12–18 महीने बाद की अवधि।\n\nसंभावित तल के संकेत पिछले तलों के संकेत गिनते हैं: कम MVRV, माइनरों की कमज़ोर आय, सर्वकालिक उच्च से तेज़ गिरावट, 200-सप्ताह औसत के पास कीमत, गिरता हैशरेट और एक साल से पुराना शिखर।\n\n4 अंकों की बढ़त पर ज़ोन Bull या Bear है, 7 से चरम। यदि कोई पक्ष आगे नहीं, तो मूल्य रुझान तय करता है। दोनों ओर 0/10 का अर्थ: न उत्साह, न समर्पण।\n\nकोई मूल्य लक्ष्य नहीं और कोई पूर्वानुमान नहीं: संकेत सिर्फ़ यह बताते हैं कि पिछले चक्र कैसे दिखते थे।</string>
+    <string name="battery_open_settings">बैटरी सेटिंग खोलें</string>
+    <string name="battery_steps">ऐप जानकारी में बैटरी (या ऐप बैटरी उपयोग) पर टैप करें और अप्रतिबंधित चुनें।</string>
+    <string name="explorer_select_placeholder">कृपया चुनें</string>
+    <string name="explorer_bulk_title">एक साथ कई पेयर</string>
+    <string name="watchlist_sort_hint">पेयर को दबाकर खींचें या हैंडल का उपयोग करें। पसंदीदा ऊपर रहते हैं।</string>
+    <string name="sort_drag_handle">खिसकाने के लिए खींचें</string>
+    <string name="explorer_step_pair">पेयर चुनें</string>
+    <string name="theme_system">सिस्टम</string>
+    <string name="settings_section_developer">डेवलपर</string>
+    <string name="settings_http_log">HTTP लॉग दिखाएँ</string>
+    <string name="settings_http_log_hint">“जोड़ें” टैब के नीचे एक्सचेंजों को भेजे गए अनुरोध दिखाता है – समस्या खोजने के लिए।</string>
+    <string name="language_search">भाषा खोजें</string>
+    <string name="alarm_delete_title">अलार्म हटाएँ?</string>
+    <string name="alarm_delete_confirm">यह अलार्म हटा दिया जाएगा।</string>
+    <string name="alarms_overview_title">सभी अलार्म</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d सक्रिय</item>
+        <item quantity="other">%1$d सक्रिय</item>
+    </plurals>
+    <string name="alarms_overview_empty">अभी कोई अलार्म नहीं। कोई पेयर खोलें और अलार्म में जोड़ें।</string>
+    <string name="action_more">अधिक विकल्प</string>
+    <string name="watchlist_last_run">पिछला रन %1$s</string>
+    <string name="watchlist_pull_to_refresh">रीफ़्रेश के लिए नीचे खींचें</string>
+    <string name="favorite_add">पसंदीदा में जोड़ें</string>
+    <string name="favorite_remove">पसंदीदा से हटाएँ</string>
+    <string name="action_view">देखें</string>
+    <string name="explorer_loading_pairs">ट्रेडिंग पेयर लोड हो रहे हैं…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d पेयर · अपडेट %2$s</item>
+        <item quantity="other">%1$d पेयर · अपडेट %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d पेयर जोड़ें?</item>
+        <item quantity="other">%1$d पेयर जोड़ें?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s के सभी %1$d %2$s पेयर सूची में जोड़े जाएँगे। पहले से मौजूद छोड़ दिए जाएँगे।</item>
+        <item quantity="other">%3$s के सभी %1$d %2$s पेयर सूची में जोड़े जाएँगे। पहले से मौजूद छोड़ दिए जाएँगे।</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">ऊपर चुनने के लिए किसी पेयर पर टैप करें।</string>
+    <string name="loading_hint">लोड हो रहा है…</string>
+    <string name="explorer_select_market_hint">एक्सचेंज चुनें – उसके पेयर अपने आप लोड होंगे।</string>
+    <string name="explorer_precise_title">सटीक चुनें</string>
+    <string name="explorer_search_hint">कॉइन खोजें, जैसे BTC या ETH USDT</string>
+    <string name="explorer_search_loading">एक्सचेंज खोजे जा रहे हैं… %1$d/%2$d</string>
+    <string name="explorer_search_empty">कोई परिणाम नहीं।</string>
+    <string name="action_clear">साफ़ करें</string>
+    <string name="explorer_bulk_show_list">सूची दिखाएँ</string>
+    <string name="explorer_bulk_hide_list">सूची छिपाएँ</string>
+    <string name="time_just_now">अभी-अभी</string>
+    <string name="welcome_title">Crypto Checker</string>
+    <string name="welcome_text">आपके भाव। आपके अलार्म। आपका ओवरव्यू।\nकोई खाता नहीं। कोई विज्ञापन नहीं। कोई ट्रैकिंग नहीं।</string>
+    <string name="welcome_later">बाद में</string>
+    <string name="developer_unlocked">डेवलपर विकल्प खुल गए</string>
+    <string name="hint_favorites_list">सुझाव: पसंदीदा के लिए ☆ पर टैप करें – पसंदीदा ऊपर रहते हैं।</string>
+    <string name="tab_watchlist">सूची</string>
+    <string name="tab_markets">जोड़ें</string>
+    <string name="tab_market_phase">बाज़ार</string>
+    <string name="tab_settings">सेटिंग</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d में से %1$d पुराने</item>
+        <item quantity="other">%2$d में से %1$d पुराने</item>
+    </plurals>
+    <string name="watchlist_all_fresh">सब ताज़ा · %1$s</string>
+    <string name="explorer_price_loading">भाव लोड हो रहा है…</string>
+    <string name="zone_top_risk">शिखर जोखिम</string>
+    <string name="zone_bottom_chance">तल बनना</string>
+    <string name="timeout_error_message">एक्सचेंज अभी जवाब नहीं दे रहा।</string>
+    <string name="widget_background">पृष्ठभूमि</string>
+    <string name="widget_configure_title">विजेट सेट करें</string>
+    <string name="widget_configure_hint">पृष्ठभूमि और अपारदर्शिता चुनें। रंग ऐप के अनुसार रहता है। विजेट पूरी सूची दिखाता है; ऐप खोलने के लिए किसी पंक्ति पर टैप करें।</string>
+    <string name="settings_custom_value">अपना</string>
+    <string name="insights_halving_title">बिटकॉइन हॉल्विंग</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">अगली हॉल्विंग लगभग %1$d दिन में (%2$s)</item>
+        <item quantity="other">अगली हॉल्विंग लगभग %1$d दिन में (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">मौजूदा चक्र का %1$d %%</string>
+    <string name="insights_cycle_chart">हॉल्विंग के बाद के चक्र</string>
+    <string name="insights_chart_axis">हॉल्विंग के बाद वर्ष</string>
+    <string name="insights_chart_hint">हॉल्विंग वाले दिन के भाव के गुणज के रूप में भाव (लॉग स्केल)। पिछले चक्र एक पैटर्न हैं, पूर्वानुमान नहीं।</string>
+    <string name="insights_source_history">स्रोत: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">डर और लालच</string>
+    <string name="fng_extreme_fear">अत्यधिक डर</string>
+    <string name="fng_fear">डर</string>
+    <string name="fng_neutral">तटस्थ</string>
+    <string name="fng_greed">लालच</string>
+    <string name="fng_extreme_greed">अत्यधिक लालच</string>
+    <string name="insights_fng_history">कल %1$s · एक सप्ताह पहले %2$s · एक महीने पहले %3$s</string>
+    <string name="insights_source_fng">स्रोत: alternative.me</string>
+    <string name="insights_dominance_title">बिटकॉइन प्रभुत्व</string>
+    <string name="insights_altseason_title">ऑल्टकॉइन सीज़न</string>
+    <string name="altseason_alt">ऑल्टकॉइन सीज़न</string>
+    <string name="altseason_btc">बिटकॉइन सीज़न</string>
+    <string name="altseason_mixed">मिश्रित</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d बड़े ऑल्टकॉइन में से %1$d ने 90 दिनों में बिटकॉइन को पीछे छोड़ा</item>
+        <item quantity="other">%2$d बड़े ऑल्टकॉइन में से %1$d ने 90 दिनों में बिटकॉइन को पीछे छोड़ा</item>
+    </plurals>
+    <string name="insights_source_dominance">स्रोत: CoinGecko, Binance</string>
+    <string name="coin_title">कॉइन विश्लेषण</string>
+    <string name="coin_choose">कॉइन</string>
+    <string name="coin_no_data">इस कॉइन का Binance या Bybit पर कोई भाव डेटा नहीं।</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">केवल %1$d दिन का इतिहास – कुछ संकेतक नहीं हैं।</item>
+        <item quantity="other">केवल %1$d दिन का इतिहास – कुछ संकेतक नहीं हैं।</item>
+    </plurals>
+    <string name="coin_price_only">केवल भाव पर आधारित – ऑन-चेन डेटा (MVRV, Puell, हैशरेट) मुफ़्त में केवल बिटकॉइन के लिए है।</string>
+    <string name="ind_rsi_weekly">RSI (साप्ताहिक)</string>
+    <string name="ind_rsi_daily">RSI (दैनिक)</string>
+    <string name="ind_pi_cycle">Pi चक्र (111/350 दिन)</string>
+    <string name="ind_cross">रुझान 50/200 दिन</string>
+    <string name="ind_vs_btc">बिटकॉइन के मुकाबले ताकत (90 दिन)</string>
+    <string name="ind_missing">अपर्याप्त डेटा</string>
+    <string name="channel_market">बाज़ार चरण</string>
+    <string name="channel_market_description">बिटकॉइन का बाज़ार चरण बदलने पर सूचित करता है</string>
+    <string name="notification_zone_title">बिटकॉइन: %1$s</string>
+    <string name="notification_zone_text">बाज़ार चरण %1$s से %2$s में बदला।</string>
+    <string name="settings_zone_alerts">चरण बदलने पर सूचित करें</string>
+    <string name="settings_zone_alerts_hint">दिन में दो बार जाँचता है और बिटकॉइन के ज़ोन बदलने पर सूचित करता है, जैसे तटस्थ से Bull।</string>
+    <string name="alarm_condition_move_percent">इतना बदले</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d घंटे में</item>
+        <item quantity="other">%1$d घंटे में</item>
+    </plurals>
+    <string name="alarm_window_label">समय सीमा</string>
+    <string name="tts_direction_move">तेज़ी से बदल रहा है</string>
+    <string name="settings_fng_below">Fear &amp; Greed: इससे नीचे सूचित करें</string>
+    <string name="settings_fng_above">Fear &amp; Greed: इससे ऊपर सूचित करें</string>
+    <string name="option_off">बंद</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">सूचकांक %1$d से नीचे गया – बाज़ार डरा हुआ है।</string>
+    <string name="notification_fng_above">सूचकांक %1$d से ऊपर गया – बाज़ार लालची है।</string>
+    <string name="futures_title">फ़्यूचर्स डेटा</string>
+    <string name="futures_funding">फ़ंडिंग रेट</string>
+    <string name="futures_next_funding">अगला %1$d घं %2$d मि में</string>
+    <string name="futures_open_interest">ओपन इंटरेस्ट</string>
+    <string name="futures_source">स्रोत: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – एक कॉइन</string>
+    <string name="single_widget_description">एक कॉइन को बड़ा दिखाता है: भाव, बदलाव और 24 घंटे का चार्ट।</string>
+    <string name="single_widget_choose">पेयर चुनें</string>
+    <string name="single_widget_title">एकल विजेट सेट करें</string>
+    <string name="shortcut_add">पेयर जोड़ें</string>
+    <string name="shortcut_alarms">सभी अलार्म</string>
+    <string name="shortcut_cycle">बाज़ार</string>
+    <string name="backup_title">बैकअप और रीस्टोर</string>
+    <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे आप रखते हैं – जैसे नए फ़ोन के लिए।</string>
+    <string name="backup_export">निर्यात</string>
+    <string name="backup_import">आयात</string>
+    <string name="backup_restore_confirm">आयात करने से आपकी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
+    <string name="backup_exported">बैकअप सहेजा गया।</string>
+    <string name="backup_failed">नहीं हुआ। क्या यह Crypto Checker बैकअप है?</string>
+    <string name="backup_restored">रीस्टोर हुआ: %1$s, %2$s।</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d पेयर</item>
+        <item quantity="other">%1$d पेयर</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d अलार्म</item>
+        <item quantity="other">%1$d अलार्म</item>
+    </plurals>
+</resources>

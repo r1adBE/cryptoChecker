@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Andamento del valore</string>
+    <string name="portfolio_history_range_7d">7 G</string>
+    <string name="portfolio_history_range_30d">30 G</string>
+    <string name="portfolio_history_range_1y">1 A</string>
+    <string name="portfolio_history_period_7d">7 giorni</string>
+    <string name="portfolio_history_period_30d">30 giorni</string>
+    <string name="portfolio_history_period_1y">1 anno</string>
+    <string name="portfolio_history_range_a11y">Mostra andamento per %1$s</string>
+    <string name="portfolio_history_change_a11y">Valore in %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Oggi</string>
+    <string name="portfolio_history_converted">Convertito al cambio di oggi</string>
+    <string name="portfolio_history_without">Senza %1$s (nessun prezzo giornaliero)</string>
+    <string name="portfolio_history_includes_trades">Include acquisti e vendite in questo periodo</string>
+    <string name="portfolio_history_too_short">L\'andamento inizia dopo il tuo primo giorno completo.</string>
+    <string name="portfolio_history_unavailable">Nessun andamento disponibile al momento.</string>
+    <string name="portfolio_history_loading">Caricamento andamento del valore</string>
+</resources>

@@ -1,0 +1,10 @@
+Të reja në 16.2.2
+• Crypto Pulse: çfarë po ndodh tani në treg
+• Aktivitet i pazakontë, Pse po lëviz? tani me përmbledhje të shkurtër
+• Testo alarmin
+• Çmime dhe alarme në monedhën tënde
+• Eksport CSV në datën e referencës
+• Aksesueshmëri: blu/portokalli, kontrast i lartë, ndërrim ngjyrash, TalkBack
+• Fillo me një prekje, orët e heshtjes, kyçje, widget Portofoli, alarm si fjali
+• 15 bursa të reja, tarifat e rrjetit me alarm gas
+• Grafik me qirinj në widget, kapitalizimi

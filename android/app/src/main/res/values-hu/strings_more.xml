@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">A piac ma</string>
+    <string name="pulse_alts_stronger">Az altcoinok erősebbek a Bitcoinnál</string>
+    <string name="pulse_alts_weaker">A Bitcoin erősebb az altcoinoknál</string>
+    <string name="pulse_alts_even">Az altcoinok és a Bitcoin együtt mozognak</string>
+    <string name="pulse_volume_high">Kereskedési volumen szokatlanul magas (a szokásos %1$s×-ese)</string>
+    <string name="pulse_volume_low">Kereskedési volumen alacsony (a szokásos %1$s×-ese)</string>
+    <string name="pulse_volume_normal">Kereskedési volumen szokásos</string>
+    <string name="pulse_funding_high">Funding egyértelműen pozitív: sok tőkeáttételes long</string>
+    <string name="pulse_funding_slight">Funding enyhén pozitív</string>
+    <string name="pulse_funding_neutral">Funding semleges</string>
+    <string name="pulse_funding_negative">Funding negatív: sok short</string>
+    <string name="pulse_gas_low">Ethereum gas alacsony (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum gas szokásos (%1$s gwei)</string>
+    <string name="pulse_gas_high">Ethereum gas magas (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Nem előrejelzés · Nem befektetési tanácsadás</string>
+    <string name="pulse_less">Kevesebb megjelenítése</string>
+    <string name="pulse_updated">Állapot: %1$s</string>
+    <string name="pulse_unavailable">A piaci adatok jelenleg nem érhetők el</string>
+    <string name="why_summary_title">Röviden</string>
+    <string name="why_summary_market_volume">A mozgást magasabb kereskedési volumen és széles körben mozgó piac kíséri.</string>
+    <string name="why_summary_market">A mozgás a teljes piacot követi.</string>
+    <string name="why_summary_coin_volume">Csak ez az érme mozog, magasabb volumen mellett – valószínűleg magánál az érménél van az ok.</string>
+    <string name="why_summary_coin">Csak ez az érme mozog – valószínűleg magánál az érménél van az ok.</string>
+    <string name="why_summary_against">Az érme a piaccal szemben mozog.</string>
+    <string name="why_summary_thin">A mozgás gyenge: kevés volumen áll mögötte.</string>
+    <string name="why_summary_calm">Nincs feltűnő mozgás: a piac és az érme nyugodt.</string>
+    <string name="why_summary_longs">Határidős piac: sok tőkeáttételes long pozíció.</string>
+    <string name="why_summary_shorts">Határidős piac: sok short pozíció.</string>
+    <string name="why_dot_supports">támogatja a mozgást</string>
+    <string name="why_dot_caution">emelkedett</string>
+    <string name="why_dot_neutral">semleges</string>
+    <string name="alarm_test">Riasztás tesztelése</string>
+    <string name="alarm_test_hint">Mintariasztást küld az Ön hang-, rezgés- és felolvasási beállításaival.</string>
+    <string name="alarm_test_title">Teszt: Crypto Checker riasztás</string>
+    <string name="alarm_test_text">Így néz ki és így szól egy riasztás.</string>
+    <string name="alarm_test_quiet">Most csendes órák vannak: a valódi riasztások hang nélkül érkeznének.</string>
+    <string name="alarm_test_denied">Az értesítések ki vannak kapcsolva a Crypto Checker számára.</string>
+    <string name="alarm_test_open_settings">Beállítások megnyitása</string>
+    <string name="alarm_first_title">Minden kész</string>
+    <string name="welcome_watch">Figyelés – érméi, árfolyamok, grafikonok és widgetek</string>
+    <string name="welcome_alert">Riasztás – ár, százalék, volumen és szokatlan mozgások</string>
+    <string name="welcome_understand">Megértés – miért mozog most a piac?</string>
+    <string name="welcome_start">Kezdjük</string>
+    <string name="portfolio_empty_example">Példa: 0,01 BTC március 1-jén %1$s áron vásárolva. Az alkalmazás ezután mutatja az értéket, az átlagos vételárat és a nyereséget/veszteséget – csak ezen az eszközön tárolva.</string>
+    <string name="about_why">A Crypto Checker Rich1e független projektje: nyugodt árfolyam-áttekintés fiók, reklám és követés nélkül. Kérdések és kívánságok: %1$s</string>
+    <string name="a11y_move_up">Mozgatás felfelé</string>
+    <string name="a11y_move_down">Mozgatás lefelé</string>
+    <string name="a11y_in_watchlist">Már a figyelőlistán van</string>
+    <string name="portfolio_export_today_hint">A mai nap még nem zárult le: a napi záróár helyett az aktuális árfolyam szerepel.</string>
+    <string name="about_privacy_policy">Adatvédelmi irányelvek</string>
+    <string name="widget_chart_type">Diagram típusa</string>
+    <string name="widget_chart_line">Vonal</string>
+    <string name="widget_chart_candles">Gyertyák</string>
+    <string name="pair_added_watching">A(z) %1$s figyelése elindult</string>
+    <string name="market_cap_title">Kriptopiac</string>
+    <string name="market_cap_label">Piaci kapitalizáció</string>
+    <string name="market_volume_label">Forgalom 24 óra</string>
+    <string name="market_cap_source">Minden érme · CoinGecko</string>
+    <string name="market_data_empty_error">Nem érkezett adat a tőzsdéről.</string>
+    <string name="sync_pairs_count">Kereskedési párok: %1$d</string>
+    <string name="market_unavailable_error">A tőzsde nem érhető el</string>
+    <string name="refresh_report_aborted">Frissítés megszakítva:</string>
+    <string name="refresh_report_wait">Várakozás az indulásig: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Összesen %1$s · %2$d pár</item>
+        <item quantity="other">Összesen %1$s · %2$d pár</item>
+    </plurals>
+    <string name="refresh_report_network">Hálózat %1$s</string>
+    <string name="refresh_report_database">Adatbázis %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Riasztások/értesítések %1$s · %2$d értesítés</item>
+        <item quantity="other">Riasztások/értesítések %1$s · %2$d értesítés</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widgetek %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d pár, %3$s</item>
+        <item quantity="other">%1$s: %2$d pár, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">csoportos lekérés %1$s (%2$d árfolyam)</item>
+        <item quantity="other">csoportos lekérés %1$s (%2$d árfolyam)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">csoportos lekérés %1$s (sikertelen)</string>
+    <string name="refresh_report_singles">%1$d egyenként</string>
+    <string name="refresh_report_slowest">leglassabb %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d már nem forog</item>
+        <item quantity="other">%1$d már nem forog</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d hiba</item>
+        <item quantity="other">%1$d hiba</item>
+    </plurals>
+    <string name="starter_add_selected">Hozzáadás a figyelőlistához (%1$d)</string>
+    <string name="starter_select_all">Összes kijelölése</string>
+    <string name="starter_select_none">Kijelölés megszüntetése</string>
+    <string name="starter_loading_prices">Árfolyamok betöltése…</string>
+    <string name="watchlist_removed">%1$s eltávolítva</string>
+    <string name="action_undo">Visszavonás</string>
+    <string name="favorite_added">%1$s hozzáadva a kedvencekhez</string>
+    <string name="favorite_removed">%1$s eltávolítva a kedvencekből</string>
+    <string name="cycle_data_as_of">Adatok: %1$s · frissítés…</string>
+    <string name="settings_conversion_currency_hint">A portfólióhoz, a saját pénznemében megadott riasztásokhoz, a Kriptopiac kártyához és a Portfólió widgethez is ezt használja az app.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d emelkedik</item>
+        <item quantity="other">%1$d emelkedik</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d esik</item>
+        <item quantity="other">%1$d esik</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, átlagosan %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pár emelkedik</item>
+        <item quantity="other">%1$d pár emelkedik</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d esik</item>
+        <item quantity="other">%1$d esik</item>
+    </plurals>
+    <string name="pulse_headline_up">Széles erő</string>
+    <string name="pulse_headline_down">Széles gyengeség</string>
+    <string name="pulse_headline_mixed">Vegyes kép</string>
+    <string name="pulse_headline_calm">Nyugodt piac</string>
+    <string name="pulse_chip_funding_high">Funding emelkedett</string>
+    <string name="pulse_chip_funding_negative">Funding negatív</string>
+    <string name="market_signal_top">Csúcs jelei %1$d/10</string>
+    <string name="market_signal_bottom">Mélypont jelei %1$d/10</string>
+    <string name="market_section_now">Most</string>
+    <string name="market_section_context">Háttér</string>
+    <string name="market_section_data">Adatok</string>
+</resources>

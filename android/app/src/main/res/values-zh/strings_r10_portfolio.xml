@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">价值走势</string>
+    <string name="portfolio_history_range_7d">7天</string>
+    <string name="portfolio_history_range_30d">30天</string>
+    <string name="portfolio_history_range_1y">1年</string>
+    <string name="portfolio_history_period_7d">7 天</string>
+    <string name="portfolio_history_period_30d">30 天</string>
+    <string name="portfolio_history_period_1y">1 年</string>
+    <string name="portfolio_history_range_a11y">显示 %1$s 走势</string>
+    <string name="portfolio_history_change_a11y">%1$s 内价值：%2$s，%3$s</string>
+    <string name="portfolio_history_today">今天</string>
+    <string name="portfolio_history_converted">按今日汇率换算</string>
+    <string name="portfolio_history_without">不含 %1$s（无每日价格）</string>
+    <string name="portfolio_history_includes_trades">包含此期间的买入和卖出</string>
+    <string name="portfolio_history_too_short">走势从你的第一个完整日之后开始。</string>
+    <string name="portfolio_history_unavailable">暂无走势数据。</string>
+    <string name="portfolio_history_loading">正在加载价值走势</string>
+</resources>

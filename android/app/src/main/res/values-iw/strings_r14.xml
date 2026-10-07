@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">רישיונות</string>
+    <string name="licenses_marketdata_title">ספריית נתוני מחירים</string>
+    <string name="licenses_marketdata_intro">חלקים מהחיבור לבורסות מבוססים על תוכנה תחת רישיון MIT:</string>
+    <string name="licenses_marketdata_changes">שינויים: %1$s</string>
+    <string name="licenses_font_title">הגופן Rubik</string>
+    <string name="licenses_libraries_title">ספריות Android</string>
+    <string name="licenses_libraries_intro">האפליקציה משתמשת בספריות אלה תחת Apache License 2.0:</string>
+</resources>

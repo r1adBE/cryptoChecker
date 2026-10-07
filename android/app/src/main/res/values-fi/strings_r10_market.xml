@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Tänään silmiinpistävää</string>
+    <string name="unusual_nothing">Tänään ei mitään silmiinpistävää</string>
+    <string name="unusual_fact_stronger">Liikkuu selvästi voimakkaammin kuin BTC</string>
+    <string name="unusual_fact_weaker">Liikkuu selvästi heikommin kuin BTC</string>
+    <string name="unusual_fact_against">Liikkuu markkinaa vastaan</string>
+    <string name="unusual_fact_volume">Volyymi %1$s× tavallinen</string>
+    <string name="unusual_fact_funding_high">Funding koholla (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negatiivinen (%1$s)</string>
+    <string name="unusual_source">Noin 30 suurinta kolikkoa ilman stablecoineja · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Miksi tämä liikkuu?</string>
+    <string name="unusual_action_add">Etsi lisättävä pari</string>
+
+    <string name="macro_title">Talousluvut</string>
+    <string name="macro_cpi">Yhdysvaltain inflaatio (CPI)</string>
+    <string name="macro_ppi">Yhdysvaltain tuottajahinnat (PPI)</string>
+    <string name="macro_nfp">Yhdysvaltain työllisyysraportti</string>
+    <string name="macro_fomc">Fedin korkopäätös</string>
+    <string name="macro_pce">Yhdysvaltain PCE-inflaatio</string>
+    <string name="macro_hint_today">Tänään %1$s: %2$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_tomorrow">Huomenna %1$s: %2$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_today_list">Tänään: %1$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_tomorrow_list">Huomenna: %1$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_list">%1$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_released_one">Julkaistu tänään klo %1$s: %2$s.</string>
+    <string name="macro_released_list">Julkaistu tänään: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Tänään %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Huomenna %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Talouskalenteri</string>
+    <string name="settings_macro_notifications_hint">Klo 08:00 päivinä, joina julkaistaan tärkeitä Yhdysvaltain talouslukuja (inflaatio, työllisyys, korkopäätös). Kalenteri haetaan sovelluksen verkkosivulta kerran päivässä.</string>
+    <string name="notification_macro_title">Talouslukuja tänään</string>
+</resources>

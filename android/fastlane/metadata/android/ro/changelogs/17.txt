@@ -1,0 +1,10 @@
+Noutăți 16.2.2
+• Crypto Pulse: ce se întâmplă acum pe piață
+• Activitate neobișnuită, De ce se mișcă? acum cu scurt rezumat
+• Testează alarma
+• Prețuri și alarme în moneda ta
+• Export CSV la data de referință, de ex. pentru taxe
+• Accesibil: albastru/portocaliu, contrast ridicat, culori inversate, TalkBack
+• Start cu o atingere, ore de liniște, blocare, widget Portofoliu, alarmă ca propoziție
+• 15 burse noi, comisioane de rețea cu alarmă de gas
+• Grafic cu lumânări în widget, capitalizare

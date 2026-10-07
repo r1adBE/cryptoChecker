@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Beispielwerte der Widget-Vorschauen im Auswahlmenü (layout/widget_preview_*, ab Android 12).
+     Nur Zahlen, Symbole und Eigennamen — nicht übersetzt; Wörter kommen aus den übersetzten
+     Strings. Format wie im echten Widget (PriceFormat, PortfolioSnapshotMath). -->
+<resources>
+    <string name="widget_preview_market" translatable="false">Binance</string>
+    <!-- Uhrzeit mit Trenner vor dem übersetzten Zeitraum («14:05:32 · 24h») -->
+    <string name="widget_preview_time_sep" translatable="false">"14:05:32 · "</string>
+
+    <string name="widget_preview_btc_pair" translatable="false">BTC/USDT</string>
+    <string name="widget_preview_btc_price" translatable="false">98’450 USDT</string>
+    <string name="widget_preview_btc_change" translatable="false" formatted="false">▲ +2.31%</string>
+    <string name="widget_preview_eth_pair" translatable="false">ETH/USDT</string>
+    <string name="widget_preview_eth_price" translatable="false">3’612.48 USDT</string>
+    <string name="widget_preview_eth_change" translatable="false" formatted="false">▲ +1.84%</string>
+    <string name="widget_preview_sol_pair" translatable="false">SOL/USDT</string>
+    <string name="widget_preview_sol_price" translatable="false">182.35 USDT</string>
+    <string name="widget_preview_sol_change" translatable="false" formatted="false">▼ −0.92%</string>
+    <string name="widget_preview_xrp_pair" translatable="false">XRP/USDT</string>
+    <string name="widget_preview_xrp_price" translatable="false">2.418 USDT</string>
+    <string name="widget_preview_xrp_change" translatable="false" formatted="false">▲ +0.47%</string>
+
+    <string name="widget_preview_portfolio_total" translatable="false">84’215.30 CHF</string>
+    <string name="widget_preview_portfolio_usdt" translatable="false">≈ 92’310.00 USDT</string>
+    <string name="widget_preview_portfolio_change" translatable="false" formatted="false">▲ +1’168.40 CHF · +1.41%</string>
+    <!-- Kopf des Listen-Widgets: Uhrzeit · Dauer der Aktualisierung -->
+    <string name="widget_preview_list_time_duration" translatable="false">14:05:32 · 840 ms</string>
+    <string name="widget_preview_pulse_glyph" translatable="false">▲</string>
+    <string name="widget_preview_pulse_btc" translatable="false" formatted="false">BTC ▲ +2.8%</string>
+    <string name="widget_preview_pulse_eth" translatable="false" formatted="false">ETH ▲ +2.1%</string>
+    <string name="widget_preview_pulse_sol" translatable="false" formatted="false">SOL ▲ +1.9%</string>
+</resources>

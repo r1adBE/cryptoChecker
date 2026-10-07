@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Atinge pentru acțiuni · glisează pentru acțiuni rapide · ține apăsat pentru sortare</string>
+    <string name="watch_action_alarm">Alarmă</string>
+    <string name="watch_action_why">De ce?</string>
+    <string name="watch_action_favorite">Favorit</string>
+    <string name="add_alarm_action">Setează alarmă</string>
+    <string name="welcome_watch_q">Ce se întâmplă?</string>
+    <string name="welcome_alert_q">Când să acționez?</string>
+    <string name="welcome_understand_q">De ce?</string>
+</resources>

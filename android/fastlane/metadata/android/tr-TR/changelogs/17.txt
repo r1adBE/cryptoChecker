@@ -1,0 +1,10 @@
+16.2.2 yenilikleri
+• Crypto Pulse: piyasada şu an neler oluyor
+• Olağandışı hareket, Bu neden hareket ediyor? artık kısa özetle
+• Alarmı test et: ses, titreşim ve sesli okuma
+• Kendi para biriminde fiyatlar ve alarmlar
+• Referans tarihli CSV dışa aktarımı
+• Erişilebilir: mavi/turuncu, yüksek kontrast, renk değişimi, TalkBack
+• Tek dokunuşla başlangıç, sessiz saatler, kilit, portföy widget'ı, cümle olarak alarm
+• 15 yeni borsa, gas alarmlı ağ ücretleri
+• Widget’ta mum grafik, piyasa değeri

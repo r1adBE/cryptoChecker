@@ -1,0 +1,61 @@
+Pantau harga kripto Anda tanpa terus membuka aplikasi bursa. Pasang alarm, kenali pergerakan tidak biasa, dan pahami dalam hitungan detik mengapa sebuah koin bergerak.
+
+Pantau – harga langsung dari bursa, dalam mata uang Anda
+Ingatkan – harga, %, pergerakan, volume, sebagai satu kalimat
+Pahami – “Kenapa ini bergerak?” dengan ringkasan singkat
+Ikhtisar – Crypto Pulse, Fear & Greed, siklus, dan portofolio
+
+Mudah dibaca semua orang: warna harga hijau/merah atau biru/oranye, bisa ditukar, kontras tinggi, tanda dan panah, bukan hanya warna, serta TalkBack membacakan setiap baris sebagai satu kalimat.
+
+SATU DAFTAR UNTUK 32 BURSA
+• Daftar kosong: 5 koin terbesar menurut kapitalisasi pasar dengan satu ketukan
+• Spot dan futures dari Binance, Coinbase, Kraken, OKX, Bybit, dan banyak lagi
+• Token DEX melalui DexScreener
+• Kelompokkan pasangan, tandai favorit, urutkan dengan menyeret
+• Catatan untuk setiap koin, mis. harga masuk Anda
+• Baris “≈ nilai” dalam mata uang Anda: 31 mata uang (EUR, CHF, USD…), default sesuai wilayah
+• Grafik mini di setiap baris: tren 24 jam di samping harga
+• Portofolio di tab sendiri: pembelian dan penjualan, harga rata-rata, untung/rugi, dan nilai total dalam mata uang Anda
+• Ekspor tanggal acuan: nilai portofolio pada tanggal apa pun (mis. 31/12) dalam mata uang Anda sebagai CSV – praktis untuk pajak, bukan nasihat pajak
+
+ALARM SESUAI STRATEGI ANDA
+• Harga di atas atau di bawah suatu level, naik atau turun sekian persen
+• Alarm dalam mata uang Anda, mis. di 60.000 EUR pada pasangan USDT
+• Alarm sebagai kalimat: “Beri tahu saya saat BTC turun di bawah 60.000 CHF.”
+• Bergerak x % dalam rentang waktu, misalnya 5 % dalam 1 jam
+• Lonjakan volume: volume tiba-tiba jauh di atas rata-rata
+• Sekali atau berulang, dengan suara (juga file audio sendiri), getar, dan ucapan opsional
+• Waktu jeda yang dapat diatur mencegah banjir alarm
+• Jam tenang: malam hari (mis. 23–7) alarm tanpa suara, getaran, atau ucapan
+• “Uji alarm”: dengar dan rasakan lebih dulu bagaimana alarm datang
+
+AKTIVITAS TAK BIASA & KENAPA INI BERGERAK?
+• Aktivitas Tak Biasa mendeteksi pergerakan harga dan volume yang tidak biasa di daftar Anda – dengan notifikasi opsional
+• “Kenapa ini bergerak?” menjelaskan pergerakan dari volume, pasar secara umum, dan data futures, dengan ringkasan singkat – bukan saran investasi
+
+GAMBARAN PASAR
+• Crypto Pulse: apa yang terjadi sekarang? BTC, ETH, SOL, altcoin vs BTC, volume, Fear & Greed, funding, gas ETH, dan ringkasan satu kalimat, tanpa prediksi
+• Indeks Fear & Greed dengan riwayat dan notifikasi opsional
+• Pasar kripto: total kapitalisasi pasar dan volume 24 jam dalam mata uang Anda
+• Tab Pasar: fase pasar dengan tanda kemungkinan puncak atau dasar (bukan prediksi), hitung mundur halving, perbandingan siklus, dominasi, dan musim altcoin
+• Analisis koin: RSI, tren, Pi Cycle, dan kekuatan terhadap Bitcoin
+• Data futures: funding rate dan open interest
+• Biaya jaringan untuk Ethereum, Base, Arbitrum, Polygon, BNB Chain, dan Bitcoin, dengan alarm gas
+
+WIDGET & NOTIFIKASI
+• Widget: seluruh daftar, nilai portofolio dengan perubahan hari ini, satu koin besar dengan harga dan grafik – candle atau garis, tanda tertinggi/tengah/terendah
+• Notifikasi harga senyap per pasangan
+• Mode live dengan pembaruan setiap 15 detik, di latar belakang mulai 15 menit
+
+LAINNYA
+• Output suara: harga dan alarm dibacakan
+• Cadangkan & pulihkan ke file pilihan Anda – juga antara Android dan iPhone
+• Pintasan aplikasi, mode terang dan gelap
+• Empat warna aksen dengan ikon aplikasi yang serasi
+• Kunci aplikasi: sidik jari, wajah, atau PIN
+• Tersedia dalam 31 bahasa
+
+PRIVASI NOMOR SATU
+Tanpa akun, tanpa iklan, tanpa analitik. Harga diambil langsung dari API publik bursa. Daftar, alarm, dan kepemilikan Anda tetap di perangkat Anda. Sumber terbuka (Lisensi MIT) – kodenya publik di GitHub.
+
+Catatan: Crypto Checker hanya menampilkan harga. Aplikasi ini bukan bursa atau dompet, tidak melakukan perdagangan, dan bukan nasihat investasi.

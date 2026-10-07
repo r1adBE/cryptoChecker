@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">ابدأ بنقرة واحدة</string>
+    <string name="starter_text">اختر العملات وأضفها دفعة واحدة. يمكنك تغيير المنصة والزوج لاحقًا.</string>
+    <string name="starter_custom">اختر المنصة والزوج</string>
+    <string name="settings_quiet_hours">ساعات الصمت</string>
+    <string name="settings_quiet_hours_hint">تصل التنبيهات بصمت بين %1$s و %2$s: بلا صوت أو اهتزاز أو نطق.</string>
+    <string name="settings_quiet_hours_from">من</string>
+    <string name="settings_quiet_hours_to">إلى</string>
+    <string name="channel_alarms_quiet">التنبيهات (ساعات الصمت)</string>
+    <string name="channel_alarms_quiet_description">تنبيهات صامتة خلال ساعات الصمت.</string>
+    <string name="settings_app_lock">قفل التطبيق</string>
+    <string name="settings_app_lock_hint">افتح القفل ببصمة الإصبع أو الوجه أو رمز PIN للجهاز إذا بقي التطبيق في الخلفية أكثر من دقيقة.</string>
+    <string name="app_lock_title">Crypto Checker مقفل</string>
+    <string name="app_lock_unlock">فتح القفل</string>
+    <string name="app_lock_reason">فتح قفل Crypto Checker</string>
+    <string name="app_lock_unavailable">لم يتم إعداد قفل شاشة على هذا الجهاز. أعِدّ قفلًا في إعدادات النظام أولًا.</string>
+    <string name="widget_portfolio_name">المحفظة</string>
+    <string name="widget_portfolio_description">القيمة الإجمالية لمحفظتك وتغيّر اليوم</string>
+    <string name="widget_portfolio_today">اليوم %1$s</string>
+    <string name="widget_portfolio_empty">أضف عمليات الشراء في تبويب «المحفظة»</string>
+    <string name="widget_portfolio_locked">مخفي – قفل التطبيق مفعّل</string>
+    <string name="a11y_portfolio_widget">المحفظة %1$s، اليوم %2$s</string>
+    <string name="settings_section_advanced">متقدم</string>
+    <string name="settings_advanced_hint">الوضع المباشر، الإشعار الدائم، العقود الآجلة وخيارات المطوّر</string>
+    <string name="explain_funding">رسوم تُدفع بين المراكز الطويلة والقصيرة. القيمة الموجبة بقوة تعني أن كثيرين يراهنون على ارتفاع الأسعار.</string>
+    <string name="explain_open_interest">قيمة جميع مراكز العقود الآجلة المفتوحة. إذا ارتفعت، فهناك أموال أكثر تراهن على الحركة.</string>
+    <string name="explain_rsi">مؤشر القوة النسبية، 0–100. فوق 70 غالبًا تشبّع شرائي، وتحت 30 غالبًا تشبّع بيعي.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">شرح</string>
+    <string name="explain_pi_cycle">يقارن متوسط 111 يومًا بضعف متوسط 350 يومًا. ميّز تقاطعهما قمم الدورات السابقة.</string>
+    <string name="alarm_sentence_above">أبلغني عندما يرتفع %1$s فوق %2$s.</string>
+    <string name="alarm_sentence_below">أبلغني عندما ينخفض %1$s تحت %2$s.</string>
+    <string name="alarm_sentence_up_percent">أبلغني عندما يرتفع %1$s بنسبة %2$s.</string>
+    <string name="alarm_sentence_down_percent">أبلغني عندما ينخفض %1$s بنسبة %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="zero">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="one">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="two">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="few">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعات.</item>
+        <item quantity="many">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="other">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">أبلغني عندما يصل حجم تداول %1$s إلى %2$s× المعتاد.</string>
+    <string name="alarm_sentence_incomplete">أدخل قيمة لترى التنبيه كجملة.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s غير متاحة</string>
+    <string name="watchlist_row_outdated">%1$s · غير محدَّث</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Preços convertidos</string>
+    <string name="settings_show_converted_hint">Mostra os preços da lista de acompanhamento também em %1$s</string>
+    <string name="settings_conversion_currency">Moeda de conversão</string>
+    <string name="alarm_currency_label">Moeda</string>
+</resources>

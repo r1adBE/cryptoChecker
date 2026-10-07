@@ -1,0 +1,32 @@
+Version 16.2.2
+• Crypto Pulse: what is happening in the market right now
+• “Why is this moving?”: a data-based explanation for price moves, with a short summary
+• Test alarm: check sound, vibration and speech
+• Converted prices: a second line “≈ value” in your conversion currency – 31 currencies such as EUR, CHF, USD, GBP or JPY, by default matching your device region
+• Alarms in your currency, e.g. at 60,000 EUR on a USDT pair
+• Cut-off date export: your portfolio value on any date, e.g. 31 December, in your currency as a CSV file – handy for your tax return (not tax advice)
+• Accessibility: price colors blue/orange instead of green/red, easy to tell apart with every color vision deficiency (red-green and blue-yellow); “Swap rise/fall colors”: red for rising, green for falling, as usual in China, Japan, Korea and Taiwan (on automatically there); “High contrast”: stronger price colors, darker secondary text and accent, also follows the system contrast setting; full VoiceOver support: every watchlist row, chart and widget is read as one sentence
+• Mini chart in every row: the 24-hour trend next to the price
+• “Start with one tap”: an empty watchlist offers the 5 largest coins by market cap (no stablecoins)
+• The starter list shows each coin’s live price and 24 h change – all five preselected, added with one button
+• Swipe left to delete (with Undo), swipe right to mark a favorite
+• The Market tab opens instantly with the latest data and refreshes in the background
+• Quiet hours: at night (e.g. 11 pm–7 am) alarms arrive silently – no sound, vibration or speech
+• App lock with Face ID, Touch ID or device passcode
+• Portfolio widget for Home and Lock Screen: total value in your currency and today’s change
+• Each alarm reads as a sentence: “Tell me when BTC falls below 60,000 CHF.”
+• Short explanations for funding rate, open interest, RSI and Pi cycle
+• Rows show “outdated” or “exchange not reachable” when prices are not current
+• 15 new exchanges: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Network fees for Ethereum, Base, Arbitrum, Polygon, BNB Chain and Bitcoin in the Market tab, with gas alarm
+• Notes for each coin in your watchlist
+• Choose an alarm sound
+• Unusual Activity: spots unusual price and volume moves, optional notifications
+• Portfolio as its own tab: buys and sells, average price, profit/loss
+• Cycle comparison: highs and lows marked, incl. double tops and double bottoms
+• Groups for your watchlist
+• New alarms: move X % within Y hours and volume spike
+• Single-coin widget: candles or line, chart range 24 h, 7 or 30 days, high/mid/low marks, current price highlighted
+• Market tab: total crypto market cap and 24h volume in your currency
+• Futures: funding rate and open interest
+• Four accent colors with matching app icons

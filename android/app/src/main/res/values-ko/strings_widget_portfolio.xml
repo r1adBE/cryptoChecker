@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">표시</string>
+    <string name="widget_portfolio_display_conversion">환산만</string>
+    <string name="widget_portfolio_display_conversion_usdt">환산 + USDT</string>
+    <string name="widget_portfolio_display_hint">환산 통화가 USD이면 USDT 줄은 표시되지 않습니다.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">외 %1$d개</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48시간</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, 포트폴리오의 %3$s</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, 포트폴리오의 %3$s, 오늘 %4$s</string>
+    <string name="a11y_portfolio_positions">큰 포지션: %1$s</string>
+</resources>

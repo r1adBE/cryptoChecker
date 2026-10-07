@@ -1,0 +1,10 @@
+Novidades da 16.2.2
+• Crypto Pulse: o que está acontecendo agora no mercado
+• Atividade incomum, Por que está se movendo? agora com breve resumo
+• Testar alarme
+• Preços e alarmes na sua moeda
+• Exportação CSV na data de referência
+• Acessível: azul/laranja, alto contraste, cores invertidas, TalkBack
+• Comece com um toque, horário de silêncio, bloqueio, widget Portfólio, alarme como frase
+• 15 novas exchanges, taxas de rede com alarme de gas
+• Candles no widget, capitalização

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Tik voor acties · veeg voor snelle acties · houd vast om te sorteren</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_why">Waarom?</string>
+    <string name="watch_action_favorite">Favoriet</string>
+    <string name="add_alarm_action">Alarm instellen</string>
+    <string name="welcome_watch_q">Wat gebeurt er?</string>
+    <string name="welcome_alert_q">Wanneer handelen?</string>
+    <string name="welcome_understand_q">Waarom?</string>
+</resources>

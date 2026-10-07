@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Holdings</string>
+    <string name="portfolio_invalid">Invalid amount</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Group</string>
+    <string name="group_value">Group: %1$s</string>
+    <string name="group_all">All</string>
+    <string name="group_none">No group</string>
+    <string name="group_new">New group…</string>
+    <string name="group_name">Group name</string>
+    <string name="widget_group_hint">Show only the pairs of this group.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portfolio</string>
+    <string name="portfolio_setting_hint">Optional: record buys and sells and see value and profit/loss in a separate tab.</string>
+    <string name="portfolio_total_value">Total value</string>
+    <string name="portfolio_invested">Invested</string>
+    <string name="portfolio_unrealized">P/L, not yet sold</string>
+    <string name="portfolio_realized">P/L, sold</string>
+    <string name="portfolio_value">Value</string>
+    <string name="portfolio_avg_price">Avg. buy price</string>
+    <string name="portfolio_current_price">Current price</string>
+    <string name="portfolio_avg_and_now">Avg. %1$s · now %2$s</string>
+    <string name="portfolio_updated">Prices as of %1$s</string>
+    <string name="portfolio_convert_to">Convert to</string>
+    <string name="portfolio_convert_to_value">Convert to: %1$s</string>
+    <string name="portfolio_price_missing">Price missing</string>
+    <string name="portfolio_price_missing_hint">Some buys have no price. Add the buy price to see profit/loss.</string>
+    <string name="portfolio_current_missing">No current price for %1$s</string>
+    <string name="portfolio_oversold">Sells exceed the holdings – please check the transactions.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Closed position (%1$d)</item>
+        <item quantity="other">Closed positions (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transactions</string>
+    <string name="portfolio_add_tx">Record buy/sell</string>
+    <string name="portfolio_edit_tx">Edit transaction</string>
+    <string name="portfolio_buy">Buy</string>
+    <string name="portfolio_sell">Sell</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Search symbol, e.g. BTC</string>
+    <string name="portfolio_coin_invalid">Enter a coin symbol</string>
+    <string name="portfolio_tx_amount">Amount</string>
+    <string name="portfolio_tx_price">Price per coin</string>
+    <string name="portfolio_tx_price_hint">In USDT. Leave empty if unknown.</string>
+    <string name="portfolio_tx_price_invalid">Invalid price</string>
+    <string name="portfolio_tx_date">Date</string>
+    <string name="portfolio_tx_note">Note (optional)</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_sell_exceeds">More than your holdings (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Delete transaction?</string>
+    <string name="portfolio_tx_delete_confirm">This transaction will be removed from the portfolio.</string>
+    <string name="portfolio_empty_title">No transactions yet</string>
+    <string name="portfolio_empty_text">Record your buys and sells. Value and profit/loss are calculated with current prices in USDT.</string>
+    <string name="portfolio_empty_action">Record first buy</string>
+    <string name="portfolio_disclaimer">Stored on this device only. Not investment advice.</string>
+    <string name="portfolio_add_from_watch">Add to portfolio</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">今まさに動きがあります</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">異常な動き</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">異常な値動き：1時間で %1$s（通常の %2$s×）</string>
+    <string name="activity_signal_volume">直近1時間の出来高が通常の %1$s×</string>
+    <string name="activity_signal_open_interest">建玉 %1$s（%2$d 分以内）</string>
+    <string name="activity_signal_open_interest_no_time">建玉 %1$s</string>
+    <string name="activity_signal_funding_long">資金調達率 %1$s — レバレッジのロングが多い</string>
+    <string name="activity_signal_funding_short">資金調達率 %1$s — ショートが多い</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">異常な動きを通知</string>
+    <string name="settings_activity_alerts_hint">ペアごとに1時間に最大1回：異常な値動き、出来高急増、先物の極端な値（データは Binance）。</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">なぜ動いている？</string>
+    <string name="why_title">なぜ動いている？</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">市場データに基づく自動評価であり、投資助言ではありません。</string>
+    <string name="why_data_time">データ時点：%1$s</string>
+    <string name="why_no_data">このペアの Binance データはありません</string>
+    <string name="why_no_data_hint">価格、出来高、ボラティリティは Binance の1時間足から取得しています。</string>
+
+    <string name="why_market_wide_text">このコイン：24時間で %1$s — 要因はコイン自体より市場全体である可能性が高いです。</string>
+    <string name="why_coin_only_text">市場が静かな中、24時間で %1$s：理由はこのコイン固有のものと考えられます。</string>
+    <string name="why_against_market_text">このコイン %1$s、BTC %2$s（24時間）— 目立って独自の動きです。</string>
+    <string name="why_market_calm_text">このコイン：24時間で %1$s。市場もコインも大きく動いていません。</string>
+    <string name="why_market_leader_text">市場のリーダーとして、BTC は通常ほかの市場を引っ張ります。ETH：24時間で %1$s。</string>
+    <string name="why_market_leader_text_no_eth">市場のリーダーとして、BTC は通常ほかの市場を引っ張ります。</string>
+
+    <string name="why_volume_high_text">直近1時間の取引が通常よりはるかに多く、動きは幅広く支えられています。</string>
+    <string name="why_volume_low_text">動きは薄く、すぐに反転する可能性があります。</string>
+    <string name="why_volume_normal_text">直近1時間の取引は過去24時間と同程度です。</string>
+
+    <string name="why_leverage_longs_text">ロングがショートに支払っています — 価格が下がると清算のリスクが高まります。</string>
+    <string name="why_leverage_shorts_text">ショートがロングに支払っています — 価格上昇でショートスクイーズが起こる可能性があります。</string>
+    <string name="why_leverage_balanced_text">先物市場でロングやショートの偏りはありません。</string>
+    <string name="why_open_interest_change">前回チェック以降の建玉：%1$s。</string>
+
+    <string name="why_volatility_high_text">直近1時間：%1$s — 過去24時間の典型的な1時間の変動幅と比較。</string>
+    <string name="why_volatility_normal_text">直近1時間：%1$s — 通常の範囲内です。</string>
+
+    <string name="why_sentiment_text">暗号資産市場全体の恐怖・強欲指数、昨日比 %1$s。</string>
+    <string name="why_sentiment_text_no_change">暗号資産市場全体の恐怖・強欲指数。</string>
+</resources>

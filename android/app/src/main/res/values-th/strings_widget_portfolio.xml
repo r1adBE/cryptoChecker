@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">การแสดง</string>
+    <string name="widget_portfolio_display_conversion">เฉพาะการแปลง</string>
+    <string name="widget_portfolio_display_conversion_usdt">การแปลง + USDT</string>
+    <string name="widget_portfolio_display_hint">บรรทัด USDT จะถูกซ่อนเมื่อสกุลเงินที่แปลงเป็น USD</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ อีก %1$d รายการ</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48 ชม.</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s %3$s ของพอร์ตโฟลิโอ</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s %3$s ของพอร์ตโฟลิโอ วันนี้ %4$s</string>
+    <string name="a11y_portfolio_positions">สถานะที่ใหญ่ที่สุด: %1$s</string>
+</resources>

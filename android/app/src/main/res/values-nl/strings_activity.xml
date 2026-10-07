@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Er gebeurt nu iets</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Ongewone activiteit</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Ongewone beweging: %1$s in een uur (%2$s× normaal)</string>
+    <string name="activity_signal_volume">Volume %1$s× normaal in het afgelopen uur</string>
+    <string name="activity_signal_open_interest">Open interest %1$s binnen %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s – veel longs met hefboom</string>
+    <string name="activity_signal_funding_short">Funding %1$s – veel shorts</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Ongewone activiteit melden</string>
+    <string name="settings_activity_alerts_hint">Hooguit eens per uur per paar: ongewone koersbewegingen, volumepieken en futures-extremen (gegevens van Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Waarom beweegt dit?</string>
+    <string name="why_title">Waarom beweegt dit?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Automatische inschatting op basis van marktgegevens, geen beleggingsadvies.</string>
+    <string name="why_data_time">Gegevens van %1$s</string>
+    <string name="why_no_data">Geen gegevens van Binance voor dit paar</string>
+    <string name="why_no_data_hint">Koers, volume en volatiliteit komen uit de uurcandles van Binance.</string>
+
+    <string name="why_market_wide_text">Deze munt: %1$s in 24u – de drijvende kracht is waarschijnlijk de hele markt, niet de munt zelf.</string>
+    <string name="why_coin_only_text">%1$s in 24u terwijl de markt rustig is: de oorzaak ligt waarschijnlijk bij de munt zelf.</string>
+    <string name="why_against_market_text">Deze munt %1$s, BTC %2$s in 24u – een opvallend zelfstandige beweging.</string>
+    <string name="why_market_calm_text">Deze munt: %1$s in 24u. Markt noch munt bewegen veel.</string>
+    <string name="why_market_leader_text">Als marktleider trekt BTC meestal de rest van de markt mee. ETH: %1$s in 24u.</string>
+    <string name="why_market_leader_text_no_eth">Als marktleider trekt BTC meestal de rest van de markt mee.</string>
+
+    <string name="why_volume_high_text">Veel meer handel dan normaal in het afgelopen uur – de beweging wordt breed gedragen.</string>
+    <string name="why_volume_low_text">De beweging is dun en kan snel omslaan.</string>
+    <string name="why_volume_normal_text">De handel in het afgelopen uur is in lijn met de afgelopen 24 uur.</string>
+
+    <string name="why_leverage_longs_text">Longs betalen shorts – verhoogd risico op liquidaties als de koers daalt.</string>
+    <string name="why_leverage_shorts_text">Shorts betalen longs – een stijgende koers kan een short squeeze veroorzaken.</string>
+    <string name="why_leverage_balanced_text">Geen opeenhoping van long- of short-posities op de futuresmarkt.</string>
+    <string name="why_open_interest_change">Open interest %1$s sinds de laatste meting.</string>
+
+    <string name="why_volatility_high_text">Afgelopen uur: %1$s – gemeten tegen de gebruikelijke uurschommeling van de afgelopen 24 uur.</string>
+    <string name="why_volatility_normal_text">Afgelopen uur: %1$s – binnen het gebruikelijke bereik.</string>
+
+    <string name="why_sentiment_text">Fear &amp; Greed-index van de hele cryptomarkt, %1$s t.o.v. gisteren.</string>
+    <string name="why_sentiment_text_no_change">Fear &amp; Greed-index van de hele cryptomarkt.</string>
+</resources>

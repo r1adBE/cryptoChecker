@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">الأسعار المحوّلة</string>
+    <string name="settings_show_converted_hint">يعرض الأسعار في قائمة المتابعة أيضًا بـ %1$s</string>
+    <string name="settings_conversion_currency">عملة التحويل</string>
+    <string name="alarm_currency_label">العملة</string>
+</resources>

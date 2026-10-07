@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">застаріло</string>
+    <string name="widget_outdated_time">застаріло · %1$s</string>
+
+    <string name="settings_widgets">Віджети</string>
+    <string name="settings_widgets_hint">Додайте ціни на головний екран</string>
+    <string name="widgets_sheet_title">Додати віджет</string>
+    <string name="widget_kind_single">Одна монета</string>
+    <string name="widgets_add">Додати</string>
+    <string name="widgets_add_named">Додати віджет %1$s</string>
+    <string name="watch_action_add_widget">Додати як віджет</string>
+    <string name="widgets_manual_title">Додайте віджет самостійно</string>
+    <string name="widgets_manual_text">Ваш головний екран не може додавати віджети із застосунку. Натисніть і утримуйте вільне місце на головному екрані, виберіть «Віджети» й знайдіть «Crypto Checker».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS не дозволяє застосункам самим додавати віджети. Це займе лише мить:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Натисніть і утримуйте вільне місце на початковому екрані, доки програми не почнуть ворушитися.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Торкніться вгорі «Редагувати» › «Додати віджет» (або «+» у старіших версіях iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Знайдіть «Crypto Checker», виберіть віджет і торкніться «Додати віджет».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Доступні віджети</string>
+</resources>

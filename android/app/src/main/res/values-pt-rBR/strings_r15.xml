@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 15: Quellcode öffentlich auf GitHub (MIT) – Zeile unter «Über» und Einleitung der Lizenzhinweise -->
+    <string name="about_source_code">Código-fonte no GitHub</string>
+    <string name="licenses_app_intro">O Crypto Checker é de código aberto (licença MIT).</string>
+</resources>

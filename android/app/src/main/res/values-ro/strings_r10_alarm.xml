@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Aproape de maxim</string>
+    <string name="alarm_condition_near_low">Aproape de minim</string>
+    <string name="alarm_near_field_distance">Distanță</string>
+    <string name="alarm_near_window_label">Perioadă</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d zi</item>
+        <item quantity="few">%1$d zile</item>
+        <item quantity="other">%1$d de zile</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 an</string>
+    <string name="alarm_near_hint">Anunță și când se atinge un nou maxim sau minim. Pe baza lumânărilor zilnice, actualizat la fiecare 6 ore.</string>
+    <string name="alarm_near_extreme_high_30">maxim de 30 de zile</string>
+    <string name="alarm_near_extreme_high_90">maxim de 90 de zile</string>
+    <string name="alarm_near_extreme_high_365">maxim de 1 an</string>
+    <string name="alarm_near_extreme_low_30">minim de 30 de zile</string>
+    <string name="alarm_near_extreme_low_90">minim de 90 de zile</string>
+    <string name="alarm_near_extreme_low_365">minim de 1 an</string>
+    <string name="alarm_sentence_near_high">Anunță-mă când %1$s este cu cel mult %2$s sub nivelul %3$s.</string>
+    <string name="alarm_sentence_near_low">Anunță-mă când %1$s este cu cel mult %2$s peste nivelul %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s este cu %2$s sub nivelul %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s este cu %2$s peste nivelul %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Nou %1$s pentru %2$s: %3$s (anterior %4$s)</string>
+    <string name="tts_direction_near_high">e aproape de maxim</string>
+    <string name="tts_direction_near_low">e aproape de minim</string>
+</resources>

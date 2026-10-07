@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Culorile prețurilor</string>
+    <string name="price_colors_green_red">Verde / roșu</string>
+    <string name="price_colors_blue_orange">Albastru / portocaliu</string>
+    <string name="settings_price_colors_hint">Albastru / portocaliu se deosebesc ușor la orice deficiență de vedere a culorilor (roșu-verde și albastru-galben). În plus, direcția este afișată mereu cu + / −.</string>
+    <string name="settings_watchlist_sparkline">Minigrafic în lista de urmărire</string>
+    <string name="settings_watchlist_sparkline_hint">Tendința pe 24 de ore lângă preț</string>
+
+    <string name="settings_price_colors_inverted">Inversează culorile de creștere/scădere</string>
+    <string name="settings_price_colors_inverted_hint">Roșu pentru creștere, verde pentru scădere, cum se obișnuiește în China, Japonia, Coreea și Taiwan. Implicit în funcție de regiunea dispozitivului.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Contrast ridicat</string>
+    <string name="settings_high_contrast_hint">Culori de preț mai puternice și text secundar mai închis. Activ și când sistemul cere mai mult contrast.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s pe %2$s</string>
+    <string name="a11y_price">preț %1$s</string>
+    <string name="a11y_change_up">în creștere cu %1$s</string>
+    <string name="a11y_change_down">în scădere cu %1$s</string>
+    <string name="a11y_change_flat">neschimbat</string>
+    <string name="a11y_converted">aproximativ %1$s</string>
+    <string name="a11y_note">notă: %1$s</string>
+    <string name="a11y_alarm_count">alarme: %1$d</string>
+    <string name="a11y_stale">învechit, ultima actualizare %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafic %1$s: de la %2$s la %3$s, %4$s. Maxim %5$s, minim %6$s.</string>
+    <string name="a11y_chart_empty">Grafic: fără date</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciclu %1$s: %2$s de la halving, ziua %3$d.</string>
+    <string name="a11y_cycle_top">Vârf %1$s în ziua %2$d.</string>
+    <string name="a11y_cycle_bottom">Minim %1$s în ziua %2$d.</string>
+    <string name="a11y_cycle_double_top">Vârf dublu %1$s în ziua %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Minim dublu %1$s în ziua %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Scală de la %1$s la %2$s: %3$d din 100</string>
+</resources>

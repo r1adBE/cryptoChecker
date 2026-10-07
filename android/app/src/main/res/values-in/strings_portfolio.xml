@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Kepemilikan</string>
+    <string name="portfolio_invalid">Jumlah tidak valid</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Grup</string>
+    <string name="group_value">Grup: %1$s</string>
+    <string name="group_all">Semua</string>
+    <string name="group_none">Tanpa grup</string>
+    <string name="group_new">Grup baru…</string>
+    <string name="group_name">Nama grup</string>
+    <string name="widget_group_hint">Tampilkan hanya pasangan dalam grup ini.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portofolio</string>
+    <string name="portfolio_setting_hint">Opsional: catat pembelian dan penjualan serta lihat nilai dan untung/rugi di tab terpisah.</string>
+    <string name="portfolio_total_value">Nilai total</string>
+    <string name="portfolio_invested">Diinvestasikan</string>
+    <string name="portfolio_unrealized">Untung/rugi, belum dijual</string>
+    <string name="portfolio_realized">Untung/rugi, sudah dijual</string>
+    <string name="portfolio_value">Nilai</string>
+    <string name="portfolio_avg_price">Harga beli rata-rata</string>
+    <string name="portfolio_current_price">Harga saat ini</string>
+    <string name="portfolio_avg_and_now">Rata-rata %1$s · kini %2$s</string>
+    <string name="portfolio_updated">Harga per %1$s</string>
+    <string name="portfolio_convert_to">Konversi ke</string>
+    <string name="portfolio_convert_to_value">Konversi ke: %1$s</string>
+    <string name="portfolio_price_missing">Harga belum ada</string>
+    <string name="portfolio_price_missing_hint">Beberapa pembelian tidak memiliki harga. Tambahkan harga beli untuk melihat untung/rugi.</string>
+    <string name="portfolio_current_missing">Tidak ada harga saat ini untuk %1$s</string>
+    <string name="portfolio_oversold">Penjualan melebihi kepemilikan – periksa transaksi.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">Posisi tertutup (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transaksi</string>
+    <string name="portfolio_add_tx">Catat beli/jual</string>
+    <string name="portfolio_edit_tx">Edit transaksi</string>
+    <string name="portfolio_buy">Beli</string>
+    <string name="portfolio_sell">Jual</string>
+    <string name="portfolio_coin">Koin</string>
+    <string name="portfolio_coin_search">Cari simbol, mis. BTC</string>
+    <string name="portfolio_coin_invalid">Masukkan simbol koin</string>
+    <string name="portfolio_tx_amount">Jumlah</string>
+    <string name="portfolio_tx_price">Harga per koin</string>
+    <string name="portfolio_tx_price_hint">Dalam USDT. Kosongkan jika tidak tahu.</string>
+    <string name="portfolio_tx_price_invalid">Harga tidak valid</string>
+    <string name="portfolio_tx_date">Tanggal</string>
+    <string name="portfolio_tx_note">Catatan (opsional)</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_sell_exceeds">Lebih dari kepemilikan Anda (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Hapus transaksi?</string>
+    <string name="portfolio_tx_delete_confirm">Transaksi ini akan dihapus dari portofolio.</string>
+    <string name="portfolio_empty_title">Belum ada transaksi</string>
+    <string name="portfolio_empty_text">Catat pembelian dan penjualan Anda. Nilai dan untung/rugi dihitung dengan harga terkini dalam USDT.</string>
+    <string name="portfolio_empty_action">Catat pembelian pertama</string>
+    <string name="portfolio_disclaimer">Hanya disimpan di perangkat ini. Bukan saran investasi.</string>
+    <string name="portfolio_add_from_watch">Tambahkan ke portofolio</string>
+</resources>

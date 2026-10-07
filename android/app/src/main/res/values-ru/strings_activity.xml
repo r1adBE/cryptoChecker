@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Прямо сейчас что-то происходит</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Необычная активность</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Необычное движение: %1$s за час (%2$s× от нормы)</string>
+    <string name="activity_signal_volume">Объём %1$s× от нормы за последний час</string>
+    <string name="activity_signal_open_interest">Открытый интерес %1$s за %2$d мин</string>
+    <string name="activity_signal_open_interest_no_time">Открытый интерес %1$s</string>
+    <string name="activity_signal_funding_long">Фандинг %1$s — много лонгов с плечом</string>
+    <string name="activity_signal_funding_short">Фандинг %1$s — много шортов</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Сообщать о необычной активности</string>
+    <string name="settings_activity_alerts_hint">Не чаще раза в час для каждой пары: необычные движения цены, всплески объёма и экстремумы на фьючерсах (данные Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Почему это движется?</string>
+    <string name="why_title">Почему это движется?</string>
+    <string name="why_change_1h">1ч</string>
+    <string name="why_change_24h">24ч</string>
+    <string name="why_disclaimer">Автоматическая оценка по рыночным данным, не инвестиционная рекомендация.</string>
+    <string name="why_data_time">Данные на %1$s</string>
+    <string name="why_no_data">Нет данных Binance для этой пары</string>
+    <string name="why_no_data_hint">Цена, объём и волатильность берутся из часовых свечей Binance.</string>
+
+    <string name="why_market_wide_text">Эта монета: %1$s за 24ч — движущая сила, скорее всего, весь рынок, а не сама монета.</string>
+    <string name="why_coin_only_text">%1$s за 24ч при спокойном рынке: причина, скорее всего, в самой монете.</string>
+    <string name="why_against_market_text">Эта монета %1$s, BTC %2$s за 24ч — заметно самостоятельное движение.</string>
+    <string name="why_market_calm_text">Эта монета: %1$s за 24ч. Ни рынок, ни монета особо не движутся.</string>
+    <string name="why_market_leader_text">Как лидер рынка, BTC обычно тянет за собой остальной рынок. ETH: %1$s за 24ч.</string>
+    <string name="why_market_leader_text_no_eth">Как лидер рынка, BTC обычно тянет за собой остальной рынок.</string>
+
+    <string name="why_volume_high_text">За последний час торговали гораздо больше обычного — движение имеет широкую поддержку.</string>
+    <string name="why_volume_low_text">Движение слабое и может быстро развернуться.</string>
+    <string name="why_volume_normal_text">Торговля за последний час соответствует последним 24 часам.</string>
+
+    <string name="why_leverage_longs_text">Лонги платят шортам — повышенный риск ликвидаций при падении цены.</string>
+    <string name="why_leverage_shorts_text">Шорты платят лонгам — рост цены может вызвать шорт-сквиз.</string>
+    <string name="why_leverage_balanced_text">На фьючерсном рынке нет перекоса в лонг или шорт.</string>
+    <string name="why_open_interest_change">Открытый интерес %1$s с последней проверки.</string>
+
+    <string name="why_volatility_high_text">Последний час: %1$s — относительно типичного часового колебания за последние 24 часа.</string>
+    <string name="why_volatility_normal_text">Последний час: %1$s — в обычных пределах.</string>
+
+    <string name="why_sentiment_text">Индекс страха и жадности всего криптовалютного рынка, %1$s к вчерашнему дню.</string>
+    <string name="why_sentiment_text_no_change">Индекс страха и жадности всего криптовалютного рынка.</string>
+</resources>

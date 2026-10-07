@@ -1,0 +1,64 @@
+Keep an eye on your crypto prices without constantly opening exchange apps. Set alarms, spot unusual moves and understand in seconds why a coin is moving.
+
+Watch – prices straight from the exchange, in your currency
+Alert – price, %, moves and volume, as a simple sentence
+Understand – “Why is this moving?” with a short summary
+Overview – Crypto Pulse, Fear & Greed, cycle and portfolio
+
+Readable for everyone: green/red or blue/orange price colors, swappable on request, high contrast, sign and arrow instead of color alone, and TalkBack reads every row as one sentence.
+
+WATCHLIST: 41 MARKETS ON 32 EXCHANGES
+• Empty watchlist: the top 5 coins by market cap with live prices, added with one tap
+• Spot and futures from Binance, Coinbase, Kraken, OKX, Bybit and many more
+• DEX tokens via DexScreener (Uniswap, PancakeSwap, Raydium …)
+• Swipe left to delete (with Undo), swipe right for a favorite
+• Organize pairs in groups and reorder by drag & drop
+• A note for each coin, e.g. your entry price – right below the price
+• Second line “≈ value” in one of 31 currencies (EUR, CHF, USD …), default by device region
+• Mini chart in every row: the 24-hour trend next to the price
+• Portfolio as its own tab: buys and sells, average price, profit/loss and total value in your currency
+• Cut-off date export: portfolio value on any date (e.g. 31 Dec) as CSV – handy for taxes, no tax advice
+• Rows flag “outdated” or “exchange not reachable”
+
+ALARMS ON YOUR TERMS
+• Price above or below a level, or a rise or fall by a percentage
+• Alarms in your currency, e.g. at 60,000 EUR on a USDT pair
+• Alarm as a sentence: “Tell me when BTC falls below 60,000 CHF.”
+• Move by x % within a time window, e.g. 5 % in 1 hour
+• Volume spike: trading volume suddenly far above average
+• Once or repeating, with sound, vibration and optional spoken announcement
+• Your own alarm sound: system sound or your own audio file
+• Adjustable quiet time prevents alarm floods
+• Quiet hours: silent alarms at night (e.g. 11 pm–7 am), no sound, vibration or speech
+• “Test alarm”: hear and feel in advance how an alarm arrives
+
+UNUSUAL ACTIVITY & WHY IS THIS MOVING?
+• Unusual Activity spots unusual price and volume moves in your watchlist – with optional notifications
+• “Why is this moving?” explains a move from volume, the overall market and futures data, with a short summary – no investment advice
+
+MARKET OVERVIEW
+• Crypto Pulse: what is happening right now – BTC, ETH, SOL, altcoins vs. BTC, volume, Fear & Greed, funding, ETH gas and a one-line summary, no forecast
+• Fear & Greed Index with history and optional notifications
+• Crypto market: total market cap and 24h volume in your currency
+• Market tab: market phase with signs of a possible high or low (no forecast), halving countdown, cycle comparison with double tops/bottoms, dominance, altcoin season – opens instantly
+• Coin analysis: RSI, trend, Pi Cycle and strength vs. Bitcoin
+• Futures data: funding rate and open interest, with short explanations
+• Network fees for Ethereum, Base, Arbitrum, Polygon, BNB Chain and Bitcoin, with gas alarm
+
+WIDGETS & NOTIFICATIONS
+• Widgets: whole watchlist, portfolio total with today’s change, single coin with chart (candles or line) and high/mid/low marks
+• Silent price notification per pair
+• Live mode with updates as often as every 15 seconds, background updates from 15 minutes
+
+MORE
+• Prices and alarms read aloud (text-to-speech)
+• Backup & restore to a file you choose – also between Android and iPhone
+• App shortcuts, light and dark mode
+• Four accent colors with matching app icon
+• App lock: fingerprint, face or PIN
+• Available in 31 languages
+
+PRIVACY FIRST
+No account, no ads, no analytics. Prices come directly from the public APIs of the exchanges. Your watchlist, alarms and holdings stay on your device. Open source (MIT) – the code is public on GitHub.
+
+Note: Crypto Checker only displays prices. It is not an exchange or a wallet, does not trade and does not give investment advice.

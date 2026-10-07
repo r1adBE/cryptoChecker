@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Điều nổi bật</string>
+    <string name="pulse_why_action">Vì sao? →</string>
+    <string name="pulse_section_factors">Yếu tố</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin đang dẫn dắt thị trường.</string>
+    <string name="pulse_lead_alts_stronger">Altcoin mạnh hơn Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin mạnh hơn altcoin.</string>
+    <string name="pulse_lead_broad_up">Thị trường tăng trên diện rộng.</string>
+    <string name="pulse_lead_broad_down">Thị trường giảm trên diện rộng.</string>
+    <string name="pulse_lead_drift_up">Thị trường tăng nhẹ.</string>
+    <string name="pulse_lead_drift_down">Thị trường giảm nhẹ.</string>
+    <string name="pulse_lead_mixed">Các coin lớn đang đi theo các hướng khác nhau.</string>
+    <string name="pulse_lead_calm">Thị trường gần như đứng yên.</string>
+
+    <string name="pulse_detail_vol_above">Khối lượng cao hơn bình thường %1$d%%.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Khối lượng cao hơn bình thường %1$d%%, funding trung tính.</string>
+    <string name="pulse_detail_vol_above_fund_high">Khối lượng cao hơn bình thường %1$d%%, funding cao.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Khối lượng cao hơn bình thường %1$d%%, funding âm.</string>
+    <string name="pulse_detail_vol_below">Khối lượng thấp hơn bình thường %1$d%%.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Khối lượng thấp hơn bình thường %1$d%%, funding trung tính.</string>
+    <string name="pulse_detail_vol_below_fund_high">Khối lượng thấp hơn bình thường %1$d%%, funding cao.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Khối lượng thấp hơn bình thường %1$d%%, funding âm.</string>
+    <string name="pulse_detail_vol_normal">Khối lượng bình thường.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Khối lượng bình thường, funding trung tính.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Khối lượng bình thường, funding cao.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Khối lượng bình thường, funding âm.</string>
+    <string name="pulse_detail_fund_neutral">Funding trung tính.</string>
+    <string name="pulse_detail_fund_high">Funding cao.</string>
+    <string name="pulse_detail_fund_negative">Funding âm.</string>
+
+    <string name="factor_volume">Khối lượng</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Biến động (1h)</string>
+    <string name="factor_spoken_volume">gấp %1$s lần bình thường</string>
+    <string name="factor_spoken_volatility">gấp %1$s lần mức dao động thường lệ</string>
+
+    <string name="why_title_coin">Vì sao %1$s biến động?</string>
+    <string name="why_details">Xem chi tiết</string>
+    <string name="why_details_hide">Ẩn chi tiết</string>
+    <string name="why_f_market_wide">Cả thị trường biến động</string>
+    <string name="why_f_coin_only">Chỉ coin này</string>
+    <string name="why_f_against">Ngược thị trường</string>
+    <string name="why_f_market_calm">Thị trường yên ả</string>
+    <string name="why_f_leader">Bitcoin dẫn hướng</string>
+    <string name="why_f_leverage_longs">Đòn bẩy: nhiều long</string>
+    <string name="why_f_leverage_shorts">Đòn bẩy: nhiều short</string>
+    <string name="why_f_leverage_balanced">Đòn bẩy cân bằng</string>
+    <string name="insights_dominance_eth">ETH %1$s toàn thị trường</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="other">%1$d tháng kể từ halving ngày %2$s</item>
+    </plurals>
+</resources>

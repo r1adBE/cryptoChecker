@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Co się wyróżnia</string>
+    <string name="pulse_why_action">Dlaczego? →</string>
+    <string name="pulse_section_factors">Czynniki</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin prowadzi rynek.</string>
+    <string name="pulse_lead_alts_stronger">Altcoiny są silniejsze od Bitcoina.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin jest silniejszy od altcoinów.</string>
+    <string name="pulse_lead_broad_up">Rynek rośnie szeroko.</string>
+    <string name="pulse_lead_broad_down">Rynek spada szeroko.</string>
+    <string name="pulse_lead_drift_up">Rynek lekko rośnie.</string>
+    <string name="pulse_lead_drift_down">Rynek lekko spada.</string>
+    <string name="pulse_lead_mixed">Duże monety rozjeżdżają się.</string>
+    <string name="pulse_lead_calm">Rynek prawie się nie rusza.</string>
+
+    <string name="pulse_detail_vol_above">Wolumen %1$d%% powyżej normy.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Wolumen %1$d%% powyżej normy, funding neutralny.</string>
+    <string name="pulse_detail_vol_above_fund_high">Wolumen %1$d%% powyżej normy, funding podwyższony.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Wolumen %1$d%% powyżej normy, funding ujemny.</string>
+    <string name="pulse_detail_vol_below">Wolumen %1$d%% poniżej normy.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Wolumen %1$d%% poniżej normy, funding neutralny.</string>
+    <string name="pulse_detail_vol_below_fund_high">Wolumen %1$d%% poniżej normy, funding podwyższony.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Wolumen %1$d%% poniżej normy, funding ujemny.</string>
+    <string name="pulse_detail_vol_normal">Wolumen w normie.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Wolumen w normie, funding neutralny.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Wolumen w normie, funding podwyższony.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Wolumen w normie, funding ujemny.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutralny.</string>
+    <string name="pulse_detail_fund_high">Funding podwyższony.</string>
+    <string name="pulse_detail_fund_negative">Funding ujemny.</string>
+
+    <string name="factor_volume">Wolumen</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Wahania (1h)</string>
+    <string name="factor_spoken_volume">%1$s razy więcej niż zwykle</string>
+    <string name="factor_spoken_volatility">%1$s razy większe wahania niż zwykle</string>
+
+    <string name="why_title_coin">Dlaczego %1$s się rusza?</string>
+    <string name="why_details">Pokaż szczegóły</string>
+    <string name="why_details_hide">Ukryj szczegóły</string>
+    <string name="why_f_market_wide">Rusza się cały rynek</string>
+    <string name="why_f_coin_only">Tylko ta moneta</string>
+    <string name="why_f_against">Wbrew rynkowi</string>
+    <string name="why_f_market_calm">Spokojny rynek</string>
+    <string name="why_f_leader">Bitcoin wyznacza kierunek</string>
+    <string name="why_f_leverage_longs">Dźwignia: dużo longów</string>
+    <string name="why_f_leverage_shorts">Dźwignia: dużo shortów</string>
+    <string name="why_f_leverage_balanced">Dźwignia zrównoważona</string>
+    <string name="insights_dominance_eth">ETH %1$s całego rynku</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d miesiąc od halvingu (%2$s)</item>
+        <item quantity="few">%1$d miesiące od halvingu (%2$s)</item>
+        <item quantity="many">%1$d miesięcy od halvingu (%2$s)</item>
+        <item quantity="other">%1$d miesięcy od halvingu (%2$s)</item>
+    </plurals>
+</resources>

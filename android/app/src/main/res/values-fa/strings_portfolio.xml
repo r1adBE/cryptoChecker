@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">دارایی</string>
+    <string name="portfolio_invalid">مقدار نامعتبر</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">گروه</string>
+    <string name="group_value">گروه: %1$s</string>
+    <string name="group_all">همه</string>
+    <string name="group_none">بدون گروه</string>
+    <string name="group_new">گروه جدید…</string>
+    <string name="group_name">نام گروه</string>
+    <string name="widget_group_hint">فقط جفت‌های این گروه نمایش داده شوند.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">پرتفوی</string>
+    <string name="portfolio_setting_hint">اختیاری: خرید و فروش‌ها را ثبت کنید و ارزش و سود/زیان را در یک زبانه جداگانه ببینید.</string>
+    <string name="portfolio_total_value">ارزش کل</string>
+    <string name="portfolio_invested">سرمایه‌گذاری‌شده</string>
+    <string name="portfolio_unrealized">سود/زیان، هنوز فروخته نشده</string>
+    <string name="portfolio_realized">سود/زیان، فروخته شده</string>
+    <string name="portfolio_value">ارزش</string>
+    <string name="portfolio_avg_price">میانگین قیمت خرید</string>
+    <string name="portfolio_current_price">قیمت فعلی</string>
+    <string name="portfolio_avg_and_now">میانگین %1$s · اکنون %2$s</string>
+    <string name="portfolio_updated">قیمت‌ها تا %1$s</string>
+    <string name="portfolio_convert_to">تبدیل به</string>
+    <string name="portfolio_convert_to_value">تبدیل به: %1$s</string>
+    <string name="portfolio_price_missing">قیمت ثبت نشده</string>
+    <string name="portfolio_price_missing_hint">برخی خریدها قیمت ندارند. برای دیدن سود/زیان، قیمت خرید را اضافه کنید.</string>
+    <string name="portfolio_current_missing">قیمت فعلی برای %1$s موجود نیست</string>
+    <string name="portfolio_oversold">فروش‌ها از موجودی بیشتر است – تراکنش‌ها را بررسی کنید.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">موقعیت‌های بسته (%1$d)</item>
+        <item quantity="other">موقعیت‌های بسته (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">تراکنش‌ها</string>
+    <string name="portfolio_add_tx">ثبت خرید/فروش</string>
+    <string name="portfolio_edit_tx">ویرایش تراکنش</string>
+    <string name="portfolio_buy">خرید</string>
+    <string name="portfolio_sell">فروش</string>
+    <string name="portfolio_coin">کوین</string>
+    <string name="portfolio_coin_search">جستجوی نماد، مثلاً BTC</string>
+    <string name="portfolio_coin_invalid">یک نماد وارد کنید</string>
+    <string name="portfolio_tx_amount">مقدار</string>
+    <string name="portfolio_tx_price">قیمت هر کوین</string>
+    <string name="portfolio_tx_price_hint">به USDT. اگر نمی‌دانید خالی بگذارید.</string>
+    <string name="portfolio_tx_price_invalid">قیمت نامعتبر</string>
+    <string name="portfolio_tx_date">تاریخ</string>
+    <string name="portfolio_tx_note">یادداشت (اختیاری)</string>
+    <string name="portfolio_tx_total">مجموع: %1$s</string>
+    <string name="portfolio_sell_exceeds">بیشتر از موجودی شما (%1$s)</string>
+    <string name="portfolio_tx_delete_title">تراکنش حذف شود؟</string>
+    <string name="portfolio_tx_delete_confirm">این تراکنش از پرتفوی حذف می‌شود.</string>
+    <string name="portfolio_empty_title">هنوز تراکنشی نیست</string>
+    <string name="portfolio_empty_text">خرید و فروش‌های خود را ثبت کنید. ارزش و سود/زیان با قیمت‌های فعلی به USDT محاسبه می‌شود.</string>
+    <string name="portfolio_empty_action">ثبت اولین خرید</string>
+    <string name="portfolio_disclaimer">فقط روی همین دستگاه ذخیره می‌شود. توصیه سرمایه‌گذاری نیست.</string>
+    <string name="portfolio_add_from_watch">افزودن به پرتفوی</string>
+</resources>

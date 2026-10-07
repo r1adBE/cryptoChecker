@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum ガスが下回ったら (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin 手数料が下回ったら (sat/vB)</string>
+    <string name="settings_gas_alert_hint">通常の手数料がしきい値を下回ると1回通知します。価格の更新時に、最短10分間隔で確認します。</string>
+    <string name="notification_gas_eth_title">Ethereum ガス: %1$s gwei</string>
+    <string name="notification_gas_eth_text">しきい値 %1$s gwei を下回りました · 送金 ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin 手数料: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">しきい値 %1$s sat/vB を下回りました · 送金 ≈ %2$s</string>
+    <string name="gas_title">ネットワーク手数料</string>
+    <string name="gas_slow_fast">低速 %1$s · 高速 %2$s</string>
+    <string name="gas_alert_active">アラーム: %1$s</string>
+    <string name="gas_source">公開 RPC ノードと mempool.space · 単純な送金のコスト（L2 では L1 分を除く）</string>
+    <string name="gas_transfer_cost">送金 ≈ %1$s</string>
+</resources>

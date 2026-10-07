@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Ngjyrat e çmimeve</string>
+    <string name="price_colors_green_red">E gjelbër / e kuqe</string>
+    <string name="price_colors_blue_orange">Blu / portokalli</string>
+    <string name="settings_price_colors_hint">Bluja / portokallia dallohen lehtë me çdo lloj mangësie të shikimit të ngjyrave (e kuqe-e gjelbër dhe blu-e verdhë). Drejtimi tregohet gjithmonë edhe me + / −.</string>
+    <string name="settings_watchlist_sparkline">Grafik i vogël në listën e ndjekjes</string>
+    <string name="settings_watchlist_sparkline_hint">Tendenca 24-orëshe pranë çmimit</string>
+
+    <string name="settings_price_colors_inverted">Ndërro ngjyrat e rritjes/rënies</string>
+    <string name="settings_price_colors_inverted_hint">E kuqe për rritje, e gjelbër për rënie, siç është zakon në Kinë, Japoni, Kore dhe Tajvan. Parazgjedhja varet nga rajoni i pajisjes.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Kontrast i lartë</string>
+    <string name="settings_high_contrast_hint">Ngjyra më të forta për çmimet dhe tekst dytësor më i errët. Aktiv edhe kur sistemi kërkon më shumë kontrast.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s në %2$s</string>
+    <string name="a11y_price">çmimi %1$s</string>
+    <string name="a11y_change_up">rritje me %1$s</string>
+    <string name="a11y_change_down">rënie me %1$s</string>
+    <string name="a11y_change_flat">i pandryshuar</string>
+    <string name="a11y_converted">rreth %1$s</string>
+    <string name="a11y_note">shënim: %1$s</string>
+    <string name="a11y_alarm_count">alarme: %1$d</string>
+    <string name="a11y_stale">i vjetëruar, përditësimi i fundit %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafiku %1$s: nga %2$s në %3$s, %4$s. Më i larti %5$s, më i ulëti %6$s.</string>
+    <string name="a11y_chart_empty">Grafiku: nuk ka të dhëna</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cikli %1$s: %2$s që nga halving-u, dita %3$d.</string>
+    <string name="a11y_cycle_top">Maja %1$s në ditën %2$d.</string>
+    <string name="a11y_cycle_bottom">Fundi %1$s në ditën %2$d.</string>
+    <string name="a11y_cycle_double_top">Majë e dyfishtë %1$s në ditën %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Fund i dyfishtë %1$s në ditën %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Shkallë nga %1$s deri në %2$s: %3$d nga 100</string>
+</resources>

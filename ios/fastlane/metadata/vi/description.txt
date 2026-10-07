@@ -1,0 +1,63 @@
+Theo dõi giá tiền mã hóa mà không phải liên tục mở ứng dụng sàn. Đặt cảnh báo, nhận ra biến động bất thường và hiểu trong vài giây vì sao một đồng coin biến động.
+
+Theo dõi – giá trực tiếp từ sàn, theo đồng tiền của bạn
+Cảnh báo – giá, %, biến động và khối lượng, như một câu
+Hiểu – “Vì sao nó biến động?” kèm tóm tắt ngắn
+Tổng quan – Crypto Pulse, Fear & Greed, chu kỳ và danh mục
+
+Dễ đọc cho mọi người: màu giá xanh lá/đỏ hoặc xanh dương/cam, đổi màu tùy chọn, độ tương phản cao, dấu và mũi tên thay vì chỉ màu, VoiceOver đọc mỗi dòng thành một câu.
+
+DANH SÁCH THEO DÕI VỚI 41 THỊ TRƯỜNG
+• Danh sách trống: 5 coin vốn hóa lớn nhất chỉ một chạm
+• Spot và futures từ Binance, Coinbase, Kraken, OKX, Bybit và nhiều sàn khác
+• Token DEX qua DexScreener
+• Nhóm, mục yêu thích và sắp xếp bằng kéo thả
+• Ghi chú cho từng coin, ví dụ giá vào lệnh của bạn – ngay dưới giá
+• Dòng “≈ giá trị” bằng đồng tiền của bạn: 31 loại tiền (EUR, CHF, USD, GBP, JPY…), mặc định theo khu vực
+• Biểu đồ mini trên mỗi dòng: xu hướng 24 giờ cạnh giá
+• Danh mục là một tab riêng: mua và bán, giá trung bình, lãi/lỗ và tổng giá trị bằng CHF hoặc đồng tiền của bạn
+• Xuất theo ngày chốt: giá trị danh mục vào bất kỳ ngày nào (ví dụ 31/12) bằng đồng tiền của bạn dạng CSV – tiện khai thuế, không phải tư vấn thuế
+
+CẢNH BÁO PHÙ HỢP CHIẾN LƯỢC CỦA BẠN
+• Giá trên hoặc dưới một mức, tăng hoặc giảm theo phần trăm
+• Cảnh báo bằng đồng tiền của bạn, ví dụ ở mức 60.000 EUR trên cặp USDT
+• Cảnh báo dạng câu: “Báo cho tôi khi BTC giảm xuống dưới 60.000 CHF.”
+• Biến động X % trong Y giờ, ví dụ 5 % trong 1 giờ
+• Đột biến khối lượng: khối lượng giao dịch bỗng vượt xa mức trung bình
+• Một lần hoặc lặp lại, dưới dạng thông báo kèm đọc to tùy chọn
+• Chọn âm thanh cảnh báo
+• Thời gian nghỉ có thể chỉnh để tránh dồn dập cảnh báo
+• Giờ yên lặng: ban đêm (ví dụ 23–7 giờ) cảnh báo không âm thanh, rung hay giọng đọc
+• “Thử cảnh báo”: nghe và cảm nhận trước cảnh báo sẽ đến thế nào
+
+HOẠT ĐỘNG BẤT THƯỜNG & VÌ SAO GIÁ BIẾN ĐỘNG?
+• Hoạt động bất thường phát hiện các biến động giá và khối lượng khác thường trong danh sách của bạn – kèm thông báo tùy chọn
+• “Vì sao nó biến động?” giải thích biến động dựa trên khối lượng, toàn thị trường và dữ liệu hợp đồng tương lai, kèm tóm tắt ngắn – không phải tư vấn đầu tư
+
+TỔNG QUAN THỊ TRƯỜNG
+• Crypto Pulse: điều gì đang diễn ra? BTC, ETH, SOL, altcoin so với BTC, khối lượng, Fear & Greed, funding, gas ETH và tóm tắt một câu, không dự báo
+• Chỉ số Fear & Greed kèm lịch sử
+• Thị trường crypto: tổng vốn hóa và khối lượng 24h bằng đồng tiền của bạn
+• Tab Thị trường: giai đoạn thị trường với dấu hiệu đỉnh hoặc đáy có thể có (không dự báo), đếm ngược halving, so sánh chu kỳ, mức thống trị và mùa altcoin
+• Phân tích coin: RSI, xu hướng, Pi Cycle và sức mạnh so với Bitcoin
+• Dữ liệu hợp đồng tương lai: funding rate và open interest
+• Phí mạng cho Ethereum, Base, Arbitrum, Polygon, BNB Chain và Bitcoin, kèm cảnh báo gas
+
+WIDGET CHO MÀN HÌNH CHÍNH VÀ MÀN HÌNH KHÓA
+• Widget ba kích thước: danh sách, danh mục (cả trên Màn hình khóa), một coin với biểu đồ 24 giờ, 7 hoặc 30 ngày – nến hoặc đường, có mốc cao, giữa và thấp
+• Làm mới ngay từ widget
+• Hoạt động trực tiếp trên Màn hình khóa: giá một coin trong nháy mắt
+
+THÊM NỮA
+• Chế độ trực tiếp với khoảng cập nhật ngắn khi ứng dụng đang mở; iOS lên lịch cập nhật nền
+• Đọc to giá và cảnh báo
+• Sao lưu & khôi phục qua ứng dụng Tệp
+• Tác vụ nhanh trên biểu tượng ứng dụng, chế độ sáng và tối
+• Bốn màu nhấn với biểu tượng ứng dụng tương ứng
+• Khóa ứng dụng: Face ID, Touch ID hoặc mật mã
+• Có sẵn 31 ngôn ngữ
+
+QUYỀN RIÊNG TƯ TRÊN HẾT
+Không tài khoản, không quảng cáo, không phân tích, không theo dõi. Giá lấy trực tiếp từ API công khai của các sàn. Danh sách, cảnh báo và số lượng nắm giữ của bạn chỉ nằm trên thiết bị của bạn. Mã nguồn mở (Giấy phép MIT) – mã công khai trên GitHub.
+
+Lưu ý: Crypto Checker chỉ hiển thị giá. Ứng dụng không phải sàn giao dịch hay ví, không giao dịch và không đưa ra lời khuyên đầu tư.

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Upravit skupinu</string>
+    <string name="group_rename">Přejmenovat</string>
+    <string name="group_delete">Smazat skupinu</string>
+    <string name="group_delete_confirm">Páry zůstanou ve vašem seznamu sledování.</string>
+    <string name="group_done">Hotovo</string>
+    <string name="group_add">Nová skupina</string>
+    <string name="group_in_other">v %1$s</string>
+    <string name="group_target">Ve skupině</string>
+    <string name="group_search_hint">Hledat pár</string>
+    <string name="group_next">Další</string>
+</resources>

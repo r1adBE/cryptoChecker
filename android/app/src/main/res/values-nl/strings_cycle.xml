@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Top %1$s</string>
+    <string name="cycle_marker_high_so_far">Hoogste tot nu toe</string>
+    <string name="cycle_marker_bottom">Bodem %1$s</string>
+    <string name="cycle_since_halving">%1$s sinds halving</string>
+    <string name="cycle_from_top">%1$s vanaf top</string>
+    <string name="cycle_marker_double_top">Dubbele top %1$s</string>
+    <string name="cycle_marker_double_bottom">Dubbele bodem %1$s</string>
+</resources>

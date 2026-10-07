@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum di bawah (gwei)</string>
+    <string name="settings_gas_btc_below">Biaya Bitcoin di bawah (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Memberi tahu sekali saat biaya normal turun di bawah batas. Diperiksa saat pembaruan harga, paling sering setiap 10 menit.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Di bawah batas Anda %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Biaya Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Di bawah batas Anda %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="gas_title">Biaya jaringan</string>
+    <string name="gas_slow_fast">Lambat %1$s · Cepat %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Node RPC publik dan mempool.space · Biaya transfer sederhana, tanpa porsi L1 pada L2</string>
+    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+</resources>

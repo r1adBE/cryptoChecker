@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Begin met één tik</string>
+    <string name="starter_text">Kies munten en voeg ze in één keer toe. Exchange en paar kun je later wijzigen.</string>
+    <string name="starter_custom">Exchange en paar kiezen</string>
+    <string name="settings_quiet_hours">Stille uren</string>
+    <string name="settings_quiet_hours_hint">Tussen %1$s en %2$s komen alarmen geluidloos binnen: zonder geluid, trillen of spraak.</string>
+    <string name="settings_quiet_hours_from">Van</string>
+    <string name="settings_quiet_hours_to">Tot</string>
+    <string name="channel_alarms_quiet">Alarmen (stille uren)</string>
+    <string name="channel_alarms_quiet_description">Geluidloze alarmen tijdens stille uren.</string>
+    <string name="settings_app_lock">App-vergrendeling</string>
+    <string name="settings_app_lock_hint">Ontgrendelen met vingerafdruk, gezicht of apparaatpincode als de app langer dan een minuut op de achtergrond was.</string>
+    <string name="app_lock_title">Crypto Checker is vergrendeld</string>
+    <string name="app_lock_unlock">Ontgrendelen</string>
+    <string name="app_lock_reason">Crypto Checker ontgrendelen</string>
+    <string name="app_lock_unavailable">Op dit apparaat is geen schermvergrendeling ingesteld. Stel er eerst een in via de systeeminstellingen.</string>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_description">Totale waarde van je portfolio en de verandering van vandaag</string>
+    <string name="widget_portfolio_today">vandaag %1$s</string>
+    <string name="widget_portfolio_empty">Voeg aankopen toe op het tabblad Portfolio</string>
+    <string name="widget_portfolio_locked">Verborgen – app-vergrendeling staat aan</string>
+    <string name="a11y_portfolio_widget">Portfolio %1$s, vandaag %2$s</string>
+    <string name="settings_section_advanced">Geavanceerd</string>
+    <string name="settings_advanced_hint">Live-modus, vaste melding, futures en ontwikkelaarsopties</string>
+    <string name="explain_funding">Vergoeding tussen long- en shortposities. Sterk positief betekent dat velen op stijgende koersen wedden.</string>
+    <string name="explain_open_interest">Waarde van alle open futuresposities. Stijgt die, dan wedt er meer geld op de beweging.</string>
+    <string name="explain_rsi">Relative Strength Index, 0–100. Boven 70 vaak oververhit, onder 30 vaak oververkocht.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Uitleg</string>
+    <string name="explain_pi_cycle">Vergelijkt het 111-daags gemiddelde met tweemaal het 350-daags gemiddelde. Een kruising markeerde eerdere cyclustoppen.</string>
+    <string name="alarm_sentence_above">Laat het me weten als %1$s boven %2$s stijgt.</string>
+    <string name="alarm_sentence_below">Laat het me weten als %1$s onder %2$s daalt.</string>
+    <string name="alarm_sentence_up_percent">Laat het me weten als %1$s %2$s stijgt.</string>
+    <string name="alarm_sentence_down_percent">Laat het me weten als %1$s %2$s daalt.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Laat het me weten als %1$s binnen %3$d uur %2$s beweegt.</item>
+        <item quantity="other">Laat het me weten als %1$s binnen %3$d uur %2$s beweegt.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Laat het me weten als het volume van %1$s %2$s× het normale is.</string>
+    <string name="alarm_sentence_incomplete">Vul een waarde in om het alarm als zin te zien.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s niet bereikbaar</string>
+    <string name="watchlist_row_outdated">%1$s · verouderd</string>
+</resources>

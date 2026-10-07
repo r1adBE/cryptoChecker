@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Prezzi convertiti</string>
+    <string name="settings_show_converted_hint">Mostra i prezzi della lista di osservazione anche in %1$s</string>
+    <string name="settings_conversion_currency">Valuta di conversione</string>
+    <string name="alarm_currency_label">Valuta</string>
+</resources>

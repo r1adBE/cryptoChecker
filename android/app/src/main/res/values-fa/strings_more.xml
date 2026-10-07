@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">بازار امروز</string>
+    <string name="pulse_alts_stronger">آلت‌کوین‌ها قوی‌تر از Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin قوی‌تر از آلت‌کوین‌ها</string>
+    <string name="pulse_alts_even">آلت‌کوین‌ها و Bitcoin هم‌جهت حرکت می‌کنند</string>
+    <string name="pulse_volume_high">حجم معاملات به‌طور غیرعادی بالا (%1$s× حالت معمول)</string>
+    <string name="pulse_volume_low">حجم معاملات پایین (%1$s× حالت معمول)</string>
+    <string name="pulse_volume_normal">حجم معاملات معمول</string>
+    <string name="pulse_funding_high">نرخ تأمین مالی به‌وضوح مثبت: لانگ‌های اهرمی زیاد</string>
+    <string name="pulse_funding_slight">نرخ تأمین مالی کمی مثبت</string>
+    <string name="pulse_funding_neutral">نرخ تأمین مالی خنثی</string>
+    <string name="pulse_funding_negative">نرخ تأمین مالی منفی: شورت‌های زیاد</string>
+    <string name="pulse_gas_low">گس Ethereum پایین (%1$s gwei)</string>
+    <string name="pulse_gas_normal">گس Ethereum معمول (%1$s gwei)</string>
+    <string name="pulse_gas_high">گس Ethereum بالا (%1$s gwei)</string>
+    <string name="pulse_disclaimer">بدون پیش‌بینی · مشاوره سرمایه‌گذاری نیست</string>
+    <string name="pulse_less">نمایش کمتر</string>
+    <string name="pulse_updated">تا %1$s</string>
+    <string name="pulse_unavailable">داده‌های بازار در حال حاضر در دسترس نیست</string>
+    <string name="why_summary_title">به‌طور خلاصه</string>
+    <string name="why_summary_market_volume">این حرکت با حجم معاملات بالاتر و بازاری که به‌طور گسترده حرکت می‌کند همراه است.</string>
+    <string name="why_summary_market">این حرکت از کل بازار پیروی می‌کند.</string>
+    <string name="why_summary_coin_volume">فقط همین کوین حرکت می‌کند، با حجم بالاتر – احتمالاً دلیلی مربوط به خود کوین.</string>
+    <string name="why_summary_coin">فقط همین کوین حرکت می‌کند – احتمالاً دلیلی مربوط به خود کوین.</string>
+    <string name="why_summary_against">کوین خلاف جهت بازار حرکت می‌کند.</string>
+    <string name="why_summary_thin">حرکت کم‌جان است: حجم کمی پشت آن است.</string>
+    <string name="why_summary_calm">حرکت قابل‌توجهی نیست: بازار و کوین آرام‌اند.</string>
+    <string name="why_summary_longs">فیوچرز: پوزیشن‌های لانگ اهرمی زیاد.</string>
+    <string name="why_summary_shorts">فیوچرز: پوزیشن‌های شورت زیاد.</string>
+    <string name="why_dot_supports">از حرکت پشتیبانی می‌کند</string>
+    <string name="why_dot_caution">بالا</string>
+    <string name="why_dot_neutral">خنثی</string>
+    <string name="alarm_test">آزمایش هشدار</string>
+    <string name="alarm_test_hint">یک هشدار نمونه با تنظیمات صدا، لرزش و گفتار شما می‌فرستد.</string>
+    <string name="alarm_test_title">آزمایش: هشدار Crypto Checker</string>
+    <string name="alarm_test_text">یک هشدار این‌طور به نظر می‌رسد و این‌طور صدا می‌دهد.</string>
+    <string name="alarm_test_quiet">ساعات بی‌صدا الان فعال است: هشدارهای واقعی بی‌صدا می‌رسیدند.</string>
+    <string name="alarm_test_denied">اعلان‌ها برای Crypto Checker خاموش است.</string>
+    <string name="alarm_test_open_settings">باز کردن تنظیمات</string>
+    <string name="alarm_first_title">همه چیز آماده است</string>
+    <string name="welcome_watch">دنبال کنید – کوین‌ها، قیمت‌ها، نمودارها و ویجت‌های شما</string>
+    <string name="welcome_alert">هشدار بگیرید – قیمت، درصد، حجم و حرکت‌های غیرعادی</string>
+    <string name="welcome_understand">بفهمید – چرا بازار همین حالا حرکت می‌کند؟</string>
+    <string name="welcome_start">شروع کنید</string>
+    <string name="portfolio_empty_example">مثال: 0.01 BTC در ۱ مارس به قیمت %1$s خریده شده. سپس برنامه ارزش، میانگین قیمت خرید و سود/زیان را نشان می‌دهد – فقط روی همین دستگاه ذخیره می‌شود.</string>
+    <string name="about_why">Crypto Checker یک پروژه مستقل از Rich1e است: نمایی آرام از قیمت‌ها بدون حساب، تبلیغات یا ردیابی. پرسش‌ها و پیشنهادها: %1$s</string>
+    <string name="a11y_move_up">انتقال به بالا</string>
+    <string name="a11y_move_down">انتقال به پایین</string>
+    <string name="a11y_in_watchlist">از قبل در واچ‌لیست است</string>
+    <string name="portfolio_export_today_hint">امروز هنوز تمام نشده است: به‌جای قیمت بسته شدن روزانه، قیمت فعلی استفاده می‌شود.</string>
+    <string name="about_privacy_policy">سیاست حفظ حریم خصوصی</string>
+    <string name="widget_chart_type">نوع نمودار</string>
+    <string name="widget_chart_line">خطی</string>
+    <string name="widget_chart_candles">شمعی</string>
+    <string name="pair_added_watching">%1$s اکنون زیر نظر است</string>
+    <string name="market_cap_title">بازار رمزارز</string>
+    <string name="market_cap_label">ارزش بازار</string>
+    <string name="market_volume_label">حجم ۲۴ ساعته</string>
+    <string name="market_cap_source">همه کوین‌ها · CoinGecko</string>
+    <string name="market_data_empty_error">هیچ داده‌ای از صرافی دریافت نشد.</string>
+    <string name="sync_pairs_count">جفت‌های معاملاتی: %1$d</string>
+    <string name="market_unavailable_error">صرافی در دسترس نیست</string>
+    <string name="refresh_report_aborted">تازه‌سازی لغو شد:</string>
+    <string name="refresh_report_wait">انتظار تا شروع: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">مجموع %1$s · جفت‌ها: %2$d</item>
+        <item quantity="other">مجموع %1$s · جفت‌ها: %2$d</item>
+    </plurals>
+    <string name="refresh_report_network">شبکه %1$s</string>
+    <string name="refresh_report_database">پایگاه داده %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">هشدارها/اعلان‌ها %1$s · اعلان‌ها: %2$d</item>
+        <item quantity="other">هشدارها/اعلان‌ها %1$s · اعلان‌ها: %2$d</item>
+    </plurals>
+    <string name="refresh_report_widgets">ابزارک‌ها %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: جفت‌ها: %2$d، %3$s</item>
+        <item quantity="other">%1$s: جفت‌ها: %2$d، %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">درخواست گروهی %1$s (قیمت‌ها: %2$d)</item>
+        <item quantity="other">درخواست گروهی %1$s (قیمت‌ها: %2$d)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">درخواست گروهی %1$s (ناموفق)</string>
+    <string name="refresh_report_singles">جداگانه: %1$d</string>
+    <string name="refresh_report_slowest">کندترین %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">دیگر معامله نمی‌شوند: %1$d</item>
+        <item quantity="other">دیگر معامله نمی‌شوند: %1$d</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">خطاها: %1$d</item>
+        <item quantity="other">خطاها: %1$d</item>
+    </plurals>
+    <string name="starter_add_selected">افزودن به واچ‌لیست (%1$d)</string>
+    <string name="starter_select_all">انتخاب همه</string>
+    <string name="starter_select_none">لغو انتخاب همه</string>
+    <string name="starter_loading_prices">در حال بارگیری قیمت‌ها…</string>
+    <string name="watchlist_removed">%1$s حذف شد</string>
+    <string name="action_undo">واگرد</string>
+    <string name="favorite_added">%1$s به علاقه‌مندی‌ها اضافه شد</string>
+    <string name="favorite_removed">%1$s از علاقه‌مندی‌ها حذف شد</string>
+    <string name="cycle_data_as_of">داده‌ها تا %1$s · در حال به‌روزرسانی…</string>
+    <string name="settings_conversion_currency_hint">برای پرتفوی، هشدارها به ارز شما، کارت «بازار رمزارز» و ابزارک پرتفوی نیز استفاده می‌شود.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d صعودی</item>
+        <item quantity="other">%1$d صعودی</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d نزولی</item>
+        <item quantity="other">%1$d نزولی</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s، %2$s، به‌طور میانگین %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d جفت در حال افزایش</item>
+        <item quantity="other">%1$d جفت در حال افزایش</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d در حال کاهش</item>
+        <item quantity="other">%1$d در حال کاهش</item>
+    </plurals>
+    <string name="pulse_headline_up">قدرت گسترده</string>
+    <string name="pulse_headline_down">ضعف گسترده</string>
+    <string name="pulse_headline_mixed">تصویر متفاوت</string>
+    <string name="pulse_headline_calm">بازار آرام</string>
+    <string name="pulse_chip_funding_high">فاندینگ بالا</string>
+    <string name="pulse_chip_funding_negative">فاندینگ منفی</string>
+    <string name="market_signal_top">نشانه‌های سقف %1$d/10</string>
+    <string name="market_signal_bottom">نشانه‌های کف %1$d/10</string>
+    <string name="market_section_now">هم‌اکنون</string>
+    <string name="market_section_context">زمینه</string>
+    <string name="market_section_data">داده‌ها</string>
+</resources>

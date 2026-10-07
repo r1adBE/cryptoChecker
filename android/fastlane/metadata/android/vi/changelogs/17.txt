@@ -1,0 +1,10 @@
+Có gì mới trong 16.2.2
+• Crypto Pulse: thị trường đang diễn ra gì
+• Hoạt động bất thường, Vì sao nó biến động? nay có tóm tắt ngắn
+• Thử cảnh báo: âm thanh, rung và giọng đọc
+• Giá và cảnh báo bằng đồng tiền của bạn
+• Xuất theo ngày chốt: giá trị danh mục dạng CSV
+• Trợ năng: xanh dương/cam, tương phản cao, đổi màu, TalkBack
+• Bắt đầu với một chạm, giờ yên lặng, khóa, widget danh mục, cảnh báo dạng câu
+• 15 sàn mới, phí mạng kèm cảnh báo gas
+• Biểu đồ nến trong widget, vốn hóa

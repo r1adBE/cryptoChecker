@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_currency">Valuutta ja muunnos</string>
+    <string name="settings_group_alerts">Hälytykset ja ilmoitukset</string>
+    <string name="settings_group_data">Tiedot ja päivitykset</string>
+    <string name="settings_group_security">Turvallisuus ja varmuuskopio</string>
+    <string name="settings_portfolio_tab">Näytä Salkku-välilehti</string>
+</resources>

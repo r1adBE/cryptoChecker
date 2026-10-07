@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Gruppe bearbeiten</string>
+    <string name="group_rename">Umbenennen</string>
+    <string name="group_delete">Gruppe löschen</string>
+    <string name="group_delete_confirm">Die Paare bleiben in der Merkliste.</string>
+    <string name="group_done">Fertig</string>
+    <string name="group_add">Neue Gruppe</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_target">In Gruppe</string>
+    <string name="group_search_hint">Paar suchen</string>
+    <string name="group_next">Weiter</string>
+</resources>

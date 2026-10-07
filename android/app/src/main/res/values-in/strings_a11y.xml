@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Warna harga</string>
+    <string name="price_colors_green_red">Hijau / merah</string>
+    <string name="price_colors_blue_orange">Biru / oranye</string>
+    <string name="settings_price_colors_hint">Biru / oranye mudah dibedakan untuk setiap jenis buta warna (merah-hijau dan biru-kuning). Arah perubahan juga selalu ditampilkan dengan + / −.</string>
+    <string name="settings_watchlist_sparkline">Grafik mini di daftar pantau</string>
+    <string name="settings_watchlist_sparkline_hint">Tren 24 jam di samping harga</string>
+
+    <string name="settings_price_colors_inverted">Tukar warna naik/turun</string>
+    <string name="settings_price_colors_inverted_hint">Merah untuk naik, hijau untuk turun, seperti lazim di Tiongkok, Jepang, Korea, dan Taiwan. Default mengikuti wilayah perangkat.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Kontras tinggi</string>
+    <string name="settings_high_contrast_hint">Warna harga lebih kuat dan teks sekunder lebih gelap. Juga aktif saat sistem meminta kontras lebih tinggi.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s di %2$s</string>
+    <string name="a11y_price">harga %1$s</string>
+    <string name="a11y_change_up">naik %1$s</string>
+    <string name="a11y_change_down">turun %1$s</string>
+    <string name="a11y_change_flat">tidak berubah</string>
+    <string name="a11y_converted">sekitar %1$s</string>
+    <string name="a11y_note">catatan: %1$s</string>
+    <string name="a11y_alarm_count">alarm: %1$d</string>
+    <string name="a11y_stale">usang, pembaruan terakhir %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafik %1$s: dari %2$s ke %3$s, %4$s. Tertinggi %5$s, terendah %6$s.</string>
+    <string name="a11y_chart_empty">Grafik: tidak ada data</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Siklus %1$s: %2$s sejak halving, hari ke-%3$d.</string>
+    <string name="a11y_cycle_top">Puncak %1$s pada hari ke-%2$d.</string>
+    <string name="a11y_cycle_bottom">Dasar %1$s pada hari ke-%2$d.</string>
+    <string name="a11y_cycle_double_top">Puncak ganda %1$s pada hari ke-%2$d.</string>
+    <string name="a11y_cycle_double_bottom">Dasar ganda %1$s pada hari ke-%2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skala dari %1$s hingga %2$s: %3$d dari 100</string>
+</resources>

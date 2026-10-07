@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Âm thanh cảnh báo</string>
+    <string name="settings_alarm_sound_default">Âm thanh mặc định</string>
+    <string name="settings_alarm_sound_custom">Âm thanh tùy chỉnh</string>
+    <string name="settings_alarm_sound_system">Chọn âm thanh hệ thống…</string>
+    <string name="settings_alarm_sound_file">Tệp âm thanh riêng…</string>
+    <string name="settings_alarm_sound_reset">Dùng âm thanh mặc định</string>
+    <string name="settings_alarm_sound_error">Không thể dùng âm thanh này.</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Volumen-Spike-Alarm -->
+    <string name="alarm_condition_volume_spike">Forgalmi kiugrás</string>
+    <string name="alarm_volume_factor_label">Az utolsó óra forgalma a megszokotthoz képest</string>
+    <string name="alarm_volume_hint">A forgalmi adatok a Binance-tól származnak – az ott nem jegyzett párok soha nem riasztanak.</string>
+    <string name="notification_volume_spike_text">Forgalom a szokásos %1$s×-e az utolsó órában</string>
+    <string name="tts_direction_volume_spike">forgalmi kiugrással</string>
+
+    <!-- Einzel-Widget: Chart-Zeitraum -->
+    <string name="widget_chart_range">Grafikon időtávja</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_7d">7 nap</string>
+    <string name="widget_range_30d">30 nap</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_7d">7N</string>
+    <string name="widget_range_short_30d">30N</string>
+</resources>

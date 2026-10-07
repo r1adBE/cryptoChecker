@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Poznámka</string>
+    <string name="note_add">Přidat poznámku</string>
+    <string name="note_edit">Upravit poznámku</string>
+    <string name="note_hint">např. vstup na 0.42, cíl 0.60</string>
+    <string name="note_remove">Odebrat</string>
+</resources>

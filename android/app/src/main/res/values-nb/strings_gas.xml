@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum-gass under (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin-gebyr under (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Varsler én gang når det normale gebyret faller under grensen. Sjekkes ved kursoppdatering, høyst hvert 10. minutt.</string>
+    <string name="notification_gas_eth_title">Ethereum-gass: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Under grensen din på %1$s gwei · Overføring ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-gebyr: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Under grensen din på %1$s sat/vB · Overføring ≈ %2$s</string>
+    <string name="gas_title">Nettverksgebyrer</string>
+    <string name="gas_slow_fast">Treg %1$s · Rask %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Offentlige RPC-noder og mempool.space · Kostnad for en enkel overføring, på L2 uten L1-andel</string>
+    <string name="gas_transfer_cost">Overføring ≈ %1$s</string>
+</resources>

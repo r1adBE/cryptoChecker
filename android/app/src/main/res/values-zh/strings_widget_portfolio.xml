@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">显示</string>
+    <string name="widget_portfolio_display_conversion">仅换算</string>
+    <string name="widget_portfolio_display_conversion_usdt">换算 + USDT</string>
+    <string name="widget_portfolio_display_hint">换算货币为 USD 时不显示 USDT 行。</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">另有 %1$d 项</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48 小时</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s，占投资组合 %3$s</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s，占投资组合 %3$s，今日 %4$s</string>
+    <string name="a11y_portfolio_positions">最大持仓：%1$s</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">备注</string>
+    <string name="note_add">添加备注</string>
+    <string name="note_edit">编辑备注</string>
+    <string name="note_hint">例如 0.42 入场，目标 0.60</string>
+    <string name="note_remove">移除</string>
+</resources>

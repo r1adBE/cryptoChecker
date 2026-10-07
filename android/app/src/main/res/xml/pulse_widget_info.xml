@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget «Was gerade auffällt»: Schlagzeile, Leitsatz und so viele Coin-Chips (BTC, ETH,
+     SOL), wie ganz in die Breite passen (PulseWidgetMath.coinCount). Einrichten optional (Hintergrund, Deckkraft).
+     Vor Android 12 ohne previewLayout: Vorschaubild widget_preview_pulse_img. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="110dp"
+    android:targetCellWidth="3"
+    android:targetCellHeight="2"
+    android:description="@string/widget_pulse_description"
+    android:initialLayout="@layout/widget_pulse"
+    android:configure="com.cryptochecker.app.widget.PulseWidgetConfigureActivity"
+    android:previewImage="@drawable/widget_preview_pulse_img"
+    android:previewLayout="@layout/widget_preview_pulse"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"
+    android:widgetFeatures="reconfigurable|configuration_optional" />

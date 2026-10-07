@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Se întâmplă ceva chiar acum</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Activitate neobișnuită</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Mișcare neobișnuită: %1$s într-o oră (%2$s× normalul)</string>
+    <string name="activity_signal_volume">Volum de %1$s× normalul în ultima oră</string>
+    <string name="activity_signal_open_interest">Interes deschis %1$s în %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Interes deschis %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — multe long-uri cu levier</string>
+    <string name="activity_signal_funding_short">Funding %1$s — multe short-uri</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Raportează activitatea neobișnuită</string>
+    <string name="settings_activity_alerts_hint">Cel mult o dată pe oră pentru fiecare pereche: mișcări de preț neobișnuite, salturi de volum și extreme pe futures (date de la Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">De ce se mișcă?</string>
+    <string name="why_title">De ce se mișcă?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Evaluare automată din datele pieței, nu consultanță de investiții.</string>
+    <string name="why_data_time">Date din %1$s</string>
+    <string name="why_no_data">Nu există date Binance pentru această pereche</string>
+    <string name="why_no_data_hint">Prețul, volumul și volatilitatea provin din lumânările orare Binance.</string>
+
+    <string name="why_market_wide_text">Această monedă: %1$s în 24h — motorul este probabil piața în ansamblu, nu moneda însăși.</string>
+    <string name="why_coin_only_text">%1$s în 24h în timp ce piața e liniștită: motivul ține probabil de moneda însăși.</string>
+    <string name="why_against_market_text">Această monedă %1$s, BTC %2$s în 24h — o mișcare vizibil independentă.</string>
+    <string name="why_market_calm_text">Această monedă: %1$s în 24h. Nici piața, nici moneda nu se mișcă mult.</string>
+    <string name="why_market_leader_text">Ca lider al pieței, BTC trage de obicei restul pieței după el. ETH: %1$s în 24h.</string>
+    <string name="why_market_leader_text_no_eth">Ca lider al pieței, BTC trage de obicei restul pieței după el.</string>
+
+    <string name="why_volume_high_text">Mult mai multe tranzacții decât de obicei în ultima oră — mișcarea are susținere largă.</string>
+    <string name="why_volume_low_text">Mișcarea este slabă și se poate inversa rapid.</string>
+    <string name="why_volume_normal_text">Tranzacționarea din ultima oră este în linie cu ultimele 24 de ore.</string>
+
+    <string name="why_leverage_longs_text">Long-urile plătesc short-urilor — risc crescut de lichidări dacă prețul scade.</string>
+    <string name="why_leverage_shorts_text">Short-urile plătesc long-urilor — o creștere a prețului poate declanșa un short squeeze.</string>
+    <string name="why_leverage_balanced_text">Nicio aglomerare de poziții long sau short pe piața futures.</string>
+    <string name="why_open_interest_change">Interes deschis %1$s de la ultima verificare.</string>
+
+    <string name="why_volatility_high_text">Ultima oră: %1$s — raportat la oscilația orară tipică din ultimele 24 de ore.</string>
+    <string name="why_volatility_normal_text">Ultima oră: %1$s — în intervalul obișnuit.</string>
+
+    <string name="why_sentiment_text">Indicele Fear &amp; Greed al întregii piețe cripto, %1$s față de ieri.</string>
+    <string name="why_sentiment_text_no_change">Indicele Fear &amp; Greed al întregii piețe cripto.</string>
+</resources>

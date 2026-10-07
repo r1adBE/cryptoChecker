@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum abaixo de (gwei)</string>
+    <string name="settings_gas_btc_below">Taxa Bitcoin abaixo de (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Avisa uma vez quando a taxa normal desce abaixo do limite. Verificado na atualização das cotações, no máximo a cada 10 minutos.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Abaixo do seu limite de %1$s gwei · Transferência ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Taxa Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Abaixo do seu limite de %1$s sat/vB · Transferência ≈ %2$s</string>
+    <string name="gas_title">Taxas de rede</string>
+    <string name="gas_slow_fast">Lenta %1$s · Rápida %2$s</string>
+    <string name="gas_alert_active">Alarme: %1$s</string>
+    <string name="gas_source">Nós RPC públicos e mempool.space · Custo de uma transferência simples, sem a parte L1 nas L2</string>
+    <string name="gas_transfer_cost">Transferência ≈ %1$s</string>
+</resources>

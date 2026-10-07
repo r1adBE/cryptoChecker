@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">Licence</string>
+    <string name="licenses_marketdata_title">Knihovna cenových dat</string>
+    <string name="licenses_marketdata_intro">Části napojení na burzy vycházejí ze softwaru pod licencí MIT:</string>
+    <string name="licenses_marketdata_changes">Změny: %1$s</string>
+    <string name="licenses_font_title">Písmo Rubik</string>
+    <string name="licenses_libraries_title">Knihovny pro Android</string>
+    <string name="licenses_libraries_intro">Aplikace používá tyto knihovny pod licencí Apache License 2.0:</string>
+</resources>

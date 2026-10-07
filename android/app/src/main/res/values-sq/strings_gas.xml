@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum nën (gwei)</string>
+    <string name="settings_gas_btc_below">Tarifa Bitcoin nën (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Njofton një herë kur tarifa normale bie nën kufi. Kontrollohet gjatë përditësimit të çmimeve, më së shumti çdo 10 minuta.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Nën kufirin tënd prej %1$s gwei · Transferim ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Tarifa Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Nën kufirin tënd prej %1$s sat/vB · Transferim ≈ %2$s</string>
+    <string name="gas_title">Tarifat e rrjetit</string>
+    <string name="gas_slow_fast">Ngadalë %1$s · Shpejt %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Nyje publike RPC dhe mempool.space · Kostoja e një transferimi të thjeshtë, në L2 pa pjesën L1</string>
+    <string name="gas_transfer_cost">Transferim ≈ %1$s</string>
+</resources>

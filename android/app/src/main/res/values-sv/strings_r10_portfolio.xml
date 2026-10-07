@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Värdeutveckling</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_1y">1 Å</string>
+    <string name="portfolio_history_period_7d">7 dagar</string>
+    <string name="portfolio_history_period_30d">30 dagar</string>
+    <string name="portfolio_history_period_1y">1 år</string>
+    <string name="portfolio_history_range_a11y">Visa utveckling för %1$s</string>
+    <string name="portfolio_history_change_a11y">Värde över %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">I dag</string>
+    <string name="portfolio_history_converted">Omräknat till dagens kurs</string>
+    <string name="portfolio_history_without">Utan %1$s (inga dagskurser)</string>
+    <string name="portfolio_history_includes_trades">Inkluderar köp och sälj under perioden</string>
+    <string name="portfolio_history_too_short">Utvecklingen börjar efter din första hela dag.</string>
+    <string name="portfolio_history_unavailable">Ingen utveckling tillgänglig just nu.</string>
+    <string name="portfolio_history_loading">Läser in värdeutveckling</string>
+</resources>

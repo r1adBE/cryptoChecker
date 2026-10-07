@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">inaktuellt</string>
+    <string name="widget_outdated_time">inaktuellt · %1$s</string>
+
+    <string name="settings_widgets">Widgetar</string>
+    <string name="settings_widgets_hint">Lägg kurser på hemskärmen</string>
+    <string name="widgets_sheet_title">Lägg till en widget</string>
+    <string name="widget_kind_single">Ett mynt</string>
+    <string name="widgets_add">Lägg till</string>
+    <string name="widgets_add_named">Lägg till widgeten %1$s</string>
+    <string name="watch_action_add_widget">Lägg till som widget</string>
+    <string name="widgets_manual_title">Lägg till widgeten själv</string>
+    <string name="widgets_manual_text">Din hemskärm kan inte lägga till widgetar från appen. Tryck länge på en tom plats på hemskärmen, välj ”Widgetar” och leta upp ”Crypto Checker”.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS låter inte appar lägga till widgetar själva. Det tar bara ett ögonblick:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Håll fingret på en tom plats på hemskärmen tills apparna börjar vicka.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tryck på ”Redigera” › ”Lägg till widget” högst upp (eller ”+” i äldre iOS-versioner).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Sök efter ”Crypto Checker”, välj en widget och tryck på ”Lägg till widget”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tillgängliga widgetar</string>
+</resources>

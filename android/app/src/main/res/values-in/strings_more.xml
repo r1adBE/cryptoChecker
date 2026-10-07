@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Pasar hari ini</string>
+    <string name="pulse_alts_stronger">Altcoin lebih kuat dari Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin lebih kuat dari altcoin</string>
+    <string name="pulse_alts_even">Altcoin dan Bitcoin bergerak serupa</string>
+    <string name="pulse_volume_high">Volume perdagangan luar biasa tinggi (%1$s× biasanya)</string>
+    <string name="pulse_volume_low">Volume perdagangan rendah (%1$s× biasanya)</string>
+    <string name="pulse_volume_normal">Volume perdagangan normal</string>
+    <string name="pulse_funding_high">Funding jelas positif: banyak long dengan leverage</string>
+    <string name="pulse_funding_slight">Funding sedikit positif</string>
+    <string name="pulse_funding_neutral">Funding netral</string>
+    <string name="pulse_funding_negative">Funding negatif: banyak short</string>
+    <string name="pulse_gas_low">Gas Ethereum rendah (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum normal (%1$s gwei)</string>
+    <string name="pulse_gas_high">Gas Ethereum tinggi (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Bukan prakiraan · Bukan nasihat investasi</string>
+    <string name="pulse_less">Tampilkan lebih sedikit</string>
+    <string name="pulse_updated">Per %1$s</string>
+    <string name="pulse_unavailable">Data pasar saat ini tidak tersedia</string>
+    <string name="why_summary_title">Singkatnya</string>
+    <string name="why_summary_market_volume">Pergerakan ini disertai volume perdagangan lebih tinggi dan pasar yang bergerak secara luas.</string>
+    <string name="why_summary_market">Pergerakan ini mengikuti pasar secara keseluruhan.</string>
+    <string name="why_summary_coin_volume">Hanya koin ini yang bergerak, dengan volume lebih tinggi – kemungkinan penyebabnya ada pada koin itu sendiri.</string>
+    <string name="why_summary_coin">Hanya koin ini yang bergerak – kemungkinan penyebabnya ada pada koin itu sendiri.</string>
+    <string name="why_summary_against">Koin ini bergerak berlawanan dengan pasar.</string>
+    <string name="why_summary_thin">Pergerakannya tipis: sedikit volume di baliknya.</string>
+    <string name="why_summary_calm">Tidak ada pergerakan menonjol: pasar dan koin tenang.</string>
+    <string name="why_summary_longs">Futures: banyak posisi long dengan leverage.</string>
+    <string name="why_summary_shorts">Futures: banyak posisi short.</string>
+    <string name="why_dot_supports">mendukung pergerakan</string>
+    <string name="why_dot_caution">meningkat</string>
+    <string name="why_dot_neutral">netral</string>
+    <string name="alarm_test">Uji alarm</string>
+    <string name="alarm_test_hint">Mengirim alarm contoh dengan pengaturan suara, getar, dan ucapan Anda.</string>
+    <string name="alarm_test_title">Uji: alarm Crypto Checker</string>
+    <string name="alarm_test_text">Beginilah tampilan dan bunyi sebuah alarm.</string>
+    <string name="alarm_test_quiet">Jam tenang sedang aktif: alarm sungguhan akan datang tanpa suara.</string>
+    <string name="alarm_test_denied">Notifikasi dimatikan untuk Crypto Checker.</string>
+    <string name="alarm_test_open_settings">Buka pengaturan</string>
+    <string name="alarm_first_title">Semua siap</string>
+    <string name="welcome_watch">Pantau – koin, harga, grafik, dan widget Anda</string>
+    <string name="welcome_alert">Peringatkan – harga, persen, volume, dan pergerakan tak biasa</string>
+    <string name="welcome_understand">Pahami – mengapa pasar bergerak saat ini?</string>
+    <string name="welcome_start">Mulai</string>
+    <string name="portfolio_empty_example">Contoh: 0,01 BTC dibeli pada 1 Maret seharga %1$s. Aplikasi lalu menampilkan nilai, harga beli rata-rata, dan untung/rugi – hanya tersimpan di perangkat ini.</string>
+    <string name="about_why">Crypto Checker adalah proyek independen dari Rich1e: ringkasan harga yang tenang tanpa akun, iklan, atau pelacakan. Pertanyaan dan saran: %1$s</string>
+    <string name="a11y_move_up">Pindahkan ke atas</string>
+    <string name="a11y_move_down">Pindahkan ke bawah</string>
+    <string name="a11y_in_watchlist">Sudah ada di daftar pantau</string>
+    <string name="portfolio_export_today_hint">Hari ini belum selesai: harga saat ini digunakan sebagai pengganti harga penutupan harian.</string>
+    <string name="about_privacy_policy">Kebijakan privasi</string>
+    <string name="widget_chart_type">Jenis grafik</string>
+    <string name="widget_chart_line">Garis</string>
+    <string name="widget_chart_candles">Candle</string>
+    <string name="pair_added_watching">%1$s kini dipantau</string>
+    <string name="market_cap_title">Pasar kripto</string>
+    <string name="market_cap_label">Kapitalisasi pasar</string>
+    <string name="market_volume_label">Volume 24 jam</string>
+    <string name="market_cap_source">Semua koin · CoinGecko</string>
+    <string name="market_data_empty_error">Tidak ada data yang diterima dari bursa.</string>
+    <string name="sync_pairs_count">Pasangan perdagangan: %1$d</string>
+    <string name="market_unavailable_error">Bursa tidak tersedia</string>
+    <string name="refresh_report_aborted">Pembaruan dibatalkan:</string>
+    <string name="refresh_report_wait">Menunggu hingga mulai: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="other">Total %1$s · %2$d pasangan</item>
+    </plurals>
+    <string name="refresh_report_network">Jaringan %1$s</string>
+    <string name="refresh_report_database">Basis data %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="other">Alarm/notifikasi %1$s · %2$d notifikasi</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widget %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="other">%1$s: %2$d pasangan, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="other">permintaan massal %1$s (%2$d harga)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">permintaan massal %1$s (gagal)</string>
+    <string name="refresh_report_singles">%1$d satu per satu</string>
+    <string name="refresh_report_slowest">paling lambat %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d tidak lagi diperdagangkan</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d kesalahan</item>
+    </plurals>
+    <string name="starter_add_selected">Tambah ke daftar pantau (%1$d)</string>
+    <string name="starter_select_all">Pilih semua</string>
+    <string name="starter_select_none">Batal pilih semua</string>
+    <string name="starter_loading_prices">Memuat harga…</string>
+    <string name="watchlist_removed">%1$s dihapus</string>
+    <string name="action_undo">Urungkan</string>
+    <string name="favorite_added">%1$s ditambahkan ke favorit</string>
+    <string name="favorite_removed">%1$s dihapus dari favorit</string>
+    <string name="cycle_data_as_of">Data per %1$s · memperbarui…</string>
+    <string name="settings_conversion_currency_hint">Juga digunakan untuk portofolio, alarm dalam mata uang Anda, kartu Pasar kripto, dan widget Portofolio.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d naik</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d turun</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, rata-rata %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d pasangan naik</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d turun</item>
+    </plurals>
+    <string name="pulse_headline_up">Kuat merata</string>
+    <string name="pulse_headline_down">Lemah merata</string>
+    <string name="pulse_headline_mixed">Gambaran campuran</string>
+    <string name="pulse_headline_calm">Pasar tenang</string>
+    <string name="pulse_chip_funding_high">Funding tinggi</string>
+    <string name="pulse_chip_funding_negative">Funding negatif</string>
+    <string name="market_signal_top">Tanda puncak %1$d/10</string>
+    <string name="market_signal_bottom">Tanda dasar %1$d/10</string>
+    <string name="market_section_now">Saat ini</string>
+    <string name="market_section_context">Konteks</string>
+    <string name="market_section_data">Data</string>
+</resources>

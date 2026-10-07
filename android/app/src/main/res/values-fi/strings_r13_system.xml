@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Lukee hinnat ja hälytykset ääneen. Pysyy hiljaa, kun laite on äänettömällä tai värinätilassa.</string>
+</resources>

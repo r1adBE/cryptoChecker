@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">许可声明</string>
+    <string name="licenses_marketdata_title">价格数据库</string>
+    <string name="licenses_marketdata_intro">交易所连接的部分内容基于采用 MIT 许可证的软件：</string>
+    <string name="licenses_marketdata_changes">修改：%1$s</string>
+    <string name="licenses_font_title">Rubik 字体</string>
+    <string name="licenses_libraries_title">Android 库</string>
+    <string name="licenses_libraries_intro">本应用依据 Apache License 2.0 使用以下库：</string>
+</resources>

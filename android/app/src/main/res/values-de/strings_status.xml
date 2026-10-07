@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Keine Verbindung</string>
+    <string name="watchlist_offline_since">Keine Verbindung · Stand %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d von %2$d ohne Kurs</item>
+        <item quantity="other">%1$d von %2$d ohne Kurs</item>
+    </plurals>
+    <string name="watch_not_traded">Wird an der Börse nicht mehr gehandelt</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Eksport stanu na dzień…</string>
+    <string name="portfolio_export_title">Eksport stanu na dzień</string>
+    <string name="portfolio_export_date">Stan na dzień</string>
+    <string name="portfolio_export_currency">Waluta: %1$s</string>
+    <string name="portfolio_export_hint">Stan posiadania na koniec wybranego dnia, wyceniony po dziennym kursie zamknięcia (UTC) w USDT i przeliczony po kursie referencyjnym EBC z tego dnia. Walutę zmienisz w „Przelicz na“.</string>
+    <string name="portfolio_export_button">Eksportuj CSV</string>
+    <string name="portfolio_export_running">Pobieranie cen historycznych…</string>
+    <string name="portfolio_export_done">Eksport zapisany</string>
+    <string name="portfolio_export_failed">Eksport nieudany</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Stan na dzień %1$s, waluta %2$s, kurs walut z %3$s</string>
+    <string name="portfolio_export_col_coin">Moneta</string>
+    <string name="portfolio_export_col_amount">Ilość</string>
+    <string name="portfolio_export_col_price">Cena USDT</string>
+    <string name="portfolio_export_col_value">Wartość USDT</string>
+    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Wartość %1$s</string>
+    <string name="portfolio_export_col_note">Uwaga</string>
+    <string name="portfolio_export_total">Razem</string>
+    <string name="portfolio_export_no_price">brak ceny</string>
+    <string name="portfolio_export_no_fx">brak kursu</string>
+    <string name="portfolio_export_incomplete">niekompletne</string>
+</resources>

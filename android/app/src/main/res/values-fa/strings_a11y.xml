@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">رنگ‌های قیمت</string>
+    <string name="price_colors_green_red">سبز / قرمز</string>
+    <string name="price_colors_blue_orange">آبی / نارنجی</string>
+    <string name="settings_price_colors_hint">آبی / نارنجی با هر نوع ضعف دید رنگ (قرمز-سبز و آبی-زرد) به‌خوبی قابل تشخیص است. جهت تغییر نیز همیشه با + / − نشان داده می‌شود.</string>
+    <string name="settings_watchlist_sparkline">نمودار کوچک در واچ‌لیست</string>
+    <string name="settings_watchlist_sparkline_hint">روند ۲۴ ساعته کنار قیمت</string>
+
+    <string name="settings_price_colors_inverted">جابه‌جایی رنگ‌های افزایش/کاهش</string>
+    <string name="settings_price_colors_inverted_hint">قرمز برای افزایش و سبز برای کاهش، همان‌طور که در چین، ژاپن، کره و تایوان مرسوم است. پیش‌فرض بر اساس منطقه دستگاه است.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">کنتراست بالا</string>
+    <string name="settings_high_contrast_hint">رنگ‌های قیمت پررنگ‌تر و متن‌های فرعی تیره‌تر. وقتی سیستم کنتراست بیشتری بخواهد هم فعال است.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s در %2$s</string>
+    <string name="a11y_price">قیمت %1$s</string>
+    <string name="a11y_change_up">افزایش %1$s</string>
+    <string name="a11y_change_down">کاهش %1$s</string>
+    <string name="a11y_change_flat">بدون تغییر</string>
+    <string name="a11y_converted">حدود %1$s</string>
+    <string name="a11y_note">یادداشت: %1$s</string>
+    <string name="a11y_alarm_count">هشدارها: %1$d</string>
+    <string name="a11y_stale">قدیمی، آخرین به‌روزرسانی %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">نمودار %1$s: از %2$s به %3$s، %4$s. بیشترین %5$s، کمترین %6$s.</string>
+    <string name="a11y_chart_empty">نمودار: داده‌ای وجود ندارد</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">چرخه %1$s: %2$s از زمان هاوینگ، روز %3$d.</string>
+    <string name="a11y_cycle_top">قله %1$s در روز %2$d.</string>
+    <string name="a11y_cycle_bottom">کف %1$s در روز %2$d.</string>
+    <string name="a11y_cycle_double_top">قله دوقلو %1$s در روز %2$d.</string>
+    <string name="a11y_cycle_double_bottom">کف دوقلو %1$s در روز %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">مقیاس از %1$s تا %2$s: %3$d از 100</string>
+</resources>

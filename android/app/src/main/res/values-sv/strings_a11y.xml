@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Kursfärger</string>
+    <string name="price_colors_green_red">Grön / röd</string>
+    <string name="price_colors_blue_orange">Blå / orange</string>
+    <string name="settings_price_colors_hint">Blå / orange är lätt att skilja åt vid alla former av färgseendeavvikelse (röd-grön och blå-gul). Riktningen visas dessutom alltid med + / −.</string>
+    <string name="settings_watchlist_sparkline">Minidiagram i bevakningslistan</string>
+    <string name="settings_watchlist_sparkline_hint">24-timmarsförlopp bredvid kursen</string>
+
+    <string name="settings_price_colors_inverted">Byt färger för uppgång/nedgång</string>
+    <string name="settings_price_colors_inverted_hint">Rött för uppgång, grönt för nedgång, som är vanligt i Kina, Japan, Korea och Taiwan. Standard beror på enhetens region.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Hög kontrast</string>
+    <string name="settings_high_contrast_hint">Kraftigare kursfärger och mörkare sekundär text. Är också på när systemet begär mer kontrast.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s på %2$s</string>
+    <string name="a11y_price">kurs %1$s</string>
+    <string name="a11y_change_up">upp %1$s</string>
+    <string name="a11y_change_down">ned %1$s</string>
+    <string name="a11y_change_flat">oförändrad</string>
+    <string name="a11y_converted">ungefär %1$s</string>
+    <string name="a11y_note">anteckning: %1$s</string>
+    <string name="a11y_alarm_count">larm: %1$d</string>
+    <string name="a11y_stale">inaktuell, senaste uppdatering %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Diagram %1$s: från %2$s till %3$s, %4$s. Högst %5$s, lägst %6$s.</string>
+    <string name="a11y_chart_empty">Diagram: inga data</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cykel %1$s: %2$s sedan halveringen, dag %3$d.</string>
+    <string name="a11y_cycle_top">Topp %1$s på dag %2$d.</string>
+    <string name="a11y_cycle_bottom">Botten %1$s på dag %2$d.</string>
+    <string name="a11y_cycle_double_top">Dubbeltopp %1$s på dag %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Dubbelbotten %1$s på dag %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skala från %1$s till %2$s: %3$d av 100</string>
+</resources>

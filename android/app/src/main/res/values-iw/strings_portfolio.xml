@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">החזקה</string>
+    <string name="portfolio_invalid">כמות לא תקינה</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">קבוצה</string>
+    <string name="group_value">קבוצה: %1$s</string>
+    <string name="group_all">הכול</string>
+    <string name="group_none">ללא קבוצה</string>
+    <string name="group_new">קבוצה חדשה…</string>
+    <string name="group_name">שם הקבוצה</string>
+    <string name="widget_group_hint">הצג רק את הצמדים של קבוצה זו.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">תיק השקעות</string>
+    <string name="portfolio_setting_hint">אופציונלי: תיעוד קניות ומכירות וצפייה בשווי וברווח/הפסד בלשונית נפרדת.</string>
+    <string name="portfolio_total_value">שווי כולל</string>
+    <string name="portfolio_invested">הושקע</string>
+    <string name="portfolio_unrealized">רווח/הפסד, טרם נמכר</string>
+    <string name="portfolio_realized">רווח/הפסד, נמכר</string>
+    <string name="portfolio_value">שווי</string>
+    <string name="portfolio_avg_price">מחיר קנייה ממוצע</string>
+    <string name="portfolio_current_price">מחיר נוכחי</string>
+    <string name="portfolio_avg_and_now">ממוצע %1$s · כעת %2$s</string>
+    <string name="portfolio_updated">מחירים נכון ל-%1$s</string>
+    <string name="portfolio_convert_to">המרה ל</string>
+    <string name="portfolio_convert_to_value">המרה ל: %1$s</string>
+    <string name="portfolio_price_missing">חסר מחיר</string>
+    <string name="portfolio_price_missing_hint">לחלק מהקניות אין מחיר. הוסיפו את מחיר הקנייה כדי לראות רווח/הפסד.</string>
+    <string name="portfolio_current_missing">אין מחיר נוכחי עבור %1$s</string>
+    <string name="portfolio_oversold">המכירות עולות על האחזקה – כדאי לבדוק את העסקאות.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">פוזיציה סגורה (%1$d)</item>
+        <item quantity="two">פוזיציות סגורות (%1$d)</item>
+        <item quantity="other">פוזיציות סגורות (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">עסקאות</string>
+    <string name="portfolio_add_tx">תיעוד קנייה/מכירה</string>
+    <string name="portfolio_edit_tx">עריכת עסקה</string>
+    <string name="portfolio_buy">קנייה</string>
+    <string name="portfolio_sell">מכירה</string>
+    <string name="portfolio_coin">מטבע</string>
+    <string name="portfolio_coin_search">חיפוש סמל, למשל BTC</string>
+    <string name="portfolio_coin_invalid">יש להזין סמל</string>
+    <string name="portfolio_tx_amount">כמות</string>
+    <string name="portfolio_tx_price">מחיר למטבע</string>
+    <string name="portfolio_tx_price_hint">ב-USDT. אפשר להשאיר ריק אם לא ידוע.</string>
+    <string name="portfolio_tx_price_invalid">מחיר לא תקין</string>
+    <string name="portfolio_tx_date">תאריך</string>
+    <string name="portfolio_tx_note">הערה (אופציונלי)</string>
+    <string name="portfolio_tx_total">סה״כ: %1$s</string>
+    <string name="portfolio_sell_exceeds">יותר מהאחזקה שלך (%1$s)</string>
+    <string name="portfolio_tx_delete_title">למחוק את העסקה?</string>
+    <string name="portfolio_tx_delete_confirm">העסקה תוסר מתיק ההשקעות.</string>
+    <string name="portfolio_empty_title">אין עדיין עסקאות</string>
+    <string name="portfolio_empty_text">תעדו קניות ומכירות. השווי והרווח/הפסד מחושבים לפי מחירים נוכחיים ב-USDT.</string>
+    <string name="portfolio_empty_action">תיעוד הקנייה הראשונה</string>
+    <string name="portfolio_disclaimer">נשמר במכשיר זה בלבד. אין לראות בכך ייעוץ השקעות.</string>
+    <string name="portfolio_add_from_watch">הוספה לתיק ההשקעות</string>
+</resources>

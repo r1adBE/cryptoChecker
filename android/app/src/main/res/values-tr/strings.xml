@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Hata: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Döviz çifti yok</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Seçili borsadan en güncel döviz çiftlerini indirmek için buraya dokunun.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Döviz çiftlerini güncelle</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Şimdi eşitle!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Son eşitleme: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">hiç</string>
+
+    <string name="market_screen_sync">Eşitle</string>
+    <string name="market_screen_base">Baz</string>
+    <string name="market_screen_quote">Karşıt</string>
+    <string name="market_screen_market">Piyasa</string>
+    <string name="market_screen_contract_type">Sözleşme türü</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Yüksek</string>
+    <string name="ticker_low">Düşük</string>
+    <string name="ticker_bid">Alış</string>
+    <string name="ticker_ask">Satış</string>
+    <string name="ticker_vol_base">Hacim (baz)</string>
+    <string name="ticker_vol_quote">Hacim (karşıt)</string>
+    <string name="ticker_timestamp">Zaman</string>
+
+
+    <string name="try_again">Tekrar dene</string>
+    <string name="no_internet_connection">İnternet bağlantısı yok</string>
+    <string name="something_went_wrong">Bir şeyler ters gitti</string>
+
+    <string name="bulk_all_pairs">Bu borsanın tüm %1$s çiftleri</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s çifti bulundu</item>
+        <item quantity="other">%1$d %2$s çifti bulundu</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Bu borsada seçili sözleşme türü için %1$s çifti yok. Önce borsayı eşitleyin veya başka bir sözleşme türü deneyin.</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">Yenile</string>
+    <string name="action_add_pair">Çift ekle</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_edit">Düzenle</string>
+    <string name="action_back">Geri</string>
+    <string name="action_save">Kaydet</string>
+    <string name="action_cancel">İptal</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Henüz çift yok</string>
+    <string name="watchlist_empty_hint">Ya da “Ekle” bölümünde bir borsa ve çift seçin. Her çift için bildirim, sesli güncelleme ve fiyat alarmları ayarlanabilir.</string>
+    <string name="watchlist_updated">Güncellendi: %1$s</string>
+    <string name="watchlist_notification">Bildirim</string>
+    <string name="watchlist_tts">Fiyatı sesli oku</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarmlar (%1$d)</item>
+        <item quantity="other">Alarmlar (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">Alarmlar</string>
+    <string name="alarms_add">Yeni alarm</string>
+    <string name="alarms_edit">Alarmı düzenle</string>
+    <string name="alarms_empty">Bu çift için henüz alarm yok.</string>
+    <string name="alarm_condition_above">Fiyat üstünde</string>
+    <string name="alarm_condition_below">Fiyat altında</string>
+    <string name="alarm_condition_up_percent">Yükseliş</string>
+    <string name="alarm_condition_down_percent">Düşüş</string>
+    <string name="alarm_repeating">Tekrarlayan</string>
+    <string name="alarm_once">Bir kez</string>
+    <string name="alarm_last_triggered">son: %1$s</string>
+    <string name="alarm_field_price">Fiyat</string>
+    <string name="alarm_field_percent">Yüzde</string>
+    <string name="alarm_option_repeating">Tetiklendikten sonra alarmı koru</string>
+    <string name="alarm_option_sound">Ses</string>
+    <string name="alarm_option_vibrate">Titreşim</string>
+    <string name="alarm_option_speak">Alarmı sesli oku</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">Fiyatlar</string>
+    <string name="channel_prices_description">Bir çiftin güncel fiyatını gösteren sessiz bildirim.</string>
+    <string name="channel_alarms">Alarmlar</string>
+    <string name="channel_alarms_description">Fiyat alarmı tetiklendiğinde bildirim.</string>
+    <string name="channel_service">Canlı mod</string>
+    <string name="channel_service_description">Fiyatlar kısa aralıklarla güncellenirken gösterilen bildirim.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, önceki %2$s (%3$s önce)</string>
+    <string name="notification_price_change_no_age">%1$s, önceki %2$s</string>
+    <string name="notification_price_first">Bu çift için ilk bildirim</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — şimdi %2$s</string>
+    <string name="market_phase_title">Bitcoin piyasa evresi</string>
+    <string name="market_phase_trend_loading">Fiyat verileri yükleniyor…</string>
+    <string name="market_phase_trend_failed">Fiyat verileri kullanılamıyor</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Aynı anda çok sayıda tarihsel dip sinyali – tarihsel birikim bölgesi.</string>
+    <string name="zone_hint_bear">Düşüş trendi veya dip oluşumu, henüz geniş çaplı kapitülasyon yok.</string>
+    <string name="zone_hint_neutral">Karışık sinyaller, net bir yön yok.</string>
+    <string name="zone_hint_bull">Aşırı ısınma olmadan yükseliş trendi.</string>
+    <string name="zone_hint_extreme_bull">Aynı anda çok sayıda tarihsel tepe sinyali – yüksek tepe riski.</string>
+    <string name="market_scores">Olası bir tepe işaretleri %1$d/10 · dip %2$d/10</string>
+    <string name="market_show_indicators">Göstergeleri göster</string>
+    <string name="market_hide_indicators">Göstergeleri gizle</string>
+    <string name="market_onchain_missing">On-chain veriler (Coin Metrics) şu anda kullanılamıyor – skor yalnızca fiyat verilerine dayanıyor.</string>
+    <string name="market_source">Veriler: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Fiyat / 200 haftalık ortalama</string>
+    <string name="ind_drawdown">Tüm zamanların zirvesinden düşüş</string>
+    <string name="ind_hash">Madenci kapitülasyonu (hash ribbons)</string>
+    <string name="ind_parabolic">Parabolik yükseliş (30 gün)</string>
+    <string name="ind_halving">Halving\'den bu yana geçen ay</string>
+    <string name="ind_ath">Zirveden bu yana geçen ay</string>
+    <string name="ind_points_top">+%1$d tepe</string>
+    <string name="ind_points_bottom">+%1$d dip</string>
+    <string name="market_phase_disclaimer">Geçmiş döngülere ve fiyat trendine dayanır. Tahmin veya yatırım tavsiyesi değildir.</string>
+    <string name="action_retry">Yeniden dene</string>
+    <string name="settings_section_language">Dil</string>
+    <string name="settings_language_system">Sistem dili</string>
+    <string name="settings_language_choose">Dil seç</string>
+    <string name="settings_section_appearance">Görünüm</string>
+    <string name="settings_theme_mode">Mod</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
+    <string name="settings_accent">Renk</string>
+    <string name="accent_orange">Turuncu</string>
+    <string name="accent_red">Kırmızı</string>
+    <string name="accent_blue">Mavi</string>
+    <string name="accent_green">Yeşil</string>
+    <string name="settings_rolling_futures">Üç aylık &amp; diğer vadeli futures dahil</string>
+    <string name="settings_rolling_futures_hint">Kapalı: Borsa listesinde bulunmayan vadeli futures tek tek kontrol edilmek yerine artık işlem görmüyor olarak işaretlenir. Her yenilemede zaman kazandırır.</string>
+    <string name="notification_refreshing">Fiyatlar güncelleniyor…</string>
+    <string name="notification_service_title">Crypto Checker canlı mod</string>
+    <string name="notification_service_starting">Başlatılıyor…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d çift · %2$s</item>
+        <item quantity="other">%1$d çift · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">İzleme listesinde çift yok</string>
+    <string name="notification_service_error">Güncelleme başarısız</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_background_updates">Arka plan güncellemeleri</string>
+    <string name="settings_background_updates_hint">Fiyatlar, alarmlar ve widget\'lar uygulama kapalıyken de güncellenir.</string>
+    <string name="settings_background_interval">Aralık</string>
+    <string name="settings_live_service">Canlı mod</string>
+    <string name="settings_live_service_hint">Kısa aralıklar için bir hizmeti çalışır durumda tutar. Daha fazla pil kullanır.</string>
+    <string name="settings_live_interval">Canlı aralık</string>
+    <string name="settings_minutes">%1$d dk</string>
+    <string name="settings_seconds">%1$d sn</string>
+    <string name="settings_price_notifications">Fiyat bildirimleri</string>
+    <string name="settings_price_notifications_hint">Etkin çiftlerin güncel fiyatını durum çubuğunda göster.</string>
+    <string name="settings_ongoing_notifications">Kaydırılarak kapatılamaz</string>
+    <string name="settings_ongoing_notifications_hint">Fiyat bildirimlerini sabit tutar.</string>
+    <string name="settings_notification_change">Yalnızca fiyat değişince bildir</string>
+    <string name="settings_notification_change_always">Her zaman</string>
+    <string name="settings_notification_change_hint">Bildirim, fiyat bir öncekinden bu yana en az bu kadar değiştiğinde gösterilir. Veri eksikken hiçbir şey gösterilmez. Alarmlar etkilenmez.</string>
+    <string name="settings_alarm_cooldown">Alarm yeniden çalmadan önceki bekleme süresi</string>
+    <string name="settings_tts">Sesli çıkış</string>
+    <string name="settings_tts_alarms_only">Yalnızca alarmlar</string>
+    <string name="settings_tts_alarms_only_hint">Kapalı: „Fiyatı sesli oku“ işaretli bir çiftin her güncellemesi okunur.</string>
+    <string name="settings_speech_rate">Konuşma hızı: %1$.1f×</string>
+    <string name="settings_tts_test">Sesi test et</string>
+    <string name="battery_title">Fiyatları güncel tut</string>
+    <string name="battery_message">Android enerji tasarrufu için arka plan işlerini geciktirir — fiyatlar ve widget\'lar bu durumda saatlerce eski kalabilir. Pil kullanımını kısıtlamasız yapmak onları güncel tutar. Bunu Android ayarlarından istediğiniz zaman değiştirebilirsiniz.</string>
+    <string name="battery_later">Sonra</string>
+    <string name="settings_battery_ok">Pil kullanımı: kısıtlamasız</string>
+    <string name="settings_battery_restricted">Pil kullanımı: kısıtlı</string>
+    <string name="settings_battery_hint">Kısıtlı, Android\'in arka plan güncellemelerini saatlerce geciktirebileceği anlamına gelir.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">İzleme listenizdeki bir çiftin fiyatını gösterir.</string>
+    <string name="widget_empty">İzleme listesinde henüz çift yok.</string>
+    <string name="widget_opacity">Arka plan opaklığı: %%%1$d</string>
+    <string name="settings_section_about">Hakkında</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Fiyatlar doğrudan borsalardan gelir; hesap yok, izleme yok.</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">Büyük borsaların dışındaki tokenler, merkeziyetsiz borsalardan (Uniswap, PancakeSwap, Raydium …) DexScreener üzerinden. Bir token arayın ve işlem havuzunu ekleyin – fiyatlar ABD doları cinsinden.</string>
+    <string name="dex_search_hint">Token adı, sembolü veya adresi</string>
+    <string name="dex_search">Ara</string>
+    <string name="dex_no_results">Havuz bulunamadı.</string>
+    <string name="dex_added">%1$s izleme listesine eklendi.</string>
+    <string name="dex_already">%1$s zaten izleme listesinde.</string>
+    <string name="dex_liquidity">Likidite %1$s</string>
+    <string name="dex_add">Ekle</string>
+    <string name="action_sort">Sırala</string>
+    <string name="action_sort_done">Bitti</string>
+    <string name="sort_move_top">En üste</string>
+    <string name="sort_move_up">Yukarı</string>
+    <string name="sort_move_down">Aşağı</string>
+    <string name="sort_move_bottom">En alta</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d çiftin tümünü izleme listesine ekle</item>
+        <item quantity="other">%1$d çiftin tümünü izleme listesine ekle</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d eklendi, %2$d zaten izleme listesinde.</item>
+        <item quantity="other">%1$d eklendi, %2$d zaten izleme listesinde.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">İzleme listesine ekle</string>
+    <string name="explorer_added_to_watchlist">İzleme listesine eklendi.</string>
+    <string name="explorer_already_in_watchlist">Bu çift zaten izleme listesinde.</string>
+    <string name="explorer_no_pair_selected">Önce bir çift seçin.</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, şimdi %5$s</string>
+    <string name="tts_direction_up">yükseldi</string>
+    <string name="tts_direction_down">düştü</string>
+    <string name="watchlist_refresh_report">Son yenileme</string>
+    <string name="watchlist_refresh_report_empty">Henüz döküm yok: bu sürüm henüz tam bir yenileme tamamlamadı. Yenile\'ye dokunun ve yükleme göstergesi durana kadar bekleyin.</string>
+    <string name="action_close">Kapat</string>
+    <string name="watchlist_clear">İzleme listesini temizle</string>
+    <string name="watchlist_clear_confirm">Tüm çiftler izleme listesinden kaldırılsın mı? Alarmları da silinir.</string>
+    <string name="market_scores_hint">Tepe = geçmiş döngü zirvelerindeki gibi işaretler, dip = geçmiş döngü diplerindeki gibi işaretler. 4 puandan itibaren bir taraf baskındır, 7\'den itibaren aşırıdır. Fiyat hedefi değildir ve tahmin değildir.</string>
+    <string name="market_scores_none">Etkin bir tepe ya da dip işareti yok: sakin ara evre, fiyat trendi belirler.</string>
+    <string name="market_scores_info_title">Döngü sinyalleri</string>
+    <string name="market_scores_info_text">Olası bir tepe işaretleri, geçmiş döngü zirvelerinde görülen sinyalleri sayar: güçlü aşırı değerleme (MVRV), çok yüksek madenci geliri (Puell), fiyatın 200 günlük veya 200 haftalık ortalamanın çok üzerinde olması, parabolik yükseliş ve halving\'den sonraki 12–18 aylık dönem.\n\nOlası bir dip işaretleri, geçmiş diplerin sinyallerini sayar: düşük MVRV, zayıf madenci geliri, tüm zamanların zirvesinden sert düşüş, 200 haftalık ortalamaya yakın fiyat, düşen hashrate ve bir yıldan eski bir zirve.\n\n4 puan farkla bölge Bull veya Bear, 7\'den itibaren Aşırıdır. Hiçbir taraf önde değilse fiyat trendi belirler. İki tarafta da 0/10: ne coşku ne teslimiyet.\n\nFiyat hedefi değildir ve tahmin değildir: sinyaller yalnızca geçmiş döngülerin nasıl göründüğünü anlatır.</string>
+    <string name="battery_open_settings">Pil ayarlarını aç</string>
+    <string name="battery_steps">Uygulama bilgisinde Pil (veya Uygulama pil kullanımı) öğesine dokunun ve Kısıtlanmamış seçin.</string>
+    <string name="explorer_select_placeholder">Lütfen seçin</string>
+    <string name="explorer_bulk_title">Birden fazla çift</string>
+    <string name="watchlist_sort_hint">Bir çifti basılı tutup sürükleyin veya tutamacı kullanın. Favoriler üstte kalır.</string>
+    <string name="sort_drag_handle">Taşımak için sürükleyin</string>
+    <string name="explorer_step_pair">Çift seç</string>
+    <string name="theme_system">Sistem</string>
+    <string name="settings_section_developer">Geliştirici</string>
+    <string name="settings_http_log">HTTP günlüğünü göster</string>
+    <string name="settings_http_log_hint">“Ekle” sekmesinin altında borsalara giden istekleri gösterir – sorun gidermek için.</string>
+    <string name="language_search">Dil ara</string>
+    <string name="alarm_delete_title">Alarm silinsin mi?</string>
+    <string name="alarm_delete_confirm">Bu alarm kaldırılacak.</string>
+    <string name="alarms_overview_title">Tüm alarmlar</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d etkin</item>
+        <item quantity="other">%1$d etkin</item>
+    </plurals>
+    <string name="alarms_overview_empty">Henüz alarm yok. Bir çift açın ve Alarmlar bölümünden ekleyin.</string>
+    <string name="action_more">Diğer seçenekler</string>
+    <string name="watchlist_last_run">Son çalışma %1$s</string>
+    <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çekin</string>
+    <string name="favorite_add">Favorilere ekle</string>
+    <string name="favorite_remove">Favorilerden çıkar</string>
+    <string name="action_view">Görüntüle</string>
+    <string name="explorer_loading_pairs">İşlem çiftleri yükleniyor…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d çift · güncellendi %2$s</item>
+        <item quantity="other">%1$d çift · güncellendi %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d çift eklensin mi?</item>
+        <item quantity="other">%1$d çift eklensin mi?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s borsasındaki %1$d %2$s çiftinin tümü listeye eklenecek. Listede olanlar atlanır.</item>
+        <item quantity="other">%3$s borsasındaki %1$d %2$s çiftinin tümü listeye eklenecek. Listede olanlar atlanır.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Yukarıda seçmek için bir çifte dokunun.</string>
+    <string name="loading_hint">Yükleniyor…</string>
+    <string name="explorer_select_market_hint">Bir borsa seçin – işlem çiftleri otomatik yüklenir.</string>
+    <string name="explorer_precise_title">Tam seç</string>
+    <string name="explorer_search_hint">Coin ara, ör. BTC veya ETH USDT</string>
+    <string name="explorer_search_loading">Borsalar taranıyor… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Sonuç yok.</string>
+    <string name="action_clear">Temizle</string>
+    <string name="explorer_bulk_show_list">Listeyi göster</string>
+    <string name="explorer_bulk_hide_list">Listeyi gizle</string>
+    <string name="time_just_now">az önce</string>
+    <string name="welcome_title">Crypto Checker</string>
+    <string name="welcome_text">Fiyatlarınız. Alarmlarınız. Genel bakışınız.\nHesap yok. Reklam yok. Takip yok.</string>
+    <string name="welcome_later">Sonra</string>
+    <string name="developer_unlocked">Geliştirici seçenekleri açıldı</string>
+    <string name="hint_favorites_list">İpucu: favori için ☆ simgesine dokunun – favoriler üstte kalır.</string>
+    <string name="tab_watchlist">Liste</string>
+    <string name="tab_markets">Ekle</string>
+    <string name="tab_market_phase">Piyasa</string>
+    <string name="tab_settings">Ayarlar</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d çiftten %1$d tanesi eski</item>
+        <item quantity="other">%2$d çiftten %1$d tanesi eski</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Hepsi güncel · %1$s</string>
+    <string name="explorer_price_loading">Fiyat yükleniyor…</string>
+    <string name="zone_top_risk">Zirve riski</string>
+    <string name="zone_bottom_chance">Dip oluşumu</string>
+    <string name="timeout_error_message">Borsa şu anda yanıt vermiyor.</string>
+    <string name="widget_background">Arka plan</string>
+    <string name="widget_configure_title">Widget\'ı ayarla</string>
+    <string name="widget_configure_hint">Arka planı ve opaklığı seçin. Renk uygulamayı izler. Widget tüm listeyi gösterir; uygulamayı açmak için bir satıra dokunun.</string>
+    <string name="settings_custom_value">Özel</string>
+    <string name="insights_halving_title">Bitcoin yarılanması</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">Sonraki yarılanma yaklaşık %1$d gün sonra (%2$s)</item>
+        <item quantity="other">Sonraki yarılanma yaklaşık %1$d gün sonra (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">Mevcut döngünün %%%1$d kadarı</string>
+    <string name="insights_cycle_chart">Yarılanmadan bu yana döngüler</string>
+    <string name="insights_chart_axis">Yarılanmadan bu yana yıl</string>
+    <string name="insights_chart_hint">Fiyat, yarılanma günü fiyatının katı olarak (log ölçek). Geçmiş döngüler bir örüntüdür, tahmin değil.</string>
+    <string name="insights_source_history">Kaynak: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Korku ve Açgözlülük</string>
+    <string name="fng_extreme_fear">Aşırı korku</string>
+    <string name="fng_fear">Korku</string>
+    <string name="fng_neutral">Nötr</string>
+    <string name="fng_greed">Açgözlülük</string>
+    <string name="fng_extreme_greed">Aşırı açgözlülük</string>
+    <string name="insights_fng_history">Dün %1$s · bir hafta önce %2$s · bir ay önce %3$s</string>
+    <string name="insights_source_fng">Kaynak: alternative.me</string>
+    <string name="insights_dominance_title">Bitcoin hakimiyeti</string>
+    <string name="insights_altseason_title">Altcoin sezonu</string>
+    <string name="altseason_alt">Altcoin sezonu</string>
+    <string name="altseason_btc">Bitcoin sezonu</string>
+    <string name="altseason_mixed">Karışık</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d büyük altcoin\'den %1$d tanesi 90 günde Bitcoin\'i geçti</item>
+        <item quantity="other">%2$d büyük altcoin\'den %1$d tanesi 90 günde Bitcoin\'i geçti</item>
+    </plurals>
+    <string name="insights_source_dominance">Kaynak: CoinGecko, Binance</string>
+    <string name="coin_title">Coin analizi</string>
+    <string name="coin_choose">Coin</string>
+    <string name="coin_no_data">Bu coin için Binance veya Bybit\'te fiyat verisi yok.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Yalnızca %1$d günlük geçmiş – bazı göstergeler eksik.</item>
+        <item quantity="other">Yalnızca %1$d günlük geçmiş – bazı göstergeler eksik.</item>
+    </plurals>
+    <string name="coin_price_only">Yalnızca fiyata dayalı – zincir üstü veriler (MVRV, Puell, hashrate) yalnızca Bitcoin için ücretsiz.</string>
+    <string name="ind_rsi_weekly">RSI (haftalık)</string>
+    <string name="ind_rsi_daily">RSI (günlük)</string>
+    <string name="ind_pi_cycle">Pi döngüsü (111/350 gün)</string>
+    <string name="ind_cross">Trend 50/200 gün</string>
+    <string name="ind_vs_btc">Bitcoin\'e karşı güç (90 gün)</string>
+    <string name="ind_missing">yetersiz veri</string>
+    <string name="channel_market">Piyasa evresi</string>
+    <string name="channel_market_description">Bitcoin piyasa evresi değiştiğinde bildirir</string>
+    <string name="notification_zone_title">Bitcoin: %1$s</string>
+    <string name="notification_zone_text">Piyasa evresi %1$s → %2$s olarak değişti.</string>
+    <string name="settings_zone_alerts">Piyasa evresi değişince bildir</string>
+    <string name="settings_zone_alerts_hint">Günde iki kez kontrol eder ve Bitcoin bölge değiştirdiğinde bildirir, ör. Nötr\'den Bull\'a.</string>
+    <string name="alarm_condition_move_percent">Şu kadar hareket ederse</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d saat içinde</item>
+        <item quantity="other">%1$d saat içinde</item>
+    </plurals>
+    <string name="alarm_window_label">Zaman aralığı</string>
+    <string name="tts_direction_move">sert hareket ediyor</string>
+    <string name="settings_fng_below">Fear &amp; Greed: altına inince bildir</string>
+    <string name="settings_fng_above">Fear &amp; Greed: üstüne çıkınca bildir</string>
+    <string name="option_off">Kapalı</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">Endeks %1$d altına düştü – piyasa korkuyor.</string>
+    <string name="notification_fng_above">Endeks %1$d üstüne çıktı – piyasa açgözlü.</string>
+    <string name="futures_title">Vadeli işlem verileri</string>
+    <string name="futures_funding">Fonlama oranı</string>
+    <string name="futures_next_funding">sonraki %1$d sa %2$d dk sonra</string>
+    <string name="futures_open_interest">Açık pozisyon</string>
+    <string name="futures_source">Kaynak: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – tek coin</string>
+    <string name="single_widget_description">Tek bir coin\'i fiyat, değişim ve 24 saatlik grafikle büyük gösterir.</string>
+    <string name="single_widget_choose">Çift seç</string>
+    <string name="single_widget_title">Tekli widget\'ı ayarla</string>
+    <string name="shortcut_add">Çift ekle</string>
+    <string name="shortcut_alarms">Tüm alarmlar</string>
+    <string name="shortcut_cycle">Piyasa</string>
+    <string name="backup_title">Yedekleme ve geri yükleme</string>
+    <string name="backup_hint">Notlar ve gruplarla birlikte listeyi, alarmları, favorileri, portföyü ve ayarları kendi saklayacağınız bir dosyaya kaydeder – ör. yeni telefon için.</string>
+    <string name="backup_export">Dışa aktar</string>
+    <string name="backup_import">İçe aktar</string>
+    <string name="backup_restore_confirm">İçe aktarma; listenizi (notlar ve gruplarla birlikte), alarmlarınızı, favorilerinizi, portföyünüzü ve ayarlarınızı yedekle değiştirir.</string>
+    <string name="backup_exported">Yedek kaydedildi.</string>
+    <string name="backup_failed">Olmadı. Bu bir Crypto Checker yedeği mi?</string>
+    <string name="backup_restored">Geri yüklendi: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çift</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="other">%1$d alarm</item>
+    </plurals>
+</resources>

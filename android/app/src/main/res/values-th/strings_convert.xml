@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">ราคาที่แปลงแล้ว</string>
+    <string name="settings_show_converted_hint">แสดงราคาในรายการติดตามเป็น %1$s ด้วย</string>
+    <string name="settings_conversion_currency">สกุลเงินที่แปลง</string>
+    <string name="alarm_currency_label">สกุลเงิน</string>
+</resources>

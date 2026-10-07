@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum-gas alle (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin-maksu alle (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Ilmoittaa kerran, kun normaali maksu laskee rajan alle. Tarkistetaan hintapäivityksen yhteydessä, enintään 10 minuutin välein.</string>
+    <string name="notification_gas_eth_title">Ethereum-gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Alle rajasi %1$s gwei · Siirto ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-maksu: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Alle rajasi %1$s sat/vB · Siirto ≈ %2$s</string>
+    <string name="gas_title">Verkkomaksut</string>
+    <string name="gas_slow_fast">Hidas %1$s · Nopea %2$s</string>
+    <string name="gas_alert_active">Hälytys: %1$s</string>
+    <string name="gas_source">Julkiset RPC-solmut ja mempool.space · Yksinkertaisen siirron hinta, L2:lla ilman L1-osuutta</string>
+    <string name="gas_transfer_cost">Siirto ≈ %1$s</string>
+</resources>

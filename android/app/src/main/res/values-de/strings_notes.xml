@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Notiz</string>
+    <string name="note_add">Notiz hinzufügen</string>
+    <string name="note_edit">Notiz bearbeiten</string>
+    <string name="note_hint">z. B. Einstieg bei 0.42, Ziel 0.60</string>
+    <string name="note_remove">Entfernen</string>
+</resources>

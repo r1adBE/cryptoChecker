@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Τι ξεχωρίζει</string>
+    <string name="pulse_why_action">Γιατί; →</string>
+    <string name="pulse_section_factors">Παράγοντες</string>
+
+    <string name="pulse_lead_btc_leads">Το Bitcoin οδηγεί την αγορά.</string>
+    <string name="pulse_lead_alts_stronger">Τα altcoins είναι ισχυρότερα από το Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Το Bitcoin είναι ισχυρότερο από τα altcoins.</string>
+    <string name="pulse_lead_broad_up">Η αγορά ανεβαίνει συνολικά.</string>
+    <string name="pulse_lead_broad_down">Η αγορά πέφτει συνολικά.</string>
+    <string name="pulse_lead_drift_up">Η αγορά ανεβαίνει ελαφρά.</string>
+    <string name="pulse_lead_drift_down">Η αγορά υποχωρεί ελαφρά.</string>
+    <string name="pulse_lead_mixed">Τα μεγάλα νομίσματα κινούνται σε διαφορετικές κατευθύνσεις.</string>
+    <string name="pulse_lead_calm">Η αγορά σχεδόν δεν κινείται.</string>
+
+    <string name="pulse_detail_vol_above">Όγκος %1$d%% πάνω από το κανονικό.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Όγκος %1$d%% πάνω από το κανονικό, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_above_fund_high">Όγκος %1$d%% πάνω από το κανονικό, funding αυξημένο.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Όγκος %1$d%% πάνω από το κανονικό, funding αρνητικό.</string>
+    <string name="pulse_detail_vol_below">Όγκος %1$d%% κάτω από το κανονικό.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Όγκος %1$d%% κάτω από το κανονικό, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_below_fund_high">Όγκος %1$d%% κάτω από το κανονικό, funding αυξημένο.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Όγκος %1$d%% κάτω από το κανονικό, funding αρνητικό.</string>
+    <string name="pulse_detail_vol_normal">Όγκος κανονικός.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Όγκος κανονικός, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Όγκος κανονικός, funding αυξημένο.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Όγκος κανονικός, funding αρνητικό.</string>
+    <string name="pulse_detail_fund_neutral">Funding ουδέτερο.</string>
+    <string name="pulse_detail_fund_high">Funding αυξημένο.</string>
+    <string name="pulse_detail_fund_negative">Funding αρνητικό.</string>
+
+    <string name="factor_volume">Όγκος</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Διακύμανση (1h)</string>
+    <string name="factor_spoken_volume">%1$s φορές το κανονικό</string>
+    <string name="factor_spoken_volatility">%1$s φορές η συνήθης διακύμανση</string>
+
+    <string name="why_title_coin">Γιατί κινείται το %1$s;</string>
+    <string name="why_details">Εμφάνιση λεπτομερειών</string>
+    <string name="why_details_hide">Απόκρυψη λεπτομερειών</string>
+    <string name="why_f_market_wide">Κινείται όλη η αγορά</string>
+    <string name="why_f_coin_only">Μόνο αυτό το νόμισμα</string>
+    <string name="why_f_against">Αντίθετα στην αγορά</string>
+    <string name="why_f_market_calm">Ήρεμη αγορά</string>
+    <string name="why_f_leader">Το Bitcoin δίνει την κατεύθυνση</string>
+    <string name="why_f_leverage_longs">Μόχλευση: πολλά long</string>
+    <string name="why_f_leverage_shorts">Μόχλευση: πολλά short</string>
+    <string name="why_f_leverage_balanced">Ισορροπημένη μόχλευση</string>
+    <string name="insights_dominance_eth">ETH %1$s της συνολικής αγοράς</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d μήνας από το halving στις %2$s</item>
+        <item quantity="other">%1$d μήνες από το halving στις %2$s</item>
+    </plurals>
+</resources>

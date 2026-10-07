@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">가격과 경보를 소리 내어 읽어줍니다. 기기가 무음 또는 진동 모드일 때는 읽지 않습니다.</string>
+</resources>

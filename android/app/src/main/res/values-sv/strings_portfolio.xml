@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Innehav</string>
+    <string name="portfolio_invalid">Ogiltig mängd</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Grupp</string>
+    <string name="group_value">Grupp: %1$s</string>
+    <string name="group_all">Alla</string>
+    <string name="group_none">Ingen grupp</string>
+    <string name="group_new">Ny grupp…</string>
+    <string name="group_name">Gruppnamn</string>
+    <string name="widget_group_hint">Visa bara paren i den här gruppen.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portfölj</string>
+    <string name="portfolio_setting_hint">Valfritt: registrera köp och försäljningar och se värde och vinst/förlust i en egen flik.</string>
+    <string name="portfolio_total_value">Totalt värde</string>
+    <string name="portfolio_invested">Investerat</string>
+    <string name="portfolio_unrealized">Vinst/förlust, ännu inte sålt</string>
+    <string name="portfolio_realized">Vinst/förlust, sålt</string>
+    <string name="portfolio_value">Värde</string>
+    <string name="portfolio_avg_price">Snitt köppris</string>
+    <string name="portfolio_current_price">Aktuell kurs</string>
+    <string name="portfolio_avg_and_now">Snitt %1$s · nu %2$s</string>
+    <string name="portfolio_updated">Kurser från %1$s</string>
+    <string name="portfolio_convert_to">Räkna om till</string>
+    <string name="portfolio_convert_to_value">Räkna om till: %1$s</string>
+    <string name="portfolio_price_missing">Pris saknas</string>
+    <string name="portfolio_price_missing_hint">Vissa köp saknar pris. Lägg till köppriset för att se vinst/förlust.</string>
+    <string name="portfolio_current_missing">Ingen aktuell kurs för %1$s</string>
+    <string name="portfolio_oversold">Försäljningar överstiger innehavet – kontrollera transaktionerna.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Stängd position (%1$d)</item>
+        <item quantity="other">Stängda positioner (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transaktioner</string>
+    <string name="portfolio_add_tx">Registrera köp/försäljning</string>
+    <string name="portfolio_edit_tx">Redigera transaktion</string>
+    <string name="portfolio_buy">Köp</string>
+    <string name="portfolio_sell">Försäljning</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Sök symbol, t.ex. BTC</string>
+    <string name="portfolio_coin_invalid">Ange en symbol</string>
+    <string name="portfolio_tx_amount">Antal</string>
+    <string name="portfolio_tx_price">Pris per coin</string>
+    <string name="portfolio_tx_price_hint">I USDT. Lämna tomt om okänt.</string>
+    <string name="portfolio_tx_price_invalid">Ogiltigt pris</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_note">Anteckning (valfri)</string>
+    <string name="portfolio_tx_total">Totalt: %1$s</string>
+    <string name="portfolio_sell_exceeds">Mer än ditt innehav (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Radera transaktionen?</string>
+    <string name="portfolio_tx_delete_confirm">Transaktionen tas bort från portföljen.</string>
+    <string name="portfolio_empty_title">Inga transaktioner ännu</string>
+    <string name="portfolio_empty_text">Registrera dina köp och försäljningar. Värde och vinst/förlust beräknas med aktuella kurser i USDT.</string>
+    <string name="portfolio_empty_action">Registrera första köpet</string>
+    <string name="portfolio_disclaimer">Sparas bara på den här enheten. Ingen investeringsrådgivning.</string>
+    <string name="portfolio_add_from_watch">Lägg till i portföljen</string>
+</resources>

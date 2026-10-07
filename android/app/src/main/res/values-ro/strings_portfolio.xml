@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Deținere</string>
+    <string name="portfolio_invalid">Cantitate nevalidă</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Grup</string>
+    <string name="group_value">Grup: %1$s</string>
+    <string name="group_all">Toate</string>
+    <string name="group_none">Fără grup</string>
+    <string name="group_new">Grup nou…</string>
+    <string name="group_name">Numele grupului</string>
+    <string name="widget_group_hint">Afișează doar perechile din acest grup.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portofoliu</string>
+    <string name="portfolio_setting_hint">Opțional: înregistrează cumpărări și vânzări și vezi valoarea și profitul/pierderea într-o filă separată.</string>
+    <string name="portfolio_total_value">Valoare totală</string>
+    <string name="portfolio_invested">Investit</string>
+    <string name="portfolio_unrealized">Profit/pierdere, încă nevândut</string>
+    <string name="portfolio_realized">Profit/pierdere, vândut</string>
+    <string name="portfolio_value">Valoare</string>
+    <string name="portfolio_avg_price">Preț mediu de cumpărare</string>
+    <string name="portfolio_current_price">Preț curent</string>
+    <string name="portfolio_avg_and_now">Mediu %1$s · acum %2$s</string>
+    <string name="portfolio_updated">Prețuri de la %1$s</string>
+    <string name="portfolio_convert_to">Convertește în</string>
+    <string name="portfolio_convert_to_value">Convertește în: %1$s</string>
+    <string name="portfolio_price_missing">Lipsește prețul</string>
+    <string name="portfolio_price_missing_hint">Unele cumpărări nu au preț. Adaugă prețul de cumpărare pentru a vedea profitul/pierderea.</string>
+    <string name="portfolio_current_missing">Niciun preț curent pentru %1$s</string>
+    <string name="portfolio_oversold">Vânzările depășesc deținerea – verifică tranzacțiile.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Poziție închisă (%1$d)</item>
+        <item quantity="few">Poziții închise (%1$d)</item>
+        <item quantity="other">Poziții închise (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Tranzacții</string>
+    <string name="portfolio_add_tx">Înregistrează cumpărare/vânzare</string>
+    <string name="portfolio_edit_tx">Editează tranzacția</string>
+    <string name="portfolio_buy">Cumpărare</string>
+    <string name="portfolio_sell">Vânzare</string>
+    <string name="portfolio_coin">Monedă</string>
+    <string name="portfolio_coin_search">Caută simbolul, de ex. BTC</string>
+    <string name="portfolio_coin_invalid">Introdu un simbol</string>
+    <string name="portfolio_tx_amount">Cantitate</string>
+    <string name="portfolio_tx_price">Preț per monedă</string>
+    <string name="portfolio_tx_price_hint">În USDT. Lasă gol dacă nu știi.</string>
+    <string name="portfolio_tx_price_invalid">Preț invalid</string>
+    <string name="portfolio_tx_date">Data</string>
+    <string name="portfolio_tx_note">Notă (opțional)</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_sell_exceeds">Mai mult decât deții (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Ștergi tranzacția?</string>
+    <string name="portfolio_tx_delete_confirm">Această tranzacție va fi eliminată din portofoliu.</string>
+    <string name="portfolio_empty_title">Încă nicio tranzacție</string>
+    <string name="portfolio_empty_text">Înregistrează cumpărările și vânzările. Valoarea și profitul/pierderea se calculează cu prețuri curente în USDT.</string>
+    <string name="portfolio_empty_action">Înregistrează prima cumpărare</string>
+    <string name="portfolio_disclaimer">Salvat doar pe acest dispozitiv. Nu este consultanță de investiții.</string>
+    <string name="portfolio_add_from_watch">Adaugă în portofoliu</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Converted prices</string>
+    <string name="settings_show_converted_hint">Shows prices in the watchlist also in %1$s</string>
+    <string name="settings_conversion_currency">Conversion currency</string>
+    <string name="alarm_currency_label">Currency</string>
+</resources>

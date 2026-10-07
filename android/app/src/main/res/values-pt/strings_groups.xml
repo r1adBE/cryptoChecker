@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Editar grupo</string>
+    <string name="group_rename">Renomear</string>
+    <string name="group_delete">Excluir grupo</string>
+    <string name="group_delete_confirm">Os pares permanecem na sua lista de observação.</string>
+    <string name="group_done">Concluído</string>
+    <string name="group_add">Novo grupo</string>
+    <string name="group_in_other">em %1$s</string>
+    <string name="group_target">No grupo</string>
+    <string name="group_search_hint">Pesquisar par</string>
+    <string name="group_next">Avançar</string>
+</resources>

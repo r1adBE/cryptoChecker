@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Trykk for handlinger · sveip for hurtighandlinger · hold for å sortere</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_why">Hvorfor?</string>
+    <string name="watch_action_favorite">Favoritt</string>
+    <string name="add_alarm_action">Sett alarm</string>
+    <string name="welcome_watch_q">Hva skjer?</string>
+    <string name="welcome_alert_q">Når bør jeg handle?</string>
+    <string name="welcome_understand_q">Hvorfor?</string>
+</resources>

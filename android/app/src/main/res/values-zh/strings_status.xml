@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">无连接</string>
+    <string name="watchlist_offline_since">无连接 · 数据时间 %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%2$d 个中 %1$d 个无价格</item>
+    </plurals>
+    <string name="watch_not_traded">该交易所已不再交易</string>
+</resources>

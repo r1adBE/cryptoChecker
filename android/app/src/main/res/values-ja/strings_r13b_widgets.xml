@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">古いデータ</string>
+    <string name="widget_outdated_time">古いデータ · %1$s</string>
+
+    <string name="settings_widgets">ウィジェット</string>
+    <string name="settings_widgets_hint">ホーム画面に価格を表示</string>
+    <string name="widgets_sheet_title">ウィジェットを追加</string>
+    <string name="widget_kind_single">1 コイン</string>
+    <string name="widgets_add">追加</string>
+    <string name="widgets_add_named">ウィジェット「%1$s」を追加</string>
+    <string name="watch_action_add_widget">ウィジェットとして追加</string>
+    <string name="widgets_manual_title">ウィジェットを手動で追加</string>
+    <string name="widgets_manual_text">お使いのホーム画面はアプリからウィジェットを追加できません。ホーム画面の空いている場所を長押しし、「ウィジェット」を選んで「Crypto Checker」を探してください。</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ではアプリが自分でウィジェットを追加することはできません。すぐに済みます：</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">アプリが揺れ始めるまで、ホーム画面の空いている場所を長押しします。</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">上部の「編集」›「ウィジェットを追加」をタップします（古い iOS では「+」）。</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">「Crypto Checker」を検索してウィジェットを選び、「ウィジェットを追加」をタップします。</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">利用できるウィジェット</string>
+</resources>

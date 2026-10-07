@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">ייצוא לתאריך קובע…</string>
+    <string name="portfolio_export_title">ייצוא לתאריך קובע</string>
+    <string name="portfolio_export_date">תאריך קובע</string>
+    <string name="portfolio_export_currency">מטבע: %1$s</string>
+    <string name="portfolio_export_hint">החזקה בסוף היום שנבחר, לפי מחיר הסגירה היומי (UTC) ב-USDT ומומרת לפי שער הייחוס של ה-ECB באותו יום. אפשר לשנות את המטבע דרך ״המרה ל״.</string>
+    <string name="portfolio_export_button">ייצוא CSV</string>
+    <string name="portfolio_export_running">טוען מחירים היסטוריים…</string>
+    <string name="portfolio_export_done">הייצוא נשמר</string>
+    <string name="portfolio_export_failed">הייצוא נכשל</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># תאריך קובע %1$s, מטבע %2$s, שער חליפין מ-%3$s</string>
+    <string name="portfolio_export_col_coin">מטבע</string>
+    <string name="portfolio_export_col_amount">כמות</string>
+    <string name="portfolio_export_col_price">מחיר USDT</string>
+    <string name="portfolio_export_col_value">שווי USDT</string>
+    <string name="portfolio_export_col_rate">שער USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">שווי %1$s</string>
+    <string name="portfolio_export_col_note">הערה</string>
+    <string name="portfolio_export_total">סה״כ</string>
+    <string name="portfolio_export_no_price">אין מחיר</string>
+    <string name="portfolio_export_no_fx">אין שער</string>
+    <string name="portfolio_export_incomplete">חלקי</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">خروجی تاریخ مبنا…</string>
+    <string name="portfolio_export_title">خروجی تاریخ مبنا</string>
+    <string name="portfolio_export_date">تاریخ مبنا</string>
+    <string name="portfolio_export_currency">ارز: %1$s</string>
+    <string name="portfolio_export_hint">دارایی در پایان روز انتخاب‌شده، ارزش‌گذاری‌شده با قیمت پایانی روز (UTC) به USDT و تبدیل‌شده با نرخ مرجع بانک مرکزی اروپا در همان روز. ارز را از «تبدیل به» تغییر دهید.</string>
+    <string name="portfolio_export_button">خروجی CSV</string>
+    <string name="portfolio_export_running">در حال دریافت قیمت‌های تاریخی…</string>
+    <string name="portfolio_export_done">خروجی ذخیره شد</string>
+    <string name="portfolio_export_failed">خروجی ناموفق بود</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># تاریخ مبنا %1$s، ارز %2$s، نرخ ارز %3$s</string>
+    <string name="portfolio_export_col_coin">کوین</string>
+    <string name="portfolio_export_col_amount">مقدار</string>
+    <string name="portfolio_export_col_price">قیمت USDT</string>
+    <string name="portfolio_export_col_value">ارزش USDT</string>
+    <string name="portfolio_export_col_rate">نرخ USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">ارزش %1$s</string>
+    <string name="portfolio_export_col_note">یادداشت</string>
+    <string name="portfolio_export_total">مجموع</string>
+    <string name="portfolio_export_no_price">بدون قیمت</string>
+    <string name="portfolio_export_no_fx">بدون نرخ ارز</string>
+    <string name="portfolio_export_incomplete">ناقص</string>
+</resources>

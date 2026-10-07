@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Volumen-Spike-Alarm -->
+    <string name="alarm_condition_volume_spike">جهش حجم</string>
+    <string name="alarm_volume_factor_label">حجم ساعت گذشته نسبت به حالت عادی</string>
+    <string name="alarm_volume_hint">داده‌های حجم از Binance می‌آیند — جفت‌هایی که آنجا فهرست نشده‌اند هرگز فعال نمی‌شوند.</string>
+    <string name="notification_volume_spike_text">حجم %1$s× حالت عادی در ساعت گذشته</string>
+    <string name="tts_direction_volume_spike">با جهش حجم</string>
+
+    <!-- Einzel-Widget: Chart-Zeitraum -->
+    <string name="widget_chart_range">بازه نمودار</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_7d">۷ روز</string>
+    <string name="widget_range_30d">۳۰ روز</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_7d">۷ر</string>
+    <string name="widget_range_short_30d">۳۰ر</string>
+</resources>

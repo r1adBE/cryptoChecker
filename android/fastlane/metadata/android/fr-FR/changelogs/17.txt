@@ -1,0 +1,10 @@
+Nouveautés 16.2.2
+• Crypto Pulse : ce qui se passe sur le marché en ce moment
+• Activité inhabituelle, Pourquoi ça bouge ? avec un court résumé
+• Tester l'alerte
+• Prix et alertes dans votre devise
+• Export CSV à date de référence
+• Accessibilité : bleu/orange, contraste élevé, couleurs inversées, TalkBack
+• Démarrer en un geste, heures calmes, verrouillage, widget Portefeuille, alerte en phrase
+• 15 nouvelles plateformes, frais réseau et alerte gas
+• Bougies dans le widget, capitalisation

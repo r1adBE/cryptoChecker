@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">कीमत के रंग</string>
+    <string name="price_colors_green_red">हरा / लाल</string>
+    <string name="price_colors_blue_orange">नीला / नारंगी</string>
+    <string name="settings_price_colors_hint">नीला / नारंगी हर तरह की रंग-दृष्टि कमी (लाल-हरा और नीला-पीला) में आसानी से पहचाना जाता है। दिशा हमेशा + / − से भी दिखाई जाती है।</string>
+    <string name="settings_watchlist_sparkline">वॉचलिस्ट में मिनी चार्ट</string>
+    <string name="settings_watchlist_sparkline_hint">कीमत के पास 24 घंटे का रुझान</string>
+
+    <string name="settings_price_colors_inverted">बढ़त/गिरावट के रंग बदलें</string>
+    <string name="settings_price_colors_inverted_hint">बढ़त के लिए लाल, गिरावट के लिए हरा, जैसा चीन, जापान, कोरिया और ताइवान में आम है। डिफ़ॉल्ट डिवाइस के क्षेत्र पर निर्भर करता है।</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">उच्च कंट्रास्ट</string>
+    <string name="settings_high_contrast_hint">भाव के ज़्यादा गहरे रंग और गहरा सहायक टेक्स्ट। सिस्टम के ज़्यादा कंट्रास्ट माँगने पर भी चालू रहता है।</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s पर %1$s</string>
+    <string name="a11y_price">भाव %1$s</string>
+    <string name="a11y_change_up">%1$s ऊपर</string>
+    <string name="a11y_change_down">%1$s नीचे</string>
+    <string name="a11y_change_flat">अपरिवर्तित</string>
+    <string name="a11y_converted">लगभग %1$s</string>
+    <string name="a11y_note">नोट: %1$s</string>
+    <string name="a11y_alarm_count">अलार्म: %1$d</string>
+    <string name="a11y_stale">पुराना, अंतिम अपडेट %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">चार्ट %1$s: %2$s से %3$s तक, %4$s। उच्च %5$s, निम्न %6$s।</string>
+    <string name="a11y_chart_empty">चार्ट: कोई डेटा नहीं</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">चक्र %1$s: हॉल्विंग से %2$s, दिन %3$d।</string>
+    <string name="a11y_cycle_top">दिन %2$d पर शिखर %1$s।</string>
+    <string name="a11y_cycle_bottom">दिन %2$d पर निचला स्तर %1$s।</string>
+    <string name="a11y_cycle_double_top">दिन %2$d पर डबल टॉप %1$s।</string>
+    <string name="a11y_cycle_double_bottom">दिन %2$d पर डबल बॉटम %1$s।</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s से %2$s तक का पैमाना: 100 में से %3$d</string>
+</resources>

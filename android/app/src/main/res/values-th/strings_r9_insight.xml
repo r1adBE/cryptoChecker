@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">สิ่งที่โดดเด่นตอนนี้</string>
+    <string name="pulse_why_action">ทำไม? →</string>
+    <string name="pulse_section_factors">ปัจจัย</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin นำตลาด</string>
+    <string name="pulse_lead_alts_stronger">Altcoin แข็งแกร่งกว่า Bitcoin</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin แข็งแกร่งกว่า Altcoin</string>
+    <string name="pulse_lead_broad_up">ตลาดขึ้นในวงกว้าง</string>
+    <string name="pulse_lead_broad_down">ตลาดลงในวงกว้าง</string>
+    <string name="pulse_lead_drift_up">ตลาดขยับขึ้นเล็กน้อย</string>
+    <string name="pulse_lead_drift_down">ตลาดขยับลงเล็กน้อย</string>
+    <string name="pulse_lead_mixed">เหรียญใหญ่เคลื่อนไหวไปคนละทาง</string>
+    <string name="pulse_lead_calm">ตลาดแทบไม่ขยับ</string>
+
+    <string name="pulse_detail_vol_above">ปริมาณสูงกว่าปกติ %1$d%%</string>
+    <string name="pulse_detail_vol_above_fund_neutral">ปริมาณสูงกว่าปกติ %1$d%% Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_above_fund_high">ปริมาณสูงกว่าปกติ %1$d%% Funding สูง</string>
+    <string name="pulse_detail_vol_above_fund_negative">ปริมาณสูงกว่าปกติ %1$d%% Funding ติดลบ</string>
+    <string name="pulse_detail_vol_below">ปริมาณต่ำกว่าปกติ %1$d%%</string>
+    <string name="pulse_detail_vol_below_fund_neutral">ปริมาณต่ำกว่าปกติ %1$d%% Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_below_fund_high">ปริมาณต่ำกว่าปกติ %1$d%% Funding สูง</string>
+    <string name="pulse_detail_vol_below_fund_negative">ปริมาณต่ำกว่าปกติ %1$d%% Funding ติดลบ</string>
+    <string name="pulse_detail_vol_normal">ปริมาณปกติ</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">ปริมาณปกติ Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_normal_fund_high">ปริมาณปกติ Funding สูง</string>
+    <string name="pulse_detail_vol_normal_fund_negative">ปริมาณปกติ Funding ติดลบ</string>
+    <string name="pulse_detail_fund_neutral">Funding เป็นกลาง</string>
+    <string name="pulse_detail_fund_high">Funding สูง</string>
+    <string name="pulse_detail_fund_negative">Funding ติดลบ</string>
+
+    <string name="factor_volume">ปริมาณ</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">ความผันผวน (1h)</string>
+    <string name="factor_spoken_volume">%1$s เท่าของปกติ</string>
+    <string name="factor_spoken_volatility">%1$s เท่าของการแกว่งตัวปกติ</string>
+
+    <string name="why_title_coin">ทำไม %1$s ถึงเคลื่อนไหว?</string>
+    <string name="why_details">ดูรายละเอียด</string>
+    <string name="why_details_hide">ซ่อนรายละเอียด</string>
+    <string name="why_f_market_wide">ทั้งตลาดเคลื่อนไหว</string>
+    <string name="why_f_coin_only">เฉพาะเหรียญนี้</string>
+    <string name="why_f_against">สวนตลาด</string>
+    <string name="why_f_market_calm">ตลาดนิ่ง</string>
+    <string name="why_f_leader">Bitcoin กำหนดทิศทาง</string>
+    <string name="why_f_leverage_longs">เลเวอเรจ: Long จำนวนมาก</string>
+    <string name="why_f_leverage_shorts">เลเวอเรจ: Short จำนวนมาก</string>
+    <string name="why_f_leverage_balanced">เลเวอเรจสมดุล</string>
+    <string name="insights_dominance_eth">ETH %1$s ของตลาดทั้งหมด</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="other">%1$d เดือนนับจาก halving เมื่อ %2$s</item>
+    </plurals>
+</resources>

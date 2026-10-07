@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Zvuk alarmu</string>
+    <string name="settings_alarm_sound_default">Výchozí zvuk</string>
+    <string name="settings_alarm_sound_custom">Vlastní zvuk</string>
+    <string name="settings_alarm_sound_system">Vybrat systémový zvuk…</string>
+    <string name="settings_alarm_sound_file">Vlastní zvukový soubor…</string>
+    <string name="settings_alarm_sound_reset">Použít výchozí zvuk</string>
+    <string name="settings_alarm_sound_error">Zvuk nelze použít.</string>
+</resources>

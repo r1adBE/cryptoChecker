@@ -1,0 +1,33 @@
+Version 16.2.2
+• Crypto Pulse: hvad der sker i markedet lige nu
+• Hvorfor bevæger den sig? nu med kort opsummering
+• Test alarm: lyd, vibration og oplæsning
+• Omregnede kurser: en ekstra linje »≈ værdi« i din omregningsvaluta – 31 valutaer som EUR, CHF, USD, GBP eller JPY, som standard efter din enheds region
+• Alarmer i din valuta, f.eks. ved 60.000 EUR på et USDT-par
+• Skæringsdato-eksport: din porteføljes værdi på en vilkårlig dato, f.eks. 31. december, i din valuta som CSV-fil – praktisk til selvangivelsen (ingen skatterådgivning)
+• Tilgængelighed: kursfarver blå/orange i stedet for grøn/rød, lette at skelne ved alle former for farvesynsdefekt (rød-grøn og blå-gul); »Byt farver for stigning/fald«: rød for stigning, grøn for fald, som det er almindeligt i Kina, Japan, Korea og Taiwan (automatisk slået til der); »Høj kontrast«: kraftigere kursfarver, mørkere sekundær tekst og accentfarve, følger også systemets kontrastindstilling; fuld VoiceOver-understøttelse: hver række på listen, hver graf og hver widget læses op som én sætning
+• Minigraf i hver række: 24-timers forløb ved siden af kursen
+• »Kom i gang med ét tryk«: en tom liste tilbyder de 5 største coins efter markedsværdi (uden stablecoins)
+• Startlisten viser live-kurs og ændring over 24 t – alle fem er forvalgt og tilføjes med én knap
+• Stryg til venstre for at slette (med Fortryd), til højre for favorit
+• Fanen Marked åbner med det samme med de seneste data og opdaterer i baggrunden
+• Nattero: om natten (f.eks. 23–7) kommer alarmer lydløst – uden lyd, vibration eller oplæsning
+• Applås med Face ID, Touch ID eller adgangskode
+• Portefølje-widget til hjem- og låseskærm: samlet værdi i din valuta og ændring i dag
+• Hver alarm som en sætning: »Giv mig besked, når BTC falder under 60.000 CHF.«
+• Korte forklaringer til funding rate, open interest, RSI og Pi Cycle
+• Rækker viser »forældet« eller »kan ikke nås«, når en kurs ikke er aktuel
+• 15 nye børser: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Netværksgebyrer for Ethereum, Base, Arbitrum, Polygon, BNB Chain og Bitcoin på fanen Marked, med gas-alarm
+• Note til hver coin i din watchlist
+• Vælg en alarmlyd
+• Usædvanlig aktivitet: opdager usædvanlige kurs- og volumenbevægelser, valgfri notifikationer
+• Hvorfor bevæger den sig? En databaseret forklaring på bevægelser
+• Portefølje som egen fane: køb og salg, gennemsnitspris, gevinst/tab
+• Sammenligning af cyklusser: toppe og bunde markeret, inkl. dobbelttop og dobbeltbund
+• Grupper til din watchlist
+• Nye alarmer: bevægelse på X % inden for Y timer og volumenspike
+• Widget med én coin: lys eller linje, grafperiode 24 t, 7 dage eller 30 dage, mærker for høj, midt og lav, aktuel kurs fremhævet
+• Fanen Marked: kryptomarkedets samlede markedsværdi og 24 t-volumen i din valuta
+• Futures: funding rate og open interest
+• Fire accentfarver med matchende appikoner

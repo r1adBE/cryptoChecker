@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Tek dokunuşla başlayın</string>
+    <string name="starter_text">Coinleri seçin ve tek seferde ekleyin. Borsayı ve çifti daha sonra değiştirebilirsiniz.</string>
+    <string name="starter_custom">Borsa ve çift seçin</string>
+    <string name="settings_quiet_hours">Sessiz saatler</string>
+    <string name="settings_quiet_hours_hint">%1$s ile %2$s arasında alarmlar sessiz gelir: ses, titreşim ve sesli okuma olmadan.</string>
+    <string name="settings_quiet_hours_from">Başlangıç</string>
+    <string name="settings_quiet_hours_to">Bitiş</string>
+    <string name="channel_alarms_quiet">Alarmlar (sessiz saatler)</string>
+    <string name="channel_alarms_quiet_description">Sessiz saatlerde sessiz alarmlar.</string>
+    <string name="settings_app_lock">Uygulama kilidi</string>
+    <string name="settings_app_lock_hint">Uygulama bir dakikadan uzun süre arka planda kaldıysa parmak izi, yüz veya cihaz PIN\'i ile kilidi açın.</string>
+    <string name="app_lock_title">Crypto Checker kilitli</string>
+    <string name="app_lock_unlock">Kilidi aç</string>
+    <string name="app_lock_reason">Crypto Checker kilidini aç</string>
+    <string name="app_lock_unavailable">Bu cihazda ekran kilidi ayarlanmamış. Önce sistem ayarlarından bir tane ayarlayın.</string>
+    <string name="widget_portfolio_name">Portföy</string>
+    <string name="widget_portfolio_description">Portföyünüzün toplam değeri ve bugünkü değişim</string>
+    <string name="widget_portfolio_today">bugün %1$s</string>
+    <string name="widget_portfolio_empty">Alımları Portföy sekmesinde ekleyin</string>
+    <string name="widget_portfolio_locked">Gizli – uygulama kilidi açık</string>
+    <string name="a11y_portfolio_widget">Portföy %1$s, bugün %2$s</string>
+    <string name="settings_section_advanced">Gelişmiş</string>
+    <string name="settings_advanced_hint">Canlı mod, kalıcı bildirim, vadeli işlemler ve geliştirici seçenekleri</string>
+    <string name="explain_funding">Long ve short pozisyonlar arasındaki ücret. Güçlü pozitif değer, birçok kişinin fiyatların yükselmesine bahis yaptığı anlamına gelir.</string>
+    <string name="explain_open_interest">Tüm açık vadeli işlem pozisyonlarının değeri. Yükselirse harekete daha fazla para bahis yapılıyor demektir.</string>
+    <string name="explain_rsi">Göreceli Güç Endeksi, 0–100. 70 üstü çoğu zaman aşırı ısınmış, 30 altı çoğu zaman aşırı satılmış.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Açıklama</string>
+    <string name="explain_pi_cycle">111 günlük ortalamayı 350 günlük ortalamanın iki katıyla karşılaştırır. Kesişmeler geçmiş döngü zirvelerini işaret etti.</string>
+    <string name="alarm_sentence_above">%1$s fiyatı %2$s üzerine çıktığında bana haber ver.</string>
+    <string name="alarm_sentence_below">%1$s fiyatı %2$s altına düştüğünde bana haber ver.</string>
+    <string name="alarm_sentence_up_percent">%1$s fiyatı %2$s yükseldiğinde bana haber ver.</string>
+    <string name="alarm_sentence_down_percent">%1$s fiyatı %2$s düştüğünde bana haber ver.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s fiyatı %3$d saat içinde %2$s hareket ettiğinde bana haber ver.</item>
+        <item quantity="other">%1$s fiyatı %3$d saat içinde %2$s hareket ettiğinde bana haber ver.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">%1$s işlem hacmi normalin %2$s katına çıktığında bana haber ver.</string>
+    <string name="alarm_sentence_incomplete">Alarmı cümle olarak görmek için bir değer girin.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s erişilemiyor</string>
+    <string name="watchlist_row_outdated">%1$s · güncel değil</string>
+</resources>

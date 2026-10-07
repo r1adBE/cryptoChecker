@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Η αγορά σήμερα</string>
+    <string name="pulse_alts_stronger">Τα altcoins πιο δυνατά από το Bitcoin</string>
+    <string name="pulse_alts_weaker">Το Bitcoin πιο δυνατό από τα altcoins</string>
+    <string name="pulse_alts_even">Altcoins και Bitcoin κινούνται παρόμοια</string>
+    <string name="pulse_volume_high">Όγκος συναλλαγών ασυνήθιστα υψηλός (%1$s× του συνήθους)</string>
+    <string name="pulse_volume_low">Όγκος συναλλαγών χαμηλός (%1$s× του συνήθους)</string>
+    <string name="pulse_volume_normal">Όγκος συναλλαγών συνήθης</string>
+    <string name="pulse_funding_high">Funding σαφώς θετικό: πολλά long με μόχλευση</string>
+    <string name="pulse_funding_slight">Funding ελαφρώς θετικό</string>
+    <string name="pulse_funding_neutral">Funding ουδέτερο</string>
+    <string name="pulse_funding_negative">Funding αρνητικό: πολλά short</string>
+    <string name="pulse_gas_low">Gas Ethereum χαμηλό (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum συνηθισμένο (%1$s gwei)</string>
+    <string name="pulse_gas_high">Gas Ethereum υψηλό (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Καμία πρόβλεψη · Όχι επενδυτική συμβουλή</string>
+    <string name="pulse_less">Εμφάνιση λιγότερων</string>
+    <string name="pulse_updated">Στις %1$s</string>
+    <string name="pulse_unavailable">Τα δεδομένα αγοράς δεν είναι διαθέσιμα αυτή τη στιγμή</string>
+    <string name="why_summary_title">Με λίγα λόγια</string>
+    <string name="why_summary_market_volume">Η κίνηση συνοδεύεται από υψηλότερο όγκο συναλλαγών και ευρεία κίνηση της αγοράς.</string>
+    <string name="why_summary_market">Η κίνηση ακολουθεί τη συνολική αγορά.</string>
+    <string name="why_summary_coin_volume">Κινείται μόνο αυτό το νόμισμα, με υψηλότερο όγκο – πιθανώς λόγος που αφορά το ίδιο το νόμισμα.</string>
+    <string name="why_summary_coin">Κινείται μόνο αυτό το νόμισμα – πιθανώς λόγος που αφορά το ίδιο το νόμισμα.</string>
+    <string name="why_summary_against">Το νόμισμα κινείται αντίθετα από την αγορά.</string>
+    <string name="why_summary_thin">Η κίνηση είναι αδύναμη: λίγος όγκος πίσω της.</string>
+    <string name="why_summary_calm">Καμία αξιοσημείωτη κίνηση: αγορά και νόμισμα είναι ήρεμα.</string>
+    <string name="why_summary_longs">Futures: πολλές θέσεις long με μόχλευση.</string>
+    <string name="why_summary_shorts">Futures: πολλές θέσεις short.</string>
+    <string name="why_dot_supports">στηρίζει την κίνηση</string>
+    <string name="why_dot_caution">αυξημένο</string>
+    <string name="why_dot_neutral">ουδέτερο</string>
+    <string name="alarm_test">Δοκιμή ειδοποίησης τιμής</string>
+    <string name="alarm_test_hint">Στέλνει ένα δείγμα ειδοποίησης τιμής με τις ρυθμίσεις ήχου, δόνησης και εκφώνησης που έχετε.</string>
+    <string name="alarm_test_title">Δοκιμή: ειδοποίηση τιμής από το Crypto Checker</string>
+    <string name="alarm_test_text">Έτσι φαίνεται και έτσι ακούγεται μια ειδοποίηση τιμής.</string>
+    <string name="alarm_test_quiet">Οι ώρες ησυχίας είναι ενεργές τώρα: οι πραγματικές ειδοποιήσεις τιμής θα έρχονταν αθόρυβα.</string>
+    <string name="alarm_test_denied">Οι ειδοποιήσεις είναι απενεργοποιημένες για το Crypto Checker.</string>
+    <string name="alarm_test_open_settings">Άνοιγμα ρυθμίσεων</string>
+    <string name="alarm_first_title">Όλα έτοιμα</string>
+    <string name="welcome_watch">Παρακολούθηση – τα νομίσματά σας, τιμές, γραφήματα και widgets</string>
+    <string name="welcome_alert">Ειδοποίηση – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις</string>
+    <string name="welcome_understand">Κατανόηση – γιατί κινείται η αγορά αυτή τη στιγμή;</string>
+    <string name="welcome_start">Ξεκινήστε</string>
+    <string name="portfolio_empty_example">Παράδειγμα: 0,01 BTC αγορασμένα την 1η Μαρτίου στα %1$s. Η εφαρμογή δείχνει τότε αξία, μέση τιμή αγοράς και κέρδος/ζημία – αποθηκευμένα μόνο σε αυτή τη συσκευή.</string>
+    <string name="about_why">Το Crypto Checker είναι ένα ανεξάρτητο έργο του Rich1e: μια ήρεμη επισκόπηση τιμών χωρίς λογαριασμό, διαφημίσεις ή παρακολούθηση. Ερωτήσεις και προτάσεις: %1$s</string>
+    <string name="a11y_move_up">Μετακίνηση πάνω</string>
+    <string name="a11y_move_down">Μετακίνηση κάτω</string>
+    <string name="a11y_in_watchlist">Ήδη στη λίστα παρακολούθησης</string>
+    <string name="portfolio_export_today_hint">Η σημερινή ημέρα δεν έχει ολοκληρωθεί ακόμη: χρησιμοποιείται η τρέχουσα τιμή αντί για την τιμή κλεισίματος.</string>
+    <string name="about_privacy_policy">Πολιτική απορρήτου</string>
+    <string name="widget_chart_type">Τύπος γραφήματος</string>
+    <string name="widget_chart_line">Γραμμή</string>
+    <string name="widget_chart_candles">Κεριά</string>
+    <string name="pair_added_watching">Το %1$s παρακολουθείται τώρα</string>
+    <string name="market_cap_title">Αγορά κρυπτονομισμάτων</string>
+    <string name="market_cap_label">Κεφαλαιοποίηση</string>
+    <string name="market_volume_label">Όγκος 24ώρου</string>
+    <string name="market_cap_source">Όλα τα νομίσματα · CoinGecko</string>
+    <string name="market_data_empty_error">Δεν ελήφθησαν δεδομένα από το ανταλλακτήριο.</string>
+    <string name="sync_pairs_count">Ζεύγη συναλλαγών: %1$d</string>
+    <string name="market_unavailable_error">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+    <string name="refresh_report_aborted">Η ανανέωση διακόπηκε:</string>
+    <string name="refresh_report_wait">Αναμονή έως την έναρξη: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Σύνολο %1$s · %2$d ζεύγος</item>
+        <item quantity="other">Σύνολο %1$s · %2$d ζεύγη</item>
+    </plurals>
+    <string name="refresh_report_network">Δίκτυο %1$s</string>
+    <string name="refresh_report_database">Βάση δεδομένων %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Ειδοποιήσεις τιμής/ειδοποιήσεις %1$s · %2$d ειδοποίηση</item>
+        <item quantity="other">Ειδοποιήσεις τιμής/ειδοποιήσεις %1$s · %2$d ειδοποιήσεις</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widget %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d ζεύγος, %3$s</item>
+        <item quantity="other">%1$s: %2$d ζεύγη, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">μαζικό αίτημα %1$s (%2$d τιμή)</item>
+        <item quantity="other">μαζικό αίτημα %1$s (%2$d τιμές)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">μαζικό αίτημα %1$s (απέτυχε)</string>
+    <string name="refresh_report_singles">μεμονωμένα: %1$d</string>
+    <string name="refresh_report_slowest">πιο αργό %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">δεν διαπραγματεύονται πλέον: %1$d</item>
+        <item quantity="other">δεν διαπραγματεύονται πλέον: %1$d</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d σφάλμα</item>
+        <item quantity="other">%1$d σφάλματα</item>
+    </plurals>
+    <string name="starter_add_selected">Προσθήκη στη λίστα (%1$d)</string>
+    <string name="starter_select_all">Επιλογή όλων</string>
+    <string name="starter_select_none">Καμία επιλογή</string>
+    <string name="starter_loading_prices">Φόρτωση τιμών…</string>
+    <string name="watchlist_removed">Το %1$s αφαιρέθηκε</string>
+    <string name="action_undo">Αναίρεση</string>
+    <string name="favorite_added">Το %1$s προστέθηκε στα αγαπημένα</string>
+    <string name="favorite_removed">Το %1$s αφαιρέθηκε από τα αγαπημένα</string>
+    <string name="cycle_data_as_of">Δεδομένα έως %1$s · ενημέρωση…</string>
+    <string name="settings_conversion_currency_hint">Χρησιμοποιείται επίσης για το χαρτοφυλάκιο, τις ειδοποιήσεις τιμής στο νόμισμά σας, την κάρτα «Αγορά κρυπτονομισμάτων» και το widget Χαρτοφυλάκιο.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ανεβαίνει</item>
+        <item quantity="other">%1$d ανεβαίνουν</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d πέφτει</item>
+        <item quantity="other">%1$d πέφτουν</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, κατά μέσο όρο %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ζεύγος ανεβαίνει</item>
+        <item quantity="other">%1$d ζεύγη ανεβαίνουν</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d πέφτει</item>
+        <item quantity="other">%1$d πέφτουν</item>
+    </plurals>
+    <string name="pulse_headline_up">Ευρεία ισχύς</string>
+    <string name="pulse_headline_down">Ευρεία αδυναμία</string>
+    <string name="pulse_headline_mixed">Μικτή εικόνα</string>
+    <string name="pulse_headline_calm">Ήρεμη αγορά</string>
+    <string name="pulse_chip_funding_high">Funding αυξημένο</string>
+    <string name="pulse_chip_funding_negative">Funding αρνητικό</string>
+    <string name="market_signal_top">Ενδείξεις κορυφής %1$d/10</string>
+    <string name="market_signal_bottom">Ενδείξεις πυθμένα %1$d/10</string>
+    <string name="market_section_now">Τώρα</string>
+    <string name="market_section_context">Πλαίσιο</string>
+    <string name="market_section_data">Δεδομένα</string>
+</resources>

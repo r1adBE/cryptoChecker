@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">ค้นหาคู่เหรียญหรือกระดานเทรด</string>
+    <string name="watchlist_search_open">ค้นหา</string>
+    <string name="watchlist_search_close">ปิดการค้นหา</string>
+    <string name="watchlist_search_empty">ไม่พบผลลัพธ์สำหรับ “%1$s”</string>
+</resources>

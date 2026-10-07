@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Bağlantı yok</string>
+    <string name="watchlist_offline_since">Bağlantı yok · durum %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d içinden %1$d fiyatsız</item>
+        <item quantity="other">%2$d içinden %1$d fiyatsız</item>
+    </plurals>
+    <string name="watch_not_traded">Bu borsada artık işlem görmüyor</string>
+</resources>

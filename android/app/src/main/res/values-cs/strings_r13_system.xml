@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Čte ceny a alarmy nahlas. Mlčí, dokud je zařízení v tichém režimu nebo na vibracích.</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Skæringsdato-eksport…</string>
+    <string name="portfolio_export_title">Skæringsdato-eksport</string>
+    <string name="portfolio_export_date">Skæringsdato</string>
+    <string name="portfolio_export_currency">Valuta: %1$s</string>
+    <string name="portfolio_export_hint">Beholdning ved udgangen af den valgte dag, værdisat til dagens lukkekurs (UTC) i USDT og omregnet med ECB\'s referencekurs for den dag. Valutaen ændrer du under ”Omregn til”.</string>
+    <string name="portfolio_export_button">Eksportér CSV</string>
+    <string name="portfolio_export_running">Henter historiske kurser…</string>
+    <string name="portfolio_export_done">Eksport gemt</string>
+    <string name="portfolio_export_failed">Eksport mislykkedes</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Skæringsdato %1$s, valuta %2$s, valutakurs fra %3$s</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_amount">Mængde</string>
+    <string name="portfolio_export_col_price">Kurs USDT</string>
+    <string name="portfolio_export_col_value">Værdi USDT</string>
+    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Værdi %1$s</string>
+    <string name="portfolio_export_col_note">Note</string>
+    <string name="portfolio_export_total">I alt</string>
+    <string name="portfolio_export_no_price">ingen kurs</string>
+    <string name="portfolio_export_no_fx">ingen valutakurs</string>
+    <string name="portfolio_export_incomplete">ufuldstændig</string>
+</resources>

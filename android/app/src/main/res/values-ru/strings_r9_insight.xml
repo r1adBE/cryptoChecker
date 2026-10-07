@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Что сейчас выделяется</string>
+    <string name="pulse_why_action">Почему? →</string>
+    <string name="pulse_section_factors">Факторы</string>
+
+    <string name="pulse_lead_btc_leads">Биткоин ведёт рынок.</string>
+    <string name="pulse_lead_alts_stronger">Альткоины сильнее биткоина.</string>
+    <string name="pulse_lead_btc_stronger">Биткоин сильнее альткоинов.</string>
+    <string name="pulse_lead_broad_up">Рынок растёт широким фронтом.</string>
+    <string name="pulse_lead_broad_down">Рынок снижается широким фронтом.</string>
+    <string name="pulse_lead_drift_up">Рынок слегка растёт.</string>
+    <string name="pulse_lead_drift_down">Рынок слегка снижается.</string>
+    <string name="pulse_lead_mixed">Крупные монеты расходятся.</string>
+    <string name="pulse_lead_calm">Рынок почти не движется.</string>
+
+    <string name="pulse_detail_vol_above">Объём на %1$d%% выше нормы.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Объём на %1$d%% выше нормы, фандинг нейтральный.</string>
+    <string name="pulse_detail_vol_above_fund_high">Объём на %1$d%% выше нормы, фандинг повышен.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Объём на %1$d%% выше нормы, фандинг отрицательный.</string>
+    <string name="pulse_detail_vol_below">Объём на %1$d%% ниже нормы.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Объём на %1$d%% ниже нормы, фандинг нейтральный.</string>
+    <string name="pulse_detail_vol_below_fund_high">Объём на %1$d%% ниже нормы, фандинг повышен.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Объём на %1$d%% ниже нормы, фандинг отрицательный.</string>
+    <string name="pulse_detail_vol_normal">Объём в норме.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Объём в норме, фандинг нейтральный.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Объём в норме, фандинг повышен.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Объём в норме, фандинг отрицательный.</string>
+    <string name="pulse_detail_fund_neutral">Фандинг нейтральный.</string>
+    <string name="pulse_detail_fund_high">Фандинг повышен.</string>
+    <string name="pulse_detail_fund_negative">Фандинг отрицательный.</string>
+
+    <string name="factor_volume">Объём</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Фандинг</string>
+    <string name="factor_volatility">Колебания (1ч)</string>
+    <string name="factor_spoken_volume">в %1$s раза больше обычного</string>
+    <string name="factor_spoken_volatility">колебания в %1$s раза сильнее обычного</string>
+
+    <string name="why_title_coin">Почему движется %1$s?</string>
+    <string name="why_details">Показать подробности</string>
+    <string name="why_details_hide">Скрыть подробности</string>
+    <string name="why_f_market_wide">Движется весь рынок</string>
+    <string name="why_f_coin_only">Только эта монета</string>
+    <string name="why_f_against">Против рынка</string>
+    <string name="why_f_market_calm">Спокойный рынок</string>
+    <string name="why_f_leader">Биткоин задаёт направление</string>
+    <string name="why_f_leverage_longs">Плечо: много лонгов</string>
+    <string name="why_f_leverage_shorts">Плечо: много шортов</string>
+    <string name="why_f_leverage_balanced">Плечо сбалансировано</string>
+    <string name="insights_dominance_eth">ETH %1$s всего рынка</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d месяц после халвинга %2$s</item>
+        <item quantity="few">%1$d месяца после халвинга %2$s</item>
+        <item quantity="many">%1$d месяцев после халвинга %2$s</item>
+        <item quantity="other">%1$d месяца после халвинга %2$s</item>
+    </plurals>
+</resources>

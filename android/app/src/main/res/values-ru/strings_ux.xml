@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Начать одним касанием</string>
+    <string name="starter_text">Выберите монеты и добавьте их за один раз. Биржу и пару можно изменить позже.</string>
+    <string name="starter_custom">Выбрать биржу и пару</string>
+    <string name="settings_quiet_hours">Тихие часы</string>
+    <string name="settings_quiet_hours_hint">С %1$s до %2$s оповещения приходят беззвучно: без звука, вибрации и озвучивания.</string>
+    <string name="settings_quiet_hours_from">С</string>
+    <string name="settings_quiet_hours_to">До</string>
+    <string name="channel_alarms_quiet">Оповещения (тихие часы)</string>
+    <string name="channel_alarms_quiet_description">Беззвучные оповещения в тихие часы.</string>
+    <string name="settings_app_lock">Блокировка приложения</string>
+    <string name="settings_app_lock_hint">Разблокировка отпечатком пальца, лицом или PIN-кодом устройства, если приложение было в фоне больше минуты.</string>
+    <string name="app_lock_title">Crypto Checker заблокирован</string>
+    <string name="app_lock_unlock">Разблокировать</string>
+    <string name="app_lock_reason">Разблокировать Crypto Checker</string>
+    <string name="app_lock_unavailable">На этом устройстве не настроена блокировка экрана. Сначала настройте её в системных настройках.</string>
+    <string name="widget_portfolio_name">Портфель</string>
+    <string name="widget_portfolio_description">Общая стоимость портфеля и изменение за сегодня</string>
+    <string name="widget_portfolio_today">сегодня %1$s</string>
+    <string name="widget_portfolio_empty">Добавьте покупки на вкладке «Портфель»</string>
+    <string name="widget_portfolio_locked">Скрыто – включена блокировка приложения</string>
+    <string name="a11y_portfolio_widget">Портфель %1$s, сегодня %2$s</string>
+    <string name="settings_section_advanced">Дополнительно</string>
+    <string name="settings_advanced_hint">Режим реального времени, постоянное уведомление, фьючерсы и параметры разработчика</string>
+    <string name="explain_funding">Плата между длинными и короткими позициями. Сильно положительная — многие ставят на рост цен.</string>
+    <string name="explain_open_interest">Стоимость всех открытых фьючерсных позиций. Если растёт, на движение ставит больше денег.</string>
+    <string name="explain_rsi">Индекс относительной силы, 0–100. Выше 70 — часто перегрет, ниже 30 — часто перепродан.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Пояснение</string>
+    <string name="explain_pi_cycle">Сравнивает 111-дневную среднюю с удвоенной 350-дневной. Их пересечение отмечало прошлые вершины циклов.</string>
+    <string name="alarm_sentence_above">Сообщить, когда %1$s поднимется выше %2$s.</string>
+    <string name="alarm_sentence_below">Сообщить, когда %1$s опустится ниже %2$s.</string>
+    <string name="alarm_sentence_up_percent">Сообщить, когда %1$s вырастет на %2$s.</string>
+    <string name="alarm_sentence_down_percent">Сообщить, когда %1$s упадёт на %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Сообщить, когда %1$s изменится на %2$s за %3$d час.</item>
+        <item quantity="few">Сообщить, когда %1$s изменится на %2$s за %3$d часа.</item>
+        <item quantity="many">Сообщить, когда %1$s изменится на %2$s за %3$d часов.</item>
+        <item quantity="other">Сообщить, когда %1$s изменится на %2$s за %3$d часа.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Сообщить, когда объём торгов %1$s достигнет %2$s× от обычного.</string>
+    <string name="alarm_sentence_incomplete">Введите значение, чтобы увидеть оповещение в виде фразы.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s недоступна</string>
+    <string name="watchlist_row_outdated">%1$s · устарело</string>
+</resources>

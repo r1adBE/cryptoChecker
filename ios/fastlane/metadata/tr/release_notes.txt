@@ -1,0 +1,33 @@
+Sürüm 16.2.2
+• Crypto Pulse: piyasada şu an neler oluyor
+• Bu neden hareket ediyor? artık kısa özetle
+• Alarmı test et: ses, titreşim ve sesli okuma
+• Çevrilmiş fiyatlar: seçtiğin çevrim para biriminde ikinci bir “≈ değer” satırı – EUR, CHF, USD, GBP veya JPY gibi 31 para birimi, varsayılan olarak cihazının bölgesine göre
+• Kendi para biriminde alarmlar, örn. bir USDT paritesinde 60.000 EUR'da
+• Referans tarihi dışa aktarımı: portföyünün herhangi bir tarihteki değeri, örn. 31 Aralık, kendi para biriminde CSV dosyası olarak – vergi beyannamesi için pratik (vergi danışmanlığı değildir)
+• Erişilebilirlik: yeşil/kırmızı yerine mavi/turuncu fiyat renkleri, her renk görme bozukluğunda (kırmızı-yeşil ve mavi-sarı) kolayca ayırt edilir; “Yükseliş/düşüş renklerini değiştir”: Çin, Japonya, Kore ve Tayvan'da alışıldığı gibi yükseliş için kırmızı, düşüş için yeşil (bu bölgelerde otomatik açık); “Yüksek kontrast”: daha güçlü fiyat renkleri, daha koyu ikincil metin ve vurgu rengi, sistemin kontrast ayarını da izler; tam VoiceOver desteği: her liste satırı, grafik ve widget tek bir cümle olarak okunur
+• Her satırda mini grafik: fiyatın yanında 24 saatlik eğilim
+• “Tek dokunuşla başlayın”: boş liste piyasa değerine göre en büyük 5 coini önerir (stablecoin’ler hariç)
+• Başlangıç listesi canlı fiyatı ve 24 saatlik değişimi gösterir – beşi de önceden seçili, tek düğmeyle eklenir
+• Silmek için sola kaydırın (Geri al ile), favori için sağa
+• Piyasa sekmesi son verilerle anında açılır ve arka planda yenilenir
+• Sessiz saatler: gece (örn. 23–7) alarmlar sessiz gelir – ses, titreşim ve sesli okuma olmadan
+• Face ID, Touch ID veya parola ile uygulama kilidi
+• Ana ekran ve kilit ekranı için portföy widget'ı: kendi para biriminde toplam değer ve bugünkü değişim
+• Her alarm bir cümle olarak: “BTC fiyatı 60.000 CHF altına düştüğünde bana haber ver.”
+• Fonlama oranı, açık pozisyon, RSI ve Pi Cycle için kısa açıklamalar
+• Fiyat güncel değilse satırda “güncel değil” veya “erişilemiyor” yazar
+• 15 yeni borsa: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Piyasa sekmesinde Ethereum, Base, Arbitrum, Polygon, BNB Chain ve Bitcoin için ağ ücretleri, gas alarmıyla
+• İzleme listesindeki her coin için not
+• Alarm sesi seçimi
+• Olağandışı Etkinlik: alışılmadık fiyat ve hacim hareketlerini yakalar, isteğe bağlı bildirimler
+• Neden hareket ediyor? Verilere dayalı açıklama
+• Ayrı sekmede portföy: alım ve satımlar, ortalama fiyat, kâr/zarar
+• Döngü karşılaştırması: zirve ve dipler işaretli, ikili zirve ve ikili dip dahil
+• İzleme listesi için gruplar
+• Yeni alarmlar: Y saatte %X hareket ve hacim sıçraması
+• Tek coin widget'ı: mum veya çizgi, grafik aralığı 24 sa, 7 veya 30 gün, en yüksek, orta ve en düşük işaretleri, güncel fiyat vurgulu
+• Piyasa sekmesi: kendi para biriminde toplam kripto piyasa değeri ve 24 sa hacim
+• Vadeli: fonlama oranı ve açık pozisyon
+• Uyumlu simgelerle dört vurgu rengi

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Владение</string>
+    <string name="portfolio_invalid">Неверное количество</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Группа</string>
+    <string name="group_value">Группа: %1$s</string>
+    <string name="group_all">Все</string>
+    <string name="group_none">Без группы</string>
+    <string name="group_new">Новая группа…</string>
+    <string name="group_name">Название группы</string>
+    <string name="widget_group_hint">Показывать только пары этой группы.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Портфель</string>
+    <string name="portfolio_setting_hint">Необязательно: записывайте покупки и продажи и смотрите стоимость и прибыль/убыток на отдельной вкладке.</string>
+    <string name="portfolio_total_value">Общая стоимость</string>
+    <string name="portfolio_invested">Вложено</string>
+    <string name="portfolio_unrealized">Прибыль/убыток, ещё не продано</string>
+    <string name="portfolio_realized">Прибыль/убыток, продано</string>
+    <string name="portfolio_value">Стоимость</string>
+    <string name="portfolio_avg_price">Ср. цена покупки</string>
+    <string name="portfolio_current_price">Текущий курс</string>
+    <string name="portfolio_avg_and_now">Ср. %1$s · сейчас %2$s</string>
+    <string name="portfolio_updated">Курсы на %1$s</string>
+    <string name="portfolio_convert_to">Пересчитать в</string>
+    <string name="portfolio_convert_to_value">Пересчитать в: %1$s</string>
+    <string name="portfolio_price_missing">Нет цены</string>
+    <string name="portfolio_price_missing_hint">У некоторых покупок нет цены. Укажите цену покупки, чтобы видеть прибыль/убыток.</string>
+    <string name="portfolio_current_missing">Нет текущего курса для %1$s</string>
+    <string name="portfolio_oversold">Продажи превышают остаток – проверьте операции.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Закрытая позиция (%1$d)</item>
+        <item quantity="few">Закрытые позиции (%1$d)</item>
+        <item quantity="many">Закрытые позиции (%1$d)</item>
+        <item quantity="other">Закрытые позиции (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Операции</string>
+    <string name="portfolio_add_tx">Записать покупку/продажу</string>
+    <string name="portfolio_edit_tx">Изменить операцию</string>
+    <string name="portfolio_buy">Покупка</string>
+    <string name="portfolio_sell">Продажа</string>
+    <string name="portfolio_coin">Монета</string>
+    <string name="portfolio_coin_search">Поиск символа, напр. BTC</string>
+    <string name="portfolio_coin_invalid">Введите символ</string>
+    <string name="portfolio_tx_amount">Количество</string>
+    <string name="portfolio_tx_price">Цена за монету</string>
+    <string name="portfolio_tx_price_hint">В USDT. Оставьте пустым, если неизвестна.</string>
+    <string name="portfolio_tx_price_invalid">Неверная цена</string>
+    <string name="portfolio_tx_date">Дата</string>
+    <string name="portfolio_tx_note">Заметка (необязательно)</string>
+    <string name="portfolio_tx_total">Итого: %1$s</string>
+    <string name="portfolio_sell_exceeds">Больше вашего остатка (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Удалить операцию?</string>
+    <string name="portfolio_tx_delete_confirm">Эта операция будет удалена из портфеля.</string>
+    <string name="portfolio_empty_title">Операций пока нет</string>
+    <string name="portfolio_empty_text">Записывайте покупки и продажи. Стоимость и прибыль/убыток рассчитываются по текущим курсам в USDT.</string>
+    <string name="portfolio_empty_action">Записать первую покупку</string>
+    <string name="portfolio_disclaimer">Хранится только на этом устройстве. Не является инвестиционной рекомендацией.</string>
+    <string name="portfolio_add_from_watch">Добавить в портфель</string>
+</resources>

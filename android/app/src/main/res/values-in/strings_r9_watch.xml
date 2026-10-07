@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Ketuk untuk aksi · geser untuk aksi cepat · tahan untuk mengurutkan</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_why">Kenapa?</string>
+    <string name="watch_action_favorite">Favorit</string>
+    <string name="add_alarm_action">Pasang alarm</string>
+    <string name="welcome_watch_q">Apa yang terjadi?</string>
+    <string name="welcome_alert_q">Kapan bertindak?</string>
+    <string name="welcome_understand_q">Kenapa?</string>
+</resources>

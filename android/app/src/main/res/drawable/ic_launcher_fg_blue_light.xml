@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- cryptoChecker-Icon (light): klassische Glocke mit Schallbögen,
+     Trendlinie und Bitcoin-Münze als Klöppel. Glocke und Münze neutral, Bögen und Trendlinie farbig. 108er-Raster. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:pathData="M0,0 L108,0 L108,108 L0,108 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="18" android:startY="18" android:endX="90" android:endY="90">
+                <item android:offset="0" android:color="#FF6FA3FF"/>
+                <item android:offset="0.5" android:color="#FF3B78F0"/>
+                <item android:offset="1" android:color="#FF1F4CC0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M0,0 L108,0 L108,108 L0,108 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="36" android:centerY="30" android:gradientRadius="62">
+                <item android:offset="0" android:color="#24FFFFFF"/>
+                <item android:offset="1" android:color="#00FFFFFF"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Symbol kleiner (0.78) und optisch mittig: Glocke+Münze reichen von y≈20 bis y≈80, darum leicht nach unten. -->
+    <group android:pivotX="54" android:pivotY="54" android:scaleX="0.78" android:scaleY="0.78" android:translateY="2.85">
+        <path android:pathData="M28,38 A24,24 0 0,0 28,60" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round"/>
+        <path android:pathData="M80,38 A24,24 0 0,1 80,60" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round"/>
+        <path android:pathData="M22,33 A31,31 0 0,0 22,65" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round" android:strokeAlpha="0.5"/>
+        <path android:pathData="M86,33 A31,31 0 0,1 86,65" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round" android:strokeAlpha="0.5"/>
+        <group android:translateX="54" android:translateY="47" android:scaleX="1.4" android:scaleY="1.4">
+            <path android:pathData="M-6,-14 C-6,-15.5 6,-15.5 6,-14 C10,-12 11,-6 11,0 C11,5 13,8 16,11 L-16,11 C-13,8 -11,5 -11,0 C-11,-6 -10,-12 -6,-14 Z" android:strokeColor="#161616" android:strokeWidth="2.7" android:strokeLineJoin="round"/>
+            <path android:pathData="M-2,-17 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 Z" android:fillColor="#161616"/>
+        </group>
+        <path android:pathData="M45,54 L51,48 L56,52 L63,44" android:strokeColor="#161616" android:strokeWidth="3.6" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+        <path android:pathData="M58,43 L63,44 L63,49" android:strokeColor="#161616" android:strokeWidth="3.6" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+        <path android:pathData="M46.2,72.5 a7.8,7.8 0 1,0 15.6,0 a7.8,7.8 0 1,0 -15.6,0 Z" android:fillColor="#161616"/>
+        <group android:translateX="54" android:translateY="72.5" android:rotation="14" android:scaleX="0.95" android:scaleY="0.95">
+            <path android:pathData="M-2,-4.5 L-2,4.5" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+            <path android:pathData="M-3.4,-4.5 L0.8,-4.5 C3.1,-4.5 3.1,-0.2 0.8,-0.2 L-2,-0.2" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+            <path android:pathData="M-2,-0.2 L1.3,-0.2 C3.9,-0.2 3.9,4.5 1.3,4.5 L-3.4,4.5" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+            <path android:pathData="M-0.9,-4.5 L-0.9,-6.4" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+            <path android:pathData="M0.9,-4.5 L0.9,-6.4" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+            <path android:pathData="M-0.9,4.5 L-0.9,6.4" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+            <path android:pathData="M0.9,4.5 L0.9,6.4" android:strokeColor="#3B78F0" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+        </group>
+    </group>
+</vector>

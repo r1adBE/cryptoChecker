@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Arvon kehitys</string>
+    <string name="portfolio_history_range_7d">7 pv</string>
+    <string name="portfolio_history_range_30d">30 pv</string>
+    <string name="portfolio_history_range_1y">1 v</string>
+    <string name="portfolio_history_period_7d">7 päivää</string>
+    <string name="portfolio_history_period_30d">30 päivää</string>
+    <string name="portfolio_history_period_1y">1 vuosi</string>
+    <string name="portfolio_history_range_a11y">Näytä kehitys: %1$s</string>
+    <string name="portfolio_history_change_a11y">Arvo, %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Tänään</string>
+    <string name="portfolio_history_converted">Muunnettu tämän päivän kurssilla</string>
+    <string name="portfolio_history_without">Ilman kohdetta %1$s (ei päiväkursseja)</string>
+    <string name="portfolio_history_includes_trades">Sisältää jakson ostot ja myynnit</string>
+    <string name="portfolio_history_too_short">Kehitys alkaa ensimmäisen kokonaisen päivän jälkeen.</string>
+    <string name="portfolio_history_unavailable">Kehitystä ei ole juuri nyt saatavilla.</string>
+    <string name="portfolio_history_loading">Ladataan arvon kehitystä</string>
+</resources>

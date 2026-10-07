@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Ma feltűnő</string>
+    <string name="unusual_nothing">Ma nincs semmi feltűnő</string>
+    <string name="unusual_fact_stronger">Sokkal erősebben mozog, mint a BTC</string>
+    <string name="unusual_fact_weaker">Sokkal gyengébben mozog, mint a BTC</string>
+    <string name="unusual_fact_against">A piaccal szemben mozog</string>
+    <string name="unusual_fact_volume">Forgalom: a szokásos %1$s×</string>
+    <string name="unusual_fact_funding_high">Funding emelkedett (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negatív (%1$s)</string>
+    <string name="unusual_source">Kb. 30 legnagyobb érme stablecoinok nélkül · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Miért mozog?</string>
+    <string name="unusual_action_add">Hozzáadandó pár keresése</string>
+
+    <string name="macro_title">Gazdasági adatok</string>
+    <string name="macro_cpi">amerikai infláció (CPI)</string>
+    <string name="macro_ppi">amerikai termelői árak (PPI)</string>
+    <string name="macro_nfp">amerikai munkaerőpiaci jelentés</string>
+    <string name="macro_fomc">Fed-kamatdöntés</string>
+    <string name="macro_pce">amerikai PCE-infláció</string>
+    <string name="macro_hint_today">Ma %1$s: %2$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_tomorrow">Holnap %1$s: %2$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_today_list">Ma: %1$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_tomorrow_list">Holnap: %1$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_list">%1$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_released_one">Ma %1$s-kor közzétéve: %2$s.</string>
+    <string name="macro_released_list">Ma közzétéve: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Ma %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Holnap %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Gazdasági naptár</string>
+    <string name="settings_macro_notifications_hint">08:00-kor azokon a napokon, amikor fontos amerikai gazdasági adatok jelennek meg (infláció, munkaerőpiac, kamatdöntés). A naptár az alkalmazás weboldaláról töltődik le naponta egyszer.</string>
+    <string name="notification_macro_title">Ma gazdasági adatok jönnek</string>
+</resources>

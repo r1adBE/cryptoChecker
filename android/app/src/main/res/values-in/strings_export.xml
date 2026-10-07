@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Ekspor tanggal acuan…</string>
+    <string name="portfolio_export_title">Ekspor tanggal acuan</string>
+    <string name="portfolio_export_date">Tanggal acuan</string>
+    <string name="portfolio_export_currency">Mata uang: %1$s</string>
+    <string name="portfolio_export_hint">Kepemilikan di akhir hari yang dipilih, dinilai dengan harga penutupan harian (UTC) dalam USDT dan dikonversi dengan kurs acuan ECB hari itu. Ubah mata uang lewat «Konversi ke».</string>
+    <string name="portfolio_export_button">Ekspor CSV</string>
+    <string name="portfolio_export_running">Mengambil harga historis…</string>
+    <string name="portfolio_export_done">Ekspor disimpan</string>
+    <string name="portfolio_export_failed">Ekspor gagal</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Tanggal acuan %1$s, mata uang %2$s, kurs tanggal %3$s</string>
+    <string name="portfolio_export_col_coin">Koin</string>
+    <string name="portfolio_export_col_amount">Jumlah</string>
+    <string name="portfolio_export_col_price">Harga USDT</string>
+    <string name="portfolio_export_col_value">Nilai USDT</string>
+    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Nilai %1$s</string>
+    <string name="portfolio_export_col_note">Catatan</string>
+    <string name="portfolio_export_total">Total</string>
+    <string name="portfolio_export_no_price">tanpa harga</string>
+    <string name="portfolio_export_no_fx">tanpa kurs</string>
+    <string name="portfolio_export_incomplete">tidak lengkap</string>
+</resources>

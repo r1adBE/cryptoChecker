@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">Sök par eller börs</string>
+    <string name="watchlist_search_open">Sök</string>
+    <string name="watchlist_search_close">Stäng sökning</string>
+    <string name="watchlist_search_empty">Inga träffar för ”%1$s”</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">今日の注目</string>
+    <string name="unusual_nothing">今日は目立った動きなし</string>
+    <string name="unusual_fact_stronger">BTC よりかなり大きく動いている</string>
+    <string name="unusual_fact_weaker">BTC よりかなり小さく動いている</string>
+    <string name="unusual_fact_against">市場と逆に動いている</string>
+    <string name="unusual_fact_volume">出来高 平常の%1$s×</string>
+    <string name="unusual_fact_funding_high">資金調達率 高め（%1$s）</string>
+    <string name="unusual_fact_funding_negative">資金調達率 マイナス（%1$s）</string>
+    <string name="unusual_source">ステーブルコインを除く時価総額上位 約30銘柄 · Binance、CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s、%2$s。%3$s。</string>
+    <string name="unusual_action_why">なぜ動いている？</string>
+    <string name="unusual_action_add">追加するペアを探す</string>
+
+    <string name="macro_title">経済指標</string>
+    <string name="macro_cpi">米消費者物価指数（CPI）</string>
+    <string name="macro_ppi">米生産者物価指数（PPI）</string>
+    <string name="macro_nfp">米雇用統計</string>
+    <string name="macro_fomc">米FOMC政策金利発表</string>
+    <string name="macro_pce">米PCE物価指数</string>
+    <string name="macro_hint_today">今日 %1$s：%2$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_tomorrow">明日 %1$s：%2$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_today_list">今日：%1$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_tomorrow_list">明日：%1$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_list">%1$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_released_one">今日 %1$s に発表：%2$s。</string>
+    <string name="macro_released_list">今日発表：%1$s。</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">今日 %1$s %2$s</string>
+    <string name="macro_item_tomorrow">明日 %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">経済指標カレンダー</string>
+    <string name="settings_macro_notifications_hint">重要な米経済指標（インフレ、雇用統計、FOMC）の発表日の 08:00 に通知します。カレンダーはアプリのウェブサイトから1日1回読み込みます。</string>
+    <string name="notification_macro_title">今日は経済指標の発表日</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">إشعارات الترخيص</string>
+    <string name="licenses_marketdata_title">مكتبة بيانات الأسعار</string>
+    <string name="licenses_marketdata_intro">تعتمد أجزاء من الاتصال بالمنصات على برمجيات مرخّصة بموجب ترخيص MIT:</string>
+    <string name="licenses_marketdata_changes">التغييرات: %1$s</string>
+    <string name="licenses_font_title">خط Rubik</string>
+    <string name="licenses_libraries_title">مكتبات Android</string>
+    <string name="licenses_libraries_intro">يستخدم التطبيق هذه المكتبات بموجب Apache License 2.0:</string>
+</resources>

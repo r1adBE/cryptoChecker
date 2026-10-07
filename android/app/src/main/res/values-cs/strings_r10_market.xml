@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Dnes nápadné</string>
+    <string name="unusual_nothing">Dnes nic nápadného</string>
+    <string name="unusual_fact_stronger">Hýbe se výrazně silněji než BTC</string>
+    <string name="unusual_fact_weaker">Hýbe se výrazně slaběji než BTC</string>
+    <string name="unusual_fact_against">Jde proti trhu</string>
+    <string name="unusual_fact_volume">Objem %1$s× obvyklého</string>
+    <string name="unusual_fact_funding_high">Funding zvýšený (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding záporný (%1$s)</string>
+    <string name="unusual_source">Zhruba 30 největších mincí bez stablecoinů · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Proč se to hýbe?</string>
+    <string name="unusual_action_add">Najít pár k přidání</string>
+
+    <string name="macro_title">Ekonomická data</string>
+    <string name="macro_cpi">inflace v USA (CPI)</string>
+    <string name="macro_ppi">ceny výrobců v USA (PPI)</string>
+    <string name="macro_nfp">zpráva z trhu práce USA</string>
+    <string name="macro_fomc">rozhodnutí Fedu o sazbách</string>
+    <string name="macro_pce">inflace PCE v USA</string>
+    <string name="macro_hint_today">Dnes %1$s: %2$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_tomorrow">Zítra %1$s: %2$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_today_list">Dnes: %1$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_tomorrow_list">Zítra: %1$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_list">%1$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_released_one">Zveřejněno dnes v %1$s: %2$s.</string>
+    <string name="macro_released_list">Zveřejněno dnes: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Dnes %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Zítra %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Ekonomický kalendář</string>
+    <string name="settings_macro_notifications_hint">V 08:00 ve dnech s důležitými ekonomickými daty z USA (inflace, trh práce, rozhodnutí Fedu). Kalendář pochází z webu aplikace a načítá se jednou denně.</string>
+    <string name="notification_macro_title">Dnes ekonomická data</string>
+</resources>

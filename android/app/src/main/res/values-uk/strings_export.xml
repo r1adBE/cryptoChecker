@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Експорт на звітну дату…</string>
+    <string name="portfolio_export_title">Експорт на звітну дату</string>
+    <string name="portfolio_export_date">Звітна дата</string>
+    <string name="portfolio_export_currency">Валюта: %1$s</string>
+    <string name="portfolio_export_hint">Володіння на кінець вибраного дня, оцінене за ціною закриття дня (UTC) в USDT і перераховане за референсним курсом ЄЦБ на цей день. Валюту можна змінити в «Перерахувати в».</string>
+    <string name="portfolio_export_button">Експортувати CSV</string>
+    <string name="portfolio_export_running">Завантаження історичних цін…</string>
+    <string name="portfolio_export_done">Експорт збережено</string>
+    <string name="portfolio_export_failed">Помилка експорту</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Звітна дата %1$s, валюта %2$s, курс на %3$s</string>
+    <string name="portfolio_export_col_coin">Монета</string>
+    <string name="portfolio_export_col_amount">Кількість</string>
+    <string name="portfolio_export_col_price">Ціна USDT</string>
+    <string name="portfolio_export_col_value">Вартість USDT</string>
+    <string name="portfolio_export_col_rate">Курс USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Вартість %1$s</string>
+    <string name="portfolio_export_col_note">Примітка</string>
+    <string name="portfolio_export_total">Разом</string>
+    <string name="portfolio_export_no_price">немає ціни</string>
+    <string name="portfolio_export_no_fx">немає курсу</string>
+    <string name="portfolio_export_incomplete">неповні дані</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Редагувати групу</string>
+    <string name="group_rename">Перейменувати</string>
+    <string name="group_delete">Видалити групу</string>
+    <string name="group_delete_confirm">Пари залишаться у списку спостереження.</string>
+    <string name="group_done">Готово</string>
+    <string name="group_add">Нова група</string>
+    <string name="group_in_other">у %1$s</string>
+    <string name="group_target">У групі</string>
+    <string name="group_search_hint">Пошук пари</string>
+    <string name="group_next">Далі</string>
+</resources>

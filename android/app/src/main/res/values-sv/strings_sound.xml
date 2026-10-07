@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Larmljud</string>
+    <string name="settings_alarm_sound_default">Standardljud</string>
+    <string name="settings_alarm_sound_custom">Eget ljud</string>
+    <string name="settings_alarm_sound_system">Välj systemljud…</string>
+    <string name="settings_alarm_sound_file">Egen ljudfil…</string>
+    <string name="settings_alarm_sound_reset">Använd standardljud</string>
+    <string name="settings_alarm_sound_error">Ljudet kunde inte användas.</string>
+</resources>

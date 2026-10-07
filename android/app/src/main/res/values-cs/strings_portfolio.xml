@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Držba</string>
+    <string name="portfolio_invalid">Neplatné množství</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Skupina</string>
+    <string name="group_value">Skupina: %1$s</string>
+    <string name="group_all">Vše</string>
+    <string name="group_none">Bez skupiny</string>
+    <string name="group_new">Nová skupina…</string>
+    <string name="group_name">Název skupiny</string>
+    <string name="widget_group_hint">Zobrazit jen páry této skupiny.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portfolio</string>
+    <string name="portfolio_setting_hint">Volitelné: zaznamenávejte nákupy a prodeje a sledujte hodnotu a zisk/ztrátu na samostatné kartě.</string>
+    <string name="portfolio_total_value">Celková hodnota</string>
+    <string name="portfolio_invested">Investováno</string>
+    <string name="portfolio_unrealized">Zisk/ztráta, dosud neprodáno</string>
+    <string name="portfolio_realized">Zisk/ztráta, prodáno</string>
+    <string name="portfolio_value">Hodnota</string>
+    <string name="portfolio_avg_price">Prům. nákupní cena</string>
+    <string name="portfolio_current_price">Aktuální kurz</string>
+    <string name="portfolio_avg_and_now">Prům. %1$s · nyní %2$s</string>
+    <string name="portfolio_updated">Kurzy z %1$s</string>
+    <string name="portfolio_convert_to">Přepočítat na</string>
+    <string name="portfolio_convert_to_value">Přepočítat na: %1$s</string>
+    <string name="portfolio_price_missing">Chybí cena</string>
+    <string name="portfolio_price_missing_hint">U některých nákupů chybí cena. Doplňte nákupní cenu, abyste viděli zisk/ztrátu.</string>
+    <string name="portfolio_current_missing">Žádný aktuální kurz pro %1$s</string>
+    <string name="portfolio_oversold">Prodeje převyšují držené množství – zkontrolujte transakce.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Uzavřená pozice (%1$d)</item>
+        <item quantity="few">Uzavřené pozice (%1$d)</item>
+        <item quantity="many">Uzavřené pozice (%1$d)</item>
+        <item quantity="other">Uzavřené pozice (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transakce</string>
+    <string name="portfolio_add_tx">Zaznamenat nákup/prodej</string>
+    <string name="portfolio_edit_tx">Upravit transakci</string>
+    <string name="portfolio_buy">Nákup</string>
+    <string name="portfolio_sell">Prodej</string>
+    <string name="portfolio_coin">Mince</string>
+    <string name="portfolio_coin_search">Hledat symbol, např. BTC</string>
+    <string name="portfolio_coin_invalid">Zadejte symbol</string>
+    <string name="portfolio_tx_amount">Množství</string>
+    <string name="portfolio_tx_price">Cena za minci</string>
+    <string name="portfolio_tx_price_hint">V USDT. Nechte prázdné, pokud nevíte.</string>
+    <string name="portfolio_tx_price_invalid">Neplatná cena</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_note">Poznámka (volitelné)</string>
+    <string name="portfolio_tx_total">Celkem: %1$s</string>
+    <string name="portfolio_sell_exceeds">Více, než držíte (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Smazat transakci?</string>
+    <string name="portfolio_tx_delete_confirm">Tato transakce bude z portfolia odstraněna.</string>
+    <string name="portfolio_empty_title">Zatím žádné transakce</string>
+    <string name="portfolio_empty_text">Zaznamenávejte nákupy a prodeje. Hodnota a zisk/ztráta se počítají z aktuálních kurzů v USDT.</string>
+    <string name="portfolio_empty_action">Zaznamenat první nákup</string>
+    <string name="portfolio_disclaimer">Uloženo pouze v tomto zařízení. Nejde o investiční poradenství.</string>
+    <string name="portfolio_add_from_watch">Přidat do portfolia</string>
+</resources>

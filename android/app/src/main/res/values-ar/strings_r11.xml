@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 11 -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s خلال 24 ساعة</string>
+    <!-- Screenreader, wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">تغيّر 24 ساعة غير متاح</string>
+</resources>

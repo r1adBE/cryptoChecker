@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">غاز Ethereum تحت (gwei)</string>
+    <string name="settings_gas_btc_below">رسوم Bitcoin تحت (sat/vB)</string>
+    <string name="settings_gas_alert_hint">ينبّه مرة واحدة عندما تنخفض الرسوم العادية تحت الحد. يتم الفحص عند تحديث الأسعار، مرة كل 10 دقائق على الأكثر.</string>
+    <string name="notification_gas_eth_title">غاز Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">تحت حدّك البالغ %1$s gwei · التحويل ≈ %2$s</string>
+    <string name="notification_gas_btc_title">رسوم Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">تحت حدّك البالغ %1$s sat/vB · التحويل ≈ %2$s</string>
+    <string name="gas_title">رسوم الشبكة</string>
+    <string name="gas_slow_fast">بطيء %1$s · سريع %2$s</string>
+    <string name="gas_alert_active">تنبيه: %1$s</string>
+    <string name="gas_source">عُقد RPC عامة و mempool.space · تكلفة تحويل بسيط، دون حصة L1 على شبكات L2</string>
+    <string name="gas_transfer_cost">التحويل ≈ %1$s</string>
+</resources>

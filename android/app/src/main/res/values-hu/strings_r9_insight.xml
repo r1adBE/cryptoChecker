@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Ami most feltűnő</string>
+    <string name="pulse_why_action">Miért? →</string>
+    <string name="pulse_section_factors">Tényezők</string>
+
+    <string name="pulse_lead_btc_leads">A Bitcoin vezeti a piacot.</string>
+    <string name="pulse_lead_alts_stronger">Az altcoinok erősebbek a Bitcoinnál.</string>
+    <string name="pulse_lead_btc_stronger">A Bitcoin erősebb az altcoinoknál.</string>
+    <string name="pulse_lead_broad_up">A piac széles körben emelkedik.</string>
+    <string name="pulse_lead_broad_down">A piac széles körben esik.</string>
+    <string name="pulse_lead_drift_up">A piac enyhén emelkedik.</string>
+    <string name="pulse_lead_drift_down">A piac enyhén esik.</string>
+    <string name="pulse_lead_mixed">A nagy érmék eltérő irányba mozognak.</string>
+    <string name="pulse_lead_calm">A piac alig mozdul.</string>
+
+    <string name="pulse_detail_vol_above">Volumen %1$d%%-kal a szokásos felett.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$d%%-kal a szokásos felett, funding semleges.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$d%%-kal a szokásos felett, funding emelkedett.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$d%%-kal a szokásos felett, funding negatív.</string>
+    <string name="pulse_detail_vol_below">Volumen %1$d%%-kal a szokásos alatt.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$d%%-kal a szokásos alatt, funding semleges.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$d%%-kal a szokásos alatt, funding emelkedett.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$d%%-kal a szokásos alatt, funding negatív.</string>
+    <string name="pulse_detail_vol_normal">Volumen szokásos.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen szokásos, funding semleges.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen szokásos, funding emelkedett.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen szokásos, funding negatív.</string>
+    <string name="pulse_detail_fund_neutral">Funding semleges.</string>
+    <string name="pulse_detail_fund_high">Funding emelkedett.</string>
+    <string name="pulse_detail_fund_negative">Funding negatív.</string>
+
+    <string name="factor_volume">Volumen</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Ingadozás (1h)</string>
+    <string name="factor_spoken_volume">a szokásos %1$s-szorosa</string>
+    <string name="factor_spoken_volatility">a szokásos kilengés %1$s-szorosa</string>
+
+    <string name="why_title_coin">Miért mozog a(z) %1$s?</string>
+    <string name="why_details">Részletek megjelenítése</string>
+    <string name="why_details_hide">Részletek elrejtése</string>
+    <string name="why_f_market_wide">Az egész piac mozog</string>
+    <string name="why_f_coin_only">Csak ez az érme</string>
+    <string name="why_f_against">A piaccal szemben</string>
+    <string name="why_f_market_calm">Nyugodt piac</string>
+    <string name="why_f_leader">A Bitcoin adja az irányt</string>
+    <string name="why_f_leverage_longs">Tőkeáttétel: sok long</string>
+    <string name="why_f_leverage_shorts">Tőkeáttétel: sok short</string>
+    <string name="why_f_leverage_balanced">Kiegyensúlyozott tőkeáttétel</string>
+    <string name="insights_dominance_eth">ETH %1$s a teljes piacból</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">Hónapok a halving óta (%2$s): %1$d</item>
+        <item quantity="other">Hónapok a halving óta (%2$s): %1$d</item>
+    </plurals>
+</resources>

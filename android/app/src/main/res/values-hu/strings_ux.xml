@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Kezdés egy koppintással</string>
+    <string name="starter_text">Válasszon érméket, és adja hozzá őket egyszerre. A tőzsdét és a párt később módosíthatja.</string>
+    <string name="starter_custom">Tőzsde és pár kiválasztása</string>
+    <string name="settings_quiet_hours">Csendes órák</string>
+    <string name="settings_quiet_hours_hint">%1$s és %2$s között a riasztások némán érkeznek: hang, rezgés és felolvasás nélkül.</string>
+    <string name="settings_quiet_hours_from">Kezdete</string>
+    <string name="settings_quiet_hours_to">Vége</string>
+    <string name="channel_alarms_quiet">Riasztások (csendes órák)</string>
+    <string name="channel_alarms_quiet_description">Néma riasztások a csendes órákban.</string>
+    <string name="settings_app_lock">Alkalmazászár</string>
+    <string name="settings_app_lock_hint">Feloldás ujjlenyomattal, arccal vagy az eszköz PIN-kódjával, ha az alkalmazás egy percnél tovább volt a háttérben.</string>
+    <string name="app_lock_title">A Crypto Checker zárolva van</string>
+    <string name="app_lock_unlock">Feloldás</string>
+    <string name="app_lock_reason">A Crypto Checker feloldása</string>
+    <string name="app_lock_unavailable">Ezen az eszközön nincs beállítva képernyőzár. Először állítson be egyet a rendszerbeállításokban.</string>
+    <string name="widget_portfolio_name">Portfólió</string>
+    <string name="widget_portfolio_description">Portfóliója teljes értéke és mai változása</string>
+    <string name="widget_portfolio_today">ma %1$s</string>
+    <string name="widget_portfolio_empty">Vásárlások rögzítése a Portfólió lapon</string>
+    <string name="widget_portfolio_locked">Rejtett – az alkalmazászár be van kapcsolva</string>
+    <string name="a11y_portfolio_widget">Portfólió %1$s, ma %2$s</string>
+    <string name="settings_section_advanced">Speciális</string>
+    <string name="settings_advanced_hint">Élő mód, állandó értesítés, futures és fejlesztői beállítások</string>
+    <string name="explain_funding">Díj a long és short pozíciók között. Erősen pozitív érték: sokan emelkedő árfolyamra fogadnak.</string>
+    <string name="explain_open_interest">Az összes nyitott futures pozíció értéke. Ha nő, több pénz fogad a mozgásra.</string>
+    <string name="explain_rsi">Relatív erősség index, 0–100. 70 fölött gyakran túlfűtött, 30 alatt gyakran túladott.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Magyarázat</string>
+    <string name="explain_pi_cycle">A 111 napos átlagot a 350 napos átlag kétszeresével veti össze. A kereszteződés korábbi cikluscsúcsokat jelzett.</string>
+    <string name="alarm_sentence_above">%1$s – értesítés, ha az ár %2$s fölé emelkedik.</string>
+    <string name="alarm_sentence_below">%1$s – értesítés, ha az ár %2$s alá esik.</string>
+    <string name="alarm_sentence_up_percent">%1$s – értesítés, ha az ár %2$s értékkel emelkedik.</string>
+    <string name="alarm_sentence_down_percent">%1$s – értesítés, ha az ár %2$s értékkel esik.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s – értesítés, ha az ár %3$d órán belül %2$s értékkel elmozdul.</item>
+        <item quantity="other">%1$s – értesítés, ha az ár %3$d órán belül %2$s értékkel elmozdul.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">%1$s – értesítés, ha a forgalom eléri a szokásos %2$s× mértékét.</string>
+    <string name="alarm_sentence_incomplete">Adjon meg egy értéket, és a riasztás itt mondatként jelenik meg.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nem érhető el</string>
+    <string name="watchlist_row_outdated">%1$s · elavult</string>
+</resources>

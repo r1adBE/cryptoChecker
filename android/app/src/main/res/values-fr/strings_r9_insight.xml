@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Ce qui ressort</string>
+    <string name="pulse_why_action">Pourquoi ? →</string>
+    <string name="pulse_section_factors">Facteurs</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin mène le marché.</string>
+    <string name="pulse_lead_alts_stronger">Les altcoins sont plus forts que Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin est plus fort que les altcoins.</string>
+    <string name="pulse_lead_broad_up">Le marché monte dans son ensemble.</string>
+    <string name="pulse_lead_broad_down">Le marché recule dans son ensemble.</string>
+    <string name="pulse_lead_drift_up">Le marché monte légèrement.</string>
+    <string name="pulse_lead_drift_down">Le marché recule légèrement.</string>
+    <string name="pulse_lead_mixed">Les grandes cryptos évoluent en ordre dispersé.</string>
+    <string name="pulse_lead_calm">Le marché bouge à peine.</string>
+
+    <string name="pulse_detail_vol_above">Volume %1$d %% au-dessus de la normale.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$d %% au-dessus de la normale, funding neutre.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$d %% au-dessus de la normale, funding élevé.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$d %% au-dessus de la normale, funding négatif.</string>
+    <string name="pulse_detail_vol_below">Volume %1$d %% en dessous de la normale.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$d %% en dessous de la normale, funding neutre.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$d %% en dessous de la normale, funding élevé.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$d %% en dessous de la normale, funding négatif.</string>
+    <string name="pulse_detail_vol_normal">Volume normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, funding neutre.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normal, funding élevé.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, funding négatif.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutre.</string>
+    <string name="pulse_detail_fund_high">Funding élevé.</string>
+    <string name="pulse_detail_fund_negative">Funding négatif.</string>
+
+    <string name="factor_volume">Volume</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Fluctuation (1 h)</string>
+    <string name="factor_spoken_volume">%1$s fois la normale</string>
+    <string name="factor_spoken_volatility">%1$s fois l\'amplitude habituelle</string>
+
+    <string name="why_title_coin">Pourquoi %1$s bouge-t-il ?</string>
+    <string name="why_details">Voir les détails</string>
+    <string name="why_details_hide">Masquer les détails</string>
+    <string name="why_f_market_wide">Tout le marché bouge</string>
+    <string name="why_f_coin_only">Seule cette crypto</string>
+    <string name="why_f_against">À contre-courant du marché</string>
+    <string name="why_f_market_calm">Marché calme</string>
+    <string name="why_f_leader">Bitcoin donne la direction</string>
+    <string name="why_f_leverage_longs">Levier : beaucoup de longs</string>
+    <string name="why_f_leverage_shorts">Levier : beaucoup de shorts</string>
+    <string name="why_f_leverage_balanced">Levier équilibré</string>
+    <string name="insights_dominance_eth">ETH %1$s du marché total</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d mois depuis le halving du %2$s</item>
+        <item quantity="many">%1$d mois depuis le halving du %2$s</item>
+        <item quantity="other">%1$d mois depuis le halving du %2$s</item>
+    </plurals>
+</resources>

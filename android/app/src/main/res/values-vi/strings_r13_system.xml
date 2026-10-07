@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Đọc to giá và cảnh báo. Giữ im lặng khi thiết bị ở chế độ im lặng hoặc rung.</string>
+</resources>

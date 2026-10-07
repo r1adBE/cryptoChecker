@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">आज का बाज़ार</string>
+    <string name="pulse_alts_stronger">ऑल्टकॉइन Bitcoin से मज़बूत</string>
+    <string name="pulse_alts_weaker">Bitcoin ऑल्टकॉइन से मज़बूत</string>
+    <string name="pulse_alts_even">ऑल्टकॉइन और Bitcoin एक साथ चल रहे हैं</string>
+    <string name="pulse_volume_high">ट्रेडिंग वॉल्यूम असामान्य रूप से ऊँचा (सामान्य का %1$s×)</string>
+    <string name="pulse_volume_low">ट्रेडिंग वॉल्यूम कम (सामान्य का %1$s×)</string>
+    <string name="pulse_volume_normal">ट्रेडिंग वॉल्यूम सामान्य</string>
+    <string name="pulse_funding_high">फ़ंडिंग साफ़ तौर पर पॉज़िटिव: कई लीवरेज्ड लॉन्ग</string>
+    <string name="pulse_funding_slight">फ़ंडिंग थोड़ा पॉज़िटिव</string>
+    <string name="pulse_funding_neutral">फ़ंडिंग न्यूट्रल</string>
+    <string name="pulse_funding_negative">फ़ंडिंग नेगेटिव: कई शॉर्ट</string>
+    <string name="pulse_gas_low">Ethereum गैस कम (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum गैस सामान्य (%1$s gwei)</string>
+    <string name="pulse_gas_high">Ethereum गैस ऊँचा (%1$s gwei)</string>
+    <string name="pulse_disclaimer">कोई पूर्वानुमान नहीं · निवेश सलाह नहीं</string>
+    <string name="pulse_less">कम दिखाएँ</string>
+    <string name="pulse_updated">%1$s तक</string>
+    <string name="pulse_unavailable">बाज़ार डेटा अभी उपलब्ध नहीं है</string>
+    <string name="why_summary_title">संक्षेप में</string>
+    <string name="why_summary_market_volume">इस चाल के साथ ऊँचा ट्रेडिंग वॉल्यूम है और पूरा बाज़ार व्यापक रूप से चल रहा है।</string>
+    <string name="why_summary_market">यह चाल पूरे बाज़ार का अनुसरण करती है।</string>
+    <string name="why_summary_coin_volume">सिर्फ़ यही कॉइन चल रहा है, ऊँचे वॉल्यूम के साथ – शायद कॉइन से जुड़ी कोई वजह।</string>
+    <string name="why_summary_coin">सिर्फ़ यही कॉइन चल रहा है – शायद कॉइन से जुड़ी कोई वजह।</string>
+    <string name="why_summary_against">कॉइन बाज़ार के उलट चल रहा है।</string>
+    <string name="why_summary_thin">चाल कमज़ोर है: इसके पीछे कम वॉल्यूम है।</string>
+    <string name="why_summary_calm">कोई ख़ास चाल नहीं: बाज़ार और कॉइन शांत हैं।</string>
+    <string name="why_summary_longs">फ़्यूचर्स: कई लीवरेज्ड लॉन्ग पोज़िशन।</string>
+    <string name="why_summary_shorts">फ़्यूचर्स: कई शॉर्ट पोज़िशन।</string>
+    <string name="why_dot_supports">चाल का समर्थन करता है</string>
+    <string name="why_dot_caution">बढ़ा हुआ</string>
+    <string name="why_dot_neutral">न्यूट्रल</string>
+    <string name="alarm_test">अलार्म आज़माएँ</string>
+    <string name="alarm_test_hint">आपकी ध्वनि, वाइब्रेशन और बोलकर सुनाने की सेटिंग के साथ एक नमूना अलार्म भेजता है।</string>
+    <string name="alarm_test_title">टेस्ट: Crypto Checker अलार्म</string>
+    <string name="alarm_test_text">अलार्म ऐसा दिखता है और ऐसा सुनाई देता है।</string>
+    <string name="alarm_test_quiet">अभी मौन घंटे चालू हैं: असली अलार्म चुपचाप आते।</string>
+    <string name="alarm_test_denied">Crypto Checker के लिए नोटिफ़िकेशन बंद हैं।</string>
+    <string name="alarm_test_open_settings">सेटिंग्स खोलें</string>
+    <string name="alarm_first_title">सब तैयार</string>
+    <string name="welcome_watch">देखें – आपके कॉइन, भाव, चार्ट और विजेट</string>
+    <string name="welcome_alert">अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें</string>
+    <string name="welcome_understand">समझें – बाज़ार अभी क्यों चल रहा है?</string>
+    <string name="welcome_start">शुरू करें</string>
+    <string name="portfolio_empty_example">उदाहरण: 1 मार्च को %1$s पर 0.01 BTC ख़रीदा। फिर ऐप मूल्य, औसत ख़रीद मूल्य और लाभ/हानि दिखाता है – सिर्फ़ इसी डिवाइस पर सहेजा जाता है।</string>
+    <string name="about_why">Crypto Checker, Rich1e का एक स्वतंत्र प्रोजेक्ट है: बिना खाते, विज्ञापन या ट्रैकिंग के भावों का शांत ओवरव्यू। सवाल और सुझाव: %1$s</string>
+    <string name="a11y_move_up">ऊपर ले जाएँ</string>
+    <string name="a11y_move_down">नीचे ले जाएँ</string>
+    <string name="a11y_in_watchlist">पहले से वॉचलिस्ट में</string>
+    <string name="portfolio_export_today_hint">आज का दिन अभी पूरा नहीं हुआ: दिन के क्लोज़िंग भाव की जगह मौजूदा भाव इस्तेमाल होता है।</string>
+    <string name="about_privacy_policy">गोपनीयता नीति</string>
+    <string name="widget_chart_type">चार्ट प्रकार</string>
+    <string name="widget_chart_line">लाइन</string>
+    <string name="widget_chart_candles">कैंडल</string>
+    <string name="pair_added_watching">%1$s पर अब नज़र रखी जा रही है</string>
+    <string name="market_cap_title">क्रिप्टो बाज़ार</string>
+    <string name="market_cap_label">मार्केट कैप</string>
+    <string name="market_volume_label">वॉल्यूम 24 घंटे</string>
+    <string name="market_cap_source">सभी कॉइन · CoinGecko</string>
+    <string name="market_data_empty_error">एक्सचेंज से कोई डेटा नहीं मिला।</string>
+    <string name="sync_pairs_count">ट्रेडिंग पेयर: %1$d</string>
+    <string name="market_unavailable_error">एक्सचेंज उपलब्ध नहीं</string>
+    <string name="refresh_report_aborted">रीफ़्रेश रद्द हुआ:</string>
+    <string name="refresh_report_wait">शुरू होने तक प्रतीक्षा: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">कुल %1$s · %2$d पेयर</item>
+        <item quantity="other">कुल %1$s · %2$d पेयर</item>
+    </plurals>
+    <string name="refresh_report_network">नेटवर्क %1$s</string>
+    <string name="refresh_report_database">डेटाबेस %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">अलार्म/नोटिफ़िकेशन %1$s · %2$d नोटिफ़िकेशन</item>
+        <item quantity="other">अलार्म/नोटिफ़िकेशन %1$s · %2$d नोटिफ़िकेशन</item>
+    </plurals>
+    <string name="refresh_report_widgets">विजेट %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d पेयर, %3$s</item>
+        <item quantity="other">%1$s: %2$d पेयर, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">बल्क अनुरोध %1$s (%2$d भाव)</item>
+        <item quantity="other">बल्क अनुरोध %1$s (%2$d भाव)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">बल्क अनुरोध %1$s (विफल)</string>
+    <string name="refresh_report_singles">%1$d अलग-अलग</string>
+    <string name="refresh_report_slowest">सबसे धीमा %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d अब ट्रेड नहीं होता</item>
+        <item quantity="other">%1$d अब ट्रेड नहीं होते</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d त्रुटि</item>
+        <item quantity="other">%1$d त्रुटियाँ</item>
+    </plurals>
+    <string name="starter_add_selected">वॉचलिस्ट में जोड़ें (%1$d)</string>
+    <string name="starter_select_all">सभी चुनें</string>
+    <string name="starter_select_none">कोई नहीं चुनें</string>
+    <string name="starter_loading_prices">कीमतें लोड हो रही हैं…</string>
+    <string name="watchlist_removed">%1$s हटाया गया</string>
+    <string name="action_undo">पूर्ववत करें</string>
+    <string name="favorite_added">%1$s पसंदीदा में जोड़ा गया</string>
+    <string name="favorite_removed">%1$s पसंदीदा से हटाया गया</string>
+    <string name="cycle_data_as_of">डेटा %1$s तक · अपडेट हो रहा है…</string>
+    <string name="settings_conversion_currency_hint">पोर्टफोलियो, आपकी मुद्रा में अलार्म, क्रिप्टो बाज़ार कार्ड और पोर्टफोलियो विजेट के लिए भी उपयोग होती है।</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ऊपर</item>
+        <item quantity="other">%1$d ऊपर</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d नीचे</item>
+        <item quantity="other">%1$d नीचे</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, औसतन %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d पेयर चढ़ रहा है</item>
+        <item quantity="other">%1$d पेयर चढ़ रहे हैं</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d गिर रहा है</item>
+        <item quantity="other">%1$d गिर रहे हैं</item>
+    </plurals>
+    <string name="pulse_headline_up">व्यापक मज़बूती</string>
+    <string name="pulse_headline_down">व्यापक कमज़ोरी</string>
+    <string name="pulse_headline_mixed">मिली-जुली तस्वीर</string>
+    <string name="pulse_headline_calm">शांत बाज़ार</string>
+    <string name="pulse_chip_funding_high">फ़ंडिंग ऊँचा</string>
+    <string name="pulse_chip_funding_negative">फ़ंडिंग नेगेटिव</string>
+    <string name="market_signal_top">शिखर के संकेत %1$d/10</string>
+    <string name="market_signal_bottom">तल के संकेत %1$d/10</string>
+    <string name="market_section_now">अभी</string>
+    <string name="market_section_context">संदर्भ</string>
+    <string name="market_section_data">डेटा</string>
+</resources>

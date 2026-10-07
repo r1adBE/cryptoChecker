@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">연결 없음</string>
+    <string name="watchlist_offline_since">연결 없음 · %1$s 기준</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%2$d개 중 %1$d개 가격 없음</item>
+    </plurals>
+    <string name="watch_not_traded">이 거래소에서 더 이상 거래되지 않음</string>
+</resources>

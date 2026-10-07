@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Görünüm</string>
+    <string name="widget_portfolio_display_conversion">Yalnızca çevrim</string>
+    <string name="widget_portfolio_display_conversion_usdt">Çevrim + USDT</string>
+    <string name="widget_portfolio_display_hint">Çevrim para birimi USD olduğunda USDT satırı gizlenir.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d tane daha</item>
+        <item quantity="other">+ %1$d tane daha</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48 sa</string>
+    <string name="widget_portfolio_range_short_48h">48s</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, portföyün %3$s kadarı</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, portföyün %3$s kadarı, bugün %4$s</string>
+    <string name="a11y_portfolio_positions">En büyük pozisyonlar: %1$s</string>
+</resources>

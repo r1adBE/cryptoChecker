@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">지금 눈에 띄는 점</string>
+    <string name="pulse_why_action">왜? →</string>
+    <string name="pulse_section_factors">요인</string>
+
+    <string name="pulse_lead_btc_leads">비트코인이 시장을 이끌고 있습니다.</string>
+    <string name="pulse_lead_alts_stronger">알트코인이 비트코인보다 강합니다.</string>
+    <string name="pulse_lead_btc_stronger">비트코인이 알트코인보다 강합니다.</string>
+    <string name="pulse_lead_broad_up">시장이 전반적으로 오르고 있습니다.</string>
+    <string name="pulse_lead_broad_down">시장이 전반적으로 내리고 있습니다.</string>
+    <string name="pulse_lead_drift_up">시장이 소폭 오르고 있습니다.</string>
+    <string name="pulse_lead_drift_down">시장이 소폭 내리고 있습니다.</string>
+    <string name="pulse_lead_mixed">대형 코인들이 서로 다르게 움직입니다.</string>
+    <string name="pulse_lead_calm">시장이 거의 움직이지 않습니다.</string>
+
+    <string name="pulse_detail_vol_above">거래량 평소보다 %1$d%% 많음.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">거래량 평소보다 %1$d%% 많음, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_above_fund_high">거래량 평소보다 %1$d%% 많음, 펀딩비 높음.</string>
+    <string name="pulse_detail_vol_above_fund_negative">거래량 평소보다 %1$d%% 많음, 펀딩비 마이너스.</string>
+    <string name="pulse_detail_vol_below">거래량 평소보다 %1$d%% 적음.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">거래량 평소보다 %1$d%% 적음, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_below_fund_high">거래량 평소보다 %1$d%% 적음, 펀딩비 높음.</string>
+    <string name="pulse_detail_vol_below_fund_negative">거래량 평소보다 %1$d%% 적음, 펀딩비 마이너스.</string>
+    <string name="pulse_detail_vol_normal">거래량 평소 수준.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">거래량 평소 수준, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_normal_fund_high">거래량 평소 수준, 펀딩비 높음.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">거래량 평소 수준, 펀딩비 마이너스.</string>
+    <string name="pulse_detail_fund_neutral">펀딩비 중립.</string>
+    <string name="pulse_detail_fund_high">펀딩비 높음.</string>
+    <string name="pulse_detail_fund_negative">펀딩비 마이너스.</string>
+
+    <string name="factor_volume">거래량</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">펀딩비</string>
+    <string name="factor_volatility">변동폭 (1h)</string>
+    <string name="factor_spoken_volume">평소의 %1$s배</string>
+    <string name="factor_spoken_volatility">평소 변동폭의 %1$s배</string>
+
+    <string name="why_title_coin">%1$s 왜 움직이나요?</string>
+    <string name="why_details">자세히 보기</string>
+    <string name="why_details_hide">자세히 숨기기</string>
+    <string name="why_f_market_wide">시장 전체가 움직임</string>
+    <string name="why_f_coin_only">이 코인만</string>
+    <string name="why_f_against">시장과 반대</string>
+    <string name="why_f_market_calm">잠잠한 시장</string>
+    <string name="why_f_leader">비트코인이 방향을 정함</string>
+    <string name="why_f_leverage_longs">레버리지: 롱 많음</string>
+    <string name="why_f_leverage_shorts">레버리지: 숏 많음</string>
+    <string name="why_f_leverage_balanced">레버리지 균형</string>
+    <string name="insights_dominance_eth">전체 시장 중 ETH %1$s</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="other">%2$s 반감기 이후 %1$d개월</item>
+    </plurals>
+</resources>

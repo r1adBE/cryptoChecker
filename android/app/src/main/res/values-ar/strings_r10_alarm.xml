@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">قرب أعلى مستوى</string>
+    <string name="alarm_condition_near_low">قرب أدنى مستوى</string>
+    <string name="alarm_near_field_distance">المسافة</string>
+    <string name="alarm_near_window_label">الفترة</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="zero">%1$d يوم</item>
+        <item quantity="one">%1$d يوم</item>
+        <item quantity="two">%1$d يوم</item>
+        <item quantity="few">%1$d أيام</item>
+        <item quantity="many">%1$d يومًا</item>
+        <item quantity="other">%1$d يوم</item>
+    </plurals>
+    <string name="alarm_near_window_year">سنة واحدة</string>
+    <string name="alarm_near_hint">ينبّه أيضًا عند تسجيل أعلى أو أدنى مستوى جديد. يعتمد على الشموع اليومية، ويُحدَّث كل 6 ساعات.</string>
+    <string name="alarm_near_extreme_high_30">أعلى مستوى في 30 يومًا</string>
+    <string name="alarm_near_extreme_high_90">أعلى مستوى في 90 يومًا</string>
+    <string name="alarm_near_extreme_high_365">أعلى مستوى في سنة</string>
+    <string name="alarm_near_extreme_low_30">أدنى مستوى في 30 يومًا</string>
+    <string name="alarm_near_extreme_low_90">أدنى مستوى في 90 يومًا</string>
+    <string name="alarm_near_extreme_low_365">أدنى مستوى في سنة</string>
+    <string name="alarm_sentence_near_high">أبلغني عندما يكون %1$s دون %3$s بنسبة %2$s على الأكثر.</string>
+    <string name="alarm_sentence_near_low">أبلغني عندما يكون %1$s فوق %3$s بنسبة %2$s على الأكثر.</string>
+    <string name="alarm_near_notification_high">%1$s دون %3$s بنسبة %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s فوق %3$s بنسبة %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s يسجّل %1$s جديدًا: %3$s (السابق %4$s)</string>
+    <string name="tts_direction_near_high">قريب من أعلى مستوى</string>
+    <string name="tts_direction_near_low">قريب من أدنى مستوى</string>
+</resources>

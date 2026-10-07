@@ -1,0 +1,10 @@
+Uutta versiossa 16.2.2
+• Crypto Pulse: mitä markkinoilla tapahtuu juuri nyt
+• Epätavallista aktiivisuutta, Miksi tämä liikkuu? nyt lyhyellä yhteenvedolla
+• Testaa hälytys
+• Hinnat ja hälytykset omassa valuutassasi
+• Tilannepäivän CSV-vienti
+• Saavutettava: sininen/oranssi, suuri kontrasti, värien vaihto, TalkBack
+• Aloitus yhdellä napautuksella, hiljaiset tunnit, lukitus, salkku-widget, hälytys lauseena
+• 15 uutta pörssiä, verkkomaksut ja gas-hälytys
+• Kynttilät widgetissä, markkina-arvo

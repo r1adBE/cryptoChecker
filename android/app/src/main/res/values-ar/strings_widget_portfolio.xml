@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">العرض</string>
+    <string name="widget_portfolio_display_conversion">التحويل فقط</string>
+    <string name="widget_portfolio_display_conversion_usdt">التحويل + USDT</string>
+    <string name="widget_portfolio_display_hint">يُخفى سطر USDT عندما تكون عملة التحويل هي USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="zero">+ %1$d أخرى</item>
+        <item quantity="one">+ %1$d أخرى</item>
+        <item quantity="two">+ %1$d أخرى</item>
+        <item quantity="few">+ %1$d أخرى</item>
+        <item quantity="many">+ %1$d أخرى</item>
+        <item quantity="other">+ %1$d أخرى</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s، %3$s من المحفظة</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s، %3$s من المحفظة، اليوم %4$s</string>
+    <string name="a11y_portfolio_positions">أكبر المراكز: %1$s</string>
+</resources>

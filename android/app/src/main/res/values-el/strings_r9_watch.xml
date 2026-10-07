@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Πάτημα για ενέργειες · σύρσιμο για γρήγορες ενέργειες · παρατεταμένο πάτημα για ταξινόμηση</string>
+    <string name="watch_action_alarm">Ειδοποίηση</string>
+    <string name="watch_action_why">Γιατί;</string>
+    <string name="watch_action_favorite">Αγαπημένο</string>
+    <string name="add_alarm_action">Ορισμός ειδοποίησης</string>
+    <string name="welcome_watch_q">Τι συμβαίνει;</string>
+    <string name="welcome_alert_q">Πότε να δράσω;</string>
+    <string name="welcome_understand_q">Γιατί;</string>
+</resources>

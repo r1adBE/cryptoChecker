@@ -1,0 +1,33 @@
+Version 16.2.2
+• Crypto Pulse: vad som händer i marknaden just nu
+• Varför rör den sig? nu med kort sammanfattning
+• Testa larm: ljud, vibration och uppläsning
+• Omräknade kurser: en andra rad ”≈ värde” i din omräkningsvaluta – 31 valutor som EUR, CHF, USD, GBP eller JPY, som standard enligt enhetens region
+• Larm i din valuta, t.ex. vid 60 000 EUR på ett USDT-par
+• Export per avstämningsdag: portföljens värde på valfritt datum, t.ex. 31 december, i din valuta som CSV-fil – praktiskt för deklarationen (ingen skatterådgivning)
+• Tillgänglighet: kursfärger blå/orange i stället för grön/röd, lätta att skilja åt vid alla former av färgseendeavvikelse (röd-grön och blå-gul); ”Byt färger för uppgång/nedgång”: rött för uppgång, grönt för nedgång, som är vanligt i Kina, Japan, Korea och Taiwan (automatiskt på där); ”Hög kontrast”: kraftigare kursfärger, mörkare sekundär text och accentfärg, följer även systemets kontrastinställning; fullt stöd för VoiceOver: varje rad i listan, varje diagram och varje widget läses upp som en mening
+• Minidiagram på varje rad: 24-timmarsförloppet bredvid kursen
+• ”Kom igång med ett tryck”: en tom lista erbjuder de 5 största mynten efter börsvärde (utan stablecoins)
+• Startlistan visar livekurs och förändring under 24 h – alla fem är förvalda och läggs till med en knapp
+• Svep åt vänster för att ta bort (med Ångra), åt höger för favorit
+• Fliken Marknad öppnas direkt med senaste data och uppdateras i bakgrunden
+• Tysta timmar: på natten (t.ex. 23–7) kommer larm tyst – utan ljud, vibration eller uppläsning
+• Applås med Face ID, Touch ID eller lösenkod
+• Portföljwidget för hem- och låsskärm: totalt värde i din valuta och förändring i dag
+• Varje larm som en mening: ”Meddela mig när BTC sjunker under 60 000 CHF.”
+• Korta förklaringar av funding rate, open interest, RSI och Pi Cycle
+• Rader visar ”inaktuellt” eller ”kan inte nås” när en kurs inte är aktuell
+• 15 nya börser: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Nätverksavgifter för Ethereum, Base, Arbitrum, Polygon, BNB Chain och Bitcoin på fliken Marknad, med gaslarm
+• Anteckning för varje mynt i bevakningslistan
+• Välj ett larmljud
+• Ovanlig aktivitet: upptäcker ovanliga kurs- och volymrörelser, valfria notiser
+• Varför rör den sig? En databaserad förklaring till rörelser
+• Portfölj som egen flik: köp och försäljningar, snittpris, vinst/förlust
+• Jämförelse av cykler: toppar och bottnar markerade, inkl. dubbeltoppar och dubbelbottnar
+• Grupper för bevakningslistan
+• Nya larm: rörelse på X % inom Y timmar och volymspik
+• Widget för ett mynt: ljus eller linje, diagramperiod 24 h, 7 eller 30 dagar, markeringar för högsta, mitt och lägsta, aktuell kurs framhävd
+• Fliken Marknad: kryptomarknadens totala börsvärde och 24 h-volym i din valuta
+• Terminer: funding rate och open interest
+• Fyra accentfärger med matchande appsymboler

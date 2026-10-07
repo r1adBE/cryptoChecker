@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">παρωχημένο</string>
+    <string name="widget_outdated_time">παρωχημένο · %1$s</string>
+
+    <string name="settings_widgets">Widget</string>
+    <string name="settings_widgets_hint">Προσθέστε τιμές στην αρχική οθόνη</string>
+    <string name="widgets_sheet_title">Προσθήκη widget</string>
+    <string name="widget_kind_single">Ένα νόμισμα</string>
+    <string name="widgets_add">Προσθήκη</string>
+    <string name="widgets_add_named">Προσθήκη widget %1$s</string>
+    <string name="watch_action_add_widget">Προσθήκη ως widget</string>
+    <string name="widgets_manual_title">Προσθέστε το widget μόνοι σας</string>
+    <string name="widgets_manual_text">Η αρχική σας οθόνη δεν μπορεί να προσθέσει widget από την εφαρμογή. Πατήστε παρατεταμένα ένα κενό σημείο στην αρχική οθόνη, επιλέξτε «Widget» και αναζητήστε το «Crypto Checker».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">Το iOS δεν επιτρέπει στις εφαρμογές να προσθέτουν widget μόνες τους. Χρειάζεται μόνο μια στιγμή:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Πατήστε παρατεταμένα ένα κενό σημείο στην οθόνη Αφετηρίας μέχρι να αρχίσουν να κουνιούνται οι εφαρμογές.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Πατήστε επάνω «Επεξεργασία» › «Προσθήκη widget» (ή «+» σε παλαιότερες εκδόσεις iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Αναζητήστε «Crypto Checker», επιλέξτε ένα widget και πατήστε «Προσθήκη widget».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Διαθέσιμα widget</string>
+</resources>

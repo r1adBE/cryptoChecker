@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Динаміка вартості</string>
+    <string name="portfolio_history_range_7d">7 Д</string>
+    <string name="portfolio_history_range_30d">30 Д</string>
+    <string name="portfolio_history_range_1y">1 Р</string>
+    <string name="portfolio_history_period_7d">7 днів</string>
+    <string name="portfolio_history_period_30d">30 днів</string>
+    <string name="portfolio_history_period_1y">1 рік</string>
+    <string name="portfolio_history_range_a11y">Показати динаміку за %1$s</string>
+    <string name="portfolio_history_change_a11y">Вартість за %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Сьогодні</string>
+    <string name="portfolio_history_converted">Перераховано за сьогоднішнім курсом</string>
+    <string name="portfolio_history_without">Без %1$s (немає денних цін)</string>
+    <string name="portfolio_history_includes_trades">Містить купівлі та продажі за цей період</string>
+    <string name="portfolio_history_too_short">Динаміка починається після першого повного дня.</string>
+    <string name="portfolio_history_unavailable">Зараз динаміка недоступна.</string>
+    <string name="portfolio_history_loading">Завантаження динаміки вартості</string>
+</resources>

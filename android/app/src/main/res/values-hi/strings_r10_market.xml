@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">आज ख़ास</string>
+    <string name="unusual_nothing">आज कुछ असामान्य नहीं</string>
+    <string name="unusual_fact_stronger">BTC से कहीं ज़्यादा तेज़ी से चल रहा है</string>
+    <string name="unusual_fact_weaker">BTC से कहीं कम चल रहा है</string>
+    <string name="unusual_fact_against">मार्केट के उलट चल रहा है</string>
+    <string name="unusual_fact_volume">वॉल्यूम सामान्य का %1$s×</string>
+    <string name="unusual_fact_funding_high">फ़ंडिंग ऊँचा (%1$s)</string>
+    <string name="unusual_fact_funding_negative">फ़ंडिंग नेगेटिव (%1$s)</string>
+    <string name="unusual_source">स्टेबलकॉइन छोड़कर लगभग 30 सबसे बड़े कॉइन · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s। %3$s।</string>
+    <string name="unusual_action_why">यह क्यों हिल रहा है?</string>
+    <string name="unusual_action_add">जोड़ने के लिए पेयर ढूँढें</string>
+
+    <string name="macro_title">आर्थिक आँकड़े</string>
+    <string name="macro_cpi">अमेरिकी महँगाई (CPI)</string>
+    <string name="macro_ppi">अमेरिकी उत्पादक मूल्य (PPI)</string>
+    <string name="macro_nfp">अमेरिकी जॉब्स रिपोर्ट</string>
+    <string name="macro_fomc">फ़ेड का ब्याज दर फ़ैसला</string>
+    <string name="macro_pce">अमेरिकी PCE महँगाई</string>
+    <string name="macro_hint_today">आज %1$s: %2$s – ऐसे दिनों में बाज़ार अक्सर ज़्यादा उतार-चढ़ाव दिखाता है।</string>
+    <string name="macro_hint_tomorrow">कल %1$s: %2$s – ऐसे दिनों में बाज़ार अक्सर ज़्यादा उतार-चढ़ाव दिखाता है।</string>
+    <string name="macro_hint_today_list">आज: %1$s – ऐसे दिनों में बाज़ार अक्सर ज़्यादा उतार-चढ़ाव दिखाता है।</string>
+    <string name="macro_hint_tomorrow_list">कल: %1$s – ऐसे दिनों में बाज़ार अक्सर ज़्यादा उतार-चढ़ाव दिखाता है।</string>
+    <string name="macro_hint_list">%1$s – ऐसे दिनों में बाज़ार अक्सर ज़्यादा उतार-चढ़ाव दिखाता है।</string>
+    <string name="macro_released_one">आज %1$s बजे जारी: %2$s।</string>
+    <string name="macro_released_list">आज जारी: %1$s।</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">आज %1$s %2$s</string>
+    <string name="macro_item_tomorrow">कल %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">आर्थिक कैलेंडर</string>
+    <string name="settings_macro_notifications_hint">महत्वपूर्ण अमेरिकी आर्थिक आँकड़ों (महँगाई, जॉब्स रिपोर्ट, फ़ेड फ़ैसला) वाले दिनों में 08:00 बजे। कैलेंडर ऐप की वेबसाइट से दिन में एक बार लोड होता है।</string>
+    <string name="notification_macro_title">आज आर्थिक आँकड़े</string>
+</resources>

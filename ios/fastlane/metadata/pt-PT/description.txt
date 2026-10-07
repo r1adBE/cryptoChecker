@@ -1,0 +1,62 @@
+Acompanhe os preços das suas criptomoedas sem abrir constantemente as apps das exchanges. Defina alarmes, detete movimentos invulgares e perceba em segundos porque uma moeda está a mexer.
+
+Acompanhar – preços diretos da exchange, na sua moeda
+Alertar – preço, %, movimentos e volume, numa frase
+Perceber – «Porque está a mexer?» com um breve resumo
+Visão geral – Crypto Pulse, Fear & Greed, ciclo e portefólio
+
+Legível para todos: cores de preço verde/vermelho ou azul/laranja, trocadas se quiser, alto contraste, sinal e seta em vez de apenas cor, e o VoiceOver lê cada linha numa frase.
+
+LISTA DE ACOMPANHAMENTO COM 41 MERCADOS
+• Spot e futuros da Binance, Coinbase, Kraken, OKX, Bybit e muitas mais
+• Tokens DEX através do DexScreener
+• Grupos, favoritos e ordenação por arrastar e largar
+• Uma nota para cada moeda, p. ex. o seu preço de entrada
+• Linha «≈ valor» na sua moeda: 31 moedas (EUR, CHF, USD, GBP, JPY…), por predefinição conforme a região
+• Minigráfico de 24 h em cada linha
+• Portefólio num separador próprio: compras e vendas, preço médio, lucro/prejuízo e valor total na sua moeda
+• Exportação à data de referência: valor do portefólio em qualquer data (p. ex. 31/12) na sua moeda, em CSV – útil para impostos, sem aconselhamento fiscal
+
+ALARMES À MEDIDA DA SUA ESTRATÉGIA
+• Preço acima ou abaixo de um nível, subida ou descida de uma percentagem
+• Alarmes na sua moeda, p. ex. a 60 000 EUR num par USDT
+• Alarme como frase: «Avisar-me quando BTC descer abaixo de 60 000 CHF.»
+• Movimento de X % em Y horas, p. ex. 5 % em 1 hora
+• Pico de volume: volume de negociação de repente muito acima da média
+• Uma vez ou repetidos, como notificação com leitura em voz alta opcional
+• Escolha o som do alarme
+• Um tempo de pausa ajustável evita avalanches de alarmes
+• Horas de silêncio: à noite (p. ex. 23–7 h) alarmes sem som, vibração nem voz
+• «Testar alarme»: ouça e sinta antecipadamente como chega um alarme
+
+ATIVIDADE INVULGAR E PORQUE ESTÁ A MEXER?
+• Atividade invulgar deteta movimentos de preço e volume fora do normal na sua lista
+• «Porque está a mexer?» explica um movimento pelo volume, o mercado global e os futuros, com um breve resumo – sem aconselhamento de investimento
+
+VISÃO DO MERCADO
+• Crypto Pulse: o que se passa agora? BTC, ETH, SOL, altcoins face ao BTC, volume, Fear & Greed, funding, gas ETH e um resumo numa frase, sem previsão
+• Índice Fear & Greed com histórico
+• Mercado cripto: capitalização total e volume 24 h na sua moeda
+• Separador Mercado: fase do mercado com sinais de um possível máximo ou mínimo (sem previsão), contagem para o halving, comparação de ciclos, dominância e época das altcoins
+• Análise de moedas: RSI, tendência, Pi Cycle e força face à Bitcoin
+• Dados de futuros: funding rate e open interest
+• Taxas de rede para Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, com alarme de gas
+
+WIDGETS PARA O ECRÃ PRINCIPAL E O ECRÃ BLOQUEADO
+• Widgets em três tamanhos: lista, portefólio (também no ecrã bloqueado), uma moeda com gráfico de 24 h, 7 ou 30 dias – velas ou linha, com marcas de máximo, meio e mínimo
+• Atualize diretamente a partir do widget
+• Atividade em direto no ecrã bloqueado: o preço de uma moeda num relance
+
+E AINDA
+• Modo em direto com a app aberta; o iOS agenda as atualizações em segundo plano
+• Leitura em voz alta de preços e alarmes
+• Cópia de segurança e restauro na app Ficheiros
+• Ações rápidas no ícone da app, modo claro e escuro
+• Quatro cores de destaque com ícones da app a condizer
+• Bloqueio: Face ID, Touch ID ou código
+• Disponível em 31 idiomas
+
+PRIVACIDADE EM PRIMEIRO LUGAR
+Sem conta, sem anúncios, sem análises, sem rastreio. Os preços vêm diretamente das API públicas das corretoras. A sua lista, os seus alarmes e as suas posições ficam no seu dispositivo. Código aberto (licença MIT): o código é público no GitHub.
+
+Nota: o Crypto Checker apenas mostra preços. Não é uma corretora nem uma carteira, não negoceia e não presta aconselhamento de investimento.

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">今日の市場</string>
+    <string name="pulse_alts_stronger">アルトコインが Bitcoin より強い</string>
+    <string name="pulse_alts_weaker">Bitcoin がアルトコインより強い</string>
+    <string name="pulse_alts_even">アルトコインと Bitcoin が同じように動いている</string>
+    <string name="pulse_volume_high">取引量が異常に多い（通常の %1$s×）</string>
+    <string name="pulse_volume_low">取引量が少ない（通常の %1$s×）</string>
+    <string name="pulse_volume_normal">取引量は通常どおり</string>
+    <string name="pulse_funding_high">資金調達率がはっきりプラス：レバレッジのロングが多い</string>
+    <string name="pulse_funding_slight">資金調達率がややプラス</string>
+    <string name="pulse_funding_neutral">資金調達率は中立</string>
+    <string name="pulse_funding_negative">資金調達率がマイナス：ショートが多い</string>
+    <string name="pulse_gas_low">Ethereum ガスが低い（%1$s gwei）</string>
+    <string name="pulse_gas_normal">Ethereum ガスは通常どおり（%1$s gwei）</string>
+    <string name="pulse_gas_high">Ethereum ガスが高い（%1$s gwei）</string>
+    <string name="pulse_disclaimer">予測ではありません · 投資助言ではありません</string>
+    <string name="pulse_less">表示を減らす</string>
+    <string name="pulse_updated">%1$s 時点</string>
+    <string name="pulse_unavailable">市場データは現在利用できません</string>
+    <string name="why_summary_title">要するに</string>
+    <string name="why_summary_market_volume">この動きには取引量の増加と市場全体の幅広い動きが伴っています。</string>
+    <string name="why_summary_market">この動きは市場全体に連動しています。</string>
+    <string name="why_summary_coin_volume">このコインだけが取引量の増加を伴って動いています – コイン自体に理由がある可能性があります。</string>
+    <string name="why_summary_coin">このコインだけが動いています – コイン自体に理由がある可能性があります。</string>
+    <string name="why_summary_against">このコインは市場と逆方向に動いています。</string>
+    <string name="why_summary_thin">この動きは薄い：裏付ける取引量が少ないです。</string>
+    <string name="why_summary_calm">目立った動きなし：市場もコインも落ち着いています。</string>
+    <string name="why_summary_longs">先物：レバレッジのロングポジションが多い。</string>
+    <string name="why_summary_shorts">先物：ショートポジションが多い。</string>
+    <string name="why_dot_supports">動きを支えている</string>
+    <string name="why_dot_caution">高め</string>
+    <string name="why_dot_neutral">中立</string>
+    <string name="alarm_test">アラームをテスト</string>
+    <string name="alarm_test_hint">サウンド、バイブレーション、読み上げの設定でサンプルのアラームを送信します。</string>
+    <string name="alarm_test_title">テスト：Crypto Checker のアラーム</string>
+    <string name="alarm_test_text">アラームはこのように表示され、このように鳴ります。</string>
+    <string name="alarm_test_quiet">現在おやすみ時間中です：実際のアラームは無音で届きます。</string>
+    <string name="alarm_test_denied">Crypto Checker の通知がオフになっています。</string>
+    <string name="alarm_test_open_settings">設定を開く</string>
+    <string name="alarm_first_title">設定完了</string>
+    <string name="welcome_watch">見守る – コイン、価格、チャート、ウィジェット</string>
+    <string name="welcome_alert">知らせる – 価格、パーセント、取引量、異例の動き</string>
+    <string name="welcome_understand">理解する – なぜいま市場が動いているのか？</string>
+    <string name="welcome_start">はじめる</string>
+    <string name="portfolio_empty_example">例：3月1日に 0.01 BTC を %1$s で購入。アプリが評価額、平均購入価格、損益を表示します – データはこのデバイスにのみ保存されます。</string>
+    <string name="about_why">Crypto Checker は Rich1e による独立したプロジェクトです。アカウント、広告、トラッキングなしの落ち着いた価格一覧。ご質問・ご要望：%1$s</string>
+    <string name="a11y_move_up">上へ移動</string>
+    <string name="a11y_move_down">下へ移動</string>
+    <string name="a11y_in_watchlist">すでにウォッチリストにあります</string>
+    <string name="portfolio_export_today_hint">今日はまだ終わっていません：日足の終値の代わりに現在の価格を使用します。</string>
+    <string name="about_privacy_policy">プライバシーポリシー</string>
+    <string name="widget_chart_type">チャートの種類</string>
+    <string name="widget_chart_line">ライン</string>
+    <string name="widget_chart_candles">ローソク足</string>
+    <string name="pair_added_watching">%1$s のウォッチを開始しました</string>
+    <string name="market_cap_title">暗号資産市場</string>
+    <string name="market_cap_label">時価総額</string>
+    <string name="market_volume_label">出来高 24時間</string>
+    <string name="market_cap_source">全コイン · CoinGecko</string>
+    <string name="market_data_empty_error">取引所からデータを受信できませんでした。</string>
+    <string name="sync_pairs_count">取引ペア: %1$d</string>
+    <string name="market_unavailable_error">取引所を利用できません</string>
+    <string name="refresh_report_aborted">更新を中断しました:</string>
+    <string name="refresh_report_wait">開始までの待ち時間: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="other">合計 %1$s · %2$d ペア</item>
+    </plurals>
+    <string name="refresh_report_network">ネットワーク %1$s</string>
+    <string name="refresh_report_database">データベース %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="other">アラーム/通知 %1$s · 通知 %2$d 件</item>
+    </plurals>
+    <string name="refresh_report_widgets">ウィジェット %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="other">%1$s: %2$d ペア、%3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="other">一括リクエスト %1$s（価格 %2$d 件）</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">一括リクエスト %1$s（失敗）</string>
+    <string name="refresh_report_singles">個別 %1$d 件</string>
+    <string name="refresh_report_slowest">最も遅い %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">取引終了 %1$d 件</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">エラー %1$d 件</item>
+    </plurals>
+    <string name="starter_add_selected">ウォッチリストに追加 (%1$d)</string>
+    <string name="starter_select_all">すべて選択</string>
+    <string name="starter_select_none">選択を解除</string>
+    <string name="starter_loading_prices">価格を読み込み中…</string>
+    <string name="watchlist_removed">%1$s を削除しました</string>
+    <string name="action_undo">元に戻す</string>
+    <string name="favorite_added">%1$s をお気に入りに追加しました</string>
+    <string name="favorite_removed">%1$s をお気に入りから削除しました</string>
+    <string name="cycle_data_as_of">%1$s 時点のデータ · 更新中…</string>
+    <string name="settings_conversion_currency_hint">ポートフォリオ、自国通貨でのアラーム、暗号資産市場カード、ポートフォリオウィジェットにも使用されます。</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d 上昇</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d 下落</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s、%2$s、平均 %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d ペアが上昇</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d ペアが下落</item>
+    </plurals>
+    <string name="pulse_headline_up">全面高</string>
+    <string name="pulse_headline_down">全面安</string>
+    <string name="pulse_headline_mixed">まちまち</string>
+    <string name="pulse_headline_calm">落ち着いた相場</string>
+    <string name="pulse_chip_funding_high">資金調達率 高め</string>
+    <string name="pulse_chip_funding_negative">資金調達率 マイナス</string>
+    <string name="market_signal_top">高値サイン %1$d/10</string>
+    <string name="market_signal_bottom">安値サイン %1$d/10</string>
+    <string name="market_section_now">現在</string>
+    <string name="market_section_context">背景</string>
+    <string name="market_section_data">データ</string>
+</resources>

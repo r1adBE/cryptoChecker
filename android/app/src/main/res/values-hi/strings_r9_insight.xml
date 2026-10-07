@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">अभी क्या ख़ास है</string>
+    <string name="pulse_why_action">क्यों? →</string>
+    <string name="pulse_section_factors">कारक</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin मार्केट की अगुवाई कर रहा है।</string>
+    <string name="pulse_lead_alts_stronger">ऑल्टकॉइन Bitcoin से मज़बूत हैं।</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ऑल्टकॉइन से मज़बूत है।</string>
+    <string name="pulse_lead_broad_up">मार्केट व्यापक रूप से चढ़ रहा है।</string>
+    <string name="pulse_lead_broad_down">मार्केट व्यापक रूप से गिर रहा है।</string>
+    <string name="pulse_lead_drift_up">मार्केट हल्का चढ़ रहा है।</string>
+    <string name="pulse_lead_drift_down">मार्केट हल्का गिर रहा है।</string>
+    <string name="pulse_lead_mixed">बड़े कॉइन अलग-अलग दिशा में चल रहे हैं।</string>
+    <string name="pulse_lead_calm">मार्केट मुश्किल से हिल रहा है।</string>
+
+    <string name="pulse_detail_vol_above">वॉल्यूम सामान्य से %1$d%% ज़्यादा।</string>
+    <string name="pulse_detail_vol_above_fund_neutral">वॉल्यूम सामान्य से %1$d%% ज़्यादा, फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_vol_above_fund_high">वॉल्यूम सामान्य से %1$d%% ज़्यादा, फ़ंडिंग ऊँचा।</string>
+    <string name="pulse_detail_vol_above_fund_negative">वॉल्यूम सामान्य से %1$d%% ज़्यादा, फ़ंडिंग नेगेटिव।</string>
+    <string name="pulse_detail_vol_below">वॉल्यूम सामान्य से %1$d%% कम।</string>
+    <string name="pulse_detail_vol_below_fund_neutral">वॉल्यूम सामान्य से %1$d%% कम, फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_vol_below_fund_high">वॉल्यूम सामान्य से %1$d%% कम, फ़ंडिंग ऊँचा।</string>
+    <string name="pulse_detail_vol_below_fund_negative">वॉल्यूम सामान्य से %1$d%% कम, फ़ंडिंग नेगेटिव।</string>
+    <string name="pulse_detail_vol_normal">वॉल्यूम सामान्य।</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">वॉल्यूम सामान्य, फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_vol_normal_fund_high">वॉल्यूम सामान्य, फ़ंडिंग ऊँचा।</string>
+    <string name="pulse_detail_vol_normal_fund_negative">वॉल्यूम सामान्य, फ़ंडिंग नेगेटिव।</string>
+    <string name="pulse_detail_fund_neutral">फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_fund_high">फ़ंडिंग ऊँचा।</string>
+    <string name="pulse_detail_fund_negative">फ़ंडिंग नेगेटिव।</string>
+
+    <string name="factor_volume">वॉल्यूम</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">फ़ंडिंग</string>
+    <string name="factor_volatility">उतार-चढ़ाव (1h)</string>
+    <string name="factor_spoken_volume">सामान्य का %1$s गुना</string>
+    <string name="factor_spoken_volatility">सामान्य उतार-चढ़ाव का %1$s गुना</string>
+
+    <string name="why_title_coin">%1$s क्यों हिल रहा है?</string>
+    <string name="why_details">विवरण देखें</string>
+    <string name="why_details_hide">विवरण छिपाएँ</string>
+    <string name="why_f_market_wide">पूरा मार्केट हिल रहा है</string>
+    <string name="why_f_coin_only">सिर्फ़ यह कॉइन</string>
+    <string name="why_f_against">मार्केट के उलट</string>
+    <string name="why_f_market_calm">शांत मार्केट</string>
+    <string name="why_f_leader">Bitcoin दिशा तय करता है</string>
+    <string name="why_f_leverage_longs">लीवरेज: कई लॉन्ग</string>
+    <string name="why_f_leverage_shorts">लीवरेज: कई शॉर्ट</string>
+    <string name="why_f_leverage_balanced">लीवरेज संतुलित</string>
+    <string name="insights_dominance_eth">कुल बाज़ार में ETH %1$s</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%2$s को हुए halving के बाद %1$d महीना</item>
+        <item quantity="other">%2$s को हुए halving के बाद %1$d महीने</item>
+    </plurals>
+</resources>

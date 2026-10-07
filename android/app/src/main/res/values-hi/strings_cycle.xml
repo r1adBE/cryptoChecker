@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">शिखर %1$s</string>
+    <string name="cycle_marker_high_so_far">अब तक का उच्चतम</string>
+    <string name="cycle_marker_bottom">निचला स्तर %1$s</string>
+    <string name="cycle_since_halving">हॉल्विंग से %1$s</string>
+    <string name="cycle_from_top">शिखर से %1$s</string>
+    <string name="cycle_marker_double_top">डबल टॉप %1$s</string>
+    <string name="cycle_marker_double_bottom">डबल बॉटम %1$s</string>
+</resources>

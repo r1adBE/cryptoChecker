@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Export cut-off date…</string>
+    <string name="portfolio_export_title">Cut-off date export</string>
+    <string name="portfolio_export_date">Cut-off date</string>
+    <string name="portfolio_export_currency">Currency: %1$s</string>
+    <string name="portfolio_export_hint">Holdings at the end of the chosen day, valued at the daily close (UTC) in USDT and converted with the ECB reference rate of that day. Change the currency with “Convert to”.</string>
+    <string name="portfolio_export_button">Export CSV</string>
+    <string name="portfolio_export_running">Fetching historical prices…</string>
+    <string name="portfolio_export_done">Export saved</string>
+    <string name="portfolio_export_failed">Export failed</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Cut-off date %1$s, currency %2$s, FX rate of %3$s</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_amount">Amount</string>
+    <string name="portfolio_export_col_price">Price USDT</string>
+    <string name="portfolio_export_col_value">Value USDT</string>
+    <string name="portfolio_export_col_rate">Rate USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Value %1$s</string>
+    <string name="portfolio_export_col_note">Note</string>
+    <string name="portfolio_export_total">Total</string>
+    <string name="portfolio_export_no_price">no price</string>
+    <string name="portfolio_export_no_fx">no FX rate</string>
+    <string name="portfolio_export_incomplete">incomplete</string>
+</resources>

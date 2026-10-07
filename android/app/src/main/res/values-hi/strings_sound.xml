@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">अलार्म की आवाज़</string>
+    <string name="settings_alarm_sound_default">डिफ़ॉल्ट आवाज़</string>
+    <string name="settings_alarm_sound_custom">अपनी आवाज़</string>
+    <string name="settings_alarm_sound_system">सिस्टम आवाज़ चुनें…</string>
+    <string name="settings_alarm_sound_file">अपनी ऑडियो फ़ाइल…</string>
+    <string name="settings_alarm_sound_reset">डिफ़ॉल्ट आवाज़ इस्तेमाल करें</string>
+    <string name="settings_alarm_sound_error">आवाज़ इस्तेमाल नहीं की जा सकी।</string>
+</resources>

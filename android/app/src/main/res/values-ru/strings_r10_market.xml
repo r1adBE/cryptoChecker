@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Сегодня выделяется</string>
+    <string name="unusual_nothing">Сегодня ничего необычного</string>
+    <string name="unusual_fact_stronger">Движется заметно сильнее BTC</string>
+    <string name="unusual_fact_weaker">Движется заметно слабее BTC</string>
+    <string name="unusual_fact_against">Идёт против рынка</string>
+    <string name="unusual_fact_volume">Объём %1$s× от обычного</string>
+    <string name="unusual_fact_funding_high">Фандинг повышен (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Фандинг отрицательный (%1$s)</string>
+    <string name="unusual_source">Около 30 крупнейших монет без стейблкоинов · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Почему это движется?</string>
+    <string name="unusual_action_add">Найти пару для добавления</string>
+
+    <string name="macro_title">Экономические данные</string>
+    <string name="macro_cpi">инфляция в США (CPI)</string>
+    <string name="macro_ppi">цены производителей в США (PPI)</string>
+    <string name="macro_nfp">отчёт по рынку труда США</string>
+    <string name="macro_fomc">решение ФРС по ставке</string>
+    <string name="macro_pce">инфляция PCE в США</string>
+    <string name="macro_hint_today">Сегодня %1$s: %2$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_tomorrow">Завтра %1$s: %2$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_today_list">Сегодня: %1$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_tomorrow_list">Завтра: %1$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_list">%1$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_released_one">Опубликовано сегодня в %1$s: %2$s.</string>
+    <string name="macro_released_list">Опубликовано сегодня: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Сегодня %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Завтра %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Экономический календарь</string>
+    <string name="settings_macro_notifications_hint">В 08:00 в дни важных экономических данных США (инфляция, рынок труда, решение ФРС). Календарь загружается с сайта приложения раз в день.</string>
+    <string name="notification_macro_title">Сегодня экономические данные</string>
+</resources>

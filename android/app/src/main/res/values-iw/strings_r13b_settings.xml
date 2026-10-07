@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">התראות שוק</string>
+    <string name="settings_market_alerts_hint">שלב השוק, מדד פחד ותאוות בצע, עמלות גז, פעילות חריגה, מועדים כלכליים</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d פעיל</item>
+        <item quantity="two">%1$d פעילים</item>
+        <item quantity="other">%1$d פעילים</item>
+    </plurals>
+    <string name="settings_tts_row_hint">מקריא מחירים והתראות בקול</string>
+    <string name="settings_summary_on">פועל</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker עוקב עכשיו בשבילכם אחרי %1$s. כש-%1$s יגיע לגבול שלכם, תקבלו התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, זה קורה במרווח של העדכון ברקע – מאוחר יותר אם מיטוב הסוללה מגביל את האפליקציה.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker עוקב עכשיו בשבילכם אחרי %1$s. תקבלו התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, iOS מחליט מתי זה קורה – זה עלול לקחת זמן. כשהאפליקציה פתוחה, המחירים נבדקים בזמן.</string>
+
+    <string name="about_request_exchange">בקשת בורסה</string>
+    <string name="explorer_exchange_missing">חסרה בורסה?</string>
+</resources>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Lỗi: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Không có cặp tiền</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Nhấn vào đây để tải các cặp tiền mới nhất từ sàn đã chọn.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Cập nhật cặp tiền</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Đồng bộ ngay!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Đồng bộ lần cuối: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">chưa bao giờ</string>
+
+    <string name="market_screen_sync">Đồng bộ</string>
+    <string name="market_screen_base">Tiền cơ sở</string>
+    <string name="market_screen_quote">Tiền định giá</string>
+    <string name="market_screen_market">Sàn</string>
+    <string name="market_screen_contract_type">Loại hợp đồng</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Cao</string>
+    <string name="ticker_low">Thấp</string>
+    <string name="ticker_bid">Giá mua</string>
+    <string name="ticker_ask">Giá bán</string>
+    <string name="ticker_vol_base">Khối lượng (cơ sở)</string>
+    <string name="ticker_vol_quote">Khối lượng (định giá)</string>
+    <string name="ticker_timestamp">Thời gian</string>
+
+
+    <string name="try_again">Thử lại</string>
+    <string name="no_internet_connection">Không có kết nối internet</string>
+    <string name="something_went_wrong">Đã xảy ra lỗi</string>
+
+    <string name="bulk_all_pairs">Tất cả cặp %1$s của sàn này</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">Tìm thấy %1$d cặp %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Sàn này không có cặp %1$s nào cho loại hợp đồng đã chọn. Hãy đồng bộ sàn trước hoặc thử loại hợp đồng khác.</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">Làm mới</string>
+    <string name="action_add_pair">Thêm cặp</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_edit">Sửa</string>
+    <string name="action_back">Quay lại</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_cancel">Hủy</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Chưa có cặp nào</string>
+    <string name="watchlist_empty_hint">Hoặc chọn sàn và cặp tiền trong “Thêm”. Mỗi cặp có thể có thông báo, đọc giá bằng giọng nói và cảnh báo giá.</string>
+    <string name="watchlist_updated">Cập nhật: %1$s</string>
+    <string name="watchlist_notification">Thông báo</string>
+    <string name="watchlist_tts">Đọc giá</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">Cảnh báo (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">Cảnh báo</string>
+    <string name="alarms_add">Cảnh báo mới</string>
+    <string name="alarms_edit">Sửa cảnh báo</string>
+    <string name="alarms_empty">Chưa có cảnh báo nào cho cặp này.</string>
+    <string name="alarm_condition_above">Giá trên</string>
+    <string name="alarm_condition_below">Giá dưới</string>
+    <string name="alarm_condition_up_percent">Tăng thêm</string>
+    <string name="alarm_condition_down_percent">Giảm đi</string>
+    <string name="alarm_repeating">Lặp lại</string>
+    <string name="alarm_once">Một lần</string>
+    <string name="alarm_last_triggered">lần cuối lúc %1$s</string>
+    <string name="alarm_field_price">Giá</string>
+    <string name="alarm_field_percent">Phần trăm</string>
+    <string name="alarm_option_repeating">Giữ cảnh báo sau khi kích hoạt</string>
+    <string name="alarm_option_sound">Âm thanh</string>
+    <string name="alarm_option_vibrate">Rung</string>
+    <string name="alarm_option_speak">Đọc cảnh báo</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">Giá</string>
+    <string name="channel_prices_description">Thông báo im lặng hiển thị giá hiện tại của một cặp.</string>
+    <string name="channel_alarms">Cảnh báo</string>
+    <string name="channel_alarms_description">Thông báo khi cảnh báo giá được kích hoạt.</string>
+    <string name="channel_service">Chế độ live</string>
+    <string name="channel_service_description">Thông báo khi giá đang được cập nhật trong khoảng thời gian ngắn.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, từ %2$s (%3$s trước)</string>
+    <string name="notification_price_change_no_age">%1$s, từ %2$s</string>
+    <string name="notification_price_first">Thông báo đầu tiên cho cặp này</string>
+    <string name="notification_alarm_title">Cảnh báo: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — hiện tại %2$s</string>
+    <string name="market_phase_title">Giai đoạn thị trường Bitcoin</string>
+    <string name="market_phase_trend_loading">Đang tải dữ liệu giá…</string>
+    <string name="market_phase_trend_failed">Không có dữ liệu giá</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Nhiều tín hiệu đáy lịch sử cùng lúc – vùng tích lũy lịch sử.</string>
+    <string name="zone_hint_bear">Xu hướng giảm hoặc giai đoạn tạo đáy, chưa có đầu hàng diện rộng.</string>
+    <string name="zone_hint_neutral">Tín hiệu trái chiều, chưa có hướng rõ ràng.</string>
+    <string name="zone_hint_bull">Xu hướng tăng nhưng chưa quá nóng.</string>
+    <string name="zone_hint_extreme_bull">Nhiều tín hiệu đỉnh lịch sử cùng lúc – rủi ro đỉnh tăng cao.</string>
+    <string name="market_scores">Dấu hiệu có thể là đỉnh %1$d/10 · đáy %2$d/10</string>
+    <string name="market_show_indicators">Hiện chỉ báo</string>
+    <string name="market_hide_indicators">Ẩn chỉ báo</string>
+    <string name="market_onchain_missing">Dữ liệu on-chain (Coin Metrics) hiện không khả dụng – điểm chỉ dựa trên dữ liệu giá.</string>
+    <string name="market_source">Dữ liệu: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Giá so với trung bình 200 tuần</string>
+    <string name="ind_drawdown">Mức giảm từ đỉnh mọi thời đại</string>
+    <string name="ind_hash">Thợ đào đầu hàng (Hash Ribbons)</string>
+    <string name="ind_parabolic">Tăng parabol (30 ngày)</string>
+    <string name="ind_halving">Số tháng từ halving</string>
+    <string name="ind_ath">Số tháng từ đỉnh mọi thời đại</string>
+    <string name="ind_points_top">+%1$d đỉnh</string>
+    <string name="ind_points_bottom">+%1$d đáy</string>
+    <string name="market_phase_disclaimer">Dựa trên các chu kỳ trước và xu hướng giá. Không phải dự báo hay lời khuyên đầu tư.</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="settings_section_language">Ngôn ngữ</string>
+    <string name="settings_language_system">Ngôn ngữ hệ thống</string>
+    <string name="settings_language_choose">Chọn ngôn ngữ</string>
+    <string name="settings_section_appearance">Giao diện</string>
+    <string name="settings_theme_mode">Chế độ</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
+    <string name="settings_accent">Màu</string>
+    <string name="accent_orange">Cam</string>
+    <string name="accent_red">Đỏ</string>
+    <string name="accent_blue">Xanh dương</string>
+    <string name="accent_green">Xanh lá</string>
+    <string name="settings_rolling_futures">Gồm futures theo quý &amp; futures có kỳ hạn khác</string>
+    <string name="settings_rolling_futures_hint">Tắt: các futures có kỳ hạn không còn trong danh sách của sàn sẽ được đánh dấu là ngừng giao dịch thay vì kiểm tra từng cái. Tiết kiệm thời gian mỗi lần làm mới.</string>
+    <string name="notification_refreshing">Đang cập nhật giá…</string>
+    <string name="notification_service_title">Crypto Checker – chế độ live</string>
+    <string name="notification_service_starting">Đang khởi động…</string>
+    <plurals name="notification_service_running">
+        <item quantity="other">%1$d cặp · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">Không có cặp nào trong danh sách theo dõi</string>
+    <string name="notification_service_error">Cập nhật thất bại</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_background_updates">Cập nhật nền</string>
+    <string name="settings_background_updates_hint">Giá, cảnh báo và widget vẫn được cập nhật ngay cả khi ứng dụng đã đóng.</string>
+    <string name="settings_background_interval">Chu kỳ cập nhật</string>
+    <string name="settings_live_service">Chế độ live</string>
+    <string name="settings_live_service_hint">Giữ một dịch vụ chạy để cập nhật trong khoảng ngắn. Tốn pin hơn.</string>
+    <string name="settings_live_interval">Chu kỳ live</string>
+    <string name="settings_minutes">%1$d phút</string>
+    <string name="settings_seconds">%1$d giây</string>
+    <string name="settings_price_notifications">Thông báo giá</string>
+    <string name="settings_price_notifications_hint">Hiển thị giá hiện tại của các cặp đã bật trên thanh trạng thái.</string>
+    <string name="settings_ongoing_notifications">Không thể vuốt để xóa</string>
+    <string name="settings_ongoing_notifications_hint">Giữ cố định thông báo giá.</string>
+    <string name="settings_notification_change">Chỉ thông báo khi giá thay đổi</string>
+    <string name="settings_notification_change_always">Luôn luôn</string>
+    <string name="settings_notification_change_hint">Thông báo chỉ xuất hiện khi giá đã thay đổi ít nhất mức này so với lần trước. Không hiển thị gì khi thiếu dữ liệu. Cảnh báo không bị ảnh hưởng.</string>
+    <string name="settings_alarm_cooldown">Thời gian chờ trước khi cảnh báo kích hoạt lại</string>
+    <string name="settings_tts">Đọc bằng giọng nói</string>
+    <string name="settings_tts_alarms_only">Chỉ cảnh báo</string>
+    <string name="settings_tts_alarms_only_hint">Tắt: mọi cập nhật của cặp có bật «Đọc giá» đều được đọc to.</string>
+    <string name="settings_speech_rate">Tốc độ đọc: %1$.1f×</string>
+    <string name="settings_tts_test">Thử giọng nói</string>
+    <string name="battery_title">Giữ giá luôn cập nhật</string>
+    <string name="battery_message">Android trì hoãn tác vụ nền để tiết kiệm pin — khi đó giá và widget có thể cũ đến vài giờ. Đặt mức sử dụng pin thành không hạn chế giúp chúng luôn cập nhật. Bạn có thể thay đổi bất cứ lúc nào trong cài đặt Android.</string>
+    <string name="battery_later">Để sau</string>
+    <string name="settings_battery_ok">Sử dụng pin: không hạn chế</string>
+    <string name="settings_battery_restricted">Sử dụng pin: bị hạn chế</string>
+    <string name="settings_battery_hint">Bị hạn chế nghĩa là Android có thể trì hoãn cập nhật nền đến vài giờ.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Hiển thị giá của một cặp trong danh sách theo dõi.</string>
+    <string name="widget_empty">Chưa có cặp nào trong danh sách theo dõi.</string>
+    <string name="widget_opacity">Độ mờ nền: %1$d%%</string>
+    <string name="settings_section_about">Giới thiệu</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Giá lấy trực tiếp từ các sàn; không cần tài khoản và không theo dõi người dùng.</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">Token ngoài các sàn lớn, từ các sàn phi tập trung (Uniswap, PancakeSwap, Raydium …) qua DexScreener. Tìm token và thêm pool giao dịch của nó – giá tính bằng đô la Mỹ.</string>
+    <string name="dex_search_hint">Tên token, ký hiệu hoặc địa chỉ</string>
+    <string name="dex_search">Tìm kiếm</string>
+    <string name="dex_no_results">Không tìm thấy pool nào.</string>
+    <string name="dex_added">Đã thêm %1$s vào danh sách theo dõi.</string>
+    <string name="dex_already">%1$s đã có trong danh sách theo dõi.</string>
+    <string name="dex_liquidity">Thanh khoản %1$s</string>
+    <string name="dex_add">Thêm</string>
+    <string name="action_sort">Sắp xếp</string>
+    <string name="action_sort_done">Xong</string>
+    <string name="sort_move_top">Lên trên cùng</string>
+    <string name="sort_move_up">Lên</string>
+    <string name="sort_move_down">Xuống</string>
+    <string name="sort_move_bottom">Xuống dưới cùng</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">Thêm cả %1$d cặp vào danh sách theo dõi</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">Đã thêm %1$d, %2$d đã có trong danh sách theo dõi.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Thêm vào danh sách</string>
+    <string name="explorer_added_to_watchlist">Đã thêm vào danh sách theo dõi.</string>
+    <string name="explorer_already_in_watchlist">Cặp này đã có trong danh sách theo dõi.</string>
+    <string name="explorer_no_pair_selected">Hãy chọn một cặp trước.</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Cảnh báo. %1$s, %2$s %3$s %4$s, hiện tại %5$s</string>
+    <string name="tts_direction_up">đã tăng</string>
+    <string name="tts_direction_down">đã giảm</string>
+    <string name="watchlist_refresh_report">Lần làm mới gần nhất</string>
+    <string name="watchlist_refresh_report_empty">Chưa có chi tiết: phiên bản này chưa hoàn tất một lần làm mới đầy đủ. Nhấn làm mới và chờ đến khi biểu tượng tải dừng lại.</string>
+    <string name="action_close">Đóng</string>
+    <string name="watchlist_clear">Xóa danh sách theo dõi</string>
+    <string name="watchlist_clear_confirm">Xóa tất cả cặp khỏi danh sách theo dõi? Các cảnh báo của chúng cũng sẽ bị xóa.</string>
+    <string name="market_scores_hint">Đỉnh = dấu hiệu giống các đỉnh chu kỳ trước, đáy = dấu hiệu giống các đáy chu kỳ trước. Từ 4 điểm một bên chiếm ưu thế, từ 7 là cực độ. Không phải giá mục tiêu và không phải dự báo.</string>
+    <string name="market_scores_none">Không có dấu hiệu đỉnh hay đáy nào đang hoạt động: giai đoạn giữa yên ả, xu hướng giá quyết định.</string>
+    <string name="market_scores_info_title">Tín hiệu chu kỳ</string>
+    <string name="market_scores_info_text">Dấu hiệu có thể là đỉnh đếm các tín hiệu từng xuất hiện ở đỉnh các chu kỳ trước: định giá quá cao mạnh (MVRV), doanh thu thợ đào rất cao (Puell), giá cao hơn nhiều so với trung bình 200 ngày hoặc 200 tuần, tăng dạng parabol và khoảng 12–18 tháng sau halving.\n\nDấu hiệu có thể là đáy đếm các tín hiệu của các đáy trước: MVRV thấp, doanh thu thợ đào yếu, giảm mạnh từ đỉnh mọi thời đại, giá gần trung bình 200 tuần, hashrate giảm và đỉnh đã hơn một năm.\n\nDẫn trước 4 điểm thì vùng là Bull hoặc Bear, từ 7 là Cực độ. Nếu không bên nào dẫn, xu hướng giá quyết định. 0/10 cả hai bên nghĩa là: không hưng phấn, không đầu hàng.\n\nKhông phải giá mục tiêu và không phải dự báo: các tín hiệu chỉ mô tả các chu kỳ trước đã diễn ra thế nào.</string>
+    <string name="battery_open_settings">Mở cài đặt pin</string>
+    <string name="battery_steps">Trong thông tin ứng dụng, nhấn Pin (hoặc Mức sử dụng pin của ứng dụng) và chọn Không hạn chế.</string>
+    <string name="explorer_select_placeholder">Vui lòng chọn</string>
+    <string name="explorer_bulk_title">Nhiều cặp cùng lúc</string>
+    <string name="watchlist_sort_hint">Giữ và kéo một cặp, hoặc dùng tay cầm. Mục yêu thích luôn ở trên cùng.</string>
+    <string name="sort_drag_handle">Kéo để di chuyển</string>
+    <string name="explorer_step_pair">Chọn cặp</string>
+    <string name="theme_system">Hệ thống</string>
+    <string name="settings_section_developer">Nhà phát triển</string>
+    <string name="settings_http_log">Hiện nhật ký HTTP</string>
+    <string name="settings_http_log_hint">Hiển thị các yêu cầu tới sàn ở cuối thẻ “Thêm” – để gỡ lỗi.</string>
+    <string name="language_search">Tìm ngôn ngữ</string>
+    <string name="alarm_delete_title">Xóa cảnh báo?</string>
+    <string name="alarm_delete_confirm">Cảnh báo này sẽ bị xóa.</string>
+    <string name="alarms_overview_title">Tất cả cảnh báo</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">%1$d đang bật</item>
+    </plurals>
+    <string name="alarms_overview_empty">Chưa có cảnh báo. Mở một cặp và thêm trong mục Cảnh báo.</string>
+    <string name="action_more">Tùy chọn khác</string>
+    <string name="watchlist_last_run">Lần chạy gần nhất %1$s</string>
+    <string name="watchlist_pull_to_refresh">Kéo xuống để làm mới</string>
+    <string name="favorite_add">Thêm vào yêu thích</string>
+    <string name="favorite_remove">Bỏ khỏi yêu thích</string>
+    <string name="action_view">Xem</string>
+    <string name="explorer_loading_pairs">Đang tải các cặp…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d cặp · cập nhật %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">Thêm %1$d cặp?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">Tất cả %1$d cặp %2$s của %3$s sẽ được thêm vào danh sách. Cặp đã có sẽ được bỏ qua.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Chạm vào một cặp để chọn ở trên.</string>
+    <string name="loading_hint">Đang tải…</string>
+    <string name="explorer_select_market_hint">Chọn một sàn – các cặp sẽ tự động tải.</string>
+    <string name="explorer_precise_title">Chọn chính xác</string>
+    <string name="explorer_search_hint">Tìm coin, vd. BTC hoặc ETH USDT</string>
+    <string name="explorer_search_loading">Đang tìm trên các sàn… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Không có kết quả.</string>
+    <string name="action_clear">Xóa</string>
+    <string name="explorer_bulk_show_list">Hiện danh sách</string>
+    <string name="explorer_bulk_hide_list">Ẩn danh sách</string>
+    <string name="time_just_now">vừa xong</string>
+    <string name="welcome_title">Crypto Checker</string>
+    <string name="welcome_text">Giá của bạn. Cảnh báo của bạn. Tổng quan của bạn.\nKhông tài khoản. Không quảng cáo. Không theo dõi.</string>
+    <string name="welcome_later">Để sau</string>
+    <string name="developer_unlocked">Đã mở tùy chọn nhà phát triển</string>
+    <string name="hint_favorites_list">Mẹo: chạm ☆ để yêu thích – mục yêu thích luôn ở trên.</string>
+    <string name="tab_watchlist">Danh sách</string>
+    <string name="tab_markets">Thêm</string>
+    <string name="tab_market_phase">Thị trường</string>
+    <string name="tab_settings">Cài đặt</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%1$d/%2$d đã cũ</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Tất cả mới · %1$s</string>
+    <string name="explorer_price_loading">Đang tải giá…</string>
+    <string name="zone_top_risk">Rủi ro đỉnh</string>
+    <string name="zone_bottom_chance">Tạo đáy</string>
+    <string name="timeout_error_message">Sàn hiện không phản hồi.</string>
+    <string name="widget_background">Nền</string>
+    <string name="widget_configure_title">Thiết lập tiện ích</string>
+    <string name="widget_configure_hint">Chọn nền và độ mờ. Màu theo ứng dụng. Tiện ích hiển thị toàn bộ danh sách; chạm vào một dòng để mở ứng dụng.</string>
+    <string name="settings_custom_value">Tùy chỉnh</string>
+    <string name="insights_halving_title">Halving Bitcoin</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="other">Halving tiếp theo sau khoảng %1$d ngày (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% chu kỳ hiện tại</string>
+    <string name="insights_cycle_chart">Các chu kỳ kể từ halving</string>
+    <string name="insights_chart_axis">Năm kể từ halving</string>
+    <string name="insights_chart_hint">Giá theo bội số của giá ngày halving (thang log). Chu kỳ trước là khuôn mẫu, không phải dự báo.</string>
+    <string name="insights_source_history">Nguồn: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Sợ hãi &amp; Tham lam</string>
+    <string name="fng_extreme_fear">Cực kỳ sợ hãi</string>
+    <string name="fng_fear">Sợ hãi</string>
+    <string name="fng_neutral">Trung lập</string>
+    <string name="fng_greed">Tham lam</string>
+    <string name="fng_extreme_greed">Cực kỳ tham lam</string>
+    <string name="insights_fng_history">Hôm qua %1$s · một tuần trước %2$s · một tháng trước %3$s</string>
+    <string name="insights_source_fng">Nguồn: alternative.me</string>
+    <string name="insights_dominance_title">Tỷ lệ thống trị Bitcoin</string>
+    <string name="insights_altseason_title">Mùa altcoin</string>
+    <string name="altseason_alt">Mùa altcoin</string>
+    <string name="altseason_btc">Mùa Bitcoin</string>
+    <string name="altseason_mixed">Hỗn hợp</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="other">%1$d/%2$d altcoin lớn vượt Bitcoin trong 90 ngày</item>
+    </plurals>
+    <string name="insights_source_dominance">Nguồn: CoinGecko, Binance</string>
+    <string name="coin_title">Phân tích coin</string>
+    <string name="coin_choose">Coin</string>
+    <string name="coin_no_data">Không có dữ liệu giá cho coin này trên Binance hoặc Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">Chỉ có %1$d ngày lịch sử – thiếu một số chỉ báo.</item>
+    </plurals>
+    <string name="coin_price_only">Chỉ dựa trên giá – dữ liệu on-chain (MVRV, Puell, hashrate) chỉ miễn phí cho Bitcoin.</string>
+    <string name="ind_rsi_weekly">RSI (tuần)</string>
+    <string name="ind_rsi_daily">RSI (ngày)</string>
+    <string name="ind_pi_cycle">Pi cycle (111/350 ngày)</string>
+    <string name="ind_cross">Xu hướng 50/200 ngày</string>
+    <string name="ind_vs_btc">Sức mạnh so với Bitcoin (90 ngày)</string>
+    <string name="ind_missing">không đủ dữ liệu</string>
+    <string name="channel_market">Giai đoạn thị trường</string>
+    <string name="channel_market_description">Thông báo khi giai đoạn thị trường Bitcoin thay đổi</string>
+    <string name="notification_zone_title">Bitcoin: %1$s</string>
+    <string name="notification_zone_text">Giai đoạn thị trường đã đổi từ %1$s sang %2$s.</string>
+    <string name="settings_zone_alerts">Thông báo khi đổi giai đoạn</string>
+    <string name="settings_zone_alerts_hint">Kiểm tra hai lần mỗi ngày và thông báo khi Bitcoin đổi vùng, vd. từ Trung lập sang Bull.</string>
+    <string name="alarm_condition_move_percent">Biến động</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">trong %1$d giờ</item>
+    </plurals>
+    <string name="alarm_window_label">Khung thời gian</string>
+    <string name="tts_direction_move">biến động mạnh</string>
+    <string name="settings_fng_below">Fear &amp; Greed: báo khi dưới</string>
+    <string name="settings_fng_above">Fear &amp; Greed: báo khi trên</string>
+    <string name="option_off">Tắt</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">Chỉ số xuống dưới %1$d – thị trường sợ hãi.</string>
+    <string name="notification_fng_above">Chỉ số lên trên %1$d – thị trường tham lam.</string>
+    <string name="futures_title">Dữ liệu futures</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_next_funding">lần tới sau %1$d giờ %2$d phút</string>
+    <string name="futures_open_interest">Open interest</string>
+    <string name="futures_source">Nguồn: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – một coin</string>
+    <string name="single_widget_description">Hiển thị một coin lớn với giá, thay đổi và biểu đồ 24 giờ.</string>
+    <string name="single_widget_choose">Chọn cặp</string>
+    <string name="single_widget_title">Thiết lập tiện ích đơn</string>
+    <string name="shortcut_add">Thêm cặp</string>
+    <string name="shortcut_alarms">Tất cả cảnh báo</string>
+    <string name="shortcut_cycle">Thị trường</string>
+    <string name="backup_title">Sao lưu &amp; khôi phục</string>
+    <string name="backup_hint">Lưu danh sách kèm ghi chú và nhóm, cảnh báo, yêu thích, danh mục và cài đặt vào tệp do bạn giữ – vd. cho điện thoại mới.</string>
+    <string name="backup_export">Xuất</string>
+    <string name="backup_import">Nhập</string>
+    <string name="backup_restore_confirm">Nhập sẽ thay danh sách (kèm ghi chú và nhóm), cảnh báo, yêu thích, danh mục và cài đặt bằng bản sao lưu.</string>
+    <string name="backup_exported">Đã lưu bản sao lưu.</string>
+    <string name="backup_failed">Không thành công. Đây có phải bản sao lưu Crypto Checker?</string>
+    <string name="backup_restored">Đã khôi phục: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d cặp</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">%1$d cảnh báo</item>
+    </plurals>
+</resources>

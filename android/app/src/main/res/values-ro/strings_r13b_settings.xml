@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Alerte de piață</string>
+    <string name="settings_market_alerts_hint">Faza pieței, Fear &amp; Greed, taxe gas, activitate neobișnuită, date economice</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d activă</item>
+        <item quantity="few">%1$d active</item>
+        <item quantity="other">%1$d de active</item>
+    </plurals>
+    <string name="settings_tts_row_hint">Citește cu voce tare prețurile și alarmele</string>
+    <string name="settings_summary_on">Pornit</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker urmărește acum %1$s pentru tine. Când %1$s atinge limita ta, primești o notificare imediat ce aplicația verifică prețul. Cu aplicația închisă, asta se întâmplă la intervalul actualizării în fundal – mai târziu dacă optimizarea bateriei restricționează aplicația.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker urmărește acum %1$s pentru tine. Primești o notificare imediat ce aplicația verifică prețul. Cu aplicația închisă, iOS decide când se întâmplă asta – poate dura ceva timp. Cât timp aplicația este deschisă, prețurile sunt verificate la timp.</string>
+
+    <string name="about_request_exchange">Cere o bursă</string>
+    <string name="explorer_exchange_missing">Lipsește o bursă?</string>
+</resources>

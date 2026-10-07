@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Markkina tänään</string>
+    <string name="pulse_alts_stronger">Altcoinit Bitcoinia vahvempia</string>
+    <string name="pulse_alts_weaker">Bitcoin altcoineja vahvempi</string>
+    <string name="pulse_alts_even">Altcoinit ja Bitcoin liikkuvat samoin</string>
+    <string name="pulse_volume_high">Kaupankäyntivolyymi poikkeuksellisen suuri (%1$s× tavallinen)</string>
+    <string name="pulse_volume_low">Kaupankäyntivolyymi pieni (%1$s× tavallinen)</string>
+    <string name="pulse_volume_normal">Kaupankäyntivolyymi tavallinen</string>
+    <string name="pulse_funding_high">Funding selvästi positiivinen: paljon vipuvoimalla otettuja longeja</string>
+    <string name="pulse_funding_slight">Funding hieman positiivinen</string>
+    <string name="pulse_funding_neutral">Funding neutraali</string>
+    <string name="pulse_funding_negative">Funding negatiivinen: paljon shortteja</string>
+    <string name="pulse_gas_low">Ethereum-gas matala (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum-gas tavallinen (%1$s gwei)</string>
+    <string name="pulse_gas_high">Ethereum-gas korkea (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Ei ennustetta · Ei sijoitusneuvontaa</string>
+    <string name="pulse_less">Näytä vähemmän</string>
+    <string name="pulse_updated">Tilanne %1$s</string>
+    <string name="pulse_unavailable">Markkinatietoja ei ole juuri nyt saatavilla</string>
+    <string name="why_summary_title">Lyhyesti</string>
+    <string name="why_summary_market_volume">Liikettä seuraa suurempi kaupankäyntivolyymi ja laajasti liikkuva markkina.</string>
+    <string name="why_summary_market">Liike seuraa koko markkinaa.</string>
+    <string name="why_summary_coin_volume">Vain tämä kolikko liikkuu, suuremmalla volyymilla – todennäköisesti syy on kolikossa itsessään.</string>
+    <string name="why_summary_coin">Vain tämä kolikko liikkuu – todennäköisesti syy on kolikossa itsessään.</string>
+    <string name="why_summary_against">Kolikko liikkuu markkinaa vastaan.</string>
+    <string name="why_summary_thin">Liike on ohut: sen takana on vähän volyymia.</string>
+    <string name="why_summary_calm">Ei huomattavaa liikettä: markkina ja kolikko ovat rauhallisia.</string>
+    <string name="why_summary_longs">Futuurit: paljon vipuvoimalla otettuja long-positioita.</string>
+    <string name="why_summary_shorts">Futuurit: paljon short-positioita.</string>
+    <string name="why_dot_supports">tukee liikettä</string>
+    <string name="why_dot_caution">koholla</string>
+    <string name="why_dot_neutral">neutraali</string>
+    <string name="alarm_test">Testaa hälytys</string>
+    <string name="alarm_test_hint">Lähettää esimerkkihälytyksen äänen, värinän ja puheen asetuksillasi.</string>
+    <string name="alarm_test_title">Testi: Crypto Checkerin hälytys</string>
+    <string name="alarm_test_text">Tältä hälytys näyttää ja kuulostaa.</string>
+    <string name="alarm_test_quiet">Hiljaiset tunnit ovat nyt päällä: oikeat hälytykset tulisivat äänettömästi.</string>
+    <string name="alarm_test_denied">Ilmoitukset ovat pois päältä Crypto Checkerille.</string>
+    <string name="alarm_test_open_settings">Avaa asetukset</string>
+    <string name="alarm_first_title">Kaikki valmista</string>
+    <string name="welcome_watch">Seuraa – kolikkosi, kurssit, kaaviot ja widgetit</string>
+    <string name="welcome_alert">Hälytä – hinta, prosentti, volyymi ja epätavalliset liikkeet</string>
+    <string name="welcome_understand">Ymmärrä – miksi markkina liikkuu juuri nyt?</string>
+    <string name="welcome_start">Aloita</string>
+    <string name="portfolio_empty_example">Esimerkki: 0,01 BTC ostettu 1. maaliskuuta hintaan %1$s. Sovellus näyttää sitten arvon, keskiostohinnan ja voiton/tappion – tallennettu vain tälle laitteelle.</string>
+    <string name="about_why">Crypto Checker on Rich1en itsenäinen projekti: rauhallinen kurssinäkymä ilman tiliä, mainoksia tai seurantaa. Kysymykset ja toiveet: %1$s</string>
+    <string name="a11y_move_up">Siirrä ylös</string>
+    <string name="a11y_move_down">Siirrä alas</string>
+    <string name="a11y_in_watchlist">Jo seurantalistalla</string>
+    <string name="portfolio_export_today_hint">Tämä päivä ei ole vielä päättynyt: päivän päätöskurssin sijaan käytetään nykyistä kurssia.</string>
+    <string name="about_privacy_policy">Tietosuojaseloste</string>
+    <string name="widget_chart_type">Kaavion tyyppi</string>
+    <string name="widget_chart_line">Viiva</string>
+    <string name="widget_chart_candles">Kynttilät</string>
+    <string name="pair_added_watching">%1$s on nyt seurannassa</string>
+    <string name="market_cap_title">Kryptomarkkina</string>
+    <string name="market_cap_label">Markkina-arvo</string>
+    <string name="market_volume_label">Volyymi 24 h</string>
+    <string name="market_cap_source">Kaikki kolikot · CoinGecko</string>
+    <string name="market_data_empty_error">Pörssistä ei saatu tietoja.</string>
+    <string name="sync_pairs_count">Kaupankäyntiparit: %1$d</string>
+    <string name="market_unavailable_error">Pörssi ei ole käytettävissä</string>
+    <string name="refresh_report_aborted">Päivitys keskeytyi:</string>
+    <string name="refresh_report_wait">Odotus ennen alkua: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="one">Yhteensä %1$s · %2$d pari</item>
+        <item quantity="other">Yhteensä %1$s · %2$d paria</item>
+    </plurals>
+    <string name="refresh_report_network">Verkko %1$s</string>
+    <string name="refresh_report_database">Tietokanta %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="one">Hälytykset/ilmoitukset %1$s · ilmoituksia: %2$d</item>
+        <item quantity="other">Hälytykset/ilmoitukset %1$s · ilmoituksia: %2$d</item>
+    </plurals>
+    <string name="refresh_report_widgets">Widgetit %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="one">%1$s: %2$d pari, %3$s</item>
+        <item quantity="other">%1$s: %2$d paria, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="one">koontikysely %1$s (%2$d hinta)</item>
+        <item quantity="other">koontikysely %1$s (%2$d hintaa)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">koontikysely %1$s (epäonnistui)</string>
+    <string name="refresh_report_singles">erikseen: %1$d</string>
+    <string name="refresh_report_slowest">hitain %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">ei enää kaupankäynnissä: %1$d</item>
+        <item quantity="other">ei enää kaupankäynnissä: %1$d</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d virhe</item>
+        <item quantity="other">%1$d virhettä</item>
+    </plurals>
+    <string name="starter_add_selected">Lisää seurantalistaan (%1$d)</string>
+    <string name="starter_select_all">Valitse kaikki</string>
+    <string name="starter_select_none">Poista valinnat</string>
+    <string name="starter_loading_prices">Ladataan hintoja…</string>
+    <string name="watchlist_removed">%1$s poistettu</string>
+    <string name="action_undo">Kumoa</string>
+    <string name="favorite_added">%1$s lisätty suosikkeihin</string>
+    <string name="favorite_removed">%1$s poistettu suosikeista</string>
+    <string name="cycle_data_as_of">Tiedot klo %1$s · päivitetään…</string>
+    <string name="settings_conversion_currency_hint">Käytetään myös salkussa, omassa valuutassasi asetetuissa hälytyksissä, Kryptomarkkina-kortissa ja Salkku-widgetissä.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d nousee</item>
+        <item quantity="other">%1$d nousee</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d laskee</item>
+        <item quantity="other">%1$d laskee</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, keskimäärin %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pari nousee</item>
+        <item quantity="other">%1$d paria nousee</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d laskee</item>
+        <item quantity="other">%1$d laskee</item>
+    </plurals>
+    <string name="pulse_headline_up">Laaja vahvuus</string>
+    <string name="pulse_headline_down">Laaja heikkous</string>
+    <string name="pulse_headline_mixed">Vaihteleva kuva</string>
+    <string name="pulse_headline_calm">Rauhallinen markkina</string>
+    <string name="pulse_chip_funding_high">Funding koholla</string>
+    <string name="pulse_chip_funding_negative">Funding negatiivinen</string>
+    <string name="market_signal_top">Merkkejä huipusta %1$d/10</string>
+    <string name="market_signal_bottom">Merkkejä pohjasta %1$d/10</string>
+    <string name="market_section_now">Juuri nyt</string>
+    <string name="market_section_context">Taustaa</string>
+    <string name="market_section_data">Tiedot</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Blízko maxima</string>
+    <string name="alarm_condition_near_low">Blízko minima</string>
+    <string name="alarm_near_field_distance">Vzdálenost</string>
+    <string name="alarm_near_window_label">Období</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d den</item>
+        <item quantity="few">%1$d dny</item>
+        <item quantity="many">%1$d dní</item>
+        <item quantity="other">%1$d dní</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 rok</string>
+    <string name="alarm_near_hint">Upozorní také při novém maximu nebo minimu. Na základě denních svíček, obnovuje se každých 6 hodin.</string>
+    <string name="alarm_near_extreme_high_30">maxima za 30 dní</string>
+    <string name="alarm_near_extreme_high_90">maxima za 90 dní</string>
+    <string name="alarm_near_extreme_high_365">ročního maxima</string>
+    <string name="alarm_near_extreme_low_30">minima za 30 dní</string>
+    <string name="alarm_near_extreme_low_90">minima za 90 dní</string>
+    <string name="alarm_near_extreme_low_365">ročního minima</string>
+    <string name="alarm_sentence_near_high">Upozornit, až bude %1$s nejvýše %2$s pod hodnotou %3$s.</string>
+    <string name="alarm_sentence_near_low">Upozornit, až bude %1$s nejvýše %2$s nad hodnotou %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s je %2$s pod hodnotou %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s je %2$s nad hodnotou %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: nová hodnota %1$s – %3$s (dosud %4$s)</string>
+    <string name="tts_direction_near_high">je blízko maxima</string>
+    <string name="tts_direction_near_low">je blízko minima</string>
+</resources>

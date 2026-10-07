@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">価格の色</string>
+    <string name="price_colors_green_red">グリーン / レッド</string>
+    <string name="price_colors_blue_orange">ブルー / オレンジ</string>
+    <string name="settings_price_colors_hint">青 / オレンジは、あらゆる色覚特性（赤緑・青黄）で見分けやすい配色です。方向は常に + / − でも表示されます。</string>
+    <string name="settings_watchlist_sparkline">ウォッチリストにミニチャート</string>
+    <string name="settings_watchlist_sparkline_hint">価格の横に24時間の推移</string>
+
+    <string name="settings_price_colors_inverted">上昇・下落の色を入れ替える</string>
+    <string name="settings_price_colors_inverted_hint">中国、日本、韓国、台湾で一般的なように、上昇を赤、下落を緑で表示します。既定値は端末の地域によって決まります。</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">ハイコントラスト</string>
+    <string name="settings_high_contrast_hint">価格の色を濃くし、補足テキストを暗くします。システムがより高いコントラストを求めている場合もオンになります。</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s の %1$s</string>
+    <string name="a11y_price">価格 %1$s</string>
+    <string name="a11y_change_up">%1$s 上昇</string>
+    <string name="a11y_change_down">%1$s 下落</string>
+    <string name="a11y_change_flat">変化なし</string>
+    <string name="a11y_converted">約 %1$s</string>
+    <string name="a11y_note">メモ: %1$s</string>
+    <string name="a11y_alarm_count">アラーム: %1$d 件</string>
+    <string name="a11y_stale">古いデータ、最終更新 %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">チャート %1$s：開始 %2$s、終了 %3$s、%4$s。高値 %5$s、安値 %6$s。</string>
+    <string name="a11y_chart_empty">チャート：データなし</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">サイクル %1$s：半減期から %2$s、%3$d 日目。</string>
+    <string name="a11y_cycle_top">%2$d 日目に天井 %1$s。</string>
+    <string name="a11y_cycle_bottom">%2$d 日目に底 %1$s。</string>
+    <string name="a11y_cycle_double_top">%2$d 日目にダブルトップ %1$s。</string>
+    <string name="a11y_cycle_double_bottom">%2$d 日目にダブルボトム %1$s。</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s から %2$s までのスケール：100 中 %3$d</string>
+</resources>

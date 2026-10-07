@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Afișare</string>
+    <string name="widget_portfolio_display_conversion">Doar conversie</string>
+    <string name="widget_portfolio_display_conversion_usdt">Conversie + USDT</string>
+    <string name="widget_portfolio_display_hint">Rândul USDT este ascuns când moneda de conversie este USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ încă %1$d</item>
+        <item quantity="few">+ încă %1$d</item>
+        <item quantity="other">+ încă %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s din portofoliu</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s din portofoliu, azi %4$s</string>
+    <string name="a11y_portfolio_positions">Cele mai mari poziții: %1$s</string>
+</resources>

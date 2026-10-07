@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Notă</string>
+    <string name="note_add">Adaugă notă</string>
+    <string name="note_edit">Editează nota</string>
+    <string name="note_hint">ex. intrare la 0.42, țintă 0.60</string>
+    <string name="note_remove">Elimină</string>
+</resources>

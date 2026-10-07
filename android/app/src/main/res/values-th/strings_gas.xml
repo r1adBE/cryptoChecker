@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">ค่า Gas Ethereum ต่ำกว่า (gwei)</string>
+    <string name="settings_gas_btc_below">ค่าธรรมเนียม Bitcoin ต่ำกว่า (sat/vB)</string>
+    <string name="settings_gas_alert_hint">แจ้งหนึ่งครั้งเมื่อค่าธรรมเนียมปกติลดต่ำกว่าขีดจำกัด ตรวจสอบระหว่างอัปเดตราคา อย่างมากทุก 10 นาที</string>
+    <string name="notification_gas_eth_title">ค่า Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">ต่ำกว่าขีดจำกัดของคุณ %1$s gwei · การโอน ≈ %2$s</string>
+    <string name="notification_gas_btc_title">ค่าธรรมเนียม Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">ต่ำกว่าขีดจำกัดของคุณ %1$s sat/vB · การโอน ≈ %2$s</string>
+    <string name="gas_title">ค่าธรรมเนียมเครือข่าย</string>
+    <string name="gas_slow_fast">ช้า %1$s · เร็ว %2$s</string>
+    <string name="gas_alert_active">สัญญาณเตือน: %1$s</string>
+    <string name="gas_source">โหนด RPC สาธารณะและ mempool.space · ค่าใช้จ่ายของการโอนแบบง่าย ไม่รวมส่วน L1 บน L2</string>
+    <string name="gas_transfer_cost">การโอน ≈ %1$s</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tiefster Ton des Icon-Verlaufs (sichtbar nur am Rand beim Parallax-Effekt). -->
+    <color name="ic_launcher_bg_orange">#B9502E</color>
+    <color name="ic_launcher_bg_red">#B81F3A</color>
+    <color name="ic_launcher_bg_blue">#1F4CC0</color>
+    <color name="ic_launcher_bg_green">#11764C</color>
+</resources>

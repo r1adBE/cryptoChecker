@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Most éppen történik valami</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Szokatlan aktivitás</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Szokatlan mozgás: %1$s egy óra alatt (a szokásos %2$s×-e)</string>
+    <string name="activity_signal_volume">Forgalom a szokásos %1$s×-e az utolsó órában</string>
+    <string name="activity_signal_open_interest">Nyitott pozíciók %1$s %2$d perc alatt</string>
+    <string name="activity_signal_open_interest_no_time">Nyitott pozíciók %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s – sok tőkeáttételes long</string>
+    <string name="activity_signal_funding_short">Funding %1$s – sok short</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Szokatlan aktivitás jelzése</string>
+    <string name="settings_activity_alerts_hint">Páronként legfeljebb óránként egyszer: szokatlan ármozgások, forgalmi kiugrások és határidős szélsőértékek (adatok: Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Miért mozog?</string>
+    <string name="why_title">Miért mozog?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Automatikus értékelés piaci adatokból, nem befektetési tanácsadás.</string>
+    <string name="why_data_time">Adatok állapota: %1$s</string>
+    <string name="why_no_data">Nincs Binance-adat ehhez a párhoz</string>
+    <string name="why_no_data_hint">Az árfolyam, a forgalom és a volatilitás a Binance órás gyertyáiból származik.</string>
+
+    <string name="why_market_wide_text">Ez az érme: %1$s 24 óra alatt – a mozgatórugó valószínűleg a teljes piac, nem maga az érme.</string>
+    <string name="why_coin_only_text">%1$s 24 óra alatt, miközben a piac csendes: az ok valószínűleg magánál az érménél keresendő.</string>
+    <string name="why_against_market_text">Ez az érme %1$s, a BTC %2$s 24 óra alatt – feltűnően önálló mozgás.</string>
+    <string name="why_market_calm_text">Ez az érme: %1$s 24 óra alatt. Sem a piac, sem az érme nem mozog sokat.</string>
+    <string name="why_market_leader_text">Piacvezetőként a BTC általában magával húzza a piac többi részét. ETH: %1$s 24 óra alatt.</string>
+    <string name="why_market_leader_text_no_eth">Piacvezetőként a BTC általában magával húzza a piac többi részét.</string>
+
+    <string name="why_volume_high_text">Az utolsó órában a szokásosnál jóval több kereskedés zajlott – a mozgás széles körben támogatott.</string>
+    <string name="why_volume_low_text">A mozgás gyenge lábakon áll, és gyorsan megfordulhat.</string>
+    <string name="why_volume_normal_text">Az utolsó óra kereskedése megfelel az elmúlt 24 órának.</string>
+
+    <string name="why_leverage_longs_text">A longok fizetnek a shortoknak – nagyobb a likvidálások kockázata, ha az ár esik.</string>
+    <string name="why_leverage_shorts_text">A shortok fizetnek a longoknak – az emelkedő ár short squeeze-t válthat ki.</string>
+    <string name="why_leverage_balanced_text">A határidős piacon nincs long vagy short pozíciók halmozódása.</string>
+    <string name="why_open_interest_change">Nyitott pozíciók %1$s a legutóbbi ellenőrzés óta.</string>
+
+    <string name="why_volatility_high_text">Utolsó óra: %1$s – az elmúlt 24 óra jellemző óránkénti kilengéséhez mérve.</string>
+    <string name="why_volatility_normal_text">Utolsó óra: %1$s – a szokásos tartományon belül.</string>
+
+    <string name="why_sentiment_text">A teljes kriptopiac Félelem és kapzsiság indexe, %1$s a tegnapihoz képest.</string>
+    <string name="why_sentiment_text_no_change">A teljes kriptopiac Félelem és kapzsiság indexe.</string>
+</resources>

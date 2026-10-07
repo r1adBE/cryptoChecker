@@ -1,0 +1,10 @@
+Baru di 16.2.2
+• Crypto Pulse: apa yang terjadi di pasar saat ini
+• Aktivitas tidak biasa, Kenapa ini bergerak? kini dengan ringkasan
+• Uji alarm
+• Harga dan alarm dalam mata uang Anda
+• Ekspor tanggal acuan: nilai portofolio sebagai CSV
+• Aksesibel: biru/oranye, kontras tinggi, tukar warna, TalkBack
+• Mulai dengan satu ketukan, jam tenang, kunci, widget portofolio, alarm sebagai kalimat
+• 15 bursa baru, biaya jaringan dengan alarm gas
+• Grafik candle di widget, kapitalisasi pasar

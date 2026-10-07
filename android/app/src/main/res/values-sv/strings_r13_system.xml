@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Läser upp kurser och larm. Är tyst så länge enheten är på ljudlöst eller vibration.</string>
+</resources>

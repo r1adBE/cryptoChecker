@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Feste Farben der Widget-Vorschauen im Auswahlmenü (previewLayout, ab Android 12):
+     Standard-Palette der Widgets — dunkel, Akzent ORANGE, Kursfarben Grün/Rot, normaler
+     Kontrast, Deckkraft 90 % (Werte wie WidgetColors / PriceColorScheme / WidgetContrast).
+     Die Vorschau zeigt kein echtes Widget; ändert sich die Palette dort, hier nachziehen. -->
+<resources>
+    <!-- Grundfarbe #1F1F1F mit 90 % Deckkraft (WidgetColors.DEFAULT_OPACITY) -->
+    <color name="widget_preview_background">#E51F1F1F</color>
+    <color name="widget_preview_text">#FFE2E2E2</color>
+    <color name="widget_preview_text_secondary">#FFC6C6C6</color>
+    <color name="widget_preview_accent">#FFED835E</color>
+    <color name="widget_preview_on_accent">#FF410D00</color>
+    <color name="widget_preview_neutral">#FF919191</color>
+    <color name="widget_preview_up">#FF3DD68C</color>
+    <color name="widget_preview_down">#FFFF6B6B</color>
+    <!-- Trennlinie im Listen-Widget: Akzent mit 25 % (WidgetContrast.DIVIDER_ALPHA) -->
+    <color name="widget_preview_divider">#40ED835E</color>
+    <!-- «heute»-Pille: Kursfarbe steigend mit 14 % (WidgetUpdater.pill, dunkel) -->
+    <color name="widget_preview_pill_up">#233DD68C</color>
+    <!-- Chart: Raster 12 %, Preisstufen 20 % des Nebentexts, Kurslinie Akzent 70 % (WidgetChartRenderer) -->
+    <color name="widget_preview_grid">#1EC6C6C6</color>
+    <color name="widget_preview_level">#33C6C6C6</color>
+    <color name="widget_preview_price_line">#B2ED835E</color>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">روند ارزش</string>
+    <string name="portfolio_history_range_7d">۷ روز</string>
+    <string name="portfolio_history_range_30d">۳۰ روز</string>
+    <string name="portfolio_history_range_1y">۱ سال</string>
+    <string name="portfolio_history_period_7d">۷ روز</string>
+    <string name="portfolio_history_period_30d">۳۰ روز</string>
+    <string name="portfolio_history_period_1y">۱ سال</string>
+    <string name="portfolio_history_range_a11y">نمایش روند %1$s</string>
+    <string name="portfolio_history_change_a11y">ارزش در %1$s: %2$s، %3$s</string>
+    <string name="portfolio_history_today">امروز</string>
+    <string name="portfolio_history_converted">تبدیل‌شده با نرخ امروز</string>
+    <string name="portfolio_history_without">بدون %1$s (بدون قیمت روزانه)</string>
+    <string name="portfolio_history_includes_trades">شامل خرید و فروش‌های این بازه</string>
+    <string name="portfolio_history_too_short">روند پس از نخستین روز کامل شما آغاز می‌شود.</string>
+    <string name="portfolio_history_unavailable">اکنون روندی در دسترس نیست.</string>
+    <string name="portfolio_history_loading">در حال بارگیری روند ارزش</string>
+</resources>

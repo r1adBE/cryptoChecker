@@ -1,0 +1,33 @@
+Versión 16.2.2
+• Crypto Pulse: qué pasa ahora en el mercado
+• ¿Por qué se mueve? ahora con breve resumen
+• Probar alarma: sonido, vibración y voz
+• Precios convertidos: línea «≈ valor» en tu moneda (31 monedas como EUR, CHF, USD, GBP, JPY; por defecto, la de tu región)
+• Alarmas en tu moneda, p. ej. a 60.000 EUR en un par USDT
+• Exportación a fecha de corte: valor de tu cartera en cualquier fecha (p. ej. 31 de diciembre) en tu moneda, en CSV – práctico para la declaración de impuestos (no es asesoramiento fiscal)
+• Accesibilidad: azul/naranja se distinguen bien con cualquier deficiencia de visión del color (rojo-verde y azul-amarillo); «Intercambiar colores de subida/bajada»: rojo sube, verde baja, como en China, Japón, Corea y Taiwán (allí automático); «Alto contraste»: colores más intensos, texto secundario y acento más oscuros, sigue también el sistema; compatibilidad total con VoiceOver: cada fila, gráfico y widget se lee como una frase
+• Minigráfico de 24 h en cada fila
+• «Empieza con un toque»: la lista vacía ofrece las 5 mayores monedas por capitalización (sin stablecoins)
+• La lista inicial muestra el precio en directo y el cambio en 24 h – las cinco ya seleccionadas, se añaden con un botón
+• Desliza a la izquierda para eliminar (con Deshacer) y a la derecha para marcar como favorito
+• La pestaña Mercado se abre al instante con los últimos datos y se actualiza en segundo plano
+• Horas de silencio: de noche (p. ej. 23–7 h) las alarmas llegan sin sonido, vibración ni voz
+• Bloqueo de la app con Face ID, Touch ID o código
+• Widget de cartera para inicio y pantalla bloqueada: valor total en tu moneda y cambio de hoy
+• Cada alarma como frase: «Avísame cuando BTC baje por debajo de 60.000 CHF.»
+• Explicaciones breves de tasa de financiación, interés abierto, RSI y Pi Cycle
+• Las filas indican «desactualizado» o «no disponible» si el precio no está al día
+• 15 exchanges nuevos: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Comisiones de red de Ethereum, Base, Arbitrum, Polygon, BNB Chain y Bitcoin en la pestaña Mercado, con alarma de gas
+• Notas para cada moneda de tu lista
+• Elige un sonido de alarma
+• Actividad inusual: detecta movimientos de precio y volumen fuera de lo normal, con notificaciones opcionales
+• ¿Por qué se mueve? Una explicación basada en datos
+• Cartera en su propia pestaña: compras y ventas, precio medio, ganancias/pérdidas
+• Comparación de ciclos: máximos y mínimos marcados, incl. doble máximo y doble mínimo
+• Grupos para tu lista
+• Nuevas alarmas: movimiento del X % en Y horas y pico de volumen
+• Widget de una moneda: velas o línea, rango del gráfico 24 h, 7 días o 30 días, marcas de máximo, medio y mínimo, precio actual resaltado
+• Pestaña Mercado: capitalización total del mercado cripto y volumen 24 h en tu moneda
+• Futuros: funding rate y open interest
+• Cuatro colores de acento con iconos a juego

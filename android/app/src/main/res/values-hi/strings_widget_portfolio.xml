@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">दिखाएँ</string>
+    <string name="widget_portfolio_display_conversion">केवल रूपांतरण</string>
+    <string name="widget_portfolio_display_conversion_usdt">रूपांतरण + USDT</string>
+    <string name="widget_portfolio_display_hint">रूपांतरण मुद्रा USD होने पर USDT पंक्ति नहीं दिखती।</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d और</item>
+        <item quantity="other">+ %1$d और</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, पोर्टफोलियो का %3$s</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, पोर्टफोलियो का %3$s, आज %4$s</string>
+    <string name="a11y_portfolio_positions">सबसे बड़ी पोज़िशन: %1$s</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Grubu düzenle</string>
+    <string name="group_rename">Yeniden adlandır</string>
+    <string name="group_delete">Grubu sil</string>
+    <string name="group_delete_confirm">Pariteler izleme listenizde kalır.</string>
+    <string name="group_done">Bitti</string>
+    <string name="group_add">Yeni grup</string>
+    <string name="group_in_other">%1$s içinde</string>
+    <string name="group_target">Gruba</string>
+    <string name="group_search_hint">Parite ara</string>
+    <string name="group_next">İleri</string>
+</resources>

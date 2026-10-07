@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">القمة %1$s</string>
+    <string name="cycle_marker_high_so_far">أعلى سعر حتى الآن</string>
+    <string name="cycle_marker_bottom">القاع %1$s</string>
+    <string name="cycle_since_halving">%1$s منذ التنصيف</string>
+    <string name="cycle_from_top">%1$s من القمة</string>
+    <string name="cycle_marker_double_top">القمة المزدوجة %1$s</string>
+    <string name="cycle_marker_double_bottom">القاع المزدوج %1$s</string>
+</resources>

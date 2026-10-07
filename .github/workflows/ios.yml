@@ -1,0 +1,34 @@
+# Builds the iOS app (ios/) for the iOS Simulator without code signing.
+# Manual only (Actions -> iOS -> Run workflow): macOS runners are slow and the
+# project is developed against current Xcode releases, so a red badge on every
+# push would say little. Signing, archiving and uploading happen locally in Xcode.
+name: iOS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Build for iOS Simulator (no signing)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            | tail -n 200

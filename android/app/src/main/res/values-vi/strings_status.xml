@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Không có kết nối</string>
+    <string name="watchlist_offline_since">Không có kết nối · cập nhật %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d/%2$d không có giá</item>
+    </plurals>
+    <string name="watch_not_traded">Không còn giao dịch trên sàn này</string>
+</resources>

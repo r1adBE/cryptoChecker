@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum 가스 이하일 때 (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin 수수료 이하일 때 (sat/vB)</string>
+    <string name="settings_gas_alert_hint">일반 수수료가 한도 아래로 내려가면 한 번 알립니다. 시세 업데이트 때 최대 10분마다 확인합니다.</string>
+    <string name="notification_gas_eth_title">Ethereum 가스: %1$s gwei</string>
+    <string name="notification_gas_eth_text">설정한 한도 %1$s gwei 미만 · 전송 ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin 수수료: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">설정한 한도 %1$s sat/vB 미만 · 전송 ≈ %2$s</string>
+    <string name="gas_title">네트워크 수수료</string>
+    <string name="gas_slow_fast">느림 %1$s · 빠름 %2$s</string>
+    <string name="gas_alert_active">경보: %1$s</string>
+    <string name="gas_source">공개 RPC 노드 및 mempool.space · 단순 전송 비용, L2는 L1 몫 제외</string>
+    <string name="gas_transfer_cost">전송 ≈ %1$s</string>
+</resources>

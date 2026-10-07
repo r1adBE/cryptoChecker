@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vorschau im Widget-Auswahlmenü (widget_preview_portfolio): Wertverlauf wie
+     WidgetChartRenderer.drawValueLine (Linie mit schwacher Fläche, ohne Achsen), feste Beispieldaten. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="60dp"
+    android:viewportWidth="200"
+    android:viewportHeight="60">
+    <path
+        android:fillColor="@color/widget_preview_up"
+        android:fillAlpha="0.16"
+        android:pathData="M1.0,35.76 L6.08,40.74 L11.15,37.18 L16.23,47.55 L21.31,47.81 L26.38,58.0 L31.46,52.4 L36.54,51.03 L41.62,44.23 L46.69,46.19 L51.77,43.89 L56.85,44.82 L61.92,47.88 L67.0,46.77 L72.08,52.27 L77.15,53.52 L82.23,49.83 L87.31,49.14 L92.38,50.65 L97.46,39.93 L102.54,39.24 L107.62,41.58 L112.69,40.41 L117.77,42.45 L122.85,43.85 L127.92,45.08 L133.0,35.13 L138.08,34.61 L143.15,33.36 L148.23,29.77 L153.31,19.87 L158.38,20.5 L163.46,23.02 L168.54,10.96 L173.62,17.41 L178.69,18.72 L183.77,15.16 L188.85,4.0 L193.92,8.05 L199.0,19.05 L199.0,60 L1.0,60 z" />
+    <path
+        android:strokeColor="@color/widget_preview_up"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M1.0,35.76 L6.08,40.74 L11.15,37.18 L16.23,47.55 L21.31,47.81 L26.38,58.0 L31.46,52.4 L36.54,51.03 L41.62,44.23 L46.69,46.19 L51.77,43.89 L56.85,44.82 L61.92,47.88 L67.0,46.77 L72.08,52.27 L77.15,53.52 L82.23,49.83 L87.31,49.14 L92.38,50.65 L97.46,39.93 L102.54,39.24 L107.62,41.58 L112.69,40.41 L117.77,42.45 L122.85,43.85 L127.92,45.08 L133.0,35.13 L138.08,34.61 L143.15,33.36 L148.23,29.77 L153.31,19.87 L158.38,20.5 L163.46,23.02 L168.54,10.96 L173.62,17.41 L178.69,18.72 L183.77,15.16 L188.85,4.0 L193.92,8.05 L199.0,19.05" />
+</vector>

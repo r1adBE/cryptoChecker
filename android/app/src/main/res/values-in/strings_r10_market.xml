@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Menonjol hari ini</string>
+    <string name="unusual_nothing">Tidak ada yang menonjol hari ini</string>
+    <string name="unusual_fact_stronger">Bergerak jauh lebih kuat dari BTC</string>
+    <string name="unusual_fact_weaker">Bergerak jauh lebih lemah dari BTC</string>
+    <string name="unusual_fact_against">Bergerak melawan pasar</string>
+    <string name="unusual_fact_volume">Volume %1$s× biasanya</string>
+    <string name="unusual_fact_funding_high">Funding tinggi (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negatif (%1$s)</string>
+    <string name="unusual_source">Sekitar 30 koin terbesar tanpa stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Kenapa ini bergerak?</string>
+    <string name="unusual_action_add">Cari pasangan untuk ditambahkan</string>
+
+    <string name="macro_title">Data ekonomi</string>
+    <string name="macro_cpi">inflasi AS (CPI)</string>
+    <string name="macro_ppi">harga produsen AS (PPI)</string>
+    <string name="macro_nfp">laporan tenaga kerja AS</string>
+    <string name="macro_fomc">keputusan suku bunga The Fed</string>
+    <string name="macro_pce">inflasi PCE AS</string>
+    <string name="macro_hint_today">Hari ini %1$s: %2$s – pada hari seperti ini pasar sering bergejolak lebih kuat.</string>
+    <string name="macro_hint_tomorrow">Besok %1$s: %2$s – pada hari seperti ini pasar sering bergejolak lebih kuat.</string>
+    <string name="macro_hint_today_list">Hari ini: %1$s – pada hari seperti ini pasar sering bergejolak lebih kuat.</string>
+    <string name="macro_hint_tomorrow_list">Besok: %1$s – pada hari seperti ini pasar sering bergejolak lebih kuat.</string>
+    <string name="macro_hint_list">%1$s – pada hari seperti ini pasar sering bergejolak lebih kuat.</string>
+    <string name="macro_released_one">Dirilis hari ini pukul %1$s: %2$s.</string>
+    <string name="macro_released_list">Dirilis hari ini: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Hari ini %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Besok %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Kalender ekonomi</string>
+    <string name="settings_macro_notifications_hint">Pukul 08:00 pada hari dengan data ekonomi AS yang penting (inflasi, tenaga kerja, keputusan The Fed). Kalender diambil dari situs web aplikasi sekali sehari.</string>
+    <string name="notification_macro_title">Ada data ekonomi hari ini</string>
+</resources>

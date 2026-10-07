@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Lähellä huippua</string>
+    <string name="alarm_condition_near_low">Lähellä pohjaa</string>
+    <string name="alarm_near_field_distance">Etäisyys</string>
+    <string name="alarm_near_window_label">Jakso</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d päivä</item>
+        <item quantity="other">%1$d päivää</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 vuosi</string>
+    <string name="alarm_near_hint">Ilmoittaa myös, kun syntyy uusi huippu tai pohja. Perustuu päiväkynttilöihin, päivittyy 6 tunnin välein.</string>
+    <string name="alarm_near_extreme_high_30">30 päivän huippu</string>
+    <string name="alarm_near_extreme_high_90">90 päivän huippu</string>
+    <string name="alarm_near_extreme_high_365">vuoden huippu</string>
+    <string name="alarm_near_extreme_low_30">30 päivän pohja</string>
+    <string name="alarm_near_extreme_low_90">90 päivän pohja</string>
+    <string name="alarm_near_extreme_low_365">vuoden pohja</string>
+    <string name="alarm_sentence_near_high">Ilmoita, kun %1$s on enintään %2$s alempana kuin %3$s.</string>
+    <string name="alarm_sentence_near_low">Ilmoita, kun %1$s on enintään %2$s korkeammalla kuin %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s on %2$s alempana kuin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s on %2$s korkeammalla kuin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: uusi %1$s %3$s (aiempi %4$s)</string>
+    <string name="tts_direction_near_high">on lähellä huippua</string>
+    <string name="tts_direction_near_low">on lähellä pohjaa</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Touchez pour les actions · balayez pour les actions rapides · maintenez pour trier</string>
+    <string name="watch_action_alarm">Alerte</string>
+    <string name="watch_action_why">Pourquoi ?</string>
+    <string name="watch_action_favorite">Favori</string>
+    <string name="add_alarm_action">Créer une alerte</string>
+    <string name="welcome_watch_q">Que se passe-t-il ?</string>
+    <string name="welcome_alert_q">Quand agir ?</string>
+    <string name="welcome_understand_q">Pourquoi ?</string>
+</resources>

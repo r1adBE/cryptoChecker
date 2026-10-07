@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">मूल्य इतिहास</string>
+    <string name="portfolio_history_range_7d">7 दिन</string>
+    <string name="portfolio_history_range_30d">30 दिन</string>
+    <string name="portfolio_history_range_1y">1 साल</string>
+    <string name="portfolio_history_period_7d">7 दिन</string>
+    <string name="portfolio_history_period_30d">30 दिन</string>
+    <string name="portfolio_history_period_1y">1 साल</string>
+    <string name="portfolio_history_range_a11y">%1$s का इतिहास दिखाएँ</string>
+    <string name="portfolio_history_change_a11y">%1$s में मूल्य: %2$s, %3$s</string>
+    <string name="portfolio_history_today">आज</string>
+    <string name="portfolio_history_converted">आज के रेट पर बदला गया</string>
+    <string name="portfolio_history_without">%1$s के बिना (दैनिक भाव नहीं)</string>
+    <string name="portfolio_history_includes_trades">इस अवधि की ख़रीद और बिक्री शामिल है</string>
+    <string name="portfolio_history_too_short">इतिहास आपके पहले पूरे दिन के बाद शुरू होता है।</string>
+    <string name="portfolio_history_unavailable">अभी कोई इतिहास उपलब्ध नहीं।</string>
+    <string name="portfolio_history_loading">मूल्य इतिहास लोड हो रहा है</string>
+</resources>

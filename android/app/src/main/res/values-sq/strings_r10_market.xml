@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Bie në sy sot</string>
+    <string name="unusual_nothing">Asgjë e pazakontë sot</string>
+    <string name="unusual_fact_stronger">Lëviz shumë më fort se BTC</string>
+    <string name="unusual_fact_weaker">Lëviz shumë më dobët se BTC</string>
+    <string name="unusual_fact_against">Lëviz kundër tregut</string>
+    <string name="unusual_fact_volume">Vëllimi %1$s× sa zakonisht</string>
+    <string name="unusual_fact_funding_high">Funding i lartë (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_source">Rreth 30 monedhat më të mëdha pa stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Pse po lëviz?</string>
+    <string name="unusual_action_add">Gjej çift për ta shtuar</string>
+
+    <string name="macro_title">Të dhëna ekonomike</string>
+    <string name="macro_cpi">inflacioni në SHBA (CPI)</string>
+    <string name="macro_ppi">çmimet e prodhuesit në SHBA (PPI)</string>
+    <string name="macro_nfp">raporti i punësimit në SHBA</string>
+    <string name="macro_fomc">vendimi i Fed-it për normat e interesit</string>
+    <string name="macro_pce">inflacioni PCE në SHBA</string>
+    <string name="macro_hint_today">Sot %1$s: %2$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_tomorrow">Nesër %1$s: %2$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_today_list">Sot: %1$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_tomorrow_list">Nesër: %1$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_list">%1$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_released_one">Publikuar sot në %1$s: %2$s.</string>
+    <string name="macro_released_list">Publikuar sot: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Sot %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Nesër %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Kalendari ekonomik</string>
+    <string name="settings_macro_notifications_hint">Në 08:00 në ditët me të dhëna të rëndësishme ekonomike të SHBA-së (inflacioni, punësimi, vendimi i Fed-it). Kalendari vjen nga faqja e internetit e aplikacionit dhe ngarkohet një herë në ditë.</string>
+    <string name="notification_macro_title">Të dhëna ekonomike sot</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">เสียงสัญญาณเตือน</string>
+    <string name="settings_alarm_sound_default">เสียงเริ่มต้น</string>
+    <string name="settings_alarm_sound_custom">เสียงที่กำหนดเอง</string>
+    <string name="settings_alarm_sound_system">เลือกเสียงระบบ…</string>
+    <string name="settings_alarm_sound_file">ไฟล์เสียงของคุณเอง…</string>
+    <string name="settings_alarm_sound_reset">ใช้เสียงเริ่มต้น</string>
+    <string name="settings_alarm_sound_error">ไม่สามารถใช้เสียงนี้ได้</string>
+</resources>

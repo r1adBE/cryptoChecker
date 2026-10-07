@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Not</string>
+    <string name="note_add">Not ekle</string>
+    <string name="note_edit">Notu düzenle</string>
+    <string name="note_hint">örn. giriş 0.42, hedef 0.60</string>
+    <string name="note_remove">Kaldır</string>
+</resources>

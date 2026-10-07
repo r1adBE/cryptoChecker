@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Diễn biến giá trị</string>
+    <string name="portfolio_history_range_7d">7 ngày</string>
+    <string name="portfolio_history_range_30d">30 ngày</string>
+    <string name="portfolio_history_range_1y">1 năm</string>
+    <string name="portfolio_history_period_7d">7 ngày</string>
+    <string name="portfolio_history_period_30d">30 ngày</string>
+    <string name="portfolio_history_period_1y">1 năm</string>
+    <string name="portfolio_history_range_a11y">Xem diễn biến %1$s</string>
+    <string name="portfolio_history_change_a11y">Giá trị trong %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Hôm nay</string>
+    <string name="portfolio_history_converted">Quy đổi theo tỷ giá hôm nay</string>
+    <string name="portfolio_history_without">Không gồm %1$s (không có giá ngày)</string>
+    <string name="portfolio_history_includes_trades">Bao gồm các lệnh mua và bán trong kỳ này</string>
+    <string name="portfolio_history_too_short">Diễn biến bắt đầu sau ngày trọn vẹn đầu tiên của bạn.</string>
+    <string name="portfolio_history_unavailable">Hiện chưa có diễn biến.</string>
+    <string name="portfolio_history_loading">Đang tải diễn biến giá trị</string>
+</resources>

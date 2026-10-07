@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">เริ่มต้นด้วยการแตะครั้งเดียว</string>
+    <string name="starter_text">เลือกเหรียญแล้วเพิ่มได้ในครั้งเดียว คุณเปลี่ยนกระดานเทรดและคู่เหรียญได้ภายหลัง</string>
+    <string name="starter_custom">เลือกกระดานเทรดและคู่เหรียญ</string>
+    <string name="settings_quiet_hours">ช่วงเวลาเงียบ</string>
+    <string name="settings_quiet_hours_hint">ระหว่าง %1$s ถึง %2$s สัญญาณเตือนจะมาแบบเงียบ: ไม่มีเสียง ไม่สั่น และไม่อ่านออกเสียง</string>
+    <string name="settings_quiet_hours_from">ตั้งแต่</string>
+    <string name="settings_quiet_hours_to">ถึง</string>
+    <string name="channel_alarms_quiet">สัญญาณเตือน (ช่วงเวลาเงียบ)</string>
+    <string name="channel_alarms_quiet_description">สัญญาณเตือนแบบเงียบระหว่างช่วงเวลาเงียบ</string>
+    <string name="settings_app_lock">ล็อกแอป</string>
+    <string name="settings_app_lock_hint">ปลดล็อกด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของอุปกรณ์ เมื่อแอปอยู่เบื้องหลังนานกว่าหนึ่งนาที</string>
+    <string name="app_lock_title">Crypto Checker ถูกล็อก</string>
+    <string name="app_lock_unlock">ปลดล็อก</string>
+    <string name="app_lock_reason">ปลดล็อก Crypto Checker</string>
+    <string name="app_lock_unavailable">อุปกรณ์นี้ยังไม่ได้ตั้งค่าการล็อกหน้าจอ โปรดตั้งค่าในการตั้งค่าระบบก่อน</string>
+    <string name="widget_portfolio_name">พอร์ตโฟลิโอ</string>
+    <string name="widget_portfolio_description">มูลค่ารวมของพอร์ตโฟลิโอและการเปลี่ยนแปลงวันนี้</string>
+    <string name="widget_portfolio_today">วันนี้ %1$s</string>
+    <string name="widget_portfolio_empty">เพิ่มรายการซื้อในแท็บพอร์ตโฟลิโอ</string>
+    <string name="widget_portfolio_locked">ซ่อนอยู่ – เปิดล็อกแอปอยู่</string>
+    <string name="a11y_portfolio_widget">พอร์ตโฟลิโอ %1$s วันนี้ %2$s</string>
+    <string name="settings_section_advanced">ขั้นสูง</string>
+    <string name="settings_advanced_hint">โหมดสด การแจ้งเตือนถาวร ฟิวเจอร์ส และตัวเลือกนักพัฒนา</string>
+    <string name="explain_funding">ค่าธรรมเนียมระหว่างสถานะ long และ short ค่าบวกสูงหมายความว่าหลายคนเดิมพันว่าราคาจะขึ้น</string>
+    <string name="explain_open_interest">มูลค่าของสถานะฟิวเจอร์สที่เปิดอยู่ทั้งหมด หากเพิ่มขึ้น แปลว่ามีเงินเดิมพันกับการเคลื่อนไหวนี้มากขึ้น</string>
+    <string name="explain_rsi">ดัชนีกำลังสัมพัทธ์ 0–100 สูงกว่า 70 มักร้อนแรงเกินไป ต่ำกว่า 30 มักถูกขายมากเกินไป</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">คำอธิบาย</string>
+    <string name="explain_pi_cycle">เปรียบเทียบค่าเฉลี่ย 111 วันกับสองเท่าของค่าเฉลี่ย 350 วัน การตัดกันเคยบ่งชี้จุดสูงสุดของรอบก่อน ๆ</string>
+    <string name="alarm_sentence_above">แจ้งฉันเมื่อ %1$s ขึ้นเหนือ %2$s</string>
+    <string name="alarm_sentence_below">แจ้งฉันเมื่อ %1$s ลงต่ำกว่า %2$s</string>
+    <string name="alarm_sentence_up_percent">แจ้งฉันเมื่อ %1$s ขึ้น %2$s</string>
+    <string name="alarm_sentence_down_percent">แจ้งฉันเมื่อ %1$s ลง %2$s</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">แจ้งฉันเมื่อ %1$s เคลื่อนไหว %2$s ภายใน %3$d ชั่วโมง</item>
+    </plurals>
+    <string name="alarm_sentence_volume">แจ้งฉันเมื่อปริมาณซื้อขาย %1$s สูงถึง %2$s เท่าของปกติ</string>
+    <string name="alarm_sentence_incomplete">ป้อนค่าเพื่อดูสัญญาณเตือนเป็นประโยค</string>
+    <string name="watchlist_row_unreachable">%1$s · เชื่อมต่อ %2$s ไม่ได้</string>
+    <string name="watchlist_row_outdated">%1$s · ข้อมูลเก่า</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Volumen-Spike-Alarm -->
+    <string name="alarm_condition_volume_spike">Pico de volumen</string>
+    <string name="alarm_volume_factor_label">Volumen de la última hora frente a lo normal</string>
+    <string name="alarm_volume_hint">Los datos de volumen vienen de Binance: los pares que no cotizan allí nunca se activan.</string>
+    <string name="notification_volume_spike_text">Volumen %1$s× lo normal en la última hora</string>
+    <string name="tts_direction_volume_spike">con un pico de volumen</string>
+
+    <!-- Einzel-Widget: Chart-Zeitraum -->
+    <string name="widget_chart_range">Rango del gráfico</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_7d">7 días</string>
+    <string name="widget_range_30d">30 días</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_7d">7D</string>
+    <string name="widget_range_short_30d">30D</string>
+</resources>

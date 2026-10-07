@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">güncel değil</string>
+    <string name="widget_outdated_time">güncel değil · %1$s</string>
+
+    <string name="settings_widgets">Widget\'lar</string>
+    <string name="settings_widgets_hint">Fiyatları ana ekrana ekleyin</string>
+    <string name="widgets_sheet_title">Widget ekle</string>
+    <string name="widget_kind_single">Tek coin</string>
+    <string name="widgets_add">Ekle</string>
+    <string name="widgets_add_named">Widget ekle: %1$s</string>
+    <string name="watch_action_add_widget">Widget olarak ekle</string>
+    <string name="widgets_manual_title">Widget\'ı kendiniz ekleyin</string>
+    <string name="widgets_manual_text">Ana ekranınız uygulamadan widget ekleyemiyor. Ana ekranda boş bir yere dokunup basılı tutun, “Widget\'lar” seçeneğini seçin ve “Crypto Checker” uygulamasını arayın.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS, uygulamaların kendi başına widget eklemesine izin vermiyor. Sadece bir dakikanızı alır:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Uygulamalar kıpırdamaya başlayana kadar Ana Ekran\'da boş bir yere dokunup basılı tutun.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Üstte “Düzenle” › “Widget Ekle” seçeneğine dokunun (eski iOS sürümlerinde “+” düğmesine).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” için arama yapın, bir widget seçin ve “Widget Ekle” düğmesine dokunun.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Kullanılabilir widget\'lar</string>
+</resources>

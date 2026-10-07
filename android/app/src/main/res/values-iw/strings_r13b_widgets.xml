@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">לא עדכני</string>
+    <string name="widget_outdated_time">לא עדכני · %1$s</string>
+
+    <string name="settings_widgets">ווידג׳טים</string>
+    <string name="settings_widgets_hint">הוספת מחירים למסך הבית</string>
+    <string name="widgets_sheet_title">הוספת ווידג׳ט</string>
+    <string name="widget_kind_single">מטבע אחד</string>
+    <string name="widgets_add">הוסף</string>
+    <string name="widgets_add_named">הוסף ווידג׳ט %1$s</string>
+    <string name="watch_action_add_widget">הוסף כווידג׳ט</string>
+    <string name="widgets_manual_title">הוסיפו את הווידג׳ט בעצמכם</string>
+    <string name="widgets_manual_text">מסך הבית שלכם לא יכול להוסיף ווידג׳טים מתוך האפליקציה. לחצו לחיצה ארוכה על מקום ריק במסך הבית, בחרו ״ווידג׳טים״ וחפשו ״Crypto Checker״.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">ב־iOS אפליקציות לא יכולות להוסיף ווידג׳טים בעצמן. זה לוקח רק רגע:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">לחצו לחיצה ארוכה על מקום ריק במסך הבית עד שהאפליקציות מתחילות לרעוד.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">הקישו למעלה על ״עריכה״ › ״הוספת וידג׳ט״ (או על ״+״ בגרסאות iOS ישנות יותר).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">חפשו ״Crypto Checker״, בחרו ווידג׳ט והקישו על ״הוספת וידג׳ט״.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ווידג׳טים זמינים</string>
+</resources>

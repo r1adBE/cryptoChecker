@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">基準日エクスポート…</string>
+    <string name="portfolio_export_title">基準日エクスポート</string>
+    <string name="portfolio_export_date">基準日</string>
+    <string name="portfolio_export_currency">通貨：%1$s</string>
+    <string name="portfolio_export_hint">選択した日の終了時点の保有量。USDT建ての日次終値（UTC）で評価し、その日のECB参照レートで換算します。通貨は「換算通貨」で変更できます。</string>
+    <string name="portfolio_export_button">CSVをエクスポート</string>
+    <string name="portfolio_export_running">過去の価格を取得中…</string>
+    <string name="portfolio_export_done">エクスポートを保存しました</string>
+    <string name="portfolio_export_failed">エクスポートに失敗しました</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># 基準日 %1$s、通貨 %2$s、為替レート %3$s 時点</string>
+    <string name="portfolio_export_col_coin">コイン</string>
+    <string name="portfolio_export_col_amount">数量</string>
+    <string name="portfolio_export_col_price">価格 USDT</string>
+    <string name="portfolio_export_col_value">評価額 USDT</string>
+    <string name="portfolio_export_col_rate">レート USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">評価額 %1$s</string>
+    <string name="portfolio_export_col_note">メモ</string>
+    <string name="portfolio_export_total">合計</string>
+    <string name="portfolio_export_no_price">価格なし</string>
+    <string name="portfolio_export_no_fx">為替レートなし</string>
+    <string name="portfolio_export_incomplete">不完全</string>
+</resources>

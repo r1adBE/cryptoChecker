@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Coś się właśnie dzieje</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Nietypowa aktywność</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Nietypowy ruch: %1$s w godzinę (%2$s× normy)</string>
+    <string name="activity_signal_volume">Wolumen %1$s× normy w ostatniej godzinie</string>
+    <string name="activity_signal_open_interest">Otwarte pozycje %1$s w ciągu %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Otwarte pozycje %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — wiele lewarowanych longów</string>
+    <string name="activity_signal_funding_short">Funding %1$s — wiele shortów</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Zgłaszaj nietypową aktywność</string>
+    <string name="settings_activity_alerts_hint">Najwyżej raz na godzinę dla każdej pary: nietypowe ruchy cen, skoki wolumenu i ekstrema na kontraktach (dane z Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Dlaczego to się rusza?</string>
+    <string name="why_title">Dlaczego to się rusza?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Automatyczna ocena na podstawie danych rynkowych, nie porada inwestycyjna.</string>
+    <string name="why_data_time">Dane z %1$s</string>
+    <string name="why_no_data">Brak danych z Binance dla tej pary</string>
+    <string name="why_no_data_hint">Cena, wolumen i zmienność pochodzą z godzinnych świec Binance.</string>
+
+    <string name="why_market_wide_text">Ta moneta: %1$s w 24 h — siłą napędową jest raczej cały rynek niż sama moneta.</string>
+    <string name="why_coin_only_text">%1$s w 24 h, choć rynek jest spokojny: przyczyna leży raczej w samej monecie.</string>
+    <string name="why_against_market_text">Ta moneta %1$s, BTC %2$s w 24 h — wyraźnie samodzielny ruch.</string>
+    <string name="why_market_calm_text">Ta moneta: %1$s w 24 h. Ani rynek, ani moneta mocno się nie ruszają.</string>
+    <string name="why_market_leader_text">Jako lider rynku BTC zwykle pociąga za sobą resztę rynku. ETH: %1$s w 24 h.</string>
+    <string name="why_market_leader_text_no_eth">Jako lider rynku BTC zwykle pociąga za sobą resztę rynku.</string>
+
+    <string name="why_volume_high_text">W ostatniej godzinie handel był znacznie większy niż zwykle — ruch ma szerokie poparcie.</string>
+    <string name="why_volume_low_text">Ruch jest słaby i może się szybko odwrócić.</string>
+    <string name="why_volume_normal_text">Handel w ostatniej godzinie odpowiada ostatnim 24 godzinom.</string>
+
+    <string name="why_leverage_longs_text">Longi płacą shortom — większe ryzyko likwidacji, jeśli cena spadnie.</string>
+    <string name="why_leverage_shorts_text">Shorty płacą longom — rosnąca cena może wywołać short squeeze.</string>
+    <string name="why_leverage_balanced_text">Brak nagromadzenia pozycji long ani short na rynku kontraktów.</string>
+    <string name="why_open_interest_change">Otwarte pozycje %1$s od ostatniego sprawdzenia.</string>
+
+    <string name="why_volatility_high_text">Ostatnia godzina: %1$s — w odniesieniu do typowego godzinowego wahania z ostatnich 24 godzin.</string>
+    <string name="why_volatility_normal_text">Ostatnia godzina: %1$s — w zwykłym zakresie.</string>
+
+    <string name="why_sentiment_text">Indeks Strach i chciwość całego rynku krypto, %1$s względem wczoraj.</string>
+    <string name="why_sentiment_text_no_change">Indeks Strach i chciwość całego rynku krypto.</string>
+</resources>

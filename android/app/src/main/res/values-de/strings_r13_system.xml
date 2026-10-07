@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 13: Sprachausgabe schweigt im Lautlos-/Vibrationsmodus (ersetzt settings_tts_hint in den Einstellungen) -->
+    <string name="settings_tts_hint_silent">Liest Kurse und Alarme vor. Schweigt, solange das Gerät lautlos oder auf Vibration gestellt ist.</string>
+</resources>

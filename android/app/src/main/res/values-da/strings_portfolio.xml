@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Beholdning</string>
+    <string name="portfolio_invalid">Ugyldig mængde</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Gruppe</string>
+    <string name="group_value">Gruppe: %1$s</string>
+    <string name="group_all">Alle</string>
+    <string name="group_none">Ingen gruppe</string>
+    <string name="group_new">Ny gruppe…</string>
+    <string name="group_name">Gruppens navn</string>
+    <string name="widget_group_hint">Vis kun parrene i denne gruppe.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portefølje</string>
+    <string name="portfolio_setting_hint">Valgfrit: registrér køb og salg og se værdi og gevinst/tab i en separat fane.</string>
+    <string name="portfolio_total_value">Samlet værdi</string>
+    <string name="portfolio_invested">Investeret</string>
+    <string name="portfolio_unrealized">Gevinst/tab, endnu ikke solgt</string>
+    <string name="portfolio_realized">Gevinst/tab, solgt</string>
+    <string name="portfolio_value">Værdi</string>
+    <string name="portfolio_avg_price">Gns. købspris</string>
+    <string name="portfolio_current_price">Aktuel kurs</string>
+    <string name="portfolio_avg_and_now">Gns. %1$s · nu %2$s</string>
+    <string name="portfolio_updated">Kurser fra %1$s</string>
+    <string name="portfolio_convert_to">Omregn til</string>
+    <string name="portfolio_convert_to_value">Omregn til: %1$s</string>
+    <string name="portfolio_price_missing">Pris mangler</string>
+    <string name="portfolio_price_missing_hint">Nogle køb har ingen pris. Tilføj købsprisen for at se gevinst/tab.</string>
+    <string name="portfolio_current_missing">Ingen aktuel kurs for %1$s</string>
+    <string name="portfolio_oversold">Salg overstiger beholdningen – kontrollér transaktionerne.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Lukket position (%1$d)</item>
+        <item quantity="other">Lukkede positioner (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transaktioner</string>
+    <string name="portfolio_add_tx">Registrér køb/salg</string>
+    <string name="portfolio_edit_tx">Redigér transaktion</string>
+    <string name="portfolio_buy">Køb</string>
+    <string name="portfolio_sell">Salg</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Søg symbol, f.eks. BTC</string>
+    <string name="portfolio_coin_invalid">Indtast et symbol</string>
+    <string name="portfolio_tx_amount">Antal</string>
+    <string name="portfolio_tx_price">Pris pr. coin</string>
+    <string name="portfolio_tx_price_hint">I USDT. Lad stå tomt, hvis ukendt.</string>
+    <string name="portfolio_tx_price_invalid">Ugyldig pris</string>
+    <string name="portfolio_tx_date">Dato</string>
+    <string name="portfolio_tx_note">Note (valgfri)</string>
+    <string name="portfolio_tx_total">I alt: %1$s</string>
+    <string name="portfolio_sell_exceeds">Mere end din beholdning (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Slet transaktion?</string>
+    <string name="portfolio_tx_delete_confirm">Denne transaktion fjernes fra porteføljen.</string>
+    <string name="portfolio_empty_title">Ingen transaktioner endnu</string>
+    <string name="portfolio_empty_text">Registrér dine køb og salg. Værdi og gevinst/tab beregnes med aktuelle kurser i USDT.</string>
+    <string name="portfolio_empty_action">Registrér første køb</string>
+    <string name="portfolio_disclaimer">Gemmes kun på denne enhed. Ikke investeringsrådgivning.</string>
+    <string name="portfolio_add_from_watch">Føj til portefølje</string>
+</resources>

@@ -1,0 +1,61 @@
+Urmărește prețurile cripto fără să deschizi mereu aplicațiile burselor. Setează alarme, observă mișcările neobișnuite și înțelege în câteva secunde de ce se mișcă o monedă.
+
+Urmărește – prețuri direct de la bursă, în moneda ta
+Alertează – preț, %, mișcări și volum, ca o propoziție simplă
+Înțelege – „De ce se mișcă?” cu un scurt rezumat
+Privire de ansamblu – Crypto Pulse, Fear & Greed, ciclu, portofoliu
+
+Lizibil pentru toți: culori de preț verde/roșu sau albastru/portocaliu, inversabile la cerere, contrast ridicat, semn și săgeată, nu doar culoare, iar TalkBack citește fiecare rând ca o propoziție.
+
+O LISTĂ PENTRU 32 DE BURSE
+• Spot și futures de la Binance, Coinbase, Kraken, OKX, Bybit și multe altele
+• Tokenuri DEX prin DexScreener
+• Organizează perechile în grupuri, marchează favoritele, reordonează prin tragere
+• O notă pentru fiecare monedă, de ex. prețul tău de intrare
+• Rând „≈ valoare” în moneda ta: 31 de monede (EUR, CHF, USD, GBP, JPY…), implicit după regiune
+• Minigrafic 24 h pe fiecare rând
+• Portofoliu în filă proprie: cumpărări și vânzări, preț mediu, profit/pierdere și valoare totală în CHF sau în moneda ta
+• Export la data de referință: valoarea portofoliului la orice dată (de ex. 31.12) în moneda ta, ca CSV – util pentru taxe, nu e consultanță fiscală
+
+ALARME POTRIVITE STRATEGIEI TALE
+• Preț peste sau sub un prag, creștere sau scădere cu un procent
+• Alarme în moneda ta, de ex. la 60.000 EUR pe o pereche USDT
+• Alarmă ca propoziție: „Anunță-mă când BTC coboară sub 60.000 CHF.”
+• Mișcare de x % într-un interval de timp, de ex. 5 % într-o oră
+• Salt de volum: volumul tranzacțiilor brusc mult peste medie
+• O singură dată sau repetat, cu sunet, vibrație și anunț vocal opțional
+• Propriul sunet de alarmă: sunet de sistem sau propriul fișier audio
+• Un timp de pauză reglabil previne avalanșa de alarme
+• Ore de liniște: noaptea (de ex. 23–7) alarme fără sunet, vibrație sau voce
+• „Testează alarma”: auzi și simți dinainte cum sosește o alarmă
+
+ACTIVITATE NEOBIȘNUITĂ ȘI DE CE SE MIȘCĂ?
+• Activitate neobișnuită detectează mișcări de preț și volum ieșite din comun în lista ta
+• „De ce se mișcă?” explică o mișcare prin volum, piața generală și datele futures, cu un scurt rezumat – fără consultanță de investiții
+
+PRIVIRE DE ANSAMBLU ASUPRA PIEȚEI
+• Crypto Pulse: ce se întâmplă acum? BTC, ETH, SOL, altcoins față de BTC, volum, Fear & Greed, funding, gas ETH și un rezumat într-o frază, fără prognoză
+• Indicele Fear & Greed cu istoric și notificare opțională
+• Piața cripto: capitalizarea totală și volumul pe 24 h în moneda ta
+• Fila Piață: faza pieței cu semne ale unui posibil vârf sau minim (fără prognoză), numărătoare până la halving, comparația ciclurilor, dominanță și sezonul altcoin
+• Analiză monedă: RSI, trend, Pi Cycle și forța față de Bitcoin
+• Date futures: rata de finanțare și interesul deschis
+• Comisioane de rețea pentru Ethereum, Base, Arbitrum, Polygon, BNB Chain și Bitcoin, cu alarmă de gas
+
+WIDGETURI ȘI NOTIFICĂRI
+• Widgeturi: toată lista, valoarea portofoliului cu schimbarea de azi, o monedă mare cu preț și grafic – lumânări sau linie, cu repere de maxim, mijloc și minim
+• Notificare de preț silențioasă pentru fiecare pereche
+• Mod live cu actualizare la fiecare 15 secunde, în fundal de la 15 minute
+
+ȘI ÎN PLUS
+• Ieșire vocală: prețurile și alarmele sunt citite cu voce tare
+• Backup și restaurare într-un fișier ales de tine – și între Android și iPhone
+• Comenzi rapide, mod luminos și întunecat
+• Patru culori de accent cu pictogramă a aplicației asortată
+• Blocare: amprentă, față sau PIN
+• Disponibilă în 31 de limbi
+
+CONFIDENȚIALITATEA ÎNAINTE DE TOATE
+Fără cont, fără reclame, fără analiză. Prețurile vin direct din API-urile publice ale burselor. Lista, alarmele și deținerile rămân pe dispozitivul tău. Open source (licența MIT) – codul este public pe GitHub.
+
+Notă: Crypto Checker doar afișează prețuri. Nu este o bursă sau un portofel, nu tranzacționează și nu oferă consultanță de investiții.

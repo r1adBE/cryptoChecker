@@ -1,0 +1,23 @@
+# fastlane deliver reads this file on every run (started in the folder cryptoCheckerIOS).
+# Abort while the review contact still holds placeholders - otherwise deliver would
+# send "VORNAME" / "+41 00 000 00 00" to Apple. (ASCII only on purpose.)
+review_dir = [(__dir__ rescue nil), File.join(Dir.pwd, "fastlane"), Dir.pwd]
+  .compact
+  .map { |d| File.join(d, "metadata", "review_information") }
+  .find { |d| File.directory?(d) }
+raise "fastlane/metadata/review_information not found - start deliver in cryptoCheckerIOS." if review_dir.nil?
+
+placeholders = {
+  "first_name.txt" => "VORNAME",
+  "last_name.txt" => "NACHNAME",
+  "phone_number.txt" => "+41 00 000 00 00",
+}
+open_items = placeholders.select do |file, placeholder|
+  path = File.join(review_dir, file)
+  value = File.exist?(path) ? File.read(path, encoding: "UTF-8").strip : ""
+  value.empty? || value == placeholder
+end
+unless open_items.empty?
+  raise "Vor dem Einreichen ausfuellen: fastlane/metadata/review_information/" \
+        "#{open_items.keys.join(', ')} (Platzhalter oder leer). Upload abgebrochen."
+end

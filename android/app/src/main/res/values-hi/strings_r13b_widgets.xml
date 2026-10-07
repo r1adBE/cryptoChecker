@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">पुराना डेटा</string>
+    <string name="widget_outdated_time">पुराना डेटा · %1$s</string>
+
+    <string name="settings_widgets">विजेट</string>
+    <string name="settings_widgets_hint">होम स्क्रीन पर कीमतें जोड़ें</string>
+    <string name="widgets_sheet_title">विजेट जोड़ें</string>
+    <string name="widget_kind_single">एक कॉइन</string>
+    <string name="widgets_add">जोड़ें</string>
+    <string name="widgets_add_named">विजेट %1$s जोड़ें</string>
+    <string name="watch_action_add_widget">विजेट के रूप में जोड़ें</string>
+    <string name="widgets_manual_title">विजेट खुद जोड़ें</string>
+    <string name="widgets_manual_text">आपकी होम स्क्रीन ऐप से विजेट नहीं जोड़ सकती। होम स्क्रीन पर किसी खाली जगह को दबाकर रखें, “विजेट” चुनें और “Crypto Checker” खोजें।</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ऐप्स को खुद विजेट जोड़ने नहीं देता। इसमें बस एक पल लगता है:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">होम स्क्रीन पर किसी खाली जगह को तब तक दबाकर रखें जब तक ऐप्स हिलने न लगें।</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ऊपर “संपादित करें” › “विजेट जोड़ें” पर टैप करें (पुराने iOS वर्शन में “+” पर)।</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” खोजें, कोई विजेट चुनें और “विजेट जोड़ें” पर टैप करें।</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">उपलब्ध विजेट</string>
+</resources>

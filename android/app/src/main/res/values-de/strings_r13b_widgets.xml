@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">veraltet</string>
+    <string name="widget_outdated_time">veraltet · %1$s</string>
+
+    <string name="settings_widgets">Widgets</string>
+    <string name="settings_widgets_hint">Kurse auf den Startbildschirm holen</string>
+    <string name="widgets_sheet_title">Widget hinzufügen</string>
+    <string name="widget_kind_single">Einzel-Coin</string>
+    <string name="widgets_add">Hinzufügen</string>
+    <string name="widgets_add_named">Widget %1$s hinzufügen</string>
+    <string name="watch_action_add_widget">Als Widget hinzufügen</string>
+    <string name="widgets_manual_title">Widget selbst hinzufügen</string>
+    <string name="widgets_manual_text">Dein Startbildschirm kann Widgets nicht aus der App hinzufügen. Halte eine freie Stelle auf dem Startbildschirm gedrückt, wähle «Widgets» und suche «Crypto Checker».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">Unter iOS können Apps Widgets nicht selbst hinzufügen. So geht es in wenigen Sekunden:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Halte eine freie Stelle auf dem Home-Bildschirm gedrückt, bis die Apps wackeln.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tippe oben auf «Bearbeiten» › «Widget hinzufügen» (in älteren iOS-Versionen auf «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Suche «Crypto Checker», wähle ein Widget und tippe auf «Widget hinzufügen».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Verfügbare Widgets</string>
+</resources>

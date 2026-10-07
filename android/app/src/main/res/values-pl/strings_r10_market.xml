@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Dziś wyróżnia się</string>
+    <string name="unusual_nothing">Dziś nic nietypowego</string>
+    <string name="unusual_fact_stronger">Porusza się znacznie silniej niż BTC</string>
+    <string name="unusual_fact_weaker">Porusza się znacznie słabiej niż BTC</string>
+    <string name="unusual_fact_against">Idzie pod prąd rynku</string>
+    <string name="unusual_fact_volume">Wolumen %1$s× normy</string>
+    <string name="unusual_fact_funding_high">Funding podwyższony (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding ujemny (%1$s)</string>
+    <string name="unusual_source">Około 30 największych monet bez stablecoinów · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Dlaczego to się rusza?</string>
+    <string name="unusual_action_add">Znajdź parę do dodania</string>
+
+    <string name="macro_title">Dane gospodarcze</string>
+    <string name="macro_cpi">inflacja w USA (CPI)</string>
+    <string name="macro_ppi">ceny producentów w USA (PPI)</string>
+    <string name="macro_nfp">raport z rynku pracy USA</string>
+    <string name="macro_fomc">decyzja Fed w sprawie stóp</string>
+    <string name="macro_pce">inflacja PCE w USA</string>
+    <string name="macro_hint_today">Dziś %1$s: %2$s – w takie dni rynek często waha się mocniej.</string>
+    <string name="macro_hint_tomorrow">Jutro %1$s: %2$s – w takie dni rynek często waha się mocniej.</string>
+    <string name="macro_hint_today_list">Dziś: %1$s – w takie dni rynek często waha się mocniej.</string>
+    <string name="macro_hint_tomorrow_list">Jutro: %1$s – w takie dni rynek często waha się mocniej.</string>
+    <string name="macro_hint_list">%1$s – w takie dni rynek często waha się mocniej.</string>
+    <string name="macro_released_one">Opublikowano dziś o %1$s: %2$s.</string>
+    <string name="macro_released_list">Opublikowano dziś: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Dziś %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Jutro %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Kalendarz gospodarczy</string>
+    <string name="settings_macro_notifications_hint">O 08:00 w dni z ważnymi danymi gospodarczymi z USA (inflacja, rynek pracy, decyzja Fed). Kalendarz pochodzi ze strony aplikacji i jest pobierany raz dziennie.</string>
+    <string name="notification_macro_title">Dziś dane gospodarcze</string>
+</resources>

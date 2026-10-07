@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Varlık</string>
+    <string name="portfolio_invalid">Geçersiz miktar</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Grup</string>
+    <string name="group_value">Grup: %1$s</string>
+    <string name="group_all">Tümü</string>
+    <string name="group_none">Grup yok</string>
+    <string name="group_new">Yeni grup…</string>
+    <string name="group_name">Grup adı</string>
+    <string name="widget_group_hint">Yalnızca bu grubun çiftlerini göster.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portföy</string>
+    <string name="portfolio_setting_hint">İsteğe bağlı: alım ve satımları kaydet, değeri ve kâr/zararı ayrı bir sekmede gör.</string>
+    <string name="portfolio_total_value">Toplam değer</string>
+    <string name="portfolio_invested">Yatırılan</string>
+    <string name="portfolio_unrealized">Kâr/zarar, henüz satılmadı</string>
+    <string name="portfolio_realized">Kâr/zarar, satıldı</string>
+    <string name="portfolio_value">Değer</string>
+    <string name="portfolio_avg_price">Ort. alış fiyatı</string>
+    <string name="portfolio_current_price">Güncel fiyat</string>
+    <string name="portfolio_avg_and_now">Ort. %1$s · şimdi %2$s</string>
+    <string name="portfolio_updated">Fiyatlar: %1$s</string>
+    <string name="portfolio_convert_to">Şuna çevir</string>
+    <string name="portfolio_convert_to_value">Şuna çevir: %1$s</string>
+    <string name="portfolio_price_missing">Fiyat eksik</string>
+    <string name="portfolio_price_missing_hint">Bazı alımların fiyatı yok. Kâr/zararı görmek için alış fiyatını ekle.</string>
+    <string name="portfolio_current_missing">%1$s için güncel fiyat yok</string>
+    <string name="portfolio_oversold">Satışlar varlığı aşıyor – işlemleri kontrol et.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Kapalı pozisyonlar (%1$d)</item>
+        <item quantity="other">Kapalı pozisyonlar (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">İşlemler</string>
+    <string name="portfolio_add_tx">Alım/satım kaydet</string>
+    <string name="portfolio_edit_tx">İşlemi düzenle</string>
+    <string name="portfolio_buy">Alım</string>
+    <string name="portfolio_sell">Satım</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Sembol ara, örn. BTC</string>
+    <string name="portfolio_coin_invalid">Bir sembol gir</string>
+    <string name="portfolio_tx_amount">Miktar</string>
+    <string name="portfolio_tx_price">Coin başına fiyat</string>
+    <string name="portfolio_tx_price_hint">USDT cinsinden. Bilinmiyorsa boş bırak.</string>
+    <string name="portfolio_tx_price_invalid">Geçersiz fiyat</string>
+    <string name="portfolio_tx_date">Tarih</string>
+    <string name="portfolio_tx_note">Not (isteğe bağlı)</string>
+    <string name="portfolio_tx_total">Toplam: %1$s</string>
+    <string name="portfolio_sell_exceeds">Varlığından fazla (%1$s)</string>
+    <string name="portfolio_tx_delete_title">İşlem silinsin mi?</string>
+    <string name="portfolio_tx_delete_confirm">Bu işlem portföyden kaldırılacak.</string>
+    <string name="portfolio_empty_title">Henüz işlem yok</string>
+    <string name="portfolio_empty_text">Alım ve satımlarını kaydet. Değer ve kâr/zarar güncel USDT fiyatlarıyla hesaplanır.</string>
+    <string name="portfolio_empty_action">İlk alımı kaydet</string>
+    <string name="portfolio_disclaimer">Yalnızca bu cihazda saklanır. Yatırım tavsiyesi değildir.</string>
+    <string name="portfolio_add_from_watch">Portföye ekle</string>
+</resources>

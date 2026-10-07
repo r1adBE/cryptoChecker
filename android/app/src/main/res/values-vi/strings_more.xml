@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_section_market">Thị trường hôm nay</string>
+    <string name="pulse_alts_stronger">Altcoin mạnh hơn Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin mạnh hơn altcoin</string>
+    <string name="pulse_alts_even">Altcoin và Bitcoin biến động như nhau</string>
+    <string name="pulse_volume_high">Khối lượng giao dịch cao bất thường (%1$s× bình thường)</string>
+    <string name="pulse_volume_low">Khối lượng giao dịch thấp (%1$s× bình thường)</string>
+    <string name="pulse_volume_normal">Khối lượng giao dịch bình thường</string>
+    <string name="pulse_funding_high">Funding dương rõ rệt: nhiều lệnh long dùng đòn bẩy</string>
+    <string name="pulse_funding_slight">Funding hơi dương</string>
+    <string name="pulse_funding_neutral">Funding trung tính</string>
+    <string name="pulse_funding_negative">Funding âm: nhiều lệnh short</string>
+    <string name="pulse_gas_low">Gas Ethereum thấp (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum bình thường (%1$s gwei)</string>
+    <string name="pulse_gas_high">Gas Ethereum cao (%1$s gwei)</string>
+    <string name="pulse_disclaimer">Không phải dự báo · Không phải lời khuyên đầu tư</string>
+    <string name="pulse_less">Thu gọn</string>
+    <string name="pulse_updated">Lúc %1$s</string>
+    <string name="pulse_unavailable">Hiện không có dữ liệu thị trường</string>
+    <string name="why_summary_title">Tóm lại</string>
+    <string name="why_summary_market_volume">Biến động đi kèm khối lượng giao dịch cao hơn và thị trường biến động trên diện rộng.</string>
+    <string name="why_summary_market">Biến động đi theo toàn thị trường.</string>
+    <string name="why_summary_coin_volume">Chỉ coin này biến động, với khối lượng cao hơn – có lẽ do lý do riêng của coin.</string>
+    <string name="why_summary_coin">Chỉ coin này biến động – có lẽ do lý do riêng của coin.</string>
+    <string name="why_summary_against">Coin đang đi ngược thị trường.</string>
+    <string name="why_summary_thin">Biến động mỏng: ít khối lượng phía sau.</string>
+    <string name="why_summary_calm">Không có biến động đáng chú ý: thị trường và coin đều yên ả.</string>
+    <string name="why_summary_longs">Futures: nhiều vị thế long dùng đòn bẩy.</string>
+    <string name="why_summary_shorts">Futures: nhiều vị thế short.</string>
+    <string name="why_dot_supports">hỗ trợ biến động</string>
+    <string name="why_dot_caution">tăng cao</string>
+    <string name="why_dot_neutral">trung tính</string>
+    <string name="alarm_test">Thử cảnh báo</string>
+    <string name="alarm_test_hint">Gửi một cảnh báo mẫu với cài đặt âm thanh, rung và đọc thành tiếng của bạn.</string>
+    <string name="alarm_test_title">Thử nghiệm: cảnh báo từ Crypto Checker</string>
+    <string name="alarm_test_text">Cảnh báo trông và nghe như thế này.</string>
+    <string name="alarm_test_quiet">Giờ yên lặng đang bật: cảnh báo thật sẽ đến mà không có âm thanh.</string>
+    <string name="alarm_test_denied">Thông báo của Crypto Checker đang tắt.</string>
+    <string name="alarm_test_open_settings">Mở cài đặt</string>
+    <string name="alarm_first_title">Đã thiết lập xong</string>
+    <string name="welcome_watch">Theo dõi – coin, giá, biểu đồ và widget của bạn</string>
+    <string name="welcome_alert">Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường</string>
+    <string name="welcome_understand">Hiểu – vì sao thị trường đang biến động?</string>
+    <string name="welcome_start">Bắt đầu</string>
+    <string name="portfolio_empty_example">Ví dụ: 0,01 BTC mua ngày 1 tháng 3 với giá %1$s. Ứng dụng sẽ hiển thị giá trị, giá mua trung bình và lãi/lỗ – chỉ lưu trên thiết bị này.</string>
+    <string name="about_why">Crypto Checker là dự án độc lập của Rich1e: tổng quan giá bình yên, không tài khoản, không quảng cáo, không theo dõi. Câu hỏi và góp ý: %1$s</string>
+    <string name="a11y_move_up">Di chuyển lên</string>
+    <string name="a11y_move_down">Di chuyển xuống</string>
+    <string name="a11y_in_watchlist">Đã có trong danh sách theo dõi</string>
+    <string name="portfolio_export_today_hint">Hôm nay chưa kết thúc: giá hiện tại được dùng thay cho giá đóng cửa trong ngày.</string>
+    <string name="about_privacy_policy">Chính sách quyền riêng tư</string>
+    <string name="widget_chart_type">Loại biểu đồ</string>
+    <string name="widget_chart_line">Đường</string>
+    <string name="widget_chart_candles">Nến</string>
+    <string name="pair_added_watching">Đang theo dõi %1$s</string>
+    <string name="market_cap_title">Thị trường crypto</string>
+    <string name="market_cap_label">Vốn hóa thị trường</string>
+    <string name="market_volume_label">Khối lượng 24 giờ</string>
+    <string name="market_cap_source">Tất cả coin · CoinGecko</string>
+    <string name="market_data_empty_error">Không nhận được dữ liệu từ sàn.</string>
+    <string name="sync_pairs_count">Cặp giao dịch: %1$d</string>
+    <string name="market_unavailable_error">Sàn không khả dụng</string>
+    <string name="refresh_report_aborted">Đã hủy làm mới:</string>
+    <string name="refresh_report_wait">Chờ đến khi bắt đầu: %1$s</string>
+    <plurals name="refresh_report_total">
+        <item quantity="other">Tổng %1$s · %2$d cặp</item>
+    </plurals>
+    <string name="refresh_report_network">Mạng %1$s</string>
+    <string name="refresh_report_database">Cơ sở dữ liệu %1$s</string>
+    <plurals name="refresh_report_effects">
+        <item quantity="other">Cảnh báo/thông báo %1$s · %2$d thông báo</item>
+    </plurals>
+    <string name="refresh_report_widgets">Tiện ích %1$s</string>
+    <plurals name="refresh_report_market">
+        <item quantity="other">%1$s: %2$d cặp, %3$s</item>
+    </plurals>
+    <plurals name="refresh_report_bulk_ok">
+        <item quantity="other">yêu cầu gộp %1$s (%2$d giá)</item>
+    </plurals>
+    <string name="refresh_report_bulk_failed">yêu cầu gộp %1$s (thất bại)</string>
+    <string name="refresh_report_singles">%1$d riêng lẻ</string>
+    <string name="refresh_report_slowest">chậm nhất %1$s %2$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d không còn giao dịch</item>
+    </plurals>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d lỗi</item>
+    </plurals>
+    <string name="starter_add_selected">Thêm vào danh sách (%1$d)</string>
+    <string name="starter_select_all">Chọn tất cả</string>
+    <string name="starter_select_none">Bỏ chọn tất cả</string>
+    <string name="starter_loading_prices">Đang tải giá…</string>
+    <string name="watchlist_removed">Đã xóa %1$s</string>
+    <string name="action_undo">Hoàn tác</string>
+    <string name="favorite_added">Đã thêm %1$s vào yêu thích</string>
+    <string name="favorite_removed">Đã bỏ %1$s khỏi yêu thích</string>
+    <string name="cycle_data_as_of">Dữ liệu lúc %1$s · đang cập nhật…</string>
+    <string name="settings_conversion_currency_hint">Cũng dùng cho danh mục, cảnh báo theo tiền tệ của bạn, thẻ Thị trường crypto và tiện ích Danh mục.</string>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d tăng</item>
+    </plurals>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d giảm</item>
+    </plurals>
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, trung bình %3$s</string>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d cặp tăng</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d giảm</item>
+    </plurals>
+    <string name="pulse_headline_up">Mạnh trên diện rộng</string>
+    <string name="pulse_headline_down">Yếu trên diện rộng</string>
+    <string name="pulse_headline_mixed">Diễn biến trái chiều</string>
+    <string name="pulse_headline_calm">Thị trường yên ả</string>
+    <string name="pulse_chip_funding_high">Funding cao</string>
+    <string name="pulse_chip_funding_negative">Funding âm</string>
+    <string name="market_signal_top">Dấu hiệu đỉnh %1$d/10</string>
+    <string name="market_signal_bottom">Dấu hiệu đáy %1$d/10</string>
+    <string name="market_section_now">Hiện tại</string>
+    <string name="market_section_context">Bối cảnh</string>
+    <string name="market_section_data">Dữ liệu</string>
+</resources>

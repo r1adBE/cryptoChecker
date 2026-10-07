@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Marknadsaviseringar</string>
+    <string name="settings_market_alerts_hint">Marknadsfas, Fear &amp; Greed, gasavgifter, ovanlig aktivitet, ekonomiska datum</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktiv</item>
+        <item quantity="other">%1$d aktiva</item>
+    </plurals>
+    <string name="settings_tts_row_hint">Läser upp kurser och larm</string>
+    <string name="settings_summary_on">På</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker bevakar nu %1$s åt dig. När %1$s når din gräns får du en avisering så fort appen kontrollerar kursen. När appen är stängd sker det med intervallet för uppdatering i bakgrunden – senare om batterioptimering begränsar appen.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker bevakar nu %1$s åt dig. Du får en avisering så fort appen kontrollerar kursen. När appen är stängd avgör iOS när det sker – det kan dröja en stund. Medan appen är öppen kontrolleras kurserna i tid.</string>
+
+    <string name="about_request_exchange">Önska en börs</string>
+    <string name="explorer_exchange_missing">Saknas en börs?</string>
+</resources>

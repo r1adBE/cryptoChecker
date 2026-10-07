@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Csoport szerkesztése</string>
+    <string name="group_rename">Átnevezés</string>
+    <string name="group_delete">Csoport törlése</string>
+    <string name="group_delete_confirm">A párok a figyelőlistán maradnak.</string>
+    <string name="group_done">Kész</string>
+    <string name="group_add">Új csoport</string>
+    <string name="group_in_other">itt: %1$s</string>
+    <string name="group_target">Csoportba</string>
+    <string name="group_search_hint">Pár keresése</string>
+    <string name="group_next">Tovább</string>
+</resources>

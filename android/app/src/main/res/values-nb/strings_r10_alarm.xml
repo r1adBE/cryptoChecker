@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Nær toppen</string>
+    <string name="alarm_condition_near_low">Nær bunnen</string>
+    <string name="alarm_near_field_distance">Avstand</string>
+    <string name="alarm_near_window_label">Periode</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dager</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 år</string>
+    <string name="alarm_near_hint">Varsler også ved en ny topp eller bunn. Basert på daglige lys, oppdatert hver 6. time.</string>
+    <string name="alarm_near_extreme_high_30">30-dagers topp</string>
+    <string name="alarm_near_extreme_high_90">90-dagers topp</string>
+    <string name="alarm_near_extreme_high_365">årstopp</string>
+    <string name="alarm_near_extreme_low_30">30-dagers bunn</string>
+    <string name="alarm_near_extreme_low_90">90-dagers bunn</string>
+    <string name="alarm_near_extreme_low_365">årsbunn</string>
+    <string name="alarm_sentence_near_high">Gi meg beskjed når %1$s er høyst %2$s under sin %3$s.</string>
+    <string name="alarm_sentence_near_low">Gi meg beskjed når %1$s er høyst %2$s over sin %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s er %2$s under sin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s er %2$s over sin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Ny %1$s for %2$s: %3$s (tidligere %4$s)</string>
+    <string name="tts_direction_near_high">er nær toppen</string>
+    <string name="tts_direction_near_low">er nær bunnen</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">usang</string>
+    <string name="widget_outdated_time">usang · %1$s</string>
+
+    <string name="settings_widgets">Widget</string>
+    <string name="settings_widgets_hint">Tambahkan harga ke layar utama</string>
+    <string name="widgets_sheet_title">Tambah widget</string>
+    <string name="widget_kind_single">Satu koin</string>
+    <string name="widgets_add">Tambah</string>
+    <string name="widgets_add_named">Tambah widget %1$s</string>
+    <string name="watch_action_add_widget">Tambah sebagai widget</string>
+    <string name="widgets_manual_title">Tambahkan widget sendiri</string>
+    <string name="widgets_manual_text">Layar utama Anda tidak bisa menambahkan widget dari aplikasi. Sentuh lama area kosong di layar utama, pilih “Widget”, lalu cari “Crypto Checker”.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS tidak mengizinkan aplikasi menambahkan widget sendiri. Hanya perlu sebentar:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Sentuh lama area kosong di Layar Utama hingga aplikasi bergoyang.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Ketuk “Edit” › “Tambah Widget” di bagian atas (atau “+” di versi iOS lama).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Cari “Crypto Checker”, pilih widget, lalu ketuk “Tambah Widget”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widget yang tersedia</string>
+</resources>

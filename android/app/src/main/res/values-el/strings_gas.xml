@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum κάτω από (gwei)</string>
+    <string name="settings_gas_btc_below">Τέλος Bitcoin κάτω από (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Ειδοποιεί μία φορά όταν το κανονικό τέλος πέσει κάτω από το όριο. Ελέγχεται κατά την ενημέρωση τιμών, το πολύ κάθε 10 λεπτά.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Κάτω από το όριό σας των %1$s gwei · Μεταφορά ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Τέλος Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Κάτω από το όριό σας των %1$s sat/vB · Μεταφορά ≈ %2$s</string>
+    <string name="gas_title">Τέλη δικτύου</string>
+    <string name="gas_slow_fast">Αργά %1$s · Γρήγορα %2$s</string>
+    <string name="gas_alert_active">Ειδοποίηση: %1$s</string>
+    <string name="gas_source">Δημόσιοι κόμβοι RPC και mempool.space · Κόστος απλής μεταφοράς, χωρίς το μερίδιο L1 στα L2</string>
+    <string name="gas_transfer_cost">Μεταφορά ≈ %1$s</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Påfaldende i dag</string>
+    <string name="unusual_nothing">Intet påfaldende i dag</string>
+    <string name="unusual_fact_stronger">Bevæger sig langt kraftigere end BTC</string>
+    <string name="unusual_fact_weaker">Bevæger sig langt svagere end BTC</string>
+    <string name="unusual_fact_against">Går mod markedet</string>
+    <string name="unusual_fact_volume">Volumen %1$s× normalt</string>
+    <string name="unusual_fact_funding_high">Funding forhøjet (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_source">Ca. 30 største mønter uden stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Hvorfor bevæger den sig?</string>
+    <string name="unusual_action_add">Find par at tilføje</string>
+
+    <string name="macro_title">Økonomiske tal</string>
+    <string name="macro_cpi">amerikansk inflation (CPI)</string>
+    <string name="macro_ppi">amerikanske producentpriser (PPI)</string>
+    <string name="macro_nfp">amerikansk jobrapport</string>
+    <string name="macro_fomc">Fed-rentebeslutning</string>
+    <string name="macro_pce">amerikansk PCE-inflation</string>
+    <string name="macro_hint_today">I dag %1$s: %2$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_tomorrow">I morgen %1$s: %2$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_today_list">I dag: %1$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_tomorrow_list">I morgen: %1$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_list">%1$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_released_one">Offentliggjort i dag kl. %1$s: %2$s.</string>
+    <string name="macro_released_list">Offentliggjort i dag: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">I dag %1$s %2$s</string>
+    <string name="macro_item_tomorrow">I morgen %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Økonomisk kalender</string>
+    <string name="settings_macro_notifications_hint">Kl. 08:00 på dage med vigtige amerikanske økonomiske tal (inflation, jobrapport, rentebeslutning). Kalenderen kommer fra appens hjemmeside og hentes én gang om dagen.</string>
+    <string name="notification_macro_title">Økonomiske tal i dag</string>
+</resources>

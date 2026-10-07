@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Цвета цен</string>
+    <string name="price_colors_green_red">Зелёный / красный</string>
+    <string name="price_colors_blue_orange">Синий / оранжевый</string>
+    <string name="settings_price_colors_hint">Синий / оранжевый хорошо различимы при любом нарушении цветового зрения (красно-зелёном и сине-жёлтом). Направление к тому же всегда показано знаками + / −.</string>
+    <string name="settings_watchlist_sparkline">Мини-график в избранном</string>
+    <string name="settings_watchlist_sparkline_hint">Динамика за 24 часа рядом с ценой</string>
+
+    <string name="settings_price_colors_inverted">Поменять цвета роста и падения</string>
+    <string name="settings_price_colors_inverted_hint">Красный для роста, зелёный для падения, как принято в Китае, Японии, Корее и на Тайване. По умолчанию зависит от региона устройства.</string>
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Высокая контрастность</string>
+    <string name="settings_high_contrast_hint">Более яркие цвета цен и более тёмный второстепенный текст. Включается также, когда система запрашивает повышенную контрастность.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s на %2$s</string>
+    <string name="a11y_price">цена %1$s</string>
+    <string name="a11y_change_up">рост на %1$s</string>
+    <string name="a11y_change_down">падение на %1$s</string>
+    <string name="a11y_change_flat">без изменений</string>
+    <string name="a11y_converted">примерно %1$s</string>
+    <string name="a11y_note">заметка: %1$s</string>
+    <string name="a11y_alarm_count">оповещения: %1$d</string>
+    <string name="a11y_stale">устарело, последнее обновление %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">График %1$s: с %2$s до %3$s, %4$s. Максимум %5$s, минимум %6$s.</string>
+    <string name="a11y_chart_empty">График: нет данных</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Цикл %1$s: %2$s с халвинга, день %3$d.</string>
+    <string name="a11y_cycle_top">Пик %1$s в день %2$d.</string>
+    <string name="a11y_cycle_bottom">Дно %1$s в день %2$d.</string>
+    <string name="a11y_cycle_double_top">Двойная вершина %1$s в день %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Двойное дно %1$s в день %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Шкала от %1$s до %2$s: %3$d из 100</string>
+</resources>

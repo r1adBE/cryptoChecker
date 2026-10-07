@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Empieza con un toque</string>
+    <string name="starter_text">Elige monedas y añádelas de una vez. Puedes cambiar el exchange y el par más tarde.</string>
+    <string name="starter_custom">Elegir exchange y par</string>
+    <string name="settings_quiet_hours">Horas de silencio</string>
+    <string name="settings_quiet_hours_hint">Entre %1$s y %2$s las alarmas llegan en silencio: sin sonido, vibración ni voz.</string>
+    <string name="settings_quiet_hours_from">Desde</string>
+    <string name="settings_quiet_hours_to">Hasta</string>
+    <string name="channel_alarms_quiet">Alarmas (horas de silencio)</string>
+    <string name="channel_alarms_quiet_description">Alarmas silenciosas durante las horas de silencio.</string>
+    <string name="settings_app_lock">Bloqueo de la app</string>
+    <string name="settings_app_lock_hint">Desbloquea con huella, rostro o PIN del dispositivo cuando la app haya estado en segundo plano más de un minuto.</string>
+    <string name="app_lock_title">Crypto Checker está bloqueada</string>
+    <string name="app_lock_unlock">Desbloquear</string>
+    <string name="app_lock_reason">Desbloquear Crypto Checker</string>
+    <string name="app_lock_unavailable">Este dispositivo no tiene bloqueo de pantalla. Configura uno primero en los ajustes del sistema.</string>
+    <string name="widget_portfolio_name">Cartera</string>
+    <string name="widget_portfolio_description">Valor total de tu cartera y variación de hoy</string>
+    <string name="widget_portfolio_today">hoy %1$s</string>
+    <string name="widget_portfolio_empty">Añade compras en la pestaña Cartera</string>
+    <string name="widget_portfolio_locked">Oculto – el bloqueo de la app está activado</string>
+    <string name="a11y_portfolio_widget">Cartera %1$s, hoy %2$s</string>
+    <string name="settings_section_advanced">Avanzado</string>
+    <string name="settings_advanced_hint">Modo en vivo, notificación permanente, futuros y opciones de desarrollador</string>
+    <string name="explain_funding">Comisión entre posiciones largas y cortas. Muy positiva significa que muchos apuestan por precios al alza.</string>
+    <string name="explain_open_interest">Valor de todas las posiciones de futuros abiertas. Si sube, más dinero apuesta por el movimiento.</string>
+    <string name="explain_rsi">Índice de fuerza relativa, 0–100. Por encima de 70, a menudo sobrecalentado; por debajo de 30, a menudo sobrevendido.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explicación</string>
+    <string name="explain_pi_cycle">Compara la media de 111 días con el doble de la media de 350 días. Un cruce ha marcado máximos de ciclos anteriores.</string>
+    <string name="alarm_sentence_above">Avísame cuando %1$s suba por encima de %2$s.</string>
+    <string name="alarm_sentence_below">Avísame cuando %1$s baje por debajo de %2$s.</string>
+    <string name="alarm_sentence_up_percent">Avísame cuando %1$s suba un %2$s.</string>
+    <string name="alarm_sentence_down_percent">Avísame cuando %1$s baje un %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Avísame cuando %1$s se mueva un %2$s en %3$d hora.</item>
+        <item quantity="many">Avísame cuando %1$s se mueva un %2$s en %3$d horas.</item>
+        <item quantity="other">Avísame cuando %1$s se mueva un %2$s en %3$d horas.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Avísame cuando el volumen de %1$s llegue a %2$s× lo normal.</string>
+    <string name="alarm_sentence_incomplete">Introduce un valor para ver la alarma como frase.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s no disponible</string>
+    <string name="watchlist_row_outdated">%1$s · desactualizado</string>
+</resources>

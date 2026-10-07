@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Ecuria e vlerës</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_1y">1 V</string>
+    <string name="portfolio_history_period_7d">7 ditë</string>
+    <string name="portfolio_history_period_30d">30 ditë</string>
+    <string name="portfolio_history_period_1y">1 vit</string>
+    <string name="portfolio_history_range_a11y">Shfaq ecurinë për %1$s</string>
+    <string name="portfolio_history_change_a11y">Vlera për %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Sot</string>
+    <string name="portfolio_history_converted">Konvertuar me kursin e sotëm</string>
+    <string name="portfolio_history_without">Pa %1$s (pa çmime ditore)</string>
+    <string name="portfolio_history_includes_trades">Përfshin blerjet dhe shitjet në këtë periudhë</string>
+    <string name="portfolio_history_too_short">Ecuria nis pas ditës sate të parë të plotë.</string>
+    <string name="portfolio_history_unavailable">Për momentin nuk ka ecuri të disponueshme.</string>
+    <string name="portfolio_history_loading">Po ngarkohet ecuria e vlerës</string>
+</resources>

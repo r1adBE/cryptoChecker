@@ -1,0 +1,819 @@
+{
+  "_comment": "Captions for tools/frame_screenshots.py: caption <= 40, subline <= 60 characters. Keys = fastlane/metadata/android locale folders. iOS folders map via aliases in the script.",
+  "_scenes": {
+    "01": "Merkliste mit CHF + Mini-Chart",
+    "02": "Alarm-Editor mit Satz",
+    "03": "«Warum bewegt sich das?»",
+    "04": "Crypto Pulse",
+    "05": "Portfolio",
+    "06": "Widgets"
+  },
+  "locales": {
+    "ar": {
+      "01": {
+        "caption": "أسعارك بنظرة واحدة",
+        "subline": "مباشرةً من المنصة، وبالفرنك السويسري، مع مخطط مصغّر"
+      },
+      "02": {
+        "caption": "تنبيهات بجملة بسيطة",
+        "subline": "«أبلغني عندما ينخفض BTC تحت 90,000 CHF»"
+      },
+      "03": {
+        "caption": "افهم لماذا يتحرك السعر",
+        "subline": "الحجم والسوق ككل والعقود الآجلة – باختصار"
+      },
+      "04": {
+        "caption": "ماذا يحدث في السوق الآن؟",
+        "subline": "Crypto Pulse: ‏BTC وETH وSOL والحجم – دون توقعات"
+      },
+      "05": {
+        "caption": "محفظتك على جهازك فقط",
+        "subline": "سجّل مشترياتك وشاهد القيمة بـ CHF – بلا حساب"
+      },
+      "06": {
+        "caption": "الأسعار على الشاشة الرئيسية",
+        "subline": "القائمة والمحفظة والعملات المفردة كأدوات"
+      }
+    },
+    "cs-CZ": {
+      "01": {
+        "caption": "Vaše ceny na první pohled",
+        "subline": "Přímo z burzy, i v CHF, s minigrafem"
+      },
+      "02": {
+        "caption": "Alarmy jako jednoduchá věta",
+        "subline": "„Upozornit, až BTC klesne pod 90 000 CHF“"
+      },
+      "03": {
+        "caption": "Pochopte, proč se to hýbe",
+        "subline": "Objem, celý trh a futures – ve zkratce"
+      },
+      "04": {
+        "caption": "Co se právě děje na trhu?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, objem – bez prognózy"
+      },
+      "05": {
+        "caption": "Vaše portfolio, jen v zařízení",
+        "subline": "Zapisujte nákupy, hodnota v CHF – bez účtu"
+      },
+      "06": {
+        "caption": "Ceny přímo na ploše",
+        "subline": "Seznam, portfolio a jednotlivé mince jako widgety"
+      }
+    },
+    "da-DK": {
+      "01": {
+        "caption": "Dine kurser med et blik",
+        "subline": "Direkte fra børsen, også i CHF, med minigraf"
+      },
+      "02": {
+        "caption": "Alarmer som en enkel sætning",
+        "subline": "»Giv mig besked, når BTC falder under 90.000 CHF«"
+      },
+      "03": {
+        "caption": "Forstå, hvorfor den bevæger sig",
+        "subline": "Volumen, hele markedet og futures – kort fortalt"
+      },
+      "04": {
+        "caption": "Hvad sker der i markedet nu?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volumen – ingen prognose"
+      },
+      "05": {
+        "caption": "Din portefølje, kun på enheden",
+        "subline": "Registrér køb, se værdien i CHF – uden konto"
+      },
+      "06": {
+        "caption": "Kurser direkte på hjemmeskærmen",
+        "subline": "Liste, portefølje og enkelte coins som widgets"
+      }
+    },
+    "de-DE": {
+      "01": {
+        "caption": "Deine Kurse auf einen Blick",
+        "subline": "Direkt von der Börse, auch in CHF – mit Mini-Chart"
+      },
+      "02": {
+        "caption": "Alarme als einfacher Satz",
+        "subline": "«Sag mir Bescheid, wenn BTC unter 90 000 CHF fällt»"
+      },
+      "03": {
+        "caption": "Verstehen, warum es sich bewegt",
+        "subline": "Volumen, Gesamtmarkt und Futures – kurz gesagt"
+      },
+      "04": {
+        "caption": "Was passiert gerade im Markt?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, Volumen – ohne Prognose"
+      },
+      "05": {
+        "caption": "Dein Portfolio, nur auf dem Gerät",
+        "subline": "Käufe erfassen, Wert in CHF sehen – ohne Konto"
+      },
+      "06": {
+        "caption": "Kurse direkt auf dem Startbildschirm",
+        "subline": "Merkliste, Portfolio und einzelne Coins als Widget"
+      }
+    },
+    "el-GR": {
+      "01": {
+        "caption": "Οι τιμές σου με μια ματιά",
+        "subline": "Από το ανταλλακτήριο, και σε CHF, με μίνι γράφημα"
+      },
+      "02": {
+        "caption": "Ειδοποιήσεις ως απλή πρόταση",
+        "subline": "«Ειδοποίηση όταν το BTC πέσει κάτω από 90.000 CHF»"
+      },
+      "03": {
+        "caption": "Κατάλαβε γιατί κινείται",
+        "subline": "Όγκος, συνολική αγορά και futures – με λίγα λόγια"
+      },
+      "04": {
+        "caption": "Τι συμβαίνει τώρα στην αγορά;",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, όγκος – χωρίς πρόβλεψη"
+      },
+      "05": {
+        "caption": "Το χαρτοφυλάκιό σου, στη συσκευή",
+        "subline": "Κατέγραψε αγορές, δες την αξία σε CHF – χωρίς λογαριασμό"
+      },
+      "06": {
+        "caption": "Τιμές στην αρχική οθόνη",
+        "subline": "Λίστα, χαρτοφυλάκιο και νομίσματα ως widget"
+      }
+    },
+    "en-US": {
+      "01": {
+        "caption": "Your prices at a glance",
+        "subline": "Straight from the exchange, also in CHF, with mini charts"
+      },
+      "02": {
+        "caption": "Alarms as a simple sentence",
+        "subline": "“Tell me when BTC falls below 90,000 CHF”"
+      },
+      "03": {
+        "caption": "Understand why it moves",
+        "subline": "Volume, overall market and futures – in short"
+      },
+      "04": {
+        "caption": "What is happening right now?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volume – no forecast"
+      },
+      "05": {
+        "caption": "Your portfolio, on your device",
+        "subline": "Log buys, see the value in CHF – no account"
+      },
+      "06": {
+        "caption": "Prices right on your home screen",
+        "subline": "Watchlist, portfolio and single coins as widgets"
+      }
+    },
+    "es-ES": {
+      "01": {
+        "caption": "Tus precios de un vistazo",
+        "subline": "Directos del exchange, también en CHF, con minigráfico"
+      },
+      "02": {
+        "caption": "Alarmas en una frase sencilla",
+        "subline": "«Avísame cuando BTC baje de 90.000 CHF»"
+      },
+      "03": {
+        "caption": "Entiende por qué se mueve",
+        "subline": "Volumen, mercado global y futuros, en resumen"
+      },
+      "04": {
+        "caption": "¿Qué pasa ahora en el mercado?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volumen, sin pronóstico"
+      },
+      "05": {
+        "caption": "Tu cartera, solo en tu dispositivo",
+        "subline": "Registra compras y ve el valor en CHF, sin cuenta"
+      },
+      "06": {
+        "caption": "Precios en tu pantalla de inicio",
+        "subline": "Lista, cartera y monedas sueltas como widgets"
+      }
+    },
+    "fa": {
+      "01": {
+        "caption": "قیمت‌ها در یک نگاه",
+        "subline": "مستقیم از صرافی، به CHF هم، با نمودار کوچک"
+      },
+      "02": {
+        "caption": "هشدار در یک جمله ساده",
+        "subline": "«وقتی BTC از ۹۰٬۰۰۰ CHF پایین‌تر رفت، خبرم کن»"
+      },
+      "03": {
+        "caption": "بفهمید چرا حرکت می‌کند",
+        "subline": "حجم، کل بازار و فیوچرز – به‌طور خلاصه"
+      },
+      "04": {
+        "caption": "الان در بازار چه خبر است؟",
+        "subline": "Crypto Pulse: ‏BTC، ETH، SOL، حجم – بدون پیش‌بینی"
+      },
+      "05": {
+        "caption": "پرتفوی شما، فقط روی دستگاه",
+        "subline": "خریدها را ثبت کنید، ارزش را به CHF ببینید – بدون حساب"
+      },
+      "06": {
+        "caption": "قیمت‌ها روی صفحه اصلی",
+        "subline": "فهرست، پرتفوی و کوین‌ها به‌صورت ویجت"
+      }
+    },
+    "fi-FI": {
+      "01": {
+        "caption": "Hinnat yhdellä silmäyksellä",
+        "subline": "Suoraan pörssistä, myös CHF:nä, minikaaviolla"
+      },
+      "02": {
+        "caption": "Hälytykset yhtenä lauseena",
+        "subline": "”Ilmoita, kun BTC laskee alle 90 000 CHF”"
+      },
+      "03": {
+        "caption": "Ymmärrä, miksi se liikkuu",
+        "subline": "Volyymi, koko markkina ja futuurit – lyhyesti"
+      },
+      "04": {
+        "caption": "Mitä markkinoilla tapahtuu nyt?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volyymi – ei ennustetta"
+      },
+      "05": {
+        "caption": "Salkkusi vain laitteellasi",
+        "subline": "Kirjaa ostot, näe arvo CHF:nä – ilman tiliä"
+      },
+      "06": {
+        "caption": "Hinnat suoraan kotinäytölle",
+        "subline": "Lista, salkku ja yksittäiset kolikot widgeteinä"
+      }
+    },
+    "fr-FR": {
+      "01": {
+        "caption": "Vos cours en un coup d'œil",
+        "subline": "Direct des plateformes, aussi en CHF, avec mini-graphique"
+      },
+      "02": {
+        "caption": "Des alertes en une phrase",
+        "subline": "« Me prévenir quand BTC passe sous 90 000 CHF »"
+      },
+      "03": {
+        "caption": "Comprendre pourquoi ça bouge",
+        "subline": "Volume, marché global et futures – en bref"
+      },
+      "04": {
+        "caption": "Que se passe-t-il sur le marché ?",
+        "subline": "Crypto Pulse : BTC, ETH, SOL, volume – sans prévision"
+      },
+      "05": {
+        "caption": "Votre portefeuille, sur l'appareil",
+        "subline": "Saisissez vos achats, voyez la valeur en CHF, sans compte"
+      },
+      "06": {
+        "caption": "Les cours sur l'écran d'accueil",
+        "subline": "Liste, portefeuille et cryptos en widgets"
+      }
+    },
+    "hi-IN": {
+      "01": {
+        "caption": "आपके भाव एक नज़र में",
+        "subline": "सीधे एक्सचेंज से, CHF में भी, मिनी चार्ट के साथ"
+      },
+      "02": {
+        "caption": "आसान वाक्य में अलार्म",
+        "subline": "“जब BTC 90,000 CHF से नीचे जाए, तो मुझे बताएँ”"
+      },
+      "03": {
+        "caption": "समझें कि यह क्यों हिल रहा है",
+        "subline": "वॉल्यूम, पूरा बाज़ार और फ़्यूचर्स – संक्षेप में"
+      },
+      "04": {
+        "caption": "बाज़ार में अभी क्या हो रहा है?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, वॉल्यूम – पूर्वानुमान नहीं"
+      },
+      "05": {
+        "caption": "आपका पोर्टफ़ोलियो, सिर्फ़ डिवाइस पर",
+        "subline": "खरीद दर्ज करें, CHF में मूल्य देखें – बिना खाते"
+      },
+      "06": {
+        "caption": "होम स्क्रीन पर सीधे भाव",
+        "subline": "सूची, पोर्टफ़ोलियो और एक-एक कॉइन विजेट में"
+      }
+    },
+    "hu-HU": {
+      "01": {
+        "caption": "Árfolyamaid egy pillantással",
+        "subline": "Közvetlenül a tőzsdéről, CHF-ben is, minigrafikonnal"
+      },
+      "02": {
+        "caption": "Riasztás egyszerű mondatként",
+        "subline": "„Szólj, ha a BTC 90 000 CHF alá esik”"
+      },
+      "03": {
+        "caption": "Értsd meg, miért mozog",
+        "subline": "Forgalom, teljes piac és határidős adatok – röviden"
+      },
+      "04": {
+        "caption": "Mi történik most a piacon?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, forgalom – előrejelzés nélkül"
+      },
+      "05": {
+        "caption": "Portfóliód csak a készüléken",
+        "subline": "Vételek rögzítése, érték CHF-ben – fiók nélkül"
+      },
+      "06": {
+        "caption": "Árfolyamok a kezdőképernyőn",
+        "subline": "Lista, portfólió és egyes coinok widgetként"
+      }
+    },
+    "id": {
+      "01": {
+        "caption": "Harga Anda sekilas pandang",
+        "subline": "Langsung dari bursa, juga dalam CHF, dengan grafik mini"
+      },
+      "02": {
+        "caption": "Alarm sebagai kalimat sederhana",
+        "subline": "“Beri tahu saya saat BTC turun di bawah 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Pahami mengapa harga bergerak",
+        "subline": "Volume, pasar umum, dan futures – singkatnya"
+      },
+      "04": {
+        "caption": "Apa yang terjadi di pasar?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volume – tanpa prediksi"
+      },
+      "05": {
+        "caption": "Portofolio Anda, hanya di perangkat",
+        "subline": "Catat pembelian, lihat nilai dalam CHF – tanpa akun"
+      },
+      "06": {
+        "caption": "Harga langsung di layar utama",
+        "subline": "Daftar, portofolio, dan koin tunggal sebagai widget"
+      }
+    },
+    "it-IT": {
+      "01": {
+        "caption": "I tuoi prezzi a colpo d'occhio",
+        "subline": "Diretti dall'exchange, anche in CHF, con mini grafico"
+      },
+      "02": {
+        "caption": "Allarmi in una semplice frase",
+        "subline": "«Avvisami quando BTC scende sotto 90.000 CHF»"
+      },
+      "03": {
+        "caption": "Capire perché si muove",
+        "subline": "Volume, mercato generale e futures, in breve"
+      },
+      "04": {
+        "caption": "Cosa succede ora sul mercato?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volume – senza previsioni"
+      },
+      "05": {
+        "caption": "Il tuo portafoglio, sul dispositivo",
+        "subline": "Registra gli acquisti, vedi il valore in CHF, senza account"
+      },
+      "06": {
+        "caption": "Prezzi sulla schermata Home",
+        "subline": "Lista, portafoglio e singole monete come widget"
+      }
+    },
+    "iw-IL": {
+      "01": {
+        "caption": "המחירים שלך במבט אחד",
+        "subline": "ישירות מהבורסה, גם ב-CHF, עם גרף קטן"
+      },
+      "02": {
+        "caption": "התראות במשפט פשוט",
+        "subline": "״להודיע לי כש-BTC יורד מתחת ל-90,000 CHF״"
+      },
+      "03": {
+        "caption": "להבין למה זה זז",
+        "subline": "מחזור מסחר, השוק כולו וחוזים עתידיים – בקצרה"
+      },
+      "04": {
+        "caption": "מה קורה בשוק עכשיו?",
+        "subline": "Crypto Pulse: ‏BTC‏, ETH‏, SOL, מחזור – בלי תחזית"
+      },
+      "05": {
+        "caption": "התיק שלך, רק במכשיר",
+        "subline": "רישום קניות ושווי ב-CHF – בלי חשבון"
+      },
+      "06": {
+        "caption": "מחירים ישר במסך הבית",
+        "subline": "רשימה, תיק ומטבעות בודדים כווידג'טים"
+      }
+    },
+    "ja-JP": {
+      "01": {
+        "caption": "価格をひと目でチェック",
+        "subline": "取引所から直接、CHF 表示やミニチャートも"
+      },
+      "02": {
+        "caption": "アラームはわかりやすい文章で",
+        "subline": "「BTC が 90,000 CHF を下回ったら知らせる」"
+      },
+      "03": {
+        "caption": "なぜ動いているかがわかる",
+        "subline": "出来高・市場全体・先物から短くまとめます"
+      },
+      "04": {
+        "caption": "今、市場で何が起きている？",
+        "subline": "Crypto Pulse：BTC・ETH・SOL・出来高、予測なし"
+      },
+      "05": {
+        "caption": "ポートフォリオは端末の中だけ",
+        "subline": "購入を記録して CHF で評価額を表示、アカウント不要"
+      },
+      "06": {
+        "caption": "ホーム画面で価格をチェック",
+        "subline": "リスト・ポートフォリオ・コインをウィジェットで"
+      }
+    },
+    "ko-KR": {
+      "01": {
+        "caption": "시세를 한눈에",
+        "subline": "거래소에서 바로, CHF 표시와 미니 차트까지"
+      },
+      "02": {
+        "caption": "한 문장으로 만드는 경보",
+        "subline": "‘BTC가 90,000 CHF 아래로 내려가면 알려 주세요’"
+      },
+      "03": {
+        "caption": "왜 움직이는지 이해하기",
+        "subline": "거래량, 시장 전체, 선물 데이터를 짧게 요약"
+      },
+      "04": {
+        "caption": "지금 시장에서 무슨 일이?",
+        "subline": "Crypto Pulse: BTC·ETH·SOL·거래량 – 예측 없음"
+      },
+      "05": {
+        "caption": "포트폴리오는 기기 안에만",
+        "subline": "매수를 기록하고 CHF 평가액 확인 – 계정 없이"
+      },
+      "06": {
+        "caption": "홈 화면에서 바로 시세 확인",
+        "subline": "목록, 포트폴리오, 개별 코인 위젯"
+      }
+    },
+    "nl-NL": {
+      "01": {
+        "caption": "Je koersen in één oogopslag",
+        "subline": "Rechtstreeks van de beurs, ook in CHF, met minigrafiek"
+      },
+      "02": {
+        "caption": "Alarmen als eenvoudige zin",
+        "subline": "‘Laat het me weten als BTC onder 90.000 CHF daalt’"
+      },
+      "03": {
+        "caption": "Begrijp waarom het beweegt",
+        "subline": "Volume, totale markt en futures – kort samengevat"
+      },
+      "04": {
+        "caption": "Wat gebeurt er nu in de markt?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volume – geen voorspelling"
+      },
+      "05": {
+        "caption": "Je portfolio, alleen op je toestel",
+        "subline": "Aankopen invoeren, waarde in CHF zien – zonder account"
+      },
+      "06": {
+        "caption": "Koersen op je beginscherm",
+        "subline": "Lijst, portfolio en losse coins als widget"
+      }
+    },
+    "no-NO": {
+      "01": {
+        "caption": "Kursene dine med et blikk",
+        "subline": "Rett fra børsen, også i CHF, med minigraf"
+      },
+      "02": {
+        "caption": "Alarmer som en enkel setning",
+        "subline": "«Gi meg beskjed når BTC faller under 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Forstå hvorfor den beveger seg",
+        "subline": "Volum, hele markedet og futures – kort fortalt"
+      },
+      "04": {
+        "caption": "Hva skjer i markedet nå?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volum – ingen prognose"
+      },
+      "05": {
+        "caption": "Porteføljen din, bare på enheten",
+        "subline": "Registrer kjøp, se verdien i CHF – uten konto"
+      },
+      "06": {
+        "caption": "Kurser rett på hjemskjermen",
+        "subline": "Liste, portefølje og enkeltcoins som widgeter"
+      }
+    },
+    "pl-PL": {
+      "01": {
+        "caption": "Twoje kursy w mgnieniu oka",
+        "subline": "Prosto z giełdy, także w CHF, z minimalnym wykresem"
+      },
+      "02": {
+        "caption": "Alarmy jako proste zdanie",
+        "subline": "„Powiadom mnie, gdy BTC spadnie poniżej 90 000 CHF”"
+      },
+      "03": {
+        "caption": "Zrozum, dlaczego się rusza",
+        "subline": "Wolumen, cały rynek i futures – w skrócie"
+      },
+      "04": {
+        "caption": "Co dzieje się teraz na rynku?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, wolumen – bez prognoz"
+      },
+      "05": {
+        "caption": "Twój portfel, tylko na urządzeniu",
+        "subline": "Zapisuj zakupy, zobacz wartość w CHF – bez konta"
+      },
+      "06": {
+        "caption": "Kursy na ekranie głównym",
+        "subline": "Lista, portfel i pojedyncze monety jako widżety"
+      }
+    },
+    "pt-BR": {
+      "01": {
+        "caption": "Seus preços em um relance",
+        "subline": "Direto da exchange, também em CHF, com minigráfico"
+      },
+      "02": {
+        "caption": "Alarmes em uma frase simples",
+        "subline": "“Me avise quando o BTC cair abaixo de 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Entenda por que está se movendo",
+        "subline": "Volume, mercado geral e futuros, em resumo"
+      },
+      "04": {
+        "caption": "O que está acontecendo agora?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volume – sem previsão"
+      },
+      "05": {
+        "caption": "Seu portfólio, só no aparelho",
+        "subline": "Registre compras e veja o valor em CHF, sem conta"
+      },
+      "06": {
+        "caption": "Preços na tela inicial",
+        "subline": "Lista, portfólio e moedas individuais como widgets"
+      }
+    },
+    "pt-PT": {
+      "01": {
+        "caption": "Os seus preços num relance",
+        "subline": "Diretos da exchange, também em CHF, com minigráfico"
+      },
+      "02": {
+        "caption": "Alarmes numa frase simples",
+        "subline": "«Avisar-me quando BTC descer abaixo de 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Perceba porque está a mexer",
+        "subline": "Volume, mercado global e futuros, em resumo"
+      },
+      "04": {
+        "caption": "O que se passa agora no mercado?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volume – sem previsão"
+      },
+      "05": {
+        "caption": "O seu portefólio, no dispositivo",
+        "subline": "Registe compras e veja o valor em CHF, sem conta"
+      },
+      "06": {
+        "caption": "Preços no ecrã principal",
+        "subline": "Lista, portefólio e moedas individuais em widgets"
+      }
+    },
+    "ro": {
+      "01": {
+        "caption": "Prețurile tale dintr-o privire",
+        "subline": "Direct de la bursă, și în CHF, cu minigrafic"
+      },
+      "02": {
+        "caption": "Alarme ca o propoziție simplă",
+        "subline": "„Anunță-mă când BTC coboară sub 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Înțelege de ce se mișcă",
+        "subline": "Volum, piața generală și futures – pe scurt"
+      },
+      "04": {
+        "caption": "Ce se întâmplă acum pe piață?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volum – fără prognoză"
+      },
+      "05": {
+        "caption": "Portofoliul tău, doar pe dispozitiv",
+        "subline": "Notează cumpărările, vezi valoarea în CHF – fără cont"
+      },
+      "06": {
+        "caption": "Prețuri pe ecranul principal",
+        "subline": "Listă, portofoliu și monede individuale ca widget"
+      }
+    },
+    "ru-RU": {
+      "01": {
+        "caption": "Ваши курсы с одного взгляда",
+        "subline": "Напрямую с биржи, и в CHF, с мини-графиком"
+      },
+      "02": {
+        "caption": "Оповещения одной фразой",
+        "subline": "«Сообщить, когда BTC опустится ниже 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Поймите, почему это движется",
+        "subline": "Объём, рынок в целом и фьючерсы – коротко"
+      },
+      "04": {
+        "caption": "Что происходит на рынке сейчас?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, объём – без прогноза"
+      },
+      "05": {
+        "caption": "Ваш портфель – только на устройстве",
+        "subline": "Записывайте покупки, стоимость в CHF – без аккаунта"
+      },
+      "06": {
+        "caption": "Курсы прямо на главном экране",
+        "subline": "Список, портфель и отдельные монеты в виджетах"
+      }
+    },
+    "sq": {
+      "01": {
+        "caption": "Çmimet e tua me një shikim",
+        "subline": "Drejt nga bursa, edhe në CHF, me mini-grafik"
+      },
+      "02": {
+        "caption": "Alarme si një fjali e thjeshtë",
+        "subline": "«Më njofto kur BTC të bjerë nën 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Kupto pse po lëviz",
+        "subline": "Vëllimi, tregu i përgjithshëm dhe futures – shkurt"
+      },
+      "04": {
+        "caption": "Çfarë po ndodh tani në treg?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, vëllimi – pa parashikim"
+      },
+      "05": {
+        "caption": "Portofoli yt, vetëm në pajisje",
+        "subline": "Regjistro blerjet, shiko vlerën në CHF – pa llogari"
+      },
+      "06": {
+        "caption": "Çmimet në ekranin kryesor",
+        "subline": "Lista, portofoli dhe monedha të veçanta si widget"
+      }
+    },
+    "sv-SE": {
+      "01": {
+        "caption": "Dina kurser i en blick",
+        "subline": "Direkt från börsen, även i CHF, med minidiagram"
+      },
+      "02": {
+        "caption": "Larm som en enkel mening",
+        "subline": "”Meddela mig när BTC sjunker under 90 000 CHF”"
+      },
+      "03": {
+        "caption": "Förstå varför den rör sig",
+        "subline": "Volym, hela marknaden och terminer – kort sagt"
+      },
+      "04": {
+        "caption": "Vad händer i marknaden nu?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, volym – ingen prognos"
+      },
+      "05": {
+        "caption": "Din portfölj, bara på enheten",
+        "subline": "Registrera köp, se värdet i CHF – utan konto"
+      },
+      "06": {
+        "caption": "Kurser direkt på hemskärmen",
+        "subline": "Lista, portfölj och enskilda coins som widgetar"
+      }
+    },
+    "th": {
+      "01": {
+        "caption": "ดูราคาได้ในพริบตา",
+        "subline": "ตรงจากกระดานเทรด แสดงเป็น CHF ได้ พร้อมกราฟเล็ก"
+      },
+      "02": {
+        "caption": "ตั้งเตือนเป็นประโยคง่าย ๆ",
+        "subline": "“แจ้งฉันเมื่อ BTC ลงต่ำกว่า 90,000 CHF”"
+      },
+      "03": {
+        "caption": "เข้าใจว่าทำไมถึงเคลื่อนไหว",
+        "subline": "วอลุ่ม ตลาดโดยรวม และฟิวเจอร์ส สรุปสั้น ๆ"
+      },
+      "04": {
+        "caption": "ตลาดกำลังเกิดอะไรขึ้น?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, วอลุ่ม – ไม่คาดการณ์"
+      },
+      "05": {
+        "caption": "พอร์ตของคุณ อยู่แค่ในเครื่อง",
+        "subline": "บันทึกการซื้อ ดูมูลค่าเป็น CHF – ไม่ต้องมีบัญชี"
+      },
+      "06": {
+        "caption": "ราคาบนหน้าจอหลักทันที",
+        "subline": "รายการ พอร์ต และเหรียญเดี่ยวเป็นวิดเจ็ต"
+      }
+    },
+    "tr-TR": {
+      "01": {
+        "caption": "Fiyatların tek bakışta",
+        "subline": "Doğrudan borsadan, CHF olarak da, mini grafikle"
+      },
+      "02": {
+        "caption": "Basit bir cümleyle alarm",
+        "subline": "“BTC 90.000 CHF altına düşünce bana haber ver”"
+      },
+      "03": {
+        "caption": "Neden hareket ettiğini anla",
+        "subline": "Hacim, genel piyasa ve vadeli işlemler – kısaca"
+      },
+      "04": {
+        "caption": "Piyasada şu an neler oluyor?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, hacim – tahmin yok"
+      },
+      "05": {
+        "caption": "Portföyün yalnızca cihazında",
+        "subline": "Alımları gir, değeri CHF olarak gör – hesapsız"
+      },
+      "06": {
+        "caption": "Fiyatlar ana ekranında",
+        "subline": "Liste, portföy ve tek coinler widget olarak"
+      }
+    },
+    "uk": {
+      "01": {
+        "caption": "Ваші курси з одного погляду",
+        "subline": "Напряму з біржі, і в CHF, з міні-графіком"
+      },
+      "02": {
+        "caption": "Сигнали одним реченням",
+        "subline": "«Повідомити, коли BTC опуститься нижче 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Зрозумійте, чому це рухається",
+        "subline": "Обсяг, ринок загалом і ф’ючерси – коротко"
+      },
+      "04": {
+        "caption": "Що відбувається на ринку зараз?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, обсяг – без прогнозу"
+      },
+      "05": {
+        "caption": "Ваш портфель – лише на пристрої",
+        "subline": "Записуйте купівлі, вартість у CHF – без акаунта"
+      },
+      "06": {
+        "caption": "Курси просто на головному екрані",
+        "subline": "Список, портфель і окремі монети у віджетах"
+      }
+    },
+    "vi": {
+      "01": {
+        "caption": "Giá của bạn trong nháy mắt",
+        "subline": "Trực tiếp từ sàn, cả bằng CHF, kèm biểu đồ mini"
+      },
+      "02": {
+        "caption": "Cảnh báo bằng một câu đơn giản",
+        "subline": "“Báo cho tôi khi BTC giảm dưới 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Hiểu vì sao giá biến động",
+        "subline": "Khối lượng, toàn thị trường và futures – ngắn gọn"
+      },
+      "04": {
+        "caption": "Thị trường đang diễn ra gì?",
+        "subline": "Crypto Pulse: BTC, ETH, SOL, khối lượng – không dự báo"
+      },
+      "05": {
+        "caption": "Danh mục chỉ trên thiết bị",
+        "subline": "Ghi lại lệnh mua, xem giá trị bằng CHF – không tài khoản"
+      },
+      "06": {
+        "caption": "Giá ngay trên màn hình chính",
+        "subline": "Danh sách, danh mục và từng coin dạng widget"
+      }
+    },
+    "zh-CN": {
+      "01": {
+        "caption": "行情一目了然",
+        "subline": "直接来自交易所，也可显示 CHF，附迷你图表"
+      },
+      "02": {
+        "caption": "用一句话设置提醒",
+        "subline": "“当 BTC 跌破 90,000 CHF 时提醒我”"
+      },
+      "03": {
+        "caption": "看懂为什么在波动",
+        "subline": "成交量、大盘和合约数据，一句话总结"
+      },
+      "04": {
+        "caption": "市场此刻在发生什么？",
+        "subline": "Crypto Pulse：BTC、ETH、SOL、成交量，不做预测"
+      },
+      "05": {
+        "caption": "投资组合只存在你的设备上",
+        "subline": "记录买入，以 CHF 查看市值，无需账户"
+      },
+      "06": {
+        "caption": "主屏幕上直接看行情",
+        "subline": "列表、投资组合和单个币种小组件"
+      }
+    }
+  }
+}
