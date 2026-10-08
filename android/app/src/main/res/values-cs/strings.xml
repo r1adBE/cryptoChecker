@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Chyba: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Žádné měnové páry</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Klepnutím sem stáhnete nejnovější měnové páry z vybrané burzy.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Načte aktuální páry vybraného trhu.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Aktualizovat měnové páry</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchronizovat nyní!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Poslední synchronizace: %1$s</string>
@@ -39,7 +39,6 @@
     <string name="bulk_all_pairs_empty">Tato burza nemá pro vybraný typ kontraktu žádné %1$s páry. Nejprve burzu synchronizujte, nebo zkuste jiný typ kontraktu.</string>
 
     <string name="action_refresh">Obnovit</string>
-    <string name="action_add_pair">Přidat pár</string>
     <string name="action_delete">Smazat</string>
     <string name="action_edit">Upravit</string>
     <string name="action_back">Zpět</string>
@@ -47,7 +46,6 @@
     <string name="action_cancel">Zrušit</string>
 
     <string name="watchlist_empty_title">Zatím žádné páry</string>
-    <string name="watchlist_empty_hint">Nebo vyberte burzu a pár na kartě „Přidat“. Každý pár může mít oznámení, hlasové hlášení ceny a cenové alarmy.</string>
     <string name="watchlist_updated">Aktualizováno: %1$s</string>
     <string name="watchlist_notification">Oznámení</string>
     <string name="watchlist_tts">Číst cenu nahlas</string>
@@ -80,7 +78,7 @@
     <string name="channel_prices_description">Tiché oznámení s aktuální cenou páru.</string>
     <string name="channel_alarms">Alarmy</string>
     <string name="channel_alarms_description">Oznámení při spuštění cenového alarmu.</string>
-    <string name="channel_service">Živý režim</string>
+    <string name="channel_service">Časté obnovování</string>
     <string name="channel_service_description">Upozornění, zatímco se ceny aktualizují v krátkých intervalech.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, z %2$s (před %3$s)</string>
@@ -131,7 +129,7 @@
     <string name="settings_rolling_futures">Včetně čtvrtletních a dalších termínovaných futures</string>
     <string name="settings_rolling_futures_hint">Vypnuto: termínované futures, které chybí v seznamu burzy, se označí jako již neobchodované, místo aby se kontrolovaly jednotlivě. Šetří čas při každém obnovení.</string>
     <string name="notification_refreshing">Aktualizace cen…</string>
-    <string name="notification_service_title">Crypto Checker – živý režim</string>
+    <string name="notification_service_title">Crypto Checker často obnovuje kurzy</string>
     <string name="notification_service_starting">Spouštění…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d pár · %2$s</item>
@@ -146,9 +144,9 @@
     <string name="settings_background_updates">Aktualizace na pozadí</string>
     <string name="settings_background_updates_hint">Ceny, alarmy a widgety se aktualizují i při zavřené aplikaci.</string>
     <string name="settings_background_interval">Interval</string>
-    <string name="settings_live_service">Živý režim</string>
-    <string name="settings_live_service_hint">Udržuje spuštěnou službu pro krátké intervaly. Spotřebovává více baterie.</string>
-    <string name="settings_live_interval">Živý interval</string>
+    <string name="settings_live_service">Obnovovat často</string>
+    <string name="settings_live_service_hint">Načítá kurzy v krátkých intervalech, i když je aplikace zavřená. Zobrazuje oznámení a spotřebuje víc baterie.</string>
+    <string name="settings_live_interval">Jak často</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Cenová oznámení</string>
@@ -232,7 +230,7 @@
     <string name="theme_system">Systém</string>
     <string name="settings_section_developer">Vývojář</string>
     <string name="settings_http_log">Zobrazit protokol HTTP</string>
-    <string name="settings_http_log_hint">Zobrazí dole na kartě „Přidat“ požadavky na burzy – pro hledání chyb.</string>
+    <string name="settings_http_log_hint">Zobrazí dole na stránce „Přidat pár“ požadavky na burzy – pro hledání chyb.</string>
     <string name="language_search">Hledat jazyk</string>
     <string name="alarm_delete_title">Smazat alarm?</string>
     <string name="alarm_delete_confirm">Tento alarm bude odstraněn.</string>
@@ -280,15 +278,11 @@
     <string name="explorer_bulk_show_list">Zobrazit seznam</string>
     <string name="explorer_bulk_hide_list">Skrýt seznam</string>
     <string name="time_just_now">právě teď</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Vaše kurzy. Vaše alarmy. Váš přehled.\nBez účtu. Bez reklam. Bez sledování.</string>
-    <string name="welcome_later">Později</string>
     <string name="developer_unlocked">Vývojářské možnosti odemčeny</string>
     <string name="hint_favorites_list">Tip: klepnutím na ☆ přidáte do oblíbených – oblíbené jsou nahoře.</string>
     <string name="tab_watchlist">Seznam</string>
-    <string name="tab_markets">Přidat</string>
     <string name="tab_market_phase">Trh</string>
-    <string name="tab_settings">Volby</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Zastaralé: %1$d z %2$d</item>
         <item quantity="few">Zastaralé: %1$d z %2$d</item>

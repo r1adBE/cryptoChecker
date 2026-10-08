@@ -24,6 +24,21 @@ struct SingleEntry: TimelineEntry {
     var priceColorsInverted: Bool = SharedStorage.loadSettings().priceColorsInverted
     /// Ab diesem Alter «veraltet» (`WidgetOutdated`), gemessen an `date`.
     var outdatedAfter: Int64 = WidgetOutdated.afterMillis
+    /// «Basis der %-Änderung» und Stempel der gespeicherten Werte (beim Erstellen gelesen).
+    var changeBasis: ChangeBasis = SharedStorage.loadSettings().changeBasis
+    var changeStamp: ChangeStamp? = SharedStorage.changeStamp
+
+    /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
+    var changeView: ChangeView {
+        ChangeView.of(stamp: changeStamp, basis: changeBasis, now: Int64(date.timeIntervalSince1970 * 1000))
+    }
+
+    /// Das Paar, wie es gezeigt wird: Veränderung nur, wenn sie zur %-Basis passt.
+    var shownWatch: Watch? {
+        guard var w = watch else { return nil }
+        w.change24h = changeView.shown(w.change24h)
+        return w
+    }
 
     /// Kurs des Paares am Datum des Eintrags veraltet?
     var outdated: Bool {
@@ -128,20 +143,27 @@ struct SingleWidgetView: View {
     @Environment(\.widgetFamily) private var family
 
     var body: some View {
+        Group { content }
+            // %-Basis für Zeitraum und VoiceOver der Veränderung
+            .environment(\.changeView, entry.changeView)
+    }
+
+    @ViewBuilder
+    private var content: some View {
         switch family {
         case .accessoryRectangular:
-            SingleRectangularView(watch: entry.watch, outdated: entry.outdated, date: entry.date)
+            SingleRectangularView(watch: entry.shownWatch, outdated: entry.outdated, date: entry.date)
                 .containerBackground(for: .widget) { Color.clear }
                 .widgetURL(Self.url(entry.watch))
         case .accessoryInline:
-            SingleInlineView(watch: entry.watch)
+            SingleInlineView(watch: entry.shownWatch)
                 .containerBackground(for: .widget) { Color.clear }
                 .widgetURL(Self.url(entry.watch))
         default:
             WidgetThemed(theme: entry.theme, accent: entry.accent, priceColors: entry.priceColors,
                          highContrast: entry.highContrast, inverted: entry.priceColorsInverted) { palette in
                 Group {
-                    if let watch = entry.watch {
+                    if let watch = entry.shownWatch {
                         if family == .systemMedium {
                             SingleMediumView(watch: watch, candles: entry.candles, range: entry.range,
                                              chartType: entry.chartType, palette: palette,
@@ -183,11 +205,13 @@ private struct SingleSummaryA11y: ViewModifier {
     let watch: Watch
     var outdated = false
     var date = Date()
+    @Environment(\.changeView) private var changeView
 
     func body(content: Content) -> some View {
         content
             .accessibilityElement(children: .combine)
-            .accessibilityLabel(A11y.watchRow(watch, stale: outdated ? WidgetOutdated.spoken(watch.lastUpdate, at: date) : nil))
+            .accessibilityLabel(A11y.watchRow(watch, stale: outdated ? WidgetOutdated.spoken(watch.lastUpdate, at: date) : nil,
+                                              changeView: ChangeView(basis: changeView.basis)))
     }
 }
 
@@ -195,6 +219,7 @@ private struct SingleHeader: View {
     let watch: Watch
     let palette: WidgetPalette
     var badge: CGFloat = 20
+    @Environment(\.changeView) private var changeView
 
     /// Volles Paar («BTC/USDT»), wenn es neben der Veränderung Platz hat, sonst nur die
     /// Basis («BTC» statt «BT…»). Die Veränderung wird nie gekürzt (feste Breite, Vorrang).
@@ -209,9 +234,9 @@ private struct SingleHeader: View {
             }
             .layoutPriority(1)
             Spacer(minLength: 4)
-            // Veränderung über 24 Stunden (wie die Pille der App); der Chart kann einen anderen Zeitraum zeigen
+            // Veränderung gemäss %-Basis (wie die Pille der App); der Chart kann einen anderen Zeitraum zeigen
             WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 11.5, showsArrow: true, day: true,
-                              suffix: L("widget_range_short_24h"))
+                              suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis)
                 .fixedSize(horizontal: true, vertical: false)
                 .layoutPriority(2)
                 .invalidatableContent()
@@ -278,6 +303,7 @@ private struct SingleMediumView: View {
     let candles: [MarketCandle]?
     let range: WidgetChartRangeOption
     let chartType: WidgetChartTypeOption
+    @Environment(\.changeView) private var changeView
     let palette: WidgetPalette
     var outdated = false
     var date = Date()
@@ -304,7 +330,7 @@ private struct SingleMediumView: View {
                 if watch.lastPrice != nil {
                     let change = watch.shownChange24h
                     WidgetChangeLabel(change: change, palette: palette, size: 12, showsArrow: true, day: true,
-                                      suffix: L("widget_range_short_24h"))
+                                      suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis)
                         .padding(.horizontal, 7)
                         .padding(.vertical, 3)
                         .background(Capsule().fill(palette.change(change).opacity(palette.dark ? 0.14 : 0.06)))
@@ -399,7 +425,7 @@ private struct SingleRectangularView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
                     .widgetAccentable()
-                Text("\(watch.marketName) · \(WidgetOutdated.timeText(watch.lastUpdate, outdated: outdated, at: date))")
+                Text(verbatim: "\(BidiText.isolate(watch.marketName)) · \(WidgetOutdated.timeText(watch.lastUpdate, outdated: outdated, at: date))")
                     .font(.system(size: 11))
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
@@ -416,12 +442,13 @@ private struct SingleRectangularView: View {
 
 private struct SingleInlineView: View {
     let watch: Watch?
+    @Environment(\.changeView) private var changeView
 
     var body: some View {
         if let watch {
             let parts = [watch.baseAsset, PriceFormat.price(watch.lastPrice), PriceFormat.changePercent(watch.shownChange24h)]
             Text(parts.compactMap { $0 }.joined(separator: " "))
-                .accessibilityLabel(A11y.watchRow(watch))
+                .accessibilityLabel(A11y.watchRow(watch, changeView: ChangeView(basis: changeView.basis)))
         } else {
             Text(L("single_widget_choose"))
         }

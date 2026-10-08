@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">Feil: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Ingen valutapar</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Trykk her for å hente de nyeste valutaparene fra valgt børs.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Henter de gjeldende parene fra den valgte børsen.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Oppdater valutapar</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synkroniser nå</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Sist synkronisert: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">aldri</string>
 
-    <string name="market_screen_sync">Synk</string>
+    <string name="market_screen_sync">Synkroniser</string>
     <string name="market_screen_base">Basis</string>
     <string name="market_screen_quote">Motvaluta</string>
     <string name="market_screen_market">Børs</string>
@@ -37,7 +37,6 @@
     <string name="bulk_all_pairs_empty">Ingen %1$s-par på denne børsen for valgt kontrakttype. Synkroniser børsen først, eller prøv en annen kontrakttype.</string>
 
     <string name="action_refresh">Oppdater</string>
-    <string name="action_add_pair">Legg til par</string>
     <string name="action_delete">Slett</string>
     <string name="action_edit">Rediger</string>
     <string name="action_back">Tilbake</string>
@@ -45,7 +44,6 @@
     <string name="action_cancel">Avbryt</string>
 
     <string name="watchlist_empty_title">Ingen par ennå</string>
-    <string name="watchlist_empty_hint">Eller velg en børs og et par under «Legg til». Hvert par kan få et varsel, en opplesning og kursalarmer.</string>
     <string name="watchlist_updated">Oppdatert: %1$s</string>
     <string name="watchlist_notification">Varsel</string>
     <string name="watchlist_tts">Les opp kurs</string>
@@ -76,7 +74,7 @@
     <string name="channel_prices_description">Lydløst varsel med gjeldende kurs for et par.</string>
     <string name="channel_alarms">Alarmer</string>
     <string name="channel_alarms_description">Varsel når en kursalarm utløses.</string>
-    <string name="channel_service">Livemodus</string>
+    <string name="channel_service">Hyppig oppdatering</string>
     <string name="channel_service_description">Vises mens kurser oppdateres med korte intervaller.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, fra %2$s (for %3$s siden)</string>
@@ -127,7 +125,7 @@
     <string name="settings_rolling_futures">Inkl. kvartals- og andre futures med forfall</string>
     <string name="settings_rolling_futures_hint">Av: futures med forfall som mangler i børsens liste, merkes som «handles ikke lenger» i stedet for å sjekkes én etter én. Sparer tid ved hver oppdatering.</string>
     <string name="notification_refreshing">Oppdaterer kurser…</string>
-    <string name="notification_service_title">Crypto Checker livemodus</string>
+    <string name="notification_service_title">Crypto Checker oppdaterer ofte</string>
     <string name="notification_service_starting">Starter…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d par · %2$s</item>
@@ -140,9 +138,9 @@
     <string name="settings_background_updates">Oppdater i bakgrunnen</string>
     <string name="settings_background_updates_hint">Kurser, alarmer og moduler oppdateres også når appen er lukket.</string>
     <string name="settings_background_interval">Intervall</string>
-    <string name="settings_live_service">Livemodus</string>
-    <string name="settings_live_service_hint">Holder en tjeneste i gang for korte intervaller. Bruker mer batteri.</string>
-    <string name="settings_live_interval">Liveintervall</string>
+    <string name="settings_live_service">Oppdater ofte</string>
+    <string name="settings_live_service_hint">Henter kurser med korte mellomrom, også når appen er lukket. Viser et varsel og bruker mer strøm.</string>
+    <string name="settings_live_interval">Hvor ofte</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Kursvarsler</string>
@@ -222,7 +220,7 @@
     <string name="theme_system">System</string>
     <string name="settings_section_developer">Utvikler</string>
     <string name="settings_http_log">Vis HTTP-logg</string>
-    <string name="settings_http_log_hint">Viser forespørslene til børsene nederst i fanen «Legg til» – for feilsøking.</string>
+    <string name="settings_http_log_hint">Viser forespørslene til børsene nederst på siden «Legg til par» – for feilsøking.</string>
     <string name="language_search">Søk etter språk</string>
     <string name="alarm_delete_title">Slette alarm?</string>
     <string name="alarm_delete_confirm">Denne alarmen fjernes.</string>
@@ -262,15 +260,11 @@
     <string name="explorer_bulk_show_list">Vis liste</string>
     <string name="explorer_bulk_hide_list">Skjul liste</string>
     <string name="time_just_now">nå nettopp</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Dine kurser. Dine alarmer. Din oversikt.\nIngen konto. Ingen reklame. Ingen sporing.</string>
-    <string name="welcome_later">Senere</string>
     <string name="developer_unlocked">Utvikleralternativer låst opp</string>
     <string name="hint_favorites_list">Tips: trykk på ☆ for favoritt – favoritter står øverst.</string>
     <string name="tab_watchlist">Liste</string>
-    <string name="tab_markets">Legg til</string>
     <string name="tab_market_phase">Marked</string>
-    <string name="tab_settings">Innstillinger</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d av %2$d utdatert</item>
         <item quantity="other">%1$d av %2$d utdatert</item>

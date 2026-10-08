@@ -18,9 +18,9 @@
     <string name="pulse_less">कम दिखाएँ</string>
     <string name="pulse_updated">%1$s तक</string>
     <string name="pulse_unavailable">बाज़ार डेटा अभी उपलब्ध नहीं है</string>
-    <string name="why_summary_title">संक्षेप में</string>
+    <string name="why_summary_title">संभावित कारण</string>
     <string name="why_summary_market_volume">इस चाल के साथ ऊँचा ट्रेडिंग वॉल्यूम है और पूरा बाज़ार व्यापक रूप से चल रहा है।</string>
-    <string name="why_summary_market">यह चाल पूरे बाज़ार का अनुसरण करती है।</string>
+    <string name="why_summary_market">यह चाल संभवतः पूरे बाज़ार का अनुसरण करती है।</string>
     <string name="why_summary_coin_volume">सिर्फ़ यही कॉइन चल रहा है, ऊँचे वॉल्यूम के साथ – शायद कॉइन से जुड़ी कोई वजह।</string>
     <string name="why_summary_coin">सिर्फ़ यही कॉइन चल रहा है – शायद कॉइन से जुड़ी कोई वजह।</string>
     <string name="why_summary_against">कॉइन बाज़ार के उलट चल रहा है।</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">देखें – आपके कॉइन, भाव, चार्ट और विजेट</string>
     <string name="welcome_alert">अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें</string>
     <string name="welcome_understand">समझें – बाज़ार अभी क्यों चल रहा है?</string>
-    <string name="welcome_start">शुरू करें</string>
     <string name="portfolio_empty_example">उदाहरण: 1 मार्च को %1$s पर 0.01 BTC ख़रीदा। फिर ऐप मूल्य, औसत ख़रीद मूल्य और लाभ/हानि दिखाता है – सिर्फ़ इसी डिवाइस पर सहेजा जाता है।</string>
     <string name="about_why">Crypto Checker, r1AD का एक स्वतंत्र प्रोजेक्ट है: बिना खाते, विज्ञापन या ट्रैकिंग के भावों का शांत ओवरव्यू। सवाल और सुझाव: %1$s</string>
     <string name="a11y_move_up">ऊपर ले जाएँ</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">एक्सचेंज से कोई डेटा नहीं मिला।</string>
     <string name="sync_pairs_count">ट्रेडिंग पेयर: %1$d</string>
     <string name="market_unavailable_error">एक्सचेंज उपलब्ध नहीं</string>
-    <string name="refresh_report_aborted">रीफ़्रेश रद्द हुआ:</string>
-    <string name="refresh_report_wait">शुरू होने तक प्रतीक्षा: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">कुल %1$s · %2$d पेयर</item>
-        <item quantity="other">कुल %1$s · %2$d पेयर</item>
-    </plurals>
-    <string name="refresh_report_network">नेटवर्क %1$s</string>
-    <string name="refresh_report_database">डेटाबेस %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">अलार्म/नोटिफ़िकेशन %1$s · %2$d नोटिफ़िकेशन</item>
-        <item quantity="other">अलार्म/नोटिफ़िकेशन %1$s · %2$d नोटिफ़िकेशन</item>
-    </plurals>
-    <string name="refresh_report_widgets">विजेट %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d पेयर, %3$s</item>
-        <item quantity="other">%1$s: %2$d पेयर, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">बल्क अनुरोध %1$s (%2$d भाव)</item>
-        <item quantity="other">बल्क अनुरोध %1$s (%2$d भाव)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">बल्क अनुरोध %1$s (विफल)</string>
     <string name="refresh_report_singles">%1$d अलग-अलग</string>
-    <string name="refresh_report_slowest">सबसे धीमा %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d अब ट्रेड नहीं होता</item>
         <item quantity="other">%1$d अब ट्रेड नहीं होते</item>

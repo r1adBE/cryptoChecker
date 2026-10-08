@@ -74,33 +74,9 @@ class PriceUpdateScheduler @Inject constructor(
     }
 
     /**
-     * Aktualisierung per Knopf in der App. Läuft über WorkManager statt im
-     * ViewModel, damit sie fertig wird — samt Widgets —, auch wenn die App
-     * währenddessen geschlossen wird.
-     *
-     * Ohne Netz-Bedingung: Ein Knopfdruck soll sofort laufen (und ohne Netz
-     * eben sofort mit Fehler enden), nicht still warten. KEEP, damit ein
-     * zweiter Tipp einen laufenden Durchlauf nicht abbricht.
+     * true, solange eine angestoßene Aktualisierung (Widget-Knopf) wartet oder läuft. Der Knopf
+     * in der App läuft direkt (ManualRefresh), nicht mehr über WorkManager.
      */
-    fun refreshNowFromApp() {
-        val request = OneTimeWorkRequestBuilder<PriceUpdateWorker>()
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-            .setInputData(
-                workDataOf(
-                    PriceUpdateWorker.KEY_MANUAL to true,
-                    PriceUpdateWorker.KEY_ENQUEUED_AT to System.currentTimeMillis(),
-                )
-            )
-            .build()
-
-        workManager.enqueueUniqueWork(
-            PriceUpdateWorker.ONE_TIME_WORK_NAME,
-            ExistingWorkPolicy.KEEP,
-            request
-        )
-    }
-
-    /** true, solange eine angestoßene Aktualisierung wartet oder läuft. */
     fun observeManualRefreshRunning(): Flow<Boolean> =
         workManager.getWorkInfosForUniqueWorkFlow(PriceUpdateWorker.ONE_TIME_WORK_NAME)
             .map { infos -> infos.any { !it.state.isFinished } }

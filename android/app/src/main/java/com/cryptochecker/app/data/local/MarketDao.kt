@@ -58,7 +58,8 @@ abstract class MarketDao: MarketDaoBase {
                         baseAsset = it.currencyBase,
                         quoteAsset = it.currencyCounter,
                         contractType =it.contractType,
-                        marketPairId = it.currencyPairId
+                        marketPairId = it.currencyPairId,
+                        tradFi = it.tradFi,
                     )
                 }
             )

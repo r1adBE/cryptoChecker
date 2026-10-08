@@ -22,7 +22,11 @@ class SheetChartTest {
 
     @Test
     fun `ranges - cache lifetimes and time templates`() {
-        assertEquals(listOf("DAY", "WEEK", "MONTH"), SheetChartRange.entries.map { it.name })
+        assertEquals(listOf("DAY", "WEEK", "MONTH", "YEAR"), SheetChartRange.entries.map { it.name })
+        assertEquals(60 * 60_000L, SheetChartRange.YEAR.cacheMillis)
+        // 1 Jahr: Datum mit Jahr, ohne Uhrzeit
+        assertTrue(SheetChartRange.YEAR.timeTemplate.contains("y") && SheetChartRange.YEAR.timeTemplate.contains("MMM"))
+        assertFalse(SheetChartRange.YEAR.timeTemplate.contains("j"))
         assertEquals(5 * 60_000L, SheetChartRange.DAY.cacheMillis)
         assertEquals(30 * 60_000L, SheetChartRange.WEEK.cacheMillis)
         assertEquals(30 * 60_000L, SheetChartRange.MONTH.cacheMillis)
@@ -155,5 +159,20 @@ class SheetChartTest {
         assertSame(ready, cache.get("BTC", "USDT", SheetChartRange.WEEK))
         now += 25 * 60_000L
         assertNull(cache.get("BTC", "USDT", SheetChartRange.WEEK))
+    }
+
+    @Test
+    fun `header - 24h shows the pill value, 7T and 30T the candles`() {
+        val candles = SheetChart.rangeChange(series, WidgetChartType.CANDLES)!!
+        // 24h mit Ticker-Wert: genau die Zahl der Pille (−3.66 statt −3.41 aus den Kerzen)
+        assertEquals(-3.66, SheetChart.headerChange(SheetChartRange.DAY, series, WidgetChartType.CANDLES, -3.66)!!, 1e-12)
+        // Ohne 24-h-Wert (nicht gehandelt, noch kein Bezug) oder ungültig: aus den Kerzen
+        assertEquals(candles, SheetChart.headerChange(SheetChartRange.DAY, series, WidgetChartType.CANDLES, null)!!, 1e-12)
+        assertEquals(candles, SheetChart.headerChange(SheetChartRange.DAY, series, WidgetChartType.CANDLES, Double.NaN)!!, 1e-12)
+        // 7T/30T: immer die Veränderung über den Zeitraum
+        assertEquals(candles, SheetChart.headerChange(SheetChartRange.WEEK, series, WidgetChartType.CANDLES, -3.66)!!, 1e-12)
+        assertEquals(candles, SheetChart.headerChange(SheetChartRange.MONTH, series, WidgetChartType.CANDLES, -3.66)!!, 1e-12)
+        assertEquals(candles, SheetChart.headerChange(SheetChartRange.YEAR, series, WidgetChartType.CANDLES, -3.66)!!, 1e-12)
+        assertNull(SheetChart.headerChange(SheetChartRange.WEEK, series.take(1), WidgetChartType.CANDLES, 1.0))
     }
 }

@@ -40,6 +40,8 @@ struct WatchlistScreen: View {
     /// «Nicht gehandelte Paare entfernen»: Rückfrage offen?
     @State private var askRemoveNotTraded = false
     @State private var showReport = false
+    /// Alarm löst bei offener App aus: Glocke pulsiert einmal (`AlarmPulse`).
+    @State private var bellPulse = 0
     @State private var showOverview = false
     @State private var alarmsFor: Int64?
     @State private var editMode: EditMode = .inactive
@@ -84,6 +86,9 @@ struct WatchlistScreen: View {
         let watches = data.watches
         // Sichtbar: alle Paare oder nur die der gewählten Gruppe
         let visible = data.visibleWatches
+        // %-Basis für Pillen, Puls und Aktionsblatt; passt der Stempel der gespeicherten Werte nicht
+        // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
+        let changeView = data.changeView(now: now)
         ScrollViewReader { proxy in
             Group {
                 if watches.isEmpty {
@@ -101,6 +106,7 @@ struct WatchlistScreen: View {
         // «Erst-Hinzufügen»: abholen, sobald die Merkliste sichtbar ist
         .onChange(of: data.addCelebration?.id, initial: true) { _, _ in takeCelebration() }
         .onChange(of: router.tab) { _, _ in takeCelebration() }
+        .onChange(of: router.showExplorer) { _, _ in takeCelebration() }
         .overlay(alignment: .bottom) {
             // Animation nur für den Banner, nicht für die Liste darunter
             WatchlistBanner(message: $banner) { deleted in undoDelete(deleted) }
@@ -111,11 +117,15 @@ struct WatchlistScreen: View {
         .sensoryFeedback(.impact(weight: .medium), trigger: swipeDeleteTick)
         .background(AppColors.background.ignoresSafeArea())
         // Keine Leiste mit Logo und App-Namen mehr (kostete eine ganze Zeile): ihre Knöpfe
-        // stehen rechts in der Gruppen-Zeile oben in der Liste (`headerRow`). Der Titel
+        // stehen rechts in der Gruppen-Zeile im festen Kopf über der Liste (`headerRow`). Der Titel
         // bleibt für den Zurück-Knopf und VoiceOver; den Abstand zur Statusleiste gibt die
         // sichere Zone der Liste.
         .navigationTitle(L("tab_watchlist"))
         .toolbar(.hidden, for: .navigationBar)
+        // «Paar hinzufügen» als Seite über der Merkliste («+», Shortcut, Widget, Link "add")
+        .navigationDestination(isPresented: $router.showExplorer) {
+            ExplorerScreen()
+        }
         .task {
             while !Task.isCancelled {
                 try? await Task.sleep(nanoseconds: 30_000_000_000)
@@ -129,13 +139,26 @@ struct WatchlistScreen: View {
         }
         .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
         .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }
+        // Erster Stand gilt als gesehen; nur spätere Auslösungen lassen die Glocke pulsieren
+        .onChange(of: data.alarms.map(\.lastTriggeredAt).max() ?? 0) { old, new in
+            if !reduceMotion && AlarmPulse.isNew(previous: old, current: new) { bellPulse += 1 }
+        }
         .onChange(of: router.showAlarmsOverview, initial: true) { _, show in
             guard show else { return }
             router.showAlarmsOverview = false
             actionsFor = nil
             showOverview = true
         }
-        // «Alarm setzen» aus dem Hinzufügen-Tab: Alarme des Paars öffnen (wie aus dem Aktionsblatt)
+        // «Warum?» aus einer Alarm-Mitteilung: Erklärung des Paars öffnen (nur gehandelte Paare)
+        .onChange(of: router.openWhyWatchId, initial: true) { _, id in
+            guard let id else { return }
+            router.openWhyWatchId = nil
+            guard data.watch(id)?.isNotTraded == false else { return }
+            actionsFor = nil
+            showOverview = false
+            whyFor = WatchlistSheetTarget(id: id)
+        }
+        // «Alarm setzen» von der Seite «Paar hinzufügen»: Alarme des Paars öffnen (wie aus dem Aktionsblatt)
         .onChange(of: router.openAlarmsWatchId, initial: true) { _, id in
             guard let id else { return }
             router.openAlarmsWatchId = nil
@@ -146,7 +169,20 @@ struct WatchlistScreen: View {
         .onChange(of: visible.count) { _, count in
             if count < 2 { editMode = .inactive }
         }
+        .environment(\.changeView, changeView)
         .sensoryFeedback(.impact(weight: .medium), trigger: reorderTick)
+        // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
+        .onChange(of: data.visibleWatches.map(\.livePair), initial: true) { _, pairs in
+            Task { await LivePriceStream.shared.setPairs(pairs) }
+        }
+        .onAppear { Task { await LivePriceStream.shared.setScreenVisible(true) } }
+        .onDisappear { Task { await LivePriceStream.shared.setScreenVisible(false) } }
+        // App-Start messen: erstes Bild der Merkliste (nächster Durchlauf nach dem Erscheinen)
+        .onAppear {
+            Task { @MainActor in
+                if let millis = AppStartClock.onFirstWatchlistFrame() { data.recordAppStart(millis) }
+            }
+        }
         // Aktionen eines Paars als Blatt von unten
         .sheet(item: $actionsFor, onDismiss: afterSheet) { target in
             WatchActionsSheet(
@@ -162,6 +198,7 @@ struct WatchlistScreen: View {
             )
             .environmentObject(data)
             .environment(\.appAccent, accent)
+            .environment(\.changeView, changeView)
             // Eine feste Höhe: Chart und Kennzahlen laden nach, das Blatt wechselt nie die Stufe
             .presentationDetents([.large])
             .presentationDragIndicator(.visible)
@@ -214,7 +251,8 @@ struct WatchlistScreen: View {
             Button(L("action_cancel"), role: .cancel) {}
         }
         .sheet(isPresented: $showReport) {
-            WatchlistReportSheet(report: data.lastRefreshReport)
+            RefreshReportSheet(report: data.lastRefreshReport, appStartMillis: data.appStartMillis,
+                               liveExchanges: data.liveExchanges)
                 .environment(\.appAccent, accent)
                 // Eine feste Höhe: der Bericht kann lang sein, kein Stufenwechsel
                 .presentationDetents([.large])
@@ -284,7 +322,7 @@ struct WatchlistScreen: View {
         let signals = WatchlistActivity.activeSignals(reports, now: now, sensitivity: sensitivity)
         let hot = WatchlistActivity.hot(watches, signals: signals)
         // Puls ganz oben in der Liste: nur die sichtbare Gruppe; nicht beim Suchen und Sortieren
-        let pulse = sorting || searching ? nil : WatchlistPulseStats.make(watches)
+        let pulse = sorting || searching ? nil : WatchlistPulseStats.make(watches, view: data.changeView(now: now))
         // Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
         let moveFavorites: ((IndexSet, Int) -> Void)? = searching ? nil : { from, to in
             var moved = favorites
@@ -301,36 +339,35 @@ struct WatchlistScreen: View {
         let rows = favorites + others
         let jumpEligible = WatchlistJump.eligible(pairs: rows.count, sorting: sorting)
         let jumpVisible = jumpEligible && (jumpScrolled || voiceOver)
+        // Anker für «Zum Anfang» (Kopfzeile und Status stehen fest über der Liste): die erste
+        // Zeile über den Paaren — Puls, sonst Aktivitätskarte, sonst Hinweis. Keine eigene leere
+        // Zeile (eine Listenzeile ist mindestens 44 pt hoch); ohne solche Zeile das erste Paar.
+        let showCard = !hot.isEmpty && !sorting && !searching
+        let showHint = sorting || !data.settings.gestureHintSeen
+        let topAnchor: WatchlistTopAnchor = pulse != nil ? .pulse : showCard ? .card : showHint ? .hint : .none
         return List {
-            // Kopfzeile der Liste (ersetzt die frühere Leiste mit Logo und App-Namen):
-            // kleines Logo links, Gruppen-Chips scrollen dahinter, Knöpfe fest rechts.
-            headerRow(watches, groups: groups, selectedGroup: selectedGroup)
-                .plainRow(top: 0, bottom: 0)
-                .id(WatchlistJump.topId)
-
-            // «▲ 7 steigen · ▼ 3 fallen · Ø +1.80%» — direkt unter der Kopfzeile
+            // «▲ 7 steigen · ▼ 3 fallen · Ø +1.80%» — erste Zeile unter dem festen Kopf, scrollt mit
             if let pulse {
                 WatchlistPulseLine(stats: pulse)
                     .plainRow(top: 4, bottom: 2)
                     .transition(.opacity)
+                    .id(WatchlistJump.topId)
             }
 
-            // Status links, Lupe rechts — beim Suchen wird die Zeile zum Suchfeld.
-            ZStack {
-                if searching {
-                    searchField
-                        .transition(.opacity.combined(with: .scale(scale: 0.97, anchor: .trailing)))
-                } else {
-                    statusRow(watches)
-                        .transition(.opacity)
-                }
+            // Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche
+            if watches.isEmpty && !filtering {
+                Text(L("watchlist_group_empty_hint"))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .plainRow(top: 2, bottom: 2)
             }
-            .frame(minHeight: WatchlistSearch.rowHeight)
-            .plainRow(top: 4, bottom: 2)
 
             // «⚡ Hier passiert gerade etwas» — nur mit Signalen in der aktuellen Ansicht,
             // beim Suchen ausgeblendet
-            if !hot.isEmpty && !sorting && !searching {
+            if showCard {
                 WatchlistActivityCard(
                     hot: hot,
                     limit: sensitivity.maxCardCoins,
@@ -339,6 +376,7 @@ struct WatchlistScreen: View {
                 )
                 .plainRow(top: 4, bottom: 2)
                 .transition(.opacity.combined(with: .move(edge: .top)))
+                .id(topAnchor == .card ? WatchlistJump.topId : "watchlist-activity-card")
             }
 
             if sorting {
@@ -347,11 +385,13 @@ struct WatchlistScreen: View {
                     .foregroundStyle(accent.primary)
                     .padding(.horizontal, 4)
                     .plainRow(top: 2, bottom: 2)
+                    .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
             } else if !data.settings.gestureHintSeen {
                 // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
                 gestureHint
                     .plainRow(top: 2, bottom: 4)
                     .transition(.opacity.combined(with: .move(edge: .top)))
+                    .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-gesture-hint")
             }
 
             // Keine Treffer für die Suche
@@ -386,12 +426,17 @@ struct WatchlistScreen: View {
                 .accessibilityHidden(true)
         }
         .listStyle(.plain)
+        // Fest oben (scrollt nicht mit): Kopfzeile mit Gruppen-Chips und Knöpfen, darunter
+        // Status und Lupe. Puls, Aktivitätskarte und Paare scrollen darunter durch.
+        .safeAreaInset(edge: .top, spacing: 0) {
+            pinnedHeader(watches, groups: groups, selectedGroup: selectedGroup)
+        }
         .modifier(WatchlistScrollPhaseModifier { scrolling in scrollPhaseChanged(scrolling) })
         .overlay(alignment: .bottomTrailing) {
             // Ein- und Ausblenden nur hier animiert, nicht die Liste darunter
             ZStack {
                 if jumpVisible {
-                    WatchlistJumpButton(down: jumpDown) { jump(rows: rows, proxy: proxy) }
+                    WatchlistJumpButton(down: jumpDown) { jump(rows: rows, proxy: proxy, hasTopAnchor: topAnchor != .none) }
                         .transition(.opacity)
                 }
             }
@@ -406,7 +451,7 @@ struct WatchlistScreen: View {
         .readableListMargins()
         .background(AppColors.background)
         .environment(\.editMode, $editMode)
-        .refreshable { await data.refreshAll() }
+        .refreshable { await refreshByUser() }
         .animation(.spring(duration: 0.35), value: watches.map(\.id))
         .animation(.spring(duration: 0.35), value: groups)
         .animation(.easeInOut(duration: 0.25), value: data.settings.gestureHintSeen)
@@ -417,29 +462,76 @@ struct WatchlistScreen: View {
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: pulse == nil)
     }
 
+    /// Alles aktualisieren (nach unten ziehen, Knopf oben). Eben erst aktualisiert (unter 15 s):
+    /// kein neuer Durchlauf, nur kurz «Gerade aktualisiert» — keine Fehlermeldung.
+    private func refreshByUser() async {
+        let decision = await data.refreshAllByUser()
+        if decision == .recent {
+            banner = WatchlistBannerMessage(text: L("watchlist_just_refreshed"), icon: "checkmark.circle")
+        }
+    }
+
+    /// Fester Kopf über der Liste: Kopfzeile (Logo, Gruppen-Chips, Knöpfe) und darunter
+    /// Status mit Lupe bzw. das Suchfeld. Höchstens `ReadableWidth.max` breit wie die Zeilen;
+    /// eigener Hintergrund, damit gescrollte Zeilen darunter verschwinden.
+    private func pinnedHeader(_ watches: [Watch], groups: [String], selectedGroup: String?) -> some View {
+        VStack(spacing: 4) {
+            headerRow(watches, groups: groups, selectedGroup: selectedGroup)
+            // Status links, Lupe rechts — beim Suchen wird die Zeile zum Suchfeld.
+            ZStack {
+                if searching {
+                    searchField
+                        .transition(.opacity.combined(with: .scale(scale: 0.97, anchor: .trailing)))
+                } else {
+                    statusRow(watches)
+                        .transition(.opacity)
+                }
+            }
+            .frame(minHeight: WatchlistSearch.rowHeight)
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, Spacing.xs)
+        .readableContentWidth()
+        .background(AppColors.background)
+    }
+
     /// `section`: sichtbare Abteilung (Favoriten bzw. übrige) für «Nach oben/unten» in VoiceOver.
     private func row(_ watch: Watch, counts: [Int64: Int], signals: [Int64: [ActivitySignal]],
                      section: [Watch]) -> some View {
         let index = section.firstIndex(where: { $0.id == watch.id })
         let canReorder = !searching && index != nil
-        return WatchlistRow(
-            watch: watch,
-            alarmCount: counts[watch.id] ?? 0,
-            now: now,
-            staleAfter: data.staleAfterMillis,
-            outdatedAfter: data.outdatedAfterMillis,
-            loading: data.refreshingWatchIds.contains(watch.id) || (data.refreshing && watch.lastPrice == nil),
-            highlighted: highlightedId == watch.id,
-            sorting: sorting,
-            hasActivity: signals[watch.id] != nil,
-            converted: WatchlistConversion.text(watch, target: convertTarget, rates: convertRates),
-            // Nicht mehr gehandelt: kein Mini-Chart
-            sparklineEnabled: data.settings.watchlistSparkline && !watch.isNotTraded,
-            celebrationIndex: celebrating[watch.id],
-            onTap: { actionsFor = WatchlistSheetTarget(id: watch.id) },
-            onToggleFavorite: { toggleFavorite(watch) },
-            onActivity: { if !sorting { whyFor = WatchlistSheetTarget(id: watch.id) } }
-        )
+        // Werte der Zeile hier auslesen (nicht in der Zeile), damit nur `WatchlistLiveRow` den
+        // Live-Kurs beobachtet: ein Tick zeichnet genau diese eine Zeile neu
+        let staleAfter = data.staleAfterMillis
+        let outdatedAfter = data.outdatedAfterMillis
+        let rowRefreshing = data.refreshingWatchIds.contains(watch.id)
+        let allRefreshing = data.refreshing
+        let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded
+        let canSort = !searching && data.visibleWatches.count >= 2
+        let target = convertTarget
+        let rates = convertRates
+        return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay) { shown in
+            WatchlistRow(
+                watch: shown,
+                alarmCount: counts[watch.id] ?? 0,
+                now: now,
+                staleAfter: staleAfter,
+                outdatedAfter: outdatedAfter,
+                loading: rowRefreshing || (allRefreshing && shown.lastPrice == nil),
+                highlighted: highlightedId == watch.id,
+                sorting: sorting,
+                hasActivity: signals[watch.id] != nil,
+                converted: WatchlistConversion.text(shown, target: target, rates: rates),
+                // Nicht mehr gehandelt: kein Mini-Chart
+                sparklineEnabled: sparklines,
+                celebrationIndex: celebrating[watch.id],
+                onTap: { actionsFor = WatchlistSheetTarget(id: watch.id) },
+                onToggleFavorite: { toggleFavorite(watch) },
+                onActivity: { if !sorting { whyFor = WatchlistSheetTarget(id: watch.id) } },
+                // Wie «Sortieren» im Menü; nicht während der Suche und erst ab zwei Paaren
+                onLongPress: canSort ? { withAnimation { editMode = .active } } : nil
+            )
+        }
         // VoiceOver: verschieben wie per Ziehen (gleiche Abteilung, Reihenfolge gespeichert);
         // Löschen wie nach links wischen (mit «Rückgängig»). «Favorit» hat die Zeile selbst.
         .accessibilityActions {
@@ -473,7 +565,7 @@ struct WatchlistScreen: View {
                     Label(L("action_delete"), systemImage: "trash")
                 }
                 // Systemrot: weisse Schrift bleibt auch im Dunkelmodus lesbar (AppColors.error ist dort hell)
-                .tint(.red)
+                .tint(AppColors.destructive)
             }
         }
         // Sprungknopf: welche Zeilen sichtbar sind (Richtung) und ob gescrollt wird
@@ -551,18 +643,28 @@ struct WatchlistScreen: View {
 
     /// Oben → ans Ende, unten → an den Anfang. Kurze Strecken sanft, lange sofort
     /// (keine lange Animation); mit «Bewegung reduzieren» immer sofort.
-    private func jump(rows: [Watch], proxy: ScrollViewProxy) {
-        guard !rows.isEmpty else { return }
+    /// `hasTopAnchor`: steht über den Paaren eine Zeile mit `WatchlistJump.topId` (Puls, Karte,
+    /// Hinweis)? Sonst geht «Zum Anfang» zum ersten Paar.
+    private func jump(rows: [Watch], proxy: ScrollViewProxy, hasTopAnchor: Bool) {
+        guard let firstRow = rows.first else { return }
         WatchlistHaptics.impact(.light)
         let down = jumpDown
         let range = visibleRange(in: rows)
         let distance = down ? rows.count - 1 - (range?.upperBound ?? 0) : (range?.lowerBound ?? rows.count)
-        let target = down ? WatchlistJump.endId : WatchlistJump.topId
-        let anchor: UnitPoint = down ? .bottom : .top
+        let firstId = firstRow.id
+        let scroll: () -> Void = {
+            if down {
+                proxy.scrollTo(WatchlistJump.endId, anchor: .bottom)
+            } else if hasTopAnchor {
+                proxy.scrollTo(WatchlistJump.topId, anchor: .top)
+            } else {
+                proxy.scrollTo(firstId, anchor: .top)
+            }
+        }
         if WatchlistJump.animate(distance: distance, reduceMotion: reduceMotion) {
-            withAnimation(.easeInOut(duration: 0.35)) { proxy.scrollTo(target, anchor: anchor) }
+            withAnimation(.easeInOut(duration: 0.35)) { scroll() }
         } else {
-            proxy.scrollTo(target, anchor: anchor)
+            scroll()
         }
         // Richtung gleich umstellen (die Zeilen melden sich erst nach dem Sprung)
         jumpDown = !down
@@ -704,9 +806,22 @@ struct WatchlistScreen: View {
         let offline = !traded.isEmpty && traded.allSatisfy { ConnectionErrors.isOffline($0.lastError) }
         let failed = traded.filter { $0.lastError != nil }.count
         let warn = staleCount > 0 || offline || failed > 0
-        let tone = warn ? AppColors.error : PriceColors.ok
+        // Kein gehandeltes Paar in der Ansicht (leere Gruppe, alle nicht mehr gehandelt):
+        // neutral statt grün — es gibt nichts, das «aktuell» sein könnte
+        let none = traded.isEmpty
+        // Gerät offline: ruhig (neutral), kein Rot — es wird dann nicht aktualisiert
+        let deviceOffline = !data.online && !none
+        let tone = none || deviceOffline ? AppColors.onSurfaceVariant : (warn ? AppColors.error : PriceColors.ok)
         let text: String
-        if offline {
+        if watches.isEmpty {
+            text = L("watchlist_status_group_empty")
+        } else if none {
+            text = L("watchlist_status_none_traded")
+        } else if deviceOffline {
+            text = newest > 0
+                ? L("offline_status_since", PriceFormat.shortTime(newest))
+                : L("offline_status")
+        } else if offline {
             text = newest > 0 ? L("watchlist_offline_since", WatchlistTime.ago(newest, now: now)) : L("watch_error_offline")
         } else if staleCount > 0 {
             text = L("watchlist_stale_count", count: staleCount, staleCount, traded.count)
@@ -731,10 +846,15 @@ struct WatchlistScreen: View {
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
+                    .contentTransition(.opacity)
+                // Kurse kommen per WebSocket (Runde 31)
+                if !data.liveExchanges.isEmpty { WatchlistLiveBadge(color: tone) }
             }
             .padding(.horizontal, 12)
-            .padding(.vertical, 6)
+            .padding(.vertical, Spacing.sm)
             .background(tone.opacity(0.12), in: Capsule())
+            // Nach einer Aktualisierung wechseln Farbe und Text weich (nicht hart)
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
 
             Spacer(minLength: 4)
 
@@ -747,8 +867,8 @@ struct WatchlistScreen: View {
                             .lineLimit(1)
                     }
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
+                    .padding(.horizontal, Spacing.sm)
+                    .padding(.vertical, Spacing.sm)
                     .background(.ultraThinMaterial, in: Capsule())
                     .overlay(Capsule().strokeBorder(AppColors.outlineVariant.opacity(0.5), lineWidth: 0.5))
                 }
@@ -833,7 +953,7 @@ struct WatchlistScreen: View {
 
     /// Kurzer Hinweis zu den Gesten mit Schliessen-Knopf.
     private var gestureHint: some View {
-        HStack(alignment: .top, spacing: 10) {
+        HStack(alignment: .top, spacing: Spacing.sm) {
             Image(systemName: "hand.tap")
                 .scaledFont(size: 15, weight: .semibold, relativeTo: .subheadline)
                 .foregroundStyle(accent.primary)
@@ -855,9 +975,9 @@ struct WatchlistScreen: View {
             .buttonStyle(.borderless)
             .accessibilityLabel(L("action_close"))
         }
-        .padding(.leading, 14)
-        .padding(.trailing, 10)
-        .padding(.vertical, 10)
+        .padding(.leading, Spacing.md)
+        .padding(.trailing, Spacing.sm)
+        .padding(.vertical, Spacing.md)
         .background(accent.primary.opacity(0.08), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -867,11 +987,11 @@ struct WatchlistScreen: View {
 
     // MARK: Erst-Hinzufügen
 
-    /// Holt den ausstehenden Moment ab, sobald die Merkliste der aktive Tab ist.
-    /// Start-Tipp: Banner, eine Haptik und die VoiceOver-Ansage hier; beim
-    /// Hinzufügen-Tab hat das der Tab schon gemacht — hier nur die Zeilen.
+    /// Holt den ausstehenden Moment ab, sobald die Merkliste sichtbar ist (aktiver Tab, Seite
+    /// «Paar hinzufügen» geschlossen). Start-Tipp: Banner, eine Haptik und die VoiceOver-Ansage
+    /// hier; beim Hinzufügen über die Seite hat sie das schon gemacht — hier nur die Zeilen.
     private func takeCelebration() {
-        guard router.tab == .watchlist, let celebration = data.takeAddCelebration() else { return }
+        guard router.tab == .watchlist, !router.showExplorer, let celebration = data.takeAddCelebration() else { return }
         var positions: [Int64: Int] = [:]
         for (index, id) in celebration.watchIds.enumerated() { positions[id] = index }
         celebrating = positions
@@ -919,12 +1039,12 @@ struct WatchlistScreen: View {
     }
 
     /// Leere Merkliste: die fünf grössten Coins zur Auswahl (alle vorgewählt) und in
-    /// einem Schritt hinzufügen; darunter der Weg über «Hinzufügen».
+    /// einem Schritt hinzufügen; darunter der Weg über «Paar hinzufügen» (auch «+» oben rechts).
     private var emptyState: some View {
         let coins = shownStarterCoins
         return GeometryReader { geo in
             ScrollView {
-                VStack(spacing: 14) {
+                VStack(spacing: Spacing.md) {
                     WatchlistLogo(size: 64)
                         .padding(16)
                         .background(accent.container.opacity(0.5), in: Circle())
@@ -943,14 +1063,9 @@ struct WatchlistScreen: View {
                         addStarter(symbols)
                     }
 
-                    Text(L("watchlist_empty_hint"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.top, 4)
+                    // Kein Erklärsatz davor: der Knopf sagt selbst, was er tut
                     Button {
-                        router.tab = .add
+                        router.openExplorer()
                     } label: {
                         Text(L("starter_custom"))
                             .font(.subheadline.weight(.semibold))
@@ -962,13 +1077,18 @@ struct WatchlistScreen: View {
                     }
                     .buttonStyle(.plain)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 28)
+                .padding(.horizontal, Spacing.lg)
+                .padding(.vertical, Spacing.xxl)
                 .frame(maxWidth: 480)
                 // Mittig, solange es passt; sonst scrollbar (grosse Schrift, kleine Geräte)
                 .frame(maxWidth: .infinity, minHeight: geo.size.height)
             }
             .refreshable { await data.refreshAll() }
+        }
+        // «+» oben rechts wie in der Kopfzeile der Merkliste (der Hinweis verweist darauf)
+        .overlay(alignment: .topTrailing) {
+            addPairButton
+                .padding(.trailing, Spacing.xs)
         }
         .task { await refreshStarterCoins() }
     }
@@ -984,7 +1104,7 @@ struct WatchlistScreen: View {
 
     // MARK: Kopfzeile
 
-    /// Erste Zeile der Liste: ganz links das kleine Logo (ohne App-Namen, für VoiceOver
+    /// Erste Zeile des festen Kopfs: ganz links das kleine Logo (ohne App-Namen, für VoiceOver
     /// nur Zierde), dahinter scrollen die Gruppen-Chips (mit mindestens einer Gruppe, oder
     /// ab zwei Paaren nur «+»), die Knöpfe stehen fest rechts. Ohne Chips: Logo links,
     /// Knöpfe rechts. Tippflächen 44 pt; Knöpfe mit `.borderless`, sonst löste ein Tipp
@@ -992,7 +1112,7 @@ struct WatchlistScreen: View {
     private func headerRow(_ watches: [Watch], groups: [String], selectedGroup: String?) -> some View {
         HStack(spacing: 0) {
             WatchlistLogo(size: 24)
-                .padding(.trailing, 10)
+                .padding(.trailing, Spacing.sm)
                 .accessibilityHidden(true)
             if !groups.isEmpty || data.watches.count >= 2 {
                 WatchlistGroupChips(
@@ -1036,18 +1156,22 @@ struct WatchlistScreen: View {
                 } label: {
                     Text(L("action_sort_done"))
                         .font(.body.weight(.semibold))
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, Spacing.sm)
                         .frame(minHeight: Self.headerHeight)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.borderless)
                 .tint(accent.primary)
             } else {
+                addPairButton
                 // Glocke: alle Alarme, mit Zahl der aktiven
                 Button {
                     showOverview = true
                 } label: {
                     bellIcon
+                        .phaseAnimator([1.0, AlarmPulse.scale, 1.0], trigger: bellPulse) { view, scale in
+                            view.scaleEffect(scale)
+                        } animation: { _ in .easeInOut(duration: AlarmPulse.seconds / 2) }
                         .frame(width: Self.headerHeight, height: Self.headerHeight)
                         .contentShape(Rectangle())
                 }
@@ -1063,7 +1187,7 @@ struct WatchlistScreen: View {
                 } else {
                     Button {
                         WatchlistHaptics.impact(.light)
-                        Task { await data.refreshAll() }
+                        Task { await refreshByUser() }
                     } label: {
                         Image(systemName: "arrow.clockwise")
                             .frame(width: Self.headerHeight, height: Self.headerHeight)
@@ -1123,13 +1247,29 @@ struct WatchlistScreen: View {
         .imageScale(.large)
     }
 
+    /// «+»: Seite «Paar hinzufügen» (Runde 31, ersetzt den Tab «Suchen»).
+    private var addPairButton: some View {
+        Button {
+            router.openExplorer()
+        } label: {
+            Image(systemName: "plus")
+                .frame(width: Self.headerHeight, height: Self.headerHeight)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.borderless)
+        .tint(accent.primary)
+        .font(.body)
+        .imageScale(.large)
+        .accessibilityLabel(L("shortcut_add"))
+    }
+
     private var bellIcon: some View {
         let active = data.activeAlarmCounts.values.reduce(0, +)
         return Image(systemName: active > 0 ? "bell.badge" : "bell")
             .symbolRenderingMode(.hierarchical)
             .overlay(alignment: .topTrailing) {
                 if active > 0 {
-                    Text("\(active)")
+                    Text(verbatim: LocaleNumbers.integer(active))
                         .scaledFont(size: 10, weight: .bold, relativeTo: .caption2, monospacedDigit: true)
                         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                         .foregroundStyle(accent.onPrimary)
@@ -1190,6 +1330,11 @@ struct WatchlistScreen: View {
     }
 }
 
+/// Welche Zeile über den Paaren den Anker «Zum Anfang» trägt.
+private enum WatchlistTopAnchor {
+    case pulse, card, hint, none
+}
+
 // MARK: Logo
 
 /// App-Logo in der Akzentfarbe; ohne Bild im Asset-Katalog ein Symbol.
@@ -1212,37 +1357,6 @@ struct WatchlistLogo: View {
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(accent.primary)
                 .frame(width: size, height: size)
-        }
-    }
-}
-
-// MARK: Bericht
-
-/// Aufschlüsselung des letzten Durchlaufs.
-private struct WatchlistReportSheet: View {
-    let report: String
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                Text(report.isEmpty ? L("watchlist_refresh_report_empty") : report)
-                    .font(.footnote.monospaced())
-                    .foregroundStyle(AppColors.onSurface)
-                    .textSelection(.enabled)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(16)
-                    .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    .padding(16)
-            }
-            .background(AppColors.background.ignoresSafeArea())
-            .navigationTitle(L("watchlist_refresh_report"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(L("action_close")) { dismiss() }
-                }
-            }
         }
     }
 }
@@ -1282,5 +1396,17 @@ private extension View {
             .listRowInsets(EdgeInsets(top: top, leading: 16, bottom: bottom, trailing: 16))
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
+    }
+}
+
+/// Eine Zeile mit dem Live-Kurs darüber (`LivePrices`, nur Anzeige): Nur diese Ansicht liest den
+/// Kurs ihres Paars, ein WebSocket-Tick zeichnet also nur sie neu — nicht die ganze Merkliste.
+private struct WatchlistLiveRow<Content: View>: View {
+    let watch: Watch
+    let rollingBasis: Bool
+    @ViewBuilder let content: (Watch) -> Content
+
+    var body: some View {
+        content(watch.withLive(LivePrices.shared.quote(for: watch.id), rollingBasis: rollingBasis))
     }
 }

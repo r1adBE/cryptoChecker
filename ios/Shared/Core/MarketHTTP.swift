@@ -1,12 +1,16 @@
 import Foundation
 
-/// HTTP-Fehler einer Börse (Status ≠ 2xx).
+/// HTTP-Fehler einer Börse (Status ≠ 2xx). Der Text ist technisch (Bericht, gespeicherter
+/// Fehler); angezeigt wird er nie roh (`ConnectionErrors.display`).
 struct HttpMarketError: LocalizedError {
     let httpCode: Int
     let body: String
+    /// «Retry-After» der Antwort (bei 429/503) für die Pause je Börse (`ExchangeBackoff`).
+    var retryAfterSeconds: Int64? = nil
     var errorDescription: String? {
+        let head = "HTTP \(httpCode)" + ExchangeBackoff.retryAfterSuffix(retryAfterSeconds)
         let snippet = body.prefix(160).trimmingCharacters(in: .whitespacesAndNewlines)
-        return snippet.isEmpty ? "HTTP \(httpCode)" : "HTTP \(httpCode): \(snippet)"
+        return snippet.isEmpty ? head : "\(head): \(snippet)"
     }
 }
 
@@ -45,14 +49,77 @@ enum MarketHTTP {
             }
             post.headers?.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
         }
+        // GET: gleiche gleichzeitige Anfragen nur einmal ins Netz (`InFlightRequests`)
+        guard post == nil else { return try await load(request, url: url, session: session) }
+        let key = "\(session.configuration.timeoutIntervalForRequest)|\(url)"
+        let shared = request
+        return try await InFlightRequests.shared.value(key) {
+            try await load(shared, url: url, session: session)
+        }
+    }
+
+    private static func load(_ request: URLRequest, url: String, session: URLSession) async throws -> String {
         let (data, response) = try await session.data(for: request)
         let text = String(data: data, encoding: .utf8) ?? String(decoding: data, as: UTF8.self)
         if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
             HttpLog.add("\(http.statusCode) \(url)")
-            throw HttpMarketError(httpCode: http.statusCode, body: text)
+            let retryAfter = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
+                                                                    now: TimeUtils.nowMillis)
+            throw HttpMarketError(httpCode: http.statusCode, body: text, retryAfterSeconds: retryAfter)
         }
         HttpLog.add("200 \(url) · \(data.count / 1024) KB")
         return text
+    }
+}
+
+/// Gleiche GET-Anfragen, die gleichzeitig laufen, nur einmal schicken (Mini-Chart, Blatt und
+/// Aktualisierung für dasselbe Paar). Nichts wird zwischengespeichert: Ist die Anfrage fertig,
+/// fällt der Eintrag weg. Bricht der einzige Wartende ab (Blatt zu), wird die Anfrage abgebrochen.
+actor InFlightRequests {
+    static let shared = InFlightRequests()
+
+    private struct Entry {
+        let id: UUID
+        let task: Task<String, Error>
+        var waiters: Int
+    }
+
+    private var entries: [String: Entry] = [:]
+
+    func value(_ key: String, load: @escaping @Sendable () async throws -> String) async throws -> String {
+        let id: UUID
+        let task: Task<String, Error>
+        if var entry = entries[key] {
+            entry.waiters += 1
+            entries[key] = entry
+            id = entry.id
+            task = entry.task
+        } else {
+            id = UUID()
+            task = Task { try await load() }
+            entries[key] = Entry(id: id, task: task, waiters: 1)
+        }
+        defer { leave(key, id: id) }
+        return try await withTaskCancellationHandler {
+            try await task.value
+        } onCancel: {
+            Task { await self.cancelIfAlone(key, id: id) }
+        }
+    }
+
+    private func leave(_ key: String, id: UUID) {
+        guard var entry = entries[key], entry.id == id else { return }
+        entry.waiters -= 1
+        if entry.waiters <= 0 {
+            entries[key] = nil
+        } else {
+            entries[key] = entry
+        }
+    }
+
+    private func cancelIfAlone(_ key: String, id: UUID) {
+        guard let entry = entries[key], entry.id == id, entry.waiters <= 1 else { return }
+        entry.task.cancel()
     }
 }
 
@@ -84,6 +151,8 @@ enum HttpLog {
 struct BulkTickers: Sendable {
     var tickers: [String: Ticker] = [:]
     var complete = false
+    /// Fehlertext, wenn die Abfrage scheiterte (für die Pause je Börse, z. B. HTTP 429).
+    var error: String? = nil
 }
 
 /// Kursabfragen gegen die Börsen — wie `MarketRemoteDataSource` + `MarketRepositoryImpl`.
@@ -130,35 +199,49 @@ enum MarketService {
 
     /// Kurse einer Börse in möglichst wenigen Anfragen. Schlüssel = Paar-Kennung.
     static func fetchBulkTickers(market: Market, pairIds: [String]) async -> BulkTickers {
-        let n = market.bulkTickersNumOfRequests
+        guard market.bulkTickersNumOfRequests > 0 else { return BulkTickers() }
+        // Lange Paarlisten verteilt die Börse auf mehrere gefilterte Anfragen.
+        let n = market.bulkTickersRequestCount(pairIds: pairIds)
         guard n > 0 else { return BulkTickers() }
 
         var result: [String: Ticker] = [:]
         var allOk = true
+        // Schon geladene ungefilterte Abfragen decken alle Teilanfragen mit derselben URL ab.
+        var loadedFull: Set<String> = []
 
         for requestId in 0..<n {
-            guard let filtered = market.bulkTickersURL(requestId: requestId, pairIds: pairIds), !filtered.isEmpty else { continue }
+            guard let filtered = market.bulkTickersURL(requestId: requestId, pairIds: pairIds), !filtered.isEmpty,
+                  !loadedFull.contains(filtered) else { continue }
             let full = market.bulkTickersURL(requestId: requestId)
             let post = market.bulkTickersPostRequestInfo(requestId: requestId)
             do {
-                let response: String
+                let parsed: [String: Ticker]
                 do {
-                    response = try await MarketHTTP.call(filtered, post: post, session: MarketHTTP.bulkSession)
-                } catch let e as HttpMarketError {
-                    // Gefilterte Abfrage abgelehnt → einmal ungefiltert
-                    guard let full, !full.isEmpty, full != filtered else { throw e }
-                    response = try await MarketHTTP.call(full, post: post, session: MarketHTTP.bulkSession)
+                    parsed = try await loadBulkTickers(market, requestId: requestId, url: filtered, post: post)
+                } catch {
+                    // Abgelehnt oder unlesbar (z. B. ein Paar wird nicht mehr gehandelt und die
+                    // Börse verwirft die ganze Liste) → einmal ungefiltert
+                    guard let full, !full.isEmpty, full != filtered else { throw error }
+                    if loadedFull.contains(full) { continue }
+                    parsed = try await loadBulkTickers(market, requestId: requestId, url: full, post: post)
+                    loadedFull.insert(full)
                 }
-                let parsed = try await Task.detached(priority: .utility) {
-                    try market.parseBulkTickersMain(requestId: requestId, response: response)
-                }.value
                 result.merge(parsed) { _, new in new }
             } catch {
                 allOk = false
-                if requestId == 0 { return BulkTickers() }
+                // Fehlertext weitergeben: «zu viele Anfragen» pausiert die Börse (`ExchangeBackoff`)
+                if requestId == 0 { return BulkTickers(error: ConnectionErrors.describe(error)) }
             }
         }
         return BulkTickers(tickers: result, complete: market.bulkTickersComplete && allOk && !result.isEmpty)
+    }
+
+    private static func loadBulkTickers(_ market: Market, requestId: Int, url: String,
+                                        post: PostRequestInfo?) async throws -> [String: Ticker] {
+        let response = try await MarketHTTP.call(url, post: post, session: MarketHTTP.bulkSession)
+        return try await Task.detached(priority: .utility) {
+            try market.parseBulkTickersMain(requestId: requestId, response: response)
+        }.value
     }
 
     /// Lädt die Paarliste einer Börse.

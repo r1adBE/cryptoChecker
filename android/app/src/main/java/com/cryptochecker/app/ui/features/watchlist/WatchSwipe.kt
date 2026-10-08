@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -175,7 +176,7 @@ private fun SwipeBackground(delete: Boolean, favorite: Boolean, active: Boolean,
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(horizontal = 20.dp)
+            modifier = Modifier.padding(horizontal = Spacing.lg)
         ) {
             // Symbol immer zur Mitte hin vom Rand: Löschen rechts, Favorit links (RTL gespiegelt)
             if (delete) {

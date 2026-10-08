@@ -4,21 +4,23 @@ import SwiftUI
 // `SheetChartRepository.kt` (Android). Zeichnen: `PriceChartRenderer` (Shared, wie das Einzel-Widget).
 
 extension PriceChartRange {
-    /// Gültigkeit im Zwischenspeicher: 5 Minuten (24 h), 30 Minuten (7 und 30 Tage).
+    /// Gültigkeit im Zwischenspeicher: 5 Minuten (24 h), 30 Minuten (7 und 30 Tage), 60 Minuten (1 Jahr).
     var sheetCacheMillis: Int64 {
         switch self {
         case .day: 5 * 60_000
         case .week, .month: 30 * 60_000
+        case .year: 60 * 60_000
         }
     }
 
     /// Vorlage für Datum/Uhrzeit beim Ziehen (`setLocalizedDateFormatFromTemplate`):
-    /// 24 h «Di 14:00», 7 Tage «Di 14. Okt., 16:00», 30 Tage «Di 14. Okt.».
+    /// 24 h «Di 14:00», 7 Tage «Di 14. Okt., 16:00», 30 Tage «Di 14. Okt.», 1 Jahr «14. Okt. 2025».
     var sheetTimeTemplate: String {
         switch self {
         case .day: "EEEjm"
         case .week: "EEEdMMMjm"
         case .month: "EEEdMMM"
+        case .year: "dMMMy"
         }
     }
 }
@@ -42,7 +44,7 @@ struct SheetCandleRequest: Equatable, Sendable {
 
 /// Reine Regeln des Charts im Aktionsblatt — gleiche Regeln wie Android (`SheetChart`).
 enum SheetChart {
-    /// Markt-Schlüssel von DexScreener (wie im Hinzufügen-Tab): keine Börsen-Kerzen.
+    /// Markt-Schlüssel von DexScreener (wie auf der Seite «Paar hinzufügen»): keine Börsen-Kerzen.
     static let dexMarketKey = "DexScreener"
 
     /// Kurzes Ticken nur beim Wechsel auf eine andere Kerze.
@@ -114,6 +116,15 @@ enum SheetChart {
         return changePercent(start: s.start, value: s.end)
     }
 
+    /// Zahl über dem Chart: bei 24h dieselbe wie die Pille neben dem Kurs (`dayChange` =
+    /// `shownChange24h` aus dem Ticker), damit das Blatt nicht zwei verschiedene 24-h-Werte
+    /// zeigt; ohne diesen Wert und bei 7T/30T/1J die Veränderung aus den Kerzen — wie `SheetChart.headerChange`.
+    static func headerChange(range: PriceChartRange, _ candles: [MarketCandle], type: PriceChartType,
+                             dayChange: Double?) -> Double? {
+        if range == .day, let dayChange, dayChange.isFinite { return dayChange }
+        return rangeChange(candles, type: type)
+    }
+
     /// Schluss der Kerze `index` gegen den Beginn des Zeitraums (wie `rangeChange`).
     static func scrubChange(_ candles: [MarketCandle], type: PriceChartType, index: Int) -> Double? {
         guard let s = WidgetChartGeometry.summary(candles, type: type),
@@ -130,7 +141,7 @@ enum SheetChart {
 }
 
 /// Kerzen des Blatts: gleiche Quelle und Intervalle wie das Einzel-Widget (`CandleDataSource`,
-/// `PriceChartRange`); im Speicher je Paar und Zeitraum 5 bzw. 30 Minuten (nur Erfolge).
+/// `PriceChartRange`); im Speicher je Paar und Zeitraum 5, 30 bzw. 60 Minuten (nur Erfolge).
 /// Netz und Umrechnung laufen abseits des Main-Threads.
 final class SheetChartStore: @unchecked Sendable {
     static let shared = SheetChartStore()

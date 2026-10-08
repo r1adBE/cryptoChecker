@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">エラー: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">通貨ペアがありません</string>
-    <string name="checker_add_check_currency_empty_warning_summary">ここをタップして、選択した取引所から最新の通貨ペアを取得します。</string>
+    <string name="checker_add_check_currency_empty_warning_summary">選択した取引所の最新ペアを読み込みます。</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">通貨ペアを更新</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">今すぐ同期</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">最終同期: %1$s</string>
@@ -36,7 +36,6 @@
     <string name="bulk_all_pairs_empty">この取引所には、選択した契約タイプの %1$s ペアがありません。先に取引所を同期するか、別の契約タイプをお試しください。</string>
 
     <string name="action_refresh">更新</string>
-    <string name="action_add_pair">ペアを追加</string>
     <string name="action_delete">削除</string>
     <string name="action_edit">編集</string>
     <string name="action_back">戻る</string>
@@ -44,7 +43,6 @@
     <string name="action_cancel">キャンセル</string>
 
     <string name="watchlist_empty_title">ペアがまだありません</string>
-    <string name="watchlist_empty_hint">または「追加」で取引所とペアを選んでください。各ペアに通知、読み上げ、価格アラームを設定できます。</string>
     <string name="watchlist_updated">更新: %1$s</string>
     <string name="watchlist_notification">通知</string>
     <string name="watchlist_tts">価格を読み上げ</string>
@@ -74,7 +72,7 @@
     <string name="channel_prices_description">ペアの現在価格を表示するサイレント通知。</string>
     <string name="channel_alarms">アラーム</string>
     <string name="channel_alarms_description">価格アラームが作動したときの通知。</string>
-    <string name="channel_service">ライブモード</string>
+    <string name="channel_service">頻繁な更新</string>
     <string name="channel_service_description">短い間隔で価格を更新している間の通知。</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s、%2$s から（%3$s前）</string>
@@ -125,7 +123,7 @@
     <string name="settings_rolling_futures">四半期などの期日付き先物を含める</string>
     <string name="settings_rolling_futures_hint">オフ: 取引所のリストにない期日付き先物は、1件ずつ確認せずに取引終了として扱います。更新のたびに時間を節約できます。</string>
     <string name="notification_refreshing">価格を更新中…</string>
-    <string name="notification_service_title">Crypto Checker ライブモード</string>
+    <string name="notification_service_title">Crypto Checker が頻繁に更新中</string>
     <string name="notification_service_starting">起動中…</string>
     <plurals name="notification_service_running">
         <item quantity="other">%1$d ペア · %2$s</item>
@@ -137,9 +135,9 @@
     <string name="settings_background_updates">バックグラウンド更新</string>
     <string name="settings_background_updates_hint">アプリを閉じていても、価格・アラーム・ウィジェットが更新されます。</string>
     <string name="settings_background_interval">間隔</string>
-    <string name="settings_live_service">ライブモード</string>
-    <string name="settings_live_service_hint">短い間隔で更新するためにサービスを常駐させます。バッテリー消費が増えます。</string>
-    <string name="settings_live_interval">ライブ間隔</string>
+    <string name="settings_live_service">頻繁に更新</string>
+    <string name="settings_live_service_hint">アプリを閉じていても、短い間隔で価格を確認します。通知が表示され、電池を多く使います。</string>
+    <string name="settings_live_interval">更新間隔</string>
     <string name="settings_minutes">%1$d 分</string>
     <string name="settings_seconds">%1$d 秒</string>
     <string name="settings_price_notifications">価格通知</string>
@@ -217,7 +215,7 @@
     <string name="theme_system">システム</string>
     <string name="settings_section_developer">開発者</string>
     <string name="settings_http_log">HTTP ログを表示</string>
-    <string name="settings_http_log_hint">「追加」タブの下部に取引所へのリクエストを表示します（トラブル対応用）。</string>
+    <string name="settings_http_log_hint">「ペアを追加」画面の下部に取引所へのリクエストを表示します（トラブル対応用）。</string>
     <string name="language_search">言語を検索</string>
     <string name="alarm_delete_title">アラームを削除しますか？</string>
     <string name="alarm_delete_confirm">このアラームは削除されます。</string>
@@ -253,15 +251,11 @@
     <string name="explorer_bulk_show_list">リストを表示</string>
     <string name="explorer_bulk_hide_list">リストを隠す</string>
     <string name="time_just_now">たった今</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">あなたの価格。あなたのアラーム。あなたの一覧。\nアカウント不要。広告なし。トラッキングなし。</string>
-    <string name="welcome_later">後で</string>
     <string name="developer_unlocked">開発者向けオプションを有効にしました</string>
     <string name="hint_favorites_list">ヒント: ☆ をタップでお気に入り。お気に入りは上に表示されます。</string>
     <string name="tab_watchlist">リスト</string>
-    <string name="tab_markets">追加</string>
     <string name="tab_market_phase">マーケット</string>
-    <string name="tab_settings">設定</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%2$d 件中 %1$d 件が古い</item>
     </plurals>

@@ -55,7 +55,9 @@ final class AppData: ObservableObject {
     }
     @Published private(set) var refreshing = false
     @Published private(set) var lastRefreshMillis: Int64 = SharedStorage.lastRefreshDuration
-    @Published private(set) var lastRefreshReport: String = SharedStorage.lastRefreshReport
+    @Published private(set) var lastRefreshReport: RefreshReport? = SharedStorage.lastRefreshReport
+    /// %-Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden.
+    @Published private(set) var changeStamp: ChangeStamp? = SharedStorage.changeStamp
     /// Paare, die gerade einzeln aktualisiert werden.
     @Published private(set) var refreshingWatchIds: Set<Int64> = []
     @Published var favorites: [FavoriteKind: Set<String>] = [:]
@@ -66,6 +68,19 @@ final class AppData: ObservableObject {
     @Published private(set) var portfolio: [PortfolioTx] = []
     /// Ausstehender «Erst-Hinzufügen»-Moment; die Merkliste holt ihn ab (`takeAddCelebration`).
     @Published private(set) var addCelebration: AddCelebration?
+    /// Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung.
+    @Published private(set) var online = NetworkStatus.shared.isOnline
+    /// App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht «Ablauf».
+    @Published private(set) var appStartMillis: Int64? = SharedStorage.appStartMillis
+    // Live-Kurse je Paar: `LivePrices` (eigener, je Zeile beobachteter Speicher) — ein Tick
+    // veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
+    /// Börsen, deren Live-Strom gerade Kurse liefert («LIVE» in der Status-Pille, Bericht).
+    @Published private(set) var liveExchanges: [String] = []
+    /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
+    private var liveTickAt: [Int64: Int64] = [:]
+    /// Live-Kurse werden gerade gespeichert (`applyLive`): eine volle bzw. einzelne Aktualisierung
+    /// wartet so lange; umgekehrt lässt `applyLive` aus, solange eine Aktualisierung läuft.
+    private var liveApplying = false
 
     private var portfolioFile: PortfolioFile
     private var liveTask: Task<Void, Never>?
@@ -94,11 +109,32 @@ final class AppData: ObservableObject {
             settings.firstPairAdded = true
             SharedStorage.saveSettings(settings)
         }
+        // Netz weg/zurück (#22/#23): Statuszeile; zurück → genau eine Aktualisierung
+        NetworkStatus.shared.observe { online in
+            Task { @MainActor in AppData.shared.networkChanged(online) }
+        }
+    }
+
+    private func networkChanged(_ isOnline: Bool) {
+        let previous = online
+        online = isOnline
+        if OfflineGate.resumeOnChange(previous: previous, online: isOnline) && appActive {
+            Task { await refreshAll() }
+        }
+        updateLiveStream()
+    }
+
+    /// Erstes Bild der Merkliste nach dem Start gemessen (nur lokal gespeichert).
+    func recordAppStart(_ millis: Int64) {
+        SharedStorage.appStartMillis = millis
+        appStartMillis = millis
     }
 
     // MARK: Lesen
 
     /// Anzeige-Reihenfolge: Favoriten zuerst, dann sortOrder, dann id.
+    /// Gespeicherte Kurse (alle 10 s mit den Live-Kursen nachgeführt); den Live-Kurs legt jede
+    /// Zeile selbst darüber (`LivePrices`, `WatchlistLiveRow`), damit ein Tick nur sie neu zeichnet.
     var watches: [Watch] {
         snapshot.watches.sorted {
             if $0.favorite != $1.favorite { return $0.favorite }
@@ -184,7 +220,11 @@ final class AppData: ObservableObject {
         settings.watchlistGroup = nil
     }
 
-    func watch(_ id: Int64) -> Watch? { snapshot.watches.first { $0.id == id } }
+    func watch(_ id: Int64) -> Watch? {
+        guard let found = snapshot.watches.first(where: { $0.id == id }) else { return nil }
+        // Im `body` gelesen beobachtet die Ansicht nur den Live-Kurs dieses einen Paars
+        return found.withLive(LivePrices.shared.quote(for: id), rollingBasis: !settings.changeBasis.isDay)
+    }
 
     func alarms(for watchId: Int64) -> [Alarm] { alarms.filter { $0.watchId == watchId } }
 
@@ -203,9 +243,10 @@ final class AppData: ObservableObject {
         max(refreshIntervalMillis * 5 / 2, 5 * 60_000)
     }
 
-    /// Ab diesem Alter steht in der Zeile «veraltet»: 3 × Intervall, mindestens 15 Minuten.
+    /// Ab diesem Alter steht in der Zeile «veraltet»: im Live-Modus (App vorne mit Live-Abfrage)
+    /// nach 2 Minuten, sonst 3 × Intervall, mindestens 15 Minuten (`OutdatedRule`).
     var outdatedAfterMillis: Int64 {
-        OutdatedRule.afterMillis(settings)
+        OutdatedRule.afterMillis(settings, live: appActive && settings.liveService)
     }
 
     /// Eingestelltes Aktualisierungs-Intervall (Live bzw. Hintergrund).
@@ -236,8 +277,15 @@ final class AppData: ObservableObject {
         snapshot = SharedStorage.loadSnapshot()
         lastRefreshMillis = SharedStorage.lastRefreshDuration
         lastRefreshReport = SharedStorage.lastRefreshReport
+        changeStamp = SharedStorage.changeStamp
         activityReports = ActivityRepository.reports()
         dropMissingWatchlistGroup()
+    }
+
+    /// «Basis der %-Änderung» zum Zeitpunkt `now`: passt der Stempel der gespeicherten Werte nicht
+    /// (Basis gewechselt, neuer Tag), zeigen Pillen und Puls «—», bis neu gerechnet ist.
+    func changeView(now: Int64 = TimeUtils.nowMillis) -> ChangeView {
+        ChangeView.of(stamp: changeStamp, basis: settings.changeBasis, now: now)
     }
 
     // MARK: Merkliste
@@ -364,9 +412,63 @@ final class AppData: ObservableObject {
         var watch = Watch(id: id, marketKey: market.key, marketName: market.name,
                           baseAsset: pair.base, quoteAsset: pair.quote,
                           contractType: pair.contractType, pairId: pair.pairId, sortOrder: nextOrder)
-        watch.groupName = Watch.validGroupName(group)
+        // Ohne Wahl: TradFi-Futures nach «TradFi», Laufzeit-Futures nach «QTLY»
+        watch.groupName = AutoGroup.resolve(group, pair: pair)
         s.watches.append(watch)
         return id
+    }
+
+    /// «Paar bearbeiten»: Börse, Paar und Kontrakt eines Eintrags ändern — wie
+    /// `WatchRepository.changePair`. Derselbe Eintrag (Id, Gruppe, Favorit, Notiz, Platz,
+    /// Mitteilung, Vorlesen, Alarme bleiben); Kurs, 24-h-Wert, Fehler/«nicht gehandelt» und
+    /// Meldekurs des alten Paars werden verworfen, ebenso Alarm-Bezüge am alten Kurs,
+    /// ⚡-Signale und Mitteilungen. Danach gleich den neuen Kurs holen.
+    /// - Returns: `.duplicate`, wenn das neue Paar schon als anderer Eintrag in der Liste steht.
+    @discardableResult
+    func changePair(_ watchId: Int64, market: Market, pair: CurrencyPairInfo) -> WatchEdit.Outcome? {
+        guard let watch = self.watch(watchId) else { return nil }
+        let target = WatchEdit.Key(marketKey: market.key, pair: pair)
+        let existing = snapshot.watches.first { WatchEdit.Key($0) == target }?.id
+        let outcome = WatchEdit.decide(selfId: watchId, current: WatchEdit.Key(watch), target: target, existingId: existing)
+        guard outcome == .changed else { return outcome }
+        Notifier.cancelPrice(watchId)
+        Notifier.cancelActivity(watchId)
+        activityReports[watchId] = nil
+        ActivityRepository.forget(watchId)
+        mutate { s in
+            guard let i = s.watches.firstIndex(where: { $0.id == watchId }) else { return }
+            s.watches[i].marketKey = market.key
+            s.watches[i].marketName = market.name
+            s.watches[i].baseAsset = pair.base
+            s.watches[i].quoteAsset = pair.quote
+            s.watches[i].contractType = pair.contractType
+            s.watches[i].pairId = pair.pairId
+            s.watches[i].lastPrice = nil
+            s.watches[i].previousPrice = nil
+            s.watches[i].lastUpdate = 0
+            s.watches[i].notifiedPrice = nil
+            s.watches[i].notifiedAt = 0
+            s.watches[i].lastError = nil
+            s.watches[i].change24h = nil
+            for j in s.alarms.indices where s.alarms[j].watchId == watchId
+                && WatchEdit.priceReferenceConditions.contains(s.alarms[j].condition) {
+                s.alarms[j].referencePrice = nil
+                s.alarms[j].referenceAt = 0
+            }
+        }
+        Task { [weak self] in
+            guard let self else { return }
+            await self.refreshOne(watchId)
+            // Prozentalarme messen ab dem ersten Kurs des neuen Paars
+            guard let price = self.watch(watchId)?.lastPrice, price > 0 else { return }
+            self.mutate({ s in
+                for j in s.alarms.indices where s.alarms[j].watchId == watchId && s.alarms[j].referencePrice == nil
+                    && WatchEdit.percentConditions.contains(s.alarms[j].condition) {
+                    s.alarms[j].referencePrice = price
+                }
+            }, reloadWidgets: false)
+        }
+        return outcome
     }
 
     func delete(_ watch: Watch) {
@@ -386,7 +488,8 @@ final class AppData: ObservableObject {
     /// alles für `restore`. Ids werden nie wieder vergeben, darum ist das Wiedereinfügen
     /// mit den alten Ids sicher. nil, wenn es das Paar nicht mehr gibt.
     func deleteForUndo(_ watch: Watch) -> DeletedWatch? {
-        guard let current = self.watch(watch.id) else { return nil }
+        // Gespeicherter Stand (ohne Live-Kurs darüber): wird beim «Rückgängig» so wieder eingefügt
+        guard let current = snapshot.watches.first(where: { $0.id == watch.id }) else { return nil }
         let deleted = DeletedWatch(
             watch: current,
             alarms: snapshot.alarms.filter { $0.watchId == current.id },
@@ -657,6 +760,101 @@ final class AppData: ObservableObject {
         return firstAlarm
     }
 
+    /// Schnell-Alarm sofort anlegen (scharf, Ton/Vibration wie neue Alarme) — wie
+    /// `AlarmsViewModel.createFromTemplate`. Liefert die Id (für «Rückgängig») und ob es
+    /// der allererste Alarm überhaupt ist (Bestätigung zeigen).
+    func createAlarm(watchId: Int64, from def: AlarmTemplates.Definition) -> (id: Int64, firstAlarm: Bool) {
+        let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
+        if !settings.firstAlarmShown { settings.firstAlarmShown = true }
+        var newId: Int64 = 0
+        mutate({ s in
+            let alarmId = max(s.nextAlarmId, (s.alarms.map(\.id).max() ?? 0) + 1)
+            s.nextAlarmId = alarmId + 1
+            newId = alarmId
+            s.alarms.append(Alarm(id: alarmId, watchId: watchId, condition: def.condition, threshold: def.threshold,
+                                  enabled: true, repeating: def.repeating, sound: true, vibrate: true, speak: false,
+                                  referencePrice: def.referencePrice, lastTriggeredAt: 0, lastTriggeredPrice: nil,
+                                  windowHours: def.windowHours, referenceAt: 0, currency: nil))
+        }, reloadWidgets: false)
+        Task { _ = await Notifier.requestPermission() }
+        return (newId, firstAlarm)
+    }
+
+    // MARK: Portfolio-Alarme («Portfolio-Wert»)
+
+    /// Alarme «Portfolio-Wert», nach Id.
+    var portfolioAlarms: [PortfolioAlarm] { (snapshot.portfolioAlarms ?? []).sorted { $0.id < $1.id } }
+
+    /// Mindestens ein scharfer Portfolio-Alarm (und Portfolio eingeschaltet)?
+    var hasActivePortfolioAlarms: Bool {
+        settings.portfolioEnabled && (snapshot.portfolioAlarms ?? []).contains(where: \.enabled)
+    }
+
+    /// Neuer Portfolio-Alarm (scharf); Beträge in der Umrechnungswährung `currency`.
+    func addPortfolioAlarm(kind: PortfolioAlarmKind, threshold: Double, currency: String, repeating: Bool) {
+        guard PortfolioAlarmLogic.isValidThreshold(kind, threshold) else { return }
+        mutate({ s in
+            var list = s.portfolioAlarms ?? []
+            let id = max(s.nextPortfolioAlarmId ?? 1, (list.map(\.id).max() ?? 0) + 1)
+            list.append(PortfolioAlarm(id: id, kind: kind, threshold: threshold,
+                                       currency: kind.isValue ? currency : nil, repeating: repeating))
+            s.portfolioAlarms = list
+            s.nextPortfolioAlarmId = id + 1
+        }, reloadWidgets: false)
+        Task { _ = await Notifier.requestPermission() }
+    }
+
+    /// Ein-/Ausschalten; eingeschaltet wieder scharf (wie die Kursmarken der Paar-Alarme).
+    func setPortfolioAlarmEnabled(_ id: Int64, _ enabled: Bool) {
+        mutate({ s in
+            guard var list = s.portfolioAlarms, let i = list.firstIndex(where: { $0.id == id }) else { return }
+            list[i].enabled = enabled
+            if enabled { list[i].referenceAt = 0 }
+            s.portfolioAlarms = list
+        }, reloadWidgets: false)
+    }
+
+    func deletePortfolioAlarm(_ id: Int64) {
+        mutate({ s in s.portfolioAlarms?.removeAll { $0.id == id } }, reloadWidgets: false)
+    }
+
+    /// Nach jeder neuen Berechnung des Portfolio-Stands (Portfolio-Tab, volle Aktualisierung,
+    /// Hintergrund): Alarme prüfen (`PortfolioAlarmLogic`), Zustand speichern, dann melden.
+    /// Nur mit eingeschaltetem Portfolio — wie `PortfolioAlarmChecker` (Android).
+    func evaluatePortfolioAlarms(_ widget: PortfolioWidgetSnapshot?) {
+        guard let widget, hasActivePortfolioAlarms else { return }
+        let current = settings
+        let reading = PortfolioReading(total: widget.total, currency: widget.currency, totalUsdt: widget.totalUsdt,
+                                       changePercent: widget.changePercent, empty: widget.empty)
+        let now = TimeUtils.nowMillis
+        var list = snapshot.portfolioAlarms ?? []
+        var fired: [(alarm: PortfolioAlarm, value: Double)] = []
+        var changed = false
+        for i in list.indices {
+            switch PortfolioAlarmLogic.decide(list[i], reading, now: now, cooldownMinutes: current.alarmCooldownMinutes) {
+            case .nothing:
+                break
+            case .rearm:
+                list[i].referenceAt = 0
+                changed = true
+            case .fire(let value):
+                list[i].referenceAt = now
+                list[i].lastTriggeredAt = now
+                list[i].lastTriggeredValue = value
+                list[i].enabled = PortfolioAlarmLogic.enabledAfterFire(repeating: list[i].repeating)
+                changed = true
+                fired.append((list[i], value))
+            }
+        }
+        guard changed else { return }
+        let updated = list
+        mutate({ s in s.portfolioAlarms = updated }, reloadWidgets: false)
+        // Erst nach dem Speichern melden (sonst wiederholt sich der Alarm, wenn iOS die App dazwischen beendet)
+        for item in fired {
+            Notifier.showPortfolioAlarm(item.alarm, measured: item.value, settings: current)
+        }
+    }
+
     // MARK: Probe-Alarm
 
     enum AlarmTestOutcome { case sent, sentDuringQuietHours, denied }
@@ -686,8 +884,10 @@ final class AppData: ObservableObject {
         mutate({ s in
             if let i = s.alarms.firstIndex(where: { $0.id == id }) {
                 s.alarms[i].enabled = enabled
-                // Wieder eingeschaltet: «Nahe am Hoch/Tief» und Kursmarken melden wieder (wie WatchDao.rearmAlarm)
-                if enabled && (s.alarms[i].condition.isNearExtreme || s.alarms[i].condition.isPriceThreshold) {
+                // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden
+                // wieder (wie WatchDao.rearmAlarm)
+                let condition = s.alarms[i].condition
+                if enabled && (condition.isNearExtreme || condition.isPriceThreshold || condition.isDerivatives) {
                     s.alarms[i].referencePrice = nil
                     s.alarms[i].referenceAt = 0
                 }
@@ -800,9 +1000,26 @@ final class AppData: ObservableObject {
         guard !refreshing else { return }
         refreshing = true
         defer { refreshing = false }
-        let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings)
+        await waitForLiveApply()
+        let liveIds = liveCoveredIds()
+        let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveIds: liveIds)
+        // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
+        if outcome.checked == 0 && !liveIds.isEmpty && liveIds.count == snapshot.watches.count {
+            SharedStorage.lastRefreshAt = TimeUtils.nowMillis
+        }
         apply(outcome, full: true)
         analyzeActivity()
+    }
+
+    /// Nach unten ziehen bzw. Knopf oben: gesperrt, solange eine Aktualisierung läuft oder die
+    /// letzte vollständige keine 15 s her ist (`RefreshDebounce`). Dann kein neuer Durchlauf —
+    /// die Merkliste zeigt kurz «Gerade aktualisiert». Live-Takt und neue Paare laufen ohne Sperre.
+    @discardableResult
+    func refreshAllByUser() async -> RefreshDebounce.Decision {
+        let decision = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
+                                              now: TimeUtils.nowMillis)
+        if decision == .start { await refreshAll() }
+        return decision
     }
 
     // MARK: Ungewöhnliche Aktivität
@@ -813,9 +1030,12 @@ final class AppData: ObservableObject {
     func analyzeActivity() {
         let watches = snapshot.watches
         let settings = self.settings
-        Task.detached(priority: .utility) { [weak self] in
-            guard await ActivityMonitor.analyzeAll(watches: watches, settings: settings) else { return }
-            await self?.reloadActivity()
+        // Nur mit Abnehmer: Mitteilung eingeschaltet oder App im Vordergrund (Karte, ⚡, «Warum»)
+        if ActivityAnalysisGate.shouldRun(alertsEnabled: settings.activityAlerts, appVisible: appActive) {
+            Task.detached(priority: .utility) { [weak self] in
+                guard await ActivityMonitor.analyzeAll(watches: watches, settings: settings) else { return }
+                await self?.reloadActivity()
+            }
         }
         // Gas-Alarm (#167): eigener Task, höchstens alle 10 Minuten, nur wenn eingestellt
         Task.detached(priority: .utility) {
@@ -839,11 +1059,12 @@ final class AppData: ObservableObject {
         guard !refreshingWatchIds.contains(watchId) else { return }
         refreshingWatchIds.insert(watchId)
         defer { refreshingWatchIds.remove(watchId) }
+        await waitForLiveApply()
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, onlyWatchId: watchId)
         apply(outcome, full: false)
     }
 
-    private func apply(_ outcome: PriceRefresher.Outcome, full: Bool) {
+    private func apply(_ outcome: PriceRefresher.Outcome, full: Bool, reloadWidgets: Bool = true) {
         // Uhrzeit und Dauer zuerst speichern, dann die Widgets neu laden —
         // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
         // Ohne einen einzigen Kurs (z. B. offline) bleibt die Zeit der letzten
@@ -851,21 +1072,46 @@ final class AppData: ObservableObject {
         if full && outcome.failed < outcome.checked {
             SharedStorage.lastRefreshAt = TimeUtils.nowMillis
             SharedStorage.lastRefreshDuration = outcome.durationMillis
-            if !outcome.report.isEmpty { SharedStorage.lastRefreshReport = outcome.report }
             lastRefreshMillis = outcome.durationMillis
-            lastRefreshReport = SharedStorage.lastRefreshReport
+        }
+        // Bericht auch ohne einen einzigen Kurs (wie Android): dann zeigt er, welche Börse scheiterte
+        if full, let report = outcome.report {
+            SharedStorage.lastRefreshReport = report
+            lastRefreshReport = report
+        }
+        // Mit dieser %-Basis gerechnet (Anzeige prüft das, siehe `changeView`)
+        if full, let stamp = outcome.changeStamp {
+            SharedStorage.changeStamp = stamp
+            changeStamp = stamp
         }
         // Ein einzelnes Paar: nur Merkliste- und Einzel-Widgets neu laden. Das Portfolio-Widget
         // lädt sich selbst, wenn sich seine Momentaufnahme ändert; «Was gerade auffällt» hängt
         // nicht an einem Paar.
         let kinds: [String]? = full ? nil : [SharedStorage.watchlistWidgetKind, SharedStorage.singleWidgetKind]
-        mutate({ s in outcome.apply(to: &s) }, widgetKinds: kinds)
+        mutate({ s in outcome.apply(to: &s) }, reloadWidgets: reloadWidgets, widgetKinds: kinds)
         // Erst nach dem Speichern melden (sonst wiederholt sich ein Alarm, wenn iOS die App
         // dazwischen beendet) und die Alarm-Lease freigeben.
         outcome.deliverAlarms()
+        // Portfolio-Alarme: nach jedem vollen Durchlauf mit frischen Portfolio-Kursen prüfen
+        // (nur, wenn einer scharf ist — sonst holt nur der Portfolio-Tab die Kurse)
+        if full && hasActivePortfolioAlarms {
+            Task { [weak self] in
+                let widget = await PortfolioWidgetStore.refresh()
+                self?.evaluatePortfolioAlarms(widget)
+            }
+        }
         // Live-Aktivität (Sperrbildschirm) mit dem neuen Kurs
         let watches = snapshot.watches
         Task { await LiveActivityController.update(watches: watches) }
+        // Tages-Basen: Bezüge, die nach dem Warten noch kamen, nachtragen statt «—»
+        if let late = outcome.lateDayChanges, let stamp = outcome.changeStamp {
+            let times = outcome.missingDayChange.mapValues { $0.time }
+            Task { [weak self] in
+                let changes = await late()
+                guard !changes.isEmpty else { return }
+                self?.fillLateDayChanges(changes, times: times, stamp: stamp)
+            }
+        }
         // Automatische Ansagen: Alarme (nie verworfen, vor Kursansagen), dann Kursansagen je Paar
         for item in outcome.speech {
             Speaker.shared.enqueue(item.text, rate: settings.ttsSpeechRate, alarm: item.flush)
@@ -875,12 +1121,118 @@ final class AppData: ObservableObject {
         }
     }
 
+    /// Späte Tages-Bezüge übernehmen — nur, solange Basis und Tag gleich sind und das Paar noch
+    /// denselben Kurs ohne Veränderung hat; danach Widgets und Live-Aktivität neu.
+    private func fillLateDayChanges(_ changes: [Int64: Double], times: [Int64: Int64], stamp: ChangeStamp) {
+        // Basis und Tag unverändert, und kein neuerer Durchlauf hat inzwischen einen anderen Stempel gesetzt
+        guard ChangeBasisMath.stamp(settings.changeBasis, now: TimeUtils.nowMillis) == stamp,
+              changeStamp == stamp else { return }
+        let fillable = snapshot.watches.contains { w in
+            changes[w.id] != nil && w.change24h == nil && w.lastError == nil && times[w.id] == w.lastUpdate
+        }
+        guard fillable else { return }
+        mutate({ s in
+            for i in s.watches.indices {
+                let w = s.watches[i]
+                guard let change = changes[w.id], w.change24h == nil, w.lastError == nil,
+                      times[w.id] == w.lastUpdate else { continue }
+                s.watches[i].change24h = change
+            }
+        }, widgetKinds: [SharedStorage.watchlistWidgetKind, SharedStorage.singleWidgetKind])
+        let watches = snapshot.watches
+        Task { await LiveActivityController.update(watches: watches) }
+    }
+
     // MARK: Live-Aktualisierung (solange die App offen ist)
 
     func setAppActive(_ active: Bool) {
         appActive = active
         if active { reloadFromDisk() }
         updateLiveTask()
+        updateLiveStream()
+    }
+
+    // MARK: Live-Kurse per WebSocket (solange die Merkliste offen ist)
+
+    /// App aktiv, Einstellung und Netz an den Strom weitergeben.
+    private func updateLiveStream() {
+        let active = appActive
+        let enabled = settings.liveWebSocket
+        let isOnline = online
+        Task { await LivePriceStream.shared.setEnvironment(appActive: active, enabled: enabled, online: isOnline) }
+    }
+
+    /// Vom Strom: neuer Anzeige-Stand (nil = Kurse unverändert), Börsen mit Daten, Zeit je Paar.
+    func setLive(quotes: [Int64: LiveQuote]?, exchanges: [String], tickAt: [Int64: Int64]) {
+        if let quotes { LivePrices.shared.apply(quotes) }
+        if exchanges != liveExchanges { liveExchanges = exchanges }
+        liveTickAt = tickAt
+    }
+
+    /// Strom beendet: wieder die gespeicherten Kurse zeigen.
+    func clearLive() {
+        LivePrices.shared.clear()
+        if !liveExchanges.isEmpty { liveExchanges = [] }
+        liveTickAt = [:]
+    }
+
+    /// Live-Kurse gesammelt speichern und auswerten — derselbe Weg wie eine Aktualisierung
+    /// (`PriceRefresher` mit `liveQuotes`): Alarme ohne doppelte Meldungen, Kurs-Mitteilungen.
+    /// Läuft gerade eine Aktualisierung: false, der Strom versucht es beim nächsten Mal.
+    func applyLive(_ quotes: [Int64: LiveQuote], reloadWidgets: Bool) async -> Bool {
+        // Läuft eine Aktualisierung (alle oder ein Paar): nicht anstellen — der Puffer behält je
+        // Paar nur den neuesten Kurs, der Strom versucht es beim nächsten Mal (zusammengeführt)
+        guard !refreshing, !liveApplying, refreshingWatchIds.isEmpty else { return false }
+        liveApplying = true
+        defer { liveApplying = false }
+        let now = TimeUtils.nowMillis
+        let rolling = !settings.changeBasis.isDay
+        let stampCurrent = changeStamp == ChangeBasisMath.stamp(settings.changeBasis, now: now)
+        var byId: [Int64: Watch] = [:]
+        for w in snapshot.watches { byId[w.id] = w }
+        var chosen: [Int64: LiveQuote] = [:]
+        for (id, quote) in quotes {
+            guard let watch = byId[id] else { continue }
+            let change = LiveRules.chooseChange(
+                rollingBasis: rolling, stampCurrent: stampCurrent,
+                exchangeRolling: LiveExchange.from(marketKey: watch.marketKey)?.rollingChange == true,
+                live: quote.change24h, existing: watch.change24h)
+            chosen[id] = LiveQuote(price: quote.price, change24h: change, time: quote.time)
+        }
+        guard !chosen.isEmpty else { return true }
+        let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveQuotes: chosen)
+        // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
+        if reloadWidgets && outcome.checked > outcome.failed { SharedStorage.lastRefreshAt = TimeUtils.nowMillis }
+        apply(outcome, full: false, reloadWidgets: reloadWidgets)
+        return true
+    }
+
+    /// Speichert der Strom gerade (höchstens ein paar hundert ms): abwarten, damit nicht zwei
+    /// Durchläufe denselben Stand auswerten (Alarme doppelt) — wie der Mutex in Android.
+    private func waitForLiveApply() async {
+        while liveApplying {
+            try? await Task.sleep(nanoseconds: 50_000_000)
+        }
+    }
+
+    /// Paare mit frischem Live-Kurs, die die REST-Abfrage diesmal auslässt (`LiveRules.skipRest`).
+    private func liveCoveredIds() -> Set<Int64> {
+        guard !liveTickAt.isEmpty else { return [] }
+        let now = TimeUtils.nowMillis
+        let rolling = !settings.changeBasis.isDay
+        let stampUnchanged = changeStamp == ChangeBasisMath.stamp(settings.changeBasis, now: now)
+        // Volumen-, Funding- und Open-Interest-Alarme hängen nicht am Live-Kurs (`applyLive` prüft sie
+        // nicht): solche Paare weiter per REST abfragen, sonst bliebe der Alarm bei offener Merkliste stumm
+        let volumeIds = Set(snapshot.alarms.filter {
+            $0.enabled && ($0.condition == .VOLUME_SPIKE || $0.condition.isDerivatives)
+        }.map(\.watchId))
+        var ids = Set<Int64>()
+        for w in snapshot.watches where !volumeIds.contains(w.id) && LiveRules.skipRest(
+            lastTickAt: liveTickAt[w.id], now: now, rollingBasis: rolling, stampUnchanged: stampUnchanged,
+            exchangeRolling: LiveExchange.from(marketKey: w.marketKey)?.rollingChange == true) {
+            ids.insert(w.id)
+        }
+        return ids
     }
 
     private func updateLiveTask() {
@@ -901,6 +1253,9 @@ final class AppData: ObservableObject {
     private func settingsChanged(from old: AppSettings) {
         if old.liveService != settings.liveService || old.liveIntervalSeconds != settings.liveIntervalSeconds {
             updateLiveTask()
+        }
+        if old.liveWebSocket != settings.liveWebSocket {
+            updateLiveStream()
         }
         if old.backgroundUpdates != settings.backgroundUpdates || old.backgroundIntervalMinutes != settings.backgroundIntervalMinutes
             || old.zoneAlerts != settings.zoneAlerts || old.fearGreedBelow != settings.fearGreedBelow || old.fearGreedAbove != settings.fearGreedAbove {
@@ -932,6 +1287,19 @@ final class AppData: ObservableObject {
         if old.portfolioCurrency != settings.portfolioCurrency {
             // Portfolio-Widget in der neuen Umrechnungswährung
             Task { await PortfolioWidgetStore.refresh() }
+        }
+        if old.changeBasis != settings.changeBasis {
+            // %-Basis: bis neu gerechnet ist «—» (Stempel passt nicht); gleich neu rechnen,
+            // Widgets, Portfolio-Widget und Live-Aktivität folgen
+            WidgetCenter.shared.reloadAllTimelines()
+            Task { [weak self] in
+                await self?.refreshAll()
+                await PortfolioWidgetStore.refresh()
+            }
+        }
+        if old.hidePortfolioAmounts != settings.hidePortfolioAmounts {
+            // Portfolio-Widget: Beträge zeigen bzw. als «•••»
+            WidgetCenter.shared.reloadTimelines(ofKind: PortfolioWidgetStore.kind)
         }
         if old.appLock != settings.appLock {
             if !settings.appLock { AppLock.shared.disabled() }

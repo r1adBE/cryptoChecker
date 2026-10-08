@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">सामान्य</string>
+    <string name="settings_group_data_only">डेटा</string>
+    <string name="settings_row_currency">मुद्रा</string>
+    <string name="settings_row_updates">अपडेट</string>
+    <string name="settings_updates_live">बार-बार · %1$s</string>
+    <string name="settings_updates_every">हर %1$s</string>
+    <string name="settings_row_watchlist">वॉचलिस्ट</string>
+    <string name="settings_watchlist_value_sparkline">मिनी चार्ट</string>
+    <string name="settings_watchlist_value_price_only">सिर्फ़ कीमत</string>
+    <string name="settings_row_alarms">अलार्म</string>
+    <string name="settings_portfolio_value_locked">चालू, लॉक के साथ</string>
+    <string name="settings_row_dated_futures">एक्सपायरी वाले फ़्यूचर्स</string>
+    <string name="settings_tradfi_futures">शेयर, कमोडिटी और मुद्राएँ (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">जोड़ी चुनते समय शेयरों, सोने व अन्य कमोडिटी, मुद्राओं और IPO से पहले की कंपनियों पर फ़्यूचर्स भी दिखाता है। ये अनुबंध हैं, टोकन नहीं।</string>
+    <string name="settings_row_about">ऐप के बारे में</string>
+    <string name="price_colors_green_up">हरा बढ़त / लाल गिरावट</string>
+    <string name="price_colors_red_up">लाल बढ़त / हरा गिरावट</string>
+    <string name="price_colors_blue_up">नीला बढ़त / नारंगी गिरावट</string>
+    <string name="price_colors_orange_up">नारंगी बढ़त / नीला गिरावट</string>
+    <string name="price_colors_red_up_hint">चीन, जापान, कोरिया और ताइवान में आम</string>
+</resources>

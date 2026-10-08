@@ -23,12 +23,12 @@ struct LicensesSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: Spacing.sm) {
                     // Runde 15: die App selbst ist quelloffen (MIT)
                     Text(L("licenses_app_intro"))
                         .font(.subheadline)
                         .foregroundStyle(AppColors.onSurface)
-                        .padding(.bottom, 6)
+                        .padding(.bottom, Spacing.xs)
                     Text(L("licenses_marketdata_title"))
                         .font(.headline)
                         .foregroundStyle(accent.primary)

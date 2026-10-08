@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">לא עדכני · %1$s</string>
 
     <string name="settings_widgets">ווידג׳טים</string>
-    <string name="settings_widgets_hint">הוספת מחירים למסך הבית</string>
     <string name="widgets_sheet_title">הוספת ווידג׳ט</string>
     <string name="widget_kind_single">מטבע אחד</string>
     <string name="widgets_add">הוסף</string>

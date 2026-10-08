@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Genel</string>
+    <string name="settings_group_data_only">Veriler</string>
+    <string name="settings_row_currency">Para birimi</string>
+    <string name="settings_row_updates">Güncelleme</string>
+    <string name="settings_updates_live">Sık · %1$s</string>
+    <string name="settings_updates_every">Her %1$s</string>
+    <string name="settings_row_watchlist">Liste</string>
+    <string name="settings_watchlist_value_sparkline">Mini grafik</string>
+    <string name="settings_watchlist_value_price_only">Yalnızca fiyat</string>
+    <string name="settings_row_alarms">Alarmlar</string>
+    <string name="settings_portfolio_value_locked">Açık, kilitli</string>
+    <string name="settings_row_dated_futures">Vadeli futures</string>
+    <string name="settings_tradfi_futures">Hisseler, emtialar ve döviz (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Parite seçerken hisse senetleri, altın ve diğer emtialar, döviz ve halka arz öncesi şirketler üzerindeki vadeli işlemleri de gösterir. Bunlar token değil, sözleşmedir.</string>
+    <string name="settings_row_about">Uygulama hakkında</string>
+    <string name="price_colors_green_up">Yeşil yükselir / kırmızı düşer</string>
+    <string name="price_colors_red_up">Kırmızı yükselir / yeşil düşer</string>
+    <string name="price_colors_blue_up">Mavi yükselir / turuncu düşer</string>
+    <string name="price_colors_orange_up">Turuncu yükselir / mavi düşer</string>
+    <string name="price_colors_red_up_hint">Çin, Japonya, Kore ve Tayvan’da yaygın</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Fonlama üstünde</string>
+    <string name="alarm_condition_funding_below">Fonlama altında</string>
+    <string name="alarm_condition_oi_up">Açık pozisyon artıyor</string>
+    <string name="alarm_condition_oi_down">Açık pozisyon azalıyor</string>
+    <string name="alarm_sentence_funding_above">%1$s fonlaması %2$s üstüne çıktığında bana haber ver.</string>
+    <string name="alarm_sentence_funding_below">%1$s fonlaması %2$s altına düştüğünde bana haber ver.</string>
+    <string name="tts_direction_funding_above">yüksek fonlamayla</string>
+    <string name="tts_direction_funding_below">düşük fonlamayla</string>
+    <string name="tts_direction_oi_up">artan açık pozisyonla</string>
+    <string name="tts_direction_oi_down">azalan açık pozisyonla</string>
+    <string name="alarm_funding_hint">Uzlaşma dönemi başına fonlama oranı (genellikle 8 saatte bir). Negatif: short’lar long’lara öder. ± işareti değiştirir.</string>
+    <string name="alarm_oi_hint">Açık pozisyonu o kadar saat önce kaydedilen değerle karşılaştırır. Yeni alarm ancak uygulama o süre boyunca veri topladıktan sonra bildirir; en fazla 5 dakikada bir kontrol edilir.</string>
+    <string name="alarm_funding_sign_a11y">İşareti değiştir</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s açık pozisyonu %3$d saat içinde %2$s arttığında bana haber ver.</item>
+        <item quantity="other">%1$s açık pozisyonu %3$d saat içinde %2$s arttığında bana haber ver.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s açık pozisyonu %3$d saat içinde %2$s azaldığında bana haber ver.</item>
+        <item quantity="other">%1$s açık pozisyonu %3$d saat içinde %2$s azaldığında bana haber ver.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runde 31 (n): Suche in den Einstellungen -->
+<resources>
+    <string name="settings_search_hint">جستجو در تنظیمات</string>
+</resources>

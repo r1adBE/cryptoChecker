@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Загальні</string>
+    <string name="settings_group_data_only">Дані</string>
+    <string name="settings_row_currency">Валюта</string>
+    <string name="settings_row_updates">Оновлення</string>
+    <string name="settings_updates_live">Часто · %1$s</string>
+    <string name="settings_updates_every">Кожні %1$s</string>
+    <string name="settings_row_watchlist">Список</string>
+    <string name="settings_watchlist_value_sparkline">Міні-графік</string>
+    <string name="settings_watchlist_value_price_only">Лише ціна</string>
+    <string name="settings_row_alarms">Сповіщення</string>
+    <string name="settings_portfolio_value_locked">Увімк., з блокуванням</string>
+    <string name="settings_row_dated_futures">Строкові ф’ючерси</string>
+    <string name="settings_tradfi_futures">Акції, сировина та валюти (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Під час вибору пари показує також ф’ючерси на акції, золото й іншу сировину, валюти та компанії до IPO. Це контракти, а не токени.</string>
+    <string name="settings_row_about">Про застосунок</string>
+    <string name="price_colors_green_up">Зелений — зростання / червоний — падіння</string>
+    <string name="price_colors_red_up">Червоний — зростання / зелений — падіння</string>
+    <string name="price_colors_blue_up">Синій — зростання / помаранчевий — падіння</string>
+    <string name="price_colors_orange_up">Помаранчевий — зростання / синій — падіння</string>
+    <string name="price_colors_red_up_hint">Прийнято в Китаї, Японії, Кореї та на Тайвані</string>
+</resources>

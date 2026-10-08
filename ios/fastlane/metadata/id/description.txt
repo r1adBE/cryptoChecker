@@ -1,9 +1,9 @@
-Pantau harga kripto Anda tanpa terus membuka aplikasi bursa. Pasang alarm, kenali pergerakan tidak biasa, dan pahami dalam hitungan detik mengapa sebuah koin bergerak.
+Crypto Checker menjelaskan apa yang terjadi di pasar. Pasang alarm, kenali pergerakan tak biasa, dan pahami dalam hitungan detik mengapa sebuah koin bergerak – tanpa prediksi.
 
-Pantau – harga langsung dari bursa, dalam mata uang Anda
-Ingatkan – harga, %, pergerakan, volume, sebagai satu kalimat
 Pahami – “Kenapa ini bergerak?” dengan ringkasan singkat
 Ikhtisar – Crypto Pulse, Fear & Greed, siklus, dan portofolio
+Pantau – harga langsung dari bursa, dalam mata uang Anda
+Ingatkan – harga, %, pergerakan, volume, sebagai satu kalimat
 
 Mudah dibaca semua orang: warna harga hijau/merah atau biru/oranye, bisa ditukar, kontras tinggi, tanda dan panah, bukan hanya warna, serta VoiceOver membacakan setiap baris sebagai satu kalimat.
 
@@ -48,7 +48,7 @@ WIDGET UNTUK LAYAR UTAMA DAN LAYAR KUNCI
 • Aktivitas Langsung di Layar Terkunci: harga satu koin sekilas
 
 LAINNYA
-• Mode live dengan interval singkat selama app terbuka; pembaruan di latar belakang dijadwalkan oleh iOS
+• Pembaruan sering selama app terbuka; pembaruan di latar belakang dijadwalkan oleh iOS
 • Harga dan alarm dibacakan dengan suara
 • Cadangkan & pulihkan lewat app File
 • Tindakan cepat di ikon app, mode terang dan gelap

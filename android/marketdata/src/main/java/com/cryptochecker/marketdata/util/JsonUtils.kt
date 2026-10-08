@@ -33,3 +33,9 @@ fun JSONObject.forEachName(function: (name: String, item: JSONObject) -> Unit) {
 }
 
 fun JSONObject.optDoubleNoData(name: String): Double = this.optDouble(name, Ticker.NO_DATA.toDouble())
+
+/** Texte eines Felds mit Liste («["TradFi", "Pre-IPO"]»); fehlt es oder ist es keine Liste: leer. */
+fun JSONObject.optStrings(name: String): List<String> {
+    val array = optJSONArray(name) ?: return emptyList()
+    return (0 until array.length()).mapNotNull { i -> array.optString(i).takeIf { it.isNotEmpty() } }
+}

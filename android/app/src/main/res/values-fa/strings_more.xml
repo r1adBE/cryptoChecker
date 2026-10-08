@@ -18,9 +18,9 @@
     <string name="pulse_less">نمایش کمتر</string>
     <string name="pulse_updated">تا %1$s</string>
     <string name="pulse_unavailable">داده‌های بازار در حال حاضر در دسترس نیست</string>
-    <string name="why_summary_title">به‌طور خلاصه</string>
+    <string name="why_summary_title">دلایل احتمالی</string>
     <string name="why_summary_market_volume">این حرکت با حجم معاملات بالاتر و بازاری که به‌طور گسترده حرکت می‌کند همراه است.</string>
-    <string name="why_summary_market">این حرکت از کل بازار پیروی می‌کند.</string>
+    <string name="why_summary_market">این حرکت احتمالاً از کل بازار پیروی می‌کند.</string>
     <string name="why_summary_coin_volume">فقط همین کوین حرکت می‌کند، با حجم بالاتر – احتمالاً دلیلی مربوط به خود کوین.</string>
     <string name="why_summary_coin">فقط همین کوین حرکت می‌کند – احتمالاً دلیلی مربوط به خود کوین.</string>
     <string name="why_summary_against">کوین خلاف جهت بازار حرکت می‌کند.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">دنبال کنید – کوین‌ها، قیمت‌ها، نمودارها و ویجت‌های شما</string>
     <string name="welcome_alert">هشدار بگیرید – قیمت، درصد، حجم و حرکت‌های غیرعادی</string>
     <string name="welcome_understand">بفهمید – چرا بازار همین حالا حرکت می‌کند؟</string>
-    <string name="welcome_start">شروع کنید</string>
     <string name="portfolio_empty_example">مثال: 0.01 BTC در ۱ مارس به قیمت %1$s خریده شده. سپس برنامه ارزش، میانگین قیمت خرید و سود/زیان را نشان می‌دهد – فقط روی همین دستگاه ذخیره می‌شود.</string>
     <string name="about_why">Crypto Checker یک پروژه مستقل از r1AD است: نمایی آرام از قیمت‌ها بدون حساب، تبلیغات یا ردیابی. پرسش‌ها و پیشنهادها: %1$s</string>
     <string name="a11y_move_up">انتقال به بالا</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">هیچ داده‌ای از صرافی دریافت نشد.</string>
     <string name="sync_pairs_count">جفت‌های معاملاتی: %1$d</string>
     <string name="market_unavailable_error">صرافی در دسترس نیست</string>
-    <string name="refresh_report_aborted">تازه‌سازی لغو شد:</string>
-    <string name="refresh_report_wait">انتظار تا شروع: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">مجموع %1$s · جفت‌ها: %2$d</item>
-        <item quantity="other">مجموع %1$s · جفت‌ها: %2$d</item>
-    </plurals>
-    <string name="refresh_report_network">شبکه %1$s</string>
-    <string name="refresh_report_database">پایگاه داده %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">هشدارها/اعلان‌ها %1$s · اعلان‌ها: %2$d</item>
-        <item quantity="other">هشدارها/اعلان‌ها %1$s · اعلان‌ها: %2$d</item>
-    </plurals>
-    <string name="refresh_report_widgets">ابزارک‌ها %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: جفت‌ها: %2$d، %3$s</item>
-        <item quantity="other">%1$s: جفت‌ها: %2$d، %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">درخواست گروهی %1$s (قیمت‌ها: %2$d)</item>
-        <item quantity="other">درخواست گروهی %1$s (قیمت‌ها: %2$d)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">درخواست گروهی %1$s (ناموفق)</string>
     <string name="refresh_report_singles">جداگانه: %1$d</string>
-    <string name="refresh_report_slowest">کندترین %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">دیگر معامله نمی‌شوند: %1$d</item>
         <item quantity="other">دیگر معامله نمی‌شوند: %1$d</item>

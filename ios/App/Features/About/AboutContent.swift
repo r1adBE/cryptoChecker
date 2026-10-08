@@ -33,6 +33,41 @@ struct AppLogoView: View {
     }
 }
 
+/// Was die App kann (Runde 32: früher im Begrüßungsblatt, das es nicht mehr gibt — ein neuer
+/// Nutzer landet direkt in der Starter-Auswahl): Kurztext und drei Zeilen (Beobachten,
+/// Alarmieren, Verstehen — je mit kurzer Frage darüber). Wie `AboutFeatures.kt`.
+@MainActor
+struct AboutFeatures: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            Text(L("welcome_text"))
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, Spacing.xs)
+            line(L("welcome_watch_q"), L("welcome_watch"))
+            line(L("welcome_alert_q"), L("welcome_alert"))
+            line(L("welcome_understand_q"), L("welcome_understand"))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    /// Kleine Frage, darunter der Text — für VoiceOver ein Element.
+    private func line(_ question: String, _ text: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(question)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(AppColors.onSurfaceVariant)
+            Text(text)
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurface)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+    }
+}
+
 /// Kurzinfo zur App mit Kontaktadresse — wie `AboutContent.kt`.
 /// Steht in den Einstellungen unter «Über».
 @MainActor
@@ -65,7 +100,7 @@ struct AboutContent: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 14) {
+            HStack(spacing: Spacing.md) {
                 AppLogoView(size: 52)
                     .shadow(color: accent.primary.opacity(0.35), radius: 10, y: 4)
                 VStack(alignment: .leading, spacing: 3) {
@@ -80,7 +115,7 @@ struct AboutContent: View {
             }
             .contentShape(Rectangle())
             .onTapGesture { onVersionTap?() }
-            .padding(.vertical, 10)
+            .padding(.vertical, Spacing.md)
 
             Text(whyText)
                 .font(.subheadline)
@@ -88,7 +123,7 @@ struct AboutContent: View {
                 .tint(accent.primary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 4)
-                .padding(.bottom, 10)
+                .padding(.bottom, Spacing.sm)
         }
     }
 }

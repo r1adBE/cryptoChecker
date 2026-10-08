@@ -33,7 +33,10 @@ class BybitBase: SimpleMarket {
             if item.optString("status") != "Trading" { continue }
             // Bei Futures nur Perpetuals; Laufzeit-Kontrakte haben andere Symbolnamen.
             if contractType == .perpetual && item.optString("contractType") != "LinearPerpetual" { continue }
-            try pairs.append(CurrencyPairInfo(item.string("baseCoin"), item.string("quoteCoin"), item.string("symbol"), contractType))
+            // Aktien, ETFs, Rohstoffe und Devisen (TradFi-Perps) nur bei Futures kennzeichnen; Spot-Token bleiben Token
+            let tradFi: Bool? = contractType == .perpetual ? TradFi.bybit(symbolType: item.optString("symbolType")) : nil
+            try pairs.append(CurrencyPairInfo(item.string("baseCoin"), item.string("quoteCoin"), item.string("symbol"), contractType,
+                                              tradFi: tradFi))
         }
         return pairs
     }

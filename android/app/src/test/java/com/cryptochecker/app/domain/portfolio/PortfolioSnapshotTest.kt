@@ -4,6 +4,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import java.util.Locale
 
 class PortfolioSnapshotTest {
@@ -81,5 +83,43 @@ class PortfolioSnapshotTest {
         assertEquals("+1.23%", PortfolioSnapshotMath.signedPercent(1.234, Locale.US))
         assertEquals("−0.50%", PortfolioSnapshotMath.signedPercent(-0.5, Locale.US))
         assertEquals("0.00%", PortfolioSnapshotMath.signedPercent(-0.001, Locale.US))
+        // RTL: Vorzeichen bleibt vor der Zahl (links-nach-rechts-Insel)
+        val arLatn = Locale.forLanguageTag("ar-u-nu-latn")
+        assertEquals("\u2066+1.23%\u2069", PortfolioSnapshotMath.signedPercent(1.234, arLatn))
+        assertEquals("\u2066−12.00 USD\u2069", PortfolioSnapshotMath.signedAmount(-12.0, "USD", arLatn))
+    }
+
+    @Test
+    fun dayBasisComparesWithTheSampleAtDayStart() {
+        val dayStart = now - 5 * h
+        val history = listOf(
+            PriceSample(now - 24 * h, mapOf("BTC" to 80.0)),
+            PriceSample(dayStart - 30 * 60_000L, mapOf("BTC" to 100.0)),
+            PriceSample(dayStart + h, mapOf("BTC" to 105.0)),
+        )
+        assertEquals(dayStart - 30 * 60_000L, PortfolioSnapshotMath.baselineAt(history, dayStart)?.time)
+        assertNull(PortfolioSnapshotMath.baselineAt(history.drop(1).drop(1), dayStart))
+        val stamp = ChangeStamp(ChangeBasis.UTC_DAY, dayStart)
+        val s = PortfolioSnapshotMath.snapshot(
+            holdings = mapOf("BTC" to 1.0),
+            totalUsd = 120.0,
+            current = mapOf("BTC" to 120.0),
+            history = history,
+            now = now,
+            fxRate = 1.0,
+            currency = "USD",
+            stamp = stamp,
+        )
+        // Seit Tagesbeginn (100 → 120), nicht seit 24 h (80 → 120)
+        assertEquals(20.0, s.changeAmount!!, 1e-9)
+        assertEquals(20.0, s.changePercent!!, 1e-9)
+        assertEquals(stamp, s.stamp)
+        assertEquals(20.0, s.positions.single().change24hPercent!!, 1e-9)
+        // Verlauf ohne Aufnahmen vor dem Tagesbeginn
+        assertTrue(s.history.all { it.time >= dayStart })
+        // Rollend wie bisher
+        val rolling = PortfolioSnapshotMath.snapshot(mapOf("BTC" to 1.0), 120.0, mapOf("BTC" to 120.0), history, now, 1.0, "USD")
+        assertEquals(40.0, rolling.changeAmount!!, 1e-9)
+        assertNull(rolling.stamp)
     }
 }

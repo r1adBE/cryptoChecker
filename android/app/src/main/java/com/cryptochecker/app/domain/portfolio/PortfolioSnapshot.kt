@@ -1,5 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
+import com.cryptochecker.app.domain.watch.ChangeStamp
+import com.cryptochecker.app.util.BidiText
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -28,6 +30,16 @@ data class PortfolioSnapshot(
     val otherPositions: Int = 0,
     /** Wertverlauf des heutigen Bestands (Anzeigewährung), aufsteigend nach Zeit. */
     val history: List<PortfolioValuePoint> = emptyList(),
+    /**
+     * Mit welcher %-Basis (und welchem Tagesbeginn) Veränderung und Verlauf gerechnet sind;
+     * null = ältere Aufnahme (rollende 24 Stunden).
+     */
+    val stamp: ChangeStamp? = null,
+    /**
+     * Kursveränderung je offenem Coin in Prozent (gleiche %-Basis wie [changePercent]) — für
+     * «Grösste Bewegungen» im Portfolio-Tab. Nur im Speicher, nicht in der gespeicherten Aufnahme.
+     */
+    val coinChanges: Map<String, Double> = emptyMap(),
 )
 
 /** USDT-Kurse aller Coins zu einem Zeitpunkt. */
@@ -70,6 +82,14 @@ object PortfolioSnapshotMath {
     private fun prune(history: List<PriceSample>, now: Long): List<PriceSample> =
         history.filter { now - it.time in 0..HISTORY_MILLIS }.sortedBy { it.time }
 
+    /**
+     * Tages-Basis: Aufnahme zum Tagesbeginn [dayStart] — die jüngste davor, höchstens
+     * [PortfolioWidgetSeries.TOLERANCE_MILLIS] vorher; sonst null.
+     */
+    fun baselineAt(history: List<PriceSample>, dayStart: Long): PriceSample? =
+        history.filter { it.time <= dayStart && dayStart - it.time <= PortfolioWidgetSeries.TOLERANCE_MILLIS }
+            .maxByOrNull { it.time }
+
     /** Jüngste Aufnahme, die mindestens 20 h (und höchstens 48 h) alt ist. */
     fun baseline(history: List<PriceSample>, now: Long): PriceSample? =
         history.filter { now - it.time in MIN_BASELINE_AGE_MILLIS..HISTORY_MILLIS }.maxByOrNull { it.time }
@@ -107,8 +127,14 @@ object PortfolioSnapshotMath {
      * @param current aktuelle USDT-Kurse
      * @param history bisherige Kursaufnahmen (ohne die aktuelle)
      * @param fxRate USD → [currency]
-     * Dazu: Gesamtwert in USDT, die grössten Positionen (Anteil, Veränderung je Coin seit
-     * derselben Basis wie «heute») und der Wertverlauf aus den Kursaufnahmen.
+     * @param hourlyPrices gemerkte Stundenkurse je Coin ([PortfolioWidgetSeries.merge])
+     * @param stables USD-Stablecoins (im Stundenverlauf flach und abgedeckt)
+     * Dazu: Gesamtwert in USDT, die grössten Positionen (Anteil, Veränderung je Coin) und der
+     * Wertverlauf. Reichen die Stundenkurse ([PortfolioWidgetSeries.hourly], mindestens
+     * [PortfolioWidgetSeries.MIN_POINTS] Punkte), stammen Verlauf und Veränderung über 24 h
+     * daraus; sonst aus den Kursaufnahmen wie bisher (Vergleichsbasis [baseline]).
+     * @param stamp %-Basis: bei «seit 00:00» Verlauf und Veränderung ab Tagesbeginn
+     *   ([PortfolioWidgetSeries.hourlySince], sonst die Aufnahme zum Tagesbeginn [baselineAt]).
      */
     fun snapshot(
         holdings: Map<String, Double>,
@@ -118,29 +144,88 @@ object PortfolioSnapshotMath {
         now: Long,
         fxRate: Double,
         currency: String,
+        hourlyPrices: Map<String, List<TimedPrice>> = emptyMap(),
+        stables: Set<String> = emptySet(),
+        stamp: ChangeStamp? = null,
     ): PortfolioSnapshot {
         val open = holdings.filterValues { it > PortfolioCalculator.EPS }
+        if (stamp != null && stamp.basis.isDay) {
+            return daySnapshot(open, totalUsd, current, history, now, fxRate, currency, hourlyPrices, stables, stamp)
+        }
         val base = baseline(history, now)
-        val change = base?.let { todayChange(open, current, it.prices) }
+        val hourly = PortfolioWidgetSeries.hourly(open, current, hourlyPrices, now, fxRate, stables)
+            .takeIf { PortfolioWidgetSeries.drawable(it) }
+        val hourlyChange = hourly?.let { PortfolioWidgetSeries.change(it) }
+        val change = if (hourlyChange == null) base?.let { todayChange(open, current, it.prices) } else null
         // Wert je Coin wie im Rechner: Menge × aktueller Kurs; ohne Kurs null
         val values = open.mapValues { (coin, amount) -> current[coin]?.takeIf { it > 0.0 }?.let { amount * it } }
+        // Stundenkurse vor der Vergleichsbasis (sie messen genau 24 h)
+        val coinChanges = PortfolioWidgetMath.coinChanges(current, base?.prices) +
+            PortfolioWidgetSeries.coinChanges(current, hourlyPrices, now)
         val top = PortfolioWidgetMath.topPositions(
             valuesUsd = values,
             totalUsd = totalUsd,
             fxRate = fxRate,
-            changes = PortfolioWidgetMath.coinChanges(current, base?.prices),
+            changes = coinChanges,
         )
         return PortfolioSnapshot(
             total = totalUsd * fxRate,
-            changeAmount = change?.amountUsd?.times(fxRate),
-            changePercent = change?.percent,
+            changeAmount = hourlyChange?.amount ?: change?.amountUsd?.times(fxRate),
+            changePercent = if (hourlyChange != null) hourlyChange.percent else change?.percent,
             currency = currency,
             time = now,
             empty = open.isEmpty(),
             totalUsdt = totalUsd,
             positions = top.positions,
             otherPositions = top.others,
-            history = PortfolioWidgetMath.valueHistory(open, history, current, now, fxRate),
+            history = hourly ?: PortfolioWidgetMath.valueHistory(open, history, current, now, fxRate),
+            stamp = stamp,
+            coinChanges = coinChanges,
+        )
+    }
+
+    /** Wie [snapshot], aber seit Tagesbeginn ([ChangeStamp.dayStart]). */
+    private fun daySnapshot(
+        open: Map<String, Double>,
+        totalUsd: Double,
+        current: Map<String, Double>,
+        history: List<PriceSample>,
+        now: Long,
+        fxRate: Double,
+        currency: String,
+        hourlyPrices: Map<String, List<TimedPrice>>,
+        stables: Set<String>,
+        stamp: ChangeStamp,
+    ): PortfolioSnapshot {
+        val dayStart = stamp.dayStart
+        val base = baselineAt(history, dayStart)
+        val raw = PortfolioWidgetSeries.hourlySince(open, current, hourlyPrices, dayStart, now, fxRate, stables)
+        val hourlyChange = PortfolioWidgetSeries.changeSince(raw, dayStart)
+        val change = if (hourlyChange == null) base?.let { todayChange(open, current, it.prices) } else null
+        val values = open.mapValues { (coin, amount) -> current[coin]?.takeIf { it > 0.0 }?.let { amount * it } }
+        // Stundenkurse zum Tagesbeginn vor der Aufnahme zum Tagesbeginn
+        val coinChanges = PortfolioWidgetMath.coinChanges(current, base?.prices) +
+            PortfolioWidgetSeries.coinChangesSince(current, hourlyPrices, dayStart)
+        val top = PortfolioWidgetMath.topPositions(
+            valuesUsd = values,
+            totalUsd = totalUsd,
+            fxRate = fxRate,
+            changes = coinChanges,
+        )
+        return PortfolioSnapshot(
+            total = totalUsd * fxRate,
+            changeAmount = hourlyChange?.amount ?: change?.amountUsd?.times(fxRate),
+            changePercent = if (hourlyChange != null) hourlyChange.percent else change?.percent,
+            currency = currency,
+            time = now,
+            empty = open.isEmpty(),
+            totalUsdt = totalUsd,
+            positions = top.positions,
+            otherPositions = top.others,
+            history = raw.takeIf { PortfolioWidgetSeries.drawable(it) }
+                ?: PortfolioWidgetMath.valueHistory(open, history.filter { it.time >= dayStart }, current, now, fxRate),
+            stamp = stamp,
+            coinChanges = coinChanges,
         )
     }
 
@@ -152,7 +237,8 @@ object PortfolioSnapshotMath {
             value > 0 -> "+"
             else -> "−"
         }
-        return "$sign${format.format(abs(value))} $currency"
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
+        return BidiText.ltr("$sign${format.format(abs(value))} $currency", locale)
     }
 
     /** «+1.23%» / «−0.50%»; ±0 ohne Vorzeichen. */
@@ -164,8 +250,12 @@ object PortfolioSnapshotMath {
             value > 0 -> "+"
             else -> "−"
         }
-        return "$sign${format.format(rounded)}%"
+        return BidiText.ltr("$sign${format.format(rounded)}%", locale)
     }
+
+    /** «2.31%» ohne Vorzeichen (Pille mit Pfeil); Dezimalzeichen je Sprache. */
+    fun unsignedPercent(value: Double, locale: Locale = Locale.getDefault()): String =
+        DecimalFormat("0.00", DecimalFormatSymbols.getInstance(locale)).format(abs(value)) + "%"
 
     /** Betrag unter einem halben Rappen/Cent gilt als null. */
     fun isZero(value: Double): Boolean = abs(value) < 0.005

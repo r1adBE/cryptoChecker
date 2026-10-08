@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Kolory cen</string>
-    <string name="price_colors_green_red">Zielony / czerwony</string>
-    <string name="price_colors_blue_orange">Niebieski / pomarańczowy</string>
     <string name="settings_price_colors_hint">Niebieski / pomarańczowy łatwo odróżnić przy każdym zaburzeniu widzenia barw (czerwono-zielonym i niebiesko-żółtym). Kierunek jest też zawsze pokazywany jako + / −.</string>
     <string name="settings_watchlist_sparkline">Miniwykres na liście obserwowanych</string>
     <string name="settings_watchlist_sparkline_hint">Trend 24-godzinny obok ceny</string>
 
-    <string name="settings_price_colors_inverted">Zamień kolory wzrostu/spadku</string>
-    <string name="settings_price_colors_inverted_hint">Czerwony dla wzrostu, zielony dla spadku, jak przyjęto w Chinach, Japonii, Korei i na Tajwanie. Domyślnie zależnie od regionu urządzenia.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Wysoki kontrast</string>

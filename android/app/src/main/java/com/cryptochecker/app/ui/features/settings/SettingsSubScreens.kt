@@ -39,6 +39,7 @@ import com.cryptochecker.app.settings.SettingsSummary
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
+import com.cryptochecker.app.util.LocaleNumbers
 
 /*
  * Runde 13b: Unterseiten der Einstellungen. «Alarme & Benachrichtigungen» hatte 17
@@ -122,7 +123,7 @@ internal fun SubPageRow(title: String, subtitle: String?, value: String, onClick
 
 /** Gerüst einer Unterseite: Kopfzeile mit Zurück, darunter scrollbarer Inhalt (lesbare Breite). */
 @Composable
-private fun SettingsSubPage(
+internal fun SettingsSubPage(
     title: String,
     onBack: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
@@ -165,93 +166,109 @@ fun MarketAlertsSettingsScreen(
 
     SettingsSubPage(title = stringResource(R.string.settings_market_alerts), onBack = onBack) {
         GroupCard {
-            SwitchRow(
-                title = stringResource(R.string.settings_zone_alerts),
-                subtitle = stringResource(R.string.settings_zone_alerts_hint),
-                checked = settings.zoneAlerts,
-                onCheckedChange = {
-                    if (it) requestNotifications()
-                    viewModel.setZoneAlerts(it)
-                }
-            )
+            SettingsAnchor("market.zone") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_zone_alerts),
+                    subtitle = stringResource(R.string.settings_zone_alerts_hint),
+                    checked = settings.zoneAlerts,
+                    onCheckedChange = {
+                        if (it) requestNotifications()
+                        viewModel.setZoneAlerts(it)
+                    }
+                )
+            }
             // Fear & Greed: Meldung unter/über einer Grenze (0 = aus)
-            ChoiceRow(
-                label = stringResource(R.string.settings_fng_below),
-                options = AppSettings.FEAR_GREED_BELOW_CHOICES,
-                selected = settings.fearGreedBelow,
-                optionLabel = { if (it == 0) stringResource(R.string.option_off) else it.toString() },
-                onSelected = {
-                    if (it > 0) requestNotifications()
-                    viewModel.setFearGreedBelow(it)
-                }
-            )
-            ChoiceRow(
-                label = stringResource(R.string.settings_fng_above),
-                options = AppSettings.FEAR_GREED_ABOVE_CHOICES,
-                selected = settings.fearGreedAbove,
-                optionLabel = { if (it == 0) stringResource(R.string.option_off) else it.toString() },
-                onSelected = {
-                    if (it > 0) requestNotifications()
-                    viewModel.setFearGreedAbove(it)
-                }
-            )
+            SettingsAnchor("market.fng_below") {
+                ChoiceRow(
+                    label = stringResource(R.string.settings_fng_below),
+                    options = AppSettings.FEAR_GREED_BELOW_CHOICES,
+                    selected = settings.fearGreedBelow,
+                    optionLabel = { if (it == 0) stringResource(R.string.option_off) else LocaleNumbers.integer(it) },
+                    onSelected = {
+                        if (it > 0) requestNotifications()
+                        viewModel.setFearGreedBelow(it)
+                    }
+                )
+            }
+            SettingsAnchor("market.fng_above") {
+                ChoiceRow(
+                    label = stringResource(R.string.settings_fng_above),
+                    options = AppSettings.FEAR_GREED_ABOVE_CHOICES,
+                    selected = settings.fearGreedAbove,
+                    optionLabel = { if (it == 0) stringResource(R.string.option_off) else LocaleNumbers.integer(it) },
+                    onSelected = {
+                        if (it > 0) requestNotifications()
+                        viewModel.setFearGreedAbove(it)
+                    }
+                )
+            }
             RowDivider()
             // Gas-Alarm (#167): normale Gebühr fällt unter die Grenze
-            ChoiceRow(
-                label = stringResource(R.string.settings_gas_eth_below),
-                options = AppSettings.GAS_ETH_CHOICES,
-                selected = settings.gasAlertEthTenths,
-                optionLabel = {
-                    if (it == 0) stringResource(R.string.option_off)
-                    else GasFees.formatGwei(it / 10.0)
-                },
-                onSelected = {
-                    if (it > 0) requestNotifications()
-                    viewModel.setGasAlertEth(it)
-                }
-            )
-            ChoiceRow(
-                label = stringResource(R.string.settings_gas_btc_below),
-                options = AppSettings.GAS_BTC_CHOICES,
-                selected = settings.gasAlertBtc,
-                optionLabel = { if (it == 0) stringResource(R.string.option_off) else it.toString() },
-                onSelected = {
-                    if (it > 0) requestNotifications()
-                    viewModel.setGasAlertBtc(it)
-                }
-            )
+            SettingsAnchor("market.gas_eth") {
+                ChoiceRow(
+                    label = stringResource(R.string.settings_gas_eth_below),
+                    options = AppSettings.GAS_ETH_CHOICES,
+                    selected = settings.gasAlertEthTenths,
+                    optionLabel = {
+                        if (it == 0) stringResource(R.string.option_off)
+                        else GasFees.formatGwei(it / 10.0)
+                    },
+                    onSelected = {
+                        if (it > 0) requestNotifications()
+                        viewModel.setGasAlertEth(it)
+                    }
+                )
+            }
+            SettingsAnchor("market.gas_btc") {
+                ChoiceRow(
+                    label = stringResource(R.string.settings_gas_btc_below),
+                    options = AppSettings.GAS_BTC_CHOICES,
+                    selected = settings.gasAlertBtc,
+                    optionLabel = { if (it == 0) stringResource(R.string.option_off) else LocaleNumbers.integer(it) },
+                    onSelected = {
+                        if (it > 0) requestNotifications()
+                        viewModel.setGasAlertBtc(it)
+                    }
+                )
+            }
             Hint(stringResource(R.string.settings_gas_alert_hint))
             RowDivider()
             // Ungewöhnliche Aktivität: höchstens stündlich je Paar
-            SwitchRow(
-                title = stringResource(R.string.settings_activity_alerts),
-                subtitle = stringResource(R.string.settings_activity_alerts_hint),
-                checked = settings.activityAlerts,
-                onCheckedChange = {
-                    if (it) requestNotifications()
-                    viewModel.setActivityAlerts(it)
-                }
-            )
+            SettingsAnchor("market.activity") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_activity_alerts),
+                    subtitle = stringResource(R.string.settings_activity_alerts_hint),
+                    checked = settings.activityAlerts,
+                    onCheckedChange = {
+                        if (it) requestNotifications()
+                        viewModel.setActivityAlerts(it)
+                    }
+                )
+            }
             // Empfindlichkeit: gilt für die Karte in der Merkliste und die Meldungen gleich
-            ChoiceRow(
-                label = stringResource(R.string.settings_activity_sensitivity),
-                options = ActivitySensitivity.entries.map { it.ordinal },
-                selected = settings.activitySensitivity.ordinal,
-                optionLabel = { stringResource(sensitivityLabel(ActivitySensitivity.entries[it])) },
-                onSelected = { viewModel.setActivitySensitivity(ActivitySensitivity.entries[it]) }
-            )
+            SettingsAnchor("market.sensitivity") {
+                ChoiceRow(
+                    label = stringResource(R.string.settings_activity_sensitivity),
+                    options = ActivitySensitivity.entries.map { it.ordinal },
+                    selected = settings.activitySensitivity.ordinal,
+                    optionLabel = { stringResource(sensitivityLabel(ActivitySensitivity.entries[it])) },
+                    onSelected = { viewModel.setActivitySensitivity(ActivitySensitivity.entries[it]) }
+                )
+            }
             Hint(stringResource(R.string.settings_activity_sensitivity_hint))
             RowDivider()
             // Wirtschaftstermine: Morgen-Meldung um 08:00 an Tagen mit US-Daten (CPI, Fed …)
-            SwitchRow(
-                title = stringResource(R.string.settings_macro_notifications),
-                subtitle = stringResource(R.string.settings_macro_notifications_hint),
-                checked = settings.macroNotifications,
-                onCheckedChange = {
-                    if (it) requestNotifications()
-                    viewModel.setMacroNotifications(it)
-                }
-            )
+            SettingsAnchor("market.macro") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_macro_notifications),
+                    subtitle = stringResource(R.string.settings_macro_notifications_hint),
+                    checked = settings.macroNotifications,
+                    onCheckedChange = {
+                        if (it) requestNotifications()
+                        viewModel.setMacroNotifications(it)
+                    }
+                )
+            }
         }
     }
 }
@@ -266,20 +283,24 @@ fun SpeechSettingsScreen(
 
     SettingsSubPage(title = stringResource(R.string.settings_tts), onBack = onBack) {
         GroupCard {
-            SwitchRow(
-                title = stringResource(R.string.settings_tts),
-                subtitle = stringResource(R.string.settings_tts_hint_silent),
-                checked = settings.ttsEnabled,
-                onCheckedChange = viewModel::setTtsEnabled
-            )
+            SettingsAnchor("speech.enabled") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_tts),
+                    subtitle = stringResource(R.string.settings_tts_hint_silent),
+                    checked = settings.ttsEnabled,
+                    onCheckedChange = viewModel::setTtsEnabled
+                )
+            }
             if (settings.ttsEnabled) {
                 RowDivider()
-                SwitchRow(
-                    title = stringResource(R.string.settings_tts_alarms_only),
-                    subtitle = stringResource(R.string.settings_tts_alarms_only_hint),
-                    checked = settings.ttsAlarmsOnly,
-                    onCheckedChange = viewModel::setTtsAlarmsOnly
-                )
+                SettingsAnchor("speech.alarms_only") {
+                    SwitchRow(
+                        title = stringResource(R.string.settings_tts_alarms_only),
+                        subtitle = stringResource(R.string.settings_tts_alarms_only_hint),
+                        checked = settings.ttsAlarmsOnly,
+                        onCheckedChange = viewModel::setTtsAlarmsOnly
+                    )
+                }
                 Text(
                     text = stringResource(R.string.settings_speech_rate, settings.ttsSpeechRate),
                     style = MaterialTheme.typography.bodyMedium,
@@ -291,11 +312,13 @@ fun SpeechSettingsScreen(
                     valueRange = 0.5f..2.0f,
                     steps = 5
                 )
-                FilledTonalButton(
-                    onClick = viewModel::testSpeech,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                ) {
-                    Text(stringResource(R.string.settings_tts_test))
+                SettingsAnchor("speech.test") {
+                    FilledTonalButton(
+                        onClick = viewModel::testSpeech,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    ) {
+                        Text(stringResource(R.string.settings_tts_test))
+                    }
                 }
             }
         }

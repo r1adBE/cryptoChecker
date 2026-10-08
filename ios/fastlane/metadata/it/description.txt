@@ -1,21 +1,21 @@
-Tieni d'occhio i prezzi delle tue crypto senza aprire di continuo le app degli exchange. Imposta allarmi, individua movimenti insoliti e capisci in pochi secondi perché una moneta si muove.
+Crypto Checker ti spiega cosa succede sul mercato. Imposta allarmi, individua movimenti insoliti e capisci in pochi secondi perché una moneta si muove, senza previsioni.
 
-Osservare – prezzi diretti dall'exchange, nella tua valuta
-Avvisare – prezzo, %, movimenti e volume, in una frase
 Capire – «Perché si muove?» con un breve riepilogo
 Panoramica – Crypto Pulse, Fear & Greed, ciclo e portafoglio
+Osservare – prezzi diretti dall'exchange, nella tua valuta
+Avvisare – prezzo, %, movimenti e volume, in una frase
 
-Leggibile per tutti: colori dei prezzi verde/rosso o blu/arancione, invertibili a scelta, contrasto elevato, segno e freccia oltre al colore, e VoiceOver legge ogni riga in una frase.
+Leggibile per tutti: colori dei prezzi verde/rosso o blu/arancione, contrasto elevato, segno e freccia oltre al colore, e VoiceOver legge ogni riga in una frase.
 
 WATCHLIST CON 41 MERCATI
-• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e molti altri
+• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e molti altri – su richiesta anche azioni, oro e valute (TradFi), in un gruppo dedicato
 • Token DEX tramite DexScreener
 • Gruppi, preferiti e ordinamento con trascinamento
 • Una nota per ogni moneta, ad es. il tuo prezzo di ingresso
 • Riga «≈ valore» nella tua valuta: 31 valute (EUR, CHF, USD, GBP, JPY…), predefinita secondo la regione
-• Mini grafico 24 ore in ogni riga
+• Mini grafico 24 ore in ogni riga; variazione % su 24 ore o dalle 00:00 nel tuo fuso orario
 • Portafoglio in una scheda dedicata: acquisti e vendite, prezzo medio, utile/perdita e valore totale nella tua valuta
-• Export alla data di riferimento (ad es. 31/12) nella tua valuta come CSV – utile per le tasse, non è consulenza fiscale
+• Export alla data di riferimento (ad es. 31/12) nella tua valuta come CSV – non è consulenza fiscale
 
 ALLARMI SU MISURA PER LA TUA STRATEGIA
 • Prezzo sopra o sotto una soglia, rialzo o ribasso di una percentuale
@@ -31,24 +31,24 @@ ALLARMI SU MISURA PER LA TUA STRATEGIA
 
 ATTIVITÀ INSOLITA E PERCHÉ SI MUOVE?
 • Attività insolita rileva movimenti di prezzo e volume fuori dal normale nella tua lista
-• «Perché si muove?» spiega un movimento con volume, mercato generale e dati futures, con un breve riepilogo – nessuna consulenza finanziaria
+• «Perché si muove?» spiega un movimento con volume, mercato generale e dati futures, con un breve riepilogo
 
 PANORAMICA DI MERCATO
 • Crypto Pulse: cosa succede ora? BTC, ETH, SOL, altcoin rispetto a BTC, volume, Fear & Greed, funding, gas ETH e un riepilogo in una frase, senza previsioni
 • Indice Fear & Greed con cronologia
 • Mercato crypto: capitalizzazione totale e volume 24 h nella tua valuta
-• Scheda Mercato: fase di mercato con segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia per l'halving, confronto dei cicli, dominanza e altcoin season
+• Scheda Mercato: fase di mercato con segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia per l'halving, dominanza e altcoin season
 • Analisi delle monete: RSI, trend, Pi Cycle e forza rispetto al Bitcoin
 • Dati futures: funding rate e open interest
 • Commissioni di rete per Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, con allarme gas
 
 WIDGET PER LA SCHERMATA HOME E DI BLOCCO
-• Widget in tre dimensioni: lista, portafoglio (anche sulla schermata di blocco), una moneta con grafico 24 h, 7 o 30 giorni – candele o linea, con livelli massimo, medio e minimo
+• Widget in tre dimensioni: lista, portafoglio (anche sulla schermata di blocco), una moneta con grafico 24 h, 7 o 30 giorni
 • Aggiornamento direttamente dal widget
 • Attività Live sulla schermata di blocco: il prezzo di una moneta a colpo d'occhio
 
 E INOLTRE
-• Modalità live ad app aperta; gli aggiornamenti in background li pianifica iOS
+• Aggiornamento frequente ad app aperta; gli aggiornamenti in background li pianifica iOS
 • Lettura vocale di prezzi e allarmi
 • Backup e ripristino tramite l'app File
 • Azioni rapide sull’icona dell’app, tema chiaro e scuro

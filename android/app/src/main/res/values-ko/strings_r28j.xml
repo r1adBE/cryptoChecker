@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">비중</string>
+    <string name="portfolio_allocation_other">기타</string>
+    <string name="portfolio_movers_title">가장 큰 변동</string>
+    <string name="portfolio_hide_amounts">금액 숨기기</string>
+    <string name="portfolio_hide_amounts_hint">포트폴리오와 포트폴리오 위젯의 금액과 가치를 •••로 표시합니다. 퍼센트는 계속 보입니다.</string>
+    <string name="a11y_portfolio_show_amounts">금액 표시</string>
+    <string name="a11y_amount_hidden">금액 숨김</string>
+    <string name="portfolio_alarm_action">경보</string>
+    <string name="portfolio_alarm_title">경보 ‘포트폴리오 가치’</string>
+    <string name="portfolio_alarm_kind_above">포트폴리오가 금액 초과</string>
+    <string name="portfolio_alarm_kind_below">포트폴리오가 금액 미만</string>
+    <string name="portfolio_alarm_kind_up">포트폴리오 상승</string>
+    <string name="portfolio_alarm_kind_down">포트폴리오 하락</string>
+    <string name="portfolio_alarm_amount">금액 (%1$s)</string>
+    <string name="portfolio_alarm_hint">새로 고침할 때마다 확인합니다. 가격 경보처럼 기준을 넘으면 알리고, 값이 되돌아온 뒤에만 다시 알립니다.</string>
+    <string name="portfolio_alarm_sentence_above">포트폴리오 %1$s 초과</string>
+    <string name="portfolio_alarm_sentence_below">포트폴리오 %1$s 미만</string>
+    <string name="portfolio_alarm_sentence_up">포트폴리오 %1$s 상승 (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">포트폴리오 %1$s 하락 (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">포트폴리오 가치</string>
+    <string name="notification_portfolio_alarm_text">%1$s – 현재 %2$s</string>
+</resources>

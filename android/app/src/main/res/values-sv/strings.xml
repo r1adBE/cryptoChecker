@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Fel: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Inga valutapar</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Tryck här för att hämta de senaste valutaparen från vald börs.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Hämtar de aktuella paren från den valda börsen.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Uppdatera valutapar</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synkronisera nu</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Senast synkad: %1$s</string>
@@ -37,7 +37,6 @@
     <string name="bulk_all_pairs_empty">Inga %1$s-par på denna börs för vald kontraktstyp. Synka börsen först eller prova en annan kontraktstyp.</string>
 
     <string name="action_refresh">Uppdatera</string>
-    <string name="action_add_pair">Lägg till par</string>
     <string name="action_delete">Ta bort</string>
     <string name="action_edit">Redigera</string>
     <string name="action_back">Tillbaka</string>
@@ -45,7 +44,6 @@
     <string name="action_cancel">Avbryt</string>
 
     <string name="watchlist_empty_title">Inga par ännu</string>
-    <string name="watchlist_empty_hint">Eller välj en börs och ett par under ”Lägg till”. Varje par kan få en avisering, en uppläsning och kurslarm.</string>
     <string name="watchlist_updated">Uppdaterad: %1$s</string>
     <string name="watchlist_notification">Avisering</string>
     <string name="watchlist_tts">Läs upp kurs</string>
@@ -76,7 +74,7 @@
     <string name="channel_prices_description">Tyst avisering med aktuell kurs för ett par.</string>
     <string name="channel_alarms">Larm</string>
     <string name="channel_alarms_description">Avisering när ett kurslarm utlöses.</string>
-    <string name="channel_service">Liveläge</string>
+    <string name="channel_service">Täta uppdateringar</string>
     <string name="channel_service_description">Visas medan kurser uppdateras med korta intervall.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, från %2$s (för %3$s sedan)</string>
@@ -127,7 +125,7 @@
     <string name="settings_rolling_futures">Inkl. kvartals- och andra terminer med förfallodag</string>
     <string name="settings_rolling_futures_hint">Av: terminer med förfallodag som saknas i börsens lista markeras som ”handlas inte längre” i stället för att kontrolleras en och en. Sparar tid vid varje uppdatering.</string>
     <string name="notification_refreshing">Uppdaterar kurser…</string>
-    <string name="notification_service_title">Crypto Checker liveläge</string>
+    <string name="notification_service_title">Crypto Checker uppdaterar ofta</string>
     <string name="notification_service_starting">Startar…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d par · %2$s</item>
@@ -140,9 +138,9 @@
     <string name="settings_background_updates">Uppdatera i bakgrunden</string>
     <string name="settings_background_updates_hint">Kurser, larm och widgetar uppdateras även när appen är stängd.</string>
     <string name="settings_background_interval">Intervall</string>
-    <string name="settings_live_service">Liveläge</string>
-    <string name="settings_live_service_hint">Håller en tjänst igång för korta intervall. Drar mer batteri.</string>
-    <string name="settings_live_interval">Liveintervall</string>
+    <string name="settings_live_service">Uppdatera ofta</string>
+    <string name="settings_live_service_hint">Hämtar kurser med korta mellanrum, även när appen är stängd. Visar en avisering och drar mer batteri.</string>
+    <string name="settings_live_interval">Hur ofta</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Kursaviseringar</string>
@@ -222,7 +220,7 @@
     <string name="theme_system">System</string>
     <string name="settings_section_developer">Utvecklare</string>
     <string name="settings_http_log">Visa HTTP-logg</string>
-    <string name="settings_http_log_hint">Visar förfrågningarna till börserna längst ned på fliken ”Lägg till” – för felsökning.</string>
+    <string name="settings_http_log_hint">Visar förfrågningarna till börserna längst ned på sidan ”Lägg till par” – för felsökning.</string>
     <string name="language_search">Sök språk</string>
     <string name="alarm_delete_title">Ta bort larm?</string>
     <string name="alarm_delete_confirm">Det här larmet tas bort.</string>
@@ -262,15 +260,11 @@
     <string name="explorer_bulk_show_list">Visa lista</string>
     <string name="explorer_bulk_hide_list">Dölj lista</string>
     <string name="time_just_now">nyss</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Dina kurser. Dina larm. Din översikt.\nInget konto. Ingen reklam. Ingen spårning.</string>
-    <string name="welcome_later">Senare</string>
     <string name="developer_unlocked">Utvecklaralternativ upplåsta</string>
     <string name="hint_favorites_list">Tips: tryck på ☆ för favorit – favoriter ligger överst.</string>
     <string name="tab_watchlist">Lista</string>
-    <string name="tab_markets">Lägg till</string>
     <string name="tab_market_phase">Marknad</string>
-    <string name="tab_settings">Inställningar</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d av %2$d inaktuellt</item>
         <item quantity="other">%1$d av %2$d inaktuella</item>

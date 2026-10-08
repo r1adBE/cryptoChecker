@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Njoftime tregu</string>
-    <string name="settings_market_alerts_hint">Faza e tregut, Fear &amp; Greed, tarifat e gas-it, aktivitet i pazakontë, data ekonomike</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d aktiv</item>
         <item quantity="other">%1$d aktive</item>
     </plurals>
-    <string name="settings_tts_row_hint">Lexon me zë çmimet dhe alarmet</string>
     <string name="settings_summary_on">Aktiv</string>
 
     <string name="alarm_first_text_checked">Crypto Checker tani po ndjek %1$s për ty. Kur %1$s të arrijë kufirin tënd, merr një njoftim sapo aplikacioni të kontrollojë çmimin. Me aplikacionin të mbyllur, kjo ndodh sipas intervalit të përditësimit në sfond – më vonë nëse optimizimi i baterisë e kufizon aplikacionin.</string>

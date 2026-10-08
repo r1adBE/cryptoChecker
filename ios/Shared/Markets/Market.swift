@@ -70,6 +70,11 @@ class Market: @unchecked Sendable {
     /// Wie `bulkTickersURL(requestId:)`, aber nur für diese Paar-Kennungen.
     func bulkTickersURL(requestId: Int, pairIds: [String]) -> String? { bulkTickersURL(requestId: requestId) }
 
+    /// Zahl der Anfragen für die gefilterte Sammelabfrage dieser Paare — mehr als
+    /// `bulkTickersNumOfRequests`, wenn die Liste auf mehrere URLs verteilt wird
+    /// (`BulkPairChunks`). Die ungefilterte Abfrage ist dann für jede Teilanfrage dieselbe.
+    func bulkTickersRequestCount(pairIds: [String]) -> Int { bulkTickersNumOfRequests }
+
     /// true: Die ungefilterte Sammelabfrage enthält alle gehandelten Paare.
     var bulkTickersComplete: Bool { false }
 

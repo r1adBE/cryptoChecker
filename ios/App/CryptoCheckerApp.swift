@@ -3,10 +3,11 @@ import UIKit
 import UserNotifications
 import WidgetKit
 
-/// Tabs der App — wie die Tabs der Android-Fassung. `portfolio` gibt es nur,
-/// wenn der Bereich in den Optionen eingeschaltet ist.
+/// Tabs der App — wie die Tabs der Android-Fassung: Merkliste · Markt · (Portfolio) · Einstellungen.
+/// `portfolio` gibt es nur, wenn der Bereich in den Optionen eingeschaltet ist. «Paar hinzufügen»
+/// ist seit Runde 31 kein Tab mehr, sondern eine Seite über der Merkliste (`showExplorer`).
 enum AppTab: Hashable {
-    case watchlist, add, cycle, portfolio, settings
+    case watchlist, cycle, portfolio, settings
 }
 
 /// Navigation von aussen (Shortcuts, Widgets, Mitteilungen).
@@ -21,19 +22,23 @@ final class AppRouter: ObservableObject {
     @Published var focusWatchId: Int64?
     /// Alarme eines Paars in der Merkliste öffnen (z. B. «Alarm setzen» nach dem ersten Paar).
     @Published var openAlarmsWatchId: Int64?
-    /// Hinzufügen-Tab mit dieser Suche öffnen («Heute auffällig» im Markt-Tab).
+    /// Seite «Paar hinzufügen» über der Merkliste offen («+», Shortcut, Widget, Link "add").
+    @Published var showExplorer = false
+    /// Seite «Paar hinzufügen» mit dieser Suche öffnen («Heute auffällig» im Markt-Tab).
     @Published var explorerSearch: String?
+    /// «Warum?» aus einer Alarm-Mitteilung: «Warum bewegt sich das?» dieses Paars öffnen.
+    @Published var openWhyWatchId: Int64?
 
-    /// Hinzufügen-Tab öffnen und dort nach `query` suchen.
-    func openExplorer(search query: String) {
-        explorerSearch = query
-        tab = .add
+    /// Seite «Paar hinzufügen» über der Merkliste öffnen; zurück führt zur Merkliste.
+    func openExplorer() {
+        tab = .watchlist
+        showExplorer = true
     }
 
-    /// Ziel aus einem Shortcut oder Link: "add", "alarms", "cycle", "portfolio", "watch/<id>".
+    /// Ziel aus einem Shortcut oder Link: "add", "alarms", "cycle", "portfolio", "watch/<id>", "why/<id>".
     func open(_ target: String) {
         switch target {
-        case "add": tab = .add
+        case "add": openExplorer()
         case "cycle": tab = .cycle
         case "portfolio":
             // Portfolio-Widget: zum Portfolio-Tab, sofern eingeschaltet
@@ -45,6 +50,9 @@ final class AppRouter: ObservableObject {
             if target.hasPrefix("watch/"), let id = Int64(target.dropFirst(6)) {
                 tab = .watchlist
                 focusWatchId = id
+            } else if target.hasPrefix("why/"), let id = Int64(target.dropFirst(4)) {
+                tab = .watchlist
+                openWhyWatchId = id
             }
         }
     }
@@ -57,6 +65,11 @@ struct CryptoCheckerApp: App {
     @StateObject private var router = AppRouter.shared
     @StateObject private var lock = AppLock.shared
     @Environment(\.scenePhase) private var scenePhase
+
+    init() {
+        // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
+        AppStartClock.onAppInit()
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -78,7 +91,9 @@ struct CryptoCheckerApp: App {
                 .tint(data.settings.accentColor.primary)
                 .preferredColorScheme(data.settings.darkMode.map { $0 ? .dark : .light })
                 .onOpenURL { url in
-                    // cryptochecker://add, cryptochecker://watch/12 …
+                    // cryptochecker://add, cryptochecker://watch/12 … — nur das eigene Schema;
+                    // AppRouter.open kennt nur feste Ziele (Navigation, keine Daten-Änderung).
+                    guard url.scheme?.lowercased() == "cryptochecker" else { return }
                     let target = [url.host, url.path.isEmpty ? nil : String(url.path.dropFirst())]
                         .compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: "/")
                     router.open(target)
@@ -109,6 +124,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         BackgroundRefresh.register()
         UNUserNotificationCenter.current().delegate = self
+        // Aktion «Warum?» an Kursalarmen gehandelter Paare
+        Notifier.registerCategories()
         BackgroundRefresh.schedule(settings: SharedStorage.loadSettings())
         return true
     }
@@ -133,7 +150,11 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
     // Tipp auf eine Mitteilung: zum Paar springen.
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        if let id = (response.notification.request.content.userInfo[Notifier.userInfoWatchId] as? NSNumber)?.int64Value {
+        let watchId = (response.notification.request.content.userInfo[Notifier.userInfoWatchId] as? NSNumber)?.int64Value
+        if response.actionIdentifier == Notifier.actionWhy, let id = watchId {
+            // «Warum?»: direkt «Warum bewegt sich das?» des Paars
+            Task { @MainActor in AppRouter.shared.open("why/\(id)") }
+        } else if let id = watchId {
             Task { @MainActor in AppRouter.shared.open("watch/\(id)") }
         } else if let target = response.notification.request.content.userInfo["open"] as? String {
             // z. B. «Wirtschaftstermine» → Markt-Tab

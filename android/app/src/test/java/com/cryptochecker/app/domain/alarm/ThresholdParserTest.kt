@@ -87,4 +87,19 @@ class ThresholdParserTest {
     fun `three decimals with a leading zero group are never grouping`() {
         eq(0.123, p("0,123", '.', hint = 60_000.0))
     }
+
+    @Test
+    fun `arabic-indic and persian digits read like latin digits`() {
+        // ٦٠٠٠٠ / ۶۰۰۰۰ = 60000; «٫» Dezimalzeichen, «٬» Tausendertrennung
+        eq(60_000.0, p("\u0666\u0660\u0660\u0660\u0660"))
+        eq(60_000.0, p("\u06F6\u06F0\u06F0\u06F0\u06F0"))
+        eq(1_234.5, p("\u0661\u066C\u0662\u0663\u0664\u066B\u0665"))
+        eq(0.5, p("\u0660\u066B\u0665"))
+        // Richtungszeichen aus eingefügtem Text stören nicht
+        eq(42.0, p("\u200E42\u200F"))
+        eq(42.0, p("\u206642\u2069"))
+        assertEquals("1234.5", ThresholdParser.latinDigits("\u0661\u0662\u0663\u0664\u066B\u0665"))
+        assertEquals("abc", ThresholdParser.latinDigits("abc"))
+        assertNull(p("\u0660"))
+    }
 }

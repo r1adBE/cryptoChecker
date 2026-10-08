@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Shpërndarja</string>
+    <string name="portfolio_allocation_other">Të tjera</string>
+    <string name="portfolio_movers_title">Lëvizjet më të mëdha</string>
+    <string name="portfolio_hide_amounts">Fshih shumat</string>
+    <string name="portfolio_hide_amounts_hint">Shfaq shumat dhe vlerat në portofol dhe në widget-in e portofolit si ••• – përqindjet mbeten të dukshme.</string>
+    <string name="a11y_portfolio_show_amounts">Shfaq shumat</string>
+    <string name="a11y_amount_hidden">shuma e fshehur</string>
+    <string name="portfolio_alarm_action">Alarm</string>
+    <string name="portfolio_alarm_title">Alarm «vlera e portofolit»</string>
+    <string name="portfolio_alarm_kind_above">Portofoli mbi një shumë</string>
+    <string name="portfolio_alarm_kind_below">Portofoli nën një shumë</string>
+    <string name="portfolio_alarm_kind_up">Portofoli rritet</string>
+    <string name="portfolio_alarm_kind_down">Portofoli bie</string>
+    <string name="portfolio_alarm_amount">Shuma (%1$s)</string>
+    <string name="portfolio_alarm_hint">Kontrollohet pas çdo rifreskimi. Si alarmet e çmimit: njofton kur kalohet kufiri dhe përsëri vetëm pasi vlera të jetë kthyer.</string>
+    <string name="portfolio_alarm_sentence_above">Portofoli mbi %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portofoli nën %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Portofoli u rrit me %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portofoli ra me %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Vlera e portofolit</string>
+    <string name="notification_portfolio_alarm_text">%1$s – tani %2$s</string>
+</resources>

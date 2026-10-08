@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Të përgjithshme</string>
+    <string name="settings_group_data_only">Të dhënat</string>
+    <string name="settings_row_currency">Monedha</string>
+    <string name="settings_row_updates">Përditësimi</string>
+    <string name="settings_updates_live">Shpesh · %1$s</string>
+    <string name="settings_updates_every">Çdo %1$s</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_watchlist_value_sparkline">Grafik i vogël</string>
+    <string name="settings_watchlist_value_price_only">Vetëm çmimi</string>
+    <string name="settings_row_alarms">Alarmet</string>
+    <string name="settings_portfolio_value_locked">Aktiv, me kyçje</string>
+    <string name="settings_row_dated_futures">Futures me afat</string>
+    <string name="settings_tradfi_futures">Aksione, mallra dhe valuta (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Gjatë zgjedhjes së çiftit shfaq edhe futures mbi aksione, ar dhe mallra të tjerë, valuta dhe kompani para kuotimit. Këto janë kontrata, jo tokenë.</string>
+    <string name="settings_row_about">Rreth aplikacionit</string>
+    <string name="price_colors_green_up">E gjelbër rritet / e kuqe bie</string>
+    <string name="price_colors_red_up">E kuqe rritet / e gjelbër bie</string>
+    <string name="price_colors_blue_up">Blu rritet / portokalli bie</string>
+    <string name="price_colors_orange_up">Portokalli rritet / blu bie</string>
+    <string name="price_colors_red_up_hint">E zakonshme në Kinë, Japoni, Kore dhe Tajvan</string>
+</resources>

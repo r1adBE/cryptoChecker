@@ -7,7 +7,21 @@ import UserNotifications
 /// deshalb als normale, stille Mitteilung, die die vorige desselben Paars ersetzt.
 enum Notifier {
     static let categoryAlarm = "alarm"
+    /// Kursalarm eines gehandelten Paars: mit der Aktion «Warum?».
+    static let categoryAlarmWhy = "alarm_why"
+    /// Aktion «Warum?»: öffnet die App mit «Warum bewegt sich das?» des Paars (`AppDelegate`).
+    static let actionWhy = "why"
     static let userInfoWatchId = "watchId"
+
+    /// Kategorien der Mitteilungen registrieren (beim Start der App). «Warum?» öffnet die App
+    /// im Vordergrund; die Mitteilung selbst bleibt wie bisher (Tipp = zum Paar).
+    static func registerCategories() {
+        let why = UNNotificationAction(identifier: actionWhy, title: L("watch_action_why"), options: [.foreground])
+        center.setNotificationCategories([
+            UNNotificationCategory(identifier: categoryAlarm, actions: [], intentIdentifiers: [], options: []),
+            UNNotificationCategory(identifier: categoryAlarmWhy, actions: [why], intentIdentifiers: [], options: []),
+        ])
+    }
 
     private static var center: UNUserNotificationCenter { .current() }
 
@@ -80,13 +94,39 @@ enum Notifier {
             content.body = L("notification_alarm_text", AlarmTexts.describe(alarm), PriceFormat.priceWithCurrency(price, watch.quoteAsset))
         }
         let settings = SharedStorage.loadSettings()
-        content.sound = alarm.sound ? AlarmSounds.notificationSound(settings.alarmSound) : nil
-        content.categoryIdentifier = categoryAlarm
+        // «Alarm-Signal»: «Lautlos» = nur Mitteilung (zeitkritisch, ohne Ton); Vibration nach Töne & Haptik
+        content.sound = settings.alarmSignal.notificationSound(alarmSound: alarm.sound, tone: settings.alarmSound)
+        // «Warum?» nur für gehandelte Paare (sonst gibt es nichts zu erklären)
+        content.categoryIdentifier = watch.isNotTraded ? categoryAlarm : categoryAlarmWhy
         content.threadIdentifier = "alarms"
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
         if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
         applyQuietHours(content, settings)
         post(id: alarmId(alarm.id), content: content)
+    }
+
+    // MARK: Portfolio-Wert
+
+    static func portfolioAlarmId(_ alarmId: Int64) -> String { "portfolio-alarm-\(alarmId)" }
+
+    /// Alarm «Portfolio-Wert» — wie `AppNotifier.showPortfolioAlarm`: gleicher Ton wie Kursalarme
+    /// («Alarm-Signal»), Nachtruhe lautlos; Tipp öffnet den Portfolio-Tab. «Beträge verbergen»
+    /// gilt auch hier; mit Portfolio-Sperre nur der Titel (Inhalt erst nach dem Entsperren des Geräts).
+    static func showPortfolioAlarm(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings) {
+        // Mit Portfolio-Sperre auch ohne «Beträge verbergen» keine Beträge (Sperrbildschirm)
+        let hidden = settings.hidePortfolioAmounts || settings.appLock
+        let content = UNMutableNotificationContent()
+        content.title = L("notification_portfolio_alarm_title")
+        content.body = L("notification_portfolio_alarm_text",
+                         PortfolioAlarmTexts.sentence(alarm, basis: settings.changeBasis, hidden: hidden),
+                         PortfolioAlarmTexts.measured(alarm, measured: measured, hidden: hidden))
+        content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
+        content.categoryIdentifier = categoryAlarm
+        content.threadIdentifier = "alarms"
+        content.userInfo = ["open": "portfolio"]
+        if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
+        applyQuietHours(content, settings)
+        post(id: portfolioAlarmId(alarm.id), content: content)
     }
 
     /// Probe-Alarm aus den Einstellungen: gleicher Weg wie ein Kursalarm (Ton der
@@ -98,7 +138,7 @@ enum Notifier {
         let content = UNMutableNotificationContent()
         content.title = L("alarm_test_title")
         content.body = L("alarm_test_text")
-        content.sound = AlarmSounds.notificationSound(settings.alarmSound)
+        content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
         content.categoryIdentifier = categoryAlarm
         content.threadIdentifier = "alarms"
         if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }

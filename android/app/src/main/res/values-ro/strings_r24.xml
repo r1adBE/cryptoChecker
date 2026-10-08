@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Variație în %1$s</string>
+    <string name="change_basis_rolling">Ultimele 24 h</string>
+    <string name="change_basis_utc_zone">De la 00:00 %1$s</string>
+    <string name="change_basis_local">De la 00:00 ora locală</string>
+    <string name="settings_change_basis_hint_1">Fusul orar ales stabilește de când se calculează variația procentuală: în lista de urmărire, linia de puls, fișa perechii și widgeturi.</string>
+    <string name="settings_change_basis_hint_2">„%1$s” compară cu prețul de acum exact 24 de ore. „00:00” compară cu prețul de deschidere de la miezul nopții în acest fus orar.</string>
+    <string name="settings_change_basis_hint_3">Alarmele nu sunt afectate.</string>
+    <string name="change_basis_device">%1$s, 00:00 (fusul orar al dispozitivului)</string>
+    <string name="change_short_today">azi</string>
+    <string name="change_short_today_zone">azi %1$s</string>
+    <string name="a11y_change_today">%1$s azi</string>
+    <string name="a11y_change_today_zone">%1$s de la miezul nopții %2$s</string>
+    <string name="a11y_change_today_none">Variația de azi nu este disponibilă</string>
+    <string name="a11y_change_today_zone_none">Variația de la miezul nopții %1$s nu este disponibilă</string>
+    <string name="sheet_chart_today">Azi</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Cu aplicația închisă, cel mult o dată pe minut</string>
+    <string name="sheet_more">Mai mult</string>
+    <string name="a11y_expanded">Extins</string>
+    <string name="a11y_collapsed">Restrâns</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d fără valoare azi</item>
+        <item quantity="few">%1$d fără valoare azi</item>
+        <item quantity="other">%1$d fără valoare azi</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pereche fără valoare pentru azi</item>
+        <item quantity="few">%1$d perechi fără valoare pentru azi</item>
+        <item quantity="other">%1$d de perechi fără valoare pentru azi</item>
+    </plurals>
+</resources>

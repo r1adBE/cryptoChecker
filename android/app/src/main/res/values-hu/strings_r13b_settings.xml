@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Piaci értesítések</string>
-    <string name="settings_market_alerts_hint">Piaci fázis, Félelem és kapzsiság, gas díjak, szokatlan aktivitás, gazdasági időpontok</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d aktív</item>
         <item quantity="other">%1$d aktív</item>
     </plurals>
-    <string name="settings_tts_row_hint">Felolvassa az árakat és a riasztásokat</string>
     <string name="settings_summary_on">Be</string>
 
     <string name="alarm_first_text_checked">A Crypto Checker most figyeli Önnek ezt: %1$s. Ha a(z) %1$s eléri a határértékét, értesítést kap, amint az alkalmazás ellenőrzi az árat. Bezárt alkalmazásnál ez a háttérfrissítés időközében történik – később, ha az akkumulátor-optimalizálás korlátozza az alkalmazást.</string>

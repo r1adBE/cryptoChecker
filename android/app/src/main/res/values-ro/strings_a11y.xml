@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Culorile prețurilor</string>
-    <string name="price_colors_green_red">Verde / roșu</string>
-    <string name="price_colors_blue_orange">Albastru / portocaliu</string>
     <string name="settings_price_colors_hint">Albastru / portocaliu se deosebesc ușor la orice deficiență de vedere a culorilor (roșu-verde și albastru-galben). În plus, direcția este afișată mereu cu + / −.</string>
     <string name="settings_watchlist_sparkline">Minigrafic în lista de urmărire</string>
     <string name="settings_watchlist_sparkline_hint">Tendința pe 24 de ore lângă preț</string>
 
-    <string name="settings_price_colors_inverted">Inversează culorile de creștere/scădere</string>
-    <string name="settings_price_colors_inverted_hint">Roșu pentru creștere, verde pentru scădere, cum se obișnuiește în China, Japonia, Coreea și Taiwan. Implicit în funcție de regiunea dispozitivului.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Contrast ridicat</string>

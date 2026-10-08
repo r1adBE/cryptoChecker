@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Màu giá</string>
-    <string name="price_colors_green_red">Xanh lá / đỏ</string>
-    <string name="price_colors_blue_orange">Xanh dương / cam</string>
     <string name="settings_price_colors_hint">Xanh dương / cam dễ phân biệt với mọi dạng rối loạn sắc giác (đỏ-xanh lá và xanh dương-vàng). Hướng thay đổi cũng luôn được hiển thị bằng + / −.</string>
     <string name="settings_watchlist_sparkline">Biểu đồ mini trong danh sách</string>
     <string name="settings_watchlist_sparkline_hint">Xu hướng 24 giờ cạnh giá</string>
 
-    <string name="settings_price_colors_inverted">Đổi màu tăng/giảm</string>
-    <string name="settings_price_colors_inverted_hint">Đỏ cho tăng, xanh lá cho giảm, như thông lệ ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan. Mặc định tùy theo khu vực của thiết bị.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Độ tương phản cao</string>

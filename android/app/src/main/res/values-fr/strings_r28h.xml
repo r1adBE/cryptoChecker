@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Fiabilité : %1$s</string>
+    <string name="why_confidence_high">élevée</string>
+    <string name="why_confidence_medium">moyenne</string>
+    <string name="why_confidence_low">faible</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d indice sur %2$d va dans ce sens</item>
+        <item quantity="many">%1$d indices sur %2$d vont dans ce sens</item>
+        <item quantity="other">%1$d indices sur %2$d vont dans ce sens</item>
+    </plurals>
+    <string name="why_confidence_partial">données incomplètes</string>
+</resources>

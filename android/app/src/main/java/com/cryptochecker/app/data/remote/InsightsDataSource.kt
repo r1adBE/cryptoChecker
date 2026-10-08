@@ -7,11 +7,13 @@ import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.CycleExtremes
 import com.cryptochecker.app.domain.market.CycleExtremesResult
 import com.cryptochecker.app.domain.market.CycleSeries
+import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.GlobalMarket
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.Indicators
+import com.cryptochecker.app.domain.market.Sourced
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -44,16 +46,18 @@ class InsightsDataSource @Inject constructor(
 
     // ---------------- Coin ----------------
 
-    suspend fun fetchCoin(symbol: String): CoinInputs = coroutineScope {
+    /** Kennzahlen eines Coins; [Sourced.provider] = Anbieter der Tageskerzen (z. B. «Binance», «Bybit»). */
+    suspend fun fetchCoin(symbol: String): Sourced<CoinInputs> = coroutineScope {
         val base = symbol.uppercase()
-        val dailyJob = async { klines(base, daily = true) }
+        val dailyJob = async { klinesSourced(base, daily = true) }
         val weeklyJob = async { runCatching { klines(base, daily = false) }.getOrDefault(emptyList()) }
         val btcJob = async {
             if (base == "BTC") null
             else runCatching { klines("BTC", daily = true, limit = 120) }.getOrNull()
         }
 
-        val daily = dailyJob.await()
+        val dailySourced = dailyJob.await()
+        val daily = dailySourced.value
         require(daily.isNotEmpty()) { "Keine Kursdaten für $base" }
         val weekly = weeklyJob.await()
         val closes = daily.map { it.close }
@@ -74,7 +78,7 @@ class InsightsDataSource @Inject constructor(
             weekly.firstOrNull()?.let { ChronoUnit.DAYS.between(it.date, LocalDate.now(ZoneOffset.UTC)).toInt() } ?: 0
         )
 
-        CoinInputs(
+        val inputs = CoinInputs(
             price = closes.last(),
             sma50d = Indicators.smaOfLast(closes, 50),
             sma200d = Indicators.smaOfLast(closes, 200),
@@ -89,6 +93,7 @@ class InsightsDataSource @Inject constructor(
             vsBtc90d = vsBtc,
             historyDays = historyDays,
         )
+        Sourced(inputs, dailySourced.provider)
     }
 
     /**
@@ -96,21 +101,29 @@ class InsightsDataSource @Inject constructor(
      * sonst Bybit (z. B. für Coins, die keine dieser Quellen führt).
      */
     private suspend fun klines(base: String, daily: Boolean, limit: Int = 1000): List<Candle> =
-        runCatching { chainKlines(base, if (daily) CandleInterval.D1 else CandleInterval.W1, limit) }
-            .recoverCatching { bybitKlines("${base}USDT", if (daily) "D" else "W", limit) }
+        klinesSourced(base, daily, limit).value
+
+    /** Wie [klines], dazu der Anbieter (Ausweich-Kette oder [DataFreshness.BYBIT]). */
+    private suspend fun klinesSourced(base: String, daily: Boolean, limit: Int = 1000): Sourced<List<Candle>> =
+        runCatching { chainKlinesSourced(base, if (daily) CandleInterval.D1 else CandleInterval.W1, limit) }
+            .recoverCatching { Sourced(bybitKlines("${base}USDT", if (daily) "D" else "W", limit), DataFreshness.BYBIT) }
             .getOrThrow()
 
     /** Kerzen über [CandleDataSource]; wirft, wenn keine Quelle liefert. */
-    private suspend fun chainKlines(base: String, interval: CandleInterval, limit: Int): List<Candle> {
-        val candles = candleDataSource.candles(base, "USDT", interval, limit)
+    private suspend fun chainKlines(base: String, interval: CandleInterval, limit: Int): List<Candle> =
+        chainKlinesSourced(base, interval, limit).value
+
+    private suspend fun chainKlinesSourced(base: String, interval: CandleInterval, limit: Int): Sourced<List<Candle>> {
+        val sourced = candleDataSource.candlesSourced(base, "USDT", interval, limit)
             ?: error("Keine Kerzen für $base")
-        return candles.map {
+        val candles = sourced.value.map {
             Candle(
                 date = Instant.ofEpochMilli(it.openTime).atZone(ZoneOffset.UTC).toLocalDate(),
                 high = it.high,
                 close = it.close,
             )
         }
+        return Sourced(candles, sourced.provider)
     }
 
     private suspend fun binanceKlines(symbol: String, interval: String, limit: Int, startTime: Long? = null): List<Candle> {
@@ -184,8 +197,10 @@ class InsightsDataSource @Inject constructor(
             o.optDouble(key).takeIf { it.isFinite() }?.let { key.lowercase() to it }
         }.toMap()
 
-    suspend fun altSeason(): AltSeason = coroutineScope {
-        val btc = chainKlines("BTC", CandleInterval.D1, 91).map { it.close }
+    /** Altcoin-Saison; [Sourced.provider] = Anbieter des BTC-Verlaufs (Ausweich-Kette). */
+    suspend fun altSeason(): Sourced<AltSeason> = coroutineScope {
+        val btcSourced = chainKlinesSourced("BTC", CandleInterval.D1, 91)
+        val btc = btcSourced.value.map { it.close }
         val btcChange = change90(btc) ?: error("BTC-Verlauf fehlt")
         val permits = Semaphore(5)
         val results = ALTS.map { alt ->
@@ -195,7 +210,7 @@ class InsightsDataSource @Inject constructor(
                 }
             }
         }.awaitAll().filterNotNull()
-        AltSeason(outperformers = results.count { it > btcChange }, total = results.size)
+        Sourced(AltSeason(outperformers = results.count { it > btcChange }, total = results.size), btcSourced.provider)
     }
 
     private fun change90(closes: List<Double>): Double? {

@@ -182,6 +182,36 @@ class NearExtremeTest {
         assertEquals(90, p.windowHours)
         // Unbekannter Zeitraum (z. B. Spaltenstandard 1) → 30 Tage
         assertEquals(30, AlarmSentence.parts(AlarmSentence.Kind.NEAR_LOW, "BTC", 2.0, "USDT", 1, Locale.US, price)!!.windowHours)
-        assertNull(AlarmSentence.parts(AlarmSentence.Kind.NEAR_LOW, "BTC", 0.0, "USDT", 30, Locale.US, price))
+        // Abstand 0 = nur neue Tiefs: eigener Satz ohne Wert
+        val newLow = AlarmSentence.parts(AlarmSentence.Kind.NEAR_LOW, "BTC", 0.0, "USDT", 30, Locale.US, price)!!
+        assertEquals(AlarmSentence.Kind.NEW_LOW, newLow.kind)
+        assertEquals("", newLow.value)
+        assertEquals(30, newLow.windowHours)
+        assertEquals(AlarmSentence.Kind.NEW_HIGH, AlarmSentence.parts(AlarmSentence.Kind.NEAR_HIGH, "BTC", 0.0, "USDT", 1, Locale.US, price)!!.kind)
+        assertNull(AlarmSentence.parts(AlarmSentence.Kind.NEAR_LOW, "BTC", -1.0, "USDT", 30, Locale.US, price))
+        assertNull(AlarmSentence.parts(AlarmSentence.Kind.NEAR_HIGH, " ", 0.0, "USDT", 30, Locale.US, price))
+    }
+
+    @Test
+    fun newOnlyFiresOnlyOnNewExtremes() {
+        // Abstand 0: knapp unter dem Hoch meldet nicht (keine Annäherung) …
+        assertEquals(Decision.None, decide(price = 99.99, threshold = 0.0))
+        assertEquals(Decision.None, decide(price = 100.0, threshold = 0.0))
+        // … ein neues Hoch schon
+        val fire = decide(price = 100.5, threshold = 0.0) as Decision.Fire
+        assertTrue(fire.newExtreme)
+        assertEquals(100.5, fire.level, 1e-9)
+        // Neues Tief
+        val low = decide(side = Side.LOW, price = 49.0, threshold = 0.0) as Decision.Fire
+        assertTrue(low.newExtreme)
+        // Gemeldet: weiteres Hoch erst ab 0,5 % über der Marke, wieder scharf ab 0,5 % unter dem Hoch
+        assertEquals(Decision.None, decide(price = 101.0, threshold = 0.0, armed = false, lastLevel = 100.8))
+        assertTrue(decide(price = 101.4, threshold = 0.0, armed = false, lastLevel = 100.8) is Decision.Fire)
+        assertEquals(Decision.None, decide(price = 99.6, threshold = 0.0, armed = false, lastLevel = 100.5))
+        assertEquals(Decision.Rearm, decide(price = 99.4, threshold = 0.0, armed = false, lastLevel = 100.5))
+        assertTrue(NearExtreme.isNewOnly(NearExtreme.NEW_ONLY_DISTANCE))
+        assertFalse(NearExtreme.isNewOnly(2.0))
+        // Negativer Abstand bleibt ungültig
+        assertEquals(Decision.None, decide(price = 120.0, threshold = -1.0))
     }
 }

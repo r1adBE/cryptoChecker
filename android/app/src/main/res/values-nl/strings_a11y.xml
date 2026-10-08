@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Koerskleuren</string>
-    <string name="price_colors_green_red">Groen / rood</string>
-    <string name="price_colors_blue_orange">Blauw / oranje</string>
     <string name="settings_price_colors_hint">Blauw / oranje is bij elke kleurenzienstoornis (rood-groen en blauw-geel) goed te onderscheiden. De richting wordt bovendien altijd met + / − aangegeven.</string>
     <string name="settings_watchlist_sparkline">Minigrafiek in volglijst</string>
     <string name="settings_watchlist_sparkline_hint">24-uursverloop naast de koers</string>
 
-    <string name="settings_price_colors_inverted">Kleuren stijging/daling omwisselen</string>
-    <string name="settings_price_colors_inverted_hint">Rood voor stijging, groen voor daling, zoals gebruikelijk in China, Japan, Korea en Taiwan. Standaard afhankelijk van de regio van het apparaat.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Hoog contrast</string>

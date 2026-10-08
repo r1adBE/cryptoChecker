@@ -11,6 +11,8 @@ import Foundation
 enum ActivityRepository {
     private static let keyReports = "activity_reports"
     private static let keyOi = "activity_oi"
+    /// Open-Interest-Verlauf für die Alarme OI_UP/OI_DOWN: `{"<watchId>": [[zeit, coins], …]}`.
+    private static let keyOiHistory = "activity_oi_history"
     private static let keyNotified = "activity_notified"
 
     private static let lock = NSLock()
@@ -35,13 +37,24 @@ enum ActivityRepository {
     /// Daten gelöschter Paare wegräumen.
     static func retain(_ watchIds: Set<Int64>) {
         lock.lock(); defer { lock.unlock() }
-        for key in [keyReports, keyOi, keyNotified] {
+        for key in [keyReports, keyOi, keyOiHistory, keyNotified] {
             let map = readMap(key)
             let kept = map.filter { entry in
                 guard let id = Int64(entry.key) else { return false }
                 return watchIds.contains(id)
             }
             if kept.count != map.count { writeMap(key, kept) }
+        }
+    }
+
+    /// Paar bearbeitet (andere Börse/anderes Paar, gleiche Id): Signale, Open-Interest-Messung
+    /// und Meldezeit des alten Paars verwerfen — wie `ActivityRepository.forget`.
+    static func forget(_ watchId: Int64) {
+        lock.lock(); defer { lock.unlock() }
+        let key = String(watchId)
+        for mapKey in [keyReports, keyOi, keyOiHistory, keyNotified] {
+            var map = readMap(mapKey)
+            if map.removeValue(forKey: key) != nil { writeMap(mapKey, map) }
         }
     }
 
@@ -58,6 +71,32 @@ enum ActivityRepository {
         var map = readMap(keyOi)
         map[String(watchId)] = ["u": sample.units.isFinite ? sample.units : 0.0, "t": sample.time] as [String: Any]
         writeMap(keyOi, map)
+    }
+
+    // MARK: Open-Interest-Verlauf (Alarme OI_UP/OI_DOWN)
+
+    /// Gespeicherter Verlauf je Paar, älteste zuerst — wie `ActivityRepository.oiHistory`.
+    static func oiHistory(_ watchId: Int64) -> [DerivativesAlarm.OiPoint] {
+        lock.lock(); defer { lock.unlock() }
+        return decodeHistory(readMap(keyOiHistory)[String(watchId)])
+    }
+
+    /// Messung anhängen und Verlauf aufräumen (`DerivativesAlarm.appendOi`, 26 h).
+    static func appendOiHistory(_ watchId: Int64, _ point: DerivativesAlarm.OiPoint, now: Int64) {
+        lock.lock(); defer { lock.unlock() }
+        var map = readMap(keyOiHistory)
+        let key = String(watchId)
+        let updated = DerivativesAlarm.appendOi(decodeHistory(map[key]), point, now: now)
+        map[key] = updated.map { [NSNumber(value: $0.time), NSNumber(value: $0.units)] }
+        writeMap(keyOiHistory, map)
+    }
+
+    private static func decodeHistory(_ value: Any?) -> [DerivativesAlarm.OiPoint] {
+        guard let array = value as? [Any] else { return [] }
+        return array.compactMap { item in
+            guard let pair = item as? [Any], pair.count >= 2 else { return nil }
+            return DerivativesAlarm.OiPoint(units: number(pair[1]) ?? 0, time: int64(pair[0]) ?? 0)
+        }
     }
 
     // MARK: Meldungen

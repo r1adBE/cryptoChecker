@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">застаріло · %1$s</string>
 
     <string name="settings_widgets">Віджети</string>
-    <string name="settings_widgets_hint">Додайте ціни на головний екран</string>
     <string name="widgets_sheet_title">Додати віджет</string>
     <string name="widget_kind_single">Одна монета</string>
     <string name="widgets_add">Додати</string>

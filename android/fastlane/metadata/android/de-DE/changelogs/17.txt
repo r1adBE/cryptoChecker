@@ -1,10 +1,10 @@
 Neu in 16.2.2
 • Crypto Pulse: Was passiert gerade?
 • Ungewöhnliche Aktivität, «Warum bewegt sich das?» mit Fazit
-• Mit einem Tipp starten: Top 5 Coins mit Live-Kurs
+• Mit einem Tipp starten: Top 5 Coins
 • Wischen: löschen (mit «Rückgängig») oder Favorit
 • Kurse und Alarme in deiner Währung, Stichtag-Export (CSV)
-• Barrierefrei: Blau/Orange, hoher Kontrast, Farben tauschen, TalkBack
+• Barrierefrei: Blau/Orange, Kontrast, TalkBack
 • Nachtruhe, Alarm testen, Alarm als Satz, Portfolio-Sperre und -Widget
 • 15 neue Börsen, Gas-Alarm, Kerzen im Widget
-• Markt-Tab öffnet sofort
+• Aktien, Gold, Devisen (TradFi); %-Änderung nach Zeitzone

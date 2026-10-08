@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Peringatan pasar</string>
-    <string name="settings_market_alerts_hint">Fase pasar, Fear &amp; Greed, biaya gas, aktivitas tidak biasa, jadwal ekonomi</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="other">%1$d aktif</item>
     </plurals>
-    <string name="settings_tts_row_hint">Membacakan harga dan alarm</string>
     <string name="settings_summary_on">Aktif</string>
 
     <string name="alarm_first_text_checked">Crypto Checker kini memantau %1$s untuk Anda. Saat %1$s mencapai batas Anda, Anda mendapat notifikasi begitu aplikasi memeriksa harga. Saat aplikasi ditutup, itu terjadi sesuai interval pembaruan latar belakang – lebih lambat jika optimasi baterai membatasi aplikasi.</string>

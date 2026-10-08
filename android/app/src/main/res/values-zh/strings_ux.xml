@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">今日 %1$s</string>
     <string name="widget_portfolio_empty">在“投资组合”标签页中添加买入记录</string>
     <string name="a11y_portfolio_widget">投资组合 %1$s，今日 %2$s</string>
-    <string name="settings_section_advanced">高级</string>
-    <string name="settings_advanced_hint">实时模式、常驻通知、合约和开发者选项</string>
     <string name="explain_funding">多头与空头之间支付的费用。大幅为正表示许多人押注价格上涨。</string>
     <string name="explain_open_interest">所有未平仓合约头寸的价值。上升表示有更多资金押注这一走势。</string>
     <string name="explain_rsi">相对强弱指数，0–100。高于 70 常为过热，低于 30 常为超卖。</string>

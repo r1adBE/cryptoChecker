@@ -1,9 +1,9 @@
-Seuraa kryptohintojasi avaamatta jatkuvasti pörssisovelluksia. Aseta hälytyksiä, huomaa epätavalliset liikkeet ja ymmärrä sekunneissa, miksi kolikko liikkuu.
+Crypto Checker selittää, mitä markkinoilla tapahtuu. Aseta hälytyksiä, huomaa poikkeavat liikkeet ja ymmärrä sekunneissa, miksi kolikko liikkuu – ei ennustetta.
 
-Seuraa – hinnat suoraan pörssistä, omassa valuutassasi
-Hälytä – hinta, %, liikkeet ja volyymi yhtenä lauseena
 Ymmärrä – ”Miksi tämä liikkuu?” lyhyellä yhteenvedolla
 Yleiskuva – Crypto Pulse, Fear & Greed, sykli ja salkku
+Seuraa – hinnat suoraan pörssistä, omassa valuutassasi
+Hälytä – hinta, %, liikkeet ja volyymi yhtenä lauseena
 
 Luettava kaikille: hintavärit vihreä/punainen tai sininen/oranssi, halutessa vaihdettuina, suuri kontrasti, etumerkki ja nuoli pelkän värin sijaan, TalkBack lukee jokaisen rivin yhtenä lauseena.
 
@@ -46,7 +46,7 @@ MARKKINAKATSAUS
 WIDGETIT JA ILMOITUKSET
 • Widgetit: koko lista, salkun arvo ja päivän muutos, yksi kolikko isona hinnan ja kaavion kanssa – kynttilät tai viiva, ylä-, keski- ja alamerkit
 • Äänetön hintailmoitus pareittain
-• Live-tila päivittää 15 sekunnin välein, taustalla 15 minuutista alkaen
+• Tiheä päivitys 15 sekunnin välein, taustalla 15 minuutista alkaen
 
 LISÄKSI
 • Puhuttu tuloste: hinnat ja hälytykset luetaan ääneen

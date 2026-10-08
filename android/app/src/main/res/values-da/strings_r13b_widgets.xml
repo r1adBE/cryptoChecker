@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">forældet · %1$s</string>
 
     <string name="settings_widgets">Widgets</string>
-    <string name="settings_widgets_hint">Føj kurser til din startskærm</string>
     <string name="widgets_sheet_title">Tilføj en widget</string>
     <string name="widget_kind_single">Én mønt</string>
     <string name="widgets_add">Tilføj</string>

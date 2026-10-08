@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Nuk ka çifte në këtë grup</string>
+    <string name="watchlist_status_none_traded">Nuk ka çifte të tregtuara këtu</string>
+    <string name="watchlist_group_empty_hint">Shtyp gjatë një grup për të zgjedhur çiftet e tij.</string>
+    <string name="watchlist_just_refreshed">Sapo u përditësua</string>
+</resources>

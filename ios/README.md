@@ -1,5 +1,9 @@
 # Crypto Checker für iOS
 
+**Crypto Checker erklärt dir, was im Markt passiert.** Kurse direkt von der
+Börse, Marktüberblick und «Warum bewegt sich das?» – ohne Prognosen, keine
+Anlageberatung.
+
 Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 17).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
@@ -10,6 +14,27 @@ Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, 
 ## Neu in 16.2.2
 
 Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
+
+Zuletzt dazugekommen:
+
+- **Live-Kurse per WebSocket** in der geöffneten Merkliste (Binance, Bybit, OKX, Coinbase, Kraken;
+  REST bleibt Rückfall), «LIVE» in der Status-Pille, je Tick wird nur die betroffene Zeile neu
+  gezeichnet (`App/Services/LivePriceStream.swift`, `Shared/Services/LiveFeed.swift`).
+- **4 Tabs**: Merkliste · Markt · Portfolio (optional) · Einstellungen; «Paar hinzufügen» über «+»
+  in der Merkliste. **Kein Willkommensdialog** mehr – direkt die Startauswahl; «Was die App kann»
+  unter Einstellungen › Über.
+- **Alarm-Editor als Satz** («Wenn BTC über … geht», «Einmal / Jedes Mal», «Erweitert») mit
+  **Vorlagen** ±1 %, ±5 %, neues 30-Tage-Hoch/-Tief, Volumen ×3 (`Shared/Services/AlarmTemplates.swift`);
+  **Funding- und Open-Interest-Alarme** für Perpetuals (Binance, Bybit, OKX);
+  **Portfolio-Alarme** (Gesamtwert über/unter, Veränderung heute; `Shared/Services/PortfolioAlarmLogic.swift`).
+- **Beträge verbergen** (Portfolio, Portfolio-Widget, Portfolio-Alarme), **Sicherung mit Passwort**
+  (AES-256-GCM, PBKDF2; `App/Services/BackupCrypto.swift`), **Basis der %-Änderung** (24 Std.,
+  seit 00:00 in der Zone des Geräts oder fest UTC+14 … UTC-12), **Suche in den Einstellungen**
+  (`App/Features/Settings/SettingsSearch.swift`).
+- **«Warum?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin, «1 CHF = n Sats» bei BTC-Paaren,
+  Quelle und Alter je Zeile im Markt-Tab.
+
+Frühere Runden:
 
 - **Theme «Marrs Green»** (#4BACA5) als fünfte Akzentfarbe mit alternativem App-Icon
   (`AppIconMarrsGreen`) und Logo; die Einstellung heisst jetzt **Theme** (vorher «Farbe»).
@@ -38,9 +63,9 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
   24-Std.-Veränderung, alle vorausgewählt, ein Knopf «Zur Merkliste hinzufügen (5)»), **Nachtruhe** für Alarme (lautlos,
   `interruptionLevel = .passive`, ohne Sprache), **Portfolio-Sperre** (Face ID / Touch ID / Code; sperrt nur den
   Portfolio-Tab samt Detailansicht, Erfassen-Blättern und Stichtag-Export, «Zum Portfolio hinzufügen»,
-  Sichern mit Portfolio-Daten und das Portfolio-Widget — Merkliste, Hinzufügen, Zyklus, Optionen und
+  Sichern mit Portfolio-Daten und das Portfolio-Widget — Merkliste, Hinzufügen, Markt-Tab, Einstellungen und
   die übrigen Widgets bleiben frei; einmal je Sitzung entsperren, nach > 60 s im Hintergrund wieder
-  gesperrt; Abdeckung im App-Umschalter; Zeile in den Optionen nur mit eingeschaltetem Portfolio;
+  gesperrt; Abdeckung im App-Umschalter; Zeile in den Einstellungen nur mit eingeschaltetem Portfolio;
   `App/Services/AppLock.swift`, Regeln in `Shared/Portfolio/PortfolioLockPolicy.swift`),
   **Wertverlauf** im Portfolio (standardmässig zugeklappt: eine Zeile «Wertverlauf · 30 T ▲ +4.20%»;
   aufgeklappt Chips 7 T / 30 T / 1 J / Seit 1. Kauf — «Seit 1. Kauf» lädt so viele Tageskerzen wie
@@ -64,7 +89,7 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
   laufen, gegen den Markt, mit ungewöhnlichem Volumen (≥ 2× üblich) oder extremem Funding; sonst «Heute
   nichts Auffälliges». Je ein Abruf: 24-h-Ticker (Binance-Spiegel), Funding aller Perpetuals (Binance Futures),
   Marktkapitalisierung aus der CoinGecko-Rangliste (24 h). Zwischenspeicher 10 Min.; Tippen öffnet «Warum?»
-  (Coin in der Merkliste) oder die Suche im Hinzufügen-Tab (`Shared/Insights/MarketUnusual.swift`,
+  (Coin in der Merkliste) oder die Suche auf der Seite «Paar hinzufügen» (`Shared/Insights/MarketUnusual.swift`,
   `App/Features/Cycle/MarketUnusualSource.swift`, `App/Features/Cycle/MarketUnusualCard.swift`).
 - **Hinweis «Wirtschaftsdaten»** (kompakte Zeile über dem Pulse): wichtige US-Daten heute oder in den nächsten
   18 h («Heute 14:30: US-Inflationsdaten (CPI) – an solchen Tagen schwankt der Markt oft stärker.»), Ortszeit,
@@ -83,8 +108,8 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
   Der Stern steht nur noch vor Favoriten. Im Merklisten-Widget trennt eine dünne Linie die Paare
   (nicht unter dem letzten; `Widgets/WatchlistWidget.swift`).
 - **Alarm testen** und «Alles eingerichtet» nach dem ersten Alarm, **Zyklus-Signale** statt
-  Top-/Bottom-Score, Willkommen mit drei Fragen (Was passiert? · Wann reagieren? · Warum?),
-  Beispiel im leeren Portfolio.
+  Top-/Bottom-Score, «Was die App kann» mit drei Fragen (Was passiert? · Wann reagieren? · Warum?)
+  unter Einstellungen › Über, Beispiel im leeren Portfolio.
 - **Einzel-Widget mit Kerzen**: Chart-Art pro Widget (Kerzen oder Linie), Preise Tief/Mitte/Hoch,
   aktueller Kurs als Marke in der Akzentfarbe, Raster je Stunde/Tag/Woche (`Widgets/WidgetChart.swift`).
 - **Wischen in der Merkliste**: nach rechts = Favorit, nach links = Löschen mit «Rückgängig»;
@@ -92,20 +117,20 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
   «Löschen» im Aktionsblatt wirkt wie Wischen (sofort, mit «Rückgängig», ohne Rückfrage).
   Nicht im Sortiermodus und nicht mit VoiceOver (dort Aktionen)
   (`App/Features/Watchlist/WatchlistScreen.swift`).
-- **Markt-Tab in drei Abschnitten**: «Jetzt» (Crypto Pulse, Fear & Greed, Krypto-Markt), «Einordnung»
-  (Marktphase, Dominanz mit Altcoin-Saison, Halving), «Daten» (Coin, Gas); Überschriften für VoiceOver.
+- **Markt-Tab in drei Abschnitten**: «Jetzt» (Crypto Pulse, «Heute auffällig», Fear & Greed), «Einordnung»
+  (Marktphase, Dominanz mit Altcoin-Saison, Halving), «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin); Überschriften für VoiceOver.
 - **Markt-Tab sofort da**: zeigt die zuletzt gespeicherten Daten («Stand … · wird
   aktualisiert …») und lädt im Hintergrund neu (`App/Features/Cycle/CycleScreen.swift`).
-- **Fragen & Wünsche**: Link zu GitHub-Issues unter Optionen › Über.
-- **Krypto-Markt**: Marktkapitalisierung und Volumen (24 Std.) im Abschnitt «Jetzt» des Markt-Tabs (unter Fear & Greed); erstes Hinzufügen kurz
+- **Fragen & Wünsche**: Link zu GitHub-Issues unter Einstellungen › Über.
+- **Krypto-Markt**: Marktkapitalisierung und Volumen (24 Std.) im Abschnitt «Daten» des Markt-Tabs (erste Karte); erstes Hinzufügen kurz
   inszeniert (Einblenden, Mini-Chart zeichnet sich, Häkchen, Haptik, Ansage).
 - **Live-Aktivität**: ein Paar auf dem Sperrbildschirm und in der Dynamic Island
   (`Widgets/PriceLiveActivityWidget.swift`, `App/Services/LiveActivityController.swift`); aktualisiert,
   wenn die App Kurse prüft, nach 30 Min. als veraltet markiert; kein Push-Server.
 - **Dynamic Type**: feste Schriftgrössen in `App/` folgen jetzt der Systemschrift
   (`App/Components/ScaledFont.swift`), Pillen und Symbole mit Obergrenze.
-- **Keine Spenden in der App** (App-Store-Richtlinie 3.1.1); Hinweise nur im
-  `README.md` des Repositorys auf GitHub (Ordner `public/`).
+- **Keine Spenden in der App** (App-Store-Richtlinie 3.1.1); Hinweise nur in
+  `SUPPORT.md` des Repositorys auf GitHub (Ordner `public/`).
 - Zonen heissen in allen Sprachen Englisch (Extreme Bear … Extreme Bull); Deutsch in Schweizer
   Schreibweise (ss, «»).
 - Datenschutz/Support: `https://r1adbe.github.io/cryptoChecker/privacy/` bzw.
@@ -118,13 +143,14 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 | `Shared/` | Code und Ressourcen für **beide** Targets (App und Widgets), u. a. `Resources/Localizable.xcstrings` |
 | `App/` | nur App: Oberfläche, Hintergrund-Aktualisierung, `Info.plist`, Entitlements, `Resources/Assets.xcassets` (App-Icons, Logos) |
 | `Widgets/` | nur Widget-Erweiterung: Widgets, `Info.plist`, Entitlements, eigener Asset-Katalog |
+| `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert |
 | `tools/` | Generatoren (Python 3) für Texte, Grafiken und das Xcode-Projekt |
 | `CryptoChecker.xcodeproj` | generiertes Xcode-Projekt |
 | `project.yml` | gleichwertige XcodeGen-Spezifikation (Fallback) |
 
 ## Auf dem iPhone starten
 
-1. Mac mit **Xcode 15.3 oder neuer** (Xcode 16 geht ebenfalls).
+1. Mac mit **Xcode 16 oder neuer** (nötig für die getönten App-Icons).
 2. `CryptoChecker.xcodeproj` mit Doppelklick in Xcode öffnen.
 3. Links das Projekt anklicken, dann für **beide** Targets – `CryptoChecker` und
    `CryptoCheckerWidgetsExtension` – unter **Signing & Capabilities** das eigene **Team** wählen.
@@ -167,10 +193,10 @@ oder – im GitHub-Repository und im ZIP – aus `../android/app/src/main/res` (
 ```sh
 python3 tools/convert_strings.py   # strings.xml (31 Sprachen, inkl. pt-BR) + tools/ios_extra_strings.json -> Localizable.xcstrings, InfoPlist.xcstrings
 python3 tools/gen_assets.py        # VectorDrawables -> App-Icons, Logos, Farben (beide Asset-Kataloge)
-python3 tools/gen_xcodeproj.py     # CryptoChecker.xcodeproj neu erzeugen (findet neue .swift-Dateien selbst)
+python3 tools/gen_xcodeproj.py     # CryptoChecker.xcodeproj neu erzeugen (findet neue .swift-Dateien selbst, kopiert die gemeinsamen Testfälle nach Tests/Parity)
 ```
 
-Neue Swift-Dateien einfach in `Shared/`, `App/` oder `Widgets/` ablegen und
+Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/` oder `Tests/` ablegen und
 `tools/gen_xcodeproj.py` erneut ausführen. iOS-eigene Texte gehören in
 `tools/ios_extra_strings.json` (alle 31 Sprachen, inkl. `pt-BR`), danach `convert_strings.py` laufen lassen.
 
@@ -195,7 +221,7 @@ iOS erlaubt einiges nicht, was die Android-App kann:
 - **Hintergrund-Aktualisierung bestimmt iOS.** Das eingestellte Intervall ist nur ein frühester
   Zeitpunkt; iOS entscheidet je nach Nutzung, Akku und Netz, wann tatsächlich aktualisiert wird –
   oft deutlich später, nach einem erzwungenen Beenden der App gar nicht mehr.
-- **Live-Modus nur bei geöffneter App.** Kurze Intervalle (Sekunden) laufen nur, solange die App im
+- **«Häufig aktualisieren» nur bei geöffneter App.** Kurze Intervalle (Sekunden) laufen nur, solange die App im
   Vordergrund ist; einen dauerhaft laufenden Dienst gibt es unter iOS nicht.
 - **Vibration:** Kein eigener Schalter – iOS steuert die Vibration von Mitteilungen ausschliesslich über
   die Systemeinstellungen. Der Wert aus Android-Sicherungen bleibt erhalten.

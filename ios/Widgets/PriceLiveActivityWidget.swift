@@ -10,8 +10,8 @@ struct PriceLiveActivityWidget: Widget {
             // Fester dunkler Grund: Kursfarben (Dunkel-Fassung) und Text bleiben lesbar
             PriceActivityLockScreenView(attributes: context.attributes, state: context.state, isStale: context.isStale)
                 .environment(\.colorScheme, .dark)
-                .activityBackgroundTint(Color.black.opacity(0.72))
-                .activitySystemActionForegroundColor(.white)
+                .activityBackgroundTint(WidgetPalette.liveActivityBackground)
+                .activitySystemActionForegroundColor(WidgetPalette.liveActivityForeground)
                 .widgetURL(WidgetData.watchURL(context.attributes.watchId))
         } dynamicIsland: { context in
             DynamicIsland {
@@ -29,7 +29,7 @@ struct PriceLiveActivityWidget: Widget {
                     .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    PriceActivityChange(change: context.state.change24h, size: 14)
+                    PriceActivityChange(change: context.state.change24h, basis: context.state.basis ?? .default, size: 14)
                         .padding(.trailing, 4)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
@@ -90,7 +90,7 @@ private struct PriceActivityLockScreenView: View {
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
                 Spacer(minLength: 4)
-                PriceActivityChange(change: state.change24h, size: 14)
+                PriceActivityChange(change: state.change24h, basis: state.basis ?? .default, size: 14)
             }
             HStack(alignment: .firstTextBaseline) {
                 Text(state.priceText)
@@ -112,16 +112,17 @@ private struct PriceActivityLockScreenView: View {
         .accessibilityLabel(A11y.join([
             L("a11y_row_pair", attributes.pairLabel, attributes.exchangeName),
             state.priceText,
-            A11y.change24h(state.change24h),
+            A11y.change(state.change24h, basis: state.basis ?? .default),
             PriceActivityText.updated(state.updatedAt),
         ]))
     }
 }
 
-/// «↗ +1.24% 24h» (Veränderung über 24 Stunden) in der Kursfarbe; ohne Bewegung grau
-/// «0.00%», ohne 24-h-Bezug grau «—».
+/// «↗ +1.24% 24h» bzw. «… heute» (Veränderung gemäss %-Basis) in der Kursfarbe; ohne Bewegung
+/// grau «0.00%», ohne Bezug grau «—».
 private struct PriceActivityChange: View {
     let change: Double?
+    let basis: ChangeBasis
     let size: CGFloat
 
     var body: some View {
@@ -132,14 +133,14 @@ private struct PriceActivityChange: View {
                 .font(.system(size: size, weight: .semibold))
                 .monospacedDigit()
                 .lineLimit(1)
-            Text(L("widget_range_short_24h"))
+            Text(A11y.changeShortLabel(basis))
                 .font(.system(size: size * 0.75, weight: .medium))
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
         }
         .foregroundStyle(PriceActivityText.color(change))
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.change24h(change))
+        .accessibilityLabel(A11y.change(change, basis: basis))
     }
 }
 

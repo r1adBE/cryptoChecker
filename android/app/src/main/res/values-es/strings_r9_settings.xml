@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_settings -->
-    <string name="settings_group_currency">Moneda y conversión</string>
     <string name="settings_group_alerts">Alarmas y notificaciones</string>
-    <string name="settings_group_data">Datos y actualizaciones</string>
-    <string name="settings_group_security">Seguridad y copia de seguridad</string>
     <string name="settings_portfolio_tab">Mostrar pestaña Cartera</string>
 </resources>

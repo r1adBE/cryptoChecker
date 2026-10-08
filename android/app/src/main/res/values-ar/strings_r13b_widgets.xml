@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">غير محدَّث · %1$s</string>
 
     <string name="settings_widgets">الأدوات</string>
-    <string name="settings_widgets_hint">أضف الأسعار إلى الشاشة الرئيسية</string>
     <string name="widgets_sheet_title">إضافة أداة</string>
     <string name="widget_kind_single">عملة واحدة</string>
     <string name="widgets_add">إضافة</string>

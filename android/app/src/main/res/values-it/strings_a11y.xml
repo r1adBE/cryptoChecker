@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Colori dei prezzi</string>
-    <string name="price_colors_green_red">Verde / rosso</string>
-    <string name="price_colors_blue_orange">Blu / arancione</string>
     <string name="settings_price_colors_hint">Blu / arancione si distingue bene con qualsiasi deficit della visione dei colori (rosso-verde e blu-giallo). La direzione è inoltre sempre indicata con + / −.</string>
     <string name="settings_watchlist_sparkline">Mini grafico nella lista</string>
     <string name="settings_watchlist_sparkline_hint">Andamento 24 ore accanto al prezzo</string>
 
-    <string name="settings_price_colors_inverted">Inverti colori rialzo/ribasso</string>
-    <string name="settings_price_colors_inverted_hint">Rosso per il rialzo, verde per il ribasso, come d\'uso in Cina, Giappone, Corea e Taiwan. Il valore predefinito dipende dalla regione del dispositivo.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Contrasto elevato</string>

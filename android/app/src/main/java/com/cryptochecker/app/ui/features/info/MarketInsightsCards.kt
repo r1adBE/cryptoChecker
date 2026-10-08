@@ -12,6 +12,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -37,21 +38,25 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -61,16 +66,19 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.AltSeason
 import com.cryptochecker.app.domain.market.CoinReport
 import com.cryptochecker.app.domain.market.CoinSignal
 import com.cryptochecker.app.domain.market.CoinSignalId
+import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.CycleInfo
 import com.cryptochecker.app.domain.market.CycleMarker
 import com.cryptochecker.app.domain.market.CycleSeries
+import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.GasFees
@@ -79,6 +87,8 @@ import com.cryptochecker.app.domain.market.GasReport
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.MarketZone
+import com.cryptochecker.app.ui.theme.AssetColors
+import com.cryptochecker.app.ui.theme.MarketScaleColors
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.util.CompactAmount
 import androidx.compose.ui.platform.LocalConfiguration
@@ -89,15 +99,17 @@ import com.cryptochecker.app.ui.components.SkeletonPill
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.components.SkeletonText
 import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
-import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.time.temporal.ChronoUnit
+import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlin.math.ln
 import kotlin.math.roundToInt
@@ -110,7 +122,7 @@ internal fun InsightCard(title: String, content: @Composable ColumnScope.() -> U
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
+        Column(modifier = Modifier.padding(Spacing.lg)) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleSmall,
@@ -196,37 +208,41 @@ private fun SourceText(text: String) {
         text = text,
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(top = 10.dp)
+        modifier = Modifier.padding(top = Spacing.sm)
     )
 }
 
 // ───────────────────────── Halving & Zyklus-Vergleich ─────────────────────────
 
+/**
+ * Halving als Zeile unter «Einordnung»: rechts das geschätzte Datum des nächsten Halvings,
+ * darunter der Fortschritt im Zyklus; Tippen klappt Countdown, Balken und Zyklus-Chart auf.
+ */
 @Composable
-internal fun HalvingCard(cycle: CycleInfo, history: LoadState<CycleHistory>, onRetry: () -> Unit) {
+internal fun HalvingRow(cycle: CycleInfo, history: LoadState<CycleHistory>, onRetry: () -> Unit, divider: Boolean = true) {
     val today = LocalDate.now()
     val total = ChronoUnit.DAYS.between(cycle.lastHalving, cycle.nextHalvingEstimate).coerceAtLeast(1)
     val elapsed = ChronoUnit.DAYS.between(cycle.lastHalving, today).coerceIn(0, total)
     val remaining = ChronoUnit.DAYS.between(today, cycle.nextHalvingEstimate).coerceAtLeast(0)
-    val dateFormat = remember { DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM) }
+    val dateFormat = remember { LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
-    InsightCard(stringResource(R.string.insights_halving_title)) {
+    MarketRow(
+        title = stringResource(R.string.insights_halving_title),
+        secondary = stringResource(R.string.insights_cycle_progress, (elapsed * 100 / total).toInt()),
+        value = cycle.nextHalvingEstimate.format(dateFormat),
+        divider = divider,
+        expanded = expanded,
+        onToggle = { expanded = !expanded },
+    ) {
         Text(
             text = pluralStringResource(R.plurals.insights_halving_countdown, remaining.toInt(), remaining.toInt(), cycle.nextHalvingEstimate.format(dateFormat)),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold
+            style = MaterialTheme.typography.bodyMedium,
         )
         LinearProgressIndicator(
             progress = { elapsed / total.toFloat() },
-            modifier = Modifier.fillMaxWidth().padding(top = 10.dp).clip(RoundedCornerShape(50))
+            modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = 16.dp).clip(RoundedCornerShape(50))
         )
-        Text(
-            text = stringResource(R.string.insights_cycle_progress, (elapsed * 100 / total).toInt()),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 6.dp, bottom = 16.dp)
-        )
-
         Text(stringResource(R.string.insights_cycle_chart), style = MaterialTheme.typography.labelLarge)
         CardSwap(history, { loadKey(it) }) { shown ->
             when (shown) {
@@ -281,7 +297,7 @@ private const val CYCLE_MAX_DAY = 1440f
 private fun cyclePercent(change: Double): String {
     val pct = change * 100
     val sign = if (pct >= 0) "+" else "−"
-    return "$sign${DecimalFormat("#,##0").format(abs(pct))} %"
+    return BidiText.ltr("$sign${LocaleNumbers.decimal(abs(pct), 0, grouping = true)} %")
 }
 
 /**
@@ -385,20 +401,22 @@ private fun CycleChart(history: CycleHistory, currentHalving: LocalDate) {
         }
     }
 
-    // Achse: Jahresmarken genau unter den Hilfslinien (für den Screenreader ohne Inhalt)
+    // Achse: Jahresmarken genau unter den Hilfslinien (für den Screenreader ohne Inhalt).
+    // Absolut (nicht gespiegelt) wie die Zeichnung: die Zeitachse läuft immer von links nach rechts
     BoxWithConstraints(
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(16.dp).clearAndSetSemantics { }
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(16.dp).clearAndSetSemantics { },
+        contentAlignment = AbsoluteAlignment.TopLeft,
     ) {
         val labelWidth = 16.dp
         (0..4).forEach { year ->
             val x = (maxWidth * (year * 360f / maxDay)) - labelWidth / 2
             Text(
-                year.toString(),
+                LocaleNumbers.integer(year),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                 modifier = Modifier
-                    .offset(x = x.coerceIn(0.dp, maxWidth - labelWidth))
+                    .absoluteOffset(x = x.coerceIn(0.dp, maxWidth - labelWidth))
                     .size(width = labelWidth, height = 16.dp)
             )
         }
@@ -410,9 +428,9 @@ private fun CycleChart(history: CycleHistory, currentHalving: LocalDate) {
     )
     Row(modifier = Modifier.padding(top = 8.dp)) {
         series.forEachIndexed { i, s ->
-            Box(Modifier.padding(top = 5.dp).size(10.dp).clip(CircleShape).background(colors[i]))
+            Box(Modifier.padding(top = Spacing.xs).size(10.dp).clip(CircleShape).background(colors[i]))
             Text(
-                s.halving.year.toString(),
+                LocaleNumbers.integer(s.halving.year),
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.padding(start = 4.dp, end = 12.dp)
             )
@@ -422,7 +440,7 @@ private fun CycleChart(history: CycleHistory, currentHalving: LocalDate) {
         stringResource(R.string.insights_chart_hint),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(top = 6.dp)
+        modifier = Modifier.padding(top = Spacing.xs)
     )
     SourceText(stringResource(R.string.insights_source_history))
 }
@@ -452,7 +470,7 @@ private fun CycleChartSkeleton() {
         stringResource(R.string.insights_chart_hint),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(top = 6.dp)
+        modifier = Modifier.padding(top = Spacing.xs)
     )
     SourceText(stringResource(R.string.insights_source_history))
 }
@@ -468,7 +486,7 @@ private fun cycleChartDescription(context: Context, series: List<CycleSeries>): 
         listOfNotNull(
             context.getString(
                 R.string.a11y_cycle,
-                s.halving.year.toString(),
+                LocaleNumbers.integer(s.halving.year),
                 A11yText.change(context, (multiple - 1.0) * 100.0, decimals = 0),
                 day
             ),
@@ -490,13 +508,13 @@ private fun BoxScope.CycleMarkerBubble(
     anchor: (w: Float, h: Float) -> Offset,
 ) {
     val m = marker.marker
-    val dateFormat = remember { DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT) }
+    val dateFormat = remember { LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)) }
     val label = when {
-        marker.isSecondary && marker.isTop -> stringResource(R.string.cycle_marker_double_top, m.date.year.toString())
-        marker.isSecondary -> stringResource(R.string.cycle_marker_double_bottom, m.date.year.toString())
+        marker.isSecondary && marker.isTop -> stringResource(R.string.cycle_marker_double_top, LocaleNumbers.integer(m.date.year))
+        marker.isSecondary -> stringResource(R.string.cycle_marker_double_bottom, LocaleNumbers.integer(m.date.year))
         marker.isTop && marker.isCurrentCycle -> stringResource(R.string.cycle_marker_high_so_far)
-        marker.isTop -> stringResource(R.string.cycle_marker_top, m.date.year.toString())
-        else -> stringResource(R.string.cycle_marker_bottom, m.date.year.toString())
+        marker.isTop -> stringResource(R.string.cycle_marker_top, LocaleNumbers.integer(m.date.year))
+        else -> stringResource(R.string.cycle_marker_bottom, LocaleNumbers.integer(m.date.year))
     }
     val change = if (marker.isTop) {
         stringResource(R.string.cycle_since_halving, cyclePercent(m.change))
@@ -536,7 +554,7 @@ private fun BoxScope.CycleMarkerBubble(
                 }
             }
     ) {
-        Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) {
+        Column(modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.sm)) {
             Text(
                 "$label · $price",
                 style = MaterialTheme.typography.labelMedium.tabularNumbers(),
@@ -552,9 +570,7 @@ private fun BoxScope.CycleMarkerBubble(
 
 // ───────────────────────── Fear & Greed ─────────────────────────
 
-private val FearGreedColors = listOf(
-    Color(0xFFB42318), Color(0xFFE5484D), Color(0xFF7A7A7A), Color(0xFF2FA36B), Color(0xFF0B7A45)
-)
+private val FearGreedColors = MarketScaleColors.steps
 
 private fun fearGreedLevel(value: Int): Int = when {
     value < 25 -> 0
@@ -575,358 +591,296 @@ internal fun fearGreedLabel(value: Int): String = stringResource(
     }
 )
 
+/**
+ * Fear & Greed als erste Zeile unter «Einordnung»: Wert rechts, Stufe und Vortag darunter,
+ * die Skala 0–100 in voller Breite direkt unter der Zeile. Tippen zeigt Verlauf und Quelle.
+ */
 @Composable
-internal fun FearGreedCard(state: LoadState<FearGreed>, onRetry: () -> Unit) {
-    InsightCard(stringResource(R.string.insights_fng_title)) {
-        CardSwap(state, { loadKey(it) }) { shown ->
-            when (shown) {
-                LoadState.Loading -> FearGreedSkeleton()
-                LoadState.Failed -> FailedRow(onRetry)
-                is LoadState.Loaded -> {
-                    val fg = shown.value
-                    val color = FearGreedColors[fearGreedLevel(fg.value)]
-                    // Wert und Einstufung als ein Element für den Screenreader
-                    Row(verticalAlignment = Alignment.Bottom, modifier = Modifier.semantics(mergeDescendants = true) { }) {
-                        Text(
-                            fg.value.toString(),
-                            style = MaterialTheme.typography.displaySmall.tabularNumbers(),
-                            fontWeight = FontWeight.SemiBold,
-                            color = color
-                        )
-                        Text(
-                            fearGreedLabel(fg.value),
-                            style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.padding(start = 12.dp, bottom = 6.dp)
-                        )
-                    }
-                    // Skala 0–100 mit Markierung
-                    val gaugeDescription = stringResource(
-                        R.string.a11y_gauge,
-                        stringResource(R.string.fng_extreme_fear),
-                        stringResource(R.string.fng_extreme_greed),
-                        fg.value
-                    )
-                    BoxWithConstraints(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp)
-                            .height(18.dp)
-                            .semantics { contentDescription = gaugeDescription }
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .fillMaxWidth()
-                                .height(8.dp)
-                                .clip(RoundedCornerShape(50))
-                                .background(Brush.horizontalGradient(FearGreedColors))
-                        )
-                        val marker = 18.dp
-                        Box(
-                            modifier = Modifier
-                                .offset(x = (maxWidth - marker) * (fg.value / 100f))
-                                .size(marker)
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.onSurface)
-                                .padding(3.dp)
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surface)
-                        )
-                    }
-                    Text(
-                        text = stringResource(
-                            R.string.insights_fng_history,
-                            fg.yesterday?.toString() ?: "—",
-                            fg.weekAgo?.toString() ?: "—",
-                            fg.monthAgo?.toString() ?: "—"
-                        ),
-                        style = MaterialTheme.typography.bodySmall.tabularNumbers(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 10.dp)
-                    )
-                    SourceText(stringResource(R.string.insights_source_fng))
-                }
-            }
+internal fun FearGreedRow(
+    state: LoadState<FearGreed>,
+    onRetry: () -> Unit,
+    divider: Boolean = false,
+    /** Herkunft und Stand (alternative.me) für die Nebenzeile. */
+    stamp: DataStamp? = null,
+) {
+    val fg = (state as? LoadState.Loaded)?.value
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val label = fg?.let { fearGreedLabel(it.value) }.orEmpty()
+    MarketRow(
+        title = stringResource(R.string.insights_fng_title),
+        secondary = fg?.yesterday?.let { stringResource(R.string.market_row_fng_yesterday, label, LocaleNumbers.integer(it)) } ?: label,
+        value = fg?.let { LocaleNumbers.integer(it.value) },
+        divider = divider,
+        loading = state is LoadState.Loading,
+        failure = if (state is LoadState.Failed) stringResource(R.string.something_went_wrong) else null,
+        onRetry = onRetry,
+        stamp = stamp,
+        expanded = expanded,
+        onToggle = if (fg != null) ({ expanded = !expanded }) else null,
+        // Skala bleibt auch beim Laden und bei Fehler stehen (grau) — darunter springt nichts
+        below = { FearGreedScale(fg?.value) },
+    ) {
+        if (fg != null) {
+            Text(
+                text = stringResource(
+                    R.string.insights_fng_history,
+                    fg.yesterday?.let { LocaleNumbers.integer(it) } ?: "—",
+                    fg.weekAgo?.let { LocaleNumbers.integer(it) } ?: "—",
+                    fg.monthAgo?.let { LocaleNumbers.integer(it) } ?: "—"
+                ),
+                style = MaterialTheme.typography.bodySmall.tabularNumbers(),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            SourceText(stringResource(R.string.insights_source_fng))
         }
     }
 }
 
-/** Platzhalter in der Form der geladenen Karte: Wert und Stufe, Skala, Verlauf, Quelle. */
+/** Skala 0–100 mit Markierung; [value] null = grauer Platzhalter in derselben Höhe. */
 @Composable
-private fun FearGreedSkeleton() {
-    SkeletonPulse(modifier = Modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.Bottom) {
-            SkeletonLine(MaterialTheme.typography.displaySmall.tabularNumbers(), Modifier.width(56.dp))
-            SkeletonLine(
-                MaterialTheme.typography.titleMedium,
-                Modifier.padding(start = 12.dp, bottom = 6.dp).width(96.dp)
-            )
+private fun FearGreedScale(value: Int?) {
+    if (value == null) {
+        Box(modifier = Modifier.fillMaxWidth().height(18.dp)) {
+            SkeletonBlock(Modifier.align(Alignment.Center).fillMaxWidth().height(8.dp))
         }
-        Box(modifier = Modifier.fillMaxWidth().padding(top = 10.dp).height(18.dp)) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth()
-                    .height(8.dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-            )
-        }
-        SkeletonLine(
-            MaterialTheme.typography.bodySmall,
-            Modifier.padding(top = 10.dp).fillMaxWidth(0.8f)
+        return
+    }
+    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val gaugeDescription = stringResource(
+        R.string.a11y_gauge,
+        stringResource(R.string.fng_extreme_fear),
+        stringResource(R.string.fng_extreme_greed),
+        value
+    )
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(18.dp)
+            .semantics { contentDescription = gaugeDescription }
+    ) {
+        Box(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth()
+                .height(8.dp)
+                .clip(RoundedCornerShape(50))
+                // Skala folgt der Leserichtung: Verlauf (absolut gezeichnet) bei RTL
+                // umgedreht, die Markierung (offset) spiegelt sich selbst
+                .background(Brush.horizontalGradient(if (rtl) FearGreedColors.reversed() else FearGreedColors))
+        )
+        val marker = 18.dp
+        Box(
+            modifier = Modifier
+                .offset(x = (maxWidth - marker) * (value / 100f))
+                .size(marker)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.onSurface)
+                .padding(3.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surface)
         )
     }
-    // Quelle steht schon fest: echter Text, gleiche Höhe wie geladen
-    SourceText(stringResource(R.string.insights_source_fng))
 }
 
 // ───────────────────────── Krypto-Markt (Marktkapitalisierung, Volumen) ─────────────────────────
 
 /**
- * Kompakte Karte unter Fear & Greed: gesamte Marktkapitalisierung mit Veränderung
- * in 24 Std. und das 24-Stunden-Volumen, in der Umrechnungswährung [currency]
- * (sonst USD). Lädt wie die Nachbarkarten; die Karte bleibt immer stehen: beim Laden
- * ein form-gleicher Platzhalter, ohne Daten eine kompakte Zeile «gerade nicht verfügbar».
+ * «Krypto-Markt» als erste Zeile unter «Daten»: rechts die gesamte Marktkapitalisierung mit
+ * Veränderung in 24 Std., darunter das 24-Stunden-Volumen, in der Umrechnungswährung
+ * [currency] (sonst USD). Beim Laden ein form-gleicher Platzhalter, ohne Daten
+ * «gerade nicht verfügbar» mit «Erneut». Tippen zeigt die Quelle.
  */
 @Composable
-internal fun MarketTotalsCard(state: LoadState<MarketTotals>, currency: String, onRetry: () -> Unit) {
+internal fun MarketTotalsRow(
+    state: LoadState<MarketTotals>,
+    currency: String,
+    onRetry: () -> Unit,
+    divider: Boolean = false,
+    /** Herkunft und Stand (CoinGecko) für die Nebenzeile. */
+    stamp: DataStamp? = null,
+) {
     val title = stringResource(R.string.market_cap_title)
     val capLabel = stringResource(R.string.market_cap_label)
     val volumeLabel = stringResource(R.string.market_volume_label)
     val context = LocalContext.current
     val locale = LocalConfiguration.current.locales[0]
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
-    Card(
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-        modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
+    val totals = (state as? LoadState.Loaded)?.value
+    val values = totals?.valuesIn(currency)
+    val cap = remember(values, locale) { values?.let { CompactAmount.format(it.marketCap, it.currency, locale) } }
+    val volume = remember(values, locale) { values?.let { CompactAmount.format(it.volume, it.currency, locale) } }
+    val change = totals?.changePercent24h
+    // Screenreader: ein Satz mit Titel, Marktkapitalisierung samt Veränderung in Worten und Volumen
+    val spoken = if (cap != null && volume != null) buildString {
+        append(title).append(": ").append(capLabel).append(' ').append(cap)
+        if (change != null) append(", ").append(A11yText.change(context, change))
+        append("; ").append(volumeLabel).append(' ').append(volume)
+    } else null
+    // Vorzeichen und Pfeil folgen der Richtung, die Farbe der Einstellung «Kursfarben»
+    val formatted = change?.let { PriceFormat.changePercent(it) }
+    MarketRow(
+        title = title,
+        secondary = volume?.let { "$volumeLabel $it" }.orEmpty(),
+        value = cap,
+        divider = divider,
+        loading = state is LoadState.Loading,
+        // Fehler oder keine Werte (auch nicht in USD)
+        failure = if (state !is LoadState.Loading && cap == null) stringResource(R.string.pulse_unavailable) else null,
+        onRetry = onRetry,
+        change = when {
+            change == null -> null
+            formatted == null -> PriceFormat.zeroPercent()
+            else -> "${PriceFormat.changeArrow(change)} $formatted"
+        },
+        changeColor = if (change == null || formatted == null) MaterialTheme.colorScheme.onSurfaceVariant
+        else PriceColors.forChange(change),
+        spoken = spoken,
+        stamp = stamp,
+        expanded = expanded,
+        onToggle = if (cap != null) ({ expanded = !expanded }) else null,
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(20.dp)) {
-            CardSwap(state, { loadKey(it) }) { shown ->
-                val totals = (shown as? LoadState.Loaded)?.value
-                val values = totals?.valuesIn(currency)
-                if (totals == null || values == null) {
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(bottom = 12.dp)
-                    )
-                    if (shown is LoadState.Loading) {
-                        MarketTotalsSkeleton(capLabel, volumeLabel)
-                    } else {
-                        // Fehler oder keine Werte (auch nicht in USD)
-                        UnavailableRow(onRetry)
-                    }
-                } else {
-                    val cap = remember(values, locale) { CompactAmount.format(values.marketCap, values.currency, locale) }
-                    val volume = remember(values, locale) { CompactAmount.format(values.volume, values.currency, locale) }
-                    val change = totals.changePercent24h
-                    // Screenreader: ein Satz mit Titel, Marktkapitalisierung samt Veränderung in Worten und Volumen
-                    val spoken = buildString {
-                        append(title).append(": ").append(capLabel).append(' ').append(cap)
-                        if (change != null) append(", ").append(A11yText.change(context, change))
-                        append("; ").append(volumeLabel).append(' ').append(volume)
-                    }
-                    Column(modifier = Modifier.clearAndSetSemantics { contentDescription = spoken }) {
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(bottom = 12.dp)
-                        )
-                        Row(verticalAlignment = Alignment.Top) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    capLabel,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                Text(
-                                    cap,
-                                    style = MaterialTheme.typography.titleLarge.amountNumbers(),
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                                if (change != null) {
-                                    // Vorzeichen und Pfeil folgen der Richtung, die Farbe der Einstellung «Kursfarben»
-                                    val formatted = PriceFormat.changePercent(change)
-                                    Text(
-                                        text = formatted?.let { "${PriceFormat.changeArrow(change)} $it" } ?: "0.00%",
-                                        style = MaterialTheme.typography.labelMedium.amountNumbers(),
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = if (formatted == null) MaterialTheme.colorScheme.onSurfaceVariant
-                                        else PriceColors.forChange(change),
-                                        modifier = Modifier.padding(top = 2.dp)
-                                    )
-                                }
-                            }
-                            Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
-                                Text(
-                                    volumeLabel,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                Text(
-                                    volume,
-                                    style = MaterialTheme.typography.titleLarge.amountNumbers(),
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            }
-                        }
-                    }
-                    SourceText(stringResource(R.string.market_cap_source))
-                }
-            }
-        }
+        SourceText(stringResource(R.string.market_cap_source))
     }
-}
-
-/** Platzhalter in der Form der geladenen Karte: echte Beschriftungen, Balken für die Werte. */
-@Composable
-private fun MarketTotalsSkeleton(capLabel: String, volumeLabel: String) {
-    val labelStyle = MaterialTheme.typography.labelMedium
-    val labelColor = MaterialTheme.colorScheme.onSurfaceVariant
-    val valueStyle = MaterialTheme.typography.titleLarge.amountNumbers()
-    Row(verticalAlignment = Alignment.Top) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(capLabel, style = labelStyle, color = labelColor)
-            SkeletonPulse {
-                SkeletonLine(valueStyle, Modifier.fillMaxWidth(0.7f))
-                SkeletonLine(
-                    MaterialTheme.typography.labelMedium.amountNumbers(),
-                    Modifier.padding(top = 2.dp).width(56.dp)
-                )
-            }
-        }
-        Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
-            Text(volumeLabel, style = labelStyle, color = labelColor)
-            SkeletonPulse {
-                SkeletonLine(valueStyle, Modifier.fillMaxWidth(0.7f))
-            }
-        }
-    }
-    SourceText(stringResource(R.string.market_cap_source))
 }
 
 // ───────────────────────── Dominanz & Altcoin-Saison ─────────────────────────
 
+/**
+ * Bitcoin-Dominanz und Altcoin-Saison als zwei Zeilen unter «Einordnung». Tippen zeigt bei
+ * der Dominanz die Anteile als Balken, bei der Altcoin-Saison Balken, Erklärung, Stand mit
+ * «Aktualisieren» und die Quelle.
+ */
 @Composable
-internal fun DominanceCard(
+internal fun DominanceRows(
     dominance: LoadState<Dominance>,
     altSeason: LoadState<AltSeason>,
     onRetry: () -> Unit,
+    /** Zeitpunkt der gezeigten Altcoin-Saison (Zwischenspeicher 3 h); null = noch nichts. */
+    altSeasonAsOf: Long? = null,
+    altSeasonRefreshing: Boolean = false,
+    onRefreshAltSeason: () -> Unit = {},
+    /** Herkunft und Stand der Dominanz (CoinGecko) bzw. der Altcoin-Saison (Kerzen-Anbieter). */
+    dominanceStamp: DataStamp? = null,
+    altSeasonStamp: DataStamp? = null,
 ) {
-    val loading = stringResource(R.string.loading_hint)
-    InsightCard(stringResource(R.string.insights_dominance_title)) {
-        CardSwap(dominance, { loadKey(it) }) { shown ->
-            when (shown) {
-                LoadState.Loading -> SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = loading }) {
-                    // Wert, Balken BTC · ETH · übrige, ETH-Zeile
-                    SkeletonLine(MaterialTheme.typography.displaySmall.tabularNumbers(), Modifier.width(120.dp))
-                    SkeletonBlock(Modifier.fillMaxWidth().padding(top = 8.dp).height(10.dp))
-                    SkeletonLine(MaterialTheme.typography.bodySmall.tabularNumbers(), Modifier.padding(top = 6.dp).width(110.dp))
-                }
-                LoadState.Failed -> FailedRow(onRetry)
-                is LoadState.Loaded -> {
-                    val d = shown.value
-                    Text(
-                        "%.1f %%".format(d.btc),
-                        style = MaterialTheme.typography.displaySmall.tabularNumbers(),
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    // Anteile als Balken: BTC · ETH · übrige
-                    val eth = (d.eth ?: 0.0).coerceAtLeast(0.0)
-                    val rest = (100.0 - d.btc - eth).coerceAtLeast(0.0)
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp)
-                            .height(10.dp)
-                            .clip(RoundedCornerShape(50))
-                    ) {
-                        Box(Modifier.weight(d.btc.toFloat().coerceAtLeast(0.1f)).height(10.dp).background(Color(0xFFF7931A)))
-                        if (eth > 0) Box(Modifier.weight(eth.toFloat()).height(10.dp).background(Color(0xFF627EEA)))
-                        if (rest > 0) Box(Modifier.weight(rest.toFloat()).height(10.dp).background(MaterialTheme.colorScheme.outlineVariant))
-                    }
-                    // BTC steht gross darüber; hier nur ETH (ohne ETH-Wert keine Zeile)
-                    d.eth?.let { ethShare ->
-                        Text(
-                            text = stringResource(R.string.insights_dominance_eth, "%.1f %%".format(ethShare)),
-                            style = MaterialTheme.typography.bodySmall.tabularNumbers(),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(top = 6.dp)
-                        )
-                    }
-                }
+    val failed = stringResource(R.string.something_went_wrong)
+    val d = (dominance as? LoadState.Loaded)?.value
+    var dominanceExpanded by rememberSaveable { mutableStateOf(false) }
+    MarketRow(
+        title = stringResource(R.string.insights_dominance_title),
+        // BTC steht rechts; hier ETH (ohne ETH-Wert bleibt die Zeile leer, gleiche Höhe)
+        secondary = d?.eth?.let { stringResource(R.string.insights_dominance_eth, percentOne(it)) }.orEmpty(),
+        value = d?.let { percentOne(it.btc) },
+        loading = dominance is LoadState.Loading,
+        failure = if (dominance is LoadState.Failed) failed else null,
+        onRetry = onRetry,
+        stamp = dominanceStamp,
+        expanded = dominanceExpanded,
+        onToggle = if (d != null) ({ dominanceExpanded = !dominanceExpanded }) else null,
+    ) {
+        if (d != null) {
+            // Anteile als Balken: BTC · ETH · übrige
+            val eth = (d.eth ?: 0.0).coerceAtLeast(0.0)
+            val rest = (100.0 - d.btc - eth).coerceAtLeast(0.0)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(10.dp)
+                    .clip(RoundedCornerShape(50))
+            ) {
+                Box(Modifier.weight(d.btc.toFloat().coerceAtLeast(0.1f)).height(10.dp).background(AssetColors.bitcoin))
+                if (eth > 0) Box(Modifier.weight(eth.toFloat()).height(10.dp).background(AssetColors.ethereum))
+                if (rest > 0) Box(Modifier.weight(rest.toFloat()).height(10.dp).background(MaterialTheme.colorScheme.outlineVariant))
             }
+            SourceText(stringResource(R.string.insights_source_dominance))
         }
+    }
 
-        Text(
-            stringResource(R.string.insights_altseason_title),
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(top = 18.dp)
-        )
-        CardSwap(altSeason, { loadKey(it) }) { shown ->
-            when (shown) {
-                LoadState.Loading -> SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = loading }) {
-                    // Index und Einstufung, Balken (4 dp wie LinearProgressIndicator), Erklärung
-                    Row(verticalAlignment = Alignment.Bottom, modifier = Modifier.padding(top = 4.dp)) {
-                        SkeletonLine(MaterialTheme.typography.headlineMedium.tabularNumbers(), Modifier.width(48.dp))
-                        SkeletonLine(
-                            MaterialTheme.typography.titleSmall,
-                            Modifier.padding(start = 10.dp, bottom = 4.dp).width(110.dp)
-                        )
-                    }
-                    SkeletonBlock(Modifier.fillMaxWidth().padding(top = 6.dp).height(4.dp))
-                    // Typische Zahlen, damit der Umbruch wie später ist
-                    SkeletonText(
-                        pluralStringResource(R.plurals.insights_altseason_value, 10, 10, 50),
-                        MaterialTheme.typography.bodySmall,
-                        Modifier.padding(top = 6.dp)
-                    )
-                }
-                LoadState.Failed -> FailedRow(onRetry)
-                is LoadState.Loaded -> {
-                    val a = shown.value
-                    val label = when {
-                        a.index >= 75 -> R.string.altseason_alt
-                        a.index <= 25 -> R.string.altseason_btc
-                        else -> R.string.altseason_mixed
-                    }
-                    Row(verticalAlignment = Alignment.Bottom, modifier = Modifier.padding(top = 4.dp)) {
-                        Text(
-                            a.index.toString(),
-                            style = MaterialTheme.typography.headlineMedium.tabularNumbers(),
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            stringResource(label),
-                            style = MaterialTheme.typography.titleSmall,
-                            modifier = Modifier.padding(start = 10.dp, bottom = 4.dp)
-                        )
-                    }
-                    LinearProgressIndicator(
-                        progress = { a.index / 100f },
-                        modifier = Modifier.fillMaxWidth().padding(top = 6.dp).clip(RoundedCornerShape(50))
-                    )
-                    Text(
-                        pluralStringResource(R.plurals.insights_altseason_value, a.outperformers, a.outperformers, a.total),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 6.dp)
-                    )
-                }
+    val a = (altSeason as? LoadState.Loaded)?.value
+    var altExpanded by rememberSaveable { mutableStateOf(false) }
+    val altLabel = a?.let {
+        stringResource(
+            when {
+                it.index >= 75 -> R.string.altseason_alt
+                it.index <= 25 -> R.string.altseason_btc
+                else -> R.string.altseason_mixed
             }
+        )
+    }.orEmpty()
+    MarketRow(
+        title = stringResource(R.string.insights_altseason_title),
+        // Anbieter und Alter («… · Binance · heute 14:05») hängt MarketRow aus dem Stand an
+        secondary = altLabel,
+        value = a?.let { LocaleNumbers.integer(it.index) },
+        loading = altSeason is LoadState.Loading,
+        failure = if (altSeason is LoadState.Failed) failed else null,
+        onRetry = onRetry,
+        stamp = altSeasonStamp,
+        expanded = altExpanded,
+        onToggle = if (a != null) ({ altExpanded = !altExpanded }) else null,
+    ) {
+        if (a != null) {
+            LinearProgressIndicator(
+                progress = { a.index / 100f },
+                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50))
+            )
+            Text(
+                pluralStringResource(R.plurals.insights_altseason_value, a.outperformers, a.outperformers, a.total),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = Spacing.xs)
+            )
+            if (altSeasonAsOf != null) {
+                AltSeasonAsOfRow(altSeasonAsOf, altSeasonRefreshing, onRefreshAltSeason)
+            }
+            SourceText(stringResource(R.string.insights_source_dominance))
         }
-        SourceText(stringResource(R.string.insights_source_dominance))
+    }
+}
+
+/** «58.4 %» — eine Nachkommastelle, in den Ziffern der App-Sprache. */
+private fun percentOne(value: Double): String = LocaleNumbers.decimal(value, 1) + " %"
+
+/**
+ * «Stand 14:05» und ein kleines «Aktualisieren» unter der Altcoin-Saison. Der Knopf ist erst
+ * 5 Min. nach dem letzten Stand wieder aktiv ([CycleCachePolicy.MANUAL_MIN_INTERVAL_MILLIS]),
+ * sonst gilt der 3-h-Zwischenspeicher.
+ */
+@Composable
+private fun AltSeasonAsOfRow(asOf: Long, refreshing: Boolean, onRefresh: () -> Unit) {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(asOf) {
+        while (true) {
+            now = System.currentTimeMillis()
+            if (CycleCachePolicy.canManualRefresh(asOf, now, CycleCachePolicy.MANUAL_MIN_INTERVAL_MILLIS)) break
+            delay(15_000L)
+        }
+    }
+    val enabled = !refreshing &&
+        CycleCachePolicy.canManualRefresh(asOf, now, CycleCachePolicy.MANUAL_MIN_INTERVAL_MILLIS)
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            stringResource(R.string.pulse_updated, PriceFormat.time(asOf)),
+            style = MaterialTheme.typography.labelSmall.tabularNumbers(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+        TextButton(onClick = onRefresh, enabled = enabled) {
+            Text(stringResource(R.string.action_refresh), style = MaterialTheme.typography.labelMedium)
+        }
     }
 }
 
 // ───────────────────────── Coin-Analyse ─────────────────────────
 
+/**
+ * Coin-Analyse als letzte Zeile unter «Daten»: rechts die Zone des gewählten Coins, darunter
+ * Coin und Kurs. Tippen klappt Auswahl und Analyse auf — auch beim Laden und bei Fehler,
+ * damit sich ein anderer Coin wählen lässt.
+ */
 @Composable
-internal fun CoinCard(
+internal fun CoinRow(
     coins: List<String>,
     selected: String,
     favorites: Set<String>,
@@ -934,8 +888,24 @@ internal fun CoinCard(
     onToggleFavorite: (String) -> Unit,
     state: LoadState<CoinReport>,
     onRetry: () -> Unit,
+    divider: Boolean = true,
+    /** Herkunft und Stand des gezeigten Coins (Kerzen-Anbieter) für die Nebenzeile. */
+    stamp: DataStamp? = null,
 ) {
-    InsightCard(stringResource(R.string.coin_title)) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val report = (state as? LoadState.Loaded)?.value
+    MarketRow(
+        title = stringResource(R.string.coin_title),
+        secondary = report?.let { "${it.symbol} · ${PriceFormat.priceWithCurrency(it.price, "USDT")}" } ?: selected,
+        value = report?.let { stringResource(zoneLabel(it.zone)) },
+        divider = divider,
+        loading = state is LoadState.Loading,
+        failure = if (state is LoadState.Failed) stringResource(R.string.coin_no_data) else null,
+        onRetry = onRetry,
+        stamp = stamp,
+        expanded = expanded,
+        onToggle = { expanded = !expanded },
+    ) {
         ComboBox(
             modifier = Modifier.fillMaxWidth(),
             itemList = coins,
@@ -947,18 +917,11 @@ internal fun CoinCard(
             onToggleFavorite = onToggleFavorite,
             onValueChange = { index -> onSelect(coins[index]) }
         )
-
         CardSwap(state, { loadKey(it) }) { shown ->
             when (shown) {
                 LoadState.Loading -> CoinReportSkeleton()
-                LoadState.Failed -> Column(Modifier.padding(top = 10.dp)) {
-                    Text(
-                        stringResource(R.string.coin_no_data),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                    TextButton(onClick = onRetry) { Text(stringResource(R.string.action_retry)) }
-                }
+                // Meldung und «Erneut» stehen schon in der Zeile
+                LoadState.Failed -> Unit
                 is LoadState.Loaded -> CoinReportContent(shown.value)
             }
         }
@@ -976,7 +939,7 @@ private fun CoinReportContent(report: CoinReport) {
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
                 .background(zoneColor)
-                .padding(horizontal = 16.dp, vertical = 5.dp)
+                .padding(horizontal = 16.dp, vertical = Spacing.xs)
         )
         Text(
             text = PriceFormat.priceWithCurrency(report.price, "USDT"),
@@ -986,12 +949,12 @@ private fun CoinReportContent(report: CoinReport) {
         )
     }
 
-    ZoneGauge(index = report.index, modifier = Modifier.padding(top = 14.dp))
+    ZoneGauge(index = report.index, modifier = Modifier.padding(top = Spacing.md))
 
     Text(
         text = stringResource(R.string.market_scores, report.topScore, report.bottomScore),
         style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier.padding(top = 10.dp)
+        modifier = Modifier.padding(top = Spacing.sm)
     )
 
     report.signals.forEach { CoinSignalRow(it) }
@@ -1028,15 +991,15 @@ private fun CoinReportSkeleton() {
     val loading = stringResource(R.string.loading_hint)
     SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = loading }) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 16.dp)) {
-            SkeletonPill(MaterialTheme.typography.titleLarge, Modifier.width(110.dp), horizontal = 16.dp, vertical = 5.dp)
+            SkeletonPill(MaterialTheme.typography.titleLarge, Modifier.width(110.dp), horizontal = Spacing.lg, vertical = Spacing.xs)
             Spacer(modifier = Modifier.weight(1f))
             SkeletonLine(MaterialTheme.typography.titleMedium.tabularNumbers(), Modifier.width(100.dp))
         }
-        ZoneGaugeSkeleton(Modifier.padding(top = 14.dp))
+        ZoneGaugeSkeleton(Modifier.padding(top = Spacing.md))
         SkeletonText(
             stringResource(R.string.market_scores, 0, 0),
             MaterialTheme.typography.bodyMedium,
-            Modifier.padding(top = 10.dp)
+            Modifier.padding(top = Spacing.sm)
         )
         CoinSignalId.entries.forEach { id ->
             Row(
@@ -1123,59 +1086,72 @@ private fun CoinSignalRow(signal: CoinSignal) {
 // ───────────────────────── Netzwerkgebühren (#167) ─────────────────────────
 
 /**
- * Gas-Gebühren: Ethereum und Bitcoin mit langsam/normal/schnell, die
- * L2-/Seitennetze mit der normalen Gebühr. Rechts die Kosten einer einfachen
- * Überweisung. Ein aktiver Gas-Alarm steht als Hinweis darunter.
+ * Netzwerkgebühren als Zeile unter «Daten»: rechts die normale Ethereum-Gebühr, darunter
+ * Bitcoin. Tippen klappt alle Netze (Ethereum und Bitcoin mit langsam/normal/schnell, die
+ * L2-/Seitennetze mit der normalen Gebühr, rechts die Kosten einer einfachen Überweisung),
+ * den Hinweis auf aktive Gas-Alarme und die Quelle auf.
  */
 @Composable
-internal fun GasCard(
+internal fun GasSummaryRow(
     state: LoadState<GasReport>,
     ethAlertGwei: Double,
     btcAlertSat: Int,
     onRetry: () -> Unit,
+    divider: Boolean = true,
+    /** Herkunft (Ethereum-Knoten, mempool.space) und Stand für die Nebenzeile. */
+    stamp: DataStamp? = null,
 ) {
-    // Aktive Gas-Alarme stehen in den Einstellungen fest — auch im Platzhalter echt
+    // Aktive Gas-Alarme stehen in den Einstellungen fest
     val alerts = listOfNotNull(
         ethAlertGwei.takeIf { it > 0 }?.let { "Ethereum < ${GasFees.formatGwei(it)} gwei" },
-        btcAlertSat.takeIf { it > 0 }?.let { "Bitcoin < $it sat/vB" },
+        btcAlertSat.takeIf { it > 0 }?.let { "Bitcoin < ${LocaleNumbers.integer(it)} sat/vB" },
     )
-    InsightCard(stringResource(R.string.gas_title)) {
-        CardSwap(state, { loadKey(it) }) { shown ->
-            when (shown) {
-                LoadState.Loading -> GasSkeleton(alerts)
-                LoadState.Failed -> FailedRow(onRetry)
-                is LoadState.Loaded -> {
-                    val report = shown.value
-                    report.evm.forEach { gas ->
-                        GasRow(
-                            name = gas.network.title,
-                            value = GasFees.formatGwei(gas.normalGwei),
-                            unit = "gwei",
-                            cost = gas.transferUsd,
-                            detail = if (gas.network == GasNetwork.ETHEREUM && gas.fastGwei > gas.slowGwei) stringResource(
-                                R.string.gas_slow_fast,
-                                GasFees.formatGwei(gas.slowGwei),
-                                GasFees.formatGwei(gas.fastGwei)
-                            ) else null
-                        )
-                    }
-                    report.btc?.let { btc ->
-                        GasRow(
-                            name = "Bitcoin",
-                            value = GasFees.formatGwei(btc.normal),
-                            unit = "sat/vB",
-                            cost = btc.transferUsd,
-                            detail = if (btc.fast > btc.slow) stringResource(
-                                R.string.gas_slow_fast,
-                                GasFees.formatGwei(btc.slow),
-                                GasFees.formatGwei(btc.fast)
-                            ) else null
-                        )
-                    }
-                    GasAlertText(alerts)
-                    SourceText(stringResource(R.string.gas_source))
-                }
+    val report = (state as? LoadState.Loaded)?.value
+    val eth = report?.evm?.firstOrNull { it.network == GasNetwork.ETHEREUM }
+    val btcText = report?.btc?.let { "Bitcoin ${GasFees.formatGwei(it.normal)} sat/vB" }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    MarketRow(
+        title = stringResource(R.string.gas_title),
+        secondary = listOfNotNull(eth?.network?.title, btcText).joinToString(" · "),
+        value = eth?.let { "${GasFees.formatGwei(it.normalGwei)} gwei" }
+            ?: report?.btc?.let { "${GasFees.formatGwei(it.normal)} sat/vB" },
+        divider = divider,
+        loading = state is LoadState.Loading,
+        failure = if (state is LoadState.Failed) stringResource(R.string.something_went_wrong) else null,
+        onRetry = onRetry,
+        stamp = stamp,
+        expanded = expanded,
+        onToggle = if (report != null) ({ expanded = !expanded }) else null,
+    ) {
+        if (report != null) {
+            report.evm.forEach { gas ->
+                GasNetworkRow(
+                    name = gas.network.title,
+                    value = GasFees.formatGwei(gas.normalGwei),
+                    unit = "gwei",
+                    cost = gas.transferUsd,
+                    detail = if (gas.network == GasNetwork.ETHEREUM && gas.fastGwei > gas.slowGwei) stringResource(
+                        R.string.gas_slow_fast,
+                        GasFees.formatGwei(gas.slowGwei),
+                        GasFees.formatGwei(gas.fastGwei)
+                    ) else null
+                )
             }
+            report.btc?.let { btc ->
+                GasNetworkRow(
+                    name = "Bitcoin",
+                    value = GasFees.formatGwei(btc.normal),
+                    unit = "sat/vB",
+                    cost = btc.transferUsd,
+                    detail = if (btc.fast > btc.slow) stringResource(
+                        R.string.gas_slow_fast,
+                        GasFees.formatGwei(btc.slow),
+                        GasFees.formatGwei(btc.fast)
+                    ) else null
+                )
+            }
+            GasAlertText(alerts)
+            SourceText(stringResource(R.string.gas_source))
         }
     }
 }
@@ -1192,43 +1168,12 @@ private fun GasAlertText(alerts: List<String>) {
     }
 }
 
-/**
- * Platzhalter in der Form der geladenen Karte: je Netz eine Zeile wie [GasRow]
- * (Ethereum und Bitcoin mit Zeile langsam/schnell), darunter Alarm-Hinweis und Quelle echt.
- */
 @Composable
-private fun GasSkeleton(alerts: List<String>) {
-    val loading = stringResource(R.string.loading_hint)
-    SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = loading }) {
-        val rows = GasNetwork.entries.map { it == GasNetwork.ETHEREUM } + true
-        rows.forEach { withDetail ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp)
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    SkeletonLine(MaterialTheme.typography.bodyLarge, Modifier.width(96.dp))
-                    if (withDetail) {
-                        SkeletonLine(MaterialTheme.typography.labelSmall.tabularNumbers(), Modifier.width(130.dp))
-                    }
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    SkeletonLine(MaterialTheme.typography.bodyLarge.tabularNumbers(), Modifier.width(88.dp))
-                    SkeletonLine(MaterialTheme.typography.labelSmall.tabularNumbers(), Modifier.width(64.dp))
-                }
-            }
-        }
-    }
-    GasAlertText(alerts)
-    SourceText(stringResource(R.string.gas_source))
-}
-
-@Composable
-private fun GasRow(name: String, value: String, unit: String, cost: Double?, detail: String?) {
+private fun GasNetworkRow(name: String, value: String, unit: String, cost: Double?, detail: String?) {
     // Netz, Gebühr und Kosten als ein Element für den Screenreader
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp).semantics(mergeDescendants = true) { }
+        modifier = Modifier.fillMaxWidth().padding(vertical = Spacing.xs).semantics(mergeDescendants = true) { }
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(name, style = MaterialTheme.typography.bodyLarge)

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Ngjyrat e çmimeve</string>
-    <string name="price_colors_green_red">E gjelbër / e kuqe</string>
-    <string name="price_colors_blue_orange">Blu / portokalli</string>
     <string name="settings_price_colors_hint">Bluja / portokallia dallohen lehtë me çdo lloj mangësie të shikimit të ngjyrave (e kuqe-e gjelbër dhe blu-e verdhë). Drejtimi tregohet gjithmonë edhe me + / −.</string>
     <string name="settings_watchlist_sparkline">Grafik i vogël në listën e ndjekjes</string>
     <string name="settings_watchlist_sparkline_hint">Tendenca 24-orëshe pranë çmimit</string>
 
-    <string name="settings_price_colors_inverted">Ndërro ngjyrat e rritjes/rënies</string>
-    <string name="settings_price_colors_inverted_hint">E kuqe për rritje, e gjelbër për rënie, siç është zakon në Kinë, Japoni, Kore dhe Tajvan. Parazgjedhja varet nga rajoni i pajisjes.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Kontrast i lartë</string>

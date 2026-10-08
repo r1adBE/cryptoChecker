@@ -116,8 +116,8 @@
 
 <header class="top">
   <div class="logo" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M9 13l2-2 1.5 1.5L15 10"/><path d="M10.5 20.5a1.6 1.6 0 0 0 3 0"/>
+    <svg viewBox="162 171 700 700">
+      <path fill="#fff" fill-rule="evenodd" d="M512,190c-150,0 -215,120 -215,270v130l-75,95h580l-75,-95V460c0,-150 -65,-270 -215,-270zM379.8,579.8L452.63,506.97L513.2,552.4A28,28 0 0,0 550.52,549.05L680.52,409.05A28,28 0 0,0 679.05,369.48A28,28 0 0,0 639.48,370.95L526.63,492.48L466.8,447.6A28,28 0 0,0 430.2,450.2L340.2,540.2A28,28 0 0,0 340.2,579.8A28,28 0 0,0 379.8,579.8zM450,790a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z"/>
     </svg>
   </div>
   <div>
@@ -134,7 +134,7 @@
 <!-- ============================ DEUTSCH ============================ -->
 <section class="policy" id="de" lang="de">
   <h2>Datenschutzerklärung <span class="badge">DE</span></h2>
-  <p class="meta">Gültig für die App «Crypto Checker» für <b>Android</b> (Paket <code>com.cryptochecker.app</code>) und für <b>iPhone und iPad</b> (iOS/iPadOS, Bundle-ID <code>com.cryptochecker.app</code>, inkl. Widgets) · Stand: 6. Oktober 2026</p>
+  <p class="meta">Gültig für die App «Crypto Checker» für <b>Android</b> (Paket <code>com.cryptochecker.app</code>) und für <b>iPhone und iPad</b> (iOS/iPadOS, Bundle-ID <code>com.cryptochecker.app</code>, inkl. Widgets) · Stand: 8. Oktober 2026</p>
 
   <div class="summary">
     <strong>Kurz gesagt</strong>
@@ -142,7 +142,7 @@
       <li>Der Entwickler erhebt, speichert und erhält <b>keine</b> personenbezogenen Daten – weder unter Android noch unter iOS.</li>
       <li>Kein Konto, keine Werbung, keine Analyse- oder Tracking-Dienste, keine Absturzberichte an Dritte, kein Tracking über Apps und Websites anderer Unternehmen.</li>
       <li>Alle Einstellungen, die Merkliste, Alarme und Bestände bleiben auf deinem Gerät.</li>
-      <li>Kursdaten ruft die App direkt und verschlüsselt (HTTPS) bei öffentlichen Schnittstellen von Börsen und Datenanbietern ab.</li>
+      <li>Kursdaten ruft die App direkt und verschlüsselt (HTTPS bzw. verschlüsselte WebSocket-Verbindungen) bei öffentlichen Schnittstellen von Börsen und Datenanbietern ab.</li>
       <li>Der Quellcode ist öffentlich (MIT-Lizenz) und lässt sich nachprüfen: <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">github.com/r1adBE/cryptoChecker</a>.</li>
     </ul>
   </div>
@@ -162,9 +162,9 @@
   <ul>
     <li>Merkliste (gewählte Börsen und Handelspaare), Gruppen, Favoriten und deine Notizen</li>
     <li>von dir eingetragene Käufe und Verkäufe (Datum, Menge, Preis) für das Portfolio</li>
-    <li>Alarme und deren Bedingungen</li>
-    <li>zuletzt abgerufene Kurse, Marktdaten (z.&nbsp;B. für den Markt-Tab) und zwischengespeicherte Handelspaar-Listen</li>
-    <li>Einstellungen (Sprache, Farbe, Umrechnungswährung, Aktualisierungsintervall, Benachrichtigungen, Nachtruhe, Sprachausgabe, Portfolio-Sperre, Widget-Optionen)</li>
+    <li>Alarme und deren Bedingungen, auch Portfolio-Alarme (Gesamtwert, Veränderung heute)</li>
+    <li>zuletzt abgerufene Kurse, Marktdaten (z.&nbsp;B. für den Markt-Tab), der Open-Interest-Verlauf der letzten 26 Stunden für Open-Interest-Alarme und zwischengespeicherte Handelspaar-Listen</li>
+    <li>Einstellungen (Sprache, Farbe, Umrechnungswährung, Aktualisierungsintervall, Benachrichtigungen, Nachtruhe, Sprachausgabe, Live-Kurse, Basis der %-Änderung, Portfolio-Sperre, «Beträge verbergen», Widget-Optionen)</li>
     <li>für das Portfolio-Widget: Gesamtwert (in der Umrechnungswährung und in USDT), Veränderung heute, Wertverlauf der letzten bis zu 48 Stunden und die grössten Positionen (Kürzel, Wert, Anteil, Veränderung) — im Widget-Speicher der App auf dem Gerät</li>
   </ul>
   <h4>Android <span class="badge">ANDROID</span></h4>
@@ -176,7 +176,8 @@
   <p>Diese Daten verlassen dein Gerät nicht über den Entwickler.</p>
 
   <h3 id="de-netz">4. Netzwerkzugriffe und Drittanbieter</h3>
-  <p>Um Kurse, Handelspaare, Diagramme, Futures-Kennzahlen (Funding Rate, Open Interest) und Marktindikatoren anzuzeigen, ruft die App öffentliche, schlüsselfreie Programmierschnittstellen (APIs) direkt von deinem Gerät aus ab. Alle Verbindungen sind per HTTPS verschlüsselt. Es werden keine Konto- oder Login-Daten übertragen.</p>
+  <p>Um Kurse, Handelspaare, Diagramme, Futures-Kennzahlen (Funding Rate, Open Interest) und Marktindikatoren anzuzeigen, ruft die App öffentliche, schlüsselfreie Programmierschnittstellen (APIs) direkt von deinem Gerät aus ab. Alle Verbindungen sind per HTTPS bzw. TLS verschlüsselt. Es werden keine Konto- oder Login-Daten übertragen.</p>
+  <p><b>Live-Kurse (WebSocket):</b> Solange die Merkliste geöffnet und die App im Vordergrund ist, baut die App für Paare von Binance (Spot und Futures), Bybit (Spot und Futures), OKX (Spot und Futures), Coinbase und Kraken eine verschlüsselte WebSocket-Verbindung (<code>wss://</code>) zu den öffentlichen Kurs-Streams dieser Börsen auf (z.&nbsp;B. <code>stream.binance.com</code>, <code>fstream.binance.com</code>, <code>stream.bybit.com</code>, <code>ws.okx.com</code>, <code>ws-feed.exchange.coinbase.com</code>, <code>ws.kraken.com</code>). Übermittelt werden nur die Handelspaare, deren Kurse angezeigt werden – dieselben öffentlichen Marktdaten wie bei einer normalen Abfrage, ohne Konto oder Schlüssel. Verlässt du die Merkliste oder geht die App in den Hintergrund, schliesst sie die Verbindungen. Abschaltbar unter Einstellungen › Aktualisierung («Live-Kurse in der App»); Hintergrund-Aktualisierung und Widgets nutzen nie WebSocket.</p>
   <p>Wie bei jedem Internetabruf erhält der jeweilige Anbieter technisch notwendige Verbindungsdaten, insbesondere deine IP-Adresse, Zeitpunkt der Anfrage, die abgefragte Adresse (z.&nbsp;B. das Handelspaar) und eine technische Kennung der App bzw. Netzwerkbibliothek (User-Agent, z.&nbsp;B. <code>cryptoChecker-iOS</code>). Auf die Verarbeitung durch diese Anbieter hat der Entwickler keinen Einfluss; es gelten deren Datenschutzerklärungen, die du auf den verlinkten Websites findest. Abgefragt werden nur die Anbieter, die du in der App nutzt (bzw. für die Auswertungen im Markt-Tab, in Widgets, bei Alarmen und bei der Erkennung ungewöhnlicher Aktivität benötigt werden):</p>
   <p><b>Börsen</b></p>
   <ul class="providers">
@@ -230,16 +231,16 @@
     <li><a href="https://pages.github.com" rel="noopener">GitHub Pages</a> <small>(<code>r1adbe.github.io</code>: öffentliche Kalenderdatei mit den Terminen wichtiger US-Wirtschaftsdaten für den Hinweis «Wirtschaftsdaten» im Markt-Tab und die optionale Benachrichtigung «Wirtschaftstermine»; höchstens einmal pro Tag abgerufen, es werden keine persönlichen Daten übermittelt. Die Termine stammen aus den öffentlichen Kalendern von U.S. Bureau of Labor Statistics, Federal Reserve und U.S. Bureau of Economic Analysis; diese Seiten ruft die App nicht selbst auf.)</small></li>
   </ul>
   <p><b>Ersatzquellen:</b> Ist Binance in deinem Land gesperrt oder nicht erreichbar, holt die App Kursverläufe (Charts, Volumen, Zyklus) ersatzweise bei <b>Binance.US</b> und <b>Coinbase Exchange</b> sowie Futures-Kennzahlen (Funding Rate, Open Interest) bei <b>Bybit</b> und <b>OKX</b> – mit denselben technisch notwendigen Verbindungsdaten wie oben.</p>
-  <p>Die Kurs-Abfragen erfolgen auch im Hintergrund, sofern du die entsprechenden Funktionen aktiviert hast: unter Android über die Hintergrundaktualisierung, den Live-Modus, Widgets und Alarme; unter iOS über die Hintergrundaktualisierung von iOS (siehe Abschnitt&nbsp;7) und die Aktualisierung der Widgets. Der Live-Modus läuft unter iOS nur, solange die App geöffnet ist.</p>
+  <p>Die Kurs-Abfragen erfolgen auch im Hintergrund, sofern du die entsprechenden Funktionen aktiviert hast: unter Android über die Hintergrundaktualisierung, «Häufig aktualisieren», Widgets und Alarme; unter iOS über die Hintergrundaktualisierung von iOS (siehe Abschnitt&nbsp;7) und die Aktualisierung der Widgets. «Häufig aktualisieren» läuft unter iOS nur, solange die App geöffnet ist.</p>
   <p>Auswertungen wie «⚡ Ungewöhnliche Aktivität» oder «💡 Warum bewegt sich das?» berechnet die App auf deinem Gerät aus diesen öffentlichen Marktdaten. Es werden dafür keine Daten an den Entwickler oder an KI- bzw. Analysedienste gesendet.</p>
   <p>Für den <b>Mini-Chart</b> in der Merkliste und den <b>Stichtag-Export</b> lädt die App öffentliche Tageskurse bzw. Stundenkurse bei Binance (inkl. Marktdaten-Spiegel, Futures und Binance.US) bzw. Coinbase Exchange, für die Umrechnung Devisenkurse bei Frankfurter. Abgefragt werden dabei nur das Handelspaar bzw. die Währung und das Datum – nie deine Bestände oder Portfolio-Werte. Die Umrechnung und die Bewertung deines Portfolios rechnet die App ausschliesslich auf deinem Gerät.</p>
 
   <h3 id="de-backup">5. Sichern und Wiederherstellen</h3>
-  <p>Mit «Sichern &amp; Wiederherstellen» exportiert die App Merkliste (inkl. deiner Notizen und Gruppen), Alarme, Favoriten, Portfolio und Einstellungen als JSON-Datei an einen Ort, den du selbst wählst – unter Android über die Android-Dateiauswahl (z.&nbsp;B. «Downloads»), unter iOS über den Dialog der App <b>«Dateien»</b> (z.&nbsp;B. «Auf meinem iPhone» oder ein Speicheranbieter deiner Wahl wie iCloud Drive). Beim Wiederherstellen liest die App nur die Datei, die du dort auswählst. Die App sendet diese Datei nirgendwohin. Wählst du einen Cloud-Speicher, gelten dessen Datenschutzbestimmungen. Sicherungsdateien sind zwischen Android und iOS austauschbar.</p>
+  <p>Mit «Sichern &amp; Wiederherstellen» exportiert die App Merkliste (inkl. deiner Notizen und Gruppen), Alarme, Favoriten, Portfolio und Einstellungen als JSON-Datei an einen Ort, den du selbst wählst – unter Android über die Android-Dateiauswahl (z.&nbsp;B. «Downloads»), unter iOS über den Dialog der App <b>«Dateien»</b> (z.&nbsp;B. «Auf meinem iPhone» oder ein Speicheranbieter deiner Wahl wie iCloud Drive). Beim Wiederherstellen liest die App nur die Datei, die du dort auswählst. Die App sendet diese Datei nirgendwohin. Wählst du einen Cloud-Speicher, gelten dessen Datenschutzbestimmungen. Auf Wunsch schützt du die Datei mit einem <b>Passwort</b>: Sie wird dann auf deinem Gerät verschlüsselt (AES-256-GCM, Schlüssel per PBKDF2 aus dem Passwort); das Passwort wird weder gespeichert noch übertragen, und ohne es lässt sich die Sicherung nicht wiederherstellen. Sicherungsdateien sind zwischen Android und iOS austauschbar.</p>
   <p><b>Stichtag-Export:</b> Den Wert deines Portfolios an einem Datum speichert die App als CSV-Datei ebenfalls nur an dem Ort, den du im Dateidialog wählst. Die Datei wird nicht übertragen.</p>
 
   <h3 id="de-lokalverarbeitung">6. Benachrichtigungen, Sprachausgabe und Widgets</h3>
-  <p>Benachrichtigungen, Alarme und Widgets werden vollständig auf dem Gerät erzeugt; es wird kein Push-Dienst verwendet (unter iOS kein Apple Push Notification Service, unter Android kein Firebase Cloud Messaging). Unter iOS kann die App Alarme als <b>dringende Mitteilungen</b> («Time Sensitive») zustellen, damit sie auch bei aktivem Fokus erscheinen; das lässt sich in den iOS-Einstellungen abschalten.</p>
+  <p>Benachrichtigungen, Alarme (auch Portfolio-Alarme) und Widgets werden vollständig auf dem Gerät erzeugt; es wird kein Push-Dienst verwendet (unter iOS kein Apple Push Notification Service, unter Android kein Firebase Cloud Messaging). Unter iOS kann die App Alarme als <b>dringende Mitteilungen</b> («Time Sensitive») zustellen, damit sie auch bei aktivem Fokus erscheinen; das lässt sich in den iOS-Einstellungen abschalten. Mit «Beträge verbergen» zeigen Portfolio, Portfolio-Widget und Portfolio-Alarme keine Beträge.</p>
   <p><b>Eigener Alarmton (Android):</b> Wählst du eine eigene Audiodatei als Alarmton, kopiert die App diese Datei auf deinem Gerät in die Mediathek (Ordner «Notifications/CryptoChecker»), damit Android sie für Mitteilungen abspielen kann. Die Datei bleibt auf dem Gerät und wird nicht übertragen; du kannst sie dort jederzeit löschen. Unter iOS stehen nur mitgelieferte Töne zur Wahl.</p>
   <p>Für die Sprachausgabe nutzt die App unter Android die auf deinem Gerät installierte Text-to-Speech-Engine (z.&nbsp;B. «Sprachdienste von Google») und unter iOS die Systemstimmen von iOS. Der vorzulesende Text (Kurs, Alarm) wird an diese Engine übergeben; wie sie ihn verarbeitet, richtet sich nach deren Anbieter. Die App selbst speichert oder übermittelt diese Texte nicht.</p>
   <p>Die Widgets lesen ihre Daten aus dem lokalen Speicher der App (unter iOS aus dem App-Group-Container, siehe Abschnitt&nbsp;3) und rufen Kurse bei Bedarf direkt bei den oben genannten Anbietern ab.</p>
@@ -252,7 +253,7 @@
     <tr><td><code>INTERNET</code></td><td>Abruf von Kursen und Marktdaten bei den oben genannten Anbietern.</td></tr>
     <tr><td><code>ACCESS_NETWORK_STATE</code></td><td>Prüfen, ob eine Internetverbindung besteht, bevor abgefragt wird.</td></tr>
     <tr><td><code>POST_NOTIFICATIONS</code></td><td>Kurs-Benachrichtigungen und Alarme anzeigen (ab Android 13 fragt die App danach; du kannst ablehnen).</td></tr>
-    <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_DATA_SYNC</code></td><td>Live-Modus: Kurse in kurzen Abständen aktualisieren, während eine sichtbare Benachrichtigung angezeigt wird.</td></tr>
+    <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_DATA_SYNC</code></td><td>«Häufig aktualisieren»: Kurse in kurzen Abständen aktualisieren, während eine sichtbare Benachrichtigung angezeigt wird.</td></tr>
     <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Nach einem Neustart die Hintergrundaktualisierung und Alarme wieder einplanen.</td></tr>
     <tr><td><code>VIBRATE</code></td><td>Vibration bei Alarmen, wenn du sie eingeschaltet hast.</td></tr>
     <tr><td><code>WAKE_LOCK</code></td><td>Kurzzeitig verhindern, dass das Gerät während einer laufenden Aktualisierung einschläft (über WorkManager).</td></tr>
@@ -295,7 +296,7 @@
 <!-- ============================ ENGLISH ============================ -->
 <section class="policy" id="en" lang="en">
   <h2>Privacy Policy <span class="badge">EN</span></h2>
-  <p class="meta">Applies to the “Crypto Checker” app for <b>Android</b> (package <code>com.cryptochecker.app</code>) and for <b>iPhone and iPad</b> (iOS/iPadOS, bundle ID <code>com.cryptochecker.app</code>, including its widgets) · Last updated: 6 October 2026</p>
+  <p class="meta">Applies to the “Crypto Checker” app for <b>Android</b> (package <code>com.cryptochecker.app</code>) and for <b>iPhone and iPad</b> (iOS/iPadOS, bundle ID <code>com.cryptochecker.app</code>, including its widgets) · Last updated: 8 October 2026</p>
 
   <div class="summary">
     <strong>In short</strong>
@@ -303,7 +304,7 @@
       <li>The developer does <b>not</b> collect, store or receive any personal data – neither on Android nor on iOS.</li>
       <li>No account, no ads, no analytics or tracking services, no crash reports sent to third parties, no tracking across other companies’ apps and websites.</li>
       <li>All settings, the watchlist, alarms and holdings stay on your device.</li>
-      <li>The app fetches price data directly and encrypted (HTTPS) from public APIs of exchanges and data providers.</li>
+      <li>The app fetches price data directly and encrypted (HTTPS or encrypted WebSocket connections) from public APIs of exchanges and data providers.</li>
       <li>The source code is public (MIT License) and can be checked: <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">github.com/r1adBE/cryptoChecker</a>.</li>
     </ul>
   </div>
@@ -323,9 +324,9 @@
   <ul>
     <li>watchlist (chosen exchanges and trading pairs), groups, favorites and your notes</li>
     <li>buys and sells you enter (date, amount, price) for the portfolio</li>
-    <li>alarms and their conditions</li>
-    <li>last fetched prices, market data (e.g. for the Market tab) and cached lists of trading pairs</li>
-    <li>settings (language, color, conversion currency, update interval, notifications, quiet hours, speech output, portfolio lock, widget options)</li>
+    <li>alarms and their conditions, including portfolio alarms (total value, today’s change)</li>
+    <li>last fetched prices, market data (e.g. for the Market tab), the open-interest history of the last 26 hours for open-interest alarms and cached lists of trading pairs</li>
+    <li>settings (language, color, conversion currency, update interval, notifications, quiet hours, speech output, live prices, basis of the % change, portfolio lock, “Hide amounts”, widget options)</li>
     <li>for the portfolio widget: total value (in the conversion currency and in USDT), today’s change, the value history of up to the last 48 hours and the largest positions (symbol, value, share, change) — in the app’s widget storage on the device</li>
   </ul>
   <h4>Android <span class="badge">ANDROID</span></h4>
@@ -337,7 +338,8 @@
   <p>This data never leaves your device via the developer.</p>
 
   <h3 id="en-network">4. Network requests and third parties</h3>
-  <p>To show prices, trading pairs, charts, futures metrics (funding rate, open interest) and market indicators, the app calls public, key-free APIs directly from your device. All connections are encrypted via HTTPS. No account or login data is transmitted.</p>
+  <p>To show prices, trading pairs, charts, futures metrics (funding rate, open interest) and market indicators, the app calls public, key-free APIs directly from your device. All connections are encrypted via HTTPS or TLS. No account or login data is transmitted.</p>
+  <p><b>Live prices (WebSocket):</b> While the watchlist is open and the app is in the foreground, the app opens an encrypted WebSocket connection (<code>wss://</code>) to the public price streams of Binance (spot and futures), Bybit (spot and futures), OKX (spot and futures), Coinbase and Kraken for pairs from these exchanges (e.g. <code>stream.binance.com</code>, <code>fstream.binance.com</code>, <code>stream.bybit.com</code>, <code>ws.okx.com</code>, <code>ws-feed.exchange.coinbase.com</code>, <code>ws.kraken.com</code>). Only the trading pairs whose prices are shown are sent – the same public market data as a regular request, without an account or key. When you leave the watchlist or the app goes to the background, the connections are closed. You can turn this off under Settings › Updates (“Live prices in the app”); background updates and widgets never use WebSocket.</p>
   <p>As with any internet request, the respective provider receives technically necessary connection data, in particular your IP address, the time of the request, the requested URL (e.g. the trading pair) and a technical identifier of the app or networking library (user agent, e.g. <code>cryptoChecker-iOS</code>). The developer has no control over how these providers process this data; their own privacy policies apply, which you can find on the linked websites. Only the providers you use in the app are contacted (or those needed for the Market tab, widgets, alarms and unusual-activity detection):</p>
   <p><b>Exchanges</b></p>
   <ul class="providers">
@@ -391,16 +393,16 @@
     <li><a href="https://pages.github.com" rel="noopener">GitHub Pages</a> <small>(<code>r1adbe.github.io</code>: public calendar file with the dates of major US economic releases for the economic-data hint in the Market tab and the optional economic-calendar notification; fetched at most once a day, no personal data is sent. The dates come from the public calendars of the U.S. Bureau of Labor Statistics, the Federal Reserve and the U.S. Bureau of Economic Analysis; the app does not contact those sites itself.)</small></li>
   </ul>
   <p><b>Fallback sources:</b> If Binance is blocked in your country or unreachable, the app fetches price history (charts, volume, cycle) from <b>Binance.US</b> and <b>Coinbase Exchange</b> instead, and futures metrics (funding rate, open interest) from <b>Bybit</b> and <b>OKX</b> – with the same technically necessary connection data as above.</p>
-  <p>Price requests also happen in the background if you have enabled the related features: on Android via background updates, live mode, widgets and alarms; on iOS via iOS Background App Refresh (see section&nbsp;7) and widget updates. On iOS, live mode only runs while the app is open.</p>
+  <p>Price requests also happen in the background if you have enabled the related features: on Android via background updates, “Update frequently”, widgets and alarms; on iOS via iOS Background App Refresh (see section&nbsp;7) and widget updates. On iOS, “Update frequently” only runs while the app is open.</p>
   <p>Analyses such as “⚡ Unusual Activity” or “💡 Why is this moving?” are computed on your device from this public market data. No data is sent to the developer or to any AI or analytics service for this.</p>
   <p>For the <b>mini chart</b> in the watchlist and the <b>cut-off export</b> the app loads public daily or hourly prices from Binance (including its market data mirror, futures and Binance.US) or Coinbase Exchange, and exchange rates from Frankfurter for the conversion. Only the trading pair or currency and the date are requested – never your holdings or portfolio values. Conversion and the valuation of your portfolio are calculated exclusively on your device.</p>
 
   <h3 id="en-backup">5. Backup and restore</h3>
-  <p>With “Backup &amp; restore” the app exports your watchlist (including your notes and groups), alarms, favorites, portfolio and settings as a JSON file to a location you choose yourself – on Android via the Android file picker (e.g. “Downloads”), on iOS via the <b>Files</b> app dialog (e.g. “On My iPhone” or a storage provider of your choice such as iCloud Drive). When restoring, the app only reads the file you pick there. The app does not send this file anywhere. If you choose a cloud storage, its privacy terms apply. Backup files can be exchanged between Android and iOS.</p>
+  <p>With “Backup &amp; restore” the app exports your watchlist (including your notes and groups), alarms, favorites, portfolio and settings as a JSON file to a location you choose yourself – on Android via the Android file picker (e.g. “Downloads”), on iOS via the <b>Files</b> app dialog (e.g. “On My iPhone” or a storage provider of your choice such as iCloud Drive). When restoring, the app only reads the file you pick there. The app does not send this file anywhere. If you choose a cloud storage, its privacy terms apply. You can optionally protect the file with a <b>password</b>: it is then encrypted on your device (AES-256-GCM, key derived from the password with PBKDF2); the password is neither stored nor transmitted, and without it the backup cannot be restored. Backup files can be exchanged between Android and iOS.</p>
   <p><b>Cut-off export:</b> The value of your portfolio on a date is saved as a CSV file only to the location you choose in the file dialog. The file is not transmitted.</p>
 
   <h3 id="en-local-processing">6. Notifications, speech output and widgets</h3>
-  <p>Notifications, alarms and widgets are generated entirely on the device; no push service is used (no Apple Push Notification service on iOS, no Firebase Cloud Messaging on Android). On iOS the app can deliver alarms as <b>Time Sensitive notifications</b> so that they also appear while a Focus is active; you can turn this off in iOS settings.</p>
+  <p>Notifications, alarms (including portfolio alarms) and widgets are generated entirely on the device; no push service is used (no Apple Push Notification service on iOS, no Firebase Cloud Messaging on Android). On iOS the app can deliver alarms as <b>Time Sensitive notifications</b> so that they also appear while a Focus is active; you can turn this off in iOS settings. With “Hide amounts” the portfolio, the portfolio widget and portfolio alarms show no amounts.</p>
   <p><b>Custom alarm sound (Android):</b> If you pick your own audio file as the alarm sound, the app copies it on your device into the media library (folder “Notifications/CryptoChecker”) so that Android can play it for notifications. The file stays on the device and is not transmitted; you can delete it there at any time. On iOS only the bundled sounds are available.</p>
   <p>For speech output the app uses the text-to-speech engine installed on your Android device (e.g. “Speech Services by Google”) or the built-in iOS system voices. The text to be spoken (price, alarm) is handed to that engine; how it processes the text depends on its provider. The app itself neither stores nor transmits these texts.</p>
   <p>Widgets read their data from the app’s local storage (on iOS from the App Group container, see section&nbsp;3) and fetch prices directly from the providers listed above when needed.</p>
@@ -413,7 +415,7 @@
     <tr><td><code>INTERNET</code></td><td>Fetch prices and market data from the providers listed above.</td></tr>
     <tr><td><code>ACCESS_NETWORK_STATE</code></td><td>Check whether a connection is available before fetching.</td></tr>
     <tr><td><code>POST_NOTIFICATIONS</code></td><td>Show price notifications and alarms (on Android 13+ the app asks; you may decline).</td></tr>
-    <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_DATA_SYNC</code></td><td>Live mode: update prices at short intervals while a visible notification is shown.</td></tr>
+    <tr><td><code>FOREGROUND_SERVICE</code>, <code>FOREGROUND_SERVICE_DATA_SYNC</code></td><td>“Update frequently”: update prices at short intervals while a visible notification is shown.</td></tr>
     <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>Reschedule background updates and alarms after a reboot.</td></tr>
     <tr><td><code>VIBRATE</code></td><td>Vibrate on alarms if you enabled it.</td></tr>
     <tr><td><code>WAKE_LOCK</code></td><td>Briefly keep the device awake while an update is running (via WorkManager).</td></tr>

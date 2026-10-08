@@ -42,10 +42,17 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
+      # Android/iOS parity cases in testdata/parity (ParityFixturesTest).
       - name: Unit tests
         run: |
           chmod +x gradlew
           ./gradlew test --stacktrace
+
+      # Instrumented tests (app/src/androidTest) are only compiled here: running them needs
+      # an emulator (locally: ./gradlew :app:connectedDebugAndroidTest), too slow for CI.
+      - name: Compile instrumented tests
+        run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
 
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace

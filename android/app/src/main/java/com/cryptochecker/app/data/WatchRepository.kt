@@ -9,6 +9,8 @@ import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.watch.AutoGroup
+import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -29,6 +31,9 @@ enum class WatchMove { TOP, UP, DOWN, BOTTOM }
  * Grundlage für «Rückgängig» nach dem Löschen per Wischen.
  */
 data class WatchSnapshot(val watch: WatchEntity, val alarms: List<AlarmEntity>)
+
+/** Ergebnis von «Paar bearbeiten» ([WatchRepository.changePair]). */
+enum class PairEditResult { SAVED, UNCHANGED, DUPLICATE, MISSING }
 
 /** Neuer Kurs für ein Paar; [change24h] siehe `WatchEntity.change24h` (null = kein 24-h-Bezug). */
 data class PriceWrite(val id: Long, val price: Double, val time: Long, val change24h: Double?)
@@ -79,7 +84,8 @@ class WatchRepository @Inject constructor(
                 pairId = pair.currencyPairId,
                 sortOrder = watchDao.nextSortOrder(),
                 // Nur neue Paare erhalten die gewählte Gruppe; bestehende bleiben unverändert.
-                groupName = group?.trim()?.takeIf { it.isNotEmpty() },
+                // Ohne Wahl: TradFi-Futures nach «TradFi», Laufzeit-Futures nach «QTLY».
+                groupName = AutoGroup.resolve(group, pair),
                 notificationEnabled = notificationEnabled,
             )
         )
@@ -104,6 +110,54 @@ class WatchRepository @Inject constructor(
 
         return BulkAddResult(added = added, skipped = skipped)
     }
+
+    /**
+     * «Paar bearbeiten»: Börse, Paar und Kontrakt eines Eintrags ändern — derselbe Eintrag
+     * (Id, Gruppe, Favorit, Notiz, Platz, Meldung, Sprachansage, Alarme bleiben). Kurs,
+     * 24-h-Wert, Fehler/«nicht gehandelt» und Meldekurs des alten Paars werden verworfen,
+     * Alarm-Bezüge am alten Kurs ebenso ([WatchDao.resetPriceReferences]). Steht das neue
+     * Paar schon als anderer Eintrag in der Liste: [PairEditResult.DUPLICATE], nichts geändert.
+     */
+    suspend fun changePair(id: Long, market: MarketInfo, pair: CurrencyPairInfo): PairEditResult =
+        database.withTransaction {
+            val watch = watchDao.getWatch(id)
+            if (watch == null) {
+                PairEditResult.MISSING
+            } else {
+                val current = WatchEdit.Key(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
+                val target = WatchEdit.Key(market.key, pair.currencyBase, pair.currencyCounter, pair.contractType.name)
+                val existing = watchDao.findWatchId(target.marketKey, target.base, target.quote, target.contract)
+                when (WatchEdit.decide(id, current, target, existing)) {
+                    WatchEdit.Outcome.UNCHANGED -> PairEditResult.UNCHANGED
+                    WatchEdit.Outcome.DUPLICATE -> PairEditResult.DUPLICATE
+                    WatchEdit.Outcome.CHANGED -> {
+                        watchDao.updateWatch(
+                            watch.copy(
+                                marketKey = market.key,
+                                marketName = market.name,
+                                baseAsset = pair.currencyBase,
+                                quoteAsset = pair.currencyCounter,
+                                contractType = pair.contractType,
+                                pairId = pair.currencyPairId,
+                                lastPrice = null,
+                                previousPrice = null,
+                                lastUpdate = 0,
+                                notifiedPrice = null,
+                                notifiedAt = 0,
+                                lastError = null,
+                                change24h = null,
+                            )
+                        )
+                        watchDao.resetPriceReferences(id)
+                        PairEditResult.SAVED
+                    }
+                }
+            }
+        }
+
+    /** Nach dem ersten Kurs des bearbeiteten Paars: Prozentalarme messen ab diesem Kurs. */
+    suspend fun setMissingPercentReferences(watchId: Long, price: Double) =
+        watchDao.setMissingPercentReferences(watchId, price)
 
     suspend fun deleteWatch(id: Long) = watchDao.deleteWatch(id)
 
@@ -248,6 +302,16 @@ class WatchRepository @Inject constructor(
     suspend fun updateError(id: Long, error: String?) =
         watchDao.updateError(id, error)
 
+    /** Veränderung der Paare [ids] entfernen (in Blöcken, Grenze der SQL-Variablen). */
+    suspend fun clearChanges(ids: List<Long>) {
+        if (ids.isEmpty()) return
+        database.withTransaction { ids.chunked(500).forEach { watchDao.clearChanges(it) } }
+    }
+
+    /** Später Bezug der Tages-Basis: Veränderung nachtragen, wenn der Kurs noch derselbe ist. */
+    suspend fun fillChange(id: Long, time: Long, change: Double): Boolean =
+        watchDao.fillChange(id, time, change) > 0
+
     /**
      * Schreibt die Ergebnisse eines ganzen Durchlaufs in einem Vorgang.
      * Einzeln wäre das bei vielen Paaren eine Transaktion je Paar, und nach
@@ -295,7 +359,7 @@ class WatchRepository @Inject constructor(
 
     suspend fun setAlarmEnabled(id: Long, enabled: Boolean) {
         watchDao.setAlarmEnabled(id, enabled)
-        // Wieder eingeschaltet: «Nahe am Hoch/Tief» und Kursmarken melden wieder (wirkt nur bei diesen)
+        // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden wieder (wirkt nur bei diesen)
         if (enabled) watchDao.rearmAlarm(id)
     }
 
@@ -321,9 +385,11 @@ class WatchRepository @Inject constructor(
             AlarmCondition.MOVE_PERCENT_WINDOW -> time
             // Volumen-Spike: dieselbe Kerze nicht nochmals melden
             AlarmCondition.VOLUME_SPIKE -> candleOpenTime ?: alarm.referenceAt
-            // Nahe am Hoch/Tief und Kursmarke: gemeldet (> 0) bis zur Wiederscharfstellung
+            // Nahe am Hoch/Tief, Kursmarke, Funding und Open Interest: gemeldet (> 0) bis zur Wiederscharfstellung
             AlarmCondition.NEAR_HIGH, AlarmCondition.NEAR_LOW,
-            AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW -> time
+            AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW,
+            AlarmCondition.FUNDING_ABOVE, AlarmCondition.FUNDING_BELOW,
+            AlarmCondition.OI_UP, AlarmCondition.OI_DOWN -> time
             else -> alarm.referenceAt
         },
         enabled = alarm.repeating,
@@ -332,6 +398,6 @@ class WatchRepository @Inject constructor(
     suspend fun setAlarmReference(id: Long, price: Double, time: Long) =
         watchDao.setAlarmReference(id, price, time)
 
-    /** «Nahe am Hoch/Tief» bzw. Kursmarke (PRICE_ABOVE/PRICE_BELOW) wieder scharf stellen. */
+    /** «Nahe am Hoch/Tief», Kursmarke (PRICE_ABOVE/PRICE_BELOW), Funding bzw. Open Interest wieder scharf stellen. */
     suspend fun rearmAlarm(id: Long) = watchDao.rearmAlarm(id)
 }

@@ -20,6 +20,14 @@ struct WatchlistEntry: TimelineEntry {
     var highContrast: Bool = SharedStorage.loadSettings().highContrast
     /// Einstellung «Farben tauschen» (beim Erstellen des Eintrags gelesen).
     var priceColorsInverted: Bool = SharedStorage.loadSettings().priceColorsInverted
+    /// «Basis der %-Änderung» und Stempel der gespeicherten Werte (beim Erstellen gelesen).
+    var changeBasis: ChangeBasis = SharedStorage.loadSettings().changeBasis
+    var changeStamp: ChangeStamp? = SharedStorage.changeStamp
+
+    /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
+    var changeView: ChangeView {
+        ChangeView.of(stamp: changeStamp, basis: changeBasis, now: Int64(date.timeIntervalSince1970 * 1000))
+    }
 
     /// `group`: Gruppe des Widgets; nil = alle Paare.
     static func current(theme: WidgetThemeOption, group: String? = nil) -> WatchlistEntry {
@@ -173,12 +181,12 @@ private struct WatchlistListView: View {
                     if let url = WidgetData.watchURL(watch.id) {
                         Link(destination: url) {
                             WatchlistWidgetRow(watch: watch, palette: palette, date: entry.date,
-                                               outdatedAfter: entry.outdatedAfter)
+                                               outdatedAfter: entry.outdatedAfter, changeView: entry.changeView)
                         }
                         .frame(maxHeight: .infinity)
                     } else {
                         WatchlistWidgetRow(watch: watch, palette: palette, date: entry.date,
-                                           outdatedAfter: entry.outdatedAfter)
+                                           outdatedAfter: entry.outdatedAfter, changeView: entry.changeView)
                             .frame(maxHeight: .infinity)
                     }
                 } else {
@@ -264,6 +272,8 @@ private struct WatchlistWidgetRow: View {
     /// Datum des Eintrags und Grenze: eigener Stand des Paares veraltet → «Binance · veraltet».
     let date: Date
     let outdatedAfter: Int64
+    /// %-Basis und Gültigkeit der gespeicherten Veränderung.
+    var changeView = ChangeView()
 
     private var outdated: Bool { WidgetOutdated.isOutdated(watch, at: date, afterMillis: outdatedAfter) }
 
@@ -282,7 +292,7 @@ private struct WatchlistWidgetRow: View {
                             .foregroundStyle(palette.accent)
                     }
                 }
-                Text(outdated ? L("watchlist_row_outdated", watch.marketName) : watch.marketName)
+                Text(outdated ? L("watchlist_row_outdated", BidiText.isolate(watch.marketName)) : watch.marketName)
                     .font(.system(size: 10))
                     .foregroundStyle(palette.secondary)
                     .lineLimit(1)
@@ -297,14 +307,16 @@ private struct WatchlistWidgetRow: View {
                         .font(.system(size: 9))
                         .foregroundStyle(palette.down)
                 } else {
-                    WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 10, showsArrow: true, day: true)
+                    WidgetChangeLabel(change: changeView.shown(watch.shownChange24h), palette: palette, size: 10,
+                                      showsArrow: true, day: true, basis: changeView.basis)
                 }
             }
             .layoutPriority(2)
         }
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(A11y.watchRow(watch, stale: outdated ? WidgetOutdated.spoken(watch.lastUpdate, at: date) : nil))
+        .accessibilityLabel(A11y.watchRow(watch, stale: outdated ? WidgetOutdated.spoken(watch.lastUpdate, at: date) : nil,
+                                          changeView: changeView))
     }
 }
 
@@ -343,7 +355,8 @@ private struct WatchlistSmallView: View {
                     WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 24, palette: palette)
                         .padding(.top, 2)
                     HStack {
-                        WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 11, showsArrow: true, day: true)
+                        WidgetChangeLabel(change: entry.changeView.shown(watch.shownChange24h), palette: palette, size: 11,
+                                          showsArrow: true, day: true, basis: entry.changeBasis)
                         Spacer(minLength: 4)
                         Text(WidgetOutdated.timeText(watch.lastUpdate, outdated: outdated, at: entry.date))
                             .font(.system(size: 9.5, weight: .medium))
@@ -356,7 +369,8 @@ private struct WatchlistSmallView: View {
                 }
                 // VoiceOver: das Paar als ein Satz (veraltet mit «veraltet, letzte Aktualisierung …»)
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(A11y.watchRow(watch, stale: outdated ? WidgetOutdated.spoken(watch.lastUpdate, at: entry.date) : nil))
+                .accessibilityLabel(A11y.watchRow(watch, stale: outdated ? WidgetOutdated.spoken(watch.lastUpdate, at: entry.date) : nil,
+                                                  changeView: entry.changeView))
             } else {
                 Text(L("widget_empty"))
                     .font(.system(size: 12, weight: .medium))

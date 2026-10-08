@@ -35,7 +35,7 @@ struct ExplorerStepHeader: View {
 
     var body: some View {
         let lit = active || done
-        HStack(spacing: 10) {
+        HStack(spacing: Spacing.sm) {
             ZStack {
                 Circle()
                     .fill(lit ? AnyShapeStyle(accent.primary.gradient) : AnyShapeStyle(AppColors.containerHighest))
@@ -46,7 +46,7 @@ struct ExplorerStepHeader: View {
                         .foregroundStyle(accent.onPrimary)
                         .transition(.scale.combined(with: .opacity))
                 } else {
-                    Text("\(number)")
+                    Text(verbatim: LocaleNumbers.integer(number))
                         .scaledFont(size: 12, weight: .bold, design: .rounded, relativeTo: .caption)
                         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                         .foregroundStyle(lit ? accent.onPrimary : AppColors.onSurfaceVariant)
@@ -96,7 +96,7 @@ struct ExplorerErrorRow: View {
         }
         .padding(12)
         .background(AppColors.error.opacity(0.08), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .padding(.top, 10)
+        .padding(.top, Spacing.sm)
     }
 }
 
@@ -134,8 +134,8 @@ struct ExplorerPickerField: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.md)
             .frame(minHeight: 56)
             .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -325,9 +325,9 @@ struct ExplorerSyncSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack(spacing: 14) {
+            HStack(spacing: Spacing.md) {
                 Image(systemName: "arrow.triangle.2.circlepath")
-                    .font(.title2.weight(.semibold))
+                    .font(AppFont.headline)
                     .foregroundStyle(accent.primary)
                     .frame(width: 48, height: 48)
                     .background(accent.container.opacity(0.6), in: Circle())
@@ -345,14 +345,14 @@ struct ExplorerSyncSheet: View {
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
 
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Label(L("checker_add_dynamic_currency_pairs_dialog_last_sync", lastSyncText), systemImage: "clock")
                 Label(L("sync_pairs_count", info?.count ?? 0), systemImage: "number")
                     .monospacedDigit()
             }
             .font(.subheadline)
             .foregroundStyle(AppColors.onSurface)
-            .padding(14)
+            .padding(Spacing.md)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(AppColors.container, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
 
@@ -371,7 +371,7 @@ struct ExplorerSyncSheet: View {
                         .font(.headline)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
+                .padding(.vertical, Spacing.lg)
             }
             .buttonStyle(AccentButtonStyle())
             .disabled(state.inProgress)
@@ -420,7 +420,7 @@ struct ExplorerSnackbar: View {
                     .foregroundStyle(accent.primary)
                 Text(message.text)
                     .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AppColors.onToast)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if let alarmId = message.alarmWatchId {
                     Button {
@@ -445,9 +445,9 @@ struct ExplorerSnackbar: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(.black.opacity(0.86), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .shadow(color: .black.opacity(0.25), radius: 16, y: 6)
+            .padding(.vertical, Spacing.lg)
+            .background(AppColors.toastBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: AppColors.shadow.opacity(0.25), radius: 16, y: 6)
             .padding(.horizontal, 16)
             .padding(.bottom, 12)
             // Weniger Bewegung: nur einblenden, nicht hereingleiten

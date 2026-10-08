@@ -10,15 +10,16 @@ enum PriceChartType: String, Sendable, CaseIterable {
 }
 
 /// Zeitraum des Charts: Kerzenintervall und Anzahl — wie `WidgetChartRange` (Android).
-/// 24 h = 24 × 1 h, 7 Tage = 42 × 4 h, 30 Tage = 30 × 1 Tag.
+/// 24 h = 24 × 1 h, 7 Tage = 42 × 4 h, 30 Tage = 30 × 1 Tag; 1 Jahr = 365 × 1 Tag nur im
+/// Aktionsblatt (`WidgetChartRangeOption` kennt es nicht).
 enum PriceChartRange: String, Sendable, CaseIterable {
-    case day, week, month
+    case day, week, month, year
 
     var candleInterval: CandleInterval {
         switch self {
         case .day: .h1
         case .week: .h4
-        case .month: .d1
+        case .month, .year: .d1
         }
     }
 
@@ -27,6 +28,7 @@ enum PriceChartRange: String, Sendable, CaseIterable {
         case .day: 24
         case .week: 42
         case .month: 30
+        case .year: 365
         }
     }
 
@@ -35,7 +37,7 @@ enum PriceChartRange: String, Sendable, CaseIterable {
         switch self {
         case .day: 3_600_000
         case .week: 4 * 3_600_000
-        case .month: 24 * 3_600_000
+        case .month, .year: 24 * 3_600_000
         }
     }
 
@@ -45,6 +47,7 @@ enum PriceChartRange: String, Sendable, CaseIterable {
         case .day: "widget_range_24h"
         case .week: "widget_range_7d"
         case .month: "widget_range_30d"
+        case .year: "widget_range_1y"
         }
     }
 
@@ -54,6 +57,7 @@ enum PriceChartRange: String, Sendable, CaseIterable {
         case .day: "widget_range_short_24h"
         case .week: "widget_range_short_7d"
         case .month: "widget_range_short_30d"
+        case .year: "widget_range_short_1y"
         }
     }
 }
@@ -111,7 +115,8 @@ enum WidgetChartGeometry {
     }
 
     /// Zeitpunkte der senkrechten Linien (lokale Zeit) strikt nach `firstOpen` und vor `endMillis`:
-    /// 24 h → jede volle Stunde, 7 Tage → jede Mitternacht, 30 Tage → jeder Montag 00:00.
+    /// 24 h → jede volle Stunde, 7 Tage → jede Mitternacht, 30 Tage → jeder Montag 00:00,
+    /// 1 Jahr → jeder Monatserste 00:00.
     static func gridTimes(firstOpen: Int64, endMillis: Int64, range: PriceChartRange,
                           timeZone: TimeZone = .current) -> [Int64] {
         guard endMillis > firstOpen else { return [] }
@@ -140,6 +145,11 @@ enum WidgetChartGeometry {
             current = day
             unit = .day
             step = 7
+        case .year:
+            let comps = calendar.dateComponents([.year, .month], from: startDate)
+            current = calendar.date(from: comps)
+            unit = .month
+            step = 1
         }
         var times: [Int64] = []
         while let date = current, date.millis < endMillis, times.count < 400 {
@@ -204,11 +214,12 @@ enum WidgetChartGeometry {
     }
 
     /// VoiceOver-Satz zum Chart: Zeitraum, Start, Ende, Veränderung, Hoch, Tief (in der Quote).
+    /// `period`: Zeitraum im Satz; nil = der des Bereichs (z. B. bei «Heute» der %-Basis anders).
     static func accessibility(_ candles: [MarketCandle], type: PriceChartType, range: PriceChartRange,
-                              quote: String) -> String {
+                              quote: String, period: String? = nil) -> String {
         let format: (Double) -> String = { PriceFormat.priceWithCurrency($0, quote) }
         guard let s = Self.summary(candles, type: type) else { return L("a11y_chart_empty") }
-        return A11y.chart(period: L(range.labelKey), first: s.start, last: s.end, high: s.high, low: s.low,
+        return A11y.chart(period: period ?? L(range.labelKey), first: s.start, last: s.end, high: s.high, low: s.low,
                           format: format)
     }
 }

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
@@ -7,6 +8,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.portfolio.PriceSample
+import com.cryptochecker.app.domain.portfolio.TimedPrice
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONArray
 import org.json.JSONObject
@@ -15,8 +17,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Letzte Momentaufnahme des Portfolios für das Widget und die Kursaufnahmen der
- * letzten 48 Stunden (Vergleichsbasis für «heute», siehe PortfolioSnapshotMath).
+ * Letzte Momentaufnahme des Portfolios für das Widget, die Kursaufnahmen der
+ * letzten 48 Stunden (Vergleichsbasis, siehe PortfolioSnapshotMath) und die gemerkten
+ * Stundenkurse je Coin (24-h-Wertverlauf, siehe PortfolioWidgetSeries).
  * Bewusst SharedPreferences wie [WidgetPrefs]: Das Widget liest synchron und ohne Netz.
  * Flüchtige Daten — von der Android-Sicherung ausgenommen (backup_rules.xml).
  *
@@ -46,6 +49,7 @@ class PortfolioSnapshotStore @Inject constructor(
             positions = readPositions(p.getString(KEY_POSITIONS_V2, null)),
             otherPositions = p.getInt(KEY_OTHER_POSITIONS_V2, 0).coerceAtLeast(0),
             history = readValueHistory(p.getString(KEY_VALUE_HISTORY_V2, null)),
+            stamp = ChangeStamp.decode(p.getString(KEY_CHANGE_STAMP, null)),
         )
     }
 
@@ -91,7 +95,27 @@ class PortfolioSnapshotStore @Inject constructor(
         }
     }.onFailure { Timber.d(it, "Portfolio-Widget: Kursaufnahmen nicht lesbar") }.getOrDefault(emptyList())
 
-    fun save(snapshot: PortfolioSnapshot, history: List<PriceSample>) {
+    /**
+     * Gemerkte Stundenkurse je Coin für den 24-h-Wertverlauf ([PortfolioWidgetSeries.merge]);
+     * leer, wenn noch nichts gemerkt oder nicht lesbar.
+     */
+    fun hourlyPrices(): Map<String, List<TimedPrice>> = runCatching {
+        val root = JSONObject(prefs.getString(KEY_HOURLY_PRICES_V3, null) ?: return emptyMap())
+        val out = HashMap<String, List<TimedPrice>>()
+        root.keys().forEach { coin ->
+            val array = root.optJSONArray(coin) ?: return@forEach
+            val list = (0 until array.length()).mapNotNull { i ->
+                val pair = array.optJSONArray(i) ?: return@mapNotNull null
+                val time = pair.optLong(0, 0L).takeIf { it > 0L } ?: return@mapNotNull null
+                val price = pair.optDouble(1).takeIf { it.isFinite() && it > 0.0 } ?: return@mapNotNull null
+                TimedPrice(time, price)
+            }
+            if (list.isNotEmpty()) out[coin] = list
+        }
+        out
+    }.onFailure { Timber.d(it, "Portfolio-Widget: Stundenkurse nicht lesbar") }.getOrDefault(emptyMap())
+
+    fun save(snapshot: PortfolioSnapshot, history: List<PriceSample>, hourlyPrices: Map<String, List<TimedPrice>>) {
         val array = JSONArray()
         history.forEach { sample ->
             val prices = JSONObject()
@@ -110,6 +134,12 @@ class PortfolioSnapshotStore @Inject constructor(
         snapshot.history.forEach { point ->
             if (point.value.isFinite()) valueHistory.put(JSONObject().put("t", point.time).put("v", point.value))
         }
+        val hourly = JSONObject()
+        hourlyPrices.forEach { (coin, prices) ->
+            val array = JSONArray()
+            prices.forEach { if (it.price.isFinite()) array.put(JSONArray().put(it.time).put(it.price)) }
+            if (array.length() > 0) hourly.put(coin, array)
+        }
         prefs.edit {
             putDouble(KEY_TOTAL, snapshot.total)
             putDouble(KEY_CHANGE, snapshot.changeAmount)
@@ -122,6 +152,9 @@ class PortfolioSnapshotStore @Inject constructor(
             putString(KEY_POSITIONS_V2, positions.toString())
             putInt(KEY_OTHER_POSITIONS_V2, snapshot.otherPositions.coerceAtLeast(0))
             putString(KEY_VALUE_HISTORY_V2, valueHistory.toString())
+            putString(KEY_HOURLY_PRICES_V3, hourly.toString())
+            val stamp = snapshot.stamp
+            if (stamp == null) remove(KEY_CHANGE_STAMP) else putString(KEY_CHANGE_STAMP, stamp.encode())
         }
     }
 
@@ -149,5 +182,9 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_POSITIONS_V2 = "positions_v2"
         const val KEY_OTHER_POSITIONS_V2 = "other_positions_v2"
         const val KEY_VALUE_HISTORY_V2 = "value_history_v2"
+        // Version 3: Stundenkurse je Coin für den 24-h-Wertverlauf
+        const val KEY_HOURLY_PRICES_V3 = "hourly_prices_v3"
+        // %-Basis der Veränderung (fehlt = rollende 24 Stunden)
+        const val KEY_CHANGE_STAMP = "change_stamp"
     }
 }

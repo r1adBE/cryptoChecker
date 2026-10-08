@@ -39,6 +39,7 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.ui.theme.Spacing
 
 /** Drei graue, sanft pulsierende Zeilen statt eines Kreisels. */
 @Composable
@@ -55,7 +56,7 @@ fun SkeletonList(modifier: Modifier = Modifier, rows: Int = 3) {
     Column(
         // Puls erst beim Zeichnen gelesen: kein Neuaufbau der Liste je Bild
         modifier = modifier.readableWidth().padding(16.dp).graphicsLayer { alpha = pulse },
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         repeat(rows) {
             Row(
@@ -133,8 +134,8 @@ fun SkeletonLine(style: TextStyle, modifier: Modifier = Modifier) {
 fun SkeletonPill(
     style: TextStyle,
     modifier: Modifier = Modifier,
-    horizontal: Dp = 10.dp,
-    vertical: Dp = 6.dp,
+    horizontal: Dp = Spacing.sm,
+    vertical: Dp = Spacing.sm,
 ) {
     Box(
         modifier = modifier

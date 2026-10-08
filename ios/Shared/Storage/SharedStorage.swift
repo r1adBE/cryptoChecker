@@ -39,6 +39,10 @@ enum SharedStorage {
         var alarms: [Alarm] = []
         var nextWatchId: Int64 = 1
         var nextAlarmId: Int64 = 1
+        /// Alarme «Portfolio-Wert» (Runde 28). Optional: ältere Dateien haben sie nicht, und
+        /// ältere Versionen ignorieren das Feld beim Lesen.
+        var portfolioAlarms: [PortfolioAlarm]?
+        var nextPortfolioAlarmId: Int64?
     }
 
     static func loadSnapshot() -> Snapshot {
@@ -77,14 +81,58 @@ enum SharedStorage {
         set { defaults.set(Double(newValue), forKey: "last_refresh_at") }
     }
 
+    /// Mit welcher %-Basis (und welchem Tagesbeginn) die gespeicherten Veränderungen zuletzt
+    /// gerechnet wurden; nil = noch nie (gilt als rollend) — siehe `ChangeBasisMath.isCurrent`.
+    static var changeStamp: ChangeStamp? {
+        get { ChangeStamp.decode(defaults.string(forKey: "change_basis_stamp")) }
+        set {
+            if let newValue { defaults.set(newValue.encoded, forKey: "change_basis_stamp") }
+            else { defaults.removeObject(forKey: "change_basis_stamp") }
+        }
+    }
+
     static var lastRefreshDuration: Int64 {
         get { Int64(defaults.double(forKey: "last_refresh_duration")) }
         set { defaults.set(Double(newValue), forKey: "last_refresh_duration") }
     }
 
-    static var lastRefreshReport: String {
-        get { defaults.string(forKey: "last_refresh_report") ?? "" }
-        set { defaults.set(newValue, forKey: "last_refresh_report") }
+    /// Pausen je Börse (`ExchangeBackoff`), Schlüssel = Börsen-Kennung. Geteilt mit Hintergrund
+    /// und Widget, damit eine pausierte Börse nirgends angefragt wird.
+    static var exchangeBackoff: [String: ExchangeBackoff.State] {
+        get { ExchangeBackoff.decode(defaults.string(forKey: "exchange_backoff")) }
+        set {
+            if newValue.isEmpty { defaults.removeObject(forKey: "exchange_backoff") }
+            else { defaults.set(ExchangeBackoff.encode(newValue), forKey: "exchange_backoff") }
+        }
+    }
+
+    /// App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen, ms); nil = noch nie. Nur lokal.
+    static var appStartMillis: Int64? {
+        get {
+            let value = Int64(defaults.double(forKey: "app_start_millis"))
+            return value > 0 ? value : nil
+        }
+        set {
+            if let newValue { defaults.set(Double(newValue), forKey: "app_start_millis") }
+            else { defaults.removeObject(forKey: "app_start_millis") }
+        }
+    }
+
+    /// Bericht «Letzte Aktualisierung» (JSON); nil = noch keiner. Bis Runde 21 als Klartext
+    /// unter `last_refresh_report` — der wird beim ersten neuen Bericht entfernt.
+    static var lastRefreshReport: RefreshReport? {
+        get {
+            guard let data = defaults.data(forKey: "last_refresh_report_v2") else { return nil }
+            return try? JSONDecoder().decode(RefreshReport.self, from: data)
+        }
+        set {
+            defaults.removeObject(forKey: "last_refresh_report")
+            if let newValue, let data = try? JSONEncoder().encode(newValue) {
+                defaults.set(data, forKey: "last_refresh_report_v2")
+            } else {
+                defaults.removeObject(forKey: "last_refresh_report_v2")
+            }
+        }
     }
 
     // MARK: Favoriten (Hinzufügen-Tab)

@@ -3,6 +3,8 @@ package com.cryptochecker.app.domain.activity
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.remote.CandleDataSource
+import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.FuturesDataSource
 import com.cryptochecker.app.data.remote.FuturesInfo
 import com.cryptochecker.app.data.remote.InsightsDataSource
@@ -38,6 +40,7 @@ import javax.inject.Singleton
 @Singleton
 class ActivityMonitor @Inject constructor(
     private val volumeDataSource: VolumeDataSource,
+    private val candleDataSource: CandleDataSource,
     private val futuresDataSource: FuturesDataSource,
     private val insightsDataSource: InsightsDataSource,
     private val repository: ActivityRepository,
@@ -130,7 +133,7 @@ class ActivityMonitor @Inject constructor(
             if (watch.contractType == FuturesContractType.PERPETUAL) futures { futuresDataSource.fetch(watch) } else null
         }
         // Veraltete oder unplausible Reihen (z. B. Spot nach Delisting) liefern keine Signale
-        val stats = CandleSeries.usable(candlesJob.await(), now, watch.change24h)?.let { ActivityAnalyzer.hourStats(it) }
+        val stats = CandleSeries.usable(candlesJob.await(), now, rolling24h(watch))?.let { ActivityAnalyzer.hourStats(it) }
         val futures = futuresJob.await()
 
         val oi = openInterest(watch, futures, now, store = true)
@@ -177,6 +180,15 @@ class ActivityMonitor @Inject constructor(
                 }
             }
             val fearGreedJob = async { timed { fearGreed() } }
+            // Tageskerzen für «Nähe zum Hoch» (30-Tage-Hoch); fehlen sie, entfällt nur diese Zeile
+            val dailyJob = async {
+                timed {
+                    candleDataSource.candles(
+                        watch.baseAsset, watch.quoteAsset, CandleInterval.D1, DAILY_LIMIT,
+                        preferFutures = isFutures(watch),
+                    )
+                }
+            }
 
             val futures = futuresJob.await()
             val oi = if (watch.contractType == FuturesContractType.PERPETUAL)
@@ -193,13 +205,21 @@ class ActivityMonitor @Inject constructor(
                     fearGreed = fearGreed?.value,
                     fearGreedYesterday = fearGreed?.yesterday,
                     now = System.currentTimeMillis(),
-                    // Dieselbe 24-h-Veränderung wie Pille und Merkliste
-                    tickerChange24h = watch.change24h,
+                    // Dieselbe 24-h-Veränderung wie Pille und Merkliste (bei «seit 00:00» aus den Kerzen)
+                    tickerChange24h = rolling24h(watch),
                     marketLive = !watch.isNotTraded,
+                    dailyCandles = dailyJob.await(),
                 )
             )
         }
     }
+
+    /**
+     * Gespeicherte Veränderung des Paars, wenn sie rollend über 24 Stunden gilt; bei einer
+     * Tages-Basis der %-Änderung («seit 00:00») null — «Warum?» rechnet dann aus den Kerzen.
+     */
+    private fun rolling24h(watch: WatchEntity): Double? =
+        watch.change24h.takeIf { !settingsRepository.cached.changeBasis.isDay }
 
     /** Kontrakt statt Spot: Kerzen kommen dann zuerst vom Futures-Markt. */
     private fun isFutures(watch: WatchEntity): Boolean = watch.contractType != FuturesContractType.NONE
@@ -225,5 +245,8 @@ class ActivityMonitor @Inject constructor(
         const val BUDGET_MILLIS = 20_000L
         const val SOURCE_TIMEOUT_MILLIS = 8_000L
         const val FNG_CACHE_MILLIS = 10 * 60_000L
+
+        /** 30 Tage + laufender Tag. */
+        const val DAILY_LIMIT = ActivityAnalyzer.HIGH_DAYS + 1
     }
 }

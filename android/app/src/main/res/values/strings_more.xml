@@ -18,9 +18,9 @@
     <string name="pulse_less">Show less</string>
     <string name="pulse_updated">As of %1$s</string>
     <string name="pulse_unavailable">Market data currently unavailable</string>
-    <string name="why_summary_title">In short</string>
+    <string name="why_summary_title">Likely reasons</string>
     <string name="why_summary_market_volume">The move goes along with higher trading volume and a broadly moving market.</string>
-    <string name="why_summary_market">The move follows the overall market.</string>
+    <string name="why_summary_market">The move likely follows the overall market.</string>
     <string name="why_summary_coin_volume">Only this coin is moving, on higher volume – likely a reason specific to the coin.</string>
     <string name="why_summary_coin">Only this coin is moving – likely a reason specific to the coin.</string>
     <string name="why_summary_against">The coin is moving against the market.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Watch – your coins, prices, charts and widgets</string>
     <string name="welcome_alert">Alert – price, percent, volume and unusual moves</string>
     <string name="welcome_understand">Understand – why is the market moving right now?</string>
-    <string name="welcome_start">Get started</string>
     <string name="portfolio_empty_example">Example: 0.01 BTC bought on 1 March at %1$s. The app then shows value, average buy price and gain/loss – stored only on this device.</string>
     <string name="about_why">Crypto Checker is an independent project by r1AD: a calm price overview without account, ads or tracking. Questions and wishes: %1$s</string>
     <string name="a11y_move_up">Move up</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">No data received from the exchange.</string>
     <string name="sync_pairs_count">Trading pairs: %1$d</string>
     <string name="market_unavailable_error">Exchange not available</string>
-    <string name="refresh_report_aborted">Refresh aborted:</string>
-    <string name="refresh_report_wait">Wait until start: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Total %1$s · %2$d pair</item>
-        <item quantity="other">Total %1$s · %2$d pairs</item>
-    </plurals>
-    <string name="refresh_report_network">Network %1$s</string>
-    <string name="refresh_report_database">Database %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarms/notifications %1$s · %2$d notification</item>
-        <item quantity="other">Alarms/notifications %1$s · %2$d notifications</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widgets %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d pair, %3$s</item>
-        <item quantity="other">%1$s: %2$d pairs, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">bulk request %1$s (%2$d price)</item>
-        <item quantity="other">bulk request %1$s (%2$d prices)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">bulk request %1$s (failed)</string>
     <string name="refresh_report_singles">%1$d individually</string>
-    <string name="refresh_report_slowest">slowest %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d no longer traded</item>
         <item quantity="other">%1$d no longer traded</item>

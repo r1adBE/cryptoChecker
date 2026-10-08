@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">oggi %1$s</string>
     <string name="widget_portfolio_empty">Aggiungi acquisti nella scheda Portafoglio</string>
     <string name="a11y_portfolio_widget">Portafoglio %1$s, oggi %2$s</string>
-    <string name="settings_section_advanced">Avanzate</string>
-    <string name="settings_advanced_hint">Modalità live, notifica permanente, futures e opzioni sviluppatore</string>
     <string name="explain_funding">Commissione tra posizioni long e short. Fortemente positivo significa che molti scommettono su prezzi in salita.</string>
     <string name="explain_open_interest">Valore di tutte le posizioni futures aperte. Se sale, più denaro scommette sul movimento.</string>
     <string name="explain_rsi">Relative Strength Index, 0–100. Sopra 70 spesso surriscaldato, sotto 30 spesso ipervenduto.</string>

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -15,6 +16,7 @@ import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
@@ -30,12 +32,14 @@ class PriceWidgetService : RemoteViewsService() {
 
     @Inject lateinit var widgetPrefs: WidgetPrefs
 
+    @Inject lateinit var widgetUpdater: WidgetUpdater
+
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         val appWidgetId = intent.getIntExtra(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
         )
-        return WatchlistViewsFactory(applicationContext, appWidgetId, watchRepository, settingsRepository, widgetPrefs)
+        return WatchlistViewsFactory(applicationContext, appWidgetId, watchRepository, settingsRepository, widgetPrefs, widgetUpdater)
     }
 }
 
@@ -45,7 +49,11 @@ private class WatchlistViewsFactory(
     private val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
     private val widgetPrefs: WidgetPrefs,
+    private val widgetUpdater: WidgetUpdater,
 ) : RemoteViewsService.RemoteViewsFactory {
+
+    /** %-Basis und ob die gespeicherten Werte noch passen (sonst «—»). */
+    private var changeView = ChangeView()
 
     private var watches: List<WatchEntity> = emptyList()
     private var background: WidgetColors = WidgetColors.of(AccentColor.DEFAULT, dark = true)
@@ -69,6 +77,7 @@ private class WatchlistViewsFactory(
                 settings.priceColorsInverted,
             )
             outdatedAfter = WidgetOutdated.afterMillis(settings)
+            changeView = widgetUpdater.changeView(settings.changeBasis)
             // Gruppe des Widgets; gibt es sie nicht mehr, wieder alle Paare
             val all = watchRepository.getWatches()
             val group = widgetPrefs.getGroup(appWidgetId)
@@ -94,7 +103,7 @@ private class WatchlistViewsFactory(
         val outdated = WidgetOutdated.isOutdated(watch.lastUpdate, watch.lastError, System.currentTimeMillis(), outdatedAfter)
         views.setTextViewText(
             R.id.item_market,
-            if (outdated) context.getString(R.string.watchlist_row_outdated, watch.marketName) else watch.marketName
+            if (outdated) context.getString(R.string.watchlist_row_outdated, BidiText.isolate(watch.marketName)) else watch.marketName
         )
         views.setTextColor(R.id.item_market, background.secondaryTextColor)
 
@@ -104,9 +113,9 @@ private class WatchlistViewsFactory(
         )
         views.setTextColor(R.id.item_price, background.textColor)
 
-        // Veränderung über 24 Stunden — derselbe Wert wie die Pille in der Merkliste
-        // (nicht mehr gehandelt: «—»)
-        val change = watch.shownChange24h?.takeIf { it.isFinite() }
+        // Veränderung gemäss %-Basis — derselbe Wert wie die Pille in der Merkliste
+        // (nicht mehr gehandelt oder veraltete Basis: «—»)
+        val change = changeView.shown(watch.shownChange24h)
         val changeText = PriceFormat.changePercent(change)
 
         // Immer ein Wert, damit alle Zeilen gleich aussehen: Pfeil und Vorzeichen
@@ -132,6 +141,7 @@ private class WatchlistViewsFactory(
                 market = watch.marketName,
                 price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
                 change24h = change,
+                basis = changeView.basis,
                 extras = listOf(if (outdated) WidgetOutdated.spoken(context, watch.lastUpdate) else null),
             )
         )

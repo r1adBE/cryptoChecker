@@ -18,9 +18,9 @@
     <string name="pulse_less">Arată mai puțin</string>
     <string name="pulse_updated">La %1$s</string>
     <string name="pulse_unavailable">Datele de piață nu sunt disponibile acum</string>
-    <string name="why_summary_title">Pe scurt</string>
+    <string name="why_summary_title">Motive probabile</string>
     <string name="why_summary_market_volume">Mișcarea este însoțită de volum de tranzacționare mai mare și o piață care se mișcă larg.</string>
-    <string name="why_summary_market">Mișcarea urmează piața în ansamblu.</string>
+    <string name="why_summary_market">Mișcarea urmează probabil piața în ansamblu.</string>
     <string name="why_summary_coin_volume">Doar această monedă se mișcă, la volum mai mare – probabil un motiv ce ține de moneda însăși.</string>
     <string name="why_summary_coin">Doar această monedă se mișcă – probabil un motiv ce ține de moneda însăși.</string>
     <string name="why_summary_against">Moneda se mișcă împotriva pieței.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Urmărește – monedele tale, prețuri, grafice și widgeturi</string>
     <string name="welcome_alert">Alertează – preț, procent, volum și mișcări neobișnuite</string>
     <string name="welcome_understand">Înțelege – de ce se mișcă piața acum?</string>
-    <string name="welcome_start">Să începem</string>
     <string name="portfolio_empty_example">Exemplu: 0,01 BTC cumpărat pe 1 martie la %1$s. Aplicația afișează apoi valoarea, prețul mediu de cumpărare și câștigul/pierderea – salvate doar pe acest dispozitiv.</string>
     <string name="about_why">Crypto Checker este un proiect independent al lui r1AD: o privire de ansamblu calmă asupra prețurilor, fără cont, reclame sau urmărire. Întrebări și sugestii: %1$s</string>
     <string name="a11y_move_up">Mută în sus</string>
@@ -61,34 +60,8 @@
     <string name="market_data_empty_error">Nu s-au primit date de la exchange.</string>
     <string name="sync_pairs_count">Perechi de tranzacționare: %1$d</string>
     <string name="market_unavailable_error">Exchange indisponibil</string>
-    <string name="refresh_report_aborted">Actualizare întreruptă:</string>
-    <string name="refresh_report_wait">Așteptare până la start: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Total %1$s · %2$d pereche</item>
-        <item quantity="few">Total %1$s · %2$d perechi</item>
-        <item quantity="other">Total %1$s · %2$d de perechi</item>
-    </plurals>
-    <string name="refresh_report_network">Rețea %1$s</string>
-    <string name="refresh_report_database">Bază de date %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarme/notificări %1$s · %2$d notificare</item>
-        <item quantity="few">Alarme/notificări %1$s · %2$d notificări</item>
-        <item quantity="other">Alarme/notificări %1$s · %2$d de notificări</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widgeturi %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d pereche, %3$s</item>
-        <item quantity="few">%1$s: %2$d perechi, %3$s</item>
-        <item quantity="other">%1$s: %2$d de perechi, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">cerere grupată %1$s (%2$d preț)</item>
-        <item quantity="few">cerere grupată %1$s (%2$d prețuri)</item>
-        <item quantity="other">cerere grupată %1$s (%2$d de prețuri)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">cerere grupată %1$s (eșuată)</string>
     <string name="refresh_report_singles">%1$d individual</string>
-    <string name="refresh_report_slowest">cea mai lentă %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d nu se mai tranzacționează</item>
         <item quantity="few">%1$d nu se mai tranzacționează</item>

@@ -1,9 +1,9 @@
-Borsa uygulamalarını sürekli açmadan kripto fiyatlarını takip et. Alarm kur, olağandışı hareketleri fark et ve bir coinin neden hareket ettiğini saniyeler içinde anla.
+Crypto Checker piyasada neler olduğunu sana açıklar. Alarm kur, olağandışı hareketleri fark et ve bir coinin neden hareket ettiğini saniyeler içinde anla – tahmin yok.
 
-İzle – fiyatlar doğrudan borsadan, kendi para biriminde
-Uyar – fiyat, %, hareket ve hacim, basit bir cümleyle
 Anla – “Bu neden hareket ediyor?” kısa bir özetle
 Genel bakış – Crypto Pulse, Fear & Greed, döngü ve portföy
+İzle – fiyatlar doğrudan borsadan, kendi para biriminde
+Uyar – fiyat, %, hareket ve hacim, basit bir cümleyle
 
 Herkes için okunaklı: yeşil/kırmızı veya mavi/turuncu fiyat renkleri, isteğe göre değiştirilebilir, yüksek kontrast, yalnızca renk değil işaret ve ok, VoiceOver her satırı tek cümle olarak okur.
 
@@ -49,7 +49,7 @@ ANA EKRAN VE KİLİT EKRANI İÇİN WIDGET'LAR
 • Kilit ekranında Canlı Etkinlik: bir coinin fiyatı tek bakışta
 
 DAHA FAZLASI
-• Uygulama açıkken kısa aralıklarla canlı mod; arka plan güncellemelerini iOS planlar
+• Uygulama açıkken sık güncelleme; arka plan güncellemelerini iOS planlar
 • Fiyatları ve alarmları sesli okuma
 • Dosyalar uygulamasıyla yedekleme ve geri yükleme
 • Uygulama simgesinde hızlı işlemler, açık ve koyu mod

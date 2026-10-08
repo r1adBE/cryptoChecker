@@ -2,12 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Runde 13b: Unterseiten der Einstellungen (Markt-Meldungen, Sprachausgabe) mit Kurzwert in der Zeile -->
     <string name="settings_market_alerts">Markt-Meldungen</string>
-    <string name="settings_market_alerts_hint">Marktphase, Fear &amp; Greed, Gasgebühren, ungewöhnliche Aktivität, Wirtschaftstermine</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d aktiv</item>
         <item quantity="other">%1$d aktiv</item>
     </plurals>
-    <string name="settings_tts_row_hint">Liest Kurse und Alarme vor</string>
     <string name="settings_summary_on">Ein</string>
 
     <!-- Runde 13b: ehrliche Bestätigung nach dem ersten Alarm (ersetzt alarm_first_text) -->

@@ -1,9 +1,9 @@
-Håll koll på dina kryptokurser utan att ständigt öppna börsappar. Ställ in larm, upptäck ovanliga rörelser och förstå på några sekunder varför en coin rör sig.
+Crypto Checker förklarar vad som händer i marknaden. Ställ in larm, upptäck ovanliga rörelser och förstå på några sekunder varför en coin rör sig – ingen prognos.
 
-Bevaka – kurser direkt från börsen, i din valuta
-Larma – kurs, %, rörelser och volym, som en enkel mening
 Förstå – ”Varför rör den sig?” med kort sammanfattning
 Översikt – Crypto Pulse, Fear & Greed, cykel och portfölj
+Bevaka – kurser direkt från börsen, i din valuta
+Larma – kurs, %, rörelser och volym, som en enkel mening
 
 Läsbar för alla: kursfärger grön/röd eller blå/orange, ombytta om du vill, hög kontrast, tecken och pil i stället för bara färg, VoiceOver läser varje rad som en mening.
 
@@ -51,7 +51,7 @@ WIDGETAR FÖR HEM- OCH LÅSSKÄRM
 • Liveaktivitet på låsskärmen: en coins kurs i en blick
 
 MER
-• Liveläge med korta intervall medan appen är öppen; uppdateringar i bakgrunden schemaläggs av iOS
+• Täta uppdateringar medan appen är öppen; uppdateringar i bakgrunden schemaläggs av iOS
 • Uppläsning av kurser och larm
 • Säkerhetskopiering och återställning via appen Filer
 • Snabbåtgärder på appsymbolen, ljust och mörkt läge

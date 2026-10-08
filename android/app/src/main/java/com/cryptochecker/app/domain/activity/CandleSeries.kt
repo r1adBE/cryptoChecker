@@ -67,6 +67,26 @@ object CandleSeries {
         return now - last.openTime <= maxOf(4 * intervalMillis, LIVE_MIN_MILLIS)
     }
 
+    /** Höchstens so viele Kerzen liefert Coinbase je Anfrage. */
+    const val COINBASE_PAGE = 300
+
+    /**
+     * Ältere Coinbase-Seite für lange Reihen (z. B. 1 Jahr Tageskerzen im Aktionsblatt):
+     * Ist die neueste Seite voll ([fetched] ≥ [COINBASE_PAGE]) und fehlen noch Kerzen bis
+     * [needed], das Fenster direkt vor der ältesten Kerze [firstOpen] — Beginn der ersten und
+     * der letzten Kerze (Epoch-ms, beide eingeschlossen), höchstens eine Seite. Sonst null.
+     */
+    fun coinbaseOlderWindow(firstOpen: Long, fetched: Int, needed: Int, granularityMillis: Long): LongRange? {
+        if (granularityMillis <= 0L || fetched < COINBASE_PAGE || needed <= fetched) return null
+        val count = minOf(needed - fetched, COINBASE_PAGE)
+        val end = firstOpen - granularityMillis
+        return (end - (count - 1) * granularityMillis)..end
+    }
+
+    /** Ältere und neuere Teilreihe aufsteigend zusammen; doppelte Kerzenbeginne zählen einmal (neuere gewinnt). */
+    fun mergeAscending(older: List<HourCandle>, newer: List<HourCandle>): List<HourCandle> =
+        (newer + older).distinctBy { it.openTime }.sortedBy { it.openTime }
+
     /**
      * 24-h-Veränderung im Blatt: die des Tickers (dieselbe wie Pille und Merkliste),
      * sonst die aus den Kerzen.

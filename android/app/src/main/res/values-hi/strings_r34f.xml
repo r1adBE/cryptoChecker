@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">फ़ंडिंग इससे ऊपर</string>
+    <string name="alarm_condition_funding_below">फ़ंडिंग इससे नीचे</string>
+    <string name="alarm_condition_oi_up">ओपन इंटरेस्ट बढ़े</string>
+    <string name="alarm_condition_oi_down">ओपन इंटरेस्ट घटे</string>
+    <string name="alarm_sentence_funding_above">जब %1$s की फ़ंडिंग %2$s से ऊपर जाए, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_funding_below">जब %1$s की फ़ंडिंग %2$s से नीचे जाए, तो मुझे बताएँ।</string>
+    <string name="tts_direction_funding_above">ऊँची फ़ंडिंग के साथ</string>
+    <string name="tts_direction_funding_below">कम फ़ंडिंग के साथ</string>
+    <string name="tts_direction_oi_up">बढ़ते ओपन इंटरेस्ट के साथ</string>
+    <string name="tts_direction_oi_down">घटते ओपन इंटरेस्ट के साथ</string>
+    <string name="alarm_funding_hint">हर सेटलमेंट अवधि की फ़ंडिंग दर (आमतौर पर हर 8 घंटे)। ऋणात्मक का मतलब है कि शॉर्ट, लॉन्ग को भुगतान करते हैं। ± चिह्न बदलता है।</string>
+    <string name="alarm_oi_hint">ओपन इंटरेस्ट की तुलना उतने ही घंटे पहले सहेजे गए मान से करता है। नया अलार्म तभी सूचना देता है जब ऐप ने इतने समय तक डेटा इकट्ठा कर लिया हो; जाँच अधिकतम हर 5 मिनट में।</string>
+    <string name="alarm_funding_sign_a11y">चिह्न बदलें</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s बढ़े, तो मुझे बताएँ।</item>
+        <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s बढ़े, तो मुझे बताएँ।</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s घटे, तो मुझे बताएँ।</item>
+        <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s घटे, तो मुझे बताएँ।</item>
+    </plurals>
+</resources>

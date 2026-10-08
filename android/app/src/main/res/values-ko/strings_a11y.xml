@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">가격 색상</string>
-    <string name="price_colors_green_red">초록 / 빨강</string>
-    <string name="price_colors_blue_orange">파랑 / 주황</string>
     <string name="settings_price_colors_hint">파랑 / 주황은 모든 색각 이상(적록 및 청황)에서 쉽게 구분됩니다. 방향은 항상 + / −로도 표시됩니다.</string>
     <string name="settings_watchlist_sparkline">관심 목록에 미니 차트</string>
     <string name="settings_watchlist_sparkline_hint">가격 옆에 24시간 추세</string>
 
-    <string name="settings_price_colors_inverted">상승/하락 색상 바꾸기</string>
-    <string name="settings_price_colors_inverted_hint">중국, 일본, 한국, 대만에서처럼 상승은 빨강, 하락은 초록으로 표시합니다. 기본값은 기기 지역에 따라 다릅니다.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">고대비</string>

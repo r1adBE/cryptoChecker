@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">สัญญาณเตือนด่วน</string>
+    <string name="alarm_template_volume">วอลุ่ม ×%1$s</string>
+    <string name="alarm_new_extreme">%1$sใหม่</string>
+    <string name="alarm_template_a11y_up">สร้างสัญญาณเตือนที่บวก %1$s เปอร์เซ็นต์</string>
+    <string name="alarm_template_a11y_down">สร้างสัญญาณเตือนที่ลบ %1$s เปอร์เซ็นต์</string>
+    <string name="alarm_template_a11y">สร้างสัญญาณเตือน: %1$s</string>
+    <string name="alarm_template_created">สร้างสัญญาณเตือนแล้ว</string>
+    <string name="alarm_sentence_new_extreme">แจ้งฉันเมื่อ %1$s ทำ%2$sใหม่</string>
+    <string name="alarm_simple_when">เมื่อ %1$s</string>
+    <string name="alarm_simple_above">ขึ้นเหนือ</string>
+    <string name="alarm_simple_below">ลงต่ำกว่า</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_direction_a11y">ทิศทาง: %1$s</string>
+    <string name="alarm_repeat_once">ครั้งเดียว</string>
+    <string name="alarm_repeat_each">ทุกครั้ง</string>
+    <string name="alarm_advanced">ขั้นสูง</string>
+    <string name="alarm_create">สร้างสัญญาณเตือน</string>
+    <string name="alarm_near_new_only">เฉพาะจุดสูงสุดหรือต่ำสุดใหม่</string>
+</resources>

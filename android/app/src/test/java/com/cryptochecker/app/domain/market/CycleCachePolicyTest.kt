@@ -17,9 +17,9 @@ class CycleCachePolicyTest {
         assertEquals(12 * hour, CycleSource.HISTORY.ttlMillis)
         assertEquals(12 * hour, CycleSource.ON_CHAIN.ttlMillis)
         assertEquals(hour, CycleSource.MARKET.ttlMillis)
-        assertEquals(30 * minute, CycleSource.FEAR_GREED.ttlMillis)
-        assertEquals(15 * minute, CycleSource.GLOBAL.ttlMillis)
-        assertEquals(hour, CycleSource.ALT_SEASON.ttlMillis)
+        assertEquals(hour, CycleSource.FEAR_GREED.ttlMillis)
+        assertEquals(30 * minute, CycleSource.GLOBAL.ttlMillis)
+        assertEquals(3 * hour, CycleSource.ALT_SEASON.ttlMillis)
         assertEquals(5 * minute, CycleSource.PULSE.ttlMillis)
         assertEquals(10 * minute, CycleSource.UNUSUAL.ttlMillis)
         assertEquals(minute, CycleSource.GAS.ttlMillis)
@@ -66,10 +66,38 @@ class CycleCachePolicyTest {
         assertFalse(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.HISTORY.ttlMillis, false))
         assertFalse(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.MARKET.ttlMillis, false))
         assertFalse(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.FEAR_GREED.ttlMillis, false))
-        assertTrue(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.GLOBAL.ttlMillis, false))
+        assertFalse(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.GLOBAL.ttlMillis, false))
+        assertFalse(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.ALT_SEASON.ttlMillis, false))
         assertTrue(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.COIN.ttlMillis, false))
         assertTrue(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.PULSE.ttlMillis, false))
         assertTrue(CycleCachePolicy.needsRefresh(savedAt, now, CycleSource.GAS.ttlMillis, false))
+    }
+
+    @Test
+    fun altSeasonKeptThreeHours() {
+        val ttl = CycleSource.ALT_SEASON.ttlMillis
+        assertFalse(CycleCachePolicy.needsRefresh(now - 2 * hour - 59 * minute, now, ttl, force = false))
+        assertTrue(CycleCachePolicy.needsRefresh(now - 3 * hour, now, ttl, force = false))
+    }
+
+    @Test
+    fun manualReloadRespectsMinimumIntervalForSlowSources() {
+        val floor = CycleCachePolicy.manualMinInterval(CycleSource.ALT_SEASON)
+        assertEquals(5 * minute, floor)
+        assertEquals(0L, CycleCachePolicy.manualMinInterval(CycleSource.PULSE))
+        assertEquals(0L, CycleCachePolicy.manualMinInterval(CycleSource.GAS))
+        val ttl = CycleSource.ALT_SEASON.ttlMillis
+        // Vor 4 Min. geladen: «Aktualisieren»/Ziehen lädt nicht erneut
+        assertFalse(CycleCachePolicy.needsRefresh(now - 4 * minute, now, ttl, force = true, minForceMillis = floor))
+        assertFalse(CycleCachePolicy.canManualRefresh(now - 4 * minute, now, floor))
+        // Ab 5 Min. wieder
+        assertTrue(CycleCachePolicy.needsRefresh(now - 5 * minute, now, ttl, force = true, minForceMillis = floor))
+        assertTrue(CycleCachePolicy.canManualRefresh(now - 5 * minute, now, floor))
+        // Ohne Stand oder mit Zeitpunkt in der Zukunft: immer
+        assertTrue(CycleCachePolicy.canManualRefresh(null, now, floor))
+        assertTrue(CycleCachePolicy.canManualRefresh(now + minute, now, floor))
+        // Ohne Mindestabstand wie bisher: force lädt immer
+        assertTrue(CycleCachePolicy.needsRefresh(now - 1_000L, now, ttl, force = true))
     }
 
     @Test

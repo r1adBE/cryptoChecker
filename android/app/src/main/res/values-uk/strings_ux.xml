@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">сьогодні %1$s</string>
     <string name="widget_portfolio_empty">Додайте покупки на вкладці «Портфель»</string>
     <string name="a11y_portfolio_widget">Портфель %1$s, сьогодні %2$s</string>
-    <string name="settings_section_advanced">Додатково</string>
-    <string name="settings_advanced_hint">Live-режим, постійне сповіщення, ф\'ючерси та параметри розробника</string>
     <string name="explain_funding">Плата між довгими та короткими позиціями. Сильно додатна — багато хто ставить на зростання цін.</string>
     <string name="explain_open_interest">Вартість усіх відкритих ф\'ючерсних позицій. Якщо зростає, на рух ставить більше грошей.</string>
     <string name="explain_rsi">Індекс відносної сили, 0–100. Понад 70 — часто перегрітий, нижче 30 — часто перепроданий.</string>

@@ -13,7 +13,7 @@ struct FuturesInfo: Equatable, Sendable {
 }
 
 /// Futures-Kennzahlen — wie `FuturesDataSource.kt`. Bybit-Futures zuerst von
-/// Bybit, alles andere zuerst von Binance USDⓈ-M — bei anderen Börsen als
+/// Bybit, OKX-Perpetuals zuerst von OKX, alles andere zuerst von Binance USDⓈ-M — bei anderen Börsen als
 /// Richtwert für denselben Coin. Ist die erste Quelle gesperrt (Binance in den
 /// USA: 451/403) oder liefert nichts, folgen Bybit bzw. Binance und zuletzt OKX.
 /// Gesperrte Hosts werden wie bei den Kerzen 6 h übersprungen (`BlockedSources`).
@@ -50,6 +50,14 @@ enum FuturesDataSource {
                 (host: binanceHost, run: { try await binance(symbol: symbol, source: "Binance Futures") }),
                 (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
                 (host: okxHost, run: { try await okx(base: base) }),
+            ])
+        case "OkexFutures":
+            // OKX-Perpetual: eigener Kontrakt (auch BASE-USD-SWAP), sonst Binance/Bybit als Richtwert
+            let instId = watch.pairId.flatMap { $0.hasSuffix("-SWAP") ? $0 : nil }
+            return try await firstOf([
+                (host: okxHost, run: { try await okx(base: base, instId: instId) }),
+                (host: binanceHost, run: { try await binance(symbol: "\(base)USDT", source: "Binance Futures") }),
+                (host: bybitHost, run: { try await bybit(symbol: "\(base)USDT") }),
             ])
         default:
             return try await firstOf([
@@ -122,10 +130,10 @@ enum FuturesDataSource {
         )
     }
 
-    /// OKX-Perpetual BASE-USDT-SWAP. Funding: «fundingTime» ist die nächste Abrechnung.
-    /// Open Interest in USD aus «oiUsd», sonst Coins × Mark-Preis.
-    private static func okx(base: String) async throws -> FuturesInfo {
-        let instId = "\(base)-USDT-SWAP"
+    /// OKX-Perpetual `instId` (Standard BASE-USDT-SWAP). Funding: «fundingTime» ist die nächste
+    /// Abrechnung. Open Interest in USD aus «oiUsd», sonst Coins × Mark-Preis.
+    private static func okx(base: String, instId explicitId: String? = nil) async throws -> FuturesInfo {
+        let instId = explicitId ?? "\(base)-USDT-SWAP"
         async let fundingJob = MarketHTTP.call("https://www.okx.com/api/v5/public/funding-rate?instId=\(instId)")
         async let oiJob = optionalCall("https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=\(instId)")
 

@@ -109,7 +109,9 @@ final class BinanceFutures: Market {
     override func parseCurrencyPairs(requestId: Int, json: JObject) throws -> [CurrencyPairInfo] {
         func parseContractType(_ value: String) -> FuturesContractType? {
             switch value {
-            case "PERPETUAL": return .perpetual
+            // TradFi-Perpetuals (Aktien, Rohstoffe, Devisen, Pre-IPO) sind technisch gewöhnliche
+            // Perpetuals: gleiche Abfrage, gleiche Live-Kurse und Funding
+            case "PERPETUAL", TradFi.binanceTradFiPerpetual: return .perpetual
             case "CURRENT_QUARTER": return .quarterly
             case "NEXT_QUARTER": return .biquarterly
             default: return nil
@@ -119,14 +121,17 @@ final class BinanceFutures: Market {
         var pairs: [CurrencyPairInfo] = []
         for market in try json.array("symbols").allObjects() {
             // Die App unterstützt nur diese Kontrakttypen
-            guard let contractType = try parseContractType(market.string("contractType")) else { continue }
+            let rawContractType = try market.string("contractType")
+            guard let contractType = parseContractType(rawContractType) else { continue }
 
             let rawSymbol = try market.string("symbol")
             let symbol = requestId > 0 ? BinanceFutures.coinMPrefix + rawSymbol : rawSymbol
             let baseAsset = try market.string("baseAsset")
             let quoteAsset = try market.string("quoteAsset")
 
-            pairs.append(CurrencyPairInfo(baseAsset, quoteAsset, symbol, contractType))
+            // Immer gesetzt (auch false): so erkennt der Paarspeicher Listen aus älteren Versionen
+            let tradFi = TradFi.binance(contractType: rawContractType, subTypes: TradFi.strings(market, "underlyingSubType"))
+            pairs.append(CurrencyPairInfo(baseAsset, quoteAsset, symbol, contractType, tradFi: tradFi))
         }
         return pairs
     }

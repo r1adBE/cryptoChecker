@@ -4,25 +4,8 @@ import SwiftUI
 /// App an (`requestPinAppWidget`); iOS erlaubt das Apps nicht — deshalb ein Blatt mit drei
 /// kurzen Schritten und den verfügbaren Widgets (Name wie in der Widget-Galerie und ein Satz).
 /// Echte Widget-Vorschauen gehen hier nicht: Die Widget-Ansichten liegen nur im Widget-Ziel.
-@MainActor
-struct WidgetsSettingsRow: View {
-    /// Portfolio-Widget nur nennen, wenn der Portfolio-Tab eingeschaltet ist (wie Android).
-    let portfolioEnabled: Bool
-    @State private var showHelp = false
-
-    var body: some View {
-        SettingsLinkRow(icon: "square.grid.2x2", title: L("settings_widgets"), subtitle: L("settings_widgets_hint"),
-                        trailingIcon: "chevron.right") {
-            showHelp = true
-        }
-        .sheet(isPresented: $showHelp) {
-            AddWidgetHelpSheet(portfolioEnabled: portfolioEnabled)
-                // Eine feste Höhe: Schritte und Widget-Arten sind höher als «halb», nie ein Stufenwechsel
-                .presentationDetents([.large])
-        }
-    }
-}
-
+/// Runde 23f: Die Zeile «Widgets» steht jetzt in der Liste der Hauptseite (`SettingsScreen`).
+///
 /// Drei Schritte und die Widget-Arten.
 @MainActor
 struct AddWidgetHelpSheet: View {
@@ -79,7 +62,7 @@ struct AddWidgetHelpSheet: View {
                         }
                     }
                 }
-                .padding(20)
+                .padding(Spacing.lg)
                 .readableContentWidth()
             }
             .background(AppColors.background.ignoresSafeArea())
@@ -96,7 +79,7 @@ struct AddWidgetHelpSheet: View {
     /// «1» im Kreis, daneben der Schritt; VoiceOver liest «1. Halte …».
     private func stepRow(number: Int, text: String) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 12) {
-            Text("\(number)")
+            Text(verbatim: LocaleNumbers.integer(number))
                 .font(.footnote.weight(.bold))
                 .monospacedDigit()
                 .foregroundStyle(AppColors.onSurface)
@@ -109,7 +92,7 @@ struct AddWidgetHelpSheet: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(number). \(text)")
+        .accessibilityLabel(Text(verbatim: "\(LocaleNumbers.integer(number)). \(text)"))
     }
 
     private func kindRow(_ kind: Kind) -> some View {

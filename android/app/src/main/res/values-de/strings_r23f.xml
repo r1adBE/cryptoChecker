@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Allgemein</string>
+    <string name="settings_group_data_only">Daten</string>
+    <string name="settings_row_currency">Währung</string>
+    <string name="settings_row_updates">Aktualisierung</string>
+    <string name="settings_updates_live">Häufig · %1$s</string>
+    <string name="settings_updates_every">Alle %1$s</string>
+    <string name="settings_row_watchlist">Merkliste</string>
+    <string name="settings_watchlist_value_sparkline">Mini-Chart</string>
+    <string name="settings_watchlist_value_price_only">Nur Kurs</string>
+    <string name="settings_row_alarms">Alarme</string>
+    <string name="settings_portfolio_value_locked">Ein, mit Sperre</string>
+    <string name="settings_row_dated_futures">Laufzeit-Futures</string>
+    <string name="settings_tradfi_futures">Aktien, Rohstoffe und Devisen (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Zeigt bei der Auswahl auch Futures auf Aktien, Gold und andere Rohstoffe, Devisen und Firmen vor dem Börsengang. Das sind Kontrakte, keine Token.</string>
+    <string name="settings_row_about">Über die App</string>
+    <string name="price_colors_green_up">Grün steigt / Rot fällt</string>
+    <string name="price_colors_red_up">Rot steigt / Grün fällt</string>
+    <string name="price_colors_blue_up">Blau steigt / Orange fällt</string>
+    <string name="price_colors_orange_up">Orange steigt / Blau fällt</string>
+    <string name="price_colors_red_up_hint">Üblich in China, Japan, Korea und Taiwan</string>
+</resources>

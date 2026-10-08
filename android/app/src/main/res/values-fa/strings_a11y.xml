@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">رنگ‌های قیمت</string>
-    <string name="price_colors_green_red">سبز / قرمز</string>
-    <string name="price_colors_blue_orange">آبی / نارنجی</string>
     <string name="settings_price_colors_hint">آبی / نارنجی با هر نوع ضعف دید رنگ (قرمز-سبز و آبی-زرد) به‌خوبی قابل تشخیص است. جهت تغییر نیز همیشه با + / − نشان داده می‌شود.</string>
     <string name="settings_watchlist_sparkline">نمودار کوچک در واچ‌لیست</string>
     <string name="settings_watchlist_sparkline_hint">روند ۲۴ ساعته کنار قیمت</string>
 
-    <string name="settings_price_colors_inverted">جابه‌جایی رنگ‌های افزایش/کاهش</string>
-    <string name="settings_price_colors_inverted_hint">قرمز برای افزایش و سبز برای کاهش، همان‌طور که در چین، ژاپن، کره و تایوان مرسوم است. پیش‌فرض بر اساس منطقه دستگاه است.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">کنتراست بالا</string>

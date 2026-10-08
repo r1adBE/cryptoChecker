@@ -28,7 +28,7 @@ class BatteryOptimizationViewModel @Inject constructor(
 ) : ViewModel() {
 
     /**
-     * null = noch nicht geladen; siehe Willkommensdialog. Erst fragen, wenn
+     * null = noch nicht geladen (sonst blitzte der Dialog kurz auf). Erst fragen, wenn
      * Zuverlässigkeit im Hintergrund zählt: Hintergrund-Aktualisierung an und
      * mindestens ein Alarm — nie beim ersten Start, beim ersten Hinzufügen
      * oder bei den Start-Coins.
@@ -37,7 +37,7 @@ class BatteryOptimizationViewModel @Inject constructor(
         settingsRepository.settings,
         watchRepository.observeAllAlarms().map { it.isNotEmpty() }
     ) { s, hasAlarms ->
-        s.aboutSeen && !s.batteryPromptSeen && s.backgroundUpdates && hasAlarms
+        !s.batteryPromptSeen && s.backgroundUpdates && hasAlarms
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 

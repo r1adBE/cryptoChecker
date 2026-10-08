@@ -18,9 +18,9 @@
     <string name="pulse_less">Εμφάνιση λιγότερων</string>
     <string name="pulse_updated">Στις %1$s</string>
     <string name="pulse_unavailable">Τα δεδομένα αγοράς δεν είναι διαθέσιμα αυτή τη στιγμή</string>
-    <string name="why_summary_title">Με λίγα λόγια</string>
+    <string name="why_summary_title">Πιθανοί λόγοι</string>
     <string name="why_summary_market_volume">Η κίνηση συνοδεύεται από υψηλότερο όγκο συναλλαγών και ευρεία κίνηση της αγοράς.</string>
-    <string name="why_summary_market">Η κίνηση ακολουθεί τη συνολική αγορά.</string>
+    <string name="why_summary_market">Η κίνηση πιθανότατα ακολουθεί τη συνολική αγορά.</string>
     <string name="why_summary_coin_volume">Κινείται μόνο αυτό το νόμισμα, με υψηλότερο όγκο – πιθανώς λόγος που αφορά το ίδιο το νόμισμα.</string>
     <string name="why_summary_coin">Κινείται μόνο αυτό το νόμισμα – πιθανώς λόγος που αφορά το ίδιο το νόμισμα.</string>
     <string name="why_summary_against">Το νόμισμα κινείται αντίθετα από την αγορά.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Παρακολούθηση – τα νομίσματά σας, τιμές, γραφήματα και widgets</string>
     <string name="welcome_alert">Ειδοποίηση – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις</string>
     <string name="welcome_understand">Κατανόηση – γιατί κινείται η αγορά αυτή τη στιγμή;</string>
-    <string name="welcome_start">Ξεκινήστε</string>
     <string name="portfolio_empty_example">Παράδειγμα: 0,01 BTC αγορασμένα την 1η Μαρτίου στα %1$s. Η εφαρμογή δείχνει τότε αξία, μέση τιμή αγοράς και κέρδος/ζημία – αποθηκευμένα μόνο σε αυτή τη συσκευή.</string>
     <string name="about_why">Το Crypto Checker είναι ένα ανεξάρτητο έργο του r1AD: μια ήρεμη επισκόπηση τιμών χωρίς λογαριασμό, διαφημίσεις ή παρακολούθηση. Ερωτήσεις και προτάσεις: %1$s</string>
     <string name="a11y_move_up">Μετακίνηση πάνω</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">Δεν ελήφθησαν δεδομένα από το ανταλλακτήριο.</string>
     <string name="sync_pairs_count">Ζεύγη συναλλαγών: %1$d</string>
     <string name="market_unavailable_error">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
-    <string name="refresh_report_aborted">Η ανανέωση διακόπηκε:</string>
-    <string name="refresh_report_wait">Αναμονή έως την έναρξη: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Σύνολο %1$s · %2$d ζεύγος</item>
-        <item quantity="other">Σύνολο %1$s · %2$d ζεύγη</item>
-    </plurals>
-    <string name="refresh_report_network">Δίκτυο %1$s</string>
-    <string name="refresh_report_database">Βάση δεδομένων %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Ειδοποιήσεις τιμής/ειδοποιήσεις %1$s · %2$d ειδοποίηση</item>
-        <item quantity="other">Ειδοποιήσεις τιμής/ειδοποιήσεις %1$s · %2$d ειδοποιήσεις</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widget %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d ζεύγος, %3$s</item>
-        <item quantity="other">%1$s: %2$d ζεύγη, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">μαζικό αίτημα %1$s (%2$d τιμή)</item>
-        <item quantity="other">μαζικό αίτημα %1$s (%2$d τιμές)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">μαζικό αίτημα %1$s (απέτυχε)</string>
     <string name="refresh_report_singles">μεμονωμένα: %1$d</string>
-    <string name="refresh_report_slowest">πιο αργό %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">δεν διαπραγματεύονται πλέον: %1$d</item>
         <item quantity="other">δεν διαπραγματεύονται πλέον: %1$d</item>

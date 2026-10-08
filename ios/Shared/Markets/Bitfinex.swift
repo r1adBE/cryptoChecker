@@ -39,7 +39,22 @@ final class Bitfinex: Market {
     // ---- Massenabfrage
     override var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(requestId: Int) -> String? { "https://api-pub.bitfinex.com/v2/tickers?symbols=ALL" }
+    private static let tickersPrefix = "https://api-pub.bitfinex.com/v2/tickers?symbols="
+
+    override func bulkTickersURL(requestId: Int) -> String? { Bitfinex.tickersPrefix + "ALL" }
+
+    /// Nur die beobachteten Paare («symbols=tBTCUSD,tETHUSD»), lange Listen verteilt (URL < 2000 Zeichen).
+    override func bulkTickersRequestCount(pairIds: [String]) -> Int {
+        BulkPairChunks.chunks(prefix: Bitfinex.tickersPrefix, pairIds: pairIds)?.count ?? bulkTickersNumOfRequests
+    }
+
+    override func bulkTickersURL(requestId: Int, pairIds: [String]) -> String? {
+        guard let chunks = BulkPairChunks.chunks(prefix: Bitfinex.tickersPrefix, pairIds: pairIds) else {
+            return bulkTickersURL(requestId: requestId)
+        }
+        guard requestId < chunks.count else { return nil }
+        return BulkPairChunks.url(prefix: Bitfinex.tickersPrefix, chunk: chunks[requestId])
+    }
 
     override func parseBulkTickers(requestId: Int, response: String) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]

@@ -50,79 +50,141 @@ enum SettingsSummary {
         case .alarmsOnly: return L("settings_tts_alarms_only")
         }
     }
-}
 
-/// Zeile, die zu einer Unterseite führt: Symbol, Titel, Hinweis, rechts der Kurzwert.
-@MainActor
-struct SettingsSubPageLink<Destination: View>: View {
-    let icon: String
-    let title: String
-    let subtitle: String?
-    let value: String
-    let destination: () -> Destination
-    @Environment(\.appAccent) private var accent
+    // MARK: Runde 23f — Kurzwerte der Hauptseite
 
-    init(
-        icon: String,
-        title: String,
-        subtitle: String? = nil,
-        value: String,
-        @ViewBuilder destination: @escaping () -> Destination
-    ) {
-        self.icon = icon
-        self.title = title
-        self.subtitle = subtitle
-        self.value = value
-        self.destination = destination
+    /// «Aktualisierung»: Live geht vor dem Hintergrund-Intervall.
+    enum Updates { case off, background, live }
+
+    static func updates(liveService: Bool, backgroundUpdates: Bool) -> Updates {
+        if liveService { return .live }
+        return backgroundUpdates ? .background : .off
     }
 
-    var body: some View {
-        NavigationLink {
-            destination()
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: icon)
-                    .font(.body.weight(.medium))
-                    .foregroundStyle(accent.primary)
-                    .frame(width: 26)
-                    .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title).font(.body).foregroundStyle(AppColors.onSurface)
-                    if let subtitle, !subtitle.isEmpty {
-                        Text(subtitle)
-                            .font(.footnote)
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-                Spacer(minLength: 8)
-                Text(value)
-                    .font(.body)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .lineLimit(1)
-                // Spiegelt sich in Rechts-nach-links-Sprachen automatisch
-                Image(systemName: "chevron.forward")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .accessibilityHidden(true)
-            }
-            .padding(.vertical, 12)
-            .contentShape(Rectangle())
+    /// «Portfolio»: Die Sperre zählt nur bei eingeschaltetem Portfolio.
+    enum Portfolio { case off, on, locked }
+
+    static func portfolio(enabled: Bool, lock: Bool) -> Portfolio {
+        if !enabled { return .off }
+        return lock ? .locked : .on
+    }
+
+    /// Teile des Kurzwerts «Merkliste»; leer = nur Kurs.
+    enum WatchlistPart { case sparkline, converted }
+
+    static func watchlist(sparkline: Bool, converted: Bool) -> [WatchlistPart] {
+        var parts: [WatchlistPart] = []
+        if sparkline { parts.append(.sparkline) }
+        if converted { parts.append(.converted) }
+        return parts
+    }
+
+    /// Live-Intervall kurz: «15 s», «5 min» statt «300 Sekunden».
+    static func liveIntervalText(_ seconds: Int) -> String {
+        seconds >= 60 && seconds % 60 == 0 ? L("settings_minutes", seconds / 60) : L("settings_seconds", seconds)
+    }
+
+    /// «Live · 15 s», «Alle 15 min» oder «Aus».
+    static func updatesText(_ s: AppSettings) -> String {
+        switch updates(liveService: s.liveService, backgroundUpdates: s.backgroundUpdates) {
+        case .live: return L("settings_updates_live", liveIntervalText(s.liveIntervalSeconds))
+        case .background: return L("settings_updates_every", L("settings_minutes", s.backgroundIntervalMinutes))
+        case .off: return L("option_off")
         }
-        .buttonStyle(.plain)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title)
-        .accessibilityValue(value)
-        .accessibilityHint(subtitle ?? "")
-        .accessibilityAddTraits(.isButton)
+    }
+
+    /// «Mini-Chart · ≈ CHF» oder «Nur Kurs».
+    static func watchlistText(_ s: AppSettings) -> String {
+        let parts = watchlist(sparkline: s.watchlistSparkline, converted: s.showConverted)
+        if parts.isEmpty { return L("settings_watchlist_value_price_only") }
+        return parts.map { part -> String in
+            switch part {
+            case .sparkline: return L("settings_watchlist_value_sparkline")
+            case .converted: return "≈ " + s.portfolioCurrency
+            }
+        }.joined(separator: " · ")
+    }
+
+    /// «System», «Hell» oder «Dunkel», bei hohem Kontrast mit Zusatz.
+    static func displayModeText(_ s: AppSettings) -> String {
+        let mode = L(themeModeKey(s.darkMode))
+        return s.highContrast ? mode + " · " + L("settings_high_contrast") : mode
+    }
+
+    static func themeModeKey(_ dark: Bool?) -> String {
+        switch dark {
+        case nil: return "theme_system"
+        case false?: return "theme_light"
+        case true?: return "theme_dark"
+        }
+    }
+
+    /// «Aus», «Ein» oder «Ein, mit Sperre».
+    static func portfolioText(_ s: AppSettings) -> String {
+        switch portfolio(enabled: s.portfolioEnabled, lock: s.appLock) {
+        case .off: return L("option_off")
+        case .on: return L("settings_summary_on")
+        case .locked: return L("settings_portfolio_value_locked")
+        }
+    }
+
+    static func onOff(_ on: Bool) -> String { L(on ? "settings_summary_on" : "option_off") }
+}
+
+/// Runde 23f: die vier Wahlmöglichkeiten der Seite «Kursfarben» — wie `PriceColorChoice.kt`
+/// (mit Unit-Tests). Gespeichert bleiben Schema + «getauscht»; Pfeile und Vorzeichen bleiben
+/// richtungsgebunden (▲ = steigend), nur die Farben wechseln.
+enum PriceColorChoice: CaseIterable, Identifiable {
+    case GREEN_UP, RED_UP, BLUE_UP, ORANGE_UP
+
+    var id: Self { self }
+
+    var scheme: PriceColorScheme {
+        switch self {
+        case .GREEN_UP, .RED_UP: return .GREEN_RED
+        case .BLUE_UP, .ORANGE_UP: return .BLUE_ORANGE
+        }
+    }
+
+    var inverted: Bool { self == .RED_UP || self == .ORANGE_UP }
+
+    static func of(scheme: PriceColorScheme, inverted: Bool) -> PriceColorChoice {
+        allCases.first { $0.scheme == scheme && $0.inverted == inverted } ?? .GREEN_UP
+    }
+
+    var labelKey: String {
+        switch self {
+        case .GREEN_UP: return "price_colors_green_up"
+        case .RED_UP: return "price_colors_red_up"
+        case .BLUE_UP: return "price_colors_blue_up"
+        case .ORANGE_UP: return "price_colors_orange_up"
+        }
+    }
+}
+
+/// «▲▼» in den Farben einer Wahl; für VoiceOver verborgen (den Namen trägt die Zeile).
+@MainActor
+struct PriceArrowsView: View {
+    let choice: PriceColorChoice
+    @Environment(\.priceHighContrast) private var highContrast
+
+    var body: some View {
+        HStack(spacing: 0) {
+            Text("▲").foregroundStyle(choice.scheme.up(highContrast: highContrast, inverted: choice.inverted))
+            Text("▼").foregroundStyle(choice.scheme.down(highContrast: highContrast, inverted: choice.inverted))
+        }
+        .font(.body.weight(.bold))
+        .accessibilityHidden(true)
     }
 }
 
 /// Gerüst einer Unterseite: scrollbarer Inhalt in lesbarer Breite, Titel in der Leiste.
+/// Aus der Suche geöffnet (`settingsHighlight`): scrollt zum gesuchten Punkt.
 @MainActor
-private struct SettingsSubPage<Content: View>: View {
+struct SettingsSubPage<Content: View>: View {
     let title: String
     let content: () -> Content
+    @Environment(\.settingsHighlight) private var highlight
 
     init(title: String, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
@@ -130,19 +192,61 @@ private struct SettingsSubPage<Content: View>: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                SettingsCard { content() }
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    SettingsCard { content() }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 24)
+                .readableContentWidth()
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-            .padding(.bottom, 24)
-            .readableContentWidth()
+            .task { await settingsScrollToHighlight(highlight, proxy: proxy) }
         }
         .background(AppColors.background.ignoresSafeArea())
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
     }
+}
+
+/// Wie `SettingsSubPage`, aber mehrere Karten (`SettingsCard`) und Hinweise untereinander (Runde 23f).
+@MainActor
+struct SettingsCardsPage<Content: View>: View {
+    let title: String
+    let content: () -> Content
+    @Environment(\.settingsHighlight) private var highlight
+
+    init(title: String, @ViewBuilder content: @escaping () -> Content) {
+        self.title = title
+        self.content = content
+    }
+
+    var body: some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
+                    content()
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 24)
+                .readableContentWidth()
+            }
+            .task { await settingsScrollToHighlight(highlight, proxy: proxy) }
+        }
+        .background(AppColors.background.ignoresSafeArea())
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+/// Suche in den Einstellungen: nach dem Einschieben der Seite zum gesuchten Punkt scrollen.
+@MainActor
+private func settingsScrollToHighlight(_ anchor: String?, proxy: ScrollViewProxy) async {
+    guard let anchor else { return }
+    try? await Task.sleep(nanoseconds: SettingsHighlightTiming.delayNanos)
+    withAnimation { proxy.scrollTo(anchor, anchor: .center) }
 }
 
 /// Markt-Meldungen: Phase, Fear & Greed, Gas, ungewöhnliche Aktivität, Wirtschaftstermine.
@@ -167,6 +271,7 @@ struct MarketAlertsSettingsPage: View {
                     }
                 )
             )
+            .settingsAnchor("market.zone")
             // Fear & Greed: Meldung unter/über einer Grenze (0 = aus)
             ChoiceRow(
                 title: L("settings_fng_below"),
@@ -178,6 +283,7 @@ struct MarketAlertsSettingsPage: View {
                     data.settings.fearGreedBelow = value
                 }
             )
+            .settingsAnchor("market.fng_below")
             ChoiceRow(
                 title: L("settings_fng_above"),
                 options: AppSettings.fearGreedAboveChoices,
@@ -188,6 +294,7 @@ struct MarketAlertsSettingsPage: View {
                     data.settings.fearGreedAbove = value
                 }
             )
+            .settingsAnchor("market.fng_above")
             RowDivider()
             // Gas-Alarm (#167): normale Gebühr fällt unter die Grenze
             ChoiceRow(
@@ -200,6 +307,7 @@ struct MarketAlertsSettingsPage: View {
                     data.settings.gasAlertEthTenths = value
                 }
             )
+            .settingsAnchor("market.gas_eth")
             ChoiceRow(
                 title: L("settings_gas_btc_below"),
                 options: AppSettings.gasBtcChoices,
@@ -210,6 +318,7 @@ struct MarketAlertsSettingsPage: View {
                     data.settings.gasAlertBtc = value
                 }
             )
+            .settingsAnchor("market.gas_btc")
             SettingsHint(text: L("settings_gas_alert_hint"))
             RowDivider()
             // Ungewöhnliche Aktivität: höchstens stündlich je Paar
@@ -224,6 +333,7 @@ struct MarketAlertsSettingsPage: View {
                     }
                 )
             )
+            .settingsAnchor("market.activity")
             // Empfindlichkeit: gilt für die Karte in der Merkliste und die Mitteilungen gleich
             ChoiceRow(
                 title: L("settings_activity_sensitivity"),
@@ -232,6 +342,7 @@ struct MarketAlertsSettingsPage: View {
                 label: { Self.sensitivityLabel($0) },
                 onSelect: { data.settings.activitySensitivity = $0 }
             )
+            .settingsAnchor("market.sensitivity")
             SettingsHint(text: L("settings_activity_sensitivity_hint"))
             RowDivider()
             // Wirtschaftstermine: Morgen-Mitteilung um 08:00 an Tagen mit US-Daten (CPI, Fed …)
@@ -247,6 +358,7 @@ struct MarketAlertsSettingsPage: View {
                     }
                 )
             )
+            .settingsAnchor("market.macro")
         }
     }
 
@@ -281,6 +393,7 @@ struct SpeechSettingsPage: View {
                 subtitle: L("settings_tts_hint_silent"),
                 isOn: $data.settings.ttsEnabled
             )
+            .settingsAnchor("speech.enabled")
             if settings.ttsEnabled {
                 RowDivider()
                 SwitchRow(
@@ -288,12 +401,13 @@ struct SpeechSettingsPage: View {
                     subtitle: L("settings_tts_alarms_only_hint"),
                     isOn: $data.settings.ttsAlarmsOnly
                 )
+                .settingsAnchor("speech.alarms_only")
                 RowDivider()
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(L("settings_speech_rate", settings.ttsSpeechRate))
                         .font(.body)
                         .monospacedDigit()
-                    HStack(spacing: 10) {
+                    HStack(spacing: Spacing.sm) {
                         Image(systemName: "tortoise.fill")
                             .font(.footnote)
                             .foregroundStyle(AppColors.onSurfaceVariant)
@@ -311,11 +425,12 @@ struct SpeechSettingsPage: View {
                     Label(L("settings_tts_test"), systemImage: "play.fill")
                         .font(.subheadline.weight(.semibold))
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, Spacing.md)
                 }
                 .buttonStyle(TonalButtonStyle())
+                .settingsAnchor("speech.test")
                 .padding(.top, 8)
-                .padding(.bottom, 10)
+                .padding(.bottom, Spacing.sm)
             }
         }
     }

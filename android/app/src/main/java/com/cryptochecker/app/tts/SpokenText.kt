@@ -33,6 +33,10 @@ class SpokenText @Inject constructor(
                 AlarmCondition.VOLUME_SPIKE -> R.string.tts_direction_volume_spike
                 AlarmCondition.NEAR_HIGH -> R.string.tts_direction_near_high
                 AlarmCondition.NEAR_LOW -> R.string.tts_direction_near_low
+                AlarmCondition.FUNDING_ABOVE -> R.string.tts_direction_funding_above
+                AlarmCondition.FUNDING_BELOW -> R.string.tts_direction_funding_below
+                AlarmCondition.OI_UP -> R.string.tts_direction_oi_up
+                AlarmCondition.OI_DOWN -> R.string.tts_direction_oi_down
             }
         )
         return context.getString(

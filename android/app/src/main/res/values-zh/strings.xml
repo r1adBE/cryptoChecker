@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">错误：%1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">没有交易对</string>
-    <string name="checker_add_check_currency_empty_warning_summary">点击此处从所选交易所下载最新交易对。</string>
+    <string name="checker_add_check_currency_empty_warning_summary">加载所选交易所的最新交易对。</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">更新交易对</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">立即同步</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">上次同步：%1$s</string>
@@ -36,7 +36,6 @@
     <string name="bulk_all_pairs_empty">该交易所在所选合约类型下没有 %1$s 交易对。请先同步交易所，或尝试其他合约类型。</string>
 
     <string name="action_refresh">刷新</string>
-    <string name="action_add_pair">添加交易对</string>
     <string name="action_delete">删除</string>
     <string name="action_edit">编辑</string>
     <string name="action_back">返回</string>
@@ -44,7 +43,6 @@
     <string name="action_cancel">取消</string>
 
     <string name="watchlist_empty_title">暂无交易对</string>
-    <string name="watchlist_empty_hint">或在“添加”中选择交易所和交易对。每个交易对都可以设置通知、语音播报和价格提醒。</string>
     <string name="watchlist_updated">更新于：%1$s</string>
     <string name="watchlist_notification">通知</string>
     <string name="watchlist_tts">播报价格</string>
@@ -74,7 +72,7 @@
     <string name="channel_prices_description">显示交易对当前价格的静默通知。</string>
     <string name="channel_alarms">提醒</string>
     <string name="channel_alarms_description">价格提醒触发时的通知。</string>
-    <string name="channel_service">实时模式</string>
+    <string name="channel_service">频繁更新</string>
     <string name="channel_service_description">以短间隔更新价格期间显示的提示。</string>
     <string name="notification_price_title">%1$s：%2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s，自 %2$s（%3$s前）</string>
@@ -125,7 +123,7 @@
     <string name="settings_rolling_futures">包括季度及其他交割合约</string>
     <string name="settings_rolling_futures_hint">关闭时：交易所列表中缺失的交割合约将被标记为已停止交易，而不是逐个检查。每次刷新都能节省时间。</string>
     <string name="notification_refreshing">正在更新价格…</string>
-    <string name="notification_service_title">Crypto Checker 实时模式</string>
+    <string name="notification_service_title">Crypto Checker 正在频繁更新</string>
     <string name="notification_service_starting">正在启动…</string>
     <plurals name="notification_service_running">
         <item quantity="other">%1$d 个交易对 · %2$s</item>
@@ -137,9 +135,9 @@
     <string name="settings_background_updates">后台更新</string>
     <string name="settings_background_updates_hint">即使应用已关闭，价格、提醒和小部件也会更新。</string>
     <string name="settings_background_interval">间隔</string>
-    <string name="settings_live_service">实时模式</string>
-    <string name="settings_live_service_hint">保持服务运行以实现短间隔更新。耗电更多。</string>
-    <string name="settings_live_interval">实时间隔</string>
+    <string name="settings_live_service">频繁更新</string>
+    <string name="settings_live_service_hint">即使应用已关闭，也会以短间隔查询价格。会显示一条通知，并更耗电。</string>
+    <string name="settings_live_interval">更新频率</string>
     <string name="settings_minutes">%1$d 分钟</string>
     <string name="settings_seconds">%1$d 秒</string>
     <string name="settings_price_notifications">价格通知</string>
@@ -217,7 +215,7 @@
     <string name="theme_system">跟随系统</string>
     <string name="settings_section_developer">开发者</string>
     <string name="settings_http_log">显示 HTTP 日志</string>
-    <string name="settings_http_log_hint">在“添加”标签页底部显示发往交易所的请求，用于排查问题。</string>
+    <string name="settings_http_log_hint">在“添加交易对”页面底部显示发往交易所的请求，用于排查问题。</string>
     <string name="language_search">搜索语言</string>
     <string name="alarm_delete_title">删除提醒？</string>
     <string name="alarm_delete_confirm">此提醒将被移除。</string>
@@ -253,15 +251,11 @@
     <string name="explorer_bulk_show_list">显示列表</string>
     <string name="explorer_bulk_hide_list">隐藏列表</string>
     <string name="time_just_now">刚刚</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">你的行情。你的提醒。你的概览。\n无需账号。没有广告。不做追踪。</string>
-    <string name="welcome_later">稍后</string>
     <string name="developer_unlocked">已解锁开发者选项</string>
     <string name="hint_favorites_list">提示：点按 ☆ 设为收藏，收藏始终在最上方。</string>
     <string name="tab_watchlist">列表</string>
-    <string name="tab_markets">添加</string>
     <string name="tab_market_phase">市场</string>
-    <string name="tab_settings">设置</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%2$d 个中 %1$d 个已过时</item>
     </plurals>

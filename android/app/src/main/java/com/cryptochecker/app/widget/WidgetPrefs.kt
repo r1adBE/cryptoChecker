@@ -91,7 +91,7 @@ class WidgetPrefs @Inject constructor(
 
     fun getChartRange(appWidgetId: Int): WidgetChartRange =
         prefs.getString(chartRangeKey(appWidgetId), null)
-            ?.let { name -> WidgetChartRange.entries.firstOrNull { it.name == name } }
+            ?.let { name -> WidgetChartRange.entries.firstOrNull { it.inWidget && it.name == name } }
             ?: WidgetChartRange.DAY
 
     /** Einzel-Widget: Chart-Art (Kerzen / Linie). */

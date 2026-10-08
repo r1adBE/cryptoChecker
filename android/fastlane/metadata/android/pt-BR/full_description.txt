@@ -1,9 +1,9 @@
-Acompanhe os preços das suas criptomoedas sem precisar abrir o tempo todo os apps das exchanges. Crie alarmes, identifique movimentos incomuns e entenda em segundos por que uma moeda está se movendo.
+O Crypto Checker explica o que está acontecendo no mercado. Crie alarmes, identifique movimentos incomuns e entenda em segundos por que uma moeda está se movendo, sem previsões.
 
-Acompanhar – preços direto da exchange, na sua moeda
-Alertar – preço, %, movimentos e volume, em uma frase
 Entender – “Por que está se movendo?” com um breve resumo
 Visão geral – Crypto Pulse, Fear & Greed, ciclo e portfólio
+Acompanhar – preços direto da exchange, na sua moeda
+Alertar – preço, %, movimentos e volume, em uma frase
 
 Legível para todos: cores de preço verde/vermelho ou azul/laranja, invertidas se quiser, alto contraste, sinal e seta em vez de só cor, e o TalkBack lê cada linha em uma frase.
 
@@ -45,7 +45,7 @@ VISÃO DO MERCADO
 WIDGETS E NOTIFICAÇÕES
 • Widgets: a lista inteira, valor do portfólio com a variação de hoje, uma moeda em destaque com gráfico – candles ou linha, com marcas de máxima, meio e mínima
 • Notificação de preço silenciosa por par
-• Modo ao vivo com atualização a cada 15 segundos; em segundo plano a partir de 15 minutos
+• Atualização frequente a cada 15 segundos; em segundo plano a partir de 15 minutos
 
 E MAIS
 • Leitura em voz alta de preços e alarmes (texto para fala)

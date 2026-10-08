@@ -19,7 +19,8 @@ class MarketLocalDataSource @Inject constructor(private val appDao: MarketDao) {
                 it.baseAsset,
                 it.quoteAsset,
                 it.marketPairId,
-                it.contractType
+                it.contractType,
+                it.tradFi,
             ) })
     }
 

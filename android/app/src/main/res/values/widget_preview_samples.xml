@@ -22,11 +22,16 @@
 
     <string name="widget_preview_portfolio_total" translatable="false">84’215.30 CHF</string>
     <string name="widget_preview_portfolio_usdt" translatable="false">≈ 92’310.00 USDT</string>
-    <string name="widget_preview_portfolio_change" translatable="false" formatted="false">▲ +1’168.40 CHF · +1.41%</string>
+    <!-- Portfolio: Pille «▲ 1.41%» in der Kopfzeile, Betrag mit Trenner vor dem übersetzten «24h», Fusszeile -->
+    <string name="widget_preview_portfolio_change" translatable="false" formatted="false">"▲ +1’168.40 CHF · "</string>
+    <string name="widget_preview_portfolio_pill" translatable="false" formatted="false">▲ 1.41%</string>
+    <string name="widget_preview_portfolio_time" translatable="false">"14:05 · "</string>
     <!-- Kopf des Listen-Widgets: Uhrzeit · Dauer der Aktualisierung -->
     <string name="widget_preview_list_time_duration" translatable="false">14:05:32 · 840 ms</string>
     <string name="widget_preview_pulse_glyph" translatable="false">▲</string>
     <string name="widget_preview_pulse_btc" translatable="false" formatted="false">BTC ▲ +2.8%</string>
     <string name="widget_preview_pulse_eth" translatable="false" formatted="false">ETH ▲ +2.1%</string>
     <string name="widget_preview_pulse_sol" translatable="false" formatted="false">SOL ▲ +1.9%</string>
+    <!-- Fear & Greed: «Fear & Greed» und «Gier» kommen aus den übersetzten Strings -->
+    <string name="widget_preview_pulse_fng" translatable="false">\u002072 ·\u0020</string>
 </resources>

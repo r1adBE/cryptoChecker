@@ -25,8 +25,10 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.ui.components.RollingNumberText
 import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
 
 /**
@@ -40,28 +42,34 @@ import com.cryptochecker.app.util.PriceFormat
 @Composable
 internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
     val context = LocalContext.current
+    // Zeitraum wie die Pillen der Zeilen (%-Basis): «24h», «heute», «heute UTC»
+    val basis = LocalChangeView.current.basis
     // Ø wie die Pille: Pfeil nach dem Vorzeichen, Farbe nach Richtung, grau bei 0.00%
     val average = PriceFormat.changePercent(pulse.average)
         ?.let { "${PriceFormat.changeArrow(pulse.average)} $it" }
-        ?: "0.00%"
+        ?: PriceFormat.zeroPercent()
     val averageColor = if (pulse.flat) MaterialTheme.colorScheme.onSurfaceVariant
     else PriceColors.forChange(pulse.average)
     val spokenPulse = stringResource(
         R.string.a11y_watchlist_pulse,
         pluralStringResource(R.plurals.a11y_watchlist_pulse_rising, pulse.up, pulse.up),
         pluralStringResource(R.plurals.a11y_watchlist_pulse_falling, pulse.down, pulse.down),
-        A11yText.change24h(context, pulse.average),
+        ChangeBasisText.spoken(context, basis, pulse.average),
     )
     // Ehrlich: Paare mit Kurs, aber ohne 24-h-Wert, werden mitgesagt
     val spoken = if (pulse.missing > 0) {
         stringResource(
             R.string.a11y_watchlist_pulse_combined,
             spokenPulse,
-            pluralStringResource(R.plurals.a11y_watchlist_pulse_missing, pulse.missing, pulse.missing),
+            pluralStringResource(
+                if (basis == ChangeBasis.ROLLING_24H) R.plurals.a11y_watchlist_pulse_missing
+                else R.plurals.a11y_watchlist_pulse_missing_day,
+                pulse.missing, pulse.missing
+            ),
         )
     } else spokenPulse
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier
             .fillMaxWidth()
@@ -85,14 +93,18 @@ internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
         PulsePill(
             // Zeitraum wie neben den Pillen der Zeilen: «Ø ▲ +1.80% 24h»
             text = stringResource(R.string.watchlist_pulse_avg, average) + " " +
-                stringResource(R.string.widget_range_short_24h),
+                ChangeBasisText.shortLabel(basis),
             value = pulse.average,
             color = averageColor,
         )
         // Klein und grau, ohne Pille: «· 510 ohne 24h-Wert»
         if (pulse.missing > 0) {
             Text(
-                text = "· " + pluralStringResource(R.plurals.watchlist_pulse_missing, pulse.missing, pulse.missing),
+                text = "· " + pluralStringResource(
+                    if (basis == ChangeBasis.ROLLING_24H) R.plurals.watchlist_pulse_missing
+                    else R.plurals.watchlist_pulse_missing_day,
+                    pulse.missing, pulse.missing
+                ),
                 style = MaterialTheme.typography.labelSmall.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

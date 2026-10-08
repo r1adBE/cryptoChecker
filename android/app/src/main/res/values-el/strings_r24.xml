@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Μεταβολή %1$s</string>
+    <string name="change_basis_rolling">Τελευταίες 24 ώρες</string>
+    <string name="change_basis_utc_zone">Από 00:00 %1$s</string>
+    <string name="change_basis_local">Από 00:00 τοπική ώρα</string>
+    <string name="settings_change_basis_hint_1">Η ζώνη ώρας που επιλέγετε ορίζει από πότε μετρά η ποσοστιαία μεταβολή: στη λίστα παρακολούθησης, στη γραμμή παλμού, στο φύλλο ζεύγους και στα widget.</string>
+    <string name="settings_change_basis_hint_2">Το «%1$s» συγκρίνει με την τιμή ακριβώς πριν από 24 ώρες. Το «00:00» συγκρίνει με την τιμή ανοίγματος τα μεσάνυχτα σε αυτή τη ζώνη ώρας.</string>
+    <string name="settings_change_basis_hint_3">Οι ειδοποιήσεις δεν επηρεάζονται.</string>
+    <string name="change_basis_device">%1$s, 00:00 (ζώνη ώρας συσκευής)</string>
+    <string name="change_short_today">σήμερα</string>
+    <string name="change_short_today_zone">σήμερα %1$s</string>
+    <string name="a11y_change_today">%1$s σήμερα</string>
+    <string name="a11y_change_today_zone">%1$s από τα μεσάνυχτα %2$s</string>
+    <string name="a11y_change_today_none">Η σημερινή μεταβολή δεν είναι διαθέσιμη</string>
+    <string name="a11y_change_today_zone_none">Η μεταβολή από τα μεσάνυχτα %1$s δεν είναι διαθέσιμη</string>
+    <string name="sheet_chart_today">Σήμερα</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Με την εφαρμογή κλειστή, το πολύ μία φορά το λεπτό</string>
+    <string name="sheet_more">Περισσότερα</string>
+    <string name="a11y_expanded">Αναπτυγμένο</string>
+    <string name="a11y_collapsed">Συμπτυγμένο</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d χωρίς σημερινή τιμή</item>
+        <item quantity="other">%1$d χωρίς σημερινή τιμή</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ζεύγος χωρίς τιμή για σήμερα</item>
+        <item quantity="other">%1$d ζεύγη χωρίς τιμή για σήμερα</item>
+    </plurals>
+</resources>

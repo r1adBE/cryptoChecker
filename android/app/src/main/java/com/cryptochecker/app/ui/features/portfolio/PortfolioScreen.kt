@@ -13,6 +13,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import com.cryptochecker.app.ui.components.ReadableMaxWidth
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.RollingNumberText
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
 import androidx.compose.foundation.clickable
@@ -47,6 +48,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,8 +70,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.portfolio.CoinPosition
+import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.ui.components.SkeletonList
+import com.cryptochecker.app.ui.theme.display
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
 
@@ -89,6 +93,9 @@ fun PortfolioScreen(
     val history by viewModel.history.collectAsStateWithLifecycle()
     val historyRange by viewModel.historyRange.collectAsStateWithLifecycle()
     val historyExpanded by viewModel.historyExpanded.collectAsStateWithLifecycle()
+    val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
+    val coinChanges by viewModel.coinChanges.collectAsStateWithLifecycle()
+    val changeBasis by viewModel.changeBasis.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) { viewModel.start() }
     // Beim Öffnen des Tabs Kurse auffrischen (60 s Zwischenspeicher)
@@ -103,6 +110,8 @@ fun PortfolioScreen(
     var showClosed by rememberSaveable { mutableStateOf(false) }
     // Saveable: Der Dialog muss die Dateiauswahl (eigene Activity) überstehen
     var exportOpen by rememberSaveable { mutableStateOf(false) }
+    // Neuer Alarm «Portfolio-Wert»
+    var alarmOpen by rememberSaveable { mutableStateOf(false) }
 
     sheet?.let { draft ->
         PortfolioTxSheet(initial = draft, viewModel = viewModel, onDismiss = { sheet = null })
@@ -118,6 +127,17 @@ fun PortfolioScreen(
     if (exportOpen) {
         PortfolioExportDialog(currency = currency, onDismiss = { exportOpen = false })
     }
+    if (alarmOpen) {
+        PortfolioAlarmDialog(
+            currency = currency,
+            basis = changeBasis,
+            onSave = { kind, threshold, repeating ->
+                viewModel.addAlarm(kind, threshold, repeating)
+                alarmOpen = false
+            },
+            onDismiss = { alarmOpen = false }
+        )
+    }
 
     val hasTransactions = !transactions.isNullOrEmpty()
 
@@ -126,9 +146,20 @@ fun PortfolioScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.portfolio_title), fontWeight = FontWeight.SemiBold) },
                 actions = {
+                    // «Beträge verbergen»: alle Beträge als «•••» (Prozente bleiben), auch im Widget
+                    if (hasTransactions) {
+                        IconButton(onClick = { viewModel.setHideAmounts(!hideAmounts) }) {
+                            Icon(
+                                painterResource(if (hideAmounts) R.drawable.ic_visibility_off else R.drawable.ic_visibility),
+                                contentDescription = stringResource(
+                                    if (hideAmounts) R.string.a11y_portfolio_show_amounts else R.string.portfolio_hide_amounts
+                                )
+                            )
+                        }
+                    }
                     if (refreshing) {
                         CircularProgressIndicator(
-                            modifier = Modifier.padding(horizontal = 14.dp).size(20.dp),
+                            modifier = Modifier.padding(horizontal = Spacing.md).size(20.dp),
                             strokeWidth = 2.dp
                         )
                     } else if (hasTransactions) {
@@ -155,6 +186,11 @@ fun PortfolioScreen(
                                 DropdownMenuItem(
                                     text = { Text(stringResource(R.string.portfolio_export_action)) },
                                     onClick = { menuOpen = false; exportOpen = true }
+                                )
+                                // Alarm «Portfolio-Wert» (erscheint in der Alarm-Übersicht)
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.portfolio_alarm_action)) },
+                                    onClick = { menuOpen = false; alarmOpen = true }
                                 )
                             }
                         }
@@ -193,54 +229,66 @@ fun PortfolioScreen(
         ) {
             // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
             ReadableInset { inset ->
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    // Unten Platz für den «+»-Knopf
-                    contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    item(key = "total") {
-                        TotalCard(
-                            summary = current,
-                            updatedAt = prices.updatedAt,
-                            currency = currency,
-                            fxRate = fxRate,
-                            todayPercent = todayPercent
-                        )
-                    }
-                    // Wertverlauf über den Positionen
-                    item(key = "history") {
-                        PortfolioHistoryCard(
-                            history = history,
-                            range = historyRange,
-                            onRange = viewModel::setHistoryRange,
-                            expanded = historyExpanded,
-                            onExpandedChange = viewModel::setHistoryExpanded
-                        )
-                    }
-                    items(current.open, key = { "open:${it.coin}" }) { position ->
-                        CoinRow(position = position, onClick = { onOpenCoin(position.coin) })
-                    }
-                    if (current.closed.isNotEmpty()) {
-                        item(key = "closed_header") {
-                            Text(
-                                text = (if (showClosed) "▾ " else "▸ ") +
-                                    pluralStringResource(R.plurals.portfolio_closed, current.closed.size, current.closed.size),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable { showClosed = !showClosed }
-                                    .padding(horizontal = 4.dp, vertical = 10.dp)
+                CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        // Unten Platz für den «+»-Knopf
+                        contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        item(key = "total") {
+                            TotalCard(
+                                summary = current,
+                                updatedAt = prices.updatedAt,
+                                currency = currency,
+                                fxRate = fxRate,
+                                todayPercent = todayPercent
                             )
                         }
-                        if (showClosed) {
-                            items(current.closed, key = { "closed:${it.coin}" }) { position ->
-                                ClosedRow(position = position, onClick = { onOpenCoin(position.coin) })
+                        // Wertverlauf über den Positionen
+                        item(key = "history") {
+                            PortfolioHistoryCard(
+                                history = history,
+                                range = historyRange,
+                                onRange = viewModel::setHistoryRange,
+                                expanded = historyExpanded,
+                                onExpandedChange = viewModel::setHistoryExpanded
+                            )
+                        }
+                        // Aufteilung (vier grösste Coins + «Andere»), erst ab zwei Teilen
+                        val slices = PortfolioInsights.allocation(current.open)
+                        if (slices.size >= 2) {
+                            item(key = "allocation") { AllocationCard(slices) }
+                        }
+                        // Grösste Bewegungen über die %-Basis (sobald es eine Vergleichsbasis gibt)
+                        val movers = PortfolioInsights.movers(current.open, coinChanges)
+                        if (movers.isNotEmpty()) {
+                            item(key = "movers") { MoversCard(movers, changeBasis) }
+                        }
+                        items(current.open, key = { "open:${it.coin}" }) { position ->
+                            CoinRow(position = position, onClick = { onOpenCoin(position.coin) })
+                        }
+                        if (current.closed.isNotEmpty()) {
+                            item(key = "closed_header") {
+                                Text(
+                                    text = (if (showClosed) "▾ " else "▸ ") +
+                                        pluralStringResource(R.plurals.portfolio_closed, current.closed.size, current.closed.size),
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable { showClosed = !showClosed }
+                                        .padding(horizontal = 4.dp, vertical = Spacing.md)
+                                )
+                            }
+                            if (showClosed) {
+                                items(current.closed, key = { "closed:${it.coin}" }) { position ->
+                                    ClosedRow(position = position, onClick = { onOpenCoin(position.coin) })
+                                }
                             }
                         }
+                        item(key = "disclaimer") { PortfolioDisclaimer() }
                     }
-                    item(key = "disclaimer") { PortfolioDisclaimer() }
                 }
             }
         }
@@ -272,7 +320,7 @@ private fun TotalCard(
                 .fillMaxWidth()
                 // Von oben links nach unten rechts, wie LinearGradient(.topLeading → .bottomTrailing)
                 .background(Brush.linearGradient(listOf(accent.copy(alpha = 0.16f), accent.copy(alpha = 0.04f))))
-                .padding(20.dp)
+                .padding(Spacing.lg)
         ) {
             Text(
                 stringResource(R.string.portfolio_total_value),
@@ -280,26 +328,26 @@ private fun TotalCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             FittedTotal(
-                text = PortfolioFormat.usdt(summary.totalValue),
+                text = maskAmount(PortfolioFormat.usdt(summary.totalValue)),
                 value = summary.totalValue,
                 modifier = Modifier.padding(top = 2.dp)
             )
             // «≈ 12’345.67 CHF» — nur mit Devisenkurs und nicht bei USD
             if (currency != "USD" && fxRate != null) {
                 Text(
-                    "≈ " + PriceFormat.valueWithCurrency(summary.totalValue * fxRate, currency),
+                    "≈ " + maskAmount(PriceFormat.valueWithCurrency(summary.totalValue * fxRate, currency)),
                     style = MaterialTheme.typography.bodyMedium.amountNumbers(),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             // Veränderung heute (wie im Portfolio-Widget), sobald es eine Vergleichsbasis gibt
             if (todayPercent != null) {
-                TodayPill(todayPercent, modifier = Modifier.padding(top = 6.dp))
+                TodayPill(todayPercent, modifier = Modifier.padding(top = Spacing.xs))
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = Spacing.sm)) {
                 Text(
-                    summary.unrealized?.let { PortfolioFormat.signedUsdt(it) } ?: "—",
+                    summary.unrealized?.let { maskAmount(PortfolioFormat.signedUsdt(it)) } ?: "—",
                     style = MaterialTheme.typography.titleMedium.amountNumbers(),
                     fontWeight = FontWeight.SemiBold,
                     color = plColor(summary.unrealized)
@@ -312,13 +360,13 @@ private fun TotalCard(
             Row(modifier = Modifier.fillMaxWidth().padding(top = 12.dp)) {
                 Metric(
                     label = stringResource(R.string.portfolio_invested),
-                    value = summary.invested?.let { PortfolioFormat.usdt(it) } ?: "—",
+                    value = summary.invested?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
                     modifier = Modifier.weight(1f)
                 )
                 if (!PortfolioFormat.isZero(summary.realized)) {
                     Metric(
                         label = stringResource(R.string.portfolio_realized),
-                        value = PortfolioFormat.signedUsdt(summary.realized),
+                        value = maskAmount(PortfolioFormat.signedUsdt(summary.realized)),
                         valueColor = plColor(summary.realized),
                         modifier = Modifier.weight(1f)
                     )
@@ -337,7 +385,7 @@ private fun TotalCard(
                     stringResource(R.string.portfolio_updated, PriceFormat.time(updatedAt)),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 10.dp)
+                    modifier = Modifier.padding(top = Spacing.sm)
                 )
             }
         }
@@ -352,7 +400,7 @@ private fun TotalCard(
 @Composable
 private fun FittedTotal(text: String, value: Double, modifier: Modifier = Modifier) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val base = MaterialTheme.typography.displaySmall.amountNumbers().copy(fontWeight = FontWeight.SemiBold)
+        val base = MaterialTheme.typography.display.amountNumbers().copy(fontWeight = FontWeight.SemiBold)
         val measurer = rememberTextMeasurer()
         val maxPx = constraints.maxWidth
         val style = remember(text, maxPx, base) {
@@ -405,7 +453,7 @@ private fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)
+            modifier = Modifier.padding(horizontal = Spacing.md, vertical = 12.dp)
         ) {
             CoinBadge(position.coin)
             Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
@@ -421,15 +469,16 @@ private fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
                             painterResource(R.drawable.ic_error),
                             contentDescription = stringResource(R.string.portfolio_oversold),
                             tint = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(start = 6.dp).size(14.dp)
+                            modifier = Modifier.padding(start = Spacing.xs).size(14.dp)
                         )
                     }
                 }
                 Text(
-                    PortfolioFormat.amount(position.holdings, position.coin),
+                    maskAmount(PortfolioFormat.amount(position.holdings, position.coin)),
                     style = MaterialTheme.typography.bodySmall.amountNumbers(),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
+                    // Grosse Schrift: Menge bricht um statt abgeschnitten zu werden
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
@@ -446,7 +495,7 @@ private fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
             }
             Column(horizontalAlignment = Alignment.End, modifier = Modifier.padding(start = 8.dp)) {
                 Text(
-                    position.value?.let { PortfolioFormat.usdt(it) } ?: "—",
+                    position.value?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
                     style = MaterialTheme.typography.titleSmall.amountNumbers(),
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1
@@ -474,7 +523,7 @@ private fun ClosedRow(position: CoinPosition, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 8.dp)
+            .padding(horizontal = Spacing.md, vertical = 8.dp)
     ) {
         CoinBadge(position.coin, size = 32.dp)
         Text(
@@ -483,7 +532,7 @@ private fun ClosedRow(position: CoinPosition, onClick: () -> Unit) {
             modifier = Modifier.weight(1f).padding(start = 12.dp)
         )
         Text(
-            PortfolioFormat.signedUsdt(position.realized),
+            maskAmount(PortfolioFormat.signedUsdt(position.realized)),
             style = MaterialTheme.typography.bodyMedium.amountNumbers(),
             color = plColor(position.realized)
         )
@@ -541,7 +590,7 @@ private fun EmptyPortfolio(modifier: Modifier, currency: String, onAdd: () -> Un
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 8.dp)
             )
-            Button(onClick = onAdd, modifier = Modifier.padding(top = 20.dp)) {
+            Button(onClick = onAdd, modifier = Modifier.padding(top = Spacing.lg)) {
                 Icon(painterResource(R.drawable.ic_add), contentDescription = null, modifier = Modifier.size(18.dp))
                 Text(stringResource(R.string.portfolio_empty_action), modifier = Modifier.padding(start = 8.dp))
             }

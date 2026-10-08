@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Barvy cen</string>
-    <string name="price_colors_green_red">Zelená / červená</string>
-    <string name="price_colors_blue_orange">Modrá / oranžová</string>
     <string name="settings_price_colors_hint">Modrá / oranžová je dobře rozlišitelná při každé poruše barvocitu (červeno-zelené i modro-žluté). Směr se navíc vždy zobrazuje jako + / −.</string>
     <string name="settings_watchlist_sparkline">Minigraf ve sledovaných</string>
     <string name="settings_watchlist_sparkline_hint">24hodinový vývoj vedle ceny</string>
 
-    <string name="settings_price_colors_inverted">Prohodit barvy růstu/poklesu</string>
-    <string name="settings_price_colors_inverted_hint">Červená pro růst, zelená pro pokles, jak je zvykem v Číně, Japonsku, Koreji a na Tchaj-wanu. Výchozí nastavení závisí na regionu zařízení.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Vysoký kontrast</string>

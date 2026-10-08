@@ -9,6 +9,8 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.MarketEntity
 import com.cryptochecker.app.data.local.model.MarketPairEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 
@@ -19,6 +21,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
         WatchEntity::class,
         AlarmEntity::class,
         PortfolioTxEntity::class,
+        PortfolioAlarmEntity::class,
     ],
     version = VERSION,
     exportSchema = true,
@@ -27,9 +30,10 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getMarketDao(): MarketDao
     abstract fun getWatchDao(): WatchDao
     abstract fun getPortfolioDao(): PortfolioDao
+    abstract fun getPortfolioAlarmDao(): PortfolioAlarmDao
 
     companion object {
-        const val VERSION = 10
+        const val VERSION = 12
         const val DB_NAME = "cryptochecker.db"
 
         /** Datenbank des Vorgängerprojekts; wird beim ersten Start entfernt. */
@@ -104,6 +108,46 @@ abstract class AppDatabase : RoomDatabase() {
         val MIGRATION_9_10 = object : Migration(9, 10) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE watches ADD COLUMN change24h REAL")
+            }
+        }
+
+        /**
+         * Alarm «Portfolio-Wert»: eigene Tabelle ohne Fremdschlüssel (siehe PortfolioAlarmEntity).
+         * Typen und NOT NULL exakt wie in PortfolioAlarmEntity; keine Standardwerte (die Entity
+         * hat keine `defaultValue`), damit Room das Schema beim Öffnen als gleich erkennt.
+         */
+        val MIGRATION_10_11 = object : Migration(10, 11) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `portfolio_alarms` (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                        "`kind` TEXT NOT NULL, " +
+                        "`threshold` REAL NOT NULL, " +
+                        "`currency` TEXT, " +
+                        "`enabled` INTEGER NOT NULL, " +
+                        "`repeating` INTEGER NOT NULL, " +
+                        "`referenceAt` INTEGER NOT NULL, " +
+                        "`lastTriggeredAt` INTEGER NOT NULL, " +
+                        "`lastTriggeredValue` REAL)"
+                )
+            }
+        }
+
+        /**
+         * Paare auf Aktien, Rohstoffe, Devisen und Pre-IPO («TradFi») bekommen ein Kennzeichen. Die
+         * gespeicherten Listen der Futures-Börsen, die TradFi führen, werden geleert: Binance hat diese
+         * Kontrakte bisher verworfen, bei den anderen fehlt das Kennzeichen. Die nächste Auswahl lädt
+         * die Listen neu und vollständig.
+         * Standardwert wie die Entity (`defaultValue = "0"`), damit Room das Schema als gleich erkennt.
+         */
+        val MIGRATION_11_12 = object : Migration(11, 12) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE market_pairs ADD COLUMN tradFi INTEGER NOT NULL DEFAULT 0")
+                db.execSQL(
+                    "DELETE FROM market_pairs WHERE marketId IN " +
+                        "(SELECT id FROM markets WHERE marketKey IN " +
+                        "('BinanceFutures', 'BybitFutures', 'OkexFutures', 'MexcFutures', 'BitgetFutures'))"
+                )
             }
         }
 

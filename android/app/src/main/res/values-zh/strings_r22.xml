@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">全部已更新</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d 个交易对未更新</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">无法连接 %1$s</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">%1$d 个交易所无法连接</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">刷新已中断</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d 个交易对</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">交易所</string>
+    <string name="refresh_sheet_section_steps">明细</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">开始前等待</string>
+    <string name="refresh_sheet_network">网络</string>
+    <string name="refresh_sheet_database">数据库</string>
+    <string name="refresh_sheet_alarms">提醒</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">已触发 %1$d 个</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d 条通知</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">小部件</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d/%1$d 个交易对</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">批量请求 %1$s · %2$d 个价格</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s（%2$s）</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">超时</string>
+    <string name="refresh_sheet_reason_offline">无连接</string>
+    <string name="refresh_sheet_reason_rate_limit">请求过多</string>
+    <string name="refresh_sheet_reason_server">服务器错误</string>
+    <string name="refresh_sheet_reason_no_data">无数据</string>
+    <string name="refresh_sheet_reason_unavailable">交易所不可用</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">全部已更新</string>
+    <string name="refresh_sheet_status_partial">部分已更新</string>
+    <string name="refresh_sheet_status_failed">未更新</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s 秒</string>
+</resources>

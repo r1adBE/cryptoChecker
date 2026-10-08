@@ -26,6 +26,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -54,10 +55,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
 import java.time.Instant
@@ -75,8 +79,11 @@ fun PortfolioTxSheet(
     initial: TxDraft,
     viewModel: PortfolioViewModel,
     onDismiss: () -> Unit,
+    lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    // Sperre an: Blatt mit Beständen nicht im Vorschaubild / auf Bildschirmfotos (auch aus der Merkliste)
+    val lockEnabled by lockViewModel.lockEnabled.collectAsState()
     val focus = LocalFocusManager.current
     val coins by viewModel.coins.collectAsState()
     LaunchedEffect(Unit) { viewModel.loadCoins() }
@@ -142,7 +149,13 @@ fun PortfolioTxSheet(
         )
     }
 
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        properties = ModalBottomSheetProperties(
+            securePolicy = if (lockEnabled) SecureFlagPolicy.SecureOn else SecureFlagPolicy.Inherit
+        )
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -255,7 +268,7 @@ fun PortfolioTxSheet(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = Spacing.lg)
                 ) {
                     Text(
                         stringResource(R.string.portfolio_tx_date),
@@ -296,7 +309,7 @@ fun PortfolioTxSheet(
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
+                modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg)
             ) {
                 if (isEdit) {
                     TextButton(onClick = { askDelete = true }) {

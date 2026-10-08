@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">잠금은 화면에 표시되는 내용을 보호합니다. 데이터는 이 기기에 저장되며 기기 암호화로 보호됩니다. 백업은 비밀번호로 보호할 수 있습니다.</string>
+    <string name="backup_protect">비밀번호로 보호</string>
+    <string name="backup_protect_hint">파일을 암호화합니다(AES-256). 포트폴리오 데이터가 포함된 경우 권장합니다.</string>
+    <string name="backup_password">비밀번호</string>
+    <string name="backup_password_repeat">비밀번호 확인</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">%1$d자 이상</string>
+    <string name="backup_password_mismatch">비밀번호가 일치하지 않습니다</string>
+    <string name="backup_password_warning">비밀번호가 없으면 백업을 복원할 수 없습니다.</string>
+    <string name="backup_password_show">비밀번호 표시</string>
+    <string name="backup_password_hide">비밀번호 숨기기</string>
+    <string name="backup_password_title">비밀번호로 보호된 백업</string>
+    <string name="backup_password_prompt">이 백업의 비밀번호를 입력하세요.</string>
+    <string name="backup_password_wrong">비밀번호가 틀렸거나 파일이 손상되었습니다. 다시 시도하세요.</string>
+    <string name="backup_password_continue">계속</string>
+</resources>

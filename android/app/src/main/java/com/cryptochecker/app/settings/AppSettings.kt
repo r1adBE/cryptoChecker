@@ -14,6 +14,12 @@ data class AppSettings(
     /** Intervall des Vordergrunddienstes in Sekunden. */
     val liveIntervalSeconds: Int = 60,
 
+    /**
+     * Live-Kurse per WebSocket, solange die Merkliste offen ist (Binance, Bybit, OKX, Coinbase,
+     * Kraken; siehe `LivePriceStream`). Hintergrund und Widgets fragen weiter per REST ab.
+     */
+    val liveWebSocket: Boolean = false,
+
     /** Kurs-Benachrichtigungen global erlauben. */
     val priceNotifications: Boolean = true,
 
@@ -45,6 +51,12 @@ data class AppSettings(
      */
     val includeRollingFutures: Boolean = false,
 
+    /**
+     * Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO (Binance «TradFi-Perpetuals») in der
+     * Auswahl zeigen. Aus (Standard): nur Krypto; schon gemerkte Paare bleiben in der Merkliste.
+     */
+    val includeTradFiFutures: Boolean = false,
+
     /** Akzentfarbe für App, Widgets, Benachrichtigungen und App-Icon. */
     val accentColor: AccentColor = AccentColor.DEFAULT,
 
@@ -64,8 +76,8 @@ data class AppSettings(
     val zoneAlerts: Boolean = true,
 
     /** Fear & Greed: melden, wenn der Index unter/über diesen Wert fällt/steigt (0 = aus). */
-    val fearGreedBelow: Int = 0,
-    val fearGreedAbove: Int = 0,
+    val fearGreedBelow: Int = 25,
+    val fearGreedAbove: Int = 75,
 
     /** Gas-Alarm Ethereum: melden, wenn die normale Gebühr unter diesen Wert fällt — in Zehntel-gwei (0 = aus). */
     val gasAlertEthTenths: Int = 0,
@@ -85,6 +97,13 @@ data class AppSettings(
      */
     val alarmChannelVersion: Int = 0,
 
+    /**
+     * «Alarm-Signal»: System (bisheriger Kanal), Ton und Vibration, nur Ton, nur Vibration
+     * oder lautlos (nur Mitteilung). Je Signal ein eigener Mitteilungskanal.
+     */
+    val alarmSignal: com.cryptochecker.app.domain.alarm.AlarmSignal =
+        com.cryptochecker.app.domain.alarm.AlarmSignal.DEFAULT,
+
     /** Der Gesten-Hinweis in der Merkliste wurde weggeklickt. */
     val gestureHintSeen: Boolean = false,
 
@@ -98,14 +117,14 @@ data class AppSettings(
     val watchlistGroup: String? = null,
 
     /** Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Benachrichtigung melden. */
-    val activityAlerts: Boolean = false,
+    val activityAlerts: Boolean = true,
 
     /** Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Meldungen); Standard = bisherige Schwellen. */
     val activitySensitivity: com.cryptochecker.app.domain.activity.ActivitySensitivity =
         com.cryptochecker.app.domain.activity.ActivitySensitivity.NORMAL,
 
     /** Morgen-Meldung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten. */
-    val macroNotifications: Boolean = false,
+    val macroNotifications: Boolean = true,
 
     /** Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). */
     val portfolioEnabled: Boolean = false,
@@ -124,6 +143,13 @@ data class AppSettings(
 
     /** Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste. */
     val watchlistSparkline: Boolean = true,
+
+    /**
+     * «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00
+     * Ortszeit — für Pille, Puls, Aktionsblatt und Widgets; Alarme rechnen unabhängig davon.
+     */
+    val changeBasis: com.cryptochecker.app.domain.watch.ChangeBasis =
+        com.cryptochecker.app.domain.watch.ChangeBasis.DEFAULT,
 
     /**
      * Hoher Kontrast: kräftigere Kursfarben und dunklere Nebentexte (App und Widgets).
@@ -154,6 +180,12 @@ data class AppSettings(
     val appLock: Boolean = false,
 
     /**
+     * «Beträge verbergen»: Portfolio-Beträge und -Werte als «•••» (Prozente bleiben) — im
+     * Portfolio, im Portfolio-Widget und in Portfolio-Alarmen. Auch in der Sicherung.
+     */
+    val hidePortfolioAmounts: Boolean = false,
+
+    /**
      * Die Bestätigung nach dem ersten Alarm wurde gezeigt (oder es gab schon Alarme).
      * Nur auf diesem Gerät, nicht in der Sicherung.
      */
@@ -173,6 +205,12 @@ data class AppSettings(
 
     /** Karte «Wertverlauf» im Portfolio aufgeklappt (Standard zu). Nur auf diesem Gerät, nicht in der Sicherung. */
     val portfolioHistoryExpanded: Boolean = false,
+
+    /**
+     * Der Markt-Tab wurde schon einmal gesehen (mindestens 3 s sichtbar): «Einordnung» und
+     * «Daten» beginnen danach zugeklappt. Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val marketTabSeen: Boolean = false,
 
     /** Zuletzt gewählter Zeitraum des Wertverlaufs. Nur auf diesem Gerät, nicht in der Sicherung. */
     val portfolioHistoryRange: com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange =

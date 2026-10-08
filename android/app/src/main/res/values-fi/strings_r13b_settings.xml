@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Markkinailmoitukset</string>
-    <string name="settings_market_alerts_hint">Markkinavaihe, Fear &amp; Greed, gas-maksut, epätavallinen aktiivisuus, talouden päivämäärät</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d päällä</item>
         <item quantity="other">%1$d päällä</item>
     </plurals>
-    <string name="settings_tts_row_hint">Lukee hinnat ja hälytykset ääneen</string>
     <string name="settings_summary_on">Päällä</string>
 
     <string name="alarm_first_text_checked">Crypto Checker seuraa nyt puolestasi kohdetta %1$s. Kun %1$s saavuttaa rajasi, saat ilmoituksen heti, kun sovellus tarkistaa hinnan. Kun sovellus on suljettu, se tapahtuu taustapäivityksen välein – myöhemmin, jos akun optimointi rajoittaa sovellusta.</string>

@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">hôm nay %1$s</string>
     <string name="widget_portfolio_empty">Thêm giao dịch mua trong tab Danh mục</string>
     <string name="a11y_portfolio_widget">Danh mục %1$s, hôm nay %2$s</string>
-    <string name="settings_section_advanced">Nâng cao</string>
-    <string name="settings_advanced_hint">Chế độ live, thông báo cố định, hợp đồng tương lai và tùy chọn nhà phát triển</string>
     <string name="explain_funding">Phí giữa vị thế long và short. Dương mạnh nghĩa là nhiều người đang đặt cược giá tăng.</string>
     <string name="explain_open_interest">Giá trị của tất cả vị thế hợp đồng tương lai đang mở. Nếu tăng, có nhiều tiền hơn đặt cược vào biến động đó.</string>
     <string name="explain_rsi">Chỉ số sức mạnh tương đối, 0–100. Trên 70 thường quá nóng, dưới 30 thường quá bán.</string>

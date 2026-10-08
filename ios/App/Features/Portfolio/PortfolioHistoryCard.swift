@@ -44,6 +44,8 @@ struct PortfolioHistoryCard: View {
     @Environment(\.priceColorsInverted) private var inverted
     @Environment(\.priceHighContrast) private var highContrast
     @Environment(\.appAccent) private var accent
+    /// «Beträge verbergen»: Beträge als «•••», Prozente bleiben.
+    @Environment(\.hidePortfolioAmounts) private var hideAmounts
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -108,7 +110,7 @@ struct PortfolioHistoryCard: View {
             let series = current.series
             if series.hasChart, let change = series.change {
                 let color = PortfolioFormat.plColor(change, scheme: priceColors, highContrast: highContrast, inverted: inverted)
-                let text = Self.collapsedText(series, change: change, unit: current.unit)
+                let text = Self.collapsedText(series, change: change, unit: current.unit, hidden: hideAmounts)
                 HStack(spacing: 3) {
                     if !PortfolioFormat.isZero(change) {
                         ChangeArrowIcon(change: change)
@@ -138,13 +140,13 @@ struct PortfolioHistoryCard: View {
         if expanded { return title }
         guard let current else { return A11y.join([title, L("portfolio_history_loading")]) }
         guard current.series.hasChart else { return A11y.join([title, range.longLabel]) }
-        return "\(title). \(Self.spokenChange(current.series, range: current.range, unit: current.unit))"
+        return "\(title). \(Self.spokenChange(current.series, range: current.range, unit: current.unit, hidden: hideAmounts))"
     }
 
     /// Zeitraum-Chips, waagrecht scrollbar (lange Übersetzungen von «Seit 1. Kauf»).
     private var chips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 ForEach(PortfolioHistoryRange.allCases) { option in
                     let selected = option == range
                     Button {
@@ -154,7 +156,7 @@ struct PortfolioHistoryCard: View {
                             .font(.subheadline.weight(selected ? .semibold : .regular))
                             .lineLimit(1)
                             .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
+                            .padding(.vertical, Spacing.sm)
                             .foregroundStyle(selected ? accent.onContainer : AppColors.onSurface)
                             .background(selected ? accent.container : AppColors.containerHigh, in: Capsule())
                             .contentShape(Capsule())
@@ -185,8 +187,8 @@ struct PortfolioHistoryCard: View {
                         ChangeArrowIcon(change: change)
                             .scaledFont(size: 11, weight: .bold, relativeTo: .headline)
                     }
-                    Text(Self.signedValue(change, unit: history.unit))
-                        .font(.system(.headline, design: .rounded).monospacedDigit())
+                    Text(PortfolioInsights.mask(Self.signedValue(change, unit: history.unit), hidden: hideAmounts))
+                        .font(AppFont.amount(.headline))
                         .lineLimit(1)
                         .minimumScaleFactor(0.75)
                 }
@@ -197,15 +199,16 @@ struct PortfolioHistoryCard: View {
             }
             .padding(.top, 12)
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel(Self.spokenChange(series, range: history.range, unit: history.unit))
+            .accessibilityLabel(Self.spokenChange(series, range: history.range, unit: history.unit, hidden: hideAmounts))
 
             let values = series.points.map(\.value)
-            PortfolioHistoryChart(points: series.points, unit: history.unit, color: color, highContrast: highContrast)
+            PortfolioHistoryChart(points: series.points, unit: history.unit, color: color, highContrast: highContrast,
+                                  hidden: hideAmounts)
                 .frame(height: 140)
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(A11y.chart(period: period, values: values,
-                                               format: { PriceFormat.valueWithCurrency($0, history.unit) }))
+                                               format: { hideAmounts ? L("a11y_amount_hidden") : PriceFormat.valueWithCurrency($0, history.unit) }))
 
             // Beginn und Ende der Achse (für VoiceOver im Chart-Satz enthalten)
             HStack {
@@ -218,10 +221,12 @@ struct PortfolioHistoryCard: View {
             .font(.caption2.monospacedDigit())
             .foregroundStyle(AppColors.onSurfaceVariant)
             .padding(.top, 4)
+            // Wie der Chart darüber: Beginn links, «heute» rechts — auch bei Rechts-nach-links-Sprachen
+            .environment(\.layoutDirection, .leftToRight)
             .accessibilityHidden(true)
         } else {
             PortfolioHint(text: L(series.points.isEmpty ? "portfolio_history_unavailable" : "portfolio_history_too_short"))
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
         }
 
         if series.hasChart && history.converted {
@@ -243,7 +248,7 @@ struct PortfolioHistoryCard: View {
             .font(.caption2)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .fixedSize(horizontal: false, vertical: true)
-            .padding(.top, 6)
+            .padding(.top, Spacing.xs)
     }
 
     /// Platzhalter in der Form von Änderung und Chart.
@@ -257,7 +262,7 @@ struct PortfolioHistoryCard: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(AppColors.containerHighest)
                     .frame(height: 140)
-                    .padding(.top, 10)
+                    .padding(.top, Spacing.sm)
                 Text(verbatim: " ")
                     .font(.caption2)
                     .cycleSkeletonBar(width: 80)
@@ -269,9 +274,11 @@ struct PortfolioHistoryCard: View {
     // MARK: Texte
 
     /// Zugeklappt: «+4.20%» (bei praktisch 0 «0.00%»); ohne Prozent der Betrag.
-    static func collapsedText(_ series: PortfolioHistorySeries, change: Double, unit: String) -> String {
-        guard let percent = series.changePercent else { return signedValue(change, unit: unit) }
-        return PriceFormat.changePercent(percent) ?? "0.00%"
+    static func collapsedText(_ series: PortfolioHistorySeries, change: Double, unit: String, hidden: Bool = false) -> String {
+        guard let percent = series.changePercent else {
+            return PortfolioInsights.mask(signedValue(change, unit: unit), hidden: hidden)
+        }
+        return PriceFormat.changePercent(percent) ?? PriceFormat.zeroPercent()
     }
 
     /// «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF».
@@ -281,14 +288,16 @@ struct PortfolioHistoryCard: View {
     }
 
     /// «Wert über 30 Tage: gestiegen um 1’234.56 CHF, gestiegen um 4.20%» bzw. «Wert seit dem ersten Kauf: …».
-    static func spokenChange(_ series: PortfolioHistorySeries, range: PortfolioHistoryRange, unit: String) -> String {
+    static func spokenChange(_ series: PortfolioHistorySeries, range: PortfolioHistoryRange, unit: String,
+                             hidden: Bool = false) -> String {
         let period = range.longLabel
         let change = series.change ?? 0
         let amount: String
         if PortfolioFormat.isZero(change) {
             amount = L("a11y_change_flat")
         } else {
-            amount = L(change > 0 ? "a11y_change_up" : "a11y_change_down", PriceFormat.valueWithCurrency(abs(change), unit))
+            let value = hidden ? L("a11y_amount_hidden") : PriceFormat.valueWithCurrency(abs(change), unit)
+            amount = L(change > 0 ? "a11y_change_up" : "a11y_change_down", value)
         }
         if let percent = A11y.change(series.changePercent) {
             if range == .sinceFirst { return L("portfolio_history_change_since_first_a11y", amount, percent) }
@@ -307,6 +316,8 @@ private struct PortfolioHistoryChart: View {
     let unit: String
     let color: Color
     let highContrast: Bool
+    /// «Beträge verbergen»: Etikett beim Ziehen ohne Betrag.
+    var hidden = false
 
     /// x des Fingers beim Ziehen (nach kurzem Drücken); nil = kein Ziehen.
     @GestureState private var pressX: CGFloat? = nil
@@ -379,8 +390,8 @@ private struct PortfolioHistoryChart: View {
     private func scrubLabel(_ point: PortfolioHistoryPoint) -> some View {
         // Datum wie an der Achse (Format der Sprache)
         let date = PortfolioFormat.date(LocalDay(epochDay: point.epochDay).date.millis)
-        return Text(date + " · " + PriceFormat.valueWithCurrency(point.value, unit))
-            .font(.system(.caption, design: .rounded).weight(.medium).monospacedDigit())
+        return Text(date + " · " + PortfolioInsights.mask(PriceFormat.valueWithCurrency(point.value, unit), hidden: hidden))
+            .font(AppFont.amount(.caption, weight: .medium))
             .foregroundStyle(AppColors.onSurface)
             .lineLimit(1)
             .padding(.horizontal, 8)

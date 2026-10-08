@@ -69,28 +69,38 @@ enum BackgroundRefresh {
             if outcome.failed < outcome.checked {
                 SharedStorage.lastRefreshAt = TimeUtils.nowMillis
                 SharedStorage.lastRefreshDuration = outcome.durationMillis
-                if !outcome.report.isEmpty { SharedStorage.lastRefreshReport = outcome.report }
             }
+            if let report = outcome.report { SharedStorage.lastRefreshReport = report }
+            // Mit dieser %-Basis gerechnet (Pille, Widgets und Live-Aktivität prüfen das)
+            if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
             AppData.shared.reloadFromDisk()
             WidgetCenter.shared.reloadAllTimelines()
             // Live-Aktivität (Sperrbildschirm) mit dem neuen Kurs
             await LiveActivityController.update(watches: current.watches)
             // Portfolio-Widget: eigener Stand, damit es nicht vom Öffnen der App abhängt
-            if !Task.isCancelled { await PortfolioWidgetStore.refresh() }
+            if !Task.isCancelled {
+                let widget = await PortfolioWidgetStore.refresh()
+                // Portfolio-Alarme mit dem neuen Stand prüfen (nur mit eingeschaltetem Portfolio)
+                AppData.shared.evaluatePortfolioAlarms(widget)
+            }
             // Ungewöhnliche Aktivität: erst nach gespeicherten Kursen und neu
             // gezeichneten Widgets, abgekoppelt vom Speichern (eigener Task, max. 20 s).
             // Hier wird darauf gewartet, sonst friert iOS die App mitten in der
             // Auswertung ein. Bricht iOS ab, endet auch die Auswertung.
-            let watches = current.watches
-            let analysis = Task.detached(priority: .utility) {
-                await ActivityMonitor.analyzeAll(watches: watches, settings: settings)
+            // Im Hintergrund nur, wenn die Mitteilung eingeschaltet ist (sonst braucht es niemand,
+            // bis die App wieder offen ist — dann holt die nächste Aktualisierung es nach).
+            if ActivityAnalysisGate.shouldRun(alertsEnabled: settings.activityAlerts, appVisible: false) {
+                let watches = current.watches
+                let analysis = Task.detached(priority: .utility) {
+                    await ActivityMonitor.analyzeAll(watches: watches, settings: settings)
+                }
+                await withTaskCancellationHandler {
+                    _ = await analysis.value
+                } onCancel: {
+                    analysis.cancel()
+                }
+                AppData.shared.reloadActivity()
             }
-            await withTaskCancellationHandler {
-                _ = await analysis.value
-            } onCancel: {
-                analysis.cancel()
-            }
-            AppData.shared.reloadActivity()
             // Gas-Alarm (#167): höchstens alle 10 Minuten, nur wenn eingestellt
             if !Task.isCancelled { await GasAlertCheck.runIfDue(settings: settings) }
             task.setTaskCompleted(success: true)

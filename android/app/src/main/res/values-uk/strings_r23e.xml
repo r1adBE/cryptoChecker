@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Тип сигналу</string>
+    <string name="alarm_signal_system">Система</string>
+    <string name="alarm_signal_sound_vibrate">Звук і вібрація</string>
+    <string name="alarm_signal_sound">Лише звук</string>
+    <string name="alarm_signal_vibrate">Лише вібрація</string>
+    <string name="alarm_signal_silent">Без звуку (лише сповіщення)</string>
+    <string name="settings_alarm_signal_system_hint">Як у налаштуваннях сповіщень телефона.</string>
+    <string name="settings_alarm_signal_open_system">Змінити в налаштуваннях системи</string>
+    <string name="channel_alarms_sound_vibrate">Сигнали (звук і вібрація)</string>
+    <string name="channel_alarms_sound">Сигнали (лише звук)</string>
+    <string name="channel_alarms_vibrate">Сигнали (лише вібрація)</string>
+    <string name="channel_alarms_silent">Сигнали (без звуку)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вібрація залежить від налаштувань iPhone (Звуки й тактильні сигнали).</string>
+</resources>

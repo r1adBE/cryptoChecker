@@ -18,9 +18,9 @@
     <string name="pulse_less">Zobrazit méně</string>
     <string name="pulse_updated">Stav k %1$s</string>
     <string name="pulse_unavailable">Tržní data momentálně nejsou k dispozici</string>
-    <string name="why_summary_title">Stručně</string>
+    <string name="why_summary_title">Pravděpodobné důvody</string>
     <string name="why_summary_market_volume">Pohyb provází vyšší objem obchodů a plošně se pohybující trh.</string>
-    <string name="why_summary_market">Pohyb sleduje celkový trh.</string>
+    <string name="why_summary_market">Pohyb nejspíš sleduje celkový trh.</string>
     <string name="why_summary_coin_volume">Hýbe se jen tato mince, při vyšším objemu – pravděpodobně důvod přímo u mince.</string>
     <string name="why_summary_coin">Hýbe se jen tato mince – pravděpodobně důvod přímo u mince.</string>
     <string name="why_summary_against">Mince se pohybuje proti trhu.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Sledovat – vaše mince, kurzy, grafy a widgety</string>
     <string name="welcome_alert">Upozornit – cena, procenta, objem a neobvyklé pohyby</string>
     <string name="welcome_understand">Pochopit – proč se trh právě hýbe?</string>
-    <string name="welcome_start">Začít</string>
     <string name="portfolio_empty_example">Příklad: 0,01 BTC koupeno 1. března za %1$s. Aplikace pak ukáže hodnotu, průměrnou nákupní cenu a zisk/ztrátu – uloženo jen v tomto zařízení.</string>
     <string name="about_why">Crypto Checker je nezávislý projekt od r1AD: klidný přehled kurzů bez účtu, reklam a sledování. Dotazy a přání: %1$s</string>
     <string name="a11y_move_up">Posunout nahoru</string>
@@ -61,38 +60,8 @@
     <string name="market_data_empty_error">Z burzy nepřišla žádná data.</string>
     <string name="sync_pairs_count">Obchodní páry: %1$d</string>
     <string name="market_unavailable_error">Burza není dostupná</string>
-    <string name="refresh_report_aborted">Obnovení přerušeno:</string>
-    <string name="refresh_report_wait">Čekání do startu: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Celkem %1$s · %2$d pár</item>
-        <item quantity="few">Celkem %1$s · %2$d páry</item>
-        <item quantity="many">Celkem %1$s · %2$d párů</item>
-        <item quantity="other">Celkem %1$s · %2$d párů</item>
-    </plurals>
-    <string name="refresh_report_network">Síť %1$s</string>
-    <string name="refresh_report_database">Databáze %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarmy/oznámení %1$s · %2$d oznámení</item>
-        <item quantity="few">Alarmy/oznámení %1$s · %2$d oznámení</item>
-        <item quantity="many">Alarmy/oznámení %1$s · %2$d oznámení</item>
-        <item quantity="other">Alarmy/oznámení %1$s · %2$d oznámení</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widgety %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d pár, %3$s</item>
-        <item quantity="few">%1$s: %2$d páry, %3$s</item>
-        <item quantity="many">%1$s: %2$d párů, %3$s</item>
-        <item quantity="other">%1$s: %2$d párů, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">hromadný dotaz %1$s (%2$d kurz)</item>
-        <item quantity="few">hromadný dotaz %1$s (%2$d kurzy)</item>
-        <item quantity="many">hromadný dotaz %1$s (%2$d kurzů)</item>
-        <item quantity="other">hromadný dotaz %1$s (%2$d kurzů)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">hromadný dotaz %1$s (selhal)</string>
     <string name="refresh_report_singles">jednotlivě: %1$d</string>
-    <string name="refresh_report_slowest">nejpomalejší %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">již neobchodováno: %1$d</item>
         <item quantity="few">již neobchodováno: %1$d</item>

@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">古いデータ · %1$s</string>
 
     <string name="settings_widgets">ウィジェット</string>
-    <string name="settings_widgets_hint">ホーム画面に価格を表示</string>
     <string name="widgets_sheet_title">ウィジェットを追加</string>
     <string name="widget_kind_single">1 コイン</string>
     <string name="widgets_add">追加</string>

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">اعلان‌های بازار</string>
-    <string name="settings_market_alerts_hint">مرحله بازار، شاخص ترس و طمع، کارمزد گس، فعالیت غیرعادی، رویدادهای اقتصادی</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d فعال</item>
         <item quantity="other">%1$d فعال</item>
     </plurals>
-    <string name="settings_tts_row_hint">قیمت‌ها و هشدارها را با صدای بلند می‌خواند</string>
     <string name="settings_summary_on">روشن</string>
 
     <string name="alarm_first_text_checked">Crypto Checker اکنون %1$s را برای شما زیر نظر دارد. وقتی %1$s به حد شما برسد، به‌محض اینکه برنامه قیمت را بررسی کند اعلان دریافت می‌کنید. وقتی برنامه بسته است، این کار در بازه به‌روزرسانی پس‌زمینه انجام می‌شود – و اگر بهینه‌سازی باتری برنامه را محدود کند، دیرتر.</string>

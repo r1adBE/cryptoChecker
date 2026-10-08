@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">모든 거래소를 한 번에 검색합니다. 결과를 탭하면 관심 목록에 추가됩니다.</string>
+    <string name="explorer_no_pairs_yet">이 거래소의 거래쌍을 아직 불러오지 않았습니다.</string>
+</resources>

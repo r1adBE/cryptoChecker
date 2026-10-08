@@ -20,15 +20,21 @@ enum CycleDataSource {
 
     /// - Parameter forceOnChain: gespeicherte On-Chain-Werte übergehen (Ziehen nach unten).
     static func fetch(forceOnChain: Bool = false) async throws -> CycleInputs {
+        try await fetchSourced(forceOnChain: forceOnChain).value
+    }
+
+    /// Wie `fetch`; `provider` = Anbieter der Tageskerzen und, wenn On-Chain-Werte dabei sind,
+    /// «Coin Metrics» (z. B. «Binance, Coin Metrics»).
+    static func fetchSourced(forceOnChain: Bool = false) async throws -> Sourced<CycleInputs> {
         // On-Chain-Werte ändern sich höchstens täglich: 12 h aus dem Speicher
         let cachedOnChain: OnChain? = forceOnChain ? nil : storedOnChain(now: TimeUtils.nowMillis)
         let skipOnChain = cachedOnChain != nil
-        async let dailyJob = CandleDataSource.candles(base: "BTC", quote: "USDT", interval: .d1, limit: 1000)
+        async let dailyJob = CandleDataSource.candlesSourced(base: "BTC", quote: "USDT", interval: .d1, limit: 1000)
         async let weeklyJob = CandleDataSource.candles(base: "BTC", quote: "USDT", interval: .w1, limit: 1000)
         async let onChainJob = loadOnChain(skip: skipOnChain)
 
-        guard let dailyCandles = await dailyJob else { throw JSONError(message: "Keine BTC-Tageskerzen verfügbar") }
-        let daily = dailyCandles.map(toInsights)
+        guard let dailySourced = await dailyJob else { throw JSONError(message: "Keine BTC-Tageskerzen verfügbar") }
+        let daily = dailySourced.value.map(toInsights)
         // Wochenkerzen nur für 200-Wochen-Schnitt und Allzeithoch; fehlen sie, entfällt das
         let weekly = (await weeklyJob)?.map(toInsights) ?? []
         var onChain = cachedOnChain
@@ -42,7 +48,7 @@ enum CycleDataSource {
         // Allzeithoch: Wochenkerzen reichen bis 2017 zurück, Tageskerzen geben das genaue Datum.
         let athCandle = (weekly + daily).max(by: { $0.high < $1.high })
 
-        return CycleInputs(
+        let inputs = CycleInputs(
             price: closes[closes.count - 1],
             sma200d: Indicators.smaOfLast(closes, 200),
             sma111d: Indicators.smaOfLast(closes, 111),
@@ -56,6 +62,8 @@ enum CycleDataSource {
             hash30d: onChain?.hash30d,
             hash60d: onChain?.hash60d
         )
+        let onChainProvider: String? = (onChain.map { !$0.isEmpty } ?? false) ? DataFreshness.coinMetrics : nil
+        return Sourced(value: inputs, provider: DataFreshness.providers(dailySourced.provider, onChainProvider))
     }
 
     private static func toInsights(_ c: MarketCandle) -> InsightsCandle {

@@ -2,6 +2,8 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.graphics.graphicsLayer
@@ -37,6 +39,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.text.input.ImeAction
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.marketdata.model.market.DexPool
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -62,11 +66,18 @@ import com.cryptochecker.app.ui.components.Ticker
 import com.cryptochecker.app.ui.features.error.ErrorScreen
 import com.cryptochecker.app.ui.features.error.ErrorScreenViewState
 import com.cryptochecker.app.ui.features.loading.LoadingScreen
+import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * Seite «Paar hinzufügen» (Runde 31: kein eigener Tab mehr) — geöffnet mit «+» in der Merkliste,
+ * der App-Verknüpfung, einem Widget oder «Heute auffällig»; [onBack] schliesst sie.
+ */
 @Composable
 fun ExplorerScreen(
     onOpenWatchlist: () -> Unit = {},
+    onBack: () -> Unit = {},
     explorerViewModel: ExplorerViewModel = hiltViewModel(),
 ) {
     val uiState by explorerViewModel.uiState.collectAsStateWithLifecycle()
@@ -93,6 +104,7 @@ fun ExplorerScreen(
                 httpLogText = explorerViewModel.httpLogText,
                 showHttpLog = showHttpLog,
                 onOpenWatchlist = onOpenWatchlist,
+                onBack = onBack,
 
                 onMarketChanged = explorerViewModel::setCurrentMarket,
                 onBaseAssetChanged = explorerViewModel::setCurrentBaseAsset,
@@ -138,15 +150,39 @@ fun ExplorerScreen(
             )
         }
 
+        // Auch beim Laden und bei Fehlern mit Titel und Zurück (eigene Seite ohne Tableiste)
         is ExplorerUiState.Error -> {
-            ErrorScreen(errorScreenViewState = ErrorScreenViewState((uiState as ExplorerUiState.Error).exception)) {
-                explorerViewModel.retryLoadMarketList()
+            Scaffold(topBar = { ExplorerTopBar(onBack) }) { padding ->
+                Box(Modifier.padding(padding)) {
+                    ErrorScreen(errorScreenViewState = ErrorScreenViewState((uiState as ExplorerUiState.Error).exception)) {
+                        explorerViewModel.retryLoadMarketList()
+                    }
+                }
             }
         }
         is ExplorerUiState.Loading -> {
-            LoadingScreen()
+            Scaffold(topBar = { ExplorerTopBar(onBack) }) { padding ->
+                Box(Modifier.padding(padding)) { LoadingScreen() }
+            }
         }
     }
+}
+
+/** Kopf der Seite: «Paar hinzufügen» mit Zurück-Pfeil. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ExplorerTopBar(onBack: () -> Unit) {
+    TopAppBar(
+        title = { Text(stringResource(R.string.shortcut_add)) },
+        navigationIcon = {
+            IconButton(onClick = onBack) {
+                Icon(
+                    painterResource(R.drawable.ic_arrow_back),
+                    contentDescription = stringResource(R.string.action_back)
+                )
+            }
+        }
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -156,6 +192,7 @@ private fun MarketScreenMain(
     httpLogText: StateFlow<String>,
     showHttpLog: Boolean,
     onOpenWatchlist: () -> Unit,
+    onBack: () -> Unit,
 
     onMarketChanged: (MarketInfo?) -> Unit,
     onBaseAssetChanged: (String?) -> Unit,
@@ -178,7 +215,9 @@ private fun MarketScreenMain(
 ) {
     val gap = 12.dp
     var showBulkList by rememberSaveable { mutableStateOf(false) }
-    var showBulk by rememberSaveable { mutableStateOf(false) }
+    // Auf-/Zugeklappt merkt sich die Sitzung (nicht nur dieser Bildschirm), siehe ExplorerSections
+    val showPrecise = ExplorerSections.precise
+    val showBulk = ExplorerSections.bulk
     val context = LocalContext.current
 
     val markets = viewState.markets
@@ -315,7 +354,7 @@ private fun MarketScreenMain(
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.action_add_pair)) }) },
+        topBar = { ExplorerTopBar(onBack) },
         snackbarHost = { SnackbarHost(snackbar) }
     ) { padding ->
         // Eine Seite, die als Ganzes scrollt — das Suchfeld scrollt mit.
@@ -335,13 +374,17 @@ private fun MarketScreenMain(
                 SearchResults(search, groupTarget)
             } else {
 
-            Text(
-                text = stringResource(R.string.explorer_precise_title),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 8.dp)
+            // Die Suche ist der Hauptweg; das genaue Auswählen ist eingeklappt.
+            StepHint(stringResource(R.string.explorer_search_intro), Modifier.padding(start = 4.dp, end = 4.dp))
+
+            SectionToggle(
+                title = stringResource(R.string.explorer_precise_title),
+                expanded = showPrecise,
+                onToggle = { ExplorerSections.precise = !showPrecise },
+                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
             )
 
+            if (showPrecise) {
             // ── Schritt 1: Börse ─────────────────────────────────────────
             StepCard {
                 StepHeader(
@@ -467,7 +510,18 @@ private fun MarketScreenMain(
 
                         StepHint(stringResource(R.string.hint_favorites_list))
                     } else if (!syncing) {
-                        StepHint(stringResource(R.string.checker_add_check_currency_empty_warning_summary))
+                        // Antippbar ist nur der Knopf — der Text sagt nicht mehr «hier tippen»
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = stringResource(R.string.explorer_no_pairs_yet),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.weight(1f)
+                            )
+                            TextButton(onClick = onSyncCurrencyPairsClick, enabled = canUpdatePairs) {
+                                Text(stringResource(R.string.market_screen_sync))
+                            }
+                        }
                     }
 
                     // Kurs lädt automatisch, sobald ein Paar gewählt ist — über dem Knopf
@@ -481,7 +535,7 @@ private fun MarketScreenMain(
                                         text = stringResource(R.string.explorer_price_loading),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(start = 10.dp)
+                                        modifier = Modifier.padding(start = Spacing.sm)
                                     )
                                 }
                                 result.error != null -> Row(verticalAlignment = Alignment.CenterVertically) {
@@ -541,7 +595,7 @@ private fun MarketScreenMain(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(MaterialTheme.shapes.small)
-                                .clickable { showBulk = !showBulk }
+                                .clickable { ExplorerSections.bulk = !showBulk }
                                 .padding(vertical = 4.dp)
                         ) {
                             Text(
@@ -639,7 +693,7 @@ private fun MarketScreenMain(
                                                 else Color.Transparent
                                             )
                                             .clickable { onSelectBulkPair(pair) }
-                                            .padding(horizontal = 10.dp, vertical = 8.dp)
+                                            .padding(horizontal = Spacing.sm, vertical = 8.dp)
                                     ) {
                                         Text(
                                             text = "${pair.currencyBase}/${pair.currencyCounter}",
@@ -661,6 +715,7 @@ private fun MarketScreenMain(
                         }
                     }
                 }
+            }
             }
 
             // Runde 13b: Börse fehlt? → GitHub-Vorlage «Exchange request»
@@ -708,13 +763,48 @@ private fun StepCard(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
-private fun StepHint(text: String) {
+private fun StepHint(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(top = 8.dp)
+        modifier = modifier.padding(top = 8.dp)
     )
+}
+
+/**
+ * Auf-/Zuklappen bleibt für die ganze Sitzung (bis die App beendet wird), auch wenn
+ * man den Tab wechselt. Standard: beides eingeklappt — die Suche ist der Hauptweg.
+ */
+internal object ExplorerSections {
+    var precise by mutableStateOf(false)
+    var bulk by mutableStateOf(false)
+}
+
+/** Kopfzeile eines aufklappbaren Bereichs: Titel und Pfeil, als Ganzes antippbar. */
+@Composable
+private fun SectionToggle(title: String, expanded: Boolean, onToggle: () -> Unit, modifier: Modifier = Modifier) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .toggleable(value = expanded, role = Role.Button, onValueChange = { onToggle() })
+            .padding(horizontal = 16.dp, vertical = Spacing.lg)
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.weight(1f)
+        )
+        Icon(
+            painterResource(R.drawable.ic_chevron_right),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.graphicsLayer { rotationZ = if (expanded) 90f else 0f }
+        )
+    }
 }
 
 @Composable
@@ -781,11 +871,11 @@ private fun SearchResults(search: SearchUi, groupTarget: GroupTargetUi, modifier
     // Höchstens 50 Treffer — als normale Spalte, damit alles mit der Seite scrollt.
     Column(
         modifier = modifier.fillMaxWidth().padding(bottom = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+        verticalArrangement = Arrangement.spacedBy(Spacing.xs)
     ) {
         search.progress?.let { progress ->
             run {
-                Column(modifier = Modifier.padding(vertical = 6.dp)) {
+                Column(modifier = Modifier.padding(vertical = Spacing.sm)) {
                     LinearProgressIndicator(
                         progress = { if (progress.total == 0) 0f else progress.done / progress.total.toFloat() },
                         modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50))
@@ -794,7 +884,7 @@ private fun SearchResults(search: SearchUi, groupTarget: GroupTargetUi, modifier
                         text = stringResource(R.string.explorer_search_loading, progress.done, progress.total),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 6.dp)
+                        modifier = Modifier.padding(top = Spacing.xs)
                     )
                 }
             }
@@ -821,7 +911,7 @@ private fun SearchResults(search: SearchUi, groupTarget: GroupTargetUi, modifier
                     .clip(MaterialTheme.shapes.medium)
                     .background(MaterialTheme.colorScheme.surfaceContainer)
                     .clickable { search.onAdd(hit) }
-                    .padding(start = 16.dp, end = 4.dp, top = 6.dp, bottom = 6.dp)
+                    .padding(start = 16.dp, end = 4.dp, top = Spacing.sm, bottom = Spacing.sm)
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -873,7 +963,7 @@ private fun StepHeader(number: Int, title: String, active: Boolean, done: Boolea
                 .background(if (lit) accent else MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Text(
-                text = if (done) "✓" else number.toString(),
+                text = if (done) "✓" else LocaleNumbers.integer(number),
                 style = MaterialTheme.typography.labelMedium,
                 color = if (lit) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -882,7 +972,7 @@ private fun StepHeader(number: Int, title: String, active: Boolean, done: Boolea
             text = title,
             style = MaterialTheme.typography.titleSmall,
             color = if (lit) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = 10.dp)
+            modifier = Modifier.padding(start = Spacing.sm)
         )
     }
 }
@@ -950,7 +1040,7 @@ private fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
                 text = stringResource(R.string.dex_no_results),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 10.dp)
+                modifier = Modifier.padding(top = Spacing.sm)
             )
         }
 
@@ -963,7 +1053,7 @@ private fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
         items(dex.results, key = { it.pairId }) { pool ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
+                modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -972,11 +1062,11 @@ private fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
                     )
                     Text(
                         text = listOfNotNull(
-                            "${pool.dexId} · ${pool.chainId}",
+                            BidiText.isolate("${pool.dexId} · ${pool.chainId}"),
                             pool.priceUsd?.let { "$" + formatDexPrice(it) },
                             pool.liquidityUsd?.let { stringResource(R.string.dex_liquidity, "$" + formatCompact(it)) }
                         ).joinToString(" · "),
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodySmall.tabularNumbers(),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -993,7 +1083,8 @@ private fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
 private fun formatDexPrice(value: Double): String = when {
     value >= 1 -> "%,.2f".format(value)
     value >= 0.0001 -> "%.6f".format(value)
-    else -> "%.10f".format(value).trimEnd('0')
+    // Ohne Nullen am Ende — auch mit arabischen/persischen Ziffern (trimEnd('0') fände sie nicht)
+    else -> LocaleNumbers.decimal(value, 10, minDecimals = 0)
 }
 
 private fun formatCompact(value: Double): String = when {

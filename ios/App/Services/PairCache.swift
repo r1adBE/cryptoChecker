@@ -147,11 +147,23 @@ actor PairCache {
 
     private func file(_ key: String) -> URL { directory.appendingPathComponent("\(key).json") }
 
-    /// Gespeicherte Liste, sonst die fest hinterlegten Paare der Börse (Datum 0).
+    /// Gespeicherte Liste, sonst die fest hinterlegten Paare der Börse (Datum 0). Futures auf Aktien,
+    /// Rohstoffe, Devisen und Pre-IPO (`CurrencyPairInfo.tradFi`) nur mit dem Schalter unter
+    /// Einstellungen › Merkliste; gespeichert bleibt die ganze Liste, Umschalten wirkt sofort.
     func pairs(for key: String) -> MarketPairsInfo {
+        visible(storedPairs(for: key))
+    }
+
+    private func storedPairs(for key: String) -> MarketPairsInfo {
         if let m = memory[key] { return m }
         if let data = try? Data(contentsOf: file(key)),
            let info = try? JSONDecoder().decode(MarketPairsInfo.self, from: data) {
+            // Liste aus einer Version, die TradFi-Kontrakte noch verwarf: verwerfen, damit die
+            // nächste Auswahl sie vollständig neu lädt (leere Liste löst das Laden aus)
+            if Self.marksTradFi.contains(key) && !info.pairs.isEmpty && info.pairs.allSatisfy({ $0.tradFi == nil }) {
+                try? FileManager.default.removeItem(at: file(key))
+                return MarketPairsInfo()
+            }
             memory[key] = info
             return info
         }
@@ -160,7 +172,15 @@ actor PairCache {
         return MarketPairsInfo(lastSyncDate: 0, pairs: pairs)
     }
 
-    func hasSynced(_ key: String) -> Bool { pairs(for: key).lastSyncDate > 0 }
+    /// Börsen, deren Paarliste das TradFi-Kennzeichen trägt.
+    private static let marksTradFi: Set<String> = ["BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures"]
+
+    private func visible(_ info: MarketPairsInfo) -> MarketPairsInfo {
+        guard info.pairs.contains(where: \.isTradFi), !SharedStorage.loadSettings().includeTradFiFutures else { return info }
+        return MarketPairsInfo(lastSyncDate: info.lastSyncDate, pairs: info.pairs.filter { !$0.isTradFi })
+    }
+
+    func hasSynced(_ key: String) -> Bool { storedPairs(for: key).lastSyncDate > 0 }
 
     /// Lädt die Liste neu von der Börse und speichert sie.
     @discardableResult
@@ -172,6 +192,6 @@ actor PairCache {
             memory[key] = info
             if let data = try? JSONEncoder().encode(info) { try? data.write(to: file(key), options: .atomic) }
         }
-        return info
+        return visible(info)
     }
 }

@@ -13,8 +13,8 @@ import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 
 /**
- * Portfolio-Widget: Gesamtwert in der Umrechnungswährung; je nach Grösse dazu «heute»,
- * Wertverlauf und die grössten Positionen (siehe [WidgetUpdater.updatePortfolio]).
+ * Portfolio-Widget: Gesamtwert in der Umrechnungswährung mit Veränderung über 24 h; je nach
+ * Grösse dazu Wertverlauf und die drei grössten Positionen (siehe [WidgetUpdater.updatePortfolio]).
  */
 @AndroidEntryPoint
 class PortfolioWidgetProvider : AppWidgetProvider() {
@@ -60,6 +60,7 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {
         appWidgetIds.forEach { widgetPrefs.remove(it) }
+        widgetUpdater.forgetPortfolioWidgets(appWidgetIds)
     }
 
     private companion object {

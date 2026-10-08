@@ -1,23 +1,23 @@
-Keep an eye on your crypto prices without constantly opening exchange apps. Set alarms, spot unusual moves and understand in seconds why a coin is moving.
+Crypto Checker explains what is happening in the market. Set alarms, spot unusual moves and understand in seconds why a coin is moving – no forecast.
 
-Watch – prices straight from the exchange, in your currency
-Alert – price, %, moves and volume, as a simple sentence
 Understand – “Why is this moving?” with a short summary
 Overview – Crypto Pulse, Fear & Greed, cycle and portfolio
+Watch – prices straight from the exchange, in your currency
+Alert – price, %, moves and volume, as a simple sentence
 
-Readable for everyone: green/red or blue/orange price colors, swappable on request, high contrast, sign and arrow instead of color alone, and TalkBack reads every row as one sentence.
+Readable for everyone: green/red or blue/orange price colors, high contrast, sign and arrow instead of color alone, and TalkBack reads every row as one sentence.
 
 WATCHLIST: 41 MARKETS ON 32 EXCHANGES
 • Empty watchlist: the top 5 coins by market cap with live prices, added with one tap
-• Spot and futures from Binance, Coinbase, Kraken, OKX, Bybit and many more
+• Spot and futures from Binance, Coinbase, Kraken, OKX, Bybit and many more – optionally stocks, gold and FX (TradFi), automatically in their own group
 • DEX tokens via DexScreener (Uniswap, PancakeSwap, Raydium …)
 • Swipe left to delete (with Undo), swipe right for a favorite
 • Organize pairs in groups and reorder by drag & drop
 • A note for each coin, e.g. your entry price – right below the price
 • Second line “≈ value” in one of 31 currencies (EUR, CHF, USD …), default by device region
-• Mini chart in every row: the 24-hour trend next to the price
+• Mini chart in every row; % change over 24 h or since 00:00 in your time zone
 • Portfolio as its own tab: buys and sells, average price, profit/loss and total value in your currency
-• Cut-off date export: portfolio value on any date (e.g. 31 Dec) as CSV – handy for taxes, no tax advice
+• Cut-off date export: portfolio value on any date (e.g. 31 Dec) as CSV – no tax advice
 • Rows flag “outdated” or “exchange not reachable”
 
 ALARMS ON YOUR TERMS
@@ -40,7 +40,7 @@ MARKET OVERVIEW
 • Crypto Pulse: what is happening right now – BTC, ETH, SOL, altcoins vs. BTC, volume, Fear & Greed, funding, ETH gas and a one-line summary, no forecast
 • Fear & Greed Index with history and optional notifications
 • Crypto market: total market cap and 24h volume in your currency
-• Market tab: market phase with signs of a possible high or low (no forecast), halving countdown, cycle comparison with double tops/bottoms, dominance, altcoin season – opens instantly
+• Market tab: market phase with signs of a possible high or low (no forecast), halving countdown, dominance, altcoin season
 • Coin analysis: RSI, trend, Pi Cycle and strength vs. Bitcoin
 • Futures data: funding rate and open interest, with short explanations
 • Network fees for Ethereum, Base, Arbitrum, Polygon, BNB Chain and Bitcoin, with gas alarm
@@ -48,7 +48,7 @@ MARKET OVERVIEW
 WIDGETS & NOTIFICATIONS
 • Widgets: whole watchlist, portfolio total with today’s change, single coin with chart (candles or line) and high/mid/low marks
 • Silent price notification per pair
-• Live mode with updates as often as every 15 seconds, background updates from 15 minutes
+• Update frequently, as often as every 15 seconds, background updates from 15 minutes
 
 MORE
 • Prices and alarms read aloud (text-to-speech)

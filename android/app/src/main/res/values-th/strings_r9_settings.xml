@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_settings -->
-    <string name="settings_group_currency">สกุลเงินและการแปลง</string>
     <string name="settings_group_alerts">สัญญาณเตือนและการแจ้งเตือน</string>
-    <string name="settings_group_data">ข้อมูลและการอัปเดต</string>
-    <string name="settings_group_security">ความปลอดภัยและการสำรอง</string>
     <string name="settings_portfolio_tab">แสดงแท็บพอร์ตโฟลิโอ</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Lỗi: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Không có cặp tiền</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Nhấn vào đây để tải các cặp tiền mới nhất từ sàn đã chọn.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Tải các cặp hiện tại của sàn đã chọn.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Cập nhật cặp tiền</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Đồng bộ ngay!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Đồng bộ lần cuối: %1$s</string>
@@ -37,7 +37,6 @@
 
     <!-- Aktionen -->
     <string name="action_refresh">Làm mới</string>
-    <string name="action_add_pair">Thêm cặp</string>
     <string name="action_delete">Xóa</string>
     <string name="action_edit">Sửa</string>
     <string name="action_back">Quay lại</string>
@@ -46,7 +45,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">Chưa có cặp nào</string>
-    <string name="watchlist_empty_hint">Hoặc chọn sàn và cặp tiền trong “Thêm”. Mỗi cặp có thể có thông báo, đọc giá bằng giọng nói và cảnh báo giá.</string>
     <string name="watchlist_updated">Cập nhật: %1$s</string>
     <string name="watchlist_notification">Thông báo</string>
     <string name="watchlist_tts">Đọc giá</string>
@@ -78,7 +76,7 @@
     <string name="channel_prices_description">Thông báo im lặng hiển thị giá hiện tại của một cặp.</string>
     <string name="channel_alarms">Cảnh báo</string>
     <string name="channel_alarms_description">Thông báo khi cảnh báo giá được kích hoạt.</string>
-    <string name="channel_service">Chế độ live</string>
+    <string name="channel_service">Cập nhật thường xuyên</string>
     <string name="channel_service_description">Thông báo khi giá đang được cập nhật trong khoảng thời gian ngắn.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, từ %2$s (%3$s trước)</string>
@@ -129,7 +127,7 @@
     <string name="settings_rolling_futures">Gồm futures theo quý &amp; futures có kỳ hạn khác</string>
     <string name="settings_rolling_futures_hint">Tắt: các futures có kỳ hạn không còn trong danh sách của sàn sẽ được đánh dấu là ngừng giao dịch thay vì kiểm tra từng cái. Tiết kiệm thời gian mỗi lần làm mới.</string>
     <string name="notification_refreshing">Đang cập nhật giá…</string>
-    <string name="notification_service_title">Crypto Checker – chế độ live</string>
+    <string name="notification_service_title">Crypto Checker đang cập nhật thường xuyên</string>
     <string name="notification_service_starting">Đang khởi động…</string>
     <plurals name="notification_service_running">
         <item quantity="other">%1$d cặp · %2$s</item>
@@ -142,9 +140,9 @@
     <string name="settings_background_updates">Cập nhật nền</string>
     <string name="settings_background_updates_hint">Giá, cảnh báo và widget vẫn được cập nhật ngay cả khi ứng dụng đã đóng.</string>
     <string name="settings_background_interval">Chu kỳ cập nhật</string>
-    <string name="settings_live_service">Chế độ live</string>
-    <string name="settings_live_service_hint">Giữ một dịch vụ chạy để cập nhật trong khoảng ngắn. Tốn pin hơn.</string>
-    <string name="settings_live_interval">Chu kỳ live</string>
+    <string name="settings_live_service">Cập nhật thường xuyên</string>
+    <string name="settings_live_service_hint">Kiểm tra giá theo chu kỳ ngắn, kể cả khi ứng dụng đã đóng. Hiển thị một thông báo và tốn pin hơn.</string>
+    <string name="settings_live_interval">Bao lâu một lần</string>
     <string name="settings_minutes">%1$d phút</string>
     <string name="settings_seconds">%1$d giây</string>
     <string name="settings_price_notifications">Thông báo giá</string>
@@ -225,7 +223,7 @@
     <string name="theme_system">Hệ thống</string>
     <string name="settings_section_developer">Nhà phát triển</string>
     <string name="settings_http_log">Hiện nhật ký HTTP</string>
-    <string name="settings_http_log_hint">Hiển thị các yêu cầu tới sàn ở cuối thẻ “Thêm” – để gỡ lỗi.</string>
+    <string name="settings_http_log_hint">Hiển thị các yêu cầu tới sàn ở cuối trang “Thêm cặp” – để gỡ lỗi.</string>
     <string name="language_search">Tìm ngôn ngữ</string>
     <string name="alarm_delete_title">Xóa cảnh báo?</string>
     <string name="alarm_delete_confirm">Cảnh báo này sẽ bị xóa.</string>
@@ -261,15 +259,11 @@
     <string name="explorer_bulk_show_list">Hiện danh sách</string>
     <string name="explorer_bulk_hide_list">Ẩn danh sách</string>
     <string name="time_just_now">vừa xong</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Giá của bạn. Cảnh báo của bạn. Tổng quan của bạn.\nKhông tài khoản. Không quảng cáo. Không theo dõi.</string>
-    <string name="welcome_later">Để sau</string>
     <string name="developer_unlocked">Đã mở tùy chọn nhà phát triển</string>
     <string name="hint_favorites_list">Mẹo: chạm ☆ để yêu thích – mục yêu thích luôn ở trên.</string>
     <string name="tab_watchlist">Danh sách</string>
-    <string name="tab_markets">Thêm</string>
     <string name="tab_market_phase">Thị trường</string>
-    <string name="tab_settings">Cài đặt</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d/%2$d đã cũ</item>
     </plurals>

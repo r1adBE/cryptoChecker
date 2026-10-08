@@ -1,5 +1,9 @@
 # cryptoChecker
 
+**Crypto Checker erklärt dir, was im Markt passiert.** Kurse direkt von der
+Börse, Marktüberblick und «Warum bewegt sich das?» – ohne Prognosen, keine
+Anlageberatung.
+
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
 Sprachausgabe und Startbildschirm-Widgets über 41 Märkte – 32 Börsen (teils
 mit Spot und Futures) plus DexScreener für DEX-Token. 31 Sprachen, kein Konto,
@@ -16,6 +20,42 @@ r1AD — riad.work@outlook.com
 
 ## Neu in 16.2.2
 
+### Zuletzt dazugekommen
+
+* **Live-Kurse per WebSocket** — solange die Merkliste offen ist, kommen die Kurse
+  von Binance, Bybit, OKX, Coinbase und Kraken live (REST bleibt Rückfall); «LIVE»
+  in der Status-Pille, Schalter unter Einstellungen › Aktualisierung
+  (`domain/live/LiveFeed.kt`, `data/live/LivePriceStream.kt`, siehe `DEVELOPMENT.md`).
+* **4 Tabs** — Merkliste · Markt · Portfolio (optional) · Einstellungen; «Paar
+  hinzufügen» öffnet sich über «+» in der Merkliste, kein eigener Such-Tab mehr.
+* **Kein Willkommensdialog** — eine Neuinstallation zeigt direkt die Startauswahl;
+  «Was die App kann» steht unter Einstellungen › Über.
+* **Alarm-Editor als Satz** — «Wenn BTC über … geht» mit Kurs-Vorschlag,
+  «Einmal / Jedes Mal», übrige Bedingungen unter «Erweitert»; **Vorlagen** ±1 %,
+  ±5 %, neues 30-Tage-Hoch/-Tief, Volumen ×3 mit einem Tipp (mit «Rückgängig»;
+  `domain/alarm/AlarmTemplates.kt`).
+* **Funding- und Open-Interest-Alarme** für Perpetuals (Binance, Bybit, OKX):
+  «Funding über/unter x %» und «Open Interest steigt/fällt um x % in 1/4/24 h»
+  (`domain/alarm/DerivativesAlarm.kt`, Room-Version 11).
+* **TradFi-Futures** — Kontrakte auf Aktien, Rohstoffe, Devisen und Pre-IPO
+  bei Binance, Bybit, OKX, MEXC und Bitget Futures (`marketdata/util/TradFi.kt`) als Perpetuals mit
+  Kennzeichen `tradFi`; sichtbar nur mit dem Schalter
+  unter Einstellungen › Merkliste (Room-Version 12, `MIGRATION_11_12`).
+* **Portfolio-Alarme** — Gesamtwert über/unter einem Betrag, Veränderung heute
+  ±x % (`domain/alarm/PortfolioAlarmLogic.kt`); **Beträge verbergen** zeigt Werte im
+  Portfolio, im Portfolio-Widget und in Portfolio-Alarmen als «•••».
+* **Sicherung mit Passwort** — AES-256-GCM, Schlüssel per PBKDF2 (`data/BackupCrypto.kt`),
+  austauschbar mit iOS.
+* **Basis der %-Änderung** (wie Binance «Change(%) & Chart Timezone») — letzte 24 Std., seit
+  00:00 in der Zone des Geräts oder in einer festen Zone UTC+14 … UTC-12
+  (eigene Unterseite in den Einstellungen; `domain/watch/ChangeBasis.kt`).
+* **Suche in den Einstellungen** — ohne Akzente und Gross-/Kleinschreibung, springt
+  zum Punkt und hebt ihn kurz hervor (`settings/SettingsSearch.kt`).
+* **«Warum?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin; BTC-Paare zeigen
+  «1 CHF = n Sats»; Markt-Tab mit Quelle und Alter je Zeile.
+
+### Frühere Runden
+
 * **Theme «Marrs Green»** — fünfte Akzentfarbe (#4BACA5, das Türkis aus der
   G.F-Smith-Umfrage 2017) mit eigenem App-Icon und Logo; die Einstellung heisst jetzt
   **Theme** (vorher «Farbe»). Themes: Orange, Rot, Blau, Grün und Marrs Green.
@@ -28,7 +68,7 @@ r1AD — riad.work@outlook.com
 * **💡 «Warum bewegt sich das?»** — Markt vs. Coin, Volumen, Hebel
   (Funding/Open Interest), Volatilität und Fear & Greed. Nur Daten, keine News,
   keine Anlageberatung.
-* **Portfolio** — eigener Tab (in den Optionen einschaltbar): Käufe und
+* **Portfolio** — eigener Tab (in den Einstellungen einschaltbar): Käufe und
   Verkäufe mit Datum und Preis, Durchschnittspreis, Gewinn/Verlust, Summe in
   USDT plus Umrechnung in eine wählbare Währung (31 Währungen; Standard
   richtet sich nach der Region des Geräts, z. B. CHF in der Schweiz, EUR in
@@ -97,8 +137,9 @@ r1AD — riad.work@outlook.com
 * **Widgets** — kompakte zweizeilige Zeilen mit ▲/▼ (0,00 % grau, ohne Pfeil),
   neutrales Aktualisieren-Symbol; Zeit/Dauer im Kopf wird nach einer
   Hintergrund-Aktualisierung jetzt nachgeführt.
-* **Neues App-Icon und Farben** — Akzentfarben Orange, Rot, Blau und Grün,
-  jeweils mit Verlauf und passendem App-Icon.
+* **Neues App-Icon und Farben** — weisse Glocke mit steigender Kurslinie;
+  Themes Orange, Rot, Blau, Grün und Marrs Green, jeweils mit Verlauf und
+  passendem App-Icon.
 * Marktdaten für Charts, Volumen und Zyklus kommen zusätzlich zu den
   Börsen-APIs von `data-api.binance.vision` (öffentlicher Marktdaten-Spiegel
   von Binance).
@@ -122,7 +163,7 @@ r1AD — riad.work@outlook.com
   Funding aller Perpetuals (Binance Futures), Marktkapitalisierung aus der CoinGecko-Rangliste
   (24 h, wie die Start-Coins). «Üblich» = eigener Median der Vortage (Tageswert auf dem Gerät),
   anfangs der Median aller Coins — keine Kerzen je Coin. Zwischenspeicher 10 Min.; Tippen öffnet
-  «Warum?» (Coin in der Merkliste) oder die Suche im Hinzufügen-Tab
+  «Warum?» (Coin in der Merkliste) oder die Suche auf der Seite «Paar hinzufügen»
   (`domain/market/MarketUnusual.kt`, `data/remote/UnusualDataSource.kt`, `ui/features/info/MarketUnusualCard.kt`).
 * **Hinweis «Wirtschaftsdaten»** — kompakte Zeile über dem Pulse, wenn heute (oder in den
   nächsten 18 h) wichtige US-Daten anstehen: «Heute 14:30: US-Inflationsdaten (CPI) – an solchen
@@ -130,7 +171,7 @@ r1AD — riad.work@outlook.com
   mehrere Termine in einer Zeile; 2 h nach dem Termin «… veröffentlicht» bis Tagesende). Kalender
   einmal am Tag von der App-Webseite (`https://r1adbe.github.io/cryptoChecker/macro/events.json`,
   24 h zwischengespeichert, sonst `assets/macro_events.json`). Optional Morgen-Meldung um 08:00
-  (Optionen → Alarme & Benachrichtigungen → «Wirtschaftstermine», Standard aus)
+  (Einstellungen → Alarme & Benachrichtigungen → «Wirtschaftstermine», Standard aus)
   (`domain/macro/MacroCalendar.kt`, `data/MacroCalendarRepository.kt`, `work/MacroNotifyWorker.kt`).
 * **«Warum bewegt sich …?» als Checkliste** — oben «Kurz gesagt» in einem Satz,
   darunter die Faktoren (Markt vs. Coin, Bitcoin gibt die Richtung vor,
@@ -140,7 +181,8 @@ r1AD — riad.work@outlook.com
   `ui/features/watchlist/ActivityUi.kt`).
 * **Einstellungen in Gruppen** — Darstellung · Währung & Umrechnung · Alarme &
   Benachrichtigungen · Daten & Aktualisierung · Portfolio · Sicherheit & Backup
-  · Erweitert (eingeklappt) · Über (`ui/features/settings/SettingsScreen.kt`).
+  · Erweitert (eingeklappt) · Über (`ui/features/settings/SettingsScreen.kt`), mit
+  Suchfeld oben (`ui/features/settings/SettingsSearchUi.kt`).
 * **Aktionsblatt** — Tippen auf eine Zeile öffnet die Aktionen; oben die drei
   häufigsten gleich gross: Alarm, Warum?, Favorit. Nach dem Hinzufügen bietet
   der Hinweis «… wird jetzt überwacht» direkt «Alarm setzen», solange die
@@ -152,10 +194,9 @@ r1AD — riad.work@outlook.com
   Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alles eingerichtet».
 * **Zyklus-Signale** — statt «Top-/Bottom-Score» heisst es «Hinweise auf ein
   mögliches Hoch/Tief», mit «Kein Kursziel und keine Prognose».
-* **Willkommen** — «Deine Kurse. Deine Alarme. Deine Übersicht.» und drei
-  Fragen: Was passiert? (Beobachten) · Wann reagieren? (Alarmieren) · Warum?
-  (Verstehen); «Los geht's» führt zur leeren
-  Merkliste mit der Starter-Auswahl; Beispiel im leeren Portfolio.
+* **Willkommen ohne Dialog** — eine Neuinstallation öffnet direkt die leere
+  Merkliste mit der Starter-Auswahl; «Was die App kann» (Was passiert? · Wann
+  reagieren? · Warum?) steht unter Einstellungen › Über; Beispiel im leeren Portfolio.
 * **Kleinere Korrekturen** — Akzentfarben im hellen Modus mit AA-Kontrast,
   Pfeile ▲/▼ bei allen Veränderungen, TalkBack-Aktionen «Nach oben/unten
   verschieben», BGN aus dem festen Euro-Kurs 1,95583, Hinweis beim Export für
@@ -185,15 +226,15 @@ r1AD — riad.work@outlook.com
 * **Akku-Hinweis erst nach dem ersten Alarm** — nie beim ersten Start oder beim
   Hinzufügen der ersten Coins; er erscheint, sobald man nach dem ersten Alarm
   wieder auf einem Haupt-Tab ist (`ui/features/about/BatteryOptimizationDialog.kt`).
-* **Markt-Tab in drei Abschnitten** — «Jetzt» (Crypto Pulse, Fear & Greed,
-  Krypto-Markt), «Einordnung» (Marktphase, Dominanz mit Altcoin-Saison, Halving)
-  und «Daten» (Coin, Gas); die Überschriften sind für TalkBack Überschriften.
+* **Markt-Tab in drei Abschnitten** — «Jetzt» (Crypto Pulse, «Heute auffällig»,
+  Fear & Greed), «Einordnung» (Marktphase, Dominanz mit Altcoin-Saison, Halving)
+  und «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin; Wirtschaftsdaten nur bei einem Termin in ±2 h oben); die Überschriften sind für TalkBack Überschriften.
 * **Markt-Tab sofort da** — zeigt beim Öffnen die zuletzt gespeicherten Daten
   («Stand … · wird aktualisiert …») und lädt im Hintergrund neu
   (`ui/features/info/MarketPhaseScreen.kt`).
 * **Fragen & Wünsche** — Link «GitHub» unter Über (`FEEDBACK_URL`, öffnet
   github.com/r1adBE/cryptoChecker/issues/new/choose).
-* **Krypto-Markt** — Karte im Abschnitt «Jetzt» des Markt-Tabs (unter Fear & Greed): gesamte Marktkapitalisierung mit
+* **Krypto-Markt** — erste Karte im Abschnitt «Daten» des Markt-Tabs: gesamte Marktkapitalisierung mit
   24-Std.-Veränderung und 24-Std.-Volumen in der Umrechnungswährung (CoinGecko
   `/global`, dieselbe Abfrage wie die Bitcoin-Dominanz).
 * **Nachtruhe** — Alarme (Kurs, Volumen, Gas, ungewöhnliche Aktivität) kommen
@@ -203,10 +244,10 @@ r1AD — riad.work@outlook.com
   sperrt nur das Portfolio (Tab, Coin-Detail, Erfassen-Blätter, Stichtag-Export,
   «Zum Portfolio hinzufügen» aus der Merkliste, Sichern mit Portfolio-Daten,
   Wiederherstellen und Ausschalten der Sperre, Portfolio-Widget) — Merkliste,
-  Hinzufügen, Zyklus, Optionen und die übrigen Widgets bleiben frei. Einmal je
+  Hinzufügen, Markt-Tab, Einstellungen und die übrigen Widgets bleiben frei. Einmal je
   Sitzung entsperren; wieder gesperrt beim Neustart und nach > 60 s im Hintergrund;
   gesperrt zeigt der Tab einen ruhigen Zustand (Schloss, «Entsperren»). Zeile in den
-  Optionen nur mit eingeschaltetem Portfolio (Wert bleibt erhalten); ab Android 13 kein
+  Einstellungen nur mit eingeschaltetem Portfolio (Wert bleibt erhalten); ab Android 13 kein
   Vorschaubild in den letzten Apps (`lock/`, Regeln in `lock/PortfolioLockPolicy.kt`,
   Oberfläche `ui/lock/PortfolioLock.kt`).
 * **Wertverlauf** im Portfolio — standardmässig zugeklappt: eine Zeile «Wertverlauf ·
@@ -238,13 +279,14 @@ r1AD — riad.work@outlook.com
   «Uhrzeit · Dauer» und wird nie abgeschnitten: erst fällt die Dauer weg, dann
   wird der Titel kleiner, dann fällt die Uhrzeit weg (`widget/ListWidgetHeader.kt`);
   im Einzel-Widget steht bei wenig Platz nur die Basis («BTC»).
-* **Alarm als Satz** — «Sag mir Bescheid, wenn BTC unter 60 000 CHF fällt.» im
-  Editor und in der Alarmliste (`domain/alarm/AlarmSentence.kt`).
+* **Alarm als Satz** — «Sag mir Bescheid, wenn BTC unter 60 000 CHF fällt.» in
+  der Alarmliste; der Editor beginnt mit «Wenn BTC über … geht» (`domain/alarm/AlarmSentence.kt`).
 * **Veralteter Kurs sichtbar** — «vor 41 Min · Binance nicht erreichbar» bzw.
-  «veraltet» ab 3 × Intervall (mind. 15 Min), auch für TalkBack.
+  «veraltet» ab 3 × Intervall (mind. 15 Min), auch für TalkBack. Mit «Häufig aktualisieren»
+  schon nach 2 Minuten.
 * **Erklärungen** — ⓘ bei Funding Rate, Open Interest, RSI und Pi-Cycle;
   DEX-Intro und «Gewinn/Verlust, noch nicht verkauft» verständlicher.
-* **Einstellungen «Erweitert»** — Live-Modus, feste Mitteilung, Futures und
+* **Einstellungen «Erweitert»** — «Häufig aktualisieren», feste Mitteilung, Futures und
   HTTP-Log eingeklappt am Ende.
 * **Ruhiger Feinschliff** — Puls-Zeile ganz oben in der Merkliste («▲ 7 steigen · ▼ 3
   fallen · Ø ▲ +1.80% 24h»; Grundlage ist derselbe Wert wie die Prozent-Pille
@@ -262,7 +304,7 @@ r1AD — riad.work@outlook.com
 
 ## Funktionen
 
-**Merkliste** — Börse und Handelspaar unter «Hinzufügen» wählen und übernehmen
+**Merkliste** — Börse und Handelspaar auf der Seite «Paar hinzufügen» («+» oben in der Merkliste) wählen und übernehmen
 (oder bei leerer Merkliste die Startauswahl nutzen). Jeder Eintrag speichert
 Kurs, Vorkurs und Zeitpunkt in Room, dazu die Veränderung über 24 Stunden
 (`change24h`, Room v10): Die Prozent-Pille «▲ +1.80% 24h» (auch Aktionen-Kopf,
@@ -277,8 +319,11 @@ Favorit oben), wischen: links löschen, rechts Favorit, halten zum Sortieren.
 Veränderung in Prozent und Uhrzeit. Wahlweise wegwischbar oder fest.
 
 **Alarme** — Kurs über/unter einem Wert, Anstieg oder Fall um x Prozent,
-Bewegung um x % in y Stunden, Volumen-Spike; wahlweise in deiner Währung,
-angezeigt als Satz, mit Nachtruhe und «Alarm testen».
+Bewegung um x % in y Stunden, Volumen-Spike, nahe am Hoch/Tief, Funding und Open
+Interest (Perpetuals von Binance, Bybit, OKX); wahlweise in deiner Währung,
+angezeigt als Satz, mit Vorlagen (±1 %, ±5 %, neues 30-Tage-Hoch/-Tief,
+Volumen ×3), Nachtruhe und «Alarm testen». Dazu Portfolio-Alarme (Gesamtwert
+über/unter, Veränderung heute).
 Einmalig oder wiederholend, mit Ton (wählbar), Vibration und optionaler Ansage.
 Eine einstellbare Ruhezeit verhindert Dauerfeuer. Prozentalarme messen ab dem
 Kurs, der beim Anlegen galt, und setzen den Bezugspunkt beim Auslösen neu.
@@ -301,11 +346,18 @@ Haken (`bulkTickersNumOfRequests`, `getBulkTickersUrl`, `parseBulkTickers`);
 umgesetzt ist er für alle Märkte ausser Coinbase und DexScreener. Märkte
 ohne diesen Haken werden weiter Paar für Paar abgefragt, und scheitert die
 Massenabfrage, fällt der Refresher automatisch darauf zurück. Ab drei Paaren einer Börse greift der Sammelweg.
+Wo die Börse eine Auswahl dokumentiert, werden nur die beobachteten Paare abgefragt
+(Binance/Binance.US `symbols`, Upbit/Bithumb `markets`, Kraken `pair`, Bitfinex `symbols`;
+lange Listen über `BulkPairChunks` auf mehrere URLs unter 2000 Zeichen verteilt);
+scheitert die gefilterte Abfrage, folgt einmal die ungefilterte. Coinbase braucht je Paar
+eine Anfrage (`/stats`: Kurs, Hoch/Tief, Volumen und Kurs vor 24 h).
 
 **Aktualisierung** — WorkManager im Hintergrund (ab 15 Minuten, Android-Grenze)
-und ein Vordergrunddienst «Live-Modus» für kurze Intervalle ab 15 Sekunden.
+und ein Vordergrunddienst «Häufig aktualisieren» für kurze Intervalle ab 15 Sekunden.
+In der geöffneten Merkliste kommen die Kurse der unterstützten Börsen live per
+WebSocket (Schalter «Live-Kurse»); Hintergrund und Widgets bleiben bei REST.
 Ein Boot-Receiver plant nach einem Neustart die Hintergrundaktualisierung neu;
-den Live-Modus startet die App ab Android 15 erst beim nächsten Öffnen.
+«Häufig aktualisieren» startet die App ab Android 15 erst beim nächsten Öffnen.
 
 ## Aufbau
 
@@ -373,7 +425,7 @@ schreiben – sie sind die Grundlage für Migrationstests und für jede weitere 
 * Belegt abgeschaltete Dienste entfernt: Poloniex (Legacy-API 28.02.2023),
   Uniswap V2 (The-Graph-Hosted-Service 12.06.2024), Bitpanda Pro
   (Umbenennung zu One Trading, alte Domain 04.01.2024).
-* App-Icon: orange Glocke (Markenfarbe), als adaptives Vektor-Icon mit
+* App-Icon: weisse Glocke mit steigender Kurslinie auf orangem Verlauf (Markenfarbe), als adaptives Vektor-Icon mit
   Varianten je Akzentfarbe (`res/drawable/ic_launcher_*`); Store-Icon
   `docs/store/icon_512.png`. Die alten blauen Globus-Grafiken (`docs/branding`)
   sind entfernt.
@@ -393,9 +445,9 @@ schreiben – sie sind die Grundlage für Migrationstests und für jede weitere 
 
 ## Unterstützen
 
-Die Spendenadressen stehen nur im README des Repositorys auf GitHub
-(`public/README.md` → github.com/r1adBE/cryptoChecker), nicht in der App und
-nicht in den Store-Texten (Apple 3.1.1, Google Play Billing).
+Die Spendenadressen stehen nur auf der Seite `SUPPORT.md` des Repositorys auf
+GitHub (github.com/r1adBE/cryptoChecker), nicht in der App, nicht auf der
+Startseite und nicht in den Store-Texten (Apple 3.1.1, Google Play Billing).
 
 ## Öffentliches Repository
 

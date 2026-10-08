@@ -122,6 +122,9 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
 
     private var onContainerDark: UInt32 { containerLight }
 
+    /// Grundfarbe als Farbe (Vorschau in der Auswahl).
+    var seedColor: Color { Color(hex: seed) }
+
     var primary: Color { Color(uiColor: primaryUI) }
     var primaryUI: UIColor {
         .contrastDynamic(light: primaryLight, dark: primaryDark, highLight: primaryHighLight, highDark: primaryHighDark)
@@ -217,6 +220,46 @@ enum AppColors {
     static let outlineVariant = Color(uiColor: .contrastDynamic(light: 0xC6C6C6, dark: 0x474747,
                                                                highLight: 0x1B1B1B, highDark: 0xE2E2E2, highAlpha: 0.6))
     static let error = Color.dynamic(light: 0xBA1A1A, dark: 0xFFB4AB)
+
+    // Semantische Farben (wie Android `AppColors`): Akzent = `AccentColor.primary`,
+    // steigend/fallend immer aus `PriceColorScheme`/`PriceColors`, «in Ordnung» = `PriceColors.ok`.
+
+    /// Bernstein für «Achtung» (⚡, Status) — unabhängig von der Akzentfarbe.
+    static let warning = Color.dynamic(light: 0xB26B00, dark: 0xFFC94D)
+    /// Bernstein für Text: hell dunkler, damit es auch auf den Karten AA (≥ 4.5:1) erreicht.
+    static let warningText = Color.dynamic(light: 0x8A5300, dark: 0xFFC94D)
+    /// Löschen in Wisch-Aktionen (Systemrot).
+    static let destructive = Color.red
+    /// Hinweis-Banner und Toasts: dunkle Fläche mit heller Schrift, in Hell und Dunkel gleich.
+    static let toastBackground = Color.black.opacity(0.86)
+    static let onToast = Color.white
+    /// Text und Symbole auf kräftigen Farbflächen (Akzent-Vorschau, Randzonen der Marktskala).
+    static let onVivid = Color.white
+    /// Schatten (Deckkraft setzt die Stelle).
+    static let shadow = Color.black
+}
+
+/// Fünfstufige Skala von «Extrem Bear» bis «Extrem Bull» (Marktzonen, Fear & Greed) —
+/// wie `MarketScaleColors` in Android. Feste Farben: Stufen, keine Kursrichtung.
+enum MarketScaleColors {
+    static let steps: [Color] = [
+        Color(hex: 0xB42318), // Extrem Bear
+        Color(hex: 0xE5484D), // Bear
+        Color(hex: 0x7A7A7A), // Neutral
+        Color(hex: 0x2FA36B), // Bull
+        Color(hex: 0x0B7A45), // Extrem Bull
+    ]
+
+    /// Text auf einer Stufe: weiss nur auf den dunklen Randstufen, sonst dunkel (Kontrast).
+    static func onStep(_ index: Int) -> Color {
+        index == 0 || index == steps.count - 1 ? AppColors.onVivid : Color(hex: 0x111111)
+    }
+}
+
+/// Feste Erkennungsfarben einzelner Coins (Anteilsbalken der Dominanz) — wie Android `AssetColors`.
+enum AssetColors {
+    static let bitcoin = Color(hex: 0xF7931A)
+    static let ethereum = Color(hex: 0x627EEA)
 }
 
 /// Kursfarben steigend/fallend — wie `PriceColorScheme.kt`. Blau/Orange bleibt bei
@@ -287,13 +330,6 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     func forChange(_ change: Double?, highContrast: Bool = false, inverted: Bool = false) -> Color {
         (change ?? 0) >= 0 ? up(highContrast: highContrast, inverted: inverted)
             : down(highContrast: highContrast, inverted: inverted)
-    }
-
-    var labelKey: String {
-        switch self {
-        case .GREEN_RED: "price_colors_green_red"
-        case .BLUE_ORANGE: "price_colors_blue_orange"
-        }
     }
 }
 

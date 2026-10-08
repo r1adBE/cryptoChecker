@@ -18,9 +18,9 @@
     <string name="pulse_less">간단히 보기</string>
     <string name="pulse_updated">%1$s 기준</string>
     <string name="pulse_unavailable">현재 시장 데이터를 사용할 수 없습니다</string>
-    <string name="why_summary_title">요약</string>
+    <string name="why_summary_title">가능성 있는 이유</string>
     <string name="why_summary_market_volume">이 움직임에는 거래량 증가와 시장 전반의 움직임이 함께 나타납니다.</string>
-    <string name="why_summary_market">이 움직임은 시장 전체를 따릅니다.</string>
+    <string name="why_summary_market">이 움직임은 시장 전체를 따르는 것으로 보입니다.</string>
     <string name="why_summary_coin_volume">이 코인만 거래량 증가와 함께 움직입니다 – 코인 자체에 이유가 있을 가능성이 큽니다.</string>
     <string name="why_summary_coin">이 코인만 움직입니다 – 코인 자체에 이유가 있을 가능성이 큽니다.</string>
     <string name="why_summary_against">코인이 시장과 반대로 움직입니다.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">지켜보기 – 내 코인, 시세, 차트, 위젯</string>
     <string name="welcome_alert">경보 – 가격, 퍼센트, 거래량, 이례적인 움직임</string>
     <string name="welcome_understand">이해하기 – 지금 시장은 왜 움직일까요?</string>
-    <string name="welcome_start">시작하기</string>
     <string name="portfolio_empty_example">예: 3월 1일에 0.01 BTC를 %1$s에 매수. 앱이 평가액, 평균 매수가, 손익을 보여 줍니다 – 이 기기에만 저장됩니다.</string>
     <string name="about_why">Crypto Checker는 r1AD의 독립 프로젝트입니다: 계정, 광고, 추적 없는 차분한 시세 개요. 질문과 요청: %1$s</string>
     <string name="a11y_move_up">위로 이동</string>
@@ -61,26 +60,8 @@
     <string name="market_data_empty_error">거래소에서 데이터를 받지 못했습니다.</string>
     <string name="sync_pairs_count">거래쌍: %1$d개</string>
     <string name="market_unavailable_error">거래소를 사용할 수 없음</string>
-    <string name="refresh_report_aborted">새로고침 중단됨:</string>
-    <string name="refresh_report_wait">시작까지 대기: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="other">전체 %1$s · 거래쌍 %2$d개</item>
-    </plurals>
-    <string name="refresh_report_network">네트워크 %1$s</string>
-    <string name="refresh_report_database">데이터베이스 %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="other">경보/알림 %1$s · 알림 %2$d개</item>
-    </plurals>
-    <string name="refresh_report_widgets">위젯 %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="other">%1$s: 거래쌍 %2$d개, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="other">일괄 요청 %1$s (시세 %2$d개)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">일괄 요청 %1$s (실패)</string>
     <string name="refresh_report_singles">개별 %1$d개</string>
-    <string name="refresh_report_slowest">가장 느림 %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="other">더 이상 거래되지 않음 %1$d개</item>
     </plurals>

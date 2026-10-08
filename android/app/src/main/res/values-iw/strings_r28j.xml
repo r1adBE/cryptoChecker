@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">חלוקה</string>
+    <string name="portfolio_allocation_other">אחרים</string>
+    <string name="portfolio_movers_title">התנועות הגדולות ביותר</string>
+    <string name="portfolio_hide_amounts">הסתרת סכומים</string>
+    <string name="portfolio_hide_amounts_hint">מציג סכומים וערכים בתיק ההשקעות ובווידג׳ט התיק כ־••• – האחוזים נשארים גלויים.</string>
+    <string name="a11y_portfolio_show_amounts">הצגת סכומים</string>
+    <string name="a11y_amount_hidden">הסכום מוסתר</string>
+    <string name="portfolio_alarm_action">התראה</string>
+    <string name="portfolio_alarm_title">התראה „שווי התיק”</string>
+    <string name="portfolio_alarm_kind_above">התיק מעל סכום</string>
+    <string name="portfolio_alarm_kind_below">התיק מתחת לסכום</string>
+    <string name="portfolio_alarm_kind_up">התיק עולה</string>
+    <string name="portfolio_alarm_kind_down">התיק יורד</string>
+    <string name="portfolio_alarm_amount">סכום (%1$s)</string>
+    <string name="portfolio_alarm_hint">נבדק אחרי כל רענון. כמו התראות מחיר: מתריע בחציית הסף, ושוב רק אחרי שהערך חזר.</string>
+    <string name="portfolio_alarm_sentence_above">התיק מעל %1$s</string>
+    <string name="portfolio_alarm_sentence_below">התיק מתחת ל־%1$s</string>
+    <string name="portfolio_alarm_sentence_up">התיק עלה ב־%1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">התיק ירד ב־%1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">שווי התיק</string>
+    <string name="notification_portfolio_alarm_text">%1$s – עכשיו %2$s</string>
+</resources>

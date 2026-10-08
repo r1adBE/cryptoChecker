@@ -20,6 +20,12 @@ enum NearExtreme {
     static let windows: [Int] = [30, 90, 365]
     static let defaultWindowDays = 30
     static let defaultDistancePercent = 2.0
+    /// Abstand 0 = nur neue Hochs/Tiefs melden (Vorlage «Neues 30-Tage-Hoch»), keine Annäherung.
+    /// Gespeichert wie jeder Abstand in `threshold`; ältere Versionen melden damit nie.
+    static let newOnlyDistance = 0.0
+
+    /// Alarm meldet nur neue Hochs/Tiefs (`newOnlyDistance`)?
+    static func isNewOnly(_ thresholdPercent: Double) -> Bool { thresholdPercent == newOnlyDistance }
     /// Zwischenspeicher der Fenster-Hochs/-Tiefs je Paar.
     static let cacheMillis: Int64 = 6 * 60 * 60_000
     /// Tageskerzen für das längste Fenster plus laufender Tag, mit Reserve.
@@ -84,7 +90,8 @@ enum NearExtreme {
                        armed: Bool, lastLevel: Double?, inCooldown: Bool,
                        lastTriggeredAt: Int64, now: Int64) -> Decision {
         guard price.isFinite, price > 0, range.isValid else { return .idle }
-        guard thresholdPercent.isFinite, thresholdPercent > 0 else { return .idle }
+        // Abstand 0 = nur neue Hochs/Tiefs (`newOnlyDistance`); negativ/ungültig = nichts
+        guard thresholdPercent.isFinite, thresholdPercent >= 0 else { return .idle }
 
         let extreme = side == .high ? range.high : range.low
         let beyond = side == .high ? price > extreme : price < extreme
@@ -107,7 +114,7 @@ enum NearExtreme {
             guard further, !inCooldown else { return .idle }
             return .fire(newExtreme: true, distancePercent: distance, extreme: extreme, level: price)
         }
-        if distance <= thresholdPercent {
+        if thresholdPercent > 0 && distance <= thresholdPercent {
             guard armed, !inCooldown else { return .idle }
             return .fire(newExtreme: false, distancePercent: distance, extreme: extreme, level: extreme)
         }

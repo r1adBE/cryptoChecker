@@ -18,9 +18,9 @@
     <string name="pulse_less">แสดงน้อยลง</string>
     <string name="pulse_updated">ณ %1$s</string>
     <string name="pulse_unavailable">ข้อมูลตลาดไม่พร้อมใช้งานในขณะนี้</string>
-    <string name="why_summary_title">โดยสรุป</string>
+    <string name="why_summary_title">เหตุผลที่เป็นไปได้</string>
     <string name="why_summary_market_volume">การเคลื่อนไหวนี้มาพร้อมกับปริมาณการซื้อขายที่สูงขึ้นและตลาดที่เคลื่อนไหวในวงกว้าง</string>
-    <string name="why_summary_market">การเคลื่อนไหวนี้เป็นไปตามตลาดโดยรวม</string>
+    <string name="why_summary_market">การเคลื่อนไหวนี้น่าจะเป็นไปตามตลาดโดยรวม</string>
     <string name="why_summary_coin_volume">มีเพียงเหรียญนี้ที่เคลื่อนไหว ด้วยปริมาณที่สูงขึ้น – น่าจะมีเหตุผลเฉพาะของเหรียญเอง</string>
     <string name="why_summary_coin">มีเพียงเหรียญนี้ที่เคลื่อนไหว – น่าจะมีเหตุผลเฉพาะของเหรียญเอง</string>
     <string name="why_summary_against">เหรียญนี้เคลื่อนไหวสวนทางตลาด</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">ติดตาม – เหรียญ ราคา กราฟ และวิดเจ็ตของคุณ</string>
     <string name="welcome_alert">เตือน – ราคา เปอร์เซ็นต์ ปริมาณ และการเคลื่อนไหวที่ผิดปกติ</string>
     <string name="welcome_understand">เข้าใจ – ทำไมตลาดถึงเคลื่อนไหวตอนนี้?</string>
-    <string name="welcome_start">เริ่มต้นใช้งาน</string>
     <string name="portfolio_empty_example">ตัวอย่าง: ซื้อ 0.01 BTC เมื่อ 1 มีนาคม ที่ราคา %1$s จากนั้นแอปจะแสดงมูลค่า ราคาซื้อเฉลี่ย และกำไร/ขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น</string>
     <string name="about_why">Crypto Checker เป็นโปรเจกต์อิสระของ r1AD: ภาพรวมราคาที่สงบ ไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม คำถามและข้อเสนอแนะ: %1$s</string>
     <string name="a11y_move_up">ย้ายขึ้น</string>
@@ -61,26 +60,8 @@
     <string name="market_data_empty_error">ไม่ได้รับข้อมูลจากกระดานเทรด</string>
     <string name="sync_pairs_count">คู่เทรด: %1$d</string>
     <string name="market_unavailable_error">กระดานเทรดไม่พร้อมใช้งาน</string>
-    <string name="refresh_report_aborted">รีเฟรชถูกยกเลิก:</string>
-    <string name="refresh_report_wait">รอจนเริ่ม: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="other">รวม %1$s · %2$d คู่</item>
-    </plurals>
-    <string name="refresh_report_network">เครือข่าย %1$s</string>
-    <string name="refresh_report_database">ฐานข้อมูล %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="other">สัญญาณเตือน/การแจ้งเตือน %1$s · การแจ้งเตือน %2$d รายการ</item>
-    </plurals>
-    <string name="refresh_report_widgets">วิดเจ็ต %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="other">%1$s: %2$d คู่, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="other">คำขอแบบรวม %1$s (%2$d ราคา)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">คำขอแบบรวม %1$s (ล้มเหลว)</string>
     <string name="refresh_report_singles">แยกทีละรายการ %1$d</string>
-    <string name="refresh_report_slowest">ช้าที่สุด %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="other">ไม่มีการซื้อขายแล้ว %1$d</item>
     </plurals>

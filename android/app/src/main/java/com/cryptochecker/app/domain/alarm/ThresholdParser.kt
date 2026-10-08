@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
+import com.cryptochecker.app.util.BidiText
 import kotlin.math.abs
 import kotlin.math.ln
 
@@ -15,6 +16,7 @@ import kotlin.math.ln
  *   Mit [priceHint] (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
  *   näher am Kurs liegt (Verhältnis am nächsten bei 1); ohne Kurs entscheidet das
  *   Dezimalzeichen der Region ([decimalSeparator]).
+ * - Arabisch-indische und persische Ziffern sowie «٫»/«٬» gelten wie 0–9, «.» und «’» ([latinDigits]).
  * - Alles andere (Buchstaben wie «60k», Vorzeichen, Exponent) ist ungültig → null.
  *
  * Ergebnis immer > 0 und endlich, sonst null.
@@ -26,7 +28,7 @@ object ThresholdParser {
 
     fun parse(text: String, decimalSeparator: Char, priceHint: Double? = null): Double? {
         val cleaned = buildString {
-            for (c in text.trim()) {
+            for (c in latinDigits(text).trim()) {
                 when {
                     c in GROUPING -> Unit
                     c in '0'..'9' || c == '.' || c == ',' -> append(c)
@@ -77,6 +79,25 @@ object ThresholdParser {
             }
         }
         return value?.takeIf { it.isFinite() && it > 0.0 }
+    }
+
+    /**
+     * Eingabe in lateinische Ziffern: arabisch-indische (٠–٩), persische (۰–۹) und andere
+     * Unicode-Ziffern → 0–9, arabisches Dezimalzeichen «٫» → «.», arabische Tausendertrennung
+     * «٬» → «’»; Richtungszeichen (z. B. LRM aus eingefügtem Text) fallen weg.
+     * So liest sich auch, was eine arabische oder persische Zifferntastatur tippt.
+     */
+    fun latinDigits(text: String): String = buildString(text.length) {
+        for (c in text) {
+            when {
+                c in '0'..'9' -> append(c)
+                c == '\u066B' -> append('.')
+                c == '\u066C' -> append('’')
+                BidiText.isMark(c) -> Unit
+                Character.isDigit(c) -> append('0' + Character.digit(c, 10))
+                else -> append(c)
+            }
+        }
     }
 
     /** Dezimalzeichen der Region auf Punkt oder Komma abbilden (anderes → Punkt). */

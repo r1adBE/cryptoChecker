@@ -70,6 +70,8 @@ struct PortfolioCoinDetail: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+        // «Beträge verbergen» (Einstellung bzw. Auge im Portfolio-Kopf)
+        .environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
         // iPad/Querformat: Zeilen höchstens 640 pt breit, mittig
         .readableListMargins()
         .background(AppColors.background.ignoresSafeArea())
@@ -119,6 +121,7 @@ private struct PortfolioPositionCard: View {
     @Environment(\.priceColorScheme) private var priceColorsDependency
     @Environment(\.priceColorsInverted) private var invertedDependency
     @Environment(\.priceHighContrast) private var highContrastDependency
+    @Environment(\.hidePortfolioAmounts) private var hideAmounts
     let position: CoinPosition
 
     var body: some View {
@@ -130,28 +133,28 @@ private struct PortfolioPositionCard: View {
                     Text(L("portfolio_value"))
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(AppColors.onSurfaceVariant)
-                    Text(p.value.map { PortfolioFormat.usdtValue($0) } ?? "—")
-                        .scaledFont(size: 26, weight: .semibold, design: .rounded, relativeTo: .title, monospacedDigit: true)
+                    Text(p.value.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—")
+                        .displayFont(.compact)
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
                         .contentTransition(.numericText())
                 }
             }
             HStack(alignment: .top, spacing: 12) {
-                PortfolioMetric(label: L("portfolio_holdings"), value: PortfolioFormat.amount(p.holdings, p.coin))
+                PortfolioMetric(label: L("portfolio_holdings"), value: PortfolioInsights.mask(PortfolioFormat.amount(p.holdings, p.coin), hidden: hideAmounts))
                 PortfolioMetric(label: L("portfolio_avg_price"), value: PortfolioFormat.price(p.avgCost))
             }
             .padding(.top, 16)
             HStack(alignment: .top, spacing: 12) {
                 PortfolioMetric(label: L("portfolio_current_price"), value: PortfolioFormat.price(p.currentPrice))
-                PortfolioMetric(label: L("portfolio_invested"), value: p.costBasis.map { PortfolioFormat.usdtValue($0) } ?? "—")
+                PortfolioMetric(label: L("portfolio_invested"), value: p.costBasis.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—")
             }
             .padding(.top, 12)
             HStack(alignment: .top, spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
                     PortfolioMetric(
                         label: L("portfolio_unrealized"),
-                        value: p.unrealized.map { PortfolioFormat.signedUsdt($0) } ?? "—",
+                        value: p.unrealized.map { PortfolioInsights.mask(PortfolioFormat.signedUsdt($0), hidden: hideAmounts) } ?? "—",
                         valueColor: PortfolioFormat.plColor(p.unrealized, scheme: priceColorsDependency,
                                             highContrast: highContrastDependency, inverted: invertedDependency)
                     )
@@ -163,7 +166,7 @@ private struct PortfolioPositionCard: View {
                 if !PortfolioFormat.isZero(p.realized) {
                     PortfolioMetric(
                         label: L("portfolio_realized"),
-                        value: PortfolioFormat.signedUsdt(p.realized),
+                        value: PortfolioInsights.mask(PortfolioFormat.signedUsdt(p.realized), hidden: hideAmounts),
                         valueColor: PortfolioFormat.plColor(p.realized, scheme: priceColorsDependency,
                                             highContrast: highContrastDependency, inverted: invertedDependency)
                     )
@@ -192,10 +195,11 @@ private struct PortfolioTxRow: View {
     @Environment(\.priceColorScheme) private var priceColorsDependency
     @Environment(\.priceColorsInverted) private var invertedDependency
     @Environment(\.priceHighContrast) private var highContrastDependency
+    @Environment(\.hidePortfolioAmounts) private var hideAmounts
     let tx: PortfolioTx
 
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: Spacing.sm) {
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 0) {
                     Text(PortfolioFormat.typeLabel(tx.type))
@@ -205,7 +209,7 @@ private struct PortfolioTxRow: View {
                         .font(.footnote)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                Text(verbatim: PortfolioFormat.amount(tx.amount, tx.coin) + " × "
+                Text(verbatim: PortfolioInsights.mask(PortfolioFormat.amount(tx.amount, tx.coin), hidden: hideAmounts) + " × "
                     + (tx.priceUsdt.map { PortfolioFormat.price($0) } ?? L("portfolio_price_missing")))
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
@@ -219,8 +223,8 @@ private struct PortfolioTxRow: View {
                 }
             }
             Spacer(minLength: 8)
-            Text(tx.priceUsdt.map { PortfolioFormat.usdtValue($0 * tx.amount) } ?? "—")
-                .font(.system(.subheadline, design: .rounded).weight(.medium).monospacedDigit())
+            Text(tx.priceUsdt.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0 * tx.amount), hidden: hideAmounts) } ?? "—")
+                .font(AppFont.amount(.subheadline, weight: .medium))
                 .foregroundStyle(AppColors.onSurface)
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)

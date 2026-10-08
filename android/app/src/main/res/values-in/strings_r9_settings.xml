@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_settings -->
-    <string name="settings_group_currency">Mata uang &amp; konversi</string>
     <string name="settings_group_alerts">Alarm &amp; notifikasi</string>
-    <string name="settings_group_data">Data &amp; pembaruan</string>
-    <string name="settings_group_security">Keamanan &amp; cadangan</string>
     <string name="settings_portfolio_tab">Tampilkan tab Portofolio</string>
 </resources>

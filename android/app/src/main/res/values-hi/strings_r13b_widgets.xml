@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">पुराना डेटा · %1$s</string>
 
     <string name="settings_widgets">विजेट</string>
-    <string name="settings_widgets_hint">होम स्क्रीन पर कीमतें जोड़ें</string>
     <string name="widgets_sheet_title">विजेट जोड़ें</string>
     <string name="widget_kind_single">एक कॉइन</string>
     <string name="widgets_add">जोड़ें</string>

@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">خطا: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">جفت‌ارزی وجود ندارد</string>
-    <string name="checker_add_check_currency_empty_warning_summary">برای دریافت تازه‌ترین جفت‌ارزها از صرافی انتخاب‌شده اینجا را لمس کنید.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">جفت‌های فعلی بازار انتخاب‌شده را بارگیری می‌کند.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">به‌روزرسانی جفت‌ارزها</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">همین حالا همگام‌سازی کن!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">آخرین همگام‌سازی: %1$s</string>
@@ -37,7 +37,6 @@
     <string name="bulk_all_pairs_empty">در این صرافی برای نوع قرارداد انتخاب‌شده جفت %1$s وجود ندارد. ابتدا صرافی را همگام‌سازی کنید یا نوع قرارداد دیگری را امتحان کنید.</string>
 
     <string name="action_refresh">تازه‌سازی</string>
-    <string name="action_add_pair">افزودن جفت</string>
     <string name="action_delete">حذف</string>
     <string name="action_edit">ویرایش</string>
     <string name="action_back">بازگشت</string>
@@ -45,7 +44,6 @@
     <string name="action_cancel">لغو</string>
 
     <string name="watchlist_empty_title">هنوز جفتی نیست</string>
-    <string name="watchlist_empty_hint">یا در «افزودن» یک صرافی و یک جفت انتخاب کنید. هر جفت می‌تواند اعلان، خواندن صوتی قیمت و هشدار قیمت داشته باشد.</string>
     <string name="watchlist_updated">به‌روزرسانی: %1$s</string>
     <string name="watchlist_notification">اعلان</string>
     <string name="watchlist_tts">خواندن قیمت</string>
@@ -76,7 +74,7 @@
     <string name="channel_prices_description">اعلان بی‌صدا با قیمت فعلی یک جفت.</string>
     <string name="channel_alarms">هشدارها</string>
     <string name="channel_alarms_description">اعلان هنگام فعال شدن هشدار قیمت.</string>
-    <string name="channel_service">حالت زنده</string>
+    <string name="channel_service">به‌روزرسانی مکرر</string>
     <string name="channel_service_description">اعلان در زمانی که قیمت‌ها در فواصل کوتاه به‌روز می‌شوند.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s، از %2$s (%3$s پیش)</string>
@@ -127,7 +125,7 @@
     <string name="settings_rolling_futures">شامل فیوچرز فصلی &amp; سایر فیوچرز سررسیددار</string>
     <string name="settings_rolling_futures_hint">خاموش: فیوچرز سررسیددار که در فهرست صرافی نیستند به‌جای بررسی تک‌به‌تک، به‌عنوان «دیگر معامله نمی‌شود» علامت می‌خورند. در هر تازه‌سازی زمان صرفه‌جویی می‌شود.</string>
     <string name="notification_refreshing">در حال به‌روزرسانی قیمت‌ها…</string>
-    <string name="notification_service_title">حالت زنده Crypto Checker</string>
+    <string name="notification_service_title">Crypto Checker مرتب به‌روز می‌شود</string>
     <string name="notification_service_starting">در حال شروع…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d جفت · %2$s</item>
@@ -140,9 +138,9 @@
     <string name="settings_background_updates">به‌روزرسانی در پس‌زمینه</string>
     <string name="settings_background_updates_hint">قیمت‌ها، هشدارها و ابزارک‌ها حتی وقتی برنامه بسته است به‌روز می‌شوند.</string>
     <string name="settings_background_interval">فاصله زمانی</string>
-    <string name="settings_live_service">حالت زنده</string>
-    <string name="settings_live_service_hint">یک سرویس را برای فواصل کوتاه در حال اجرا نگه می‌دارد. باتری بیشتری مصرف می‌کند.</string>
-    <string name="settings_live_interval">فاصله حالت زنده</string>
+    <string name="settings_live_service">به‌روزرسانی مکرر</string>
+    <string name="settings_live_service_hint">قیمت‌ها را در فاصله‌های کوتاه بررسی می‌کند، حتی وقتی برنامه بسته است. یک اعلان نشان می‌دهد و باتری بیشتری مصرف می‌کند.</string>
+    <string name="settings_live_interval">هر چند وقت</string>
     <string name="settings_minutes">%1$d دقیقه</string>
     <string name="settings_seconds">%1$d ثانیه</string>
     <string name="settings_price_notifications">اعلان‌های قیمت</string>
@@ -222,7 +220,7 @@
     <string name="theme_system">سیستم</string>
     <string name="settings_section_developer">توسعه‌دهنده</string>
     <string name="settings_http_log">نمایش گزارش HTTP</string>
-    <string name="settings_http_log_hint">درخواست‌های ارسالی به صرافی‌ها را پایین برگه «افزودن» نشان می‌دهد – برای عیب‌یابی.</string>
+    <string name="settings_http_log_hint">درخواست‌های ارسالی به صرافی‌ها را پایین صفحهٔ «افزودن جفت» نشان می‌دهد – برای عیب‌یابی.</string>
     <string name="language_search">جستجوی زبان</string>
     <string name="alarm_delete_title">هشدار حذف شود؟</string>
     <string name="alarm_delete_confirm">این هشدار حذف می‌شود.</string>
@@ -262,15 +260,11 @@
     <string name="explorer_bulk_show_list">نمایش فهرست</string>
     <string name="explorer_bulk_hide_list">پنهان کردن فهرست</string>
     <string name="time_just_now">همین حالا</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">قیمت‌های شما. هشدارهای شما. نمای کلی شما.\nبدون حساب. بدون تبلیغات. بدون ردیابی.</string>
-    <string name="welcome_later">بعداً</string>
     <string name="developer_unlocked">گزینه‌های توسعه‌دهنده باز شد</string>
     <string name="hint_favorites_list">نکته: برای علاقه‌مندی روی ☆ بزنید – علاقه‌مندی‌ها بالا می‌مانند.</string>
     <string name="tab_watchlist">فهرست</string>
-    <string name="tab_markets">افزودن</string>
     <string name="tab_market_phase">بازار</string>
-    <string name="tab_settings">تنظیمات</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d از %2$d قدیمی</item>
         <item quantity="other">%1$d از %2$d قدیمی</item>

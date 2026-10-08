@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">خطأ: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">لا توجد أزواج عملات</string>
-    <string name="checker_add_check_currency_empty_warning_summary">اضغط هنا لتنزيل أحدث أزواج العملات من المنصة المحددة.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">يحمّل الأزواج الحالية للمنصة المحددة.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">تحديث أزواج العملات</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">مزامنة الآن</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">آخر مزامنة: %1$s</string>
@@ -41,7 +41,6 @@
     <string name="bulk_all_pairs_empty">لا توجد أزواج %1$s في هذه المنصة لنوع العقد المحدد. زامِن المنصة أولًا أو جرّب نوع عقد آخر.</string>
 
     <string name="action_refresh">تحديث</string>
-    <string name="action_add_pair">إضافة زوج</string>
     <string name="action_delete">حذف</string>
     <string name="action_edit">تعديل</string>
     <string name="action_back">رجوع</string>
@@ -49,7 +48,6 @@
     <string name="action_cancel">إلغاء</string>
 
     <string name="watchlist_empty_title">لا توجد أزواج بعد</string>
-    <string name="watchlist_empty_hint">أو اختر منصة وزوجًا من «إضافة». يمكن لكل زوج أن يحصل على إشعار وتحديث صوتي وتنبيهات سعرية.</string>
     <string name="watchlist_updated">آخر تحديث: %1$s</string>
     <string name="watchlist_notification">إشعار</string>
     <string name="watchlist_tts">نطق السعر</string>
@@ -84,7 +82,7 @@
     <string name="channel_prices_description">إشعار صامت بالسعر الحالي لزوج.</string>
     <string name="channel_alarms">التنبيهات</string>
     <string name="channel_alarms_description">إشعار عند انطلاق تنبيه سعري.</string>
-    <string name="channel_service">الوضع المباشر</string>
+    <string name="channel_service">تحديث متكرر</string>
     <string name="channel_service_description">إشعار أثناء تحديث الأسعار على فترات قصيرة.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s، من %2$s (قبل %3$s)</string>
@@ -135,7 +133,7 @@
     <string name="settings_rolling_futures">يشمل العقود الآجلة الفصلية وذات الاستحقاق</string>
     <string name="settings_rolling_futures_hint">عند الإيقاف: تُعلَّم العقود الآجلة ذات الاستحقاق غير الموجودة في قائمة المنصة على أنها لم تعد متداولة بدلًا من فحصها واحدًا تلو الآخر. يوفّر الوقت في كل تحديث.</string>
     <string name="notification_refreshing">جارٍ تحديث الأسعار…</string>
-    <string name="notification_service_title">الوضع المباشر في Crypto Checker</string>
+    <string name="notification_service_title">Crypto Checker يحدّث بشكل متكرر</string>
     <string name="notification_service_starting">جارٍ البدء…</string>
     <plurals name="notification_service_running">
         <item quantity="zero">%1$d زوج · %2$s</item>
@@ -152,9 +150,9 @@
     <string name="settings_background_updates">التحديث في الخلفية</string>
     <string name="settings_background_updates_hint">تُحدَّث الأسعار والتنبيهات والأدوات حتى عند إغلاق التطبيق.</string>
     <string name="settings_background_interval">الفاصل الزمني</string>
-    <string name="settings_live_service">الوضع المباشر</string>
-    <string name="settings_live_service_hint">يُبقي خدمة قيد التشغيل للفواصل القصيرة. يستهلك بطارية أكثر.</string>
-    <string name="settings_live_interval">فاصل الوضع المباشر</string>
+    <string name="settings_live_service">التحديث المتكرر</string>
+    <string name="settings_live_service_hint">يفحص الأسعار على فترات قصيرة، حتى عندما يكون التطبيق مغلقًا. يعرض إشعارًا ويستهلك بطارية أكثر.</string>
+    <string name="settings_live_interval">كم مرة</string>
     <string name="settings_minutes">%1$d د</string>
     <string name="settings_seconds">%1$d ث</string>
     <string name="settings_price_notifications">إشعارات الأسعار</string>
@@ -242,7 +240,7 @@
     <string name="theme_system">النظام</string>
     <string name="settings_section_developer">المطوّر</string>
     <string name="settings_http_log">عرض سجل HTTP</string>
-    <string name="settings_http_log_hint">يعرض أسفل تبويب «إضافة» الطلبات المرسلة إلى المنصات – لاستكشاف الأخطاء.</string>
+    <string name="settings_http_log_hint">يعرض أسفل صفحة «إضافة زوج» الطلبات المرسلة إلى المنصات – لاستكشاف الأخطاء.</string>
     <string name="language_search">البحث عن لغة</string>
     <string name="alarm_delete_title">حذف التنبيه؟</string>
     <string name="alarm_delete_confirm">ستتم إزالة هذا التنبيه.</string>
@@ -298,15 +296,11 @@
     <string name="explorer_bulk_show_list">عرض القائمة</string>
     <string name="explorer_bulk_hide_list">إخفاء القائمة</string>
     <string name="time_just_now">الآن</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">أسعارك. تنبيهاتك. نظرتك العامة.\nبلا حساب. بلا إعلانات. بلا تتبع.</string>
-    <string name="welcome_later">لاحقًا</string>
     <string name="developer_unlocked">تم فتح خيارات المطوّر</string>
     <string name="hint_favorites_list">نصيحة: اضغط على ☆ للإضافة إلى المفضلة – تبقى المفضلة في الأعلى.</string>
     <string name="tab_watchlist">القائمة</string>
-    <string name="tab_markets">إضافة</string>
     <string name="tab_market_phase">السوق</string>
-    <string name="tab_settings">الإعدادات</string>
     <plurals name="watchlist_stale_count">
         <item quantity="zero">%1$d من %2$d قديمة</item>
         <item quantity="one">%1$d من %2$d قديمة</item>

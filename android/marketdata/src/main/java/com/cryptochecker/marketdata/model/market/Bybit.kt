@@ -7,6 +7,7 @@ import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
@@ -35,7 +36,9 @@ open class BybitBase(
             if (contractType == FuturesContractType.PERPETUAL && item.optString("contractType") != "LinearPerpetual") {
                 return@forEachJSONObject
             }
-            pairs.add(CurrencyPairInfo(item.getString("baseCoin"), item.getString("quoteCoin"), item.getString("symbol"), contractType))
+            // Aktien, ETFs, Rohstoffe und Devisen (TradFi-Perps) nur bei Futures kennzeichnen; Spot-Token bleiben Token
+            val tradFi = contractType == FuturesContractType.PERPETUAL && TradFi.bybit(item.optString("symbolType"))
+            pairs.add(CurrencyPairInfo(item.getString("baseCoin"), item.getString("quoteCoin"), item.getString("symbol"), contractType, tradFi))
         }
     }
 

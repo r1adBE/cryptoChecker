@@ -56,7 +56,7 @@ struct WatchlistJumpButton: View {
                 .frame(width: WatchlistJump.buttonSize, height: WatchlistJump.buttonSize)
                 .background(.regularMaterial, in: Circle())
                 .overlay(Circle().strokeBorder(AppColors.outlineVariant.opacity(0.5), lineWidth: 0.5))
-                .shadow(color: .black.opacity(0.15), radius: 6, y: 2)
+                .shadow(color: AppColors.shadow.opacity(0.15), radius: 6, y: 2)
                 .contentShape(Circle())
         }
         .buttonStyle(.plain)

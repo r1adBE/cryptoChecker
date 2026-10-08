@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s変動</string>
+    <string name="change_basis_rolling">過去24時間</string>
+    <string name="change_basis_utc_zone">00:00 %1$s から</string>
+    <string name="change_basis_local">00:00(現地時間)から</string>
+    <string name="settings_change_basis_hint_1">選んだタイムゾーンによって、ウォッチリスト、パルス行、ペアシート、ウィジェットの変動率をいつから数えるかが決まります。</string>
+    <string name="settings_change_basis_hint_2">「%1$s」はちょうど24時間前の価格と比較します。「00:00」はそのタイムゾーンの午前0時の始値と比較します。</string>
+    <string name="settings_change_basis_hint_3">アラームには影響しません。</string>
+    <string name="change_basis_device">%1$s、00:00（デバイスのタイムゾーン）</string>
+    <string name="change_short_today">今日</string>
+    <string name="change_short_today_zone">今日 %1$s</string>
+    <string name="a11y_change_today">今日 %1$s</string>
+    <string name="a11y_change_today_zone">%2$s 午前0時から %1$s</string>
+    <string name="a11y_change_today_none">今日の変動はありません</string>
+    <string name="a11y_change_today_zone_none">%1$s 午前0時からの変動はありません</string>
+    <string name="sheet_chart_today">今日</string>
+    <string name="sheet_chart_change_since">%2$s %1$s</string>
+    <string name="settings_live_interval_hidden_hint">アプリを閉じている間は最短1分ごと</string>
+    <string name="sheet_more">その他</string>
+    <string name="a11y_expanded">展開済み</string>
+    <string name="a11y_collapsed">折りたたみ済み</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">今日の値なし %1$d</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d ペアは今日の値がありません</item>
+    </plurals>
+</resources>

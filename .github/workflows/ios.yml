@@ -1,4 +1,5 @@
-# Builds the iOS app (ios/) for the iOS Simulator without code signing.
+# Builds the iOS app (ios/) for the iOS Simulator without code signing and runs the
+# unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity).
 # Manual only (Actions -> iOS -> Run workflow): macOS runners are slow and the
 # project is developed against current Xcode releases, so a red badge on every
 # push would say little. Signing, archiving and uploading happen locally in Xcode.
@@ -32,3 +33,23 @@ jobs:
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             | tail -n 200
+
+      # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app).
+      # "iPhone 16" if the installed Xcode has it, otherwise its first available iPhone.
+      - name: Unit tests (iOS Simulator)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          DEVICE="iPhone 16"
+          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          fi
+          echo "Simulator: $DEVICE"
+          xcodebuild test \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            | tail -n 300

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Fiyat renkleri</string>
-    <string name="price_colors_green_red">Yeşil / kırmızı</string>
-    <string name="price_colors_blue_orange">Mavi / turuncu</string>
     <string name="settings_price_colors_hint">Mavi / turuncu her renk görme bozukluğunda (kırmızı-yeşil ve mavi-sarı) kolayca ayırt edilir. Yön ayrıca her zaman + / − ile gösterilir.</string>
     <string name="settings_watchlist_sparkline">İzleme listesinde mini grafik</string>
     <string name="settings_watchlist_sparkline_hint">Fiyatın yanında 24 saatlik eğilim</string>
 
-    <string name="settings_price_colors_inverted">Yükseliş/düşüş renklerini değiştir</string>
-    <string name="settings_price_colors_inverted_hint">Çin, Japonya, Kore ve Tayvan\'da alışıldığı gibi yükseliş için kırmızı, düşüş için yeşil. Varsayılan, cihazın bölgesine göre belirlenir.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Yüksek kontrast</string>

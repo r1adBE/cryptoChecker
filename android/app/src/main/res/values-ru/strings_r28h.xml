@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Уверенность: %1$s</string>
+    <string name="why_confidence_high">высокая</string>
+    <string name="why_confidence_medium">средняя</string>
+    <string name="why_confidence_low">низкая</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">На это указывает %1$d из %2$d признаков</item>
+        <item quantity="few">На это указывают %1$d из %2$d признаков</item>
+        <item quantity="many">На это указывают %1$d из %2$d признаков</item>
+        <item quantity="other">На это указывают %1$d из %2$d признаков</item>
+    </plurals>
+    <string name="why_confidence_partial">данные неполные</string>
+</resources>

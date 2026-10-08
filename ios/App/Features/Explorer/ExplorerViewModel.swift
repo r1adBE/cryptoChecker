@@ -28,7 +28,7 @@ struct ExplorerMessage: Equatable, Identifiable {
     var alarmWatchId: Int64? = nil
 }
 
-/// Logik des Tabs «Hinzufügen» — wie `ExplorerViewModel.kt`.
+/// Logik der Seite «Paar hinzufügen» — wie `ExplorerViewModel.kt`.
 @MainActor
 final class ExplorerViewModel: ObservableObject {
     static let dexKey = "DexScreener"
@@ -137,6 +137,18 @@ final class ExplorerViewModel: ObservableObject {
         }
     }
 
+    /// «Paar bearbeiten» (Aktionsblatt): Börse, Coin, Gegenwert und Kontrakt eines Eintrags
+    /// vorwählen; die Paare der Börse laden wie beim Wählen. DEX-Pools lassen sich hier nicht
+    /// wählen (nur über die DEX-Suche) — dann bleibt die Börse offen.
+    func prefill(_ watch: Watch) {
+        currentBase = watch.baseAsset
+        currentQuote = watch.quoteAsset
+        currentContract = watch.contractType
+        if watch.marketKey != Self.dexKey, let market = markets.first(where: { $0.key == watch.marketKey }) {
+            setCurrentMarket(market)
+        }
+    }
+
     /// Nach einem Börsenwechsel gehören Sammelliste, Kurs und Meldungen zur alten Börse.
     private func clearSelectionResults() {
         syncTask?.cancel()
@@ -171,7 +183,7 @@ final class ExplorerViewModel: ObservableObject {
             } catch {
                 guard let self, !Task.isCancelled, !(error is CancellationError),
                       self.currentMarket?.key == market.key else { return }
-                self.updateState = ExplorerPairsUpdateState(error: error.localizedDescription)
+                self.updateState = ExplorerPairsUpdateState(error: ConnectionErrors.friendly(error))
             }
         }
     }
@@ -263,7 +275,7 @@ final class ExplorerViewModel: ObservableObject {
                 self?.ticker = .loaded(t, pair)
             } catch {
                 guard !Task.isCancelled else { return }
-                self?.ticker = .failed(error.localizedDescription)
+                self?.ticker = .failed(ConnectionErrors.friendly(error))
             }
         }
     }

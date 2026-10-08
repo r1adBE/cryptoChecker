@@ -139,8 +139,10 @@ enum WidgetRefresh {
         if outcome.failed < outcome.checked {
             SharedStorage.lastRefreshAt = TimeUtils.nowMillis
             SharedStorage.lastRefreshDuration = outcome.durationMillis
-            if !outcome.report.isEmpty { SharedStorage.lastRefreshReport = outcome.report }
         }
+        if let report = outcome.report { SharedStorage.lastRefreshReport = report }
+        // Mit dieser %-Basis gerechnet (Pille, Widgets und Live-Aktivität prüfen das)
+        if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
         return true
     }
 

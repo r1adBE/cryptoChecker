@@ -3,6 +3,7 @@ package com.cryptochecker.app.domain.gas
 import com.cryptochecker.app.domain.market.GasFees
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.util.Locale
 
 /** Reine Logik ohne org.json (im JVM-Test nur als Android-Attrappe vorhanden). */
 class GasAlertLogicTest {
@@ -27,7 +28,7 @@ class GasAlertLogicTest {
     fun formatsGweiShortButNeverZero() {
         assertEquals(
             listOf("<0.001", "0.012", "0.5", "1", "2.3", "13"),
-            listOf(0.0004, 0.0123, 0.5, 1.04, 2.25, 12.6).map(GasFees::formatGwei)
+            listOf(0.0004, 0.0123, 0.5, 1.04, 2.25, 12.6).map { GasFees.formatGwei(it, Locale.ROOT) }
         )
     }
 
@@ -41,7 +42,7 @@ class GasAlertLogicTest {
     fun transferCosts() {
         assertEquals(0.63, GasFees.evmTransferUsd(10.0, 3000.0)!!, 1e-9)
         assertEquals(0.252, GasFees.btcTransferUsd(3.0, 60000.0)!!, 1e-9)
-        assertEquals("<\$0.01", GasFees.formatUsd(0.004))
-        assertEquals("\$0.63", GasFees.formatUsd(0.63))
+        assertEquals("<\$0.01", GasFees.formatUsd(0.004, Locale.ROOT))
+        assertEquals("\$0.63", GasFees.formatUsd(0.63, Locale.ROOT))
     }
 }

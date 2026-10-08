@@ -157,7 +157,7 @@ struct PortfolioLockedView: View {
     @Environment(\.appAccent) private var accent
 
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: Spacing.md) {
             Spacer()
             Image(systemName: "lock.fill")
                 .font(.system(size: 30, weight: .semibold))
@@ -183,7 +183,7 @@ struct PortfolioLockedView: View {
             }
             .buttonStyle(AccentButtonStyle())
             .disabled(lock.authenticating)
-            .padding(.top, 6)
+            .padding(.top, Spacing.xs)
             Spacer()
         }
         .padding(32)
@@ -204,7 +204,7 @@ struct AppPrivacyCover: View {
 
     var body: some View {
         WatchlistLogo(size: 72)
-            .padding(18)
+            .padding(Spacing.lg)
             .background(accent.container.opacity(0.5), in: Circle())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(AppColors.background.ignoresSafeArea())

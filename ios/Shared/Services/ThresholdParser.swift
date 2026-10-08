@@ -10,6 +10,7 @@ import Foundation
 ///   Mit `priceHint` (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
 ///   näher am Kurs liegt (Verhältnis am nächsten bei 1); ohne Kurs entscheidet das
 ///   Dezimalzeichen der Region (`decimalSeparator`).
+/// - Arabisch-indische und persische Ziffern sowie «٫»/«٬» gelten wie 0–9, «.» und «’» (`latinDigits`).
 /// - Alles andere (Buchstaben wie «60k», Vorzeichen, Exponent) ist ungültig → nil.
 ///
 /// Ergebnis immer > 0 und endlich, sonst nil.
@@ -28,7 +29,7 @@ enum ThresholdParser {
 
     static func parse(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Double? {
         var cleaned = ""
-        for c in text.trimmingCharacters(in: .whitespacesAndNewlines) {
+        for c in latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines) {
             if grouping.contains(c) { continue }
             guard isAsciiDigit(c) || c == "." || c == "," else { return nil }
             cleaned.append(c)
@@ -89,6 +90,32 @@ enum ThresholdParser {
     }
 
     private static func isAsciiDigit(_ c: Character) -> Bool { c >= "0" && c <= "9" }
+
+    /// Eingabe in lateinische Ziffern: arabisch-indische (٠–٩), persische (۰–۹) und andere
+    /// Unicode-Dezimalziffern → 0–9, arabisches Dezimalzeichen «٫» → «.», arabische
+    /// Tausendertrennung «٬» → «’»; Richtungszeichen (z. B. LRM aus eingefügtem Text) fallen weg.
+    static func latinDigits(_ text: String) -> String {
+        var out = ""
+        out.reserveCapacity(text.count)
+        for c in text {
+            if isAsciiDigit(c) {
+                out.append(c)
+            } else if c == "\u{066B}" {
+                out.append(".")
+            } else if c == "\u{066C}" {
+                out.append("\u{2019}")
+            } else if BidiText.marks.contains(c) {
+                continue
+            } else if let scalar = c.unicodeScalars.first, c.unicodeScalars.count == 1,
+                      scalar.properties.numericType == .decimal,
+                      let digit = scalar.properties.numericValue {
+                out.append(Character(String(Int(digit))))
+            } else {
+                out.append(c)
+            }
+        }
+        return out
+    }
 
     /// «12» + «5» → 12.5; leere Teile zählen als 0 («.5», «60.»).
     private static func number(_ intPart: String, _ fracPart: String) -> Double? {

@@ -1,9 +1,9 @@
-Mbaj nën vëzhgim çmimet kripto pa hapur vazhdimisht aplikacionet e bursave. Vendos alarme, dallo lëvizjet e pazakonta dhe kupto brenda sekondash pse lëviz një monedhë.
+Crypto Checker të shpjegon çfarë ndodh në treg. Vendos alarme, dallo lëvizjet e pazakonta dhe kupto brenda sekondash pse lëviz një monedhë – pa parashikim.
 
-Vëzhgo – çmime drejt nga bursa, në monedhën tënde
-Paralajmëro – çmim, %, lëvizje dhe vëllim, si një fjali
 Kupto – «Pse po lëviz?» me një përmbledhje të shkurtër
 Pasqyrë – Crypto Pulse, Fear & Greed, cikli dhe portofoli
+Vëzhgo – çmime drejt nga bursa, në monedhën tënde
+Paralajmëro – çmim, %, lëvizje dhe vëllim, si një fjali
 
 E lexueshme për të gjithë: ngjyrat e çmimit jeshile/e kuqe ose blu/portokalli, të ndërrueshme sipas dëshirës, kontrast i lartë, shenjë dhe shigjetë, jo vetëm ngjyrë, TalkBack lexon çdo rresht si një fjali.
 
@@ -45,7 +45,7 @@ PASQYRË E TREGUT
 WIDGET DHE NJOFTIME
 • Widget: e gjithë lista, vlera e portofolit me ndryshimin e sotëm, një monedhë e madhe me çmim dhe grafik – qirinj ose vijë, me shenja për majën, mesin dhe fundin
 • Njoftim i heshtur çmimi për çdo çift
-• Modaliteti live me përditësim çdo 15 sekonda, në sfond nga 15 minuta
+• Përditësim i shpeshtë çdo 15 sekonda, në sfond nga 15 minuta
 
 GJITHASHTU
 • Dalja zanore: çmimet dhe alarmet lexohen me zë

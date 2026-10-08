@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">오래된 데이터 · %1$s</string>
 
     <string name="settings_widgets">위젯</string>
-    <string name="settings_widgets_hint">홈 화면에 가격 추가</string>
     <string name="widgets_sheet_title">위젯 추가</string>
     <string name="widget_kind_single">코인 하나</string>
     <string name="widgets_add">추가</string>

@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">bugün %1$s</string>
     <string name="widget_portfolio_empty">Alımları Portföy sekmesinde ekleyin</string>
     <string name="a11y_portfolio_widget">Portföy %1$s, bugün %2$s</string>
-    <string name="settings_section_advanced">Gelişmiş</string>
-    <string name="settings_advanced_hint">Canlı mod, kalıcı bildirim, vadeli işlemler ve geliştirici seçenekleri</string>
     <string name="explain_funding">Long ve short pozisyonlar arasındaki ücret. Güçlü pozitif değer, birçok kişinin fiyatların yükselmesine bahis yaptığı anlamına gelir.</string>
     <string name="explain_open_interest">Tüm açık vadeli işlem pozisyonlarının değeri. Yükselirse harekete daha fazla para bahis yapılıyor demektir.</string>
     <string name="explain_rsi">Göreceli Güç Endeksi, 0–100. 70 üstü çoğu zaman aşırı ısınmış, 30 altı çoğu zaman aşırı satılmış.</string>

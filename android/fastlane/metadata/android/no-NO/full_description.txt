@@ -1,9 +1,9 @@
-Hold øye med kryptokursene dine uten å åpne børsapper hele tiden. Sett alarmer, oppdag uvanlige bevegelser og forstå på sekunder hvorfor en coin beveger seg.
+Crypto Checker forklarer deg hva som skjer i markedet. Sett alarmer, oppdag uvanlige bevegelser og forstå på sekunder hvorfor en coin beveger seg – ingen prognose.
 
-Følg – kurser rett fra børsen, i din valuta
-Varsle – kurs, %, bevegelser og volum, som én setning
 Forstå – «Hvorfor beveger den seg?» med kort oppsummering
 Oversikt – Crypto Pulse, Fear & Greed, syklus og portefølje
+Følg – kurser rett fra børsen, i din valuta
+Varsle – kurs, %, bevegelser og volum, som én setning
 
 Lesbar for alle: kursfarger grønn/rød eller blå/oransje, byttet om etter ønske, høy kontrast, fortegn og pil i stedet for bare farge, TalkBack leser hver rad som én setning.
 
@@ -48,7 +48,7 @@ MARKEDSOVERSIKT
 WIDGETER OG VARSLER
 • Widgeter: hele listen, porteføljeverdi med dagens endring, én coin stort med kurs og graf – lys eller linje, med merker for høy, midt og lav
 • Lydløst kursvarsel per par
-• Livemodus med oppdatering hvert 15. sekund, i bakgrunnen fra 15 minutter
+• Hyppig oppdatering hvert 15. sekund, i bakgrunnen fra 15 minutter
 
 I TILLEGG
 • Opplesning av kurser og alarmer (tekst til tale)

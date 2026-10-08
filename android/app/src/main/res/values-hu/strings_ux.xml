@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">ma %1$s</string>
     <string name="widget_portfolio_empty">Vásárlások rögzítése a Portfólió lapon</string>
     <string name="a11y_portfolio_widget">Portfólió %1$s, ma %2$s</string>
-    <string name="settings_section_advanced">Speciális</string>
-    <string name="settings_advanced_hint">Élő mód, állandó értesítés, futures és fejlesztői beállítások</string>
     <string name="explain_funding">Díj a long és short pozíciók között. Erősen pozitív érték: sokan emelkedő árfolyamra fogadnak.</string>
     <string name="explain_open_interest">Az összes nyitott futures pozíció értéke. Ha nő, több pénz fogad a mozgásra.</string>
     <string name="explain_rsi">Relatív erősség index, 0–100. 70 fölött gyakran túlfűtött, 30 alatt gyakran túladott.</string>

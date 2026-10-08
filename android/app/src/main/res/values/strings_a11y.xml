@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Price colors</string>
-    <string name="price_colors_green_red">Green / red</string>
-    <string name="price_colors_blue_orange">Blue / orange</string>
     <string name="settings_price_colors_hint">Blue / orange is easy to tell apart with every color vision deficiency (red-green and blue-yellow). The direction is always shown with + / − as well.</string>
     <string name="settings_watchlist_sparkline">Mini chart in watchlist</string>
     <string name="settings_watchlist_sparkline_hint">24-hour trend next to the price</string>
 
-    <string name="settings_price_colors_inverted">Swap rise/fall colors</string>
-    <string name="settings_price_colors_inverted_hint">Red for rising, green for falling, as usual in China, Japan, Korea and Taiwan. Default depends on the device region.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">High contrast</string>

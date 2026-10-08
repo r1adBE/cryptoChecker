@@ -18,8 +18,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.WhyMark
-import com.cryptochecker.app.ui.features.watchlist.ActivityColors
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /**
@@ -49,7 +50,7 @@ internal fun FactorRow(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 5.dp)
+            .padding(vertical = Spacing.xs)
             .clearAndSetSemantics { contentDescription = spoken }
     ) {
         Row(verticalAlignment = Alignment.Top) {
@@ -87,7 +88,7 @@ internal fun FactorRow(
 private fun FactorMarkGlyph(mark: WhyMark) {
     val (glyph, color) = when (mark) {
         WhyMark.SUPPORTS -> "✓" to PriceColors.ok
-        WhyMark.CAUTION -> "!" to ActivityColors.amberText
+        WhyMark.CAUTION -> "!" to AppColors.warningText
         WhyMark.NEUTRAL -> "–" to MaterialTheme.colorScheme.onSurfaceVariant
     }
     Text(

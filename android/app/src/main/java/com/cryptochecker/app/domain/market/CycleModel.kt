@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.market
 
+import com.cryptochecker.app.util.LocaleNumbers
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.max
@@ -136,13 +137,13 @@ object CycleModel {
 
         // Zeit: Halving-Fenster und Abstand zum Hoch
         val inTopWindow = cycle.monthsSinceHalving in 12..18
-        signals += CycleSignal(SignalId.HALVING_TIME, cycle.monthsSinceHalving.toString(), if (inTopWindow) 1 else 0, 0)
+        signals += CycleSignal(SignalId.HALVING_TIME, LocaleNumbers.integer(cycle.monthsSinceHalving), if (inTopWindow) 1 else 0, 0)
 
         val monthsSinceAth = input.athDate?.let { ChronoUnit.MONTHS.between(it, input.today) }
         monthsSinceAth?.let { m ->
             // Nur zählen, wenn das Hoch auch deutlich zurückliegt (sonst sind wir am Hoch).
             val bottom = if (m >= 12 && (drawdown ?: 0.0) >= 20) 1 else 0
-            signals += CycleSignal(SignalId.ATH_TIME, m.toString(), 0, bottom)
+            signals += CycleSignal(SignalId.ATH_TIME, LocaleNumbers.integer(m), 0, bottom)
         }
 
         val top = signals.sumOf { it.topPoints }.coerceAtMost(10)

@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">dnes %1$s</string>
     <string name="widget_portfolio_empty">Nákupy zadejte na kartě Portfolio</string>
     <string name="a11y_portfolio_widget">Portfolio %1$s, dnes %2$s</string>
-    <string name="settings_section_advanced">Pokročilé</string>
-    <string name="settings_advanced_hint">Živý režim, trvalé oznámení, futures a možnosti pro vývojáře</string>
     <string name="explain_funding">Poplatek mezi long a short pozicemi. Silně kladný znamená, že mnozí sázejí na růst cen.</string>
     <string name="explain_open_interest">Hodnota všech otevřených futures pozic. Když roste, na pohyb sází více peněz.</string>
     <string name="explain_rsi">Index relativní síly, 0–100. Nad 70 často přehřátý, pod 30 často přeprodaný.</string>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">市场通知</string>
-    <string name="settings_market_alerts_hint">市场阶段、恐惧与贪婪指数、Gas 费、异常活动、经济数据日期</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="other">已开启 %1$d 项</item>
     </plurals>
-    <string name="settings_tts_row_hint">朗读价格和提醒</string>
     <string name="settings_summary_on">开启</string>
 
     <string name="alarm_first_text_checked">Crypto Checker 正在为你关注 %1$s。当 %1$s 达到你设定的界限时，应用一检查价格你就会收到通知。应用关闭时，检查按后台更新间隔进行——如果电池优化限制了应用，则会更晚。</string>

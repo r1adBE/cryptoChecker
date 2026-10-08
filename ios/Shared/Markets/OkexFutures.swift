@@ -17,7 +17,9 @@ final class OkexFutures: SimpleMarket {
             let assets = pairId.components(separatedBy: "-")
 
             if assets.count == 3 && assets[2] == "SWAP" {
-                pairs.append(CurrencyPairInfo(assets[0], assets[1], pairId, .perpetual))
+                // Aktien (instCategory 3), Rohstoffe, Devisen: kein Krypto-Token
+                pairs.append(CurrencyPairInfo(assets[0], assets[1], pairId, .perpetual,
+                                              tradFi: TradFi.okx(instCategory: item.optString("instCategory"))))
             }
         }
         return pairs

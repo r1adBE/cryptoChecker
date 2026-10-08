@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Jistota: %1$s</string>
+    <string name="why_confidence_high">vysoká</string>
+    <string name="why_confidence_medium">střední</string>
+    <string name="why_confidence_low">nízká</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">Na to ukazuje %1$d z %2$d signálů</item>
+        <item quantity="few">Na to ukazují %1$d z %2$d signálů</item>
+        <item quantity="many">Na to ukazuje %1$d z %2$d signálů</item>
+        <item quantity="other">Na to ukazuje %1$d z %2$d signálů</item>
+    </plurals>
+    <string name="why_confidence_partial">neúplná data</string>
+</resources>

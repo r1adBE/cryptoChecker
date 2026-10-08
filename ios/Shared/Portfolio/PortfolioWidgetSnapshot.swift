@@ -44,10 +44,16 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     var otherPositions: Int?
     /// Wertverlauf des heutigen Bestands (Anzeigewährung), aufsteigend nach Zeit.
     var history: [PortfolioWidgetPoint]?
+    /// Mit welcher %-Basis (und welchem Tagesbeginn) Veränderung und Verlauf gerechnet sind;
+    /// nil = älterer Stand (rollende 24 Stunden).
+    var stamp: ChangeStamp?
+    /// Kursveränderung je offenem Coin in Prozent (gleiche %-Basis wie `changePercent`) — für
+    /// «Grösste Bewegungen» im Portfolio-Tab (Runde 28; nil bei älterem Stand).
+    var coinChanges: [String: Double]?
 
     init(total: Double, changeAmount: Double?, changePercent: Double?, currency: String, updatedAt: Int64, empty: Bool,
          totalUsdt: Double? = nil, positions: [PortfolioWidgetPosition]? = nil, otherPositions: Int? = nil,
-         history: [PortfolioWidgetPoint]? = nil) {
+         history: [PortfolioWidgetPoint]? = nil, stamp: ChangeStamp? = nil, coinChanges: [String: Double]? = nil) {
         self.total = total
         self.changeAmount = changeAmount
         self.changePercent = changePercent
@@ -58,6 +64,20 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
         self.positions = positions
         self.otherPositions = otherPositions
         self.history = history
+        self.stamp = stamp
+        self.coinChanges = coinChanges
+    }
+
+    /// Für die Anzeige: Stand mit anderer %-Basis oder von einem früheren Tag → Veränderung «—»
+    /// (bis zur nächsten Berechnung); der Verlauf bleibt.
+    func shown(basis: ChangeBasis, now: Int64) -> PortfolioWidgetSnapshot {
+        guard !ChangeBasisMath.isCurrent(stamp: stamp, basis: basis, now: now) else { return self }
+        var copy = self
+        copy.changeAmount = nil
+        copy.changePercent = nil
+        copy.positions = positions?.map { var p = $0; p.change24hPercent = nil; return p }
+        copy.coinChanges = nil
+        return copy
     }
 
     /// Ohne Zeitpunkt, damit ein leeres Portfolio das Widget nicht bei jeder Runde neu zeichnet.
@@ -86,6 +106,8 @@ enum PortfolioWidgetStore {
 
     private static let snapshotKey = "portfolio_widget_snapshot"
     private static let historyKey = "portfolio_widget_history"
+    /// Gemerkte Stundenkurse je Coin für den 24-h-Wertverlauf (`PortfolioWidgetSeries.merge`).
+    private static let hourlyKey = "portfolio_widget_hourly_v1"
     /// Vergleichsstand mindestens so alt.
     static let referenceMinAgeMillis: Int64 = 20 * 3_600_000
     /// Ältere Stände werden verworfen.
@@ -129,7 +151,41 @@ enum PortfolioWidgetStore {
         }
     }
 
+    static func loadHourly() -> [String: [PortfolioTimedPrice]] {
+        guard let data = SharedStorage.defaults.data(forKey: hourlyKey),
+              let map = try? JSONDecoder().decode([String: [PortfolioTimedPrice]].self, from: data)
+        else { return [:] }
+        return map
+    }
+
+    private static func saveHourly(_ map: [String: [PortfolioTimedPrice]]) {
+        if let data = try? JSONEncoder().encode(map) {
+            SharedStorage.defaults.set(data, forKey: hourlyKey)
+        }
+    }
+
+    /// Schon geladene Stundenkerzen eines Einzel-Widgets (24 h gegen USDT, App Group,
+    /// `WidgetSparkline`) als Kurse mit Zeit — ohne Netz; leer, wenn nichts oder zu alt.
+    static func widgetSparkPrices(_ coin: String, now: Int64) -> [PortfolioTimedPrice] {
+        let key = "widget_spark_" + coin.uppercased() + "USDT|day"
+        guard let entry = SharedStorage.defaults.dictionary(forKey: key) else { return [] }
+        let fetchedAt = Int64((entry["t"] as? Double) ?? 0)
+        let flat = (entry["c"] as? [Double]) ?? []
+        guard fetchedAt > 0, now - fetchedAt <= PortfolioWidgetSeries.keepMillis, flat.count % 5 == 0 else { return [] }
+        let candles: [(open: Int64, close: Double)] = stride(from: 0, to: flat.count, by: 5).map { i in
+            (open: Int64(flat[i]), close: flat[i + 4])
+        }
+        return PortfolioWidgetSeries.fromCandles(candles, fetchedAt: fetchedAt)
+    }
+
     // MARK: Reine Berechnung
+
+    /// Tages-Basis: Stand zum Tagesbeginn — der jüngste davor, höchstens 90 Minuten vorher.
+    static func reference(in history: [PricePoint], dayStart: Int64) -> PricePoint? {
+        history
+            .filter { $0.at <= dayStart && dayStart - $0.at <= PortfolioWidgetSeries.toleranceMillis }
+            .max { $0.at < $1.at }
+    }
 
     /// Neuester Stand, der mindestens 20 h alt ist (und nicht älter als 48 h).
     static func reference(in history: [PricePoint], now: Int64) -> PricePoint? {
@@ -250,9 +306,15 @@ enum PortfolioWidgetStore {
     }
 
     /// Stand aus Transaktionen, Kursen (USDT) und Devisenkurs USD → `currency`.
-    /// Merkt dabei den Kurs-Stand für spätere Vergleiche (höchstens alle 30 Minuten).
+    /// Merkt dabei den Kurs-Stand für spätere Vergleiche (höchstens alle 30 Minuten) und die
+    /// Stundenkurse je Coin. Reichen diese (`PortfolioWidgetSeries.hourly`, mindestens 6 Punkte),
+    /// stammen Wertverlauf und Veränderung über 24 h daraus, sonst aus den Kursaufnahmen.
+    /// `extraHourly`: weitere schon geladene Stundenkurse (z. B. Mini-Charts der Merkliste).
+    /// `basis`: %-Basis — bei «seit 00:00» Verlauf und Veränderung ab Tagesbeginn (wie Android).
     static func compute(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
-                        rate: Double?, now: Int64 = TimeUtils.nowMillis) -> PortfolioWidgetSnapshot {
+                        rate: Double?, now: Int64 = TimeUtils.nowMillis,
+                        extraHourly: [String: [PortfolioTimedPrice]] = [:],
+                        basis: ChangeBasis = .ROLLING_24H) -> PortfolioWidgetSnapshot {
         guard !transactions.isEmpty else { return .emptyPortfolio }
         let summary = PortfolioCalculator.summarize(transactions, prices: prices.prices)
         var holdings: [String: Double] = [:]
@@ -260,7 +322,9 @@ enum PortfolioWidgetStore {
         guard !holdings.isEmpty else { return .emptyPortfolio }
 
         var history = loadHistory()
-        let ref = reference(in: history, now: now)
+        let changeStamp = ChangeBasisMath.stamp(basis, now: now)
+        let dayStart: Int64? = basis.isDay ? changeStamp.dayStart : nil
+        let ref = dayStart.map { reference(in: history, dayStart: $0) } ?? reference(in: history, now: now)
         let delta = ref.flatMap { change(holdings: holdings, prices: prices.prices, reference: $0.prices) }
         let past = history
         if prices.updatedAt > 0 {
@@ -287,33 +351,85 @@ enum PortfolioWidgetStore {
             values.updateValue(p.value, forKey: p.coin)
         }
         let stamp = prices.updatedAt > 0 ? prices.updatedAt : now
-        let top = topPositions(valuesUsd: values, totalUsd: summary.totalValue, factor: factor,
-                               changes: coinChanges(current: current, reference: ref?.prices))
+
+        // Stundenkurse: gemerkte, dazu was ohnehin schon geladen ist — keine eigene Abfrage
+        var fresh: [String: [PortfolioTimedPrice]] = [:]
+        for coin in holdings.keys where !CurrencyConversion.usdStables.contains(coin.uppercased()) {
+            var list = extraHourly[coin] ?? []
+            list += widgetSparkPrices(coin, now: stamp)
+            for sample in past where stamp - sample.at <= PortfolioWidgetSeries.keepMillis {
+                if let price = sample.prices[coin] { list.append(PortfolioTimedPrice(at: sample.at, price: price)) }
+            }
+            if let price = current[coin] { list.append(PortfolioTimedPrice(at: stamp, price: price)) }
+            if !list.isEmpty { fresh[coin] = list }
+        }
+        let held = Set(holdings.keys.map { $0.uppercased() })
+        let hourlyPrices = PortfolioWidgetSeries.merge(stored: loadHourly(), fresh: fresh, now: stamp)
+            .filter { held.contains($0.key) }
+        if prices.updatedAt > 0 { saveHourly(hourlyPrices) }
+        let hourly: [PortfolioWidgetPoint]
+        let hourlyChange: PortfolioChange?
+        var changes = coinChanges(current: current, reference: ref?.prices)
+        let pastShown: [PricePoint]
+        if let dayStart {
+            // Seit Tagesbeginn: Verlauf ab 00:00, Veränderung gegen den Wert zum Tagesbeginn
+            hourly = PortfolioWidgetSeries.hourlySince(holdings: holdings, current: current, prices: hourlyPrices,
+                                                       dayStart: dayStart, now: stamp, factor: factor,
+                                                       stables: CurrencyConversion.usdStables)
+            hourlyChange = PortfolioWidgetSeries.changeSince(hourly, dayStart: dayStart)
+            for (coin, change) in PortfolioWidgetSeries.coinChangesSince(current: current, prices: hourlyPrices,
+                                                                         dayStart: dayStart) {
+                changes[coin] = change
+            }
+            pastShown = past.filter { $0.at >= dayStart }
+        } else {
+            hourly = PortfolioWidgetSeries.hourly(holdings: holdings, current: current, prices: hourlyPrices,
+                                                  now: stamp, factor: factor,
+                                                  stables: CurrencyConversion.usdStables)
+            hourlyChange = PortfolioWidgetSeries.drawable(hourly) ? PortfolioWidgetSeries.change(hourly) : nil
+            // Stundenkurse vor der Vergleichsbasis (sie messen genau 24 h)
+            for (coin, change) in PortfolioWidgetSeries.coinChanges(current: current, prices: hourlyPrices, now: stamp) {
+                changes[coin] = change
+            }
+            pastShown = past
+        }
+        let useHourly = PortfolioWidgetSeries.drawable(hourly)
+        let top = topPositions(valuesUsd: values, totalUsd: summary.totalValue, factor: factor, changes: changes)
+        let points = useHourly
+            ? hourly
+            : valueHistory(holdings: holdings, history: pastShown, current: current, stamp: stamp, factor: factor)
         return PortfolioWidgetSnapshot(
             total: summary.totalValue * factor,
-            changeAmount: delta.map { $0.amount * factor },
-            changePercent: delta?.percent,
+            changeAmount: hourlyChange.map { $0.amount } ?? delta.map { $0.amount * factor },
+            changePercent: hourlyChange != nil ? hourlyChange?.percent : delta?.percent,
             currency: label,
             updatedAt: stamp,
             empty: false,
             totalUsdt: summary.totalValue,
             positions: top.positions,
             otherPositions: top.others,
-            history: valueHistory(holdings: holdings, history: past, current: current, stamp: stamp, factor: factor)
+            history: points,
+            stamp: changeStamp,
+            coinChanges: changes
         )
     }
 
     // MARK: Aktualisieren
 
     /// Berechnen und speichern; bei Änderung das Widget neu zeichnen (`reload`).
-    /// Ohne einen einzigen bekannten Kurs bleibt der bisherige Stand stehen.
+    /// Ohne einen einzigen bekannten Kurs bleibt der bisherige Stand stehen (dann nil).
+    /// Gibt den neuen Stand zurück (Portfolio-Tab: «Grösste Bewegungen»; App: Portfolio-Alarme).
+    @discardableResult
     static func update(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
-                       rate: Double?, reload: Bool = true) {
-        if !transactions.isEmpty && prices.updatedAt <= 0 { return }
-        let snapshot = compute(transactions: transactions, prices: prices, currency: currency, rate: rate)
+                       rate: Double?, reload: Bool = true,
+                       extraHourly: [String: [PortfolioTimedPrice]] = [:]) -> PortfolioWidgetSnapshot? {
+        if !transactions.isEmpty && prices.updatedAt <= 0 { return nil }
+        let snapshot = compute(transactions: transactions, prices: prices, currency: currency, rate: rate,
+                               extraHourly: extraHourly, basis: SharedStorage.loadSettings().changeBasis)
         if save(snapshot) && reload {
             WidgetCenter.shared.reloadTimelines(ofKind: kind)
         }
+        return snapshot
     }
 
     /// Nur aus den Zwischenspeichern (ohne Netz), z. B. nach einer neuen Transaktion.
@@ -325,15 +441,28 @@ enum PortfolioWidgetStore {
 
     /// Kurse und Devisenkurs holen (60 s Zwischenspeicher) — Hintergrund-Aktualisierung
     /// und Widget, damit das Widget nicht vom Öffnen der App abhängt.
-    static func refresh(reload: Bool = true) async {
+    @discardableResult
+    static func refresh(reload: Bool = true) async -> PortfolioWidgetSnapshot? {
         let transactions = PortfolioStore.load().transactions
         let currency = SharedStorage.loadSettings().portfolioCurrency
         guard !transactions.isEmpty else {
-            update(transactions: [], prices: PortfolioPrices(), currency: currency, rate: nil, reload: reload)
-            return
+            return update(transactions: [], prices: PortfolioPrices(), currency: currency, rate: nil, reload: reload)
         }
         let prices = await PortfolioPriceSource.prices(transactions.map(\.coin))
         let rate = await FxRateSource.usdTo(currency)
-        update(transactions: transactions, prices: prices, currency: currency, rate: rate, reload: reload)
+        let extra = await cachedHourly(Set(transactions.map { $0.coin.uppercased() }))
+        return update(transactions: transactions, prices: prices, currency: currency, rate: rate, reload: reload,
+                      extraHourly: extra)
+    }
+
+    /// Mini-Chart-Kurse der Merkliste, die schon im Speicher liegen (`DayReferenceStore`) — ohne Netz.
+    private static func cachedHourly(_ coins: Set<String>) async -> [String: [PortfolioTimedPrice]] {
+        var out: [String: [PortfolioTimedPrice]] = [:]
+        for coin in coins {
+            guard let cached = await DayReferenceStore.shared.cachedCloses(base: coin) else { continue }
+            let prices = PortfolioWidgetSeries.fromHourlyCloses(cached.closes, fetchedAt: cached.time)
+            if !prices.isEmpty { out[coin] = prices }
+        }
+        return out
     }
 }

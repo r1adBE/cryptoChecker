@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">Kesalahan: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Tidak ada pasangan mata uang</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Ketuk di sini untuk mengunduh pasangan mata uang terbaru dari bursa yang dipilih.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Memuat pasangan terbaru dari pasar yang dipilih.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Perbarui pasangan mata uang</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sinkronkan sekarang!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Sinkronisasi terakhir: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">belum pernah</string>
 
-    <string name="market_screen_sync">Sinkron</string>
+    <string name="market_screen_sync">Sinkronkan</string>
     <string name="market_screen_base">Base</string>
     <string name="market_screen_quote">Quote</string>
     <string name="market_screen_market">Pasar</string>
@@ -37,7 +37,6 @@
 
     <!-- Aktionen -->
     <string name="action_refresh">Muat ulang</string>
-    <string name="action_add_pair">Tambah pasangan</string>
     <string name="action_delete">Hapus</string>
     <string name="action_edit">Edit</string>
     <string name="action_back">Kembali</string>
@@ -46,7 +45,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">Belum ada pasangan</string>
-    <string name="watchlist_empty_hint">Atau pilih bursa dan pasangan di “Tambah”. Setiap pasangan bisa memiliki notifikasi, pembaruan suara, dan alarm harga.</string>
     <string name="watchlist_updated">Diperbarui: %1$s</string>
     <string name="watchlist_notification">Notifikasi</string>
     <string name="watchlist_tts">Ucapkan harga</string>
@@ -78,7 +76,7 @@
     <string name="channel_prices_description">Notifikasi senyap berisi harga terkini sebuah pasangan.</string>
     <string name="channel_alarms">Alarm</string>
     <string name="channel_alarms_description">Notifikasi saat alarm harga berbunyi.</string>
-    <string name="channel_service">Mode live</string>
+    <string name="channel_service">Pembaruan sering</string>
     <string name="channel_service_description">Pemberitahuan selama harga diperbarui dengan interval singkat.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, dari %2$s (%3$s lalu)</string>
@@ -129,7 +127,7 @@
     <string name="settings_rolling_futures">Termasuk futures kuartalan &amp; berjangka lainnya</string>
     <string name="settings_rolling_futures_hint">Nonaktif: futures berjangka yang tidak ada di daftar bursa ditandai tidak lagi diperdagangkan, alih-alih diperiksa satu per satu. Menghemat waktu setiap kali memuat ulang.</string>
     <string name="notification_refreshing">Memperbarui harga…</string>
-    <string name="notification_service_title">Mode live Crypto Checker</string>
+    <string name="notification_service_title">Crypto Checker sering diperbarui</string>
     <string name="notification_service_starting">Memulai…</string>
     <plurals name="notification_service_running">
         <item quantity="other">%1$d pasangan · %2$s</item>
@@ -142,9 +140,9 @@
     <string name="settings_background_updates">Pembaruan latar belakang</string>
     <string name="settings_background_updates_hint">Harga, alarm, dan widget tetap diperbarui meskipun aplikasi ditutup.</string>
     <string name="settings_background_interval">Interval</string>
-    <string name="settings_live_service">Mode live</string>
-    <string name="settings_live_service_hint">Menjalankan layanan untuk interval singkat. Lebih boros baterai.</string>
-    <string name="settings_live_interval">Interval live</string>
+    <string name="settings_live_service">Perbarui sering</string>
+    <string name="settings_live_service_hint">Memeriksa harga dalam interval pendek, bahkan saat aplikasi ditutup. Menampilkan notifikasi dan memakai lebih banyak baterai.</string>
+    <string name="settings_live_interval">Seberapa sering</string>
     <string name="settings_minutes">%1$d mnt</string>
     <string name="settings_seconds">%1$d dtk</string>
     <string name="settings_price_notifications">Notifikasi harga</string>
@@ -225,7 +223,7 @@
     <string name="theme_system">Sistem</string>
     <string name="settings_section_developer">Pengembang</string>
     <string name="settings_http_log">Tampilkan log HTTP</string>
-    <string name="settings_http_log_hint">Menampilkan permintaan ke bursa di bagian bawah tab “Tambah” – untuk pemecahan masalah.</string>
+    <string name="settings_http_log_hint">Menampilkan permintaan ke bursa di bagian bawah halaman “Tambah pasangan” – untuk pemecahan masalah.</string>
     <string name="language_search">Cari bahasa</string>
     <string name="alarm_delete_title">Hapus alarm?</string>
     <string name="alarm_delete_confirm">Alarm ini akan dihapus.</string>
@@ -261,15 +259,11 @@
     <string name="explorer_bulk_show_list">Tampilkan daftar</string>
     <string name="explorer_bulk_hide_list">Sembunyikan daftar</string>
     <string name="time_just_now">baru saja</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Harga Anda. Alarm Anda. Ringkasan Anda.\nTanpa akun. Tanpa iklan. Tanpa pelacakan.</string>
-    <string name="welcome_later">Nanti</string>
     <string name="developer_unlocked">Opsi pengembang terbuka</string>
     <string name="hint_favorites_list">Tips: ketuk ☆ untuk favorit – favorit tetap di atas.</string>
     <string name="tab_watchlist">Daftar</string>
-    <string name="tab_markets">Tambah</string>
     <string name="tab_market_phase">Pasar</string>
-    <string name="tab_settings">Setelan</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d dari %2$d usang</item>
     </plurals>

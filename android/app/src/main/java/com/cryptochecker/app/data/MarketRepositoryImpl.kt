@@ -15,12 +15,14 @@ import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketTickerResult
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.settings.SettingsRepository
 import javax.inject.Inject
 
 class MarketRepositoryImpl @Inject constructor(
 //    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
     private val marketLocalDataSource: MarketLocalDataSource,
-    private val marketRemoteDataSource: MarketRemoteDataSource
+    private val marketRemoteDataSource: MarketRemoteDataSource,
+    private val settingsRepository: SettingsRepository,
     ) : MarketRepository {
 
     override suspend fun getMarketList(): List<MarketInfo> {
@@ -32,8 +34,16 @@ class MarketRepositoryImpl @Inject constructor(
         findSourceMarket(market)?.getCurrencyPairsUrl(0).isNullOrEmpty().not()
 
 
+    /**
+     * Paarliste einer Börse; Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO ([CurrencyPairInfo.tradFi])
+     * nur mit dem Schalter unter Einstellungen › Merkliste. Gespeichert wird immer die ganze
+     * Liste, damit Ein- und Ausschalten ohne neue Abfrage wirkt.
+     */
     override suspend fun getMarketCurrencyPairsInfo(market: MarketInfo): MarketPairsInfo {
-        marketLocalDataSource.getMarketData(market.key)?.let { return it }
+        marketLocalDataSource.getMarketData(market.key)?.let { stored ->
+            if (settingsRepository.current().includeTradFiFutures || stored.pairs.none { it.tradFi }) return stored
+            return stored.copy(pairs = stored.pairs.filterNot { it.tradFi })
+        }
 
         val sourceMarket = findSourceMarket(market) ?: return MarketPairsInfo()
         return MarketPairsInfo(
@@ -76,7 +86,8 @@ class MarketRepositoryImpl @Inject constructor(
             marketRemoteDataSource.fetchBulkTickers(sourceMarket, pairIds)
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
-            BulkTickers()
+            // Fehlertext weitergeben: «zu viele Anfragen» pausiert die Börse (ExchangeBackoff)
+            BulkTickers(error = ex.message ?: ex.javaClass.simpleName)
         }
 
     override suspend fun searchDexPools(query: String): List<DexPool> =

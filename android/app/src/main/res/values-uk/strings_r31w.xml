@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">Курси наживо</string>
+    <string name="settings_live_websocket_hint">Курси йдуть за біржею без затримки, поки відкритий список. Для Binance, Bybit, OKX, Coinbase і Kraken.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">Live-курси увімкнено</string>
+    <string name="refresh_report_live">Live: %1$s</string>
+</resources>

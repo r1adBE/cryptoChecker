@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui
 
+import com.cryptochecker.app.util.AppVisibility
+import com.cryptochecker.app.util.StartupClock
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
+            // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
+            StartupClock.onUiCreated()
             openTarget.value = intent?.getStringExtra(EXTRA_OPEN)
             // Neue Oberfläche: ein neuer Prozess sperrt das Portfolio (sofern die Sperre an ist),
             // ein Neuaufbau kurz nach dem Verlassen nicht (siehe AppLockState.onColdStart)
@@ -83,6 +87,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        AppVisibility.onStart()
         appLockState.onForeground()
         // Live-Dienst nur mit sichtbarer App (wieder) starten: Nach einem Neustart
         // (ab Android 15 kein dataSync-Dienst aus BOOT_COMPLETED) oder nach dem
@@ -111,6 +116,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         if (!isChangingConfigurations) {
+            AppVisibility.onStop()
             appLockState.onBackground()
             val settings = settingsRepository.cached
             val systemDark = (resources.configuration.uiMode and
@@ -124,5 +130,14 @@ class MainActivity : AppCompatActivity() {
 
         /** Von den App-Verknüpfungen gesetzt (res/xml/shortcuts.xml). */
         const val EXTRA_OPEN = "open"
+
+        /** Ziel «Warum?» aus einem Alarm: Merkliste mit «Warum bewegt sich das?» des Paars. */
+        private const val WHY_PREFIX = "why/"
+
+        fun openWhyTarget(watchId: Long): String = "$WHY_PREFIX$watchId"
+
+        /** Paar aus einem Ziel [openWhyTarget]; null bei anderen Zielen. */
+        fun whyWatchId(target: String?): Long? =
+            target?.takeIf { it.startsWith(WHY_PREFIX) }?.removePrefix(WHY_PREFIX)?.toLongOrNull()
     }
 }

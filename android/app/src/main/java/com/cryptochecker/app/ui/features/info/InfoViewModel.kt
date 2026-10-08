@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import com.cryptochecker.app.domain.market.AltSeason
@@ -40,6 +41,9 @@ import com.cryptochecker.app.domain.market.CoinCycleModel
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
+import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.market.DataStamp
+import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.market.OnChainValues
 import com.cryptochecker.app.domain.market.CoinReport
 import com.cryptochecker.app.domain.market.CycleHistory
@@ -47,6 +51,8 @@ import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
+import com.cryptochecker.app.domain.market.MarketSection
+import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.app.domain.market.BitcoinCycle
@@ -90,7 +96,7 @@ class InfoViewModel @Inject constructor(
     private val gasDataSource: GasDataSource,
     private val pulseDataSource: PulseDataSource,
     private val cacheStore: CycleCacheStore,
-    settingsRepository: SettingsRepository,
+    private val settingsRepository: SettingsRepository,
     private val unusualDataSource: UnusualDataSource,
     private val macroCalendar: MacroCalendarRepository,
     watchRepository: WatchRepository,
@@ -105,6 +111,14 @@ class InfoViewModel @Inject constructor(
 
     /** Bereiche, die gerade im Hintergrund neu laden. */
     private val running = MutableStateFlow<Set<CycleSource>>(emptySet())
+
+    private val _stamps = MutableStateFlow<Map<CycleSource, DataStamp>>(emptyMap())
+
+    /**
+     * Herkunft und Stand der gezeigten Daten je Bereich (Anbieter, Zeitpunkt, Gültigkeit) für
+     * die Nebenzeilen von «Einordnung» und «Daten» («CoinGecko · vor 3 Min.»).
+     */
+    val stamps: StateFlow<Map<CycleSource, DataStamp>> = _stamps.asStateFlow()
 
     /** Welcher Eintrag (z. B. «coin_ETH») gerade angezeigt wird, mit seinem Zeitpunkt. */
     private val shownEntry = HashMap<CycleSource, Pair<String, Long>>()
@@ -137,7 +151,7 @@ class InfoViewModel @Inject constructor(
         show = { input -> CryptoPulse.evaluate(input)?.let { _pulse.value = LoadState.Loaded(it) } },
         loading = { _pulse.value = LoadState.Loading },
         failed = { _pulse.value = LoadState.Failed },
-        fetch = { pulseDataSource.fetchInput() },
+        fetch = { Sourced(pulseDataSource.fetchInput(), null) },
     )
 
     // ---- «Heute auffällig» (unter dem Pulse)
@@ -154,7 +168,7 @@ class InfoViewModel @Inject constructor(
         show = { input -> MarketUnusual.evaluate(input)?.let { _unusual.value = LoadState.Loaded(it) } },
         loading = { _unusual.value = LoadState.Loading },
         failed = { _unusual.value = LoadState.Failed },
-        fetch = { unusualDataSource.fetchInput() },
+        fetch = { Sourced(unusualDataSource.fetchInput(), null) },
     )
 
     /** Paare der Merkliste: Tippen auf eine Zeile öffnet «Warum?» (beobachtet) oder die Suche. */
@@ -199,7 +213,7 @@ class InfoViewModel @Inject constructor(
         loading = { _gas.value = LoadState.Loading },
         failed = { _gas.value = LoadState.Failed },
         // Ohne force darf der Gas-Alarm-Abruf der letzten Minute mitgenutzt werden
-        fetch = { gasDataSource.fetch(if (force) 0L else CycleSource.GAS.ttlMillis) },
+        fetch = { gasDataSource.fetchSourced(if (force) 0L else CycleSource.GAS.ttlMillis) },
     )
 
     // ---- Weitere Bereiche: Fear & Greed, Dominanz, Altcoin-Saison, Zyklus-Vergleich, Coin
@@ -287,7 +301,7 @@ class InfoViewModel @Inject constructor(
         show = { _fearGreed.value = LoadState.Loaded(it) },
         loading = { _fearGreed.value = LoadState.Loading },
         failed = { _fearGreed.value = LoadState.Failed },
-        fetch = { insights.fearGreed() },
+        fetch = { Sourced(insights.fearGreed(), DataFreshness.ALTERNATIVE_ME) },
     )
 
     /** Ein CoinGecko-Aufruf für Dominanz und Markt-Summen (kein zweiter Abruf). */
@@ -307,8 +321,21 @@ class InfoViewModel @Inject constructor(
             _dominance.value = LoadState.Failed
             _marketTotals.value = LoadState.Failed
         },
-        fetch = { insights.global() },
+        fetch = { Sourced(insights.global(), DataFreshness.COINGECKO) },
     )
+
+    /** Zeitpunkt der angezeigten Altcoin-Saison («Stand 14:05»); null = noch nichts gezeigt. */
+    val altSeasonAsOf: StateFlow<Long?> = shownAt.map { it[CycleSource.ALT_SEASON] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /** Altcoin-Saison lädt gerade neu. */
+    val altSeasonRefreshing: StateFlow<Boolean> = running.map { CycleSource.ALT_SEASON in it }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+
+    /** «Aktualisieren» an der Altcoin-Saison: höchstens alle 5 Min. ein neuer Abruf. */
+    fun refreshAltSeason() {
+        loadAltSeason(force = true)
+    }
 
     private fun loadAltSeason(force: Boolean): Job = sync(
         source = CycleSource.ALT_SEASON,
@@ -328,7 +355,7 @@ class InfoViewModel @Inject constructor(
         show = { _history.value = LoadState.Loaded(it) },
         loading = { _history.value = LoadState.Loading },
         failed = { _history.value = LoadState.Failed },
-        fetch = { insights.cycleHistory() },
+        fetch = { Sourced(insights.cycleHistory(), null) },
     )
 
     private fun loadCoinList() {
@@ -364,6 +391,18 @@ class InfoViewModel @Inject constructor(
 
     /** Bereiche, deren Zwischenspeicher schon gelesen ist (gezeigt oder Ladezustand). */
     private val cacheChecked = MutableStateFlow<Set<CycleSource>>(emptySet())
+
+    // ---- Abschnitte «Einordnung» und «Daten» auf-/zugeklappt ([MarketSections])
+    private val _sectionChoice = MutableStateFlow<Map<MarketSection, Boolean>>(emptyMap())
+
+    /** In dieser App-Sitzung gewählter Zustand je Abschnitt (fehlt = nie getippt). */
+    val sectionChoice: StateFlow<Map<MarketSection, Boolean>> = _sectionChoice.asStateFlow()
+
+    /** Abschnitt auf- oder zugeklappt; gilt für den Rest der App-Sitzung. */
+    fun setSectionExpanded(section: MarketSection, expanded: Boolean) {
+        if (!section.collapsible) return
+        _sectionChoice.update { it + (section to expanded) }
+    }
 
     private val _reveal = MutableStateFlow(MarketReveal.State())
 
@@ -447,14 +486,18 @@ class InfoViewModel @Inject constructor(
             val known = if (force) null else cacheStore.read(CycleSource.ON_CHAIN.key, CycleCacheCodecs.onChain)
                 ?.takeIf { CycleCachePolicy.isFresh(it.savedAt, now, CycleSource.ON_CHAIN.ttlMillis) }
                 ?.value
-            val inputs = cycleDataSource.fetch(knownOnChain = known)
+            val sourced = cycleDataSource.fetchSourced(knownOnChain = known)
+            val inputs = sourced.value
             if (known == null) {
                 val onChain = OnChainValues(inputs.mvrv, inputs.puell, inputs.hash30d, inputs.hash60d)
                 if (onChain.hasAny) {
-                    cacheStore.write(CycleSource.ON_CHAIN.key, onChain, System.currentTimeMillis(), CycleCacheCodecs.onChain)
+                    cacheStore.write(
+                        CycleSource.ON_CHAIN.key, onChain, System.currentTimeMillis(), CycleCacheCodecs.onChain,
+                        provider = DataFreshness.COIN_METRICS,
+                    )
                 }
             }
-            inputs
+            sourced
         },
     )
 
@@ -465,6 +508,7 @@ class InfoViewModel @Inject constructor(
      * bei einem Fehler einfach stehen. Höchstens ein Abruf je Bereich; ein Wechsel des
      * Eintrags (anderer Coin) bricht den alten ab.
      *
+     * @param fetch holt den Wert samt Anbieter ([Sourced.provider], gespeichert und in [stamps])
      * @param name Eintrag im Zwischenspeicher (Standard: Schlüssel des Bereichs)
      * @param timeOf Zeitpunkt der Daten selbst; sonst gilt der Abrufzeitpunkt
      * @param isUsable unbrauchbare Werte weder zeigen noch speichern
@@ -476,7 +520,7 @@ class InfoViewModel @Inject constructor(
         show: (T) -> Unit,
         loading: () -> Unit,
         failed: () -> Unit,
-        fetch: suspend () -> T,
+        fetch: suspend () -> Sourced<T>,
         name: String = source.key,
         timeOf: ((T) -> Long)? = null,
         isUsable: (T) -> Boolean = { true },
@@ -497,24 +541,28 @@ class InfoViewModel @Inject constructor(
                 val cached = cacheStore.read(name, codec)?.takeIf { isUsable(it.value) }
                 if (cached != null && showSafely(source, show, cached.value)) {
                     savedAt = cached.savedAt
-                    markShown(source, name, cached.savedAt)
+                    markShown(source, name, cached.savedAt, cached.provider)
                 } else {
                     shownEntry.remove(source)
                     shownAt.update { it - source }
+                    _stamps.update { it - source }
                     loading()
                 }
             }
             cacheChecked.update { it + source }
-            if (!CycleCachePolicy.needsRefresh(savedAt, System.currentTimeMillis(), source.ttlMillis, force)) {
+            // Langsame Bereiche (z. B. Altcoin-Saison) von Hand frühestens alle 5 Min. neu
+            val minForce = CycleCachePolicy.manualMinInterval(source)
+            if (!CycleCachePolicy.needsRefresh(savedAt, System.currentTimeMillis(), source.ttlMillis, force, minForce)) {
                 return@launch
             }
             running.update { it + source }
             try {
-                val fresh = fetchWithin(source, fetch)?.getOrNull()?.takeIf { isUsable(it) }
-                if (fresh != null && showSafely(source, show, fresh)) {
+                val sourced = fetchWithin(source, fetch)?.getOrNull()?.takeIf { isUsable(it.value) }
+                if (sourced != null && showSafely(source, show, sourced.value)) {
+                    val fresh = sourced.value
                     val at = timeOf?.invoke(fresh)?.takeIf { it > 0L } ?: System.currentTimeMillis()
-                    markShown(source, name, at)
-                    cacheStore.write(name, fresh, at, codec)
+                    markShown(source, name, at, sourced.provider)
+                    cacheStore.write(name, fresh, at, codec, sourced.provider)
                 } else if (savedAt == null) {
                     failed()
                 }
@@ -539,9 +587,10 @@ class InfoViewModel @Inject constructor(
         false
     }
 
-    private fun markShown(source: CycleSource, name: String, at: Long) {
+    private fun markShown(source: CycleSource, name: String, at: Long, provider: String?) {
         shownEntry[source] = name to at
         shownAt.update { it + (source to at) }
+        _stamps.update { it + (source to DataStamp(provider, at, source.ttlMillis)) }
     }
 
     /**

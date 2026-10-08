@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.OiSample
 import com.cryptochecker.app.domain.activity.SignalKind
 import com.cryptochecker.app.domain.activity.SignalSeverity
+import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -72,7 +73,28 @@ class ActivityRepository @Inject constructor(
             }
             prefs.edit {
                 putString(KEY_OI, readMap(KEY_OI).keepOnly().toString())
+                putString(KEY_OI_HISTORY, readMap(KEY_OI_HISTORY).keepOnly().toString())
                 putString(KEY_NOTIFIED, readMap(KEY_NOTIFIED).keepOnly().toString())
+            }
+        }
+    }
+
+    /**
+     * Paar bearbeitet (andere Börse/anderes Paar, gleiche Id): Signale, Open-Interest-Messung
+     * und Meldezeit des alten Paars verwerfen.
+     */
+    fun forget(watchId: Long) {
+        ensureLoaded()
+        if (watchId in _reports.value) {
+            _reports.update { it - watchId }
+            persistReports()
+        }
+        synchronized(lock) {
+            val key = watchId.toString()
+            prefs.edit {
+                putString(KEY_OI, readMap(KEY_OI).apply { remove(key) }.toString())
+                putString(KEY_OI_HISTORY, readMap(KEY_OI_HISTORY).apply { remove(key) }.toString())
+                putString(KEY_NOTIFIED, readMap(KEY_NOTIFIED).apply { remove(key) }.toString())
             }
         }
     }
@@ -88,6 +110,31 @@ class ActivityRepository @Inject constructor(
     fun setOiSample(watchId: Long, sample: OiSample) = synchronized(lock) {
         val map = readMap(KEY_OI).put(watchId.toString(), JSONObject().put("u", if (sample.units.isFinite()) sample.units else 0.0).put("t", sample.time))
         prefs.edit { putString(KEY_OI, map.toString()) }
+    }
+
+    // ---------------- Open-Interest-Verlauf (Alarme OI_UP/OI_DOWN) ----------------
+
+    /** Gespeicherter Verlauf je Paar, älteste zuerst; {"<watchId>": [[zeit, coins], …]}. */
+    fun oiHistory(watchId: Long): List<DerivativesAlarm.OiPoint> = synchronized(lock) {
+        decodeHistory(readMap(KEY_OI_HISTORY).optJSONArray(watchId.toString()))
+    }
+
+    /** Messung anhängen und Verlauf aufräumen ([DerivativesAlarm.appendOi], 26 h). */
+    fun appendOiHistory(watchId: Long, point: DerivativesAlarm.OiPoint, now: Long) = synchronized(lock) {
+        val map = readMap(KEY_OI_HISTORY)
+        val updated = DerivativesAlarm.appendOi(decodeHistory(map.optJSONArray(watchId.toString())), point, now)
+        val array = JSONArray()
+        updated.forEach { array.put(JSONArray().put(it.time).put(it.units)) }
+        map.put(watchId.toString(), array)
+        prefs.edit { putString(KEY_OI_HISTORY, map.toString()) }
+    }
+
+    private fun decodeHistory(array: JSONArray?): List<DerivativesAlarm.OiPoint> {
+        if (array == null) return emptyList()
+        return (0 until array.length()).mapNotNull { i ->
+            val item = array.optJSONArray(i) ?: return@mapNotNull null
+            DerivativesAlarm.OiPoint(units = item.optDouble(1, 0.0), time = item.optLong(0, 0L))
+        }
     }
 
     // ---------------- Meldungen ----------------
@@ -125,6 +172,7 @@ class ActivityRepository @Inject constructor(
         const val PREFS = "activity"
         const val KEY_REPORTS = "reports"
         const val KEY_OI = "open_interest"
+        const val KEY_OI_HISTORY = "open_interest_history"
         const val KEY_NOTIFIED = "notified"
 
         /** {"<watchId>": {"t": computedAt, "s": [{"k","sv","v","f","a"}]}} */

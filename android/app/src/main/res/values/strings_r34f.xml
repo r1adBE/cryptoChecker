@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding above</string>
+    <string name="alarm_condition_funding_below">Funding below</string>
+    <string name="alarm_condition_oi_up">Open interest up</string>
+    <string name="alarm_condition_oi_down">Open interest down</string>
+    <string name="alarm_sentence_funding_above">Tell me when the funding of %1$s rises above %2$s.</string>
+    <string name="alarm_sentence_funding_below">Tell me when the funding of %1$s falls below %2$s.</string>
+    <string name="tts_direction_funding_above">with high funding</string>
+    <string name="tts_direction_funding_below">with low funding</string>
+    <string name="tts_direction_oi_up">with rising open interest</string>
+    <string name="tts_direction_oi_down">with falling open interest</string>
+    <string name="alarm_funding_hint">Funding rate per settlement interval (usually every 8 hours). Negative means shorts pay longs. ± switches the sign.</string>
+    <string name="alarm_oi_hint">Compares open interest with the value stored that many hours ago. A new alarm only reports once the app has collected data for that long; checked at most every 5 minutes.</string>
+    <string name="alarm_funding_sign_a11y">Switch sign</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Tell me when the open interest of %1$s rises by %2$s within %3$d hour.</item>
+        <item quantity="other">Tell me when the open interest of %1$s rises by %2$s within %3$d hours.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Tell me when the open interest of %1$s falls by %2$s within %3$d hour.</item>
+        <item quantity="other">Tell me when the open interest of %1$s falls by %2$s within %3$d hours.</item>
+    </plurals>
+</resources>

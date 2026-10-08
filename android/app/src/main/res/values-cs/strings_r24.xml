@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Změna v %1$s</string>
+    <string name="change_basis_rolling">Posledních 24 h</string>
+    <string name="change_basis_utc_zone">Od 00:00 %1$s</string>
+    <string name="change_basis_local">Od 00:00 místního času</string>
+    <string name="settings_change_basis_hint_1">Zvolené časové pásmo určuje, odkdy se počítá procentní změna: v seznamu sledovaných, řádku pulzu, listu páru a widgetech.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ porovnává s cenou přesně před 24 hodinami. „00:00“ porovnává s otevírací cenou o půlnoci v tomto časovém pásmu.</string>
+    <string name="settings_change_basis_hint_3">Alarmů se to netýká.</string>
+    <string name="change_basis_device">%1$s, 00:00 (časové pásmo zařízení)</string>
+    <string name="change_short_today">dnes</string>
+    <string name="change_short_today_zone">dnes %1$s</string>
+    <string name="a11y_change_today">%1$s dnes</string>
+    <string name="a11y_change_today_zone">%1$s od půlnoci %2$s</string>
+    <string name="a11y_change_today_none">Dnešní změna není k dispozici</string>
+    <string name="a11y_change_today_zone_none">Změna od půlnoci %1$s není k dispozici</string>
+    <string name="sheet_chart_today">Dnes</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Při zavřené aplikaci nejvýše jednou za minutu</string>
+    <string name="sheet_more">Více</string>
+    <string name="a11y_expanded">Rozbaleno</string>
+    <string name="a11y_collapsed">Sbaleno</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bez dnešní hodnoty</item>
+        <item quantity="few">%1$d bez dnešní hodnoty</item>
+        <item quantity="many">%1$d bez dnešní hodnoty</item>
+        <item quantity="other">%1$d bez dnešní hodnoty</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pár bez hodnoty za dnešek</item>
+        <item quantity="few">%1$d páry bez hodnoty za dnešek</item>
+        <item quantity="many">%1$d páru bez hodnoty za dnešek</item>
+        <item quantity="other">%1$d párů bez hodnoty za dnešek</item>
+    </plurals>
+</resources>

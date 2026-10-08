@@ -17,6 +17,8 @@ struct PortfolioEntry: TimelineEntry {
     var priceColors: PriceColorScheme = .default
     var highContrast = false
     var priceColorsInverted = false
+    /// «Beträge verbergen» (Einstellung der App, App Group): Beträge als «•••», Prozente bleiben.
+    var hideAmounts = false
     /// Ab diesem Alter «veraltet» (`WidgetOutdated`), gemessen an `date`.
     var outdatedAfter: Int64 = WidgetOutdated.afterMillis
 
@@ -29,11 +31,14 @@ struct PortfolioEntry: TimelineEntry {
     static func current(display: PortfolioDisplayOption = .conversionUsdt,
                         theme: WidgetThemeOption = .system) -> PortfolioEntry {
         let settings = SharedStorage.loadSettings()
-        return PortfolioEntry(date: Date(), snapshot: PortfolioWidgetStore.load(),
+        // %-Basis: Stand mit anderer Basis oder von einem früheren Tag → Veränderung «—»
+        let snapshot = PortfolioWidgetStore.load()?.shown(basis: settings.changeBasis, now: TimeUtils.nowMillis)
+        return PortfolioEntry(date: Date(), snapshot: snapshot,
                               locked: PortfolioLockPolicy.widgetLocked(lockSetting: settings.appLock),
                               accent: settings.accentColor, display: display, theme: theme,
                               priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
-                              priceColorsInverted: settings.priceColorsInverted)
+                              priceColorsInverted: settings.priceColorsInverted,
+                              hideAmounts: settings.hidePortfolioAmounts)
     }
 
     static func sample(display: PortfolioDisplayOption = .conversionUsdt,
@@ -41,10 +46,13 @@ struct PortfolioEntry: TimelineEntry {
         let settings = SharedStorage.loadSettings()
         let now = TimeUtils.nowMillis
         let hour: Int64 = 3_600_000
-        let values: [Double] = [11_820, 11_905, 11_870, 12_010, 11_960, 12_140, 12_080, 12_220, 12_190, 12_345.67]
+        // 24 Stundenwerte und der aktuelle (wie der Stundenverlauf)
+        let values: [Double] = [12_163, 12_180, 12_150, 12_120, 12_135, 12_170, 12_166, 12_205, 12_230, 12_211,
+                                12_240, 12_275, 12_260, 12_290, 12_315, 12_296, 12_324, 12_352, 12_333, 12_366,
+                                12_395, 12_377, 12_410, 12_434, 12_345.67]
         var history: [PortfolioWidgetPoint] = []
         for (i, value) in values.enumerated() {
-            history.append(PortfolioWidgetPoint(at: now - Int64(values.count - 1 - i) * 5 * hour, value: value))
+            history.append(PortfolioWidgetPoint(at: now - Int64(values.count - 1 - i) * hour, value: value))
         }
         let positions = [
             PortfolioWidgetPosition(symbol: "BTC", value: 7_420.10, sharePercent: 60.1, change24hPercent: 1.8),
@@ -129,54 +137,75 @@ enum PortfolioWidgetText {
     static let daySpanMillis: Int64 = 25 * 3_600_000
 
     /// «12’345.67 CHF».
-    static func total(_ s: PortfolioWidgetSnapshot) -> String {
-        PriceFormat.valueWithCurrency(s.total, s.currency)
+    static func total(_ s: PortfolioWidgetSnapshot, hidden: Bool = false) -> String {
+        PortfolioInsights.mask(PriceFormat.valueWithCurrency(s.total, s.currency), hidden: hidden)
     }
 
-    /// «+182.40 CHF»; nil ohne Vergleichswert.
-    static func amount(_ s: PortfolioWidgetSnapshot) -> String? {
+    /// Veränderung über 24 h in der Anzeigewährung; nil ohne Vergleichswert.
+    static func changeAmount(_ s: PortfolioWidgetSnapshot) -> Double? {
         guard let value = s.changeAmount, value.isFinite else { return nil }
+        return value
+    }
+
+    /// «+182.40 CHF» / «−1’968.40 CHF»; nil ohne Vergleichswert.
+    static func amount(_ s: PortfolioWidgetSnapshot, hidden: Bool = false) -> String? {
+        guard let value = changeAmount(s) else { return nil }
+        if hidden { return PortfolioInsights.hidden }
         let zero = abs(value) < 0.005
         let sign = zero ? "" : (value > 0 ? "+" : "−")
-        return sign + PriceFormat.valueWithCurrency(abs(value), s.currency)
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
+        return BidiText.ltr(sign + PriceFormat.valueWithCurrency(abs(value), s.currency))
     }
 
-    /// «+1.50%»; «0.00%» bei praktisch 0; nil ohne Vergleichswert.
-    static func percent(_ s: PortfolioWidgetSnapshot) -> String? {
-        guard let value = s.changePercent, value.isFinite else { return nil }
-        return PriceFormat.changePercent(value) ?? WidgetChangeLabel.zeroText
+    /// «2.31%» ohne Vorzeichen (Pille, Richtung zeigt der Pfeil); nil ohne Vergleichswert.
+    static func pillPercent(_ s: PortfolioWidgetSnapshot) -> String? {
+        guard changeAmount(s) != nil, let value = s.changePercent, value.isFinite else { return nil }
+        return String(format: "%.2f%%", locale: Locale.current, abs(value))
     }
 
-    /// «heute +182.40 CHF · +1.50%» bzw. «heute —».
-    static func today(_ s: PortfolioWidgetSnapshot) -> String {
-        let parts = [amount(s), percent(s)].compactMap { $0 }
-        return L("widget_portfolio_today", parts.isEmpty ? "—" : parts.joined(separator: " · "))
+    /// Richtung für Farbe und Pfeil nach dem Vorzeichen des Betrags (nie nach dem Farbtausch):
+    /// +1 / −1 / 0 als Prozentwert für `palette.change` und `ChangeArrowIcon`; nil ohne Vergleichswert.
+    static func directionValue(_ s: PortfolioWidgetSnapshot) -> Double? {
+        guard let value = changeAmount(s) else { return nil }
+        return Double(PortfolioWidgetSeries.direction(value))
+    }
+
+    /// %-Basis, mit der der Stand gerechnet ist (älterer Stand: rollend).
+    static func basis(_ s: PortfolioWidgetSnapshot) -> ChangeBasis { s.stamp?.basis ?? .ROLLING_24H }
+
+    /// «−1’968.40 CHF · 24h» bzw. «… · heute» (Pfeil davor als Symbol); nil ohne Vergleichswert.
+    static func changeLine(_ s: PortfolioWidgetSnapshot, withPeriod: Bool = true, hidden: Bool = false) -> String? {
+        guard let amount = amount(s, hidden: hidden) else { return nil }
+        return withPeriod ? amount + " · " + A11y.changeShortLabel(basis(s)) : amount
     }
 
     /// «92’310.00 USDT», wenn gewünscht und die Anzeigewährung nicht schon USD ist; sonst nil.
-    static func usdt(_ s: PortfolioWidgetSnapshot, display: PortfolioDisplayOption) -> String? {
-        guard let value = s.totalUsdt, value.isFinite,
+    static func usdt(_ s: PortfolioWidgetSnapshot, display: PortfolioDisplayOption, hidden: Bool = false) -> String? {
+        guard !hidden, let value = s.totalUsdt, value.isFinite,
               PortfolioWidgetStore.showsUsdt(enabled: display.showsUsdt, currency: s.currency) else { return nil }
         return PriceFormat.valueWithCurrency(value, "USDT")
     }
 
-    /// Wertverlauf mit mindestens zwei Punkten, sonst nil (Chart ausgeblendet).
+    /// Wertverlauf mit genug Punkten für den Flächen-Chart, sonst nil («Verlauf folgt»).
     static func chartPoints(_ s: PortfolioWidgetSnapshot) -> [PortfolioWidgetPoint]? {
         let points = s.valueHistory.filter { $0.value.isFinite }
-        return points.count >= 2 ? points : nil
+        return PortfolioWidgetSeries.drawable(points) ? points : nil
     }
 
-    /// Zeitraum des Wertverlaufs: lang (VoiceOver) bzw. kurz (neben der Uhrzeit).
-    static func period(_ points: [PortfolioWidgetPoint], short: Bool) -> String {
+    /// Zeitraum des Wertverlaufs: lang (VoiceOver) bzw. kurz (Fusszeile); seit Tagesbeginn
+    /// «heute» / «Seit 00:00 …», sonst «24h» bzw. «48h».
+    static func period(_ points: [PortfolioWidgetPoint], short: Bool, basis: ChangeBasis = .ROLLING_24H) -> String {
+        if basis.isDay { return short ? A11y.changeShortLabel(basis) : A11y.changeLongLabel(basis) }
         let day = (points.last?.at ?? 0) - (points.first?.at ?? 0) <= daySpanMillis
         if short { return L(day ? "widget_range_short_24h" : "widget_portfolio_range_short_48h") }
         return L(day ? "widget_range_24h" : "widget_portfolio_range_48h")
     }
 
     /// VoiceOver-Satz zum Wertverlauf (Zeitraum, Start, Ende, Veränderung, Hoch, Tief).
-    static func chartAccessibility(_ points: [PortfolioWidgetPoint], currency: String) -> String {
-        A11y.chart(period: period(points, short: false), values: points.map(\.value),
-                   format: { PriceFormat.valueWithCurrency($0, currency) })
+    static func chartAccessibility(_ points: [PortfolioWidgetPoint], currency: String,
+                                   basis: ChangeBasis = .ROLLING_24H, hidden: Bool = false) -> String {
+        A11y.chart(period: period(points, short: false, basis: basis), values: points.map(\.value),
+                   format: { hidden ? L("a11y_amount_hidden") : PriceFormat.valueWithCurrency($0, currency) })
     }
 
     /// Anteil mit einer Nachkommastelle, z. B. «62.3%».
@@ -184,44 +213,42 @@ enum PortfolioWidgetText {
         String(format: "%.1f%%", locale: Locale.current, Swift.min(100, Swift.max(0, percent)))
     }
 
-    /// Wert einer Position ohne Währung (die steht beim Gesamtwert).
-    static func positionValue(_ value: Double) -> String {
-        PriceFormat.valueWithCurrency(value, "").trimmingCharacters(in: .whitespaces)
+    /// «Stand 15:19» bzw. «veraltet · 06:42» (ohne Sekunden).
+    static func asOf(_ s: PortfolioWidgetSnapshot, outdated: Bool, at date: Date) -> String {
+        outdated ? WidgetOutdated.label(s.updatedAt, at: date)
+            : L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: date))
     }
 
-    /// VoiceOver: «Grösste Positionen: BTC 7’420.10 CHF, 60.1% des Portfolios, heute gestiegen um 1.80%; …».
-    static func positionsAccessibility(_ shown: [PortfolioWidgetPosition], more: Int, currency: String) -> String? {
+    /// VoiceOver: «Grösste Positionen: BTC, 60.1% des Portfolios, gestiegen um 1.80% in 24 Stunden; …».
+    static func positionsAccessibility(_ shown: [PortfolioWidgetPosition], basis: ChangeBasis = .ROLLING_24H) -> String? {
         guard !shown.isEmpty else { return nil }
-        var parts: [String] = shown.map { p in
-            let value = PriceFormat.valueWithCurrency(p.value, currency)
-            if let change = A11y.change(p.change24hPercent) {
-                return L("a11y_portfolio_position_change", p.symbol, value, share(p.sharePercent), change)
-            }
-            return L("a11y_portfolio_position", p.symbol, value, share(p.sharePercent))
+        let parts = shown.map { p in
+            L("a11y_portfolio_position_24h", p.symbol, share(p.sharePercent), A11y.change(p.change24hPercent, basis: basis))
         }
-        if more > 0 { parts.append(L("widget_portfolio_more", count: more)) }
         return L("a11y_portfolio_positions", parts.joined(separator: "; "))
     }
 
-    /// VoiceOver: «Portfolio 12’345.67 CHF, heute gestiegen um 1.50%, 182.40 CHF» — danach
-    /// ≈ USDT, Verlauf, Positionen und Uhrzeit (`withTime`), soweit sichtbar. `outdated`:
-    /// «veraltet, letzte Aktualisierung 06:42» — steht immer statt der Uhrzeit.
-    static func accessibility(_ s: PortfolioWidgetSnapshot, withToday: Bool = true, usdt: String? = nil,
-                              chart: String? = nil, positions: String? = nil, withTime: Bool = false,
-                              outdated: String? = nil) -> String {
-        let head: String
-        if withToday {
-            var change = "—"
-            if let value = s.changeAmount, value.isFinite {
-                let direction = A11y.change(s.changePercent) ?? L("a11y_change_flat")
-                change = A11y.join([direction, PriceFormat.valueWithCurrency(abs(value), s.currency)])
+    /// VoiceOver: «Portfolio 83’170.32 CHF, gesunken um 2.31% in 24 Stunden, Stand 15:19» — danach
+    /// ≈ USDT, Verlauf und Positionen, soweit sichtbar. Veraltet: «veraltet, letzte Aktualisierung 06:42».
+    static func accessibility(_ s: PortfolioWidgetSnapshot, outdated: Bool, at date: Date, usdt: String? = nil,
+                              chart: String? = nil, positions: String? = nil, hidden: Bool = false) -> String {
+        var change: String?
+        let changeBasis = Self.basis(s)
+        if let amount = changeAmount(s) {
+            if let percent = s.changePercent, percent.isFinite {
+                change = A11y.change(percent, basis: changeBasis)
+            } else if PortfolioWidgetSeries.direction(amount) == 0 {
+                change = A11y.changePhrase(L("a11y_change_flat"), basis: changeBasis)
+            } else {
+                let value = hidden ? L("a11y_amount_hidden") : PriceFormat.valueWithCurrency(abs(amount), s.currency)
+                change = A11y.changePhrase(L(amount > 0 ? "a11y_change_up" : "a11y_change_down", value), basis: changeBasis)
             }
-            head = L("a11y_portfolio_widget", total(s), change)
-        } else {
-            head = A11y.join([L("widget_portfolio_name"), total(s)])
         }
-        let time = withTime && s.updatedAt > 0 ? PriceFormat.time(s.updatedAt) : nil
-        return A11y.join([head, usdt.map { L("a11y_converted", $0) }, chart, positions, outdated ?? time])
+        let time = outdated ? WidgetOutdated.spoken(s.updatedAt, at: date)
+            : L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: date))
+        let spokenTotal = hidden ? L("a11y_amount_hidden") : total(s)
+        return A11y.join([L("widget_portfolio_name") + " " + spokenTotal, change, time,
+                          usdt.map { L("a11y_converted", $0) }, chart, positions])
     }
 
     static var appURL: URL? { URL(string: "cryptochecker://portfolio") }
@@ -249,21 +276,22 @@ struct PortfolioWidgetView: View {
     }
 }
 
-/// Startbildschirm: klein (Gesamtwert, ≈ USDT, Uhrzeit), mittel (dazu «heute» und
-/// Wertverlauf rechts), gross (dazu die grössten Positionen).
+/// Startbildschirm (Stufe = Familie, wie `PortfolioWidgetSize` in Android): klein = Kopfzeile mit
+/// Pille, Gesamtwert, Betrag über 24 h, ≈ USDT, Fusszeile; mittel = Werte links, Wertverlauf rechts;
+/// gross = dazu die drei grössten Positionen unter dem Wertverlauf.
 private struct PortfolioHomeView: View {
     let entry: PortfolioEntry
     let palette: WidgetPalette
     let family: WidgetFamily
 
-    private var medium: Bool { family == .systemMedium }
-    private var large: Bool { family == .systemLarge }
+    /// So viele Positionen zeigt die grosse Stufe.
+    private static let largeRows = 3
 
-    /// VoiceOver bei veraltetem Stand: «veraltet, letzte Aktualisierung 06:42».
-    private var spokenOutdated: String? {
-        guard entry.outdated, let s = entry.snapshot else { return nil }
-        return WidgetOutdated.spoken(s.updatedAt, at: entry.date)
-    }
+    /// Gesperrtes Gerät (StandBy): Beträge sind `privacySensitive` und werden verdeckt.
+    @Environment(\.redactionReasons) private var redactionReasons
+
+    /// VoiceOver ohne Beträge — bei «Beträge verbergen» und solange sie verdeckt sind.
+    private var spokenHidden: Bool { entry.hideAmounts || redactionReasons.contains(.privacy) }
 
     var body: some View {
         Group {
@@ -277,7 +305,7 @@ private struct PortfolioHomeView: View {
                 }
             } else {
                 VStack(alignment: .leading, spacing: 0) {
-                    header
+                    header(nil)
                     Spacer(minLength: 4)
                     message(L("widget_portfolio_empty"))
                 }
@@ -287,14 +315,27 @@ private struct PortfolioHomeView: View {
         .padding(family == .systemSmall ? 14 : 16)
     }
 
-    private var header: some View {
+    /// Logo, «Portfolio» und rechts die Pille «▼ 2.31%» (24 h). Wird es eng, fällt der Titel weg
+    /// (lieber kein Titel als «Portf…»; VoiceOver nennt ihn trotzdem).
+    private func header(_ s: PortfolioWidgetSnapshot?) -> some View {
+        ViewThatFits(in: .horizontal) {
+            headerRow(s, title: true)
+            headerRow(s, title: false)
+        }
+    }
+
+    private func headerRow(_ s: PortfolioWidgetSnapshot?, title: Bool) -> some View {
         HStack(spacing: 6) {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
-            Text(L("widget_portfolio_name"))
-                .font(.system(size: 12.5, weight: .bold))
-                .foregroundStyle(palette.text)
-                .lineLimit(1)
+            if title {
+                Text(L("widget_portfolio_name"))
+                    .font(.system(size: 12.5, weight: .bold))
+                    .foregroundStyle(palette.text)
+                    .lineLimit(1)
+                    .fixedSize()
+            }
             Spacer(minLength: 0)
+            if let s { pill(s) }
         }
     }
 
@@ -302,7 +343,7 @@ private struct PortfolioHomeView: View {
     /// Chart, keine Positionen. Tippen öffnet den Portfolio-Tab (`widgetURL`).
     private var lockedBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header
+            header(nil)
             Spacer(minLength: 4)
             Image(systemName: "lock.fill")
                 .font(.system(size: family == .systemSmall ? 18 : 20, weight: .semibold))
@@ -327,133 +368,113 @@ private struct PortfolioHomeView: View {
     // MARK: Klein
 
     private func smallBody(_ s: PortfolioWidgetSnapshot) -> some View {
-        let usdt = PortfolioWidgetText.usdt(s, display: entry.display)
+        let usdt = PortfolioWidgetText.usdt(s, display: entry.display, hidden: entry.hideAmounts)
         return VStack(alignment: .leading, spacing: 0) {
-            header
+            header(s)
             Spacer(minLength: 4)
             totalText(s, size: 22)
+            changeLine(s)
             usdtLine(usdt)
             Spacer(minLength: 4)
-            timeLine(s, period: nil)
+            footer(s, period: nil)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, withToday: false, usdt: usdt, withTime: true,
-                                                              outdated: spokenOutdated))
+        .accessibilityLabel(PortfolioWidgetText.accessibility(s, outdated: entry.outdated, at: entry.date,
+                                                              usdt: spokenHidden ? nil : usdt, hidden: spokenHidden))
     }
 
     // MARK: Mittel
 
     private func mediumBody(_ s: PortfolioWidgetSnapshot) -> some View {
-        let usdt = PortfolioWidgetText.usdt(s, display: entry.display)
+        let usdt = PortfolioWidgetText.usdt(s, display: entry.display, hidden: entry.hideAmounts)
         let points = PortfolioWidgetText.chartPoints(s)
-        let chartText = points.map { PortfolioWidgetText.chartAccessibility($0, currency: s.currency) }
-        return HStack(spacing: 14) {
-            VStack(alignment: .leading, spacing: 0) {
-                header
-                Spacer(minLength: 4)
-                totalText(s, size: 26)
-                usdtLine(usdt)
-                todayPill(s)
-                Spacer(minLength: 4)
-                timeLine(s, period: points.map { PortfolioWidgetText.period($0, short: true) })
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            if let points {
-                PortfolioValueChart(points: points, palette: palette, lineWidth: 2)
+        let chartText = points.map { PortfolioWidgetText.chartAccessibility($0, currency: s.currency,
+                                                                                 basis: PortfolioWidgetText.basis(s),
+                                                                                 hidden: spokenHidden) }
+        return VStack(alignment: .leading, spacing: 0) {
+            header(s)
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 0) {
+                    totalText(s, size: 24)
+                    changeLine(s)
+                    usdtLine(usdt)
+                    Spacer(minLength: 4)
+                    footer(s, period: points.map { PortfolioWidgetText.period($0, short: true, basis: PortfolioWidgetText.basis(s)) })
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                chart(s, points: points)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .padding(.top, 6)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, usdt: usdt, chart: chartText, withTime: true,
-                                                              outdated: spokenOutdated))
+        .accessibilityLabel(PortfolioWidgetText.accessibility(s, outdated: entry.outdated, at: entry.date,
+                                                              usdt: spokenHidden ? nil : usdt, chart: chartText,
+                                                              hidden: spokenHidden))
     }
 
     // MARK: Gross
 
-    /// Gross: so viele Listenzeilen (inklusive «+ n weitere»), wie in die Höhe passen —
-    /// `ViewThatFits` nimmt die erste Variante, die ganz passt (nichts wird abgeschnitten).
     private func largeBody(_ s: PortfolioWidgetSnapshot) -> some View {
-        // Bis 5 Positionen und «+ n weitere» (6 Zeilen), zuletzt ohne Liste
-        ViewThatFits(in: .vertical) {
-            largeContent(s, maxLines: 6)
-            largeContent(s, maxLines: 5)
-            largeContent(s, maxLines: 4)
-            largeContent(s, maxLines: 3)
-            largeContent(s, maxLines: 2)
-            largeContent(s, maxLines: 1)
-            largeContent(s, maxLines: 0)
-        }
-    }
-
-    private func largeContent(_ s: PortfolioWidgetSnapshot, maxLines: Int) -> some View {
-        let usdt = PortfolioWidgetText.usdt(s, display: entry.display)
+        let usdt = PortfolioWidgetText.usdt(s, display: entry.display, hidden: entry.hideAmounts)
         let points = PortfolioWidgetText.chartPoints(s)
-        let chartText = points.map { PortfolioWidgetText.chartAccessibility($0, currency: s.currency) }
-        let rows = PortfolioWidgetStore.rows(s.topPositions, others: s.otherPositions ?? 0, maxLines: maxLines)
-        let positionsText = PortfolioWidgetText.positionsAccessibility(rows.shown, more: rows.more, currency: s.currency)
+        let chartText = points.map { PortfolioWidgetText.chartAccessibility($0, currency: s.currency,
+                                                                                 basis: PortfolioWidgetText.basis(s),
+                                                                                 hidden: spokenHidden) }
+        let shown = Array(s.topPositions.prefix(Self.largeRows))
         return VStack(alignment: .leading, spacing: 0) {
-            header
+            header(s)
             totalText(s, size: 30)
                 .padding(.top, 8)
+            changeLine(s)
             usdtLine(usdt)
-            todayPill(s)
-            if let points {
-                PortfolioValueChart(points: points, palette: palette, lineWidth: 2)
-                    .frame(maxWidth: .infinity, minHeight: 32, maxHeight: .infinity)
-                    .padding(.vertical, 8)
-            } else {
-                Spacer(minLength: 8)
-            }
-            if !rows.shown.isEmpty {
-                VStack(alignment: .leading, spacing: 3) {
-                    ForEach(rows.shown, id: \.symbol) { position in
-                        positionRow(position)
-                    }
-                    if rows.more > 0 {
-                        Text(L("widget_portfolio_more", count: rows.more))
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundStyle(palette.secondary)
-                            .lineLimit(1)
+            chart(s, points: points)
+                .frame(maxWidth: .infinity, minHeight: 44, maxHeight: .infinity)
+                .padding(.vertical, 10)
+            if !shown.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(shown, id: \.symbol) { position in
+                        positionRow(position, basis: PortfolioWidgetText.basis(s))
                     }
                 }
-                .padding(.bottom, 6)
+                .padding(.bottom, 8)
             }
-            timeLine(s, period: points.map { PortfolioWidgetText.period($0, short: true) })
+            footer(s, period: points.map { PortfolioWidgetText.period($0, short: true, basis: PortfolioWidgetText.basis(s)) })
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, usdt: usdt, chart: chartText,
-                                                              positions: positionsText, withTime: true,
-                                                              outdated: spokenOutdated))
+        .accessibilityLabel(PortfolioWidgetText.accessibility(
+            s, outdated: entry.outdated, at: entry.date, usdt: spokenHidden ? nil : usdt, chart: chartText,
+            positions: PortfolioWidgetText.positionsAccessibility(shown, basis: PortfolioWidgetText.basis(s)),
+            hidden: spokenHidden))
     }
 
-    private func positionRow(_ p: PortfolioWidgetPosition) -> some View {
+    /// Kürzel, Anteil als dünner Balken (neutral, nicht in der Akzentfarbe) und Text,
+    /// Veränderung über 24 h mit Pfeil und Vorzeichen in der Kursfarbe (ohne Wert «—»).
+    private func positionRow(_ p: PortfolioWidgetPosition, basis: ChangeBasis) -> some View {
         HStack(spacing: 8) {
-            WidgetCoinBadge(symbol: p.symbol, size: 18, dark: palette.dark)
             Text(p.symbol)
                 .font(.system(size: 12.5, weight: .bold))
                 .foregroundStyle(palette.text)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
-            Spacer(minLength: 4)
-            Text(PortfolioWidgetText.positionValue(p.value))
-                .font(.system(size: 12.5, weight: .medium))
-                .monospacedDigit()
-                .foregroundStyle(palette.text)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
+                .frame(minWidth: 38, alignment: .leading)
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(palette.secondary.opacity(0.18))
+                    Capsule().fill(palette.secondary.opacity(0.65))
+                        .frame(width: geo.size.width * CGFloat(Swift.min(100, Swift.max(0, p.sharePercent)) / 100))
+                }
+            }
+            .frame(height: 3)
             Text(PortfolioWidgetText.share(p.sharePercent))
                 .font(.system(size: 11, weight: .medium))
                 .monospacedDigit()
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
-                .frame(minWidth: 38, alignment: .trailing)
-            if let change = p.change24hPercent {
-                WidgetChangeLabel(change: change, palette: palette, size: 11, showsArrow: true)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(Capsule().fill(palette.change(change).opacity(palette.dark ? 0.14 : 0.06)))
-                    .frame(minWidth: 64, alignment: .trailing)
-            }
+                .frame(minWidth: 40, alignment: .trailing)
+            WidgetChangeLabel(change: p.change24hPercent, palette: palette, size: 11, showsArrow: true, day: true,
+                              basis: basis)
+                .frame(minWidth: 62, alignment: .trailing)
         }
     }
 
@@ -461,7 +482,8 @@ private struct PortfolioHomeView: View {
 
     private func totalText(_ s: PortfolioWidgetSnapshot, size: CGFloat) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 4) {
-            Text(PriceFormat.valueWithCurrency(s.total, "").trimmingCharacters(in: .whitespaces))
+            Text(entry.hideAmounts ? PortfolioInsights.hidden
+                 : PriceFormat.valueWithCurrency(s.total, "").trimmingCharacters(in: .whitespaces))
                 .font(.system(size: size, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(palette.text)
@@ -473,137 +495,168 @@ private struct PortfolioHomeView: View {
                 .lineLimit(1)
                 .fixedSize()
         }
+        // Gesperrtes Gerät (StandBy): Betrag verdeckt
+        .privacySensitive()
     }
 
-    /// «≈ 92’310.00 USDT» (je Widget wählbar); nil = keine Zeile.
+    /// Pille «▼ 2.31%» in der Kursfarbe (Pfeil nach dem Vorzeichen); ohne Wert keine.
     @ViewBuilder
-    private func usdtLine(_ usdt: String?) -> some View {
-        if let usdt {
-            Text("≈ " + usdt)
-                .font(.system(size: 11, weight: .medium))
-                .monospacedDigit()
-                .foregroundStyle(palette.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-                .padding(.top, 1)
-        }
-    }
-
-    /// Veränderung heute: Betrag und Prozent-Pille in der Kursfarbe, mit + / −;
-    /// ohne Vergleichswert nichts. Passt «heute +997.62 CHF» nicht neben die Pille, nur
-    /// «heute» und die Pille (Prozent) — lieber kürzer als abgeschnitten.
-    @ViewBuilder
-    private func todayPill(_ s: PortfolioWidgetSnapshot) -> some View {
-        if s.changeAmount != nil {
-            let color = palette.change(s.changePercent)
-            let percent = PortfolioWidgetText.percent(s)
-            ViewThatFits(in: .horizontal) {
-                HStack(spacing: 6) {
-                    todayLabel(L("widget_portfolio_today", PortfolioWidgetText.amount(s) ?? "—"), color: color)
-                        .fixedSize(horizontal: true, vertical: false)
-                    percentPill(s, percent: percent, color: color)
-                }
-                if let percent {
-                    HStack(spacing: 6) {
-                        todayLabel(L("widget_portfolio_today_label"), color: color)
-                            .fixedSize(horizontal: true, vertical: false)
-                        percentPill(s, percent: percent, color: color)
-                    }
-                }
-                // Letzter Ausweg (ohne Prozentwert): Betrag etwas kleiner
-                todayLabel(L("widget_portfolio_today", PortfolioWidgetText.amount(s) ?? "—"), color: color)
-                    .minimumScaleFactor(0.7)
-            }
-            .padding(.top, 4)
-        }
-    }
-
-    private func todayLabel(_ text: String, color: Color) -> some View {
-        Text(text)
-            .font(.system(size: 13, weight: .semibold))
-            .monospacedDigit()
-            .foregroundStyle(color)
-            .lineLimit(1)
-    }
-
-    /// Prozent-Pille mit Pfeil (folgt dem Vorzeichen); nil = keine.
-    @ViewBuilder
-    private func percentPill(_ s: PortfolioWidgetSnapshot, percent: String?, color: Color) -> some View {
-        if let percent {
+    private func pill(_ s: PortfolioWidgetSnapshot) -> some View {
+        if let percent = PortfolioWidgetText.pillPercent(s) {
+            let direction = PortfolioWidgetText.directionValue(s)
+            let color = palette.change(direction)
             HStack(spacing: 2) {
-                ChangeArrowIcon(change: s.changePercent)
-                    .font(.system(size: 9, weight: .bold))
+                ChangeArrowIcon(change: direction)
+                    .font(.system(size: 8.5, weight: .bold))
                 Text(percent)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 11, weight: .semibold))
                     .monospacedDigit()
                     .lineLimit(1)
             }
             .foregroundStyle(color)
             .padding(.horizontal, 7)
-            .padding(.vertical, 3)
-            .background(Capsule().fill(color.opacity(palette.dark ? 0.14 : 0.06)))
-            .fixedSize(horizontal: true, vertical: false)
+            .padding(.vertical, 2.5)
+            .background(Capsule().fill(color.opacity(palette.dark ? 0.14 : 0.07)))
+            .fixedSize()
         }
     }
 
-    /// Uhrzeit; mit Wertverlauf dessen Zeitraum daneben, z. B. «14:05 · 48h»;
-    /// alter Stand ausgeschrieben: «veraltet · 06:42 · 48h».
-    private func timeLine(_ s: PortfolioWidgetSnapshot, period: String?) -> some View {
-        let time = WidgetOutdated.timeText(s.updatedAt, outdated: entry.outdated, at: entry.date)
+    /// «▼ −1’968.40 CHF · 24h» in der Kursfarbe; passt «· 24h» nicht, ohne. Ohne Wert nichts.
+    @ViewBuilder
+    private func changeLine(_ s: PortfolioWidgetSnapshot) -> some View {
+        if let full = PortfolioWidgetText.changeLine(s, hidden: entry.hideAmounts),
+           let short = PortfolioWidgetText.changeLine(s, withPeriod: false, hidden: entry.hideAmounts) {
+            let direction = PortfolioWidgetText.directionValue(s)
+            ViewThatFits(in: .horizontal) {
+                changeLabel(full, direction: direction)
+                changeLabel(short, direction: direction)
+            }
+            // Betrag der Veränderung: bei gesperrtem Gerät verdeckt (die Pille mit % bleibt)
+            .privacySensitive()
+            .padding(.top, 2)
+        }
+    }
+
+    private func changeLabel(_ text: String, direction: Double?) -> some View {
+        HStack(spacing: 3) {
+            ChangeArrowIcon(change: direction)
+                .font(.system(size: 9, weight: .bold))
+            Text(text)
+                .font(.system(size: 12, weight: .semibold))
+                .monospacedDigit()
+                .lineLimit(1)
+        }
+        .foregroundStyle(palette.change(direction))
+        .fixedSize()
+    }
+
+    /// «≈ 92’310.00 USDT» (je Widget wählbar), kleiner und schwächer; nil = keine Zeile.
+    @ViewBuilder
+    private func usdtLine(_ usdt: String?) -> some View {
+        if let usdt {
+            Text("≈ " + usdt)
+                .font(.system(size: 10.5, weight: .medium))
+                .monospacedDigit()
+                .foregroundStyle(palette.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .privacySensitive()
+                .padding(.top, 1)
+        }
+    }
+
+    /// Wertverlauf oder, solange es zu wenige Stundenwerte gibt, ruhig «Verlauf folgt».
+    @ViewBuilder
+    private func chart(_ s: PortfolioWidgetSnapshot, points: [PortfolioWidgetPoint]?) -> some View {
+        if let points {
+            let direction = PortfolioWidgetText.directionValue(s)
+                ?? ((points.last?.value ?? 0) >= (points.first?.value ?? 0) ? 1 : -1)
+            PortfolioValueChart(points: points, color: palette.change(direction), baseline: palette.secondary)
+                // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)
+                .environment(\.layoutDirection, .leftToRight)
+        } else {
+            Text(L("widget_portfolio_chart_pending"))
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(palette.secondary)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+
+    /// «Stand 15:19 · 24h»; alter Stand ausgeschrieben: «veraltet · 06:42».
+    private func footer(_ s: PortfolioWidgetSnapshot, period: String?) -> some View {
+        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, at: entry.date)
         return Text([time, period].compactMap { $0 }.joined(separator: " · "))
-            .font(.system(size: medium || large ? 10 : 9.5, weight: .medium))
+            .font(.system(size: 10, weight: .medium))
             .monospacedDigit()
             .foregroundStyle(palette.secondary)
             .lineLimit(1)
+            .minimumScaleFactor(0.8)
     }
 }
 
-/// Wertverlauf: dünne Linie mit schwacher Fläche darunter, ohne Achsen — wie der
-/// Linien-Modus des Einzel-Widgets. Farbe nach der Gesamtrichtung (letzter gegen ersten Wert).
+/// Wertverlauf (24 h): Linie 1.75 pt in der Kursfarbe, Fläche als Verlauf von 25 % an der Linie
+/// bis 0 unten, gestrichelte schwache Linie beim Ausgangswert, Punkt am letzten Wert; keine Achsen —
+/// wie `WidgetChartRenderer.drawPortfolioArea` (Android).
 private struct PortfolioValueChart: View {
     let points: [PortfolioWidgetPoint]
-    let palette: WidgetPalette
-    var lineWidth: CGFloat = 2
+    let color: Color
+    let baseline: Color
+    var lineWidth: CGFloat = 1.75
+    var dot: CGFloat = 2.5
 
     var body: some View {
         GeometryReader { geo in
-            let xy = Self.positions(points, size: geo.size, inset: lineWidth)
-            let up = (points.last?.value ?? 0) >= (points.first?.value ?? 0)
-            let color = up ? palette.up : palette.down
-            if xy.count >= 2 {
+            let inset = dot + lineWidth / 2
+            let xy = Self.positions(points, size: geo.size, inset: inset)
+            if xy.count >= 2, let first = xy.first, let last = xy.last {
+                let top = xy.map(\.y).min() ?? 0
+                let baseY = Self.valueY(points, value: points[0].value, height: geo.size.height, inset: inset)
                 ZStack {
                     Path { path in
-                        path.move(to: CGPoint(x: xy[0].x, y: geo.size.height))
+                        path.move(to: CGPoint(x: first.x, y: geo.size.height))
                         for p in xy { path.addLine(to: p) }
-                        path.addLine(to: CGPoint(x: xy[xy.count - 1].x, y: geo.size.height))
+                        path.addLine(to: CGPoint(x: last.x, y: geo.size.height))
                         path.closeSubpath()
                     }
-                    .fill(color.opacity(0.16))
+                    .fill(LinearGradient(colors: [color.opacity(0.25), color.opacity(0)],
+                                         startPoint: UnitPoint(x: 0.5, y: geo.size.height > 0 ? top / geo.size.height : 0),
+                                         endPoint: .bottom))
                     Path { path in
-                        path.move(to: xy[0])
+                        path.move(to: CGPoint(x: first.x, y: baseY))
+                        path.addLine(to: CGPoint(x: last.x, y: baseY))
+                    }
+                    .stroke(baseline.opacity(0.45), style: StrokeStyle(lineWidth: 0.75, dash: [3, 3]))
+                    Path { path in
+                        path.move(to: first)
                         for p in xy.dropFirst() { path.addLine(to: p) }
                     }
                     .stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
+                    Circle()
+                        .fill(color)
+                        .frame(width: dot * 2, height: dot * 2)
+                        .position(last)
                 }
             }
         }
         .accessibilityHidden(true)
     }
 
-    /// x nach der Zeit über die Breite, y zwischen `inset` und Höhe − `inset` (höchster Wert oben);
-    /// ohne Spanne mittig — gleiche Regel wie `PortfolioWidgetMath.linePoints` (Android).
+    /// x nach der Zeit über die Breite (Rand `inset` links und rechts), y zwischen `inset` und
+    /// Höhe − `inset` (höchster Wert oben); ohne Spanne mittig — wie `PortfolioWidgetMath.linePoints`.
     static func positions(_ points: [PortfolioWidgetPoint], size: CGSize, inset: CGFloat) -> [CGPoint] {
         guard points.count >= 2, let first = points.first, let last = points.last else { return [] }
         let values = points.map(\.value)
         guard let low = values.min(), let high = values.max() else { return [] }
         let span = Double(last.at - first.at)
-        let width = Swift.max(0, size.width - inset)
+        let width = Swift.max(0, size.width - 2 * inset)
         let top = inset
         let bottom = Swift.max(inset, size.height - inset)
         var out: [CGPoint] = []
         for (i, p) in points.enumerated() {
             let fx = span > 0 ? Double(p.at - first.at) / span : Double(i) / Double(points.count - 1)
-            let x = inset / 2 + CGFloat(fx) * width
+            let x = inset + CGFloat(fx) * width
             let y: CGFloat
             if high > low {
                 y = bottom - CGFloat((p.value - low) / (high - low)) * (bottom - top)
@@ -614,9 +667,20 @@ private struct PortfolioValueChart: View {
         }
         return out
     }
+
+    /// y-Lage eines Werts in derselben Skala, auf die Fläche geklemmt — wie `PortfolioWidgetMath.valueY`.
+    static func valueY(_ points: [PortfolioWidgetPoint], value: Double, height: CGFloat, inset: CGFloat) -> CGFloat {
+        let values = points.map(\.value)
+        let top = inset
+        let bottom = Swift.max(inset, height - inset)
+        guard let low = values.min(), let high = values.max(), high > low else { return (top + bottom) / 2 }
+        let y = bottom - CGFloat((value - low) / (high - low)) * (bottom - top)
+        return Swift.min(bottom, Swift.max(top, y))
+    }
 }
 
-/// Sperrbildschirm: Titel, Gesamtwert, Veränderung heute.
+/// Sperrbildschirm: Titel, Gesamtwert, Veränderung über 24 h. Beide Beträge sind
+/// `privacySensitive`: bei gesperrtem Gerät verdeckt, nach dem Entsperren sichtbar.
 private struct PortfolioRectangularView: View {
     let entry: PortfolioEntry
 
@@ -636,22 +700,26 @@ private struct PortfolioRectangularView: View {
                 }
                 .foregroundStyle(.secondary)
             } else if let s = entry.snapshot, !s.empty {
-                Text(PortfolioWidgetText.total(s))
+                Text(PortfolioWidgetText.total(s, hidden: entry.hideAmounts))
                     .font(.system(size: 17, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
                     .widgetAccentable()
-                HStack(spacing: 2) {
-                    ChangeArrowIcon(change: s.changePercent)
-                        .font(.system(size: 8, weight: .bold))
-                    Text(PortfolioWidgetText.today(s))
-                        .font(.system(size: 11))
-                        .monospacedDigit()
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
+                    .privacySensitive()
+                if let line = PortfolioWidgetText.changeLine(s, hidden: entry.hideAmounts) {
+                    HStack(spacing: 2) {
+                        ChangeArrowIcon(change: PortfolioWidgetText.directionValue(s))
+                            .font(.system(size: 8, weight: .bold))
+                        Text(line)
+                            .font(.system(size: 11))
+                            .monospacedDigit()
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                    }
+                    .foregroundStyle(.secondary)
+                    .privacySensitive()
                 }
-                .foregroundStyle(.secondary)
             } else {
                 Text(L("widget_portfolio_empty"))
                     .font(.system(size: 12))
@@ -667,12 +735,15 @@ private struct PortfolioRectangularView: View {
 
 private struct PortfolioRectangularA11y: ViewModifier {
     let entry: PortfolioEntry
+    /// Gesperrtes Gerät: Beträge verdeckt — dann auch VoiceOver ohne Beträge.
+    @Environment(\.redactionReasons) private var redactionReasons
 
     @ViewBuilder
     func body(content: Content) -> some View {
         if !entry.locked, let s = entry.snapshot, !s.empty {
             content.accessibilityLabel(PortfolioWidgetText.accessibility(
-                s, outdated: entry.outdated ? WidgetOutdated.spoken(s.updatedAt, at: entry.date) : nil))
+                s, outdated: entry.outdated, at: entry.date,
+                hidden: entry.hideAmounts || redactionReasons.contains(.privacy)))
         } else {
             content
         }

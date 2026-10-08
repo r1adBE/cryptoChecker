@@ -6,6 +6,10 @@ import Foundation
 /// noch als Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert.
 /// Wie `SparklineRepository.kt`: `CandleDataSource` mit Ausweich-Kette, 24 × 1 h.
 ///
+/// Für die Tages-Basen der %-Änderung (`ChangeBasis`) dieselbe Abfrage mit 26 statt 24 Kerzen:
+/// Bezug ist die Eröffnung der Kerze, in der der Tagesbeginn liegt (`dayStartReference`) —
+/// in der Datei nur die Kerzen der heutigen Tagesbeginne (UTC, Ortszeit und die gewählte Zone).
+///
 /// Getrennte Gültigkeit: Mini-Chart 15 Minuten, 24-h-Bezug 60 Minuten
 /// (`DayReferenceCache.freshMillis`). Die 24-h-Bezüge liegen zusätzlich als kleine JSON-Datei
 /// in Caches (Version, kaputte Datei = leer), damit die Pillen gleich nach dem Start Werte haben.
@@ -15,27 +19,38 @@ import Foundation
 actor DayReferenceStore {
     static let shared = DayReferenceStore()
 
-    /// Schlusskurse (Mini-Chart) und 24-h-Bezug (Pille) einer Reihe.
+    /// Schlusskurse (Mini-Chart, die jüngsten 24), 24-h-Bezug (Pille) und die Eröffnung je
+    /// Kerze (Startzeit → Eröffnung) für die Tages-Basen.
     struct Series: Sendable {
         let closes: [Double]
         let reference: DayReference?
+        var opens: [Int64: Double] = [:]
     }
 
     /// Gültigkeit der Mini-Chart-Kurve.
     static let closesTtlMillis: Int64 = 15 * 60_000
     private static let failureTtlMillis: Int64 = 5 * 60_000
+    /// So lange nach Beginn einer Stunde darf ihre Kerze bei der Quelle noch fehlen.
+    private static let newCandleGraceMillis: Int64 = 10 * 60_000
     private static let maxParallel = 6
-    private static let points = 24
     private static let saveDelayNanos: UInt64 = 3_000_000_000
 
     private var cache: [String: (time: Int64, series: Series?)] = [:]
-    /// Zuletzt erfolgreich geladene 24-h-Bezüge mit Abrufzeit (auch aus der Datei).
-    private var days: [String: (time: Int64, reference: DayReference)] = [:]
+    /// Zuletzt erfolgreich geladene 24-h-Bezüge mit Abrufzeit (auch aus der Datei) und den
+    /// Eröffnungen der Stundenkerzen (aus der Datei nur die der Tagesbeginne).
+    private var days: [String: (time: Int64, reference: DayReference, opens: [Int64: Double])] = [:]
     private var inFlight: [String: Task<Series?, Never>] = [:]
     private var running = 0
     private var waiters: [CheckedContinuation<Void, Never>] = []
     private var restored = false
     private var savePending = false
+
+    /// Schon geladene Stundenkurse gegen USDT mit Abrufzeit (ohne Netz, auch wenn älter) —
+    /// für den Wertverlauf des Portfolio-Widgets; nil, wenn nichts geladen ist.
+    func cachedCloses(base: String) -> (time: Int64, closes: [Double])? {
+        guard let entry = cache[Self.key(base, "USDT")], let closes = entry.series?.closes else { return nil }
+        return (entry.time, closes)
+    }
 
     /// Gemerkter 24-h-Bezug (auch aus der Datei), höchstens `DayReferenceCache.maxAgeMillis` alt; sonst nil.
     func cachedReference(base: String, quote: String) -> DayReference? {
@@ -57,16 +72,49 @@ actor DayReferenceStore {
         return await series(base: base, quote: quote, maxAgeMillis: DayReferenceCache.freshMillis)?.reference
     }
 
+    /// Bezug seit Tagesbeginn `dayStart` (Eröffnung der Kerze, in der er liegt, und letzter
+    /// Schluss); liegt ein höchstens 60 Minuten alter Abruf vor, der diese Kerze schon enthält
+    /// (auch aus der Datei), ohne Netz. nil ohne Quelle.
+    func dayStartReference(base: String, quote: String, dayStart: Int64) async -> DayReference? {
+        restoreIfNeeded()
+        let key = Self.key(base, quote)
+        guard !key.isEmpty else { return nil }
+        let hour = ChangeBasisMath.hourOf(dayStart)
+        if let entry = days[key], DayReferenceCache.fresh(time: entry.time, now: TimeUtils.nowMillis), entry.opens[hour] != nil {
+            return ChangeBasisMath.reference(entry.opens, lastClose: entry.reference.lastClose, dayStart: dayStart)
+        }
+        guard let loaded = await series(base: base, quote: quote, maxAgeMillis: DayReferenceCache.freshMillis, needsHour: hour)
+        else { return nil }
+        return ChangeBasisMath.reference(loaded.opens, lastClose: loaded.reference?.lastClose, dayStart: dayStart)
+    }
+
+    /// Gemerkter Bezug seit `dayStart` (auch aus der Datei), Abruf höchstens
+    /// `DayReferenceCache.maxAgeMillis` alt; sonst nil.
+    func cachedDayStartReference(base: String, quote: String, dayStart: Int64) -> DayReference? {
+        restoreIfNeeded()
+        guard let entry = days[Self.key(base, quote)],
+              DayReferenceCache.usable(time: entry.time, now: TimeUtils.nowMillis) else { return nil }
+        return ChangeBasisMath.reference(entry.opens, lastClose: entry.reference.lastClose, dayStart: dayStart)
+    }
+
     /// Reihe (mindestens zwei Kerzen), höchstens `maxAgeMillis` alt, oder nil. Gleichzeitige
     /// Anfragen teilen sich einen Abruf. Standard: Gültigkeit des Mini-Charts.
-    func series(base: String, quote: String, maxAgeMillis: Int64 = DayReferenceStore.closesTtlMillis) async -> Series? {
+    /// `needsHour`: Kerze ab dieser Startzeit muss enthalten sein — ein Abruf von vor
+    /// Mitternacht kennt die Kerze des neuen Tags noch nicht und gilt dann nicht als frisch.
+    func series(base: String, quote: String, maxAgeMillis: Int64 = DayReferenceStore.closesTtlMillis,
+                needsHour: Int64? = nil) async -> Series? {
         restoreIfNeeded()
         let key = Self.key(base, quote)
         guard !key.isEmpty else { return nil }
         if let entry = cache[key] {
             let age = TimeUtils.nowMillis - entry.time
             let ttl = entry.series == nil ? Self.failureTtlMillis : maxAgeMillis
-            if age >= 0 && age < ttl { return entry.series }
+            // Abruf von vor (oder kurz nach) Beginn dieser Stunde ohne ihre Kerze: neu laden; später
+            // abgerufen und trotzdem ohne sie, liefert die Quelle sie nicht — bis zum Ablauf nicht erneut
+            let hasHour = needsHour.map { hour in
+                entry.series == nil || entry.series?.opens[hour] != nil || entry.time >= hour + Self.newCandleGraceMillis
+            } ?? true
+            if age >= 0 && age < ttl && hasHour { return entry.series }
         }
         if let pending = inFlight[key] { return await pending.value }
 
@@ -82,8 +130,8 @@ actor DayReferenceStore {
         cache[key] = (now, result)
         inFlight[key] = nil
         // Fehlschlag: der zuletzt erfolgreiche Bezug bleibt (begrenzt durch maxAgeMillis)
-        if let reference = result?.reference {
-            days[key] = (now, reference)
+        if let result, let reference = result.reference {
+            days[key] = (now, reference, result.opens)
             scheduleSave()
         }
         return result
@@ -94,11 +142,16 @@ actor DayReferenceStore {
         defer { release() }
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
-        let fetched = await CandleDataSource.candles(base: b, quote: q, interval: .h1, limit: Self.points)
+        let fetched = await CandleDataSource.candles(base: b, quote: q, interval: .h1, limit: ChangeBasisMath.candles)
         let candles = (fetched ?? []).filter { $0.close.isFinite && $0.close > 0 }
-        guard candles.count >= 2, let first = candles.first, let last = candles.last else { return nil }
-        return Series(closes: candles.map(\.close),
-                      reference: DayReference.of(open: first.open, lastClose: last.close))
+        // Mini-Chart und rollender Bezug wie bisher aus den jüngsten 24 Kerzen
+        let recent = Array(candles.suffix(ChangeBasisMath.rollingCandles))
+        guard recent.count >= 2, let first = recent.first, let last = recent.last else { return nil }
+        var opens: [Int64: Double] = [:]
+        for candle in candles { opens[candle.openTime] = candle.open }
+        return Series(closes: recent.map(\.close),
+                      reference: DayReference.of(open: first.open, lastClose: last.close),
+                      opens: opens)
     }
 
     // Einfache Zählsperre: höchstens `maxParallel` Abrufe gleichzeitig.
@@ -153,7 +206,7 @@ actor DayReferenceStore {
             guard let reference = DayReference.of(open: stored.open, lastClose: stored.lastClose) else { continue }
             // Nie einen frischeren Wert aus dem Netz überschreiben
             if let current = days[key], current.time >= stored.time { continue }
-            days[key] = (stored.time, reference)
+            days[key] = (stored.time, reference, stored.startOpens)
         }
     }
 
@@ -171,9 +224,14 @@ actor DayReferenceStore {
         savePending = false
         guard let url = Self.fileURL else { return }
         let now = TimeUtils.nowMillis
-        let stored = days.map { DayReferenceCache.Stored(key: $0.key, time: $0.value.time,
-                                                         open: $0.value.reference.open,
-                                                         lastClose: $0.value.reference.lastClose) }
+        // Nur die Kerzen der heutigen Tagesbeginne (UTC, Ortszeit, gewählte Zone) mitschreiben
+        let dayStarts = ChangeBasisMath.keptDayStarts(SharedStorage.loadSettings().changeBasis, now: now)
+        let stored = days.map { entry in
+            DayReferenceCache.Stored(key: entry.key, time: entry.value.time,
+                                     open: entry.value.reference.open,
+                                     lastClose: entry.value.reference.lastClose,
+                                     starts: DayReferenceCache.keepStarts(entry.value.opens, dayStarts: dayStarts))
+        }
         let content = FileContent(v: DayReferenceCache.formatVersion,
                                   e: DayReferenceCache.toSave(stored, now: now))
         guard let data = try? JSONEncoder().encode(content) else { return }
@@ -194,16 +252,43 @@ enum DayReferenceCache {
     /// Höchstens so viele Einträge in der Datei (die jüngsten).
     static let maxEntries = 3_000
 
-    /// Ein gespeicherter Bezug; `key` wie «BTC|USDT».
+    /// Eröffnung der Stundenkerze ab `t` (volle Stunde) — für die Tagesbeginne.
+    struct StartOpen: Codable, Equatable, Sendable {
+        var t: Int64
+        var o: Double
+    }
+
+    /// Ein gespeicherter Bezug; `key` wie «BTC|USDT»; `starts` nur für die Tagesbeginne
+    /// (`keepStarts`), ältere Dateien ohne sie bleiben gültig.
     struct Stored: Codable, Equatable, Sendable {
         var key: String
         var time: Int64
         var open: Double
         var lastClose: Double
+        var starts: [StartOpen]? = nil
 
         enum CodingKeys: String, CodingKey {
-            case key = "k", time = "t", open = "o", lastClose = "c"
+            case key = "k", time = "t", open = "o", lastClose = "c", starts = "s"
         }
+
+        /// Gültige Eröffnungen (volle Stunde, Kurs > 0) als Startzeit → Eröffnung.
+        var startOpens: [Int64: Double] {
+            var out: [Int64: Double] = [:]
+            for s in starts ?? [] where s.t > 0 && s.t % ChangeBasisMath.hourMillis == 0 && s.o.isFinite && s.o > 0 {
+                out[s.t] = s.o
+            }
+            return out
+        }
+    }
+
+    /// Von den Stunden-Eröffnungen nur die Kerzen, in denen einer der `dayStarts` liegt; nil wenn keine.
+    static func keepStarts(_ opens: [Int64: Double], dayStarts: [Int64]) -> [StartOpen]? {
+        let hours = Set(dayStarts.map { ChangeBasisMath.hourOf($0) })
+        let kept = hours.sorted().compactMap { hour -> StartOpen? in
+            guard let open = opens[hour], open.isFinite, open > 0 else { return nil }
+            return StartOpen(t: hour, o: open)
+        }
+        return kept.isEmpty ? nil : kept
     }
 
     /// Abrufzeit liegt höchstens `maxAgeMillis` zurück (und nicht in der Zukunft).

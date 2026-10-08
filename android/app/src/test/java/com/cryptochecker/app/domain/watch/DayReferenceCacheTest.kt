@@ -60,4 +60,22 @@ class DayReferenceCacheTest {
         assertEquals("C0|USDT", saved.first().key)
         assertFalse(saved.any { it.key == "OLD|USDT" })
     }
+
+    @Test
+    fun `day start opens are kept only for the given day starts and validated on restore`() {
+        val dayUtc = 1_799_971_200_000L // volle Stunde
+        val opens = mapOf(dayUtc - hour to 1.0, dayUtc to 2.0, dayUtc + hour to 3.0, dayUtc - 2 * hour to 4.0)
+        // Ortszeit 30 Minuten verschoben: Kerze ab der vollen Stunde davor
+        val kept = DayReferenceCache.keepStarts(opens, listOf(dayUtc, dayUtc - hour / 2))
+        assertEquals(mapOf(dayUtc to 2.0, dayUtc - hour to 1.0), kept)
+        val restored = DayReferenceCache.restore(
+            DayReferenceCache.FORMAT_VERSION,
+            listOf(Stored("BTC|USDT", now - hour, 100.0, 101.0, mapOf(dayUtc to 2.0, dayUtc + 1 to 5.0, dayUtc + hour to Double.NaN))),
+            now,
+        )
+        assertEquals(mapOf(dayUtc to 2.0), restored.getValue("BTC|USDT").starts)
+        // Ältere Einträge ohne Tagesbeginne bleiben gültig
+        val old = DayReferenceCache.restore(DayReferenceCache.FORMAT_VERSION, listOf(Stored("ETH|USDT", now - hour, 1.0, 1.0)), now)
+        assertTrue(old.getValue("ETH|USDT").starts.isEmpty())
+    }
 }

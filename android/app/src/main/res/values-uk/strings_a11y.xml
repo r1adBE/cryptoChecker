@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Кольори цін</string>
-    <string name="price_colors_green_red">Зелений / червоний</string>
-    <string name="price_colors_blue_orange">Синій / помаранчевий</string>
     <string name="settings_price_colors_hint">Синій / помаранчевий добре розрізняються за будь-якого порушення колірного зору (червоно-зеленого та синьо-жовтого). Напрямок до того ж завжди позначено знаками + / −.</string>
     <string name="settings_watchlist_sparkline">Міні-графік у списку</string>
     <string name="settings_watchlist_sparkline_hint">Динаміка за 24 години поруч із ціною</string>
 
-    <string name="settings_price_colors_inverted">Поміняти кольори зростання та падіння</string>
-    <string name="settings_price_colors_inverted_hint">Червоний для зростання, зелений для падіння, як заведено в Китаї, Японії, Кореї та на Тайвані. Типово залежить від регіону пристрою.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Висока контрастність</string>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">تغيّر %1$s</string>
+    <string name="change_basis_rolling">آخر 24 ساعة</string>
+    <string name="change_basis_utc_zone">منذ 00:00 %1$s</string>
+    <string name="change_basis_local">منذ 00:00 بالتوقيت المحلي</string>
+    <string name="settings_change_basis_hint_1">تحدد المنطقة الزمنية المختارة بداية حساب نسبة التغيّر في قائمة المتابعة وسطر النبض وورقة الزوج والأدوات.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» يقارن بالسعر قبل 24 ساعة تمامًا. «00:00» يقارن بسعر الافتتاح عند منتصف الليل في هذه المنطقة الزمنية.</string>
+    <string name="settings_change_basis_hint_3">لا يؤثر ذلك على التنبيهات.</string>
+    <string name="change_basis_device">%1$s، 00:00 (المنطقة الزمنية للجهاز)</string>
+    <string name="change_short_today">اليوم</string>
+    <string name="change_short_today_zone">اليوم %1$s</string>
+    <string name="a11y_change_today">%1$s اليوم</string>
+    <string name="a11y_change_today_zone">%1$s منذ منتصف الليل %2$s</string>
+    <string name="a11y_change_today_none">تغيّر اليوم غير متاح</string>
+    <string name="a11y_change_today_zone_none">التغيّر منذ منتصف الليل %1$s غير متاح</string>
+    <string name="sheet_chart_today">اليوم</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">عند إغلاق التطبيق، مرة واحدة في الدقيقة على الأكثر</string>
+    <string name="sheet_more">المزيد</string>
+    <string name="a11y_expanded">موسّع</string>
+    <string name="a11y_collapsed">مطوي</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="zero">%1$d بلا قيمة اليوم</item>
+        <item quantity="one">%1$d بلا قيمة اليوم</item>
+        <item quantity="two">%1$d بلا قيمة اليوم</item>
+        <item quantity="few">%1$d بلا قيمة اليوم</item>
+        <item quantity="many">%1$d بلا قيمة اليوم</item>
+        <item quantity="other">%1$d بلا قيمة اليوم</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="zero">%1$d زوج بلا قيمة لليوم</item>
+        <item quantity="one">%1$d زوج بلا قيمة لليوم</item>
+        <item quantity="two">%1$d زوجان بلا قيمة لليوم</item>
+        <item quantity="few">%1$d أزواج بلا قيمة لليوم</item>
+        <item quantity="many">%1$d زوجًا بلا قيمة لليوم</item>
+        <item quantity="other">%1$d زوج بلا قيمة لليوم</item>
+    </plurals>
+</resources>

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Χρώματα τιμών</string>
-    <string name="price_colors_green_red">Πράσινο / κόκκινο</string>
-    <string name="price_colors_blue_orange">Μπλε / πορτοκαλί</string>
     <string name="settings_price_colors_hint">Το μπλε / πορτοκαλί ξεχωρίζει εύκολα σε κάθε μορφή δυσχρωματοψίας (κόκκινου-πράσινου και μπλε-κίτρινου). Η κατεύθυνση εμφανίζεται επίσης πάντα με + / −.</string>
     <string name="settings_watchlist_sparkline">Μίνι γράφημα στη λίστα</string>
     <string name="settings_watchlist_sparkline_hint">Τάση 24 ωρών δίπλα στην τιμή</string>
 
-    <string name="settings_price_colors_inverted">Εναλλαγή χρωμάτων ανόδου/πτώσης</string>
-    <string name="settings_price_colors_inverted_hint">Κόκκινο για άνοδο, πράσινο για πτώση, όπως συνηθίζεται σε Κίνα, Ιαπωνία, Κορέα και Ταϊβάν. Η προεπιλογή εξαρτάται από την περιοχή της συσκευής.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Υψηλή αντίθεση</string>

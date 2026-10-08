@@ -38,4 +38,30 @@ object SettingsSummary {
         alarmsOnly -> Speech.ALARMS_ONLY
         else -> Speech.ON
     }
+
+    /** Runde 23f: Kurzwert der Zeile «Aktualisierung» — Live geht vor dem Hintergrund-Intervall. */
+    enum class Updates { OFF, BACKGROUND, LIVE }
+
+    fun updates(liveService: Boolean, backgroundUpdates: Boolean): Updates = when {
+        liveService -> Updates.LIVE
+        backgroundUpdates -> Updates.BACKGROUND
+        else -> Updates.OFF
+    }
+
+    /** Kurzwert der Zeile «Portfolio»: Die Sperre zählt nur bei eingeschaltetem Portfolio. */
+    enum class Portfolio { OFF, ON, LOCKED }
+
+    fun portfolio(enabled: Boolean, lock: Boolean): Portfolio = when {
+        !enabled -> Portfolio.OFF
+        lock -> Portfolio.LOCKED
+        else -> Portfolio.ON
+    }
+
+    /** Teile des Kurzwerts der Zeile «Merkliste» (Mini-Chart, ≈ Umrechnung); leer = nur Kurs. */
+    enum class WatchlistPart { SPARKLINE, CONVERTED }
+
+    fun watchlist(sparkline: Boolean, converted: Boolean): List<WatchlistPart> = buildList {
+        if (sparkline) add(WatchlistPart.SPARKLINE)
+        if (converted) add(WatchlistPart.CONVERTED)
+    }
 }

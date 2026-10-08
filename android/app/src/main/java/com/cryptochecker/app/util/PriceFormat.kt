@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.marketdata.util.FormatUtilsBase
 import java.text.DateFormat
 import java.text.DecimalFormat
@@ -27,11 +28,13 @@ object PriceFormat {
 
     /**
      * Freie Eingabe einer Menge: Komma oder Punkt, Leerzeichen und
-     * Tausenderstriche werden ignoriert. Leer = 0 (kein Bestand),
+     * Tausenderstriche werden ignoriert, arabische/persische Ziffern gelten
+     * ([ThresholdParser.latinDigits]). Leer = 0 (kein Bestand),
      * ungültig oder negativ = null.
      */
     fun parseAmount(text: String): Double? {
-        val cleaned = text.trim().replace(" ", "").replace("'", "").replace("’", "").replace(',', '.')
+        val cleaned = ThresholdParser.latinDigits(text).trim()
+            .replace(" ", "").replace("'", "").replace("’", "").replace(',', '.')
         if (cleaned.isEmpty()) return 0.0
         return cleaned.toDoubleOrNull()?.takeIf { it >= 0.0 && !it.isInfinite() }
     }
@@ -49,18 +52,30 @@ object PriceFormat {
     fun changePercent(value: Double?): String? {
         if (value == null || abs(value) < 0.005) return null
         val sign = if (value > 0) "+" else "−"
-        return "$sign%.2f%%".format(abs(value))
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl («1.20%+»)
+        return BidiText.ltr("$sign%.2f%%".format(abs(value)))
     }
+
+    /**
+     * Praktisch keine Änderung: «0.00%» grau, ohne Pfeil — in der Schreibweise der App-Sprache
+     * («0,00%», arabisch «٠٫٠٠%») wie [changePercent].
+     */
+    fun zeroPercent(): String = BidiText.ltr("%.2f%%".format(0.0))
 
     /** Uhrzeit mit Sekunden — bei Kursen zählt die Sekunde. */
     fun time(millis: Long): String =
         if (millis <= 0) "—"
         else DateFormat.getTimeInstance(DateFormat.MEDIUM).format(Date(millis))
 
+    /** Uhrzeit ohne Sekunden in der Sprache des Geräts, z. B. «19:41» («Offline · Stand 19:41»). */
+    fun shortTime(millis: Long): String =
+        if (millis <= 0) "—"
+        else DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(millis))
+
     /** Prozentwert für Benachrichtigungen: mit Vorzeichen, drei Nachkommastellen. */
     fun changePercentDetailed(value: Double): String {
         val sign = if (value >= 0) "+" else "-"
-        return "$sign%.3f%%".format(abs(value))
+        return BidiText.ltr("$sign%.3f%%".format(abs(value)))
     }
 
     /**
@@ -78,17 +93,17 @@ object PriceFormat {
         val days = hours / 24
 
         return when {
-            days > 0 -> "${days}d"
-            hours > 0 -> "${hours}h"
-            minutes > 0 -> "${minutes}m"
-            else -> "${seconds}s"
+            days > 0 -> LocaleNumbers.integer(days) + "d"
+            hours > 0 -> LocaleNumbers.integer(hours) + "h"
+            minutes > 0 -> LocaleNumbers.integer(minutes) + "m"
+            else -> LocaleNumbers.integer(seconds) + "s"
         }
     }
 
     /** Dauer einer Aktualisierung, kurz gehalten für den Widget-Kopf. */
     fun duration(millis: Long): String = when {
         millis <= 0 -> ""
-        millis < 1000 -> "$millis ms"
+        millis < 1000 -> LocaleNumbers.integer(millis) + " ms"
         else -> "%.1f s".format(millis / 1000.0)
     }
 

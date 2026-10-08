@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">अलार्म संकेत</string>
+    <string name="alarm_signal_system">सिस्टम</string>
+    <string name="alarm_signal_sound_vibrate">आवाज़ और वाइब्रेशन</string>
+    <string name="alarm_signal_sound">सिर्फ़ आवाज़</string>
+    <string name="alarm_signal_vibrate">सिर्फ़ वाइब्रेशन</string>
+    <string name="alarm_signal_silent">साइलेंट (सिर्फ़ सूचना)</string>
+    <string name="settings_alarm_signal_system_hint">फ़ोन की सूचना सेटिंग के अनुसार।</string>
+    <string name="settings_alarm_signal_open_system">सिस्टम सेटिंग में बदलें</string>
+    <string name="channel_alarms_sound_vibrate">अलार्म (आवाज़ और वाइब्रेशन)</string>
+    <string name="channel_alarms_sound">अलार्म (सिर्फ़ आवाज़)</string>
+    <string name="channel_alarms_vibrate">अलार्म (सिर्फ़ वाइब्रेशन)</string>
+    <string name="channel_alarms_silent">अलार्म (साइलेंट)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">वाइब्रेशन iPhone सेटिंग (ध्वनियाँ और हैप्टिक्स) के अनुसार होता है।</string>
+</resources>

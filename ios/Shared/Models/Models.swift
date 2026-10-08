@@ -90,10 +90,35 @@ enum AlarmCondition: String, Codable, CaseIterable, Sendable {
     case NEAR_HIGH
     /// Wie `NEAR_HIGH`, aber höchstens x % über dem Tief des Zeitraums (oder ein neues Tief).
     case NEAR_LOW
+    /// Nur Perpetual-Futures (`DerivativesAlarm.supports`): Funding Rate je Intervall erreicht oder
+    /// übersteigt x % (`threshold` in Prozent, darf negativ sein); `referenceAt` 0 = scharf / > 0 = gemeldet.
+    case FUNDING_ABOVE
+    /// Wie `FUNDING_ABOVE`, aber Funding erreicht oder unterschreitet x %.
+    case FUNDING_BELOW
+    /// Nur Perpetual-Futures: Open Interest (in Coins) mindestens x % über der gespeicherten Messung
+    /// von vor `windowHours` Stunden (1, 4 oder 24); `referenceAt` 0 = scharf / > 0 = gemeldet.
+    case OI_UP
+    /// Wie `OI_UP`, aber Open Interest mindestens x % darunter.
+    case OI_DOWN
 
     /// «Nahe am Hoch / Tief»: Schwellwert ist ein Abstand in Prozent, Fenster in Tagen.
     var isNearExtreme: Bool {
         self == .NEAR_HIGH || self == .NEAR_LOW
+    }
+
+    /// «Funding über/unter»: Schwellwert ist eine Funding Rate in Prozent (mit Vorzeichen).
+    var isFunding: Bool {
+        self == .FUNDING_ABOVE || self == .FUNDING_BELOW
+    }
+
+    /// «Open Interest steigt/fällt um x % in N Stunden».
+    var isOpenInterest: Bool {
+        self == .OI_UP || self == .OI_DOWN
+    }
+
+    /// Braucht Funding/Open Interest eines Perpetual-Kontrakts (nur Futures-Paare).
+    var isDerivatives: Bool {
+        isFunding || isOpenInterest
     }
 
     var isPercent: Bool {
@@ -129,7 +154,8 @@ struct Alarm: Codable, Identifiable, Hashable, Sendable {
     var lastTriggeredAt: Int64 = 0
     var lastTriggeredPrice: Double? = nil
 
-    /// Zeitfenster in Stunden für MOVE_PERCENT_WINDOW; bei NEAR_HIGH/NEAR_LOW der Zeitraum in Tagen.
+    /// Zeitfenster in Stunden für MOVE_PERCENT_WINDOW und OI_UP/OI_DOWN (1, 4, 24); bei
+    /// NEAR_HIGH/NEAR_LOW der Zeitraum in Tagen.
     var windowHours: Int = 1
     /// Seit wann der Bezugskurs gilt (Beginn des Zeitfensters). Bei PRICE_ABOVE/PRICE_BELOW:
     /// 0 = scharf, > 0 = gemeldet, bis der Kurs auf die andere Seite der Marke zurückkehrt.
@@ -219,6 +245,27 @@ extension Watch {
     static func validGroupName(_ name: String?) -> String? {
         guard let trimmed = name?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else { return nil }
         return trimmed
+    }
+}
+
+/// Gruppe für ein neues Paar, wenn beim Hinzufügen keine gewählt ist: Futures auf Aktien, Rohstoffe,
+/// Devisen und Pre-IPO kommen nach «TradFi», Laufzeit-Futures (Quartal u. a.) nach «QTLY» — so stehen
+/// sie nicht zwischen den Coins. Eine selbst gewählte Gruppe geht immer vor; bestehende Einträge
+/// bleiben, wie sie sind. Namen in allen Sprachen gleich. Wie `AutoGroup.kt`.
+enum AutoGroup {
+    static let tradFi = "TradFi"
+    static let dated = "QTLY"
+
+    /// nil: keine eigene Gruppe (Krypto-Spot und -Perpetuals).
+    static func forPair(_ pair: CurrencyPairInfo) -> String? {
+        if pair.isTradFi { return tradFi }
+        if pair.contractType.isRolling { return dated }
+        return nil
+    }
+
+    /// Gewählte Gruppe, sonst die passende von `forPair`.
+    static func resolve(_ chosen: String?, pair: CurrencyPairInfo) -> String? {
+        Watch.validGroupName(chosen) ?? forPair(pair)
     }
 }
 

@@ -46,7 +46,7 @@ struct ExplorerGroupTargetSelector: View {
                 Label(L("group_new"), systemImage: "plus")
             }
         } label: {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 Image(systemName: "folder")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(accent.primary)
@@ -62,7 +62,7 @@ struct ExplorerGroupTargetSelector: View {
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
             .padding(.horizontal, 12)
-            .padding(.vertical, 7)
+            .padding(.vertical, Spacing.sm)
             .background(AppColors.containerHigh, in: Capsule())
             .contentShape(Capsule())
         }

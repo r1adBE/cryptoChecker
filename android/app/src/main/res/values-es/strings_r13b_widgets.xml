@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">desactualizado · %1$s</string>
 
     <string name="settings_widgets">Widgets</string>
-    <string name="settings_widgets_hint">Añade precios a tu pantalla de inicio</string>
     <string name="widgets_sheet_title">Añadir un widget</string>
     <string name="widget_kind_single">Una moneda</string>
     <string name="widgets_add">Añadir</string>

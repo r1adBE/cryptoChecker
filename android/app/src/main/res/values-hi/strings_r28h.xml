@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">भरोसा: %1$s</string>
+    <string name="why_confidence_high">उच्च</string>
+    <string name="why_confidence_medium">मध्यम</string>
+    <string name="why_confidence_low">कम</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%2$d में से %1$d संकेत इसकी ओर इशारा करता है</item>
+        <item quantity="other">%2$d में से %1$d संकेत इसकी ओर इशारा करते हैं</item>
+    </plurals>
+    <string name="why_confidence_partial">अधूरा डेटा</string>
+</resources>

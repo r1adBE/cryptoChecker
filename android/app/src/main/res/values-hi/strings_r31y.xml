@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">पुराना डेटा · %1$s</string>
+    <string name="why_brief_label">संक्षेप में:</string>
+    <string name="why_factor_market">पूरा बाज़ार</string>
+    <string name="why_factor_futures">फ़्यूचर्स</string>
+    <string name="why_factor_near_high">ऊँचाई के पास</string>
+    <string name="why_factor_funding">फ़ंडिंग</string>
+    <string name="why_fn_volume_higher">सामान्य से अधिक</string>
+    <string name="why_fn_volume_lower">सामान्य से कम</string>
+    <string name="why_fn_volume_usual">सामान्य</string>
+    <string name="why_fn_market_pulls">BTC बाज़ार को साथ खींच रहा है</string>
+    <string name="why_fn_market_lags">बाज़ार चल रहा है, यह कॉइन मुश्किल से</string>
+    <string name="why_fn_market_alone">बाज़ार शांत – यह कॉइन अकेले चल रहा है</string>
+    <string name="why_fn_market_against">कॉइन बाज़ार के उलट चल रहा है</string>
+    <string name="why_fn_market_calm">बाज़ार शांत</string>
+    <string name="why_fn_leader_moves">बिटकॉइन दिशा तय कर रहा है</string>
+    <string name="why_fn_leader_calm">बिटकॉइन शांत</string>
+    <string name="why_fn_volatility_stronger">सामान्य से तेज़</string>
+    <string name="why_fn_volatility_usual">सामान्य</string>
+    <string name="why_fn_oi_up">ओपन इंटरेस्ट बढ़ा</string>
+    <string name="why_fn_oi_down">ओपन इंटरेस्ट घटा</string>
+    <string name="why_fn_oi_flat">ओपन इंटरेस्ट लगभग अपरिवर्तित</string>
+    <string name="why_fn_high_at">30-दिन की ऊँचाई पर</string>
+    <string name="why_fn_high_below">30-दिन की ऊँचाई से नीचे</string>
+    <string name="why_fn_funding_longs">कई लोग बढ़त पर दाँव लगा रहे हैं</string>
+    <string name="why_fn_funding_shorts">कई लोग गिरावट पर दाँव लगा रहे हैं</string>
+    <string name="why_fn_funding_neutral">तटस्थ</string>
+</resources>

@@ -3,7 +3,6 @@
 package com.cryptochecker.app.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -29,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,7 +34,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -53,36 +49,6 @@ import com.cryptochecker.app.widget.WidgetPinner
  * Aktionen-Blatt der Merkliste legt ein Einzel-Widget für das Paar an. Kann der
  * Startbildschirm das nicht, steht stattdessen eine kurze Anleitung da.
  */
-
-/** Zeile «Widgets» in den Einstellungen; öffnet das Blatt mit den Widget-Arten. */
-@Composable
-fun WidgetsSettingsRow(portfolioEnabled: Boolean) {
-    var open by rememberSaveable { mutableStateOf(false) }
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(role = Role.Button) { open = true }
-            .padding(vertical = 12.dp)
-    ) {
-        Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
-            Text(stringResource(R.string.settings_widgets), style = MaterialTheme.typography.bodyLarge)
-            Text(
-                stringResource(R.string.settings_widgets_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-        Icon(
-            painterResource(R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
-    if (open) {
-        AddWidgetsSheet(portfolioEnabled = portfolioEnabled, onDismiss = { open = false })
-    }
-}
 
 /**
  * Blatt mit den Widget-Arten: Merkliste, Einzel-Coin, Portfolio (nur wenn eingeschaltet),

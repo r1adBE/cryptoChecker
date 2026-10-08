@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.ui.theme.Spacing
 
 /**
  * Abschnitt mit kleiner Überschrift und Inhalt auf einer abgerundeten Fläche.
@@ -28,7 +29,7 @@ fun SectionCard(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    Column(modifier = modifier.fillMaxWidth().padding(bottom = 20.dp)) {
+    Column(modifier = modifier.fillMaxWidth().padding(bottom = Spacing.lg)) {
         if (!title.isNullOrEmpty()) {
             // Ruhige Überschrift: keine Grossbuchstaben, keine Akzentfarbe
             Text(
@@ -67,7 +68,7 @@ fun SwitchRow(
                 role = Role.Switch,
                 onValueChange = onCheckedChange
             )
-            .padding(vertical = 10.dp),
+            .padding(vertical = Spacing.md),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {

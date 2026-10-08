@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Marktmeldingen</string>
-    <string name="settings_market_alerts_hint">Marktfase, Fear &amp; Greed, gaskosten, ongewone activiteit, economische data</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d actief</item>
         <item quantity="other">%1$d actief</item>
     </plurals>
-    <string name="settings_tts_row_hint">Leest koersen en alarmen voor</string>
     <string name="settings_summary_on">Aan</string>
 
     <string name="alarm_first_text_checked">Crypto Checker houdt nu %1$s voor je in de gaten. Bereikt %1$s je grens, dan krijg je een melding zodra de app de koers controleert. Als de app gesloten is, gebeurt dat met het interval van updates op de achtergrond – later als batterijoptimalisatie de app beperkt.</string>

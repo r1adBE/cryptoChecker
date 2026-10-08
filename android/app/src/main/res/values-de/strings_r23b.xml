@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Sucht auf allen Börsen gleichzeitig – Treffer antippen, um ihn zur Merkliste hinzuzufügen.</string>
+    <string name="explorer_no_pairs_yet">Für diese Börse sind noch keine Paare geladen.</string>
+</resources>

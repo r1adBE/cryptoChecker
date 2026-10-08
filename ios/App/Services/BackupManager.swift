@@ -6,10 +6,11 @@ import UniformTypeIdentifiers
 /// Einstellungen als eine JSON-Datei, die der Nutzer selbst ablegt — wie `BackupManager.kt`.
 ///
 /// Das Format ist genau das der Android-Fassung, damit Sicherungen zwischen
-/// Android und iOS austauschbar bleiben:
+/// Android und iOS austauschbar bleiben (mit Passwort zusätzlich verschlüsselt, `BackupCrypto`):
 /// `{"format":"cryptochecker-backup","version":1,"createdAt":…,"watches":[…],
 ///   "alarms":[…],"favorites":{"MARKET":[…],"COIN":[…],"QUOTE":[…]},"settings":{…},
-///   "portfolio":[{"id","coin","type","amount","priceUsdt","time","note"}…]}`
+///   "portfolio":[{"id","coin","type","amount","priceUsdt","time","note"}…],
+///   "portfolioAlarms":[{"id","kind","threshold","currency","enabled","repeating"}…]}`
 ///
 /// Bewusst `JSONSerialization` statt `Codable`: fehlende Werte werden als
 /// `null` geschrieben (z. B. `pairId`, `darkMode`), wie `JSONObject.NULL`.
@@ -35,8 +36,18 @@ enum BackupManager {
 
     // MARK: Sichern
 
+    /// Sicherung als Datei; mit `password` verschlüsselt (`BackupCrypto`, gleiches Format wie
+    /// unter Android), sonst wie bisher als lesbares JSON.
     @MainActor
-    static func exportData(_ data: AppData) throws -> Data {
+    static func exportData(_ data: AppData, password: String?) throws -> Data {
+        let plain = try plainExportData(data)
+        guard let password else { return plain }
+        let envelope = try BackupCrypto.encrypt(plain, password: password)
+        return BackupCrypto.json(envelope)
+    }
+
+    @MainActor
+    private static func plainExportData(_ data: AppData) throws -> Data {
         let snapshot = data.snapshot
         let watches = snapshot.watches.sorted {
             $0.sortOrder != $1.sortOrder ? $0.sortOrder < $1.sortOrder : $0.id < $1.id
@@ -58,14 +69,40 @@ enum BackupManager {
             "settings": settingsToJson(data.settings),
             // Neueste zuerst — wie `portfolioDao.getAll()`
             "portfolio": data.portfolio.map(txToJson),
+            // Alarme «Portfolio-Wert» (Runde 28), nach Id — wie Android
+            "portfolioAlarms": data.portfolioAlarms.map(portfolioAlarmToJson),
         ]
         return try JSONSerialization.data(withJSONObject: root, options: [.prettyPrinted, .sortedKeys])
     }
 
     // MARK: Wiederherstellen
 
+    /// Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen.
+    /// - Throws: `Failure.notABackup`, wenn die Datei keine Sicherung ist.
+    static func needsPassword(_ file: Data) throws -> Bool {
+        guard let root = try JSONSerialization.jsonObject(with: file) as? [String: Any] else { throw Failure.notABackup }
+        // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc), ältere Versionen lehnen sie ab
+        if BackupCrypto.isEnvelope(root) { return true }
+        guard root["format"] as? String == format else { throw Failure.notABackup }
+        return false
+    }
+
+    /// Klartext-JSON der Sicherung; verschlüsselt ohne Passwort gilt als falsches Passwort.
+    /// - Throws: `BackupCrypto.Failure.wrongPassword` bei falschem Passwort oder veränderter Datei.
+    static func plainJSON(_ file: Data, password: String?) throws -> Data {
+        guard let root = try JSONSerialization.jsonObject(with: file) as? [String: Any] else { throw Failure.notABackup }
+        guard BackupCrypto.isEnvelope(root) else {
+            guard root["format"] as? String == format else { throw Failure.notABackup }
+            return file
+        }
+        guard let password else { throw BackupCrypto.Failure.wrongPassword }
+        let envelope = try BackupCrypto.envelope(from: root)
+        return try BackupCrypto.decrypt(envelope, password: password)
+    }
+
     /// Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung.
     /// Alarme, deren Paar fehlt, fallen weg (wie der Fremdschlüssel unter Android).
+    /// `json` ist der Klartext (`plainJSON`); eine verschlüsselte Hülle hat ein anderes «format» und wird abgelehnt.
     @MainActor
     static func restore(_ json: Data, into data: AppData) throws -> (watches: Int, alarms: Int) {
         guard let root = try JSONSerialization.jsonObject(with: json) as? [String: Any],
@@ -106,10 +143,27 @@ enum BackupManager {
             items.compactMap { ($0 as? [String: Any]).flatMap(jsonToTx) }
         }
 
+        // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
+        let portfolioAlarms: [PortfolioAlarm]? = (root["portfolioAlarms"] as? [Any]).map { items in
+            items.compactMap { ($0 as? [String: Any]).flatMap(jsonToPortfolioAlarm) }
+        }
+
         let old = data.snapshot
         var snapshot = SharedStorage.Snapshot()
         snapshot.watches = watches
         snapshot.alarms = alarms
+        // Wiederhergestellte Portfolio-Alarme sind scharf und ohne letzte Meldung
+        snapshot.portfolioAlarms = portfolioAlarms.map { list in
+            list.map { a in
+                var copy = a
+                copy.referenceAt = 0
+                copy.lastTriggeredAt = 0
+                copy.lastTriggeredValue = nil
+                return copy
+            }
+        } ?? old.portfolioAlarms
+        let maxPortfolioId = (snapshot.portfolioAlarms ?? []).map(\.id).max() ?? 0
+        snapshot.nextPortfolioAlarmId = max(old.nextPortfolioAlarmId ?? 1, maxPortfolioId + 1)
         // Ids nie wiederverwenden: über dem bisherigen Zähler und über allen neuen ids
         snapshot.nextWatchId = max(old.nextWatchId, (watches.map(\.id).max() ?? 0) + 1)
         snapshot.nextAlarmId = max(old.nextAlarmId, (alarms.map(\.id).max() ?? 0) + 1)
@@ -121,6 +175,32 @@ enum BackupManager {
         // Portfolio ersetzen und Bestand alter Sicherungen übernehmen (nur Coins ohne Transaktion)
         data.restorePortfolio(portfolio)
         return (watches.count, alarms.count)
+    }
+
+    // MARK: Portfolio-Alarme
+
+    /// Gleiches Format wie Android; Zustand (gemeldet, zuletzt) wird nicht gesichert.
+    private static func portfolioAlarmToJson(_ a: PortfolioAlarm) -> [String: Any] {
+        [
+            "id": NSNumber(value: a.id),
+            "kind": a.kind.rawValue,
+            "threshold": a.threshold,
+            "currency": a.currency.map { $0 as Any } ?? NSNull(),
+            "enabled": a.enabled,
+            "repeating": a.repeating,
+        ]
+    }
+
+    /// Unbekannte Art (neuere Version), ungültiger Schwellwert oder fehlende Währung: überspringen.
+    private static func jsonToPortfolioAlarm(_ o: [String: Any]) -> PortfolioAlarm? {
+        guard let name = string(o, "kind"), let kind = PortfolioAlarmKind(rawValue: name),
+              let threshold = double(o, "threshold"), PortfolioAlarmLogic.isValidThreshold(kind, threshold)
+        else { return nil }
+        let currency = isNull(o, "currency") ? nil : Alarm.validCurrency(string(o, "currency"))
+        if kind.isValue && currency == nil { return nil }
+        return PortfolioAlarm(id: max(0, int64(o, "id") ?? 0), kind: kind, threshold: threshold,
+                              currency: kind.isValue ? currency : nil,
+                              enabled: bool(o, "enabled") ?? true, repeating: bool(o, "repeating") ?? false)
     }
 
     // MARK: Merkliste & Alarme
@@ -259,6 +339,7 @@ enum BackupManager {
             "backgroundIntervalMinutes": s.backgroundIntervalMinutes,
             "liveService": s.liveService,
             "liveIntervalSeconds": s.liveIntervalSeconds,
+            "liveWebSocket": s.liveWebSocket,
             "priceNotifications": s.priceNotifications,
             "ongoingNotifications": s.ongoingNotifications,
             "notificationChangePercent": s.notificationChangePercent,
@@ -267,6 +348,7 @@ enum BackupManager {
             "ttsSpeechRate": s.ttsSpeechRate,
             "alarmCooldownMinutes": s.alarmCooldownMinutes,
             "includeRollingFutures": s.includeRollingFutures,
+            "includeTradFiFutures": s.includeTradFiFutures,
             "accentColor": s.accentColor.rawValue,
             "darkMode": s.darkMode.map { $0 as Any } ?? NSNull(),
             "zoneAlerts": s.zoneAlerts,
@@ -282,12 +364,15 @@ enum BackupManager {
             "showConverted": s.showConverted,
             "priceColorScheme": s.priceColorScheme.rawValue,
             "watchlistSparkline": s.watchlistSparkline,
+            "changeBasis": s.changeBasis.rawValue,
             "highContrast": s.highContrast,
             "priceColorsInverted": s.priceColorsInverted,
+            "alarmSignal": s.alarmSignal.rawValue,
             "quietHoursEnabled": s.quietHoursEnabled,
             "quietHoursStart": s.quietHoursStart,
             "quietHoursEnd": s.quietHoursEnd,
             "appLock": s.appLock,
+            "hidePortfolioAmounts": s.hidePortfolioAmounts,
         ]
     }
 
@@ -298,6 +383,7 @@ enum BackupManager {
         if let v = int(o, "backgroundIntervalMinutes") { s.backgroundIntervalMinutes = max(v, AppSettings.minBackgroundIntervalMinutes) }
         if let v = bool(o, "liveService") { s.liveService = v }
         if let v = int(o, "liveIntervalSeconds") { s.liveIntervalSeconds = max(v, AppSettings.minLiveIntervalSeconds) }
+        if let v = bool(o, "liveWebSocket") { s.liveWebSocket = v }
         if let v = bool(o, "priceNotifications") { s.priceNotifications = v }
         if let v = bool(o, "ongoingNotifications") { s.ongoingNotifications = v }
         if let v = double(o, "notificationChangePercent") { s.notificationChangePercent = min(max(v, 0), 100) }
@@ -306,6 +392,7 @@ enum BackupManager {
         if let v = double(o, "ttsSpeechRate") { s.ttsSpeechRate = min(max(v, 0.5), 2.0) }
         if let v = int(o, "alarmCooldownMinutes") { s.alarmCooldownMinutes = max(v, 0) }
         if let v = bool(o, "includeRollingFutures") { s.includeRollingFutures = v }
+        if let v = bool(o, "includeTradFiFutures") { s.includeTradFiFutures = v }
         if o["accentColor"] != nil { s.accentColor = AccentColor(rawValue: string(o, "accentColor") ?? "") ?? .default }
         if o["darkMode"] != nil { s.darkMode = isNull(o, "darkMode") ? nil : bool(o, "darkMode") }
         if let v = bool(o, "zoneAlerts") { s.zoneAlerts = v }
@@ -328,13 +415,23 @@ enum BackupManager {
             s.priceColorScheme = PriceColorScheme(rawValue: string(o, "priceColorScheme") ?? "") ?? .default
         }
         if let v = bool(o, "watchlistSparkline") { s.watchlistSparkline = v }
+        // %-Basis (wie Android): fehlt der Schlüssel, bleibt der Wert; unbekannt → «Letzte 24 Std.»
+        if o["changeBasis"] != nil {
+            s.changeBasis = ChangeBasis.from(name: isNull(o, "changeBasis") ? nil : string(o, "changeBasis"))
+        }
         if let v = bool(o, "highContrast") { s.highContrast = v }
         // Fehlt der Schlüssel (ältere Sicherung), bleibt der bisherige Wert
         if let v = bool(o, "priceColorsInverted") { s.priceColorsInverted = v }
+        // Alarm-Signal (wie Android): fehlt der Schlüssel, bleibt der Wert; unbekannt → «System»;
+        // Android-Werte («Nur Vibration» …) → nächster iOS-Wert
+        if o["alarmSignal"] != nil {
+            s.alarmSignal = AlarmSignal.from(name: isNull(o, "alarmSignal") ? nil : string(o, "alarmSignal")).ios
+        }
         // Nachtruhe: nur vorhandene Schlüssel, Zeiten nur 0…1439
         if let v = bool(o, "quietHoursEnabled") { s.quietHoursEnabled = v }
         if let v = minute(o, "quietHoursStart") { s.quietHoursStart = v }
         if let v = minute(o, "quietHoursEnd") { s.quietHoursEnd = v }
+        if let v = bool(o, "hidePortfolioAmounts") { s.hidePortfolioAmounts = v }
         // Portfolio-Sperre nur, wenn das Gerät entsperren kann (sonst bliebe das Portfolio gesperrt)
         if let v = bool(o, "appLock"), !v || AppLock.canAuthenticate() { s.appLock = v }
         return s

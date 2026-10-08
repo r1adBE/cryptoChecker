@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Blokada chroni to, co widać na ekranie. Dane są przechowywane na tym urządzeniu i chronione przez szyfrowanie urządzenia. Kopie zapasowe możesz zabezpieczyć hasłem.</string>
+    <string name="backup_protect">Zabezpiecz hasłem</string>
+    <string name="backup_protect_hint">Szyfruje plik (AES-256). Zalecane, jeśli zawiera dane portfela.</string>
+    <string name="backup_password">Hasło</string>
+    <string name="backup_password_repeat">Powtórz hasło</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Co najmniej %1$d znaków</string>
+    <string name="backup_password_mismatch">Hasła nie są zgodne</string>
+    <string name="backup_password_warning">Bez hasła nie da się przywrócić kopii zapasowej.</string>
+    <string name="backup_password_show">Pokaż hasło</string>
+    <string name="backup_password_hide">Ukryj hasło</string>
+    <string name="backup_password_title">Kopia zabezpieczona hasłem</string>
+    <string name="backup_password_prompt">Wpisz hasło do tej kopii zapasowej.</string>
+    <string name="backup_password_wrong">Błędne hasło lub plik jest uszkodzony. Spróbuj ponownie.</string>
+    <string name="backup_password_continue">Dalej</string>
+</resources>

@@ -17,6 +17,9 @@ final class PortfolioModel: ObservableObject {
     @Published private(set) var fxCurrency = ""
     /// Wählbare Coins für die Suche (leer, solange nicht geladen).
     @Published private(set) var coins: [String] = []
+    /// Kursveränderung je Coin (gleiche %-Basis wie «heute», aus dem letzten Portfolio-Stand) für
+    /// «Grösste Bewegungen»; leer = noch keine Vergleichsbasis.
+    @Published private(set) var coinChanges: [String: Double] = PortfolioModel.storedCoinChanges()
 
     /// Zeitraum des Wertverlaufs (Chips 7 T / 30 T / 1 J / Seit 1. Kauf) — zuletzt gewählt, nur auf
     /// diesem Gerät (`AppSettings.portfolioHistoryRange`, nicht in der Sicherung).
@@ -46,6 +49,12 @@ final class PortfolioModel: ObservableObject {
 
     private var data: AppData { AppData.shared }
 
+    /// Veränderungen je Coin aus dem gespeicherten Stand (nur, wenn er zur %-Basis und zum Tag passt).
+    nonisolated private static func storedCoinChanges() -> [String: Double] {
+        let basis = SharedStorage.loadSettings().changeBasis
+        return PortfolioWidgetStore.load()?.shown(basis: basis, now: TimeUtils.nowMillis).coinChanges ?? [:]
+    }
+
     /// Beim Öffnen (60 s Zwischenspeicher), bei neuen Coins bzw. per Ziehen (`force`).
     func refresh(force: Bool) async {
         activeRefreshes += 1
@@ -70,8 +79,11 @@ final class PortfolioModel: ObservableObject {
         recomputeHistory()
         // Portfolio-Widget: Stand mit denselben Kursen (zeichnet nur bei Änderung neu)
         if data.settings.portfolioCurrency == currency {
-            PortfolioWidgetStore.update(transactions: data.portfolio, prices: prices, currency: currency,
-                                        rate: rate(for: currency))
+            let widget = PortfolioWidgetStore.update(transactions: data.portfolio, prices: prices, currency: currency,
+                                                     rate: rate(for: currency))
+            if let widget { coinChanges = widget.coinChanges ?? [:] }
+            // Portfolio-Alarme mit dem neuen Stand prüfen
+            data.evaluatePortfolioAlarms(widget)
         }
     }
 
@@ -241,7 +253,7 @@ enum PortfolioFormat {
     }
 
     /// «+12.34%», bei praktisch 0 «0.00%».
-    static func signedPercent(_ value: Double) -> String { PriceFormat.changePercent(value) ?? "0.00%" }
+    static func signedPercent(_ value: Double) -> String { PriceFormat.changePercent(value) ?? PriceFormat.zeroPercent() }
 
     static func amount(_ value: Double, _ coin: String) -> String { "\(PriceFormat.amount(value)) \(coin)" }
 
@@ -296,7 +308,7 @@ struct PortfolioPlPill: View {
             ChangeArrowIcon(change: percent)
                 .scaledFont(size: 9, weight: .bold, relativeTo: .caption2)
             Text(percent.map { PortfolioFormat.signedPercent($0) } ?? "—")
-                .font(.system(.caption, design: .rounded).weight(.semibold).monospacedDigit())
+                .font(AppFont.amount(.caption, weight: .semibold))
         }
         .foregroundStyle(color)
         .lineLimit(1)
@@ -323,9 +335,10 @@ struct PortfolioMetric: View {
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
             Text(value)
-                .font(.system(.subheadline, design: .rounded).weight(.medium).monospacedDigit())
+                .font(AppFont.amount(.subheadline, weight: .medium))
                 .foregroundStyle(valueColor)
-                .lineLimit(1)
+                // Grosse Schrift: erst verkleinern, dann umbrechen — der Betrag wird nie abgeschnitten
+                .lineLimit(2)
                 .minimumScaleFactor(0.75)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -376,8 +389,8 @@ struct PortfolioAddButton: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(L("portfolio_add_tx"))
-        .padding(.trailing, 20)
-        .padding(.bottom, 20)
+        .padding(.trailing, Spacing.lg)
+        .padding(.bottom, Spacing.lg)
     }
 }
 

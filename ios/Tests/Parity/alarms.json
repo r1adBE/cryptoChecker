@@ -1,0 +1,59 @@
+{
+  "description": "Shared alarm cases (Android AlarmEvaluator.kt / iOS AlarmLogic.swift). Times in epoch ms. 'alarm' fields not given use the defaults: enabled true, repeating false, referencePrice null, lastTriggeredAt 0, windowHours 1, referenceAt 0. Numbers that JSON cannot hold are strings: \"NaN\", \"Infinity\", \"-Infinity\".",
+  "now": 1700000000000,
+  "trigger": [
+    { "name": "above fires at the threshold", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100 }, "price": 100, "previousPrice": 90, "cooldownMinutes": 30, "expected": true },
+    { "name": "above fires beyond the threshold", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100 }, "price": 101, "previousPrice": 90, "cooldownMinutes": 30, "expected": true },
+    { "name": "above stays quiet just below", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100 }, "price": 99.99, "previousPrice": 90, "cooldownMinutes": 30, "expected": false },
+    { "name": "below fires at the threshold", "alarm": { "condition": "PRICE_BELOW", "threshold": 100 }, "price": 100, "previousPrice": 110, "cooldownMinutes": 30, "expected": true },
+    { "name": "below stays quiet just above", "alarm": { "condition": "PRICE_BELOW", "threshold": 100 }, "price": 100.01, "previousPrice": 110, "cooldownMinutes": 30, "expected": false },
+    { "name": "disabled alarm never fires", "alarm": { "condition": "PRICE_ABOVE", "threshold": 1, "enabled": false }, "price": 1000, "previousPrice": 1, "cooldownMinutes": 30, "expected": false },
+    { "name": "cooldown suppresses a repeat", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100, "lastTriggeredAt": 1699999700000 }, "price": 120, "previousPrice": 90, "cooldownMinutes": 30, "expected": false },
+    { "name": "no cooldown, no suppression", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100, "lastTriggeredAt": 1699999700000 }, "price": 120, "previousPrice": 90, "cooldownMinutes": 0, "expected": true },
+    { "name": "percent up uses the reference price", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referencePrice": 100 }, "price": 105, "previousPrice": null, "cooldownMinutes": 30, "expected": true },
+    { "name": "percent up just short", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referencePrice": 100 }, "price": 104.9, "previousPrice": null, "cooldownMinutes": 30, "expected": false },
+    { "name": "percent down falls back to the previous price", "alarm": { "condition": "CHANGE_PERCENT_DOWN", "threshold": 10 }, "price": 90, "previousPrice": 100, "cooldownMinutes": 30, "expected": true },
+    { "name": "percent down not far enough", "alarm": { "condition": "CHANGE_PERCENT_DOWN", "threshold": 10 }, "price": 95, "previousPrice": 100, "cooldownMinutes": 30, "expected": false },
+    { "name": "percent without any reference", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5 }, "price": 1000, "previousPrice": null, "cooldownMinutes": 30, "expected": false },
+    { "name": "no price means no alarm", "alarm": { "condition": "PRICE_BELOW", "threshold": 100 }, "price": 0, "previousPrice": 100, "cooldownMinutes": 30, "expected": false },
+    { "name": "move window up", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "windowHours": 4, "referenceAt": 1699996400000 }, "price": 105, "previousPrice": 100, "cooldownMinutes": 0, "expected": true },
+    { "name": "move window down", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "windowHours": 4, "referenceAt": 1699996400000 }, "price": 95, "previousPrice": 100, "cooldownMinutes": 0, "expected": true },
+    { "name": "move window too small", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "windowHours": 4, "referenceAt": 1699996400000 }, "price": 103, "previousPrice": 100, "cooldownMinutes": 0, "expected": false },
+    { "name": "move window expired", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "windowHours": 1, "referenceAt": 1699992800000 }, "price": 120, "previousPrice": 100, "cooldownMinutes": 0, "expected": false },
+    { "name": "price evaluation ignores volume spikes", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "price": 1000, "previousPrice": 1, "cooldownMinutes": 0, "expected": false },
+    { "name": "fired level alarm is disarmed", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100, "referenceAt": 1700000000000 }, "price": 150, "previousPrice": null, "cooldownMinutes": 0, "expected": false }
+  ],
+  "rearm": [
+    { "name": "above: dip inside the 0.2 % hysteresis", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100, "referenceAt": 1700000000000 }, "price": 99.85, "expected": false },
+    { "name": "above: back below the hysteresis", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100, "referenceAt": 1700000000000 }, "price": 99.7, "expected": true },
+    { "name": "below: rise inside the hysteresis", "alarm": { "condition": "PRICE_BELOW", "threshold": 100, "referenceAt": 1700000000000 }, "price": 100.15, "expected": false },
+    { "name": "below: back above the hysteresis", "alarm": { "condition": "PRICE_BELOW", "threshold": 100, "referenceAt": 1700000000000 }, "price": 100.3, "expected": true },
+    { "name": "armed alarm never re-arms", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100 }, "price": 50, "expected": false },
+    { "name": "percent alarm never re-arms", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referenceAt": 1700000000000 }, "price": 1, "expected": false }
+  ],
+  "volumeSpike": [
+    { "name": "ratio equals factor", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "ratio": 3, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": true },
+    { "name": "ratio above factor", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "ratio": 4.2, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": true },
+    { "name": "ratio below factor", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "ratio": 2.99, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false },
+    { "name": "same candle only once", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3, "referenceAt": 1699992800000 }, "ratio": 10, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false },
+    { "name": "next candle fires again", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3, "referenceAt": 1699992800000 }, "ratio": 10, "candleOpenTime": 1699996400000, "cooldownMinutes": 0, "expected": true },
+    { "name": "no ratio", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "ratio": null, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false },
+    { "name": "no candle", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "ratio": 5, "candleOpenTime": 0, "cooldownMinutes": 0, "expected": false },
+    { "name": "ratio NaN", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "ratio": "NaN", "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false },
+    { "name": "disabled", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3, "enabled": false }, "ratio": 9, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false },
+    { "name": "cooldown", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3, "lastTriggeredAt": 1699999700000 }, "ratio": 9, "candleOpenTime": 1699992800000, "cooldownMinutes": 30, "expected": false },
+    { "name": "other conditions are never a volume spike", "alarm": { "condition": "PRICE_ABOVE", "threshold": 3 }, "ratio": 9, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false }
+  ],
+  "sequences": {
+    "description": "Price sequence as the refresher plays it: at step i (time now + i * stepMillis) a disabled alarm is skipped; if shouldRearmLevel, referenceAt = 0 and nothing else happens; else if shouldTrigger (previousPrice null), count it and set lastTriggeredAt = referenceAt = time, lastTriggeredPrice = price, enabled = repeating.",
+    "cases": [
+      { "name": "repeating above fires twice", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 101000, 100200, 99700, 100100], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 2 },
+      { "name": "repeating below fires twice", "alarm": { "condition": "PRICE_BELOW", "threshold": 100000, "repeating": true }, "prices": [101000, 99500, 99000, 99800, 100300, 99900], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 2 },
+      { "name": "dip inside the hysteresis does not re-arm", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 99850, 100500, 99850, 100500], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 1 },
+      { "name": "already beyond on the first evaluation fires once", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [105000, 105000, 105000, 105000, 105000, 105000, 105000, 105000, 105000, 105000], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 1 },
+      { "name": "one-shot fires once and switches off", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": false }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 1 },
+      { "name": "cooldown on top of re-arming", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 30, "stepMillis": 15000, "expectedFires": 1 },
+      { "name": "after the cooldown it fires again", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 30, "stepMillis": 1200000, "expectedFires": 2 }
+    ]
+  }
+}

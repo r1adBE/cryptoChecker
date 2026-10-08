@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">価格の色</string>
-    <string name="price_colors_green_red">グリーン / レッド</string>
-    <string name="price_colors_blue_orange">ブルー / オレンジ</string>
     <string name="settings_price_colors_hint">青 / オレンジは、あらゆる色覚特性（赤緑・青黄）で見分けやすい配色です。方向は常に + / − でも表示されます。</string>
     <string name="settings_watchlist_sparkline">ウォッチリストにミニチャート</string>
     <string name="settings_watchlist_sparkline_hint">価格の横に24時間の推移</string>
 
-    <string name="settings_price_colors_inverted">上昇・下落の色を入れ替える</string>
-    <string name="settings_price_colors_inverted_hint">中国、日本、韓国、台湾で一般的なように、上昇を赤、下落を緑で表示します。既定値は端末の地域によって決まります。</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">ハイコントラスト</string>

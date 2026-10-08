@@ -1,15 +1,16 @@
 package com.cryptochecker.app.domain.refresh
 
-import android.content.Context
-import com.cryptochecker.app.R
 import com.cryptochecker.app.data.MarketRepository
-import dagger.hilt.android.qualifiers.ApplicationContext
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.PriceWrite
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.DayChange
+import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
@@ -24,6 +25,8 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityMonitor
 import com.cryptochecker.app.domain.gas.GasAlertChecker
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
+import com.cryptochecker.app.domain.alarm.DerivativesAlarm
+import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.notification.AppNotifier
@@ -32,9 +35,21 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.tts.SpokenText
 import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
+import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.app.widget.WidgetUpdater
+import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
+import com.cryptochecker.app.domain.live.LiveCoverage
+import com.cryptochecker.app.domain.live.LiveExchange
+import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.live.LiveRules
+import com.cryptochecker.app.util.AppVisibility
+import com.cryptochecker.app.util.ConnectivityMonitor
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -68,8 +83,6 @@ import javax.inject.Singleton
  */
 @Singleton
 class PriceRefresher @Inject constructor(
-    /** Für den Bericht in der Sprache der App (siehe AppLanguages.wrap). */
-    @param:ApplicationContext private val context: Context,
     private val watchRepository: WatchRepository,
     private val marketRepository: MarketRepository,
     private val settingsRepository: SettingsRepository,
@@ -87,8 +100,21 @@ class PriceRefresher @Inject constructor(
     private val nearExtremeDataSource: NearExtremeDataSource,
     /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
     private val sparklineRepository: SparklineRepository,
+    /** Ohne Netz keine Aktualisierung (keine Fehlerzustände, siehe [OfflineGate]). */
+    private val connectivity: ConnectivityMonitor,
+    /** Paare mit frischem Live-Kurs (WebSocket, Merkliste offen) lässt die REST-Abfrage aus. */
+    private val liveCoverage: LiveCoverage,
+    /** Funding/Open Interest für die Futures-Alarme (je Paar höchstens alle 5 Min.). */
+    private val derivativesAlarmData: DerivativesAlarmData,
+    /** Live-Takte zeichnen die Widgets nur über dieses Tor (Bildschirm aus: aufschieben). */
+    private val liveWidgetGate: LiveWidgetGate,
 ) {
     private val mutex = Mutex()
+
+    private val _fullRefreshRunning = MutableStateFlow(false)
+
+    /** true, solange eine vollständige Aktualisierung arbeitet (gleich welcher Herkunft). */
+    val fullRefreshRunning: StateFlow<Boolean> = _fullRefreshRunning.asStateFlow()
 
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
     private val activityScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -96,90 +122,194 @@ class PriceRefresher @Inject constructor(
     /**
      * Läuft komplett auf [Dispatchers.IO]: Aus dem ViewModel aufgerufen lief
      * bisher alles — Antwort lesen, JSON zerlegen — auf dem Main-Thread.
-     */
-    /**
+     *
      * @param awaitPortfolioSnapshot true im WorkManager-Job: Die Momentaufnahme für das
      * Portfolio-Widget wird im Job abgewartet, nicht in einem losgelösten Job — sonst kann
      * Android den Prozess beenden, bevor sie fertig ist.
+     * @param deferWidgetsWhenScreenOff true im Live-Dienst: Bei ausgeschaltetem Bildschirm
+     * werden die Widgets nicht bei jedem Takt neu gezeichnet, sondern einmal, sobald er
+     * wieder an ist ([LiveWidgetGate]) — auch das Portfolio-Widget (die Momentaufnahme wird
+     * trotzdem aufgenommen). Alarme und Meldungen laufen normal.
      */
-    suspend fun refreshAll(awaitPortfolioSnapshot: Boolean = false): RefreshSummary {
-        val summary = refreshAllGuarded()
+    suspend fun refreshAll(
+        awaitPortfolioSnapshot: Boolean = false,
+        deferWidgetsWhenScreenOff: Boolean = false,
+    ): RefreshSummary {
+        // Kein Netz: gar nicht erst versuchen — die Paare behalten Kurs und Zustand, die Liste
+        // zeigt «Offline · Stand …». Kommt das Netz zurück, aktualisiert ManualRefresh einmal.
+        if (!connectivity.isOnline()) {
+            Timber.i("Aktualisierung übersprungen: offline")
+            return RefreshSummary()
+        }
+        val summary = refreshAllGuarded(deferWidgetsWhenScreenOff)
         // Ungewöhnliche Aktivität: erst nach gespeicherten Kursen und gezeichneten
         // Widgets, ausserhalb der Sperre — bremst den nächsten Durchlauf nicht,
         // Fehler bleiben still. Prüft jedes Paar höchstens alle 10 Minuten.
         // Eigener Hintergrund-Job: Die Aktualisierung (und ihr Spinner) wartet
         // nicht auf die Auswertung, die bis zu 20 s dauern kann.
-        activityScope.launch { activityMonitor.analyzeAll() }
+        // Nur mit Abnehmer: Meldung eingeschaltet oder App sichtbar (Karte, ⚡, «Warum»).
+        activityScope.launch {
+            val alerts = runCatching { settingsRepository.current().activityAlerts }.getOrDefault(false)
+            if (ActivityAnalysisGate.shouldRun(alertsEnabled = alerts, appVisible = AppVisibility.visible)) {
+                activityMonitor.analyzeAll()
+            }
+        }
         // Gas-Alarm (#167): eigener Job, höchstens alle 10 Minuten, nur wenn eingestellt
         activityScope.launch { runCatching { gasAlertChecker.checkIfDue() } }
         // Portfolio-Widget: Momentaufnahme auch ohne geöffnete App (nur mit Widget, Fehler still)
         if (awaitPortfolioSnapshot) {
             // Fehler bleiben still (refresh() fängt sie selbst), Abbruch nicht
-            portfolioSnapshotUpdater.refreshIfWidgets()
+            portfolioSnapshotUpdater.refreshIfWidgets(deferWidgetsWhenScreenOff)
         } else {
-            activityScope.launch { runCatching { portfolioSnapshotUpdater.refreshIfWidgets() } }
+            activityScope.launch { runCatching { portfolioSnapshotUpdater.refreshIfWidgets(deferWidgetsWhenScreenOff) } }
         }
         return summary
     }
 
-    private suspend fun refreshAllGuarded(): RefreshSummary = mutex.withLock {
+    private suspend fun refreshAllGuarded(deferWidgets: Boolean): RefreshSummary = mutex.withLock {
+        _fullRefreshRunning.value = true
+        try {
+            refreshOnIo(deferWidgets)
+        } finally {
+            _fullRefreshRunning.value = false
+        }
+    }
+
+    private suspend fun refreshOnIo(deferWidgets: Boolean): RefreshSummary =
         withContext(Dispatchers.IO) {
             try {
-                refreshAllLocked()
+                refreshAllLocked(deferWidgets)
             } catch (ex: CancellationException) {
                 throw ex
             } catch (ex: Exception) {
                 // Sichtbar machen statt still zu schlucken: Sonst bleibt in der
                 // App die alte Dauer stehen und niemand merkt, dass es scheitert.
                 refreshStats.setLastReport(
-                    context.getString(R.string.refresh_report_aborted) +
-                        "\n${ex.javaClass.simpleName}: ${ex.message}\n" +
-                        ex.stackTrace.take(6).joinToString("\n") { "  at $it" }
+                    RefreshReport(
+                        at = System.currentTimeMillis(),
+                        totalMillis = 0,
+                        pairs = 0,
+                        networkMillis = 0,
+                        markets = emptyList(),
+                        aborted = listOfNotNull(ex.javaClass.simpleName, ex.message).joinToString(": "),
+                    )
                 )
                 throw ex
             }
         }
-    }
 
-    private suspend fun refreshAllLocked(): RefreshSummary {
+    private suspend fun refreshAllLocked(deferWidgets: Boolean): RefreshSummary {
         val startedAt = System.currentTimeMillis()
 
         val settings = settingsRepository.current()
-        val watches = watchRepository.getWatches()
+        val allWatches = watchRepository.getWatches()
 
-        if (watches.isEmpty()) {
+        if (allWatches.isEmpty()) {
             refreshStats.setLastRefresh(System.currentTimeMillis() - startedAt)
-            widgetUpdater.updateAll()
+            liveWidgetGate.drawAll(deferWidgets)
             return RefreshSummary(
                 durationMillis = System.currentTimeMillis() - startedAt
             )
         }
 
-        // 24-h-Bezüge (Kerzen) nur noch als Ausweich-Weg: parallel zu den Kursen nur für
-        // Paare, deren Ticker beim letzten Mal keinen 24-h-Wert hatte; der Rest nach den Kursen.
+        // %-Basis: rollend (Ticker, Kerzen nur als Ausweich-Weg) oder seit Tagesbeginn (immer Kerzen)
+        val changeStamp = ChangeBasisMath.stamp(settings.changeBasis, startedAt)
+
+        // Live-Kurse (WebSocket, Merkliste offen): Paare mit frischem Kurs aus dem Strom diesmal
+        // auslassen — sie sind aktueller als jede Abfrage. Nur rollende Basis mit gleichem Stempel
+        // (Tages-Basen brauchen Kerzen) und Börsen mit gleitendem 24-h-Wert (LiveRules.skipRest).
+        val stampUnchanged = refreshStats.changeStamp.value == changeStamp
+        val rollingBasis = !settings.changeBasis.isDay
+        val liveIds = allWatches.filter { watch ->
+            LiveRules.skipRest(
+                liveCoverage.lastTickAt(watch.id), startedAt, rollingBasis, stampUnchanged,
+                LiveExchange.fromMarketKey(watch.marketKey)?.rollingChange == true,
+            )
+        }.mapTo(HashSet()) { it.id }
+        // Volumen-, Funding- und Open-Interest-Alarme hängen nicht am Live-Kurs (applyLive prüft sie
+        // nicht): solche Paare weiter per REST abfragen, sonst bliebe der Alarm bei offener Merkliste stumm
+        if (liveIds.isNotEmpty()) {
+            watchRepository.getAllEnabledAlarms()
+                .filter { it.condition == AlarmCondition.VOLUME_SPIKE || it.condition.isDerivatives }
+                .forEach { liveIds.remove(it.watchId) }
+        }
+        val watches = allWatches.filterNot { it.id in liveIds }
+        if (watches.isEmpty()) {
+            // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
+            Timber.i("Aktualisierung: alle %d Paare live", allWatches.size)
+            refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
+            return RefreshSummary(durationMillis = System.currentTimeMillis() - startedAt)
+        }
+        val dayStart = changeStamp.dayStart.takeIf { settings.changeBasis.isDay }
+
+        // Bezüge (Kerzen) parallel zu den Kursen für Paare, die beim letzten Mal Kerzen brauchten
+        // (rollend: Ticker ohne 24-h-Wert; Tages-Basen: alle); der Rest nach den Kursen.
         sparklineRepository.awaitRestored()
         val startedKeys = HashSet<Pair<String, String>>()
-        val earlyLoads = startDayReferenceLoads(watches.filter { it.id in candleWatchIds }, startedKeys)
+        val earlyWatches = if (dayStart != null) watches else watches.filter { it.id in candleWatchIds }
+        val earlyLoads = startDayReferenceLoads(earlyWatches, startedKeys, dayStart)
 
         // 1) Netz: alle Börsen gleichzeitig. Je Börse erst die Massenabfrage,
         //    was dort fehlt, parallel einzeln. Früher lief das strikt
         //    nacheinander — Börse für Börse, Paar für Paar.
+        //    Pausierte Börsen (zu viele Anfragen, wiederholte Zeitüberschreitungen) bleiben
+        //    diesmal aussen vor: keine Anfrage, ihre Paare behalten den letzten Kurs.
+        val backoff = refreshStats.backoffStates().toMutableMap()
+        val (pausedGroups, activeGroups) = watches.groupBy { it.marketKey }.entries
+            .partition { ExchangeBackoff.isPaused(backoff[it.key], startedAt) }
+        val pausedIds = pausedGroups.flatMap { group -> group.value.map { it.id } }.toSet()
         val fetched = HashMap<Long, Fetched>()
-        val groupReports = coroutineScope {
-            watches.groupBy { it.marketKey }.values
-                .map { group -> async { fetchGroup(group, settings.includeRollingFutures) } }
+        val activeReports = coroutineScope {
+            activeGroups
+                .map { group -> async { fetchGroup(group.value, settings.includeRollingFutures) } }
                 .awaitAll()
-        }.map { (results, report) ->
+        }.map { (results, fetchedGroup) ->
             fetched.putAll(results)
-            report
+            // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
+            val key = fetchedGroup.marketKey
+            val state = ExchangeBackoff.next(
+                backoff[key], ExchangeBackoff.outcome(fetchedGroup.failures, fetchedGroup.report.updated),
+                System.currentTimeMillis(), fetchedGroup.retryAfterMillis,
+            )
+            if (state == null) backoff.remove(key) else backoff[key] = state
+            if (ExchangeBackoff.isPaused(state, System.currentTimeMillis())) {
+                fetchedGroup.report.copy(pausedUntil = state?.pausedUntil, pauseReason = state?.reason)
+            } else {
+                fetchedGroup.report
+            }
         }
-        val lateLoads = startDayReferenceLoads(watchesNeedingCandles(watches, fetched, remember = true), startedKeys)
-        awaitDayReferenceLoads(earlyLoads + lateLoads)
+        val pausedReports = pausedGroups.map { (key, group) ->
+            MarketRefresh(
+                name = group.first().marketName,
+                millis = 0,
+                pairs = group.size,
+                updated = 0,
+                pausedUntil = backoff[key]?.pausedUntil,
+                pauseReason = backoff[key]?.reason,
+            )
+        }
+        refreshStats.setBackoffStates(backoff)
+        val groupReports = activeReports + pausedReports
+        val activeWatches = watches.filter { it.id !in pausedIds }
+        val lateLoads = startDayReferenceLoads(
+            watchesNeedingCandles(watches, fetched, settings.changeBasis, remember = true), startedKeys, dayStart
+        )
+        val dayLoads = earlyLoads + lateLoads
+        awaitDayReferenceLoads(dayLoads)
         val networkMillis = System.currentTimeMillis() - startedAt
 
         // 2) Auswerten: erst alle Kurse in EINEM Datenbank-Vorgang speichern,
         //    dann Alarme, Benachrichtigungen und Ansagen.
-        val processed = processResults(watches, fetched, settings)
+        // Paare pausierter Börsen nicht anfassen: kein Fehler, letzter Kurs bleibt
+        val processed = processResults(activeWatches, fetched, settings, dayStart)
+        // Neue Basis oder neuer Tag: alte Werte von Paaren ohne neuen Kurs gehören nicht mehr dazu
+        // (ohne Stempel: Werte von vorher, also rollend)
+        val previousStamp = refreshStats.changeStamp.value ?: ChangeStamp(ChangeBasis.ROLLING_24H, 0L)
+        if (previousStamp != changeStamp) watchRepository.clearChanges(processed.failedIds + pausedIds)
+        // Mit dieser Basis (und diesem Tagesbeginn) gerechnet — die Anzeige prüft das
+        refreshStats.setChangeStamp(changeStamp)
+        // Tages-Basen: Bezüge, die nach dem Warten noch kamen, gleich nachtragen statt «—» bis zum nächsten Mal
+        if (dayStart != null) fillLateDayChanges(processed.missingDayChange, dayLoads, changeStamp, deferWidgets)
 
         // Uhrzeit und Dauer ZUERST speichern, dann die Widgets zeichnen —
         // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
@@ -189,23 +319,23 @@ class PriceRefresher @Inject constructor(
         if (processed.failed < processed.checked) refreshStats.setLastRefresh(duration)
 
         val widgetStartedAt = System.currentTimeMillis()
-        widgetUpdater.updateAll()
-        val widgetMillis = System.currentTimeMillis() - widgetStartedAt
+        // Live-Dienst bei ausgeschaltetem Bildschirm: nur merken, beim Einschalten nachziehen
+        val drawWidgets = liveWidgetGate.drawAll(deferWidgets)
+        val widgetMillis = if (drawWidgets) System.currentTimeMillis() - widgetStartedAt else null
 
-        val report = buildString {
-            appendLine(context.resources.getQuantityString(R.plurals.refresh_report_total, watches.size, secs(duration), watches.size))
-            appendLine(context.getString(R.string.refresh_report_network, secs(networkMillis)))
-            groupReports.forEach { appendLine("  • $it") }
-            appendLine(context.getString(R.string.refresh_report_database, secs(processed.dbMillis)))
-            appendLine(
-                context.resources.getQuantityString(
-                    R.plurals.refresh_report_effects, processed.notificationsShown,
-                    secs(processed.effectsMillis), processed.notificationsShown
-                )
-            )
-            append(context.getString(R.string.refresh_report_widgets, secs(widgetMillis)))
-        }
-        Timber.i("Aktualisierung:\n%s", report)
+        val report = RefreshReport(
+            at = System.currentTimeMillis(),
+            totalMillis = duration,
+            pairs = watches.size,
+            networkMillis = networkMillis,
+            markets = groupReports,
+            dbMillis = processed.dbMillis,
+            effectsMillis = processed.effectsMillis,
+            alarms = processed.alarms,
+            notifications = processed.notificationsShown,
+            widgetMillis = widgetMillis,
+        )
+        Timber.i("Aktualisierung: %s", report)
         refreshStats.setLastReport(report)
 
         return RefreshSummary(
@@ -218,17 +348,21 @@ class PriceRefresher @Inject constructor(
 
     /**
      * Holt die Kurse aller Paare einer Börse; Schlüssel ist die Watch-Id.
-     * Dazu eine Zeile für den Bericht, wie lange was gedauert hat.
+     * Dazu der Eintrag für den Bericht: was geklappt hat und wie lange es dauerte.
      */
     private suspend fun fetchGroup(
         group: List<WatchEntity>,
         includeRollingFutures: Boolean,
-    ): Pair<Map<Long, Fetched>, String> {
+    ): Pair<Map<Long, Fetched>, FetchedGroup> {
         val groupStartedAt = System.currentTimeMillis()
         val bulk = loadBulkTickers(group)
         val bulkTickers = bulk.tickers
         val bulkMillis = System.currentTimeMillis() - groupStartedAt
         val bulkTried = group.size >= MIN_WATCHES_FOR_BULK
+        // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher,
+        // das verschlimmerte es nur — die Börse wird pausiert (ExchangeBackoff).
+        val bulkRateLimited = bulk.error != null &&
+            RefreshReportLogic.classify(bulk.error) == RefreshFailure.RATE_LIMIT
 
         // Eigene Grenze je Börse, damit niemand ins Rate-Limit läuft.
         val limit = Semaphore(MAX_PARALLEL_REQUESTS_PER_MARKET)
@@ -248,42 +382,39 @@ class PriceRefresher @Inject constructor(
                             (!includeRollingFutures || watch.contractType !in ROLLING_CONTRACTS) ->
                             Fetched(null, NOT_TRADED_ERROR, notTraded = true)
 
+                        bulkRateLimited -> Fetched(null, bulk.error)
+
                         else -> limit.withPermit { fetchSingle(watch) }
                     }
                 }
             }.awaitAll()
         }
 
-        val singles = results.filter { it.second.fromSingle }
-        val slowest = singles.maxByOrNull { it.second.millis }
         val notTraded = results.count { it.second.notTraded }
-        val errors = results.count { (it.second.ticker == null || it.second.error != null) && !it.second.notTraded }
+        val errors = results.map { it.second }.filter { (it.ticker == null || it.error != null) && !it.notTraded }
 
-        val line = buildString {
-            append(
-                context.resources.getQuantityString(
-                    R.plurals.refresh_report_market, group.size,
-                    group.first().marketName, group.size, secs(System.currentTimeMillis() - groupStartedAt)
-                )
-            )
-            if (bulkTried) {
-                append(" · ")
-                append(
-                    if (bulkTickers.isEmpty()) context.getString(R.string.refresh_report_bulk_failed, secs(bulkMillis))
-                    else context.resources.getQuantityString(R.plurals.refresh_report_bulk_ok, bulkTickers.size, secs(bulkMillis), bulkTickers.size)
-                )
-            }
-            if (singles.isNotEmpty()) {
-                append(" · ").append(context.getString(R.string.refresh_report_singles, singles.size))
-                slowest?.let { (w, f) ->
-                    append(", ").append(context.getString(R.string.refresh_report_slowest, w.displayName, secs(f.millis)))
-                }
-            }
-            if (notTraded > 0) append(" · ").append(context.resources.getQuantityString(R.plurals.refresh_report_not_traded, notTraded, notTraded))
-            if (errors > 0) append(" · ").append(context.resources.getQuantityString(R.plurals.refresh_report_errors, errors, errors))
-        }
+        val entry = MarketRefresh(
+            name = group.first().marketName,
+            millis = System.currentTimeMillis() - groupStartedAt,
+            pairs = group.size,
+            updated = group.size - notTraded - errors.size,
+            notTraded = notTraded,
+            failed = errors.size,
+            bulkTried = bulkTried,
+            bulkMillis = bulkMillis,
+            bulkPrices = bulkTickers.size,
+            singles = results.count { it.second.fromSingle },
+            reason = RefreshReportLogic.reason(errors.map { it.error }),
+        )
+        val errorTexts = errors.map { it.error } + listOfNotNull(bulk.error)
+        val signals = FetchedGroup(
+            marketKey = group.first().marketKey,
+            report = entry,
+            failures = errorTexts.map(RefreshReportLogic::classify),
+            retryAfterMillis = ExchangeBackoff.retryAfterMillis(errorTexts),
+        )
 
-        return results.associate { (watch, fetched) -> watch.id to fetched } to line
+        return results.associate { (watch, fetched) -> watch.id to fetched } to signals
     }
 
     /**
@@ -306,24 +437,30 @@ class PriceRefresher @Inject constructor(
             .getOrDefault(BulkTickers())
     }
 
-    private suspend fun fetchSingle(watch: WatchEntity): Fetched {
-        val startedAt = System.currentTimeMillis()
-        fun elapsed() = System.currentTimeMillis() - startedAt
+    /** Bericht einer Börse plus was die Pause je Börse ([ExchangeBackoff]) braucht. */
+    private class FetchedGroup(
+        val marketKey: String,
+        val report: MarketRefresh,
+        /** Ursachen aller Fehler (auch einer gescheiterten Sammelabfrage). */
+        val failures: List<RefreshFailure>,
+        val retryAfterMillis: Long?,
+    )
 
+    private suspend fun fetchSingle(watch: WatchEntity): Fetched {
         return runCatching {
             marketRepository.getMarketTicker(
                 MarketInfo(watch.marketKey, watch.marketName),
                 watch.toPairInfo()
             )
         }.fold(
-            onSuccess = { Fetched(it.ticker, it.error, fromSingle = true, millis = elapsed()) },
+            onSuccess = { Fetched(it.ticker, it.error, fromSingle = true) },
             onFailure = { failure ->
                 // Zeitüberschreitungen kommen als CancellationException an und
                 // gelten nur als Fehler dieses Paares. Abbrechen nur, wenn der
                 // Durchlauf selbst abgebrochen wurde.
                 currentCoroutineContext().ensureActive()
                 Timber.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
-                Fetched(null, failure.message, fromSingle = true, millis = elapsed())
+                Fetched(null, failure.message, fromSingle = true)
             }
         )
     }
@@ -333,12 +470,25 @@ class PriceRefresher @Inject constructor(
             val startedAt = System.currentTimeMillis()
 
             val watch = watchRepository.getWatch(watchId) ?: return@withContext RefreshSummary()
+            // Kein Netz oder Börse pausiert: nichts anfragen, Kurs und Zustand bleiben
+            if (!connectivity.isOnline() ||
+                ExchangeBackoff.isPaused(refreshStats.backoffStates()[watch.marketKey], startedAt)
+            ) {
+                return@withContext RefreshSummary()
+            }
             val settings = settingsRepository.current()
             sparklineRepository.awaitRestored()
             val single = fetchSingle(watch)
-            // Kerzen nur, wenn der Ticker keinen 24-h-Wert liefert
-            awaitDayReferenceLoads(startDayReferenceLoads(watchesNeedingCandles(listOf(watch), mapOf(watch.id to single), remember = false), HashSet()))
-            val processed = processResults(listOf(watch), mapOf(watch.id to single), settings)
+            // Kerzen nur, wenn der Ticker keinen 24-h-Wert liefert (Tages-Basen: immer)
+            val dayStart = ChangeBasisMath.dayStart(settings.changeBasis, startedAt)
+            awaitDayReferenceLoads(
+                startDayReferenceLoads(
+                    watchesNeedingCandles(listOf(watch), mapOf(watch.id to single), settings.changeBasis, remember = false),
+                    HashSet(),
+                    dayStart,
+                )
+            )
+            val processed = processResults(listOf(watch), mapOf(watch.id to single), settings, dayStart)
 
             // Ein einzelnes Paar sagt nichts über die Dauer eines vollen Durchlaufs,
             // deshalb bleibt die angezeigte Zeit im Widget hier unverändert.
@@ -355,6 +505,58 @@ class PriceRefresher @Inject constructor(
     }
 
     /**
+     * Live-Kurse aus dem WebSocket-Strom (gesammelt, höchstens alle 10 s) speichern und wie eine
+     * Aktualisierung auswerten: derselbe Weg für Alarme (Kreuzung zum zuletzt gespeicherten Kurs,
+     * Abklingzeit, «erst wieder scharf») und Kurs-Meldungen — also keine doppelten Meldungen.
+     * Keine Kursansagen (sonst alle 10 s) und keine Volumen-Alarme (hängen an Stundenkerzen, nicht
+     * am Kurs; die REST-Abfrage prüft sie). 24-h-Veränderung nach [LiveRules.chooseChange].
+     *
+     * Läuft gerade eine Aktualisierung, wird nichts gespeichert: Rückgabe false, der Aufrufer
+     * versucht es beim nächsten Mal wieder. [redrawWidgets]: danach die Widgets neu zeichnen
+     * (Bildschirm aus: nur vormerken, [LiveWidgetGate] zeichnet beim Einschalten einmal).
+     */
+    suspend fun applyLive(quotes: Map<Long, LiveQuote>, redrawWidgets: Boolean): Boolean {
+        if (quotes.isEmpty()) return true
+        if (!mutex.tryLock()) return false
+        try {
+            withContext(Dispatchers.IO) {
+                val now = System.currentTimeMillis()
+                val settings = settingsRepository.current()
+                val rollingBasis = !settings.changeBasis.isDay
+                val stampCurrent = refreshStats.changeStamp.value == ChangeBasisMath.stamp(settings.changeBasis, now)
+                // Nicht mehr gehandelte Paare bleiben, wie sie sind (abonniert werden sie ohnehin nicht)
+                val watches = watchRepository.getWatches().filter { it.id in quotes && !it.isNotTraded }
+                val fetched = HashMap<Long, Fetched>()
+                for (watch in watches) {
+                    val quote = quotes.getValue(watch.id)
+                    val ticker = SimpleTicker().apply {
+                        last = quote.price
+                        timestamp = quote.time
+                        change24hPercent = LiveRules.chooseChange(
+                            rollingBasis, stampCurrent,
+                            LiveExchange.fromMarketKey(watch.marketKey)?.rollingChange == true,
+                            quote.change24h, watch.change24h,
+                        )
+                    }
+                    fetched[watch.id] = Fetched(ticker, null)
+                }
+                if (watches.isNotEmpty()) {
+                    processResults(watches, fetched, settings, dayStart = null, live = true)
+                    if (redrawWidgets) {
+                        // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
+                        refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
+                        // Bildschirm aus: nur merken, beim Einschalten einmal nachzeichnen
+                        liveWidgetGate.drawAll(deferWhenOff = true)
+                    }
+                }
+            }
+        } finally {
+            mutex.unlock()
+        }
+        return true
+    }
+
+    /**
      * Wertet die geholten Kurse aus.
      *
      * Früher lief das Paar für Paar mit je vier Datenbankzugriffen (Kurs
@@ -368,6 +570,10 @@ class PriceRefresher @Inject constructor(
         watches: List<WatchEntity>,
         fetched: Map<Long, Fetched>,
         settings: AppSettings,
+        /** Tagesbeginn der %-Basis; null = rollende 24 Stunden. */
+        dayStart: Long?,
+        /** Live-Kurse ([applyLive]): Veränderung steht schon im Ticker, keine Ansagen, keine Volumen-Alarme. */
+        live: Boolean = false,
     ): Processed {
         val now = System.currentTimeMillis()
 
@@ -388,7 +594,7 @@ class PriceRefresher @Inject constructor(
             }
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
-            val dayChange = change24h(watch, price, ticker)
+            val dayChange = if (live) ticker.change24hPercent else change24h(watch, price, ticker, settings.changeBasis, dayStart)
             priceWrites += PriceWrite(watch.id, price, time, dayChange)
             // Entspricht dem, was das UPDATE in der Datenbank setzt.
             updatedWatches += watch.copy(
@@ -423,12 +629,12 @@ class PriceRefresher @Inject constructor(
             val price = watch.lastPrice ?: continue
             val triggered = checkAlarms(
                 watch, price, watch.previousPrice,
-                alarmsByWatch[watch.id].orEmpty(), settings, now
+                alarmsByWatch[watch.id].orEmpty(), settings, now, live,
             )
             alarms += triggered
 
             if (updateNotification(watch, settings, shownNotifications)) notifiedPrices += watch.id to price
-            speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
+            if (!live) speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
         }
 
         watchRepository.setNotifiedPrices(notifiedPrices, now)
@@ -440,6 +646,8 @@ class PriceRefresher @Inject constructor(
             notificationsShown = notifiedPrices.size,
             dbMillis = dbMillis,
             effectsMillis = System.currentTimeMillis() - effectsStartedAt,
+            missingDayChange = updatedWatches.filter { it.change24h == null },
+            failedIds = errorWrites.map { it.id },
         )
     }
 
@@ -450,6 +658,11 @@ class PriceRefresher @Inject constructor(
         enabledAlarms: List<AlarmEntity>,
         settings: AppSettings,
         now: Long,
+        /**
+         * Live-Kurse: Volumen-, Funding- und Open-Interest-Alarme auslassen (die REST-Abfrage prüft
+         * sie mit Stundenkerzen bzw. Futures-Daten).
+         */
+        live: Boolean = false,
     ): Int {
         var count = 0
 
@@ -490,7 +703,42 @@ class PriceRefresher @Inject constructor(
         var nearRanges: WindowRanges? = null
         var nearLoaded = false
 
+        // Funding/Open Interest: nur für Paare mit solchen Alarmen, je Paar höchstens alle 5 Min. abgefragt
+        var derivatives: DerivativesAlarmData.Values? = null
+        var derivativesLoaded = false
+
         for (alarm in enabledAlarms) {
+            if (alarm.condition.isDerivatives) {
+                // Nicht bei Live-Kursen (WebSocket): die normale Aktualisierung prüft sie
+                if (live) continue
+                if (!derivativesLoaded) {
+                    derivatives = derivativesAlarmData.values(watch, price, now)
+                    derivativesLoaded = true
+                }
+                val values = derivatives ?: continue
+                val value = if (alarm.condition.isFunding) values.fundingPercent
+                else derivativesAlarmData.oiChange(watch, values, DerivativesAlarm.oiWindowHours(alarm.windowHours), now)
+                when (val decision = DerivativesAlarm.decide(
+                    condition = alarm.condition,
+                    threshold = alarm.threshold,
+                    value = value,
+                    armed = alarm.referenceAt <= 0L,
+                    enabled = alarm.enabled,
+                    lastTriggeredAt = alarm.lastTriggeredAt,
+                    now = now,
+                    cooldownMinutes = settings.alarmCooldownMinutes,
+                )) {
+                    DerivativesAlarm.Decision.None -> Unit
+                    DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarm(alarm.id)
+                    is DerivativesAlarm.Decision.Fire -> {
+                        notifier.showAlarm(watch, alarm, price, derivativesValue = decision.value)
+                        watchRepository.markAlarmTriggered(alarm, price, now)
+                        count++
+                        speakIfWanted(alarm)
+                    }
+                }
+                continue
+            }
             if (alarm.condition.isNearExtreme) {
                 if (!nearLoaded) {
                     nearRanges = try {
@@ -536,6 +784,7 @@ class PriceRefresher @Inject constructor(
                 continue
             }
             if (alarm.condition == AlarmCondition.VOLUME_SPIKE) {
+                if (live) continue
                 if (!volumeLoaded) {
                     volume = volumeDataSource.hourlySpike(watch.baseAsset, watch.quoteAsset)
                     volumeLoaded = true
@@ -646,18 +895,20 @@ class PriceRefresher @Inject constructor(
     private var candleWatchIds: Set<Long> = emptySet()
 
     /**
-     * Paare mit Kurs, deren Ticker keinen brauchbaren 24-h-Wert hat ([DayChange.needsCandles]).
+     * Paare mit Kurs, die Kerzen brauchen ([ChangeBasisMath.needsCandles]): rollend nur ohne
+     * brauchbaren 24-h-Wert im Ticker, Tages-Basen alle.
      * [remember]: Menge für den nächsten Durchlauf merken (nur bei vollen Durchläufen,
      * damit [refreshOne] sie nicht verkleinert).
      */
     private fun watchesNeedingCandles(
         watches: List<WatchEntity>,
         fetched: Map<Long, Fetched>,
+        basis: ChangeBasis,
         remember: Boolean,
     ): List<WatchEntity> {
         val needing = watches.filter { watch ->
             val ticker = fetched[watch.id]?.ticker ?: return@filter false
-            DayChange.needsCandles(ticker.change24hPercent)
+            ChangeBasisMath.needsCandles(basis, ticker.change24hPercent)
         }
         if (remember) candleWatchIds = needing.mapTo(HashSet()) { it.id }
         return needing
@@ -669,8 +920,13 @@ class PriceRefresher @Inject constructor(
      * die USDT-Reihe als Ausweich. Läuft im eigenen Scope, damit ein Abruf nach dem
      * Warten ([awaitDayReferenceLoads]) fertig wird und beim nächsten Durchlauf bereitliegt.
      * Schlüssel in [started] werden übersprungen und ergänzt (kein doppelter Start).
+     * [dayStart]: Tages-Basis — Bezug seit diesem Tagesbeginn statt rollend.
      */
-    private fun startDayReferenceLoads(watches: List<WatchEntity>, started: MutableSet<Pair<String, String>>): List<Job> =
+    private fun startDayReferenceLoads(
+        watches: List<WatchEntity>,
+        started: MutableSet<Pair<String, String>>,
+        dayStart: Long?,
+    ): List<Job> =
         watches.flatMap { watch ->
             val quote = DayChange.candleQuote(watch.quoteAsset)
             if (quote != DAY_QUOTE && isFiat(watch.quoteAsset)) {
@@ -682,7 +938,12 @@ class PriceRefresher @Inject constructor(
             .map { (base, quote) -> base.trim().uppercase() to quote }
             .filter { started.add(it) }
             .map { (base, quote) ->
-                activityScope.launch { runCatching { sparklineRepository.dayReference(base, quote) } }
+                activityScope.launch {
+                    runCatching {
+                        if (dayStart != null) sparklineRepository.dayStartReference(base, quote, dayStart)
+                        else sparklineRepository.dayReference(base, quote)
+                    }
+                }
             }
 
     /** Wartet höchstens [DAY_REFERENCE_WAIT_MILLIS]; was dann fehlt, kommt aus dem Zwischenspeicher. */
@@ -692,21 +953,58 @@ class PriceRefresher @Inject constructor(
     }
 
     /**
-     * Veränderung über 24 Stunden zum neuen Kurs: zuerst der rollende 24-h-Wert aus dem
-     * Ticker (gilt für das Paar selbst, also schon in seiner Quote — auch bei Fiat-Quotes),
-     * sonst aus Kerzen ([DayChange.select], mit Kursabstand-Prüfung); null ohne beides —
-     * nie die Veränderung seit der letzten Abfrage.
+     * Veränderung zum neuen Kurs gemäss %-Basis ([ChangeBasisMath.choose]). Rollend: zuerst der
+     * 24-h-Wert aus dem Ticker (gilt für das Paar selbst, also schon in seiner Quote — auch bei
+     * Fiat-Quotes), sonst aus Kerzen. Tages-Basen ([dayStart]): nur aus Kerzen seit Tagesbeginn.
+     * Kerzen mit [DayChange.select] (Kursabstand-Prüfung); null ohne Bezug — nie die
+     * Veränderung seit der letzten Abfrage.
      */
-    private fun change24h(watch: WatchEntity, price: Double, ticker: Ticker): Double? =
-        DayChange.choose(ticker.change24hPercent) {
-            val quote = DayChange.candleQuote(watch.quoteAsset)
-            DayChange.select(
-                price = price,
-                pairReference = sparklineRepository.cachedDayReference(watch.baseAsset, quote),
-                usdtReference = sparklineRepository.cachedDayReference(watch.baseAsset, DAY_QUOTE),
-                quoteIsFiat = isFiat(watch.quoteAsset),
-            )
+    private fun change24h(watch: WatchEntity, price: Double, ticker: Ticker, basis: ChangeBasis, dayStart: Long?): Double? =
+        ChangeBasisMath.choose(basis, ticker.change24hPercent) { candleChange(watch, price, dayStart) }
+
+    /** Veränderung aus gemerkten Kerzen: rollend ([dayStart] null) oder seit Tagesbeginn. */
+    private fun candleChange(watch: WatchEntity, price: Double, dayStart: Long?): Double? {
+        val quote = DayChange.candleQuote(watch.quoteAsset)
+        fun reference(q: String) = if (dayStart != null) sparklineRepository.cachedDayStartReference(watch.baseAsset, q, dayStart)
+        else sparklineRepository.cachedDayReference(watch.baseAsset, q)
+        return DayChange.select(
+            price = price,
+            pairReference = reference(quote),
+            usdtReference = reference(DAY_QUOTE),
+            quoteIsFiat = isFiat(watch.quoteAsset),
+        )
+    }
+
+    /**
+     * Tages-Basen: Bezüge, die nach dem Warten ([DAY_REFERENCE_WAIT_MILLIS]) noch kommen,
+     * im Hintergrund nachtragen — nur die Veränderung, nur solange Kurs und Basis gleich
+     * geblieben sind; danach die Widgets neu zeichnen (Live-Dienst bei ausgeschaltetem
+     * Bildschirm: aufgeschoben, [deferWidgets]). Bricht nichts ab und meldet nichts.
+     */
+    private fun fillLateDayChanges(missing: List<WatchEntity>, loads: List<Job>, stamp: ChangeStamp, deferWidgets: Boolean) {
+        if (missing.isEmpty() || loads.all { it.isCompleted }) return
+        activityScope.launch {
+            runCatching {
+                withTimeoutOrNull(LATE_FILL_MILLIS) { loads.joinAll() }
+                // Unter dem Refresh-Mutex: kein Durchlauf schreibt dazwischen (neuere Kurse,
+                // andere Basis); der Stempel muss noch derjenige dieses Durchlaufs sein
+                val filled = mutex.withLock {
+                    val settings = settingsRepository.current()
+                    if (ChangeBasisMath.stamp(settings.changeBasis, System.currentTimeMillis()) != stamp ||
+                        refreshStats.changeStamp.value != stamp
+                    ) return@withLock 0
+                    var count = 0
+                    for (watch in missing) {
+                        val price = watch.lastPrice ?: continue
+                        val change = candleChange(watch, price, stamp.dayStart)?.takeIf { it.isFinite() } ?: continue
+                        if (watchRepository.fillChange(watch.id, watch.lastUpdate, change)) count++
+                    }
+                    count
+                }
+                if (filled > 0) liveWidgetGate.drawAll(deferWidgets)
+            }.onFailure { if (it is CancellationException) throw it }
         }
+    }
 
     private fun isFiat(quote: String): Boolean = quote.trim().uppercase() in FxRateSource.CURRENCIES
 
@@ -724,7 +1022,6 @@ class PriceRefresher @Inject constructor(
         val ticker: Ticker?,
         val error: String?,
         val fromSingle: Boolean = false,
-        val millis: Long = 0,
         val notTraded: Boolean = false,
     )
 
@@ -735,6 +1032,10 @@ class PriceRefresher @Inject constructor(
         val notificationsShown: Int,
         val dbMillis: Long,
         val effectsMillis: Long,
+        /** Paare mit neuem Kurs, aber ohne Veränderung (kein Bezug). */
+        val missingDayChange: List<WatchEntity> = emptyList(),
+        /** Paare ohne neuen Kurs (Fehler, nicht mehr gehandelt). */
+        val failedIds: List<Long> = emptyList(),
     )
 
     private companion object {
@@ -752,6 +1053,9 @@ class PriceRefresher @Inject constructor(
         /** So lange wartet ein Durchlauf nach den Kursen noch auf fehlende 24-h-Bezüge. */
         const val DAY_REFERENCE_WAIT_MILLIS = 5_000L
 
+        /** So lange werden späte Tages-Bezüge im Hintergrund noch nachgetragen. */
+        const val LATE_FILL_MILLIS = 90_000L
+
         /**
          * Laufzeit-Kontrakte wechseln ihre Kennung beim Verfall (z. B.
          * BTCUSDT_250926 → BTCUSDT_251226). Die gespeicherte Kennung fehlt dann
@@ -767,8 +1071,6 @@ class PriceRefresher @Inject constructor(
         )
     }
 }
-
-private fun secs(millis: Long): String = "%.1f s".format(java.util.Locale.ROOT, millis / 1000.0)
 
 /**
  * Gespeicherter «Fehler» für Paare, die die Börse nicht mehr führt. Das ist

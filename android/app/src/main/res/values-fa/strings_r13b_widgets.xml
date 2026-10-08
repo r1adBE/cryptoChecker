@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">قدیمی · %1$s</string>
 
     <string name="settings_widgets">ابزارک‌ها</string>
-    <string name="settings_widgets_hint">قیمت‌ها را به صفحه اصلی بیاورید</string>
     <string name="widgets_sheet_title">افزودن ابزارک</string>
     <string name="widget_kind_single">یک ارز</string>
     <string name="widgets_add">افزودن</string>

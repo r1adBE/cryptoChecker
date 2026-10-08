@@ -80,6 +80,126 @@ enum WhySummary {
         return out
     }
 
+    // MARK: Sicherheit der Einordnung
+
+    /// «Sicherheit: hoch / mittel / niedrig» der wahrscheinlichen Gründe.
+    enum ConfidenceLevel: Equatable, Sendable {
+        case low, medium, high
+
+        var key: String {
+            switch self {
+            case .high: "why_confidence_high"
+            case .medium: "why_confidence_medium"
+            case .low: "why_confidence_low"
+            }
+        }
+    }
+
+    /// Wie sicher die Einordnung ist — nie eine sichere Ursache, nur wie viele unabhängige
+    /// Hinweise zusammenpassen («2 von 4 Hinweisen deuten darauf hin»). Wie `WhyConfidence` (Android).
+    struct Confidence: Equatable, Sendable {
+        let level: ConfidenceLevel
+        /// So viele Hinweise deuten auf die Einordnung.
+        let agreeing: Int
+        /// So viele Hinweise liessen sich prüfen (Markt vs. Coin, Volumen, Volatilität, Hebel).
+        let total: Int
+        /// Daten unvollständig (Marktvergleich oder mehrere Hinweise fehlen).
+        let partialData: Bool
+    }
+
+    /// Ab so vielen geprüften Hinweisen gelten die Daten als vollständig genug.
+    static let minHintsForGoodData = 3
+    /// «hoch» braucht so viele passende starke Hinweise.
+    static let highMinStrong = 3
+
+    private enum Hint: Hashable { case market, volume, volatility, leverage }
+    private enum Fit { case agrees, contradicts, neutral }
+
+    private static func hint(_ kind: WhyReasonKind) -> Hint? {
+        switch kind {
+        case .MARKET_WIDE, .COIN_ONLY, .AGAINST_MARKET, .MARKET_CALM, .MARKET_LEADER: return .market
+        case .VOLUME_HIGH, .VOLUME_LOW, .VOLUME_NORMAL: return .volume
+        case .VOLATILITY_HIGH, .VOLATILITY_NORMAL: return .volatility
+        case .LEVERAGE_LONGS, .LEVERAGE_SHORTS, .LEVERAGE_BALANCED: return .leverage
+        case .SENTIMENT: return nil
+        }
+    }
+
+    private static func fit(_ r: WhyReason, calm: Bool) -> Fit {
+        if calm {
+            switch r.kind {
+            case .MARKET_CALM: return .agrees
+            case .MARKET_LEADER: return mark(r) == .supports ? .contradicts : .agrees
+            case .VOLUME_NORMAL, .VOLUME_LOW, .VOLATILITY_NORMAL: return .agrees
+            case .VOLUME_HIGH, .VOLATILITY_HIGH: return .contradicts
+            case .LEVERAGE_BALANCED: return r.strong ? .neutral : .agrees
+            default: return .neutral
+            }
+        }
+        switch r.kind {
+        case .COIN_ONLY, .AGAINST_MARKET: return .agrees
+        case .MARKET_WIDE, .MARKET_LEADER: return mark(r) == .supports ? .agrees : .neutral
+        case .VOLUME_HIGH, .VOLATILITY_HIGH: return .agrees
+        // Wenig Volumen hinter einer Bewegung: spricht gegen eine klare Einordnung
+        case .VOLUME_LOW: return .contradicts
+        case .LEVERAGE_LONGS, .LEVERAGE_SHORTS: return .agrees
+        // Ausgeglichenes Funding zählt nur mit sprunghaftem Open Interest
+        case .LEVERAGE_BALANCED: return r.strong ? .agrees : .neutral
+        default: return .neutral
+        }
+    }
+
+    /// Sicherheit der Einordnung (Hinweise: Markt vs. Coin, Volumen, Volatilität, Hebel;
+    /// Fear & Greed zählt nicht). nil = nichts prüfbar, dann keine Sicherheit zeigen.
+    ///  - hoch: ≥ 3 passende starke Hinweise, vollständige Daten, kein Widerspruch
+    ///  - niedrig: unvollständige Daten, keine Einordnung, kein oder nur ein schwacher Hinweis
+    ///  - sonst mittel
+    static func confidence(_ reasons: [WhyReason], hasMarketData: Bool) -> Confidence? {
+        guard hasMarketData else { return nil }
+        var byHint: [Hint: WhyReason] = [:]
+        var order: [Hint] = []
+        for r in reasons {
+            guard let h = hint(r.kind), byHint[h] == nil else { continue }
+            byHint[h] = r
+            order.append(h)
+        }
+        guard !order.isEmpty else { return nil }
+
+        let kinds = Set(reasons.map(\.kind))
+        let leader = reasons.first { $0.kind == .MARKET_LEADER }
+        let calm = kinds.contains(.MARKET_CALM) || (leader.map { !leaderMoving($0) } ?? false)
+        let hasHeadline = calm || kinds.contains(.COIN_ONLY) || kinds.contains(.AGAINST_MARKET)
+            || kinds.contains(.MARKET_WIDE) || leader != nil
+
+        var agreeing = 0
+        var strongAgreeing = 0
+        var contradiction = false
+        for h in order {
+            guard let r = byHint[h] else { continue }
+            switch fit(r, calm: calm) {
+            case .agrees:
+                agreeing += 1
+                // Ruhe ist keine Stärke-Frage: jeder passende Hinweis zählt voll
+                if calm || r.strong { strongAgreeing += 1 }
+            case .contradicts:
+                contradiction = true
+            case .neutral:
+                break
+            }
+        }
+        let total = order.count
+        let partial = byHint[.market] == nil || total < minHintsForGoodData
+        let level: ConfidenceLevel
+        if partial || !hasHeadline || agreeing == 0 || (agreeing == 1 && strongAgreeing == 0) {
+            level = .low
+        } else if strongAgreeing >= highMinStrong && !contradiction {
+            level = .high
+        } else {
+            level = .medium
+        }
+        return Confidence(level: level, agreeing: agreeing, total: total, partialData: partial)
+    }
+
     /// Bitcoin bewegt sich so stark, wie es für «der ganze Markt bewegt sich» nötig ist.
     private static func leaderMoving(_ reason: WhyReason) -> Bool {
         reason.value.isFinite && abs(reason.value) >= ActivityAnalyzer.marketMovePercent

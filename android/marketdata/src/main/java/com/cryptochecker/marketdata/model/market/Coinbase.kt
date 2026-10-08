@@ -7,7 +7,6 @@ import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.currency.CurrencyPairsMap
 import com.cryptochecker.marketdata.util.Change24h
-import com.cryptochecker.marketdata.util.TimeUtils
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,7 +16,6 @@ class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
     companion object {
         private const val NAME = "Coinbase"
         private const val TTS_NAME = NAME
-        private const val URL_TICKER = "https://api.exchange.coinbase.com/products/%1\$s/ticker"
         private const val URL_STATS = "https://api.exchange.coinbase.com/products/%1\$s/stats"
         private const val URL_CURRENCY_PAIRS = "https://api.exchange.coinbase.com/products"
 
@@ -50,16 +48,19 @@ class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
         CURRENCY_PAIRS["ZEC"] = arrayOf("BTC", "USD", "USDC")
     }
 
+    /**
+     * Eine Anfrage je Paar: /stats liefert gleitend über 24 h open, high, low,
+     * last und volume — alles, was Merkliste, Alarme und Widgets brauchen.
+     * /ticker kam nur für Bid/Ask und den Zeitstempel dazu; Bid/Ask zeigt die
+     * App nirgends dauerhaft an (nur die Vorschau beim Hinzufügen, die sie bei
+     * fehlenden Werten ausblendet), der Zeitstempel ist dann die Abrufzeit.
+     */
     override fun getNumOfRequests(checkerInfo: CheckerInfo?): Int {
-        return 2
+        return 1
     }
 
     override fun getUrl(requestId: Int, checkerInfo: CheckerInfo): String {
         val pairId = checkerInfo.currencyPairId ?: "${checkerInfo.currencyBase}-${checkerInfo.currencyCounter}"
-
-        if(requestId == 0)
-            return String.format(URL_TICKER, pairId)
-
         return String.format(URL_STATS, pairId)
     }
 
@@ -72,26 +73,15 @@ class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
             throw MarketParseException(it)
         }
 
-        if(requestId == 0) {
-            ticker.vol = jsonObject.getDouble("volume").also {
-                if(it <= 0)
-                    throw MarketParseException("No trading volume")
-            }
-
-            ticker.bid = jsonObject.getDouble("bid")
-            ticker.ask = jsonObject.getDouble("ask")
-            ticker.last = jsonObject.getDouble("price")
-            ticker.timestamp = TimeUtils.convertISODateToTimestamp(jsonObject.getString("time"))
+        ticker.vol = jsonObject.getDouble("volume").also {
+            if(it <= 0)
+                throw MarketParseException("No trading volume")
         }
-        else {
-            // /stats: „open“ = Kurs vor 24 h (gleitend). Bezug ist der Kurs aus /ticker.
-            val open = jsonObject.optDouble("open")
-            ticker.change24hPercent = Change24h.fromOpen(ticker.last, open)
-                ?: Change24h.fromOpen(jsonObject.optDouble("last"), open)
-
-            ticker.high = jsonObject.getDouble("high")
-            ticker.low = jsonObject.getDouble("low")
-        }
+        ticker.last = jsonObject.getDouble("last")
+        ticker.high = jsonObject.getDouble("high")
+        ticker.low = jsonObject.getDouble("low")
+        // „open“ = Kurs vor 24 h (gleitend)
+        ticker.change24hPercent = Change24h.fromOpen(ticker.last, jsonObject.optDouble("open"))
     }
 
     override fun getCurrencyPairsUrl(requestId: Int): String {

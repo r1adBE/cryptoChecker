@@ -59,6 +59,10 @@ enum ActivityAnalyzer {
     static let volatilityHighZ = 2.0
     static let maxReasons = 5
 
+    /// «Nähe zum Hoch»: so viele Tage zurück.
+    static let highDays = 30
+    static let dayMillis: Int64 = 24 * hourMillis
+
     /// Stärkstes zuerst, bei gleicher Stärke nach Art — stabil wie `sortedWith` in Kotlin.
     static func sortedSignals(_ signals: [ActivitySignal]) -> [ActivitySignal] {
         signals.enumerated().sorted { a, b in
@@ -327,8 +331,21 @@ enum ActivityAnalyzer {
             change24h: change24h,
             reasons: Array(ordered.prefix(maxReasons)),
             hasMarketData: candles != nil,
-            dataTime: now
+            dataTime: now,
+            high30d: candles != nil ? high30d(input.dailyCandles, now: now) : nil,
+            // Referenz ist BTCUSDT (bei Bitcoin selbst ETH — dann ohnehin kein Satz)
+            btcLink: BtcCorrelation.link(base: input.baseAsset, candles: candles, btc: reference)
         )
+    }
+
+    /// Höchster Kurs der letzten `highDays` Tage aus Tageskerzen (letzte = laufender Tag);
+    /// nil bei weniger als 30 Tagen, einer veralteten Reihe oder ungültigen Werten (wie Android).
+    static func high30d(_ daily: [MarketCandle]?, now: Int64) -> Double? {
+        guard let daily, daily.count >= highDays, let last = daily.last else { return nil }
+        // Reihe endet vor über zwei Tagen (oder liegt in der Zukunft): kein Hoch
+        if now - last.openTime > 2 * dayMillis || last.openTime - now > dayMillis { return nil }
+        guard let high = daily.suffix(highDays).map(\.high).max(), high.isFinite, high > 0 else { return nil }
+        return high
     }
 
     /// Leerer Bericht für Paare, die nicht mehr gehandelt werden.

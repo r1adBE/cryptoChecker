@@ -104,13 +104,23 @@ struct CurrencyPairInfo: Codable, Hashable, Comparable, Sendable, CustomStringCo
     var quote: String
     var pairId: String?
     var contractType: FuturesContractType = .none
+    /// Kontrakt auf etwas, das kein Krypto-Token ist — Aktie, Rohstoff (z. B. Gold), Devisen oder
+    /// Firma vor dem Börsengang (Binance «TradFi-Perpetuals»); nur mit dem Schalter unter
+    /// Einstellungen › Merkliste sichtbar. nil: Börse ohne diese Angabe oder Liste aus
+    /// einer älteren Version (gilt als Krypto) — wie `CurrencyPairInfo.tradFi` in Android.
+    var tradFi: Bool?
 
-    init(_ base: String, _ quote: String, _ pairId: String?, _ contractType: FuturesContractType = .none) {
+    init(_ base: String, _ quote: String, _ pairId: String?, _ contractType: FuturesContractType = .none,
+         tradFi: Bool? = nil) {
         self.base = base
         self.quote = quote
         self.pairId = pairId
         self.contractType = contractType
+        self.tradFi = tradFi
     }
+
+    /// Kein Krypto-Token (siehe `tradFi`).
+    var isTradFi: Bool { tradFi == true }
 
     var baseLower: String { base.lowercased() }
     var quoteLower: String { quote.lowercased() }

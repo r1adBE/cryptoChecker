@@ -7,7 +7,12 @@ time, object IDs are derived from hashes, so the output is deterministic (same t
   Shared/**  -> compiled into both targets (InfoPlist.xcstrings: app only)
   App/**     -> app target "CryptoChecker"
   Widgets/** -> widget extension "CryptoCheckerWidgetsExtension"
+  Tests/**   -> unit-test bundle "CryptoCheckerTests" (hosted by the app, `@testable import CryptoChecker`),
+                run by the scheme's test action (`xcodebuild test -scheme CryptoChecker`)
   App/PrivacyInfo.xcprivacy -> resource in both targets (privacy manifest per bundle)
+
+Shared test cases: ../android/testdata/parity/*.json (here also ../cryptoChecker/...) are copied
+to Tests/Parity/ on every run, so Android and iOS test the same inputs and expected results.
 
 Usage: python3 tools/gen_xcodeproj.py            (generate + validate)
        python3 tools/gen_xcodeproj.py --check    (only validate the existing project file)
@@ -30,14 +35,20 @@ APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
 APP_TARGET = "CryptoChecker"
 WIDGET_TARGET = "CryptoCheckerWidgetsExtension"
+TEST_TARGET = "CryptoCheckerTests"
+TEST_ID = "com.cryptochecker.app.tests"
 ALTERNATE_ICONS = ["AppIconOrangeLight", "AppIconRed", "AppIconRedLight", "AppIconBlue",
                    "AppIconBlueLight", "AppIconGreen", "AppIconGreenLight",
                    "AppIconMarrsGreen", "AppIconMarrsGreenLight"]
-TOP_FOLDERS = ["Shared", "App", "Widgets"]
+TOP_FOLDERS = ["Shared", "App", "Widgets", "Tests"]
 APP_ONLY_RESOURCES = {"InfoPlist.xcstrings"}
 # Ressourcen aus App/, die auch die Widget-Erweiterung braucht (eigenes Bundle,
 # eigenes Datenschutz-Manifest: beide nutzen UserDefaults).
 BOTH_TARGET_RESOURCES = {os.path.join("App", "PrivacyInfo.xcprivacy")}
+# Gemeinsame Testfälle Android/iOS: Quelle im Android-Projekt (öffentliches Repo: android/,
+# lokal auch cryptoChecker/), Kopie im Testziel.
+PARITY_SOURCES = [os.path.join(os.path.dirname(ROOT), d, "testdata", "parity") for d in ("android", "cryptoChecker")]
+PARITY_COPY = os.path.join(ROOT, "Tests", "Parity")
 
 FILE_TYPES = {
     ".swift": "sourcecode.swift",
@@ -56,6 +67,55 @@ FILE_TYPES = {
 }
 # .txt: Lizenztexte (App/Resources/Licenses), nur im App-Ziel
 RESOURCE_EXTS = {".xcassets", ".xcstrings", ".strings", ".json", ".png", ".storyboard", ".xcprivacy", ".wav", ".txt"}
+
+
+def parity_source():
+    return next((p for p in PARITY_SOURCES if os.path.isdir(p)), None)
+
+
+def parity_differences():
+    """Dateien in Tests/Parity, die nicht (mehr) der Quelle entsprechen; leer ohne Quelle."""
+    src = parity_source()
+    if src is None:
+        return []
+    wanted = sorted(f for f in os.listdir(src) if f.endswith(".json"))
+    have = sorted(f for f in os.listdir(PARITY_COPY) if f.endswith(".json")) if os.path.isdir(PARITY_COPY) else []
+    diffs = [f for f in have if f not in wanted]
+    for name in wanted:
+        target = os.path.join(PARITY_COPY, name)
+        with open(os.path.join(src, name), "rb") as a:
+            data = a.read()
+        if not os.path.exists(target):
+            diffs.append(name)
+            continue
+        with open(target, "rb") as b:
+            if b.read() != data:
+                diffs.append(name)
+    return diffs
+
+
+def sync_parity():
+    """Gemeinsame Testfälle aus dem Android-Projekt nach Tests/Parity kopieren (überzählige löschen)."""
+    src = parity_source()
+    if src is None:
+        print("note: android/testdata/parity not found next to the iOS folder; Tests/Parity left as is")
+        return
+    os.makedirs(PARITY_COPY, exist_ok=True)
+    wanted = sorted(f for f in os.listdir(src) if f.endswith(".json"))
+    for name in os.listdir(PARITY_COPY):
+        if name.endswith(".json") and name not in wanted:
+            os.remove(os.path.join(PARITY_COPY, name))
+    for name in wanted:
+        with open(os.path.join(src, name), "rb") as a:
+            data = a.read()
+        target = os.path.join(PARITY_COPY, name)
+        if os.path.exists(target):
+            with open(target, "rb") as b:
+                if b.read() == data:
+                    continue
+        with open(target, "wb") as b:
+            b.write(data)
+    print(f"parity fixtures: {len(wanted)} file(s) from {os.path.relpath(src, ROOT)}")
 
 
 def known_regions():
@@ -288,6 +348,26 @@ def widget_settings():
     return dict(sorted(s.items()))
 
 
+def test_settings():
+    """Unit-Test-Bundle, gehostet von der App: `@testable import CryptoChecker` (Debug hat ENABLE_TESTABILITY)."""
+    s = {
+        "BUNDLE_LOADER": "$(TEST_HOST)",
+        "CODE_SIGN_STYLE": "Automatic",
+        "CURRENT_PROJECT_VERSION": CURRENT_PROJECT_VERSION,
+        "DEVELOPMENT_TEAM": "",
+        "GENERATE_INFOPLIST_FILE": "YES",
+        "IPHONEOS_DEPLOYMENT_TARGET": DEPLOYMENT_TARGET,
+        "MARKETING_VERSION": MARKETING_VERSION,
+        "PRODUCT_BUNDLE_IDENTIFIER": TEST_ID,
+        "PRODUCT_NAME": "$(TARGET_NAME)",
+        "SWIFT_EMIT_LOC_STRINGS": "NO",
+        "SWIFT_VERSION": "5.0",
+        "TARGETED_DEVICE_FAMILY": "1,2",
+        "TEST_HOST": f"$(BUILT_PRODUCTS_DIR)/{APP_TARGET}.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/{APP_TARGET}",
+    }
+    return dict(sorted(s.items()))
+
+
 # ------------------------------------------------------------------ project
 
 def build():
@@ -319,27 +399,31 @@ def build():
 
     app_product = uid("product", APP_TARGET)
     widget_product = uid("product", WIDGET_TARGET)
+    test_product = uid("product", TEST_TARGET)
     add(Obj(app_product, f"{APP_TARGET}.app", isa="PBXFileReference", explicitFileType="wrapper.application",
             includeInIndex="0", path=f"{APP_TARGET}.app", sourceTree="BUILT_PRODUCTS_DIR"))
     add(Obj(widget_product, f"{WIDGET_TARGET}.appex", isa="PBXFileReference",
             explicitFileType="wrapper.app-extension", includeInIndex="0", path=f"{WIDGET_TARGET}.appex",
             sourceTree="BUILT_PRODUCTS_DIR"))
+    add(Obj(test_product, f"{TEST_TARGET}.xctest", isa="PBXFileReference", explicitFileType="wrapper.cfbundle",
+            includeInIndex="0", path=f"{TEST_TARGET}.xctest", sourceTree="BUILT_PRODUCTS_DIR"))
     products_group = uid("group", "Products")
-    add(Obj(products_group, "Products", isa="PBXGroup", children=[app_product, widget_product],
+    add(Obj(products_group, "Products", isa="PBXGroup", children=[app_product, widget_product, test_product],
             name="Products", sourceTree="<group>"))
     main_group = uid("group", "<main>")
     add(Obj(main_group, "", isa="PBXGroup", children=[t.id for t in trees] + [products_group],
             sourceTree="<group>"))
 
     # assign files to targets
-    phases = {APP_TARGET: {"src": [], "res": []}, WIDGET_TARGET: {"src": [], "res": []}}
-    names_per_target = {APP_TARGET: {}, WIDGET_TARGET: {}}
+    phases = {APP_TARGET: {"src": [], "res": []}, WIDGET_TARGET: {"src": [], "res": []},
+              TEST_TARGET: {"src": [], "res": []}}
+    names_per_target = {APP_TARGET: {}, WIDGET_TARGET: {}, TEST_TARGET: {}}
     for t in trees:
         for f in walk_files(t):
             ext = os.path.splitext(f.name)[1]
             top = f.rel.split(os.sep)[0]
             targets = {"Shared": [APP_TARGET, WIDGET_TARGET], "App": [APP_TARGET],
-                       "Widgets": [WIDGET_TARGET]}[top]
+                       "Widgets": [WIDGET_TARGET], "Tests": [TEST_TARGET]}[top]
             if f.name in APP_ONLY_RESOURCES:
                 targets = [APP_TARGET]
             if f.rel in BOTH_TARGET_RESOURCES:
@@ -370,7 +454,8 @@ def build():
     targets = {}
     for tgt, settings_fn, product, ptype in (
             (APP_TARGET, app_settings, app_product, "com.apple.product-type.application"),
-            (WIDGET_TARGET, widget_settings, widget_product, "com.apple.product-type.app-extension")):
+            (WIDGET_TARGET, widget_settings, widget_product, "com.apple.product-type.app-extension"),
+            (TEST_TARGET, test_settings, test_product, "com.apple.product-type.bundle.unit-test")):
         src = add(Obj(uid("sources", tgt), "Sources", isa="PBXSourcesBuildPhase", buildActionMask="2147483647",
                       files=phases[tgt]["src"], runOnlyForDeploymentPostprocessing="0"))
         fw = add(Obj(uid("frameworks", tgt), "Frameworks", isa="PBXFrameworksBuildPhase",
@@ -398,6 +483,13 @@ def build():
                             remoteGlobalIDString=uid("target", WIDGET_TARGET), remoteInfo=WIDGET_TARGET))
             deps.append(add(Obj(uid("dep", WIDGET_TARGET), "PBXTargetDependency", isa="PBXTargetDependency",
                                 target=uid("target", WIDGET_TARGET), targetProxy=proxy)))
+        if tgt == TEST_TARGET:
+            # Testziel läuft in der App (TEST_HOST): App zuerst bauen
+            proxy = add(Obj(uid("proxy", APP_TARGET), "PBXContainerItemProxy", isa="PBXContainerItemProxy",
+                            containerPortal=project_id, proxyType="1",
+                            remoteGlobalIDString=uid("target", APP_TARGET), remoteInfo=APP_TARGET))
+            deps.append(add(Obj(uid("dep", APP_TARGET), "PBXTargetDependency", isa="PBXTargetDependency",
+                                target=uid("target", APP_TARGET), targetProxy=proxy)))
         targets[tgt] = add(Obj(uid("target", tgt), tgt, isa="PBXNativeTarget", buildConfigurationList=cl,
                                buildPhases=build_phases, buildRules=[], dependencies=deps, name=tgt,
                                productName=tgt, productReference=product, productType=ptype))
@@ -411,11 +503,13 @@ def build():
             attributes={"BuildIndependentTargetsInParallel": "1", "LastSwiftUpdateCheck": "1530",
                         "LastUpgradeCheck": "1530",
                         "TargetAttributes": {targets[APP_TARGET]: {"CreatedOnToolsVersion": "15.3"},
-                                             targets[WIDGET_TARGET]: {"CreatedOnToolsVersion": "15.3"}}},
+                                             targets[WIDGET_TARGET]: {"CreatedOnToolsVersion": "15.3"},
+                                             targets[TEST_TARGET]: {"CreatedOnToolsVersion": "15.3",
+                                                                    "TestTargetID": targets[APP_TARGET]}}},
             buildConfigurationList=pcl, compatibilityVersion="Xcode 14.0", developmentRegion="en",
             hasScannedForEncodings="0", knownRegions=known_regions(), mainGroup=main_group,
             productRefGroup=products_group, projectDirPath="", projectRoot="",
-            targets=[targets[APP_TARGET], targets[WIDGET_TARGET]]))
+            targets=[targets[APP_TARGET], targets[WIDGET_TARGET], targets[TEST_TARGET]]))
     return objs, project_id, targets, phases
 
 
@@ -433,6 +527,7 @@ def scheme_xml(targets):
 
     app = (APP_TARGET, f"{APP_TARGET}.app")
     wid = (WIDGET_TARGET, f"{WIDGET_TARGET}.appex")
+    tests = (TEST_TARGET, f"{TEST_TARGET}.xctest")
 
     def entry(t):
         return ('         <BuildActionEntry\n            buildForTesting = "YES"\n            buildForRunning = "YES"\n'
@@ -449,6 +544,9 @@ def scheme_xml(targets):
             '      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"\n'
             '      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"\n'
             '      shouldUseLaunchSchemeArgsEnv = "YES"\n      shouldAutocreateTestPlan = "YES">\n'
+            '      <Testables>\n         <TestableReference\n            skipped = "NO"\n'
+            '            parallelizable = "NO">\n' + br(*tests, 12) + '         </TestableReference>\n'
+            '      </Testables>\n'
             '   </TestAction>\n'
             '   <LaunchAction\n      buildConfiguration = "Debug"\n'
             '      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"\n'
@@ -594,6 +692,8 @@ def validate(path, expect_sources=None):
         for cfg in objs[t["buildConfigurationList"]]["buildConfigurations"]:
             bs = objs[cfg]["buildSettings"]
             for key in ("INFOPLIST_FILE", "CODE_SIGN_ENTITLEMENTS"):
+                if key not in bs:
+                    continue  # Testziel: Info.plist generiert, keine Berechtigungen
                 if not os.path.exists(os.path.join(ROOT, bs[key])):
                     errors.append(f"{t['name']}/{objs[cfg]['name']}: {key} {bs[key]} missing")
     if expect_sources:
@@ -606,6 +706,7 @@ def validate(path, expect_sources=None):
 
 def main():
     if "--check" not in sys.argv:
+        sync_parity()
         objs, root_id, targets, phases = build()
         os.makedirs(os.path.join(PROJ_DIR, "xcshareddata", "xcschemes"), exist_ok=True)
         os.makedirs(os.path.join(PROJ_DIR, "project.xcworkspace"), exist_ok=True)
@@ -616,6 +717,8 @@ def main():
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n<Workspace\n   version = "1.0">\n'
                     '   <FileRef\n      location = "self:">\n   </FileRef>\n</Workspace>\n')
     errors, summary = validate(os.path.join(PROJ_DIR, "project.pbxproj"))
+    errors += [f"Tests/Parity/{f} differs from android/testdata/parity (run without --check)"
+               for f in parity_differences()]
     for tgt, phases in summary.items():
         print(f"{tgt}: " + ", ".join(f"{k.replace('PBX', '').replace('BuildPhase', '')}={len(v)}"
                                      for k, v in phases.items()))

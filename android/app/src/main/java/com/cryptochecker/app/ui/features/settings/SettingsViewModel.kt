@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.lock.PortfolioLockPolicy
@@ -59,19 +60,78 @@ class SettingsViewModel @Inject constructor(
 
     fun clearBackupMessage() { _backupMessage.value = null }
 
+    /**
+     * Schutz der nächsten Sicherung (Passwort oder bewusst ohne) bis zur Dateiauswahl. Im
+     * ViewModel, damit er ein Drehen übersteht; nach einem Prozess-Ende fehlt er — dann wird
+     * nicht stillschweigend ohne Passwort gesichert.
+     */
+    private var pendingExport: ExportRequest? = null
+
+    private class ExportRequest(val password: String?)
+
+    /** Vor dem Öffnen der Dateiauswahl: [password] null = ohne Passwortschutz. */
+    fun prepareExport(password: String?) {
+        pendingExport = ExportRequest(password)
+    }
+
+    /** Dateiauswahl abgebrochen. */
+    fun cancelExport() {
+        pendingExport = null
+    }
+
     fun exportBackup(uri: android.net.Uri) = update {
-        _backupMessage.value = runCatching { backupManager.export(uri) }
+        val request = pendingExport
+        pendingExport = null
+        _backupMessage.value = if (request == null) BackupMessage.Failed
+        else runCatching { backupManager.export(uri, request.password) }
             .fold({ BackupMessage.Exported }, { BackupMessage.Failed })
     }
 
-    fun restoreBackup(uri: android.net.Uri) = update {
+    /** Schritt beim Wiederherstellen: Passwort (nur verschlüsselte Sicherung), dann Bestätigen. */
+    private val _restoreStep = MutableStateFlow<RestoreStep?>(null)
+    val restoreStep: StateFlow<RestoreStep?> = _restoreStep.asStateFlow()
+
+    /** Datei gewählt: verschlüsselt → Passwort, sonst gleich die Rückfrage. */
+    fun restorePicked(uri: android.net.Uri) = update {
+        _restoreStep.value = try {
+            if (backupManager.needsPassword(uri)) RestoreStep.Password(uri) else RestoreStep.Confirm(uri, null)
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            _backupMessage.value = BackupMessage.Failed
+            null
+        }
+    }
+
+    /** Passwort prüfen; falsch → nochmals fragen (mit Hinweis), richtig → Rückfrage. */
+    fun submitRestorePassword(uri: android.net.Uri, password: String) = update {
+        _restoreStep.value = RestoreStep.Password(uri, wrong = false, checking = true)
+        _restoreStep.value = try {
+            backupManager.checkPassword(uri, password)
+            RestoreStep.Confirm(uri, password)
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: com.cryptochecker.app.data.BackupCrypto.WrongPasswordException) {
+            RestoreStep.Password(uri, wrong = true)
+        } catch (e: Exception) {
+            _backupMessage.value = BackupMessage.Failed
+            null
+        }
+    }
+
+    fun cancelRestore() {
+        _restoreStep.value = null
+    }
+
+    fun restoreBackup(uri: android.net.Uri, password: String?) = update {
+        _restoreStep.value = null
         // Wer hier wiederherstellt, ist schon drin: Schaltet die Sicherung die Portfolio-Sperre
         // ein, gilt sie erst ab dem nächsten Kaltstart bzw. nach dem Hintergrund-Limit —
         // nicht sofort in dieser Sitzung (vor dem Schreiben, damit nichts aufblitzt).
         // Nur wenn die Sperre bisher aus war: sonst höbe ein Wiederherstellen nach über
         // einer Minute in der Dateiauswahl die gerade fällige Sperre ohne Entsperren auf.
         if (!settingsRepository.current().appLock) appLockState.unlock()
-        _backupMessage.value = runCatching { backupManager.restore(uri) }
+        _backupMessage.value = runCatching { backupManager.restore(uri, password) }
             .fold(
                 onSuccess = { result ->
                     // Neue Einstellungen gleich anwenden
@@ -161,7 +221,22 @@ class SettingsViewModel @Inject constructor(
     private suspend fun applyAlarmSound(uri: String?, name: String?) {
         val version = settingsRepository.setAlarmSound(uri, name)
         NotificationChannels.ensureAlarmChannel(context, version, uri)
+        // Kanal des gewählten Signals gleich mit dem neuen Ton anlegen
+        val signal = settingsRepository.current().alarmSignal
+        if (signal != AlarmSignal.SYSTEM) NotificationChannels.ensureAlarmChannel(context, signal, version, uri)
     }
+
+    /**
+     * «Alarm-Signal» wählen. Legt den Kanal gleich an (damit «In den Systemeinstellungen
+     * anpassen» ihn findet); die Kanäle der anderen Signale bleiben bestehen.
+     */
+    fun setAlarmSignal(signal: AlarmSignal) = update {
+        settingsRepository.setAlarmSignal(signal)
+        notifier.alarmChannel(signal)
+    }
+
+    /** Kanal-ID des gewählten «Alarm-Signals» (angelegt) — für die Systemeinstellungen des Kanals. */
+    fun currentAlarmChannelId(): String = notifier.alarmChannel(settings.value.alarmSignal)
 
     fun setFearGreedBelow(value: Int) = update {
         settingsRepository.setFearGreedBelow(value)
@@ -218,6 +293,17 @@ class SettingsViewModel @Inject constructor(
     /** Mini-Chart in der Merkliste ein/aus. */
     fun setWatchlistSparkline(show: Boolean) = update { settingsRepository.setWatchlistSparkline(show) }
 
+    /**
+     * «Basis der %-Änderung»: Bis neu gerechnet ist, zeigen Pillen und Widgets «—» (der Stempel
+     * passt nicht mehr); gleich eine Aktualisierung anstossen, Widgets und Portfolio-Widget folgen.
+     */
+    fun setChangeBasis(basis: com.cryptochecker.app.domain.watch.ChangeBasis) = update {
+        if (settingsRepository.current().changeBasis == basis) return@update
+        settingsRepository.setChangeBasis(basis)
+        widgetUpdater.updateAll()
+        scheduler.refreshNow()
+    }
+
     /** Umgerechnete Kurse in der Merkliste («≈ 61’234 CHF»). */
     fun setShowConverted(show: Boolean) = update { settingsRepository.setShowConverted(show) }
 
@@ -248,8 +334,15 @@ class SettingsViewModel @Inject constructor(
         // Der Dienst liest das Intervall bei jedem Durchlauf neu ein.
     }
 
+    /** Live-Kurse per WebSocket in der offenen Merkliste (`LivePriceStream` folgt der Einstellung). */
+    fun setLiveWebSocket(enabled: Boolean) = update { settingsRepository.setLiveWebSocket(enabled) }
+
     fun setIncludeRollingFutures(enabled: Boolean) = update {
         settingsRepository.setIncludeRollingFutures(enabled)
+    }
+
+    fun setIncludeTradFiFutures(enabled: Boolean) = update {
+        settingsRepository.setIncludeTradFiFutures(enabled)
     }
 
     fun setPriceNotifications(enabled: Boolean) = update {
@@ -306,6 +399,12 @@ class SettingsViewModel @Inject constructor(
 
     // ---------------- Portfolio-Sperre ----------------
 
+    /** «Beträge verbergen» (Portfolio und Portfolio-Widget). */
+    fun setHidePortfolioAmounts(hidden: Boolean) = update {
+        settingsRepository.setHidePortfolioAmounts(hidden)
+        portfolioSnapshotUpdater.redrawWidgets()
+    }
+
     /** Ausschalten (nach [disableAppLock]); das Portfolio-Widget zeigt danach wieder Werte. */
     fun setAppLock(enabled: Boolean) = update {
         settingsRepository.setAppLock(enabled)
@@ -332,8 +431,11 @@ class SettingsViewModel @Inject constructor(
     fun disableAppLock(activity: androidx.fragment.app.FragmentActivity?, reason: String) =
         gate(activity, reason, PortfolioLockPolicy::disableNeedsUnlock) { setAppLock(false) }
 
-    /** Sichern: Enthält die Datei Portfolio-Daten und ist gesperrt, erst entsperren. */
-    fun startBackupExport(activity: androidx.fragment.app.FragmentActivity?, reason: String, launch: () -> Unit) {
+    /**
+     * Sichern: Enthält die Datei Portfolio-Daten und ist gesperrt, erst entsperren.
+     * [launch] erhält, ob Portfolio-Daten dabei sind (dann ist der Passwortschutz vorgewählt).
+     */
+    fun startBackupExport(activity: androidx.fragment.app.FragmentActivity?, reason: String, launch: (Boolean) -> Unit) {
         viewModelScope.launch {
             val hasPortfolio = try {
                 portfolioRepository.getTransactions().isNotEmpty()
@@ -342,7 +444,9 @@ class SettingsViewModel @Inject constructor(
             } catch (e: Exception) {
                 true
             }
-            gate(activity, reason, { locked -> PortfolioLockPolicy.backupExportNeedsUnlock(locked, hasPortfolio) }, launch)
+            gate(activity, reason, { locked -> PortfolioLockPolicy.backupExportNeedsUnlock(locked, hasPortfolio) }) {
+                launch(hasPortfolio)
+            }
         }
     }
 
@@ -366,6 +470,21 @@ class SettingsViewModel @Inject constructor(
     private fun update(block: suspend () -> Unit) {
         viewModelScope.launch { block() }
     }
+}
+
+/** Wiederherstellen in Schritten (siehe [SettingsViewModel.restoreStep]). */
+sealed interface RestoreStep {
+    val uri: android.net.Uri
+
+    /** Passwort der verschlüsselten Sicherung; [wrong] nach einem Fehlversuch, [checking] während der Prüfung. */
+    data class Password(
+        override val uri: android.net.Uri,
+        val wrong: Boolean = false,
+        val checking: Boolean = false,
+    ) : RestoreStep
+
+    /** Rückfrage «Ersetzen?»; [password] null bei einer lesbaren Sicherung. Kein data class: kein Passwort in toString. */
+    class Confirm(override val uri: android.net.Uri, val password: String?) : RestoreStep
 }
 
 sealed interface BackupMessage {

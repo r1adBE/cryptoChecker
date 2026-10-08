@@ -49,6 +49,10 @@ struct WidgetPalette {
         divider = accent.primary(dark: dark, highContrast: highContrast).opacity(highContrast ? 0.45 : 0.25)
     }
 
+    /// Live-Aktivität (Sperrbildschirm, Dynamic Island): dunkle Fläche, helle Systemknöpfe.
+    static let liveActivityBackground = Color.black.opacity(0.72)
+    static let liveActivityForeground = Color.white
+
     func change(_ value: Double?) -> Color {
         guard let value else { return neutral }
         if PriceFormat.changePercent(value) == nil { return neutral }
@@ -117,7 +121,7 @@ struct WidgetLogo: View {
                     .fill(accent.primary(dark: dark))
                 Image(systemName: "chart.line.uptrend.xyaxis")
                     .font(.system(size: size * 0.55, weight: .bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AppColors.onVivid)
             }
             .frame(width: size, height: size)
             .accessibilityHidden(true)
@@ -170,6 +174,8 @@ struct WidgetChangeLabel: View {
     var day = false
     /// Klein und grau hinter dem Wert, z. B. «24h» (wenn daneben ein anderer Zeitraum steht).
     var suffix: String? = nil
+    /// %-Basis von `day`-Werten (VoiceOver: «… in 24 Stunden» / «… heute»).
+    var basis: ChangeBasis = .ROLLING_24H
 
     static var zeroText: String { String(format: "%.2f%%", locale: Locale.current, 0.0) }
 
@@ -187,7 +193,7 @@ struct WidgetChangeLabel: View {
                     .lineLimit(1)
                     // Mit Pfeil in engen Zeilen lieber etwas kleiner als abgeschnitten
                     .minimumScaleFactor(0.85)
-                    .accessibilityLabel(day ? A11y.change24h(change) : (A11y.change(change) ?? L("a11y_change_flat")))
+                    .accessibilityLabel(day ? A11y.change(change, basis: basis) : (A11y.change(change) ?? L("a11y_change_flat")))
                 if let suffix {
                     Text(suffix)
                         .font(.system(size: size * 0.8, weight: .medium))

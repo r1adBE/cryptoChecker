@@ -16,8 +16,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
@@ -42,7 +47,8 @@ private const val ROLL_MILLIS = 250
  * die Breite stabil.
  *
  * Ohne Animationen (Animator-Dauer 0) oder bei Text mit Schrift von rechts nach links
- * ein gewöhnlicher Text. Der Screenreader liest immer den ganzen Text.
+ * ein gewöhnlicher Text — ebenso, bis sich der Wert hier zum ersten Mal ändert (erstes
+ * Zeichnen, Scrollen). Der Screenreader liest immer den ganzen Text.
  *
  * @param value Zahl hinter [text], nur für die Richtung; null = Richtung bleibt
  * @param contentDescription Text für den Screenreader; null = [text]
@@ -62,9 +68,28 @@ fun RollingNumberText(
     val direction = remember { RollingDirection(value) }
     val up = direction.update(value)
 
-    if (reduceMotion || !RollingDigits.canRoll(text)) {
+    // Bis sich der Text hier zum ersten Mal ändert, ein gewöhnlicher Text: Beim ersten
+    // Zeichnen und beim Scrollen (Zeilen neu zusammengesetzt) entstehen keine
+    // Animationsknoten je Ziffer, und es rollt nichts. Erst bei einer echten Änderung
+    // wechselt die Anzeige — noch mit dem alten Text — in den Rollmodus und rollt dann
+    // zum neuen (zwei Bilder später), sodass schon die erste Änderung rollt.
+    var rolling by remember { mutableStateOf(false) }
+    var shown by remember { mutableStateOf(text) }
+    val animatable = !reduceMotion && RollingDigits.canRoll(text) && RollingDigits.canRoll(shown)
+    LaunchedEffect(text) {
+        if (text == shown) return@LaunchedEffect
+        if (animatable && !rolling) {
+            rolling = true
+            withFrameMillis { }
+            withFrameMillis { }
+        }
+        shown = text
+    }
+
+    if (!animatable || !rolling) {
         Text(
-            text = text,
+            // Wartet der Wechsel in den Rollmodus, noch kurz den alten Text (kein Aufblitzen)
+            text = if (animatable) shown else text,
             style = style,
             color = color,
             fontWeight = fontWeight,
@@ -79,7 +104,7 @@ fun RollingNumberText(
     // Teile von links nach rechts, auch in Sprachen mit RTL-Layout (Zahlen laufen immer LTR)
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Row(modifier = modifier.clipToBounds().clearAndSetSemantics { this.contentDescription = spoken }) {
-            for (slot in RollingDigits.slots(text)) {
+            for (slot in RollingDigits.slots(shown)) {
                 key(slot.key) {
                     AnimatedContent(
                         targetState = slot.text,

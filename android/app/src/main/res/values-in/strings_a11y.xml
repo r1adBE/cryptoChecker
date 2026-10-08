@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Warna harga</string>
-    <string name="price_colors_green_red">Hijau / merah</string>
-    <string name="price_colors_blue_orange">Biru / oranye</string>
     <string name="settings_price_colors_hint">Biru / oranye mudah dibedakan untuk setiap jenis buta warna (merah-hijau dan biru-kuning). Arah perubahan juga selalu ditampilkan dengan + / −.</string>
     <string name="settings_watchlist_sparkline">Grafik mini di daftar pantau</string>
     <string name="settings_watchlist_sparkline_hint">Tren 24 jam di samping harga</string>
 
-    <string name="settings_price_colors_inverted">Tukar warna naik/turun</string>
-    <string name="settings_price_colors_inverted_hint">Merah untuk naik, hijau untuk turun, seperti lazim di Tiongkok, Jepang, Korea, dan Taiwan. Default mengikuti wilayah perangkat.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Kontras tinggi</string>

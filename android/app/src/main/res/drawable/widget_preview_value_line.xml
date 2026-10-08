@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Vorschau im Widget-Auswahlmenü (widget_preview_portfolio): Wertverlauf wie
-     WidgetChartRenderer.drawValueLine (Linie mit schwacher Fläche, ohne Achsen), feste Beispieldaten. -->
+     WidgetChartRenderer.drawPortfolioArea — Linie in der Kursfarbe, Fläche als Verlauf von 25 %
+     bis 0, schwache Linie beim Ausgangswert, Punkt am letzten Wert; feste Beispieldaten (24 h). -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="200dp"
-    android:height="60dp"
+    android:height="64dp"
     android:viewportWidth="200"
-    android:viewportHeight="60">
+    android:viewportHeight="64">
+    <path android:pathData="M4.00,54.06 L12.00,50.67 L20.00,55.76 L28.00,60.00 L36.00,57.45 L44.00,52.36 L52.00,53.21 L60.00,46.42 L68.00,42.18 L76.00,45.58 L84.00,40.48 L92.00,34.55 L100.00,37.09 L108.00,32.00 L116.00,27.76 L124.00,31.15 L132.00,26.06 L140.00,20.97 L148.00,24.36 L156.00,18.42 L164.00,13.33 L172.00,16.73 L180.00,10.79 L188.00,6.55 L196.00,4.00 L196.00,64 L4.00,64 z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="4.00"
+                android:endX="0"
+                android:endY="64"
+                android:startColor="#403DD68C"
+                android:endColor="#003DD68C" />
+        </aapt:attr>
+    </path>
     <path
-        android:fillColor="@color/widget_preview_up"
-        android:fillAlpha="0.16"
-        android:pathData="M1.0,35.76 L6.08,40.74 L11.15,37.18 L16.23,47.55 L21.31,47.81 L26.38,58.0 L31.46,52.4 L36.54,51.03 L41.62,44.23 L46.69,46.19 L51.77,43.89 L56.85,44.82 L61.92,47.88 L67.0,46.77 L72.08,52.27 L77.15,53.52 L82.23,49.83 L87.31,49.14 L92.38,50.65 L97.46,39.93 L102.54,39.24 L107.62,41.58 L112.69,40.41 L117.77,42.45 L122.85,43.85 L127.92,45.08 L133.0,35.13 L138.08,34.61 L143.15,33.36 L148.23,29.77 L153.31,19.87 L158.38,20.5 L163.46,23.02 L168.54,10.96 L173.62,17.41 L178.69,18.72 L183.77,15.16 L188.85,4.0 L193.92,8.05 L199.0,19.05 L199.0,60 L1.0,60 z" />
+        android:strokeColor="@color/widget_preview_text_secondary"
+        android:strokeAlpha="0.35"
+        android:strokeWidth="0.75"
+        android:pathData="M4.00,54.06 L196.00,54.06" />
     <path
         android:strokeColor="@color/widget_preview_up"
-        android:strokeWidth="1.5"
+        android:strokeWidth="1.75"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
-        android:pathData="M1.0,35.76 L6.08,40.74 L11.15,37.18 L16.23,47.55 L21.31,47.81 L26.38,58.0 L31.46,52.4 L36.54,51.03 L41.62,44.23 L46.69,46.19 L51.77,43.89 L56.85,44.82 L61.92,47.88 L67.0,46.77 L72.08,52.27 L77.15,53.52 L82.23,49.83 L87.31,49.14 L92.38,50.65 L97.46,39.93 L102.54,39.24 L107.62,41.58 L112.69,40.41 L117.77,42.45 L122.85,43.85 L127.92,45.08 L133.0,35.13 L138.08,34.61 L143.15,33.36 L148.23,29.77 L153.31,19.87 L158.38,20.5 L163.46,23.02 L168.54,10.96 L173.62,17.41 L178.69,18.72 L183.77,15.16 L188.85,4.0 L193.92,8.05 L199.0,19.05" />
+        android:pathData="M4.00,54.06 L12.00,50.67 L20.00,55.76 L28.00,60.00 L36.00,57.45 L44.00,52.36 L52.00,53.21 L60.00,46.42 L68.00,42.18 L76.00,45.58 L84.00,40.48 L92.00,34.55 L100.00,37.09 L108.00,32.00 L116.00,27.76 L124.00,31.15 L132.00,26.06 L140.00,20.97 L148.00,24.36 L156.00,18.42 L164.00,13.33 L172.00,16.73 L180.00,10.79 L188.00,6.55 L196.00,4.00" />
+    <path
+        android:fillColor="@color/widget_preview_up"
+        android:pathData="M193.50,4.00 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" />
 </vector>

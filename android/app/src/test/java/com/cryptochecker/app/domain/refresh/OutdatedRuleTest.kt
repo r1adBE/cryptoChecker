@@ -23,6 +23,23 @@ class OutdatedRuleTest {
     }
 
     @Test
+    fun liveModeIsStricter() {
+        // App vorne mit Live-Abfrage: 2 Min. statt 15 Min.
+        assertEquals(2 * min, OutdatedRule.afterMillis(true, 15, 15, live = true))
+        assertEquals(2 * min, OutdatedRule.afterMillis(true, 60, 15, live = true))
+        // Langsames Live-Intervall (5 Min.): zwei Intervalle, sonst wäre jeder Kurs veraltet
+        assertEquals(10 * min, OutdatedRule.afterMillis(true, 300, 15, live = true))
+        // Nur Stream (ohne Live-Abfrage): allein die 2-Minuten-Grenze
+        assertEquals(2 * min, OutdatedRule.afterMillis(false, 300, 60, live = true))
+        // Ohne Live-Modus unverändert
+        assertEquals(15 * min, OutdatedRule.afterMillis(true, 60, 15, live = false))
+        val now = 1_000_000_000L
+        val after = OutdatedRule.afterMillis(true, 60, 15, live = true)
+        assertFalse(OutdatedRule.isOutdated(now - 18_000, now, after))
+        assertTrue(OutdatedRule.isOutdated(now - 4 * min, now, after))
+    }
+
+    @Test
     fun outdatedOnlyPastLimitAndWithTime() {
         val after = 45 * min
         val now = 1_000_000_000L

@@ -7,7 +7,6 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.notification.AppNotifier
@@ -68,12 +67,7 @@ class PriceUpdateWorker @AssistedInject constructor(
             // Zeit zwischen Knopfdruck und Start: Die zählt nicht zur Dauer,
             // verlängert aber, wie lange der Kreis in der App dreht.
             if (manual && waitedMillis >= 0) {
-                refreshStats.prependToReport(
-                    applicationContext.getString(
-                        R.string.refresh_report_wait,
-                        "%.1f s".format(java.util.Locale.ROOT, waitedMillis / 1000.0)
-                    )
-                )
+                refreshStats.setWaitMillis(waitedMillis)
             }
             Timber.d(
                 "Hintergrund-Aktualisierung: %d geprüft, %d fehlgeschlagen, %d Alarme",

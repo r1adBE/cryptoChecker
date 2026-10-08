@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Portfolio-Widget: Inhalt je nach Grösse (klein / mittel ab 110 dp Höhe / gross ab 250 × 180 dp; was nicht in die Höhe passt, entfällt).
+<!-- Portfolio-Widget: eigenes Layout je Stufe (PortfolioWidgetMath.size): klein, schmal-hoch (Wertverlauf darunter),
+     mittel ab 250 dp Breite (Wertverlauf rechts), gross (dazu die drei grössten Positionen); was nicht in die Höhe passt, entfällt.
      Einrichten optional (ab Android 12): ohne Einrichten gilt «Umrechnung + USDT». -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="110dp"

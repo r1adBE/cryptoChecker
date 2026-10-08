@@ -63,6 +63,27 @@ enum CandleSeries {
         return now - last.openTime <= max(4 * intervalMillis, liveMinMillis)
     }
 
+    /// Höchstens so viele Kerzen liefert Coinbase je Anfrage.
+    static let coinbasePage = 300
+
+    /// Ältere Coinbase-Seite für lange Reihen (z. B. 1 Jahr Tageskerzen im Aktionsblatt):
+    /// Ist die neueste Seite voll (`fetched` ≥ `coinbasePage`) und fehlen noch Kerzen bis
+    /// `needed`, das Fenster direkt vor der ältesten Kerze `firstOpen` — Beginn der ersten und
+    /// der letzten Kerze (Epoch-ms, beide eingeschlossen), höchstens eine Seite. Sonst nil.
+    static func coinbaseOlderWindow(firstOpen: Int64, fetched: Int, needed: Int,
+                                    granularityMillis: Int64) -> ClosedRange<Int64>? {
+        guard granularityMillis > 0, fetched >= coinbasePage, needed > fetched else { return nil }
+        let count = Int64(min(needed - fetched, coinbasePage))
+        let end = firstOpen - granularityMillis
+        return (end - (count - 1) * granularityMillis)...end
+    }
+
+    /// Ältere und neuere Teilreihe aufsteigend zusammen; doppelte Kerzenbeginne zählen einmal (neuere gewinnt).
+    static func mergeAscending(older: [MarketCandle], newer: [MarketCandle]) -> [MarketCandle] {
+        var seen = Set<Int64>()
+        return (newer + older).filter { seen.insert($0.openTime).inserted }.sorted { $0.openTime < $1.openTime }
+    }
+
     /// 24-h-Veränderung im Blatt: die des Tickers (dieselbe wie Pille und Merkliste),
     /// sonst die aus den Kerzen.
     static func change24h(ticker: Double?, candles: Double?) -> Double? {

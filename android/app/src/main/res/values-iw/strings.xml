@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">שגיאה: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">אין צמדי מטבעות</string>
-    <string name="checker_add_check_currency_empty_warning_summary">הקש כאן כדי להוריד את צמדי המטבעות העדכניים מהבורסה שנבחרה.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">טוען את הצמדים הנוכחיים של השוק שנבחר.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">עדכון צמדי מטבעות</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">סנכרן עכשיו!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">סנכרון אחרון: %1$s</string>
@@ -38,7 +38,6 @@
     <string name="bulk_all_pairs_empty">אין צמדי %1$s בבורסה זו עבור סוג החוזה שנבחר. סנכרן קודם את הבורסה או נסה סוג חוזה אחר.</string>
 
     <string name="action_refresh">רענון</string>
-    <string name="action_add_pair">הוסף צמד</string>
     <string name="action_delete">מחק</string>
     <string name="action_edit">ערוך</string>
     <string name="action_back">חזרה</string>
@@ -46,7 +45,6 @@
     <string name="action_cancel">ביטול</string>
 
     <string name="watchlist_empty_title">אין עדיין צמדים</string>
-    <string name="watchlist_empty_hint">או בחרו בורסה וצמד בלשונית \"הוספה\". לכל צמד אפשר להגדיר התראה, הקראת מחיר והתראות מחיר.</string>
     <string name="watchlist_updated">עודכן: %1$s</string>
     <string name="watchlist_notification">התראה</string>
     <string name="watchlist_tts">הקרא מחיר</string>
@@ -78,7 +76,7 @@
     <string name="channel_prices_description">התראה שקטה עם המחיר הנוכחי של צמד.</string>
     <string name="channel_alarms">התראות מחיר</string>
     <string name="channel_alarms_description">התראה כאשר התראת מחיר מופעלת.</string>
-    <string name="channel_service">מצב חי</string>
+    <string name="channel_service">עדכון תכוף</string>
     <string name="channel_service_description">הודעה בזמן שהמחירים מתעדכנים במרווחים קצרים.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, מ־%2$s (לפני %3$s)</string>
@@ -129,7 +127,7 @@
     <string name="settings_rolling_futures">כולל חוזים רבעוניים &amp; חוזים עתידיים מתוארכים אחרים</string>
     <string name="settings_rolling_futures_hint">כבוי: חוזים עתידיים מתוארכים שחסרים ברשימת הבורסה יסומנו כלא נסחרים עוד במקום להיבדק אחד־אחד. חוסך זמן בכל רענון.</string>
     <string name="notification_refreshing">מעדכן מחירים…</string>
-    <string name="notification_service_title">Crypto Checker – מצב חי</string>
+    <string name="notification_service_title">Crypto Checker מתעדכן לעיתים קרובות</string>
     <string name="notification_service_starting">מתחיל…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d צמד · %2$s</item>
@@ -143,9 +141,9 @@
     <string name="settings_background_updates">עדכונים ברקע</string>
     <string name="settings_background_updates_hint">מחירים, התראות מחיר ווידג׳טים מתעדכנים גם כשהאפליקציה סגורה.</string>
     <string name="settings_background_interval">מרווח</string>
-    <string name="settings_live_service">מצב חי</string>
-    <string name="settings_live_service_hint">משאיר שירות פועל למרווחים קצרים. צורך יותר סוללה.</string>
-    <string name="settings_live_interval">מרווח במצב חי</string>
+    <string name="settings_live_service">עדכון תכוף</string>
+    <string name="settings_live_service_hint">בודק מחירים במרווחים קצרים, גם כשהאפליקציה סגורה. מציג התראה וצורך יותר סוללה.</string>
+    <string name="settings_live_interval">באיזו תדירות</string>
     <string name="settings_minutes">%1$d דק׳</string>
     <string name="settings_seconds">%1$d שנ׳</string>
     <string name="settings_price_notifications">התראות מחיר בשורת המצב</string>
@@ -227,7 +225,7 @@
     <string name="theme_system">מערכת</string>
     <string name="settings_section_developer">מפתחים</string>
     <string name="settings_http_log">הצגת יומן HTTP</string>
-    <string name="settings_http_log_hint">מציג בתחתית הלשונית “הוספה” את הבקשות לבורסות – לאיתור תקלות.</string>
+    <string name="settings_http_log_hint">מציג בתחתית הדף “הוספת צמד” את הבקשות לבורסות – לאיתור תקלות.</string>
     <string name="language_search">חיפוש שפה</string>
     <string name="alarm_delete_title">למחוק את ההתראה?</string>
     <string name="alarm_delete_confirm">ההתראה הזו תוסר.</string>
@@ -271,15 +269,11 @@
     <string name="explorer_bulk_show_list">הצגת רשימה</string>
     <string name="explorer_bulk_hide_list">הסתרת רשימה</string>
     <string name="time_just_now">הרגע</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">השערים שלכם. ההתראות שלכם. הסקירה שלכם.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
-    <string name="welcome_later">אחר כך</string>
     <string name="developer_unlocked">אפשרויות המפתחים נפתחו</string>
     <string name="hint_favorites_list">טיפ: הקישו על ☆ למועדף – המועדפים נשארים למעלה.</string>
     <string name="tab_watchlist">רשימה</string>
-    <string name="tab_markets">הוספה</string>
     <string name="tab_market_phase">שוק</string>
-    <string name="tab_settings">הגדרות</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d מתוך %2$d לא עדכני</item>
         <item quantity="two">%1$d מתוך %2$d לא עדכניים</item>

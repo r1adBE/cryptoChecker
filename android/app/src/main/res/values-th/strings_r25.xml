@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">การล็อกช่วยปกป้องสิ่งที่แสดงบนหน้าจอ ข้อมูลอยู่ในอุปกรณ์นี้และได้รับการปกป้องด้วยการเข้ารหัสของอุปกรณ์ คุณป้องกันไฟล์สำรองด้วยรหัสผ่านได้</string>
+    <string name="backup_protect">ป้องกันด้วยรหัสผ่าน</string>
+    <string name="backup_protect_hint">เข้ารหัสไฟล์ (AES-256) แนะนำเมื่อมีข้อมูลพอร์ตโฟลิโอ</string>
+    <string name="backup_password">รหัสผ่าน</string>
+    <string name="backup_password_repeat">ยืนยันรหัสผ่าน</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">อย่างน้อย %1$d ตัวอักษร</string>
+    <string name="backup_password_mismatch">รหัสผ่านไม่ตรงกัน</string>
+    <string name="backup_password_warning">หากไม่มีรหัสผ่าน จะกู้คืนข้อมูลสำรองไม่ได้</string>
+    <string name="backup_password_show">แสดงรหัสผ่าน</string>
+    <string name="backup_password_hide">ซ่อนรหัสผ่าน</string>
+    <string name="backup_password_title">ข้อมูลสำรองที่มีรหัสผ่าน</string>
+    <string name="backup_password_prompt">ป้อนรหัสผ่านของข้อมูลสำรองนี้</string>
+    <string name="backup_password_wrong">รหัสผ่านไม่ถูกต้อง หรือไฟล์เสียหาย ลองอีกครั้ง</string>
+    <string name="backup_password_continue">ดำเนินการต่อ</string>
+</resources>

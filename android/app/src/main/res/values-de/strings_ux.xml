@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">heute %1$s</string>
     <string name="widget_portfolio_empty">Käufe im Portfolio-Tab erfassen</string>
     <string name="a11y_portfolio_widget">Portfolio %1$s, heute %2$s</string>
-    <string name="settings_section_advanced">Erweitert</string>
-    <string name="settings_advanced_hint">Live-Modus, feste Mitteilung, Futures und Entwickleroptionen</string>
     <string name="explain_funding">Gebühr zwischen Long- und Short-Positionen. Stark positiv heisst: viele wetten auf steigende Kurse.</string>
     <string name="explain_open_interest">Wert aller offenen Futures-Positionen. Steigt er, setzt mehr Geld auf die Bewegung.</string>
     <string name="explain_rsi">Relative-Stärke-Index, 0–100. Über 70 oft überhitzt, unter 30 oft überverkauft.</string>

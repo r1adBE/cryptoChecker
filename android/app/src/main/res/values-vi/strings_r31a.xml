@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">Cảnh báo nhanh</string>
+    <string name="alarm_template_volume">Khối lượng ×%1$s</string>
+    <string name="alarm_new_extreme">%1$s mới</string>
+    <string name="alarm_template_a11y_up">Tạo cảnh báo ở mức cộng %1$s phần trăm</string>
+    <string name="alarm_template_a11y_down">Tạo cảnh báo ở mức trừ %1$s phần trăm</string>
+    <string name="alarm_template_a11y">Tạo cảnh báo: %1$s</string>
+    <string name="alarm_template_created">Đã tạo cảnh báo</string>
+    <string name="alarm_sentence_new_extreme">Báo cho tôi khi %1$s lập %2$s mới.</string>
+    <string name="alarm_simple_when">Khi %1$s</string>
+    <string name="alarm_simple_above">vượt lên trên</string>
+    <string name="alarm_simple_below">giảm xuống dưới</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_direction_a11y">Hướng: %1$s</string>
+    <string name="alarm_repeat_once">Một lần</string>
+    <string name="alarm_repeat_each">Mỗi lần</string>
+    <string name="alarm_advanced">Nâng cao</string>
+    <string name="alarm_create">Tạo cảnh báo</string>
+    <string name="alarm_near_new_only">Chỉ đỉnh hoặc đáy mới</string>
+</resources>

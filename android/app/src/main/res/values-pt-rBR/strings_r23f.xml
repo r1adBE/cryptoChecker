@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Geral</string>
+    <string name="settings_group_data_only">Dados</string>
+    <string name="settings_row_currency">Moeda</string>
+    <string name="settings_row_updates">Atualização</string>
+    <string name="settings_updates_live">Frequente · %1$s</string>
+    <string name="settings_updates_every">A cada %1$s</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_watchlist_value_sparkline">Minigráfico</string>
+    <string name="settings_watchlist_value_price_only">Só preço</string>
+    <string name="settings_row_alarms">Alertas</string>
+    <string name="settings_portfolio_value_locked">Sim, com bloqueio</string>
+    <string name="settings_row_dated_futures">Futuros com vencimento</string>
+    <string name="settings_tradfi_futures">Ações, commodities e câmbio (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Ao escolher um par, mostra também futuros de ações, ouro e outras commodities, câmbio e empresas antes do IPO. São contratos, não tokens.</string>
+    <string name="settings_row_about">Sobre o app</string>
+    <string name="price_colors_green_up">Sobe em verde / cai em vermelho</string>
+    <string name="price_colors_red_up">Sobe em vermelho / cai em verde</string>
+    <string name="price_colors_blue_up">Sobe em azul / cai em laranja</string>
+    <string name="price_colors_orange_up">Sobe em laranja / cai em azul</string>
+    <string name="price_colors_red_up_hint">Comum na China, no Japão, na Coreia e em Taiwan</string>
+</resources>

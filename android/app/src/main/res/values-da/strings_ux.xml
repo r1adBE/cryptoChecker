@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">i dag %1$s</string>
     <string name="widget_portfolio_empty">Tilføj køb under fanen Portefølje</string>
     <string name="a11y_portfolio_widget">Portefølje %1$s, i dag %2$s</string>
-    <string name="settings_section_advanced">Avanceret</string>
-    <string name="settings_advanced_hint">Live-tilstand, fast notifikation, futures og udviklerindstillinger</string>
     <string name="explain_funding">Gebyr mellem long- og short-positioner. Stærkt positiv betyder, at mange satser på stigende kurser.</string>
     <string name="explain_open_interest">Værdien af alle åbne futures-positioner. Stiger den, satser flere penge på bevægelsen.</string>
     <string name="explain_rsi">Relative Strength Index, 0–100. Over 70 ofte overophedet, under 30 ofte oversolgt.</string>

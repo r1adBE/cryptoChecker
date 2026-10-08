@@ -100,6 +100,14 @@ abstract class Market(
     open fun getBulkTickersUrl(requestId: Int, pairIds: Collection<String>): String? =
         getBulkTickersUrl(requestId)
 
+    /**
+     * Zahl der Anfragen für die gefilterte Massenabfrage dieser Paare — mehr als
+     * [bulkTickersNumOfRequests], wenn die Liste auf mehrere URLs verteilt wird
+     * (siehe [com.cryptochecker.marketdata.util.BulkPairChunks]). Die ungefilterte
+     * Abfrage ([getBulkTickersUrl] ohne Paare) ist dann für jede Teilanfrage dieselbe.
+     */
+    open fun bulkTickersRequestCount(pairIds: Collection<String>): Int = bulkTickersNumOfRequests
+
     open fun getBulkTickersPostRequestInfo(requestId: Int): PostRequestInfo? = null
 
     /**

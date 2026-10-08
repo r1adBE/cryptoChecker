@@ -89,6 +89,23 @@ class MacroCalendarTest {
     }
 
     @Test
+    fun imminent_onlyWithinTwoHoursOfAnEvent() {
+        val cpi = MacroEvent(MacroEventType.CPI, t("2026-10-14T12:30:00Z"))
+        fun imminentAt(iso: String): Boolean {
+            val now = t(iso)
+            return MacroCalendar.isImminent(MacroCalendar.hint(listOf(cpi), now, zurich)!!, now)
+        }
+        // Am Morgen: Hinweis im Abschnitt «Daten»
+        assertFalse(imminentAt("2026-10-14T06:00:00Z"))
+        // 2 h davor bis 2 h danach: oben bei «Jetzt»
+        assertTrue(imminentAt("2026-10-14T10:30:00Z"))
+        assertTrue(imminentAt("2026-10-14T12:30:00Z"))
+        assertTrue(imminentAt("2026-10-14T14:30:00Z"))
+        // Danach («veröffentlicht») wieder unten
+        assertFalse(imminentAt("2026-10-14T14:31:00Z"))
+    }
+
+    @Test
     fun hint_tomorrowWithinEighteenHours() {
         // In Auckland liegt 12:30 UTC am 15.10. um 01:30
         val cpi = MacroEvent(MacroEventType.CPI, t("2026-10-14T12:30:00Z"))

@@ -54,6 +54,8 @@ struct WidgetPriceChartView: View {
             _ = PriceChartRenderer.render(&context, size: size, candles: candles, type: chartType, range: chartRange,
                                           style: style, currentPrice: currentPrice, px: px)
         }
+        // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)
+        .environment(\.layoutDirection, .leftToRight)
         .accessibilityElement()
         .accessibilityLabel(accessibilityText ?? "")
         .accessibilityHidden(accessibilityText == nil)

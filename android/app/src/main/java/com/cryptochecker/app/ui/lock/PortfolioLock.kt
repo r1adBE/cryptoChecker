@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.lock
 
+import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,10 +14,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -30,8 +33,10 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -62,6 +67,14 @@ class PortfolioLockViewModel @Inject constructor(
             SharingStarted.Eagerly,
             PortfolioLockPolicy.access(null, appLockState.lockRequested.value)
         )
+
+    /**
+     * Einstellung «Portfolio-Sperre» (unabhängig vom Entsperr-Zustand): schützt das Fenster,
+     * solange Portfolio-Beträge sichtbar sein können (FLAG_SECURE, [SecureWindowEffect]).
+     */
+    val lockEnabled: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.appLock }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.appLock)
 
     /**
      * [onUnlocked] sofort, wenn das Portfolio frei ist; sonst erst nach erfolgreicher
@@ -121,10 +134,27 @@ fun PortfolioLockedState(onUnlock: () -> Unit, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 6.dp)
+            modifier = Modifier.padding(top = Spacing.xs)
         )
-        FilledTonalButton(onClick = onUnlock, modifier = Modifier.padding(top = 20.dp)) {
+        FilledTonalButton(onClick = onUnlock, modifier = Modifier.padding(top = Spacing.lg)) {
             Text(stringResource(R.string.app_lock_unlock))
+        }
+    }
+}
+
+/**
+ * FLAG_SECURE am Fenster der Aktivität, solange [active]: kein Vorschaubild mit Beträgen in
+ * «Zuletzt verwendet» (auch vor Android 13, wo setRecentsScreenshotEnabled fehlt) und keine
+ * Bildschirmfotos. Beim Verlassen bzw. mit [active] = false wieder entfernt.
+ */
+@Composable
+fun SecureWindowEffect(active: Boolean) {
+    val activity = LocalContext.current.findFragmentActivity()
+    DisposableEffect(active, activity) {
+        val window = activity?.window
+        if (active) window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        onDispose {
+            if (active) window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         }
     }
 }

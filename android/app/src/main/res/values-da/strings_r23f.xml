@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Generelt</string>
+    <string name="settings_group_data_only">Data</string>
+    <string name="settings_row_currency">Valuta</string>
+    <string name="settings_row_updates">Opdatering</string>
+    <string name="settings_updates_live">Hyppigt · %1$s</string>
+    <string name="settings_updates_every">Hver %1$s</string>
+    <string name="settings_row_watchlist">Overvågningsliste</string>
+    <string name="settings_watchlist_value_sparkline">Minigraf</string>
+    <string name="settings_watchlist_value_price_only">Kun kurs</string>
+    <string name="settings_row_alarms">Alarmer</string>
+    <string name="settings_portfolio_value_locked">Til, med lås</string>
+    <string name="settings_row_dated_futures">Futures med udløb</string>
+    <string name="settings_tradfi_futures">Aktier, råvarer og valuta (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Viser også futures på aktier, guld og andre råvarer, valuta og selskaber før børsnotering, når du vælger et par. Det er kontrakter, ikke tokens.</string>
+    <string name="settings_row_about">Om appen</string>
+    <string name="price_colors_green_up">Grøn stiger / rød falder</string>
+    <string name="price_colors_red_up">Rød stiger / grøn falder</string>
+    <string name="price_colors_blue_up">Blå stiger / orange falder</string>
+    <string name="price_colors_orange_up">Orange stiger / blå falder</string>
+    <string name="price_colors_red_up_hint">Almindeligt i Kina, Japan, Korea og Taiwan</string>
+</resources>

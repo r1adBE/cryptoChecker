@@ -1,5 +1,10 @@
 package com.cryptochecker.app.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
@@ -30,10 +35,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.lock.PortfolioAccess
+import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
-import com.cryptochecker.app.ui.features.about.WelcomeDialog
 import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
@@ -42,12 +48,20 @@ import com.cryptochecker.app.ui.features.info.MarketPhaseScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioDetailScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioScreen
 import com.cryptochecker.app.ui.features.settings.MarketAlertsSettingsScreen
+import com.cryptochecker.app.ui.features.settings.ProvideSettingsHighlight
+import com.cryptochecker.app.ui.features.settings.SettingsPage
+import com.cryptochecker.app.ui.features.settings.SettingsPageScreen
 import com.cryptochecker.app.ui.features.settings.SettingsScreen
+import com.cryptochecker.app.ui.features.settings.SettingsSearchTarget
 import com.cryptochecker.app.ui.features.settings.SpeechSettingsScreen
 import com.cryptochecker.app.ui.features.watchlist.WatchlistScreen
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.lock.PortfolioLockedState
 import com.cryptochecker.app.ui.lock.PortfolioPendingState
+import com.cryptochecker.app.ui.lock.SecureWindowEffect
+
+/** Überblendung beim Wechsel von Tab oder Seite (ms). */
+private const val NAV_FADE_MILLIS = 200
 
 private data class BottomTab(
     val route: String,
@@ -56,15 +70,15 @@ private data class BottomTab(
 )
 
 /**
- * Merkliste · Hinzufügen · Zyklus · (Portfolio) · Optionen.
- * Der Portfolio-Tab erscheint nur, wenn er in den Optionen eingeschaltet ist.
+ * Merkliste · Markt · (Portfolio) · Einstellungen (Runde 31: ohne Tab «Suchen»).
+ * Der Portfolio-Tab erscheint nur, wenn er in den Optionen eingeschaltet ist. Paare sucht und
+ * fügt man auf einer eigenen Seite hinzu ([ScreenRoute.Explorer]), geöffnet mit «+» der Merkliste.
  */
 private fun buildBottomTabs(portfolioEnabled: Boolean) = buildList {
-    add(BottomTab(ScreenRoute.Watchlist, R.string.tab_watchlist, R.drawable.ic_list))
-    add(BottomTab(ScreenRoute.Explorer, R.string.tab_markets, R.drawable.ic_add))
-    add(BottomTab(ScreenRoute.MarketPhase, R.string.tab_market_phase, R.drawable.ic_cycle))
+    add(BottomTab(ScreenRoute.Watchlist, R.string.tab_watchlist, R.drawable.ic_tab_watchlist))
+    add(BottomTab(ScreenRoute.MarketPhase, R.string.tab_market_phase, R.drawable.ic_tab_market))
     if (portfolioEnabled) add(BottomTab(ScreenRoute.Portfolio, R.string.portfolio_title, R.drawable.ic_portfolio))
-    add(BottomTab(ScreenRoute.Settings, R.string.tab_settings, R.drawable.ic_settings))
+    add(BottomTab(ScreenRoute.Settings, R.string.settings_title, R.drawable.ic_settings))
 }
 
 @Composable
@@ -84,11 +98,28 @@ fun AppNavHost(
     val context = androidx.compose.ui.platform.LocalContext.current
     val unlockReason = stringResource(R.string.portfolio_lock_reason)
     val requestUnlock = { lockViewModel.requireUnlock(context.findFragmentActivity(), unlockReason) {} }
+    // Sperre an und Portfolio (Tab oder Coin-Detail mit Verlauf) sichtbar: Fenster schützen
+    val lockEnabled by lockViewModel.lockEnabled.collectAsStateWithLifecycle()
+    SecureWindowEffect(
+        PortfolioLockPolicy.secureWindow(
+            lockSetting = lockEnabled,
+            portfolioVisible = currentRoute == ScreenRoute.Portfolio || currentRoute == ScreenRoute.PortfolioCoin
+        )
+    )
     // Besitzer ausserhalb des Navigationsgraphen (die Activity): Der Markt-Tab behält
     // so sein ViewModel samt geladener Daten über Tab-Wechsel hinweg.
     val activityOwner = checkNotNull(LocalViewModelStoreOwner.current) { "Kein ViewModelStoreOwner" }
-    // Suche, mit der der Hinzufügen-Tab geöffnet werden soll («Heute auffällig» im Markt-Tab)
+    // «Warum?» aus einem Alarm: Paar, dessen «Warum bewegt sich das?» die Merkliste öffnen soll
+    var whyWatchId by androidx.compose.runtime.saveable.rememberSaveable {
+        androidx.compose.runtime.mutableStateOf<Long?>(null)
+    }
+    // Suche, mit der die Seite «Paar hinzufügen» geöffnet werden soll («Heute auffällig» im Markt-Tab)
     var explorerSearch by androidx.compose.runtime.saveable.rememberSaveable {
+        androidx.compose.runtime.mutableStateOf<String?>(null)
+    }
+
+    // Suche in den Einstellungen: Punkt, den die nächste Unterseite kurz hervorhebt
+    var settingsAnchor by androidx.compose.runtime.saveable.rememberSaveable {
         androidx.compose.runtime.mutableStateOf<String?>(null)
     }
 
@@ -114,19 +145,27 @@ fun AppNavHost(
         // Der Graph steht erst nach dem ersten Aufbau — Fehler hier nie zum Absturz werden lassen.
         runCatching {
             when (openTarget) {
-                "add" -> navigation.navigateToTab(ScreenRoute.Explorer)
+                // «Paar hinzufügen» liegt über der Merkliste: zurück führt dorthin
+                "add" -> {
+                    navigation.navigateToTab(ScreenRoute.Watchlist)
+                    navigation.openExplorer()
+                }
                 "cycle" -> navigation.navigateToTab(ScreenRoute.MarketPhase)
                 "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview) { launchSingleTop = true }
                 // Portfolio-Widget: nur wenn der Tab eingeschaltet ist, sonst bleibt die Merkliste
                 "portfolio" -> if (portfolioEnabled) navigation.navigateToTab(ScreenRoute.Portfolio) else Unit
+                else -> com.cryptochecker.app.ui.MainActivity.whyWatchId(openTarget)?.let { id ->
+                    whyWatchId = id
+                    navigation.navigateToTab(ScreenRoute.Watchlist)
+                }
             }
         }
         onOpenTargetHandled()
     }
 
-    // Einmalige Begrüßung nach der Installation. Der Akku-Hinweis kommt erst nach dem
-    // ersten Alarm, zurück auf einem Haupt-Tab (nicht über der Alarm-Bestätigung).
-    WelcomeDialog(onStart = { navigation.navigateToTab(ScreenRoute.Watchlist) })
+    // Keine Begrüßung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl der
+    // leeren Merkliste; «Was die App kann» steht unter Einstellungen › Über. Der Akku-Hinweis
+    // kommt erst nach dem ersten Alarm, zurück auf einem Haupt-Tab (nicht über der Alarm-Bestätigung).
     BatteryOptimizationDialog(calm = currentRoute in bottomTabs.map { it.route })
 
     Scaffold(
@@ -145,14 +184,21 @@ fun AppNavHost(
             }
         }
     ) { innerPadding ->
+        // Tab- und Seitenwechsel: kurze Überblendung (statt der 700 ms von Navigation);
+        // ohne Bewegung (Animationen aus) sofort
+        val reduceMotion = rememberReduceMotion()
         NavHost(
             navController = navigation,
             startDestination = ScreenRoute.Watchlist,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
+            exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
         ) {
             composable(ScreenRoute.Watchlist) {
                 WatchlistScreen(
-                    onAddClick = { navigation.navigateToTab(ScreenRoute.Explorer) },
+                    openWhyWatchId = whyWatchId,
+                    onOpenWhyHandled = { whyWatchId = null },
+                    onAddClick = { navigation.openExplorer() },
                     onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.alarms(watchId)) },
                     onOpenAllAlarms = { navigation.navigate(ScreenRoute.AlarmsOverview) },
                     onOpenActivitySettings = {
@@ -170,7 +216,13 @@ fun AppNavHost(
                     }
                 }
                 ExplorerScreen(
-                    onOpenWatchlist = { navigation.navigateToTab(ScreenRoute.Watchlist) },
+                    // Erst die Seite schliessen, dann zur Merkliste — so bleibt sie nicht im
+                    // gemerkten Stapel des Markt-Tabs liegen
+                    onOpenWatchlist = {
+                        navigation.popBackStack()
+                        navigation.navigateToTab(ScreenRoute.Watchlist)
+                    },
+                    onBack = { navigation.popBackStack() },
                     explorerViewModel = explorerViewModel
                 )
             }
@@ -178,25 +230,59 @@ fun AppNavHost(
             composable(ScreenRoute.Settings) {
                 SettingsScreen(
                     onOpenMarketAlerts = { navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true } },
-                    onOpenSpeech = { navigation.navigate(ScreenRoute.SettingsSpeech) { launchSingleTop = true } }
+                    onOpenSpeech = { navigation.navigate(ScreenRoute.SettingsSpeech) { launchSingleTop = true } },
+                    onOpenPage = { page ->
+                        navigation.navigate(ScreenRoute.settingsPage(page.name)) { launchSingleTop = true }
+                    },
+                    onOpenSearchTarget = { target ->
+                        settingsAnchor = target.anchor
+                        val route = when (target) {
+                            is SettingsSearchTarget.Page -> ScreenRoute.settingsPage(target.page.name)
+                            is SettingsSearchTarget.MarketAlerts -> ScreenRoute.SettingsMarketAlerts
+                            is SettingsSearchTarget.Speech -> ScreenRoute.SettingsSpeech
+                            // Zeilen der Hauptseite hebt SettingsScreen selbst hervor
+                            is SettingsSearchTarget.Main -> null
+                        }
+                        if (route != null) navigation.navigate(route) { launchSingleTop = true }
+                    }
                 )
             }
 
+            composable(
+                route = ScreenRoute.SettingsPageRoute,
+                arguments = listOf(
+                    navArgument(ScreenRoute.SettingsPageArg) { type = NavType.StringType }
+                )
+            ) { entry ->
+                SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
+                    SettingsPageScreen(
+                        page = SettingsPage.fromName(entry.arguments?.getString(ScreenRoute.SettingsPageArg)),
+                        onBack = { navigation.popBackStack() }
+                    )
+                }
+            }
+
             composable(ScreenRoute.SettingsMarketAlerts) {
-                MarketAlertsSettingsScreen(onBack = { navigation.popBackStack() })
+                SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
+                    MarketAlertsSettingsScreen(onBack = { navigation.popBackStack() })
+                }
             }
 
             composable(ScreenRoute.SettingsSpeech) {
-                SpeechSettingsScreen(onBack = { navigation.popBackStack() })
+                SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
+                    SpeechSettingsScreen(onBack = { navigation.popBackStack() })
+                }
             }
 
             composable(ScreenRoute.MarketPhase) {
                 // Erst beim ersten Öffnen erzeugt, danach bis zum Ende der Activity behalten
                 MarketPhaseScreen(
                     viewModel = hiltViewModel(viewModelStoreOwner = activityOwner),
+                    // Wie «+»: Seite «Paar hinzufügen» über der Merkliste (gleich wie iOS)
                     onOpenExplorer = { query ->
                         explorerSearch = query
-                        navigation.navigateToTab(ScreenRoute.Explorer)
+                        navigation.navigateToTab(ScreenRoute.Watchlist)
+                        navigation.openExplorer()
                     }
                 )
             }
@@ -240,6 +326,17 @@ fun AppNavHost(
     }
 }
 
+/**
+ * Unterseite der Einstellungen, geöffnet aus der Suche: übernimmt den Anker beim ersten Aufbau
+ * (danach geleert, damit spätere Besuche nichts hervorheben) und gibt ihn an die Punkte weiter.
+ */
+@Composable
+private fun SettingsHighlightEntry(anchor: String?, onTaken: () -> Unit, content: @Composable () -> Unit) {
+    val taken = remember { anchor }
+    androidx.compose.runtime.LaunchedEffect(Unit) { if (taken != null) onTaken() }
+    ProvideSettingsHighlight(taken, content)
+}
+
 /** Inhalt des Portfolios nur frei; gesperrt der ruhige Sperr-Zustand, beim Kaltstart leer. */
 @Composable
 private fun PortfolioGate(access: PortfolioAccess, onUnlock: () -> Unit, content: @Composable () -> Unit) {
@@ -266,6 +363,11 @@ private fun TabLabel(text: String) {
         overflow = TextOverflow.Ellipsis,
         autoSize = TextAutoSize.StepBased(minFontSize = 9.sp, maxFontSize = maxSize, stepSize = 0.5.sp)
     )
+}
+
+/** Seite «Paar hinzufügen» über dem aktuellen Tab (eigene Seite mit Zurück, ohne Tableiste). */
+private fun NavHostController.openExplorer() {
+    navigate(ScreenRoute.Explorer) { launchSingleTop = true }
 }
 
 private fun NavHostController.navigateToTab(route: String) {

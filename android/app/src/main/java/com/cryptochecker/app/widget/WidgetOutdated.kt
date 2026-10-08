@@ -20,9 +20,13 @@ import timber.log.Timber
  */
 object WidgetOutdated {
 
-    /** Grenze aus den Einstellungen (3 × Intervall, mind. 15 Min.). */
-    fun afterMillis(settings: AppSettings): Long =
-        OutdatedRule.afterMillis(settings.liveService, settings.liveIntervalSeconds, settings.backgroundIntervalMinutes)
+    /**
+     * Grenze aus den Einstellungen (3 × Intervall, mind. 15 Min.). [live] = Live-Modus aktiv
+     * (Live-Stream): dann die strengere Live-Grenze von [OutdatedRule] (2 Min.). Widgets sind nur
+     * sichtbar, wenn die App nicht vorne ist — ohne Stream gilt daher die Hintergrund-Regel.
+     */
+    fun afterMillis(settings: AppSettings, live: Boolean = false): Long =
+        OutdatedRule.afterMillis(settings.liveService, settings.liveIntervalSeconds, settings.backgroundIntervalMinutes, live)
 
     /** Kurs eines Paares veraltet? «Nicht mehr gehandelt» ist ein Zustand und zählt nicht. */
     fun isOutdated(lastUpdate: Long, lastError: String?, now: Long, afterMillis: Long): Boolean =

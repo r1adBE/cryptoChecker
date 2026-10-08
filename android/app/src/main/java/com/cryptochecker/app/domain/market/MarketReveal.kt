@@ -3,21 +3,31 @@ package com.cryptochecker.app.domain.market
 /**
  * Reihenfolge, in der die Teile des Markt-Tabs von oben nach unten erscheinen
  * (die Überschrift «Jetzt» gehört zu [PULSE]). Wie `CycleRevealSlot` (iOS).
+ *
+ * Jetzt (Pulse, «Heute auffällig» — Karten) → Einordnung (Fear & Greed, Marktphase, Dominanz
+ * mit Altcoin-Saison, Zyklus/Halving) → Daten (Krypto-Markt, Gas, Wirtschaftsdaten, Coin) —
+ * Einordnung und Daten als Zeilen ohne Karte.
  */
 enum class MarketRevealSlot {
     PULSE,
 
     /** «Heute auffällig» (marktweit ungewöhnliche Bewegungen), direkt unter dem Pulse. */
     UNUSUAL,
-    FEAR_GREED,
-    MARKET_TOTALS,
     HEADER_CONTEXT,
+
+    /** Fear & Greed — erste Zeile unter «Einordnung». */
+    FEAR_GREED,
     PHASE,
     DOMINANCE,
     HALVING,
     HEADER_DATA,
-    COIN,
+
+    /** «Krypto-Markt» (Marktkapitalisierung, Volumen) — erste Karte unter «Daten». */
+    MARKET_TOTALS,
     GAS,
+
+    /** Coin-Analyse; davor der Wirtschaftsdaten-Hinweis, wenn kein Termin in ±2 h liegt. */
+    COIN,
 }
 
 /**

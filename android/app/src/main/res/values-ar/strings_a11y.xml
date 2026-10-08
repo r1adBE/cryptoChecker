@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">ألوان الأسعار</string>
-    <string name="price_colors_green_red">أخضر / أحمر</string>
-    <string name="price_colors_blue_orange">أزرق / برتقالي</string>
     <string name="settings_price_colors_hint">يسهل تمييز الأزرق / البرتقالي مع كل أنواع ضعف رؤية الألوان (الأحمر-الأخضر والأزرق-الأصفر). ويُعرض الاتجاه دائمًا أيضًا بالرمز + / −.</string>
     <string name="settings_watchlist_sparkline">مخطط مصغّر في قائمة المتابعة</string>
     <string name="settings_watchlist_sparkline_hint">اتجاه 24 ساعة بجانب السعر</string>
 
-    <string name="settings_price_colors_inverted">تبديل ألوان الارتفاع/الانخفاض</string>
-    <string name="settings_price_colors_inverted_hint">الأحمر للارتفاع والأخضر للانخفاض، كما هو معتاد في الصين واليابان وكوريا وتايوان. الإعداد الافتراضي حسب منطقة الجهاز.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">تباين عالٍ</string>

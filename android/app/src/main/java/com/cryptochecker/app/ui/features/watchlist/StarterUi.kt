@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -21,6 +22,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -48,6 +52,7 @@ import com.cryptochecker.app.domain.starter.StarterSelection
 import com.cryptochecker.app.ui.features.portfolio.CoinBadge
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
@@ -57,7 +62,7 @@ import com.cryptochecker.app.util.PriceFormat
  * der Karte «Ungewöhnliche Aktivität» — je Zeile Coin, aktueller Kurs, 24-Stunden-Pille
  * und Häkchen; anfangs alle gewählt. Ein Knopf legt alle gewählten auf einmal an
  * (gleicher Weg und Erst-Moment wie bisher). Darunter der bisherige Hinweis und der
- * Weg zur eigenen Auswahl im Tab «Hinzufügen». [coins] sofort aus Zwischenspeicher bzw.
+ * Weg zur eigenen Auswahl (Seite «Paar hinzufügen», auch über «+» oben rechts). [coins] sofort aus Zwischenspeicher bzw.
  * Ausweich-Liste; frischere Daten ersetzen sie still.
  */
 @Composable
@@ -78,76 +83,84 @@ internal fun StarterPicker(
     val selectedCount = StarterSelection.selected(coins, deselected).size
     val allSelected = StarterSelection.allSelected(coins, deselected)
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .verticalScroll(rememberScrollState())
-            // Tablet/Querformat: höchstens 640 dp breit, mittig
-            .readableWidth()
-            .padding(horizontal = 16.dp, vertical = 24.dp)
-    ) {
-        Image(
-            painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
-            contentDescription = null,
-            modifier = Modifier.size(56.dp)
-        )
-        Text(
-            text = stringResource(R.string.starter_title),
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 14.dp, start = 16.dp, end = 16.dp)
-        )
-        Text(
-            text = stringResource(R.string.starter_text),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
-        )
-
-        Card(
-            shape = MaterialTheme.shapes.large,
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-            modifier = Modifier.padding(top = 20.dp).fillMaxWidth()
+    // «+» oben rechts wie in der Kopfzeile der Merkliste (der Hinweis unten verweist darauf)
+    Box(modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                // Tablet/Querformat: höchstens 640 dp breit, mittig
+                .readableWidth()
+                .padding(horizontal = 16.dp, vertical = 24.dp)
         ) {
-            coins.forEachIndexed { index, coin ->
-                if (index > 0) {
-                    HorizontalDivider(
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                        modifier = Modifier.padding(start = 66.dp)
+            Image(
+                painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
+                contentDescription = null,
+                modifier = Modifier.size(56.dp)
+            )
+            Text(
+                text = stringResource(R.string.starter_title),
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
+            )
+            Text(
+                text = stringResource(R.string.starter_text),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
+            )
+
+            Card(
+                shape = MaterialTheme.shapes.large,
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                modifier = Modifier.padding(top = Spacing.lg).fillMaxWidth()
+            ) {
+                coins.forEachIndexed { index, coin ->
+                    if (index > 0) {
+                        HorizontalDivider(
+                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                            modifier = Modifier.padding(start = 66.dp)
+                        )
+                    }
+                    StarterRow(
+                        coin = coin,
+                        selected = StarterSelection.isSelected(coin.symbol, deselected),
+                        price = prices.prices[coin.symbol],
+                        loading = prices.loading,
+                        quote = quote,
+                        onToggle = { onToggle(coin.symbol) },
                     )
                 }
-                StarterRow(
-                    coin = coin,
-                    selected = StarterSelection.isSelected(coin.symbol, deselected),
-                    price = prices.prices[coin.symbol],
-                    loading = prices.loading,
-                    quote = quote,
-                    onToggle = { onToggle(coin.symbol) },
-                )
+            }
+
+            Button(
+                onClick = onAdd,
+                enabled = selectedCount > 0 && !adding,
+                // Kennung für den Baseline-Profile-Generator
+                modifier = Modifier.padding(top = 16.dp).fillMaxWidth().heightIn(min = 48.dp).testTag("starter_add")
+            ) {
+                Text(stringResource(R.string.starter_add_selected, selectedCount))
+            }
+            TextButton(onClick = onToggleAll, modifier = Modifier.padding(top = 2.dp)) {
+                Text(stringResource(if (allSelected) R.string.starter_select_none else R.string.starter_select_all))
+            }
+            // Kein Erklärsatz davor: der Knopf sagt selbst, was er tut
+            TextButton(onClick = onAddClick, modifier = Modifier.padding(top = Spacing.sm)) {
+                Text(stringResource(R.string.starter_custom), textAlign = TextAlign.Center)
             }
         }
-
-        Button(
-            onClick = onAdd,
-            enabled = selectedCount > 0 && !adding,
-            modifier = Modifier.padding(top = 16.dp).fillMaxWidth().heightIn(min = 48.dp)
+        IconButton(
+            onClick = onAddClick,
+            modifier = Modifier.align(Alignment.TopEnd).padding(top = Spacing.xs, end = Spacing.xs)
         ) {
-            Text(stringResource(R.string.starter_add_selected, selectedCount))
-        }
-        TextButton(onClick = onToggleAll, modifier = Modifier.padding(top = 2.dp)) {
-            Text(stringResource(if (allSelected) R.string.starter_select_none else R.string.starter_select_all))
-        }
-        Text(
-            text = stringResource(R.string.watchlist_empty_hint),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 14.dp, start = 16.dp, end = 16.dp)
-        )
-        TextButton(onClick = onAddClick, modifier = Modifier.padding(top = 4.dp)) {
-            Text(stringResource(R.string.starter_custom), textAlign = TextAlign.Center)
+            Icon(
+                painterResource(R.drawable.ic_add),
+                contentDescription = stringResource(R.string.shortcut_add)
+            )
         }
     }
 }
@@ -184,7 +197,7 @@ private fun StarterRow(
             .heightIn(min = 64.dp)
             .toggleable(value = selected, role = Role.Checkbox, onValueChange = { onToggle() })
             .semantics { contentDescription = spoken }
-            .padding(start = 14.dp, end = 6.dp, top = 10.dp, bottom = 10.dp)
+            .padding(start = Spacing.md, end = Spacing.xs, top = Spacing.md, bottom = Spacing.md)
     ) {
         Box(Modifier.clearAndSetSemantics { }) {
             CoinBadge(coin.symbol, size = 40.dp)
@@ -228,14 +241,14 @@ private fun StarterRow(
                 // Platzhalter, solange die Kurse laden
                 loading -> {
                     PriceSkeleton(width = 76)
-                    PriceSkeleton(width = 52, modifier = Modifier.padding(top = 6.dp))
+                    PriceSkeleton(width = 52, modifier = Modifier.padding(top = Spacing.xs))
                 }
                 // Ohne Kurs (Fehler): Zeile bleibt wählbar, nur ohne Zahlen
             }
         }
         Box(Modifier.clearAndSetSemantics { }) {
             // Nur Anzeige; die ganze Zeile schaltet
-            Checkbox(checked = selected, onCheckedChange = null, modifier = Modifier.padding(start = 10.dp, end = 8.dp))
+            Checkbox(checked = selected, onCheckedChange = null, modifier = Modifier.padding(start = Spacing.sm, end = 8.dp))
         }
     }
 }

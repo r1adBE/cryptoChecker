@@ -24,7 +24,7 @@ struct PortfolioExportSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: Spacing.md) {
                     DatePicker(selection: $date, in: Self.dateRange(), displayedComponents: .date) {
                         Text(L("portfolio_export_date"))
                             .font(.body)
@@ -53,7 +53,7 @@ struct PortfolioExportSheet: View {
                         .padding(.horizontal, 4)
 
                     Button(action: startExport) {
-                        HStack(spacing: 10) {
+                        HStack(spacing: Spacing.sm) {
                             if running {
                                 ProgressView().controlSize(.small)
                                 Text(L("portfolio_export_running"))
@@ -71,7 +71,7 @@ struct PortfolioExportSheet: View {
                     .disabled(running)
                     .padding(.top, 4)
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, Spacing.lg)
                 .padding(.top, 8)
                 .padding(.bottom, 24)
             }

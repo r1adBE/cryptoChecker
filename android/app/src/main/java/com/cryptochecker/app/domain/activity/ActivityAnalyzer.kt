@@ -64,6 +64,10 @@ object ActivityAnalyzer {
     const val VOLATILITY_HIGH_Z = 2.0
     const val MAX_REASONS = 5
 
+    /** «Nähe zum Hoch»: so viele Tage zurück. */
+    const val HIGH_DAYS = 30
+    const val DAY_MILLIS = 24 * HOUR_MILLIS
+
     /** Stärkstes zuerst, bei gleicher Stärke nach Art. */
     val SIGNAL_ORDER: Comparator<ActivitySignal> =
         compareByDescending<ActivitySignal> { it.severity.ordinal }.thenBy { it.kind.ordinal }
@@ -251,7 +255,8 @@ object ActivityAnalyzer {
         // 24 h wie Pille und Merkliste (Ticker des Paars), sonst aus den Kerzen
         val change24h = CandleSeries.change24h(input.tickerChange24h, changeOver(candles, 24, now))
         val stats = candles?.let { hourStats(it) }
-        val reference24h = changeOver(CandleSeries.usable(input.referenceCandles, now, null), 24, now)
+        val reference = CandleSeries.usable(input.referenceCandles, now, null)
+        val reference24h = changeOver(reference, 24, now)
 
         val reasons = ArrayList<Reason>()
 
@@ -330,7 +335,23 @@ object ActivityAnalyzer {
             reasons = reasons.sortedByDescending { it.strong }.take(MAX_REASONS),
             hasMarketData = candles != null,
             dataTime = now,
+            high30d = if (candles != null) high30d(input.dailyCandles, now) else null,
+            // Referenz ist BTCUSDT (bei Bitcoin selbst ETH — dann ohnehin kein Satz)
+            btcLink = BtcCorrelation.link(input.baseAsset, candles, reference),
         )
+    }
+
+    /**
+     * Höchster Kurs der letzten [HIGH_DAYS] Tage aus Tageskerzen (letzte = laufender Tag);
+     * null bei weniger als 30 Tagen, einer veralteten Reihe oder ungültigen Werten.
+     */
+    fun high30d(daily: List<HourCandle>?, now: Long): Double? {
+        if (daily == null || daily.size < HIGH_DAYS) return null
+        val lastOpen = daily.last().openTime
+        // Reihe endet vor über zwei Tagen (oder liegt in der Zukunft): kein Hoch
+        if (now - lastOpen > 2 * DAY_MILLIS || lastOpen - now > DAY_MILLIS) return null
+        val high = daily.takeLast(HIGH_DAYS).maxOf { it.high }
+        return high.takeIf { it.isFinite() && it > 0.0 }
     }
 
     /** Leerer Bericht für Paare, die nicht mehr gehandelt werden. */

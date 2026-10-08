@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">Offline</string>
+    <string name="offline_status_since">Offline · stav %1$s</string>
+    <string name="error_market_unreachable">Burza je teď nedostupná – poslední ceny zůstávají vidět.</string>
+    <string name="error_market_unreachable_short">Burza je teď nedostupná</string>
+    <string name="refresh_sheet_paused_until">pozastaveno do %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pozastaveno do %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">Spuštění aplikace</string>
+</resources>

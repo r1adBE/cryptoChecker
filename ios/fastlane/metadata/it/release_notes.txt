@@ -31,3 +31,6 @@ Versione 16.2.2
 • Scheda Mercato: capitalizzazione totale del mercato crypto e volume 24 h nella tua valuta
 • Futures: funding rate e open interest
 • Cinque colori d’accento con icone abbinate
+• Azioni, oro, materie prime e valute come futures (TradFi) su Binance, Bybit, OKX, MEXC e Bitget – con un interruttore in Impostazioni › Lista, nuove coppie automaticamente nel gruppo «TradFi»; futures a scadenza in «QTLY»
+• Variazione % come su Binance: ultime 24 ore, dalle 00:00 nel fuso del dispositivo o in un fuso fisso da UTC+14 a UTC-12
+• Nomi più chiari: «Aggiorna spesso» e «Prezzi live»

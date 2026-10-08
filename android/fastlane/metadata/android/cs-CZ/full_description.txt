@@ -1,9 +1,9 @@
-Mějte ceny svých kryptoměn pod dohledem, aniž byste stále otevírali aplikace burz. Nastavte alarmy, odhalte neobvyklé pohyby a během pár sekund pochopte, proč se mince hýbe.
+Crypto Checker vám vysvětlí, co se děje na trhu. Nastavte alarmy, odhalte neobvyklé pohyby a během pár sekund pochopte, proč se mince hýbe – bez prognózy.
 
-Sledovat – ceny přímo z burzy, ve vaší měně
-Upozornit – cena, %, pohyby a objem, jako jedna věta
 Pochopit – „Proč se to hýbe?“ s krátkým shrnutím
 Přehled – Crypto Pulse, Fear & Greed, cyklus a portfolio
+Sledovat – ceny přímo z burzy, ve vaší měně
+Upozornit – cena, %, pohyby a objem, jako jedna věta
 
 Čitelné pro všechny: barvy kurzů zelená/červená nebo modrá/oranžová, na přání prohozené, vysoký kontrast, znaménko a šipka místo pouhé barvy, TalkBack čte každý řádek jako větu.
 
@@ -48,7 +48,7 @@ PŘEHLED TRHU
 WIDGETY A OZNÁMENÍ
 • Widgety: celý seznam, hodnota portfolia s dnešní změnou, jedna mince velká s cenou a grafem – svíčky nebo čára, značky maxima, středu a minima
 • Tiché oznámení ceny pro každý pár
-• Živý režim s aktualizací každých 15 sekund, na pozadí od 15 minut
+• Časté obnovování každých 15 sekund, na pozadí od 15 minut
 
 A NAVÍC
 • Hlasový výstup: předčítání cen a alarmů

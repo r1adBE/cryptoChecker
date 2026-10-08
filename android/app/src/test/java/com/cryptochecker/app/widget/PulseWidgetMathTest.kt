@@ -103,4 +103,37 @@ class PulseWidgetMathTest {
         assertTrue(PulseWidgetMath.showsTime(150))
         assertFalse(PulseWidgetMath.showsTime(149))
     }
+
+    @Test
+    fun fearGreedFromNewestCacheWithin24Hours() {
+        val now = 1_800_000_000_000L
+        val h = 3_600_000L
+        // Jüngerer Wert gewinnt (Markt-Tab-Eintrag vor älterer Pulse-Eingabe und umgekehrt)
+        assertEquals(72, PulseWidgetMath.fearGreed(72, now - h, 60, now - 3 * h, now))
+        assertEquals(60, PulseWidgetMath.fearGreed(72, now - 5 * h, 60, now - 3 * h, now))
+        // Nur einer vorhanden
+        assertEquals(41, PulseWidgetMath.fearGreed(null, null, 41, now - h, now))
+        // Älter als 24 h, in der Zukunft oder ausserhalb 0–100: keine Zeile
+        assertNull(PulseWidgetMath.fearGreed(72, now - 24 * h - 1, null, null, now))
+        assertEquals(72, PulseWidgetMath.fearGreed(72, now - 24 * h, null, null, now))
+        assertNull(PulseWidgetMath.fearGreed(72, now + h, null, null, now))
+        assertNull(PulseWidgetMath.fearGreed(140, now - h, null, null, now))
+        assertNull(PulseWidgetMath.fearGreed(null, null, null, null, now))
+    }
+
+    @Test
+    fun fearGreedLineOnlyWithRoom() {
+        // Mittel/gross: Platz unter Leitsatz und Stand
+        assertTrue(PulseWidgetMath.showsFearGreed(250, 180, headlineLines = 1, textWidthDp = 130f))
+        // Klein (2×2): unverändert ohne Zeile
+        assertFalse(PulseWidgetMath.showsFearGreed(150, 150, headlineLines = 1, textWidthDp = 130f))
+        assertFalse(PulseWidgetMath.showsFearGreed(250, 166, headlineLines = 1, textWidthDp = 130f))
+        assertTrue(PulseWidgetMath.showsFearGreed(250, 167, headlineLines = 1, textWidthDp = 130f))
+        // Zweizeilige Schlagzeile braucht mehr Höhe
+        assertFalse(PulseWidgetMath.showsFearGreed(250, 180, headlineLines = 2, textWidthDp = 130f))
+        // Zu schmal für den ganzen Text: nie abgeschnitten
+        assertFalse(PulseWidgetMath.showsFearGreed(140, 220, headlineLines = 1, textWidthDp = 130f))
+        // Unbekannte Grösse: zeigen
+        assertTrue(PulseWidgetMath.showsFearGreed(0, 0, headlineLines = 1, textWidthDp = 130f))
+    }
 }

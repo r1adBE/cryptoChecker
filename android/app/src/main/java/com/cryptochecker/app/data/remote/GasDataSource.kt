@@ -1,10 +1,12 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.market.BtcFees
+import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.EvmGas
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.market.GasReport
+import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.marketdata.model.PostRequestInfo
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
@@ -27,17 +29,24 @@ class GasDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
 ) {
     private val mutex = Mutex()
-    private var cached: GasReport? = null
+    private var cached: Sourced<GasReport>? = null
 
-    suspend fun fetch(maxAgeMillis: Long = CACHE_MILLIS): GasReport = mutex.withLock {
-        cached?.takeIf { System.currentTimeMillis() - it.time < maxAgeMillis }?.let { return it }
-        val report = load()
+    suspend fun fetch(maxAgeMillis: Long = CACHE_MILLIS): GasReport = fetchSourced(maxAgeMillis).value
+
+    /**
+     * Wie [fetch]; [Sourced.provider] = Knoten, der Ethereum geliefert hat (z. B. «publicnode.com»),
+     * und «mempool.space» für Bitcoin — je nachdem, was im Bericht steht.
+     */
+    suspend fun fetchSourced(maxAgeMillis: Long = CACHE_MILLIS): Sourced<GasReport> = mutex.withLock {
+        cached?.takeIf { System.currentTimeMillis() - it.value.time < maxAgeMillis }?.let { return it }
+        val sourced = load()
+        val report = sourced.value
         if (report.evm.isEmpty() && report.btc == null) throw IllegalStateException("Keine Gebührendaten")
-        cached = report
-        report
+        cached = sourced
+        sourced
     }
 
-    private suspend fun load(): GasReport = coroutineScope {
+    private suspend fun load(): Sourced<GasReport> = coroutineScope {
         val pricesJob = async { runCatching { prices() }.getOrElse { if (it is CancellationException) throw it; emptyMap() } }
         val evmJobs = GasNetwork.entries.map { network ->
             async { runCatching { network to evmGas(network) }.getOrElse { if (it is CancellationException) throw it; null } }
@@ -45,28 +54,36 @@ class GasDataSource @Inject constructor(
         val btcJob = async { runCatching { mempool() }.getOrElse { if (it is CancellationException) throw it; null } }
 
         val prices = pricesJob.await()
-        val evm = evmJobs.awaitAll().filterNotNull().map { (network, gwei) ->
+        val evmResults = evmJobs.awaitAll().filterNotNull()
+        val evm = evmResults.map { (network, delivered) ->
+            val gwei = delivered.first
             EvmGas(network, gwei.first, gwei.second, gwei.third, GasFees.evmTransferUsd(gwei.second, prices[network.coin]))
         }
         val btc = btcJob.await()?.let { (fast, normal, slow) ->
             BtcFees(fast, normal, slow, GasFees.btcTransferUsd(normal, prices["BTC"]))
         }
-        GasReport(evm, btc, System.currentTimeMillis())
+        // Herkunft wie in der Zeile gezeigt: der Ethereum-Knoten, dazu mempool.space für Bitcoin
+        val ethNode = evmResults.firstOrNull { it.first == GasNetwork.ETHEREUM }?.second?.second
+        val provider = DataFreshness.providers(
+            ethNode?.let { DataFreshness.siteName(it) },
+            if (btc != null) DataFreshness.MEMPOOL else null,
+        )
+        Sourced(GasReport(evm, btc, System.currentTimeMillis()), provider)
     }
 
-    /** (langsam, normal, schnell) in gwei; versucht die Knoten der Reihe nach. */
-    private suspend fun evmGas(network: GasNetwork): Triple<Double, Double, Double> {
+    /** (langsam, normal, schnell) in gwei und der Knoten, der geantwortet hat; versucht die Knoten der Reihe nach. */
+    private suspend fun evmGas(network: GasNetwork): Pair<Triple<Double, Double, Double>, String> {
         var lastError: Throwable? = null
         for (rpc in network.rpcs) {
             try {
                 return try {
-                    GasFees.parseFeeHistory(httpClient.callMarket(rpc, jsonPost(GasFees.feeHistoryRequest())))
+                    GasFees.parseFeeHistory(httpClient.callMarket(rpc, jsonPost(GasFees.feeHistoryRequest()))) to rpc
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
                     // Ohne eth_feeHistory: einfacher Gaspreis für alle drei Stufen
                     val price = GasFees.parseGasPrice(httpClient.callMarket(rpc, jsonPost(GasFees.gasPriceRequest())))
-                    Triple(price, price, price)
+                    Triple(price, price, price) to rpc
                 }
             } catch (e: CancellationException) {
                 throw e

@@ -31,3 +31,6 @@ Version 16.2.2
 • Onglet Marché : capitalisation totale du marché crypto et volume 24 h dans votre devise
 • Futures : funding rate et open interest
 • Cinq couleurs d’accent avec icônes assorties
+• Actions, or, matières premières et devises en futures (TradFi) chez Binance, Bybit, OKX, MEXC et Bitget – via un interrupteur dans Paramètres › Liste, nouvelles paires automatiquement dans le groupe « TradFi » ; futures à échéance dans « QTLY »
+• Variation en % comme chez Binance : 24 dernières heures, depuis 00:00 dans le fuseau de l’appareil ou dans un fuseau fixe de UTC+14 à UTC-12
+• Noms plus clairs : « Mettre à jour souvent » et « Cours en direct »

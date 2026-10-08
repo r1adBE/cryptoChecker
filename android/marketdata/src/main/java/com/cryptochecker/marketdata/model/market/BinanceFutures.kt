@@ -3,6 +3,8 @@ package com.cryptochecker.marketdata.model.market
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.*
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.TradFi
+import com.cryptochecker.marketdata.util.optStrings
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -123,18 +125,17 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
     override fun parseCurrencyPairsFromJsonObject(requestId: Int, jsonObject: JSONObject, pairs: MutableList<CurrencyPairInfo>) {
         fun parseContractType(value: String): FuturesContractType? =
             when(value) {
-                "PERPETUAL" -> FuturesContractType.PERPETUAL
+                // TradFi-Perpetuals (Aktien, Rohstoffe, Devisen, Pre-IPO) sind technisch
+                // gewöhnliche Perpetuals: gleiche Abfrage, gleiche Live-Kurse und Funding
+                "PERPETUAL", TradFi.BINANCE_TRADFI_PERPETUAL -> FuturesContractType.PERPETUAL
                 "CURRENT_QUARTER" -> FuturesContractType.QUARTERLY
                 "NEXT_QUARTER" -> FuturesContractType.BIQUARTERLY
                 else -> null
             }
 
         jsonObject.getJSONArray("symbols").forEachJSONObject { marketJsonObject ->
-            // Tha app UI supports only perpetual futures
-            val contractType = parseContractType(marketJsonObject.getString("contractType"))
-                ?: return@forEachJSONObject
-            //if(marketJsonObject.getString("contractType") != "PERPETUAL")
-            //    return@forEachJSONObject
+            val rawContractType = marketJsonObject.getString("contractType")
+            val contractType = parseContractType(rawContractType) ?: return@forEachJSONObject
 
             val symbol = marketJsonObject.getString("symbol").let {
                 if(requestId > 0) COIN_M_PREFIX + it else it
@@ -146,7 +147,8 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
                 baseAsset,
                 quoteAsset,
                 symbol,
-                contractType))
+                contractType,
+                tradFi = TradFi.binance(rawContractType, marketJsonObject.optStrings("underlyingSubType"))))
         }
     }
 }

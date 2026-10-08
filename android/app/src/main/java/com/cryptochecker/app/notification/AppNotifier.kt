@@ -13,7 +13,10 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
+import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.ui.MainActivity
@@ -158,13 +161,22 @@ class AppNotifier @Inject constructor(
         price: Double,
         volumeRatio: Double? = null,
         nearFire: NearExtreme.Decision.Fire? = null,
+        /** Funding (in %) bzw. Open-Interest-Veränderung (in %) beim Auslösen eines Funding- bzw. Open-Interest-Alarms. */
+        derivativesValue: Double? = null,
     ) {
         val title = context.getString(
             R.string.notification_alarm_title,
             watch.displayName,
             watch.marketName
         )
-        val body = if (nearFire != null) {
+        val body = if (derivativesValue != null) {
+            // «Funding über 0,05 % — jetzt 0,061 %», «Open Interest steigt 10 % in 4 Std. — jetzt +12,3 %»
+            context.getString(
+                R.string.notification_alarm_text,
+                AlarmTexts.describe(context, alarm),
+                AlarmTexts.derivativesValue(context, alarm.condition, derivativesValue)
+            )
+        } else if (nearFire != null) {
             // «BTC ist 1,6 % unter dem 30-Tage-Hoch (98’450 / 100’050)»
             AlarmTexts.nearExtremeText(context, alarm, watch.baseAsset, watch.quoteAsset, price, nearFire)
         } else if (volumeRatio != null) {
@@ -179,10 +191,12 @@ class AppNotifier @Inject constructor(
         }
 
         val settings = settingsRepository.cached
-        // Nachtruhe: ausgelöst wird wie sonst, nur lautlos über den eigenen Kanal
+        // Nachtruhe: ausgelöst wird wie sonst, nur lautlos über den eigenen Kanal.
+        // Sonst der Kanal des «Alarm-Signals»; die Schalter Ton/Vibration des Alarms
+        // nehmen davon höchstens etwas weg (Android 8+ beachtet nur den Kanal).
         val quiet = isQuietNow()
         val channelId = if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
-        else NotificationChannels.ensureAlarmChannel(context, settings.alarmChannelVersion, settings.alarmSoundUri)
+        else alarmChannel(AlarmSignal.effective(settings.alarmSignal, alarm.sound, alarm.vibrate))
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_stat_alarm)
             .setColor(settingsRepository.cached.accentColor.seed)
@@ -193,18 +207,67 @@ class AppNotifier @Inject constructor(
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setAutoCancel(true)
             .setContentIntent(openAppIntent(watch.id))
-
-        if (quiet) {
-            builder.setSilent(true)
-        } else {
-            var defaults = 0
-            if (alarm.sound) defaults = defaults or Notification.DEFAULT_SOUND
-            if (alarm.vibrate) defaults = defaults or Notification.DEFAULT_VIBRATE
-            if (defaults != 0) builder.setDefaults(defaults)
-            if (!alarm.sound && !alarm.vibrate) builder.setSilent(true)
+        // «Warum?»: öffnet die App direkt mit «Warum bewegt sich das?» des Paars — nur für gehandelte Paare
+        if (!watch.isNotTraded) {
+            builder.addAction(0, context.getString(R.string.watch_action_why), openWhyIntent(watch.id))
         }
 
+        // «Lautlos» kommt über den Kanal ohne Ton und Vibration und erscheint trotzdem
+        // oben — setSilent würde auch das unterdrücken; nur die Nachtruhe bleibt ganz still.
+        if (quiet) builder.setSilent(true)
+
         notify(alarmNotificationId(alarm.id), builder.build())
+    }
+
+    /**
+     * Alarm «Portfolio-Wert» ([measured] = Gesamtwert in der Alarmwährung bzw. Veränderung in
+     * Prozent). Gleicher Kanal wie die Paar-Alarme («Alarm-Signal», Nachtruhe lautlos); Tipp
+     * öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier; mit Portfolio-Sperre zeigt
+     * der Sperrbildschirm nur den Titel.
+     */
+    fun showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured: Double) {
+        val settings = settingsRepository.cached
+        val hidden = settings.hidePortfolioAmounts
+        val title = context.getString(R.string.notification_portfolio_alarm_title)
+        val body = context.getString(
+            R.string.notification_portfolio_alarm_text,
+            PortfolioAlarmTexts.sentence(context, alarm, settings.changeBasis, hidden),
+            PortfolioAlarmTexts.measured(alarm, measured, hidden)
+        )
+        val quiet = isQuietNow()
+        val channelId = if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
+        else alarmChannel(settings.alarmSignal)
+        val builder = NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(R.drawable.ic_stat_alarm)
+            .setColor(settings.accentColor.seed)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setAutoCancel(true)
+            .setContentIntent(openTargetIntent(OPEN_PORTFOLIO, PORTFOLIO_REQUEST_CODE))
+        if (settings.appLock) {
+            builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                .setPublicVersion(
+                    NotificationCompat.Builder(context, channelId)
+                        .setSmallIcon(R.drawable.ic_stat_alarm)
+                        .setColor(settings.accentColor.seed)
+                        .setContentTitle(title)
+                        .build()
+                )
+        }
+        if (quiet) builder.setSilent(true)
+        notify(portfolioAlarmNotificationId(alarm.id), builder.build())
+    }
+
+    /**
+     * Kanal des «Alarm-Signals» [signal] (legt ihn bei Bedarf an). Gilt für Kursalarme,
+     * Volumen-Spike und «Nahe am Hoch/Tief»; Aktivität, Gas und Marktphase haben eigene Kanäle.
+     */
+    fun alarmChannel(signal: AlarmSignal): String {
+        val settings = settingsRepository.cached
+        return NotificationChannels.ensureAlarmChannel(context, signal, settings.alarmChannelVersion, settings.alarmSoundUri)
     }
 
     // ---------------- Test-Alarm ----------------
@@ -215,20 +278,19 @@ class AppNotifier @Inject constructor(
      */
     fun alarmsAllowed(): Boolean {
         if (!hasPermission() || !manager.areNotificationsEnabled()) return false
-        val settings = settingsRepository.cached
-        val channelId = NotificationChannels.ensureAlarmChannel(context, settings.alarmChannelVersion, settings.alarmSoundUri)
+        val channelId = alarmChannel(settingsRepository.cached.alarmSignal)
         val channel = context.getSystemService(android.app.NotificationManager::class.java)
             ?.getNotificationChannel(channelId)
         return channel == null || channel.importance != android.app.NotificationManager.IMPORTANCE_NONE
     }
 
     /**
-     * Beispiel-Alarm über denselben Kanal wie ein Kursalarm (Ton, Vibration),
+     * Beispiel-Alarm über denselben Kanal wie ein Kursalarm (gewähltes «Alarm-Signal»),
      * aber ohne Nachtruhe — es ist ein Test.
      */
     fun showTestAlarm() {
         val settings = settingsRepository.cached
-        val channelId = NotificationChannels.ensureAlarmChannel(context, settings.alarmChannelVersion, settings.alarmSoundUri)
+        val channelId = alarmChannel(settings.alarmSignal)
         val text = context.getString(R.string.alarm_test_text)
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_stat_alarm)
@@ -239,7 +301,6 @@ class AppNotifier @Inject constructor(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setAutoCancel(true)
-            .setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
             .setContentIntent(openAppIntent(null))
             .build()
         notify(TEST_ALARM_NOTIFICATION_ID, notification)
@@ -390,6 +451,26 @@ class AppNotifier @Inject constructor(
         )
     }
 
+    /** Öffnet die App mit dem Ziel [target] (wie die App-Verknüpfungen, siehe MainActivity.EXTRA_OPEN). */
+    private fun openTargetIntent(target: String, requestCode: Int): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            // Eigene Action je Ziel: sonst teilten sich verschiedene Ziele mit gleichem Request-Code ein PendingIntent
+            action = "$ACTION_OPEN_NOTIFICATION.$target"
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(MainActivity.EXTRA_OPEN, target)
+        }
+        return PendingIntent.getActivity(
+            context,
+            requestCode,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
+    /** «Warum?» aus einem Alarm: App öffnen, Merkliste, «Warum bewegt sich das?» des Paars. */
+    private fun openWhyIntent(watchId: Long): PendingIntent =
+        openTargetIntent(MainActivity.openWhyTarget(watchId), (WHY_REQUEST_BASE + watchId).toInt())
+
     companion object {
         const val SERVICE_NOTIFICATION_ID = 1
         const val REFRESH_NOTIFICATION_ID = 2
@@ -400,6 +481,13 @@ class AppNotifier @Inject constructor(
         const val TEST_ALARM_NOTIFICATION_ID = 7
 
         private const val ACTION_OPEN_NOTIFICATION = "com.cryptochecker.app.action.OPEN_FROM_NOTIFICATION"
+
+        /** Ziel des Portfolio-Alarms (wie das Portfolio-Widget). */
+        private const val OPEN_PORTFOLIO = "portfolio"
+        private const val PORTFOLIO_REQUEST_CODE = 400_000
+        private const val WHY_REQUEST_BASE = 500_000L
+
+        fun portfolioAlarmNotificationId(alarmId: Long): Int = (400_000 + alarmId).toInt()
 
         fun priceNotificationId(watchId: Long): Int = (100_000 + watchId).toInt()
         fun alarmNotificationId(alarmId: Long): Int = (200_000 + alarmId).toInt()

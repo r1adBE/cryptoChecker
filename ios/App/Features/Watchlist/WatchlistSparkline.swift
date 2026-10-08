@@ -163,6 +163,9 @@ struct WatchlistSparkline: View {
                 .trim(from: 0, to: drawn)
                 .stroke(color, style: StrokeStyle(lineWidth: 1.75, lineCap: .round, lineJoin: .round))
         }
+        // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen);
+        // Maske (.leading) und Linie (trim) decken so gemeinsam von links auf
+        .environment(\.layoutDirection, .leftToRight)
         // Eigene Beschreibung (24 h, USDT); in der Merkliste steht derselbe Satz
         // im Zeilen-Text, die Zeile fasst ihre Teile zusammen.
         .accessibilityElement()

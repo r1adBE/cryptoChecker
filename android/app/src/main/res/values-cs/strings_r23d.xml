@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23d: Aktionsblatt — «Paar bearbeiten» (Stift neben dem Paar) -->
+    <!-- Titel des Formulars und Screenreader-Name des Stifts -->
+    <string name="watch_edit_title">Upravit pár</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmy zůstanou – zkontrolujte limity</string>
+</resources>

@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">त्रुटि: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">कोई करेंसी पेयर नहीं</string>
-    <string name="checker_add_check_currency_empty_warning_summary">चुने गए एक्सचेंज से नवीनतम करेंसी पेयर डाउनलोड करने के लिए यहाँ टैप करें।</string>
+    <string name="checker_add_check_currency_empty_warning_summary">चुने गए मार्केट के मौजूदा पेयर लोड करता है।</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">करेंसी पेयर अपडेट करें</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">अभी सिंक करें!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">पिछला सिंक: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">कभी नहीं</string>
 
-    <string name="market_screen_sync">सिंक</string>
+    <string name="market_screen_sync">मिलान करें</string>
     <string name="market_screen_base">बेस</string>
     <string name="market_screen_quote">कोट</string>
     <string name="market_screen_market">मार्केट</string>
@@ -38,7 +38,6 @@
 
     <!-- Aktionen -->
     <string name="action_refresh">रीफ़्रेश</string>
-    <string name="action_add_pair">पेयर जोड़ें</string>
     <string name="action_delete">हटाएँ</string>
     <string name="action_edit">बदलें</string>
     <string name="action_back">वापस</string>
@@ -47,7 +46,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">अभी कोई पेयर नहीं</string>
-    <string name="watchlist_empty_hint">या “जोड़ें” में एक एक्सचेंज और पेयर चुनें। हर पेयर के लिए नोटिफ़िकेशन, बोलकर अपडेट और प्राइस अलार्म सेट किए जा सकते हैं।</string>
     <string name="watchlist_updated">अपडेट: %1$s</string>
     <string name="watchlist_notification">नोटिफ़िकेशन</string>
     <string name="watchlist_tts">कीमत बोलें</string>
@@ -80,7 +78,7 @@
     <string name="channel_prices_description">किसी पेयर की मौजूदा कीमत के साथ साइलेंट नोटिफ़िकेशन।</string>
     <string name="channel_alarms">अलार्म</string>
     <string name="channel_alarms_description">प्राइस अलार्म बजने पर नोटिफ़िकेशन।</string>
-    <string name="channel_service">लाइव मोड</string>
+    <string name="channel_service">बार-बार अपडेट</string>
     <string name="channel_service_description">जब कीमतें कम अंतराल पर अपडेट हो रही हों, तब दिखने वाली सूचना।</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, %2$s से (%3$s पहले)</string>
@@ -131,7 +129,7 @@
     <string name="settings_rolling_futures">तिमाही &amp; अन्य एक्सपायरी वाले फ़्यूचर्स सहित</string>
     <string name="settings_rolling_futures_hint">बंद: एक्सचेंज की सूची में न मिलने वाले एक्सपायरी फ़्यूचर्स को एक-एक करके जाँचने के बजाय ट्रेड न होने वाले के रूप में चिह्नित किया जाता है। हर रीफ़्रेश में समय बचता है।</string>
     <string name="notification_refreshing">कीमतें अपडेट हो रही हैं…</string>
-    <string name="notification_service_title">Crypto Checker लाइव मोड</string>
+    <string name="notification_service_title">Crypto Checker बार-बार अपडेट कर रहा है</string>
     <string name="notification_service_starting">शुरू हो रहा है…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d पेयर · %2$s</item>
@@ -145,9 +143,9 @@
     <string name="settings_background_updates">बैकग्राउंड अपडेट</string>
     <string name="settings_background_updates_hint">ऐप बंद होने पर भी कीमतें, अलार्म और विजेट अपडेट होते हैं।</string>
     <string name="settings_background_interval">अंतराल</string>
-    <string name="settings_live_service">लाइव मोड</string>
-    <string name="settings_live_service_hint">कम अंतराल के लिए एक सर्विस चालू रखता है। ज़्यादा बैटरी खर्च होती है।</string>
-    <string name="settings_live_interval">लाइव अंतराल</string>
+    <string name="settings_live_service">बार-बार अपडेट करें</string>
+    <string name="settings_live_service_hint">ऐप बंद होने पर भी कम अंतराल पर भाव जाँचता है। एक सूचना दिखाता है और ज़्यादा बैटरी खर्च करता है।</string>
+    <string name="settings_live_interval">कितनी बार</string>
     <string name="settings_minutes">%1$d मिनट</string>
     <string name="settings_seconds">%1$d सेकंड</string>
     <string name="settings_price_notifications">प्राइस नोटिफ़िकेशन</string>
@@ -230,7 +228,7 @@
     <string name="theme_system">सिस्टम</string>
     <string name="settings_section_developer">डेवलपर</string>
     <string name="settings_http_log">HTTP लॉग दिखाएँ</string>
-    <string name="settings_http_log_hint">“जोड़ें” टैब के नीचे एक्सचेंजों को भेजे गए अनुरोध दिखाता है – समस्या खोजने के लिए।</string>
+    <string name="settings_http_log_hint">“पेयर जोड़ें” पेज के नीचे एक्सचेंजों को भेजे गए अनुरोध दिखाता है – समस्या खोजने के लिए।</string>
     <string name="language_search">भाषा खोजें</string>
     <string name="alarm_delete_title">अलार्म हटाएँ?</string>
     <string name="alarm_delete_confirm">यह अलार्म हटा दिया जाएगा।</string>
@@ -270,15 +268,11 @@
     <string name="explorer_bulk_show_list">सूची दिखाएँ</string>
     <string name="explorer_bulk_hide_list">सूची छिपाएँ</string>
     <string name="time_just_now">अभी-अभी</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">आपके भाव। आपके अलार्म। आपका ओवरव्यू।\nकोई खाता नहीं। कोई विज्ञापन नहीं। कोई ट्रैकिंग नहीं।</string>
-    <string name="welcome_later">बाद में</string>
     <string name="developer_unlocked">डेवलपर विकल्प खुल गए</string>
     <string name="hint_favorites_list">सुझाव: पसंदीदा के लिए ☆ पर टैप करें – पसंदीदा ऊपर रहते हैं।</string>
     <string name="tab_watchlist">सूची</string>
-    <string name="tab_markets">जोड़ें</string>
     <string name="tab_market_phase">बाज़ार</string>
-    <string name="tab_settings">सेटिंग</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d में से %1$d पुराने</item>
         <item quantity="other">%2$d में से %1$d पुराने</item>

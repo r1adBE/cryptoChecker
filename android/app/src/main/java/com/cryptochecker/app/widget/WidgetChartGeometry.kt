@@ -19,7 +19,7 @@ import kotlin.math.min
 enum class WidgetChartType { CANDLES, LINE }
 
 /** Abstand der senkrechten Gitterlinien: je Stunde, je Tag (lokal 00:00), je Woche (lokal Montag 00:00). */
-enum class ChartGridUnit { HOUR, DAY, WEEK }
+enum class ChartGridUnit { HOUR, DAY, WEEK, MONTH }
 
 /** Eine Kerze des Widget-Charts; [openTime] in Epoch-ms. */
 data class WidgetCandle(
@@ -206,7 +206,8 @@ class WidgetChartGeometry(
          * und Ende der letzten Kerze:
          *  - [ChartGridUnit.HOUR]: jede volle Stunde, d. h. jede Kerzengrenze,
          *  - [ChartGridUnit.DAY]: jede lokale Mitternacht,
-         *  - [ChartGridUnit.WEEK]: jeder lokale Montag 00:00.
+         *  - [ChartGridUnit.WEEK]: jeder lokale Montag 00:00,
+         *  - [ChartGridUnit.MONTH]: jeder lokale Monatserste 00:00.
          */
         fun gridTimes(
             candles: List<WidgetCandle>,
@@ -225,19 +226,24 @@ class WidgetChartGeometry(
                         while (t < end) { add(t); t += hour }
                     }
                 }
-                ChartGridUnit.DAY, ChartGridUnit.WEEK -> {
+                ChartGridUnit.DAY, ChartGridUnit.WEEK, ChartGridUnit.MONTH -> {
                     var date = Instant.ofEpochMilli(start).atZone(zone).toLocalDate()
-                    if (unit == ChartGridUnit.WEEK) {
-                        date = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                    when (unit) {
+                        ChartGridUnit.WEEK -> date = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                        ChartGridUnit.MONTH -> date = date.withDayOfMonth(1)
+                        else -> Unit
                     }
-                    val step = if (unit == ChartGridUnit.WEEK) 7L else 1L
                     buildList {
                         var guard = 0
                         while (guard++ < 1000) {
                             val t = startOfDay(date, zone)
                             if (t >= end) break
                             if (t > start) add(t)
-                            date = date.plusDays(step)
+                            date = when (unit) {
+                                ChartGridUnit.WEEK -> date.plusDays(7L)
+                                ChartGridUnit.MONTH -> date.plusMonths(1L)
+                                else -> date.plusDays(1L)
+                            }
                         }
                     }
                 }

@@ -1,9 +1,9 @@
-Urmărește prețurile cripto fără să deschizi mereu aplicațiile burselor. Setează alarme, observă mișcările neobișnuite și înțelege în câteva secunde de ce se mișcă o monedă.
+Crypto Checker îți explică ce se întâmplă pe piață. Setează alarme, observă mișcările neobișnuite și înțelege în câteva secunde de ce se mișcă o monedă – fără prognoză.
 
-Urmărește – prețuri direct de la bursă, în moneda ta
-Alertează – preț, %, mișcări și volum, ca o propoziție simplă
 Înțelege – „De ce se mișcă?” cu un scurt rezumat
 Privire de ansamblu – Crypto Pulse, Fear & Greed, ciclu, portofoliu
+Urmărește – prețuri direct de la bursă, în moneda ta
+Alertează – preț, %, mișcări și volum, ca o propoziție simplă
 
 Lizibil pentru toți: culori de preț verde/roșu sau albastru/portocaliu, inversabile la cerere, contrast ridicat, semn și săgeată, nu doar culoare, iar TalkBack citește fiecare rând ca o propoziție.
 
@@ -45,7 +45,7 @@ PRIVIRE DE ANSAMBLU ASUPRA PIEȚEI
 WIDGETURI ȘI NOTIFICĂRI
 • Widgeturi: toată lista, valoarea portofoliului cu schimbarea de azi, o monedă mare cu preț și grafic – lumânări sau linie, cu repere de maxim, mijloc și minim
 • Notificare de preț silențioasă pentru fiecare pereche
-• Mod live cu actualizare la fiecare 15 secunde, în fundal de la 15 minute
+• Actualizare frecventă la fiecare 15 secunde, în fundal de la 15 minute
 
 ȘI ÎN PLUS
 • Ieșire vocală: prețurile și alarmele sunt citite cu voce tare

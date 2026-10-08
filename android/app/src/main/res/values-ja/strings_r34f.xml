@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">資金調達率が上回る</string>
+    <string name="alarm_condition_funding_below">資金調達率が下回る</string>
+    <string name="alarm_condition_oi_up">建玉が増加</string>
+    <string name="alarm_condition_oi_down">建玉が減少</string>
+    <string name="alarm_sentence_funding_above">%1$s の資金調達率が %2$s を上回ったら知らせる。</string>
+    <string name="alarm_sentence_funding_below">%1$s の資金調達率が %2$s を下回ったら知らせる。</string>
+    <string name="tts_direction_funding_above">資金調達率の上昇を伴って</string>
+    <string name="tts_direction_funding_below">資金調達率の低下を伴って</string>
+    <string name="tts_direction_oi_up">建玉の増加を伴って</string>
+    <string name="tts_direction_oi_down">建玉の減少を伴って</string>
+    <string name="alarm_funding_hint">精算期間ごとの資金調達率（通常は8時間ごと）。マイナスはショートがロングに支払うことを意味します。± で符号を切り替えます。</string>
+    <string name="alarm_oi_hint">建玉を、同じ時間だけ前に保存した値と比べます。新しいアラームは、アプリがその期間のデータを集めてから通知します。確認は最大5分ごとです。</string>
+    <string name="alarm_funding_sign_a11y">符号を切り替え</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">%1$s の建玉が %3$d 時間以内に %2$s 増えたら知らせる。</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">%1$s の建玉が %3$d 時間以内に %2$s 減ったら知らせる。</item>
+    </plurals>
+</resources>

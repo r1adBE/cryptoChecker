@@ -60,10 +60,10 @@ struct CryptoPulseCard: View {
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 14)
+                .padding(.top, Spacing.md)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(20)
+        .padding(Spacing.lg)
         .background {
             ZStack {
                 AppColors.container
@@ -111,7 +111,7 @@ struct CryptoPulseCard: View {
     /// Überzeile «Was gerade auffällt». Mit Daten liest VoiceOver sie im
     /// Element der Schlagzeile mit (hier dann ausgeblendet).
     private var header: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: Spacing.xs) {
             Image(systemName: "waveform.path.ecg")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(accent.primary)
@@ -135,7 +135,7 @@ struct CryptoPulseCard: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             CycleRetryButton(action: onRetry)
         }
-        .padding(.top, 14)
+        .padding(.top, Spacing.md)
     }
 
     @ViewBuilder
@@ -149,21 +149,21 @@ struct CryptoPulseCard: View {
             VStack(alignment: .leading, spacing: 0) {
                 PulseHeadline(text: headline, glyph: Self.glyph(report.summary),
                               glyphColor: directionColor(report.summary))
-                    .padding(.top, 10)
+                    .padding(.top, Spacing.sm)
                 Text(lead)
                     .font(.body)
                     .foregroundStyle(AppColors.onSurface)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.top, 6)
+                    .padding(.top, Spacing.xs)
                 PulseAssetChips(coins: report.coins)
                     .padding(.top, 12)
                 if !chips.isEmpty {
-                    FlowLayout(spacing: 6) {
+                    FlowLayout(spacing: Spacing.xs) {
                         ForEach(chips, id: \.self) { chip in
                             PulseMetricChip(text: chip)
                         }
                     }
-                    .padding(.top, 10)
+                    .padding(.top, Spacing.sm)
                 }
             }
             .accessibilityElement(children: .ignore)
@@ -186,12 +186,12 @@ struct CryptoPulseCard: View {
                     Text(L(expanded ? "pulse_less" : "pulse_why_action"))
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(accent.primary)
-                        .padding(.vertical, 6)
+                        .padding(.vertical, Spacing.sm)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
             }
-            .padding(.top, 10)
+            .padding(.top, Spacing.sm)
 
             if expanded {
                 // BTC/ETH/SOL stehen schon in den Kurs-Chips oben — hier nur Altcoins vs. Bitcoin
@@ -278,13 +278,13 @@ private struct PulseSkeleton: View {
         CycleSkeleton {
             VStack(alignment: .leading, spacing: 0) {
                 Text(verbatim: " ")
-                    .font(.title2.weight(.semibold))
+                    .font(AppFont.headline)
                     .cycleSkeletonBar(width: 180)
-                    .padding(.top, 10)
+                    .padding(.top, Spacing.sm)
                 Text(verbatim: " ")
                     .font(.body)
                     .cycleSkeletonBar()
-                    .padding(.top, 6)
+                    .padding(.top, Spacing.xs)
                 Text(verbatim: " ")
                     .font(.body)
                     .cycleSkeletonBar()
@@ -296,7 +296,7 @@ private struct PulseSkeleton: View {
                             .font(.system(.subheadline, design: .rounded).weight(.semibold))
                             .hidden()
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 6)
+                            .padding(.vertical, Spacing.sm)
                             .background(AppColors.containerHighest, in: Capsule())
                     }
                 }
@@ -309,10 +309,10 @@ private struct PulseSkeleton: View {
                     // Platz des «Warum?»-Knopfs
                     Text(verbatim: " ")
                         .font(.subheadline.weight(.semibold))
-                        .padding(.vertical, 6)
+                        .padding(.vertical, Spacing.sm)
                         .hidden()
                 }
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
             }
         }
     }
@@ -332,7 +332,7 @@ private struct PulseHeadline: View {
                     .foregroundStyle(glyphColor)
             }
             Text(text)
-                .font(.title2.weight(.semibold))
+                .font(AppFont.headline)
                 .foregroundStyle(AppColors.onSurface)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -351,7 +351,7 @@ private struct PulseAssetChips: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 ForEach(coins, id: \.name) { coin in
                     PulseAssetChip(line: coin)
                 }
@@ -388,13 +388,13 @@ private struct PulseAssetChip: View {
                 .scaledFont(size: 9, weight: .bold, relativeTo: .caption)
                 .foregroundStyle(color)
             Text(ActivityTexts.percent(line.shownChange, 1))
-                .font(.system(.subheadline, design: .rounded).weight(.semibold).monospacedDigit())
+                .font(AppFont.amount(.subheadline, weight: .semibold))
                 .foregroundStyle(color)
         }
         .lineLimit(1)
         .minimumScaleFactor(0.75)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 6)
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.sm)
         .background(color.opacity(0.14), in: Capsule())
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(A11y.join([line.name, A11y.change(line.shownChange)]))
@@ -410,7 +410,7 @@ private struct PulseMetricChip: View {
             .font(.caption.weight(.medium).monospacedDigit())
             .foregroundStyle(AppColors.onSurface)
             .lineLimit(1)
-            .padding(.horizontal, 10)
+            .padding(.horizontal, Spacing.sm)
             .padding(.vertical, 4)
             .background(AppColors.containerHigh, in: Capsule())
             .overlay(Capsule().strokeBorder(AppColors.outlineVariant, lineWidth: 1))
@@ -425,7 +425,7 @@ private struct PulseSectionTitle: View {
         Text(text)
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(AppColors.onSurfaceVariant)
-            .padding(.top, 14)
+            .padding(.top, Spacing.md)
             .accessibilityAddTraits(.isHeader)
     }
 }

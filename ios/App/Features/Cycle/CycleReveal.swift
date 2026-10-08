@@ -1,20 +1,26 @@
 import Foundation
 
 /// Reihenfolge, in der die Teile des Markt-Tabs von oben nach unten erscheinen
-/// (die Überschrift «Jetzt» gehört zu `pulse`). Wie `MarketRevealSlot.kt`.
+/// (die Überschrift «Jetzt» gehört zu `pulse`). Wie `MarketRevealSlot.kt`:
+/// Jetzt (Pulse, «Heute auffällig» — Karten) → Einordnung (Fear & Greed, Marktphase, Dominanz
+/// mit Altcoin-Saison, Zyklus/Halving) → Daten (Krypto-Markt, Gas, Wirtschaftsdaten, Coin) —
+/// Einordnung und Daten als Zeilen ohne Karte.
 enum CycleRevealSlot: Int, CaseIterable {
     case pulse
     /// «Heute auffällig», direkt unter dem Pulse.
     case unusual
-    case fearGreed
-    case marketTotals
     case headerContext
+    /// Fear & Greed — erste Zeile unter «Einordnung».
+    case fearGreed
     case phase
     case dominance
     case halving
     case headerData
-    case coin
+    /// «Krypto-Markt» (Marktkapitalisierung, Volumen) — erste Karte unter «Daten».
+    case marketTotals
     case gas
+    /// Coin-Analyse; davor der Wirtschaftsdaten-Hinweis, wenn kein Termin in ±2 h liegt.
+    case coin
 }
 
 /// Ruhiges, schrittweises Erscheinen der Karten im Markt-Tab — wie `MarketReveal.kt`:

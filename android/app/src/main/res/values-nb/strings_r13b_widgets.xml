@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">utdatert · %1$s</string>
 
     <string name="settings_widgets">Moduler</string>
-    <string name="settings_widgets_hint">Legg kurser på startskjermen</string>
     <string name="widgets_sheet_title">Legg til en modul</string>
     <string name="widget_kind_single">Én mynt</string>
     <string name="widgets_add">Legg til</string>

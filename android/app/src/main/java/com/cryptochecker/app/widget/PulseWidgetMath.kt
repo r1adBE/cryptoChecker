@@ -141,6 +141,39 @@ object PulseWidgetMath {
     /** Zeile «Stand …» nur mit genug Höhe (unbekannte Höhe: ja). */
     fun showsTime(heightDp: Int): Boolean = heightDp <= 0 || heightDp >= FULL_MIN_HEIGHT_DP
 
+    /** Fear & Greed im Widget höchstens so alt (nur Zwischenspeicher, kein eigener Abruf): 24 h. */
+    const val FEAR_GREED_MAX_AGE_MILLIS = 24 * 3_600_000L
+
+    /** Höhe der Zeile «Fear & Greed 72 · Gier» samt Abstand (dp, 11 sp). */
+    const val FEAR_GREED_LINE_DP = 17
+
+    /**
+     * Fear-&-Greed-Wert fürs Widget aus vorhandenen Daten: der jüngere von Markt-Tab-Eintrag
+     * ([cached], gespeichert [cachedAt]) und Pulse-Eingabe ([pulse], [pulseAt]); nur 0–100 und
+     * höchstens [FEAR_GREED_MAX_AGE_MILLIS] alt (Zeitpunkt in der Zukunft oder ≤ 0: nie). null = Zeile weg.
+     */
+    fun fearGreed(cached: Int?, cachedAt: Long?, pulse: Int?, pulseAt: Long?, now: Long): Int? =
+        listOfNotNull(
+            cached?.let { v -> cachedAt?.let { v to it } },
+            pulse?.let { v -> pulseAt?.let { v to it } },
+        )
+            .filter { (value, at) -> value in 0..100 && at in 1..now && now - at <= FEAR_GREED_MAX_AGE_MILLIS }
+            .maxByOrNull { it.second }
+            ?.first
+
+    /**
+     * Zeile «Fear & Greed 72 · Gier» zeigen? Nur mit Platz: unter Leitsatz (2 Zeilen) und Stand
+     * noch eine Zeile Höhe ([FULL_MIN_HEIGHT_DP] + [FEAR_GREED_LINE_DP], zweizeilige Schlagzeile
+     * mehr), und der Text passt ganz in die Breite. Unbekannte Grösse (0): ja. Kleine Widgets
+     * bleiben unverändert.
+     */
+    fun showsFearGreed(widthDp: Int, heightDp: Int, headlineLines: Int, textWidthDp: Float): Boolean {
+        val needed = FULL_MIN_HEIGHT_DP + FEAR_GREED_LINE_DP + if (headlineLines > 1) HEADLINE_SECOND_LINE_DP else 0
+        val tallEnough = heightDp <= 0 || heightDp >= needed
+        val wideEnough = widthDp <= 0 || textWidthDp <= widthDp - PADDING_DP - WidgetTextFit.SAFETY_DP
+        return tallEnough && wideEnough
+    }
+
     /** Für den Screenreader wie angezeigt gerundet; flach = 0. */
     fun spokenChange(change: Double): Double = if (isFlat(change)) 0.0 else change
 }

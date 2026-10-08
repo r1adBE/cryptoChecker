@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">הכול עודכן</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d צמד לא עודכן</item>
+        <item quantity="two">%1$d צמדים לא עודכנו</item>
+        <item quantity="other">%1$d צמדים לא עודכנו</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s לא זמינה</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d בורסה לא זמינה</item>
+        <item quantity="two">%1$d בורסות לא זמינות</item>
+        <item quantity="other">%1$d בורסות לא זמינות</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">הרענון בוטל</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d צמד</item>
+        <item quantity="two">%1$d צמדים</item>
+        <item quantity="other">%1$d צמדים</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">בורסות</string>
+    <string name="refresh_sheet_section_steps">פירוט</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">המתנה עד ההתחלה</string>
+    <string name="refresh_sheet_network">רשת</string>
+    <string name="refresh_sheet_database">מסד נתונים</string>
+    <string name="refresh_sheet_alarms">התראות מחיר</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">הופעלו: %1$d</item>
+        <item quantity="two">הופעלו: %1$d</item>
+        <item quantity="other">הופעלו: %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">התראות: %1$d</item>
+        <item quantity="two">התראות: %1$d</item>
+        <item quantity="other">התראות: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">ווידג׳טים</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d מתוך %1$d צמד</item>
+        <item quantity="two">%2$d מתוך %1$d צמדים</item>
+        <item quantity="other">%2$d מתוך %1$d צמדים</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">בקשה מרוכזת %1$s · %2$d שער</item>
+        <item quantity="two">בקשה מרוכזת %1$s · %2$d שערים</item>
+        <item quantity="other">בקשה מרוכזת %1$s · %2$d שערים</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">תם הזמן הקצוב</string>
+    <string name="refresh_sheet_reason_offline">אין חיבור</string>
+    <string name="refresh_sheet_reason_rate_limit">יותר מדי בקשות</string>
+    <string name="refresh_sheet_reason_server">שגיאת שרת</string>
+    <string name="refresh_sheet_reason_no_data">אין נתונים</string>
+    <string name="refresh_sheet_reason_unavailable">הבורסה אינה זמינה</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">הכול עודכן</string>
+    <string name="refresh_sheet_status_partial">עודכן חלקית</string>
+    <string name="refresh_sheet_status_failed">לא עודכן</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s שניות</string>
+</resources>

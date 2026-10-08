@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">đã cũ · %1$s</string>
 
     <string name="settings_widgets">Tiện ích</string>
-    <string name="settings_widgets_hint">Thêm giá vào màn hình chính</string>
     <string name="widgets_sheet_title">Thêm tiện ích</string>
     <string name="widget_kind_single">Một coin</string>
     <string name="widgets_add">Thêm</string>

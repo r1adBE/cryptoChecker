@@ -6,7 +6,9 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmSentence
+import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 
 /** Beschreibt eine Alarmbedingung als Text – für Liste und Benachrichtigung. */
@@ -23,6 +25,10 @@ object AlarmTexts {
                 AlarmCondition.VOLUME_SPIKE -> R.string.alarm_condition_volume_spike
                 AlarmCondition.NEAR_HIGH -> R.string.alarm_condition_near_high
                 AlarmCondition.NEAR_LOW -> R.string.alarm_condition_near_low
+                AlarmCondition.FUNDING_ABOVE -> R.string.alarm_condition_funding_above
+                AlarmCondition.FUNDING_BELOW -> R.string.alarm_condition_funding_below
+                AlarmCondition.OI_UP -> R.string.alarm_condition_oi_up
+                AlarmCondition.OI_DOWN -> R.string.alarm_condition_oi_down
             }
         )
 
@@ -31,6 +37,20 @@ object AlarmTexts {
         // «Volumen-Spike ×3»
         if (alarm.condition == AlarmCondition.VOLUME_SPIKE) {
             return "$name ×${factor(alarm.threshold)}"
+        }
+        // «Funding über 0,05 %»
+        if (alarm.condition.isFunding) {
+            return "$name " + AlarmSentence.fundingPercent(alarm.threshold, locale(context))
+        }
+        // «Open Interest steigt 10 % in 4 Std.»
+        if (alarm.condition.isOpenInterest) {
+            val hours = DerivativesAlarm.oiWindowHours(alarm.windowHours)
+            return "$name " + AlarmSentence.percent(alarm.threshold, locale(context)) + " " +
+                context.resources.getQuantityString(R.plurals.alarm_window_hours, hours, hours)
+        }
+        // Nur neue Hochs/Tiefs (Abstand 0): «Neues 30-Tage-Hoch»
+        if (alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold)) {
+            return newExtremeLabel(context, alarm.condition == AlarmCondition.NEAR_HIGH, alarm.windowHours)
         }
         // «Nahe am Hoch 2.00% · 30 Tage»
         if (alarm.condition.isNearExtreme) {
@@ -50,6 +70,18 @@ object AlarmTexts {
         return "$name $value"
     }
 
+    /**
+     * Gemessener Wert in der Benachrichtigung eines Funding- bzw. Open-Interest-Alarms:
+     * Funding «0,061 %», Open-Interest-Veränderung «+12,3 %».
+     */
+    fun derivativesValue(context: Context, condition: AlarmCondition, value: Double): String =
+        if (condition.isFunding) AlarmSentence.fundingPercent(value, locale(context))
+        else AlarmSentence.signedPercent(value, locale(context))
+
+    /** Sprache der App (kann von der Systemsprache abweichen). */
+    private fun locale(context: Context): java.util.Locale =
+        context.resources.configuration.locales[0] ?: java.util.Locale.getDefault()
+
     /** «30 Tage», «90 Tage», «1 Jahr» — Zeitraum des Alarms «Nahe am Hoch/Tief». */
     fun windowLabel(context: Context, days: Int): String =
         if (days >= 365) context.getString(R.string.alarm_near_window_year)
@@ -63,6 +95,10 @@ object AlarmTexts {
             else -> if (high) R.string.alarm_near_extreme_high_30 else R.string.alarm_near_extreme_low_30
         }
     )
+
+    /** «Neues 30-Tage-Hoch», «Neues Jahrestief» — Titel und Schnell-Alarm. */
+    fun newExtremeLabel(context: Context, high: Boolean, days: Int): String =
+        context.getString(R.string.alarm_new_extreme, extremeLabel(context, high, days))
 
     /**
      * Benachrichtigung «BTC ist 1,6 % unter dem 30-Tage-Hoch (98’450 / 100’050)» bzw.
@@ -94,10 +130,6 @@ object AlarmTexts {
     /** Abstand auf eine Nachkommastelle (1.63 → 1.6), damit die Meldung ruhig bleibt. */
     private fun roundDistance(value: Double): Double = Math.round(value * 10.0) / 10.0
 
-    /** Faktor ohne überflüssige Nachkommastellen: 3 → "3", 4.25 → "4.3". */
-    fun factor(value: Double): String {
-        val rounded = Math.round(value * 10.0) / 10.0
-        return if (rounded % 1.0 == 0.0) rounded.toLong().toString()
-        else String.format(java.util.Locale.ROOT, "%.1f", rounded)
-    }
+    /** Faktor ohne überflüssige Nachkommastellen: 3 → "3", 4.25 → "4.3" — in den Ziffern der App-Sprache. */
+    fun factor(value: Double): String = LocaleNumbers.decimal(value, 1, minDecimals = 0)
 }

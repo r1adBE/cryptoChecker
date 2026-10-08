@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_settings -->
-    <string name="settings_group_currency">Pénznem és átváltás</string>
     <string name="settings_group_alerts">Riasztások és értesítések</string>
-    <string name="settings_group_data">Adatok és frissítés</string>
-    <string name="settings_group_security">Biztonság és mentés</string>
     <string name="settings_portfolio_tab">Portfólió lap megjelenítése</string>
 </resources>

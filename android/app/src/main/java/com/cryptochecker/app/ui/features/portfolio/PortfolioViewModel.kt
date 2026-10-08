@@ -3,17 +3,20 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioPrices
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -111,6 +114,7 @@ class PortfolioViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snapshotUpdater: PortfolioSnapshotUpdater,
     private val historySource: PortfolioHistorySource,
+    private val alarmRepository: PortfolioAlarmRepository,
 ) : ViewModel() {
 
     /** null, bis die Datenbank geantwortet hat. Neueste zuerst. */
@@ -138,6 +142,25 @@ class PortfolioViewModel @Inject constructor(
      */
     private val _todayPercent = MutableStateFlow<Double?>(null)
     val todayPercent: StateFlow<Double?> = _todayPercent.asStateFlow()
+
+    /**
+     * Kursveränderung je Coin (gleiche Basis wie [todayPercent], aus der letzten Momentaufnahme)
+     * für «Grösste Bewegungen»; leer = noch keine Vergleichsbasis.
+     */
+    private val _coinChanges = MutableStateFlow<Map<String, Double>>(emptyMap())
+    val coinChanges: StateFlow<Map<String, Double>> = _coinChanges.asStateFlow()
+
+    /** %-Basis (Beschriftung von «heute» und «Grösste Bewegungen»). */
+    val changeBasis: StateFlow<ChangeBasis> = settingsRepository.settings
+        .map { it.changeBasis }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.changeBasis)
+
+    /** «Beträge verbergen»: alle Beträge als «•••», Prozente bleiben. */
+    val hideAmounts: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.hidePortfolioAmounts }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.hidePortfolioAmounts)
 
     val summary: StateFlow<PortfolioSummary?> = combine(transactions, _prices) { txs, p ->
         txs?.let { list -> PortfolioCalculator.summarize(list.map { it.toTrade() }, p.prices) }
@@ -206,7 +229,10 @@ class PortfolioViewModel @Inject constructor(
                     // Ohne geladene Kurse nichts aufnehmen (sonst stünde kurz 0 im Widget)
                     if (input.transactions.isNotEmpty() && input.prices.updatedAt <= 0L) return@collect
                     safe { snapshotUpdater.record(input.transactions, input.prices.prices, input.currency, input.fxRate) }
-                        ?.let { snapshot -> _todayPercent.value = snapshot.changePercent?.takeUnless { snapshot.empty } }
+                        ?.let { snapshot ->
+                            _todayPercent.value = snapshot.changePercent?.takeUnless { snapshot.empty }
+                            _coinChanges.value = snapshot.coinChanges
+                        }
                 }
         }
     }
@@ -311,6 +337,26 @@ class PortfolioViewModel @Inject constructor(
 
     fun delete(id: Long) {
         viewModelScope.launch { repository.delete(id) }
+    }
+
+    /** «Beträge verbergen» umschalten; das Portfolio-Widget zeichnet gleich neu. */
+    fun setHideAmounts(hidden: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setHidePortfolioAmounts(hidden)
+            safe { snapshotUpdater.redrawWidgets() }
+        }
+    }
+
+    /** Neuer Portfolio-Alarm; Beträge in der Umrechnungswährung. */
+    fun addAlarm(kind: PortfolioAlarmKind, threshold: Double, repeating: Boolean) {
+        viewModelScope.launch {
+            safe { alarmRepository.add(kind, threshold, currency.value, repeating) }
+            // Neu und scharf: gleich mit den aktuellen Kursen prüfen (und das Widget nachziehen)
+            val txs = transactions.value ?: return@launch
+            if (txs.isNotEmpty() && _prices.value.updatedAt > 0L) {
+                safe { snapshotUpdater.record(txs, _prices.value.prices, currency.value, _fxRate.value) }
+            }
+        }
     }
 
     fun setCurrency(code: String) {

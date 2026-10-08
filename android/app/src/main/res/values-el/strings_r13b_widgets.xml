@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">παρωχημένο · %1$s</string>
 
     <string name="settings_widgets">Widget</string>
-    <string name="settings_widgets_hint">Προσθέστε τιμές στην αρχική οθόνη</string>
     <string name="widgets_sheet_title">Προσθήκη widget</string>
     <string name="widget_kind_single">Ένα νόμισμα</string>
     <string name="widgets_add">Προσθήκη</string>

@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">usang · %1$s</string>
 
     <string name="settings_widgets">Widget</string>
-    <string name="settings_widgets_hint">Tambahkan harga ke layar utama</string>
     <string name="widgets_sheet_title">Tambah widget</string>
     <string name="widget_kind_single">Satu koin</string>
     <string name="widgets_add">Tambah</string>

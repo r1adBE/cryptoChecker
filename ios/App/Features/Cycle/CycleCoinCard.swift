@@ -1,36 +1,46 @@
 import SwiftUI
 import UIKit
 
-/// Coin-Analyse mit Auswahl des Coins — wie `CoinCard` in Android.
-struct CycleCoinCard: View {
+/// Coin-Analyse als letzte Zeile unter «Daten»: rechts die Zone des gewählten Coins, darunter
+/// Coin und Kurs. Tippen klappt Auswahl und Analyse auf — auch beim Laden und bei Fehler,
+/// damit sich ein anderer Coin wählen lässt. Wie `CoinRow` in Android.
+struct CycleCoinRow: View {
     @ObservedObject var viewModel: CycleViewModel
+    var divider = true
 
     @Environment(\.appAccent) private var accent
     @State private var showPicker = false
+    @State private var expanded = false
 
-    init(viewModel: CycleViewModel) {
+    init(viewModel: CycleViewModel, divider: Bool = true) {
         self.viewModel = viewModel
+        self.divider = divider
     }
 
     var body: some View {
-        CycleInsightCard(L("coin_title")) {
-            pickerField
-
-            switch viewModel.coin {
-            case .loading:
-                CycleCoinReportContent.skeleton
-            case .failed:
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(L("coin_no_data"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.error)
-                    CycleRetryButton { viewModel.loadCoin() }
+        let report = viewModel.coin.value
+        MarketRow(
+            title: L("coin_title"),
+            secondary: report.map { "\($0.symbol) · \(PriceFormat.priceWithCurrency($0.price, "USDT"))" } ?? viewModel.selectedCoin,
+            value: report.map { L($0.zone.labelKey) },
+            state: CycleFearGreedRow.rowState(viewModel.coin, failure: L("coin_no_data")),
+            divider: divider,
+            stamp: viewModel.coinStamp,
+            onRetry: { viewModel.loadCoin() },
+            expanded: $expanded,
+            details: AnyView(VStack(alignment: .leading, spacing: 0) {
+                pickerField
+                switch viewModel.coin {
+                case .loading:
+                    CycleCoinReportContent.skeleton
+                case .failed:
+                    // Meldung und «Erneut» stehen schon in der Zeile
+                    EmptyView()
+                case .loaded(let report):
+                    CycleCoinReportContent(report: report)
                 }
-                .padding(.top, 10)
-            case .loaded(let report):
-                CycleCoinReportContent(report: report)
-            }
-        }
+            })
+        )
         .sheet(isPresented: $showPicker) {
             CycleCoinPickerSheet(viewModel: viewModel)
         }
@@ -60,8 +70,8 @@ struct CycleCoinCard: View {
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.md)
             .background(AppColors.containerLow, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -93,13 +103,13 @@ struct CycleCoinReportContent: View {
             .padding(.top, 16)
 
             CycleZoneGauge(index: report.index)
-                .padding(.top, 14)
+                .padding(.top, Spacing.md)
 
             Text(L("market_scores", report.topScore, report.bottomScore))
                 .font(.subheadline)
                 .monospacedDigit()
                 .foregroundStyle(AppColors.onSurface)
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
 
             // Erklärung je Indikator nur einmal: RSI beim ersten RSI-Eintrag, Pi Cycle bei seinem
             let firstRsi = report.signals.firstIndex { $0.id == .RSI_WEEKLY || $0.id == .RSI_DAILY }
@@ -142,12 +152,12 @@ struct CycleCoinReportContent: View {
                     }
                     .padding(.top, 16)
                     CycleZoneGaugeSkeleton()
-                        .padding(.top, 14)
+                        .padding(.top, Spacing.md)
                     Text(L("market_scores", 0, 0))
                         .font(.subheadline)
                         .monospacedDigit()
                         .cycleSkeletonLines(.subheadline)
-                        .padding(.top, 10)
+                        .padding(.top, Spacing.sm)
                     ForEach(0..<Self.skeletonExplanations.count, id: \.self) { index in
                         Self.skeletonSignalRow(explanation: Self.skeletonExplanations[index])
                             .padding(.top, 8)

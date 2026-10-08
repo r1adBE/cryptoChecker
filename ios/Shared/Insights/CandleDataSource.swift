@@ -124,11 +124,19 @@ enum CandleDataSource {
     }
 
     /// Bis zu `limit` Kerzen, aufsteigend; nil, wenn keine Quelle das Paar liefert.
-    /// Coinbase liefert höchstens 300 Rohkerzen — bei langen Reihen also weniger.
+    /// Coinbase liefert höchstens 300 Rohkerzen je Anfrage; für längere Reihen kommt eine
+    /// ältere Seite dazu (`CandleSeries.coinbaseOlderWindow`), also bis 600 Rohkerzen.
     /// `preferFutures` = Futures-Paar (Perpetual usw.): zuerst die Kerzen von
     /// fapi.binance.com, Spot erst danach.
     static func candles(base: String, quote: String, interval: CandleInterval, limit: Int,
                         preferFutures: Bool = false) async -> [MarketCandle]? {
+        await candlesSourced(base: base, quote: quote, interval: interval, limit: limit, preferFutures: preferFutures)?.value
+    }
+
+    /// Wie `candles`, dazu der Anbieter, der geliefert hat («Binance», «Binance.US», «Coinbase»;
+    /// siehe `DataFreshness.candleProvider`) — für die Herkunftsangabe im Markt-Tab.
+    static func candlesSourced(base: String, quote: String, interval: CandleInterval, limit: Int,
+                               preferFutures: Bool = false) async -> Sourced<[MarketCandle]>? {
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
         guard isAsset(b), isAsset(q) else { return nil }
@@ -151,7 +159,7 @@ enum CandleDataSource {
             let live = CandleSeries.isLive(result, intervalMillis: interval.millis, now: TimeUtils.nowMillis)
             if live {
                 remember(memoKey, source)
-                return result
+                return Sourced(value: result, provider: DataFreshness.candleProvider(host: source.rawValue))
             }
         }
         remember(memoKey, nil)
@@ -205,7 +213,23 @@ enum CandleDataSource {
         for cq in quotes {
             if Task.isCancelled || BlockedSources.isBlocked(Source.coinbase.rawValue) { return nil }
             let url = "https://api.exchange.coinbase.com/products/\(b)-\(cq)/candles?granularity=\(granularity)"
-            guard let text = await get(.coinbase, url), let raw = try? parseCoinbase(text) else { continue }
+            guard let text = await get(.coinbase, url), var raw = try? parseCoinbase(text) else { continue }
+            // Je Anfrage höchstens 300 Kerzen: für lange Reihen (1 Jahr) eine ältere Seite dazu
+            let rawPerCandle: Int
+            switch interval {
+            case .h1, .d1: rawPerCandle = 1
+            case .h4: rawPerCandle = 4
+            case .w1: rawPerCandle = 7
+            }
+            if let first = raw.first,
+               let older = CandleSeries.coinbaseOlderWindow(firstOpen: first.openTime, fetched: raw.count,
+                                                            needed: limit * rawPerCandle,
+                                                            granularityMillis: Int64(granularity) * 1000) {
+                let olderUrl = url + "&start=" + isoTime(older.lowerBound) + "&end=" + isoTime(older.upperBound)
+                if let olderText = await get(.coinbase, olderUrl), let olderRaw = try? parseCoinbase(olderText) {
+                    raw = CandleSeries.mergeAscending(older: olderRaw, newer: raw)
+                }
+            }
             let combined: [MarketCandle]
             switch interval {
             case .h1, .d1: combined = raw
@@ -216,6 +240,13 @@ enum CandleDataSource {
             if candles.count >= 2 { return candles }
         }
         return nil
+    }
+
+    /// Zeitpunkt für Coinbase `start`/`end`: ISO 8601 in UTC, z. B. «2025-10-07T00:00:00Z».
+    private static func isoTime(_ millis: Int64) -> String {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime]
+        return f.string(from: Date(timeIntervalSince1970: TimeInterval(millis) / 1000))
     }
 
     /// Eine Anfrage; nil bei Fehler. 451/403 sperrt die Quelle (siehe `BlockedSources`).

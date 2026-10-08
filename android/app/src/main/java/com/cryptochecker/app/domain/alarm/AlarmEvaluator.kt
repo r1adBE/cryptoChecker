@@ -51,6 +51,9 @@ class AlarmEvaluator @Inject constructor() {
             AlarmCondition.VOLUME_SPIKE -> false
             // Braucht Hoch/Tief des Zeitraums, siehe [NearExtreme.decide].
             AlarmCondition.NEAR_HIGH, AlarmCondition.NEAR_LOW -> false
+            // Braucht Funding/Open Interest, siehe [DerivativesAlarm.decide].
+            AlarmCondition.FUNDING_ABOVE, AlarmCondition.FUNDING_BELOW,
+            AlarmCondition.OI_UP, AlarmCondition.OI_DOWN -> false
         }
     }
 

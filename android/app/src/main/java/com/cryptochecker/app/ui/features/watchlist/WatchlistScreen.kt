@@ -7,8 +7,10 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import android.text.format.DateUtils
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.shape.CircleShape
@@ -39,8 +41,10 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.withFrameNanos
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.convert.Sats
 import com.cryptochecker.app.data.remote.FuturesInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
 import androidx.compose.animation.core.Animatable
@@ -69,10 +73,14 @@ import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.RollingNumberText
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.domain.watch.WatchPulse
+import com.cryptochecker.app.domain.watch.AlarmPulse
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.watch.shownChange24h
+import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.WatchJump
+import com.cryptochecker.app.domain.refresh.RefreshDebounce
+import com.cryptochecker.app.domain.refresh.RefreshFailure
+import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import androidx.compose.ui.graphics.Brush
 import com.cryptochecker.app.ui.components.GroupNameDialog
@@ -130,6 +138,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -143,13 +152,16 @@ import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.foundation.Canvas
+import androidx.compose.ui.draw.CacheDrawScope
+import androidx.compose.ui.draw.DrawResult
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
@@ -160,9 +172,16 @@ import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.collapse
+import androidx.compose.ui.semantics.expand
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.paneTitle
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.data.SparklineRepository
@@ -177,6 +196,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.WidgetManualDialog
@@ -191,10 +211,16 @@ import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.LocalHighContrast
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.display
+import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.util.StartupClock
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -205,6 +231,9 @@ fun WatchlistScreen(
     onOpenAllAlarms: () -> Unit = {},
     /** «Anpassen» in der Aktivitätskarte: Einstellungen → Markt-Meldungen (Empfindlichkeit). */
     onOpenActivitySettings: () -> Unit = {},
+    /** «Warum?» aus einer Alarm-Meldung: «Warum bewegt sich das?» dieses Paars öffnen. */
+    openWhyWatchId: Long? = null,
+    onOpenWhyHandled: () -> Unit = {},
     viewModel: WatchlistViewModel = hiltViewModel(),
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
@@ -219,6 +248,7 @@ fun WatchlistScreen(
         if (selectedGroup == null) watches else watches.filter { it.groupName == selectedGroup }
     }
     val alarmCounts by viewModel.alarmCounts.collectAsStateWithLifecycle()
+    val latestAlarmTrigger by viewModel.latestAlarmTrigger.collectAsStateWithLifecycle()
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
     val lastRefresh by viewModel.lastRefreshMillis.collectAsStateWithLifecycle()
     val lastReport by viewModel.lastRefreshReport.collectAsStateWithLifecycle()
@@ -245,6 +275,29 @@ fun WatchlistScreen(
         }
     }
     val activeAlarms = alarmCounts.values.sum()
+    // Kein Netz: ruhige Statuszeile statt Fehlerzuständen (es wird dann nicht aktualisiert)
+    val online by viewModel.online.collectAsStateWithLifecycle()
+    // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
+    val liveExchanges by viewModel.liveExchanges.collectAsStateWithLifecycle()
+    // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
+    // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
+    val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
+    val livePairs = remember(visible) { visible.map { it.toLivePair() } }
+    LaunchedEffect(livePairs) { viewModel.setLivePairs(livePairs) }
+    LifecycleStartEffect(Unit) {
+        viewModel.setLiveVisible(true)
+        onStopOrDispose { viewModel.setLiveVisible(false) }
+    }
+    val appStartMillis by viewModel.appStartMillis.collectAsStateWithLifecycle()
+
+    // App-Start messen: erstes Bild der Merkliste aus dem Zwischenspeicher (nur lokal, Bericht «Ablauf»)
+    ReportDrawnWhen { loaded }
+    LaunchedEffect(loaded) {
+        if (loaded) {
+            withFrameNanos { }
+            StartupClock.onFirstFrame()?.let(viewModel::recordAppStart)
+        }
+    }
 
     // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst
     val activity by viewModel.activity.collectAsStateWithLifecycle()
@@ -285,6 +338,12 @@ fun WatchlistScreen(
     }
     // Paar, dessen «Warum bewegt sich das?» offen ist.
     var whyFor by rememberSaveable { mutableStateOf<Long?>(null) }
+    // Aus der Alarm-Meldung («Warum?»): Blatt öffnen, sobald die Merkliste da ist (nicht gehandelte Paare zeigen keins)
+    LaunchedEffect(openWhyWatchId) {
+        val id = openWhyWatchId ?: return@LaunchedEffect
+        whyFor = id
+        onOpenWhyHandled()
+    }
     // Suche in der Merkliste (Lupe rechts neben dem Status) — wird nicht gespeichert.
     var searching by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
@@ -295,6 +354,8 @@ fun WatchlistScreen(
     var askNewGroup by remember { mutableStateOf(false) }
     // Zurück-Taste schliesst zuerst die Suche
     BackHandler(enabled = searching) { closeSearch() }
+    // … bzw. beendet den Sortiermodus (wie «Fertig»)
+    BackHandler(enabled = sortMode && !searching) { sortMode = false }
 
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
@@ -312,6 +373,20 @@ fun WatchlistScreen(
     val context = LocalContext.current
     val reduceMotion = rememberReduceMotion()
     var shownMoment by remember { mutableStateOf<AddMoment?>(null) }
+    // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
+    val bellScale = remember { Animatable(1f) }
+    var seenAlarmTrigger by remember { mutableStateOf<Long?>(null) }
+    LaunchedEffect(latestAlarmTrigger) {
+        val current = latestAlarmTrigger ?: return@LaunchedEffect
+        val previous = seenAlarmTrigger
+        seenAlarmTrigger = current
+        if (reduceMotion || !AlarmPulse.isNew(previous, current)) {
+            bellScale.snapTo(1f)
+            return@LaunchedEffect
+        }
+        bellScale.animateTo(AlarmPulse.SCALE, tween(AlarmPulse.MILLIS / 2))
+        bellScale.animateTo(1f, tween(AlarmPulse.MILLIS / 2))
+    }
     val readyMoment = pendingMoment?.takeIf { m ->
         loaded && watches.any { w -> m.indexOf(w.marketKey, w.baseAsset, w.quoteAsset) != null }
     }
@@ -375,6 +450,12 @@ fun WatchlistScreen(
             showBanner(text, null)
         }
         viewModel.consumeAddMoment(m)
+    }
+    // Alles aktualisieren (nach unten ziehen, Knopf oben). Eben erst aktualisiert (unter 15 s):
+    // kein neuer Durchlauf, nur kurz «Gerade aktualisiert» — keine Fehlermeldung.
+    val justRefreshedText = stringResource(R.string.watchlist_just_refreshed)
+    val requestRefresh: () -> Unit = {
+        if (viewModel.refreshAllByUser() == RefreshDebounce.Decision.RECENT) showBanner(justRefreshedText, null)
     }
     // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
     // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
@@ -469,26 +550,27 @@ fun WatchlistScreen(
     // stehen rechts in der Gruppen-Zeile oben in der Liste. Den Bildschirmtitel bekommt der
     // Screenreader als paneTitle; den Abstand zur Statusleiste liefert das Scaffold-Padding.
     val screenTitle = stringResource(R.string.tab_watchlist)
+    // %-Basis für Pillen, Puls und Aktionsblatt; passt der Stempel der gespeicherten Werte nicht
+    // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
+    val changeBasis by viewModel.changeBasis.collectAsStateWithLifecycle()
+    val changeStamp by viewModel.changeStamp.collectAsStateWithLifecycle()
+    val changeView = remember(changeBasis, changeStamp, now) { ChangeView.of(changeStamp, changeBasis, now) }
+    CompositionLocalProvider(LocalChangeView provides changeView) {
     Scaffold(
-        modifier = Modifier.semantics { paneTitle = screenTitle },
+        modifier = Modifier.semantics {
+            paneTitle = screenTitle
+            // testTags als Ressourcen-Id: für den Baseline-Profile-Generator (UiAutomator)
+            testTagsAsResourceId = true
+        },
         snackbarHost = { SnackbarHost(snackbar) },
     ) { padding ->
         if (showReport) {
-            AlertDialog(
-                onDismissRequest = { showReport = false },
-                title = { Text(stringResource(R.string.watchlist_refresh_report)) },
-                text = {
-                    Text(
-                        text = lastReport.ifEmpty { stringResource(R.string.watchlist_refresh_report_empty) },
-                        style = MaterialTheme.typography.bodySmall.tabularNumbers(),
-                        modifier = Modifier.verticalScroll(rememberScrollState())
-                    )
-                },
-                confirmButton = {
-                    TextButton(onClick = { showReport = false }) {
-                        Text(stringResource(R.string.action_close))
-                    }
-                }
+            RefreshReportSheet(
+                report = lastReport,
+                now = now,
+                appStartMillis = appStartMillis,
+                liveExchanges = liveExchanges,
+                onDismiss = { showReport = false },
             )
         }
 
@@ -526,8 +608,8 @@ fun WatchlistScreen(
         }
 
         // Aktionen eines Paars als Blatt von unten
-        actionsFor?.let { id -> watches.firstOrNull { it.id == id } }?.let { watch ->
-            run {
+        actionsFor?.let { id -> watches.firstOrNull { it.id == id } }?.let { stored ->
+            WithLiveQuote(stored, livePrices, rollingBasis = !changeBasis.isDay) { watch ->
                 WatchActionsSheet(
                     watch = watch,
                     alarmCount = alarmCounts[watch.id] ?: 0,
@@ -559,6 +641,7 @@ fun WatchlistScreen(
                     onChartLineChange = viewModel::setSheetChartLine,
                     cachedChart = viewModel::cachedSheetChart,
                     loadChart = viewModel::loadSheetChart,
+                    satsRate = viewModel::satsRate,
                 )
             }
         }
@@ -643,18 +726,18 @@ fun WatchlistScreen(
         // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
         PullToRefreshBox(
             isRefreshing = refreshing,
-            onRefresh = viewModel::refreshAll,
+            onRefresh = requestRefresh,
             modifier = Modifier.fillMaxSize().padding(padding)
         ) {
         // Puls ganz oben: wie viele steigen/fallen, Ø-Veränderung — nur für die gezeigte
         // Gruppe, nicht beim Suchen oder Sortieren
         // Nur Paare mit Kurs (und noch gehandelt) zählen als «ohne 24h-Wert». Gemerkt, damit
         // nicht jede Neuzusammensetzung (z. B. die 30-s-Uhr) hunderte Paare neu durchgeht.
-        val pulse = remember(visible, searching, sortMode) {
+        val pulse = remember(visible, searching, sortMode, changeView) {
             if (searching || sortMode) null
             else WatchPulse.of(
                 // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»
-                changes = visible.map { it.shownChange24h },
+                changes = visible.map { it.shownChange(changeView) },
                 hasPrice = visible.map { it.lastPrice != null && !isNotTraded(it.lastError) },
             )
         }
@@ -676,238 +759,156 @@ fun WatchlistScreen(
         }
         // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
         ReadableInset { inset ->
-            Box(modifier = Modifier.fillMaxSize()) {
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier.fillMaxSize(),
-                    // Kein schwebender Plus-Knopf mehr: Hinzufügen läuft über den Tab unten.
-                    // Mit Sprungknopf unten mehr Platz, damit er die letzte Zeile nicht verdeckt
-                    contentPadding = PaddingValues(
-                        start = 16.dp + inset,
-                        top = 4.dp,
-                        end = 16.dp + inset,
-                        bottom = if (jumpEligible) 24.dp + JumpButtonSize + JumpButtonMargin else 24.dp,
-                    ),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Fest oben (scrollt nicht mit): Kopfzeile mit Gruppen-Chips und Knöpfen,
+                // darunter Status und Lupe. Puls, Aktivitätskarte und Paare scrollen darunter.
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 8.dp)
                 ) {
-                    // Kopfzeile der Liste (ersetzt die frühere Leiste mit Logo und App-Namen):
+                    // Kopfzeile (ersetzt die frühere Leiste mit Logo und App-Namen):
                     // kleines Logo ganz links (ohne App-Namen, für den Screenreader nur Zierde),
                     // dahinter scrollen die Gruppen-Chips, die Knöpfe stehen fest am rechten Ende.
                     // Die LazyRow der Chips schneidet in Laufrichtung ab, sie läuft also weder
                     // unter das Logo noch unter die Knöpfe. Ohne Gruppen: Logo links, Knöpfe rechts.
-                    item(key = "groups") {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Image(
+                            painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
+                            contentDescription = null,
+                            modifier = Modifier.padding(end = Spacing.sm).size(24.dp)
+                        )
+                        Box(Modifier.weight(1f)) {
+                            // Chips mit mindestens einer Gruppe, oder ab zwei Paaren nur «+»,
+                            // damit sich die erste Gruppe anlegen lässt
+                            if (groups.isNotEmpty() || watches.size >= 2) {
+                                GroupChips(
+                                    groups = groups,
+                                    selected = selectedGroup,
+                                    onSelect = viewModel::selectGroup,
+                                    onEdit = { group ->
+                                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                                        editGroupIsNew = false
+                                        editGroup = group
+                                    },
+                                    onAdd = { askNewGroup = true }
+                                )
+                            }
+                        }
+                        // Tippflächen 48 dp; um 12 dp nach aussen versetzt, damit die Symbole
+                        // bündig mit dem Kartenrand stehen (Fläche ragt in den Seitenrand)
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.offset(x = 12.dp)
                         ) {
-                            Image(
-                                painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
-                                contentDescription = null,
-                                modifier = Modifier.padding(end = 10.dp).size(24.dp)
-                            )
-                            Box(Modifier.weight(1f)) {
-                                // Chips mit mindestens einer Gruppe, oder ab zwei Paaren nur «+»,
-                                // damit sich die erste Gruppe anlegen lässt
-                                if (groups.isNotEmpty() || watches.size >= 2) {
-                                    GroupChips(
-                                        groups = groups,
-                                        selected = selectedGroup,
-                                        onSelect = viewModel::selectGroup,
-                                        onEdit = { group ->
-                                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                            editGroupIsNew = false
-                                            editGroup = group
-                                        },
-                                        onAdd = { askNewGroup = true }
+                            if (sortMode) {
+                                // «Fertig» als Wort: der einzige Ausweg aus dem Sortiermodus, gut sichtbar
+                                TextButton(onClick = { sortMode = false }) {
+                                    Text(
+                                        stringResource(R.string.action_sort_done),
+                                        style = MaterialTheme.typography.labelLarge,
+                                        fontWeight = FontWeight.SemiBold,
+                                        maxLines = 1
                                     )
                                 }
-                            }
-                            // Tippflächen 48 dp; um 12 dp nach aussen versetzt, damit die Symbole
-                            // bündig mit dem Kartenrand stehen (Fläche ragt in den Seitenrand)
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.offset(x = 12.dp)
-                            ) {
-                                if (sortMode) {
-                                    IconButton(onClick = { sortMode = false }) {
+                            } else {
+                                // «+»: Seite «Paar hinzufügen» (Runde 31, ersetzt den Tab «Suchen»)
+                                IconButton(onClick = onAddClick) {
+                                    Icon(
+                                        painterResource(R.drawable.ic_add),
+                                        contentDescription = stringResource(R.string.shortcut_add)
+                                    )
+                                }
+                                // Glocke: alle Alarme, mit Zahl der aktiven
+                                IconButton(onClick = onOpenAllAlarms) {
+                                    BadgedBox(
+                                        badge = {
+                                            if (activeAlarms > 0) {
+                                                Badge { Text(LocaleNumbers.integer(activeAlarms)) }
+                                            }
+                                        }
+                                    ) {
                                         Icon(
-                                            painterResource(R.drawable.ic_check),
-                                            contentDescription = stringResource(R.string.action_sort_done),
-                                            tint = MaterialTheme.colorScheme.primary
+                                            painterResource(R.drawable.ic_notifications),
+                                            contentDescription = stringResource(R.string.alarms_overview_title),
+                                            modifier = Modifier.graphicsLayer {
+                                                scaleX = bellScale.value
+                                                scaleY = bellScale.value
+                                            }
+                                        )
+                                    }
+                                }
+                                if (refreshing) {
+                                    Box(contentAlignment = Alignment.Center, modifier = Modifier.size(48.dp)) {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier.size(20.dp),
+                                            strokeWidth = 2.dp
                                         )
                                     }
                                 } else {
-                                    // Glocke: alle Alarme, mit Zahl der aktiven
-                                    IconButton(onClick = onOpenAllAlarms) {
-                                        BadgedBox(
-                                            badge = {
-                                                if (activeAlarms > 0) {
-                                                    Badge { Text(activeAlarms.toString()) }
-                                                }
-                                            }
-                                        ) {
-                                            Icon(
-                                                painterResource(R.drawable.ic_notifications),
-                                                contentDescription = stringResource(R.string.alarms_overview_title)
-                                            )
-                                        }
+                                    IconButton(onClick = requestRefresh) {
+                                        Icon(
+                                            painterResource(R.drawable.ic_refresh),
+                                            contentDescription = stringResource(R.string.action_refresh)
+                                        )
                                     }
-                                    if (refreshing) {
-                                        Box(contentAlignment = Alignment.Center, modifier = Modifier.size(48.dp)) {
-                                            CircularProgressIndicator(
-                                                modifier = Modifier.size(20.dp),
-                                                strokeWidth = 2.dp
-                                            )
-                                        }
-                                    } else {
-                                        IconButton(onClick = viewModel::refreshAll) {
-                                            Icon(
-                                                painterResource(R.drawable.ic_refresh),
-                                                contentDescription = stringResource(R.string.action_refresh)
-                                            )
-                                        }
+                                }
+                                // Seltenes im Überlaufmenü: Sortieren, Bericht, Alle löschen
+                                Box {
+                                    IconButton(onClick = { menuOpen = true }) {
+                                        Icon(
+                                            painterResource(R.drawable.ic_more_vert),
+                                            contentDescription = stringResource(R.string.action_more)
+                                        )
                                     }
-                                    // Seltenes im Überlaufmenü: Sortieren, Bericht, Alle löschen
-                                    Box {
-                                        IconButton(onClick = { menuOpen = true }) {
-                                            Icon(
-                                                painterResource(R.drawable.ic_more_vert),
-                                                contentDescription = stringResource(R.string.action_more)
-                                            )
-                                        }
-                                        DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                                            if (visible.size > 1) {
-                                                DropdownMenuItem(
-                                                    text = { Text(stringResource(R.string.action_sort)) },
-                                                    leadingIcon = { Icon(painterResource(R.drawable.ic_sort), null) },
-                                                    onClick = { menuOpen = false; closeSearch(); sortMode = true }
-                                                )
-                                            }
+                                    DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                                        if (visible.size > 1) {
                                             DropdownMenuItem(
-                                                text = { Text(stringResource(R.string.watchlist_refresh_report)) },
-                                                leadingIcon = { Icon(painterResource(R.drawable.ic_info), null) },
-                                                onClick = { menuOpen = false; showReport = true }
+                                                text = { Text(stringResource(R.string.action_sort)) },
+                                                leadingIcon = { Icon(painterResource(R.drawable.ic_sort), null) },
+                                                onClick = { menuOpen = false; closeSearch(); sortMode = true }
                                             )
-                                            if (watches.isNotEmpty()) {
-                                                HorizontalDivider()
-                                                // Nur wenn es nicht gehandelte Paare gibt; direkt vor «Merkliste leeren»
-                                                if (notTradedIds.isNotEmpty()) {
-                                                    DropdownMenuItem(
-                                                        text = {
-                                                            Text(
-                                                                stringResource(
-                                                                    R.string.watchlist_remove_not_traded_menu,
-                                                                    notTradedIds.size
-                                                                )
-                                                            )
-                                                        },
-                                                        leadingIcon = { Icon(painterResource(R.drawable.ic_delete), null) },
-                                                        onClick = { menuOpen = false; askRemoveNotTraded = true }
-                                                    )
-                                                }
+                                        }
+                                        DropdownMenuItem(
+                                            text = { Text(stringResource(R.string.watchlist_refresh_report)) },
+                                            leadingIcon = { Icon(painterResource(R.drawable.ic_info), null) },
+                                            onClick = { menuOpen = false; showReport = true }
+                                        )
+                                        if (watches.isNotEmpty()) {
+                                            HorizontalDivider()
+                                            // Nur wenn es nicht gehandelte Paare gibt; direkt vor «Merkliste leeren»
+                                            if (notTradedIds.isNotEmpty()) {
                                                 DropdownMenuItem(
                                                     text = {
                                                         Text(
-                                                            stringResource(R.string.watchlist_clear),
-                                                            color = MaterialTheme.colorScheme.error
+                                                            stringResource(
+                                                                R.string.watchlist_remove_not_traded_menu,
+                                                                notTradedIds.size
+                                                            )
                                                         )
                                                     },
-                                                    leadingIcon = {
-                                                        Icon(
-                                                            painterResource(R.drawable.ic_delete), null,
-                                                            tint = MaterialTheme.colorScheme.error
-                                                        )
-                                                    },
-                                                    onClick = { menuOpen = false; askClearAll = true }
+                                                    leadingIcon = { Icon(painterResource(R.drawable.ic_delete), null) },
+                                                    onClick = { menuOpen = false; askRemoveNotTraded = true }
                                                 )
                                             }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Puls direkt unter der Kopfzeile, Abstände wie überall per spacedBy
-                    if (pulse != null) {
-                        item(key = "pulse") {
-                            WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem())
-                        }
-                    }
-
-                    item(key = "status") {
-                        // Ehrlicher Status: wie viele Kurse sind veraltet? Der technische
-                        // Bericht steht nur noch im Menü.
-                        // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert
-                        val traded = visible.filterNot { isNotTraded(it.lastError) }
-                        val staleCount = traded.count { it.lastUpdate <= 0 || now - it.lastUpdate > staleAfter }
-                        val newest = traded.maxOfOrNull { it.lastUpdate } ?: 0L
-                        // Keine Verbindung: der letzte Durchlauf scheiterte bei ALLEN Paaren am Netz
-                        val offline = traded.isNotEmpty() && traded.all { isConnectionError(it.lastError) }
-                        val failed = traded.count { it.lastError != null }
-                        val warn = staleCount > 0 || offline || failed > 0
-                        val tone = if (warn) MaterialTheme.colorScheme.error else PriceColors.ok
-                        // Status links, Lupe rechts — beim Suchen wird die Zeile zum Suchfeld.
-                        AnimatedContent(
-                            targetState = searching,
-                            transitionSpec = {
-                                (fadeIn(tween(220, delayMillis = 60)) togetherWith fadeOut(tween(140)))
-                                    .using(SizeTransform(clip = false))
-                            },
-                            contentAlignment = Alignment.CenterStart,
-                            label = "status_search",
-                            modifier = Modifier.fillMaxWidth()
-                        ) { isSearching ->
-                            if (isSearching) {
-                                WatchSearchField(
-                                    query = query,
-                                    onQueryChange = { query = it },
-                                    onClose = closeSearch
-                                )
-                            } else {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    modifier = Modifier.fillMaxWidth().heightIn(min = SearchRowHeight)
-                                ) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier
-                                            .weight(1f, fill = false)
-                                            .clip(RoundedCornerShape(50))
-                                            .background(tone.copy(alpha = 0.12f))
-                                            .padding(horizontal = 12.dp, vertical = 6.dp)
-                                    ) {
-                                        Box(Modifier.size(8.dp).clip(RoundedCornerShape(50)).background(tone))
-                                        Text(
-                                            text = when {
-                                                offline -> if (newest > 0) stringResource(R.string.watchlist_offline_since, ago(newest, now))
-                                                    else stringResource(R.string.watch_error_offline)
-                                                staleCount > 0 -> pluralStringResource(R.plurals.watchlist_stale_count, staleCount, staleCount, traded.size)
-                                                failed > 0 -> pluralStringResource(R.plurals.watchlist_failed_count, failed, failed, traded.size)
-                                                newest > 0 -> stringResource(R.string.watchlist_all_fresh, ago(newest, now))
-                                                else -> stringResource(R.string.watchlist_pull_to_refresh)
-                                            },
-                                            style = MaterialTheme.typography.labelMedium.tabularNumbers(),
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            modifier = Modifier.padding(start = 8.dp)
-                                        )
-                                    }
-                                    // Lupe: in der Sortieransicht ausgeblendet
-                                    if (!sortMode) {
-                                        Box(
-                                            contentAlignment = Alignment.Center,
-                                            modifier = Modifier
-                                                .padding(start = 8.dp)
-                                                .size(SearchRowHeight)
-                                                .clip(RoundedCornerShape(50))
-                                                .clickable { searching = true }
-                                        ) {
-                                            Icon(
-                                                painterResource(R.drawable.ic_search),
-                                                contentDescription = stringResource(R.string.watchlist_search_open),
-                                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                modifier = Modifier.size(20.dp)
+                                            DropdownMenuItem(
+                                                text = {
+                                                    Text(
+                                                        stringResource(R.string.watchlist_clear),
+                                                        color = MaterialTheme.colorScheme.error
+                                                    )
+                                                },
+                                                leadingIcon = {
+                                                    Icon(
+                                                        painterResource(R.drawable.ic_delete), null,
+                                                        tint = MaterialTheme.colorScheme.error
+                                                    )
+                                                },
+                                                onClick = { menuOpen = false; askClearAll = true }
                                             )
                                         }
                                     }
@@ -915,36 +916,190 @@ fun WatchlistScreen(
                             }
                         }
                     }
-
-                    // «⚡ Hier passiert gerade etwas» — nur mit Signalen in der aktuellen Ansicht,
-                    // beim Suchen ausgeblendet
-                    if (hot.isNotEmpty() && !sortMode && !searching) {
-                        item(key = "activity") {
-                            ActivityCard(
-                                hot = hot,
-                                limit = sensitivity.maxCardCoins,
-                                onOpen = { whyFor = it.id },
-                                onAdjust = onOpenActivitySettings,
+                    // Ehrlicher Status: wie viele Kurse sind veraltet? Der technische
+                    // Bericht steht nur noch im Menü.
+                    // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert
+                    val traded = visible.filterNot { isNotTraded(it.lastError) }
+                    val staleCount = traded.count { it.lastUpdate <= 0 || now - it.lastUpdate > staleAfter }
+                    val newest = traded.maxOfOrNull { it.lastUpdate } ?: 0L
+                    // Keine Verbindung: der letzte Durchlauf scheiterte bei ALLEN Paaren am Netz
+                    val offline = traded.isNotEmpty() && traded.all { isConnectionError(it.lastError) }
+                    val failed = traded.count { it.lastError != null }
+                    val warn = staleCount > 0 || offline || failed > 0
+                    // Kein gehandeltes Paar in der Ansicht (leere Gruppe, alle nicht mehr gehandelt):
+                    // neutral statt grün — es gibt nichts, das «aktuell» sein könnte
+                    val none = traded.isEmpty()
+                    // Gerät offline: ruhig (neutral), kein Rot — es ist kein Fehler der App
+                    val deviceOffline = !online && !none
+                    val tone = when {
+                        none || deviceOffline -> MaterialTheme.colorScheme.onSurfaceVariant
+                        warn -> MaterialTheme.colorScheme.error
+                        else -> PriceColors.ok
+                    }
+                    // Nach einer Aktualisierung wechseln Farbe und Text weich (nicht hart)
+                    val shownTone by animateColorAsState(
+                        targetValue = tone,
+                        animationSpec = if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS),
+                        label = "status_tone"
+                    )
+                    // Status links, Lupe rechts — beim Suchen wird die Zeile zum Suchfeld.
+                    AnimatedContent(
+                        targetState = searching,
+                        transitionSpec = {
+                            (fadeIn(tween(220, delayMillis = 60)) togetherWith fadeOut(tween(140)))
+                                .using(SizeTransform(clip = false))
+                        },
+                        contentAlignment = Alignment.CenterStart,
+                        label = "status_search",
+                        modifier = Modifier.fillMaxWidth()
+                    ) { isSearching ->
+                        if (isSearching) {
+                            WatchSearchField(
+                                query = query,
+                                onQueryChange = { query = it },
+                                onClose = closeSearch
                             )
+                        } else {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth().heightIn(min = SearchRowHeight)
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .weight(1f, fill = false)
+                                        .clip(RoundedCornerShape(50))
+                                        .background(shownTone.copy(alpha = 0.12f))
+                                        .animateContentSize(if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS))
+                                        .padding(horizontal = 12.dp, vertical = Spacing.sm)
+                                ) {
+                                    Box(Modifier.size(8.dp).clip(RoundedCornerShape(50)).background(shownTone))
+                                    val statusText = when {
+                                        visible.isEmpty() -> stringResource(R.string.watchlist_status_group_empty)
+                                        none -> stringResource(R.string.watchlist_status_none_traded)
+                                        deviceOffline -> if (newest > 0) {
+                                            stringResource(R.string.offline_status_since, PriceFormat.shortTime(newest))
+                                        } else {
+                                            stringResource(R.string.offline_status)
+                                        }
+                                        offline -> if (newest > 0) stringResource(R.string.watchlist_offline_since, ago(newest, now))
+                                            else stringResource(R.string.watch_error_offline)
+                                        staleCount > 0 -> pluralStringResource(R.plurals.watchlist_stale_count, staleCount, staleCount, traded.size)
+                                        failed > 0 -> pluralStringResource(R.plurals.watchlist_failed_count, failed, failed, traded.size)
+                                        newest > 0 -> stringResource(R.string.watchlist_all_fresh, ago(newest, now))
+                                        else -> stringResource(R.string.watchlist_pull_to_refresh)
+                                    }
+                                    Crossfade(
+                                        targetState = statusText,
+                                        animationSpec = if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS),
+                                        label = "status_text",
+                                        modifier = Modifier.padding(start = 8.dp)
+                                    ) { text ->
+                                        Text(
+                                            text = text,
+                                            style = MaterialTheme.typography.labelMedium.tabularNumbers(),
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
+                                    // Kurse kommen per WebSocket (Runde 31)
+                                    if (liveExchanges.isNotEmpty()) LiveBadge(shownTone, reduceMotion)
+                                }
+                                // Lupe: in der Sortieransicht ausgeblendet
+                                if (!sortMode) {
+                                    Box(
+                                        contentAlignment = Alignment.Center,
+                                        modifier = Modifier
+                                            .padding(start = 8.dp)
+                                            .size(SearchRowHeight)
+                                            .clip(RoundedCornerShape(50))
+                                            .clickable { searching = true }
+                                    ) {
+                                        Icon(
+                                            painterResource(R.drawable.ic_search),
+                                            contentDescription = stringResource(R.string.watchlist_search_open),
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.size(20.dp)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
-
-                    if (sortMode) {
-                        item(key = "sort_hint") {
-                            HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                }
+                // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
+                val listScrolled by remember { derivedStateOf { listState.canScrollBackward } }
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(
+                            MaterialTheme.colorScheme.outlineVariant.copy(alpha = if (listScrolled) 0.6f else 0f)
+                        )
+                )
+                Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+                    LazyColumn(
+                        state = listState,
+                        modifier = Modifier.fillMaxSize().testTag("watchlist"),
+                        // Kein schwebender Plus-Knopf: Hinzufügen läuft über «+» in der Kopfzeile.
+                        // Mit Sprungknopf unten mehr Platz, damit er die letzte Zeile nicht verdeckt
+                        contentPadding = PaddingValues(
+                            start = 16.dp + inset,
+                            top = 8.dp,
+                            end = 16.dp + inset,
+                            bottom = if (jumpEligible) 24.dp + JumpButtonSize + JumpButtonMargin else 24.dp,
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        // Puls als erste Zeile unter der festen Kopfzeile (scrollt mit), Abstände per spacedBy
+                        if (pulse != null) {
+                            item(key = "pulse") {
+                                WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem())
+                            }
                         }
-                    } else if (showGestureHint) {
-                        // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
-                        item(key = "gesture_hint") {
-                            GestureHint(onDismiss = viewModel::dismissGestureHint)
-                        }
-                    }
 
-                    // Keine Treffer für die Suche
-                    if (filtering && shown.isEmpty()) {
-                        item(key = "search_empty") {
+                        // «⚡ Hier passiert gerade etwas» — nur mit Signalen in der aktuellen Ansicht,
+                        // beim Suchen ausgeblendet
+                        if (hot.isNotEmpty() && !sortMode && !searching) {
+                            item(key = "activity") {
+                                ActivityCard(
+                                    hot = hot,
+                                    limit = sensitivity.maxCardCoins,
+                                    onOpen = { whyFor = it.id },
+                                    onAdjust = onOpenActivitySettings,
+                                )
+                            }
+                        }
+
+                        if (sortMode) {
+                            item(key = "sort_hint") {
+                                HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                            }
+                        } else if (showGestureHint) {
+                            // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
+                            item(key = "gesture_hint") {
+                                GestureHint(onDismiss = viewModel::dismissGestureHint)
+                            }
+                        }
+
+                        // Keine Treffer für die Suche
+                        if (filtering && shown.isEmpty()) {
+                            item(key = "search_empty") {
+                                Text(
+                                    text = stringResource(R.string.watchlist_search_empty, trimmedQuery),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp)
+                                )
+                            }
+                        }
+
+                        // Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche
+                    if (visible.isEmpty() && !filtering) {
+                        item(key = "group_empty") {
                             Text(
-                                text = stringResource(R.string.watchlist_search_empty, trimmedQuery),
+                                text = stringResource(R.string.watchlist_group_empty_hint),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center,
@@ -954,138 +1109,148 @@ fun WatchlistScreen(
                     }
 
                     items(shown, key = { it.id }) { watch ->
-                        val dragging = reorder.draggingId == watch.id
-                        val lift by animateFloatAsState(if (dragging) 1.03f else 1f, label = "lift")
-                        val elevation by animateDpAsState(if (dragging) 12.dp else 0.dp, label = "elevation")
+                            val dragging = reorder.draggingId == watch.id
+                            val lift by animateFloatAsState(if (dragging) 1.03f else 1f, label = "lift")
+                            val elevation by animateDpAsState(if (dragging) 12.dp else 0.dp, label = "elevation")
 
-                        // Lange drücken = Sortiermodus an und Karte direkt ziehen.
-                        // Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
-                        val dragModifier = if (searching) Modifier else Modifier.pointerInput(watch.id) {
-                            detectDragGesturesAfterLongPress(
-                                onDragStart = {
-                                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    sortMode = true
-                                    reorder.start(watch.id)
-                                },
-                                onDrag = { change, amount ->
-                                    change.consume()
-                                    reorder.drag(amount.y)
-                                },
-                                onDragEnd = { reorder.end() },
-                                onDragCancel = { reorder.end() }
-                            )
-                        }
-
-                        // 24-Stunden-Verlauf: nur für sichtbare Zeilen (LazyColumn), danach alle 15 Min. neu.
-                        // Fehler → kein Mini-Chart, keine Meldung. Nicht mehr gehandelt: keiner.
-                        val rowSparklines = fetchSparklines && !watch.isNotTraded
-                        val sparkline by produceState(
-                            initialValue = if (rowSparklines) viewModel.cachedSparkline(watch.baseAsset) else null,
-                            watch.baseAsset,
-                            rowSparklines,
-                        ) {
-                            if (!rowSparklines) {
-                                value = null
-                                return@produceState
+                            // Lange drücken = Sortiermodus an und Karte direkt ziehen.
+                            // Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
+                            val dragModifier = if (searching) Modifier else Modifier.pointerInput(watch.id) {
+                                detectDragGesturesAfterLongPress(
+                                    onDragStart = {
+                                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                                        sortMode = true
+                                        reorder.start(watch.id)
+                                    },
+                                    onDrag = { change, amount ->
+                                        change.consume()
+                                        reorder.drag(amount.y)
+                                    },
+                                    onDragEnd = {
+                                        haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                                        reorder.end()
+                                    },
+                                    onDragCancel = { reorder.end() }
+                                )
                             }
-                            var first = true
-                            while (true) {
-                                val closes = viewModel.sparkline(watch.baseAsset)
-                                // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
-                                if (closes != null || first) value = closes
-                                first = false
-                                delay(SparklineRepository.TTL_MILLIS)
+
+                            // 24-Stunden-Verlauf: nur für sichtbare Zeilen (LazyColumn), danach alle 15 Min. neu.
+                            // Fehler → kein Mini-Chart, keine Meldung. Nicht mehr gehandelt: keiner.
+                            val rowSparklines = fetchSparklines && !watch.isNotTraded
+                            val sparkline by produceState(
+                                initialValue = if (rowSparklines) viewModel.cachedSparkline(watch.baseAsset) else null,
+                                watch.baseAsset,
+                                rowSparklines,
+                            ) {
+                                if (!rowSparklines) {
+                                    value = null
+                                    return@produceState
+                                }
+                                var first = true
+                                while (true) {
+                                    val closes = viewModel.sparkline(watch.baseAsset)
+                                    // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
+                                    if (closes != null || first) value = closes
+                                    first = false
+                                    delay(SparklineRepository.TTL_MILLIS)
+                                }
                             }
-                        }
 
-                        // Teil des Erst-Moments? Dann Platz in der Staffelung, sonst null
-                        val celebrateIndex = moment?.indexOf(watch.marketKey, watch.baseAsset, watch.quoteAsset)
+                            // Teil des Erst-Moments? Dann Platz in der Staffelung, sonst null
+                            val celebrateIndex = moment?.indexOf(watch.marketKey, watch.baseAsset, watch.quoteAsset)
 
-                        // Wischen: nach links löschen, nach rechts Favorit (RTL gespiegelt); nicht beim Sortieren
-                        SwipeActionsRow(
-                            enabled = !sortMode,
-                            favorite = watch.favorite,
-                            onDelete = { deleteWithUndo(watch) },
-                            onToggleFavorite = { favoriteWithBanner(watch) },
-                            reduceMotion = reduceMotion,
-                            modifier = (
-                                if (dragging) Modifier
-                                    .zIndex(1f)
-                                    .graphicsLayer {
-                                        translationY = reorder.offset
-                                        scaleX = lift
-                                        scaleY = lift
-                                    }
-                                else Modifier.animateItem()
-                            ).then(dragModifier),
-                        ) {
-                            WatchRow(
-                                watch = watch,
-                                alarmCount = alarmCounts[watch.id] ?: 0,
-                                now = now,
-                                staleAfter = staleAfter,
-                                outdatedAfter = outdatedAfter,
-                                converted = convertedPrice(watch, convertTarget, convertRates),
-                                // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)
-                                sparkline = sparkline.takeIf { rowSparklines && !sortMode },
-                                celebrateKey = moment?.id?.takeIf { celebrateIndex != null },
-                                celebrateIndex = celebrateIndex,
+                            // Wischen: nach links löschen, nach rechts Favorit (RTL gespiegelt); nicht beim Sortieren
+                            SwipeActionsRow(
+                                enabled = !sortMode,
+                                favorite = watch.favorite,
+                                onDelete = { deleteWithUndo(watch) },
+                                onToggleFavorite = { favoriteWithBanner(watch) },
                                 reduceMotion = reduceMotion,
-                                hasActivity = watch.id in activeSignals,
-                                onActivityClick = { if (!sortMode) whyFor = watch.id },
-                                elevation = elevation,
-                                highlighted = dragging,
-                                sortMode = sortMode,
-                                onClick = { if (!sortMode) actionsFor = watch.id },
-                                onToggleFavorite = {
-                                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    viewModel.toggleFavorite(watch)
-                                },
-                                onMove = { viewModel.move(watch, it) },
-                                // Screenreader: «Löschen» und «Favorit» wie Wischen
-                                onDeleteAction = { deleteWithUndo(watch) },
-                                onFavoriteAction = { favoriteWithBanner(watch) },
-                                // Screenreader: «Nach oben/unten» wie Ziehen (nicht während der Suche)
-                                canReorder = !searching,
-                                // Am Griff ohne Warten ziehen
-                                handleModifier = Modifier.pointerInput(watch.id) {
-                                    detectDragGestures(
-                                        onDragStart = {
+                                modifier = (
+                                    if (dragging) Modifier
+                                        .zIndex(1f)
+                                        .graphicsLayer {
+                                            translationY = reorder.offset
+                                            scaleX = lift
+                                            scaleY = lift
+                                        }
+                                    else Modifier.animateItem()
+                                ).then(dragModifier).testTag("watch_row"),
+                            ) {
+                                WithLiveQuote(watch, livePrices, rollingBasis = !changeBasis.isDay) { shown ->
+                                    WatchRow(
+                                        watch = shown,
+                                        alarmCount = alarmCounts[watch.id] ?: 0,
+                                        now = now,
+                                        staleAfter = staleAfter,
+                                        outdatedAfter = outdatedAfter,
+                                        converted = convertedPrice(shown, convertTarget, convertRates),
+                                        // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)
+                                        sparkline = sparkline.takeIf { rowSparklines && !sortMode },
+                                        celebrateKey = moment?.id?.takeIf { celebrateIndex != null },
+                                        celebrateIndex = celebrateIndex,
+                                        reduceMotion = reduceMotion,
+                                        hasActivity = watch.id in activeSignals,
+                                        onActivityClick = { if (!sortMode) whyFor = watch.id },
+                                        elevation = elevation,
+                                        highlighted = dragging,
+                                        sortMode = sortMode,
+                                        onClick = { if (!sortMode) actionsFor = watch.id },
+                                        onToggleFavorite = {
                                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                            reorder.start(watch.id)
+                                            viewModel.toggleFavorite(watch)
                                         },
-                                        onDrag = { change, amount ->
-                                            change.consume()
-                                            reorder.drag(amount.y)
-                                        },
-                                        onDragEnd = { reorder.end() },
-                                        onDragCancel = { reorder.end() }
+                                        onMove = { viewModel.move(watch, it) },
+                                        // Screenreader: «Löschen» und «Favorit» wie Wischen
+                                        onDeleteAction = { deleteWithUndo(watch) },
+                                        onFavoriteAction = { favoriteWithBanner(watch) },
+                                        // Screenreader: «Nach oben/unten» wie Ziehen (nicht während der Suche)
+                                        canReorder = !searching,
+                                        // Am Griff ohne Warten ziehen
+                                        handleModifier = Modifier.pointerInput(watch.id) {
+                                            detectDragGestures(
+                                                onDragStart = {
+                                                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                                                    reorder.start(watch.id)
+                                                },
+                                                onDrag = { change, amount ->
+                                                    change.consume()
+                                                    reorder.drag(amount.y)
+                                                },
+                                                onDragEnd = {
+                                                    haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                                                    reorder.end()
+                                                },
+                                                onDragCancel = { reorder.end() }
+                                            )
+                                        }
                                     )
                                 }
-                            )
+                            }
                         }
                     }
-                }
-                // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
-                // Steht ein Banner («… entfernt», «Rückgängig»), rückt der Knopf darüber.
-                val jumpLift by animateDpAsState(
-                    targetValue = if (snackbar.currentSnackbarData != null) JumpBannerLift else 0.dp,
-                    animationSpec = if (reduceMotion) snap() else tween(200),
-                    label = "jump_lift"
-                )
-                AnimatedVisibility(
-                    visible = jumpVisible,
-                    enter = if (reduceMotion) EnterTransition.None else fadeIn(tween(180)),
-                    exit = if (reduceMotion) ExitTransition.None else fadeOut(tween(250)),
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(end = 16.dp + inset, bottom = JumpButtonMargin + jumpLift)
-                ) {
-                    JumpButton(down = jumpDown, onClick = jump)
+                    // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
+                    // Steht ein Banner («… entfernt», «Rückgängig»), rückt der Knopf darüber.
+                    val jumpLift by animateDpAsState(
+                        targetValue = if (snackbar.currentSnackbarData != null) JumpBannerLift else 0.dp,
+                        animationSpec = if (reduceMotion) snap() else tween(200),
+                        label = "jump_lift"
+                    )
+                    androidx.compose.animation.AnimatedVisibility(
+                        visible = jumpVisible,
+                        enter = if (reduceMotion) EnterTransition.None else fadeIn(tween(180)),
+                        exit = if (reduceMotion) ExitTransition.None else fadeOut(tween(250)),
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(end = 16.dp + inset, bottom = JumpButtonMargin + jumpLift)
+                    ) {
+                        JumpButton(down = jumpDown, onClick = jump)
+                    }
                 }
             }
         }
         }
+    }
     }
 }
 
@@ -1127,6 +1292,9 @@ private fun rememberTouchExplorationEnabled(): Boolean {
     }
     return enabled
 }
+
+/** Weicher Wechsel von Farbe und Text der Status-Pille (z. B. nach einer Aktualisierung). */
+private const val STATUS_FADE_MILLIS = 200
 
 /** So lange bleibt «Rückgängig» nach dem Löschen per Wischen stehen (ohne Screenreader). */
 private const val UNDO_MILLIS = 5_000L
@@ -1246,7 +1414,7 @@ private fun GestureHint(onDismiss: () -> Unit) {
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.08f))
-            .padding(start = 14.dp, top = 4.dp, bottom = 4.dp)
+            .padding(start = Spacing.md, top = 4.dp, bottom = 4.dp)
     ) {
         Text(
             text = stringResource(R.string.watch_gesture_hint_short),
@@ -1267,7 +1435,7 @@ private fun GestureHint(onDismiss: () -> Unit) {
 
 /** «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts. */
 @Composable
-private fun ago(millis: Long, now: Long): String =
+internal fun ago(millis: Long, now: Long): String =
     if (now - millis < 60_000) stringResource(R.string.time_just_now)
     else DateUtils.getRelativeTimeSpanString(
         millis, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
@@ -1420,18 +1588,19 @@ private fun WatchRow(
     } else {
         null
     }
-    // Kein Fehler, aber deutlich älter als das Intervall: «Binance · vor 2 Std. · veraltet»
+    // Kein Fehler, aber älter als die Grenze ([OutdatedRule], live 2 Min.): «Binance · veraltet · vor 4 Min.»
     val outdatedText = if (!failed && !isNotTraded(watch.lastError) && watch.lastUpdate > 0 &&
         now - watch.lastUpdate > outdatedAfter
     ) {
-        stringResource(R.string.watchlist_row_outdated, "${watch.marketName} · ${ago(watch.lastUpdate, now)}")
+        "${BidiText.isolate(watch.marketName)} · " +
+            stringResource(R.string.watchlist_row_outdated_age, ago(watch.lastUpdate, now))
     } else {
         null
     }
     val warningText = unreachableText ?: outdatedText
     // Technischer Grund nur, wenn er mehr sagt als «nicht erreichbar» (z. B. Paar unbekannt)
     val showErrorLine = watch.lastError != null &&
-        (unreachableText == null || !isConnectionError(watch.lastError))
+        (unreachableText == null || !isRetryableMarketError(watch.lastError))
     val errorText = watch.lastError?.takeIf { showErrorLine }?.let { friendlyError(it) }
     val staleText = if (warningText == null && stale && watch.lastUpdate > 0) {
         stringResource(R.string.a11y_stale, ago(watch.lastUpdate, now))
@@ -1443,12 +1612,14 @@ private fun WatchRow(
     val moveDownLabel = stringResource(R.string.a11y_move_down)
     val deleteLabel = stringResource(R.string.action_delete)
     val favoriteLabel = stringResource(if (watch.favorite) R.string.favorite_remove else R.string.favorite_add)
+    val changeView = LocalChangeView.current
     val rowDescription = A11yText.row(
         context = context,
         pair = watch.displayName,
         market = watch.marketName,
         price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-        change24h = watch.shownChange24h,
+        change24h = watch.shownChange(changeView),
+        basis = changeView.basis,
         extras = listOf(
             converted?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
             sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
@@ -1497,13 +1668,13 @@ private fun WatchRow(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 4.dp, end = 14.dp, top = 10.dp, bottom = 10.dp)
+            modifier = Modifier.padding(start = 4.dp, end = Spacing.md, top = Spacing.md, bottom = Spacing.md)
         ) {
             if (sortMode) {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = handleModifier
-                        .padding(start = 6.dp, end = 6.dp)
+                        .padding(start = Spacing.xs, end = Spacing.xs)
                         .size(40.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(accent.copy(alpha = 0.12f))
@@ -1524,7 +1695,7 @@ private fun WatchRow(
                     )
                 }
             } else {
-                Spacer(Modifier.width(10.dp))
+                Spacer(Modifier.width(Spacing.sm))
             }
 
             Column(modifier = Modifier.weight(1f).padding(start = 2.dp)) {
@@ -1574,7 +1745,7 @@ private fun WatchRow(
                     Text(
                         text = when {
                             warningText != null -> warningText
-                            watch.lastUpdate > 0 -> "${watch.marketName} · ${ago(watch.lastUpdate, now)}"
+                            watch.lastUpdate > 0 -> "${BidiText.isolate(watch.marketName)} · ${ago(watch.lastUpdate, now)}"
                             else -> watch.marketName
                         },
                         style = MaterialTheme.typography.bodySmall,
@@ -1593,7 +1764,7 @@ private fun WatchRow(
                             painterResource(R.drawable.ic_notifications),
                             contentDescription = stringResource(R.string.watchlist_notification),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(start = 6.dp).size(13.dp)
+                            modifier = Modifier.padding(start = Spacing.xs).size(13.dp)
                         )
                     }
                     if (alarmCount > 0) {
@@ -1601,10 +1772,10 @@ private fun WatchRow(
                             painterResource(R.drawable.ic_alarm_overview),
                             contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
                             tint = accent,
-                            modifier = Modifier.padding(start = 6.dp).size(13.dp)
+                            modifier = Modifier.padding(start = Spacing.xs).size(13.dp)
                         )
                         Text(
-                            text = alarmCount.toString(),
+                            text = LocaleNumbers.integer(alarmCount),
                             style = MaterialTheme.typography.labelSmall,
                             color = accent,
                             modifier = Modifier.padding(start = 2.dp)
@@ -1683,7 +1854,7 @@ private fun WatchRow(
                         .padding(horizontal = 4.dp)
                 )
                 Box(Modifier.graphicsLayer { alpha = priceReveal.value }) {
-                    if (watch.lastPrice != null) DayChangePill(change = watch.shownChange24h)
+                    if (watch.lastPrice != null) DayChangePill(change = watch.shownChange(LocalChangeView.current))
                 }
                 if (converted != null) {
                     Text(
@@ -1739,54 +1910,59 @@ private fun Sparkline(values: List<Double>, modifier: Modifier = Modifier, progr
     val up = values.last() >= values.first()
     val color = if (up) PriceColors.up else PriceColors.down
     val fillAlpha = if (LocalHighContrast.current) 0.18f else 0.12f
-    Canvas(modifier = modifier) {
-        val stroke = 1.75.dp.toPx()
-        val inset = stroke
-        val w = size.width - 2 * inset
-        val h = size.height - 2 * inset
-        if (w <= 0f || h <= 0f) return@Canvas
-        val min = values.min()
-        val max = values.max()
-        val range = max - min
-        val path = Path()
-        // Fläche: dieselben Punkte, dann am unteren Rand zurück
-        val area = Path()
-        var top = size.height
-        values.forEachIndexed { i, v ->
-            val x = inset + w * i / values.lastIndex
-            // Flache Reihe: Linie in der Mitte
-            val y = if (range > 0.0) inset + h - ((v - min) / range * h).toFloat() else inset + h / 2
-            if (y < top) top = y
-            if (i == 0) {
-                path.moveTo(x, y)
-                area.moveTo(x, y)
-            } else {
-                path.lineTo(x, y)
-                area.lineTo(x, y)
+    // Pfade nur neu, wenn sich Verlauf, Farbe oder Grösse ändern (drawWithCache) — nicht bei
+    // jedem Zeichnen und nicht bei jeder Neuzusammensetzung der Zeile (30-s-Uhr, Kurs-Takt).
+    // Der Block selbst ist gemerkt; ein neuer Block würde den Zwischenspeicher verwerfen.
+    val buildCache = remember<CacheDrawScope.() -> DrawResult>(values, color, fillAlpha, progress) {
+        {
+            val stroke = 1.75.dp.toPx()
+            val inset = stroke
+            val w = size.width - 2 * inset
+            val h = size.height - 2 * inset
+            val min = values.min()
+            val max = values.max()
+            val range = max - min
+            val path = Path()
+            // Fläche: dieselben Punkte, dann am unteren Rand zurück
+            val area = Path()
+            var top = size.height
+            if (w > 0f && h > 0f) {
+                values.forEachIndexed { i, v ->
+                    val x = inset + w * i / values.lastIndex
+                    // Flache Reihe: Linie in der Mitte
+                    val y = if (range > 0.0) inset + h - ((v - min) / range * h).toFloat() else inset + h / 2
+                    if (y < top) top = y
+                    if (i == 0) {
+                        path.moveTo(x, y)
+                        area.moveTo(x, y)
+                    } else {
+                        path.lineTo(x, y)
+                        area.lineTo(x, y)
+                    }
+                }
+                area.lineTo(inset + w, size.height)
+                area.lineTo(inset, size.height)
+                area.close()
+            }
+            val fill = Brush.verticalGradient(
+                colors = listOf(color.copy(alpha = fillAlpha), color.copy(alpha = 0f)),
+                startY = top,
+                endY = size.height,
+            )
+            val line = Stroke(width = stroke, cap = StrokeCap.Round, join = StrokeJoin.Round)
+            onDrawBehind {
+                if (w <= 0f || h <= 0f) return@onDrawBehind
+                // Erst-Moment: von links nach rechts aufdecken (1 = ganz)
+                val shown = progress().coerceIn(0f, 1f)
+                if (shown <= 0f) return@onDrawBehind
+                clipRect(right = size.width * shown) {
+                    drawPath(path = area, brush = fill)
+                    drawPath(path = path, color = color, style = line)
+                }
             }
         }
-        area.lineTo(inset + w, size.height)
-        area.lineTo(inset, size.height)
-        area.close()
-        // Erst-Moment: von links nach rechts aufdecken (1 = ganz)
-        val shown = progress().coerceIn(0f, 1f)
-        if (shown <= 0f) return@Canvas
-        clipRect(right = size.width * shown) {
-            drawPath(
-                path = area,
-                brush = Brush.verticalGradient(
-                    colors = listOf(color.copy(alpha = fillAlpha), color.copy(alpha = 0f)),
-                    startY = top,
-                    endY = size.height,
-                ),
-            )
-            drawPath(
-                path = path,
-                color = color,
-                style = Stroke(width = stroke, cap = StrokeCap.Round, join = StrokeJoin.Round)
-            )
-        }
     }
+    Spacer(modifier = modifier.drawWithCache(buildCache))
 }
 
 /**
@@ -1811,7 +1987,7 @@ internal fun ChangePill(change: Double?) {
     if (change == null) return
     val formatted = PriceFormat.changePercent(change)
     // Pfeil folgt dem Vorzeichen, nie dem Farbtausch; bei 0.00% keiner
-    val text = formatted?.let { "${PriceFormat.changeArrow(change)} $it" } ?: "0.00%"
+    val text = formatted?.let { "${PriceFormat.changeArrow(change)} $it" } ?: PriceFormat.zeroPercent()
     val color = if (formatted == null) MaterialTheme.colorScheme.onSurfaceVariant
     else PriceColors.forChange(change)
     // Screenreader: «gestiegen um 2.35%» statt «+2.35%» (das «−» wird uneinheitlich gelesen)
@@ -1831,9 +2007,20 @@ internal fun ChangePill(change: Double?) {
 }
 
 /**
- * Aktionen zu einem Paar: oben Kurs und Chart ([SheetPriceChart]), dann gross Alarm, Warum?
- * und Favorit; darunter als Liste Gruppe, Notiz, Portfolio, Aktualisieren, Vorlesen, Meldung
- * und Löschen.
+ * «Mehr» im Aktionsblatt: auf- oder zugeklappt, für die Dauer der Sitzung gemerkt (Prozess),
+ * Standard zu.
+ */
+private object SheetMoreState {
+    @Volatile
+    var expanded: Boolean = false
+}
+
+/**
+ * Aktionen zu einem Paar: oben Kopf mit Stift, Kurs und Chart ([SheetPriceChart]), dann gross
+ * Alarm, Warum? und Favorit (Notiz und Futures-Kennzahlen, falls vorhanden). Alles Weitere —
+ * Gruppe, Notiz, Portfolio, Aktualisieren, Widget, Vorlesen, Meldung und zuletzt Löschen — im
+ * aufklappbaren Abschnitt «Mehr» (zu; Zustand für die Sitzung gemerkt). Das Blatt steht immer
+ * in voller Höhe, Aufklappen ändert nur den Inhalt der Liste.
  */
 @Composable
 private fun WatchActionsSheet(
@@ -1858,6 +2045,8 @@ private fun WatchActionsSheet(
     onChartLineChange: (Boolean) -> Unit = {},
     cachedChart: (WatchEntity, SheetChartRange) -> SheetChartResult? = { _, _ -> SheetChartResult.Unsupported },
     loadChart: suspend (WatchEntity, SheetChartRange) -> SheetChartResult = { _, _ -> SheetChartResult.Unsupported },
+    /** Bitcoin-Paare: Umrechnungswährung und Faktor Quote → sie für «1 CHF = … Sats». */
+    satsRate: suspend (String) -> Pair<String, Double>? = { null },
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val sheetContext = LocalContext.current
@@ -1866,6 +2055,11 @@ private fun WatchActionsSheet(
     if (showWidgetManual) WidgetManualDialog(onDismiss = { showWidgetManual = false })
     var editGroup by remember { mutableStateOf(false) }
     var editNote by remember { mutableStateOf(false) }
+    // «Paar bearbeiten» (Stift neben dem Paar): Börse, Paar, Kontrakt desselben Eintrags
+    var editPair by rememberSaveable(watch.id) { mutableStateOf(false) }
+    if (editPair) {
+        WatchEditSheet(watch = watch, alarmCount = alarmCount, onDismiss = { editPair = false })
+    }
     if (editNote) {
         NoteDialog(
             title = stringResource(R.string.note_title),
@@ -1882,8 +2076,8 @@ private fun WatchActionsSheet(
             onDismiss = { editGroup = false }
         )
     }
-    // Futures-Kennzahlen nur für Perpetuals laden
-    val futures by produceState<FuturesInfo?>(initialValue = null, watch.id) {
+    // Futures-Kennzahlen nur für Perpetuals laden (neu, wenn das Paar bearbeitet wurde)
+    val futures by produceState<FuturesInfo?>(initialValue = null, watch.id, watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType) {
         value = if (watch.contractType == FuturesContractType.PERPETUAL) loadFutures(watch) else null
     }
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
@@ -1897,18 +2091,26 @@ private fun WatchActionsSheet(
                 .navigationBarsPadding()
                 .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
         ) {
-            // Kopf: Paar, Börse, Kurs gross
+            // Kopf: Paar, Börse, Kurs gross; rechts der Stift «Paar bearbeiten»
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         watch.displayName,
-                        style = MaterialTheme.typography.headlineSmall,
+                        style = MaterialTheme.typography.headline,
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
                         watch.marketName,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                // IconButton: 48 dp Tippfläche
+                IconButton(onClick = { editPair = true }) {
+                    Icon(
+                        painterResource(R.drawable.ic_edit),
+                        contentDescription = stringResource(R.string.watch_edit_title),
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -1918,23 +2120,60 @@ private fun WatchActionsSheet(
             ) {
                 Text(
                     PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-                    style = MaterialTheme.typography.displaySmall.tabularNumbers(),
+                    style = MaterialTheme.typography.display.tabularNumbers(),
                     fontWeight = FontWeight.SemiBold
                 )
                 Box(modifier = Modifier.padding(start = 12.dp)) {
-                    if (watch.lastPrice != null) DayChangePill(change = watch.shownChange24h)
+                    if (watch.lastPrice != null) DayChangePill(change = watch.shownChange(LocalChangeView.current))
                 }
             }
-            Text(
-                text = watch.lastError?.let { friendlyError(it) }
-                    ?: stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate)),
-                style = MaterialTheme.typography.bodySmall,
-                color = if (watch.lastError != null && !isNotTraded(watch.lastError)) MaterialTheme.colorScheme.error
-                else MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 4.dp, bottom = 12.dp)
-            )
+            // Bitcoin: «1 CHF = 1’234 Sats» in der Umrechnungswährung (Kurs mit dem bestehenden Faktor)
+            val bitcoin = Sats.isBitcoin(watch.baseAsset) && !watch.isNotTraded
+            val satsFactor by produceState<Pair<String, Double>?>(null, watch.quoteAsset, bitcoin) {
+                value = if (bitcoin) satsRate(watch.quoteAsset) else null
+            }
+            satsFactor?.let { (currency, rate) ->
+                Sats.perUnit(watch.lastPrice, rate)?.let { sats ->
+                    Text(
+                        stringResource(
+                            R.string.sats_per_unit,
+                            LocaleNumbers.integer(1),
+                            currency,
+                            LocaleNumbers.decimal(sats, maxDecimals = Sats.decimals(sats), grouping = true),
+                        ),
+                        style = MaterialTheme.typography.bodySmall.tabularNumbers(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                }
+            }
+            // Börse nicht erreichbar, aber ein älterer Kurs steht: ruhiger Satz plus «Erneut versuchen»
+            val retryable = watch.lastPrice != null && isRetryableMarketError(watch.lastError)
+            if (retryable) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.error_market_unreachable),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.weight(1f)
+                    )
+                    TextButton(onClick = onRefresh) { Text(stringResource(R.string.try_again)) }
+                }
+            } else {
+                Text(
+                    text = watch.lastError?.let { friendlyError(it) }
+                        ?: stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate)),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (watch.lastError != null && !isNotTraded(watch.lastError)) MaterialTheme.colorScheme.error
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp, bottom = 12.dp)
+                )
+            }
 
-            // Kurs-Chart (24h · 7T · 30T, Kerzen/Linie); ohne Kerzenquelle (DEX) ganz ausgeblendet
+            // Kurs-Chart (24h · 7T · 30T · 1J, Kerzen/Linie); ohne Kerzenquelle (DEX) ganz ausgeblendet
             SheetPriceChart(
                 watch = watch,
                 line = chartLine,
@@ -1994,8 +2233,18 @@ private fun WatchActionsSheet(
                 futures?.let { FuturesSection(it) }
             }
 
-            // Alles Weitere als schlichte Liste
+            // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt); weich auf- und zuklappen
+            var moreExpanded by remember { mutableStateOf(SheetMoreState.expanded) }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+            SheetMoreToggle(
+                expanded = moreExpanded,
+                onToggle = {
+                    moreExpanded = !moreExpanded
+                    SheetMoreState.expanded = moreExpanded
+                }
+            )
+            Column(modifier = if (sheetMotion) Modifier.animateContentSize() else Modifier) {
+            if (moreExpanded) {
             SheetAction(
                 icon = R.drawable.ic_list,
                 text = watch.groupName?.let { stringResource(R.string.group_value, it) }
@@ -2046,7 +2295,49 @@ private fun WatchActionsSheet(
                 danger = true,
                 onClick = onDelete
             )
+            }
+            }
         }
+    }
+}
+
+/**
+ * Kopfzeile von «Mehr»: ganze Zeile tippbar (48 dp), Pfeil dreht sich. Screenreader: Knopf
+ * «Mehr» mit Zustand «aufgeklappt»/«zugeklappt» und der passenden Aktion.
+ */
+@Composable
+private fun SheetMoreToggle(expanded: Boolean, onToggle: () -> Unit) {
+    val title = stringResource(R.string.sheet_more)
+    val state = stringResource(if (expanded) R.string.a11y_expanded else R.string.a11y_collapsed)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .clickable(role = Role.Button, onClick = onToggle)
+            .clearAndSetSemantics {
+                contentDescription = title
+                stateDescription = state
+                role = Role.Button
+                onClick { onToggle(); true }
+                if (expanded) collapse { onToggle(); true } else expand { onToggle(); true }
+            }
+            .padding(vertical = 8.dp)
+    ) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+        Icon(
+            painter = painterResource(R.drawable.ic_chevron_right),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier
+                .size(20.dp)
+                .rotate(if (expanded) -90f else 90f)
+        )
     }
 }
 
@@ -2132,7 +2423,7 @@ private fun FuturesSection(info: FuturesInfo) {
             stringResource(R.string.futures_source, info.source),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 6.dp)
+            modifier = Modifier.padding(top = Spacing.xs)
         )
     }
 }
@@ -2327,7 +2618,7 @@ private fun PrimarySheetAction(
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.primary.copy(alpha = if (checked == true) 0.16f else 0.08f))
             .then(action)
-            .padding(horizontal = 6.dp, vertical = 10.dp)
+            .padding(horizontal = Spacing.xs, vertical = Spacing.md)
     ) {
         Icon(
             painterResource(icon),
@@ -2342,7 +2633,7 @@ private fun PrimarySheetAction(
             textAlign = TextAlign.Center,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(top = 6.dp)
+            modifier = Modifier.padding(top = Spacing.xs)
         )
     }
 }
@@ -2356,7 +2647,7 @@ private fun SheetAction(icon: Int, text: String, onClick: () -> Unit, danger: Bo
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
             .clickable(onClick = onClick)
-            .padding(vertical = 14.dp)
+            .padding(vertical = Spacing.lg)
     ) {
         Icon(
             painterResource(icon),
@@ -2478,11 +2769,26 @@ private val CONNECTION_HINTS = listOf(
 /** Paar wird an der Börse nicht mehr gehandelt — ein Zustand, kein Fehler. */
 internal fun isNotTraded(error: String?): Boolean = NotTraded.isMarker(error)
 
+/**
+ * Börse gerade nicht erreichbar (Netz, Zeitüberschreitung, HTTP-Fehler, zu viele Anfragen):
+ * ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt» oder unbekanntem Paar.
+ */
+internal fun isRetryableMarketError(error: String?): Boolean {
+    if (error == null || isNotTraded(error)) return false
+    return isConnectionError(error) || RefreshReportLogic.classify(error) in RETRYABLE_FAILURES
+}
+
+private val RETRYABLE_FAILURES = setOf(
+    RefreshFailure.TIMEOUT, RefreshFailure.OFFLINE, RefreshFailure.RATE_LIMIT, RefreshFailure.SERVER,
+)
+
 /** Technische Fehlermeldung → verständlicher Text (z. B. «Keine Verbindung»). */
 @Composable
 internal fun friendlyError(error: String): String = when {
     isNotTraded(error) -> stringResource(R.string.watch_not_traded)
     isConnectionError(error) -> stringResource(R.string.watch_error_offline)
+    // HTTP-Fehler, zu viele Anfragen: kein Code, nur was es bedeutet
+    isRetryableMarketError(error) -> stringResource(R.string.error_market_unreachable_short)
     error == UserFriendlyMarketError.EMPTY_RESPONSE || error == UserFriendlyMarketError.NO_TICKER_DATA ->
         stringResource(R.string.market_data_empty_error)
     error == UserFriendlyMarketError.UNKNOWN_EMPTY -> stringResource(R.string.something_went_wrong)

@@ -16,16 +16,16 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
 
 /**
- * Veränderung über 24 Stunden (`WatchEntity.change24h`) als Pille wie [ChangePill],
- * daneben klein «24h». Ohne 24-h-Bezug eine graue Pille «—» ohne Pfeil — nie die
- * Veränderung seit der letzten Abfrage. Screenreader: «up 2.30% in 24 hours».
+ * Veränderung gemäss %-Basis (`WatchEntity.change24h`, [LocalChangeView]) als Pille wie
+ * [ChangePill], daneben klein der Zeitraum «24h», «heute» oder «heute UTC». Ohne Bezug eine
+ * graue Pille «—» ohne Pfeil — nie die Veränderung seit der letzten Abfrage.
+ * Screenreader: «up 2.30% in 24 hours» / «… today».
  */
 @Composable
 internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier) {
@@ -35,11 +35,12 @@ internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier) {
     val text = when {
         value == null -> "—"
         formatted != null -> "${PriceFormat.changeArrow(value)} $formatted"
-        else -> "0.00%"
+        else -> PriceFormat.zeroPercent()
     }
     val color = if (value == null || formatted == null) MaterialTheme.colorScheme.onSurfaceVariant
     else PriceColors.forChange(value)
-    val spoken = A11yText.change24h(LocalContext.current, value)
+    val basis = LocalChangeView.current.basis
+    val spoken = ChangeBasisText.spoken(LocalContext.current, basis, value)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -58,7 +59,7 @@ internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier) {
                 .padding(horizontal = 8.dp, vertical = 2.dp)
         )
         Text(
-            text = stringResource(R.string.widget_range_short_24h),
+            text = ChangeBasisText.shortLabel(basis),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,

@@ -138,6 +138,8 @@ data class WhyInput(
      * dann gar keine Einordnung — nie ein Urteil auf alten Daten.
      */
     val marketLive: Boolean = true,
+    /** Tageskerzen des Paars (letzte = laufender Tag) für das 30-Tage-Hoch; null = keine. */
+    val dailyCandles: List<HourCandle>? = null,
 )
 
 /** Ergebnis für das «Warum»-Blatt. */
@@ -152,4 +154,8 @@ data class WhyReport(
     val hasMarketData: Boolean,
     /** Zeitpunkt der Daten (Epoch-ms). */
     val dataTime: Long,
+    /** Höchster Kurs der letzten 30 Tage ([ActivityAnalyzer.high30d]); null ohne Tageskerzen. */
+    val high30d: Double? = null,
+    /** Läuft der Coin gerade eng mit Bitcoin bzw. unabhängig ([BtcCorrelation]); null = kein Satz. */
+    val btcLink: BtcLink? = null,
 )

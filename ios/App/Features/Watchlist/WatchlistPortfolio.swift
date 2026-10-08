@@ -56,8 +56,8 @@ struct WatchlistGroupChips: View {
         Text(title)
             .font(.subheadline.weight(isSelected ? .semibold : .regular))
             .lineLimit(1)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 7)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.sm)
             .foregroundStyle(isSelected ? accent.onContainer : AppColors.onSurface)
             .background(isSelected ? accent.container : AppColors.containerHigh, in: Capsule())
             .overlay(Capsule().strokeBorder(isSelected ? accent.primary.opacity(0.6) : .clear, lineWidth: 1))
@@ -127,7 +127,7 @@ struct WatchGroupSheet: View {
                                     name = String(value.prefix(Self.maxNameLength))
                                 }
                             }
-                            .padding(.horizontal, 14)
+                            .padding(.horizontal, Spacing.md)
                             .padding(.vertical, 12)
                             .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                             .padding(.bottom, 12)
@@ -137,7 +137,7 @@ struct WatchGroupSheet: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
                 .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .padding(.horizontal, 20)
+                .padding(.horizontal, Spacing.lg)
                 .padding(.top, 8)
             }
             .scrollDismissesKeyboard(.interactively)
@@ -179,7 +179,7 @@ struct WatchGroupSheet: View {
                         .transition(.scale.combined(with: .opacity))
                 }
             }
-            .padding(.vertical, 13)
+            .padding(.vertical, Spacing.md)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

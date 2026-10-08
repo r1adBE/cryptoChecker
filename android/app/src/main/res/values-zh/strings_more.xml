@@ -18,9 +18,9 @@
     <string name="pulse_less">收起</string>
     <string name="pulse_updated">截至 %1$s</string>
     <string name="pulse_unavailable">市场数据暂不可用</string>
-    <string name="why_summary_title">简而言之</string>
+    <string name="why_summary_title">可能的原因</string>
     <string name="why_summary_market_volume">这一波动伴随着较高的交易量和整体市场的普遍波动。</string>
-    <string name="why_summary_market">这一波动跟随整体市场。</string>
+    <string name="why_summary_market">这一波动可能跟随整体市场。</string>
     <string name="why_summary_coin_volume">只有这个币种在波动，且交易量较高——原因可能在币种本身。</string>
     <string name="why_summary_coin">只有这个币种在波动——原因可能在币种本身。</string>
     <string name="why_summary_against">该币种与市场反向波动。</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">关注——你的币种、行情、图表和小组件</string>
     <string name="welcome_alert">提醒——价格、百分比、交易量和异常波动</string>
     <string name="welcome_understand">理解——市场为什么正在波动？</string>
-    <string name="welcome_start">开始使用</string>
     <string name="portfolio_empty_example">示例：3 月 1 日以 %1$s 买入 0.01 BTC。应用随后会显示市值、平均买入价和盈亏——仅保存在此设备上。</string>
     <string name="about_why">Crypto Checker 是 r1AD 的独立项目：一个平静的行情概览，无需账号、没有广告、不做追踪。问题和建议：%1$s</string>
     <string name="a11y_move_up">上移</string>
@@ -61,26 +60,8 @@
     <string name="market_data_empty_error">未从交易所收到数据。</string>
     <string name="sync_pairs_count">交易对：%1$d</string>
     <string name="market_unavailable_error">交易所不可用</string>
-    <string name="refresh_report_aborted">刷新已中止：</string>
-    <string name="refresh_report_wait">开始前等待：%1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="other">总计 %1$s · %2$d 个交易对</item>
-    </plurals>
-    <string name="refresh_report_network">网络 %1$s</string>
-    <string name="refresh_report_database">数据库 %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="other">提醒/通知 %1$s · %2$d 条通知</item>
-    </plurals>
-    <string name="refresh_report_widgets">小部件 %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="other">%1$s：%2$d 个交易对，%3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="other">批量请求 %1$s（%2$d 个价格）</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">批量请求 %1$s（失败）</string>
     <string name="refresh_report_singles">单独请求 %1$d 个</string>
-    <string name="refresh_report_slowest">最慢 %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="other">%1$d 个已停止交易</item>
     </plurals>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Le verrouillage protège l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Vous pouvez protéger les sauvegardes par un mot de passe.</string>
+    <string name="backup_protect">Protéger par mot de passe</string>
+    <string name="backup_protect_hint">Chiffre le fichier (AES-256). Recommandé s’il contient des données du portefeuille.</string>
+    <string name="backup_password">Mot de passe</string>
+    <string name="backup_password_repeat">Répéter le mot de passe</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Au moins %1$d caractères</string>
+    <string name="backup_password_mismatch">Les mots de passe ne correspondent pas</string>
+    <string name="backup_password_warning">Sans le mot de passe, la sauvegarde ne peut pas être restaurée.</string>
+    <string name="backup_password_show">Afficher le mot de passe</string>
+    <string name="backup_password_hide">Masquer le mot de passe</string>
+    <string name="backup_password_title">Sauvegarde protégée par mot de passe</string>
+    <string name="backup_password_prompt">Saisissez le mot de passe de cette sauvegarde.</string>
+    <string name="backup_password_wrong">Mot de passe incorrect, ou fichier endommagé. Réessayez.</string>
+    <string name="backup_password_continue">Continuer</string>
+</resources>

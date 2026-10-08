@@ -1,9 +1,12 @@
 # Crypto Checker
 
-Crypto prices and alarms without an account – straight from the exchanges.
+**Crypto Checker explains what is happening in the market.** Prices and alarms
+straight from the exchanges, a market overview and “Why is this moving?” for
+single coins – no account, no forecasts, no investment advice.
 Android and iPhone/iPad · 31 languages · no ads · no tracking · open source (MIT).
 
-> **Deutsch:** Kurse und Alarme ohne Konto – direkt von der Börse. Dieses
+> **Deutsch:** Crypto Checker erklärt dir, was im Markt passiert – Kurse und
+> Alarme direkt von der Börse, ohne Konto, ohne Prognosen. Dieses
 > Repository enthält den kompletten Quellcode der Android- und der iOS-App,
 > die Börsen-Bibliothek und die Datenschutzerklärung. Lizenz: MIT – jeder darf
 > den Code verwenden, ändern und weitergeben.

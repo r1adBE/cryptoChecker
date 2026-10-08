@@ -218,13 +218,13 @@ struct WatchGroupEditSheet: View {
             Button(action: done) {
                 Text(L("group_done"))
                     .font(.headline)
-                    .padding(.horizontal, 28)
+                    .padding(.horizontal, Spacing.xl)
                     .padding(.vertical, 12)
             }
             .buttonStyle(AccentButtonStyle())
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
+        .padding(.horizontal, Spacing.lg)
+        .padding(.vertical, Spacing.md)
         .background(.bar)
     }
 

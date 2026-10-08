@@ -56,11 +56,11 @@ struct WatchlistChangePill: View {
                     Image(systemName: change >= 0 ? "arrow.up.right" : "arrow.down.right")
                         .scaledFont(size: large ? 11 : 9, weight: .bold, relativeTo: .caption)
                 }
-                Text(formatted ?? "0.00%")
-                    .font(.system(large ? Font.TextStyle.subheadline : .caption, design: .rounded).weight(.semibold).monospacedDigit())
+                Text(formatted ?? PriceFormat.zeroPercent())
+                    .font(AppFont.amount(large ? .subheadline : .caption, weight: .semibold))
             }
             .foregroundStyle(color)
-            .padding(.horizontal, large ? 10 : 8)
+            .padding(.horizontal, Spacing.sm)
             .padding(.vertical, large ? 4 : 2)
             .background(color.opacity(0.14), in: Capsule())
             .contentTransition(.numericText())
@@ -146,6 +146,8 @@ struct WatchlistRow: View {
     let onTap: () -> Void
     let onToggleFavorite: () -> Void
     var onActivity: () -> Void = {}
+    /// Lange drücken: Sortiermodus an (nil = nicht möglich, z. B. während der Suche).
+    var onLongPress: (() -> Void)? = nil
 
     @Environment(\.appAccent) private var accent
     @Environment(\.priceColorScheme) private var priceColors
@@ -153,6 +155,8 @@ struct WatchlistRow: View {
     @Environment(\.priceColorsInverted) private var inverted
     /// Grosse Schrift (Bedienungshilfen): Paar und Zeitzeile umbrechen statt abschneiden.
     @Environment(\.dynamicTypeSize) private var typeSize
+    /// %-Basis (Zeitraum und Gültigkeit der Veränderung, für VoiceOver).
+    @Environment(\.changeView) private var changeView
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var flash: Double = 0
     @State private var flashUp = true
@@ -172,7 +176,7 @@ struct WatchlistRow: View {
 
     /// Zeitzeile: normal «Binance · vor 2 Min.»; letzte Abfrage gescheitert
     /// «vor 41 Min. · Binance nicht erreichbar»; ohne Fehler, aber zu alt
-    /// «Binance · vor 41 Min. · veraltet». `warning` = Warnfarbe mit Symbol.
+    /// «Binance · veraltet · vor 4 Min.». `warning` = Warnfarbe mit Symbol.
     private var timeLine: (text: String, warning: Bool, spoken: String?) {
         guard watch.lastUpdate > 0 else { return (watch.marketName, false, nil) }
         let ago = WatchlistTime.ago(watch.lastUpdate, now: now)
@@ -181,14 +185,14 @@ struct WatchlistRow: View {
             return (text, true, text)
         }
         if watch.lastError == nil, outdatedAfter > 0, now - watch.lastUpdate > outdatedAfter {
-            let text = L("watchlist_row_outdated", ago)
-            return ("\(watch.marketName) · \(text)", true, text)
+            let text = L("watchlist_row_outdated_age", ago)
+            return ("\(BidiText.isolate(watch.marketName)) · \(text)", true, text)
         }
-        return ("\(watch.marketName) · \(ago)", false, nil)
+        return ("\(BidiText.isolate(watch.marketName)) · \(ago)", false, nil)
     }
 
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: Spacing.sm) {
             // Stern nur bei Favoriten — kein leerer Umriss, der dem Kurs Breite nimmt
             if !sorting && watch.favorite {
                 Button(action: onToggleFavorite) {
@@ -220,9 +224,9 @@ struct WatchlistRow: View {
                 // Veraltete Kurse abblassen
                 .opacity(stale ? 0.5 : 1)
         }
-        .padding(.leading, sorting ? 12 : (watch.favorite ? 4 : 14))
-        .padding(.trailing, 14)
-        .padding(.vertical, 10)
+        .padding(.leading, sorting ? Spacing.md : (watch.favorite ? Spacing.xs : Spacing.md))
+        .padding(.trailing, Spacing.md)
+        .padding(.vertical, Spacing.md)
         .background(cardBackground)
         .overlay(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
@@ -237,6 +241,13 @@ struct WatchlistRow: View {
         .onTapGesture {
             guard !sorting else { return }
             onTap()
+        }
+        // Lange drücken schaltet nur den Sortiermodus ein (dann ziehen am Griff);
+        // Tippen öffnet weiter das Blatt, Wischen bleibt unberührt.
+        .onLongPressGesture(minimumDuration: 0.45) {
+            guard !sorting, let onLongPress else { return }
+            WatchlistHaptics.impact()
+            onLongPress()
         }
         .animation(.spring(duration: 0.35), value: highlighted)
         .animation(.easeInOut(duration: 0.25), value: stale)
@@ -354,13 +365,14 @@ struct WatchlistRow: View {
             chart: chart,
             alarmCount: alarmCount,
             extra: [watch.notificationEnabled ? L("watchlist_notification") : nil],
-            stale: staleText
+            stale: staleText,
+            changeView: changeView
         )
     }
 
     private var info: some View {
         VStack(alignment: .leading, spacing: 2) {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 Text(watch.displayPair)
                     .font(.headline)
                     .lineLimit(typeSize.isAccessibilitySize ? 2 : 1)
@@ -383,7 +395,7 @@ struct WatchlistRow: View {
                     Text(contract)
                         .scaledFont(size: 10, weight: .bold, design: .rounded, relativeTo: .caption2)
                         .foregroundStyle(accent.primary)
-                        .padding(.horizontal, 6)
+                        .padding(.horizontal, Spacing.xs)
                         .padding(.vertical, 2)
                         .background(accent.primary.opacity(0.12), in: Capsule())
                         .lineLimit(1)
@@ -392,7 +404,7 @@ struct WatchlistRow: View {
                 }
             }
 
-            HStack(spacing: 5) {
+            HStack(spacing: Spacing.xs) {
                 let line = timeLine
                 if line.warning {
                     Image(systemName: "exclamationmark.triangle.fill")
@@ -417,7 +429,7 @@ struct WatchlistRow: View {
                 if alarmCount > 0 {
                     HStack(spacing: 2) {
                         Image(systemName: "alarm.fill").scaledFont(size: 10, relativeTo: .caption2)
-                        Text("\(alarmCount)").font(.caption2.weight(.semibold).monospacedDigit())
+                        Text(verbatim: LocaleNumbers.integer(alarmCount)).font(.caption2.weight(.semibold).monospacedDigit())
                     }
                     .foregroundStyle(accent.primary)
                     .accessibilityElement(children: .ignore)
@@ -425,7 +437,9 @@ struct WatchlistRow: View {
                 }
             }
 
-            if let error = watch.lastError, !error.isEmpty {
+            // «nicht erreichbar» steht schon in der Zeitzeile: dann keine zweite Fehlerzeile
+            if let error = watch.lastError, !error.isEmpty,
+               !(watch.lastUpdate > 0 && ConnectionErrors.isRetryable(error)) {
                 Text(ConnectionErrors.display(error))
                     .font(.caption)
                     .foregroundStyle(ConnectionErrors.isNotTraded(error) ? AppColors.onSurfaceVariant : AppColors.error)
@@ -456,12 +470,12 @@ struct WatchlistRow: View {
                 WatchlistSkeletonBlock(width: 80, height: 14)
                 WatchlistSkeletonBlock(width: 48, height: 12)
             } else {
-                HStack(spacing: 6) {
+                HStack(spacing: Spacing.xs) {
                     if loading {
                         ProgressView().controlSize(.mini)
                     }
                     Text(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
-                        .font(.system(.body, design: .rounded).weight(.semibold).monospacedDigit())
+                        .font(AppFont.amount(.body, weight: .semibold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.75)
                         .contentTransition(.numericText(value: watch.lastPrice ?? 0))
@@ -482,7 +496,7 @@ struct WatchlistRow: View {
                 }
                 if let converted {
                     Text(converted)
-                        .font(.system(.caption2, design: .rounded).monospacedDigit())
+                        .font(AppFont.amount(.caption2))
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .lineLimit(1)
                         .padding(.trailing, 2)
@@ -490,7 +504,9 @@ struct WatchlistRow: View {
             }
         }
         .fixedSize(horizontal: true, vertical: false)
-        .animation(.snappy, value: watch.lastPrice)
+        // Ziffern rollen nur bei einer echten Kursänderung (nicht beim ersten Zeichnen oder
+        // Scrollen); mit «Bewegung reduzieren» ohne Animation
+        .animation(reduceMotion ? nil : .snappy, value: watch.lastPrice)
     }
 
     private var cardBackground: some View {
@@ -503,7 +519,7 @@ struct WatchlistRow: View {
                         colors: [accent.primary.opacity(watch.favorite ? 0.12 : 0), .clear],
                         startPoint: .leading, endPoint: .center))
             )
-            .shadow(color: .black.opacity(highlighted ? 0.18 : 0), radius: 12, y: 4)
+            .shadow(color: AppColors.shadow.opacity(highlighted ? 0.18 : 0), radius: 12, y: 4)
     }
 
     private var borderColor: Color {

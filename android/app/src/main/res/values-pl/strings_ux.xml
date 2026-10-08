@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">dziś %1$s</string>
     <string name="widget_portfolio_empty">Dodaj zakupy w zakładce Portfel</string>
     <string name="a11y_portfolio_widget">Portfel %1$s, dziś %2$s</string>
-    <string name="settings_section_advanced">Zaawansowane</string>
-    <string name="settings_advanced_hint">Tryb na żywo, stałe powiadomienie, kontrakty futures i opcje dewelopera</string>
     <string name="explain_funding">Opłata między pozycjami long i short. Mocno dodatnia oznacza, że wielu stawia na wzrost cen.</string>
     <string name="explain_open_interest">Wartość wszystkich otwartych pozycji futures. Gdy rośnie, więcej pieniędzy stawia na ten ruch.</string>
     <string name="explain_rsi">Wskaźnik siły względnej, 0–100. Powyżej 70 często przegrzany, poniżej 30 często wyprzedany.</string>

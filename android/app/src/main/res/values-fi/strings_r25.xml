@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Lukitus suojaa näkymän. Tiedot ovat tällä laitteella, ja laitteen salaus suojaa ne. Voit suojata varmuuskopiot salasanalla.</string>
+    <string name="backup_protect">Suojaa salasanalla</string>
+    <string name="backup_protect_hint">Salaa tiedoston (AES-256). Suositellaan, jos se sisältää salkun tietoja.</string>
+    <string name="backup_password">Salasana</string>
+    <string name="backup_password_repeat">Toista salasana</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Vähintään %1$d merkkiä</string>
+    <string name="backup_password_mismatch">Salasanat eivät täsmää</string>
+    <string name="backup_password_warning">Ilman salasanaa varmuuskopiota ei voi palauttaa.</string>
+    <string name="backup_password_show">Näytä salasana</string>
+    <string name="backup_password_hide">Piilota salasana</string>
+    <string name="backup_password_title">Salasanalla suojattu varmuuskopio</string>
+    <string name="backup_password_prompt">Anna tämän varmuuskopion salasana.</string>
+    <string name="backup_password_wrong">Väärä salasana tai tiedosto on vioittunut. Yritä uudelleen.</string>
+    <string name="backup_password_continue">Jatka</string>
+</resources>

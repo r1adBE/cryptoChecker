@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 9: Gruppen der Einstellungen -->
-    <string name="settings_group_currency">Currency &amp; conversion</string>
     <string name="settings_group_alerts">Alarms &amp; notifications</string>
-    <string name="settings_group_data">Data &amp; updates</string>
-    <string name="settings_group_security">Security &amp; backup</string>
     <!-- Schalter unter der Überschrift «Portfolio» -->
     <string name="settings_portfolio_tab">Show Portfolio tab</string>
 </resources>

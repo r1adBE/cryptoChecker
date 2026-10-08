@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">สีราคา</string>
-    <string name="price_colors_green_red">เขียว / แดง</string>
-    <string name="price_colors_blue_orange">น้ำเงิน / ส้ม</string>
     <string name="settings_price_colors_hint">สีน้ำเงิน / ส้มแยกแยะได้ง่ายสำหรับภาวะบกพร่องในการมองเห็นสีทุกแบบ (แดง-เขียว และน้ำเงิน-เหลือง) และจะแสดงทิศทางด้วย + / − เสมอ</string>
     <string name="settings_watchlist_sparkline">กราฟเล็กในรายการติดตาม</string>
     <string name="settings_watchlist_sparkline_hint">แนวโน้ม 24 ชั่วโมงข้างราคา</string>
 
-    <string name="settings_price_colors_inverted">สลับสีขึ้น/ลง</string>
-    <string name="settings_price_colors_inverted_hint">สีแดงเมื่อขึ้น สีเขียวเมื่อลง ตามที่นิยมในจีน ญี่ปุ่น เกาหลี และไต้หวัน ค่าเริ่มต้นขึ้นอยู่กับภูมิภาคของอุปกรณ์</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">คอนทราสต์สูง</string>

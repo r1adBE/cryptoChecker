@@ -3,7 +3,6 @@ package com.cryptochecker.app.ui.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 
 /**
  * Gewinn und Verlust in festen Farben — unabhängig von der Akzentfarbe,
@@ -43,6 +42,3 @@ object PriceColors {
     @ReadOnlyComposable
     fun forChange(change: Double?): Color = if ((change ?: 0.0) >= 0) up else down
 }
-
-/** Ziffern gleich breit, damit Kurse beim Aktualisieren nicht springen. */
-fun TextStyle.tabularNumbers(): TextStyle = copy(fontFeatureSettings = "tnum")

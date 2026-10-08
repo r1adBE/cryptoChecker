@@ -112,6 +112,19 @@ class WidgetChartGeometryTest {
     }
 
     @Test
+    fun `1 Jahr - eine Linie je lokaler Monatserster`() {
+        val start = LocalDateTime.of(2024, 10, 7, 22, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
+        val c = series(start, 24 * hour, 365)
+        val times = WidgetChartGeometry.gridTimes(c, ChartGridUnit.MONTH, 24 * hour, zurich)
+        assertEquals(12, times.size) // 1. Nov. 2024 … 1. Okt. 2025
+        times.forEach {
+            val local = java.time.Instant.ofEpochMilli(it).atZone(zurich)
+            assertEquals(1, local.dayOfMonth)
+            assertEquals(0, local.hour)
+        }
+    }
+
+    @Test
     fun `Keine Gitterlinie am Rand der Zeichenfläche`() {
         val start = LocalDateTime.of(2025, 9, 8, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli() // Montag 00:00 UTC
         val c = series(start, 24 * hour, 30)

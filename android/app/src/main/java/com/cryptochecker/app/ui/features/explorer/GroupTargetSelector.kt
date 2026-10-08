@@ -30,6 +30,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.GroupNameDialog
 import com.cryptochecker.app.ui.components.canonicalGroupName
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.ui.theme.Spacing
 
 /** Zustand und Aktion für «In Gruppe» beim Hinzufügen. */
 class GroupTargetUi(
@@ -69,7 +70,7 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
                 .clip(RoundedCornerShape(50))
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                 .clickable { menuOpen = true }
-                .padding(start = 12.dp, end = 8.dp, top = 6.dp, bottom = 6.dp)
+                .padding(start = 12.dp, end = 8.dp, top = Spacing.sm, bottom = Spacing.sm)
         ) {
             Icon(
                 painterResource(R.drawable.ic_list),
@@ -81,7 +82,7 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
                 text = stringResource(R.string.group_target),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = 6.dp)
+                modifier = Modifier.padding(start = Spacing.xs)
             )
             Text(
                 text = ui.target ?: stringResource(R.string.group_none),
@@ -90,7 +91,7 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = 6.dp)
+                modifier = Modifier.padding(start = Spacing.xs)
             )
             Icon(
                 painterResource(R.drawable.ic_chevron_right),

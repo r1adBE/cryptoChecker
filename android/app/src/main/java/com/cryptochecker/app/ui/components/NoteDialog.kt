@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.NOTE_MAX
+import com.cryptochecker.app.util.LocaleNumbers
 
 /**
  * Notiz zu einem Paar bearbeiten. Leer speichern oder «Entfernen» löscht sie.
@@ -54,7 +55,7 @@ fun NoteDialog(
                     modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
                 )
                 Text(
-                    "${text.length} / $NOTE_MAX",
+                    "${LocaleNumbers.integer(text.length)} / ${LocaleNumbers.integer(NOTE_MAX)}",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(androidx.compose.ui.Alignment.End).padding(top = 4.dp)

@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">已过时 · %1$s</string>
 
     <string name="settings_widgets">小部件</string>
-    <string name="settings_widgets_hint">将价格添加到主屏幕</string>
     <string name="widgets_sheet_title">添加小部件</string>
     <string name="widget_kind_single">单币</string>
     <string name="widgets_add">添加</string>

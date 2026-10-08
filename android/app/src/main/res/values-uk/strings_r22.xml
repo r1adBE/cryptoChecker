@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Усе оновлено</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d пара не оновлена</item>
+        <item quantity="few">%1$d пари не оновлені</item>
+        <item quantity="many">%1$d пар не оновлено</item>
+        <item quantity="other">%1$d пари не оновлені</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">Біржа %1$s недоступна</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d біржа недоступна</item>
+        <item quantity="few">%1$d біржі недоступні</item>
+        <item quantity="many">%1$d бірж недоступно</item>
+        <item quantity="other">%1$d біржі недоступні</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Оновлення перервано</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d пара</item>
+        <item quantity="few">%1$d пари</item>
+        <item quantity="many">%1$d пар</item>
+        <item quantity="other">%1$d пари</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Біржі</string>
+    <string name="refresh_sheet_section_steps">Етапи</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Очікування до старту</string>
+    <string name="refresh_sheet_network">Мережа</string>
+    <string name="refresh_sheet_database">База даних</string>
+    <string name="refresh_sheet_alarms">Сигнали</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">спрацювало: %1$d</item>
+        <item quantity="few">спрацювало: %1$d</item>
+        <item quantity="many">спрацювало: %1$d</item>
+        <item quantity="other">спрацювало: %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d сповіщення</item>
+        <item quantity="few">%1$d сповіщення</item>
+        <item quantity="many">%1$d сповіщень</item>
+        <item quantity="other">%1$d сповіщення</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Віджети</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d з %1$d пари</item>
+        <item quantity="few">%2$d з %1$d пар</item>
+        <item quantity="many">%2$d з %1$d пар</item>
+        <item quantity="other">%2$d з %1$d пар</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">пакетний запит %1$s · %2$d курс</item>
+        <item quantity="few">пакетний запит %1$s · %2$d курси</item>
+        <item quantity="many">пакетний запит %1$s · %2$d курсів</item>
+        <item quantity="other">пакетний запит %1$s · %2$d курси</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">тайм-аут</string>
+    <string name="refresh_sheet_reason_offline">немає з\'єднання</string>
+    <string name="refresh_sheet_reason_rate_limit">забагато запитів</string>
+    <string name="refresh_sheet_reason_server">помилка сервера</string>
+    <string name="refresh_sheet_reason_no_data">немає даних</string>
+    <string name="refresh_sheet_reason_unavailable">біржа недоступна</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">усе оновлено</string>
+    <string name="refresh_sheet_status_partial">оновлено частково</string>
+    <string name="refresh_sheet_status_failed">не оновлено</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s секунди</string>
+</resources>

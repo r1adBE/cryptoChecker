@@ -1,9 +1,9 @@
-Houd je cryptokoersen in de gaten zonder steeds beurs-apps te openen. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt.
+Crypto Checker legt uit wat er in de markt gebeurt. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt – geen voorspelling.
 
-Volgen – koersen rechtstreeks van de beurs, in je eigen valuta
-Alarmeren – koers, %, bewegingen en volume, als één zin
 Begrijpen – ‘Waarom beweegt dit?’ met korte samenvatting
 Overzicht – Crypto Pulse, Fear & Greed, cyclus en portfolio
+Volgen – koersen rechtstreeks van de beurs, in je valuta
+Alarmeren – koers, %, bewegingen en volume, als één zin
 
 Leesbaar voor iedereen: koerskleuren groen/rood of blauw/oranje, naar wens omgewisseld, hoog contrast, teken en pijl in plaats van alleen kleur, en VoiceOver leest elke regel als één zin voor.
 
@@ -49,7 +49,7 @@ WIDGETS VOOR BEGIN- EN TOEGANGSSCHERM
 • Live Activity op het toegangsscherm: de koers van een coin in één oogopslag
 
 VERDER
-• Livemodus met korte intervallen zolang de app open is; updates op de achtergrond worden door iOS ingepland
+• Vaak bijwerken zolang de app open is; updates op de achtergrond worden door iOS ingepland
 • Koersen en alarmen worden voorgelezen
 • Back-up en herstel via de app Bestanden
 • Snelle taken op het appsymbool, lichte en donkere modus

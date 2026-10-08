@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">ข้อมูลเก่า · %1$s</string>
+    <string name="why_brief_label">สรุปสั้นๆ:</string>
+    <string name="why_factor_market">ตลาดโดยรวม</string>
+    <string name="why_factor_futures">ฟิวเจอร์ส</string>
+    <string name="why_factor_near_high">ใกล้จุดสูงสุด</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">สูงกว่าปกติ</string>
+    <string name="why_fn_volume_lower">ต่ำกว่าปกติ</string>
+    <string name="why_fn_volume_usual">ตามปกติ</string>
+    <string name="why_fn_market_pulls">BTC ลากทั้งตลาดไปด้วย</string>
+    <string name="why_fn_market_lags">ตลาดเคลื่อนไหว แต่เหรียญนี้แทบไม่ขยับ</string>
+    <string name="why_fn_market_alone">ตลาดเงียบ – เหรียญนี้เคลื่อนไหวเอง</string>
+    <string name="why_fn_market_against">เหรียญเคลื่อนไหวสวนตลาด</string>
+    <string name="why_fn_market_calm">ตลาดเงียบ</string>
+    <string name="why_fn_leader_moves">Bitcoin เป็นผู้กำหนดทิศทาง</string>
+    <string name="why_fn_leader_calm">Bitcoin นิ่ง</string>
+    <string name="why_fn_volatility_stronger">แรงกว่าปกติ</string>
+    <string name="why_fn_volatility_usual">ตามปกติ</string>
+    <string name="why_fn_oi_up">Open interest เพิ่มขึ้น</string>
+    <string name="why_fn_oi_down">Open interest ลดลง</string>
+    <string name="why_fn_oi_flat">Open interest แทบไม่เปลี่ยน</string>
+    <string name="why_fn_high_at">อยู่ที่จุดสูงสุด 30 วัน</string>
+    <string name="why_fn_high_below">ต่ำกว่าจุดสูงสุด 30 วัน</string>
+    <string name="why_fn_funding_longs">หลายคนเดิมพันว่าราคาจะขึ้น</string>
+    <string name="why_fn_funding_shorts">หลายคนเดิมพันว่าราคาจะลง</string>
+    <string name="why_fn_funding_neutral">เป็นกลาง</string>
+</resources>

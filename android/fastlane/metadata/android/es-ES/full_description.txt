@@ -1,9 +1,9 @@
-Vigila tus precios cripto sin abrir una y otra vez las apps de los exchanges. Crea alarmas, detecta movimientos inusuales y entiende en segundos por qué se mueve una moneda.
+Crypto Checker te explica qué pasa en el mercado. Crea alarmas, detecta movimientos inusuales y entiende en segundos por qué se mueve una moneda, sin pronósticos.
 
-Observar – precios directos del exchange, en tu moneda
-Avisar – precio, %, movimientos y volumen, en una frase
 Entender – «¿Por qué se mueve?» con un breve resumen
 Visión general – Crypto Pulse, Fear & Greed, ciclo y cartera
+Observar – precios directos del exchange, en tu moneda
+Avisar – precio, %, movimientos y volumen, en una frase
 
 Legible para todos: colores de precio verde/rojo o azul/naranja, intercambiables si quieres, alto contraste, signo y flecha en lugar de solo color, y TalkBack lee cada fila en una frase.
 
@@ -45,7 +45,7 @@ VISIÓN DEL MERCADO
 WIDGETS Y NOTIFICACIONES
 • Widgets: toda la lista, valor de la cartera con el cambio de hoy, una moneda en grande con gráfico – velas o línea, con marcas de máximo, medio y mínimo
 • Notificación de precio silenciosa por par
-• Modo en vivo con actualización cada 15 segundos; en segundo plano desde 15 minutos
+• Actualización frecuente cada 15 segundos; en segundo plano desde 15 minutos
 
 ADEMÁS
 • Lectura en voz alta de precios y alarmas

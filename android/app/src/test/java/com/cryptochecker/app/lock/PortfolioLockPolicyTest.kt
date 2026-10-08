@@ -62,4 +62,12 @@ class PortfolioLockPolicyTest {
         assertTrue(PortfolioLockPolicy.widgetLocked(lockSetting = true))
         assertFalse(PortfolioLockPolicy.widgetLocked(lockSetting = false))
     }
+
+    @Test
+    fun secureWindowOnlyWithLockAndVisiblePortfolio() {
+        assertTrue(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = true))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = false))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = true))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = false))
+    }
 }

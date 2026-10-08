@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">오늘 %1$s</string>
     <string name="widget_portfolio_empty">포트폴리오 탭에서 매수 내역을 추가하세요</string>
     <string name="a11y_portfolio_widget">포트폴리오 %1$s, 오늘 %2$s</string>
-    <string name="settings_section_advanced">고급</string>
-    <string name="settings_advanced_hint">실시간 모드, 상시 알림, 선물 및 개발자 옵션</string>
     <string name="explain_funding">롱과 숏 포지션 사이에 오가는 수수료. 크게 양수이면 많은 사람이 가격 상승에 베팅하고 있다는 뜻입니다.</string>
     <string name="explain_open_interest">열려 있는 모든 선물 포지션의 가치. 늘어나면 그 움직임에 더 많은 돈이 걸려 있습니다.</string>
     <string name="explain_rsi">상대강도지수, 0–100. 70 이상은 과열, 30 이하는 과매도인 경우가 많습니다.</string>

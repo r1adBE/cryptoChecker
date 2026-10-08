@@ -18,9 +18,9 @@
     <string name="pulse_less">Shfaq më pak</string>
     <string name="pulse_updated">Më %1$s</string>
     <string name="pulse_unavailable">Të dhënat e tregut nuk janë të disponueshme tani</string>
-    <string name="why_summary_title">Shkurt</string>
+    <string name="why_summary_title">Arsye të mundshme</string>
     <string name="why_summary_market_volume">Lëvizja shoqërohet me volum më të lartë tregtimi dhe një treg që lëviz gjerësisht.</string>
-    <string name="why_summary_market">Lëvizja ndjek tregun në tërësi.</string>
+    <string name="why_summary_market">Lëvizja ka gjasë të ndjekë tregun në tërësi.</string>
     <string name="why_summary_coin_volume">Lëviz vetëm kjo monedhë, me volum më të lartë – ka të ngjarë një arsye te vetë monedha.</string>
     <string name="why_summary_coin">Lëviz vetëm kjo monedhë – ka të ngjarë një arsye te vetë monedha.</string>
     <string name="why_summary_against">Monedha lëviz kundër tregut.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Ndiq – monedhat e tua, çmimet, grafikët dhe widget-et</string>
     <string name="welcome_alert">Alarmo – çmim, përqindje, volum dhe lëvizje të pazakonta</string>
     <string name="welcome_understand">Kupto – pse po lëviz tregu tani?</string>
-    <string name="welcome_start">Fillo</string>
     <string name="portfolio_empty_example">Shembull: 0,01 BTC blerë më 1 mars me %1$s. Aplikacioni tregon pastaj vlerën, çmimin mesatar të blerjes dhe fitimin/humbjen – ruajtur vetëm në këtë pajisje.</string>
     <string name="about_why">Crypto Checker është një projekt i pavarur nga r1AD: një pasqyrë e qetë e çmimeve pa llogari, reklama ose gjurmim. Pyetje dhe dëshira: %1$s</string>
     <string name="a11y_move_up">Lëviz lart</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">Nuk u morën të dhëna nga bursa.</string>
     <string name="sync_pairs_count">Çifte tregtimi: %1$d</string>
     <string name="market_unavailable_error">Bursa nuk është e disponueshme</string>
-    <string name="refresh_report_aborted">Rifreskimi u ndërpre:</string>
-    <string name="refresh_report_wait">Pritja deri në nisje: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Gjithsej %1$s · %2$d çift</item>
-        <item quantity="other">Gjithsej %1$s · %2$d çifte</item>
-    </plurals>
-    <string name="refresh_report_network">Rrjeti %1$s</string>
-    <string name="refresh_report_database">Baza e të dhënave %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarmet/njoftimet %1$s · %2$d njoftim</item>
-        <item quantity="other">Alarmet/njoftimet %1$s · %2$d njoftime</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widget-et %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d çift, %3$s</item>
-        <item quantity="other">%1$s: %2$d çifte, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">kërkesë e grupuar %1$s (%2$d çmim)</item>
-        <item quantity="other">kërkesë e grupuar %1$s (%2$d çmime)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">kërkesë e grupuar %1$s (dështoi)</string>
     <string name="refresh_report_singles">%1$d veçmas</string>
-    <string name="refresh_report_slowest">më i ngadalti %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d nuk tregtohen më</item>
         <item quantity="other">%1$d nuk tregtohen më</item>

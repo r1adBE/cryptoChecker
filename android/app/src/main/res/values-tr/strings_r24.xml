@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s değişim</string>
+    <string name="change_basis_rolling">Son 24 saat</string>
+    <string name="change_basis_utc_zone">00:00 %1$s’den beri</string>
+    <string name="change_basis_local">Yerel saatle 00:00’dan beri</string>
+    <string name="settings_change_basis_hint_1">Seçilen saat dilimi, yüzde değişimin ne zamandan itibaren sayılacağını belirler: izleme listesi, nabız satırı, parite sayfası ve widget’larda.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” tam 24 saat önceki fiyatla karşılaştırır. “00:00” bu saat diliminde gece yarısındaki açılış fiyatıyla karşılaştırır.</string>
+    <string name="settings_change_basis_hint_3">Alarmlar etkilenmez.</string>
+    <string name="change_basis_device">%1$s, 00:00 (cihaz saat dilimi)</string>
+    <string name="change_short_today">bugün</string>
+    <string name="change_short_today_zone">bugün %1$s</string>
+    <string name="a11y_change_today">bugün %1$s</string>
+    <string name="a11y_change_today_zone">%2$s gece yarısından beri %1$s</string>
+    <string name="a11y_change_today_none">Bugünkü değişim mevcut değil</string>
+    <string name="a11y_change_today_zone_none">%1$s gece yarısından beri değişim mevcut değil</string>
+    <string name="sheet_chart_today">Bugün</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Uygulama kapalıyken en fazla dakikada bir</string>
+    <string name="sheet_more">Daha fazla</string>
+    <string name="a11y_expanded">Genişletildi</string>
+    <string name="a11y_collapsed">Daraltıldı</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bugünkü değer yok</item>
+        <item quantity="other">%1$d bugünkü değer yok</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d paritenin bugün için değeri yok</item>
+        <item quantity="other">%1$d paritenin bugün için değeri yok</item>
+    </plurals>
+</resources>

@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">vanhentunut · %1$s</string>
 
     <string name="settings_widgets">Widgetit</string>
-    <string name="settings_widgets_hint">Lisää hinnat aloitusnäytölle</string>
     <string name="widgets_sheet_title">Lisää widget</string>
     <string name="widget_kind_single">Yksi kolikko</string>
     <string name="widgets_add">Lisää</string>

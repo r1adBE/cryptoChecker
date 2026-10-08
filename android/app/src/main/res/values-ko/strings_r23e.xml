@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">경보 신호</string>
+    <string name="alarm_signal_system">시스템</string>
+    <string name="alarm_signal_sound_vibrate">소리 및 진동</string>
+    <string name="alarm_signal_sound">소리만</string>
+    <string name="alarm_signal_vibrate">진동만</string>
+    <string name="alarm_signal_silent">무음(알림만)</string>
+    <string name="settings_alarm_signal_system_hint">휴대전화의 알림 설정을 따릅니다.</string>
+    <string name="settings_alarm_signal_open_system">시스템 설정에서 변경</string>
+    <string name="channel_alarms_sound_vibrate">경보(소리 및 진동)</string>
+    <string name="channel_alarms_sound">경보(소리만)</string>
+    <string name="channel_alarms_vibrate">경보(진동만)</string>
+    <string name="channel_alarms_silent">경보(무음)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">진동은 iPhone 설정(사운드 및 햅틱)을 따릅니다.</string>
+</resources>

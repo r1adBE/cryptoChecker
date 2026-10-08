@@ -11,11 +11,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
@@ -23,6 +25,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
@@ -54,12 +58,29 @@ internal object PortfolioFormat {
     }
 
     /** «+12.34%», bei praktisch 0 «0.00%». */
-    fun signedPercent(value: Double): String = PriceFormat.changePercent(value) ?: "0.00%"
+    fun signedPercent(value: Double): String = PriceFormat.changePercent(value) ?: PriceFormat.zeroPercent()
 
     fun amount(value: Double, coin: String): String = "${PriceFormat.amount(value)} $coin"
 
     fun date(millis: Long): String = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(millis))
 }
+
+/**
+ * «Beträge verbergen»: gesetzt von Portfolio-Tab und Detailansicht (Einstellung bzw. Auge im Kopf).
+ * Beträge und Werte werden zu «•••», Prozente bleiben.
+ */
+internal val LocalHidePortfolioAmounts = compositionLocalOf { false }
+
+/** [text] oder «•••», wenn Beträge verborgen sind. */
+@Composable
+@ReadOnlyComposable
+internal fun maskAmount(text: String): String = PortfolioInsights.mask(text, LocalHidePortfolioAmounts.current)
+
+/** Für den Screenreader: [text] oder «Betrag verborgen» statt «•••». */
+@Composable
+@ReadOnlyComposable
+internal fun spokenAmount(text: String): String =
+    if (LocalHidePortfolioAmounts.current) stringResource(R.string.a11y_amount_hidden) else text
 
 /** Grün/Rot für ±, grau bei 0 oder unbekannt. */
 @Composable
@@ -138,7 +159,8 @@ internal fun Metric(
             style = MaterialTheme.typography.titleSmall.amountNumbers(),
             fontWeight = FontWeight.Medium,
             color = valueColor,
-            maxLines = 1,
+            // Grosse Schrift: Betrag bricht um statt abgeschnitten zu werden
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
     }

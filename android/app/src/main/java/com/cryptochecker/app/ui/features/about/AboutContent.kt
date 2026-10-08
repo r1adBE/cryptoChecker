@@ -38,10 +38,16 @@ const val SOURCE_CODE_URL = "https://github.com/r1adBE/cryptoChecker"
 const val PRIVACY_POLICY_URL = "https://r1adbe.github.io/cryptoChecker/privacy/"
 
 /**
- * Kurzinfo zur App. Wird dauerhaft in den Einstellungen unter «Über» gezeigt.
+ * Kurzinfo zur App. In den Einstellungen auf der Seite «Über die App»; dort stehen
+ * Datenschutz, Börse wünschen, Quellcode und Lizenzen als eigene Zeilen der Hauptseite
+ * (Runde 23f) — [showLinks] = false blendet sie hier aus.
  */
 @Composable
-fun ColumnScope.AboutContent(showHeading: Boolean = true, onVersionTap: (() -> Unit)? = null) {
+fun ColumnScope.AboutContent(
+    showHeading: Boolean = true,
+    showLinks: Boolean = true,
+    onVersionTap: (() -> Unit)? = null,
+) {
     if (showHeading) {
         Text(
             text = stringResource(R.string.settings_section_about),
@@ -94,49 +100,51 @@ fun ColumnScope.AboutContent(showHeading: Boolean = true, onVersionTap: (() -> U
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(top = 4.dp)
     )
-    // Google Play verlangt den Link zur Datenschutzerklärung auch in der App.
-    Text(
-        text = stringResource(R.string.about_privacy_policy),
-        style = MaterialTheme.typography.bodyMedium,
-        color = linkColor,
-        textDecoration = TextDecoration.Underline,
-        modifier = Modifier
-            .padding(top = 8.dp)
-            .clickable(role = Role.Button) { runCatching { uriHandler.openUri(PRIVACY_POLICY_URL) } }
-            .padding(vertical = 4.dp)
-    )
-    // Runde 13b: fehlende Börse direkt mit der GitHub-Vorlage wünschen
-    Text(
-        text = stringResource(R.string.about_request_exchange),
-        style = MaterialTheme.typography.bodyMedium,
-        color = linkColor,
-        textDecoration = TextDecoration.Underline,
-        modifier = Modifier
-            .padding(top = 4.dp)
-            .clickable(role = Role.Button) { runCatching { uriHandler.openUri(EXCHANGE_REQUEST_URL) } }
-            .padding(vertical = 4.dp)
-    )
-    // Runde 15: Quellcode öffentlich auf GitHub (MIT)
-    Text(
-        text = stringResource(R.string.about_source_code),
-        style = MaterialTheme.typography.bodyMedium,
-        color = linkColor,
-        textDecoration = TextDecoration.Underline,
-        modifier = Modifier
-            .padding(top = 4.dp)
-            .clickable(role = Role.Button) { runCatching { uriHandler.openUri(SOURCE_CODE_URL) } }
-            .padding(vertical = 4.dp)
-    )
-    // Runde 14: Lizenzhinweise, bewusst unauffällig ganz unten
-    var showLicenses by rememberSaveable { mutableStateOf(false) }
-    Text(
-        text = stringResource(R.string.about_licenses),
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier
-            .padding(top = 8.dp)
-            .clickable(role = Role.Button) { showLicenses = true }
-            .padding(vertical = 4.dp)
-    )
-    if (showLicenses) LicensesSheet(onDismiss = { showLicenses = false })
+    if (showLinks) {
+        // Google Play verlangt den Link zur Datenschutzerklärung auch in der App.
+        Text(
+            text = stringResource(R.string.about_privacy_policy),
+            style = MaterialTheme.typography.bodyMedium,
+            color = linkColor,
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .clickable(role = Role.Button) { runCatching { uriHandler.openUri(PRIVACY_POLICY_URL) } }
+                .padding(vertical = 4.dp)
+        )
+        // Runde 13b: fehlende Börse direkt mit der GitHub-Vorlage wünschen
+        Text(
+            text = stringResource(R.string.about_request_exchange),
+            style = MaterialTheme.typography.bodyMedium,
+            color = linkColor,
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .clickable(role = Role.Button) { runCatching { uriHandler.openUri(EXCHANGE_REQUEST_URL) } }
+                .padding(vertical = 4.dp)
+        )
+        // Runde 15: Quellcode öffentlich auf GitHub (MIT)
+        Text(
+            text = stringResource(R.string.about_source_code),
+            style = MaterialTheme.typography.bodyMedium,
+            color = linkColor,
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .clickable(role = Role.Button) { runCatching { uriHandler.openUri(SOURCE_CODE_URL) } }
+                .padding(vertical = 4.dp)
+        )
+        // Runde 14: Lizenzhinweise, bewusst unauffällig ganz unten
+        var showLicenses by rememberSaveable { mutableStateOf(false) }
+        Text(
+            text = stringResource(R.string.about_licenses),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .clickable(role = Role.Button) { showLicenses = true }
+                .padding(vertical = 4.dp)
+        )
+        if (showLicenses) LicensesSheet(onDismiss = { showLicenses = false })
+    }
 }

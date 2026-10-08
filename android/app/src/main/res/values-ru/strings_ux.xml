@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">сегодня %1$s</string>
     <string name="widget_portfolio_empty">Добавьте покупки на вкладке «Портфель»</string>
     <string name="a11y_portfolio_widget">Портфель %1$s, сегодня %2$s</string>
-    <string name="settings_section_advanced">Дополнительно</string>
-    <string name="settings_advanced_hint">Режим реального времени, постоянное уведомление, фьючерсы и параметры разработчика</string>
     <string name="explain_funding">Плата между длинными и короткими позициями. Сильно положительная — многие ставят на рост цен.</string>
     <string name="explain_open_interest">Стоимость всех открытых фьючерсных позиций. Если растёт, на движение ставит больше денег.</string>
     <string name="explain_rsi">Индекс относительной силы, 0–100. Выше 70 — часто перегрет, ниже 30 — часто перепродан.</string>

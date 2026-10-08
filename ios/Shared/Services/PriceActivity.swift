@@ -9,9 +9,11 @@ struct PriceActivityAttributes: ActivityAttributes {
     struct ContentState: Codable, Hashable {
         /// Fertig formatierter Kurs mit Quote, z. B. «97’512.4 USDT».
         var priceText: String
-        /// Veränderung über 24 Stunden in % wie die Pille der Merkliste (`Watch.change24h`);
-        /// nil = kein 24-h-Bezug («—»).
+        /// Veränderung in % wie die Pille der Merkliste (`Watch.change24h`, gemäss %-Basis);
+        /// nil = kein Bezug («—»).
         var change24h: Double?
+        /// %-Basis der Veränderung (Zeitraum «24h»/«heute»); nil = ältere Fassung, rollend.
+        var basis: ChangeBasis?
         /// Stand des Kurses.
         var updatedAt: Date
     }
@@ -37,8 +39,11 @@ extension PriceActivityAttributes {
 
     static func state(_ watch: Watch) -> ContentState {
         let updated = watch.lastUpdate > 0 ? Date(millis: watch.lastUpdate) : Date()
+        // %-Basis wie die Pille: passt der Stempel nicht (Basis gewechselt, neuer Tag), «—»
+        let view = ChangeView.stored()
         return ContentState(priceText: PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-                            change24h: watch.change24h,
+                            change24h: view.shown(watch.shownChange24h),
+                            basis: view.basis,
                             updatedAt: updated)
     }
 

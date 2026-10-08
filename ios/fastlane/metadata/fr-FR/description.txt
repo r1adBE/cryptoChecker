@@ -1,21 +1,21 @@
-Suivez vos cours crypto sans ouvrir sans cesse les apps des plateformes. Créez des alertes, repérez les mouvements inhabituels et comprenez en secondes pourquoi une crypto bouge.
+Crypto Checker vous explique ce qui se passe sur le marché. Créez des alertes, repérez les mouvements inhabituels et comprenez en secondes pourquoi une crypto bouge, sans prévision.
 
-Suivre – cours direct des plateformes, dans votre devise
-Alerter – prix, %, mouvements, volume, en une phrase
 Comprendre – « Pourquoi ça bouge ? » avec un résumé
 Vue d'ensemble – Crypto Pulse, Fear & Greed, cycle, portefeuille
+Suivre – cours direct des plateformes, dans votre devise
+Alerter – prix, %, mouvements, volume, en une phrase
 
-Lisible par tous : couleurs de cours vert/rouge ou bleu/orange, inversables au choix, contraste élevé, signe et flèche plutôt que la seule couleur, et VoiceOver lit chaque ligne en une phrase.
+Lisible par tous : couleurs de cours vert/rouge ou bleu/orange, contraste élevé, signe et flèche plutôt que la seule couleur, et VoiceOver lit chaque ligne en une phrase.
 
 LISTE DE SUIVI : 41 MARCHÉS
-• Spot et futures de Binance, Coinbase, Kraken, OKX, Bybit et bien d'autres
+• Spot et futures de Binance, Coinbase, Kraken, OKX, Bybit et bien d'autres – en option actions, or et devises (TradFi), regroupés automatiquement
 • Tokens DEX via DexScreener
 • Groupes, favoris et tri par glisser-déposer
 • Une note pour chaque crypto, p. ex. votre prix d’entrée
 • Ligne « ≈ valeur » dans votre devise : 31 devises (EUR, CHF, USD…), selon la région
-• Mini-graphique 24 h sur chaque ligne
+• Mini-graphique 24 h sur chaque ligne ; variation en % sur 24 h ou depuis 00:00 dans votre fuseau horaire
 • Onglet Portefeuille : achats et ventes, prix moyen, gains/pertes, valeur totale dans votre devise
-• Export à date de référence (p. ex. 31 déc.) en CSV dans votre devise – utile pour les impôts, sans conseil fiscal
+• Export à date de référence (p. ex. 31 déc.) en CSV dans votre devise – sans conseil fiscal
 
 DES ALERTES ADAPTÉES À VOTRE STRATÉGIE
 • Prix au-dessus ou en dessous d'un seuil, hausse ou baisse d'un pourcentage
@@ -31,24 +31,24 @@ DES ALERTES ADAPTÉES À VOTRE STRATÉGIE
 
 ACTIVITÉ INHABITUELLE ET POURQUOI ÇA BOUGE ?
 • Activité inhabituelle repère les mouvements anormaux de prix et de volume, notifications en option
-• « Pourquoi ça bouge ? » explique un mouvement par le volume, le marché global et les futures, avec un court résumé – sans conseil en investissement
+• « Pourquoi ça bouge ? » explique un mouvement par le volume, le marché global et les futures, avec un court résumé
 
 APERÇU DU MARCHÉ
 • Crypto Pulse : que se passe-t-il ? BTC, ETH, SOL, altcoins vs BTC, volume, Fear & Greed, funding, gas ETH, résumé en une phrase, sans prévision
 • Indice Fear & Greed avec historique
 • Marché crypto : capitalisation totale et volume 24 h dans votre devise
-• Onglet Marché : phase du marché, signes d'un possible sommet ou creux (sans prévision), compte à rebours du halving, comparaison des cycles, dominance, saison des altcoins
+• Onglet Marché : phase du marché, signes d'un possible sommet ou creux (sans prévision), compte à rebours du halving, dominance, saison des altcoins
 • Analyse des cryptos : RSI, tendance, Pi Cycle et force face au Bitcoin
 • Données futures : funding rate et open interest
 • Frais de réseau pour Ethereum, Base, Arbitrum, Polygon, BNB Chain et Bitcoin, avec alerte gas
 
 WIDGETS POUR L’ÉCRAN D’ACCUEIL ET L’ÉCRAN VERROUILLÉ
-• Widgets en trois tailles : liste, portefeuille (aussi écran verrouillé), une crypto avec graphique 24 h/7 j/30 j – bougies ou ligne, repères haut/milieu/bas
+• Widgets en trois tailles : liste, portefeuille (aussi écran verrouillé), une crypto avec graphique 24 h/7 j/30 j
 • Actualisation directement depuis le widget
 • Activité en direct sur l'écran verrouillé : le cours d'une crypto d'un coup d'œil
 
 ET AUSSI
-• Mode live quand l’app est ouverte ; iOS planifie les mises à jour en arrière-plan
+• Mise à jour fréquente, app ouverte ; iOS planifie les mises à jour en arrière-plan
 • Lecture vocale des cours et des alertes
 • Sauvegarde et restauration via l'app Fichiers
 • Actions rapides sur l’icône, mode clair et sombre

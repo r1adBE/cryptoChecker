@@ -18,9 +18,9 @@
     <string name="pulse_less">Daha az göster</string>
     <string name="pulse_updated">%1$s itibarıyla</string>
     <string name="pulse_unavailable">Piyasa verileri şu anda kullanılamıyor</string>
-    <string name="why_summary_title">Kısaca</string>
+    <string name="why_summary_title">Olası nedenler</string>
     <string name="why_summary_market_volume">Harekete daha yüksek işlem hacmi ve geniş çapta hareket eden bir piyasa eşlik ediyor.</string>
-    <string name="why_summary_market">Hareket genel piyasayı izliyor.</string>
+    <string name="why_summary_market">Hareket büyük olasılıkla genel piyasayı izliyor.</string>
     <string name="why_summary_coin_volume">Yalnızca bu coin hareket ediyor, daha yüksek hacimle – muhtemelen coin\'in kendisine özgü bir neden.</string>
     <string name="why_summary_coin">Yalnızca bu coin hareket ediyor – muhtemelen coin\'in kendisine özgü bir neden.</string>
     <string name="why_summary_against">Coin piyasaya ters yönde hareket ediyor.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">İzle – coin\'leriniz, fiyatlar, grafikler ve widget\'lar</string>
     <string name="welcome_alert">Alarm – fiyat, yüzde, hacim ve olağandışı hareketler</string>
     <string name="welcome_understand">Anla – piyasa şu anda neden hareket ediyor?</string>
-    <string name="welcome_start">Başlayalım</string>
     <string name="portfolio_empty_example">Örnek: 1 Mart\'ta %1$s fiyatından 0,01 BTC alındı. Uygulama ardından değeri, ortalama alış fiyatını ve kâr/zararı gösterir – yalnızca bu cihazda saklanır.</string>
     <string name="about_why">Crypto Checker, r1AD\'ın bağımsız bir projesidir: hesap, reklam ve takip olmadan sakin bir fiyat görünümü. Sorular ve istekler: %1$s</string>
     <string name="a11y_move_up">Yukarı taşı</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">Borsadan veri alınamadı.</string>
     <string name="sync_pairs_count">İşlem çiftleri: %1$d</string>
     <string name="market_unavailable_error">Borsa kullanılamıyor</string>
-    <string name="refresh_report_aborted">Yenileme iptal edildi:</string>
-    <string name="refresh_report_wait">Başlangıca kadar bekleme: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Toplam %1$s · %2$d çift</item>
-        <item quantity="other">Toplam %1$s · %2$d çift</item>
-    </plurals>
-    <string name="refresh_report_network">Ağ %1$s</string>
-    <string name="refresh_report_database">Veritabanı %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarmlar/bildirimler %1$s · %2$d bildirim</item>
-        <item quantity="other">Alarmlar/bildirimler %1$s · %2$d bildirim</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widget\'lar %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d çift, %3$s</item>
-        <item quantity="other">%1$s: %2$d çift, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">toplu istek %1$s (%2$d fiyat)</item>
-        <item quantity="other">toplu istek %1$s (%2$d fiyat)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">toplu istek %1$s (başarısız)</string>
     <string name="refresh_report_singles">%1$d tek tek</string>
-    <string name="refresh_report_slowest">en yavaş %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d artık işlem görmüyor</item>
         <item quantity="other">%1$d artık işlem görmüyor</item>

@@ -30,8 +30,11 @@ import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/** Ein gespeicherter Wert und wann er geholt wurde (Epoch-ms). */
-data class CachedValue<T>(val value: T, val savedAt: Long)
+/**
+ * Ein gespeicherter Wert, wann er geholt wurde (Epoch-ms) und von welchem Anbieter
+ * ([provider], z. B. «CoinGecko»; null = unbekannt, auch bei Dateien ohne diese Angabe).
+ */
+data class CachedValue<T>(val value: T, val savedAt: Long, val provider: String? = null)
 
 /** Wandelt einen Wert in JSON und zurück; [decode] darf bei ungültigem Inhalt werfen. */
 class CacheCodec<T>(val encode: (T) -> JSONObject, val decode: (JSONObject) -> T)
@@ -61,7 +64,9 @@ class CycleCacheStore @Inject constructor(
             }
             val savedAt = root.optLong(KEY_AT, 0L)
             if (savedAt <= 0L) return@withContext null
-            CachedValue(codec.decode(root.getJSONObject(KEY_DATA)), savedAt)
+            // Anbieter fehlt in älteren Dateien: einfach unbekannt
+            val provider = root.optString(KEY_PROVIDER).takeIf { it.isNotBlank() }
+            CachedValue(codec.decode(root.getJSONObject(KEY_DATA)), savedAt, provider)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -70,7 +75,7 @@ class CycleCacheStore @Inject constructor(
         }
     }
 
-    suspend fun <T> write(name: String, value: T, savedAt: Long, codec: CacheCodec<T>) {
+    suspend fun <T> write(name: String, value: T, savedAt: Long, codec: CacheCodec<T>, provider: String? = null) {
         withContext(Dispatchers.IO) {
             try {
                 val folder = dir
@@ -80,6 +85,7 @@ class CycleCacheStore @Inject constructor(
                     .put(KEY_NAME, name)
                     .put(KEY_AT, savedAt)
                     .put(KEY_DATA, codec.encode(value))
+                if (!provider.isNullOrBlank()) root.put(KEY_PROVIDER, provider)
                 val target = File(folder, CycleCachePolicy.fileName(name))
                 val temp = File(folder, target.name + ".tmp")
                 temp.writeText(root.toString())
@@ -101,6 +107,7 @@ class CycleCacheStore @Inject constructor(
         const val KEY_NAME = "name"
         const val KEY_AT = "at"
         const val KEY_DATA = "data"
+        const val KEY_PROVIDER = "src"
     }
 }
 

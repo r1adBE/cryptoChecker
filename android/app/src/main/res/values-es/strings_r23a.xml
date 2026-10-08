@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">No hay pares en este grupo</string>
+    <string name="watchlist_status_none_traded">No hay pares cotizando aquí</string>
+    <string name="watchlist_group_empty_hint">Mantén pulsado un grupo para elegir sus pares.</string>
+    <string name="watchlist_just_refreshed">Recién actualizado</string>
+</resources>

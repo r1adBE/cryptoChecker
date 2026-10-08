@@ -66,12 +66,17 @@ final class CycleViewModel: ObservableObject {
 
     /// Stand (Epoch-ms) der gezeigten Daten je Bereich.
     @Published private(set) var stamps: [String: Int64] = [:]
+    /// Anbieter der gezeigten Daten je Bereich (z. B. «CoinGecko»), sofern bekannt.
+    @Published private(set) var providers: [String: String] = [:]
     /// Bereiche, die gerade neu laden.
     @Published private(set) var refreshingKeys: Set<String> = []
 
     /// Wie viele Teile des Tabs (von oben, `CycleRevealSlot`) sichtbar sind — einmal je
     /// App-Sitzung schrittweise (`CycleReveal`), danach bleibt alles stehen.
     @Published private(set) var revealed = 0
+    /// In dieser App-Sitzung gewählter Zustand je Abschnitt («Einordnung», «Daten»); fehlt = nie
+    /// getippt (`MarketSections`). Lebt hier, damit er Tab-Wechsel übersteht.
+    @Published var sectionChoice: [MarketSection: Bool] = [:]
     /// Die ersten so vielen Teile erscheinen ohne Animation (beim Öffnen schon bereit).
     private(set) var revealInstant = 0
     private var revealStart: Int64?
@@ -215,7 +220,7 @@ final class CycleViewModel: ObservableObject {
     func loadPulse(force: Bool = false) {
         load(Self.pulseKey, ttl: CycleCachePolicy.pulse, timeout: Self.timeout, force: force,
              shown: pulse.value != nil, apply: { [weak self] in self?.pulse = $0 }) {
-            try await CryptoPulseSource.shared.fetch(force: force)
+            Sourced(value: try await CryptoPulseSource.shared.fetch(force: force), provider: nil)
         }
     }
 
@@ -234,7 +239,7 @@ final class CycleViewModel: ObservableObject {
                      self.unusual = MarketUnusual.evaluate(input).map { CycleLoad.loaded($0) } ?? .failed
                  }
              }) {
-            try await MarketUnusualSource.shared.fetch()
+            Sourced(value: try await MarketUnusualSource.shared.fetch(), provider: nil)
         }
     }
 
@@ -257,7 +262,7 @@ final class CycleViewModel: ObservableObject {
         let maxAge: Int64 = force ? 0 : CycleCachePolicy.gas
         load(Self.gasKey, ttl: CycleCachePolicy.gas, timeout: Self.timeout, force: force,
              shown: gas.value != nil, apply: { [weak self] in self?.gas = $0 }) {
-            try await GasDataSource.shared.fetch(maxAge: maxAge)
+            try await GasDataSource.shared.fetchSourced(maxAge: maxAge)
         }
     }
 
@@ -268,8 +273,11 @@ final class CycleViewModel: ObservableObject {
 
     private func loadMarket(force: Bool) {
         load(Self.marketKey, ttl: CycleCachePolicy.market, timeout: Self.longTimeout, force: force,
-             shown: market.value != nil, apply: { [weak self] in self?.market = $0 }) {
-            CycleModel.evaluate(try await CycleDataSource.fetch(forceOnChain: force))
+             minForce: CycleCachePolicy.manualMinInterval,
+             shown: market.value != nil,
+             apply: { [weak self] (state: CycleLoad<CycleReport>) in self?.market = state }) {
+            let sourced = try await CycleDataSource.fetchSourced(forceOnChain: force)
+            return Sourced(value: CycleModel.evaluate(sourced.value), provider: sourced.provider)
         }
     }
 
@@ -280,16 +288,50 @@ final class CycleViewModel: ObservableObject {
     private func loadInsights(force: Bool) {
         load(Self.fearGreedKey, ttl: CycleCachePolicy.fearGreed, timeout: Self.timeout, force: force,
              shown: fearGreed.value != nil, apply: { [weak self] in self?.fearGreed = $0 }) {
-            try await InsightsDataSource.fearGreed()
+            Sourced(value: try await InsightsDataSource.fearGreed(), provider: DataFreshness.alternativeMe)
         }
         loadGlobal(force: force)
+        loadAltSeason(force: force)
+        load(Self.historyKey, ttl: CycleCachePolicy.history, timeout: Self.longTimeout, force: force,
+             minForce: CycleCachePolicy.manualMinInterval,
+             shown: history.value != nil, apply: { [weak self] in self?.history = $0 }) {
+            Sourced(value: try await InsightsDataSource.cycleHistory(), provider: nil)
+        }
+    }
+
+    /// Stand der gezeigten Altcoin-Saison («Stand 14:05»); nil = noch nichts gezeigt.
+    var altSeasonAsOf: Int64? { stamps[Self.altSeasonKey] }
+
+    /// Altcoin-Saison lädt gerade neu.
+    var altSeasonRefreshing: Bool { refreshingKeys.contains(Self.altSeasonKey) }
+
+    // MARK: Herkunft und Stand (Nebenzeilen von «Einordnung» und «Daten»)
+
+    private func stamp(_ key: String, ttl: Int64) -> DataStamp? {
+        stamps[key].map { DataStamp(provider: providers[key], savedAt: $0, ttl: ttl) }
+    }
+
+    var fearGreedStamp: DataStamp? { stamp(Self.fearGreedKey, ttl: CycleCachePolicy.fearGreed) }
+    var marketStamp: DataStamp? { stamp(Self.marketKey, ttl: CycleCachePolicy.market) }
+    /// Dominanz und Gesamtmarkt (eine CoinGecko-Abfrage).
+    var globalStamp: DataStamp? { stamp(Self.globalKey, ttl: CycleCachePolicy.global) }
+    var altSeasonStamp: DataStamp? { stamp(Self.altSeasonKey, ttl: CycleCachePolicy.altSeason) }
+    var gasStamp: DataStamp? { stamp(Self.gasKey, ttl: CycleCachePolicy.gas) }
+    /// Stand des gezeigten Coins (nur, wenn er zum gewählten Coin gehört).
+    var coinStamp: DataStamp? {
+        guard coin.value?.symbol == selectedCoin else { return nil }
+        return stamp(Self.coinKey(selectedCoin), ttl: CycleCachePolicy.coin)
+    }
+
+    /// «Aktualisieren» an der Altcoin-Saison: höchstens alle 5 Min. ein neuer Abruf.
+    func refreshAltSeason() { loadAltSeason(force: true) }
+
+    /// Altcoin-Saison: 3 h zwischengespeichert, von Hand frühestens alle 5 Min. neu.
+    private func loadAltSeason(force: Bool) {
         load(Self.altSeasonKey, ttl: CycleCachePolicy.altSeason, timeout: Self.longTimeout, force: force,
+             minForce: CycleCachePolicy.manualMinInterval,
              shown: altSeason.value != nil, apply: { [weak self] in self?.altSeason = $0 }) {
             try await InsightsDataSource.altSeason()
-        }
-        load(Self.historyKey, ttl: CycleCachePolicy.history, timeout: Self.longTimeout, force: force,
-             shown: history.value != nil, apply: { [weak self] in self?.history = $0 }) {
-            try await InsightsDataSource.cycleHistory()
         }
     }
 
@@ -312,7 +354,7 @@ final class CycleViewModel: ObservableObject {
                      self.globalMarket = result.market.map { CycleLoad.loaded($0) } ?? .failed
                  }
              }) {
-            try await InsightsDataSource.global()
+            Sourced(value: try await InsightsDataSource.global(), provider: DataFreshness.coinGecko)
         }
     }
 
@@ -327,19 +369,22 @@ final class CycleViewModel: ObservableObject {
         ttl: Int64,
         timeout: Double,
         force: Bool,
+        minForce: Int64 = 0,
         shown: Bool,
         apply: @escaping @MainActor (CycleLoad<T>) -> Void,
-        _ fetch: @escaping @Sendable () async throws -> T
+        _ fetch: @escaping @Sendable () async throws -> Sourced<T>
     ) {
         var hasValue = shown
         if !hasValue, let entry = CycleCache.read(key, as: T.self) {
             apply(.loaded(entry.value))
             stamps[key] = entry.savedAt
+            providers[key] = entry.provider
             hasValue = true
         }
         // Gezeigt, aber ohne Stand (z. B. Coin gewechselt) zählt wie «nichts bekannt»
         let savedAt = hasValue ? stamps[key] : nil
-        guard CycleCachePolicy.needsRefresh(savedAt: savedAt, now: TimeUtils.nowMillis, ttl: ttl, force: force)
+        guard CycleCachePolicy.needsRefresh(savedAt: savedAt, now: TimeUtils.nowMillis, ttl: ttl, force: force,
+                                            minForce: minForce)
         else { return }
         if tasks[key] != nil && !force {
             // Läuft schon (z. B. Coin hin und zurück gewechselt): nur den Ladezustand zeigen
@@ -360,9 +405,10 @@ final class CycleViewModel: ObservableObject {
             self.refreshingKeys.remove(key)
             if let value {
                 let now = TimeUtils.nowMillis
-                apply(.loaded(value))
+                apply(.loaded(value.value))
                 self.stamps[key] = now
-                CycleCache.write(key, value, savedAt: now)
+                self.providers[key] = value.provider
+                CycleCache.write(key, value.value, savedAt: now, provider: value.provider)
             } else if !keepShown {
                 apply(.failed)
             }
@@ -390,7 +436,8 @@ final class CycleViewModel: ObservableObject {
                  guard let self, self.selectedCoin == symbol else { return }
                  self.coin = state
              }) {
-            try await CoinCycleModel.evaluate(symbol: symbol, input: InsightsDataSource.fetchCoin(symbol: symbol))
+            let sourced = try await InsightsDataSource.fetchCoin(symbol: symbol)
+            return Sourced(value: CoinCycleModel.evaluate(symbol: symbol, input: sourced.value), provider: sourced.provider)
         }
     }
 

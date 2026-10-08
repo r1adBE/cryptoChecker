@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">Precios en vivo</string>
+    <string name="settings_live_websocket_hint">Los precios siguen al exchange sin retraso mientras la lista está abierta. Para Binance, Bybit, OKX, Coinbase y Kraken.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">Precios en vivo activos</string>
+    <string name="refresh_report_live">En vivo: %1$s</string>
+</resources>

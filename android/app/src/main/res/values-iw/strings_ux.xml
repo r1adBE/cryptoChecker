@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">היום %1$s</string>
     <string name="widget_portfolio_empty">הוסיפו רכישות בלשונית תיק השקעות</string>
     <string name="a11y_portfolio_widget">תיק השקעות %1$s, היום %2$s</string>
-    <string name="settings_section_advanced">מתקדם</string>
-    <string name="settings_advanced_hint">מצב חי, התראה קבועה, חוזים עתידיים ואפשרויות מפתחים</string>
     <string name="explain_funding">עמלה בין פוזיציות לונג לשורט. ערך חיובי מאוד פירושו שרבים מהמרים על עליית מחירים.</string>
     <string name="explain_open_interest">שווי כל פוזיציות החוזים העתידיים הפתוחות. אם הוא עולה, יותר כסף מהמר על התנועה.</string>
     <string name="explain_rsi">מדד העוצמה היחסית, 0–100. מעל 70 לרוב התחממות יתר, מתחת ל־30 לרוב מכירת יתר.</string>

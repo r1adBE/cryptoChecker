@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -50,6 +51,7 @@ import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.features.portfolio.CoinBadge
 import com.cryptochecker.app.ui.features.portfolio.PlPill
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.A11yText
 import kotlinx.coroutines.delay
 import java.time.ZoneId
@@ -94,7 +96,7 @@ internal fun UnusualCard(
                         stringResource(R.string.unusual_source),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 10.dp)
+                        modifier = Modifier.padding(top = Spacing.sm)
                     )
                 }
             }
@@ -129,7 +131,7 @@ private fun UnusualRowItem(row: UnusualRow, watched: Boolean, onTap: () -> Unit)
                     true
                 }
             }
-            .padding(vertical = 6.dp)
+            .padding(vertical = Spacing.sm)
     ) {
         CoinBadge(row.symbol, size = 36.dp)
         Column(
@@ -178,7 +180,7 @@ private fun UnusualSkeleton() {
         repeat(3) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(vertical = 6.dp)
+                modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(vertical = Spacing.sm)
             ) {
                 Box(
                     modifier = Modifier
@@ -197,13 +199,14 @@ private fun UnusualSkeleton() {
 }
 
 /**
- * Kompakte Zeile «Wirtschaftsdaten» oben im Abschnitt «Jetzt» — nur, wenn heute (oder in
- * den nächsten 18 h) wichtige US-Daten anstehen bzw. heute veröffentlicht wurden
- * ([MacroCalendar.hint]). Rechnet jede Minute neu (Wechsel zu «veröffentlicht», Mitternacht).
+ * Kompakte Zeile «Wirtschaftsdaten» — nur, wenn heute (oder in den nächsten 18 h) wichtige
+ * US-Daten anstehen bzw. heute veröffentlicht wurden ([MacroCalendar.hint]). Oben im Abschnitt
+ * «Jetzt» ([atTop]) nur bei einem Termin in ±2 h ([MacroCalendar.isImminent]), sonst im
+ * Abschnitt «Daten». Rechnet jede Minute neu (Wechsel des Platzes, «veröffentlicht», Mitternacht).
  * Grau, ohne Bedeutungsfarbe; für den Screenreader ein Element.
  */
 @Composable
-internal fun MacroHintRow(events: List<MacroEvent>) {
+internal fun MacroHintRow(events: List<MacroEvent>, atTop: Boolean) {
     if (events.isEmpty()) return
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(events) {
@@ -213,18 +216,26 @@ internal fun MacroHintRow(events: List<MacroEvent>) {
         }
     }
     val hint = remember(events, now / 60_000L) { MacroCalendar.hint(events, now, ZoneId.systemDefault()) } ?: return
+    if (MacroCalendar.isImminent(hint, now) != atTop) return
     val context = LocalContext.current
     val text = MacroTexts.hint(context, hint)
     val title = stringResource(R.string.macro_title)
+    // Unter «Daten» eine Zeile wie die übrigen (Trennlinie darüber, ohne Kasten)
+    if (!atTop) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 12.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .then(
+                if (atTop) Modifier
+                    // Oben im Abschnitt «Jetzt» als Kasten, mit Abstand zum Pulse darunter
+                    .padding(bottom = 12.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
+                else Modifier
+            )
             .clearAndSetSemantics { contentDescription = "$title. $text" }
-            .padding(horizontal = 14.dp, vertical = 10.dp)
+            .padding(horizontal = if (atTop) Spacing.md else 4.dp, vertical = Spacing.md)
     ) {
         Icon(
             painterResource(R.drawable.ic_info),
@@ -236,7 +247,7 @@ internal fun MacroHintRow(events: List<MacroEvent>) {
             text,
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 10.dp)
+            modifier = Modifier.padding(start = Spacing.sm)
         )
     }
 }

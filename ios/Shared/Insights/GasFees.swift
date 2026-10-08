@@ -162,28 +162,21 @@ enum GasFees {
         return value / 1e9
     }
 
-    /// «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0».
-    static func formatGwei(_ gwei: Double) -> String {
-        if gwei <= 0 { return "0" }
-        if gwei < 0.001 { return "<0.001" }
-        if gwei < 1 {
-            var s = String(format: "%.3f", locale: Locale(identifier: "en_US_POSIX"), gwei)
-            while s.hasSuffix("0") { s.removeLast() }
-            if s.hasSuffix(".") { s.removeLast() }
-            return s
-        }
-        if gwei < 10 {
-            let s = String(format: "%.1f", locale: Locale(identifier: "en_US_POSIX"), gwei)
-            return s.hasSuffix(".0") ? String(s.dropLast(2)) : s
-        }
-        return String(format: "%.0f", locale: Locale(identifier: "en_US_POSIX"), gwei)
+    /// «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0». In den Ziffern von `locale`
+    /// (App-Sprache; Arabisch «١٫٤»), denn alle Aufrufer zeigen den Text an.
+    static func formatGwei(_ gwei: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
+        if gwei <= 0 { return LocaleNumbers.integer(0, locale: locale) }
+        if gwei < 0.001 { return "<" + LocaleNumbers.decimal(0.001, maxDecimals: 3, locale: locale) }
+        if gwei < 1 { return LocaleNumbers.decimal(gwei, maxDecimals: 3, minDecimals: 0, locale: locale) }
+        if gwei < 10 { return LocaleNumbers.decimal(gwei, maxDecimals: 1, minDecimals: 0, locale: locale) }
+        return LocaleNumbers.decimal(gwei, maxDecimals: 0, locale: locale)
     }
 
-    /// Kosten in USD: «$0.42», «<$0.01».
-    static func formatUsd(_ usd: Double) -> String {
-        if usd < 0.01 { return "<$0.01" }
-        if usd < 100 { return String(format: "$%.2f", locale: Locale(identifier: "en_US_POSIX"), usd) }
-        return String(format: "$%.0f", locale: Locale(identifier: "en_US_POSIX"), usd)
+    /// Kosten in USD: «$0.42», «<$0.01» — in den Ziffern von `locale`.
+    static func formatUsd(_ usd: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
+        if usd < 0.01 { return "<$" + LocaleNumbers.decimal(0.01, maxDecimals: 2, locale: locale) }
+        if usd < 100 { return "$" + LocaleNumbers.decimal(usd, maxDecimals: 2, locale: locale) }
+        return "$" + LocaleNumbers.decimal(usd, maxDecimals: 0, locale: locale)
     }
 }
 
@@ -191,26 +184,39 @@ enum GasFees {
 /// damit Markt-Tab und Gas-Alarm nicht doppelt fragen.
 actor GasDataSource {
     static let shared = GasDataSource()
-    private var cached: GasReport?
+    private var cached: Sourced<GasReport>?
 
     func fetch(maxAge: Int64 = 60_000) async throws -> GasReport {
-        if let cached, TimeUtils.nowMillis - cached.time < maxAge { return cached }
-        let report = await load()
-        if report.evm.isEmpty && report.btc == nil { throw JSONError(message: "Keine Gebührendaten") }
-        cached = report
-        return report
+        try await fetchSourced(maxAge: maxAge).value
     }
 
-    private func load() async -> GasReport {
+    /// Wie `fetch`; `provider` = Knoten, der Ethereum geliefert hat (z. B. «publicnode.com»),
+    /// und «mempool.space» für Bitcoin — je nachdem, was im Bericht steht.
+    func fetchSourced(maxAge: Int64 = 60_000) async throws -> Sourced<GasReport> {
+        if let cached, TimeUtils.nowMillis - cached.value.time < maxAge { return cached }
+        let sourced = await load()
+        let report = sourced.value
+        if report.evm.isEmpty && report.btc == nil { throw JSONError(message: "Keine Gebührendaten") }
+        cached = sourced
+        return sourced
+    }
+
+    private func load() async -> Sourced<GasReport> {
         async let prices = Self.prices()
         async let btc = Self.mempoolOrNil()
-        let evm = await withTaskGroup(of: (GasNetwork, (Double, Double, Double))?.self) { group in
+        let (evm, ethNode) = await withTaskGroup(of: (GasNetwork, (Double, Double, Double), String)?.self,
+                                                   returning: ([GasNetwork: (Double, Double, Double)], String?).self) { group in
             for network in GasNetwork.allCases {
-                group.addTask { (try? await Self.evmGas(network)).map { (network, $0) } }
+                group.addTask { (try? await Self.evmGas(network)).map { (network, $0.fees, $0.rpc) } }
             }
             var out: [GasNetwork: (Double, Double, Double)] = [:]
-            for await item in group { if let item { out[item.0] = item.1 } }
-            return out
+            var node: String?
+            for await item in group {
+                guard let item else { continue }
+                out[item.0] = item.1
+                if item.0 == .ethereum { node = item.2 }
+            }
+            return (out, node)
         }
         let p = await prices
         let list = GasNetwork.allCases.compactMap { network -> EvmGas? in
@@ -222,26 +228,30 @@ actor GasDataSource {
         let btcFees = btcRaw.map { fees in
             BtcFees(fast: fees.0, normal: fees.1, slow: fees.2, transferUsd: GasFees.btcTransferUsd(fees.1, p["BTC"]))
         }
-        return GasReport(evm: list, btc: btcFees, time: TimeUtils.nowMillis)
+        // Herkunft wie in der Zeile gezeigt: der Ethereum-Knoten, dazu mempool.space für Bitcoin
+        let provider = DataFreshness.providers(ethNode.map { DataFreshness.siteName($0) },
+                                               btcFees == nil ? nil : DataFreshness.mempool)
+        return Sourced(value: GasReport(evm: list, btc: btcFees, time: TimeUtils.nowMillis), provider: provider)
     }
 
     private static func jsonPost(_ body: String) -> PostRequestInfo {
         PostRequestInfo(body: body, headers: ["Content-Type": "application/json"])
     }
 
-    /// (langsam, normal, schnell) in gwei; versucht die Knoten der Reihe nach.
-    private static func evmGas(_ network: GasNetwork) async throws -> (Double, Double, Double) {
+    /// (langsam, normal, schnell) in gwei und der Knoten, der geantwortet hat; versucht die Knoten der Reihe nach.
+    private static func evmGas(_ network: GasNetwork) async throws -> (fees: (Double, Double, Double), rpc: String) {
         var lastError: Error = JSONError(message: "Kein Knoten")
         for rpc in network.rpcs {
             do {
                 do {
-                    return try GasFees.parseFeeHistory(try await MarketHTTP.call(rpc, post: jsonPost(GasFees.feeHistoryRequest)))
+                    let fees = try GasFees.parseFeeHistory(try await MarketHTTP.call(rpc, post: jsonPost(GasFees.feeHistoryRequest)))
+                    return (fees, rpc)
                 } catch is CancellationError {
                     throw CancellationError()
                 } catch {
                     // Ohne eth_feeHistory: einfacher Gaspreis für alle drei Stufen
                     let price = try GasFees.parseGasPrice(try await MarketHTTP.call(rpc, post: jsonPost(GasFees.gasPriceRequest)))
-                    return (price, price, price)
+                    return ((price, price, price), rpc)
                 }
             } catch is CancellationError {
                 throw CancellationError()
@@ -310,7 +320,7 @@ enum GasAlertCheck {
                     id: "gas-eth",
                     title: L("notification_gas_eth_title", GasFees.formatGwei(eth.normalGwei)),
                     body: L("notification_gas_eth_text", GasFees.formatGwei(ethThreshold),
-                            eth.transferUsd.map(GasFees.formatUsd) ?? "–")
+                            eth.transferUsd.map { GasFees.formatUsd($0) } ?? "–")
                 )
             }
         }
@@ -320,7 +330,7 @@ enum GasAlertCheck {
                     id: "gas-btc",
                     title: L("notification_gas_btc_title", GasFees.formatGwei(btc.normal)),
                     body: L("notification_gas_btc_text", GasFees.formatGwei(btcThreshold),
-                            btc.transferUsd.map(GasFees.formatUsd) ?? "–")
+                            btc.transferUsd.map { GasFees.formatUsd($0) } ?? "–")
                 )
             }
         }

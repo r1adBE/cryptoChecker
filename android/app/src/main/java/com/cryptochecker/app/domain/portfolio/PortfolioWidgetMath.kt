@@ -4,7 +4,6 @@ import com.cryptochecker.app.domain.convert.CurrencyConversion
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
-import kotlin.math.floor
 import kotlin.math.max
 
 /**
@@ -22,33 +21,41 @@ data class PortfolioPosition(
 /** Ein Punkt des Wertverlaufs: Zeit (Epoch-ms) und Gesamtwert in der Anzeigewährung. */
 data class PortfolioValuePoint(val time: Long, val value: Double)
 
-/** Grösse des Portfolio-Widgets — bestimmt, was es zeigt. */
+/**
+ * Grösse des Portfolio-Widgets — bestimmt Layout und Inhalt (eigenes Layout je Stufe,
+ * widget_portfolio*.xml). Kopfzeile (Logo, «Portfolio», Pille) und Gesamtwert immer.
+ */
 enum class PortfolioWidgetSize {
-    /** Titel, Gesamtwert, ≈ USDT, Uhrzeit. */
+    /** Dazu die Zeile mit dem Betrag, Uhrzeit, ≈ USDT — kein Chart. */
     SMALL,
 
-    /** Dazu «heute» und der Wertverlauf. */
+    /** Schmal und hoch (z. B. 2 × 3): wie klein, darunter der Wertverlauf. */
+    TALL,
+
+    /** Breit (z. B. 4 × 2): Werte links, Wertverlauf rechts. */
     MEDIUM,
 
-    /** Dazu die grössten Positionen. */
+    /** Breit und hoch (z. B. 4 × 3): Werte, Wertverlauf, die drei grössten Positionen. */
     LARGE,
+}
+
+/**
+ * Was das Widget in seiner Stufe zeigt (Gesamtwert immer): [changeLine] «▼ −1’968.40 CHF · 24h»,
+ * [usdt] «≈ … USDT», [footer] «Stand 15:19 · 24h», [rows] Zeilen der Positionsliste.
+ * Vorrang bei knapper Höhe: Betrag > Fusszeile > ≈ USDT — nie abgeschnitten.
+ */
+data class PortfolioWidgetLayout(
+    val size: PortfolioWidgetSize,
+    val changeLine: Boolean,
+    val usdt: Boolean,
+    val footer: Boolean,
+    val rows: Int,
+) {
+    val chart: Boolean get() = size != PortfolioWidgetSize.SMALL
 }
 
 /** Die grössten Positionen (absteigend nach Wert) und wie viele es sonst noch gibt. */
 data class TopPositions(val positions: List<PortfolioPosition>, val others: Int)
-
-/**
- * Was das Widget bei der verfügbaren Höhe zeigt (Gesamtwert immer). Vorrang:
- * Gesamtwert > «heute» > ≈ USDT > Wertverlauf > Uhrzeit > Positionsliste.
- * [listLines] = verfügbare Listenzeilen inklusive «+ n weitere».
- */
-data class PortfolioWidgetParts(
-    val today: Boolean,
-    val usdt: Boolean,
-    val chart: Boolean,
-    val time: Boolean,
-    val listLines: Int,
-)
 
 /** Sichtbare Zeilen der Positionsliste und die Zahl für «+ n weitere» (0 = keine Zeile). */
 data class PositionRows(val shown: List<PortfolioPosition>, val more: Int)
@@ -59,29 +66,145 @@ data class PositionRows(val shown: List<PortfolioPosition>, val more: Int)
  */
 object PortfolioWidgetMath {
 
-    /** Höchstens so viele Positionen werden gespeichert und gezeigt. */
+    /** Höchstens so viele Positionen werden gespeichert. */
     const val MAX_POSITIONS = 5
 
-    const val MEDIUM_MIN_HEIGHT_DP = 110
-    const val LARGE_MIN_WIDTH_DP = 250
-    const val LARGE_MIN_HEIGHT_DP = 180
+    /** So viele Positionen zeigt die grosse Stufe. */
+    const val LARGE_ROWS = 3
 
-    /** Zeile der Positionsliste: 12 sp Text plus Rand der Prozent-Pille (dp). */
-    private const val ROW_TEXT_DP = 16f
-    private const val ROW_EXTRA_DP = 4f
+    /** Ab dieser Breite stehen Werte und Wertverlauf nebeneinander (mittel, gross). */
+    const val WIDE_MIN_WIDTH_DP = 250
 
-    /** Kleinste Höhe des Wertverlaufs (dp); darunter fällt er weg. */
-    const val CHART_MIN_HEIGHT_DP = 32f
+    /** Kleinste Höhe des Wertverlaufs (dp). */
+    const val CHART_MIN_HEIGHT_DP = 44f
+
+    /** Rand 2 × 12 dp (widget_portfolio*.xml). */
+    private const val PADDING_DP = 24f
+
+    /** Abstand über dem Wertverlauf (Spalte) bzw. links davon (mittel), dp. */
+    private const val CHART_GAP_DP = 6f
+    private const val MEDIUM_GAP_DP = 12f
+
+    /** Abstand über der Positionsliste (dp). */
+    private const val ROWS_GAP_DP = 6f
+
+    /** Abstand unter der Kopfzeile in der mittleren Stufe (dp). */
+    private const val MEDIUM_BODY_GAP_DP = 4f
+
+    /** Zeilenhöhe ≈ 1.35 × Schriftgrösse (sp) — wie die übrigen Widgets. */
+    private fun line(sp: Float, fontScale: Float): Float = sp * 1.35f * fontScale
+
+    /** Kopfzeile: Logo 16 dp, Titel 13 sp, Pille 11 sp mit 2 × 2 dp Innenrand. */
+    fun headerHeightDp(fontScale: Float): Float = maxOf(16f, line(13f, fontScale), line(11f, fontScale) + 4f)
+
+    /** Gesamtwert: höchstens 26 sp (passt sich der Breite an), 2 dp Abstand. */
+    fun valueHeightDp(fontScale: Float): Float = line(26f, fontScale) + 2f
+
+    /** «▼ −1’968.40 CHF · 24h»: 12 sp, 2 dp Abstand. */
+    fun changeLineHeightDp(fontScale: Float): Float = line(12f, fontScale) + 2f
+
+    /** ≈ USDT: 11 sp, 1 dp Abstand. */
+    fun usdtHeightDp(fontScale: Float): Float = line(11f, fontScale) + 1f
+
+    /** Fusszeile: 10 sp, 4 dp Abstand. */
+    fun footerHeightDp(fontScale: Float): Float = line(10f, fontScale) + 4f
+
+    /** Zeile der Positionsliste: 12 sp und 4 dp Abstand. */
+    fun rowHeightDp(fontScale: Float): Float = line(12f, fontScale) + 4f
+
+    /** Positionsliste mit [rows] Zeilen samt Abstand darüber; 0 ohne Zeilen. */
+    fun rowsHeightDp(fontScale: Float, rows: Int): Float =
+        if (rows > 0) ROWS_GAP_DP + rows * rowHeightDp(fontScale) else 0f
+
+    /** Immer belegt: Rand, Kopfzeile, Gesamtwert. */
+    fun baseHeightDp(fontScale: Float): Float = PADDING_DP + headerHeightDp(fontScale) + valueHeightDp(fontScale)
+
+    /** Spalte mit Wertverlauf (schmal-hoch, gross): Grundhöhe, Betrag, Fusszeile, Chart. */
+    private fun chartColumnHeightDp(fontScale: Float): Float =
+        baseHeightDp(fontScale) + changeLineHeightDp(fontScale) + footerHeightDp(fontScale) +
+            CHART_MIN_HEIGHT_DP + CHART_GAP_DP
 
     /**
-     * Stufe aus der Widget-Grösse in dp (Angaben des Launchers). Unbekannt (0) = klein.
-     * Gross: mindestens 250 × 180 dp (schmal und hoch bleibt mittel); mittel ab 110 dp Höhe.
+     * Stufe aus der Widget-Grösse in dp (Angaben des Launchers); unbekannt (0) = klein.
+     * Breit (ab [WIDE_MIN_WIDTH_DP]): gross, wenn Wertverlauf und drei Positionszeilen
+     * untereinander passen, sonst mittel (sobald Wert und Betrag passen). Schmal: schmal-hoch,
+     * wenn der Wertverlauf unter die Werte passt. Alles andere klein.
      */
-    fun size(widthDp: Int, heightDp: Int): PortfolioWidgetSize = when {
-        widthDp >= LARGE_MIN_WIDTH_DP && heightDp >= LARGE_MIN_HEIGHT_DP -> PortfolioWidgetSize.LARGE
-        heightDp >= MEDIUM_MIN_HEIGHT_DP -> PortfolioWidgetSize.MEDIUM
-        else -> PortfolioWidgetSize.SMALL
+    fun size(widthDp: Int, heightDp: Int, fontScale: Float = 1f): PortfolioWidgetSize {
+        if (heightDp <= 0) return PortfolioWidgetSize.SMALL
+        val wide = widthDp >= WIDE_MIN_WIDTH_DP
+        val column = chartColumnHeightDp(fontScale)
+        return when {
+            wide && heightDp >= column + rowsHeightDp(fontScale, LARGE_ROWS) -> PortfolioWidgetSize.LARGE
+            wide && heightDp >= baseHeightDp(fontScale) + changeLineHeightDp(fontScale) -> PortfolioWidgetSize.MEDIUM
+            !wide && heightDp >= column -> PortfolioWidgetSize.TALL
+            else -> PortfolioWidgetSize.SMALL
+        }
     }
+
+    /**
+     * Inhalt in der Stufe von [widthDp] × [heightDp] ([size]): Ein Teil erscheint nur, wenn er
+     * gewünscht ist und ganz passt (Vorrang Betrag > Fusszeile > ≈ USDT). In der Spalte mit
+     * Wertverlauf bleibt dafür mindestens [CHART_MIN_HEIGHT_DP]. Unbekannte Höhe: alles Gewünschte.
+     * @param hasChange Veränderung über 24 h bekannt
+     * @param positions Zahl der gespeicherten Positionen (gross zeigt höchstens [LARGE_ROWS])
+     */
+    fun layout(
+        widthDp: Int,
+        heightDp: Int,
+        fontScale: Float,
+        hasChange: Boolean,
+        wantUsdt: Boolean,
+        positions: Int,
+    ): PortfolioWidgetLayout {
+        val size = size(widthDp, heightDp, fontScale)
+        val rows = if (size == PortfolioWidgetSize.LARGE) positions.coerceIn(0, LARGE_ROWS) else 0
+        if (heightDp <= 0) return PortfolioWidgetLayout(size, hasChange, wantUsdt, footer = true, rows = rows)
+        val column = size == PortfolioWidgetSize.TALL || size == PortfolioWidgetSize.LARGE
+        var free = heightDp - baseHeightDp(fontScale) -
+            (if (column) CHART_MIN_HEIGHT_DP + CHART_GAP_DP else 0f) - rowsHeightDp(fontScale, rows)
+        fun take(wanted: Boolean, need: Float): Boolean {
+            val fits = wanted && need <= free
+            if (fits) free -= need
+            return fits
+        }
+        // Strenger Vorrang: ein Teil nur, wenn alle wichtigeren (gewünschten) passen
+        val change = take(hasChange, changeLineHeightDp(fontScale))
+        val footer = (change || !hasChange) && take(true, footerHeightDp(fontScale))
+        val usdt = footer && take(wantUsdt, usdtHeightDp(fontScale))
+        return PortfolioWidgetLayout(size, change, usdt, footer, rows)
+    }
+
+    /**
+     * Fläche des Wertverlaufs in dp (Breite, Höhe): mittel = rechte Spalte unter der Kopfzeile,
+     * schmal-hoch und gross = volle Breite, was neben den gezeigten Teilen bleibt (mindestens
+     * [CHART_MIN_HEIGHT_DP]). Klein oder unbekannte Grösse: (0, 0).
+     */
+    fun chartSizeDp(layout: PortfolioWidgetLayout, widthDp: Int, heightDp: Int, fontScale: Float): Pair<Float, Float> {
+        if (!layout.chart || widthDp <= 0 || heightDp <= 0) return 0f to 0f
+        val inner = widthDp - PADDING_DP
+        if (layout.size == PortfolioWidgetSize.MEDIUM) {
+            val h = heightDp - PADDING_DP - headerHeightDp(fontScale) - MEDIUM_BODY_GAP_DP
+            return ((inner - MEDIUM_GAP_DP) / 2f).coerceAtLeast(40f) to h.coerceAtLeast(CHART_MIN_HEIGHT_DP)
+        }
+        val used = baseHeightDp(fontScale) + CHART_GAP_DP +
+            (if (layout.changeLine) changeLineHeightDp(fontScale) else 0f) +
+            (if (layout.usdt) usdtHeightDp(fontScale) else 0f) +
+            (if (layout.footer) footerHeightDp(fontScale) else 0f) +
+            rowsHeightDp(fontScale, layout.rows)
+        return inner to max(CHART_MIN_HEIGHT_DP, heightDp - used)
+    }
+
+    /** Rand 2 × 12 dp, Logo 16 dp und Abstand 6 dp, Abstand vor der Pille 6 dp, Innenrand der Pille 2 × 7 dp. */
+    private const val HEADER_FIXED_DP = 24f + 16f + 6f + 6f + 14f
+
+    /**
+     * Titel «Portfolio» in der Kopfzeile nur, wenn er neben der Pille ganz Platz hat — sonst
+     * Logo und Pille allein (lieber kein Titel als «Portf…»; der Screenreader nennt ihn trotzdem).
+     * Ohne Pille ([pillTextDp] null) oder unbekannte Breite: immer.
+     */
+    fun showsTitle(widthDp: Int, titleDp: Float, pillTextDp: Float?): Boolean =
+        pillTextDp == null || widthDp <= 0 || titleDp + pillTextDp + HEADER_FIXED_DP + 2f <= widthDp
 
     /**
      * Zweite Zeile «≈ … USDT» nur, wenn gewünscht und die Anzeigewährung nicht selbst
@@ -157,97 +280,6 @@ object PortfolioWidgetMath {
         return PositionRows(top.positions.take(shown), total - shown)
     }
 
-    /** Innenrand der «heute»-Pille links + rechts (dp, widget_portfolio.xml). */
-    const val TODAY_PILL_PADDING_DP = 14f
-
-    /**
-     * Platz für den Text der «heute»-Pille in dp bei [widthDp] Widget-Breite
-     * (Rand 2 × 12 dp, Innenrand der Pille); null = Breite unbekannt.
-     */
-    fun todayTextWidthDp(widthDp: Int): Float? =
-        if (widthDp > 0) widthDp - 24f - TODAY_PILL_PADDING_DP else null
-
-    /** Höhe einer Listenzeile in dp. */
-    fun rowHeightDp(fontScale: Float): Float = ROW_TEXT_DP * fontScale + ROW_EXTRA_DP
-
-    /** Abstand über dem Wertverlauf bzw. über der Positionsliste (dp, widget_portfolio.xml). */
-    private const val CHART_GAP_DP = 6f
-    private const val LIST_GAP_DP = 4f
-
-    /** Zeilenhöhe ≈ 1.35 × Schriftgrösse (sp) — wie beim Einzel-Widget. */
-    private fun line(sp: Float, fontScale: Float): Float = sp * 1.35f * fontScale
-
-    /** Immer belegt: Rand 2 × 12 dp, Titel 14 sp, Gesamtwert 24 sp (+4 dp). */
-    fun baseHeightDp(fontScale: Float): Float = 24f + line(14f, fontScale) + 4f + line(24f, fontScale)
-
-    /**
-     * Kompakte Stufe (klein, z. B. 2 × 1 mit rund 92 dp Höhe): Rand oben/unten 2 × 8 dp,
-     * Titel 12 sp, Gesamtwert 20 sp (+2 dp) — damit «≈ … USDT» darunter Platz hat.
-     */
-    fun compactBaseHeightDp(fontScale: Float): Float = 16f + line(12f, fontScale) + 2f + line(20f, fontScale)
-
-    /** Kompakt zeichnen? Nur die kleine Stufe mit bekannter Höhe. */
-    fun isCompact(size: PortfolioWidgetSize, heightDp: Int): Boolean =
-        size == PortfolioWidgetSize.SMALL && heightDp > 0
-
-    /** «heute»-Pille: 12 sp, 2 × 2 dp Innenrand, 4 dp Abstand. */
-    fun todayHeightDp(fontScale: Float): Float = line(12f, fontScale) + 4f + 4f
-
-    /** ≈ USDT: 11 sp, 1 dp Abstand. */
-    fun usdtHeightDp(fontScale: Float): Float = line(11f, fontScale) + 1f
-
-    /** Uhrzeit: 10 sp, 2 dp Abstand. */
-    fun timeHeightDp(fontScale: Float): Float = line(10f, fontScale) + 2f
-
-    /**
-     * Welche Teile in [heightDp] Platz haben, nach Vorrang (siehe [PortfolioWidgetParts]):
-     * Ein Teil erscheint nur, wenn er gewünscht ist und ganz passt — so wird nichts
-     * abgeschnitten. Der Wertverlauf braucht mindestens [CHART_MIN_HEIGHT_DP]; was danach
-     * bleibt, geht an die Liste (falls [list]), der Rest an den Wertverlauf.
-     * Unbekannte Höhe (0): alles Gewünschte, keine Liste. [compact] = kleinere Kopfzeile
-     * und kleinerer Gesamtwert ([compactBaseHeightDp], nur Stufe klein).
-     */
-    fun parts(
-        heightDp: Int,
-        fontScale: Float,
-        today: Boolean,
-        usdt: Boolean,
-        chart: Boolean,
-        list: Boolean,
-        compact: Boolean = false,
-    ): PortfolioWidgetParts {
-        if (heightDp <= 0) return PortfolioWidgetParts(today, usdt, chart, time = true, listLines = 0)
-        var free = heightDp - if (compact) compactBaseHeightDp(fontScale) else baseHeightDp(fontScale)
-        fun take(wanted: Boolean, need: Float): Boolean {
-            val fits = wanted && need <= free
-            if (fits) free -= need
-            return fits
-        }
-        val showToday = take(today, todayHeightDp(fontScale))
-        val showUsdt = take(usdt, usdtHeightDp(fontScale))
-        val showChart = take(chart, CHART_MIN_HEIGHT_DP + CHART_GAP_DP)
-        val showTime = take(true, timeHeightDp(fontScale))
-        val lines = if (list && free > LIST_GAP_DP) {
-            floor((free - LIST_GAP_DP) / rowHeightDp(fontScale)).toInt().coerceIn(0, MAX_POSITIONS + 1)
-        } else 0
-        return PortfolioWidgetParts(showToday, showUsdt, showChart, showTime, lines)
-    }
-
-    /**
-     * Höhe des Wertverlaufs in dp: was neben den gezeigten Teilen und [usedListLines]
-     * Listenzeilen bleibt (mindestens [CHART_MIN_HEIGHT_DP]); 0 = unbekannt.
-     */
-    fun chartHeightDp(heightDp: Int, fontScale: Float, parts: PortfolioWidgetParts, usedListLines: Int): Float {
-        if (heightDp <= 0) return 0f
-        val used = baseHeightDp(fontScale) +
-            (if (parts.today) todayHeightDp(fontScale) else 0f) +
-            (if (parts.usdt) usdtHeightDp(fontScale) else 0f) +
-            (if (parts.time) timeHeightDp(fontScale) else 0f) +
-            CHART_GAP_DP +
-            (if (usedListLines > 0) LIST_GAP_DP + usedListLines * rowHeightDp(fontScale) else 0f)
-        return max(CHART_MIN_HEIGHT_DP, heightDp - used)
-    }
-
     /**
      * Wertverlauf des HEUTIGEN Bestands über die gemerkten Kursstände ([history], aufsteigend)
      * und den aktuellen Stand — wie «heute»: Käufe und Verkäufe seither verschieben die
@@ -301,5 +333,21 @@ object PortfolioWidgetMath {
             }
             x to y
         }
+    }
+
+    /**
+     * y-Lage von [value] in derselben Skala wie [linePoints] (z. B. die gestrichelte Linie
+     * beim Ausgangswert), auf die Fläche geklemmt; null, wenn es keine Linie gibt.
+     */
+    fun valueY(points: List<PortfolioValuePoint>, value: Double, height: Float, inset: Float): Float? {
+        val clean = points.filter { it.value.isFinite() }
+        if (clean.size < 2 || !value.isFinite()) return null
+        val low = clean.minOf { it.value }
+        val high = clean.maxOf { it.value }
+        val top = inset
+        val bottom = max(inset, height - inset)
+        if (!(high > low)) return (top + bottom) / 2f
+        val y = bottom - (value - low) / (high - low) * (bottom - top)
+        return y.toFloat().coerceIn(top, bottom)
     }
 }

@@ -156,14 +156,14 @@ enum CycleModel {
 
         // Zeit: Halving-Fenster und Abstand zum Hoch
         let inTopWindow = (12...18).contains(cycle.monthsSinceHalving)
-        signals.append(CycleSignal(id: .HALVING_TIME, value: String(cycle.monthsSinceHalving),
+        signals.append(CycleSignal(id: .HALVING_TIME, value: LocaleNumbers.integer(cycle.monthsSinceHalving),
                                    topPoints: inTopWindow ? 1 : 0, bottomPoints: 0))
 
         let monthsSinceAth = input.athDate.map { $0.months(until: input.today) }
         if let m = monthsSinceAth {
             // Nur zählen, wenn das Hoch auch deutlich zurückliegt (sonst sind wir am Hoch).
             let bottom = (m >= 12 && (drawdown ?? 0) >= 20) ? 1 : 0
-            signals.append(CycleSignal(id: .ATH_TIME, value: String(m), topPoints: 0, bottomPoints: bottom))
+            signals.append(CycleSignal(id: .ATH_TIME, value: LocaleNumbers.integer(m), topPoints: 0, bottomPoints: bottom))
         }
 
         let top = min(signals.reduce(0) { $0 + $1.topPoints }, 10)

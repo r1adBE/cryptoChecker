@@ -12,7 +12,7 @@ Alles, was du in App Store Connect einfügen musst, liegt bereits im Projekt:
 | Notizen für die App-Prüfung (Englisch) | `fastlane/metadata/review_information/notes.txt` |
 | Copyright, Kategorien | `fastlane/metadata/copyright.txt`, `primary_category.txt`, `secondary_category.txt` |
 | Icon 1024 × 1024 ohne Alphakanal (nur Referenz) | `fastlane/metadata/app_icon.png` |
-| Anleitung Screenshots | `fastlane/screenshots/README.md` |
+| Anleitung Screenshots | `fastlane/screenshots/README.md` (5 Szenen; Beschriftungen in allen Sprachen: `../cryptoChecker/docs/store/screenshots/captions.json` und Kit-README) |
 
 > **⚠️ Vor dem Einreichen ausfüllen:** Der Prüfungs-Kontakt enthält noch Platzhalter –
 > `fastlane/metadata/review_information/first_name.txt` (**VORNAME**),
@@ -42,6 +42,11 @@ Je Sprachordner:
 
 Alle Längen sind mit einem Skript geprüft (siehe Abschnitt 13).
 
+**Leitidee:** «Crypto Checker erklärt dir, was im Markt passiert.» Untertitel, Werbetext und die ersten
+Zeilen der Beschreibung führen in jeder Sprache mit diesem Satz bzw. seiner Kurzform (Untertitel z. B.
+«Erklärt, was im Markt passiert», en-US «The crypto market, explained»). Beobachtend formuliert: keine
+Prognosen, keine Anlageberatung.
+
 > Apple ändert Formulare und Regeln regelmässig. Die Angaben entsprechen dem
 > Stand Oktober 2026 – im Zweifel die aktuelle Hilfe von App Store Connect prüfen.
 
@@ -62,7 +67,7 @@ stehen zur Kontrolle hier.
 3. ~~Datenschutz-Manifest fehlt.~~ **Erledigt:** `App/PrivacyInfo.xcprivacy`,
    vom Generator beiden Targets als Ressource zugeordnet (Abschnitt 4.4).
 4. ~~Link zur Datenschutzerklärung in der App.~~ **Erledigt:** Zeile unter
-   Optionen › Über; `AppLinks.privacyPolicy` und alle `privacy_url.txt` /
+   Einstellungen › Über; `AppLinks.privacyPolicy` und alle `privacy_url.txt` /
    `support_url.txt` zeigen auf `https://r1adbe.github.io/cryptoChecker/`.
    Vor der Einreichung prüfen, dass GitHub Pages dort wirklich läuft.
 5. ~~Markt-Tab lädt Kursdaten von `api.binance.com`.~~ **Erledigt:** Charts,
@@ -625,7 +630,7 @@ Den **Werbetext** kannst du jederzeit ohne neue Prüfung ändern.
 - [ ] App-Datenschutz: «Keine Daten erfasst», veröffentlicht
 - [ ] Altersfreigabe ausgefüllt (4+)
 - [ ] Kategorien Finanzen / Dienstprogramme, Copyright `2026 r1AD`
-- [ ] Screenshots iPhone 6,9" (und iPad 13", falls iPad aktiv)
+- [ ] Screenshots iPhone 6,9" (und iPad 13", falls iPad aktiv) – 5 Szenen mit Beschriftungen aus `captions.json`
 - [ ] China (Festland) abgewählt
 - [x] Keine Spendenadressen in der App (11.1)
 - [ ] Build in TestFlight auf echtem iPhone getestet (Widgets, Alarme, Sicherung)

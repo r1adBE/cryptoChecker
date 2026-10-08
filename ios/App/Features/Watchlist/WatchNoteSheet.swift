@@ -27,7 +27,7 @@ struct WatchNoteSheet: View {
                     .onChange(of: text) { _, value in
                         if value.count > Watch.noteMax { text = String(value.prefix(Watch.noteMax)) }
                     }
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, Spacing.md)
                     .padding(.vertical, 12)
                     .background(AppColors.container, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 HStack {
@@ -46,7 +46,7 @@ struct WatchNoteSheet: View {
                 }
                 Spacer(minLength: 0)
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, Spacing.lg)
             .padding(.top, 8)
             .background(AppColors.background.ignoresSafeArea())
             .navigationTitle(L("note_title"))

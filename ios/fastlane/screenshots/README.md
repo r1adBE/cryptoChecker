@@ -36,7 +36,7 @@ Darum verlangt App Store Connect beide Gerätegruppen:
 fastlane/screenshots/
   en-US/
     01_watchlist.png        (1320 × 2868 → iPhone 6,9")
-    02_alarm.png
+    02_why.png
     ...
     01_watchlist_ipad.png   (2064 × 2752 → iPad 13")
   de-DE/
@@ -60,7 +60,7 @@ Dateinamen.
    ```
 
 3. Demo-Daten einspielen: `demo-backup.json` aus dem Screenshot-Kit ins
-   Simulator-Fenster ziehen und unter Optionen › Sichern & Wiederherstellen
+   Simulator-Fenster ziehen und unter Einstellungen › Sichern & Wiederherstellen
    wiederherstellen (Merkliste BTC/ETH/SOL, Alarm, Portfolio, CHF).
 4. Screenshot: im Simulator **⌘S** (Datei landet auf dem Schreibtisch, in voller
    Auflösung) oder im Terminal:
@@ -82,18 +82,21 @@ Dateinamen.
 
 ## Motive (Reihenfolge)
 
-Dieselben sechs Szenen wie bei Google Play – Demo-Daten, Beschriftungen in allen
-Sprachen und das Rahmen-Skript liegen im Screenshot-Kit
-`../../../cryptoChecker/docs/store/screenshots/README.md`:
+Dieselben fünf Szenen wie bei Google Play – Demo-Daten, Beschriftungen in allen
+Sprachen (`captions.json`, Tabellen im Kit-README) und das Rahmen-Skript liegen im Screenshot-Kit
+`../../../cryptoChecker/docs/store/screenshots/README.md`. Leitidee: «Crypto Checker erklärt dir,
+was im Markt passiert.»
 
-1. Merkliste mit «≈ … CHF» und Mini-Chart
-2. Alarm-Editor mit Satz und «Alarm testen»
-3. «Warum bewegt sich das?» mit «Kurz gesagt»
-4. Crypto Pulse im Markt-Tab
-5. Portfolio-Tab mit Gesamtwert in CHF
-6. Home-Bildschirm mit Merklisten-, Portfolio- und Einzel-Widget, dazu
-   Sperrbildschirm mit Live-Aktivität
-   (Widget im Simulator hinzufügen: Home-Bildschirm lange drücken › «+»)
+1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart
+2. «Warum bewegt sich das?» – das Blatt mit «Kurz gesagt»
+3. «Deine Merkliste, deine Börsen» – Seite «Paar hinzufügen» («+» oben in der Merkliste) mit der Börsenauswahl
+4. «Alarme, wenn es zählt» – Alarm-Editor mit Satz und «Alarm testen»
+5. «Dein Portfolio – geschützt» – Portfolio-Tab mit eingeschalteter Portfolio-Sperre
+   (Face ID/Touch ID oder Code; die Demo-Sicherung lässt die Sperre aus, also vorher einschalten);
+   das Auge oben («Beträge verbergen», Beträge als «•••») darf mit im Bild sein
+
+Dateinamen für fastlane z. B. `01_watchlist.png`, `02_why.png`, `03_exchanges.png`,
+`04_alarm.png`, `05_portfolio.png`.
 
 Tipps: keine privaten Mitteilungen im Bild, keine Gewinnversprechen in den
 Beschriftungen. Text auf den Bildern (Rahmen, Überschriften) ist erlaubt, solange

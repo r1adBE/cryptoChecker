@@ -2,7 +2,7 @@ import Foundation
 
 // API Reference: https://docs.cloud.coinbase.com/exchange/reference/
 final class Coinbase: Market {
-    private static let urlTickerBase = "https://api.exchange.coinbase.com/products/"   // + id + "/ticker"
+    private static let urlProductsBase = "https://api.exchange.coinbase.com/products/"   // + id + "/stats"
     private static let urlCurrencyPairs = "https://api.exchange.coinbase.com/products"
 
     private static let currencyPairsMap: [String: [String]] = [
@@ -35,15 +35,15 @@ final class Coinbase: Market {
         super.init(key: "Coinbase", name: "Coinbase", ttsName: "Coinbase", currencyPairs: Coinbase.currencyPairsMap)
     }
 
-    override func numOfRequests(_ info: CheckerInfo) -> Int { 2 }
+    /// Eine Anfrage je Paar: /stats liefert gleitend über 24 h open, high, low, last und
+    /// volume — alles, was Merkliste, Alarme und Widgets brauchen. /ticker kam nur für
+    /// Bid/Ask und den Zeitstempel dazu; Bid/Ask zeigt die App nirgends dauerhaft an (nur
+    /// die Vorschau beim Hinzufügen, die fehlende Werte ausblendet). Wie `Coinbase.kt`.
+    override func numOfRequests(_ info: CheckerInfo) -> Int { 1 }
 
     override func url(requestId: Int, info: CheckerInfo) -> String {
         let pairId = info.pairId ?? "\(info.base)-\(info.quote)"
-
-        if requestId == 0 {
-            return "\(Coinbase.urlTickerBase)\(pairId)/ticker"
-        }
-        return "\(Coinbase.urlTickerBase)\(pairId)/stats"
+        return "\(Coinbase.urlProductsBase)\(pairId)/stats"
     }
 
     override func parseTicker(requestId: Int, json: JObject, ticker: inout Ticker, info: CheckerInfo) throws {
@@ -52,33 +52,14 @@ final class Coinbase: Market {
         let message = json.optString("message")
         if !message.isEmpty { throw JSONError(message: message) }
 
-        if requestId == 0 {
-            let volume = try json.double("volume")
-            if volume <= 0 { throw JSONError(message: "No trading volume") }
-            ticker.vol = volume
-
-            ticker.bid = try json.double("bid")
-            ticker.ask = try json.double("ask")
-            ticker.last = try json.double("price")
-            ticker.timestamp = try Coinbase.isoToMillis(json.string("time"))
-        } else {
-            // /stats: „open“ = Kurs vor 24 h (gleitend). Bezug ist der Kurs aus /ticker.
-            let open = json.optDouble("open")
-            ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: open)
-                ?? Change24h.fromOpen(last: json.optDouble("last"), open: open)
-
-            ticker.high = try json.double("high")
-            ticker.low = try json.double("low")
-        }
-    }
-
-    /// Wie `TimeUtils.convertISODateToTimestamp`: ganze Sekunden × 1000.
-    /// Coinbase liefert Mikrosekunden ("…:56.123456Z"); die Nachkommastellen
-    /// werden vorher entfernt, weil ISO8601DateFormatter nicht jede Länge liest.
-    /// Kotlin würde bei unlesbarem Datum werfen; hier 0 → Zeitpunkt "jetzt".
-    private static func isoToMillis(_ s: String) -> Int64 {
-        let withoutFraction = s.replacingOccurrences(of: #"\.[0-9]+"#, with: "", options: .regularExpression)
-        return TimeUtils.isoToMillis(withoutFraction)
+        let volume = try json.double("volume")
+        if volume <= 0 { throw JSONError(message: "No trading volume") }
+        ticker.vol = volume
+        ticker.last = try json.double("last")
+        ticker.high = try json.double("high")
+        ticker.low = try json.double("low")
+        // „open“ = Kurs vor 24 h (gleitend)
+        ticker.change24hPercent = Change24h.fromOpen(last: ticker.last, open: json.optDouble("open"))
     }
 
     override func currencyPairsURL(requestId: Int) -> String? { Coinbase.urlCurrencyPairs }

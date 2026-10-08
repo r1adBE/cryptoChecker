@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">실시간 시세</string>
+    <string name="settings_live_websocket_hint">목록이 열려 있는 동안 시세가 거래소를 지연 없이 따라갑니다. Binance, Bybit, OKX, Coinbase, Kraken 지원.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">실시간 시세 켜짐</string>
+    <string name="refresh_report_live">실시간: %1$s</string>
+</resources>

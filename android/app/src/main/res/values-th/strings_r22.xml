@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">อัปเดตครบทั้งหมด</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d คู่ไม่ได้อัปเดต</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">เชื่อมต่อ %1$s ไม่ได้</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">เชื่อมต่อกระดานเทรดไม่ได้ %1$d แห่ง</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">รีเฟรชถูกยกเลิก</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d คู่</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">กระดานเทรด</string>
+    <string name="refresh_sheet_section_steps">รายละเอียด</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">รอจนเริ่ม</string>
+    <string name="refresh_sheet_network">เครือข่าย</string>
+    <string name="refresh_sheet_database">ฐานข้อมูล</string>
+    <string name="refresh_sheet_alarms">สัญญาณเตือน</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">ทำงาน %1$d รายการ</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">การแจ้งเตือน %1$d รายการ</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">วิดเจ็ต</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d จาก %1$d คู่</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">คำขอแบบรวม %1$s · %2$d ราคา</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">หมดเวลา</string>
+    <string name="refresh_sheet_reason_offline">ไม่มีการเชื่อมต่อ</string>
+    <string name="refresh_sheet_reason_rate_limit">คำขอมากเกินไป</string>
+    <string name="refresh_sheet_reason_server">เซิร์ฟเวอร์ผิดพลาด</string>
+    <string name="refresh_sheet_reason_no_data">ไม่มีข้อมูล</string>
+    <string name="refresh_sheet_reason_unavailable">กระดานเทรดไม่พร้อมใช้งาน</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">อัปเดตครบ</string>
+    <string name="refresh_sheet_status_partial">อัปเดตบางส่วน</string>
+    <string name="refresh_sheet_status_failed">ไม่ได้อัปเดต</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s วินาที</string>
+</resources>

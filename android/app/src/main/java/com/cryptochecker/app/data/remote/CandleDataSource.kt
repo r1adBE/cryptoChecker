@@ -3,6 +3,8 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.market.Sourced
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -11,6 +13,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import timber.log.Timber
+import java.time.Instant
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -84,7 +87,8 @@ class CandleDataSource @Inject constructor(
 
     /**
      * Bis zu [limit] Kerzen, aufsteigend; null, wenn keine Quelle das Paar liefert.
-     * Coinbase liefert höchstens 300 Rohkerzen — bei langen Reihen also weniger.
+     * Coinbase liefert höchstens 300 Rohkerzen je Anfrage; für längere Reihen kommt eine
+     * ältere Seite dazu ([CandleSeries.coinbaseOlderWindow]), also bis 600 Rohkerzen.
      * [preferFutures] = Futures-Paar (Perpetual usw.): zuerst die Kerzen von
      * fapi.binance.com, Spot erst danach.
      */
@@ -94,7 +98,19 @@ class CandleDataSource @Inject constructor(
         interval: CandleInterval,
         limit: Int,
         preferFutures: Boolean = false,
-    ): List<HourCandle>? {
+    ): List<HourCandle>? = candlesSourced(base, quote, interval, limit, preferFutures)?.value
+
+    /**
+     * Wie [candles], dazu der Anbieter, der geliefert hat («Binance», «Binance.US», «Coinbase»;
+     * siehe [DataFreshness.candleProvider]) — für die Herkunftsangabe im Markt-Tab.
+     */
+    suspend fun candlesSourced(
+        base: String,
+        quote: String,
+        interval: CandleInterval,
+        limit: Int,
+        preferFutures: Boolean = false,
+    ): Sourced<List<HourCandle>>? {
         val b = base.trim().uppercase()
         val q = quote.trim().uppercase()
         if (!isAsset(b) || !isAsset(q)) return null
@@ -117,7 +133,7 @@ class CandleDataSource @Inject constructor(
                     CandleSeries.isLive(result, interval.millis, System.currentTimeMillis())
                 ) {
                     working[memoKey] = source to System.currentTimeMillis()
-                    return@withContext result
+                    return@withContext Sourced(result, DataFreshness.candleProvider(source.key))
                 }
             }
             working.remove(memoKey)
@@ -168,7 +184,21 @@ class CandleDataSource @Inject constructor(
             if (BlockedSources.isBlocked(Source.COINBASE.key)) return null
             val url = "https://api.exchange.coinbase.com/products/$b-$cq/candles?granularity=$granularity"
             val body = get(Source.COINBASE, url) ?: continue
-            val raw = runCatching { parseCoinbase(body) }.getOrNull() ?: continue
+            var raw = runCatching { parseCoinbase(body) }.getOrNull() ?: continue
+            // Je Anfrage höchstens 300 Kerzen: für lange Reihen (1 Jahr) eine ältere Seite dazu
+            val rawNeeded = limit * when (interval) {
+                CandleInterval.H1, CandleInterval.D1 -> 1
+                CandleInterval.H4 -> 4
+                CandleInterval.W1 -> 7
+            }
+            val older = raw.firstOrNull()?.let {
+                CandleSeries.coinbaseOlderWindow(it.openTime, raw.size, rawNeeded, granularity * 1000L)
+            }
+            if (older != null) {
+                val olderUrl = "$url&start=${Instant.ofEpochMilli(older.first)}&end=${Instant.ofEpochMilli(older.last)}"
+                val olderRaw = get(Source.COINBASE, olderUrl)?.let { runCatching { parseCoinbase(it) }.getOrNull() }
+                if (olderRaw != null) raw = CandleSeries.mergeAscending(olderRaw, raw)
+            }
             val candles = when (interval) {
                 CandleInterval.H1, CandleInterval.D1 -> raw
                 CandleInterval.H4 -> aggregate(raw, 4 * HOUR_MILLIS, 0L, 4)

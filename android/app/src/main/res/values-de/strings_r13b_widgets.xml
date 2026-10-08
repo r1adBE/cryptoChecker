@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">veraltet · %1$s</string>
 
     <string name="settings_widgets">Widgets</string>
-    <string name="settings_widgets_hint">Kurse auf den Startbildschirm holen</string>
     <string name="widgets_sheet_title">Widget hinzufügen</string>
     <string name="widget_kind_single">Einzel-Coin</string>
     <string name="widgets_add">Hinzufügen</string>

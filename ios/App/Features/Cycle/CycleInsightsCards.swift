@@ -2,11 +2,15 @@ import SwiftUI
 
 // MARK: - Halving & Zyklus-Vergleich
 
-/// Countdown zum nächsten Halving und Vergleich der Zyklen — wie `HalvingCard` in Android.
-struct CycleHalvingCard: View {
+/// Halving als Zeile unter «Einordnung»: rechts das geschätzte Datum des nächsten Halvings,
+/// darunter der Fortschritt im Zyklus; Tippen klappt Countdown, Balken und Zyklus-Chart auf.
+/// Wie `HalvingRow` in Android.
+struct CycleHalvingRow: View {
     let cycle: CycleInfo
     let history: CycleLoad<CycleHistory>
     let onRetry: () -> Void
+    var divider = true
+    @State private var expanded = false
 
     var body: some View {
         let today = LocalDay.today()
@@ -14,30 +18,32 @@ struct CycleHalvingCard: View {
         let elapsed = min(max(cycle.lastHalving.days(until: today), 0), total)
         let remaining = max(today.days(until: cycle.nextHalvingEstimate), 0)
 
-        CycleInsightCard(L("insights_halving_title")) {
-            Text(L("insights_halving_countdown", count: remaining, remaining, CycleFormat.mediumDate(cycle.nextHalvingEstimate)))
-                .font(.headline)
-                .foregroundStyle(AppColors.onSurface)
-            CycleProgressBar(fraction: Double(elapsed) / Double(total), label: L("insights_halving_title"))
-                .padding(.top, 10)
-            Text(L("insights_cycle_progress", elapsed * 100 / total))
-                .font(.footnote)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .padding(.top, 6)
-                .padding(.bottom, 16)
-
-            Text(L("insights_cycle_chart"))
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppColors.onSurface)
-            switch history {
-            case .loading:
-                CycleHistoryChart.skeleton
-            case .failed:
-                CycleFailedRow(onRetry: onRetry)
-            case .loaded(let value):
-                CycleHistoryChart(history: value, currentHalving: cycle.lastHalving)
-            }
-        }
+        MarketRow(
+            title: L("insights_halving_title"),
+            secondary: L("insights_cycle_progress", elapsed * 100 / total),
+            value: CycleFormat.mediumDate(cycle.nextHalvingEstimate),
+            divider: divider,
+            expanded: $expanded,
+            details: AnyView(VStack(alignment: .leading, spacing: 0) {
+                Text(L("insights_halving_countdown", count: remaining, remaining, CycleFormat.mediumDate(cycle.nextHalvingEstimate)))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                CycleProgressBar(fraction: Double(elapsed) / Double(total), label: L("insights_halving_title"))
+                    .padding(.top, Spacing.sm)
+                    .padding(.bottom, 16)
+                Text(L("insights_cycle_chart"))
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(AppColors.onSurface)
+                switch history {
+                case .loading:
+                    CycleHistoryChart.skeleton
+                case .failed:
+                    CycleFailedRow(onRetry: onRetry)
+                case .loaded(let value):
+                    CycleHistoryChart(history: value, currentHalving: cycle.lastHalving)
+                }
+            })
+        )
     }
 }
 
@@ -77,6 +83,8 @@ struct CycleHistoryChart: View {
     private let markers: [CycleChartMarker]
 
     @Environment(\.appAccent) private var accent
+    /// Richtung der Oberfläche — die Zeichnung ist immer links→rechts, der Text der Sprechblase nicht.
+    @Environment(\.layoutDirection) private var layoutDirection
     /// Höchstens eine Sprechblase; Index in `markers`.
     @State private var selected: Int?
 
@@ -234,6 +242,7 @@ struct CycleHistoryChart: View {
                                                 width: geo.size.width, height: Self.chartHeight)
                             CycleBubbleLayout(anchor: CGPoint(x: p.x, y: p.y + Self.chartTopPadding)) {
                                 CycleMarkerBubble(marker: m)
+                                    .environment(\.layoutDirection, layoutDirection)
                             }
                             .allowsHitTesting(false)
                         }
@@ -241,6 +250,8 @@ struct CycleHistoryChart: View {
                 }
             }
             .onChange(of: history) { self.selected = nil }
+            // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)
+            .environment(\.layoutDirection, .leftToRight)
             // VoiceOver: je Zyklus ein Satz (Stand seit dem Halving, Hoch, Tief, Doppel-Top/-Bottom)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(L("insights_cycle_chart"))
@@ -253,7 +264,7 @@ struct CycleHistoryChart: View {
                     ForEach(0...4, id: \.self) { year in
                         let raw = width * CGFloat(Double(year * 360) / Self.maxDay)
                         let half = Self.labelWidth / 2
-                        Text(verbatim: "\(year)")
+                        Text(verbatim: LocaleNumbers.integer(year))
                             .font(.caption2)
                             .monospacedDigit()
                             .foregroundStyle(AppColors.onSurfaceVariant)
@@ -265,6 +276,8 @@ struct CycleHistoryChart: View {
             }
             .frame(height: 16)
             .padding(.top, 4)
+            // Jahresmarken unter den Hilfslinien: ebenfalls immer von links nach rechts
+            .environment(\.layoutDirection, .leftToRight)
             .accessibilityHidden(true)
 
             Text(L("insights_chart_axis"))
@@ -277,7 +290,7 @@ struct CycleHistoryChart: View {
                         .fill(lineColors[i])
                         .frame(width: 10, height: 10)
                         .accessibilityHidden(true)
-                    Text(verbatim: String(s.halving.year))
+                    Text(verbatim: LocaleNumbers.integer(s.halving.year))
                         .font(.caption.weight(.medium))
                         .foregroundStyle(AppColors.onSurface)
                         .padding(.leading, 4)
@@ -289,7 +302,7 @@ struct CycleHistoryChart: View {
             Text(L("insights_chart_hint"))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)
-                .padding(.top, 6)
+                .padding(.top, Spacing.xs)
             CycleSourceText(text: L("insights_source_history"))
         }
     }
@@ -324,7 +337,7 @@ extension CycleHistoryChart {
             Text(L("insights_chart_hint"))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)
-                .padding(.top, 6)
+                .padding(.top, Spacing.xs)
             CycleSourceText(text: L("insights_source_history"))
         }
     }
@@ -336,7 +349,7 @@ extension CycleHistoryChart {
         var sentences: [String] = []
         for s in series {
             guard let last = s.points.last(where: { $0.multiple > 0 }) else { continue }
-            sentences.append(L("a11y_cycle", String(s.halving.year), spokenPercent(last.multiple - 1), last.day))
+            sentences.append(L("a11y_cycle", LocaleNumbers.integer(s.halving.year), spokenPercent(last.multiple - 1), last.day))
             if let m = s.top { sentences.append(L("a11y_cycle_top", price(m), m.day)) }
             if let m = s.secondTop { sentences.append(L("a11y_cycle_double_top", price(m), m.day)) }
             if let m = s.bottom { sentences.append(L("a11y_cycle_bottom", price(m), m.day)) }
@@ -394,7 +407,7 @@ struct CycleMarkerBubble: View {
     let marker: CycleChartMarker
 
     private var label: String {
-        let year = String(marker.marker.date.year)
+        let year = LocaleNumbers.integer(marker.marker.date.year)
         if marker.isSecondary {
             return L(marker.isTop ? "cycle_marker_double_top" : "cycle_marker_double_bottom", year)
         }
@@ -418,7 +431,8 @@ struct CycleMarkerBubble: View {
         f.usesGroupingSeparator = true
         f.maximumFractionDigits = 0
         let number = f.string(from: NSNumber(value: abs(pct))) ?? String(Int(abs(pct).rounded()))
-        return (pct >= 0 ? "+" : "−") + number + " %"
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
+        return BidiText.ltr((pct >= 0 ? "+" : "−") + number + " %")
     }
 
     /// Kurzes Datum im Format des Geräts (`FormatStyle.SHORT`).
@@ -438,10 +452,10 @@ struct CycleMarkerBubble: View {
         }
         .monospacedDigit()
         .foregroundStyle(AppColors.surface)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 6)
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.sm)
         .background(AppColors.onSurface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .shadow(color: .black.opacity(0.15), radius: 2, y: 1)
+        .shadow(color: AppColors.shadow.opacity(0.15), radius: 2, y: 1)
     }
 }
 
@@ -470,294 +484,212 @@ enum CycleFearGreedStyle {
     static func color(_ value: Int) -> Color { CycleZonePalette.gradient[level(value)] }
 }
 
-struct CycleFearGreedCard: View {
+/// Fear & Greed als erste Zeile unter «Einordnung»: Wert rechts, Stufe und Vortag darunter,
+/// die Skala 0–100 in voller Breite direkt unter der Zeile. Tippen zeigt Verlauf und Quelle.
+/// Wie `FearGreedRow` in Android.
+struct CycleFearGreedRow: View {
     let state: CycleLoad<FearGreed>
     let onRetry: () -> Void
+    var divider = false
+    /// Herkunft und Stand (alternative.me) für die Nebenzeile.
+    var stamp: DataStamp? = nil
+    @State private var expanded = false
 
     var body: some View {
-        CycleInsightCard(L("insights_fng_title")) {
-            switch state {
-            case .loading:
-                skeleton
-            case .failed:
-                CycleFailedRow(onRetry: onRetry)
-            case .loaded(let fg):
-                HStack(alignment: .firstTextBaseline, spacing: 12) {
-                    Text(verbatim: "\(fg.value)")
-                        .scaledFont(size: 36, weight: .semibold, relativeTo: .largeTitle)
+        let fg = state.value
+        let label = fg.map { L(CycleFearGreedStyle.labelKey($0.value)) } ?? ""
+        MarketRow(
+            title: L("insights_fng_title"),
+            secondary: fg?.yesterday.map { L("market_row_fng_yesterday", label, LocaleNumbers.integer($0)) } ?? label,
+            value: fg.map { LocaleNumbers.integer($0.value) },
+            state: Self.rowState(state),
+            divider: divider,
+            stamp: stamp,
+            onRetry: onRetry,
+            expanded: fg == nil ? nil : $expanded,
+            // Skala bleibt auch beim Laden und bei Fehler stehen (grau) — darunter springt nichts
+            below: AnyView(scale(fg?.value)),
+            details: AnyView(VStack(alignment: .leading, spacing: 0) {
+                if let fg {
+                    Text(L("insights_fng_history",
+                           fg.yesterday.map { LocaleNumbers.integer($0) } ?? "—",
+                           fg.weekAgo.map { LocaleNumbers.integer($0) } ?? "—",
+                           fg.monthAgo.map { LocaleNumbers.integer($0) } ?? "—"))
+                        .font(.footnote)
                         .monospacedDigit()
-                        .foregroundStyle(CycleFearGreedStyle.color(fg.value))
-                    Text(L(CycleFearGreedStyle.labelKey(fg.value)))
-                        .font(.headline.weight(.regular))
-                        .foregroundStyle(AppColors.onSurface)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                    CycleSourceText(text: L("insights_source_fng"))
                 }
-                // Wert und Stufe als eine Angabe; die Farbskala darunter ist Zierde
-                .accessibilityElement(children: .combine)
-                // Skala 0–100 mit Markierung
-                CycleScaleBar(colors: CycleZonePalette.gradient, fraction: Double(fg.value) / 100)
-                    .padding(.top, 10)
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(L("a11y_gauge", L("fng_extreme_fear"), L("fng_extreme_greed"), fg.value))
-                Text(L("insights_fng_history",
-                       fg.yesterday.map { String($0) } ?? "—",
-                       fg.weekAgo.map { String($0) } ?? "—",
-                       fg.monthAgo.map { String($0) } ?? "—"))
-                    .font(.footnote)
-                    .monospacedDigit()
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .padding(.top, 10)
-                CycleSourceText(text: L("insights_source_fng"))
-            }
+            })
+        )
+    }
+
+    /// Skala 0–100 mit Markierung; nil = grauer Platzhalter in derselben Höhe (18 pt).
+    @ViewBuilder
+    private func scale(_ value: Int?) -> some View {
+        if let value {
+            CycleScaleBar(colors: CycleZonePalette.gradient, fraction: Double(value) / 100)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(L("a11y_gauge", L("fng_extreme_fear"), L("fng_extreme_greed"), value))
+        } else {
+            Capsule()
+                .fill(AppColors.containerHighest)
+                .frame(height: 8)
+                .frame(maxWidth: .infinity, minHeight: 18, maxHeight: 18)
+                .accessibilityHidden(true)
         }
     }
 
-    /// Platzhalter in der Form der geladenen Karte: Wert und Stufe, Skala, Verlauf; Quelle echt.
-    private var skeleton: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            CycleSkeleton {
-                VStack(alignment: .leading, spacing: 0) {
-                    HStack(alignment: .firstTextBaseline, spacing: 12) {
-                        Text(verbatim: " ")
-                            .scaledFont(size: 36, weight: .semibold, relativeTo: .largeTitle)
-                            .cycleSkeletonBar(width: 56)
-                        Text(verbatim: " ")
-                            .font(.headline.weight(.regular))
-                            .cycleSkeletonBar(width: 96)
-                    }
-                    // Skala: gleiche Höhe wie `CycleScaleBar` (Markierung 18 pt, Balken 8 pt)
-                    Capsule()
-                        .fill(AppColors.containerHighest)
-                        .frame(height: 8)
-                        .frame(maxWidth: .infinity, minHeight: 18, maxHeight: 18)
-                        .padding(.top, 10)
-                    Text(verbatim: " ")
-                        .font(.footnote)
-                        .cycleSkeletonBar()
-                        .padding(.trailing, 60)
-                        .padding(.top, 10)
-                }
-            }
-            CycleSourceText(text: L("insights_source_fng"))
+    /// Zustand der Zeile aus dem Ladezustand; Fehler mit «Etwas ist schiefgelaufen».
+    static func rowState<T>(_ load: CycleLoad<T>, failure: String = L("something_went_wrong")) -> MarketRowState {
+        switch load {
+        case .loading: .loading
+        case .failed: .failed(failure)
+        case .loaded: .shown
         }
     }
 }
 
 // MARK: - Krypto-Markt (Marktkapitalisierung & Volumen)
 
-/// Kompakte Karte unter Fear & Greed: gesamte Marktkapitalisierung mit 24-h-Veränderung
-/// und 24-h-Volumen, in der Umrechnungswährung (sonst USD). Lädt mit der Dominanz
-/// (eine CoinGecko-Abfrage). Die Karte bleibt immer stehen: beim Laden ein form-gleicher
-/// Platzhalter, ohne Daten eine kompakte Zeile «gerade nicht verfügbar» mit «Erneut».
-struct CycleMarketCapCard: View {
+/// «Krypto-Markt» als erste Zeile unter «Daten»: rechts die gesamte Marktkapitalisierung mit
+/// 24-h-Veränderung, darunter das 24-h-Volumen, in der Umrechnungswährung (sonst USD). Lädt
+/// mit der Dominanz (eine CoinGecko-Abfrage). Beim Laden ein form-gleicher Platzhalter, ohne
+/// Daten «gerade nicht verfügbar» mit «Erneut». Tippen zeigt die Quelle.
+struct CycleMarketCapRow: View {
     let state: CycleLoad<GlobalMarket>
     /// Umrechnungswährung (`portfolioCurrency`).
     let currency: String
     let onRetry: () -> Void
+    var divider = false
+    /// Herkunft und Stand (CoinGecko) für die Nebenzeile.
+    var stamp: DataStamp? = nil
+    @State private var expanded = false
+    @Environment(\.priceColorScheme) private var priceColors
+    @Environment(\.priceHighContrast) private var highContrast
+    @Environment(\.priceColorsInverted) private var inverted
 
     var body: some View {
-        if let market = state.value, let v = market.values(currency: currency) {
-            content(market, code: v.code, marketCap: v.marketCap, volume: v.volume)
-        } else {
-            CycleInsightCard(L("market_cap_title")) {
-                if state.isLoading {
-                    skeleton
-                } else {
-                    // Fehler oder keine Werte (auch nicht in USD)
-                    HStack(spacing: 8) {
-                        Text(L("pulse_unavailable"))
-                            .font(.subheadline)
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        CycleRetryButton(action: onRetry)
-                    }
-                }
-            }
-        }
-    }
-
-    /// Platzhalter in der Form der geladenen Karte: echte Beschriftungen, Balken für die Werte.
-    private var skeleton: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L("market_cap_label"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                    CycleSkeleton {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(verbatim: " ")
-                                .font(.system(.title3, design: .rounded).weight(.semibold))
-                                .cycleSkeletonBar(width: 110)
-                            // Wie `WatchlistChangePill` (klein)
-                            Text(verbatim: " ")
-                                .font(.system(.caption, design: .rounded).weight(.semibold))
-                                .hidden()
-                                .frame(width: 56)
-                                .padding(.vertical, 2)
-                                .background(AppColors.containerHighest, in: Capsule())
-                                .dynamicTypeSize(...DynamicTypeSize.accessibility2)
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L("market_volume_label"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                    CycleSkeleton {
-                        Text(verbatim: " ")
-                            .font(.system(.title3, design: .rounded).weight(.semibold))
-                            .cycleSkeletonBar(width: 110)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            CycleSourceText(text: L("market_cap_source"))
-        }
-    }
-
-    private func content(_ market: GlobalMarket, code: String, marketCap: Double, volume: Double) -> some View {
-        let capText = CycleFormat.compactMoney(marketCap, code)
-        let volumeText = CycleFormat.compactMoney(volume, code)
-        return CycleInsightCard(L("market_cap_title")) {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L("market_cap_label"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                    Text(capText)
-                        .font(.system(.title3, design: .rounded).weight(.semibold))
-                        .monospacedDigit()
-                        .foregroundStyle(AppColors.onSurface)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                    // Vorzeichen, Pfeil und Kursfarben (Schema, hoher Kontrast, «Farben tauschen»)
-                    WatchlistChangePill(change: market.change24hPercent)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L("market_volume_label"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                    Text(volumeText)
-                        .font(.system(.title3, design: .rounded).weight(.semibold))
-                        .monospacedDigit()
-                        .foregroundStyle(AppColors.onSurface)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            CycleSourceText(text: L("market_cap_source"))
-        }
-        // VoiceOver: ein Satz — Titel, Marktkapitalisierung mit Veränderung, Volumen
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.join([
-            L("market_cap_title"),
-            "\(L("market_cap_label")) \(capText)",
-            A11y.change(market.change24hPercent),
-            "\(L("market_volume_label")) \(volumeText)",
-        ]))
+        let market = state.value
+        let values = market?.values(currency: currency)
+        let capText = values.map { CycleFormat.compactMoney($0.marketCap, $0.code) }
+        let volumeText = values.map { CycleFormat.compactMoney($0.volume, $0.code) }
+        let change = market?.change24hPercent
+        let formatted = PriceFormat.changePercent(change)
+        let rowState: MarketRowState = state.isLoading ? .loading
+            // Fehler oder keine Werte (auch nicht in USD)
+            : (capText == nil ? .failed(L("pulse_unavailable")) : .shown)
+        MarketRow(
+            title: L("market_cap_title"),
+            secondary: volumeText.map { "\(L("market_volume_label")) \($0)" } ?? "",
+            value: capText,
+            state: rowState,
+            divider: divider,
+            change: change.map { c in formatted.map { "\(PriceFormat.changeArrow(c)) \($0)" } ?? PriceFormat.zeroPercent() },
+            // Vorzeichen und Pfeil folgen der Richtung, die Farbe den Kursfarben (Schema, Kontrast, Tausch)
+            changeColor: change.flatMap { c in formatted.map { _ in priceColors.forChange(c, highContrast: highContrast, inverted: inverted) } }
+                ?? AppColors.onSurfaceVariant,
+            // VoiceOver: ein Satz — Titel, Marktkapitalisierung mit Veränderung, Volumen
+            spoken: capText.map { cap in
+                A11y.join([
+                    L("market_cap_title"),
+                    "\(L("market_cap_label")) \(cap)",
+                    A11y.change(change),
+                    "\(L("market_volume_label")) \(volumeText ?? "")",
+                ])
+            },
+            stamp: stamp,
+            onRetry: onRetry,
+            expanded: capText == nil ? nil : $expanded,
+            details: AnyView(CycleSourceText(text: L("market_cap_source")))
+        )
     }
 }
 
 // MARK: - Dominanz & Altcoin-Saison
 
-struct CycleDominanceCard: View {
+/// Bitcoin-Dominanz und Altcoin-Saison als zwei Zeilen unter «Einordnung». Tippen zeigt bei
+/// der Dominanz die Anteile als Balken, bei der Altcoin-Saison Balken, Erklärung, Stand mit
+/// «Aktualisieren» und die Quelle. Wie `DominanceRows` in Android.
+struct CycleDominanceRows: View {
     let dominance: CycleLoad<Dominance>
     let altSeason: CycleLoad<AltSeason>
     let onRetry: () -> Void
+    /// Stand der gezeigten Altcoin-Saison (Zwischenspeicher 3 h); nil = noch nichts.
+    var altSeasonAsOf: Int64? = nil
+    var altSeasonRefreshing = false
+    var onRefreshAltSeason: () -> Void = {}
+    /// Herkunft und Stand der Dominanz (CoinGecko) bzw. der Altcoin-Saison (Kerzen-Anbieter).
+    var dominanceStamp: DataStamp? = nil
+    var altSeasonStamp: DataStamp? = nil
+    @State private var dominanceExpanded = false
+    @State private var altExpanded = false
 
     var body: some View {
-        CycleInsightCard(L("insights_dominance_title")) {
-            switch dominance {
-            case .loading:
-                // Wert, Balken BTC · ETH · übrige, ETH-Zeile
-                CycleSkeleton(label: L("loading_hint")) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(verbatim: " ")
-                            .scaledFont(size: 36, weight: .semibold, relativeTo: .largeTitle)
-                            .cycleSkeletonBar(width: 110)
-                        Capsule()
-                            .fill(AppColors.containerHighest)
-                            .frame(height: 10)
-                            .padding(.top, 8)
-                        Text(verbatim: " ")
-                            .font(.footnote)
-                            .cycleSkeletonBar(width: 110)
-                            .padding(.top, 6)
+        let d = dominance.value
+        let a = altSeason.value
+        let altLabel = a.map { L($0.index >= 75 ? "altseason_alt" : ($0.index <= 25 ? "altseason_btc" : "altseason_mixed")) } ?? ""
+        VStack(spacing: 0) {
+            MarketRow(
+                title: L("insights_dominance_title"),
+                // BTC steht rechts; hier ETH (ohne ETH-Wert bleibt die Zeile leer, gleiche Höhe)
+                secondary: d?.eth.map { L("insights_dominance_eth", CycleFormat.percent1($0)) } ?? "",
+                value: d.map { CycleFormat.percent1($0.btc) },
+                state: CycleFearGreedRow.rowState(dominance),
+                stamp: dominanceStamp,
+                onRetry: onRetry,
+                expanded: d == nil ? nil : $dominanceExpanded,
+                details: AnyView(VStack(alignment: .leading, spacing: 0) {
+                    if let d {
+                        shareBar(d)
+                        CycleSourceText(text: L("insights_source_dominance"))
                     }
-                }
-            case .failed:
-                CycleFailedRow(onRetry: onRetry)
-            case .loaded(let d):
-                Text(CycleFormat.percent1(d.btc))
-                    .scaledFont(size: 36, weight: .semibold, relativeTo: .largeTitle)
-                    .monospacedDigit()
-                    .foregroundStyle(AppColors.onSurface)
-                shareBar(d)
-                    .padding(.top, 8)
-                // BTC steht gross darüber; hier nur ETH (ohne ETH-Wert keine Zeile)
-                if let ethShare = d.eth {
-                    Text(L("insights_dominance_eth", CycleFormat.percent1(ethShare)))
-                        .font(.footnote)
-                        .monospacedDigit()
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .padding(.top, 6)
-                }
-            }
-
-            Text(L("insights_altseason_title"))
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppColors.onSurface)
-                .padding(.top, 18)
-            switch altSeason {
-            case .loading:
-                // Index und Einstufung, Balken (6 pt wie `CycleProgressBar`), Erklärung
-                CycleSkeleton(label: L("loading_hint")) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack(alignment: .firstTextBaseline, spacing: 10) {
-                            Text(verbatim: " ")
-                                .font(.title.weight(.semibold))
-                                .cycleSkeletonBar(width: 44)
-                            Text(verbatim: " ")
-                                .font(.subheadline.weight(.medium))
-                                .cycleSkeletonBar(width: 110)
+                })
+            )
+            MarketRow(
+                title: L("insights_altseason_title"),
+                // Anbieter und Alter («… · Binance · heute 14:05») hängt MarketRow aus dem Stand an
+                secondary: altLabel,
+                value: a.map { LocaleNumbers.integer($0.index) },
+                state: CycleFearGreedRow.rowState(altSeason),
+                stamp: altSeasonStamp,
+                onRetry: onRetry,
+                expanded: a == nil ? nil : $altExpanded,
+                details: AnyView(VStack(alignment: .leading, spacing: 0) {
+                    if let a {
+                        CycleProgressBar(fraction: Double(a.index) / 100, label: L("insights_altseason_title"))
+                        Text(L("insights_altseason_value", count: a.outperformers, a.outperformers, a.total))
+                            .font(.footnote)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .padding(.top, Spacing.xs)
+                        if let asOf = altSeasonAsOf {
+                            altSeasonAsOfRow(asOf)
                         }
-                        .padding(.top, 4)
-                        Capsule()
-                            .fill(AppColors.containerHighest)
-                            .frame(height: 6)
-                            .padding(.top, 6)
-                        // Typische Zahlen, damit der Umbruch wie später ist
-                        Text(L("insights_altseason_value", count: 10, 10, 50))
-                            .font(.footnote)
-                            .cycleSkeletonLines(.footnote)
-                            .padding(.top, 6)
+                        CycleSourceText(text: L("insights_source_dominance"))
                     }
-                }
-            case .failed:
-                CycleFailedRow(onRetry: onRetry)
-            case .loaded(let a):
-                HStack(alignment: .firstTextBaseline, spacing: 10) {
-                    Text(verbatim: "\(a.index)")
-                        .font(.title.weight(.semibold))
-                        .monospacedDigit()
-                        .foregroundStyle(AppColors.onSurface)
-                    Text(L(a.index >= 75 ? "altseason_alt" : (a.index <= 25 ? "altseason_btc" : "altseason_mixed")))
-                        .font(.subheadline.weight(.medium))
-                        .foregroundStyle(AppColors.onSurface)
-                }
-                .padding(.top, 4)
-                .accessibilityElement(children: .combine)
-                CycleProgressBar(fraction: Double(a.index) / 100, label: L("insights_altseason_title"))
-                    .padding(.top, 6)
-                Text(L("insights_altseason_value", count: a.outperformers, a.outperformers, a.total))
-                    .font(.footnote)
+                })
+            )
+        }
+    }
+
+    /// «Stand 14:05» und ein kleines «Aktualisieren»: erst 5 Min. nach dem letzten Stand
+    /// wieder aktiv (`CycleCachePolicy.manualMinInterval`), sonst gilt der 3-h-Zwischenspeicher.
+    private func altSeasonAsOfRow(_ asOf: Int64) -> some View {
+        TimelineView(.periodic(from: .now, by: 15)) { context in
+            let now = Int64(context.date.timeIntervalSince1970 * 1000)
+            let enabled = !altSeasonRefreshing
+                && CycleCachePolicy.canManualRefresh(savedAt: asOf, now: now, minInterval: CycleCachePolicy.manualMinInterval)
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(L("pulse_updated", PriceFormat.time(asOf)))
+                    .font(.caption.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                    .padding(.top, 6)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Button(L("action_refresh"), action: onRefreshAltSeason)
+                    .font(.caption.weight(.semibold))
+                    .buttonStyle(.borderless)
+                    .disabled(!enabled)
             }
-            CycleSourceText(text: L("insights_source_dominance"))
+            .padding(.top, 8)
         }
     }
 
@@ -770,11 +702,11 @@ struct CycleDominanceCard: View {
         return GeometryReader { geo in
             HStack(spacing: 0) {
                 Rectangle()
-                    .fill(Color(hex: 0xF7931A))
+                    .fill(AssetColors.bitcoin)
                     .frame(width: geo.size.width * CGFloat(btc / sum))
                 if eth > 0 {
                     Rectangle()
-                        .fill(Color(hex: 0x627EEA))
+                        .fill(AssetColors.ethereum)
                         .frame(width: geo.size.width * CGFloat(eth / sum))
                 }
                 if rest > 0 {
@@ -792,51 +724,69 @@ struct CycleDominanceCard: View {
 
 // MARK: - Netzwerkgebühren (#167)
 
-/// Gas-Gebühren: Ethereum und Bitcoin mit langsam/normal/schnell, die
-/// L2-/Seitennetze mit der normalen Gebühr. Rechts die Kosten einer einfachen
-/// Überweisung. Ein aktiver Gas-Alarm steht als Hinweis darunter — wie `GasCard`.
-struct CycleGasCard: View {
+/// Netzwerkgebühren als Zeile unter «Daten»: rechts die normale Ethereum-Gebühr, darunter
+/// Bitcoin. Tippen klappt alle Netze (Ethereum und Bitcoin mit langsam/normal/schnell, die
+/// L2-/Seitennetze mit der normalen Gebühr, rechts die Kosten einer einfachen Überweisung),
+/// den Hinweis auf aktive Gas-Alarme und die Quelle auf — wie `GasSummaryRow`.
+struct CycleGasRow: View {
     let state: CycleLoad<GasReport>
     let ethAlertGwei: Double
     let btcAlertSat: Int
     let onRetry: () -> Void
+    var divider = true
+    /// Herkunft (Ethereum-Knoten, mempool.space) und Stand für die Nebenzeile.
+    var stamp: DataStamp? = nil
 
     @Environment(\.appAccent) private var accent
+    @State private var expanded = false
 
     var body: some View {
-        CycleInsightCard(L("gas_title")) {
-            switch state {
-            case .loading:
-                skeleton
-            case .failed:
-                CycleFailedRow(onRetry: onRetry)
-            case .loaded(let report):
-                VStack(spacing: 0) {
-                    ForEach(report.evm, id: \.network) { gas in
-                        row(
-                            name: gas.network.title,
-                            value: GasFees.formatGwei(gas.normalGwei),
-                            unit: "gwei",
-                            cost: gas.transferUsd,
-                            detail: gas.network == .ethereum && gas.fastGwei > gas.slowGwei
-                                ? L("gas_slow_fast", GasFees.formatGwei(gas.slowGwei), GasFees.formatGwei(gas.fastGwei))
-                                : nil
-                        )
-                    }
-                    if let btc = report.btc {
-                        row(
-                            name: "Bitcoin",
-                            value: GasFees.formatGwei(btc.normal),
-                            unit: "sat/vB",
-                            cost: btc.transferUsd,
-                            detail: btc.fast > btc.slow
-                                ? L("gas_slow_fast", GasFees.formatGwei(btc.slow), GasFees.formatGwei(btc.fast))
-                                : nil
-                        )
-                    }
+        let report = state.value
+        let eth = report?.evm.first { $0.network == .ethereum }
+        let btcText = report?.btc.map { "Bitcoin \(GasFees.formatGwei($0.normal)) sat/vB" }
+        MarketRow(
+            title: L("gas_title"),
+            secondary: [eth?.network.title, btcText].compactMap { $0 }.joined(separator: " · "),
+            value: eth.map { "\(GasFees.formatGwei($0.normalGwei)) gwei" }
+                ?? report?.btc.map { "\(GasFees.formatGwei($0.normal)) sat/vB" },
+            state: CycleFearGreedRow.rowState(state),
+            divider: divider,
+            stamp: stamp,
+            onRetry: onRetry,
+            expanded: report == nil ? nil : $expanded,
+            details: AnyView(VStack(alignment: .leading, spacing: 0) {
+                if let report {
+                    networks(report)
+                    alertText
+                    CycleSourceText(text: L("gas_source"))
                 }
-                alertText
-                CycleSourceText(text: L("gas_source"))
+            })
+        )
+    }
+
+    private func networks(_ report: GasReport) -> some View {
+        VStack(spacing: 0) {
+            ForEach(report.evm, id: \.network) { gas in
+                row(
+                    name: gas.network.title,
+                    value: GasFees.formatGwei(gas.normalGwei),
+                    unit: "gwei",
+                    cost: gas.transferUsd,
+                    detail: gas.network == .ethereum && gas.fastGwei > gas.slowGwei
+                        ? L("gas_slow_fast", GasFees.formatGwei(gas.slowGwei), GasFees.formatGwei(gas.fastGwei))
+                        : nil
+                )
+            }
+            if let btc = report.btc {
+                row(
+                    name: "Bitcoin",
+                    value: GasFees.formatGwei(btc.normal),
+                    unit: "sat/vB",
+                    cost: btc.transferUsd,
+                    detail: btc.fast > btc.slow
+                        ? L("gas_slow_fast", GasFees.formatGwei(btc.slow), GasFees.formatGwei(btc.fast))
+                        : nil
+                )
             }
         }
     }
@@ -846,7 +796,7 @@ struct CycleGasCard: View {
     private var alertText: some View {
         let alerts = [
             ethAlertGwei > 0 ? "Ethereum < \(GasFees.formatGwei(ethAlertGwei)) gwei" : nil,
-            btcAlertSat > 0 ? "Bitcoin < \(btcAlertSat) sat/vB" : nil,
+            btcAlertSat > 0 ? "Bitcoin < \(LocaleNumbers.integer(btcAlertSat)) sat/vB" : nil,
         ].compactMap { $0 }
         if !alerts.isEmpty {
             Text(L("gas_alert_active", alerts.joined(separator: " · ")))
@@ -854,43 +804,6 @@ struct CycleGasCard: View {
                 .foregroundStyle(accent.primary)
                 .padding(.top, 8)
         }
-    }
-
-    /// Platzhalter in der Form der geladenen Karte: je Netz eine Zeile wie `row`
-    /// (Ethereum und Bitcoin mit Zeile langsam/schnell); Alarm-Hinweis und Quelle echt.
-    private var skeleton: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            CycleSkeleton(label: L("loading_hint")) {
-                VStack(spacing: 0) {
-                    ForEach(0..<Self.skeletonRows.count, id: \.self) { index in
-                        skeletonRow(withDetail: Self.skeletonRows[index])
-                    }
-                }
-            }
-            alertText
-            CycleSourceText(text: L("gas_source"))
-        }
-    }
-
-    /// Je EVM-Netz und Bitcoin: mit Zeile langsam/schnell? (Ethereum und Bitcoin)
-    private static let skeletonRows: [Bool] = GasNetwork.allCases.map { $0 == .ethereum } + [true]
-
-    /// Wie `row`, nur Balken: Name (body), ggf. Detail (caption2), Gebühr und Kosten.
-    private func skeletonRow(withDetail: Bool) -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            VStack(alignment: .leading, spacing: 1) {
-                Text(verbatim: " ").font(.body).cycleSkeletonBar(width: 90)
-                if withDetail {
-                    Text(verbatim: " ").font(.caption2.monospacedDigit()).cycleSkeletonBar(width: 130)
-                }
-            }
-            Spacer(minLength: 8)
-            VStack(alignment: .trailing, spacing: 1) {
-                Text(verbatim: " ").font(.body.weight(.semibold).monospacedDigit()).cycleSkeletonBar(width: 88)
-                Text(verbatim: " ").font(.caption2.monospacedDigit()).cycleSkeletonBar(width: 64)
-            }
-        }
-        .padding(.vertical, 6)
     }
 
     private func row(name: String, value: String, unit: String, cost: Double?, detail: String?) -> some View {
@@ -914,7 +827,7 @@ struct CycleGasCard: View {
                 }
             }
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, Spacing.sm)
         .accessibilityElement(children: .combine)
     }
 }

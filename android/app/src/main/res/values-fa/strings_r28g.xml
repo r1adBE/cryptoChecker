@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">آفلاین</string>
+    <string name="offline_status_since">آفلاین · تا %1$s</string>
+    <string name="error_market_unreachable">صرافی الان در دسترس نیست – آخرین قیمت‌ها نمایش داده می‌شوند.</string>
+    <string name="error_market_unreachable_short">صرافی الان در دسترس نیست</string>
+    <string name="refresh_sheet_paused_until">متوقف تا %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">متوقف تا %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">شروع برنامه</string>
+</resources>

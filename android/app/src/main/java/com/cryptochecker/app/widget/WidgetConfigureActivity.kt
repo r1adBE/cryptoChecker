@@ -55,7 +55,9 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.rememberHighContrast
+import com.cryptochecker.app.ui.theme.tabularNumbers
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -267,7 +269,7 @@ private fun WidgetConfigureContent(
                     .padding(top = 8.dp)
                     .clip(RoundedCornerShape(14.dp))
                     .background(Color(background.colorWithOpacity(opacity)))
-                    .padding(14.dp)
+                    .padding(Spacing.md)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -281,7 +283,7 @@ private fun WidgetConfigureContent(
                     Text(
                         text = "▲ +1.24%",
                         color = Color(background.upColor),
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge.tabularNumbers()
                     )
                 }
             }
@@ -295,7 +297,7 @@ private fun WidgetConfigureContent(
                         onDone
                     )
                 },
-                modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
+                modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg)
             ) {
                 Text(stringResource(R.string.action_save))
             }

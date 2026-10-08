@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Låset skyddar det som visas. Data finns på den här enheten och skyddas av enhetens kryptering. Du kan skydda säkerhetskopior med ett lösenord.</string>
+    <string name="backup_protect">Skydda med lösenord</string>
+    <string name="backup_protect_hint">Krypterar filen (AES-256). Rekommenderas om den innehåller portföljdata.</string>
+    <string name="backup_password">Lösenord</string>
+    <string name="backup_password_repeat">Upprepa lösenord</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Minst %1$d tecken</string>
+    <string name="backup_password_mismatch">Lösenorden stämmer inte överens</string>
+    <string name="backup_password_warning">Utan lösenordet kan säkerhetskopian inte återställas.</string>
+    <string name="backup_password_show">Visa lösenord</string>
+    <string name="backup_password_hide">Dölj lösenord</string>
+    <string name="backup_password_title">Lösenordsskyddad säkerhetskopia</string>
+    <string name="backup_password_prompt">Ange lösenordet för den här säkerhetskopian.</string>
+    <string name="backup_password_wrong">Fel lösenord, eller så är filen skadad. Försök igen.</string>
+    <string name="backup_password_continue">Fortsätt</string>
+</resources>

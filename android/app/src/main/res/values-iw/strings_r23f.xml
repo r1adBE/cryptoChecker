@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">כללי</string>
+    <string name="settings_group_data_only">נתונים</string>
+    <string name="settings_row_currency">מטבע</string>
+    <string name="settings_row_updates">עדכון</string>
+    <string name="settings_updates_live">תכוף · %1$s</string>
+    <string name="settings_updates_every">כל %1$s</string>
+    <string name="settings_row_watchlist">רשימת מעקב</string>
+    <string name="settings_watchlist_value_sparkline">מיני גרף</string>
+    <string name="settings_watchlist_value_price_only">מחיר בלבד</string>
+    <string name="settings_row_alarms">התראות</string>
+    <string name="settings_portfolio_value_locked">פועל, עם נעילה</string>
+    <string name="settings_row_dated_futures">חוזים עתידיים עם פקיעה</string>
+    <string name="settings_tradfi_futures">מניות, סחורות ומט״ח (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">בבחירת צמד מוצגים גם חוזים עתידיים על מניות, זהב וסחורות אחרות, מטבעות וחברות לפני הנפקה. אלה חוזים, לא טוקנים.</string>
+    <string name="settings_row_about">אודות האפליקציה</string>
+    <string name="price_colors_green_up">ירוק עולה / אדום יורד</string>
+    <string name="price_colors_red_up">אדום עולה / ירוק יורד</string>
+    <string name="price_colors_blue_up">כחול עולה / כתום יורד</string>
+    <string name="price_colors_orange_up">כתום עולה / כחול יורד</string>
+    <string name="price_colors_red_up_hint">מקובל בסין, ביפן, בקוריאה ובטייוואן</string>
+</resources>

@@ -10,10 +10,13 @@ enum CycleCachePolicy {
     static let history: Int64 = 12 * hour
     /// Marktphase (Scores) 1 h.
     static let market: Int64 = hour
-    static let fearGreed: Int64 = 30 * minute
-    /// CoinGecko `/global` (Marktkapitalisierung, Volumen, Dominanz) 15 Min.
-    static let global: Int64 = 15 * minute
-    static let altSeason: Int64 = hour
+    /// Fear & Greed ändert sich einmal am Tag — 1 h genügt.
+    static let fearGreed: Int64 = hour
+    /// CoinGecko `/global` (Marktkapitalisierung, Volumen, Dominanz; langsam) 30 Min.
+    static let global: Int64 = 30 * minute
+    /// Altcoin-Saison (rund 20 Verläufe; ändert sich über Tage) 3 h, auf der Platte —
+    /// übersteht einen Neustart. Von Hand frühestens alle `manualMinInterval` neu.
+    static let altSeason: Int64 = 3 * hour
     static let pulse: Int64 = 5 * minute
     static let gas: Int64 = minute
     /// Coin-Analyse je Coin 15 Min.
@@ -26,10 +29,23 @@ enum CycleCachePolicy {
         return age >= 0 && age < ttl
     }
 
-    /// Neu laden, wenn erzwungen, nichts bekannt ist oder der Stand älter als `ttl` ist.
-    static func needsRefresh(savedAt: Int64?, now: Int64, ttl: Int64, force: Bool) -> Bool {
-        guard !force, let savedAt else { return true }
+    /// Mindestabstand zwischen zwei Neuladungen von Hand bei langsamen Bereichen
+    /// (Altcoin-Saison, Zyklus-Vergleich, Marktphase) — wie `CycleCachePolicy.MANUAL_MIN_INTERVAL_MILLIS`.
+    static let manualMinInterval: Int64 = 5 * minute
+
+    /// Neu laden, wenn nichts bekannt ist oder der Stand älter als `ttl` ist. Erzwungen
+    /// (Ziehen, «Erneut», «Aktualisieren») immer — ausser der Stand ist jünger als `minForce`.
+    static func needsRefresh(savedAt: Int64?, now: Int64, ttl: Int64, force: Bool, minForce: Int64 = 0) -> Bool {
+        if force { return canManualRefresh(savedAt: savedAt, now: now, minInterval: minForce) }
+        guard let savedAt else { return true }
         return !isFresh(savedAt: savedAt, now: now, ttl: ttl)
+    }
+
+    /// Von Hand neu laden erlaubt? Ja ohne Stand, bei unplausiblem Zeitpunkt (Zukunft, ≤ 0)
+    /// oder wenn der Stand mindestens `minInterval` alt ist.
+    static func canManualRefresh(savedAt: Int64?, now: Int64, minInterval: Int64) -> Bool {
+        guard minInterval > 0, let savedAt, savedAt > 0, savedAt <= now else { return true }
+        return now - savedAt >= minInterval
     }
 
     /// Ältester gezeigter Stand für «Stand … · wird aktualisiert …» — nur solange
@@ -52,6 +68,9 @@ enum CycleCache {
         let version: Int
         let savedAt: Int64
         let value: Value
+        /// Anbieter, der den Wert geliefert hat (z. B. «CoinGecko»); fehlt in älteren Dateien
+        /// (dann nil — wird beim Lesen nicht verlangt).
+        var provider: String? = nil
     }
 
     private static let directory: URL? = {
@@ -91,9 +110,10 @@ enum CycleCache {
     }
 
     /// Schreibt atomar (nie eine halbe Datei); Fehler werden ignoriert.
-    static func write<Value: Codable>(_ key: String, _ value: Value, savedAt: Int64) {
+    static func write<Value: Codable>(_ key: String, _ value: Value, savedAt: Int64, provider: String? = nil) {
         guard let url = url(key),
-              let data = try? encoder().encode(Entry(version: version, savedAt: savedAt, value: value)) else { return }
+              let data = try? encoder().encode(Entry(version: version, savedAt: savedAt, value: value, provider: provider))
+        else { return }
         try? data.write(to: url, options: .atomic)
     }
 }

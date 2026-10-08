@@ -79,8 +79,9 @@ final class MexcFutures: SimpleMarket {
             // state 0 = aktiv; futureType 1 = Perpetual
             if item.optInt("state", -1) != 0 { continue }
             if item.optInt("futureType", 1) != 1 { continue }
+            let tradFi = TradFi.mexc(conceptPlates: TradFi.strings(item, "conceptPlate"), type: item.optInt("type", 1))
             try pairs.append(
-                CurrencyPairInfo(item.string("baseCoin"), item.string("quoteCoin"), item.string("symbol"), .perpetual)
+                CurrencyPairInfo(item.string("baseCoin"), item.string("quoteCoin"), item.string("symbol"), .perpetual, tradFi: tradFi)
             )
         }
         return pairs

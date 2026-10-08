@@ -1,9 +1,9 @@
-Tartsd szemmel a kriptoárfolyamokat anélkül, hogy folyton tőzsdei appokat nyitogatnál. Állíts be riasztásokat, vedd észre a szokatlan mozgásokat, és értsd meg másodpercek alatt, miért mozog egy coin.
+A Crypto Checker elmagyarázza, mi történik a piacon. Állíts be riasztásokat, vedd észre a szokatlan mozgásokat, és értsd meg másodpercek alatt, miért mozog egy coin – előrejelzés nélkül.
 
-Figyelés – árak közvetlenül a tőzsdéről, a saját pénznemedben
-Riasztás – ár, %, mozgás és forgalom, egyszerű mondatként
 Megértés – „Miért mozog?” rövid összefoglalóval
 Áttekintés – Crypto Pulse, Fear & Greed, ciklus és portfólió
+Figyelés – árak közvetlenül a tőzsdéről, a saját pénznemedben
+Riasztás – ár, %, mozgás és forgalom, egyszerű mondatként
 
 Mindenkinek olvasható: zöld/piros vagy kék/narancs árfolyamszínek, igény szerint felcserélve, nagy kontraszt, előjel és nyíl a puszta szín helyett, a TalkBack minden sort egy mondatként olvas fel.
 
@@ -45,7 +45,7 @@ PIACI ÁTTEKINTÉS
 WIDGETEK ÉS ÉRTESÍTÉSEK
 • Widgetek: teljes lista, portfólióérték a mai változással, egy coin nagyban árral és grafikonnal – gyertyák vagy vonal, csúcs/közép/mélypont jelöléssel
 • Néma árértesítés páronként
-• Élő mód 15 másodpercenkénti frissítéssel, háttérben 15 perctől
+• Gyakori frissítés 15 másodpercenként, háttérben 15 perctől
 
 TOVÁBBÁ
 • Hangkimenet: árfolyamok és riasztások felolvasása

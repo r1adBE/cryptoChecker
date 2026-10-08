@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">今日 %1$s</string>
     <string name="widget_portfolio_empty">「ポートフォリオ」タブで購入を追加</string>
     <string name="a11y_portfolio_widget">ポートフォリオ %1$s、今日 %2$s</string>
-    <string name="settings_section_advanced">詳細設定</string>
-    <string name="settings_advanced_hint">ライブモード、常駐通知、先物、開発者向けオプション</string>
     <string name="explain_funding">ロングとショートの間で支払われる手数料。大きくプラスなら、多くが値上がりに賭けています。</string>
     <string name="explain_open_interest">未決済の先物ポジションの総額。増えるほど、その値動きに賭ける資金が増えています。</string>
     <string name="explain_rsi">相対力指数（0–100）。70超は過熱、30未満は売られすぎのことが多いです。</string>

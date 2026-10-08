@@ -69,6 +69,14 @@ object PortfolioLockPolicy {
      */
     fun showSetting(portfolioEnabled: Boolean): Boolean = portfolioEnabled
 
+    /**
+     * Fenster schützen (FLAG_SECURE: kein Vorschaubild in «Zuletzt verwendet», keine
+     * Bildschirmfotos), solange die Sperre an ist und Portfolio-Beträge sichtbar sein können
+     * (Portfolio-Tab, Coin-Detail mit Verlauf, Erfassen-Blätter). Unabhängig vom Entsperr-Zustand:
+     * Entsperrt zeigt der Bildschirm Beträge.
+     */
+    fun secureWindow(lockSetting: Boolean, portfolioVisible: Boolean): Boolean = lockSetting && portfolioVisible
+
     /** Portfolio-Widget: ohne App-Sitzung, also gesperrt, solange die Einstellung an ist. */
     fun widgetLocked(lockSetting: Boolean): Boolean = lockSetting
 }

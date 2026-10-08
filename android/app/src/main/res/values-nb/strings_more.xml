@@ -18,9 +18,9 @@
     <string name="pulse_less">Vis mindre</string>
     <string name="pulse_updated">Per %1$s</string>
     <string name="pulse_unavailable">Markedsdata er ikke tilgjengelige akkurat nå</string>
-    <string name="why_summary_title">Kort sagt</string>
+    <string name="why_summary_title">Sannsynlige årsaker</string>
     <string name="why_summary_market_volume">Bevegelsen følges av høyere handelsvolum og et bredt bevegelig marked.</string>
-    <string name="why_summary_market">Bevegelsen følger markedet som helhet.</string>
+    <string name="why_summary_market">Bevegelsen følger trolig markedet som helhet.</string>
     <string name="why_summary_coin_volume">Bare denne mynten beveger seg, med høyere volum – trolig en årsak hos selve mynten.</string>
     <string name="why_summary_coin">Bare denne mynten beveger seg – trolig en årsak hos selve mynten.</string>
     <string name="why_summary_against">Mynten beveger seg mot markedet.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Følg med – myntene dine, kurser, diagrammer og moduler</string>
     <string name="welcome_alert">Varsle – kurs, prosent, volum og uvanlige bevegelser</string>
     <string name="welcome_understand">Forstå – hvorfor beveger markedet seg akkurat nå?</string>
-    <string name="welcome_start">Kom i gang</string>
     <string name="portfolio_empty_example">Eksempel: 0,01 BTC kjøpt 1. mars til %1$s. Appen viser da verdi, snittkjøpspris og gevinst/tap – lagret bare på denne enheten.</string>
     <string name="about_why">Crypto Checker er et uavhengig prosjekt av r1AD: en rolig kursoversikt uten konto, reklame eller sporing. Spørsmål og ønsker: %1$s</string>
     <string name="a11y_move_up">Flytt opp</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">Ingen data mottatt fra børsen.</string>
     <string name="sync_pairs_count">Handelspar: %1$d</string>
     <string name="market_unavailable_error">Børsen er ikke tilgjengelig</string>
-    <string name="refresh_report_aborted">Oppdatering avbrutt:</string>
-    <string name="refresh_report_wait">Ventetid til start: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Totalt %1$s · %2$d par</item>
-        <item quantity="other">Totalt %1$s · %2$d par</item>
-    </plurals>
-    <string name="refresh_report_network">Nettverk %1$s</string>
-    <string name="refresh_report_database">Database %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarmer/varsler %1$s · %2$d varsel</item>
-        <item quantity="other">Alarmer/varsler %1$s · %2$d varsler</item>
-    </plurals>
-    <string name="refresh_report_widgets">Moduler %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d par, %3$s</item>
-        <item quantity="other">%1$s: %2$d par, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">samlet forespørsel %1$s (%2$d kurs)</item>
-        <item quantity="other">samlet forespørsel %1$s (%2$d kurser)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">samlet forespørsel %1$s (mislyktes)</string>
     <string name="refresh_report_singles">%1$d enkeltvis</string>
-    <string name="refresh_report_slowest">tregeste %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d handles ikke lenger</item>
         <item quantity="other">%1$d handles ikke lenger</item>

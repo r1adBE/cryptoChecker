@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Hälytyssignaali</string>
+    <string name="alarm_signal_system">Järjestelmä</string>
+    <string name="alarm_signal_sound_vibrate">Ääni ja värinä</string>
+    <string name="alarm_signal_sound">Vain ääni</string>
+    <string name="alarm_signal_vibrate">Vain värinä</string>
+    <string name="alarm_signal_silent">Äänetön (vain ilmoitus)</string>
+    <string name="settings_alarm_signal_system_hint">Noudattaa puhelimen ilmoitusasetuksia.</string>
+    <string name="settings_alarm_signal_open_system">Muokkaa järjestelmäasetuksissa</string>
+    <string name="channel_alarms_sound_vibrate">Hälytykset (ääni ja värinä)</string>
+    <string name="channel_alarms_sound">Hälytykset (vain ääni)</string>
+    <string name="channel_alarms_vibrate">Hälytykset (vain värinä)</string>
+    <string name="channel_alarms_silent">Hälytykset (äänetön)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Värinä noudattaa iPhonen asetuksia (Äänet ja tuntopalaute).</string>
+</resources>

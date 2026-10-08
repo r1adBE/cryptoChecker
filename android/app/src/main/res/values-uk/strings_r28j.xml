@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Розподіл</string>
+    <string name="portfolio_allocation_other">Інші</string>
+    <string name="portfolio_movers_title">Найбільші рухи</string>
+    <string name="portfolio_hide_amounts">Сховати суми</string>
+    <string name="portfolio_hide_amounts_hint">Показує суми та значення в портфелі й віджеті портфеля як ••• – відсотки залишаються видимими.</string>
+    <string name="a11y_portfolio_show_amounts">Показати суми</string>
+    <string name="a11y_amount_hidden">суму приховано</string>
+    <string name="portfolio_alarm_action">Сигнал</string>
+    <string name="portfolio_alarm_title">Сигнал «вартість портфеля»</string>
+    <string name="portfolio_alarm_kind_above">Портфель вище суми</string>
+    <string name="portfolio_alarm_kind_below">Портфель нижче суми</string>
+    <string name="portfolio_alarm_kind_up">Портфель зростає</string>
+    <string name="portfolio_alarm_kind_down">Портфель падає</string>
+    <string name="portfolio_alarm_amount">Сума (%1$s)</string>
+    <string name="portfolio_alarm_hint">Перевіряється після кожного оновлення. Як цінові сигнали: спрацьовує при перетині порогу і знову — лише після повернення значення.</string>
+    <string name="portfolio_alarm_sentence_above">Портфель вище %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Портфель нижче %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Портфель зріс на %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Портфель упав на %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Вартість портфеля</string>
+    <string name="notification_portfolio_alarm_text">%1$s – зараз %2$s</string>
+</resources>

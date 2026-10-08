@@ -34,6 +34,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.LocaleNumbers
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -112,7 +113,7 @@ fun PortfolioExportDialog(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)),
+                    date.format(LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))),
                     style = MaterialTheme.typography.titleMedium.tabularNumbers(),
                     fontWeight = FontWeight.SemiBold,
                     color = if (running) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.primary,

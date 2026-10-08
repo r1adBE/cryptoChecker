@@ -26,7 +26,10 @@ import kotlinx.coroutines.sync.withLock
 import com.cryptochecker.app.settings.deviceRegionLocale
 import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.model.CurrencyPairInfo
+import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.refresh.RefreshDebounce
+import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.notification.AppNotifier
@@ -56,7 +59,9 @@ class WatchlistViewModel @Inject constructor(
     private val notifier: AppNotifier,
     private val widgetUpdater: WidgetUpdater,
     private val scheduler: PriceUpdateScheduler,
-    refreshStats: RefreshStats,
+    private val manualRefresh: ManualRefresh,
+    private val refreshStats: RefreshStats,
+    connectivity: com.cryptochecker.app.util.ConnectivityMonitor,
     private val settingsRepository: com.cryptochecker.app.settings.SettingsRepository,
     private val futuresDataSource: com.cryptochecker.app.data.remote.FuturesDataSource,
     activityRepository: ActivityRepository,
@@ -67,6 +72,7 @@ class WatchlistViewModel @Inject constructor(
     private val starterCoinsRepository: com.cryptochecker.app.data.StarterCoinsRepository,
     private val addMoments: com.cryptochecker.app.data.AddMoments,
     private val sheetChartRepository: com.cryptochecker.app.data.SheetChartRepository,
+    private val livePriceStream: com.cryptochecker.app.data.live.LivePriceStream,
 ) : ViewModel() {
 
     /**
@@ -77,6 +83,32 @@ class WatchlistViewModel @Inject constructor(
     private val watchList: SharedFlow<List<WatchEntity>> = watchRepository.observeWatches()
         .distinctUntilChanged()
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), replay = 1)
+
+    /**
+     * Gespeicherte Merkliste OHNE Live-Kurse: ein WebSocket-Tick soll nicht die ganze Liste neu
+     * ausgeben (das setzte bei jedem Tick den ganzen Bildschirm neu zusammen). Den Live-Kurs legt
+     * jede Zeile selbst darüber ([livePrices], [LiveOverlay.apply]); gespeichert wird alle 10 s.
+     */
+    private val shownList: SharedFlow<List<WatchEntity>> = watchList
+
+    /**
+     * Live-Kurse je Watch-Id, höchstens zweimal je Sekunde neu. Nur Zeilen (und das offene
+     * Aktionsblatt) lesen davon — je über `derivedStateOf` nur den Kurs ihres Paars.
+     */
+    val livePrices: StateFlow<Map<Long, com.cryptochecker.app.domain.live.LiveQuote>> = livePriceStream.prices
+
+    /** Börsen, deren Live-Strom gerade Kurse liefert («LIVE» in der Status-Pille, Bericht). */
+    val liveExchanges: StateFlow<List<String>> = livePriceStream.liveExchanges
+
+    /** Paare der angezeigten Merkliste (gewählte Gruppe) für die Live-Kurse. */
+    fun setLivePairs(pairs: List<com.cryptochecker.app.domain.live.LivePair>) = livePriceStream.setPairs(pairs)
+
+    /** Merkliste zu sehen bzw. verlassen (anderer Tab, App im Hintergrund): Live-Kurse an/aus. */
+    fun setLiveVisible(visible: Boolean) = livePriceStream.setVisible(visible)
+
+    override fun onCleared() {
+        livePriceStream.setVisible(false)
+    }
 
     /**
      * Coins der Start-Merkliste: sofort aus dem Zwischenspeicher bzw. die
@@ -210,6 +242,16 @@ class WatchlistViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
     /**
+     * «1 CHF = 1’234 Sats» im Aktionsblatt eines Bitcoin-Paars: Umrechnungswährung (Hauptwährung)
+     * und Faktor Quote → diese Währung — zuerst aus den Zwischenspeichern, sonst frisch; null ohne Kurs.
+     */
+    suspend fun satsRate(quote: String): Pair<String, Double>? {
+        val target = settingsRepository.current().portfolioCurrency
+        val rate = currencyConverter.cachedRate(quote, target) ?: currencyConverter.rate(quote, target)
+        return rate?.let { target to it }
+    }
+
+    /**
      * Umbenannte Gruppen (alt → neu): Verschwindet die gewählte Gruppe durch
      * Umbenennen, folgt die Auswahl dem neuen Namen statt auf «Alle» zu springen.
      */
@@ -234,7 +276,10 @@ class WatchlistViewModel @Inject constructor(
     suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.data.remote.FuturesInfo? =
         runCatching {
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { futuresDataSource.fetch(watch) }
-        }.getOrNull()
+        }
+            // Blatt geschlossen: Abbruch weiterreichen statt als «keine Daten» zu schlucken
+            .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+            .getOrNull()
 
     /** Chart im Aktionsblatt aus dem Zwischenspeicher (ohne Netz); null = laden. */
     fun cachedSheetChart(watch: WatchEntity, range: SheetChartRange): SheetChartResult? =
@@ -276,13 +321,14 @@ class WatchlistViewModel @Inject constructor(
 
     /**
      * Ab diesem Alter steht in der Zeile «veraltet» (ohne Fehler beim letzten Abruf):
-     * dreimal das eingestellte Intervall, mindestens 15 Minuten. Das Abblassen
-     * ([staleAfterMillis]) bleibt wie bisher.
+     * im Live-Modus nach 2 Minuten (die Merkliste ist sichtbar, die App also vorne — mit
+     * Live-Dienst ist das der Live-Modus), sonst dreimal das eingestellte Intervall, mindestens
+     * 15 Minuten. Das Abblassen ([staleAfterMillis]) bleibt wie bisher.
      */
     val outdatedAfterMillis: StateFlow<Long> = settingsRepository.settings
         .map { s ->
             com.cryptochecker.app.domain.refresh.OutdatedRule.afterMillis(
-                s.liveService, s.liveIntervalSeconds, s.backgroundIntervalMinutes
+                s.liveService, s.liveIntervalSeconds, s.backgroundIntervalMinutes, live = s.liveService
             )
         }
         .distinctUntilChanged()
@@ -346,7 +392,7 @@ class WatchlistViewModel @Inject constructor(
      * Liste Platzhalter statt kurz «leer». Eine Quelle für beides, damit
      * «geladen» und Inhalt nie auseinanderlaufen.
      */
-    val watchesOrNull: StateFlow<List<WatchEntity>?> = watchList
+    val watchesOrNull: StateFlow<List<WatchEntity>?> = shownList
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /**
@@ -421,9 +467,27 @@ class WatchlistViewModel @Inject constructor(
     val lastRefreshMillis: StateFlow<Long> = refreshStats.lastDurationMillis
 
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
-    val lastRefreshReport: StateFlow<String> = refreshStats.lastReport
+    val lastRefreshReport: StateFlow<RefreshReport?> = refreshStats.lastReport
 
-    val watches: StateFlow<List<WatchEntity>> = watchList
+    /** Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung. */
+    val online: StateFlow<Boolean> = connectivity.online
+
+    /** App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht. */
+    val appStartMillis: StateFlow<Long?> = refreshStats.appStartMillis
+
+    /** Erstes Bild der Merkliste nach dem Start gemessen (nur lokal gespeichert). */
+    fun recordAppStart(millis: Long) = refreshStats.setAppStartMillis(millis)
+
+    /** «Basis der %-Änderung» (Pille, Puls, Aktionsblatt). */
+    val changeBasis: StateFlow<com.cryptochecker.app.domain.watch.ChangeBasis> = settingsRepository.settings
+        .map { it.changeBasis }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.changeBasis)
+
+    /** Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden. */
+    val changeStamp: StateFlow<com.cryptochecker.app.domain.watch.ChangeStamp?> = refreshStats.changeStamp
+
+    val watches: StateFlow<List<WatchEntity>> = shownList
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     /** Anzahl aktiver Alarme je Paar, für die Anzeige in der Liste. */
@@ -436,24 +500,40 @@ class WatchlistViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
     /**
-     * Läuft, solange die per Knopf angestoßene Aktualisierung bei WorkManager
-     * wartet oder arbeitet — auch nach erneutem Öffnen der App korrekt.
+     * Letzte Auslösung irgendeines Alarms (Epoch-ms, 0 = nie); null bis zum ersten Stand aus
+     * der Datenbank — für den kurzen Puls der Glocke ([com.cryptochecker.app.domain.watch.AlarmPulse]).
      */
-    val refreshing: StateFlow<Boolean> = scheduler.observeManualRefreshRunning()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val latestAlarmTrigger: StateFlow<Long?> = watchRepository.observeAllAlarms()
+        .map { alarms -> alarms.maxOfOrNull { it.alarm.lastTriggeredAt } ?: 0L }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /**
+     * Läuft, solange die per Knopf (App) angestossene Aktualisierung arbeitet oder die
+     * aus dem Widget-Knopf bei WorkManager wartet oder arbeitet.
+     */
+    val refreshing: StateFlow<Boolean> = combine(
+        manualRefresh.running,
+        scheduler.observeManualRefreshRunning(),
+    ) { app, widget -> app || widget }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), manualRefresh.running.value)
 
     // Beim Öffnen wird bewusst NICHT automatisch aktualisiert: Die Liste zeigt
     // die gespeicherten Kurse mit Zeitstempel, nachgeladen wird per Knopf,
     // durch den Live-Dienst oder die Hintergrund-Aktualisierung.
 
     /**
-     * Über WorkManager statt viewModelScope: Wird die App während der
-     * Aktualisierung geschlossen, läuft sie trotzdem zu Ende und die Widgets
-     * werden nachgezogen. Im viewModelScope wurde sie beim Schließen abgebrochen.
+     * Nach unten ziehen bzw. Knopf oben: direkt in einer App-weiten Coroutine
+     * ([ManualRefresh]), nicht über WorkManager — läuft auch nach dem Schliessen der
+     * App zu Ende. Gesperrt, solange eine läuft oder die letzte keine 15 s her ist
+     * ([RefreshDebounce]); dann zeigt die Merkliste kurz «Gerade aktualisiert».
      */
-    fun refreshAll() {
+    fun refreshAllByUser(): RefreshDebounce.Decision =
+        manualRefresh.request(otherRunning = refreshing.value)
+
+    /** Ohne 15-s-Sperre, z. B. gleich nach dem Hinzufügen neuer Paare. */
+    private fun refreshAll() {
         if (refreshing.value) return
-        scheduler.refreshNowFromApp()
+        manualRefresh.requestUnguarded()
     }
 
     fun refreshOne(watchId: Long) {

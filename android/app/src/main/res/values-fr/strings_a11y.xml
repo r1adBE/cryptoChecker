@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Couleurs des prix</string>
-    <string name="price_colors_green_red">Vert / rouge</string>
-    <string name="price_colors_blue_orange">Bleu / orange</string>
     <string name="settings_price_colors_hint">Le bleu / orange se distingue facilement quel que soit le trouble de la vision des couleurs (rouge-vert et bleu-jaune). Le sens est en outre toujours indiqué par + / −.</string>
     <string name="settings_watchlist_sparkline">Mini-graphique dans la liste</string>
     <string name="settings_watchlist_sparkline_hint">Tendance sur 24 h à côté du prix</string>
 
-    <string name="settings_price_colors_inverted">Inverser les couleurs hausse/baisse</string>
-    <string name="settings_price_colors_inverted_hint">Rouge pour la hausse, vert pour la baisse, comme en Chine, au Japon, en Corée et à Taïwan. Par défaut selon la région de l\'appareil.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Contraste élevé</string>

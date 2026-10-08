@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">non aggiornato · %1$s</string>
 
     <string name="settings_widgets">Widget</string>
-    <string name="settings_widgets_hint">Aggiungi i prezzi alla schermata Home</string>
     <string name="widgets_sheet_title">Aggiungi un widget</string>
     <string name="widget_kind_single">Una moneta</string>
     <string name="widgets_add">Aggiungi</string>

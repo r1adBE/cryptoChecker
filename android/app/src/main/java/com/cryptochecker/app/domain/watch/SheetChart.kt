@@ -11,7 +11,7 @@ import kotlin.math.max
 /**
  * Zeitraum des Charts im Aktionsblatt eines Paars. Gleiche Namen wie `WidgetChartRange`
  * des Einzel-Widgets — von dort kommen Kerzenintervall, Anzahl (24 × 1 h, 42 × 4 h,
- * 30 × 1 Tag), Gitter und Beschriftungen. Hier nur, was das Blatt zusätzlich braucht:
+ * 30 × 1 Tag, 365 × 1 Tag nur im Blatt), Gitter und Beschriftungen. Hier nur, was das Blatt zusätzlich braucht:
  * Gültigkeit im Zwischenspeicher und die Vorlage für Datum/Uhrzeit beim Ziehen
  * (`DateFormat.getBestDateTimePattern` bzw. `setLocalizedDateFormatFromTemplate`).
  */
@@ -22,6 +22,8 @@ enum class SheetChartRange(val cacheMillis: Long, val timeTemplate: String) {
     WEEK(30 * 60_000L, "EEEdMMMjm"),
     /** «Di 14. Okt.» (Tageskerzen) */
     MONTH(30 * 60_000L, "EEEdMMM"),
+    /** «14. Okt. 2025» (365 Tageskerzen) */
+    YEAR(60 * 60_000L, "dMMMy"),
 }
 
 /** Ergebnis für das Blatt: gar nicht zeigen, keine Kerzen oder fertige Kerzen. */
@@ -115,6 +117,15 @@ object SheetChart {
     fun rangeChange(candles: List<WidgetCandle>, type: WidgetChartType): Double? =
         WidgetChartGeometry.summary(candles, type)?.changePercent
 
+    /**
+     * Zahl über dem Chart: bei 24h dieselbe wie die Pille neben dem Kurs ([dayChange] =
+     * `shownChange24h` aus dem Ticker), damit das Blatt nicht zwei verschiedene 24-h-Werte
+     * zeigt; ohne diesen Wert und bei 7T/30T/1J die Veränderung aus den Kerzen ([rangeChange]).
+     */
+    fun headerChange(range: SheetChartRange, candles: List<WidgetCandle>, type: WidgetChartType, dayChange: Double?): Double? =
+        if (range == SheetChartRange.DAY && dayChange != null && dayChange.isFinite()) dayChange
+        else rangeChange(candles, type)
+
     /** Schluss der Kerze [index] gegen den Beginn des Zeitraums (wie [rangeChange]). */
     fun scrubChange(candles: List<WidgetCandle>, type: WidgetChartType, index: Int): Double? {
         val start = WidgetChartGeometry.summary(candles, type)?.start ?: return null
@@ -136,8 +147,8 @@ object SheetChart {
 }
 
 /**
- * Kerzen des Blatts je Paar und Zeitraum im Speicher: 5 Minuten (24 h) bzw.
- * 30 Minuten (7 und 30 Tage), siehe [SheetChartRange.cacheMillis]. Nur Erfolge.
+ * Kerzen des Blatts je Paar und Zeitraum im Speicher: 5 Minuten (24 h),
+ * 30 Minuten (7 und 30 Tage) bzw. 60 Minuten (1 Jahr), siehe [SheetChartRange.cacheMillis]. Nur Erfolge.
  */
 class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     private val entries = ConcurrentHashMap<String, Pair<Long, SheetChartResult.Ready>>()

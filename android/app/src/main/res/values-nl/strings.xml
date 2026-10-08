@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">Fout: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Geen valutaparen</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Tik hier om de nieuwste valutaparen van de gekozen exchange te downloaden.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Laadt de actuele paren van de gekozen markt.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Valutaparen bijwerken</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Nu synchroniseren!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Laatste sync: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">nooit</string>
 
-    <string name="market_screen_sync">Sync</string>
+    <string name="market_screen_sync">Synchroniseren</string>
     <string name="market_screen_base">Basis</string>
     <string name="market_screen_quote">Quote</string>
     <string name="market_screen_market">Markt</string>
@@ -38,7 +38,6 @@
 
     <!-- Aktionen -->
     <string name="action_refresh">Vernieuwen</string>
-    <string name="action_add_pair">Paar toevoegen</string>
     <string name="action_delete">Verwijderen</string>
     <string name="action_edit">Bewerken</string>
     <string name="action_back">Terug</string>
@@ -47,7 +46,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">Nog geen paren</string>
-    <string name="watchlist_empty_hint">Of kies onder ‘Toevoegen’ een exchange en een paar. Elk paar kan een melding, een gesproken update en koersalarmen hebben.</string>
     <string name="watchlist_updated">Bijgewerkt: %1$s</string>
     <string name="watchlist_notification">Melding</string>
     <string name="watchlist_tts">Koers voorlezen</string>
@@ -80,7 +78,7 @@
     <string name="channel_prices_description">Stille melding met de actuele koers van een paar.</string>
     <string name="channel_alarms">Alarmen</string>
     <string name="channel_alarms_description">Melding wanneer een koersalarm afgaat.</string>
-    <string name="channel_service">Live-modus</string>
+    <string name="channel_service">Vaak bijwerken</string>
     <string name="channel_service_description">Melding terwijl koersen met korte intervallen worden bijgewerkt.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, van %2$s (%3$s geleden)</string>
@@ -131,7 +129,7 @@
     <string name="settings_rolling_futures">Incl. kwartaal- &amp; andere futures met vervaldatum</string>
     <string name="settings_rolling_futures_hint">Uit: futures met vervaldatum die niet meer in de lijst van de exchange staan, worden als niet meer verhandeld gemarkeerd in plaats van één voor één gecontroleerd. Bespaart tijd bij elke vernieuwing.</string>
     <string name="notification_refreshing">Koersen bijwerken…</string>
-    <string name="notification_service_title">Crypto Checker live-modus</string>
+    <string name="notification_service_title">Crypto Checker werkt vaak bij</string>
     <string name="notification_service_starting">Starten…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d paar · %2$s</item>
@@ -145,9 +143,9 @@
     <string name="settings_background_updates">Updates op de achtergrond</string>
     <string name="settings_background_updates_hint">Koersen, alarmen en widgets worden ook bijgewerkt als de app gesloten is.</string>
     <string name="settings_background_interval">Interval</string>
-    <string name="settings_live_service">Live-modus</string>
-    <string name="settings_live_service_hint">Houdt een service actief voor korte intervallen. Verbruikt meer batterij.</string>
-    <string name="settings_live_interval">Live-interval</string>
+    <string name="settings_live_service">Vaak bijwerken</string>
+    <string name="settings_live_service_hint">Haalt koersen op met korte tussenpozen, ook als de app dicht is. Toont een melding en verbruikt meer batterij.</string>
+    <string name="settings_live_interval">Hoe vaak</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Koersmeldingen</string>
@@ -230,7 +228,7 @@
     <string name="theme_system">Systeem</string>
     <string name="settings_section_developer">Ontwikkelaar</string>
     <string name="settings_http_log">HTTP-log tonen</string>
-    <string name="settings_http_log_hint">Toont onderaan het tabblad ‘Toevoegen’ de verzoeken aan de beurzen – voor foutopsporing.</string>
+    <string name="settings_http_log_hint">Toont onderaan de pagina ‘Paar toevoegen’ de verzoeken aan de beurzen – voor foutopsporing.</string>
     <string name="language_search">Taal zoeken</string>
     <string name="alarm_delete_title">Alarm verwijderen?</string>
     <string name="alarm_delete_confirm">Dit alarm wordt verwijderd.</string>
@@ -270,15 +268,11 @@
     <string name="explorer_bulk_show_list">Lijst tonen</string>
     <string name="explorer_bulk_hide_list">Lijst verbergen</string>
     <string name="time_just_now">zojuist</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Jouw koersen. Jouw alarmen. Jouw overzicht.\nGeen account. Geen advertenties. Geen tracking.</string>
-    <string name="welcome_later">Later</string>
     <string name="developer_unlocked">Ontwikkelaarsopties ontgrendeld</string>
     <string name="hint_favorites_list">Tip: tik op ☆ voor een favoriet – favorieten blijven bovenaan.</string>
     <string name="tab_watchlist">Lijst</string>
-    <string name="tab_markets">Toevoegen</string>
     <string name="tab_market_phase">Markt</string>
-    <string name="tab_settings">Opties</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d van %2$d verouderd</item>
         <item quantity="other">%1$d van %2$d verouderd</item>

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Markedsmeddelelser</string>
-    <string name="settings_market_alerts_hint">Markedsfase, Fear &amp; Greed, gasgebyrer, usædvanlig aktivitet, økonomiske datoer</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d aktiv</item>
         <item quantity="other">%1$d aktive</item>
     </plurals>
-    <string name="settings_tts_row_hint">Læser kurser og alarmer højt</string>
     <string name="settings_summary_on">Til</string>
 
     <string name="alarm_first_text_checked">Crypto Checker holder nu øje med %1$s for dig. Når %1$s når din grænse, får du en notifikation, så snart appen tjekker kursen. Når appen er lukket, sker det med intervallet for opdatering i baggrunden – senere, hvis batterioptimering begrænser appen.</string>

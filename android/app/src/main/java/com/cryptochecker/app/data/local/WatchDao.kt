@@ -70,6 +70,17 @@ interface WatchDao {
     suspend fun updatePrice(id: Long, price: Double, time: Long, change24h: Double?)
 
     /**
+     * Veränderung nachtragen (später Bezug der Tages-Basis) — nur, wenn noch derselbe Kurs
+     * ([time]) ohne Veränderung gespeichert ist. @return Anzahl geänderter Zeilen (0 oder 1)
+     */
+    @Query("UPDATE watches SET change24h = :change24h WHERE id = :id AND lastUpdate = :time AND change24h IS NULL")
+    suspend fun fillChange(id: Long, time: Long, change24h: Double): Int
+
+    /** Veränderung entfernen (neue %-Basis oder neuer Tag, aber kein neuer Kurs). */
+    @Query("UPDATE watches SET change24h = NULL WHERE id IN (:ids)")
+    suspend fun clearChanges(ids: List<Long>)
+
+    /**
      * Nur den Fehler setzen — lastUpdate bleibt beim letzten ERFOLGREICHEN Kurs.
      * Sonst stünde bei «keine Verbindung» fälschlich «gerade eben / aktuell».
      */
@@ -161,15 +172,37 @@ interface WatchDao {
     suspend fun setAlarmReference(id: Long, price: Double, time: Long)
 
     /**
-     * «Nahe am Hoch/Tief» und Kursmarken (PRICE_ABOVE/PRICE_BELOW): wieder scharf stellen
-     * (keine gemeldete Marke mehr; Kursmarken haben ohnehin keinen Bezugskurs); andere Alarme bleiben unberührt.
+     * «Nahe am Hoch/Tief», Kursmarken (PRICE_ABOVE/PRICE_BELOW), Funding und Open Interest: wieder
+     * scharf stellen (keine gemeldete Marke mehr; die übrigen haben ohnehin keinen Bezugskurs);
+     * andere Alarme bleiben unberührt.
      */
     @Query(
         "UPDATE alarms SET referencePrice = NULL, referenceAt = 0 " +
-            "WHERE id = :id AND `condition` IN ('NEAR_HIGH', 'NEAR_LOW', 'PRICE_ABOVE', 'PRICE_BELOW')"
+            "WHERE id = :id AND `condition` IN ('NEAR_HIGH', 'NEAR_LOW', 'PRICE_ABOVE', 'PRICE_BELOW', " +
+            "'FUNDING_ABOVE', 'FUNDING_BELOW', 'OI_UP', 'OI_DOWN')"
     )
     suspend fun rearmAlarm(id: Long)
 
     @Query("SELECT * FROM alarms ORDER BY id ASC")
     suspend fun getAllAlarms(): List<AlarmEntity>
+
+    /**
+     * Paar bearbeitet (andere Börse/anderes Paar): Bezüge, die am alten Kurs hängen, verwerfen —
+     * Prozent- und Bewegungs-Alarme beginnen beim neuen Kurs, «Nahe am Hoch/Tief», Funding und
+     * Open Interest sind wieder scharf. Kursmarken und Volumen-Spikes bleiben unberührt (Schwellen
+     * prüft der Nutzer).
+     */
+    @Query(
+        "UPDATE alarms SET referencePrice = NULL, referenceAt = 0 WHERE watchId = :watchId AND `condition` IN " +
+            "('CHANGE_PERCENT_UP', 'CHANGE_PERCENT_DOWN', 'MOVE_PERCENT_WINDOW', 'NEAR_HIGH', 'NEAR_LOW', " +
+            "'FUNDING_ABOVE', 'FUNDING_BELOW', 'OI_UP', 'OI_DOWN')"
+    )
+    suspend fun resetPriceReferences(watchId: Long)
+
+    /** Prozentalarme ohne Bezug (nach [resetPriceReferences]) messen ab [price]. */
+    @Query(
+        "UPDATE alarms SET referencePrice = :price WHERE watchId = :watchId AND referencePrice IS NULL " +
+            "AND `condition` IN ('CHANGE_PERCENT_UP', 'CHANGE_PERCENT_DOWN')"
+    )
+    suspend fun setMissingPercentReferences(watchId: Long, price: Double)
 }

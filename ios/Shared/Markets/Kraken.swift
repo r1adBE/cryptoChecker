@@ -3,6 +3,7 @@ import Foundation
 // Ref: https://docs.kraken.com/rest/#tag/Market-Data
 final class Kraken: SimpleMarket {
     private static let allTickersURL = "https://api.kraken.com/0/public/Ticker"
+    private static let filteredTickersPrefix = Kraken.allTickersURL + "?pair="
 
     init() {
         super.init(
@@ -56,9 +57,31 @@ final class Kraken: SimpleMarket {
 
     override func bulkTickersURL(requestId: Int) -> String? { Kraken.allTickersURL }
 
+    /// Nur die beobachteten Paare («?pair=A,B,C») statt des ganzen Kursbuchs;
+    /// lange Listen auf mehrere Anfragen verteilt (URL < 2000 Zeichen). Wie `Kraken.kt`.
+    override func bulkTickersRequestCount(pairIds: [String]) -> Int {
+        BulkPairChunks.chunks(prefix: Kraken.filteredTickersPrefix, pairIds: pairIds)?.count ?? bulkTickersNumOfRequests
+    }
+
+    override func bulkTickersURL(requestId: Int, pairIds: [String]) -> String? {
+        guard let chunks = BulkPairChunks.chunks(prefix: Kraken.filteredTickersPrefix, pairIds: pairIds) else {
+            return Kraken.allTickersURL
+        }
+        guard requestId < chunks.count else { return nil }
+        return BulkPairChunks.url(prefix: Kraken.filteredTickersPrefix, chunk: chunks[requestId])
+    }
+
     override func parseBulkTickers(requestId: Int, response: String) throws -> [String: Ticker] {
+        let json = try JObject(string: response)
+        // Kennt Kraken ein Paar der Liste nicht, scheitert die ganze Anfrage
+        // ({"error":["EQuery:Unknown asset pair"]}) — dann folgt die ungefilterte.
+        let named = try json.optObject("result")?.allNamedObjects() ?? []
+        if named.isEmpty {
+            let error = json.optArray("error")?.optString(0) ?? ""
+            throw JSONError(message: error.isEmpty ? "Empty result" : error)
+        }
         var tickers: [String: Ticker] = [:]
-        for (pairId, pairJson) in try JObject(string: response).object("result").allNamedObjects() {
+        for (pairId, pairJson) in named {
             var ticker = Ticker()
             try readTicker(pairJson, &ticker)
             tickers[pairId] = ticker

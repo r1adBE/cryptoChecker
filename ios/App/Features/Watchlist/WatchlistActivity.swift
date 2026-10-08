@@ -3,15 +3,6 @@ import SwiftUI
 // «⚡ Ungewöhnliche Aktivität» und «💡 Warum bewegt sich das?» in der Merkliste —
 // wie `ActivityUi.kt`.
 
-/// Warmes Bernstein für ⚡ — unabhängig von der Akzentfarbe, damit es bei
-/// jedem Akzent als «Achtung, hier ist etwas» lesbar bleibt.
-enum WatchlistActivityColors {
-    static let amber = Color.dynamic(light: 0xB26B00, dark: 0xFFC94D)
-    /// Bernstein für Text-Markierungen («!» im «Warum»-Blatt): hell dunkler,
-    /// damit es auch auf den Karten AA (≥ 4.5:1) erreicht.
-    static let cautionText = Color.dynamic(light: 0x8A5300, dark: 0xFFC94D)
-}
-
 /// Noch gültige Signale je Paar (stärkstes zuerst); Paare ohne Signal fehlen.
 enum WatchlistActivity {
     /// Nach der gewählten Empfindlichkeit neu beurteilt (gleiche Schwellen wie die Mitteilungen).
@@ -55,7 +46,7 @@ struct WatchlistActivityBolt: View {
             Image(systemName: "bolt.fill")
                 .scaledFont(size: 12, weight: .bold, relativeTo: .caption)
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                .foregroundStyle(WatchlistActivityColors.amber)
+                .foregroundStyle(AppColors.warning)
                 .frame(width: 24, height: 24)
                 .contentShape(Circle())
         }
@@ -91,10 +82,10 @@ struct WatchlistActivityCard: View {
         let shown = Array(coins.prefix(Self.maxCoins))
         let more = coins.count - shown.count
         let visible = expanded ? coins : shown
-        let amber = WatchlistActivityColors.amber
+        let amber = AppColors.warning
 
-        return VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
+        return VStack(alignment: .leading, spacing: Spacing.sm) {
+            HStack(spacing: Spacing.sm) {
                 Image(systemName: "bolt.fill")
                     .scaledFont(size: 13, weight: .bold, relativeTo: .footnote)
                     .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
@@ -136,7 +127,7 @@ struct WatchlistActivityCard: View {
                             .foregroundStyle(AppColors.onSurfaceVariant)
                             .frame(minWidth: 22)
                             .padding(.horizontal, 12)
-                            .padding(.vertical, 7)
+                            .padding(.vertical, Spacing.sm)
                             .overlay(Capsule().strokeBorder(AppColors.outlineVariant, lineWidth: 1))
                             .contentShape(Capsule())
                     }
@@ -144,7 +135,7 @@ struct WatchlistActivityCard: View {
                 }
             }
         }
-        .padding(.horizontal, 14)
+        .padding(.horizontal, Spacing.md)
         .padding(.top, 12)
         .padding(.bottom, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -160,17 +151,17 @@ struct WatchlistActivityCard: View {
             WatchlistHaptics.selection()
             onOpen(watch)
         } label: {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 CoinBadge(symbol: watch.baseAsset, size: 18)
                 Text(watch.baseAsset)
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
             }
-            .padding(.leading, 6)
+            .padding(.leading, Spacing.xs)
             .padding(.trailing, 12)
-            .padding(.vertical, 5)
-            .background(WatchlistActivityColors.amber.opacity(0.10), in: Capsule())
+            .padding(.vertical, Spacing.xs)
+            .background(AppColors.warning.opacity(0.10), in: Capsule())
             .contentShape(Capsule())
         }
         .buttonStyle(.borderless)
@@ -187,10 +178,11 @@ private enum WatchlistWhyState: Equatable {
     case failed
 }
 
-/// «Warum bewegt sich BTC?» als Erklärmoment: zuerst «Kurz gesagt» (ein, zwei
-/// Sätze), dann die 2–5 Gründe als kompakte Checkliste ✓ / – / ! (gleiche Zeile
-/// wie im Crypto Pulse). Erklärungen nur bei «!» oder unter «Details anzeigen».
-/// Nur Marktdaten: Markt vs. Coin, Volumen, Hebel, Volatilität, Stimmung.
+/// «Warum bewegt sich BTC?» als klare Faktorliste: Kopf mit Paar und Veränderung,
+/// «Wahrscheinliche Gründe · Sicherheit», bis zu fünf Faktoren (`WhyFactors`, stärkster oben,
+/// neutrale abgeblendet), «Kurz gesagt: …» als ein Satz, dann «Details anzeigen» (die Gründe
+/// mit Erklärung) und die Fusszeile. Nur Marktdaten: Markt vs. Coin, Volumen, Volatilität,
+/// Futures (Open Interest, Funding), Nähe zum 30-Tage-Hoch, Stimmung.
 /// Kein `NavigationStack` nötig. Wie `WhySheet` in `ActivityUi.kt`.
 struct WatchlistWhySheet: View {
     let watchId: Int64
@@ -208,6 +200,16 @@ struct WatchlistWhySheet: View {
         } else {
             // Paar wurde inzwischen gelöscht — oder wird nicht mehr gehandelt (kein Urteil auf alten Daten)
             Color.clear.onAppear { dismiss() }
+        }
+    }
+
+    /// Gleichlauf mit Bitcoin (Stunden-Renditen, Kerzen von «Warum?»): eng bzw. unabhängig; nil = kein Satz.
+    static func btcLine(_ link: BtcLink?, base: String) -> String? {
+        guard let link else { return nil }
+        let symbol = BidiText.isolate(base.trimmingCharacters(in: .whitespaces).uppercased())
+        switch link {
+        case .tight: return L("why_btc_tight", symbol)
+        case .independent: return L("why_btc_independent", symbol)
         }
     }
 
@@ -234,7 +236,7 @@ struct WatchlistWhySheet: View {
                     CoinBadge(symbol: watch.baseAsset, size: 40)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(watch.displayName)
-                            .font(.title2.weight(.semibold))
+                            .font(AppFont.headline)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
                         Text(watch.marketName)
@@ -242,11 +244,11 @@ struct WatchlistWhySheet: View {
                             .foregroundStyle(AppColors.onSurfaceVariant)
                     }
                 }
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
 
                 HStack(spacing: 8) {
                     Text(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
-                        .font(.system(.title3, design: .rounded).weight(.semibold).monospacedDigit())
+                        .font(AppFont.amount(.title3, weight: .semibold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -256,30 +258,15 @@ struct WatchlistWhySheet: View {
                 .padding(.top, 12)
                 .padding(.bottom, 16)
 
-                // «Kurz gesagt»: erstes und wichtigstes Element, aus denselben Gründen wie darunter
-                // (beim Laden ein form-gleicher Platzhalter an derselben Stelle)
-                if state == .loading {
-                    WatchlistWhySkeleton(part: .summary)
-                        .padding(.bottom, 12)
-                        .transition(.opacity)
-                } else if let report, report.hasMarketData {
-                    let summary = WhySummary.keys(report.reasons)
-                    if !summary.isEmpty {
-                        WatchlistWhySummaryCard(text: summary.map { L($0) }.joined(separator: " "))
-                            .padding(.bottom, 12)
-                            .transition(.opacity)
-                    }
-                }
-
                 // Was gerade auffällt (die Signale hinter dem ⚡)
                 if !signals.isEmpty {
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
                         ForEach(Array(signals.prefix(3).enumerated()), id: \.offset) { _, signal in
                             HStack(alignment: .firstTextBaseline, spacing: 8) {
                                 Image(systemName: "bolt.fill")
                                     .scaledFont(size: 12, weight: .bold, relativeTo: .caption)
                                     .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                                    .foregroundStyle(WatchlistActivityColors.amber)
+                                    .foregroundStyle(AppColors.warning)
                                 Text(ActivityTexts.signal(signal))
                                     .font(.subheadline.monospacedDigit())
                                     .foregroundStyle(AppColors.onSurface)
@@ -287,22 +274,34 @@ struct WatchlistWhySheet: View {
                             }
                         }
                     }
-                    .padding(.bottom, 14)
+                    .padding(.bottom, Spacing.md)
                 }
 
+                // «Wahrscheinliche Gründe · Sicherheit», Faktorliste, «Kurz gesagt», Details
+                // (beim Laden ein form-gleicher Platzhalter an derselben Stelle)
                 switch state {
                 case .loading:
-                    WatchlistWhySkeleton(part: .reasons)
+                    WatchlistWhySkeleton()
                         .transition(.opacity)
                 case .failed:
                     WatchlistWhyEmpty(onRetry: { attempt += 1 })
                 case .loaded(let r):
-                    VStack(spacing: 10) {
+                    let factors = WhyFactors.rank(r)
+                    VStack(alignment: .leading, spacing: Spacing.sm) {
                         if !r.hasMarketData {
                             WatchlistWhyEmpty(onRetry: nil)
                         }
+                        if !factors.isEmpty {
+                            WatchlistWhyFactorCard(
+                                factors: factors,
+                                // «Kurz gesagt»: genau ein Satz — die Einordnung, sonst der erste Zusatz
+                                brief: WhySummary.keys(r.reasons).first.map { L($0) },
+                                confidence: WhySummary.confidence(r.reasons, hasMarketData: r.hasMarketData),
+                                btcLine: Self.btcLine(r.btcLink, base: watch.baseAsset)
+                            )
+                        }
                         if !r.reasons.isEmpty {
-                            WatchlistWhyChecklist(reasons: r.reasons)
+                            WatchlistWhyDetails(reasons: r.reasons)
                         }
                     }
                     // Nur überblenden: der Platzhalter hat dieselbe Form, nichts rückt nach
@@ -328,7 +327,7 @@ struct WatchlistWhySheet: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 22)
+            .padding(.horizontal, Spacing.xl)
             .padding(.top, 24)
             .padding(.bottom, 16)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: state)
@@ -354,7 +353,7 @@ private struct WatchlistWhyChangeBadge: View {
     var body: some View {
         let zero = change.map { abs($0) < 0.005 } ?? true
         let color = zero ? AppColors.onSurfaceVariant : PriceColors.forChange(change ?? 0)
-        HStack(spacing: 5) {
+        HStack(spacing: Spacing.xs) {
             Text(label)
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)
@@ -368,17 +367,17 @@ private struct WatchlistWhyChangeBadge: View {
         }
         .lineLimit(1)
         .fixedSize()
-        .padding(.horizontal, 9)
+        .padding(.horizontal, Spacing.sm)
         .padding(.vertical, 4)
         .background(color.opacity(0.12), in: Capsule())
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
     }
 }
 
-/// Gründe als Checkliste. Erklärungen: bei «!» immer, sonst erst nach
-/// «Details anzeigen» (nur angeboten, wenn es etwas aufzuklappen gibt).
+/// «Details anzeigen»: die einzelnen Gründe als Checkliste ✓ / – / ! mit ihrer Erklärung
+/// (wie bisher unter «Details»); eingeklappt nur der Knopf.
 @MainActor
-private struct WatchlistWhyChecklist: View {
+private struct WatchlistWhyDetails: View {
     let reasons: [WhyReason]
 
     @Environment(\.appAccent) private var accent
@@ -386,38 +385,36 @@ private struct WatchlistWhyChecklist: View {
     @State private var showDetails = false
 
     var body: some View {
-        let marks = reasons.map(WhySummary.mark)
-        let hasHidden = marks.contains { $0 != .caution }
-        VStack(alignment: .leading, spacing: 0) {
-            ForEach(Array(reasons.enumerated()), id: \.offset) { index, reason in
-                let mark = marks[index]
-                let factor = WatchlistWhyTexts.factor(reason)
-                FactorRow(mark: mark, title: factor.title, value: factor.value,
-                          spokenValue: factor.spokenValue,
-                          detail: (showDetails || mark == .caution) ? WatchlistWhyTexts.explanation(reason) : nil)
-            }
-            if hasHidden {
-                Button {
-                    WatchlistHaptics.selection()
-                    // Karte wächst weich im ScrollView; das Blatt (feste Höhe) bleibt stehen
-                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.22)) {
-                        showDetails.toggle()
-                    }
-                } label: {
-                    Text(L(showDetails ? "why_details_hide" : "why_details"))
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(accent.primary)
-                        .padding(.vertical, 6)
-                        .contentShape(Rectangle())
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            Button {
+                WatchlistHaptics.selection()
+                // Wächst weich im ScrollView; das Blatt (feste Höhe) bleibt stehen
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.22)) {
+                    showDetails.toggle()
                 }
-                .buttonStyle(.plain)
-                .padding(.top, 4)
+            } label: {
+                Text(L(showDetails ? "why_details_hide" : "why_details"))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(accent.primary)
+                    .padding(.vertical, Spacing.sm)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            if showDetails {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(Array(reasons.enumerated()), id: \.offset) { _, reason in
+                        let factor = WatchlistWhyTexts.factor(reason)
+                        FactorRow(mark: WhySummary.mark(reason), title: factor.title, value: factor.value,
+                                  spokenValue: factor.spokenValue, detail: WatchlistWhyTexts.explanation(reason))
+                    }
+                }
+                .padding(.horizontal, Spacing.md)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .transition(.opacity)
             }
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
 
@@ -466,9 +463,71 @@ private enum WatchlistWhyTexts {
         case .SENTIMENT:
             let value = r.value.isFinite ? Int(r.value.rounded()) : 0
             let label = fearGreedLabel(value)
-            return Factor(title: L("factor_fear_greed"), value: "\(value) · \(label)",
-                          spokenValue: "\(value), \(label)")
+            let number = LocaleNumbers.integer(value)
+            return Factor(title: L("factor_fear_greed"), value: "\(number) · \(label)",
+                          spokenValue: "\(number), \(label)")
         }
+    }
+
+    /// Texte einer Faktorzeile: Titel, Wert rechts, Nebenzeile und der gesprochene Satz.
+    struct FactorLine {
+        let title: String
+        let value: String
+        let note: String
+        let spoken: String
+    }
+
+    static func factorLine(_ f: WhyFactor) -> FactorLine {
+        func pct(_ v: Double) -> String { ActivityTexts.percent(v, 1) }
+        func spokenChange(_ v: Double) -> String { A11y.change(abs(v) < 0.05 ? 0 : v) }
+        let title: String
+        var value = ""
+        var spokenValue = ""
+        var note = f.note.key.map { L($0) } ?? ""
+        switch f.kind {
+        case .volume:
+            let number = ActivityTexts.factor(f.value)
+            title = L("factor_volume")
+            value = number + "×"
+            spokenValue = L("factor_spoken_volume", number)
+        case .market:
+            title = L("why_factor_market")
+            // Bei Bitcoin selbst steht BTC oben: rechts ETH zum Vergleich
+            let leader = f.note == .marketLeaderMoves || f.note == .marketLeaderCalm
+            let symbol = leader ? "ETH" : "BTC"
+            let change: Double? = leader ? f.secondary : f.value
+            if let change, change.isFinite {
+                value = symbol + " " + pct(change)
+                spokenValue = A11y.join([symbol, spokenChange(change)])
+            }
+        case .volatility:
+            let number = ActivityTexts.factor(f.value)
+            title = L("factor_volatility")
+            value = number + "×"
+            spokenValue = L("factor_spoken_volatility", number)
+        case .openInterest:
+            title = L("why_factor_futures")
+            value = pct(f.value)
+            spokenValue = spokenChange(f.value)
+        case .nearHigh:
+            title = L("why_factor_near_high")
+            if f.note == .highBelow {
+                value = pct(-f.value)
+                spokenValue = spokenChange(-f.value)
+            }
+        case .funding:
+            title = L("why_factor_funding")
+            value = ActivityTexts.percent(f.value, 3)
+            spokenValue = value
+        case .sentiment:
+            let points = f.value.isFinite ? Int(f.value.rounded()) : 0
+            title = L("factor_fear_greed")
+            value = LocaleNumbers.integer(points)
+            spokenValue = value
+            note = fearGreedLabel(points)
+        }
+        let spoken = "\(title): \(note)" + (spokenValue.isEmpty ? "" : ", \(spokenValue)") + "."
+        return FactorLine(title: title, value: value, note: note, spoken: spoken)
     }
 
     /// Erklärung mit formatierten Zahlen (unter «Details» bzw. bei «!»).
@@ -515,9 +574,9 @@ private enum WatchlistWhyTexts {
     }
 
     private static func signedInt(_ value: Int) -> String {
-        if value > 0 { return "+\(value)" }
-        if value < 0 { return "−\(-value)" }
-        return "±0"
+        if value > 0 { return "+" + LocaleNumbers.integer(value) }
+        if value < 0 { return "−" + LocaleNumbers.integer(-value) }
+        return "±" + LocaleNumbers.integer(0)
     }
 
     private static func fearGreedLabel(_ value: Int) -> String {
@@ -531,36 +590,131 @@ private enum WatchlistWhyTexts {
     }
 }
 
-/// «Kurz gesagt»: ein, zwei Sätze aus den Gründen darunter.
-private struct WatchlistWhySummaryCard: View {
-    let text: String
-    @Environment(\.appAccent) private var accent
+/// «Wahrscheinliche Gründe · Sicherheit: mittel», darunter die Faktoren (stärkster oben, neutrale
+/// abgeblendet, höchstens fünf) und «Kurz gesagt: …» als ein Satz — nie als sichere Ursache.
+/// Zeilen wie `MarketRow` (Trennlinie, Titel mit Nebenzeile, Wert rechts).
+private struct WatchlistWhyFactorCard: View {
+    let factors: [WhyFactor]
+    let brief: String?
+    var confidence: WhySummary.Confidence? = nil
+    /// «SOL läuft derzeit eng mit Bitcoin.» bzw. «… unabhängig …»; nil = kein Satz.
+    var btcLine: String? = nil
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(L("why_summary_title"))
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(accent.onContainer)
-            Text(text)
-                .font(.body)
-                .foregroundStyle(accent.onContainer)
-                .fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(L("why_summary_title"))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if let confidence {
+                        Text(L("why_confidence", L(confidence.level.key)))
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(AppColors.onSurface)
+                    }
+                }
+                if let confidence {
+                    Text(Self.explanation(confidence))
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .accessibilityElement(children: .combine)
+            .padding(.bottom, Spacing.sm)
+
+            ForEach(Array(factors.enumerated()), id: \.offset) { _, factor in
+                WatchlistWhyFactorLine(factor: factor)
+            }
+
+            if let brief {
+                Rectangle()
+                    .fill(AppColors.outlineVariant)
+                    .frame(height: 1)
+                    .accessibilityHidden(true)
+                Text("\(Text(L("why_brief_label")).fontWeight(.semibold)) \(brief)")
+                    .font(AppFont.body)
+                    .foregroundStyle(AppColors.onSurface)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, Spacing.md)
+            }
+            if let btcLine {
+                Text(btcLine)
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, Spacing.sm)
+            }
         }
-        .padding(14)
+        .padding(Spacing.md)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(accent.container, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .accessibilityElement(children: .combine)
+        .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    /// «2 von 4 Hinweisen deuten darauf hin», bei Lücken mit «· Daten unvollständig».
+    static func explanation(_ c: WhySummary.Confidence) -> String {
+        let hints = L("why_confidence_hints", count: c.agreeing, c.agreeing, c.total)
+        return c.partialData ? hints + " · " + L("why_confidence_partial") : hints
     }
 }
 
-/// Platzhalter in der Form des geladenen Inhalts — «Kurz gesagt» bzw. die Checkliste mit
-/// fünf Zeilen und «Details anzeigen» —, mit echten Schriften und `.redacted`, damit die
-/// Höhen auch bei grosser Schrift stimmen und beim Eintreffen nichts springt. Pulsiert
-/// ruhig, bei reduzierter Bewegung stehend.
-private struct WatchlistWhySkeleton: View {
-    enum Part { case summary, reasons }
-    let part: Part
+/// Eine Faktorzeile: Pfeil im Kreis, Titel mit kurzer Nebenzeile, Wert rechts; neutrale
+/// abgeblendet. VoiceOver: ein Satz («Volumen: höher als üblich, 3,4-mal so viel wie üblich»).
+private struct WatchlistWhyFactorLine: View {
+    let factor: WhyFactor
 
+    @Environment(\.appAccent) private var accent
+    @ScaledMetric(relativeTo: .headline) private var iconSize: CGFloat = 32
+
+    var body: some View {
+        let texts = WatchlistWhyTexts.factorLine(factor)
+        let tint = factor.neutral ? AppColors.onSurfaceVariant : accent.primary
+        VStack(alignment: .leading, spacing: 0) {
+            Rectangle()
+                .fill(AppColors.outlineVariant)
+                .frame(height: 1)
+                .accessibilityHidden(true)
+            HStack(spacing: Spacing.md) {
+                // Akzentfarbe, neutral grau — nie Kursfarben (Volumen ↑ ist kein Kursanstieg)
+                Text(factor.direction.glyph)
+                    .font(AppFont.title.weight(.bold))
+                    .foregroundStyle(tint)
+                    .frame(width: iconSize, height: iconSize)
+                    .background(tint.opacity(0.12), in: Circle())
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(texts.title)
+                        .font(AppFont.body)
+                        .foregroundStyle(AppColors.onSurface)
+                        .lineLimit(1)
+                    Text(texts.note)
+                        .font(AppFont.label)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                if !texts.value.isEmpty {
+                    Text(texts.value)
+                        .font(AppFont.title.monospacedDigit())
+                        .foregroundStyle(AppColors.onSurface)
+                        .lineLimit(1)
+                        .fixedSize()
+                }
+            }
+            .padding(.vertical, Spacing.sm)
+            .opacity(factor.neutral ? 0.6 : 1)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(texts.spoken)
+        }
+    }
+}
+
+/// Platzhalter in der Form des geladenen Inhalts — Faktorkarte mit Kopf, Sicherheit, fünf
+/// Zeilen und «Kurz gesagt» sowie «Details anzeigen» —, mit echten Schriften und `.redacted`,
+/// damit die Höhen auch bei grosser Schrift stimmen und beim Eintreffen nichts springt.
+/// Pulsiert ruhig, bei reduzierter Bewegung stehend.
+private struct WatchlistWhySkeleton: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -577,29 +731,23 @@ private struct WatchlistWhySkeleton: View {
         }
     }
 
-    @ViewBuilder
+    private static let placeholders: [WhyFactor] = (0..<WhyFactors.maxFactors).map { _ in
+        WhyFactor(kind: .volume, direction: .up, note: .volumeHigher, value: 1.5, strength: 1, neutral: false)
+    }
+
     private var shape: some View {
-        switch part {
-        case .summary:
-            WatchlistWhySummaryCard(text: L("why_summary_market"))
-                .redacted(reason: .placeholder)
-        case .reasons:
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(0..<ActivityAnalyzer.maxReasons, id: \.self) { _ in
-                    FactorRow(mark: .neutral, title: L("factor_volume"), value: "0.00×")
-                }
-                // Höhe des Knopfs «Details anzeigen»
-                Text(L("why_details"))
-                    .font(.subheadline.weight(.semibold))
-                    .padding(.vertical, 6)
-                    .padding(.top, 4)
-            }
-            .redacted(reason: .placeholder)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            WatchlistWhyFactorCard(
+                factors: Self.placeholders,
+                brief: L("why_summary_market"),
+                confidence: .init(level: .medium, agreeing: 2, total: 4, partialData: false)
+            )
+            // Höhe des Knopfs «Details anzeigen»
+            Text(L("why_details"))
+                .font(.subheadline.weight(.semibold))
+                .padding(.vertical, Spacing.sm)
         }
+        .redacted(reason: .placeholder)
     }
 }
 
@@ -621,7 +769,7 @@ private struct WatchlistWhyEmpty: View {
                 Button(L("action_retry"), action: onRetry)
                     .font(.subheadline.weight(.semibold))
                     .tint(accent.primary)
-                    .padding(.top, 6)
+                    .padding(.top, Spacing.xs)
             }
         }
         .padding(16)

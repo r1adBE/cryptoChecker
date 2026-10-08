@@ -58,7 +58,9 @@ import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
 import java.text.DateFormat
@@ -102,7 +104,7 @@ internal fun CryptoPulseCard(state: LoadState<PulseReport>, onRetry: () -> Unit)
                     ) else Modifier
                 )
                 .sizeAnimation(animate)
-                .padding(20.dp)
+                .padding(Spacing.lg)
         ) {
             // Geladen: Überzeile gehört zum Screenreader-Element der Schlagzeile
             if (state !is LoadState.Loaded) {
@@ -137,8 +139,8 @@ internal fun CryptoPulseCard(state: LoadState<PulseReport>, onRetry: () -> Unit)
 @Composable
 private fun PulseSkeleton() {
     SkeletonPulse(modifier = Modifier.fillMaxWidth()) {
-        SkeletonLine(MaterialTheme.typography.headlineSmall, Modifier.fillMaxWidth(0.55f))
-        SkeletonLine(MaterialTheme.typography.bodyLarge, Modifier.padding(top = 6.dp).fillMaxWidth())
+        SkeletonLine(MaterialTheme.typography.headline, Modifier.fillMaxWidth(0.55f))
+        SkeletonLine(MaterialTheme.typography.bodyLarge, Modifier.padding(top = Spacing.xs).fillMaxWidth())
         SkeletonLine(MaterialTheme.typography.bodyLarge, Modifier.fillMaxWidth(0.7f))
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -346,7 +348,7 @@ private fun PulseHero(report: PulseReport) {
             }
             Text(
                 headline,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headline,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -355,7 +357,7 @@ private fun PulseHero(report: PulseReport) {
             lead,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(top = 6.dp)
+            modifier = Modifier.padding(top = Spacing.xs)
         )
 
         Row(
@@ -369,9 +371,9 @@ private fun PulseHero(report: PulseReport) {
 
         if (chips.isNotEmpty()) {
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp),
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
+                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+                verticalArrangement = Arrangement.spacedBy(Spacing.xs),
+                modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
             ) {
                 chips.forEach { PulseMetricChip(it) }
             }
@@ -411,7 +413,7 @@ private fun PulseMetricChip(text: String) {
         modifier = Modifier
             .clip(RoundedCornerShape(50))
             .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(50))
-            .padding(horizontal = 10.dp, vertical = 4.dp)
+            .padding(horizontal = Spacing.sm, vertical = 4.dp)
     )
 }
 

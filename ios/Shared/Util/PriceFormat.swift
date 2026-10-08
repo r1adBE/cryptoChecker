@@ -92,9 +92,10 @@ enum PriceFormat {
     }
 
     /// Freie Eingabe einer Menge: Komma oder Punkt, Leerzeichen und Tausenderstriche
-    /// werden ignoriert. Leer = 0 (kein Bestand), ungültig oder negativ = nil.
+    /// werden ignoriert, arabische/persische Ziffern gelten (`ThresholdParser.latinDigits`).
+    /// Leer = 0 (kein Bestand), ungültig oder negativ = nil.
     static func parseAmount(_ text: String) -> Double? {
-        var cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        var cleaned = ThresholdParser.latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines)
         for junk in [" ", "\u{00A0}", "\u{202F}", "'", "’"] {
             cleaned = cleaned.replacingOccurrences(of: junk, with: "")
         }
@@ -107,13 +108,27 @@ enum PriceFormat {
     static func changePercent(_ value: Double?) -> String? {
         guard let value, abs(value) >= 0.005 else { return nil }
         let sign = value > 0 ? "+" : "−"
-        return sign + String(format: "%.2f%%", locale: Locale.current, abs(value))
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl («1.20%+»)
+        return BidiText.ltr(sign + String(format: "%.2f%%", locale: Locale.current, abs(value)))
+    }
+
+    /// Pfeil zur Änderung: «▲» steigend, «▼» fallend, leer bei praktisch 0 — folgt immer dem
+    /// Vorzeichen, nie dem Farbtausch (wie `PriceFormat.changeArrow` in Android).
+    static func changeArrow(_ value: Double?) -> String {
+        guard let value, abs(value) >= 0.005 else { return "" }
+        return value > 0 ? "▲" : "▼"
+    }
+
+    /// Praktisch keine Änderung: «0.00%» grau, ohne Pfeil — in der Schreibweise der App-Sprache
+    /// («0,00%», arabisch «٠٫٠٠%») wie `changePercent`.
+    static func zeroPercent() -> String {
+        BidiText.ltr(String(format: "%.2f%%", locale: Locale.current, 0.0))
     }
 
     /// Mit Vorzeichen und drei Nachkommastellen (Mitteilungen).
     static func changePercentDetailed(_ value: Double) -> String {
         let sign = value >= 0 ? "+" : "-"
-        return sign + String(format: "%.3f%%", locale: Locale.current, abs(value))
+        return BidiText.ltr(sign + String(format: "%.3f%%", locale: Locale.current, abs(value)))
     }
 
     private static let timeFormatter: DateFormatter = {
@@ -129,21 +144,27 @@ enum PriceFormat {
         return timeFormatter.string(from: Date(millis: millis))
     }
 
+    /// Uhrzeit ohne Sekunden, z. B. «19:41» («Offline · Stand 19:41», «pausiert bis 19:45»).
+    static func shortTime(_ millis: Int64) -> String {
+        guard millis > 0 else { return "—" }
+        return Date(millis: millis).formatted(date: .omitted, time: .shortened)
+    }
+
     /// Kompakter Abstand: 45s, 12m, 3h, 7d.
     static func age(since millis: Int64, now: Int64 = TimeUtils.nowMillis) -> String? {
         guard millis > 0 else { return nil }
         let elapsed = now - millis
         guard elapsed >= 0 else { return nil }
         let s = elapsed / 1000, m = s / 60, h = m / 60, d = h / 24
-        if d > 0 { return "\(d)d" }
-        if h > 0 { return "\(h)h" }
-        if m > 0 { return "\(m)m" }
-        return "\(s)s"
+        if d > 0 { return LocaleNumbers.integer(d) + "d" }
+        if h > 0 { return LocaleNumbers.integer(h) + "h" }
+        if m > 0 { return LocaleNumbers.integer(m) + "m" }
+        return LocaleNumbers.integer(s) + "s"
     }
 
     static func duration(_ millis: Int64) -> String {
         if millis <= 0 { return "" }
-        if millis < 1000 { return "\(millis) ms" }
+        if millis < 1000 { return LocaleNumbers.integer(millis) + " ms" }
         return String(format: "%.1f s", locale: Locale.current, Double(millis) / 1000)
     }
 

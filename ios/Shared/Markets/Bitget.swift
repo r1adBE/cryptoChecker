@@ -52,8 +52,9 @@ final class BitgetFutures: SimpleMarket {
         var pairs: [CurrencyPairInfo] = []
         for item in try json.array("data").allObjects() {
             if item.optString("symbolType") != "perpetual" || item.optString("symbolStatus") != "normal" { continue }
+            let tradFi = TradFi.bitget(isRwa: item.optString("isRwa"))
             try pairs.append(
-                CurrencyPairInfo(item.string("baseCoin"), item.string("quoteCoin"), item.string("symbol"), .perpetual)
+                CurrencyPairInfo(item.string("baseCoin"), item.string("quoteCoin"), item.string("symbol"), .perpetual, tradFi: tradFi)
             )
         }
         return pairs

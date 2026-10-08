@@ -9,9 +9,13 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.lock.AppLockAuth
@@ -45,8 +49,13 @@ class BackupManager @Inject constructor(
     private val activityRepository: ActivityRepository,
     private val portfolioDao: PortfolioDao,
     private val portfolioRepository: PortfolioRepository,
+    private val portfolioAlarmRepository: PortfolioAlarmRepository,
 ) {
-    suspend fun export(uri: Uri) = withContext(Dispatchers.IO) {
+    /**
+     * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
+     * wie unter iOS), sonst wie bisher als lesbares JSON.
+     */
+    suspend fun export(uri: Uri, password: String?) = withContext(Dispatchers.IO) {
         val root = JSONObject()
             .put("format", FORMAT)
             .put("version", VERSION)
@@ -60,17 +69,37 @@ class BackupManager @Inject constructor(
             })
             .put("settings", settingsToJson())
             .put("portfolio", JSONArray().apply { portfolioDao.getAll().forEach { put(txToJson(it)) } })
+            .put("portfolioAlarms", JSONArray().apply { portfolioAlarmRepository.getAll().forEach { put(portfolioAlarmToJson(it)) } })
+
+        val plain = root.toString(2).toByteArray(Charsets.UTF_8)
+        val bytes = if (password == null) plain
+        else BackupCrypto.toJson(BackupCrypto.encrypt(plain, password)).toByteArray(Charsets.UTF_8)
 
         val stream = context.contentResolver.openOutputStream(uri, "wt")
             ?: error("Datei kann nicht geschrieben werden")
-        stream.use { it.write(root.toString(2).toByteArray(Charsets.UTF_8)) }
+        stream.use { it.write(bytes) }
     }
 
-    /** Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung. */
-    suspend fun restore(uri: Uri): RestoreResult = withContext(Dispatchers.IO) {
-        val text = context.contentResolver.openInputStream(uri)?.use { it.readBytes().toString(Charsets.UTF_8) }
-            ?: error("Datei kann nicht gelesen werden")
-        val root = JSONObject(text)
+    /** Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen. */
+    suspend fun needsPassword(uri: Uri): Boolean = withContext(Dispatchers.IO) {
+        read(uri) is BackupFile.Encrypted
+    }
+
+    /**
+     * Passwort prüfen, ohne etwas zu ändern.
+     * @throws BackupCrypto.WrongPasswordException bei falschem Passwort oder veränderter Datei.
+     */
+    suspend fun checkPassword(uri: Uri, password: String) {
+        withContext(Dispatchers.IO) { plainText(read(uri), password) }
+    }
+
+    /**
+     * Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung.
+     * [password] nur für verschlüsselte Sicherungen; ältere, lesbare Sicherungen brauchen keines.
+     */
+    suspend fun restore(uri: Uri, password: String?): RestoreResult = withContext(Dispatchers.IO) {
+        val root = JSONObject(plainText(read(uri), password))
+        // Klartext muss die eigentliche Sicherung sein (eine verschachtelte Hülle hat ein anderes «format»)
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
 
         val watches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty()
@@ -79,6 +108,10 @@ class BackupManager @Inject constructor(
         // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
         val portfolio = root.optJSONArray("portfolio")?.let { a ->
             (0 until a.length()).mapNotNull { jsonToTx(a.getJSONObject(it)) }
+        }
+        // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
+        val portfolioAlarms = root.optJSONArray("portfolioAlarms")?.let { a ->
+            (0 until a.length()).mapNotNull { i -> a.optJSONObject(i)?.let { jsonToPortfolioAlarm(it) } }
         }
 
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren (Ids können sich decken).
@@ -89,6 +122,7 @@ class BackupManager @Inject constructor(
             watches.forEach { watchDao.insertWatch(it) }
             alarms.filter { it.watchId in watchIds }.forEach { watchDao.insertAlarm(it) }
             if (portfolio != null) portfolioRepository.replaceAll(portfolio)
+            if (portfolioAlarms != null) portfolioAlarmRepository.replaceAll(portfolioAlarms)
             // Bestand aus alten Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion)
             portfolioRepository.importHoldings(onlyNewCoins = true)
         }
@@ -103,6 +137,46 @@ class BackupManager @Inject constructor(
         root.optJSONObject("settings")?.let { restoreSettings(it) }
 
         RestoreResult(watches.size, alarms.count { it.watchId in watchIds })
+    }
+
+    // ---------------- Datei ----------------
+
+    /** Gelesene Sicherungsdatei: lesbares JSON oder verschlüsselte Hülle. */
+    private sealed interface BackupFile {
+        class Plain(val json: String) : BackupFile
+        class Encrypted(val envelope: BackupCrypto.Envelope) : BackupFile
+    }
+
+    private fun read(uri: Uri): BackupFile {
+        val text = context.contentResolver.openInputStream(uri)?.use { it.readBytes().toString(Charsets.UTF_8) }
+            ?: error("Datei kann nicht gelesen werden")
+        val root = JSONObject(text)
+        // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc), damit ältere App-Versionen
+        // die Datei ablehnen statt sie als leere Sicherung zu übernehmen
+        if (!BackupCrypto.isEnvelope(root.optString("format"), root.optString("enc"))) {
+            require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
+            return BackupFile.Plain(text)
+        }
+        return BackupFile.Encrypted(
+            BackupCrypto.envelope(
+                version = root.optInt("v"),
+                enc = root.optString("enc"),
+                kdf = root.optString("kdf"),
+                iterations = root.optInt("iter"),
+                salt = root.optString("salt"),
+                iv = root.optString("iv"),
+                data = root.optString("data"),
+            )
+        )
+    }
+
+    /** Klartext der Sicherung; verschlüsselt ohne Passwort gilt als falsches Passwort. */
+    private fun plainText(file: BackupFile, password: String?): String = when (file) {
+        is BackupFile.Plain -> file.json
+        is BackupFile.Encrypted -> BackupCrypto.decrypt(
+            file.envelope,
+            password ?: throw BackupCrypto.WrongPasswordException()
+        ).toString(Charsets.UTF_8)
     }
 
     // ---------------- Merkliste & Alarme ----------------
@@ -175,6 +249,32 @@ class BackupManager @Inject constructor(
         )
     }
 
+    /** Portfolio-Alarm (gleiches Format wie iOS); Zustand (gemeldet, zuletzt) wird nicht gesichert. */
+    private fun portfolioAlarmToJson(a: PortfolioAlarmEntity) = JSONObject()
+        .put("id", a.id)
+        .put("kind", a.kind.name)
+        .put("threshold", a.threshold)
+        .put("currency", a.currency ?: JSONObject.NULL)
+        .put("enabled", a.enabled)
+        .put("repeating", a.repeating)
+
+    /** Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. */
+    private fun jsonToPortfolioAlarm(o: JSONObject): PortfolioAlarmEntity? {
+        val kind = PortfolioAlarmKind.fromName(o.optString("kind")) ?: return null
+        val threshold = o.optDouble("threshold").takeIf { PortfolioAlarmLogic.isValidThreshold(kind, it) } ?: return null
+        val currency = if (o.isNull("currency")) null else o.optString("currency").trim().uppercase()
+            .takeIf { code -> code.length == 3 && code.all { it in 'A'..'Z' } }
+        if (kind.isValue && currency == null) return null
+        return PortfolioAlarmEntity(
+            id = o.optLong("id", 0L).coerceAtLeast(0L),
+            kind = kind,
+            threshold = threshold,
+            currency = currency.takeIf { kind.isValue },
+            enabled = o.optBoolean("enabled", true),
+            repeating = o.optBoolean("repeating", false),
+        )
+    }
+
     private fun alarmToJson(a: AlarmEntity) = JSONObject()
         .put("id", a.id)
         .put("watchId", a.watchId)
@@ -216,6 +316,7 @@ class BackupManager @Inject constructor(
             .put("backgroundIntervalMinutes", s.backgroundIntervalMinutes)
             .put("liveService", s.liveService)
             .put("liveIntervalSeconds", s.liveIntervalSeconds)
+            .put("liveWebSocket", s.liveWebSocket)
             .put("priceNotifications", s.priceNotifications)
             .put("ongoingNotifications", s.ongoingNotifications)
             .put("notificationChangePercent", s.notificationChangePercent)
@@ -224,6 +325,7 @@ class BackupManager @Inject constructor(
             .put("ttsSpeechRate", s.ttsSpeechRate.toDouble())
             .put("alarmCooldownMinutes", s.alarmCooldownMinutes)
             .put("includeRollingFutures", s.includeRollingFutures)
+            .put("includeTradFiFutures", s.includeTradFiFutures)
             .put("accentColor", s.accentColor.name)
             .put("darkMode", s.darkMode ?: JSONObject.NULL)
             .put("zoneAlerts", s.zoneAlerts)
@@ -239,12 +341,15 @@ class BackupManager @Inject constructor(
             .put("showConverted", s.showConverted)
             .put("priceColorScheme", s.priceColorScheme.name)
             .put("watchlistSparkline", s.watchlistSparkline)
+            .put("changeBasis", s.changeBasis.name)
             .put("highContrast", s.highContrast)
             .put("priceColorsInverted", s.priceColorsInverted)
+            .put("alarmSignal", s.alarmSignal.name)
             .put("quietHoursEnabled", s.quietHoursEnabled)
             .put("quietHoursStart", s.quietHoursStart)
             .put("quietHoursEnd", s.quietHoursEnd)
             .put("appLock", s.appLock)
+            .put("hidePortfolioAmounts", s.hidePortfolioAmounts)
     }
 
     private suspend fun restoreSettings(o: JSONObject) = with(settingsRepository) {
@@ -252,6 +357,7 @@ class BackupManager @Inject constructor(
         if (o.has("backgroundIntervalMinutes")) setBackgroundInterval(o.getInt("backgroundIntervalMinutes"))
         if (o.has("liveService")) setLiveService(o.getBoolean("liveService"))
         if (o.has("liveIntervalSeconds")) setLiveInterval(o.getInt("liveIntervalSeconds"))
+        if (o.has("liveWebSocket")) setLiveWebSocket(o.optBoolean("liveWebSocket", true))
         if (o.has("priceNotifications")) setPriceNotifications(o.getBoolean("priceNotifications"))
         if (o.has("ongoingNotifications")) setOngoingNotifications(o.getBoolean("ongoingNotifications"))
         if (o.has("notificationChangePercent")) setNotificationChangePercent(o.getDouble("notificationChangePercent"))
@@ -260,6 +366,7 @@ class BackupManager @Inject constructor(
         if (o.has("ttsSpeechRate")) setTtsSpeechRate(o.getDouble("ttsSpeechRate").toFloat())
         if (o.has("alarmCooldownMinutes")) setAlarmCooldown(o.getInt("alarmCooldownMinutes"))
         if (o.has("includeRollingFutures")) setIncludeRollingFutures(o.getBoolean("includeRollingFutures"))
+        if (o.has("includeTradFiFutures")) setIncludeTradFiFutures(o.getBoolean("includeTradFiFutures"))
         if (o.has("accentColor")) setAccentColor(AccentColor.fromName(o.getString("accentColor")))
         if (o.has("darkMode")) setDarkMode(if (o.isNull("darkMode")) null else o.getBoolean("darkMode"))
         if (o.has("zoneAlerts")) setZoneAlerts(o.getBoolean("zoneAlerts"))
@@ -282,13 +389,31 @@ class BackupManager @Inject constructor(
             setPriceColorScheme(com.cryptochecker.app.settings.PriceColorScheme.fromName(o.optString("priceColorScheme")))
         }
         if (o.has("watchlistSparkline")) setWatchlistSparkline(o.optBoolean("watchlistSparkline", true))
+        // %-Basis: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen; unbekannt → «Letzte 24 Std.»
+        if (o.has("changeBasis")) {
+            setChangeBasis(
+                com.cryptochecker.app.domain.watch.ChangeBasis.fromName(
+                    if (o.isNull("changeBasis")) null else o.optString("changeBasis")
+                )
+            )
+        }
         // Ältere Sicherungen ohne den Schlüssel lassen die aktuelle Einstellung stehen.
         if (o.has("highContrast")) setHighContrast(o.optBoolean("highContrast", false))
         if (o.has("priceColorsInverted")) setPriceColorsInverted(o.optBoolean("priceColorsInverted", false))
+        // Alarm-Signal: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen;
+        // unbekannter Wert (neuere Version) → «System»
+        if (o.has("alarmSignal")) {
+            setAlarmSignal(
+                com.cryptochecker.app.domain.alarm.AlarmSignal.fromName(
+                    if (o.isNull("alarmSignal")) null else o.optString("alarmSignal")
+                )
+            )
+        }
         // Nachtruhe: nur übernehmen, was vorhanden und gültig ist (Minuten 0..1439)
         if (o.has("quietHoursEnabled")) setQuietHoursEnabled(o.optBoolean("quietHoursEnabled", false))
         o.optMinute("quietHoursStart")?.let { setQuietHoursStart(it) }
         o.optMinute("quietHoursEnd")?.let { setQuietHoursEnd(it) }
+        if (o.has("hidePortfolioAmounts")) setHidePortfolioAmounts(o.optBoolean("hidePortfolioAmounts", false))
         // Portfolio-Sperre nur, wenn dieses Gerät entsperren kann — sonst sperrte sie das Portfolio aus
         if (o.has("appLock")) {
             val wanted = o.optBoolean("appLock", false)

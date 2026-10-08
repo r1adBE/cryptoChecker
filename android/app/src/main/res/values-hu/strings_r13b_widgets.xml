@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">elavult · %1$s</string>
 
     <string name="settings_widgets">Widgetek</string>
-    <string name="settings_widgets_hint">Árak a kezdőképernyőre</string>
     <string name="widgets_sheet_title">Widget hozzáadása</string>
     <string name="widget_kind_single">Egy érme</string>
     <string name="widgets_add">Hozzáadás</string>

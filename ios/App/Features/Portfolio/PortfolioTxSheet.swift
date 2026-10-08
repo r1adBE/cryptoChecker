@@ -61,7 +61,7 @@ struct PortfolioTxSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: Spacing.md) {
                     typePicker
                     coinField
                     amountField
@@ -73,7 +73,7 @@ struct PortfolioTxSheet: View {
                         deleteButton
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, Spacing.lg)
                 .padding(.top, 8)
                 .padding(.bottom, 24)
                 .animation(.easeInOut(duration: 0.2), value: tried)
@@ -126,9 +126,9 @@ struct PortfolioTxSheet: View {
     private var coinField: some View {
         let error = tried && !coinValid
         let matches = Self.matchCoins(model.coins, coin)
-        return VStack(alignment: .leading, spacing: 6) {
+        return VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L("portfolio_coin"))
-            HStack(spacing: 10) {
+            HStack(spacing: Spacing.sm) {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(AppColors.onSurfaceVariant)
                 TextField(L("portfolio_coin_search"), text: Binding(
@@ -158,7 +158,7 @@ struct PortfolioTxSheet: View {
                                     .font(.subheadline.weight(.medium))
                                     .lineLimit(1)
                                     .padding(.horizontal, 12)
-                                    .padding(.vertical, 7)
+                                    .padding(.vertical, Spacing.sm)
                                     .foregroundStyle(accent.onContainer)
                                     .background(accent.container, in: Capsule())
                             }
@@ -189,12 +189,12 @@ struct PortfolioTxSheet: View {
         } else {
             message = nil
         }
-        return VStack(alignment: .leading, spacing: 6) {
+        return VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L("portfolio_tx_amount"))
-            HStack(spacing: 10) {
+            HStack(spacing: Spacing.sm) {
                 TextField("0", text: $amountText)
                     .keyboardType(.decimalPad)
-                    .font(.system(.title3, design: .rounded).weight(.semibold).monospacedDigit())
+                    .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .amount)
                 if coinValid {
                     Text(coin)
@@ -211,16 +211,16 @@ struct PortfolioTxSheet: View {
     }
 
     private var priceField: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L("portfolio_tx_price"))
-            HStack(spacing: 10) {
+            HStack(spacing: Spacing.sm) {
                 // Getippt = nicht mehr automatisch ersetzen
                 TextField("0", text: Binding(
                     get: { priceText },
                     set: { priceText = $0; priceAuto = false }
                 ))
                 .keyboardType(.decimalPad)
-                .font(.system(.title3, design: .rounded).weight(.semibold).monospacedDigit())
+                .font(AppFont.amount(.title3, weight: .semibold))
                 .focused($focusedField, equals: .price)
                 Text(PortfolioFormat.usdt)
                     .font(.headline)
@@ -250,7 +250,7 @@ struct PortfolioTxSheet: View {
     }
 
     private var noteField: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L("portfolio_tx_note"))
             TextField("", text: Binding(
                 get: { note },
@@ -276,7 +276,7 @@ struct PortfolioTxSheet: View {
         Button(role: .destructive) {
             askDelete = true
         } label: {
-            HStack(spacing: 14) {
+            HStack(spacing: Spacing.md) {
                 Image(systemName: "trash")
                     .scaledFont(size: 17, weight: .semibold, relativeTo: .body)
                 Text(L("action_delete")).font(.body.weight(.medium))
@@ -284,12 +284,12 @@ struct PortfolioTxSheet: View {
             }
             .foregroundStyle(AppColors.error)
             .padding(.horizontal, 16)
-            .padding(.vertical, 14)
+            .padding(.vertical, Spacing.lg)
             .background(AppColors.error.opacity(0.10), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .padding(.top, 6)
+        .padding(.top, Spacing.xs)
     }
 
     private func fieldLabel(_ text: String) -> some View {
@@ -383,7 +383,7 @@ private struct PortfolioFieldStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(.horizontal, 16)
-            .padding(.vertical, 13)
+            .padding(.vertical, Spacing.md)
             .background(AppColors.container, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)

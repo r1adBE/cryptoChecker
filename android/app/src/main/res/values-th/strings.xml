@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">ข้อผิดพลาด: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">ไม่มีคู่เหรียญ</string>
-    <string name="checker_add_check_currency_empty_warning_summary">แตะที่นี่เพื่อดาวน์โหลดคู่เหรียญล่าสุดจากกระดานเทรดที่เลือก</string>
+    <string name="checker_add_check_currency_empty_warning_summary">โหลดคู่เทรดปัจจุบันของตลาดที่เลือก</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">อัปเดตคู่เหรียญ</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">ซิงค์เลย!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">ซิงค์ล่าสุด: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">ไม่เคย</string>
 
-    <string name="market_screen_sync">ซิงค์</string>
+    <string name="market_screen_sync">ปรับให้ตรงกัน</string>
     <string name="market_screen_base">สกุลหลัก</string>
     <string name="market_screen_quote">สกุลอ้างอิง</string>
     <string name="market_screen_market">ตลาด</string>
@@ -36,7 +36,6 @@
     <string name="bulk_all_pairs_empty">ไม่มีคู่ %1$s ในกระดานเทรดนี้สำหรับประเภทสัญญาที่เลือก ให้ซิงค์กระดานเทรดก่อน หรือลองประเภทสัญญาอื่น</string>
 
     <string name="action_refresh">รีเฟรช</string>
-    <string name="action_add_pair">เพิ่มคู่</string>
     <string name="action_delete">ลบ</string>
     <string name="action_edit">แก้ไข</string>
     <string name="action_back">กลับ</string>
@@ -44,7 +43,6 @@
     <string name="action_cancel">ยกเลิก</string>
 
     <string name="watchlist_empty_title">ยังไม่มีคู่เหรียญ</string>
-    <string name="watchlist_empty_hint">หรือเลือกกระดานเทรดและคู่เหรียญในแท็บ “เพิ่ม” แต่ละคู่ตั้งการแจ้งเตือน การอ่านราคาด้วยเสียง และสัญญาณเตือนราคาได้</string>
     <string name="watchlist_updated">อัปเดต: %1$s</string>
     <string name="watchlist_notification">การแจ้งเตือน</string>
     <string name="watchlist_tts">อ่านราคา</string>
@@ -74,7 +72,7 @@
     <string name="channel_prices_description">การแจ้งเตือนแบบเงียบพร้อมราคาปัจจุบันของคู่เหรียญ</string>
     <string name="channel_alarms">สัญญาณเตือน</string>
     <string name="channel_alarms_description">แจ้งเตือนเมื่อสัญญาณเตือนราคาทำงาน</string>
-    <string name="channel_service">โหมดสด</string>
+    <string name="channel_service">อัปเดตบ่อย</string>
     <string name="channel_service_description">แสดงขณะอัปเดตราคาในช่วงเวลาสั้นๆ</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s จาก %2$s (%3$s ที่แล้ว)</string>
@@ -125,7 +123,7 @@
     <string name="settings_rolling_futures">รวมฟิวเจอร์สรายไตรมาส &amp; ที่มีวันหมดอายุอื่นๆ</string>
     <string name="settings_rolling_futures_hint">ปิด: ฟิวเจอร์สที่มีวันหมดอายุซึ่งไม่อยู่ในรายการของกระดานเทรด จะถูกทำเครื่องหมายว่าไม่มีการซื้อขายแล้ว แทนการตรวจทีละรายการ ช่วยประหยัดเวลาทุกครั้งที่รีเฟรช</string>
     <string name="notification_refreshing">กำลังอัปเดตราคา…</string>
-    <string name="notification_service_title">โหมดสด Crypto Checker</string>
+    <string name="notification_service_title">Crypto Checker กำลังอัปเดตบ่อย</string>
     <string name="notification_service_starting">กำลังเริ่ม…</string>
     <plurals name="notification_service_running">
         <item quantity="other">%1$d คู่ · %2$s</item>
@@ -137,9 +135,9 @@
     <string name="settings_background_updates">อัปเดตเบื้องหลัง</string>
     <string name="settings_background_updates_hint">ราคา สัญญาณเตือน และวิดเจ็ตจะอัปเดตแม้ปิดแอปอยู่</string>
     <string name="settings_background_interval">ช่วงเวลา</string>
-    <string name="settings_live_service">โหมดสด</string>
-    <string name="settings_live_service_hint">ให้บริการทำงานต่อเนื่องเพื่อช่วงเวลาสั้น ใช้แบตเตอรี่มากขึ้น</string>
-    <string name="settings_live_interval">ช่วงเวลาโหมดสด</string>
+    <string name="settings_live_service">อัปเดตบ่อย</string>
+    <string name="settings_live_service_hint">ตรวจราคาเป็นช่วงสั้น ๆ แม้ปิดแอปอยู่ จะแสดงการแจ้งเตือนและใช้แบตเตอรี่มากขึ้น</string>
+    <string name="settings_live_interval">บ่อยแค่ไหน</string>
     <string name="settings_minutes">%1$d นาที</string>
     <string name="settings_seconds">%1$d วินาที</string>
     <string name="settings_price_notifications">การแจ้งเตือนราคา</string>
@@ -217,7 +215,7 @@
     <string name="theme_system">ระบบ</string>
     <string name="settings_section_developer">นักพัฒนา</string>
     <string name="settings_http_log">แสดงบันทึก HTTP</string>
-    <string name="settings_http_log_hint">แสดงคำขอไปยังกระดานเทรดที่ด้านล่างของแท็บ “เพิ่ม” – สำหรับแก้ปัญหา</string>
+    <string name="settings_http_log_hint">แสดงคำขอไปยังกระดานเทรดที่ด้านล่างของหน้า “เพิ่มคู่เทรด” – สำหรับแก้ปัญหา</string>
     <string name="language_search">ค้นหาภาษา</string>
     <string name="alarm_delete_title">ลบการแจ้งเตือน?</string>
     <string name="alarm_delete_confirm">การแจ้งเตือนนี้จะถูกลบ</string>
@@ -253,15 +251,11 @@
     <string name="explorer_bulk_show_list">แสดงรายการ</string>
     <string name="explorer_bulk_hide_list">ซ่อนรายการ</string>
     <string name="time_just_now">เมื่อสักครู่</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">ราคาของคุณ สัญญาณเตือนของคุณ ภาพรวมของคุณ\nไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม</string>
-    <string name="welcome_later">ภายหลัง</string>
     <string name="developer_unlocked">ปลดล็อกตัวเลือกนักพัฒนาแล้ว</string>
     <string name="hint_favorites_list">เคล็ดลับ: แตะ ☆ เพื่อเป็นรายการโปรด รายการโปรดอยู่ด้านบน</string>
     <string name="tab_watchlist">รายการ</string>
-    <string name="tab_markets">เพิ่ม</string>
     <string name="tab_market_phase">ตลาด</string>
-    <string name="tab_settings">ตั้งค่า</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">เก่าแล้ว %1$d จาก %2$d</item>
     </plurals>

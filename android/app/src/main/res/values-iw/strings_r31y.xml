@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">לא עדכני · %1$s</string>
+    <string name="why_brief_label">בקיצור:</string>
+    <string name="why_factor_market">השוק כולו</string>
+    <string name="why_factor_futures">חוזים עתידיים</string>
+    <string name="why_factor_near_high">קרוב לשיא</string>
+    <string name="why_factor_funding">מימון</string>
+    <string name="why_fn_volume_higher">גבוה מהרגיל</string>
+    <string name="why_fn_volume_lower">נמוך מהרגיל</string>
+    <string name="why_fn_volume_usual">כרגיל</string>
+    <string name="why_fn_market_pulls">BTC מושך את השוק איתו</string>
+    <string name="why_fn_market_lags">השוק זז, המטבע הזה כמעט לא</string>
+    <string name="why_fn_market_alone">השוק רגוע – המטבע הזה זז לבד</string>
+    <string name="why_fn_market_against">המטבע נע נגד השוק</string>
+    <string name="why_fn_market_calm">השוק רגוע</string>
+    <string name="why_fn_leader_moves">ביטקוין קובע את הכיוון</string>
+    <string name="why_fn_leader_calm">ביטקוין רגוע</string>
+    <string name="why_fn_volatility_stronger">חזק מהרגיל</string>
+    <string name="why_fn_volatility_usual">כרגיל</string>
+    <string name="why_fn_oi_up">הריבית הפתוחה עלתה</string>
+    <string name="why_fn_oi_down">הריבית הפתוחה ירדה</string>
+    <string name="why_fn_oi_flat">הריבית הפתוחה כמעט לא השתנתה</string>
+    <string name="why_fn_high_at">בשיא של 30 יום</string>
+    <string name="why_fn_high_below">מתחת לשיא של 30 יום</string>
+    <string name="why_fn_funding_longs">רבים מהמרים על עליות</string>
+    <string name="why_fn_funding_shorts">רבים מהמרים על ירידות</string>
+    <string name="why_fn_funding_neutral">ניטרלי</string>
+</resources>

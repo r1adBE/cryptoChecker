@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">आज %1$s</string>
     <string name="widget_portfolio_empty">पोर्टफोलियो टैब में खरीदारी जोड़ें</string>
     <string name="a11y_portfolio_widget">पोर्टफोलियो %1$s, आज %2$s</string>
-    <string name="settings_section_advanced">उन्नत</string>
-    <string name="settings_advanced_hint">लाइव मोड, स्थायी नोटिफ़िकेशन, फ़्यूचर्स और डेवलपर विकल्प</string>
     <string name="explain_funding">लॉन्ग और शॉर्ट पोज़िशन के बीच शुल्क। काफ़ी पॉज़िटिव होने का मतलब है कि कई लोग कीमतें बढ़ने पर दांव लगा रहे हैं।</string>
     <string name="explain_open_interest">सभी खुली फ़्यूचर्स पोज़िशन का मूल्य। अगर यह बढ़ता है, तो उस चाल पर ज़्यादा पैसा लगा है।</string>
     <string name="explain_rsi">रिलेटिव स्ट्रेंथ इंडेक्स, 0–100। 70 से ऊपर अक्सर ओवरहीटेड, 30 से नीचे अक्सर ओवरसोल्ड।</string>

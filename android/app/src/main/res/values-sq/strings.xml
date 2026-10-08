@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Gabim: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Nuk ka çifte monedhash</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Prek këtu për të shkarkuar çiftet më të fundit të monedhave nga bursa e zgjedhur.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Ngarkon çiftet aktuale të tregut të zgjedhur.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Përditëso çiftet e monedhave</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sinkronizo tani!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Sinkronizimi i fundit: %1$s</string>
@@ -37,7 +37,6 @@
     <string name="bulk_all_pairs_empty">Nuk ka çifte %1$s në këtë bursë për llojin e zgjedhur të kontratës. Sinkronizo fillimisht bursën ose provo një lloj tjetër kontrate.</string>
 
     <string name="action_refresh">Rifresko</string>
-    <string name="action_add_pair">Shto çift</string>
     <string name="action_delete">Fshi</string>
     <string name="action_edit">Ndrysho</string>
     <string name="action_back">Prapa</string>
@@ -45,7 +44,6 @@
     <string name="action_cancel">Anulo</string>
 
     <string name="watchlist_empty_title">Ende nuk ka çifte</string>
-    <string name="watchlist_empty_hint">Ose zgjidh një bursë dhe një çift te «Shto». Çdo çift mund të ketë njoftim, lexim zanor të çmimit dhe alarme çmimi.</string>
     <string name="watchlist_updated">Përditësuar: %1$s</string>
     <string name="watchlist_notification">Njoftim</string>
     <string name="watchlist_tts">Lexo çmimin</string>
@@ -76,7 +74,7 @@
     <string name="channel_prices_description">Njoftim i heshtur me çmimin aktual të një çifti.</string>
     <string name="channel_alarms">Alarmet</string>
     <string name="channel_alarms_description">Njoftim kur aktivizohet një alarm çmimi.</string>
-    <string name="channel_service">Modaliteti live</string>
+    <string name="channel_service">Përditësim i shpeshtë</string>
     <string name="channel_service_description">Njoftim ndërkohë që çmimet përditësohen në intervale të shkurtra.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, nga %2$s (%3$s më parë)</string>
@@ -127,7 +125,7 @@
     <string name="settings_rolling_futures">Përfshi futures tremujore &amp; të tjera me afat</string>
     <string name="settings_rolling_futures_hint">Joaktiv: futures me afat që mungojnë në listën e bursës shënohen si jo më të tregtuara në vend që të kontrollohen një nga një. Kursen kohë në çdo rifreskim.</string>
     <string name="notification_refreshing">Po përditësohen çmimet…</string>
-    <string name="notification_service_title">Crypto Checker – modaliteti live</string>
+    <string name="notification_service_title">Crypto Checker po përditësohet shpesh</string>
     <string name="notification_service_starting">Po niset…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d çift · %2$s</item>
@@ -140,9 +138,9 @@
     <string name="settings_background_updates">Përditësime në sfond</string>
     <string name="settings_background_updates_hint">Çmimet, alarmet dhe widget-et përditësohen edhe kur aplikacioni është i mbyllur.</string>
     <string name="settings_background_interval">Intervali</string>
-    <string name="settings_live_service">Modaliteti live</string>
-    <string name="settings_live_service_hint">Mban një shërbim aktiv për intervale të shkurtra. Përdor më shumë bateri.</string>
-    <string name="settings_live_interval">Intervali live</string>
+    <string name="settings_live_service">Përditëso shpesh</string>
+    <string name="settings_live_service_hint">Kontrollon çmimet me intervale të shkurtra, edhe kur aplikacioni është i mbyllur. Shfaq një njoftim dhe harxhon më shumë bateri.</string>
+    <string name="settings_live_interval">Sa shpesh</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Njoftimet e çmimit</string>
@@ -222,7 +220,7 @@
     <string name="theme_system">Sistemi</string>
     <string name="settings_section_developer">Zhvilluesi</string>
     <string name="settings_http_log">Shfaq regjistrin HTTP</string>
-    <string name="settings_http_log_hint">Shfaq në fund të skedës «Shto» kërkesat drejt bursave – për gjetjen e gabimeve.</string>
+    <string name="settings_http_log_hint">Shfaq në fund të faqes «Shto çift» kërkesat drejt bursave – për gjetjen e gabimeve.</string>
     <string name="language_search">Kërko gjuhën</string>
     <string name="alarm_delete_title">Të fshihet alarmi?</string>
     <string name="alarm_delete_confirm">Ky alarm do të hiqet.</string>
@@ -262,15 +260,11 @@
     <string name="explorer_bulk_show_list">Shfaq listën</string>
     <string name="explorer_bulk_hide_list">Fshih listën</string>
     <string name="time_just_now">tani</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Çmimet e tua. Alarmet e tua. Pasqyra jote.\nPa llogari. Pa reklama. Pa gjurmim.</string>
-    <string name="welcome_later">Më vonë</string>
     <string name="developer_unlocked">Opsionet e zhvilluesit u zhbllokuan</string>
     <string name="hint_favorites_list">Këshillë: prek ☆ për të preferuar – të preferuarat mbeten lart.</string>
     <string name="tab_watchlist">Lista</string>
-    <string name="tab_markets">Shto</string>
     <string name="tab_market_phase">Tregu</string>
-    <string name="tab_settings">Opsione</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d nga %2$d të vjetruara</item>
         <item quantity="other">%1$d nga %2$d të vjetruara</item>

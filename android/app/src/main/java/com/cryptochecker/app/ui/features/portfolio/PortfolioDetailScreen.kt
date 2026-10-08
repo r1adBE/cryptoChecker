@@ -29,6 +29,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,6 +53,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /** Ein Coin: Kennzahlen und seine Transaktionen (Tipp = bearbeiten, lange drücken = löschen). */
@@ -65,6 +67,7 @@ fun PortfolioDetailScreen(
     val transactions by viewModel.transactions.collectAsStateWithLifecycle()
     val prices by viewModel.prices.collectAsStateWithLifecycle()
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
+    val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) { viewModel.start() }
     LifecycleResumeEffect(Unit) {
@@ -142,28 +145,30 @@ fun PortfolioDetailScreen(
         ) {
             // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
             ReadableInset { inset ->
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    item(key = "summary") { PositionCard(position) }
-                    item(key = "tx_header") {
-                        Text(
-                            stringResource(R.string.portfolio_transactions),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp)
-                        )
+                CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        item(key = "summary") { PositionCard(position) }
+                        item(key = "tx_header") {
+                            Text(
+                                stringResource(R.string.portfolio_transactions),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp)
+                            )
+                        }
+                        items(own, key = { it.id }) { tx ->
+                            TxRow(
+                                tx = tx,
+                                onClick = { sheet = tx.toDraft() },
+                                onLongClick = { askDelete = tx }
+                            )
+                        }
+                        item(key = "disclaimer") { PortfolioDisclaimer() }
                     }
-                    items(own, key = { it.id }) { tx ->
-                        TxRow(
-                            tx = tx,
-                            onClick = { sheet = tx.toDraft() },
-                            onLongClick = { askDelete = tx }
-                        )
-                    }
-                    item(key = "disclaimer") { PortfolioDisclaimer() }
                 }
             }
         }
@@ -179,7 +184,7 @@ private fun PositionCard(p: CoinPosition) {
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
+        Column(modifier = Modifier.padding(Spacing.lg)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 CoinBadge(p.coin, size = 44.dp)
                 Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
@@ -189,7 +194,7 @@ private fun PositionCard(p: CoinPosition) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        p.value?.let { PortfolioFormat.usdt(it) } ?: "—",
+                        p.value?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
                         style = MaterialTheme.typography.headlineSmall.tabularNumbers(),
                         fontWeight = FontWeight.SemiBold,
                         maxLines = 1
@@ -199,7 +204,7 @@ private fun PositionCard(p: CoinPosition) {
             Row(modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) {
                 Metric(
                     label = stringResource(R.string.portfolio_holdings),
-                    value = PortfolioFormat.amount(p.holdings, p.coin),
+                    value = maskAmount(PortfolioFormat.amount(p.holdings, p.coin)),
                     modifier = Modifier.weight(1f)
                 )
                 Metric(
@@ -216,7 +221,7 @@ private fun PositionCard(p: CoinPosition) {
                 )
                 Metric(
                     label = stringResource(R.string.portfolio_invested),
-                    value = p.costBasis?.let { PortfolioFormat.usdt(it) } ?: "—",
+                    value = p.costBasis?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -224,7 +229,7 @@ private fun PositionCard(p: CoinPosition) {
                 Column(modifier = Modifier.weight(1f)) {
                     Metric(
                         label = stringResource(R.string.portfolio_unrealized),
-                        value = p.unrealized?.let { PortfolioFormat.signedUsdt(it) } ?: "—",
+                        value = p.unrealized?.let { maskAmount(PortfolioFormat.signedUsdt(it)) } ?: "—",
                         valueColor = plColor(p.unrealized)
                     )
                     if (p.unrealized != null) {
@@ -234,7 +239,7 @@ private fun PositionCard(p: CoinPosition) {
                 if (!PortfolioFormat.isZero(p.realized)) {
                     Metric(
                         label = stringResource(R.string.portfolio_realized),
-                        value = PortfolioFormat.signedUsdt(p.realized),
+                        value = maskAmount(PortfolioFormat.signedUsdt(p.realized)),
                         valueColor = plColor(p.realized),
                         modifier = Modifier.weight(1f)
                     )
@@ -285,7 +290,7 @@ private fun TxRow(tx: PortfolioTxEntity, onClick: () -> Unit, onLongClick: () ->
                     )
                 }
                 Text(
-                    PortfolioFormat.amount(tx.amount, tx.coin) + " × " +
+                    maskAmount(PortfolioFormat.amount(tx.amount, tx.coin)) + " × " +
                         (tx.priceUsdt?.let { PortfolioFormat.price(it) }
                             ?: stringResource(R.string.portfolio_price_missing)),
                     style = MaterialTheme.typography.bodySmall.tabularNumbers(),
@@ -304,7 +309,7 @@ private fun TxRow(tx: PortfolioTxEntity, onClick: () -> Unit, onLongClick: () ->
                 }
             }
             Text(
-                tx.priceUsdt?.let { PortfolioFormat.usdt(it * tx.amount) } ?: "—",
+                tx.priceUsdt?.let { maskAmount(PortfolioFormat.usdt(it * tx.amount)) } ?: "—",
                 style = MaterialTheme.typography.titleSmall.tabularNumbers(),
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 8.dp)

@@ -1,9 +1,9 @@
-Seuraa kryptohintojasi avaamatta jatkuvasti pörssisovelluksia. Aseta hälytyksiä, huomaa epätavalliset liikkeet ja ymmärrä sekunneissa, miksi kolikko liikkuu.
+Crypto Checker selittää, mitä markkinoilla tapahtuu. Aseta hälytyksiä, huomaa poikkeavat liikkeet ja ymmärrä sekunneissa, miksi kolikko liikkuu – ei ennustetta.
 
-Seuraa – hinnat suoraan pörssistä, omassa valuutassasi
-Hälytä – hinta, %, liikkeet ja volyymi yhtenä lauseena
 Ymmärrä – ”Miksi tämä liikkuu?” lyhyellä yhteenvedolla
 Yleiskuva – Crypto Pulse, Fear & Greed, sykli ja salkku
+Seuraa – hinnat suoraan pörssistä, omassa valuutassasi
+Hälytä – hinta, %, liikkeet ja volyymi yhtenä lauseena
 
 Luettava kaikille: hintavärit vihreä/punainen tai sininen/oranssi, halutessa vaihdettuina, suuri kontrasti, etumerkki ja nuoli pelkän värin sijaan, VoiceOver lukee jokaisen rivin yhtenä lauseena.
 
@@ -49,7 +49,7 @@ WIDGETIT KOTI- JA LUKITUSNÄYTÖLLE
 • Live Activity lukitusnäytöllä: kolikon hinta yhdellä silmäyksellä
 
 LISÄKSI
-• Live-tila lyhyin välein, kun appi on auki; taustapäivitykset ajoittaa iOS
+• Tiheä päivitys, kun appi on auki; taustapäivitykset ajoittaa iOS
 • Hinnat ja hälytykset ääneen luettuina
 • Varmuuskopio ja palautus Tiedostot-apin kautta
 • Pikatoiminnot appikuvakkeessa, vaalea ja tumma tila

@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">Ошибка: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Нет валютных пар</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Нажмите здесь, чтобы загрузить актуальные валютные пары с выбранной биржи.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Загружает актуальные пары выбранного рынка.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Обновить валютные пары</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Синхронизировать!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Последняя синхронизация: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">никогда</string>
 
-    <string name="market_screen_sync">Синхр.</string>
+    <string name="market_screen_sync">Обновить</string>
     <string name="market_screen_base">Базовая</string>
     <string name="market_screen_quote">Котируемая</string>
     <string name="market_screen_market">Рынок</string>
@@ -40,7 +40,6 @@
 
     <!-- Aktionen -->
     <string name="action_refresh">Обновить</string>
-    <string name="action_add_pair">Добавить пару</string>
     <string name="action_delete">Удалить</string>
     <string name="action_edit">Изменить</string>
     <string name="action_back">Назад</string>
@@ -49,7 +48,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">Пар пока нет</string>
-    <string name="watchlist_empty_hint">Или выберите биржу и пару в разделе «Добавить». Для каждой пары можно включить уведомление, озвучивание и ценовые оповещения.</string>
     <string name="watchlist_updated">Обновлено: %1$s</string>
     <string name="watchlist_notification">Уведомление</string>
     <string name="watchlist_tts">Озвучивать цену</string>
@@ -84,7 +82,7 @@
     <string name="channel_prices_description">Беззвучное уведомление с текущей ценой пары.</string>
     <string name="channel_alarms">Оповещения</string>
     <string name="channel_alarms_description">Уведомление при срабатывании ценового оповещения.</string>
-    <string name="channel_service">Режим реального времени</string>
+    <string name="channel_service">Частое обновление</string>
     <string name="channel_service_description">Уведомление, пока цены обновляются с коротким интервалом.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, с %2$s (%3$s назад)</string>
@@ -135,7 +133,7 @@
     <string name="settings_rolling_futures">Вкл. квартальные и другие срочные фьючерсы</string>
     <string name="settings_rolling_futures_hint">Выкл.: срочные фьючерсы, которых нет в списке биржи, помечаются как неторгуемые, а не проверяются по одному. Экономит время при каждом обновлении.</string>
     <string name="notification_refreshing">Обновление цен…</string>
-    <string name="notification_service_title">Crypto Checker: реальное время</string>
+    <string name="notification_service_title">Crypto Checker часто обновляет котировки</string>
     <string name="notification_service_starting">Запуск…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d пара · %2$s</item>
@@ -151,9 +149,9 @@
     <string name="settings_background_updates">Фоновые обновления</string>
     <string name="settings_background_updates_hint">Цены, оповещения и виджеты обновляются, даже когда приложение закрыто.</string>
     <string name="settings_background_interval">Интервал</string>
-    <string name="settings_live_service">Режим реального времени</string>
-    <string name="settings_live_service_hint">Держит службу запущенной для коротких интервалов. Расходует больше заряда.</string>
-    <string name="settings_live_interval">Интервал в реальном времени</string>
+    <string name="settings_live_service">Обновлять часто</string>
+    <string name="settings_live_service_hint">Запрашивает котировки с короткими интервалами, даже когда приложение закрыто. Показывает уведомление и расходует больше заряда.</string>
+    <string name="settings_live_interval">Как часто</string>
     <string name="settings_minutes">%1$d мин</string>
     <string name="settings_seconds">%1$d с</string>
     <string name="settings_price_notifications">Уведомления о цене</string>
@@ -240,7 +238,7 @@
     <string name="theme_system">Системная</string>
     <string name="settings_section_developer">Разработчик</string>
     <string name="settings_http_log">Показывать журнал HTTP</string>
-    <string name="settings_http_log_hint">Показывает внизу вкладки «Добавить» запросы к биржам – для диагностики.</string>
+    <string name="settings_http_log_hint">Показывает внизу страницы «Добавить пару» запросы к биржам – для диагностики.</string>
     <string name="language_search">Поиск языка</string>
     <string name="alarm_delete_title">Удалить оповещение?</string>
     <string name="alarm_delete_confirm">Это оповещение будет удалено.</string>
@@ -288,15 +286,11 @@
     <string name="explorer_bulk_show_list">Показать список</string>
     <string name="explorer_bulk_hide_list">Скрыть список</string>
     <string name="time_just_now">только что</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Ваши курсы. Ваши оповещения. Ваш обзор.\nБез аккаунта. Без рекламы. Без отслеживания.</string>
-    <string name="welcome_later">Позже</string>
     <string name="developer_unlocked">Параметры разработчика открыты</string>
     <string name="hint_favorites_list">Совет: коснитесь ☆, чтобы добавить в избранное – избранное вверху.</string>
     <string name="tab_watchlist">Список</string>
-    <string name="tab_markets">Добавить</string>
     <string name="tab_market_phase">Рынок</string>
-    <string name="tab_settings">Настройки</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Устарело: %1$d из %2$d</item>
         <item quantity="few">Устарело: %1$d из %2$d</item>

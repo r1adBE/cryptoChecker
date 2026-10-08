@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding yli</string>
+    <string name="alarm_condition_funding_below">Funding alle</string>
+    <string name="alarm_condition_oi_up">Avoimet positiot nousevat</string>
+    <string name="alarm_condition_oi_down">Avoimet positiot laskevat</string>
+    <string name="alarm_sentence_funding_above">Ilmoita, kun kohteen %1$s funding nousee yli %2$s.</string>
+    <string name="alarm_sentence_funding_below">Ilmoita, kun kohteen %1$s funding laskee alle %2$s.</string>
+    <string name="tts_direction_funding_above">korkealla fundingilla</string>
+    <string name="tts_direction_funding_below">matalalla fundingilla</string>
+    <string name="tts_direction_oi_up">avoimien positioiden noustessa</string>
+    <string name="tts_direction_oi_down">avoimien positioiden laskiessa</string>
+    <string name="alarm_funding_hint">Funding-korko selvitysjaksoa kohden (yleensä 8 tunnin välein). Negatiivinen: shortit maksavat longeille. ± vaihtaa etumerkin.</string>
+    <string name="alarm_oi_hint">Vertaa avoimia positioita arvoon, joka tallennettiin yhtä monta tuntia sitten. Uusi hälytys ilmoittaa vasta, kun sovellus on kerännyt tietoja niin kauan; tarkistus enintään 5 minuutin välein.</string>
+    <string name="alarm_funding_sign_a11y">Vaihda etumerkki</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Ilmoita, kun kohteen %1$s avoimet positiot nousevat vähintään %2$s %3$d tunnin sisällä.</item>
+        <item quantity="other">Ilmoita, kun kohteen %1$s avoimet positiot nousevat vähintään %2$s %3$d tunnin sisällä.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Ilmoita, kun kohteen %1$s avoimet positiot laskevat vähintään %2$s %3$d tunnin sisällä.</item>
+        <item quantity="other">Ilmoita, kun kohteen %1$s avoimet positiot laskevat vähintään %2$s %3$d tunnin sisällä.</item>
+    </plurals>
+</resources>

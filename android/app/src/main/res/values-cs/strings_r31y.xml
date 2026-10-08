@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">zastaralé · %1$s</string>
+    <string name="why_brief_label">Stručně:</string>
+    <string name="why_factor_market">Celý trh</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_near_high">Blízko maxima</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">vyšší než obvykle</string>
+    <string name="why_fn_volume_lower">nižší než obvykle</string>
+    <string name="why_fn_volume_usual">jako obvykle</string>
+    <string name="why_fn_market_pulls">BTC táhne trh s sebou</string>
+    <string name="why_fn_market_lags">Trh se hýbe, tato mince sotva</string>
+    <string name="why_fn_market_alone">Klidný trh – tato mince se hýbe sama</string>
+    <string name="why_fn_market_against">Mince jde proti trhu</string>
+    <string name="why_fn_market_calm">Klidný trh</string>
+    <string name="why_fn_leader_moves">Bitcoin udává směr</string>
+    <string name="why_fn_leader_calm">Bitcoin v klidu</string>
+    <string name="why_fn_volatility_stronger">silnější než obvykle</string>
+    <string name="why_fn_volatility_usual">jako obvykle</string>
+    <string name="why_fn_oi_up">Open interest vzrostl</string>
+    <string name="why_fn_oi_down">Open interest klesl</string>
+    <string name="why_fn_oi_flat">Open interest téměř beze změny</string>
+    <string name="why_fn_high_at">na 30denním maximu</string>
+    <string name="why_fn_high_below">pod 30denním maximem</string>
+    <string name="why_fn_funding_longs">mnozí sázejí na růst</string>
+    <string name="why_fn_funding_shorts">mnozí sázejí na pokles</string>
+    <string name="why_fn_funding_neutral">neutrální</string>
+</resources>

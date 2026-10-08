@@ -2,7 +2,9 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.CycleInputs
+import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.OnChainValues
+import com.cryptochecker.app.domain.market.Sourced
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.OkHttpClient
@@ -31,8 +33,14 @@ class CycleDataSource @Inject constructor(
      * @param knownOnChain noch frische On-Chain-Werte (Zwischenspeicher des Markt-Tabs,
      *   12 Stunden) — dann entfällt der Abruf bei Coin Metrics.
      */
-    suspend fun fetch(knownOnChain: OnChainValues? = null): CycleInputs = coroutineScope {
-        val dailyJob = async { candleDataSource.candles("BTC", "USDT", CandleInterval.D1, 1000) }
+    suspend fun fetch(knownOnChain: OnChainValues? = null): CycleInputs = fetchSourced(knownOnChain).value
+
+    /**
+     * Wie [fetch]; [Sourced.provider] = Anbieter der Tageskerzen und, wenn On-Chain-Werte
+     * dabei sind, «Coin Metrics» (z. B. «Binance, Coin Metrics»).
+     */
+    suspend fun fetchSourced(knownOnChain: OnChainValues? = null): Sourced<CycleInputs> = coroutineScope {
+        val dailyJob = async { candleDataSource.candlesSourced("BTC", "USDT", CandleInterval.D1, 1000) }
         val weeklyJob = async { candleDataSource.candles("BTC", "USDT", CandleInterval.W1, 1000) }
         val onChainJob = async {
             if (knownOnChain != null) return@async null
@@ -42,7 +50,8 @@ class CycleDataSource @Inject constructor(
                 .getOrNull()
         }
 
-        val daily = toCandles(dailyJob.await() ?: error("Keine BTC-Tageskerzen verfügbar"))
+        val dailySourced = dailyJob.await() ?: error("Keine BTC-Tageskerzen verfügbar")
+        val daily = toCandles(dailySourced.value)
         // Wochenkerzen nur für 200-Wochen-Schnitt und Allzeithoch; fehlen sie, entfällt das
         val weekly = weeklyJob.await()?.let { toCandles(it) } ?: emptyList()
         val onChain = knownOnChain ?: onChainJob.await()?.let { runCatching { parseCoinMetrics(it) }.getOrNull() }
@@ -53,7 +62,7 @@ class CycleDataSource @Inject constructor(
         // Allzeithoch: Wochenkerzen reichen bis 2017 zurück, Tageskerzen geben das genaue Datum.
         val athCandle = (weekly + daily).maxByOrNull { it.high }
 
-        CycleInputs(
+        val inputs = CycleInputs(
             price = closes.last(),
             sma200d = closes.smaOfLast(200),
             sma111d = closes.smaOfLast(111),
@@ -67,6 +76,8 @@ class CycleDataSource @Inject constructor(
             hash30d = onChain?.hash30d,
             hash60d = onChain?.hash60d,
         )
+        val onChainProvider = if (onChain?.hasAny == true) DataFreshness.COIN_METRICS else null
+        Sourced(inputs, DataFreshness.providers(dailySourced.provider, onChainProvider))
     }
 
     private class Candle(val date: LocalDate, val high: Double, val close: Double)

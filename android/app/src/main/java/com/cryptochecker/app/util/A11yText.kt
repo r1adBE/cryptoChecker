@@ -71,11 +71,13 @@ object A11yText {
         price: String,
         change24h: Double?,
         extras: List<String?> = emptyList(),
+        /** %-Basis der Veränderung (Zeitraum im Satz). */
+        basis: com.cryptochecker.app.domain.watch.ChangeBasis = com.cryptochecker.app.domain.watch.ChangeBasis.ROLLING_24H,
     ): String = buildList {
         add(context.getString(R.string.a11y_row_pair, pair, market))
         add(context.getString(R.string.a11y_price, price))
-        // Ohne 24-h-Bezug ein kurzer Hinweis statt einer Zahl (Pille «—»)
-        add(change24h(context, change24h))
+        // Ohne Bezug ein kurzer Hinweis statt einer Zahl (Pille «—»)
+        add(ChangeBasisText.spoken(context, basis, change24h))
         extras.filterNotNull().filter { it.isNotBlank() }.forEach(::add)
     }.joinToString(", ")
 }

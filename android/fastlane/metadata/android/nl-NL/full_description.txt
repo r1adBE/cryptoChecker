@@ -1,9 +1,9 @@
-Houd je cryptokoersen in de gaten zonder steeds beurs-apps te openen. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt.
+Crypto Checker legt uit wat er in de markt gebeurt. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt – geen voorspelling.
 
-Volgen – koersen rechtstreeks van de beurs, in je eigen valuta
-Alarmeren – koers, %, bewegingen en volume, als één zin
 Begrijpen – ‘Waarom beweegt dit?’ met korte samenvatting
 Overzicht – Crypto Pulse, Fear & Greed, cyclus en portfolio
+Volgen – koersen rechtstreeks van de beurs, in je valuta
+Alarmeren – koers, %, bewegingen en volume, als één zin
 
 Leesbaar voor iedereen: koerskleuren groen/rood of blauw/oranje, naar wens omgewisseld, hoog contrast, teken en pijl in plaats van alleen kleur, en TalkBack leest elke regel als één zin voor.
 
@@ -45,7 +45,7 @@ MARKTOVERZICHT
 WIDGETS EN MELDINGEN
 • Widgets: je hele lijst, portfoliowaarde met verandering vandaag, één coin groot met koers en grafiek – candles of lijn, met markeringen voor hoog, midden en laag
 • Stille koersmelding per paar
-• Live-modus met updates elke 15 seconden, op de achtergrond vanaf 15 minuten
+• Vaak bijwerken: elke 15 seconden, op de achtergrond vanaf 15 minuten
 
 VERDER
 • Koersen en alarmen worden voorgelezen (tekst-naar-spraak)

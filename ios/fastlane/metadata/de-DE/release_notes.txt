@@ -30,3 +30,6 @@ Version 16.2.2
 • Markt-Tab: gesamte Krypto-Marktkapitalisierung und 24-Std.-Volumen in deiner Währung
 • Futures: Funding Rate und Open Interest
 • Fünf Akzentfarben mit passendem App-Icon
+• Aktien, Gold, Rohstoffe und Devisen als Futures (TradFi) bei Binance, Bybit, OKX, MEXC und Bitget – per Schalter unter Einstellungen › Merkliste, neue Paare automatisch in der Gruppe «TradFi»; Laufzeit-Futures in «QTLY»
+• %-Änderung wie bei Binance: letzte 24 Std., seit 00:00 in der Zeitzone des Geräts oder in einer festen Zone von UTC+14 bis UTC-12
+• Klare Namen: «Häufig aktualisieren» und «Live-Kurse»

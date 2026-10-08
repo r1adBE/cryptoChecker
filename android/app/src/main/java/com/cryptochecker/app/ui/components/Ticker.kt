@@ -15,6 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.FormatUtilsBase
@@ -44,7 +46,7 @@ fun Ticker(
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = FormatUtilsBase.formatPriceWithCurrency(last, currencyQuote),
-            style = MaterialTheme.typography.headlineMedium.tabularNumbers(),
+            style = MaterialTheme.typography.displayCompact.tabularNumbers(),
             fontWeight = FontWeight.SemiBold
         )
         Text(
@@ -81,7 +83,7 @@ fun Ticker(
 @Composable
 private fun StatRow(@StringRes leftTitle: Int, leftValue: String, @StringRes rightTitle: Int, rightValue: String) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
+        modifier = Modifier.fillMaxWidth().padding(bottom = Spacing.sm),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Stat(leftTitle, leftValue, Modifier.weight(1f))

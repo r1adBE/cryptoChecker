@@ -47,7 +47,7 @@ struct WatchlistStarterPicker: View {
                     .font(.headline)
                     .contentTransition(.numericText(value: Double(count)))
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
+                    .padding(.vertical, Spacing.lg)
             }
             .buttonStyle(AccentButtonStyle())
             .disabled(count == 0 || adding)
@@ -61,7 +61,7 @@ struct WatchlistStarterPicker: View {
                 Text(L(allSelected ? "starter_select_none" : "starter_select_all"))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(accent.primary)
-                    .padding(.vertical, 6)
+                    .padding(.vertical, Spacing.sm)
                     .padding(.horizontal, 12)
                     .contentShape(Rectangle())
             }
@@ -121,8 +121,8 @@ struct WatchlistStarterPicker: View {
                     .foregroundStyle(selected ? accent.primary : AppColors.outline)
                     .contentTransition(.symbolEffect(.replace))
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.md)
             .frame(minHeight: 60)
             .contentShape(Rectangle())
         }
@@ -140,7 +140,7 @@ struct WatchlistStarterPicker: View {
         if let price {
             VStack(alignment: .trailing, spacing: 4) {
                 Text(PriceFormat.priceWithCurrency(price.price, quote))
-                    .font(.system(.subheadline, design: .rounded).weight(.semibold).monospacedDigit())
+                    .font(AppFont.amount(.subheadline, weight: .semibold))
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
@@ -149,7 +149,7 @@ struct WatchlistStarterPicker: View {
             .fixedSize(horizontal: true, vertical: false)
             .transition(.opacity)
         } else if loadingPrices {
-            VStack(alignment: .trailing, spacing: 6) {
+            VStack(alignment: .trailing, spacing: Spacing.xs) {
                 WatchlistSkeletonBlock(width: 72, height: 12)
                 WatchlistSkeletonBlock(width: 44, height: 10)
             }

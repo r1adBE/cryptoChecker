@@ -12,6 +12,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var backgroundIntervalMinutes: Int = 15
     var liveService: Bool = false
     var liveIntervalSeconds: Int = 60
+    /// Live-Kurse per WebSocket, solange die Merkliste offen ist (`LivePriceStream`);
+    /// Hintergrund und Widgets fragen weiter per REST ab.
+    var liveWebSocket: Bool = false
     var priceNotifications: Bool = true
     var ongoingNotifications: Bool = true
     /// Mindestveränderung in Prozent für eine Kurs-Mitteilung (0 = jede Aktualisierung).
@@ -23,6 +26,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Ruhezeit, bevor derselbe Alarm erneut auslöst (Minuten).
     var alarmCooldownMinutes: Int = 0
     var includeRollingFutures: Bool = false
+    /// Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO (Binance «TradFi-Perpetuals») in der
+    /// Auswahl zeigen. Aus (Standard): nur Krypto; gemerkte Paare bleiben in der Merkliste.
+    var includeTradFiFutures: Bool = false
     var accentColor: AccentColor = .default
     /// nil = wie das System.
     var darkMode: Bool? = nil
@@ -30,24 +36,26 @@ struct AppSettings: Codable, Equatable, Sendable {
     var developerUnlocked: Bool = false
     var zoneAlerts: Bool = true
     /// Fear & Greed: melden unter/über diesem Wert (0 = aus).
-    var fearGreedBelow: Int = 0
-    var fearGreedAbove: Int = 0
+    var fearGreedBelow: Int = 25
+    var fearGreedAbove: Int = 75
     /// Gas-Alarm Ethereum in Zehntel-gwei (0 = aus) — wie `gasAlertEthTenths`.
     var gasAlertEthTenths: Int = 0
     /// Gas-Alarm Bitcoin in sat/vB (0 = aus).
     var gasAlertBtc: Int = 0
     /// Alarmton: Name eines mitgelieferten Tons (`AlarmSounds`), nil = Standardton.
     var alarmSound: String? = nil
+    /// «Alarm-Signal» (Schlüssel wie Android). iOS: nur `SYSTEM` oder `SILENT`, siehe `AlarmSignal`.
+    var alarmSignal: AlarmSignal = .default
     var gestureHintSeen: Bool = false
     var aboutSeen: Bool = false
     /// Gewählte Gruppe der Merkliste; nil = «Alle».
     var watchlistGroup: String? = nil
     /// Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Mitteilung melden.
-    var activityAlerts: Bool = false
+    var activityAlerts: Bool = true
     /// Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Mitteilungen); Standard = bisherige Schwellen.
     var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
-    var macroNotifications: Bool = false
+    var macroNotifications: Bool = true
     /// Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen).
     var portfolioEnabled: Bool = false
     /// Umrechnungswährung: Zielwährung der Umrechnungszeile im Portfolio und der
@@ -59,6 +67,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var priceColorScheme: PriceColorScheme = .default
     /// Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste.
     var watchlistSparkline: Bool = true
+    /// «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00
+    /// Ortszeit — für Pille, Puls, Aktionsblatt, Widgets und Live Activity; Alarme unabhängig davon.
+    var changeBasis: ChangeBasis = .default
     /// Hoher Kontrast: kräftigere Kursfarben, dunklere Nebentexte (zusätzlich zu
     /// «Kontrast erhöhen» des Systems).
     var highContrast: Bool = false
@@ -74,6 +85,10 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Portfolio-Daten und Portfolio-Widget erst nach Face ID / Touch ID / Code — beim Start und
     /// nach mehr als einer Minute im Hintergrund. Die übrige App ist nie gesperrt.
     var appLock: Bool = false
+    /// «Beträge verbergen»: Portfolio-Beträge und -Werte als «•••» (Prozente bleiben) — im Portfolio,
+    /// im Portfolio-Widget (liest die Einstellung aus der App Group) und in Portfolio-Alarmen.
+    /// Gleicher Schlüssel wie Android («hidePortfolioAmounts»), auch in der Sicherung.
+    var hidePortfolioAmounts: Bool = false
     /// Bestätigung nach dem ersten gespeicherten Alarm schon gezeigt (oder es gab
     /// schon Alarme). Gleicher Schlüssel wie Android; nicht in der Sicherung.
     var firstAlarmShown: Bool = false
@@ -87,6 +102,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var portfolioHistoryExpanded: Bool = false
     /// Zuletzt gewählter Zeitraum des Wertverlaufs, wie Android; nicht in der Sicherung.
     var portfolioHistoryRange: PortfolioHistoryRange = .month
+    /// Der Markt-Tab wurde schon einmal gesehen (mindestens 3 s sichtbar): «Einordnung» und
+    /// «Daten» beginnen danach zugeklappt. Gleicher Schlüssel wie Android; nicht in der Sicherung.
+    var marketTabSeen: Bool = false
 
     static let minBackgroundIntervalMinutes = 15
     static let minLiveIntervalSeconds = 15
@@ -111,6 +129,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         backgroundIntervalMinutes = try c.decodeIfPresent(Int.self, forKey: .backgroundIntervalMinutes) ?? d.backgroundIntervalMinutes
         liveService = try c.decodeIfPresent(Bool.self, forKey: .liveService) ?? d.liveService
         liveIntervalSeconds = try c.decodeIfPresent(Int.self, forKey: .liveIntervalSeconds) ?? d.liveIntervalSeconds
+        liveWebSocket = (try? c.decodeIfPresent(Bool.self, forKey: .liveWebSocket)) ?? d.liveWebSocket
         priceNotifications = try c.decodeIfPresent(Bool.self, forKey: .priceNotifications) ?? d.priceNotifications
         ongoingNotifications = try c.decodeIfPresent(Bool.self, forKey: .ongoingNotifications) ?? d.ongoingNotifications
         notificationChangePercent = try c.decodeIfPresent(Double.self, forKey: .notificationChangePercent) ?? d.notificationChangePercent
@@ -119,6 +138,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         ttsSpeechRate = try c.decodeIfPresent(Double.self, forKey: .ttsSpeechRate) ?? d.ttsSpeechRate
         alarmCooldownMinutes = try c.decodeIfPresent(Int.self, forKey: .alarmCooldownMinutes) ?? d.alarmCooldownMinutes
         includeRollingFutures = try c.decodeIfPresent(Bool.self, forKey: .includeRollingFutures) ?? d.includeRollingFutures
+        includeTradFiFutures = try c.decodeIfPresent(Bool.self, forKey: .includeTradFiFutures) ?? d.includeTradFiFutures
         accentColor = try c.decodeIfPresent(AccentColor.self, forKey: .accentColor) ?? d.accentColor
         darkMode = try c.decodeIfPresent(Bool.self, forKey: .darkMode)
         showHttpLog = try c.decodeIfPresent(Bool.self, forKey: .showHttpLog) ?? d.showHttpLog
@@ -139,9 +159,13 @@ struct AppSettings: Codable, Equatable, Sendable {
         gasAlertEthTenths = (try? c.decodeIfPresent(Int.self, forKey: .gasAlertEthTenths)) ?? d.gasAlertEthTenths
         gasAlertBtc = (try? c.decodeIfPresent(Int.self, forKey: .gasAlertBtc)) ?? d.gasAlertBtc
         alarmSound = try? c.decodeIfPresent(String.self, forKey: .alarmSound)
+        // Fehlt oder unbekannt: «System»; Android-Werte → nächster iOS-Wert
+        alarmSignal = AlarmSignal.from(name: try? c.decodeIfPresent(String.self, forKey: .alarmSignal)).ios
         // Unbekannter Wert (z. B. aus einer neueren Version) → Standard
         priceColorScheme = (try? c.decodeIfPresent(PriceColorScheme.self, forKey: .priceColorScheme)) ?? d.priceColorScheme
         watchlistSparkline = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistSparkline)) ?? d.watchlistSparkline
+        // Fehlt (ältere Einstellungen) oder unbekannt: «Letzte 24 Std.»
+        changeBasis = ChangeBasis.from(name: try? c.decodeIfPresent(String.self, forKey: .changeBasis))
         highContrast = (try? c.decodeIfPresent(Bool.self, forKey: .highContrast)) ?? d.highContrast
         priceColorsInverted = (try? c.decodeIfPresent(Bool.self, forKey: .priceColorsInverted)) ?? d.priceColorsInverted
         // Seit dem Komfort-Paket; ungültige Zeiten → Standard
@@ -151,6 +175,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         let end = (try? c.decodeIfPresent(Int.self, forKey: .quietHoursEnd)) ?? nil
         quietHoursEnd = end.flatMap { QuietHours.isValidMinute($0) ? $0 : nil } ?? d.quietHoursEnd
         appLock = (try? c.decodeIfPresent(Bool.self, forKey: .appLock)) ?? d.appLock
+        hidePortfolioAmounts = (try? c.decodeIfPresent(Bool.self, forKey: .hidePortfolioAmounts)) ?? d.hidePortfolioAmounts
         firstAlarmShown = (try? c.decodeIfPresent(Bool.self, forKey: .firstAlarmShown)) ?? d.firstAlarmShown
         firstPairAdded = (try? c.decodeIfPresent(Bool.self, forKey: .firstPairAdded)) ?? d.firstPairAdded
         sheetChartLine = (try? c.decodeIfPresent(Bool.self, forKey: .sheetChartLine)) ?? d.sheetChartLine
@@ -159,6 +184,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         // Unbekannter Zeitraum (neuere Version): Standard 30 Tage
         portfolioHistoryRange = (try? c.decodeIfPresent(PortfolioHistoryRange.self, forKey: .portfolioHistoryRange))
             ?? d.portfolioHistoryRange
+        marketTabSeen = (try? c.decodeIfPresent(Bool.self, forKey: .marketTabSeen)) ?? d.marketTabSeen
     }
 }
 

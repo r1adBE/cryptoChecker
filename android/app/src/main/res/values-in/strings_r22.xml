@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Semua diperbarui</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d pasangan tidak diperbarui</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s tidak dapat dijangkau</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">%1$d bursa tidak dapat dijangkau</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Pembaruan dibatalkan</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d pasangan</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Bursa</string>
+    <string name="refresh_sheet_section_steps">Rincian</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Menunggu hingga mulai</string>
+    <string name="refresh_sheet_network">Jaringan</string>
+    <string name="refresh_sheet_database">Basis data</string>
+    <string name="refresh_sheet_alarms">Alarm</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d terpicu</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d notifikasi</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widget</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d dari %1$d pasangan</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">permintaan massal %1$s · %2$d harga</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">waktu habis</string>
+    <string name="refresh_sheet_reason_offline">tidak ada koneksi</string>
+    <string name="refresh_sheet_reason_rate_limit">terlalu banyak permintaan</string>
+    <string name="refresh_sheet_reason_server">kesalahan server</string>
+    <string name="refresh_sheet_reason_no_data">tidak ada data</string>
+    <string name="refresh_sheet_reason_unavailable">bursa tidak tersedia</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">semua diperbarui</string>
+    <string name="refresh_sheet_status_partial">sebagian diperbarui</string>
+    <string name="refresh_sheet_status_failed">tidak diperbarui</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s detik</string>
+</resources>

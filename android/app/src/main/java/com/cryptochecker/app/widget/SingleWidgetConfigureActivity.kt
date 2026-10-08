@@ -196,7 +196,7 @@ private fun SingleWidgetConfigureContent(
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 16.dp)
             )
-            val ranges = WidgetChartRange.entries
+            val ranges = WidgetChartRange.entries.filter { it.inWidget }
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = 8.dp)) {
                 ranges.forEachIndexed { index, value ->
                     SegmentedButton(

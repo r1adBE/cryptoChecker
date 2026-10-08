@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">اليوم %1$s</string>
     <string name="widget_portfolio_empty">أضف عمليات الشراء في تبويب «المحفظة»</string>
     <string name="a11y_portfolio_widget">المحفظة %1$s، اليوم %2$s</string>
-    <string name="settings_section_advanced">متقدم</string>
-    <string name="settings_advanced_hint">الوضع المباشر، الإشعار الدائم، العقود الآجلة وخيارات المطوّر</string>
     <string name="explain_funding">رسوم تُدفع بين المراكز الطويلة والقصيرة. القيمة الموجبة بقوة تعني أن كثيرين يراهنون على ارتفاع الأسعار.</string>
     <string name="explain_open_interest">قيمة جميع مراكز العقود الآجلة المفتوحة. إذا ارتفعت، فهناك أموال أكثر تراهن على الحركة.</string>
     <string name="explain_rsi">مؤشر القوة النسبية، 0–100. فوق 70 غالبًا تشبّع شرائي، وتحت 30 غالبًا تشبّع بيعي.</string>

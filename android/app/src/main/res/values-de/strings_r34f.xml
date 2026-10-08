@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding über</string>
+    <string name="alarm_condition_funding_below">Funding unter</string>
+    <string name="alarm_condition_oi_up">Open Interest steigt</string>
+    <string name="alarm_condition_oi_down">Open Interest fällt</string>
+    <string name="alarm_sentence_funding_above">Sag mir Bescheid, wenn das Funding von %1$s über %2$s steigt.</string>
+    <string name="alarm_sentence_funding_below">Sag mir Bescheid, wenn das Funding von %1$s unter %2$s fällt.</string>
+    <string name="tts_direction_funding_above">mit hohem Funding</string>
+    <string name="tts_direction_funding_below">mit tiefem Funding</string>
+    <string name="tts_direction_oi_up">mit steigendem Open Interest</string>
+    <string name="tts_direction_oi_down">mit fallendem Open Interest</string>
+    <string name="alarm_funding_hint">Funding je Abrechnungsintervall (meist alle 8 Stunden). Negativ heisst: Shorts zahlen Longs. ± wechselt das Vorzeichen.</string>
+    <string name="alarm_oi_hint">Vergleicht mit dem Open Interest von vor so vielen Stunden. Ein neuer Alarm meldet erst, wenn die App so lange Werte gesammelt hat; geprüft wird höchstens alle 5 Minuten.</string>
+    <string name="alarm_funding_sign_a11y">Vorzeichen wechseln</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Sag mir Bescheid, wenn das Open Interest von %1$s innerhalb von %3$d Stunde um %2$s steigt.</item>
+        <item quantity="other">Sag mir Bescheid, wenn das Open Interest von %1$s innerhalb von %3$d Stunden um %2$s steigt.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Sag mir Bescheid, wenn das Open Interest von %1$s innerhalb von %3$d Stunde um %2$s fällt.</item>
+        <item quantity="other">Sag mir Bescheid, wenn das Open Interest von %1$s innerhalb von %3$d Stunden um %2$s fällt.</item>
+    </plurals>
+</resources>

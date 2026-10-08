@@ -1,11 +1,13 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.CheckerInfo
 import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.currency.VirtualCurrency
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
+import com.cryptochecker.marketdata.util.BulkPairChunks
 import com.cryptochecker.marketdata.util.forEachName
 import org.json.JSONObject
 
@@ -71,19 +73,36 @@ class Kraken : SimpleMarket(
 
     override fun getBulkTickersUrl(requestId: Int): String = ALL_TICKERS_URL
 
+    /**
+     * Nur die beobachteten Paare («?pair=A,B,C») statt des ganzen Kursbuchs;
+     * lange Listen auf mehrere Anfragen verteilt (URL < 2000 Zeichen).
+     */
+    override fun bulkTickersRequestCount(pairIds: Collection<String>): Int =
+        BulkPairChunks.chunks(FILTERED_TICKERS_PREFIX, pairIds)?.size ?: bulkTickersNumOfRequests
+
+    override fun getBulkTickersUrl(requestId: Int, pairIds: Collection<String>): String? {
+        val chunks = BulkPairChunks.chunks(FILTERED_TICKERS_PREFIX, pairIds) ?: return ALL_TICKERS_URL
+        return chunks.getOrNull(requestId)?.let { BulkPairChunks.url(FILTERED_TICKERS_PREFIX, it) }
+    }
+
     @Throws(Exception::class)
     override fun parseBulkTickers(
         requestId: Int,
         responseString: String,
         tickers: MutableMap<String, Ticker>,
     ) {
-        JSONObject(responseString)
-            .getJSONObject("result")
-            .forEachName { pairId, pairJson ->
-                val ticker = SimpleTicker()
-                readTicker(pairJson, ticker)
-                tickers[pairId] = ticker
-            }
+        val json = JSONObject(responseString)
+        val result = json.optJSONObject("result")
+        // Kennt Kraken ein Paar der Liste nicht, scheitert die ganze Anfrage
+        // ({"error":["EQuery:Unknown asset pair"]}) — dann folgt die ungefilterte.
+        if (result == null || result.length() == 0) {
+            throw MarketParseException(json.optJSONArray("error")?.optString(0).orEmpty().ifEmpty { "Empty result" })
+        }
+        result.forEachName { pairId, pairJson ->
+            val ticker = SimpleTicker()
+            readTicker(pairJson, ticker)
+            tickers[pairId] = ticker
+        }
     }
 
     override fun parseErrorFromJsonObject(
@@ -98,6 +117,7 @@ class Kraken : SimpleMarket(
 
     companion object {
         private const val ALL_TICKERS_URL = "https://api.kraken.com/0/public/Ticker"
+        private const val FILTERED_TICKERS_PREFIX = "$ALL_TICKERS_URL?pair="
 
         private fun fixCurrency(currency: String): String {
             if (VirtualCurrency.BTC == currency) return VirtualCurrency.XBT

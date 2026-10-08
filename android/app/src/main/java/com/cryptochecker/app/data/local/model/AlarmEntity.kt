@@ -42,11 +42,44 @@ enum class AlarmCondition {
 
     /** Wie [NEAR_HIGH], aber höchstens x % über dem Tief des Zeitraums (oder ein neues Tief). */
     NEAR_LOW,
+
+    /**
+     * Nur Perpetual-Futures (siehe DerivativesAlarm.supports): Funding Rate je Intervall erreicht
+     * oder übersteigt x % ([AlarmEntity.threshold] in Prozent, darf negativ sein).
+     * [AlarmEntity.referenceAt] 0 = scharf / > 0 = gemeldet (wie Kursmarken). Gespeichert
+     * wird der Name — keine Migration nötig.
+     */
+    FUNDING_ABOVE,
+
+    /** Wie [FUNDING_ABOVE], aber Funding erreicht oder unterschreitet x %. */
+    FUNDING_BELOW,
+
+    /**
+     * Nur Perpetual-Futures: Open Interest (in Coins) liegt mindestens x % über der gespeicherten
+     * Messung von vor [AlarmEntity.windowHours] Stunden (1, 4 oder 24). [AlarmEntity.referenceAt]
+     * 0 = scharf / > 0 = gemeldet. Gespeichert wird der Name — keine Migration nötig.
+     */
+    OI_UP,
+
+    /** Wie [OI_UP], aber Open Interest mindestens x % darunter. */
+    OI_DOWN,
     ;
 
     /** «Nahe am Hoch / Tief»: Schwellwert ist ein Abstand in Prozent, Fenster in Tagen. */
     val isNearExtreme: Boolean
         get() = this == NEAR_HIGH || this == NEAR_LOW
+
+    /** «Funding über/unter»: Schwellwert ist eine Funding Rate in Prozent (mit Vorzeichen). */
+    val isFunding: Boolean
+        get() = this == FUNDING_ABOVE || this == FUNDING_BELOW
+
+    /** «Open Interest steigt/fällt um x % in N Stunden». */
+    val isOpenInterest: Boolean
+        get() = this == OI_UP || this == OI_DOWN
+
+    /** Braucht Funding/Open Interest eines Perpetual-Kontrakts (nur Futures-Paare). */
+    val isDerivatives: Boolean
+        get() = isFunding || isOpenInterest
 
     val isPercent: Boolean
         get() = this == CHANGE_PERCENT_UP || this == CHANGE_PERCENT_DOWN || this == MOVE_PERCENT_WINDOW
@@ -95,7 +128,10 @@ data class AlarmEntity(
     @ColumnInfo val lastTriggeredAt: Long = 0,
     @ColumnInfo val lastTriggeredPrice: Double? = null,
 
-    /** Zeitfenster in Stunden für MOVE_PERCENT_WINDOW; bei NEAR_HIGH/NEAR_LOW der Zeitraum in Tagen. */
+    /**
+     * Zeitfenster in Stunden für MOVE_PERCENT_WINDOW und OI_UP/OI_DOWN (1, 4, 24);
+     * bei NEAR_HIGH/NEAR_LOW der Zeitraum in Tagen.
+     */
     @ColumnInfo(defaultValue = "1") val windowHours: Int = 1,
 
     /**

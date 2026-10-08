@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Wszystko zaktualizowane</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d para niezaktualizowana</item>
+        <item quantity="few">%1$d pary niezaktualizowane</item>
+        <item quantity="many">%1$d par niezaktualizowanych</item>
+        <item quantity="other">%1$d par niezaktualizowanych</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">Brak połączenia z %1$s</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d giełda niedostępna</item>
+        <item quantity="few">%1$d giełdy niedostępne</item>
+        <item quantity="many">%1$d giełd niedostępnych</item>
+        <item quantity="other">%1$d giełd niedostępnych</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Odświeżanie przerwane</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d para</item>
+        <item quantity="few">%1$d pary</item>
+        <item quantity="many">%1$d par</item>
+        <item quantity="other">%1$d par</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Giełdy</string>
+    <string name="refresh_sheet_section_steps">Przebieg</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Oczekiwanie do startu</string>
+    <string name="refresh_sheet_network">Sieć</string>
+    <string name="refresh_sheet_database">Baza danych</string>
+    <string name="refresh_sheet_alarms">Alarmy</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d wyzwolony</item>
+        <item quantity="few">%1$d wyzwolone</item>
+        <item quantity="many">%1$d wyzwolonych</item>
+        <item quantity="other">%1$d wyzwolonych</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d powiadomienie</item>
+        <item quantity="few">%1$d powiadomienia</item>
+        <item quantity="many">%1$d powiadomień</item>
+        <item quantity="other">%1$d powiadomień</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widżety</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d z %1$d pary</item>
+        <item quantity="few">%2$d z %1$d par</item>
+        <item quantity="many">%2$d z %1$d par</item>
+        <item quantity="other">%2$d z %1$d par</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">zapytanie zbiorcze %1$s · %2$d kurs</item>
+        <item quantity="few">zapytanie zbiorcze %1$s · %2$d kursy</item>
+        <item quantity="many">zapytanie zbiorcze %1$s · %2$d kursów</item>
+        <item quantity="other">zapytanie zbiorcze %1$s · %2$d kursów</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">przekroczony limit czasu</string>
+    <string name="refresh_sheet_reason_offline">brak połączenia</string>
+    <string name="refresh_sheet_reason_rate_limit">zbyt wiele zapytań</string>
+    <string name="refresh_sheet_reason_server">błąd serwera</string>
+    <string name="refresh_sheet_reason_no_data">brak danych</string>
+    <string name="refresh_sheet_reason_unavailable">giełda niedostępna</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">wszystko zaktualizowane</string>
+    <string name="refresh_sheet_status_partial">częściowo zaktualizowane</string>
+    <string name="refresh_sheet_status_failed">niezaktualizowane</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekundy</string>
+</resources>

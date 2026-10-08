@@ -31,6 +31,17 @@ buildscript {
 
         // App-Sperre (BiometricPrompt mit Geräte-PIN als Ausweg)
         biometric_version = '1.1.0'
+
+        // Instrumentierte Tests (app/src/androidTest, nur ./gradlew connectedDebugAndroidTest)
+        androidx_test_version = '1.7.0'
+        androidx_test_ext_junit_version = '1.3.0'
+
+        // Startgeschwindigkeit: Baseline Profile (Modul :baselineprofile erzeugt es, siehe
+        // DEVELOPMENT.md); profileinstaller installiert es auch ausserhalb des Play Store.
+        // Benchmark 1.5 braucht für AGP 9 kein «newDsl=false» mehr.
+        benchmark_version = '1.5.0'
+        profileinstaller_version = '1.4.1'
+        uiautomator_version = '2.3.0'
     }
     // AGP 9 bringt Kotlin eingebaut mit (ohne Plugin org.jetbrains.kotlin.android).
     // Die Kotlin-Version kommt über diesen Klassenpfad; Hilt 2.60 braucht >= 2.3.21.
@@ -46,6 +57,8 @@ buildscript {
 plugins {
     id 'com.android.application' version "$agp_version" apply false
     id 'com.android.library' version "$agp_version" apply false
+    id 'com.android.test' version "$agp_version" apply false
+    id 'androidx.baselineprofile' version "$benchmark_version" apply false
     id 'org.jetbrains.kotlin.plugin.compose' version "$kotlin_version" apply false
     id 'com.google.devtools.ksp' version "$ksp_version" apply false
     id 'com.google.dagger.hilt.android' version "$hilt_version" apply false

@@ -24,13 +24,15 @@ enum InsightsDataSource {
 
     // MARK: Coin
 
-    static func fetchCoin(symbol: String) async throws -> CoinInputs {
+    /// Kennzahlen eines Coins; `provider` = Anbieter der Tageskerzen (z. B. «Binance», «Bybit»).
+    static func fetchCoin(symbol: String) async throws -> Sourced<CoinInputs> {
         let base = symbol.uppercased()
-        async let dailyJob = klines(base, daily: true)
+        async let dailyJob = klinesSourced(base, daily: true)
         async let weeklyJob = optionalKlines(base, daily: false, limit: 1000)
         async let btcJob = optionalKlines("BTC", daily: true, limit: 120, skip: base == "BTC")
 
-        let daily = try await dailyJob
+        let dailySourced = try await dailyJob
+        let daily = dailySourced.value
         let weeklyResult = await weeklyJob
         let btcResult = await btcJob
         guard !daily.isEmpty else { throw JSONError(message: "Keine Kursdaten für \(base)") }
@@ -55,7 +57,7 @@ enum InsightsDataSource {
         let weeklyDays = weekly.first.map { $0.date.days(until: .todayUTC()) } ?? 0
         let historyDays = max(daily.count, weeklyDays)
 
-        return CoinInputs(
+        let inputs = CoinInputs(
             price: lastClose,
             sma50d: Indicators.smaOfLast(closes, 50),
             sma200d: Indicators.smaOfLast(closes, 200),
@@ -70,6 +72,7 @@ enum InsightsDataSource {
             vsBtc90d: vsBtc,
             historyDays: historyDays
         )
+        return Sourced(value: inputs, provider: dailySourced.provider)
     }
 
     private static func element(_ values: [Double], _ index: Int) -> Double? {
@@ -84,21 +87,32 @@ enum InsightsDataSource {
     /// Erst die Ausweich-Kette (Binance, Binance.US, Coinbase — siehe `CandleDataSource`),
     /// sonst Bybit (z. B. für Coins, die keine dieser Quellen führt).
     static func klines(_ base: String, daily: Bool, limit: Int = 1000) async throws -> [InsightsCandle] {
+        try await klinesSourced(base, daily: daily, limit: limit).value
+    }
+
+    /// Wie `klines`, dazu der Anbieter (Ausweich-Kette oder `DataFreshness.bybit`).
+    static func klinesSourced(_ base: String, daily: Bool, limit: Int = 1000) async throws -> Sourced<[InsightsCandle]> {
         do {
-            return try await chainKlines(base, interval: daily ? .d1 : .w1, limit: limit)
+            return try await chainKlinesSourced(base, interval: daily ? .d1 : .w1, limit: limit)
         } catch {
             if error is CancellationError || Task.isCancelled { throw error }
-            return try await bybitKlines(symbol: "\(base)USDT", interval: daily ? "D" : "W", limit: limit)
+            let candles = try await bybitKlines(symbol: "\(base)USDT", interval: daily ? "D" : "W", limit: limit)
+            return Sourced(value: candles, provider: DataFreshness.bybit)
         }
     }
 
     /// Kerzen über `CandleDataSource`; wirft, wenn keine Quelle liefert.
     static func chainKlines(_ base: String, interval: CandleInterval, limit: Int) async throws -> [InsightsCandle] {
-        guard let candles = await CandleDataSource.candles(base: base, quote: "USDT", interval: interval, limit: limit) else {
+        try await chainKlinesSourced(base, interval: interval, limit: limit).value
+    }
+
+    static func chainKlinesSourced(_ base: String, interval: CandleInterval, limit: Int) async throws -> Sourced<[InsightsCandle]> {
+        guard let sourced = await CandleDataSource.candlesSourced(base: base, quote: "USDT", interval: interval, limit: limit) else {
             if Task.isCancelled { throw CancellationError() }
             throw JSONError(message: "Keine Kerzen für \(base)")
         }
-        return candles.map { InsightsCandle(date: LocalDay(epochMillisUTC: $0.openTime), high: $0.high, close: $0.close) }
+        let candles = sourced.value.map { InsightsCandle(date: LocalDay(epochMillisUTC: $0.openTime), high: $0.high, close: $0.close) }
+        return Sourced(value: candles, provider: sourced.provider)
     }
 
     static func binanceKlines(symbol: String, interval: String, limit: Int, startTime: Int64? = nil) async throws -> [InsightsCandle] {
@@ -155,6 +169,8 @@ enum InsightsDataSource {
             return Int(o.optString("value").trimmingCharacters(in: .whitespaces))
         }
         guard let value = valueAt(0) else { throw JSONError(message: "Fear & Greed ohne Wert") }
+        // Für das Widget «Was gerade auffällt» (kein eigener Abruf dort)
+        FearGreedShared.store(value)
         return FearGreed(value: value, yesterday: valueAt(1), weekAgo: valueAt(7), monthAgo: valueAt(30))
     }
 
@@ -191,8 +207,10 @@ enum InsightsDataSource {
         return out
     }
 
-    static func altSeason() async throws -> AltSeason {
-        let btc = try await chainKlines("BTC", interval: .d1, limit: 91).map(\.close)
+    /// Altcoin-Saison; `provider` = Anbieter des BTC-Verlaufs (Ausweich-Kette).
+    static func altSeason() async throws -> Sourced<AltSeason> {
+        let btcSourced = try await chainKlinesSourced("BTC", interval: .d1, limit: 91)
+        let btc = btcSourced.value.map(\.close)
         guard let btcChange = change90(btc) else { throw JSONError(message: "BTC-Verlauf fehlt") }
 
         // Höchstens fünf Abfragen gleichzeitig (wie die Semaphore in Android).
@@ -211,7 +229,8 @@ enum InsightsDataSource {
             }
             return out
         }
-        return AltSeason(outperformers: results.filter { $0 > btcChange }.count, total: results.count)
+        let season = AltSeason(outperformers: results.filter { $0 > btcChange }.count, total: results.count)
+        return Sourced(value: season, provider: btcSourced.provider)
     }
 
     private static func altChange(_ alt: String) async -> Double? {

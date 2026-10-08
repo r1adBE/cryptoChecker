@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">tänään %1$s</string>
     <string name="widget_portfolio_empty">Lisää ostot Salkku-välilehdellä</string>
     <string name="a11y_portfolio_widget">Salkku %1$s, tänään %2$s</string>
-    <string name="settings_section_advanced">Lisäasetukset</string>
-    <string name="settings_advanced_hint">Live-tila, pysyvä ilmoitus, futuurit ja kehittäjäasetukset</string>
     <string name="explain_funding">Long- ja short-positioiden välinen maksu. Vahvasti positiivinen tarkoittaa, että moni veikkaa hintojen nousua.</string>
     <string name="explain_open_interest">Kaikkien avoimien futuuripositioiden arvo. Kun se nousee, liikkeen puolesta on enemmän rahaa.</string>
     <string name="explain_rsi">Suhteellisen voiman indeksi, 0–100. Yli 70 usein ylikuumentunut, alle 30 usein ylimyyty.</string>

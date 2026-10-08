@@ -4,6 +4,8 @@ import android.content.Context
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.SignalKind
+import com.cryptochecker.app.util.BidiText
+import java.util.Locale
 import kotlin.math.abs
 
 /**
@@ -34,13 +36,15 @@ object ActivityTexts {
     /** «+2.9 %» / «−2.9 %» / «0.0 %», Vorzeichen als echtes Minus. */
     fun percent(value: Double, decimals: Int): String {
         val rounded = "%.${decimals}f".format(abs(value))
-        val isZero = rounded.all { it == '0' || it == '.' || it == ',' }
+        // Nullprüfung mit lateinischen Ziffern (die Anzeige kann arabische Ziffern haben)
+        val isZero = "%.${decimals}f".format(Locale.ROOT, abs(value)).all { it == '0' || it == '.' }
         val sign = when {
             isZero -> ""
             value > 0 -> "+"
             else -> "−"
         }
-        return "$sign$rounded %"
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
+        return BidiText.ltr("$sign$rounded %")
     }
 
     /** «4.2×»-Zahl ohne Zeichen, eine Nachkommastelle. */

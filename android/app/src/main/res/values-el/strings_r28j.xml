@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Κατανομή</string>
+    <string name="portfolio_allocation_other">Άλλα</string>
+    <string name="portfolio_movers_title">Μεγαλύτερες κινήσεις</string>
+    <string name="portfolio_hide_amounts">Απόκρυψη ποσών</string>
+    <string name="portfolio_hide_amounts_hint">Εμφανίζει ποσά και αξίες στο χαρτοφυλάκιο και στο widget χαρτοφυλακίου ως ••• – τα ποσοστά παραμένουν ορατά.</string>
+    <string name="a11y_portfolio_show_amounts">Εμφάνιση ποσών</string>
+    <string name="a11y_amount_hidden">κρυφό ποσό</string>
+    <string name="portfolio_alarm_action">Ειδοποίηση</string>
+    <string name="portfolio_alarm_title">Ειδοποίηση «αξία χαρτοφυλακίου»</string>
+    <string name="portfolio_alarm_kind_above">Χαρτοφυλάκιο πάνω από ποσό</string>
+    <string name="portfolio_alarm_kind_below">Χαρτοφυλάκιο κάτω από ποσό</string>
+    <string name="portfolio_alarm_kind_up">Χαρτοφυλάκιο ανεβαίνει</string>
+    <string name="portfolio_alarm_kind_down">Χαρτοφυλάκιο πέφτει</string>
+    <string name="portfolio_alarm_amount">Ποσό (%1$s)</string>
+    <string name="portfolio_alarm_hint">Ελέγχεται μετά από κάθε ανανέωση. Όπως οι ειδοποιήσεις τιμής: ειδοποιεί όταν περάσει το όριο και ξανά μόνο αφού η αξία επιστρέψει.</string>
+    <string name="portfolio_alarm_sentence_above">Χαρτοφυλάκιο πάνω από %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Χαρτοφυλάκιο κάτω από %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Χαρτοφυλάκιο ανέβηκε %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Χαρτοφυλάκιο έπεσε %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Αξία χαρτοφυλακίου</string>
+    <string name="notification_portfolio_alarm_text">%1$s – τώρα %2$s</string>
+</resources>

@@ -126,6 +126,17 @@ object MacroCalendar {
         return MacroHint(items, released)
     }
 
+    /** Termin näher als so viel (davor oder danach): Hinweis oben im Abschnitt «Jetzt». */
+    const val TOP_WINDOW_MILLIS = 2 * 60 * 60_000L
+
+    /**
+     * Steht der Hinweis oben im Markt-Tab («Jetzt»)? Nur, wenn ein Termin höchstens
+     * [TOP_WINDOW_MILLIS] entfernt ist (bevorstehend oder eben veröffentlicht); sonst steht
+     * er im Abschnitt «Daten».
+     */
+    fun isImminent(hint: MacroHint, now: Long): Boolean =
+        hint.items.any { kotlin.math.abs(it.event.time - now) <= TOP_WINDOW_MILLIS }
+
     /** Termine für die Morgen-Meldung: heute (Ortsdatum) und noch nicht vorbei. */
     fun notificationEvents(events: List<MacroEvent>, now: Long, zone: ZoneId): List<MacroEvent> {
         val today = localDate(now, zone)

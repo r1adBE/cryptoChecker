@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">aujourd\'hui %1$s</string>
     <string name="widget_portfolio_empty">Ajoutez des achats dans l\'onglet Portefeuille</string>
     <string name="a11y_portfolio_widget">Portefeuille %1$s, aujourd\'hui %2$s</string>
-    <string name="settings_section_advanced">Avancé</string>
-    <string name="settings_advanced_hint">Mode live, notification permanente, futures et options développeur</string>
     <string name="explain_funding">Frais entre positions longues et courtes. Fortement positif signifie que beaucoup parient sur la hausse.</string>
     <string name="explain_open_interest">Valeur de toutes les positions ouvertes sur les futures. S\'il augmente, davantage d\'argent parie sur le mouvement.</string>
     <string name="explain_rsi">Indice de force relative, 0–100. Au-dessus de 70, souvent en surchauffe ; en dessous de 30, souvent survendu.</string>

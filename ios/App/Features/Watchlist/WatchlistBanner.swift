@@ -49,7 +49,7 @@ struct WatchlistBanner: View {
                     .accessibilityHidden(true)
                 Text(message.text)
                     .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AppColors.onToast)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if let undo = message.undo {
                     Button {
@@ -59,7 +59,7 @@ struct WatchlistBanner: View {
                         Text(L("action_undo"))
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(accent.primary)
-                            .padding(.vertical, 6)
+                            .padding(.vertical, Spacing.sm)
                             .padding(.horizontal, 4)
                             .contentShape(Rectangle())
                     }
@@ -72,7 +72,7 @@ struct WatchlistBanner: View {
                         Text(action.title)
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(accent.primary)
-                            .padding(.vertical, 6)
+                            .padding(.vertical, Spacing.sm)
                             .padding(.horizontal, 4)
                             .contentShape(Rectangle())
                     }
@@ -80,9 +80,9 @@ struct WatchlistBanner: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(.black.opacity(0.86), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .shadow(color: .black.opacity(0.25), radius: 16, y: 6)
+            .padding(.vertical, Spacing.lg)
+            .background(AppColors.toastBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: AppColors.shadow.opacity(0.25), radius: 16, y: 6)
             .padding(.horizontal, 16)
             .padding(.bottom, 12)
             .transition(reduceMotion ? AnyTransition.opacity : AnyTransition.move(edge: .bottom).combined(with: .opacity))

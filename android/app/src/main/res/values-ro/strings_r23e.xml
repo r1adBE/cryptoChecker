@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Semnal alarmă</string>
+    <string name="alarm_signal_system">Sistem</string>
+    <string name="alarm_signal_sound_vibrate">Sunet și vibrație</string>
+    <string name="alarm_signal_sound">Doar sunet</string>
+    <string name="alarm_signal_vibrate">Doar vibrație</string>
+    <string name="alarm_signal_silent">Silențios (doar notificare)</string>
+    <string name="settings_alarm_signal_system_hint">Urmează setările de notificare ale telefonului.</string>
+    <string name="settings_alarm_signal_open_system">Ajustează în setările sistemului</string>
+    <string name="channel_alarms_sound_vibrate">Alarme (sunet și vibrație)</string>
+    <string name="channel_alarms_sound">Alarme (doar sunet)</string>
+    <string name="channel_alarms_vibrate">Alarme (doar vibrație)</string>
+    <string name="channel_alarms_silent">Alarme (silențios)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrația urmează setările iPhone-ului (Sunete și haptică).</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">Offline</string>
+    <string name="offline_status_since">Offline · tilanne %1$s</string>
+    <string name="error_market_unreachable">Pörssiin ei saada yhteyttä juuri nyt – viimeisimmät kurssit pysyvät näkyvissä.</string>
+    <string name="error_market_unreachable_short">Pörssiin ei saada yhteyttä</string>
+    <string name="refresh_sheet_paused_until">tauolla klo %1$s asti</string>
+    <string name="refresh_sheet_paused_until_reason">tauolla klo %1$s asti (%2$s)</string>
+    <string name="refresh_sheet_app_start">Sovelluksen käynnistys</string>
+</resources>

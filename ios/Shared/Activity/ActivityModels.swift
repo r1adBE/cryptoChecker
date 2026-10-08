@@ -138,6 +138,8 @@ struct WhyInput: Sendable {
     /// false = das Paar wird an seiner Börse nicht mehr gehandelt (`NotTraded`):
     /// dann gar keine Einordnung — nie ein Urteil auf alten Daten.
     var marketLive: Bool = true
+    /// Tageskerzen des Paars (letzte = laufender Tag) für das 30-Tage-Hoch; nil = keine.
+    var dailyCandles: [MarketCandle]? = nil
 }
 
 /// Ergebnis für das «Warum»-Blatt.
@@ -152,4 +154,8 @@ struct WhyReport: Equatable, Sendable {
     let hasMarketData: Bool
     /// Zeitpunkt der Daten (Epoch-ms).
     let dataTime: Int64
+    /// Höchster Kurs der letzten 30 Tage (`ActivityAnalyzer.high30d`); nil ohne Tageskerzen.
+    var high30d: Double? = nil
+    /// Läuft der Coin gerade eng mit Bitcoin bzw. unabhängig (`BtcCorrelation`); nil = kein Satz.
+    var btcLink: BtcLink? = nil
 }

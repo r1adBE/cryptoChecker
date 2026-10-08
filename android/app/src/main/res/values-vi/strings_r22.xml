@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Đã cập nhật tất cả</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d cặp chưa cập nhật</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">Không kết nối được %1$s</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">Không kết nối được %1$d sàn</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Đã hủy làm mới</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d cặp</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Sàn</string>
+    <string name="refresh_sheet_section_steps">Chi tiết</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Chờ đến khi bắt đầu</string>
+    <string name="refresh_sheet_network">Mạng</string>
+    <string name="refresh_sheet_database">Cơ sở dữ liệu</string>
+    <string name="refresh_sheet_alarms">Cảnh báo</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d đã kích hoạt</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d thông báo</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Tiện ích</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d/%1$d cặp</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">yêu cầu gộp %1$s · %2$d giá</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">hết thời gian chờ</string>
+    <string name="refresh_sheet_reason_offline">không có kết nối</string>
+    <string name="refresh_sheet_reason_rate_limit">quá nhiều yêu cầu</string>
+    <string name="refresh_sheet_reason_server">lỗi máy chủ</string>
+    <string name="refresh_sheet_reason_no_data">không có dữ liệu</string>
+    <string name="refresh_sheet_reason_unavailable">sàn không khả dụng</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">đã cập nhật tất cả</string>
+    <string name="refresh_sheet_status_partial">cập nhật một phần</string>
+    <string name="refresh_sheet_status_failed">chưa cập nhật</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s giây</string>
+</resources>

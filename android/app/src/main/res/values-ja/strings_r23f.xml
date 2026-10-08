@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">一般</string>
+    <string name="settings_group_data_only">データ</string>
+    <string name="settings_row_currency">通貨</string>
+    <string name="settings_row_updates">更新</string>
+    <string name="settings_updates_live">頻繁 · %1$s</string>
+    <string name="settings_updates_every">%1$sごと</string>
+    <string name="settings_row_watchlist">ウォッチリスト</string>
+    <string name="settings_watchlist_value_sparkline">ミニチャート</string>
+    <string name="settings_watchlist_value_price_only">価格のみ</string>
+    <string name="settings_row_alarms">アラーム</string>
+    <string name="settings_portfolio_value_locked">オン（ロックあり）</string>
+    <string name="settings_row_dated_futures">期日付き先物</string>
+    <string name="settings_tradfi_futures">株式・コモディティ・為替（TradFi）</string>
+    <string name="settings_tradfi_futures_hint">ペアを選ぶときに、株式、金などのコモディティ、為替、上場前企業の先物も表示します。これらはトークンではなく契約です。</string>
+    <string name="settings_row_about">アプリについて</string>
+    <string name="price_colors_green_up">緑が上昇 / 赤が下落</string>
+    <string name="price_colors_red_up">赤が上昇 / 緑が下落</string>
+    <string name="price_colors_blue_up">青が上昇 / オレンジが下落</string>
+    <string name="price_colors_orange_up">オレンジが上昇 / 青が下落</string>
+    <string name="price_colors_red_up_hint">中国・日本・韓国・台湾で一般的</string>
+</resources>

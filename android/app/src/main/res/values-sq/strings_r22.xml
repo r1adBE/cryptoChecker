@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Gjithçka u përditësua</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d çift nuk u përditësua</item>
+        <item quantity="other">%1$d çifte nuk u përditësuan</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s nuk arrihet</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d bursë nuk arrihet</item>
+        <item quantity="other">%1$d bursa nuk arrihen</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Rifreskimi u ndërpre</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çifte</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Bursat</string>
+    <string name="refresh_sheet_section_steps">Ecuria</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Pritja deri në nisje</string>
+    <string name="refresh_sheet_network">Rrjeti</string>
+    <string name="refresh_sheet_database">Baza e të dhënave</string>
+    <string name="refresh_sheet_alarms">Alarmet</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d u aktivizua</item>
+        <item quantity="other">%1$d u aktivizuan</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d njoftim</item>
+        <item quantity="other">%1$d njoftime</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widget-et</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d nga %1$d çift</item>
+        <item quantity="other">%2$d nga %1$d çifte</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">kërkesë e grupuar %1$s · %2$d çmim</item>
+        <item quantity="other">kërkesë e grupuar %1$s · %2$d çmime</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">koha mbaroi</string>
+    <string name="refresh_sheet_reason_offline">pa lidhje</string>
+    <string name="refresh_sheet_reason_rate_limit">shumë kërkesa</string>
+    <string name="refresh_sheet_reason_server">gabim i serverit</string>
+    <string name="refresh_sheet_reason_no_data">pa të dhëna</string>
+    <string name="refresh_sheet_reason_unavailable">bursa nuk është e disponueshme</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">gjithçka u përditësua</string>
+    <string name="refresh_sheet_status_partial">pjesërisht e përditësuar</string>
+    <string name="refresh_sheet_status_failed">nuk u përditësua</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekonda</string>
+</resources>

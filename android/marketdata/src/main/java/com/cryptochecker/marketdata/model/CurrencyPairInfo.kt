@@ -1,10 +1,19 @@
 package com.cryptochecker.marketdata.model
 
+/**
+ * Ein handelbares Paar einer Börse.
+ *
+ * [tradFi]: Kontrakt auf etwas, das kein Krypto-Token ist — Aktie, Rohstoff (z. B. Gold),
+ * Devisen oder Firma vor dem Börsengang (Binance «TradFi-Perpetuals»). Die App zeigt solche
+ * Paare nur mit dem Schalter unter Einstellungen › Merkliste. Kursabfrage, Live-Kurse,
+ * Funding und Open Interest laufen wie bei jedem Perpetual.
+ */
 open class CurrencyPairInfo(
     val currencyBase: String,
     val currencyCounter: String,
     val currencyPairId: String?,
-    val contractType: FuturesContractType = FuturesContractType.NONE
+    val contractType: FuturesContractType = FuturesContractType.NONE,
+    val tradFi: Boolean = false,
 ) : Comparable<CurrencyPairInfo> {
 
     @Suppress("unused") // Used by Gson

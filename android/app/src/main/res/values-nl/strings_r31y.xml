@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">verouderd · %1$s</string>
+    <string name="why_brief_label">Kort gezegd:</string>
+    <string name="why_factor_market">Totale markt</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_near_high">Dicht bij de top</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">hoger dan normaal</string>
+    <string name="why_fn_volume_lower">lager dan normaal</string>
+    <string name="why_fn_volume_usual">zoals gewoonlijk</string>
+    <string name="why_fn_market_pulls">BTC trekt de markt mee</string>
+    <string name="why_fn_market_lags">Markt beweegt, deze coin nauwelijks</string>
+    <string name="why_fn_market_alone">Markt rustig – deze coin beweegt op eigen kracht</string>
+    <string name="why_fn_market_against">De coin beweegt tegen de markt in</string>
+    <string name="why_fn_market_calm">Markt rustig</string>
+    <string name="why_fn_leader_moves">Bitcoin bepaalt de richting</string>
+    <string name="why_fn_leader_calm">Bitcoin rustig</string>
+    <string name="why_fn_volatility_stronger">sterker dan normaal</string>
+    <string name="why_fn_volatility_usual">zoals gewoonlijk</string>
+    <string name="why_fn_oi_up">Open interest gestegen</string>
+    <string name="why_fn_oi_down">Open interest gedaald</string>
+    <string name="why_fn_oi_flat">Open interest nauwelijks veranderd</string>
+    <string name="why_fn_high_at">op de 30-dagentop</string>
+    <string name="why_fn_high_below">onder de 30-dagentop</string>
+    <string name="why_fn_funding_longs">velen gokken op stijgende koersen</string>
+    <string name="why_fn_funding_shorts">velen gokken op dalende koersen</string>
+    <string name="why_fn_funding_neutral">neutraal</string>
+</resources>

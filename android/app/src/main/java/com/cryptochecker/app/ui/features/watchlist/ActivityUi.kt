@@ -2,15 +2,8 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -18,6 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -35,6 +29,7 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -42,67 +37,73 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.domain.activity.BtcLink
 import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.activity.Reason
 import com.cryptochecker.app.domain.activity.ReasonKind
+import com.cryptochecker.app.domain.activity.WhyBrief
+import com.cryptochecker.app.domain.activity.WhyConfidence
+import com.cryptochecker.app.domain.activity.WhyConfidenceLevel
+import com.cryptochecker.app.domain.activity.WhyConfidenceRules
 import com.cryptochecker.app.domain.activity.WhyExtra
+import com.cryptochecker.app.domain.activity.WhyFactor
+import com.cryptochecker.app.domain.activity.WhyFactorDirection
+import com.cryptochecker.app.domain.activity.WhyFactorKind
+import com.cryptochecker.app.domain.activity.WhyFactorNote
+import com.cryptochecker.app.domain.activity.WhyFactors
 import com.cryptochecker.app.domain.activity.WhyHeadline
-import com.cryptochecker.app.domain.activity.WhyMark
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.activity.WhySummary
 import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.ui.components.FactorRow
+import com.cryptochecker.app.ui.components.SkeletonLine
+import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.components.rememberReduceMotion
-import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.PriceColors
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.body
+import com.cryptochecker.app.ui.theme.headline
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-/**
- * Warmes Bernstein für ⚡ — unabhängig von der Akzentfarbe, damit es bei
- * jedem Akzent als «Achtung, hier ist etwas» lesbar bleibt.
- */
-internal object ActivityColors {
-    private val AmberDark = Color(0xFFFFC94D)
-    private val AmberLight = Color(0xFFB26B00)
-
-    val amber: Color
-        @Composable @ReadOnlyComposable get() = if (LocalDarkTheme.current) AmberDark else AmberLight
-
-    /** Dunkleres Bernstein für Text (das «!» vor Gründen): AA-Kontrast auf hellen Karten. */
-    private val AmberTextLight = Color(0xFF8F5600)
-
-    val amberText: Color
-        @Composable @ReadOnlyComposable get() = if (LocalDarkTheme.current) AmberDark else AmberTextLight
-}
 
 /** Kleines ⚡ in der Zeile eines Paars mit aktiven Signalen; Tipp öffnet «Warum». */
 @Composable
@@ -117,7 +118,7 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
         Icon(
             painterResource(R.drawable.ic_bolt),
             contentDescription = stringResource(R.string.activity_indicator),
-            tint = ActivityColors.amber,
+            tint = AppColors.warning,
             modifier = Modifier.size(16.dp)
         )
     }
@@ -144,7 +145,7 @@ internal fun ActivityCard(
     }
     val shown = coins.take(MAX_CARD_COINS)
     val more = coins.size - shown.size
-    val amber = ActivityColors.amber
+    val amber = AppColors.warning
 
     Card(
         shape = MaterialTheme.shapes.large,
@@ -152,7 +153,7 @@ internal fun ActivityCard(
         border = BorderStroke(1.dp, amber.copy(alpha = 0.35f)),
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(start = 14.dp, end = 14.dp, top = 12.dp, bottom = 8.dp)) {
+        Column(modifier = Modifier.padding(start = Spacing.md, end = Spacing.md, top = 12.dp, bottom = 8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     contentAlignment = Alignment.Center,
@@ -164,7 +165,7 @@ internal fun ActivityCard(
                     text = stringResource(R.string.activity_card_title),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(start = 10.dp).weight(1f)
+                    modifier = Modifier.padding(start = Spacing.sm).weight(1f)
                 )
                 // Kleiner Link zur Empfindlichkeit (zu viele/zu wenige Coins markiert?)
                 if (onAdjust != null) {
@@ -231,10 +232,11 @@ private sealed interface WhyState {
 }
 
 /**
- * «Warum bewegt sich BTC?» als Erklärmoment: zuerst «Kurz gesagt» (ein, zwei
- * Sätze), dann die 2–5 Gründe als kompakte Checkliste ✓ / – / ! (gleiche Zeile
- * wie im Crypto Pulse). Erklärungen stehen nur bei «!» oder unter «Details anzeigen».
- * Nur Marktdaten: Markt vs. Coin, Volumen, Hebel, Volatilität, Stimmung.
+ * «Warum bewegt sich BTC?» als klare Faktorliste: Kopf mit Paar und Veränderung,
+ * «Wahrscheinliche Gründe · Sicherheit», bis zu fünf Faktoren ([WhyFactors], stärkster
+ * oben, neutrale abgeblendet), «Kurz gesagt: …» als ein Satz, dann «Details anzeigen»
+ * (die Gründe mit Erklärung) und die Fusszeile. Nur Marktdaten: Markt vs. Coin, Volumen,
+ * Volatilität, Futures (Open Interest, Funding), Nähe zum 30-Tage-Hoch, Stimmung.
  */
 @Composable
 internal fun WhySheet(
@@ -284,9 +286,9 @@ internal fun WhySheet(
             }
             Text(
                 watch.displayName,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headline,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 6.dp)
+                modifier = Modifier.padding(top = Spacing.xs)
             )
             Text(
                 watch.marketName,
@@ -296,13 +298,14 @@ internal fun WhySheet(
             val report = (state as? WhyState.Loaded)?.report
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 14.dp)
+                modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = Spacing.md)
             ) {
                 Text(
                     PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
                     style = MaterialTheme.typography.titleLarge.tabularNumbers(),
                     fontWeight = FontWeight.SemiBold,
-                    maxLines = 1,
+                    // Grosse Schrift: Kurs bricht um statt abgeschnitten zu werden
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f)
                 )
@@ -311,28 +314,17 @@ internal fun WhySheet(
                 ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h)
             }
 
-            // «Kurz gesagt»: ein Satz aus denselben Gründen, die unten stehen
-            // (beim Laden ein form-gleicher Platzhalter an derselben Stelle)
-            Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyBrief") { s ->
-                // Fehler: kein «Kurz gesagt»
-                if (s is WhyState.Loaded) {
-                    if (s.report.hasMarketData) WhyBriefBox(s.report)
-                } else if (s == WhyState.Loading) {
-                    BriefSkeleton()
-                }
-            }
-
             // Was gerade auffällt (die Signale hinter dem ⚡)
             if (signals.isNotEmpty()) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.xs),
                     modifier = Modifier.padding(bottom = 12.dp)
                 ) {
                     signals.take(3).forEach { signal ->
                         Row(verticalAlignment = Alignment.Top) {
                             Icon(
                                 painterResource(R.drawable.ic_bolt), null,
-                                tint = ActivityColors.amber,
+                                tint = AppColors.warning,
                                 modifier = Modifier.padding(top = 2.dp).size(14.dp)
                             )
                             Text(
@@ -345,17 +337,21 @@ internal fun WhySheet(
                 }
             }
 
-            Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyReasons") { s ->
+            // «Wahrscheinliche Gründe · Sicherheit», Faktorliste, «Kurz gesagt», Details
+            // (beim Laden ein form-gleicher Platzhalter an derselben Stelle)
+            Crossfade(targetState = state, animationSpec = fade, modifier = resize, label = "whyFactors") { s ->
                 when (s) {
-                    WhyState.Loading -> ReasonSkeleton()
+                    WhyState.Loading -> FactorCardSkeleton()
                     WhyState.Failed -> EmptyReasons(onRetry = { attempt++ })
                     is WhyState.Loaded -> {
                         val r = s.report
-                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        val factors = remember(r) { WhyFactors.rank(r) }
+                        Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
                             if (!r.hasMarketData) {
                                 EmptyReasons(onRetry = null)
                             }
-                            if (r.reasons.isNotEmpty()) ReasonChecklist(r.reasons, animate = motion)
+                            if (factors.isNotEmpty()) WhyFactorCard(r, factors, watch.baseAsset)
+                            if (r.reasons.isNotEmpty()) ReasonDetails(r.reasons, animate = motion)
                         }
                     }
                 }
@@ -404,7 +400,7 @@ private fun ChangeBadge(label: String, change: Double?) {
             .then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)
             .clip(RoundedCornerShape(50))
             .background(color.copy(alpha = 0.12f))
-            .padding(horizontal = 10.dp, vertical = 4.dp)
+            .padding(horizontal = Spacing.sm, vertical = 4.dp)
     ) {
         Text(
             label,
@@ -416,44 +412,45 @@ private fun ChangeBadge(label: String, change: Double?) {
             style = MaterialTheme.typography.labelMedium.tabularNumbers(),
             fontWeight = FontWeight.SemiBold,
             color = color,
-            modifier = Modifier.padding(start = 6.dp)
+            modifier = Modifier.padding(start = Spacing.xs)
         )
     }
 }
 
 /**
- * Gründe als Checkliste. Erklärungen: bei «!» immer, sonst erst nach
- * «Details anzeigen» (nur angeboten, wenn es etwas aufzuklappen gibt).
+ * «Details anzeigen»: die einzelnen Gründe als Checkliste ✓ / – / ! mit ihrer Erklärung
+ * (wie bisher unter «Details»); eingeklappt nur der Knopf.
  */
 @Composable
-private fun ReasonChecklist(reasons: List<Reason>, animate: Boolean) {
+private fun ReasonDetails(reasons: List<Reason>, animate: Boolean) {
     var showDetails by rememberSaveable { mutableStateOf(false) }
-    val marks = reasons.map { WhySummary.mark(it) }
-    val hasHidden = marks.any { it != WhyMark.CAUTION }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            // Details auf-/zuklappen: die Karte wächst weich, das Blatt bleibt stehen
+            // Details auf-/zuklappen: wächst weich, das Blatt bleibt stehen
             .then(if (animate) Modifier.animateContentSize(tween(SWAP_MILLIS)) else Modifier)
-            .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-            .padding(horizontal = 14.dp, vertical = 8.dp)
     ) {
-        reasons.forEachIndexed { index, reason ->
-            val mark = marks[index]
-            val factor = reasonFactor(reason)
-            val explanation = reasonExplanation(reason)
-            FactorRow(
-                mark = mark,
-                title = factor.title,
-                value = factor.value,
-                spokenValue = factor.spokenValue,
-                detail = explanation.takeIf { showDetails || mark == WhyMark.CAUTION }
-            )
+        TextButton(onClick = { showDetails = !showDetails }) {
+            Text(stringResource(if (showDetails) R.string.why_details_hide else R.string.why_details))
         }
-        if (hasHidden) {
-            TextButton(onClick = { showDetails = !showDetails }) {
-                Text(stringResource(if (showDetails) R.string.why_details_hide else R.string.why_details))
+        if (showDetails) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.medium)
+                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                    .padding(horizontal = Spacing.md, vertical = 8.dp)
+            ) {
+                reasons.forEach { reason ->
+                    val factor = reasonFactor(reason)
+                    FactorRow(
+                        mark = WhySummary.mark(reason),
+                        title = factor.title,
+                        value = factor.value,
+                        spokenValue = factor.spokenValue,
+                        detail = reasonExplanation(reason)
+                    )
+                }
             }
         }
     }
@@ -507,142 +504,361 @@ private fun reasonFactor(r: Reason): ReasonFactor {
         ReasonKind.SENTIMENT -> {
             val value = r.value.roundToInt()
             val label = fearGreedLabel(value)
-            ReasonFactor(stringResource(R.string.factor_fear_greed), "$value · $label", "$value, $label")
-        }
-    }
-}
-
-/** «Kurz gesagt» oben im Blatt; nichts, wenn keine Regel passt. */
-@Composable
-private fun WhyBriefBox(report: WhyReport) {
-    val brief = WhySummary.brief(report.reasons)
-    if (brief.isEmpty) return
-    val sentences = buildList {
-        brief.headline?.let { headline ->
-            add(
-                stringResource(
-                    when (headline) {
-                        WhyHeadline.CALM -> R.string.why_summary_calm
-                        WhyHeadline.COIN_VOLUME -> R.string.why_summary_coin_volume
-                        WhyHeadline.COIN -> R.string.why_summary_coin
-                        WhyHeadline.AGAINST -> R.string.why_summary_against
-                        WhyHeadline.MARKET_VOLUME -> R.string.why_summary_market_volume
-                        WhyHeadline.MARKET -> R.string.why_summary_market
-                    }
-                )
-            )
-        }
-        brief.extras.forEach { extra ->
-            add(
-                stringResource(
-                    when (extra) {
-                        WhyExtra.THIN -> R.string.why_summary_thin
-                        WhyExtra.LONGS -> R.string.why_summary_longs
-                        WhyExtra.SHORTS -> R.string.why_summary_shorts
-                    }
-                )
-            )
-        }
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 12.dp)
-            .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
-            .semantics(mergeDescendants = true) { }
-            .padding(14.dp)
-    ) {
-        Text(
-            stringResource(R.string.why_summary_title),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSecondaryContainer
-        )
-        Text(
-            sentences.joinToString(" "),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-            modifier = Modifier.padding(top = 4.dp)
-        )
-    }
-}
-
-/** Platzhalter blinken ruhig; bei reduzierter Bewegung stehend. */
-@Composable
-private fun skeletonAlpha(): Float {
-    val transition = rememberInfiniteTransition(label = "why")
-    val animated by transition.animateFloat(
-        initialValue = 0.45f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
-        label = "pulse"
-    )
-    return if (rememberReduceMotion()) 0.7f else animated
-}
-
-/** Platzhalter für «Kurz gesagt»: gleiche Fläche, Abstände und Zeilenhöhen wie [WhyBriefBox]. */
-@Composable
-private fun BriefSkeleton() {
-    val pulse = skeletonAlpha()
-    val block = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.14f)
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 12.dp)
-            .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f))
-            .clearAndSetSemantics { }
-            .padding(14.dp)
-    ) {
-        // Titel (labelLarge, 20 dp) und ein Satz (bodyLarge, 24 dp, 4 dp darüber)
-        Box(Modifier.height(20.dp), contentAlignment = Alignment.CenterStart) {
-            Box(Modifier.alpha(pulse).width(84.dp).height(12.dp).clip(RoundedCornerShape(6.dp)).background(block))
-        }
-        Box(Modifier.padding(top = 4.dp).height(24.dp), contentAlignment = Alignment.CenterStart) {
-            Box(
-                Modifier.alpha(pulse).fillMaxWidth(0.85f).height(14.dp)
-                    .clip(RoundedCornerShape(7.dp)).background(block)
-            )
+            val number = LocaleNumbers.integer(value)
+            ReasonFactor(stringResource(R.string.factor_fear_greed), "$number · $label", "$number, $label")
         }
     }
 }
 
 /**
- * Platzhalter für die Checkliste: dieselbe Karte, fünf Zeilen in der Höhe von
- * [FactorRow] und Platz für «Details anzeigen» — beim Eintreffen springt nichts.
+ * «Wahrscheinliche Gründe · Sicherheit: mittel», darunter die Faktoren (stärkster oben,
+ * neutrale abgeblendet, höchstens fünf) und «Kurz gesagt: …» als ein Satz — nie als
+ * sichere Ursache formuliert. Zeilen wie [com.cryptochecker.app.ui.features.info.MarketRow].
  */
 @Composable
-private fun ReasonSkeleton() {
-    val pulse = skeletonAlpha()
-    val block = MaterialTheme.colorScheme.surfaceContainerHighest
+private fun WhyFactorCard(report: WhyReport, factors: List<WhyFactor>, base: String) {
+    val confidence = WhyConfidenceRules.evaluate(report.reasons, report.hasMarketData)
+    val brief = briefSentence(WhySummary.brief(report.reasons))
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-            .clearAndSetSemantics { }
-            .padding(horizontal = 14.dp, vertical = 8.dp)
+            .padding(horizontal = Spacing.md, vertical = Spacing.md)
     ) {
-        repeat(ActivityAnalyzer.MAX_REASONS) { index ->
-            // Wie FactorRow: 5 dp oben/unten, eine Zeile bodyMedium (20 dp)
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp).height(20.dp).alpha(pulse)
-            ) {
-                Box(Modifier.width(20.dp))
-                Box(
-                    Modifier.weight(1f).padding(end = 48.dp + 12.dp * (index % 3)).height(12.dp)
-                        .clip(RoundedCornerShape(6.dp)).background(block)
+        Column(modifier = Modifier.semantics(mergeDescendants = true) { }) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    stringResource(R.string.why_summary_title),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(1f)
                 )
-                Box(Modifier.width(44.dp).height(12.dp).clip(RoundedCornerShape(6.dp)).background(block))
+                confidence?.let {
+                    Text(
+                        stringResource(R.string.why_confidence, confidenceLabel(it.level)),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(start = Spacing.sm)
+                    )
+                }
+            }
+            confidence?.let {
+                Text(
+                    confidenceExplanation(it),
+                    style = MaterialTheme.typography.labelSmall.tabularNumbers(),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = Spacing.xs)
+                )
             }
         }
-        // Höhe des Knopfs «Details anzeigen» (TextButton, 40 dp)
-        Box(Modifier.height(40.dp), contentAlignment = Alignment.CenterStart) {
-            Box(
-                Modifier.padding(start = 12.dp).alpha(pulse).width(110.dp).height(12.dp)
-                    .clip(RoundedCornerShape(6.dp)).background(block)
+        Spacer(Modifier.height(Spacing.sm))
+        factors.forEach { WhyFactorLine(it) }
+        if (brief != null) {
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            val label = stringResource(R.string.why_brief_label)
+            Text(
+                buildAnnotatedString {
+                    withStyle(SpanStyle(fontWeight = FontWeight.SemiBold)) { append(label) }
+                    append(" ")
+                    append(brief)
+                },
+                style = MaterialTheme.typography.body,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(top = Spacing.md)
             )
+        }
+        // Gleichlauf mit Bitcoin (Stunden-Renditen, Kerzen von «Warum?»): eng bzw. unabhängig
+        report.btcLink?.let { link ->
+            Text(
+                stringResource(
+                    when (link) {
+                        BtcLink.TIGHT -> R.string.why_btc_tight
+                        BtcLink.INDEPENDENT -> R.string.why_btc_independent
+                    },
+                    BidiText.isolate(base.trim().uppercase()),
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = Spacing.sm)
+            )
+        }
+    }
+}
+
+/** «Kurz gesagt»: genau ein Satz — die Einordnung, sonst der erste Zusatz; null = keiner. */
+@Composable
+private fun briefSentence(brief: WhyBrief): String? {
+    brief.headline?.let { headline ->
+        return stringResource(
+            when (headline) {
+                WhyHeadline.CALM -> R.string.why_summary_calm
+                WhyHeadline.COIN_VOLUME -> R.string.why_summary_coin_volume
+                WhyHeadline.COIN -> R.string.why_summary_coin
+                WhyHeadline.AGAINST -> R.string.why_summary_against
+                WhyHeadline.MARKET_VOLUME -> R.string.why_summary_market_volume
+                WhyHeadline.MARKET -> R.string.why_summary_market
+            }
+        )
+    }
+    return brief.extras.firstOrNull()?.let { extra ->
+        stringResource(
+            when (extra) {
+                WhyExtra.THIN -> R.string.why_summary_thin
+                WhyExtra.LONGS -> R.string.why_summary_longs
+                WhyExtra.SHORTS -> R.string.why_summary_shorts
+            }
+        )
+    }
+}
+
+/** Texte einer Faktorzeile: Titel, Wert rechts, Nebenzeile und der gesprochene Satz. */
+private data class FactorTexts(val title: String, val value: String, val note: String, val spoken: String)
+
+/**
+ * Eine Faktorzeile: Pfeil im Kreis, Titel mit kurzer Nebenzeile, Wert rechts; neutrale
+ * abgeblendet. Screenreader: ein Satz («Volumen: höher als üblich, 3,4-mal so viel wie üblich»).
+ */
+@Composable
+private fun WhyFactorLine(factor: WhyFactor) {
+    val texts = factorTexts(factor)
+    Column(modifier = Modifier.fillMaxWidth()) {
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = Spacing.sm)
+                .alpha(if (factor.neutral) NEUTRAL_ALPHA else 1f)
+                .clearAndSetSemantics { contentDescription = texts.spoken }
+        ) {
+            FactorArrow(factor.direction, factor.neutral)
+            Column(modifier = Modifier.weight(1f).padding(start = Spacing.md)) {
+                Text(
+                    texts.title,
+                    style = MaterialTheme.typography.body,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    texts.note,
+                    style = MaterialTheme.typography.label,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            if (texts.value.isNotEmpty()) {
+                Text(
+                    texts.value,
+                    style = MaterialTheme.typography.title.tabularNumbers(),
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.End,
+                    maxLines = 1,
+                    modifier = Modifier.padding(start = Spacing.md)
+                )
+            }
+        }
+    }
+}
+
+/** Neutrale Faktoren abgeblendet. */
+private const val NEUTRAL_ALPHA = 0.6f
+
+/** Kreis mit ↑ / ↓ (oder – ohne Richtung); Akzentfarbe, neutral grau — nie Kursfarben. */
+@Composable
+private fun FactorArrow(direction: WhyFactorDirection, neutral: Boolean) {
+    val color = if (neutral) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.primary
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.size(FACTOR_ICON).clip(CircleShape).background(color.copy(alpha = 0.12f))
+    ) {
+        Text(
+            when (direction) {
+                WhyFactorDirection.UP -> "↑"
+                WhyFactorDirection.DOWN -> "↓"
+                WhyFactorDirection.NONE -> "–"
+            },
+            style = MaterialTheme.typography.title,
+            fontWeight = FontWeight.Bold,
+            color = color
+        )
+    }
+}
+
+private val FACTOR_ICON = 32.dp
+
+@Composable
+private fun factorTexts(f: WhyFactor): FactorTexts {
+    val context = LocalContext.current
+    fun pct(v: Double, decimals: Int = 1) = ActivityTexts.percent(v, decimals)
+    val title: String
+    var value = ""
+    var spokenValue = ""
+    val note: String
+    when (f.kind) {
+        WhyFactorKind.VOLUME -> {
+            val number = ActivityTexts.factor(f.value)
+            title = stringResource(R.string.factor_volume)
+            value = "$number×"
+            spokenValue = stringResource(R.string.factor_spoken_volume, number)
+            note = stringResource(
+                when (f.note) {
+                    WhyFactorNote.VOLUME_HIGHER -> R.string.why_fn_volume_higher
+                    WhyFactorNote.VOLUME_LOWER -> R.string.why_fn_volume_lower
+                    else -> R.string.why_fn_volume_usual
+                }
+            )
+        }
+        WhyFactorKind.MARKET -> {
+            title = stringResource(R.string.why_factor_market)
+            // Bei Bitcoin selbst steht BTC oben: rechts ETH zum Vergleich
+            val leader = f.note == WhyFactorNote.MARKET_LEADER_MOVES || f.note == WhyFactorNote.MARKET_LEADER_CALM
+            val (symbol, change) = if (leader) "ETH" to f.secondary else "BTC" to f.value
+            if (change != null) {
+                value = "$symbol " + pct(change)
+                spokenValue = "$symbol, " + A11yText.change(context, change, decimals = 1)
+            }
+            note = stringResource(
+                when (f.note) {
+                    WhyFactorNote.MARKET_PULLS -> R.string.why_fn_market_pulls
+                    WhyFactorNote.MARKET_COIN_LAGS -> R.string.why_fn_market_lags
+                    WhyFactorNote.MARKET_COIN_ALONE -> R.string.why_fn_market_alone
+                    WhyFactorNote.MARKET_AGAINST -> R.string.why_fn_market_against
+                    WhyFactorNote.MARKET_LEADER_MOVES -> R.string.why_fn_leader_moves
+                    WhyFactorNote.MARKET_LEADER_CALM -> R.string.why_fn_leader_calm
+                    else -> R.string.why_fn_market_calm
+                }
+            )
+        }
+        WhyFactorKind.VOLATILITY -> {
+            val number = ActivityTexts.factor(f.value)
+            title = stringResource(R.string.factor_volatility)
+            value = "$number×"
+            spokenValue = stringResource(R.string.factor_spoken_volatility, number)
+            note = stringResource(
+                if (f.note == WhyFactorNote.VOLATILITY_STRONGER) R.string.why_fn_volatility_stronger
+                else R.string.why_fn_volatility_usual
+            )
+        }
+        WhyFactorKind.OPEN_INTEREST -> {
+            title = stringResource(R.string.why_factor_futures)
+            value = pct(f.value)
+            spokenValue = A11yText.change(context, f.value, decimals = 1)
+            note = stringResource(
+                when (f.note) {
+                    WhyFactorNote.OI_UP -> R.string.why_fn_oi_up
+                    WhyFactorNote.OI_DOWN -> R.string.why_fn_oi_down
+                    else -> R.string.why_fn_oi_flat
+                }
+            )
+        }
+        WhyFactorKind.NEAR_HIGH -> {
+            title = stringResource(R.string.why_factor_near_high)
+            if (f.note == WhyFactorNote.HIGH_BELOW) {
+                value = pct(-f.value)
+                spokenValue = A11yText.change(context, -f.value, decimals = 1)
+            }
+            note = stringResource(
+                if (f.note == WhyFactorNote.HIGH_AT) R.string.why_fn_high_at else R.string.why_fn_high_below
+            )
+        }
+        WhyFactorKind.FUNDING -> {
+            title = stringResource(R.string.why_factor_funding)
+            value = fundingText(f.value)
+            spokenValue = value
+            note = stringResource(
+                when (f.note) {
+                    WhyFactorNote.FUNDING_LONGS -> R.string.why_fn_funding_longs
+                    WhyFactorNote.FUNDING_SHORTS -> R.string.why_fn_funding_shorts
+                    else -> R.string.why_fn_funding_neutral
+                }
+            )
+        }
+        WhyFactorKind.SENTIMENT -> {
+            val points = f.value.roundToInt()
+            title = stringResource(R.string.factor_fear_greed)
+            value = LocaleNumbers.integer(points)
+            spokenValue = value
+            note = fearGreedLabel(points)
+        }
+    }
+    val spoken = "$title: $note" + (if (spokenValue.isNotBlank()) ", $spokenValue" else "") + "."
+    return FactorTexts(title, value, note, spoken)
+}
+
+@Composable
+private fun confidenceLabel(level: WhyConfidenceLevel): String = stringResource(
+    when (level) {
+        WhyConfidenceLevel.HIGH -> R.string.why_confidence_high
+        WhyConfidenceLevel.MEDIUM -> R.string.why_confidence_medium
+        WhyConfidenceLevel.LOW -> R.string.why_confidence_low
+    }
+)
+
+/** «2 von 4 Hinweisen deuten darauf hin», bei Lücken mit «· Daten unvollständig». */
+@Composable
+private fun confidenceExplanation(c: WhyConfidence): String {
+    val hints = pluralStringResource(R.plurals.why_confidence_hints, c.agreeing, c.agreeing, c.total)
+    return if (c.partialData) hints + " · " + stringResource(R.string.why_confidence_partial) else hints
+}
+
+/**
+ * Platzhalter in der Form von [WhyFactorCard] und dem Knopf «Details anzeigen»: Kopf,
+ * Zeile zur Sicherheit, fünf Faktorzeilen (Kreis, Titel, Nebenzeile, Wert) und zwei Zeilen
+ * «Kurz gesagt» — gleiche Stile, Abstände und Höhen, beim Eintreffen springt nichts.
+ */
+@Composable
+private fun FactorCardSkeleton() {
+    val block = MaterialTheme.colorScheme.surfaceContainerHighest
+    SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { }) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(MaterialTheme.shapes.medium)
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                .padding(horizontal = Spacing.md, vertical = Spacing.md)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                SkeletonLine(MaterialTheme.typography.labelLarge, Modifier.width(140.dp))
+                Spacer(Modifier.weight(1f))
+                SkeletonLine(MaterialTheme.typography.labelMedium, Modifier.width(96.dp))
+            }
+            SkeletonLine(
+                MaterialTheme.typography.labelSmall,
+                Modifier.padding(top = Spacing.xs).width(170.dp)
+            )
+            Spacer(Modifier.height(Spacing.sm))
+            repeat(WhyFactors.MAX_FACTORS) { index ->
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().padding(vertical = Spacing.sm)
+                ) {
+                    Box(Modifier.size(FACTOR_ICON).clip(CircleShape).background(block))
+                    Column(modifier = Modifier.weight(1f).padding(start = Spacing.md)) {
+                        SkeletonLine(MaterialTheme.typography.body, Modifier.width(90.dp + 12.dp * (index % 3)))
+                        SkeletonLine(MaterialTheme.typography.label, Modifier.width(130.dp - 10.dp * (index % 2)))
+                    }
+                    SkeletonLine(
+                        MaterialTheme.typography.title,
+                        Modifier.padding(start = Spacing.md).width(52.dp)
+                    )
+                }
+            }
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            SkeletonLine(MaterialTheme.typography.body, Modifier.padding(top = Spacing.md).fillMaxWidth())
+            SkeletonLine(MaterialTheme.typography.body, Modifier.fillMaxWidth(0.6f))
+        }
+        // Wie der Knopf «Details anzeigen» (TextButton, 40 dp) mit dem Abstand davor
+        Box(
+            Modifier.padding(top = Spacing.sm).height(40.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            SkeletonLine(MaterialTheme.typography.labelLarge, Modifier.padding(start = 12.dp).width(110.dp))
         }
     }
 }
@@ -709,9 +925,9 @@ private fun withOpenInterest(text: String, change: Double?): String =
     else text + " " + stringResource(R.string.why_open_interest_change, ActivityTexts.percent(change, 1))
 
 private fun signedInt(value: Int): String = when {
-    value > 0 -> "+$value"
-    value < 0 -> "−${-value}"
-    else -> "±0"
+    value > 0 -> "+" + LocaleNumbers.integer(value)
+    value < 0 -> "−" + LocaleNumbers.integer(-value)
+    else -> "±" + LocaleNumbers.integer(0)
 }
 
 @Composable

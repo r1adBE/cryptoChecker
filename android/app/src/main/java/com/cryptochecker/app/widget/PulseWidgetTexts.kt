@@ -2,11 +2,14 @@ package com.cryptochecker.app.widget
 
 import android.content.Context
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.activity.ActivityAnalyzer
+import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.PulseDetail
 import com.cryptochecker.app.domain.market.PulseLeadKind
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
+import com.cryptochecker.app.util.LocaleNumbers
 
 /**
  * Texte des Widgets «Was gerade auffällt» — dieselben Schlüssel wie die Karte im Markt-Tab
@@ -59,5 +62,19 @@ internal object PulseWidgetTexts {
             null -> null
         }
         return if (second == null) first else "$first $second"
+    }
+
+    /** «Fear & Greed 72 · Gier» (Stufen wie die Karte im Markt-Tab). */
+    fun fearGreed(context: Context, value: Int): String {
+        val label = context.getString(
+            when (ActivityAnalyzer.fearGreedLevel(value)) {
+                FearGreedLevel.EXTREME_FEAR -> R.string.fng_extreme_fear
+                FearGreedLevel.FEAR -> R.string.fng_fear
+                FearGreedLevel.NEUTRAL -> R.string.fng_neutral
+                FearGreedLevel.GREED -> R.string.fng_greed
+                FearGreedLevel.EXTREME_GREED -> R.string.fng_extreme_greed
+            }
+        )
+        return context.getString(R.string.factor_fear_greed) + " " + LocaleNumbers.integer(value) + " · " + label
     }
 }

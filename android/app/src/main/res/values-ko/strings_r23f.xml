@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">일반</string>
+    <string name="settings_group_data_only">데이터</string>
+    <string name="settings_row_currency">통화</string>
+    <string name="settings_row_updates">업데이트</string>
+    <string name="settings_updates_live">자주 · %1$s</string>
+    <string name="settings_updates_every">%1$s마다</string>
+    <string name="settings_row_watchlist">관심 목록</string>
+    <string name="settings_watchlist_value_sparkline">미니 차트</string>
+    <string name="settings_watchlist_value_price_only">가격만</string>
+    <string name="settings_row_alarms">알림</string>
+    <string name="settings_portfolio_value_locked">켬, 잠금 사용</string>
+    <string name="settings_row_dated_futures">만기 선물</string>
+    <string name="settings_tradfi_futures">주식·원자재·외환 (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">페어를 고를 때 주식, 금 등 원자재, 외환, 상장 전 기업에 대한 선물도 표시합니다. 토큰이 아니라 계약입니다.</string>
+    <string name="settings_row_about">앱 정보</string>
+    <string name="price_colors_green_up">초록 상승 / 빨강 하락</string>
+    <string name="price_colors_red_up">빨강 상승 / 초록 하락</string>
+    <string name="price_colors_blue_up">파랑 상승 / 주황 하락</string>
+    <string name="price_colors_orange_up">주황 상승 / 파랑 하락</string>
+    <string name="price_colors_red_up_hint">중국, 일본, 한국, 대만에서 일반적</string>
+</resources>

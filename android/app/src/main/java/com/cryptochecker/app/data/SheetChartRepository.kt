@@ -21,7 +21,7 @@ import javax.inject.Singleton
  * Kerzen für den Chart im Aktionsblatt: gleiche Quelle und Intervalle wie das
  * Einzel-Widget ([CandleDataSource], [WidgetChartRange]); Paar zuerst, bei Fiat-Quotes
  * ersatzweise die USDT-Reihe umgerechnet (siehe [SheetChart.requests]). Im Speicher
- * 5 bzw. 30 Minuten je Paar und Zeitraum ([SheetChartCache]); nie auf dem Main-Thread.
+ * 5, 30 bzw. 60 Minuten je Paar und Zeitraum ([SheetChartCache]); nie auf dem Main-Thread.
  */
 @Singleton
 class SheetChartRepository @Inject constructor(

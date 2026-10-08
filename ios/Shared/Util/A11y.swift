@@ -24,6 +24,68 @@ enum A11y {
         return L("a11y_change_24h", text)
     }
 
+    /// Veränderung gemäss %-Basis: «… in 24 Stunden» / «… heute» / «… seit 0 Uhr UTC+8»; ohne
+    /// Wert der passende «nicht verfügbar»-Satz — wie `ChangeBasisText.spoken`.
+    static func change(_ percent: Double?, basis: ChangeBasis) -> String {
+        switch basis.kind {
+        case .rolling24h:
+            return change24h(percent)
+        case .utcDay:
+            guard let text = change(percent) else { return L("a11y_change_today_zone_none", zone(basis)) }
+            return L("a11y_change_today_zone", text, zone(basis))
+        case .localDay:
+            guard let text = change(percent) else { return L("a11y_change_today_none") }
+            return L("a11y_change_today", text)
+        }
+    }
+
+    /// Wie `change(_:basis:)` mit fertigem Satzteil (z. B. «gestiegen um 12.00 CHF»).
+    static func changePhrase(_ phrase: String, basis: ChangeBasis) -> String {
+        switch basis.kind {
+        case .rolling24h: return L("a11y_change_24h", phrase)
+        case .utcDay: return L("a11y_change_today_zone", phrase, zone(basis))
+        case .localDay: return L("a11y_change_today", phrase)
+        }
+    }
+
+    /// Kurzer Zeitraum der %-Basis neben Pille, Puls und Widgets: «24h», «heute», «heute UTC+8».
+    static func changeShortLabel(_ basis: ChangeBasis) -> String {
+        switch basis.kind {
+        case .rolling24h: return L("widget_range_short_24h")
+        case .utcDay: return L("change_short_today_zone", zone(basis))
+        case .localDay: return L("change_short_today")
+        }
+    }
+
+    /// Zeitraum ausgeschrieben: «24h» (wie bisher), «Seit 00:00 UTC+8», «Seit 00:00 Ortszeit».
+    static func changeLongLabel(_ basis: ChangeBasis) -> String {
+        switch basis.kind {
+        case .rolling24h: return L("widget_range_24h")
+        case .utcDay: return L("change_basis_utc_zone", zone(basis))
+        case .localDay: return L("change_basis_local")
+        }
+    }
+
+    /// Wert in der Zeile der Einstellungen: «Letzte 24 Std.», «Seit 00:00 Ortszeit», «Seit 00:00 UTC+8».
+    static func changeSummary(_ basis: ChangeBasis) -> String {
+        basis.isDay ? changeLongLabel(basis) : L("change_basis_rolling")
+    }
+
+    /// Eintrag der Auswahl (wie Binance): «Letzte 24 Std.», «UTC+2, 00:00 (Zeitzone des Geräts)»,
+    /// «UTC+8, 00:00» — wie `ChangeBasisText.choiceLabel`.
+    static func changeChoiceLabel(_ basis: ChangeBasis, now: Int64 = TimeUtils.nowMillis) -> String {
+        switch basis.kind {
+        case .rolling24h: return L("change_basis_rolling")
+        case .localDay: return L("change_basis_device", ChangeBasisMath.deviceZoneLabel(now: now))
+        case .utcDay: return changeZoneChoice(basis)
+        }
+    }
+
+    /// «UTC+8, 00:00» — Zahlen und Zone, in allen Sprachen gleich.
+    static func changeZoneChoice(_ basis: ChangeBasis) -> String { "\(zone(basis)), 00:00" }
+
+    private static func zone(_ basis: ChangeBasis) -> String { ChangeBasisMath.zoneLabel(basis) ?? "UTC" }
+
     /// «Chart 24h: von 96’000 auf 97’512, gestiegen um 1.57%. Hoch 98’100, Tief 95’800.»
     /// `period`: Zeitraum (z. B. «24h», «7 Tage»); `format`: Wert als Text.
     static func chart(period: String, values: [Double], format: (Double) -> String = { PriceFormat.price($0) }) -> String {
@@ -51,7 +113,8 @@ enum A11y {
                          chart: String? = nil,
                          alarmCount: Int = 0,
                          extra: [String?] = [],
-                         stale: String? = nil) -> String {
+                         stale: String? = nil,
+                         changeView: ChangeView = ChangeView()) -> String {
         let pair = watch.displayName
         let price = L("a11y_price", PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
         let convertedText = converted.map { text -> String in
@@ -62,7 +125,8 @@ enum A11y {
         let note = watch.note.flatMap { $0.isEmpty ? nil : L("a11y_note", $0) }
         let alarms = alarmCount > 0 ? L("a11y_alarm_count", alarmCount) : nil
         let error = watch.lastError.flatMap { $0.isEmpty ? nil : ConnectionErrors.display($0) }
-        return join([L("a11y_row_pair", pair, watch.marketName), price, Self.change24h(watch.shownChange24h),
+        let changeText = Self.change(changeView.shown(watch.shownChange24h), basis: changeView.basis)
+        return join([L("a11y_row_pair", pair, watch.marketName), price, changeText,
                      convertedText, chart, note, alarms] + extra + [error, stale])
     }
 }

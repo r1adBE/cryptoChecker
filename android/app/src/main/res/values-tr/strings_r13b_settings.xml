@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Piyasa bildirimleri</string>
-    <string name="settings_market_alerts_hint">Piyasa evresi, Korku ve Açgözlülük, gas ücretleri, olağandışı hareket, ekonomik tarihler</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d etkin</item>
         <item quantity="other">%1$d etkin</item>
     </plurals>
-    <string name="settings_tts_row_hint">Fiyatları ve alarmları sesli okur</string>
     <string name="settings_summary_on">Açık</string>
 
     <string name="alarm_first_text_checked">Crypto Checker artık sizin için %1$s\'i izliyor. %1$s sınırınıza ulaştığında, uygulama fiyatı kontrol eder etmez bir bildirim alırsınız. Uygulama kapalıyken bu, arka plan güncelleme aralığında olur – pil optimizasyonu uygulamayı kısıtlıyorsa daha geç.</string>

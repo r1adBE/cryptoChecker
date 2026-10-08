@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s-muutos</string>
+    <string name="change_basis_rolling">Viimeiset 24 h</string>
+    <string name="change_basis_utc_zone">Klo 00:00 %1$s alkaen</string>
+    <string name="change_basis_local">Klo 00:00 paikallista aikaa alkaen</string>
+    <string name="settings_change_basis_hint_1">Valittu aikavyöhyke määrää, mistä alkaen prosenttimuutos lasketaan: seurantalistassa, pulssirivillä, parin näkymässä ja widgeteissä.</string>
+    <string name="settings_change_basis_hint_2">”%1$s” vertaa kurssiin tasan 24 tuntia sitten. ”00:00” vertaa avauskurssiin keskiyöllä tällä aikavyöhykkeellä.</string>
+    <string name="settings_change_basis_hint_3">Hälytyksiin tämä ei vaikuta.</string>
+    <string name="change_basis_device">%1$s, 00:00 (laitteen aikavyöhyke)</string>
+    <string name="change_short_today">tänään</string>
+    <string name="change_short_today_zone">tänään %1$s</string>
+    <string name="a11y_change_today">%1$s tänään</string>
+    <string name="a11y_change_today_zone">%1$s keskiyöstä %2$s</string>
+    <string name="a11y_change_today_none">Tämän päivän muutos ei saatavilla</string>
+    <string name="a11y_change_today_zone_none">Muutos keskiyöstä %1$s ei saatavilla</string>
+    <string name="sheet_chart_today">Tänään</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Kun sovellus on suljettu, enintään kerran minuutissa</string>
+    <string name="sheet_more">Lisää</string>
+    <string name="a11y_expanded">Laajennettu</string>
+    <string name="a11y_collapsed">Tiivistetty</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ilman tämän päivän arvoa</item>
+        <item quantity="other">%1$d ilman tämän päivän arvoa</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d parilla ei ole arvoa tälle päivälle</item>
+        <item quantity="other">%1$d parilla ei ole arvoa tälle päivälle</item>
+    </plurals>
+</resources>

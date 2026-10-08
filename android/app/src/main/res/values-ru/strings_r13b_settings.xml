@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Рыночные уведомления</string>
-    <string name="settings_market_alerts_hint">Фаза рынка, индекс страха и жадности, комиссии за газ, необычная активность, экономические даты</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d активное</item>
         <item quantity="few">%1$d активных</item>
         <item quantity="many">%1$d активных</item>
         <item quantity="other">%1$d активных</item>
     </plurals>
-    <string name="settings_tts_row_hint">Зачитывает цены и оповещения вслух</string>
     <string name="settings_summary_on">Вкл.</string>
 
     <string name="alarm_first_text_checked">Crypto Checker теперь следит за %1$s для вас. Когда %1$s достигнет вашего порога, вы получите уведомление, как только приложение проверит цену. Когда приложение закрыто, это происходит с интервалом фонового обновления – позже, если оптимизация батареи ограничивает приложение.</string>

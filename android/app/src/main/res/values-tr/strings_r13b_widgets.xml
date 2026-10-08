@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">güncel değil · %1$s</string>
 
     <string name="settings_widgets">Widget\'lar</string>
-    <string name="settings_widgets_hint">Fiyatları ana ekrana ekleyin</string>
     <string name="widgets_sheet_title">Widget ekle</string>
     <string name="widget_kind_single">Tek coin</string>
     <string name="widgets_add">Ekle</string>

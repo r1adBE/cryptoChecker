@@ -40,7 +40,7 @@ struct SectionCard<Content: View>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(AppColors.container, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, Spacing.lg)
     }
 }
 
@@ -64,7 +64,7 @@ struct SwitchRow: View {
         .tint(accent.primary)
         .disabled(!enabled)
         .opacity(enabled ? 1 : 0.5)
-        .padding(.vertical, 10)
+        .padding(.vertical, Spacing.md)
     }
 }
 
@@ -90,7 +90,7 @@ struct ChoiceChips<T: Hashable>: View {
                 Button { onSelect(option) } label: {
                     Text(label(option))
                         .font(.subheadline.weight(selected ? .semibold : .regular))
-                        .padding(.horizontal, 14)
+                        .padding(.horizontal, Spacing.md)
                         .padding(.vertical, 8)
                         .foregroundStyle(selected ? accent.onContainer : AppColors.onSurface)
                         .background(selected ? accent.container : AppColors.containerHigh, in: Capsule())
@@ -119,7 +119,7 @@ struct ChoiceRow<T: Hashable>: View {
             }
             ChoiceChips(options: options, selection: selection, label: label, onSelect: onSelect)
         }
-        .padding(.vertical, 10)
+        .padding(.vertical, Spacing.md)
     }
 }
 
@@ -171,7 +171,7 @@ struct TickerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("\(PriceFormat.formatDouble(ticker.last)) \(quote)")
-                .font(.title.weight(.semibold).monospacedDigit())
+                .displayFont(.compact, design: .default)
             Text(L("ticker_timestamp") + " " + Self.sameDayTimeOrDate(ticker.timestamp))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)
@@ -197,7 +197,7 @@ struct TickerView: View {
             stat(lt, lv).frame(maxWidth: .infinity, alignment: .leading)
             stat(rt, rv).frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.bottom, 10)
+        .padding(.bottom, Spacing.sm)
     }
 
     private func stat(_ title: String, _ value: String) -> some View {
@@ -259,11 +259,11 @@ struct EmptyStateView: View {
     @Environment(\.appAccent) private var accent
 
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: Spacing.md) {
             Image(systemName: systemImage)
                 .scaledFont(size: 44, weight: .light, relativeTo: .largeTitle)
                 .foregroundStyle(accent.primary)
-                .padding(22)
+                .padding(Spacing.xl)
                 .background(accent.container.opacity(0.5), in: Circle())
             Text(title).font(.title3.weight(.semibold)).multilineTextAlignment(.center)
             if let message {
@@ -271,10 +271,10 @@ struct EmptyStateView: View {
             }
             if let actionTitle, let action {
                 Button(action: action) {
-                    Text(actionTitle).font(.headline).padding(.horizontal, 22).padding(.vertical, 12)
+                    Text(actionTitle).font(.headline).padding(.horizontal, Spacing.xl).padding(.vertical, 12)
                 }
                 .buttonStyle(AccentButtonStyle())
-                .padding(.top, 6)
+                .padding(.top, Spacing.xs)
             }
         }
         .padding(32)
@@ -319,10 +319,10 @@ struct ToastModifier: ViewModifier {
             if let message {
                 Text(message)
                     .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 18)
+                    .foregroundStyle(AppColors.onToast)
+                    .padding(.horizontal, Spacing.lg)
                     .padding(.vertical, 12)
-                    .background(Color.black.opacity(0.82), in: Capsule())
+                    .background(AppColors.toastBackground, in: Capsule())
                     .padding(.bottom, 24)
                     .padding(.horizontal, 16)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -381,10 +381,10 @@ struct FactorRow: View {
                     .font(.footnote.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.leading, 20)
+                    .padding(.leading, Spacing.lg)
             }
         }
-        .padding(.vertical, 5)
+        .padding(.vertical, Spacing.xs)
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(spoken)
@@ -400,7 +400,7 @@ struct FactorRow: View {
     private var markColor: Color {
         switch mark {
         case .supports: priceColors.up(highContrast: highContrast)
-        case .caution: WatchlistActivityColors.cautionText
+        case .caution: AppColors.warningText
         case .neutral: AppColors.onSurfaceVariant
         }
     }

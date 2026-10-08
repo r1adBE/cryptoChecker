@@ -18,9 +18,9 @@
     <string name="pulse_less">Pokaż mniej</string>
     <string name="pulse_updated">Stan na %1$s</string>
     <string name="pulse_unavailable">Dane rynkowe są obecnie niedostępne</string>
-    <string name="why_summary_title">W skrócie</string>
+    <string name="why_summary_title">Prawdopodobne przyczyny</string>
     <string name="why_summary_market_volume">Ruchowi towarzyszy wyższy wolumen obrotu i szeroko poruszający się rynek.</string>
-    <string name="why_summary_market">Ruch podąża za całym rynkiem.</string>
+    <string name="why_summary_market">Ruch prawdopodobnie podąża za całym rynkiem.</string>
     <string name="why_summary_coin_volume">Porusza się tylko ta moneta, przy wyższym wolumenie – prawdopodobnie powód leży w samej monecie.</string>
     <string name="why_summary_coin">Porusza się tylko ta moneta – prawdopodobnie powód leży w samej monecie.</string>
     <string name="why_summary_against">Moneta porusza się wbrew rynkowi.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Obserwuj – Twoje monety, kursy, wykresy i widżety</string>
     <string name="welcome_alert">Alarmuj – cena, procent, wolumen i nietypowe ruchy</string>
     <string name="welcome_understand">Zrozum – dlaczego rynek właśnie się porusza?</string>
-    <string name="welcome_start">Zaczynajmy</string>
     <string name="portfolio_empty_example">Przykład: 0,01 BTC kupione 1 marca po %1$s. Aplikacja pokaże wtedy wartość, średnią cenę zakupu i zysk/stratę – zapisane tylko na tym urządzeniu.</string>
     <string name="about_why">Crypto Checker to niezależny projekt r1AD: spokojny przegląd kursów bez konta, reklam i śledzenia. Pytania i życzenia: %1$s</string>
     <string name="a11y_move_up">Przenieś w górę</string>
@@ -61,38 +60,8 @@
     <string name="market_data_empty_error">Nie otrzymano danych z giełdy.</string>
     <string name="sync_pairs_count">Pary handlowe: %1$d</string>
     <string name="market_unavailable_error">Giełda niedostępna</string>
-    <string name="refresh_report_aborted">Odświeżanie przerwane:</string>
-    <string name="refresh_report_wait">Oczekiwanie do startu: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Łącznie %1$s · %2$d para</item>
-        <item quantity="few">Łącznie %1$s · %2$d pary</item>
-        <item quantity="many">Łącznie %1$s · %2$d par</item>
-        <item quantity="other">Łącznie %1$s · %2$d par</item>
-    </plurals>
-    <string name="refresh_report_network">Sieć %1$s</string>
-    <string name="refresh_report_database">Baza danych %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Alarmy/powiadomienia %1$s · %2$d powiadomienie</item>
-        <item quantity="few">Alarmy/powiadomienia %1$s · %2$d powiadomienia</item>
-        <item quantity="many">Alarmy/powiadomienia %1$s · %2$d powiadomień</item>
-        <item quantity="other">Alarmy/powiadomienia %1$s · %2$d powiadomień</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widżety %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d para, %3$s</item>
-        <item quantity="few">%1$s: %2$d pary, %3$s</item>
-        <item quantity="many">%1$s: %2$d par, %3$s</item>
-        <item quantity="other">%1$s: %2$d par, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">zapytanie zbiorcze %1$s (%2$d kurs)</item>
-        <item quantity="few">zapytanie zbiorcze %1$s (%2$d kursy)</item>
-        <item quantity="many">zapytanie zbiorcze %1$s (%2$d kursów)</item>
-        <item quantity="other">zapytanie zbiorcze %1$s (%2$d kursów)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">zapytanie zbiorcze %1$s (nieudane)</string>
     <string name="refresh_report_singles">pojedynczo: %1$d</string>
-    <string name="refresh_report_slowest">najwolniejsza %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">już nienotowane: %1$d</item>
         <item quantity="few">już nienotowane: %1$d</item>

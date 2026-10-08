@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Error: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">No hay pares</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Toca aquí para descargar los pares más recientes del exchange seleccionado.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Carga los pares actuales del mercado seleccionado.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Actualizar pares</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizar ahora</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Última sincronización: %1$s</string>
@@ -39,7 +39,6 @@
 
     <!-- Acciones -->
     <string name="action_refresh">Actualizar</string>
-    <string name="action_add_pair">Añadir par</string>
     <string name="action_delete">Eliminar</string>
     <string name="action_edit">Editar</string>
     <string name="action_back">Atrás</string>
@@ -48,7 +47,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">Aún no hay pares</string>
-    <string name="watchlist_empty_hint">O elige un exchange y un par en «Añadir». Cada par puede tener una notificación, un aviso hablado y alarmas de precio.</string>
     <string name="watchlist_updated">Actualizado: %1$s</string>
     <string name="watchlist_notification">Notificación</string>
     <string name="watchlist_tts">Decir precio</string>
@@ -82,7 +80,7 @@
     <string name="channel_prices_description">Notificación silenciosa con el precio actual de un par.</string>
     <string name="channel_alarms">Alarmas</string>
     <string name="channel_alarms_description">Notificación cuando salta una alarma de precio.</string>
-    <string name="channel_service">Modo en vivo</string>
+    <string name="channel_service">Actualización frecuente</string>
     <string name="channel_service_description">Aviso mientras los precios se actualizan en intervalos cortos.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, desde %2$s (hace %3$s)</string>
@@ -133,7 +131,7 @@
     <string name="settings_rolling_futures">Incl. futuros trimestrales &amp; con vencimiento</string>
     <string name="settings_rolling_futures_hint">Desactivado: los futuros con vencimiento que faltan en la lista del exchange se marcan como «ya no se negocian» en lugar de comprobarse uno a uno. Ahorra tiempo en cada actualización.</string>
     <string name="notification_refreshing">Actualizando precios…</string>
-    <string name="notification_service_title">Crypto Checker – modo en vivo</string>
+    <string name="notification_service_title">Crypto Checker se actualiza a menudo</string>
     <string name="notification_service_starting">Iniciando…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d par · %2$s</item>
@@ -148,9 +146,9 @@
     <string name="settings_background_updates">Actualización en segundo plano</string>
     <string name="settings_background_updates_hint">Precios, alarmas y widgets se actualizan aunque la app esté cerrada.</string>
     <string name="settings_background_interval">Intervalo</string>
-    <string name="settings_live_service">Modo en vivo</string>
-    <string name="settings_live_service_hint">Mantiene un servicio activo para intervalos cortos. Consume más batería.</string>
-    <string name="settings_live_interval">Intervalo en vivo</string>
+    <string name="settings_live_service">Actualizar a menudo</string>
+    <string name="settings_live_service_hint">Consulta los precios en intervalos cortos, incluso con la app cerrada. Muestra una notificación y gasta más batería.</string>
+    <string name="settings_live_interval">Con qué frecuencia</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Notificaciones de precio</string>
@@ -235,7 +233,7 @@
     <string name="theme_system">Sistema</string>
     <string name="settings_section_developer">Desarrollador</string>
     <string name="settings_http_log">Mostrar registro HTTP</string>
-    <string name="settings_http_log_hint">Muestra al final de la pestaña «Añadir» las solicitudes a los exchanges – para diagnosticar.</string>
+    <string name="settings_http_log_hint">Muestra al final de la página «Añadir par» las solicitudes a los exchanges – para diagnosticar.</string>
     <string name="language_search">Buscar idioma</string>
     <string name="alarm_delete_title">¿Eliminar alerta?</string>
     <string name="alarm_delete_confirm">Esta alerta se eliminará.</string>
@@ -279,15 +277,11 @@
     <string name="explorer_bulk_show_list">Mostrar lista</string>
     <string name="explorer_bulk_hide_list">Ocultar lista</string>
     <string name="time_just_now">ahora mismo</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Tus precios. Tus alarmas. Tu resumen.\nSin cuenta. Sin anuncios. Sin rastreo.</string>
-    <string name="welcome_later">Más tarde</string>
     <string name="developer_unlocked">Opciones de desarrollador activadas</string>
     <string name="hint_favorites_list">Consejo: toca ☆ para marcar como favorito; los favoritos quedan arriba.</string>
     <string name="tab_watchlist">Lista</string>
-    <string name="tab_markets">Añadir</string>
     <string name="tab_market_phase">Mercado</string>
-    <string name="tab_settings">Ajustes</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d de %2$d desactualizado</item>
         <item quantity="many">%1$d de %2$d desactualizados</item>

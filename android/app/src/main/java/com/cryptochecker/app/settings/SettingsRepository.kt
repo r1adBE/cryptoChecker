@@ -11,8 +11,10 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
+import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
+import com.cryptochecker.app.domain.watch.ChangeBasis
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -31,6 +33,7 @@ class SettingsRepository @Inject constructor(
         val backgroundInterval = intPreferencesKey("background_interval_minutes")
         val liveService = booleanPreferencesKey("live_service")
         val liveInterval = intPreferencesKey("live_interval_seconds")
+        val liveWebSocket = booleanPreferencesKey("live_websocket")
         val priceNotifications = booleanPreferencesKey("price_notifications")
         val ongoingNotifications = booleanPreferencesKey("ongoing_notifications")
         /** Früher ganze Prozent; wird nur noch gelesen, falls der neue Wert fehlt. */
@@ -42,6 +45,7 @@ class SettingsRepository @Inject constructor(
         val ttsSpeechRate = floatPreferencesKey("tts_speech_rate")
         val alarmCooldown = intPreferencesKey("alarm_cooldown_minutes")
         val includeRollingFutures = booleanPreferencesKey("include_rolling_futures")
+        val includeTradFiFutures = booleanPreferencesKey("include_tradfi_futures")
         val accentColor = stringPreferencesKey("accent_color")
         val darkMode = booleanPreferencesKey("dark_mode")
         val showHttpLog = booleanPreferencesKey("show_http_log")
@@ -61,6 +65,7 @@ class SettingsRepository @Inject constructor(
         val showConverted = booleanPreferencesKey("show_converted")
         val priceColorScheme = stringPreferencesKey("price_color_scheme")
         val watchlistSparkline = booleanPreferencesKey("watchlist_sparkline")
+        val changeBasis = stringPreferencesKey("change_basis")
         val highContrast = booleanPreferencesKey("high_contrast")
         val priceColorsInverted = booleanPreferencesKey("price_colors_inverted")
         val gasAlertEth = intPreferencesKey("gas_alert_eth_tenths")
@@ -68,15 +73,18 @@ class SettingsRepository @Inject constructor(
         val alarmSoundUri = stringPreferencesKey("alarm_sound_uri")
         val alarmSoundName = stringPreferencesKey("alarm_sound_name")
         val alarmChannelVersion = intPreferencesKey("alarm_channel_version")
+        val alarmSignal = stringPreferencesKey("alarm_signal")
         val quietHoursEnabled = booleanPreferencesKey("quiet_hours_enabled")
         val quietHoursStart = intPreferencesKey("quiet_hours_start")
         val quietHoursEnd = intPreferencesKey("quiet_hours_end")
         val appLock = booleanPreferencesKey("app_lock")
+        val hidePortfolioAmounts = booleanPreferencesKey("hide_portfolio_amounts")
         val firstAlarmShown = booleanPreferencesKey("first_alarm_shown")
         val firstPairAdded = booleanPreferencesKey("first_pair_added")
         val sheetChartLine = booleanPreferencesKey("sheet_chart_line")
         val portfolioHistoryExpanded = booleanPreferencesKey("portfolio_history_expanded")
         val portfolioHistoryRange = stringPreferencesKey("portfolio_history_range")
+        val marketTabSeen = booleanPreferencesKey("market_tab_seen")
     }
 
     val settings: Flow<AppSettings> = context.settingsDataStore.data.map { prefs ->
@@ -87,6 +95,7 @@ class SettingsRepository @Inject constructor(
                 ?: defaults.backgroundIntervalMinutes,
             liveService = prefs[Keys.liveService] ?: defaults.liveService,
             liveIntervalSeconds = prefs[Keys.liveInterval] ?: defaults.liveIntervalSeconds,
+            liveWebSocket = prefs[Keys.liveWebSocket] ?: defaults.liveWebSocket,
             priceNotifications = prefs[Keys.priceNotifications] ?: defaults.priceNotifications,
             ongoingNotifications = prefs[Keys.ongoingNotifications]
                 ?: defaults.ongoingNotifications,
@@ -99,6 +108,7 @@ class SettingsRepository @Inject constructor(
             alarmCooldownMinutes = prefs[Keys.alarmCooldown] ?: defaults.alarmCooldownMinutes,
             includeRollingFutures = prefs[Keys.includeRollingFutures]
                 ?: defaults.includeRollingFutures,
+            includeTradFiFutures = prefs[Keys.includeTradFiFutures] ?: defaults.includeTradFiFutures,
             accentColor = AccentColor.fromName(prefs[Keys.accentColor]),
             darkMode = prefs[Keys.darkMode],
             showHttpLog = prefs[Keys.showHttpLog] ?: defaults.showHttpLog,
@@ -118,6 +128,7 @@ class SettingsRepository @Inject constructor(
             showConverted = prefs[Keys.showConverted] ?: defaults.showConverted,
             priceColorScheme = PriceColorScheme.fromName(prefs[Keys.priceColorScheme]),
             watchlistSparkline = prefs[Keys.watchlistSparkline] ?: defaults.watchlistSparkline,
+            changeBasis = ChangeBasis.fromName(prefs[Keys.changeBasis]),
             highContrast = prefs[Keys.highContrast] ?: defaults.highContrast,
             // Nie gesetzt: Standard nach Region des Geräts
             priceColorsInverted = prefs[Keys.priceColorsInverted] ?: defaults.priceColorsInverted,
@@ -126,17 +137,20 @@ class SettingsRepository @Inject constructor(
             alarmSoundUri = prefs[Keys.alarmSoundUri],
             alarmSoundName = prefs[Keys.alarmSoundName],
             alarmChannelVersion = prefs[Keys.alarmChannelVersion] ?: defaults.alarmChannelVersion,
+            alarmSignal = AlarmSignal.fromName(prefs[Keys.alarmSignal]),
             quietHoursEnabled = prefs[Keys.quietHoursEnabled] ?: defaults.quietHoursEnabled,
             quietHoursStart = prefs[Keys.quietHoursStart]?.takeIf { QuietHours.isValidMinute(it) }
                 ?: defaults.quietHoursStart,
             quietHoursEnd = prefs[Keys.quietHoursEnd]?.takeIf { QuietHours.isValidMinute(it) }
                 ?: defaults.quietHoursEnd,
             appLock = prefs[Keys.appLock] ?: defaults.appLock,
+            hidePortfolioAmounts = prefs[Keys.hidePortfolioAmounts] ?: defaults.hidePortfolioAmounts,
             firstAlarmShown = prefs[Keys.firstAlarmShown] ?: defaults.firstAlarmShown,
             firstPairAdded = prefs[Keys.firstPairAdded] ?: defaults.firstPairAdded,
             sheetChartLine = prefs[Keys.sheetChartLine] ?: defaults.sheetChartLine,
             portfolioHistoryExpanded = prefs[Keys.portfolioHistoryExpanded] ?: defaults.portfolioHistoryExpanded,
             portfolioHistoryRange = PortfolioHistoryRange.fromName(prefs[Keys.portfolioHistoryRange]),
+            marketTabSeen = prefs[Keys.marketTabSeen] ?: defaults.marketTabSeen,
         ).also { cached = it }
     }
 
@@ -164,6 +178,8 @@ class SettingsRepository @Inject constructor(
         it[Keys.liveInterval] = seconds.coerceAtLeast(AppSettings.MIN_LIVE_INTERVAL_SECONDS)
     }
 
+    suspend fun setLiveWebSocket(enabled: Boolean) = edit { it[Keys.liveWebSocket] = enabled }
+
     suspend fun setPriceNotifications(enabled: Boolean) = edit { it[Keys.priceNotifications] = enabled }
 
     suspend fun setOngoingNotifications(enabled: Boolean) = edit { it[Keys.ongoingNotifications] = enabled }
@@ -186,6 +202,9 @@ class SettingsRepository @Inject constructor(
 
     suspend fun setIncludeRollingFutures(enabled: Boolean) =
         edit { it[Keys.includeRollingFutures] = enabled }
+
+    suspend fun setIncludeTradFiFutures(enabled: Boolean) =
+        edit { it[Keys.includeTradFiFutures] = enabled }
 
     suspend fun setAccentColor(accent: AccentColor) = edit { it[Keys.accentColor] = accent.name }
 
@@ -235,6 +254,9 @@ class SettingsRepository @Inject constructor(
         return version
     }
 
+    /** «Alarm-Signal» (Ton/Vibration der Kursalarme). */
+    suspend fun setAlarmSignal(signal: AlarmSignal) = edit { it[Keys.alarmSignal] = signal.name }
+
     suspend fun setActivityAlerts(enabled: Boolean) = edit { it[Keys.activityAlerts] = enabled }
     suspend fun setActivitySensitivity(sensitivity: ActivitySensitivity) =
         edit { it[Keys.activitySensitivity] = sensitivity.name }
@@ -256,6 +278,9 @@ class SettingsRepository @Inject constructor(
 
     /** Mini-Chart in der Merkliste. */
     suspend fun setWatchlistSparkline(show: Boolean) = edit { it[Keys.watchlistSparkline] = show }
+
+    /** «Basis der %-Änderung». */
+    suspend fun setChangeBasis(basis: ChangeBasis) = edit { it[Keys.changeBasis] = basis.name }
 
     /** Hoher Kontrast (Kursfarben und Nebentexte). */
     suspend fun setHighContrast(enabled: Boolean) = edit { it[Keys.highContrast] = enabled }
@@ -292,6 +317,9 @@ class SettingsRepository @Inject constructor(
     /** Portfolio-Sperre ein/aus. Ein- und (solange gesperrt) Ausschalten erst nach einer Entsperrung (siehe SettingsScreen). */
     suspend fun setAppLock(enabled: Boolean) = edit { it[Keys.appLock] = enabled }
 
+    /** «Beträge verbergen» im Portfolio und im Portfolio-Widget. */
+    suspend fun setHidePortfolioAmounts(hidden: Boolean) = edit { it[Keys.hidePortfolioAmounts] = hidden }
+
     /** Bestätigung nach dem ersten Alarm erledigt (nicht in der Sicherung). */
     suspend fun setFirstAlarmShown(shown: Boolean) = edit { it[Keys.firstAlarmShown] = shown }
 
@@ -306,6 +334,9 @@ class SettingsRepository @Inject constructor(
 
     /** Zeitraum des Wertverlaufs (nicht in der Sicherung). */
     suspend fun setPortfolioHistoryRange(range: PortfolioHistoryRange) = edit { it[Keys.portfolioHistoryRange] = range.name }
+
+    /** Markt-Tab einmal gesehen — «Einordnung» und «Daten» beginnen danach zugeklappt (nicht in der Sicherung). */
+    suspend fun setMarketTabSeen(seen: Boolean) = edit { it[Keys.marketTabSeen] = seen }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         context.settingsDataStore.edit(block)

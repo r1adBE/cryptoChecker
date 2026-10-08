@@ -140,7 +140,7 @@ enum ActivityMonitor {
         guard !Task.isCancelled else { return }
 
         // Veraltete oder unplausible Reihen (z. B. Spot nach Delisting) liefern keine Signale
-        let valid = CandleSeries.usable(candles, now: now, tickerChange24h: watch.change24h)
+        let valid = CandleSeries.usable(candles, now: now, tickerChange24h: rolling24h(watch))
         let stats = valid.flatMap { ActivityAnalyzer.hourStats($0) }
         let oi = openInterest(watch, futures, now: now, store: true)
         let fresh = ActivityAnalyzer.signals(
@@ -188,6 +188,11 @@ enum ActivityMonitor {
         async let referenceJob = timed { await VolumeDataSource.hourlyCandles(base: isBtc ? "ETH" : "BTC", quote: "USDT") }
         async let futuresJob = timed { await whyFutures(watch) }
         async let fearGreedJob = timed { await fearGreed() }
+        // Tageskerzen für «Nähe zum Hoch» (30-Tage-Hoch); fehlen sie, entfällt nur diese Zeile
+        async let dailyJob = timed {
+            await CandleDataSource.candles(base: watch.baseAsset, quote: watch.quoteAsset, interval: .d1,
+                                           limit: ActivityAnalyzer.highDays + 1, preferFutures: futuresPair)
+        }
 
         let futures = await futuresJob
         let oi = watch.contractType == .perpetual
@@ -195,6 +200,7 @@ enum ActivityMonitor {
         let fng = await fearGreedJob
         let candles = await candlesJob
         let reference = await referenceJob
+        let daily = await dailyJob
         if Task.isCancelled { return nil }
 
         return ActivityAnalyzer.explain(WhyInput(
@@ -206,10 +212,17 @@ enum ActivityMonitor {
             fearGreed: fng?.value,
             fearGreedYesterday: fng?.yesterday,
             now: TimeUtils.nowMillis,
-            // Dieselbe 24-h-Veränderung wie Pille und Merkliste
-            tickerChange24h: watch.change24h,
-            marketLive: !watch.isNotTraded
+            // Dieselbe 24-h-Veränderung wie Pille und Merkliste (bei «seit 00:00» aus den Kerzen)
+            tickerChange24h: rolling24h(watch),
+            marketLive: !watch.isNotTraded,
+            dailyCandles: daily
         ))
+    }
+
+    /// Gespeicherte Veränderung des Paars, wenn sie rollend über 24 Stunden gilt; bei einer Tages-Basis
+    /// der %-Änderung («seit 00:00») nil — «Warum?» rechnet dann aus den Kerzen (wie Android).
+    private static func rolling24h(_ watch: Watch) -> Double? {
+        SharedStorage.loadSettings().changeBasis.isDay ? nil : watch.change24h
     }
 
     /// Kontrakt statt Spot: Kerzen kommen dann zuerst vom Futures-Markt.

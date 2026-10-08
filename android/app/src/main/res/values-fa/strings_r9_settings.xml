@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_settings -->
-    <string name="settings_group_currency">ارز و تبدیل</string>
     <string name="settings_group_alerts">هشدارها و اعلان‌ها</string>
-    <string name="settings_group_data">داده‌ها و به‌روزرسانی‌ها</string>
-    <string name="settings_group_security">امنیت و پشتیبان‌گیری</string>
     <string name="settings_portfolio_tab">نمایش زبانه پرتفوی</string>
 </resources>

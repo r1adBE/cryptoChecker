@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">Помилка: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Немає валютних пар</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Натисніть тут, щоб завантажити актуальні пари з вибраної біржі.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Завантажує актуальні пари вибраної біржі.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Оновити валютні пари</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Синхронізувати зараз</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Остання синхронізація: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">ніколи</string>
 
-    <string name="market_screen_sync">Синхр.</string>
+    <string name="market_screen_sync">Оновити</string>
     <string name="market_screen_base">Базова</string>
     <string name="market_screen_quote">Котирувальна</string>
     <string name="market_screen_market">Біржа</string>
@@ -39,7 +39,6 @@
     <string name="bulk_all_pairs_empty">На цій біржі немає %1$s-пар для вибраного типу контракту. Спершу синхронізуйте біржу або виберіть інший тип контракту.</string>
 
     <string name="action_refresh">Оновити</string>
-    <string name="action_add_pair">Додати пару</string>
     <string name="action_delete">Видалити</string>
     <string name="action_edit">Змінити</string>
     <string name="action_back">Назад</string>
@@ -47,7 +46,6 @@
     <string name="action_cancel">Скасувати</string>
 
     <string name="watchlist_empty_title">Пар ще немає</string>
-    <string name="watchlist_empty_hint">Або виберіть біржу й пару в розділі «Додати». Для кожної пари можна ввімкнути сповіщення, озвучення та цінові сигнали.</string>
     <string name="watchlist_updated">Оновлено: %1$s</string>
     <string name="watchlist_notification">Сповіщення</string>
     <string name="watchlist_tts">Озвучувати ціну</string>
@@ -80,7 +78,7 @@
     <string name="channel_prices_description">Беззвучне сповіщення з поточною ціною пари.</string>
     <string name="channel_alarms">Сигнали</string>
     <string name="channel_alarms_description">Сповіщення, коли спрацьовує ціновий сигнал.</string>
-    <string name="channel_service">Live-режим</string>
+    <string name="channel_service">Часте оновлення</string>
     <string name="channel_service_description">Повідомлення, поки ціни оновлюються з коротким інтервалом.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, з %2$s (%3$s тому)</string>
@@ -131,7 +129,7 @@
     <string name="settings_rolling_futures">Квартальні та інші строкові ф\'ючерси</string>
     <string name="settings_rolling_futures_hint">Вимкнено: строкові ф\'ючерси, яких немає у списку біржі, позначаються як такі, що більше не торгуються, замість перевірки кожного окремо. Заощаджує час під час кожного оновлення.</string>
     <string name="notification_refreshing">Оновлення цін…</string>
-    <string name="notification_service_title">Crypto Checker — live-режим</string>
+    <string name="notification_service_title">Crypto Checker часто оновлює курси</string>
     <string name="notification_service_starting">Запуск…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d пара · %2$s</item>
@@ -146,9 +144,9 @@
     <string name="settings_background_updates">Фонові оновлення</string>
     <string name="settings_background_updates_hint">Ціни, сигнали й віджети оновлюються, навіть коли застосунок закрито.</string>
     <string name="settings_background_interval">Інтервал</string>
-    <string name="settings_live_service">Live-режим</string>
-    <string name="settings_live_service_hint">Тримає службу активною для коротких інтервалів. Витрачає більше заряду.</string>
-    <string name="settings_live_interval">Інтервал live-режиму</string>
+    <string name="settings_live_service">Оновлювати часто</string>
+    <string name="settings_live_service_hint">Запитує курси з короткими інтервалами, навіть коли застосунок закрито. Показує сповіщення і витрачає більше заряду.</string>
+    <string name="settings_live_interval">Як часто</string>
     <string name="settings_minutes">%1$d хв</string>
     <string name="settings_seconds">%1$d с</string>
     <string name="settings_price_notifications">Цінові сповіщення</string>
@@ -232,7 +230,7 @@
     <string name="theme_system">Системна</string>
     <string name="settings_section_developer">Розробник</string>
     <string name="settings_http_log">Показувати журнал HTTP</string>
-    <string name="settings_http_log_hint">Показує внизу вкладки «Додати» запити до бірж – для діагностики.</string>
+    <string name="settings_http_log_hint">Показує внизу сторінки «Додати пару» запити до бірж – для діагностики.</string>
     <string name="language_search">Пошук мови</string>
     <string name="alarm_delete_title">Видалити сповіщення?</string>
     <string name="alarm_delete_confirm">Це сповіщення буде видалено.</string>
@@ -280,15 +278,11 @@
     <string name="explorer_bulk_show_list">Показати список</string>
     <string name="explorer_bulk_hide_list">Сховати список</string>
     <string name="time_just_now">щойно</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Ваші курси. Ваші сигнали. Ваш огляд.\nБез акаунта. Без реклами. Без стеження.</string>
-    <string name="welcome_later">Пізніше</string>
     <string name="developer_unlocked">Параметри розробника відкрито</string>
     <string name="hint_favorites_list">Порада: торкніться ☆, щоб додати в обране – обране вгорі.</string>
     <string name="tab_watchlist">Список</string>
-    <string name="tab_markets">Додати</string>
     <string name="tab_market_phase">Ринок</string>
-    <string name="tab_settings">Налаштування</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Застаріло: %1$d з %2$d</item>
         <item quantity="few">Застаріло: %1$d з %2$d</item>

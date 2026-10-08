@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">הנעילה מגינה על מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה.</string>
+    <string name="backup_protect">הגנה בסיסמה</string>
+    <string name="backup_protect_hint">מצפין את הקובץ (AES-256). מומלץ כשהוא כולל נתוני תיק השקעות.</string>
+    <string name="backup_password">סיסמה</string>
+    <string name="backup_password_repeat">חזרה על הסיסמה</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">לפחות %1$d תווים</string>
+    <string name="backup_password_mismatch">הסיסמאות לא תואמות</string>
+    <string name="backup_password_warning">בלי הסיסמה אי אפשר לשחזר את הגיבוי.</string>
+    <string name="backup_password_show">הצגת הסיסמה</string>
+    <string name="backup_password_hide">הסתרת הסיסמה</string>
+    <string name="backup_password_title">גיבוי מוגן בסיסמה</string>
+    <string name="backup_password_prompt">יש להזין את הסיסמה של הגיבוי הזה.</string>
+    <string name="backup_password_wrong">סיסמה שגויה או שהקובץ פגום. אפשר לנסות שוב.</string>
+    <string name="backup_password_continue">המשך</string>
+</resources>

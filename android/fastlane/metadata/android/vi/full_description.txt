@@ -1,9 +1,9 @@
-Theo dõi giá tiền mã hóa mà không phải liên tục mở ứng dụng sàn. Đặt cảnh báo, nhận ra biến động bất thường và hiểu trong vài giây vì sao một đồng coin biến động.
+Crypto Checker giải thích điều đang diễn ra trên thị trường. Đặt cảnh báo, nhận ra biến động bất thường và hiểu trong vài giây vì sao một đồng coin biến động.
 
-Theo dõi – giá trực tiếp từ sàn, theo đồng tiền của bạn
-Cảnh báo – giá, %, biến động và khối lượng, như một câu
 Hiểu – “Vì sao nó biến động?” kèm tóm tắt ngắn
 Tổng quan – Crypto Pulse, Fear & Greed, chu kỳ và danh mục
+Theo dõi – giá trực tiếp từ sàn, theo đồng tiền của bạn
+Cảnh báo – giá, %, biến động và khối lượng, như một câu
 
 Dễ đọc cho mọi người: màu giá xanh lá/đỏ hoặc xanh dương/cam, đổi màu tùy chọn, độ tương phản cao, dấu và mũi tên thay vì chỉ màu, TalkBack đọc mỗi dòng thành một câu.
 
@@ -46,7 +46,7 @@ TỔNG QUAN THỊ TRƯỜNG
 WIDGET VÀ THÔNG BÁO
 • Widget: toàn bộ danh sách, giá trị danh mục kèm thay đổi hôm nay, một coin cỡ lớn với giá và biểu đồ – nến hoặc đường, có mốc cao, giữa và thấp
 • Thông báo giá im lặng cho từng cặp
-• Chế độ live cập nhật mỗi 15 giây, chạy nền từ 15 phút
+• Cập nhật thường xuyên mỗi 15 giây, chạy nền từ 15 phút
 
 NGOÀI RA
 • Đọc giá và cảnh báo bằng giọng nói

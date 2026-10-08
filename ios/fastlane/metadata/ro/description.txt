@@ -1,9 +1,9 @@
-Urmărește prețurile cripto fără să deschizi mereu aplicațiile burselor. Setează alarme, observă mișcările neobișnuite și înțelege în câteva secunde de ce se mișcă o monedă.
+Crypto Checker îți explică ce se întâmplă pe piață. Setează alarme, observă mișcările neobișnuite și înțelege în câteva secunde de ce se mișcă o monedă – fără prognoză.
 
-Urmărește – prețuri direct de la bursă, în moneda ta
-Alertează – preț, %, mișcări și volum, ca o propoziție simplă
 Înțelege – „De ce se mișcă?” cu un scurt rezumat
 Privire de ansamblu – Crypto Pulse, Fear & Greed, ciclu, portofoliu
+Urmărește – prețuri direct de la bursă, în moneda ta
+Alertează – preț, %, mișcări și volum, ca o propoziție simplă
 
 Lizibil pentru toți: culori de preț verde/roșu sau albastru/portocaliu, inversabile la cerere, contrast ridicat, semn și săgeată, nu doar culoare, iar VoiceOver citește fiecare rând ca o propoziție.
 
@@ -48,7 +48,7 @@ WIDGETURI PENTRU ECRANUL PRINCIPAL ȘI ECRANUL DE BLOCARE
 • Activitate live pe ecranul de blocare: prețul unei monede dintr-o privire
 
 ȘI ÎN PLUS
-• Mod live cu intervale scurte cât timp aplicația e deschisă; actualizările în fundal sunt programate de iOS
+• Actualizare frecventă cât timp aplicația e deschisă; actualizările în fundal sunt programate de iOS
 • Citirea cu voce tare a prețurilor și alarmelor
 • Backup și restaurare prin aplicația Fișiere
 • Acțiuni rapide pe pictograma aplicației, mod luminos și întunecat

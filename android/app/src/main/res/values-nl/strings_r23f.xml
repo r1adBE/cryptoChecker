@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Algemeen</string>
+    <string name="settings_group_data_only">Gegevens</string>
+    <string name="settings_row_currency">Valuta</string>
+    <string name="settings_row_updates">Bijwerken</string>
+    <string name="settings_updates_live">Vaak · %1$s</string>
+    <string name="settings_updates_every">Elke %1$s</string>
+    <string name="settings_row_watchlist">Volglijst</string>
+    <string name="settings_watchlist_value_sparkline">Minigrafiek</string>
+    <string name="settings_watchlist_value_price_only">Alleen koers</string>
+    <string name="settings_row_alarms">Alarmen</string>
+    <string name="settings_portfolio_value_locked">Aan, met vergrendeling</string>
+    <string name="settings_row_dated_futures">Futures met looptijd</string>
+    <string name="settings_tradfi_futures">Aandelen, grondstoffen en valuta (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Toont bij het kiezen van een paar ook futures op aandelen, goud en andere grondstoffen, valuta en bedrijven vóór de beursgang. Dit zijn contracten, geen tokens.</string>
+    <string name="settings_row_about">Over de app</string>
+    <string name="price_colors_green_up">Groen stijgt / rood daalt</string>
+    <string name="price_colors_red_up">Rood stijgt / groen daalt</string>
+    <string name="price_colors_blue_up">Blauw stijgt / oranje daalt</string>
+    <string name="price_colors_orange_up">Oranje stijgt / blauw daalt</string>
+    <string name="price_colors_red_up_hint">Gebruikelijk in China, Japan, Korea en Taiwan</string>
+</resources>

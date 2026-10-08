@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">inaktuellt · %1$s</string>
 
     <string name="settings_widgets">Widgetar</string>
-    <string name="settings_widgets_hint">Lägg kurser på hemskärmen</string>
     <string name="widgets_sheet_title">Lägg till en widget</string>
     <string name="widget_kind_single">Ett mynt</string>
     <string name="widgets_add">Lägg till</string>

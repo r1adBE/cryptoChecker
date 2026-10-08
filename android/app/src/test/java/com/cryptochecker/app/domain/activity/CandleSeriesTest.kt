@@ -162,4 +162,32 @@ class CandleSeriesTest {
         assertTrue(report.hasMarketData)
         assertEquals((102.6 / 100.0 - 1.0) * 100.0, report.change24h!!, 0.3)
     }
+
+    @Test
+    fun coinbaseOlderWindow_onlyForFullPageAndMissingCandles() {
+        val day = 24 * h
+        val first = t0
+        // 1 Jahr Tageskerzen: 300 geladen, 65 fehlen → Fenster mit 65 Kerzen direkt davor
+        val window = CandleSeries.coinbaseOlderWindow(first, 300, 365, day)!!
+        assertEquals(first - day, window.last)
+        assertEquals(first - 65 * day, window.first)
+        // Höchstens eine Seite
+        val big = CandleSeries.coinbaseOlderWindow(first, 300, 1000, day)!!
+        assertEquals(first - 300 * day, big.first)
+        // Seite nicht voll (Paar jünger) oder genug Kerzen: keine weitere Anfrage
+        assertNull(CandleSeries.coinbaseOlderWindow(first, 120, 365, day))
+        assertNull(CandleSeries.coinbaseOlderWindow(first, 300, 300, day))
+        assertNull(CandleSeries.coinbaseOlderWindow(first, 300, 30, day))
+        assertNull(CandleSeries.coinbaseOlderWindow(first, 300, 365, 0L))
+    }
+
+    @Test
+    fun mergeAscending_sortsAndDropsDuplicates() {
+        val newer = series().take(3)
+        val older = series(start = t0 - 2 * h).take(3) // überlappt in t0 und t0 + h
+        val merged = CandleSeries.mergeAscending(older, newer)
+        assertEquals(listOf(t0 - 2 * h, t0 - h, t0, t0 + h, t0 + 2 * h), merged.map { it.openTime })
+        // Bei gleichem Beginn gewinnt die neuere Seite
+        assertSame(newer[0], merged[2])
+    }
 }

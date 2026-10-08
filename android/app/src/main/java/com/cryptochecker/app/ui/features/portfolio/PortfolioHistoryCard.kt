@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +49,7 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -58,17 +60,20 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryPoint
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
+import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.theme.LocalHighContrast
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
@@ -146,7 +151,7 @@ internal fun PortfolioHistoryCard(
 
             if (expanded) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
                     modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())
                 ) {
                     PortfolioHistoryRange.entries.forEach { option ->
@@ -233,7 +238,7 @@ private fun HistoryHeader(
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
-                .padding(start = 6.dp)
+                .padding(start = Spacing.xs)
                 .size(20.dp)
                 .rotate(if (expanded) -90f else 90f)
         )
@@ -249,7 +254,7 @@ private fun CollapsedChange(series: PortfolioHistorySeries, unit: String) {
         change == null -> "—"
         else -> {
             val arrow = if (PortfolioFormat.isZero(change)) "" else PriceFormat.changeArrow(change)
-            val value = percent?.let { PortfolioFormat.signedPercent(it) } ?: signedValue(change, unit)
+            val value = percent?.let { PortfolioFormat.signedPercent(it) } ?: maskAmount(signedValue(change, unit))
             if (arrow.isEmpty()) value else "$arrow $value"
         }
     }
@@ -271,8 +276,8 @@ private fun changeSentence(history: PortfolioHistoryUi): String? {
     val change = series.change ?: 0.0
     val spokenAmount = when {
         PortfolioFormat.isZero(change) -> stringResource(R.string.a11y_change_flat)
-        change > 0 -> stringResource(R.string.a11y_change_up, PriceFormat.valueWithCurrency(abs(change), history.unit))
-        else -> stringResource(R.string.a11y_change_down, PriceFormat.valueWithCurrency(abs(change), history.unit))
+        change > 0 -> stringResource(R.string.a11y_change_up, spokenAmount(PriceFormat.valueWithCurrency(abs(change), history.unit)))
+        else -> stringResource(R.string.a11y_change_down, spokenAmount(PriceFormat.valueWithCurrency(abs(change), history.unit)))
     }
     val spokenPercent = series.changePercent?.let { A11yText.change(context, it) }
     val period = stringResource(history.range.longRes)
@@ -293,7 +298,7 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
         val change = series.change ?: 0.0
         val color = plColor(change)
         val arrow = if (PortfolioFormat.isZero(change)) "" else PriceFormat.changeArrow(change)
-        val amount = signedValue(change, history.unit).let { if (arrow.isEmpty()) it else "$arrow $it" }
+        val amount = maskAmount(signedValue(change, history.unit)).let { if (arrow.isEmpty()) it else "$arrow $it" }
         val spokenChange = changeSentence(history).orEmpty()
 
         // Änderung über den Zeitraum — ein Satz für den Screenreader
@@ -301,7 +306,7 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 6.dp)
+                .padding(top = Spacing.xs)
                 .clearAndSetSemantics { contentDescription = spokenChange }
         ) {
             Text(
@@ -309,7 +314,8 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
                 style = MaterialTheme.typography.titleMedium.amountNumbers(),
                 fontWeight = FontWeight.SemiBold,
                 color = color,
-                maxLines = 1,
+                // Grosse Schrift: Betrag bricht um statt abgeschnitten zu werden
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f, fill = false)
             )
@@ -319,7 +325,11 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
         }
 
         val values = series.points.map { it.value }
-        val chartSentence = A11yText.chart(context, period, values) { PriceFormat.valueWithCurrency(it, history.unit) }
+        val hiddenSpoken = spokenAmount(PortfolioInsights.HIDDEN)
+        val hidden = LocalHidePortfolioAmounts.current
+        val chartSentence = A11yText.chart(context, period, values) {
+            if (hidden) hiddenSpoken else PriceFormat.valueWithCurrency(it, history.unit)
+        }
         HistoryChart(
             points = series.points,
             unit = history.unit,
@@ -327,27 +337,30 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(140.dp)
-                .padding(top = 10.dp)
+                .padding(top = Spacing.sm)
                 .clearAndSetSemantics { contentDescription = chartSentence }
         )
-        // Beginn und Ende der Achse (für Screenreader im Chart-Satz enthalten)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 4.dp)
-                .clearAndSetSemantics { }
-        ) {
-            Text(
-                PortfolioFormat.date(dayMillis(series.points.first().epochDay)),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(Modifier.weight(1f))
-            Text(
-                stringResource(R.string.portfolio_history_today),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+        // Beginn und Ende der Achse (für Screenreader im Chart-Satz enthalten).
+        // Wie der Chart darüber: Beginn links, «heute» rechts — auch bei Rechts-nach-links-Sprachen
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp)
+                    .clearAndSetSemantics { }
+            ) {
+                Text(
+                    PortfolioFormat.date(dayMillis(series.points.first().epochDay)),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    stringResource(R.string.portfolio_history_today),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     } else {
         PortfolioHint(
@@ -379,7 +392,7 @@ private fun HistoryCaption(text: String) {
         text,
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(top = 6.dp)
+        modifier = Modifier.padding(top = Spacing.xs)
     )
 }
 
@@ -390,7 +403,7 @@ private fun HistorySkeleton() {
     SkeletonPulse(modifier = Modifier.fillMaxWidth().semantics { contentDescription = loading }) {
         SkeletonLine(
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(top = 6.dp).width(150.dp)
+            modifier = Modifier.padding(top = Spacing.xs).width(150.dp)
         )
         SkeletonBlock(
             modifier = Modifier.fillMaxWidth().padding(top = 10.dp).height(140.dp),
@@ -539,7 +552,7 @@ private fun HistoryChart(
         if (index != null && point != null) {
             Text(
                 text = PortfolioFormat.date(dayMillis(point.epochDay)) + " · " +
-                    PriceFormat.valueWithCurrency(point.value, unit),
+                    maskAmount(PriceFormat.valueWithCurrency(point.value, unit)),
                 style = MaterialTheme.typography.labelMedium.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,

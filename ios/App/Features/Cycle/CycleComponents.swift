@@ -1,28 +1,19 @@
 import SwiftUI
 import UIKit
 
-/// Farben der Marktzonen — wie `ZoneColors` in `MarketPhaseCard.kt`.
+/// Farben der Marktzonen — die Stufen von `MarketScaleColors` (wie `ZoneColors` in `MarketPhaseCard.kt`).
 enum CycleZonePalette {
-    static func color(_ zone: MarketZone) -> Color {
-        switch zone {
-        case .EXTREME_BEAR: Color(hex: 0xB42318)
-        case .BEAR: Color(hex: 0xE5484D)
-        case .NEUTRAL: Color(hex: 0x7A7A7A)
-        case .BULL: Color(hex: 0x2FA36B)
-        case .EXTREME_BULL: Color(hex: 0x0B7A45)
-        }
+    private static func index(_ zone: MarketZone) -> Int {
+        MarketZone.allCases.firstIndex(of: zone) ?? 0
     }
+
+    static func color(_ zone: MarketZone) -> Color { MarketScaleColors.steps[index(zone)] }
 
     /// Weiss nur auf den dunklen Randzonen, sonst dunkle Schrift (Kontrast).
-    static func textColor(_ zone: MarketZone) -> Color {
-        switch zone {
-        case .EXTREME_BEAR, .EXTREME_BULL: .white
-        default: Color(hex: 0x111111)
-        }
-    }
+    static func textColor(_ zone: MarketZone) -> Color { MarketScaleColors.onStep(index(zone)) }
 
     /// Verlauf von Extrem Bear (links) bis Extrem Bull (rechts); auch für Fear & Greed.
-    static let gradient: [Color] = MarketZone.allCases.map { CycleZonePalette.color($0) }
+    static let gradient: [Color] = MarketScaleColors.steps
 }
 
 /// Datums- und Zahlenformate des Markt-Tabs.
@@ -69,7 +60,7 @@ struct CycleInsightCard<Content: View>: View {
             content()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(20)
+        .padding(Spacing.lg)
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: CycleCardTitle.cornerRadius, style: .continuous))
     }
 }
@@ -99,7 +90,7 @@ struct CycleRetryButton: View {
             Text(L("action_retry"))
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(accent.primary)
-                .padding(.vertical, 6)
+                .padding(.vertical, Spacing.sm)
                 .padding(.horizontal, 4)
                 .contentShape(Rectangle())
         }
@@ -290,7 +281,7 @@ struct CycleSourceText: View {
         Text(text)
             .font(.caption2)
             .foregroundStyle(AppColors.onSurfaceVariant)
-            .padding(.top, 10)
+            .padding(.top, Spacing.sm)
     }
 }
 
@@ -318,16 +309,20 @@ struct CycleProgressBar: View {
         .frame(height: 6)
         .accessibilityElement()
         .accessibilityLabel(label ?? "")
-        .accessibilityValue(Text(verbatim: "\(Int((min(max(fraction, 0), 1) * 100).rounded())) %"))
+        .accessibilityValue(Text(verbatim: LocaleNumbers.integer(Int((min(max(fraction, 0), 1) * 100).rounded())) + " %"))
     }
 }
 
 /// Farbskala mit runder Markierung (Zonen-Skala und Fear & Greed).
+/// Folgt der Leserichtung wie die Beschriftung darunter: bei Rechts-nach-links-Sprachen
+/// beginnt die Skala rechts. Gezeichnet wird ausdrücklich gespiegelt (Farben und Markierung
+/// gemeinsam), damit Verlauf und Markierung nie auseinanderlaufen.
 struct CycleScaleBar: View {
     let colors: [Color]
     /// 0…1
     let fraction: Double
     private let marker: CGFloat = 18
+    @Environment(\.layoutDirection) private var layoutDirection
 
     init(colors: [Color], fraction: Double) {
         self.colors = colors
@@ -335,18 +330,22 @@ struct CycleScaleBar: View {
     }
 
     var body: some View {
+        let rtl = layoutDirection == .rightToLeft
+        let clamped = min(max(fraction, 0), 1)
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 Capsule()
-                    .fill(LinearGradient(colors: colors, startPoint: .leading, endPoint: .trailing))
+                    .fill(LinearGradient(colors: rtl ? colors.reversed() : colors,
+                                         startPoint: .leading, endPoint: .trailing))
                     .frame(height: 8)
                 Circle()
                     .fill(AppColors.onSurface)
                     .frame(width: marker, height: marker)
                     .overlay(Circle().fill(AppColors.surface).padding(3))
-                    .offset(x: max(geo.size.width - marker, 0) * min(max(fraction, 0), 1))
+                    .offset(x: max(geo.size.width - marker, 0) * (rtl ? 1 - clamped : clamped))
             }
             .frame(width: geo.size.width, height: marker)
+            .environment(\.layoutDirection, .leftToRight)
         }
         .frame(height: marker)
     }

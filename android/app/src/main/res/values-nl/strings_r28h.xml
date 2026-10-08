@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Zekerheid: %1$s</string>
+    <string name="why_confidence_high">hoog</string>
+    <string name="why_confidence_medium">gemiddeld</string>
+    <string name="why_confidence_low">laag</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d van %2$d signalen wijst hierop</item>
+        <item quantity="other">%1$d van %2$d signalen wijzen hierop</item>
+    </plurals>
+    <string name="why_confidence_partial">onvolledige gegevens</string>
+</resources>

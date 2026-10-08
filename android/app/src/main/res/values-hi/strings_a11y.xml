@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">कीमत के रंग</string>
-    <string name="price_colors_green_red">हरा / लाल</string>
-    <string name="price_colors_blue_orange">नीला / नारंगी</string>
     <string name="settings_price_colors_hint">नीला / नारंगी हर तरह की रंग-दृष्टि कमी (लाल-हरा और नीला-पीला) में आसानी से पहचाना जाता है। दिशा हमेशा + / − से भी दिखाई जाती है।</string>
     <string name="settings_watchlist_sparkline">वॉचलिस्ट में मिनी चार्ट</string>
     <string name="settings_watchlist_sparkline_hint">कीमत के पास 24 घंटे का रुझान</string>
 
-    <string name="settings_price_colors_inverted">बढ़त/गिरावट के रंग बदलें</string>
-    <string name="settings_price_colors_inverted_hint">बढ़त के लिए लाल, गिरावट के लिए हरा, जैसा चीन, जापान, कोरिया और ताइवान में आम है। डिफ़ॉल्ट डिवाइस के क्षेत्र पर निर्भर करता है।</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">उच्च कंट्रास्ट</string>

@@ -47,4 +47,33 @@ class SettingsSummaryTest {
         assertEquals(SettingsSummary.Speech.ON, SettingsSummary.speech(enabled = true, alarmsOnly = false))
         assertEquals(SettingsSummary.Speech.ALARMS_ONLY, SettingsSummary.speech(enabled = true, alarmsOnly = true))
     }
+
+    // Runde 23f: Kurzwerte der neuen Zeilen
+
+    @Test
+    fun updates_liveWinsOverBackground() {
+        assertEquals(SettingsSummary.Updates.LIVE, SettingsSummary.updates(liveService = true, backgroundUpdates = true))
+        assertEquals(SettingsSummary.Updates.LIVE, SettingsSummary.updates(liveService = true, backgroundUpdates = false))
+        assertEquals(SettingsSummary.Updates.BACKGROUND, SettingsSummary.updates(liveService = false, backgroundUpdates = true))
+        assertEquals(SettingsSummary.Updates.OFF, SettingsSummary.updates(liveService = false, backgroundUpdates = false))
+    }
+
+    @Test
+    fun portfolio_lockCountsOnlyWhenEnabled() {
+        assertEquals(SettingsSummary.Portfolio.OFF, SettingsSummary.portfolio(enabled = false, lock = true))
+        assertEquals(SettingsSummary.Portfolio.OFF, SettingsSummary.portfolio(enabled = false, lock = false))
+        assertEquals(SettingsSummary.Portfolio.ON, SettingsSummary.portfolio(enabled = true, lock = false))
+        assertEquals(SettingsSummary.Portfolio.LOCKED, SettingsSummary.portfolio(enabled = true, lock = true))
+    }
+
+    @Test
+    fun watchlist_partsInOrder() {
+        assertEquals(emptyList<SettingsSummary.WatchlistPart>(), SettingsSummary.watchlist(false, false))
+        assertEquals(listOf(SettingsSummary.WatchlistPart.SPARKLINE), SettingsSummary.watchlist(true, false))
+        assertEquals(listOf(SettingsSummary.WatchlistPart.CONVERTED), SettingsSummary.watchlist(false, true))
+        assertEquals(
+            listOf(SettingsSummary.WatchlistPart.SPARKLINE, SettingsSummary.WatchlistPart.CONVERTED),
+            SettingsSummary.watchlist(true, true)
+        )
+    }
 }

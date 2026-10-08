@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Alarmsignal</string>
+    <string name="alarm_signal_system">System</string>
+    <string name="alarm_signal_sound_vibrate">Lyd og vibration</string>
+    <string name="alarm_signal_sound">Kun lyd</string>
+    <string name="alarm_signal_vibrate">Kun vibration</string>
+    <string name="alarm_signal_silent">Lydløs (kun notifikation)</string>
+    <string name="settings_alarm_signal_system_hint">Følger telefonens notifikationsindstillinger.</string>
+    <string name="settings_alarm_signal_open_system">Tilpas i systemindstillinger</string>
+    <string name="channel_alarms_sound_vibrate">Alarmer (lyd og vibration)</string>
+    <string name="channel_alarms_sound">Alarmer (kun lyd)</string>
+    <string name="channel_alarms_vibrate">Alarmer (kun vibration)</string>
+    <string name="channel_alarms_silent">Alarmer (lydløs)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration følger iPhonens indstillinger (Lyde og haptik).</string>
+</resources>

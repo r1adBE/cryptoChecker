@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Eroare: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Nicio pereche valutară</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Atingeți aici pentru a descărca cele mai noi perechi valutare de la bursa selectată.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Încarcă perechile actuale ale pieței selectate.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Actualizați perechile valutare</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizați acum!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Ultima sincronizare: %1$s</string>
@@ -38,7 +38,6 @@
     <string name="bulk_all_pairs_empty">Această bursă nu are perechi %1$s pentru tipul de contract selectat. Sincronizați mai întâi bursa sau încercați alt tip de contract.</string>
 
     <string name="action_refresh">Actualizează</string>
-    <string name="action_add_pair">Adaugă pereche</string>
     <string name="action_delete">Șterge</string>
     <string name="action_edit">Editează</string>
     <string name="action_back">Înapoi</string>
@@ -46,7 +45,6 @@
     <string name="action_cancel">Anulează</string>
 
     <string name="watchlist_empty_title">Încă nicio pereche</string>
-    <string name="watchlist_empty_hint">Sau alegeți o bursă și o pereche în „Adaugă”. Fiecare pereche poate avea o notificare, anunțarea vocală a prețului și alarme de preț.</string>
     <string name="watchlist_updated">Actualizat: %1$s</string>
     <string name="watchlist_notification">Notificare</string>
     <string name="watchlist_tts">Citește prețul</string>
@@ -78,7 +76,7 @@
     <string name="channel_prices_description">Notificare silențioasă cu prețul curent al unei perechi.</string>
     <string name="channel_alarms">Alarme</string>
     <string name="channel_alarms_description">Notificare la declanșarea unei alarme de preț.</string>
-    <string name="channel_service">Mod live</string>
+    <string name="channel_service">Actualizare frecventă</string>
     <string name="channel_service_description">Notificare cât timp prețurile se actualizează la intervale scurte.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, de la %2$s (acum %3$s)</string>
@@ -129,7 +127,7 @@
     <string name="settings_rolling_futures">Incl. futures trimestriale și alte futures cu scadență</string>
     <string name="settings_rolling_futures_hint">Dezactivat: futures cu scadență care lipsesc din lista bursei sunt marcate ca netranzacționate, în loc să fie verificate pe rând. Economisește timp la fiecare actualizare.</string>
     <string name="notification_refreshing">Se actualizează prețurile…</string>
-    <string name="notification_service_title">Crypto Checker – mod live</string>
+    <string name="notification_service_title">Crypto Checker se actualizează des</string>
     <string name="notification_service_starting">Se pornește…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d pereche · %2$s</item>
@@ -143,9 +141,9 @@
     <string name="settings_background_updates">Actualizări în fundal</string>
     <string name="settings_background_updates_hint">Prețurile, alarmele și widgeturile se actualizează chiar și cu aplicația închisă.</string>
     <string name="settings_background_interval">Interval</string>
-    <string name="settings_live_service">Mod live</string>
-    <string name="settings_live_service_hint">Menține un serviciu activ pentru intervale scurte. Consumă mai multă baterie.</string>
-    <string name="settings_live_interval">Interval live</string>
+    <string name="settings_live_service">Actualizează des</string>
+    <string name="settings_live_service_hint">Verifică prețurile la intervale scurte, chiar și cu aplicația închisă. Afișează o notificare și consumă mai multă baterie.</string>
+    <string name="settings_live_interval">Cât de des</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Notificări de preț</string>
@@ -227,7 +225,7 @@
     <string name="theme_system">Sistem</string>
     <string name="settings_section_developer">Dezvoltator</string>
     <string name="settings_http_log">Afișează jurnalul HTTP</string>
-    <string name="settings_http_log_hint">Afișează în partea de jos a filei „Adaugă” cererile către exchange-uri – pentru depanare.</string>
+    <string name="settings_http_log_hint">Afișează în partea de jos a paginii „Adaugă pereche” cererile către exchange-uri – pentru depanare.</string>
     <string name="language_search">Caută limba</string>
     <string name="alarm_delete_title">Ștergi alarma?</string>
     <string name="alarm_delete_confirm">Această alarmă va fi eliminată.</string>
@@ -271,15 +269,11 @@
     <string name="explorer_bulk_show_list">Arată lista</string>
     <string name="explorer_bulk_hide_list">Ascunde lista</string>
     <string name="time_just_now">chiar acum</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Prețurile tale. Alarmele tale. Privirea ta de ansamblu.\nFără cont. Fără reclame. Fără urmărire.</string>
-    <string name="welcome_later">Mai târziu</string>
     <string name="developer_unlocked">Opțiunile pentru dezvoltatori au fost deblocate</string>
     <string name="hint_favorites_list">Sfat: atinge ☆ pentru favorit – favoritele rămân sus.</string>
     <string name="tab_watchlist">Listă</string>
-    <string name="tab_markets">Adaugă</string>
     <string name="tab_market_phase">Piață</string>
-    <string name="tab_settings">Setări</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d din %2$d învechită</item>
         <item quantity="few">%1$d din %2$d învechite</item>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Søger på alle børser på én gang – tryk på et resultat for at føje det til overvågningslisten.</string>
+    <string name="explorer_no_pairs_yet">Der er endnu ikke hentet par for denne børs.</string>
+</resources>

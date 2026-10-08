@@ -7,6 +7,8 @@ import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.optStrings
+import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
@@ -71,8 +73,9 @@ class MexcFutures : SimpleMarket(
             // state 0 = aktiv; futureType 1 = Perpetual
             if (item.optInt("state", -1) != 0) return@forEachJSONObject
             if (item.optInt("futureType", 1) != 1) return@forEachJSONObject
+            val tradFi = TradFi.mexc(item.optStrings("conceptPlate"), item.optInt("type", 1))
             pairs.add(
-                CurrencyPairInfo(item.getString("baseCoin"), item.getString("quoteCoin"), item.getString("symbol"), FuturesContractType.PERPETUAL)
+                CurrencyPairInfo(item.getString("baseCoin"), item.getString("quoteCoin"), item.getString("symbol"), FuturesContractType.PERPETUAL, tradFi)
             )
         }
     }

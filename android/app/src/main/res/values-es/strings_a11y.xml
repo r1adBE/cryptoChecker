@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Colores de precio</string>
-    <string name="price_colors_green_red">Verde / rojo</string>
-    <string name="price_colors_blue_orange">Azul / naranja</string>
     <string name="settings_price_colors_hint">Azul / naranja se distingue bien con cualquier deficiencia de visión del color (rojo-verde y azul-amarillo). Además, la dirección siempre se indica con + / −.</string>
     <string name="settings_watchlist_sparkline">Minigráfico en la lista</string>
     <string name="settings_watchlist_sparkline_hint">Tendencia de 24 horas junto al precio</string>
 
-    <string name="settings_price_colors_inverted">Intercambiar colores de subida/bajada</string>
-    <string name="settings_price_colors_inverted_hint">Rojo para subidas y verde para bajadas, como es habitual en China, Japón, Corea y Taiwán. El valor predeterminado depende de la región del dispositivo.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Alto contraste</string>

@@ -2,7 +2,9 @@ package com.cryptochecker.app.domain.market
 
 import org.json.JSONArray
 import org.json.JSONObject
+import com.cryptochecker.app.util.LocaleNumbers
 import java.math.BigInteger
+import java.util.Locale
 
 /**
  * Netzwerkgebühren (#167): EVM-Netze über öffentliche JSON-RPC-Knoten
@@ -146,19 +148,22 @@ object GasFees {
         return BigInteger(clean, 16).toBigDecimal().movePointLeft(9).toDouble()
     }
 
-    /** «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0». */
-    fun formatGwei(gwei: Double): String = when {
-        gwei <= 0.0 -> "0"
-        gwei < 0.001 -> "<0.001"
-        gwei < 1 -> String.format(java.util.Locale.US, "%.3f", gwei).trimEnd('0').trimEnd('.')
-        gwei < 10 -> String.format(java.util.Locale.US, "%.1f", gwei).removeSuffix(".0")
-        else -> String.format(java.util.Locale.US, "%.0f", gwei)
+    /**
+     * «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0». In den Ziffern von [locale]
+     * (App-Sprache; Arabisch «١٫٤»), denn alle Aufrufer zeigen den Text an.
+     */
+    fun formatGwei(gwei: Double, locale: Locale = Locale.getDefault()): String = when {
+        gwei <= 0.0 -> LocaleNumbers.integer(0, locale)
+        gwei < 0.001 -> "<" + LocaleNumbers.decimal(0.001, 3, locale = locale)
+        gwei < 1 -> LocaleNumbers.decimal(gwei, 3, minDecimals = 0, locale = locale)
+        gwei < 10 -> LocaleNumbers.decimal(gwei, 1, minDecimals = 0, locale = locale)
+        else -> LocaleNumbers.decimal(gwei, 0, locale = locale)
     }
 
-    /** Kosten in USD: «$0.42», «<$0.01». */
-    fun formatUsd(usd: Double): String = when {
-        usd < 0.01 -> "<\$0.01"
-        usd < 100 -> String.format(java.util.Locale.US, "\$%.2f", usd)
-        else -> String.format(java.util.Locale.US, "\$%.0f", usd)
+    /** Kosten in USD: «$0.42», «<$0.01» — in den Ziffern von [locale]. */
+    fun formatUsd(usd: Double, locale: Locale = Locale.getDefault()): String = when {
+        usd < 0.01 -> "<\$" + LocaleNumbers.decimal(0.01, 2, locale = locale)
+        usd < 100 -> "\$" + LocaleNumbers.decimal(usd, 2, locale = locale)
+        else -> "\$" + LocaleNumbers.decimal(usd, 0, locale = locale)
     }
 }

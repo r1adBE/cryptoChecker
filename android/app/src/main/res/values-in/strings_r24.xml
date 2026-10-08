@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Perubahan %1$s</string>
+    <string name="change_basis_rolling">24 jam terakhir</string>
+    <string name="change_basis_utc_zone">Sejak 00:00 %1$s</string>
+    <string name="change_basis_local">Sejak 00:00 waktu lokal</string>
+    <string name="settings_change_basis_hint_1">Zona waktu yang dipilih menentukan sejak kapan perubahan persentase dihitung: di daftar pantauan, baris denyut, lembar pasangan, dan widget.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” membandingkan dengan harga tepat 24 jam lalu. “00:00” membandingkan dengan harga pembukaan pada tengah malam di zona waktu itu.</string>
+    <string name="settings_change_basis_hint_3">Alarm tidak terpengaruh.</string>
+    <string name="change_basis_device">%1$s, 00:00 (zona waktu perangkat)</string>
+    <string name="change_short_today">hari ini</string>
+    <string name="change_short_today_zone">hari ini %1$s</string>
+    <string name="a11y_change_today">%1$s hari ini</string>
+    <string name="a11y_change_today_zone">%1$s sejak tengah malam %2$s</string>
+    <string name="a11y_change_today_none">Perubahan hari ini tidak tersedia</string>
+    <string name="a11y_change_today_zone_none">Perubahan sejak tengah malam %1$s tidak tersedia</string>
+    <string name="sheet_chart_today">Hari ini</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Saat aplikasi ditutup, paling sering sekali per menit</string>
+    <string name="sheet_more">Lainnya</string>
+    <string name="a11y_expanded">Diluaskan</string>
+    <string name="a11y_collapsed">Diciutkan</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d tanpa nilai hari ini</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d pasangan tanpa nilai untuk hari ini</item>
+    </plurals>
+</resources>

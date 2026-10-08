@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s-Änderung</string>
+    <string name="change_basis_rolling">Letzte 24 Std.</string>
+    <string name="change_basis_utc_zone">Seit 00:00 %1$s</string>
+    <string name="change_basis_local">Seit 00:00 Ortszeit</string>
+    <string name="settings_change_basis_hint_1">Die gewählte Zeitzone legt fest, ab wann die Prozent-Änderung zählt: in Merkliste, Puls-Zeile, Aktionsblatt und Widgets.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» vergleicht mit dem Kurs vor genau 24 Stunden. «00:00» vergleicht mit dem Eröffnungskurs um Mitternacht in dieser Zeitzone.</string>
+    <string name="settings_change_basis_hint_3">Alarme sind davon nicht betroffen.</string>
+    <string name="change_basis_device">%1$s, 00:00 (Zeitzone des Geräts)</string>
+    <string name="change_short_today">heute</string>
+    <string name="change_short_today_zone">heute %1$s</string>
+    <string name="a11y_change_today">%1$s heute</string>
+    <string name="a11y_change_today_zone">%1$s seit 0 Uhr %2$s</string>
+    <string name="a11y_change_today_none">Veränderung heute nicht verfügbar</string>
+    <string name="a11y_change_today_zone_none">Veränderung seit 0 Uhr %1$s nicht verfügbar</string>
+    <string name="sheet_chart_today">Heute</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Bei geschlossener App höchstens jede Minute</string>
+    <string name="sheet_more">Mehr</string>
+    <string name="a11y_expanded">Aufgeklappt</string>
+    <string name="a11y_collapsed">Zugeklappt</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ohne Wert heute</item>
+        <item quantity="other">%1$d ohne Wert heute</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d Paar ohne Wert für heute</item>
+        <item quantity="other">%1$d Paare ohne Wert für heute</item>
+    </plurals>
+</resources>

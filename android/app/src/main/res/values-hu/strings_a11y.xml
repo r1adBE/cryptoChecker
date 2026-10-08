@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Árszínek</string>
-    <string name="price_colors_green_red">Zöld / piros</string>
-    <string name="price_colors_blue_orange">Kék / narancs</string>
     <string name="settings_price_colors_hint">A kék / narancs minden színlátási zavar (vörös-zöld és kék-sárga) esetén jól megkülönböztethető. Az irányt ezenfelül mindig + / − is jelzi.</string>
     <string name="settings_watchlist_sparkline">Minidiagram a figyelőlistán</string>
     <string name="settings_watchlist_sparkline_hint">24 órás alakulás az ár mellett</string>
 
-    <string name="settings_price_colors_inverted">Emelkedés/esés színeinek felcserélése</string>
-    <string name="settings_price_colors_inverted_hint">Piros az emelkedésnél, zöld az esésnél, ahogy Kínában, Japánban, Koreában és Tajvanon szokás. Az alapértelmezés az eszköz régiójától függ.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Nagy kontraszt</string>

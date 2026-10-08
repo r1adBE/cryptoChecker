@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">ข้อมูลเก่า · %1$s</string>
 
     <string name="settings_widgets">วิดเจ็ต</string>
-    <string name="settings_widgets_hint">เพิ่มราคาลงในหน้าจอหลัก</string>
     <string name="widgets_sheet_title">เพิ่มวิดเจ็ต</string>
     <string name="widget_kind_single">เหรียญเดียว</string>
     <string name="widgets_add">เพิ่ม</string>

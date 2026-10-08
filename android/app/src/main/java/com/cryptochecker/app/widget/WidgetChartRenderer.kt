@@ -3,9 +3,11 @@ package com.cryptochecker.app.widget
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.DashPathEffect
+import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.Typeface
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
@@ -190,13 +192,15 @@ object WidgetChartRenderer {
     }
 
     /**
-     * Wertverlauf des Portfolio-Widgets: nur die Linie wie im Linien-Modus des Einzel-Widgets
-     * (dünne Linie, schwache Fläche darunter), ohne Achsen und Beschriftung. Farbe nach der
-     * Gesamtrichtung (letzter gegen ersten Wert). Lage aus [PortfolioWidgetMath.linePoints].
+     * Wertverlauf des Portfolio-Widgets (24 h): Linie 1.75 dp in [color] (Kursfarbe der
+     * Richtung), Fläche darunter als Verlauf von 25 % an der Linie bis 0 unten, gestrichelte
+     * schwache Linie beim Ausgangswert (erster Punkt), kleiner Punkt am letzten Wert. Keine
+     * Achsen, keine Beschriftung. Lage aus [PortfolioWidgetMath.linePoints].
      */
-    fun drawValueLine(
+    fun drawPortfolioArea(
         points: List<PortfolioValuePoint>,
-        colors: WidgetColors,
+        color: Int,
+        baselineColor: Int,
         widthPx: Int,
         heightPx: Int,
         density: Float,
@@ -205,29 +209,48 @@ object WidgetChartRenderer {
         val h = heightPx.coerceAtLeast(2)
         val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        val stroke = 1.5f * density
-        // Rand um die halbe Linienbreite, damit runde Enden und Spitzen nicht abgeschnitten werden
-        val xy = PortfolioWidgetMath.linePoints(points, w - stroke, h.toFloat(), stroke)
+        val stroke = 1.75f * density
+        val dot = 2.5f * density
+        // Rand: Platz für den Punkt am Ende und runde Linienenden
+        val inset = dot + stroke / 2f
+        val xy = PortfolioWidgetMath.linePoints(points, w - 2f * inset, h.toFloat(), inset)
+            .map { (x, y) -> x + inset to y }
         if (xy.size < 2) return bitmap
-        val color = if (PortfolioWidgetMath.isUp(points)) colors.upColor else colors.downColor
         val line = Path()
-        xy.forEachIndexed { i, (x, y) -> if (i == 0) line.moveTo(x + stroke / 2f, y) else line.lineTo(x + stroke / 2f, y) }
+        xy.forEachIndexed { i, (x, y) -> if (i == 0) line.moveTo(x, y) else line.lineTo(x, y) }
         val fill = Path(line).apply {
-            lineTo(xy.last().first + stroke / 2f, h.toFloat())
-            lineTo(xy.first().first + stroke / 2f, h.toFloat())
+            lineTo(xy.last().first, h.toFloat())
+            lineTo(xy.first().first, h.toFloat())
             close()
         }
+        val top = xy.minOf { it.second }
         canvas.drawPath(fill, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            this.color = color
-            alpha = 40
             style = Paint.Style.FILL
+            shader = LinearGradient(
+                0f, top, 0f, h.toFloat(),
+                withAlpha(color, 0.25f), withAlpha(color, 0f),
+                Shader.TileMode.CLAMP,
+            )
         })
+        PortfolioWidgetMath.valueY(points, points.first().value, h.toFloat(), inset)?.let { y ->
+            canvas.drawLine(xy.first().first, y, xy.last().first, y, Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                this.color = withAlpha(baselineColor, 0.45f)
+                strokeWidth = max(1f, 0.75f * density)
+                style = Paint.Style.STROKE
+                pathEffect = DashPathEffect(floatArrayOf(3f * density, 3f * density), 0f)
+            })
+        }
         canvas.drawPath(line, Paint(Paint.ANTI_ALIAS_FLAG).apply {
             this.color = color
             strokeWidth = stroke
             style = Paint.Style.STROKE
             strokeJoin = Paint.Join.ROUND
             strokeCap = Paint.Cap.ROUND
+        })
+        val (lx, ly) = xy.last()
+        canvas.drawCircle(lx, ly, dot, Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            this.color = color
+            style = Paint.Style.FILL
         })
         return bitmap
     }

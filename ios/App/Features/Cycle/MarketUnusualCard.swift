@@ -3,7 +3,7 @@ import SwiftUI
 /// «Heute auffällig» — wie `UnusualCard` (`MarketUnusualCard.kt`): bis zu fünf Coins aus den rund
 /// 30 grössten, die sich heute ungewöhnlich verhalten — je Zeile Plakette, Symbol, 24-h-Pille und
 /// die auffälligste Tatsache in einem Satz. Nichts auffällig: eine ruhige Zeile. Tippen: «Warum?»
-/// für beobachtete Coins, sonst die Suche im Hinzufügen-Tab. VoiceOver: je Zeile ein Element.
+/// für beobachtete Coins, sonst die Suche auf der Seite «Paar hinzufügen». VoiceOver: je Zeile ein Element.
 struct CycleUnusualCard: View {
     let state: CycleLoad<UnusualReport>
     let isWatched: (String) -> Bool
@@ -121,29 +121,41 @@ private struct CycleUnusualRowView: View {
 /// wurden. Rechnet jede Minute neu. Grau, ohne Bedeutungsfarbe; für VoiceOver ein Element.
 struct CycleMacroHintRow: View {
     let events: [MacroEvent]
+    /// Oben im Abschnitt «Jetzt» (nur bei einem Termin in ±2 h), sonst im Abschnitt «Daten».
+    let atTop: Bool
 
     var body: some View {
         if !events.isEmpty {
             TimelineView(.everyMinute) { context in
                 let now = Int64(context.date.timeIntervalSince1970 * 1000)
-                if let hint = MacroCalendar.hint(events, now: now) {
+                if let hint = MacroCalendar.hint(events, now: now), MacroCalendar.isImminent(hint, now: now) == atTop {
                     let text = MacroCalendar.hintText(hint)
-                    HStack(alignment: .top, spacing: 10) {
-                        Image(systemName: "calendar")
-                            .font(.footnote.weight(.semibold))
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .accessibilityHidden(true)
-                        Text(text)
-                            .font(.footnote)
-                            .foregroundStyle(AppColors.onSurface)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                    VStack(spacing: 0) {
+                        // Unter «Daten» eine Zeile wie die übrigen (Trennlinie darüber, ohne Kasten)
+                        if !atTop {
+                            Rectangle()
+                                .fill(AppColors.outlineVariant)
+                                .frame(height: 1)
+                                .accessibilityHidden(true)
+                        }
+                        HStack(alignment: .top, spacing: Spacing.sm) {
+                            Image(systemName: "calendar")
+                                .font(.footnote.weight(.semibold))
+                                .foregroundStyle(AppColors.onSurfaceVariant)
+                                .accessibilityHidden(true)
+                            Text(text)
+                                .font(.footnote)
+                                .foregroundStyle(AppColors.onSurface)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding(.horizontal, atTop ? Spacing.md : 4)
+                        .padding(.vertical, Spacing.md)
+                        .background(atTop ? AppColors.container : Color.clear,
+                                    in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(L("macro_title") + ". " + text)
                     }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(AppColors.container, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(L("macro_title") + ". " + text)
                 }
             }
         }

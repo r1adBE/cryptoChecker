@@ -2,13 +2,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Runde 13b: Unterseiten der Einstellungen (Markt-Meldungen, Sprachausgabe) mit Kurzwert in der Zeile -->
     <string name="settings_market_alerts">Market alerts</string>
-    <string name="settings_market_alerts_hint">Market phase, Fear &amp; Greed, gas fees, unusual activity, economic dates</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d active</item>
         <item quantity="other">%1$d active</item>
     </plurals>
-    <string name="settings_tts_row_hint">Reads prices and alarms aloud</string>
     <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
     <string name="settings_summary_on">On</string>
 

@@ -4,6 +4,8 @@ plugins {
     id 'com.google.devtools.ksp'
     id 'com.google.dagger.hilt.android'
     id 'androidx.room'
+    // Baseline Profile: generiert von :baselineprofile, sonst gilt src/main/baseline-prof.txt
+    id 'androidx.baselineprofile'
 }
 
 // Signierschlüssel liegt außerhalb der Versionsverwaltung.
@@ -25,6 +27,9 @@ android {
 
         versionCode 17
         versionName "16.2.2"
+
+        // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
+        testInstrumentationRunner "com.cryptochecker.app.HiltTestRunner"
     }
 
     buildFeatures {
@@ -138,5 +143,17 @@ dependencies {
     // Logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
+    // Baseline Profile beim Installieren anwenden (auch ohne Play Store) — schnellerer Start
+    implementation "androidx.profileinstaller:profileinstaller:$profileinstaller_version"
+    baselineProfile project(':baselineprofile')
+
     testImplementation 'junit:junit:4.13.2'
+
+    // Instrumentierte Tests (Kernablauf, CoreFlowTest): nicht Teil der App, nur androidTest
+    androidTestImplementation "androidx.test:runner:$androidx_test_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kspAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "androidx.work:work-testing:$work_version"
 }

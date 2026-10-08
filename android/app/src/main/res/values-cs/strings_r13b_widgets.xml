@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">zastaralé · %1$s</string>
 
     <string name="settings_widgets">Widgety</string>
-    <string name="settings_widgets_hint">Přidejte ceny na plochu</string>
     <string name="widgets_sheet_title">Přidat widget</string>
     <string name="widget_kind_single">Jedna mince</string>
     <string name="widgets_add">Přidat</string>

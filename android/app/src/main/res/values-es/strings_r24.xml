@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Variación en %1$s</string>
+    <string name="change_basis_rolling">Últimas 24 h</string>
+    <string name="change_basis_utc_zone">Desde las 00:00 %1$s</string>
+    <string name="change_basis_local">Desde las 00:00 hora local</string>
+    <string name="settings_change_basis_hint_1">La zona horaria elegida fija desde cuándo cuenta la variación porcentual: en la lista de seguimiento, la línea de pulso, la hoja del par y los widgets.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» compara con el precio de hace exactamente 24 horas. «00:00» compara con el precio de apertura a medianoche en esa zona horaria.</string>
+    <string name="settings_change_basis_hint_3">Las alarmas no se ven afectadas.</string>
+    <string name="change_basis_device">%1$s, 00:00 (zona horaria del dispositivo)</string>
+    <string name="change_short_today">hoy</string>
+    <string name="change_short_today_zone">hoy %1$s</string>
+    <string name="a11y_change_today">%1$s hoy</string>
+    <string name="a11y_change_today_zone">%1$s desde la medianoche %2$s</string>
+    <string name="a11y_change_today_none">Variación de hoy no disponible</string>
+    <string name="a11y_change_today_zone_none">Variación desde la medianoche %1$s no disponible</string>
+    <string name="sheet_chart_today">Hoy</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Con la app cerrada, como mucho una vez por minuto</string>
+    <string name="sheet_more">Más</string>
+    <string name="a11y_expanded">Desplegado</string>
+    <string name="a11y_collapsed">Plegado</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d sin valor hoy</item>
+        <item quantity="many">%1$d sin valor hoy</item>
+        <item quantity="other">%1$d sin valor hoy</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d par sin valor de hoy</item>
+        <item quantity="many">%1$d pares sin valor de hoy</item>
+        <item quantity="other">%1$d pares sin valor de hoy</item>
+    </plurals>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Ebben a csoportban nincsenek párok</string>
+    <string name="watchlist_status_none_traded">Itt nincs kereskedett pár</string>
+    <string name="watchlist_group_empty_hint">Hosszan nyomj egy csoportra a párjai kiválasztásához.</string>
+    <string name="watchlist_just_refreshed">Épp most frissítve</string>
+</resources>

@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">i vjetëruar · %1$s</string>
 
     <string name="settings_widgets">Widget-et</string>
-    <string name="settings_widgets_hint">Shto çmime në ekranin bazë</string>
     <string name="widgets_sheet_title">Shto një widget</string>
     <string name="widget_kind_single">Një monedhë</string>
     <string name="widgets_add">Shto</string>

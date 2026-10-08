@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">快捷提醒</string>
+    <string name="alarm_template_volume">成交量 ×%1$s</string>
+    <string name="alarm_new_extreme">刷新%1$s</string>
+    <string name="alarm_template_a11y_up">在上涨百分之 %1$s 时创建提醒</string>
+    <string name="alarm_template_a11y_down">在下跌百分之 %1$s 时创建提醒</string>
+    <string name="alarm_template_a11y">创建提醒：%1$s</string>
+    <string name="alarm_template_created">提醒已创建</string>
+    <string name="alarm_sentence_new_extreme">当 %1$s 刷新%2$s时提醒我。</string>
+    <string name="alarm_simple_when">当 %1$s</string>
+    <string name="alarm_simple_above">涨破</string>
+    <string name="alarm_simple_below">跌破</string>
+    <string name="alarm_simple_end">时</string>
+    <string name="alarm_simple_direction_a11y">方向：%1$s</string>
+    <string name="alarm_repeat_once">一次</string>
+    <string name="alarm_repeat_each">每次</string>
+    <string name="alarm_advanced">高级</string>
+    <string name="alarm_create">创建提醒</string>
+    <string name="alarm_near_new_only">仅在创出新高或新低时</string>
+</resources>

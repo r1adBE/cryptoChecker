@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Alles bijgewerkt</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d paar niet bijgewerkt</item>
+        <item quantity="other">%1$d paren niet bijgewerkt</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s niet bereikbaar</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d beurs niet bereikbaar</item>
+        <item quantity="other">%1$d beurzen niet bereikbaar</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Vernieuwen afgebroken</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d paren</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Beurzen</string>
+    <string name="refresh_sheet_section_steps">Verloop</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Wachttijd tot start</string>
+    <string name="refresh_sheet_network">Netwerk</string>
+    <string name="refresh_sheet_database">Database</string>
+    <string name="refresh_sheet_alarms">Alarmen</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d afgegaan</item>
+        <item quantity="other">%1$d afgegaan</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d melding</item>
+        <item quantity="other">%1$d meldingen</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widgets</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d van %1$d paar</item>
+        <item quantity="other">%2$d van %1$d paren</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">bulkverzoek %1$s · %2$d koers</item>
+        <item quantity="other">bulkverzoek %1$s · %2$d koersen</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">time-out</string>
+    <string name="refresh_sheet_reason_offline">geen verbinding</string>
+    <string name="refresh_sheet_reason_rate_limit">te veel verzoeken</string>
+    <string name="refresh_sheet_reason_server">serverfout</string>
+    <string name="refresh_sheet_reason_no_data">geen gegevens</string>
+    <string name="refresh_sheet_reason_unavailable">beurs niet beschikbaar</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">alles bijgewerkt</string>
+    <string name="refresh_sheet_status_partial">deels bijgewerkt</string>
+    <string name="refresh_sheet_status_failed">niet bijgewerkt</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s seconden</string>
+</resources>

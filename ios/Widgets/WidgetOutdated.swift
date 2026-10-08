@@ -7,8 +7,9 @@ import Foundation
 /// zum Zeitpunkt, an dem der nächste Stand veraltet ([entries]) — so wechselt das Widget
 /// auch dann zu «veraltet», wenn iOS es nicht neu lädt.
 enum WidgetOutdated {
-    /// Grenze aus den aktuellen Einstellungen (3 × Intervall, mind. 15 Min.).
-    static var afterMillis: Int64 { OutdatedRule.afterMillis(SharedStorage.loadSettings()) }
+    /// Grenze aus den aktuellen Einstellungen (3 × Intervall, mind. 15 Min.). Widgets laufen ohne
+    /// App im Vordergrund und ohne Stream — daher immer die Hintergrund-Regel, nie die Live-Grenze.
+    static var afterMillis: Int64 { OutdatedRule.afterMillis(SharedStorage.loadSettings(), live: false) }
 
     static func millis(_ date: Date) -> Int64 { Int64(date.timeIntervalSince1970 * 1000) }
 

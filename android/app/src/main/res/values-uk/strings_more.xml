@@ -18,9 +18,9 @@
     <string name="pulse_less">Згорнути</string>
     <string name="pulse_updated">Станом на %1$s</string>
     <string name="pulse_unavailable">Ринкові дані зараз недоступні</string>
-    <string name="why_summary_title">Коротко</string>
+    <string name="why_summary_title">Імовірні причини</string>
     <string name="why_summary_market_volume">Рух супроводжується підвищеним обсягом торгів і широким рухом ринку.</string>
-    <string name="why_summary_market">Рух слідує за ринком загалом.</string>
+    <string name="why_summary_market">Рух, імовірно, слідує за ринком загалом.</string>
     <string name="why_summary_coin_volume">Рухається лише ця монета, за підвищеного обсягу – імовірно, причина в самій монеті.</string>
     <string name="why_summary_coin">Рухається лише ця монета – імовірно, причина в самій монеті.</string>
     <string name="why_summary_against">Монета рухається проти ринку.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Стежити – ваші монети, курси, графіки та віджети</string>
     <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичні рухи</string>
     <string name="welcome_understand">Розуміти – чому ринок рухається просто зараз?</string>
-    <string name="welcome_start">Почати</string>
     <string name="portfolio_empty_example">Приклад: 0,01 BTC куплено 1 березня за %1$s. Застосунок покаже вартість, середню ціну купівлі та прибуток/збиток – дані зберігаються лише на цьому пристрої.</string>
     <string name="about_why">Crypto Checker – незалежний проєкт r1AD: спокійний огляд курсів без акаунта, реклами та стеження. Запитання й побажання: %1$s</string>
     <string name="a11y_move_up">Перемістити вгору</string>
@@ -61,38 +60,8 @@
     <string name="market_data_empty_error">Біржа не повернула даних.</string>
     <string name="sync_pairs_count">Торгові пари: %1$d</string>
     <string name="market_unavailable_error">Біржа недоступна</string>
-    <string name="refresh_report_aborted">Оновлення перервано:</string>
-    <string name="refresh_report_wait">Очікування до старту: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Усього %1$s · %2$d пара</item>
-        <item quantity="few">Усього %1$s · %2$d пари</item>
-        <item quantity="many">Усього %1$s · %2$d пар</item>
-        <item quantity="other">Усього %1$s · %2$d пари</item>
-    </plurals>
-    <string name="refresh_report_network">Мережа %1$s</string>
-    <string name="refresh_report_database">База даних %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Сигнали/сповіщення %1$s · %2$d сповіщення</item>
-        <item quantity="few">Сигнали/сповіщення %1$s · %2$d сповіщення</item>
-        <item quantity="many">Сигнали/сповіщення %1$s · %2$d сповіщень</item>
-        <item quantity="other">Сигнали/сповіщення %1$s · %2$d сповіщення</item>
-    </plurals>
-    <string name="refresh_report_widgets">Віджети %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d пара, %3$s</item>
-        <item quantity="few">%1$s: %2$d пари, %3$s</item>
-        <item quantity="many">%1$s: %2$d пар, %3$s</item>
-        <item quantity="other">%1$s: %2$d пари, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">пакетний запит %1$s (%2$d курс)</item>
-        <item quantity="few">пакетний запит %1$s (%2$d курси)</item>
-        <item quantity="many">пакетний запит %1$s (%2$d курсів)</item>
-        <item quantity="other">пакетний запит %1$s (%2$d курси)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">пакетний запит %1$s (помилка)</string>
     <string name="refresh_report_singles">окремо: %1$d</string>
-    <string name="refresh_report_slowest">найповільніша %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">більше не торгуються: %1$d</item>
         <item quantity="few">більше не торгуються: %1$d</item>

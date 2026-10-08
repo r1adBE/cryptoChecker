@@ -55,6 +55,8 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.GroupNameDialog
 import com.cryptochecker.app.ui.components.canonicalGroupName
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.headline
 
 /**
  * «Gruppe bearbeiten»: Name ändern und per Häkchen festlegen, welche Paare
@@ -136,7 +138,7 @@ internal fun GroupEditSheet(
                 )
                 Text(
                     text = name,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.headline,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -247,7 +249,7 @@ internal fun GroupEditSheet(
                     Text(
                         stringResource(R.string.group_delete),
                         color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.padding(start = 6.dp)
+                        modifier = Modifier.padding(start = Spacing.xs)
                     )
                 }
             }

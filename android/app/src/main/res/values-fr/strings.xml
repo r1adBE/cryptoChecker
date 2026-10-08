@@ -3,13 +3,13 @@
     <string name="check_error_generic_prefix">Erreur : %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Aucune paire</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Appuyez ici pour télécharger les dernières paires de la plateforme sélectionnée.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Charge les paires actuelles du marché sélectionné.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Mettre à jour les paires</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchroniser maintenant</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Dernière synchro : %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">jamais</string>
 
-    <string name="market_screen_sync">Synchro</string>
+    <string name="market_screen_sync">Synchroniser</string>
     <string name="market_screen_base">Base</string>
     <string name="market_screen_quote">Cotation</string>
     <string name="market_screen_market">Marché</string>
@@ -39,7 +39,6 @@
 
     <!-- Actions -->
     <string name="action_refresh">Actualiser</string>
-    <string name="action_add_pair">Ajouter une paire</string>
     <string name="action_delete">Supprimer</string>
     <string name="action_edit">Modifier</string>
     <string name="action_back">Retour</string>
@@ -48,7 +47,6 @@
 
     <!-- Watchlist -->
     <string name="watchlist_empty_title">Aucune paire pour l\'instant</string>
-    <string name="watchlist_empty_hint">Ou choisissez une plateforme et une paire sous « Ajouter ». Chaque paire peut avoir une notification, une annonce vocale et des alertes de prix.</string>
     <string name="watchlist_updated">Mis à jour : %1$s</string>
     <string name="watchlist_notification">Notification</string>
     <string name="watchlist_tts">Annoncer le prix</string>
@@ -82,7 +80,7 @@
     <string name="channel_prices_description">Notification silencieuse avec le prix actuel d\'une paire.</string>
     <string name="channel_alarms">Alertes</string>
     <string name="channel_alarms_description">Notification lorsqu\'une alerte de prix se déclenche.</string>
-    <string name="channel_service">Mode live</string>
+    <string name="channel_service">Mise à jour fréquente</string>
     <string name="channel_service_description">Indication pendant que les prix sont actualisés à intervalles courts.</string>
     <string name="notification_price_title">%1$s : %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, depuis %2$s (il y a %3$s)</string>
@@ -133,7 +131,7 @@
     <string name="settings_rolling_futures">Incl. futures trimestriels &amp; à échéance</string>
     <string name="settings_rolling_futures_hint">Désactivé : les futures à échéance absents de la liste de la plateforme sont marqués comme « plus négociés » au lieu d\'être vérifiés un par un. Fait gagner du temps à chaque actualisation.</string>
     <string name="notification_refreshing">Actualisation des prix…</string>
-    <string name="notification_service_title">Crypto Checker – mode live</string>
+    <string name="notification_service_title">Crypto Checker se met à jour souvent</string>
     <string name="notification_service_starting">Démarrage…</string>
     <plurals name="notification_service_running">
         <item quantity="one">%1$d paire · %2$s</item>
@@ -148,9 +146,9 @@
     <string name="settings_background_updates">Actualisation en arrière-plan</string>
     <string name="settings_background_updates_hint">Les prix, alertes et widgets sont actualisés même lorsque l\'app est fermée.</string>
     <string name="settings_background_interval">Intervalle</string>
-    <string name="settings_live_service">Mode live</string>
-    <string name="settings_live_service_hint">Maintient un service actif pour des intervalles courts. Consomme plus de batterie.</string>
-    <string name="settings_live_interval">Intervalle live</string>
+    <string name="settings_live_service">Mettre à jour souvent</string>
+    <string name="settings_live_service_hint">Interroge les cours à intervalles courts, même quand l’app est fermée. Affiche une notification et consomme plus de batterie.</string>
+    <string name="settings_live_interval">Fréquence</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Notifications de prix</string>
@@ -235,7 +233,7 @@
     <string name="theme_system">Système</string>
     <string name="settings_section_developer">Développeur</string>
     <string name="settings_http_log">Afficher le journal HTTP</string>
-    <string name="settings_http_log_hint">Affiche en bas de l\'onglet « Ajouter » les requêtes envoyées aux plateformes – pour le dépannage.</string>
+    <string name="settings_http_log_hint">Affiche en bas de la page « Ajouter une paire » les requêtes envoyées aux plateformes – pour le dépannage.</string>
     <string name="language_search">Rechercher une langue</string>
     <string name="alarm_delete_title">Supprimer l\'alerte ?</string>
     <string name="alarm_delete_confirm">Cette alerte sera supprimée.</string>
@@ -279,15 +277,11 @@
     <string name="explorer_bulk_show_list">Afficher la liste</string>
     <string name="explorer_bulk_hide_list">Masquer la liste</string>
     <string name="time_just_now">à l\'instant</string>
-    <string name="welcome_title">Crypto Checker</string>
     <string name="welcome_text">Vos cours. Vos alertes. Votre aperçu.\nSans compte. Sans pub. Sans pistage.</string>
-    <string name="welcome_later">Plus tard</string>
     <string name="developer_unlocked">Options développeur activées</string>
     <string name="hint_favorites_list">Astuce : touchez ☆ pour mettre en favori – les favoris restent en haut.</string>
     <string name="tab_watchlist">Liste</string>
-    <string name="tab_markets">Ajouter</string>
     <string name="tab_market_phase">Marché</string>
-    <string name="tab_settings">Réglages</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d sur %2$d obsolète</item>
         <item quantity="many">%1$d sur %2$d obsolètes</item>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s 변동</string>
+    <string name="change_basis_rolling">최근 24시간</string>
+    <string name="change_basis_utc_zone">00:00 %1$s부터</string>
+    <string name="change_basis_local">00:00 현지 시간부터</string>
+    <string name="settings_change_basis_hint_1">선택한 시간대에 따라 관심 목록, 펄스 줄, 페어 시트, 위젯의 변동률을 언제부터 계산할지 정해집니다.</string>
+    <string name="settings_change_basis_hint_2">«%1$s»는 정확히 24시간 전 가격과 비교합니다. «00:00»은 해당 시간대 자정의 시가와 비교합니다.</string>
+    <string name="settings_change_basis_hint_3">알람에는 영향을 주지 않습니다.</string>
+    <string name="change_basis_device">%1$s, 00:00 (기기 시간대)</string>
+    <string name="change_short_today">오늘</string>
+    <string name="change_short_today_zone">오늘 %1$s</string>
+    <string name="a11y_change_today">오늘 %1$s</string>
+    <string name="a11y_change_today_zone">%2$s 자정 이후 %1$s</string>
+    <string name="a11y_change_today_none">오늘 변동 정보 없음</string>
+    <string name="a11y_change_today_zone_none">%1$s 자정 이후 변동 정보 없음</string>
+    <string name="sheet_chart_today">오늘</string>
+    <string name="sheet_chart_change_since">%2$s %1$s</string>
+    <string name="settings_live_interval_hidden_hint">앱이 닫혀 있으면 최대 1분에 한 번</string>
+    <string name="sheet_more">더보기</string>
+    <string name="a11y_expanded">펼침</string>
+    <string name="a11y_collapsed">접힘</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">오늘 값 없음 %1$d</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">페어 %1$d개에 오늘 값이 없습니다</item>
+    </plurals>
+</resources>

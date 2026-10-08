@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Totul actualizat</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pereche neactualizată</item>
+        <item quantity="few">%1$d perechi neactualizate</item>
+        <item quantity="other">%1$d de perechi neactualizate</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s inaccesibil</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d exchange inaccesibil</item>
+        <item quantity="few">%1$d exchange-uri inaccesibile</item>
+        <item quantity="other">%1$d de exchange-uri inaccesibile</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Actualizare întreruptă</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pereche</item>
+        <item quantity="few">%1$d perechi</item>
+        <item quantity="other">%1$d de perechi</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Exchange-uri</string>
+    <string name="refresh_sheet_section_steps">Desfășurare</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Așteptare până la start</string>
+    <string name="refresh_sheet_network">Rețea</string>
+    <string name="refresh_sheet_database">Bază de date</string>
+    <string name="refresh_sheet_alarms">Alarme</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d declanșată</item>
+        <item quantity="few">%1$d declanșate</item>
+        <item quantity="other">%1$d declanșate</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d notificare</item>
+        <item quantity="few">%1$d notificări</item>
+        <item quantity="other">%1$d de notificări</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widgeturi</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d din %1$d pereche</item>
+        <item quantity="few">%2$d din %1$d perechi</item>
+        <item quantity="other">%2$d din %1$d de perechi</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">cerere grupată %1$s · %2$d preț</item>
+        <item quantity="few">cerere grupată %1$s · %2$d prețuri</item>
+        <item quantity="other">cerere grupată %1$s · %2$d de prețuri</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">timp expirat</string>
+    <string name="refresh_sheet_reason_offline">fără conexiune</string>
+    <string name="refresh_sheet_reason_rate_limit">prea multe cereri</string>
+    <string name="refresh_sheet_reason_server">eroare de server</string>
+    <string name="refresh_sheet_reason_no_data">fără date</string>
+    <string name="refresh_sheet_reason_unavailable">exchange indisponibil</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">totul actualizat</string>
+    <string name="refresh_sheet_status_partial">actualizat parțial</string>
+    <string name="refresh_sheet_status_failed">neactualizat</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s secunde</string>
+</resources>

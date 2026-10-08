@@ -1,9 +1,9 @@
-Theo dõi giá tiền mã hóa mà không phải liên tục mở ứng dụng sàn. Đặt cảnh báo, nhận ra biến động bất thường và hiểu trong vài giây vì sao một đồng coin biến động.
+Crypto Checker giải thích điều đang diễn ra trên thị trường. Đặt cảnh báo, nhận ra biến động bất thường và hiểu trong vài giây vì sao một đồng coin biến động.
 
-Theo dõi – giá trực tiếp từ sàn, theo đồng tiền của bạn
-Cảnh báo – giá, %, biến động và khối lượng, như một câu
 Hiểu – “Vì sao nó biến động?” kèm tóm tắt ngắn
 Tổng quan – Crypto Pulse, Fear & Greed, chu kỳ và danh mục
+Theo dõi – giá trực tiếp từ sàn, theo đồng tiền của bạn
+Cảnh báo – giá, %, biến động và khối lượng, như một câu
 
 Dễ đọc cho mọi người: màu giá xanh lá/đỏ hoặc xanh dương/cam, đổi màu tùy chọn, độ tương phản cao, dấu và mũi tên thay vì chỉ màu, VoiceOver đọc mỗi dòng thành một câu.
 
@@ -49,7 +49,7 @@ WIDGET CHO MÀN HÌNH CHÍNH VÀ MÀN HÌNH KHÓA
 • Hoạt động trực tiếp trên Màn hình khóa: giá một coin trong nháy mắt
 
 THÊM NỮA
-• Chế độ trực tiếp với khoảng cập nhật ngắn khi ứng dụng đang mở; iOS lên lịch cập nhật nền
+• Cập nhật thường xuyên khi ứng dụng đang mở; iOS lên lịch cập nhật nền
 • Đọc to giá và cảnh báo
 • Sao lưu & khôi phục qua ứng dụng Tệp
 • Tác vụ nhanh trên biểu tượng ứng dụng, chế độ sáng và tối

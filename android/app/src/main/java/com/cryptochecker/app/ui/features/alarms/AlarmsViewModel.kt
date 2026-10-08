@@ -8,22 +8,30 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
+import com.cryptochecker.app.data.remote.NearExtremeDataSource
+import com.cryptochecker.app.data.remote.VolumeDataSource
+import com.cryptochecker.app.domain.alarm.AlarmTemplates
+import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.math.BigDecimal
 import java.math.MathContext
 import java.text.DecimalFormatSymbols
@@ -36,6 +44,8 @@ class AlarmsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val currencyConverter: CurrencyConverter,
     private val alarmTester: com.cryptochecker.app.notification.AlarmTester,
+    private val nearExtremeDataSource: NearExtremeDataSource,
+    private val volumeDataSource: VolumeDataSource,
 ) : ViewModel() {
 
     /** Basis-Symbol (z. B. «BTC») für die Bestätigung nach dem allerersten Alarm; null = keine. */
@@ -77,6 +87,90 @@ class AlarmsViewModel @Inject constructor(
         }
     }
 
+    /** Kerzen-Daten für die Schnell-Alarme: Tageskerzen (30-Tage-Hoch/-Tief) und Stundenvolumen. */
+    private data class CandleData(val dailyRange: Boolean = false, val hourlyVolume: Boolean = false)
+
+    private val candleData = MutableStateFlow(CandleData())
+    private var candleDataLoading = false
+
+    /** Sichtbare Schnell-Alarme; ohne Kurs bzw. ohne Kerzen (z. B. DEX) ausgeblendet. */
+    val templates: StateFlow<List<AlarmTemplates.Template>> = combine(watch, candleData) { w, data ->
+        AlarmTemplates.available(
+            hasPrice = (w?.lastPrice ?: 0.0) > 0.0,
+            hasDailyRange = data.dailyRange,
+            hasHourlyVolume = data.hourlyVolume,
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    /**
+     * Beim Öffnen des Editors: prüfen, ob das Paar Tages-/Stundenkerzen hat (zwischengespeichert,
+     * gleiche Quellen wie die Alarmprüfung). DEX-Paare ohne Kerzenquelle fragen gar nicht.
+     */
+    fun loadTemplateData() {
+        if (candleDataLoading || (candleData.value.dailyRange && candleData.value.hourlyVolume)) return
+        candleDataLoading = true
+        viewModelScope.launch {
+            try {
+                val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
+                if (!SheetChart.isSupported(w.marketKey, w.baseAsset, w.quoteAsset)) return@launch
+                val daily = orFalse {
+                    nearExtremeDataSource.ranges(w.baseAsset, w.quoteAsset)
+                        ?.ranges?.containsKey(AlarmTemplates.NEW_EXTREME_WINDOW_DAYS) == true
+                }
+                candleData.update { it.copy(dailyRange = daily) }
+                val hourly = orFalse { volumeDataSource.hourlySpike(w.baseAsset, w.quoteAsset) != null }
+                candleData.update { it.copy(hourlyVolume = hourly) }
+            } finally {
+                candleDataLoading = false
+            }
+        }
+    }
+
+    /** Netz-/Parserfehler zählen als «keine Daten»; Abbruch läuft durch. */
+    private suspend fun orFalse(block: suspend () -> Boolean): Boolean = try {
+        block()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.d(e, "Schnell-Alarme: Kerzen nicht verfügbar")
+        false
+    }
+
+    /**
+     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme).
+     * [onCreated] bekommt die Id für «Rückgängig».
+     */
+    fun createFromTemplate(template: AlarmTemplates.Template, onCreated: (Long) -> Unit) {
+        viewModelScope.launch {
+            val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
+            val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
+            val firstEver = markFirstAlarm(existing = false)
+            val id = watchRepository.saveAlarm(
+                AlarmEntity(
+                    watchId = watchId,
+                    condition = def.condition,
+                    threshold = def.threshold,
+                    enabled = true,
+                    repeating = def.repeating,
+                    referencePrice = def.referencePrice,
+                    windowHours = def.windowHours,
+                )
+            )
+            onCreated(id)
+            if (firstEver) _firstAlarm.value = w.baseAsset
+        }
+    }
+
+    /** Bestätigung nach dem allerersten Alarm: true, wenn sie jetzt gezeigt werden soll. */
+    private suspend fun markFirstAlarm(existing: Boolean): Boolean {
+        // Gab es schon Alarme (z. B. vor dem Update), gilt die Bestätigung als gezeigt.
+        val shownBefore = existing || settingsRepository.current().firstAlarmShown
+        if (shownBefore) return false
+        val firstEver = watchRepository.observeAllAlarms().first().isEmpty()
+        settingsRepository.setFirstAlarmShown(true)
+        return firstEver
+    }
+
     fun save(draft: AlarmDraft) {
         viewModelScope.launch {
             val threshold = draft.threshold ?: return@launch
@@ -84,8 +178,7 @@ class AlarmsViewModel @Inject constructor(
             val existing = alarms.value.firstOrNull { it.id == draft.id }
 
             // Allererster Alarm? Gab es schon Alarme (z. B. vor dem Update), gilt die Bestätigung als gezeigt.
-            val shownBefore = existing != null || settingsRepository.current().firstAlarmShown
-            val firstEver = !shownBefore && watchRepository.observeAllAlarms().first().isEmpty()
+            val firstEver = markFirstAlarm(existing = existing != null)
             val keepReference = existing != null && existing.condition == draft.condition &&
                 existing.windowHours == draft.windowHours
             val referencePrice = when {
@@ -129,11 +222,8 @@ class AlarmsViewModel @Inject constructor(
                 )
             )
 
-            if (!shownBefore) {
-                settingsRepository.setFirstAlarmShown(true)
-                if (firstEver) {
-                    _firstAlarm.value = (watch.value ?: watchRepository.getWatch(watchId))?.baseAsset
-                }
+            if (firstEver) {
+                _firstAlarm.value = (watch.value ?: watchRepository.getWatch(watchId))?.baseAsset
             }
         }
     }
@@ -167,10 +257,22 @@ data class AlarmDraft(
     val priceHint: Double? = null,
     /** Dezimalzeichen der Region (Punkt oder Komma). */
     val decimalSeparator: Char = localeDecimalSeparator(),
+    /**
+     * «Nahe am Hoch/Tief»: nur neue Hochs/Tiefs melden (Abstand 0, Vorlage «Neues 30-Tage-Hoch»).
+     * Das Abstandsfeld behält seinen Wert für den Fall, dass wieder ausgeschaltet wird.
+     */
+    val newExtremeOnly: Boolean = false,
 ) {
-    /** Gelesener Schwellwert (Tausendertrennung, Dezimalzeichen der Region; siehe [ThresholdParser]). */
+    /**
+     * Gelesener Schwellwert (Tausendertrennung, Dezimalzeichen der Region; siehe [ThresholdParser]).
+     * Funding mit Vorzeichen (auch 0), siehe [DerivativesAlarm.parseFunding].
+     */
     val threshold: Double?
-        get() = ThresholdParser.parse(
+        get() = if (condition.isNearExtreme && newExtremeOnly) NearExtreme.NEW_ONLY_DISTANCE
+        else if (condition.isFunding) DerivativesAlarm.parseFunding(thresholdText, decimalSeparator)
+        else if (condition.isOpenInterest) ThresholdParser.parse(thresholdText, decimalSeparator)
+            ?.takeIf { DerivativesAlarm.isValidThreshold(condition, it) }
+        else ThresholdParser.parse(
             thresholdText,
             decimalSeparator,
             priceHint.takeIf { condition.isPriceThreshold },
@@ -184,7 +286,36 @@ data class AlarmDraft(
      */
     fun withCondition(newCondition: AlarmCondition): AlarmDraft {
         if (newCondition == condition) return this
+        val switched = switchCondition(newCondition)
+        // Zwischen Kursmarke und Prozent wechseln: ein Kurs ist kein Prozentwert (und umgekehrt).
+        // Zurück zur Kursmarke wieder mit dem aktuellen Kurs als Vorschlag (wie beim Anlegen).
         return when {
+            condition.isPriceThreshold == newCondition.isPriceThreshold -> switched
+            newCondition.isPriceThreshold ->
+                switched.copy(thresholdText = AlarmTemplates.suggestedThresholdText(priceHint, decimalSeparator))
+            newCondition.isPercent -> switched.copy(thresholdText = "")
+            else -> switched
+        }
+    }
+
+    private fun switchCondition(newCondition: AlarmCondition): AlarmDraft {
+        return when {
+            // Funding: Schwelle in % mit Vorzeichen (Vorschlag 0,05 %)
+            newCondition.isFunding -> copy(
+                condition = newCondition,
+                thresholdText = if (condition.isFunding) thresholdText
+                else formatThreshold(DerivativesAlarm.DEFAULT_FUNDING_PERCENT, decimalSeparator),
+                windowHours = if (condition.isNearExtreme) DEFAULT_WINDOW_HOURS else windowHours,
+            )
+            // Open Interest: Veränderung in % (Vorschlag 10 %), Fenster 1, 4 oder 24 Stunden
+            newCondition.isOpenInterest -> copy(
+                condition = newCondition,
+                thresholdText = if (condition.isOpenInterest) thresholdText
+                else formatThreshold(DerivativesAlarm.DEFAULT_OI_PERCENT, decimalSeparator),
+                windowHours = DerivativesAlarm.oiWindowHours(
+                    if (condition.isNearExtreme) DerivativesAlarm.DEFAULT_OI_WINDOW_HOURS else windowHours
+                ),
+            )
             newCondition == AlarmCondition.VOLUME_SPIKE ->
                 copy(condition = newCondition, thresholdText = formatFactor(DEFAULT_VOLUME_FACTOR))
             // Nahe am Hoch/Tief: Abstand in % (Standard 2 %), Zeitraum in Tagen (Standard 30)
@@ -200,8 +331,21 @@ data class AlarmDraft(
                 windowHours = DEFAULT_WINDOW_HOURS,
             )
             condition == AlarmCondition.VOLUME_SPIKE -> copy(condition = newCondition, thresholdText = "")
+            // Funding/Open Interest zurück auf eine andere Bedingung: deren Wert passt nicht
+            condition.isDerivatives -> copy(condition = newCondition, thresholdText = "")
             else -> copy(condition = newCondition)
         }
+    }
+
+    /** Funding: Vorzeichen der Eingabe wechseln («0,01» ↔ «-0,01»), da Zifferntastaturen oft kein Minus haben. */
+    fun withToggledSign(): AlarmDraft {
+        val text = thresholdText.trim()
+        val flipped = when {
+            text.startsWith('-') || text.startsWith('\u2212') -> text.substring(1).trimStart()
+            text.startsWith('+') -> "-" + text.substring(1).trimStart()
+            else -> "-$text"
+        }
+        return copy(thresholdText = flipped)
     }
 
     /**
@@ -264,16 +408,30 @@ data class AlarmDraft(
         fun formatFactor(value: Double): String =
             if (value % 1.0 == 0.0) value.toLong().toString() else value.toString()
 
+        /**
+         * Neuer Alarm im einfachen Modus: «Wenn BTC über [Kurs] geht», Betrag = aktueller Kurs
+         * auf drei gültige Stellen ([AlarmTemplates.suggestedThresholdText]).
+         */
+        fun newFor(lastPrice: Double?): AlarmDraft =
+            AlarmDraft(thresholdText = AlarmTemplates.suggestedThresholdText(lastPrice, localeDecimalSeparator()))
+
         fun from(alarm: AlarmEntity): AlarmDraft = AlarmDraft(
             id = alarm.id,
             condition = alarm.condition,
-            thresholdText = formatThreshold(alarm.threshold),
+            // Nur neue Hochs/Tiefs: Abstand 0 → Schalter an, Feld mit dem Standardabstand
+            newExtremeOnly = alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold),
+            thresholdText = if (alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold))
+                formatFactor(NearExtreme.DEFAULT_DISTANCE_PERCENT)
+            else formatThreshold(alarm.threshold),
             repeating = alarm.repeating,
             sound = alarm.sound,
             vibrate = alarm.vibrate,
             speak = alarm.speak,
-            windowHours = if (alarm.condition.isNearExtreme) NearExtreme.windowDays(alarm.windowHours)
-            else alarm.windowHours,
+            windowHours = when {
+                alarm.condition.isNearExtreme -> NearExtreme.windowDays(alarm.windowHours)
+                alarm.condition.isOpenInterest -> DerivativesAlarm.oiWindowHours(alarm.windowHours)
+                else -> alarm.windowHours
+            },
             currency = alarm.currency,
         )
     }

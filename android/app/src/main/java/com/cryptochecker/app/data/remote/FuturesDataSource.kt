@@ -25,7 +25,7 @@ data class FuturesInfo(
 )
 
 /**
- * Futures-Kennzahlen. Bybit-Futures zuerst von Bybit, alles andere zuerst von
+ * Futures-Kennzahlen. Bybit-Futures zuerst von Bybit, OKX-Perpetuals zuerst von OKX, alles andere zuerst von
  * Binance USDⓈ-M — bei anderen Börsen als Richtwert für denselben Coin.
  * Ist die erste Quelle gesperrt (Binance in den USA: 451/403) oder liefert
  * nichts, folgen Bybit bzw. Binance und zuletzt OKX. Gesperrte Hosts werden
@@ -49,6 +49,12 @@ class FuturesDataSource @Inject constructor(
                 },
                 source(BYBIT) { bybit("${base}USDT") },
                 source(OKX) { okx(base) },
+            )
+            // OKX-Perpetual: eigener Kontrakt (auch BASE-USD-SWAP), sonst Binance/Bybit als Richtwert
+            "OkexFutures" -> firstOf(
+                source(OKX) { okx(base, watch.pairId?.takeIf { it.endsWith("-SWAP") }) },
+                source(BINANCE) { binance("${base}USDT") },
+                source(BYBIT) { bybit("${base}USDT") },
             )
             else -> fetchForBase(base)
         }
@@ -130,11 +136,11 @@ class FuturesDataSource @Inject constructor(
     }
 
     /**
-     * OKX-Perpetual BASE-USDT-SWAP. Funding: «fundingTime» ist die nächste Abrechnung.
-     * Open Interest in USD aus «oiUsd», sonst Coins × Mark-Preis.
+     * OKX-Perpetual [instId] (Standard BASE-USDT-SWAP). Funding: «fundingTime» ist die nächste
+     * Abrechnung. Open Interest in USD aus «oiUsd», sonst Coins × Mark-Preis.
      */
-    private suspend fun okx(base: String): FuturesInfo = coroutineScope {
-        val instId = "$base-USDT-SWAP"
+    private suspend fun okx(base: String, instIdOrNull: String? = null): FuturesInfo = coroutineScope {
+        val instId = instIdOrNull ?: "$base-USDT-SWAP"
         val fundingJob = async {
             okxFirst(httpClient.callMarket("https://www.okx.com/api/v5/public/funding-rate?instId=$instId", null))
         }

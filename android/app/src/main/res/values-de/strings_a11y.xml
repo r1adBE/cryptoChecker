@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Kursfarben</string>
-    <string name="price_colors_green_red">Grün / Rot</string>
-    <string name="price_colors_blue_orange">Blau / Orange</string>
     <string name="settings_price_colors_hint">Blau / Orange ist bei jeder Farbsehschwäche (Rot-Grün und Blau-Gelb) gut unterscheidbar. Die Richtung steht zusätzlich immer als + / −.</string>
     <string name="settings_watchlist_sparkline">Mini-Chart in der Merkliste</string>
     <string name="settings_watchlist_sparkline_hint">24-Stunden-Verlauf neben dem Kurs</string>
 
-    <string name="settings_price_colors_inverted">Farben tauschen (steigend ↔ fallend)</string>
-    <string name="settings_price_colors_inverted_hint">Rot für steigend, Grün für fallend – wie in China, Japan, Korea und Taiwan üblich. Standard nach Region des Geräts.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Hoher Kontrast</string>

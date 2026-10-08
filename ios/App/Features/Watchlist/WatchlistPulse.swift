@@ -20,9 +20,10 @@ struct WatchlistPulseStats: Equatable {
 
     /// nil, wenn weniger als zwei Paare einen 24-h-Wert haben. Als «ohne 24h-Wert» zählen nur
     /// Paare mit Kurs, die noch gehandelt werden (ohne Kurs gibt es keine Pille).
-    static func make(_ watches: [Watch]) -> WatchlistPulseStats? {
-        // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»
-        make(changes: watches.map(\.shownChange24h),
+    static func make(_ watches: [Watch], view: ChangeView = ChangeView()) -> WatchlistPulseStats? {
+        // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»;
+        // veraltete %-Basis (gewechselt, neuer Tag): alle «—»
+        make(changes: watches.map { view.shown($0.shownChange24h) },
              hasPrice: watches.map { $0.lastPrice != nil && !ConnectionErrors.isNotTraded($0.lastError) })
     }
 
@@ -64,10 +65,11 @@ struct WatchlistPulseLine: View {
     @Environment(\.priceHighContrast) private var highContrast
     @Environment(\.priceColorsInverted) private var inverted
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.changeView) private var changeView
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: 6) { pills }
+            HStack(spacing: Spacing.xs) { pills }
             // Sehr grosse Schrift: untereinander statt abgeschnitten
             VStack(alignment: .leading, spacing: 4) { pills }
         }
@@ -82,9 +84,10 @@ struct WatchlistPulseLine: View {
     private var spoken: String {
         let pulse = L("a11y_watchlist_pulse", L("a11y_watchlist_pulse_rising", count: stats.up),
                       L("a11y_watchlist_pulse_falling", count: stats.down),
-                      A11y.change24h(stats.average))
+                      A11y.change(stats.average, basis: changeView.basis))
         guard stats.missing > 0 else { return pulse }
-        return L("a11y_watchlist_pulse_combined", pulse, L("a11y_watchlist_pulse_missing", count: stats.missing))
+        let missingKey = changeView.basis.isDay ? "a11y_watchlist_pulse_missing_day" : "a11y_watchlist_pulse_missing"
+        return L("a11y_watchlist_pulse_combined", pulse, L(missingKey, count: stats.missing))
     }
 
     @ViewBuilder
@@ -97,15 +100,16 @@ struct WatchlistPulseLine: View {
              value: Double(stats.down), color: downColor)
         let formatted = PriceFormat.changePercent(stats.average)
         pill(icon: formatted == nil ? nil : (stats.average > 0 ? "arrow.up.right" : "arrow.down.right"),
-             // Zeitraum wie neben den Pillen der Zeilen: «Ø +1.80% 24h»
-             text: L("watchlist_pulse_avg", formatted ?? "0.00%") + " " + L("widget_range_short_24h"),
+             // Zeitraum wie neben den Pillen der Zeilen: «Ø +1.80% 24h» bzw. «… heute»
+             text: L("watchlist_pulse_avg", formatted ?? PriceFormat.zeroPercent()) + " " + A11y.changeShortLabel(changeView.basis),
              value: stats.average,
              color: formatted == nil ? AppColors.onSurfaceVariant
                  : priceColors.forChange(stats.average, highContrast: highContrast, inverted: inverted))
         // Klein und grau, ohne Pille: «· 510 ohne 24h-Wert»
         if stats.missing > 0 {
-            Text("· " + L("watchlist_pulse_missing", count: stats.missing))
-                .font(.system(.caption2, design: .rounded).monospacedDigit())
+            Text("· " + L(changeView.basis.isDay ? "watchlist_pulse_missing_day" : "watchlist_pulse_missing",
+                          count: stats.missing))
+                .font(AppFont.amount(.caption2))
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .lineLimit(1)
                 .contentTransition(.numericText(value: Double(stats.missing)))
@@ -120,7 +124,7 @@ struct WatchlistPulseLine: View {
                     .scaledFont(size: 9, weight: .bold, relativeTo: .caption)
             }
             Text(text)
-                .font(.system(.caption, design: .rounded).weight(.semibold).monospacedDigit())
+                .font(AppFont.amount(.caption, weight: .semibold))
                 .lineLimit(1)
                 .contentTransition(.numericText(value: value))
         }

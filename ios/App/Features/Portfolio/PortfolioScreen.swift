@@ -14,8 +14,11 @@ struct PortfolioScreen: View {
 
     @State private var sheet: PortfolioTxDraft?
     @State private var openCoin: String?
+    private var hideAmounts: Bool { data.settings.hidePortfolioAmounts }
     @State private var showClosed = false
     @State private var exportOpen = false
+    /// Neuer Alarm «Portfolio-Wert» (erscheint in der Alarm-Übersicht).
+    @State private var alarmOpen = false
     @State private var toast: String?
 
     init() {}
@@ -30,6 +33,8 @@ struct PortfolioScreen: View {
                 content(PortfolioCalculator.summarize(transactions, prices: model.prices.prices), currency: currency)
             }
         }
+        // «Beträge verbergen» (Auge oben bzw. Einstellung): Beträge als «•••», Prozente bleiben
+        .environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
         .background(AppColors.background.ignoresSafeArea())
         .navigationTitle(L("portfolio_title"))
         .navigationBarTitleDisplayMode(.inline)
@@ -50,6 +55,17 @@ struct PortfolioScreen: View {
         }
         .navigationDestination(item: $openCoin) { coin in
             PortfolioCoinDetail(coin: coin)
+        }
+        .sheet(isPresented: $alarmOpen) {
+            PortfolioAlarmSheet(currency: data.settings.portfolioCurrency, basis: data.settings.changeBasis) { kind, threshold, repeating in
+                data.addPortfolioAlarm(kind: kind, threshold: threshold, currency: data.settings.portfolioCurrency,
+                                       repeating: repeating)
+                // Neu und scharf: gleich mit den aktuellen Kursen prüfen
+                Task { await model.refresh(force: false) }
+            }
+            .environment(\.appAccent, accent)
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $exportOpen) {
             PortfolioExportSheet(
@@ -88,6 +104,19 @@ struct PortfolioScreen: View {
                                      expanded: $data.settings.portfolioHistoryExpanded)
                     .padding(.bottom, 4)
 
+                // Aufteilung (vier grösste Coins + «Andere»), erst ab zwei Teilen
+                let slices = PortfolioInsights.allocation(summary.open)
+                if slices.count >= 2 {
+                    PortfolioAllocationCard(slices: slices)
+                        .padding(.bottom, 4)
+                }
+                // Grösste Bewegungen über die %-Basis (sobald es eine Vergleichsbasis gibt)
+                let movers = PortfolioInsights.movers(summary.open, changes: model.coinChanges)
+                if !movers.isEmpty {
+                    PortfolioMoversCard(movers: movers, basis: data.settings.changeBasis)
+                        .padding(.bottom, 4)
+                }
+
                 ForEach(summary.open) { position in
                     Button {
                         openCoin = position.coin
@@ -124,7 +153,7 @@ struct PortfolioScreen: View {
         Button {
             showClosed.toggle()
         } label: {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.semibold))
                     .rotationEffect(.degrees(showClosed ? 90 : 0))
@@ -134,7 +163,7 @@ struct PortfolioScreen: View {
             }
             .foregroundStyle(AppColors.onSurfaceVariant)
             .padding(.horizontal, 4)
-            .padding(.vertical, 10)
+            .padding(.vertical, Spacing.md)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -153,18 +182,18 @@ struct PortfolioScreen: View {
                                 .font(.body)
                                 .foregroundStyle(AppColors.onSurface)
                             Spacer(minLength: 8)
-                            Text(PortfolioFormat.signedUsdt(position.realized))
-                                .font(.system(.subheadline, design: .rounded).monospacedDigit())
+                            Text(PortfolioInsights.mask(PortfolioFormat.signedUsdt(position.realized), hidden: hideAmounts))
+                                .font(AppFont.amount(.subheadline))
                                 .foregroundStyle(PortfolioFormat.plColor(position.realized, scheme: priceColors,
                                                                     highContrast: highContrast, inverted: inverted))
                         }
-                        .padding(.vertical, 10)
+                        .padding(.vertical, Spacing.md)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, Spacing.md)
             .padding(.vertical, 2)
             .background(AppColors.containerLow, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .transition(.opacity.combined(with: .move(edge: .top)))
@@ -205,6 +234,17 @@ struct PortfolioScreen: View {
     @ToolbarContentBuilder
     private func toolbarContent(hasTransactions: Bool, currency: String) -> some ToolbarContent {
         ToolbarItemGroup(placement: .topBarTrailing) {
+            // «Beträge verbergen»: alle Beträge als «•••» (Prozente bleiben), auch im Widget
+            if hasTransactions {
+                let hidden = data.settings.hidePortfolioAmounts
+                Button {
+                    data.settings.hidePortfolioAmounts.toggle()
+                } label: {
+                    Image(systemName: hidden ? "eye.slash" : "eye")
+                }
+                .accessibilityLabel(L(hidden ? "a11y_portfolio_show_amounts" : "portfolio_hide_amounts"))
+                .sensoryFeedback(.selection, trigger: hidden)
+            }
             if model.refreshing {
                 ProgressView().controlSize(.small)
             } else if hasTransactions {
@@ -235,6 +275,12 @@ struct PortfolioScreen: View {
                     } label: {
                         Label(L("portfolio_export_action"), systemImage: "doc.text")
                     }
+                    // Alarm «Portfolio-Wert»
+                    Button {
+                        alarmOpen = true
+                    } label: {
+                        Label(L("portfolio_alarm_action"), systemImage: "bell")
+                    }
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
@@ -259,29 +305,30 @@ private struct PortfolioTotalCard: View {
     let fxRate: Double?
     @Environment(\.appAccent) private var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.hidePortfolioAmounts) private var hideAmounts
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(L("portfolio_total_value"))
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(AppColors.onSurfaceVariant)
-            Text(PortfolioFormat.usdtValue(summary.totalValue))
-                .scaledFont(size: 32, weight: .semibold, design: .rounded, relativeTo: .largeTitle, monospacedDigit: true)
+            Text(PortfolioInsights.mask(PortfolioFormat.usdtValue(summary.totalValue), hidden: hideAmounts))
+                .displayFont()
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
                 .contentTransition(.numericText(value: summary.totalValue))
                 .padding(.top, 2)
             // «≈ 12’345.67 CHF» — nur mit Devisenkurs und nicht bei USD
             if currency != "USD", let fxRate {
-                Text("≈ " + PriceFormat.valueWithCurrency(summary.totalValue * fxRate, currency))
-                    .font(.system(.subheadline, design: .rounded).monospacedDigit())
+                Text("≈ " + PortfolioInsights.mask(PriceFormat.valueWithCurrency(summary.totalValue * fxRate, currency), hidden: hideAmounts))
+                    .font(AppFont.amount(.subheadline))
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .contentTransition(.numericText())
             }
 
             HStack(spacing: 8) {
-                Text(summary.unrealized.map { PortfolioFormat.signedUsdt($0) } ?? "—")
-                    .font(.system(.headline, design: .rounded).monospacedDigit())
+                Text(summary.unrealized.map { PortfolioInsights.mask(PortfolioFormat.signedUsdt($0), hidden: hideAmounts) } ?? "—")
+                    .font(AppFont.amount(.headline))
                     .foregroundStyle(PortfolioFormat.plColor(summary.unrealized, scheme: priceColorsDependency,
                                             highContrast: highContrastDependency, inverted: invertedDependency))
                     .contentTransition(.numericText())
@@ -289,17 +336,17 @@ private struct PortfolioTotalCard: View {
                     PortfolioPlPill(percent: summary.unrealizedPercent)
                 }
             }
-            .padding(.top, 10)
+            .padding(.top, Spacing.sm)
 
             HStack(alignment: .top, spacing: 12) {
                 PortfolioMetric(
                     label: L("portfolio_invested"),
-                    value: summary.invested.map { PortfolioFormat.usdtValue($0) } ?? "—"
+                    value: summary.invested.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—"
                 )
                 if !PortfolioFormat.isZero(summary.realized) {
                     PortfolioMetric(
                         label: L("portfolio_realized"),
-                        value: PortfolioFormat.signedUsdt(summary.realized),
+                        value: PortfolioInsights.mask(PortfolioFormat.signedUsdt(summary.realized), hidden: hideAmounts),
                         valueColor: PortfolioFormat.plColor(summary.realized, scheme: priceColorsDependency,
                                             highContrast: highContrastDependency, inverted: invertedDependency)
                     )
@@ -319,10 +366,10 @@ private struct PortfolioTotalCard: View {
                 Text(L("portfolio_updated", PriceFormat.time(updatedAt)))
                     .font(.caption2.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                    .padding(.top, 10)
+                    .padding(.top, Spacing.sm)
             }
         }
-        .padding(20)
+        .padding(Spacing.lg)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -344,12 +391,13 @@ private struct PortfolioTotalCard: View {
 /// Zeile je Coin: Plakette, Symbol, Menge, Ø/aktuell, Wert und ± %.
 private struct PortfolioCoinRow: View {
     let position: CoinPosition
+    @Environment(\.hidePortfolioAmounts) private var hideAmounts
 
     var body: some View {
         HStack(spacing: 12) {
             CoinBadge(symbol: position.coin, size: 40)
             VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 6) {
+                HStack(spacing: Spacing.xs) {
                     Text(position.coin)
                         .font(.headline)
                         .foregroundStyle(AppColors.onSurface)
@@ -361,8 +409,8 @@ private struct PortfolioCoinRow: View {
                             .accessibilityLabel(L("portfolio_oversold"))
                     }
                 }
-                Text(PortfolioFormat.amount(position.holdings, position.coin))
-                    .font(.system(.caption, design: .rounded).monospacedDigit())
+                Text(PortfolioInsights.mask(PortfolioFormat.amount(position.holdings, position.coin), hidden: hideAmounts))
+                    .font(AppFont.amount(.caption))
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)
                 Text(L("portfolio_avg_and_now", PriceFormat.price(position.avgCost), PriceFormat.price(position.currentPrice)))
@@ -373,8 +421,8 @@ private struct PortfolioCoinRow: View {
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 4) {
-                Text(position.value.map { PortfolioFormat.usdtValue($0) } ?? "—")
-                    .font(.system(.subheadline, design: .rounded).weight(.semibold).monospacedDigit())
+                Text(position.value.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—")
+                    .font(AppFont.amount(.subheadline, weight: .semibold))
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
@@ -389,7 +437,7 @@ private struct PortfolioCoinRow: View {
                 }
             }
         }
-        .padding(.horizontal, 14)
+        .padding(.horizontal, Spacing.md)
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))

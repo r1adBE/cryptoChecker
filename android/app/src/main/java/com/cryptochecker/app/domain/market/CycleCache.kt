@@ -17,13 +17,19 @@ enum class CycleSource(val key: String, val ttlMillis: Long, val timeoutMillis: 
 
     /** On-Chain-Werte von Coin Metrics (MVRV, Puell, Hashrate) — Teil von [MARKET]. */
     ON_CHAIN("onchain", 12 * HOUR, 20_000L),
-    FEAR_GREED("fear_greed", 30 * MINUTE, 12_000L),
 
-    /** CoinGecko /global: Marktkapitalisierung, Volumen, Dominanz. */
-    GLOBAL("global", 15 * MINUTE, 12_000L),
+    /** Fear & Greed: der Index ändert sich einmal am Tag — 1 h genügt. */
+    FEAR_GREED("fear_greed", HOUR, 12_000L),
 
-    /** Altcoin-Saison: rund 20 Verläufe, fünf gleichzeitig. */
-    ALT_SEASON("alt_season", HOUR, 20_000L),
+    /** CoinGecko /global: Marktkapitalisierung, Volumen, Dominanz (langsam) — 30 Min. */
+    GLOBAL("global", 30 * MINUTE, 12_000L),
+
+    /**
+     * Altcoin-Saison: rund 20 Verläufe, fünf gleichzeitig; ändert sich über Tage — 3 h,
+     * auf dem Gerät gespeichert (übersteht einen Neustart). Von Hand frühestens alle
+     * [CycleCachePolicy.MANUAL_MIN_INTERVAL_MILLIS] neu.
+     */
+    ALT_SEASON("alt_season", 3 * HOUR, 20_000L),
 
     /** Zyklus-Vergleich seit 2016; im Notfall mehrere Abrufe nacheinander. */
     HISTORY("history", 12 * HOUR, 20_000L),
@@ -55,9 +61,40 @@ object CycleCachePolicy {
     fun isFresh(savedAt: Long?, now: Long, ttlMillis: Long): Boolean =
         savedAt != null && savedAt in 1..now && now - savedAt < ttlMillis
 
-    /** Neu laden? Immer bei [force] (nach unten ziehen, «Erneut»), sonst wenn nicht frisch. */
-    fun needsRefresh(savedAt: Long?, now: Long, ttlMillis: Long, force: Boolean): Boolean =
-        force || !isFresh(savedAt, now, ttlMillis)
+    /**
+     * Neu laden? Bei [force] (nach unten ziehen, «Erneut», «Aktualisieren») immer — ausser der
+     * gezeigte Stand ist jünger als [minForceMillis] (langsame Bereiche, siehe [manualMinInterval]);
+     * sonst, wenn nicht frisch.
+     */
+    fun needsRefresh(
+        savedAt: Long?,
+        now: Long,
+        ttlMillis: Long,
+        force: Boolean,
+        minForceMillis: Long = 0L,
+    ): Boolean =
+        if (force) canManualRefresh(savedAt, now, minForceMillis) else !isFresh(savedAt, now, ttlMillis)
+
+    /** Mindestabstand zwischen zwei Neuladungen von Hand bei langsamen Bereichen. */
+    const val MANUAL_MIN_INTERVAL_MILLIS = 5 * MINUTE
+
+    /**
+     * Mindestabstand für Neuladen von Hand je Bereich: langsame, teure Bereiche (viele
+     * Abrufe, Daten ändern sich über Stunden) [MANUAL_MIN_INTERVAL_MILLIS], sonst 0.
+     */
+    fun manualMinInterval(source: CycleSource): Long = when (source) {
+        CycleSource.ALT_SEASON, CycleSource.HISTORY, CycleSource.ON_CHAIN, CycleSource.MARKET ->
+            MANUAL_MIN_INTERVAL_MILLIS
+        CycleSource.PULSE, CycleSource.UNUSUAL, CycleSource.FEAR_GREED, CycleSource.GLOBAL,
+        CycleSource.COIN, CycleSource.GAS -> 0L
+    }
+
+    /**
+     * Darf von Hand neu geladen werden? Ja ohne Stand, bei unplausiblem Zeitpunkt (Zukunft,
+     * ≤ 0) oder wenn der Stand mindestens [minIntervalMillis] alt ist.
+     */
+    fun canManualRefresh(savedAt: Long?, now: Long, minIntervalMillis: Long): Boolean =
+        minIntervalMillis <= 0L || savedAt == null || savedAt !in 1..now || now - savedAt >= minIntervalMillis
 
     /** Gespeichertes Format lesbar? Nur genau die aktuelle Version. */
     fun isCurrentFormat(version: Int?): Boolean = version == FORMAT_VERSION

@@ -8,6 +8,7 @@ import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONObject
 
@@ -33,7 +34,9 @@ class OkexFutures : SimpleMarket(
                         assets[0],
                         assets[1],
                         pairId,
-                        FuturesContractType.PERPETUAL
+                        FuturesContractType.PERPETUAL,
+                        // Aktien (instCategory 3), Rohstoffe, Devisen: kein Krypto-Token
+                        tradFi = TradFi.okx(it.optString("instCategory")),
                     ))
                 }
             }

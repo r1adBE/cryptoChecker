@@ -8,6 +8,51 @@ struct FearGreed: Equatable, Sendable, Codable {
     let monthAgo: Int?
 }
 
+/// Letzter Fear-&-Greed-Wert im App-Group-Speicher — das Widget «Was gerade auffällt» zeigt
+/// ihn ohne eigenen Abruf (wie in Android aus dem Zwischenspeicher des Markt-Tabs).
+/// Geschrieben bei jedem erfolgreichen Abruf (`InsightsDataSource.fearGreed`).
+enum FearGreedShared {
+    /// Schlüssel; Version im Namen (anderes Format = nichts gespeichert).
+    static let storeKey = "fear_greed_shared_v1"
+    /// Älter zeigt das Widget nicht (24 h).
+    static let maxAgeMillis: Int64 = 24 * 3_600_000
+
+    struct Stored: Codable, Equatable, Sendable {
+        let value: Int
+        let time: Int64
+    }
+
+    static func store(_ value: Int, time: Int64 = TimeUtils.nowMillis) {
+        guard let raw = try? JSONEncoder().encode(Stored(value: value, time: time)) else { return }
+        SharedStorage.defaults.set(raw, forKey: storeKey)
+    }
+
+    static func stored() -> Stored? {
+        guard let raw = SharedStorage.defaults.data(forKey: storeKey) else { return nil }
+        return try? JSONDecoder().decode(Stored.self, from: raw)
+    }
+
+    /// Wert fürs Widget: 0–100 und höchstens `maxAgeMillis` alt (Zukunft oder ≤ 0: nie); sonst nil.
+    static func showable(_ stored: Stored?, now: Int64) -> Int? {
+        guard let stored, (0...100).contains(stored.value), stored.time > 0, stored.time <= now,
+              now - stored.time <= maxAgeMillis else { return nil }
+        return stored.value
+    }
+
+    /// «Fear & Greed 72 · Gier» (Stufen wie die Karte im Markt-Tab).
+    static func line(_ value: Int) -> String {
+        let key: String
+        switch ActivityAnalyzer.fearGreedLevel(value) {
+        case .extremeFear: key = "fng_extreme_fear"
+        case .fear: key = "fng_fear"
+        case .neutral: key = "fng_neutral"
+        case .greed: key = "fng_greed"
+        case .extremeGreed: key = "fng_extreme_greed"
+        }
+        return L("factor_fear_greed") + " " + LocaleNumbers.integer(value) + " · " + L(key)
+    }
+}
+
 /// Marktanteile nach Marktkapitalisierung, in Prozent.
 struct Dominance: Equatable, Sendable, Codable {
     let btc: Double

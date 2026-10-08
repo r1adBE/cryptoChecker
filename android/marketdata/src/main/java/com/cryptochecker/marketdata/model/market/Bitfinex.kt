@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.util.BulkPairChunks
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONArray
 import org.json.JSONArray
@@ -43,7 +44,16 @@ class Bitfinex : Market("Bitfinex", "Bitfinex", null) {
 
     // ---- Massenabfrage
     override val bulkTickersNumOfRequests: Int get() = 1
-    override fun getBulkTickersUrl(requestId: Int): String = "https://api-pub.bitfinex.com/v2/tickers?symbols=ALL"
+    override fun getBulkTickersUrl(requestId: Int): String = TICKERS_PREFIX + "ALL"
+
+    /** Nur die beobachteten Paare («symbols=tBTCUSD,tETHUSD»), lange Listen verteilt (URL < 2000 Zeichen). */
+    override fun bulkTickersRequestCount(pairIds: Collection<String>): Int =
+        BulkPairChunks.chunks(TICKERS_PREFIX, pairIds)?.size ?: bulkTickersNumOfRequests
+
+    override fun getBulkTickersUrl(requestId: Int, pairIds: Collection<String>): String? {
+        val chunks = BulkPairChunks.chunks(TICKERS_PREFIX, pairIds) ?: return getBulkTickersUrl(requestId)
+        return chunks.getOrNull(requestId)?.let { BulkPairChunks.url(TICKERS_PREFIX, it) }
+    }
 
     override fun parseBulkTickers(requestId: Int, responseString: String, tickers: MutableMap<String, Ticker>) {
         JSONArray(responseString).forEachJSONArray { item ->
@@ -75,4 +85,8 @@ class Bitfinex : Market("Bitfinex", "Bitfinex", null) {
     }
 
     private fun displayName(asset: String) = if (asset == "UST") "USDT" else asset
+
+    private companion object {
+        const val TICKERS_PREFIX = "https://api-pub.bitfinex.com/v2/tickers?symbols="
+    }
 }

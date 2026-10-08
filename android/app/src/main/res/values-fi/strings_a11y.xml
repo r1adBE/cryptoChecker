@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">Hintojen värit</string>
-    <string name="price_colors_green_red">Vihreä / punainen</string>
-    <string name="price_colors_blue_orange">Sininen / oranssi</string>
     <string name="settings_price_colors_hint">Sininen / oranssi erottuu hyvin kaikissa värinäön poikkeamissa (puna-viher ja sini-kelta). Suunta näytetään lisäksi aina merkeillä + / −.</string>
     <string name="settings_watchlist_sparkline">Minikaavio seurantalistassa</string>
     <string name="settings_watchlist_sparkline_hint">24 tunnin kehitys hinnan vieressä</string>
 
-    <string name="settings_price_colors_inverted">Vaihda nousun ja laskun värit</string>
-    <string name="settings_price_colors_inverted_hint">Punainen nousulle, vihreä laskulle, kuten Kiinassa, Japanissa, Koreassa ja Taiwanissa on tapana. Oletus riippuu laitteen alueesta.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">Suuri kontrasti</string>

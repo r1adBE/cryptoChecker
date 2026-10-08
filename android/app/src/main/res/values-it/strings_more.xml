@@ -18,9 +18,9 @@
     <string name="pulse_less">Mostra meno</string>
     <string name="pulse_updated">Alle %1$s</string>
     <string name="pulse_unavailable">Dati di mercato al momento non disponibili</string>
-    <string name="why_summary_title">In breve</string>
+    <string name="why_summary_title">Motivi probabili</string>
     <string name="why_summary_market_volume">Il movimento è accompagnato da un volume di scambi più alto e da un mercato che si muove in modo diffuso.</string>
-    <string name="why_summary_market">Il movimento segue il mercato nel suo insieme.</string>
+    <string name="why_summary_market">Il movimento probabilmente segue il mercato nel suo insieme.</string>
     <string name="why_summary_coin_volume">Si muove solo questa moneta, con volume più alto – probabilmente un motivo legato alla moneta stessa.</string>
     <string name="why_summary_coin">Si muove solo questa moneta – probabilmente un motivo legato alla moneta stessa.</string>
     <string name="why_summary_against">La moneta si muove contro il mercato.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Osserva – le tue monete, prezzi, grafici e widget</string>
     <string name="welcome_alert">Avvisa – prezzo, percentuale, volume e movimenti insoliti</string>
     <string name="welcome_understand">Capisci – perché il mercato si muove adesso?</string>
-    <string name="welcome_start">Inizia</string>
     <string name="portfolio_empty_example">Esempio: 0,01 BTC acquistati il 1° marzo a %1$s. L\'app mostra poi valore, prezzo medio di acquisto e guadagno/perdita – salvati solo su questo dispositivo.</string>
     <string name="about_why">Crypto Checker è un progetto indipendente di r1AD: una panoramica tranquilla dei prezzi senza account, pubblicità né tracciamento. Domande e suggerimenti: %1$s</string>
     <string name="a11y_move_up">Sposta su</string>
@@ -61,34 +60,8 @@
     <string name="market_data_empty_error">Nessun dato ricevuto dall\'exchange.</string>
     <string name="sync_pairs_count">Coppie di trading: %1$d</string>
     <string name="market_unavailable_error">Exchange non disponibile</string>
-    <string name="refresh_report_aborted">Aggiornamento interrotto:</string>
-    <string name="refresh_report_wait">Attesa fino all\'avvio: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Totale %1$s · %2$d coppia</item>
-        <item quantity="many">Totale %1$s · %2$d coppie</item>
-        <item quantity="other">Totale %1$s · %2$d coppie</item>
-    </plurals>
-    <string name="refresh_report_network">Rete %1$s</string>
-    <string name="refresh_report_database">Database %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Allarmi/notifiche %1$s · %2$d notifica</item>
-        <item quantity="many">Allarmi/notifiche %1$s · %2$d notifiche</item>
-        <item quantity="other">Allarmi/notifiche %1$s · %2$d notifiche</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widget %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d coppia, %3$s</item>
-        <item quantity="many">%1$s: %2$d coppie, %3$s</item>
-        <item quantity="other">%1$s: %2$d coppie, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">richiesta cumulativa %1$s (%2$d prezzo)</item>
-        <item quantity="many">richiesta cumulativa %1$s (%2$d prezzi)</item>
-        <item quantity="other">richiesta cumulativa %1$s (%2$d prezzi)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">richiesta cumulativa %1$s (non riuscita)</string>
     <string name="refresh_report_singles">%1$d singolarmente</string>
-    <string name="refresh_report_slowest">più lenta %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d non più negoziata</item>
         <item quantity="many">%1$d non più negoziate</item>

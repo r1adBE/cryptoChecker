@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Avvisi di mercato</string>
-    <string name="settings_market_alerts_hint">Fase di mercato, Fear &amp; Greed, commissioni gas, attività insolite, date economiche</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d attivo</item>
         <item quantity="many">%1$d attivi</item>
         <item quantity="other">%1$d attivi</item>
     </plurals>
-    <string name="settings_tts_row_hint">Legge ad alta voce prezzi e allarmi</string>
     <string name="settings_summary_on">On</string>
 
     <string name="alarm_first_text_checked">Crypto Checker ora osserva %1$s per te. Quando %1$s raggiunge il tuo limite, ricevi una notifica non appena l\'app controlla il prezzo. Ad app chiusa, ciò avviene all\'intervallo dell\'aggiornamento in background – più tardi se l\'ottimizzazione della batteria limita l\'app.</string>

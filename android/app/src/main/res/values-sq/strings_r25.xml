@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Kyçja mbron atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim.</string>
+    <string name="backup_protect">Mbro me fjalëkalim</string>
+    <string name="backup_protect_hint">Enkripton skedarin (AES-256). Rekomandohet kur përmban të dhëna të portofolit.</string>
+    <string name="backup_password">Fjalëkalimi</string>
+    <string name="backup_password_repeat">Përsërit fjalëkalimin</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Të paktën %1$d karaktere</string>
+    <string name="backup_password_mismatch">Fjalëkalimet nuk përputhen</string>
+    <string name="backup_password_warning">Pa fjalëkalimin, kopja rezervë nuk mund të rikthehet.</string>
+    <string name="backup_password_show">Shfaq fjalëkalimin</string>
+    <string name="backup_password_hide">Fshih fjalëkalimin</string>
+    <string name="backup_password_title">Kopje rezervë me fjalëkalim</string>
+    <string name="backup_password_prompt">Fut fjalëkalimin e kësaj kopjeje rezervë.</string>
+    <string name="backup_password_wrong">Fjalëkalim i gabuar ose skedar i dëmtuar. Provo përsëri.</string>
+    <string name="backup_password_continue">Vazhdo</string>
+</resources>

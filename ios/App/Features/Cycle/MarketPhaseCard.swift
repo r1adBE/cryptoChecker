@@ -1,79 +1,36 @@
 import SwiftUI
 
-/// Marktphase nach dem Zonenmodell: Wie viele historische Top- bzw.
-/// Bottom-Signale treffen gerade gleichzeitig zu? Dazu Halving-Zeit und Trend.
-/// Wie `MarketPhaseCard.kt`.
-struct MarketPhaseCard: View {
+/// Marktphase nach dem Zonenmodell als Zeile unter «Einordnung»: wie viele historische Top-
+/// bzw. Bottom-Signale treffen gerade gleichzeitig zu? Rechts die Zone, darunter die
+/// Kurzdeutung; Tippen klappt Skala, Scores, Indikatoren, Zyklus und Quelle auf.
+/// Wie `MarketPhaseRow` (MarketPhaseCard.kt).
+struct MarketPhaseRow: View {
     let cycle: CycleInfo
     let state: CycleLoad<CycleReport>
     let onRetry: () -> Void
+    var divider = true
+    /// Herkunft (Kerzen-Anbieter, Coin Metrics) und Stand für die Nebenzeile.
+    var stamp: DataStamp? = nil
 
     @Environment(\.appAccent) private var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var expanded = false
     @State private var showDetails = false
     @State private var showScoreInfo = false
 
-    init(cycle: CycleInfo, state: CycleLoad<CycleReport>, onRetry: @escaping () -> Void) {
-        self.cycle = cycle
-        self.state = state
-        self.onRetry = onRetry
-    }
-
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            CycleCardTitle(text: L("market_phase_title"))
-
-            switch state {
-            case .loading:
-                skeleton
-
-            case .failed:
-                HStack(spacing: 8) {
-                    Text(L("market_phase_trend_failed"))
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.onSurface)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    CycleRetryButton(action: onRetry)
-                }
-                .padding(.top, 8)
-
-            case .loaded(let report):
-                loaded(report)
-            }
-
-            // Zyklus nach Kalender — immer sichtbar, auch ohne Internet
-            // Das nächste Halving steht in der Halving-Karte und wird hier nicht wiederholt
-            Text(L("market_phase_cycle_since", count: cycle.monthsSinceHalving,
-                   cycle.monthsSinceHalving,
-                   CycleFormat.mediumDate(cycle.lastHalving)))
-                .font(.footnote)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .padding(.top, 10)
-            Text(L("market_source"))
-                .font(.footnote)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .padding(.top, 6)
-            Text(L("market_phase_disclaimer"))
-                .font(.footnote)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .padding(.top, 2)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(20)
-        .background {
-            ZStack {
-                AppColors.container
-                // Leichter Schein in der Zonenfarbe hinter der Karte
-                if let zone = state.value?.zone {
-                    LinearGradient(
-                        colors: [CycleZonePalette.color(zone).opacity(0.22), CycleZonePalette.color(zone).opacity(0)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                }
-            }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: CycleCardTitle.cornerRadius, style: .continuous))
+        let report = state.value
+        MarketRow(
+            title: L("market_phase_title"),
+            secondary: report.map { L($0.zone.hintKey) } ?? "",
+            value: report.map { L($0.zone.labelKey) },
+            state: CycleFearGreedRow.rowState(state, failure: L("market_phase_trend_failed")),
+            divider: divider,
+            stamp: stamp,
+            onRetry: onRetry,
+            expanded: $expanded,
+            details: AnyView(details(report))
+        )
         .alert(L("market_scores_info_title"), isPresented: $showScoreInfo) {
             Button(L("action_close"), role: .cancel) {}
         } message: {
@@ -81,38 +38,54 @@ struct MarketPhaseCard: View {
         }
     }
 
+    /// Aufgeklappt: bei Daten Index, Skala, Pillen, Scores, Indikatoren; immer Zyklus nach
+    /// Kalender (auch ohne Internet), Quelle und Hinweis.
+    private func details(_ report: CycleReport?) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            if let report {
+                loaded(report)
+            }
+            // Das nächste Halving steht in der Halving-Zeile und wird hier nicht wiederholt
+            Text(L("market_phase_cycle_since", count: cycle.monthsSinceHalving,
+                   cycle.monthsSinceHalving,
+                   CycleFormat.mediumDate(cycle.lastHalving)))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .padding(.top, Spacing.sm)
+            Text(L("market_source"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .padding(.top, Spacing.xs)
+            Text(L("market_phase_disclaimer"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .padding(.top, 2)
+        }
+    }
+
     @ViewBuilder
     private func loaded(_ report: CycleReport) -> some View {
-        // Zone als grosses Etikett, rechts daneben der Index gross; darunter die Kurzdeutung
-        HStack(alignment: .center, spacing: 12) {
-            CycleZonePill(zone: report.zone)
-            Spacer(minLength: 0)
-            // VoiceOver liest den Index über die Skala («63 von 100»)
-            HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text(String(report.index))
-                    .font(.system(.title, design: .rounded).weight(.semibold).monospacedDigit())
-                    .foregroundStyle(AppColors.onSurface)
-                Text(verbatim: "/ 100")
-                    .font(.subheadline.monospacedDigit())
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-            }
-            .lineLimit(1)
-            .fixedSize()
-            .accessibilityHidden(true)
+        // Index gross; VoiceOver liest ihn über die Skala («63 von 100»)
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            Text(verbatim: LocaleNumbers.integer(report.index))
+                .displayFont(.compact)
+                .foregroundStyle(AppColors.onSurface)
+            Text(verbatim: "/ " + LocaleNumbers.integer(100))
+                .font(.subheadline.monospacedDigit())
+                .foregroundStyle(AppColors.onSurfaceVariant)
         }
-        Text(L(report.zone.hintKey))
-            .font(.subheadline)
-            .foregroundStyle(AppColors.onSurface)
-            .padding(.top, 8)
+        .lineLimit(1)
+        .fixedSize()
+        .accessibilityHidden(true)
 
         CycleZoneGauge(index: report.index)
-            .padding(.top, 14)
+            .padding(.top, Spacing.sm)
 
         HStack(spacing: 8) {
             // Zwei Signal-Pillen; ab 5 Punkten leicht in der Farbe des jeweiligen Endes getönt
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 8) { signalPills(report) }
-                VStack(alignment: .leading, spacing: 6) { signalPills(report) }
+                VStack(alignment: .leading, spacing: Spacing.xs) { signalPills(report) }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Button {
@@ -129,7 +102,7 @@ struct MarketPhaseCard: View {
         }
         .padding(.top, 8)
 
-        // Kurzdeutung der beiden Zahlen, immer sichtbar
+        // Kurzdeutung der beiden Zahlen
         Text(L(report.topScore == 0 && report.bottomScore == 0 ? "market_scores_none" : "market_scores_hint"))
             .font(.footnote)
             .foregroundStyle(AppColors.onSurfaceVariant)
@@ -138,7 +111,7 @@ struct MarketPhaseCard: View {
             Text(L("market_onchain_missing"))
                 .font(.footnote)
                 .foregroundStyle(AppColors.error)
-                .padding(.top, 6)
+                .padding(.top, Spacing.xs)
         }
 
         Button {
@@ -155,7 +128,7 @@ struct MarketPhaseCard: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .padding(.top, 6)
+        .padding(.top, Spacing.xs)
 
         if showDetails {
             VStack(spacing: 8) {
@@ -170,46 +143,6 @@ struct MarketPhaseCard: View {
             }
             .padding(.bottom, 4)
             .transition(.opacity)
-        }
-    }
-
-    /// Platzhalter in der Form der geladenen Karte (Zonen-Etikett und Index, Kurzdeutung,
-    /// Skala, Hinweis-Pillen, Erklärung, Knopf «Indikatoren»), damit die Karte nicht wächst,
-    /// wenn die Daten spät kommen. VoiceOver liest «Trend wird geladen …».
-    private var skeleton: some View {
-        CycleSkeleton(label: L("market_phase_trend_loading")) {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .center, spacing: 12) {
-                    CycleSkeletonPill(font: .title2, width: 96, horizontal: 18, vertical: 6)
-                    Spacer(minLength: 0)
-                    Text(verbatim: " ")
-                        .font(.system(.title, design: .rounded).weight(.semibold))
-                        .cycleSkeletonBar(width: 76)
-                }
-                // Kurzdeutung: typische Länge (Zone «Bear»)
-                Text(L(MarketZone.BEAR.hintKey))
-                    .font(.subheadline)
-                    .cycleSkeletonLines(.subheadline)
-                    .padding(.top, 8)
-                CycleZoneGaugeSkeleton()
-                    .padding(.top, 14)
-                HStack(spacing: 8) {
-                    CycleSkeletonPill(font: .footnote.weight(.medium))
-                    CycleSkeletonPill(font: .footnote.weight(.medium))
-                    // Platz des ⓘ-Knopfs (36 pt)
-                    Color.clear.frame(width: 36, height: 36)
-                }
-                .padding(.top, 8)
-                Text(L("market_scores_hint"))
-                    .font(.footnote)
-                    .cycleSkeletonLines(.footnote)
-                // Platz des Knopfs «Indikatoren zeigen»
-                Text(verbatim: " ")
-                    .font(.subheadline.weight(.semibold))
-                    .padding(.vertical, 8)
-                    .hidden()
-                    .padding(.top, 6)
-            }
         }
     }
 
@@ -248,8 +181,8 @@ private struct MarketSignalPill: View {
             .foregroundStyle(AppColors.onSurface)
             .lineLimit(1)
             .minimumScaleFactor(0.8)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
+            .padding(.horizontal, Spacing.sm)
+            .padding(.vertical, Spacing.xs)
             .background(tint?.opacity(0.14) ?? AppColors.containerHighest, in: Capsule())
     }
 }

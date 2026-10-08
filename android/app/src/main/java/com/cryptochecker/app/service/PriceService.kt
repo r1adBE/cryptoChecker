@@ -6,10 +6,12 @@ import android.content.pm.ServiceInfo
 import android.os.IBinder
 import androidx.core.app.ServiceCompat
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.refresh.LiveInterval
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.AppVisibility
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -19,9 +21,10 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -80,7 +83,8 @@ class PriceService : Service() {
         while (scope.isActive) {
             val settings = runCatching { settingsRepository.current() }.getOrDefault(AppSettings())
 
-            val summary = runCatching { priceRefresher.refreshAll() }
+            // Bildschirm aus: Widgets nicht bei jedem Takt zeichnen, nur beim Einschalten nachziehen
+            val summary = runCatching { priceRefresher.refreshAll(deferWidgetsWhenScreenOff = true) }
                 .onFailure { Timber.w(it, "Live-Aktualisierung fehlgeschlagen") }
                 .getOrNull()
             // Beendet (onTimeout/onDestroy): runCatching hat den Abbruch geschluckt — nicht
@@ -104,10 +108,25 @@ class PriceService : Service() {
                 return
             }
 
-            delay(
-                settings.liveIntervalSeconds
-                    .coerceAtLeast(AppSettings.MIN_LIVE_INTERVAL_SECONDS) * 1000L
+            awaitNextRun(System.currentTimeMillis(), settings.liveIntervalSeconds)
+        }
+    }
+
+    /**
+     * Wartet bis zum nächsten Durchlauf ([LiveInterval]): mit sichtbarer App das gewählte
+     * Intervall, bei geschlossener App höchstens jede Minute. Wechselt die Sichtbarkeit, wird
+     * neu gerechnet — beim Öffnen geht es also sofort weiter, wenn der letzte Durchlauf schon
+     * älter als das gewählte Intervall ist.
+     */
+    private suspend fun awaitNextRun(lastRunAt: Long, chosenSeconds: Int) {
+        while (true) {
+            val visible = AppVisibility.visible
+            val wait = LiveInterval.waitMillis(
+                lastRunAt, System.currentTimeMillis(), chosenSeconds, visible, AppSettings.MIN_LIVE_INTERVAL_SECONDS
             )
+            if (wait <= 0L) return
+            // Abgelaufen (null): Zeit für den nächsten Durchlauf; sonst Sichtbarkeit gewechselt
+            withTimeoutOrNull(wait) { AppVisibility.flow.first { it != visible } } ?: return
         }
     }
 

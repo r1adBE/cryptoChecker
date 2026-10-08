@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">i dag %1$s</string>
     <string name="widget_portfolio_empty">Lägg till köp på fliken Portfölj</string>
     <string name="a11y_portfolio_widget">Portfölj %1$s, i dag %2$s</string>
-    <string name="settings_section_advanced">Avancerat</string>
-    <string name="settings_advanced_hint">Liveläge, fast avisering, futures och utvecklaralternativ</string>
     <string name="explain_funding">Avgift mellan long- och short-positioner. Starkt positiv betyder att många satsar på stigande kurser.</string>
     <string name="explain_open_interest">Värdet av alla öppna futures-positioner. Stiger det satsar mer pengar på rörelsen.</string>
     <string name="explain_rsi">Relative Strength Index, 0–100. Över 70 ofta överhettat, under 30 ofta översålt.</string>

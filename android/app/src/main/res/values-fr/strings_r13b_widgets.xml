@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">obsolète · %1$s</string>
 
     <string name="settings_widgets">Widgets</string>
-    <string name="settings_widgets_hint">Ajoutez des prix à votre écran d\'accueil</string>
     <string name="widgets_sheet_title">Ajouter un widget</string>
     <string name="widget_kind_single">Une crypto</string>
     <string name="widgets_add">Ajouter</string>

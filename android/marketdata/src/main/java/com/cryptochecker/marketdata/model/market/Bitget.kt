@@ -7,6 +7,7 @@ import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
@@ -46,8 +47,9 @@ class BitgetFutures : SimpleMarket(
     override fun parseCurrencyPairsFromJsonObject(requestId: Int, jsonObject: JSONObject, pairs: MutableList<CurrencyPairInfo>) {
         jsonObject.getJSONArray("data").forEachJSONObject { item ->
             if (item.optString("symbolType") != "perpetual" || item.optString("symbolStatus") != "normal") return@forEachJSONObject
+            val tradFi = TradFi.bitget(item.optString("isRwa"))
             pairs.add(
-                CurrencyPairInfo(item.getString("baseCoin"), item.getString("quoteCoin"), item.getString("symbol"), FuturesContractType.PERPETUAL)
+                CurrencyPairInfo(item.getString("baseCoin"), item.getString("quoteCoin"), item.getString("symbol"), FuturesContractType.PERPETUAL, tradFi)
             )
         }
     }

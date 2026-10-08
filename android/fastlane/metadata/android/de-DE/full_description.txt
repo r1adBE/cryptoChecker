@@ -1,22 +1,22 @@
-Behalte deine Krypto-Kurse im Blick, ohne ständig Börsen-Apps zu öffnen. Setze Alarme, erkenne ungewöhnliche Bewegungen und verstehe in Sekunden, warum sich ein Coin bewegt.
+Crypto Checker erklärt dir, was im Markt passiert. Setze Alarme, erkenne ungewöhnliche Bewegungen und verstehe in Sekunden, warum sich ein Coin bewegt – ohne Prognose.
 
-Beobachten – Kurse direkt von der Börse, in deiner Währung
-Alarmieren – Kurs, Prozent, Bewegung, Volumen, als einfacher Satz
 Verstehen – «Warum bewegt sich das?» mit kurzem Fazit
 Überblick – Crypto Pulse, Fear & Greed, Zyklus und Portfolio
+Beobachten – Kurse direkt von der Börse, in deiner Währung
+Alarmieren – Kurs, Prozent, Bewegung, Volumen, als einfacher Satz
 
-Lesbar für alle: Kursfarben Grün/Rot oder Blau/Orange, auf Wunsch getauscht, hoher Kontrast, Vorzeichen und Pfeil statt nur Farbe, TalkBack: jede Zeile als ein Satz.
+Lesbar für alle: Kursfarben Grün/Rot oder Blau/Orange, hoher Kontrast, Vorzeichen und Pfeil statt nur Farbe, TalkBack: jede Zeile als ein Satz.
 
 MERKLISTE: 41 MÄRKTE AUF 32 BÖRSEN
 • Leere Merkliste: die fünf grössten Coins mit einem Tipp hinzufügen
-• Spot und Futures von Binance, Coinbase, Kraken, OKX, Bybit und vielen mehr
+• Spot und Futures von Binance, Coinbase, Kraken, OKX, Bybit und vielen mehr – auf Wunsch auch Aktien, Gold und Devisen (TradFi), automatisch als eigene Gruppe
 • DEX-Token über DexScreener
 • Wischen: links löschen (mit «Rückgängig»), rechts Favorit; Gruppen, Sortieren per Ziehen
 • Notiz pro Coin, z. B. dein Einstiegskurs
 • Zweite Zeile «≈ Wert» in einer von 31 Währungen (EUR, CHF, USD …), Standard nach Region
-• Mini-Chart in jeder Zeile: 24-Std.-Verlauf neben dem Kurs
+• Mini-Chart in jeder Zeile; %-Änderung über 24 Std. oder seit 00:00 in deiner Zeitzone
 • Portfolio-Tab: Käufe, Verkäufe, Durchschnittspreis, Gewinn/Verlust und Gesamtwert in deiner Währung
-• Stichtag-Export: Portfolio-Wert an jedem Tag (z. B. 31.12.) als CSV – praktisch für die Steuererklärung, keine Steuerberatung
+• Stichtag-Export: Portfolio-Wert an jedem Tag (z. B. 31.12.) als CSV – keine Steuerberatung
 • Zeilen zeigen «veraltet» oder «Börse nicht erreichbar»
 
 ALARME NACH DEINEN REGELN
@@ -38,7 +38,7 @@ MARKTÜBERBLICK
 • Crypto Pulse: Was passiert gerade? BTC, ETH, SOL, Altcoins vs. BTC, Volumen, Fear & Greed, Funding, ETH-Gas und Fazit, ohne Prognose
 • Fear & Greed Index mit Verlauf, Benachrichtigung optional
 • Krypto-Markt: Marktkapitalisierung und 24-Std.-Volumen in deiner Währung
-• Markt-Tab: Marktphase mit Anzeichen für ein mögliches Hoch oder Tief (keine Prognose), Halving-Countdown, Zyklus-Vergleich mit Doppel-Top/-Bottom, Dominanz, Altcoin-Saison – öffnet sofort
+• Markt-Tab: Marktphase mit Anzeichen für ein mögliches Hoch oder Tief (keine Prognose), Halving-Countdown, Dominanz, Altcoin-Saison
 • Coin-Analyse: RSI, Trend, Pi-Cycle und Stärke vs. Bitcoin
 • Futures-Daten: Funding Rate und Open Interest, mit kurzen Erklärungen
 • Netzwerkgebühren für Ethereum, Base, Arbitrum, Polygon, BNB Chain und Bitcoin, mit Gas-Alarm
@@ -46,7 +46,7 @@ MARKTÜBERBLICK
 WIDGETS & BENACHRICHTIGUNGEN
 • Widgets: ganze Merkliste, Portfolio-Gesamtwert mit Veränderung heute, ein Coin gross mit Chart (Kerzen oder Linie) und Hoch/Mitte/Tief
 • Lautlose Kurs-Benachrichtigung je Paar
-• Live-Modus mit Aktualisierung ab 15 Sekunden, im Hintergrund ab 15 Minuten
+• Häufig aktualisieren ab 15 Sekunden, im Hintergrund ab 15 Minuten
 
 AUSSERDEM
 • Sprachausgabe: Kurse und Alarme werden vorgelesen

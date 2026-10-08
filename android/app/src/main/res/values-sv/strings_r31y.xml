@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">inaktuellt · %1$s</string>
+    <string name="why_brief_label">Kort sagt:</string>
+    <string name="why_factor_market">Hela marknaden</string>
+    <string name="why_factor_futures">Terminer</string>
+    <string name="why_factor_near_high">Nära toppen</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">högre än vanligt</string>
+    <string name="why_fn_volume_lower">lägre än vanligt</string>
+    <string name="why_fn_volume_usual">som vanligt</string>
+    <string name="why_fn_market_pulls">BTC drar med sig marknaden</string>
+    <string name="why_fn_market_lags">Marknaden rör sig, den här coinen knappt</string>
+    <string name="why_fn_market_alone">Lugn marknad – den här coinen rör sig på egen hand</string>
+    <string name="why_fn_market_against">Coinen rör sig mot marknaden</string>
+    <string name="why_fn_market_calm">Lugn marknad</string>
+    <string name="why_fn_leader_moves">Bitcoin anger riktningen</string>
+    <string name="why_fn_leader_calm">Bitcoin lugnt</string>
+    <string name="why_fn_volatility_stronger">starkare än vanligt</string>
+    <string name="why_fn_volatility_usual">som vanligt</string>
+    <string name="why_fn_oi_up">Open interest ökat</string>
+    <string name="why_fn_oi_down">Open interest minskat</string>
+    <string name="why_fn_oi_flat">Open interest knappt förändrat</string>
+    <string name="why_fn_high_at">på 30-dagarstoppen</string>
+    <string name="why_fn_high_below">under 30-dagarstoppen</string>
+    <string name="why_fn_funding_longs">många satsar på stigande kurser</string>
+    <string name="why_fn_funding_shorts">många satsar på fallande kurser</string>
+    <string name="why_fn_funding_neutral">neutral</string>
+</resources>

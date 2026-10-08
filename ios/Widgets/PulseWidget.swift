@@ -30,6 +30,8 @@ struct PulseEntry: TimelineEntry {
     var priceColors: PriceColorScheme = SharedStorage.loadSettings().priceColorScheme
     var highContrast: Bool = SharedStorage.loadSettings().highContrast
     var priceColorsInverted: Bool = SharedStorage.loadSettings().priceColorsInverted
+    /// Fear & Greed aus dem App-Group-Speicher (≤ 24 h, kein eigener Abruf); nil = Zeile weg.
+    var fearGreed: Int? = FearGreedShared.showable(FearGreedShared.stored(), now: TimeUtils.nowMillis)
 
     /// Auswertung wie die Karte. Fear & Greed und Gas ändern Schlagzeile, Leitsatz und
     /// Chips nicht (nur die Zusatzsätze der Karte) — das Widget lädt sie deshalb nicht.
@@ -44,7 +46,8 @@ struct PulseEntry: TimelineEntry {
     static func sample(theme: WidgetThemeOption = .system) -> PulseEntry {
         let data = PulseMarketData(btc: 2.8, eth: 2.1, sol: 1.9, volumeRatio: 1.34, fundingPercent: 0.012,
                                    time: TimeUtils.nowMillis)
-        return PulseEntry(date: Date(), data: data, theme: theme, accent: SharedStorage.loadSettings().accentColor)
+        return PulseEntry(date: Date(), data: data, theme: theme, accent: SharedStorage.loadSettings().accentColor,
+                          fearGreed: 72)
     }
 }
 
@@ -186,12 +189,14 @@ enum PulseWidgetText {
         }
     }
 
-    /// VoiceOver: Überzeile, Schlagzeile, Leitsatz, «Bitcoin, gestiegen um 2.80%» je gezeigtem Coin, Stand.
-    static func spoken(_ report: PulseReport, coins: [PulseCoinLine], time: String?) -> String {
+    /// VoiceOver: Überzeile, Schlagzeile, Leitsatz, «Bitcoin, gestiegen um 2.80%» je gezeigtem Coin,
+    /// Fear & Greed (mittel), Stand.
+    static func spoken(_ report: PulseReport, coins: [PulseCoinLine], fearGreed: String? = nil, time: String?) -> String {
         var parts: [String?] = [L("pulse_now_title"), headline(report.summary), lead(report)]
         for coin in coins {
             parts.append(A11y.join([coin.name, A11y.change(shown(coin.changePercent))]))
         }
+        parts.append(fearGreed)
         parts.append(time)
         return A11y.join(parts)
     }
@@ -279,6 +284,8 @@ private struct PulseHomeView: View {
         let glyph = PulseWidgetText.glyph(report.summary)
         let direction = PulseWidgetText.direction(report.summary)
         let headlineSize: CGFloat = medium ? 19 : 17
+        // Fear & Greed nur mittel (klein unverändert), in der Zeile des Stands
+        let fearGreed: String? = medium ? entry.fearGreed.map(FearGreedShared.line) : nil
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline, spacing: 6) {
                 if let glyph {
@@ -303,17 +310,33 @@ private struct PulseHomeView: View {
                 .padding(.top, 3)
             Spacer(minLength: 4)
             chips(coins)
-            if let time {
-                Text(time)
-                    .font(.system(size: 9.5, weight: .medium))
-                    .monospacedDigit()
-                    .foregroundStyle(palette.secondary)
-                    .lineLimit(1)
-                    .padding(.top, 4)
+            if time != nil || fearGreed != nil {
+                // «Stand 14:05» links, «Fear & Greed 72 · Gier» rechts — passt beides nicht, nur der Stand
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 8) {
+                        if let time { footnote(time) }
+                        Spacer(minLength: 0)
+                        if let fearGreed { footnote(fearGreed) }
+                    }
+                    HStack(spacing: 0) {
+                        if let time { footnote(time) }
+                        Spacer(minLength: 0)
+                    }
+                }
+                .padding(.top, 4)
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, time: time))
+        .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time))
+    }
+
+    private func footnote(_ text: String) -> some View {
+        Text(text)
+            .font(.system(size: 9.5, weight: .medium))
+            .monospacedDigit()
+            .foregroundStyle(palette.secondary)
+            .lineLimit(1)
+            .fixedSize(horizontal: true, vertical: false)
     }
 }
 

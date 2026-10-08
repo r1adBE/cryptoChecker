@@ -18,9 +18,9 @@
     <string name="pulse_less">Kevesebb megjelenítése</string>
     <string name="pulse_updated">Állapot: %1$s</string>
     <string name="pulse_unavailable">A piaci adatok jelenleg nem érhetők el</string>
-    <string name="why_summary_title">Röviden</string>
+    <string name="why_summary_title">Valószínű okok</string>
     <string name="why_summary_market_volume">A mozgást magasabb kereskedési volumen és széles körben mozgó piac kíséri.</string>
-    <string name="why_summary_market">A mozgás a teljes piacot követi.</string>
+    <string name="why_summary_market">A mozgás valószínűleg a teljes piacot követi.</string>
     <string name="why_summary_coin_volume">Csak ez az érme mozog, magasabb volumen mellett – valószínűleg magánál az érménél van az ok.</string>
     <string name="why_summary_coin">Csak ez az érme mozog – valószínűleg magánál az érménél van az ok.</string>
     <string name="why_summary_against">Az érme a piaccal szemben mozog.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Figyelés – érméi, árfolyamok, grafikonok és widgetek</string>
     <string name="welcome_alert">Riasztás – ár, százalék, volumen és szokatlan mozgások</string>
     <string name="welcome_understand">Megértés – miért mozog most a piac?</string>
-    <string name="welcome_start">Kezdjük</string>
     <string name="portfolio_empty_example">Példa: 0,01 BTC március 1-jén %1$s áron vásárolva. Az alkalmazás ezután mutatja az értéket, az átlagos vételárat és a nyereséget/veszteséget – csak ezen az eszközön tárolva.</string>
     <string name="about_why">A Crypto Checker r1AD független projektje: nyugodt árfolyam-áttekintés fiók, reklám és követés nélkül. Kérdések és kívánságok: %1$s</string>
     <string name="a11y_move_up">Mozgatás felfelé</string>
@@ -61,30 +60,8 @@
     <string name="market_data_empty_error">Nem érkezett adat a tőzsdéről.</string>
     <string name="sync_pairs_count">Kereskedési párok: %1$d</string>
     <string name="market_unavailable_error">A tőzsde nem érhető el</string>
-    <string name="refresh_report_aborted">Frissítés megszakítva:</string>
-    <string name="refresh_report_wait">Várakozás az indulásig: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Összesen %1$s · %2$d pár</item>
-        <item quantity="other">Összesen %1$s · %2$d pár</item>
-    </plurals>
-    <string name="refresh_report_network">Hálózat %1$s</string>
-    <string name="refresh_report_database">Adatbázis %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Riasztások/értesítések %1$s · %2$d értesítés</item>
-        <item quantity="other">Riasztások/értesítések %1$s · %2$d értesítés</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widgetek %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d pár, %3$s</item>
-        <item quantity="other">%1$s: %2$d pár, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">csoportos lekérés %1$s (%2$d árfolyam)</item>
-        <item quantity="other">csoportos lekérés %1$s (%2$d árfolyam)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">csoportos lekérés %1$s (sikertelen)</string>
     <string name="refresh_report_singles">%1$d egyenként</string>
-    <string name="refresh_report_slowest">leglassabb %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d már nem forog</item>
         <item quantity="other">%1$d már nem forog</item>

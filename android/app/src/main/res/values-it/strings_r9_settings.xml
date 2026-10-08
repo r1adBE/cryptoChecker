@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_settings -->
-    <string name="settings_group_currency">Valuta e conversione</string>
     <string name="settings_group_alerts">Allarmi e notifiche</string>
-    <string name="settings_group_data">Dati e aggiornamenti</string>
-    <string name="settings_group_security">Sicurezza e backup</string>
     <string name="settings_portfolio_tab">Mostra la scheda Portafoglio</string>
 </resources>

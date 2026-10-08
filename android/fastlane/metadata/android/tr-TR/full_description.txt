@@ -1,9 +1,9 @@
-Borsa uygulamalarını sürekli açmadan kripto fiyatlarını takip et. Alarm kur, olağandışı hareketleri fark et ve bir coinin neden hareket ettiğini saniyeler içinde anla.
+Crypto Checker piyasada neler olduğunu sana açıklar. Alarm kur, olağandışı hareketleri fark et ve bir coinin neden hareket ettiğini saniyeler içinde anla – tahmin yok.
 
-İzle – fiyatlar doğrudan borsadan, kendi para biriminde
-Uyar – fiyat, %, hareket ve hacim, basit bir cümleyle
 Anla – “Bu neden hareket ediyor?” kısa bir özetle
 Genel bakış – Crypto Pulse, Fear & Greed, döngü ve portföy
+İzle – fiyatlar doğrudan borsadan, kendi para biriminde
+Uyar – fiyat, %, hareket ve hacim, basit bir cümleyle
 
 Herkes için okunaklı: yeşil/kırmızı veya mavi/turuncu fiyat renkleri, isteğe göre değiştirilebilir, yüksek kontrast, yalnızca renk değil işaret ve ok, TalkBack her satırı tek cümle olarak okur.
 
@@ -46,7 +46,7 @@ PİYASA GÖRÜNÜMÜ
 WIDGET'LAR VE BİLDİRİMLER
 • Widget’lar: tüm liste, bugünkü değişimle portföy değeri, fiyat ve grafikle tek coin – mum veya çizgi, en yüksek/orta/en düşük işaretleriyle
 • Her parite için sessiz fiyat bildirimi
-• 15 saniyede bir güncellenen canlı mod, arka planda 15 dakikadan itibaren
+• 15 saniyede bir sık güncelleme, arka planda 15 dakikadan itibaren
 
 DAHASI
 • Sesli çıkış: fiyatlar ve alarmlar yüksek sesle okunur

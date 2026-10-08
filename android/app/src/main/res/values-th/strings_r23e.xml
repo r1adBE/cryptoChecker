@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">สัญญาณการแจ้งเตือน</string>
+    <string name="alarm_signal_system">ระบบ</string>
+    <string name="alarm_signal_sound_vibrate">เสียงและการสั่น</string>
+    <string name="alarm_signal_sound">เสียงเท่านั้น</string>
+    <string name="alarm_signal_vibrate">การสั่นเท่านั้น</string>
+    <string name="alarm_signal_silent">เงียบ (แจ้งเตือนเท่านั้น)</string>
+    <string name="settings_alarm_signal_system_hint">เป็นไปตามการตั้งค่าการแจ้งเตือนของโทรศัพท์</string>
+    <string name="settings_alarm_signal_open_system">ปรับในการตั้งค่าระบบ</string>
+    <string name="channel_alarms_sound_vibrate">สัญญาณเตือน (เสียงและการสั่น)</string>
+    <string name="channel_alarms_sound">สัญญาณเตือน (เสียงเท่านั้น)</string>
+    <string name="channel_alarms_vibrate">สัญญาณเตือน (การสั่นเท่านั้น)</string>
+    <string name="channel_alarms_silent">สัญญาณเตือน (เงียบ)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">การสั่นเป็นไปตามการตั้งค่า iPhone (เสียงและการสัมผัส)</string>
+</resources>

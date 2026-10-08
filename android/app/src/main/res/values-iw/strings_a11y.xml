@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_price_colors">צבעי מחירים</string>
-    <string name="price_colors_green_red">ירוק / אדום</string>
-    <string name="price_colors_blue_orange">כחול / כתום</string>
     <string name="settings_price_colors_hint">כחול / כתום קל להבחנה בכל סוג של ליקוי בראיית צבעים (אדום-ירוק וכחול-צהוב). הכיוון מוצג תמיד גם באמצעות + / −.</string>
     <string name="settings_watchlist_sparkline">מיני גרף ברשימת המעקב</string>
     <string name="settings_watchlist_sparkline_hint">מגמת 24 שעות ליד המחיר</string>
 
-    <string name="settings_price_colors_inverted">החלפת צבעי עלייה/ירידה</string>
-    <string name="settings_price_colors_inverted_hint">אדום לעלייה, ירוק לירידה, כמקובל בסין, ביפן, בקוריאה ובטייוואן. ברירת המחדל תלויה באזור של המכשיר.</string>
 
     <!-- Hoher Kontrast -->
     <string name="settings_high_contrast">ניגודיות גבוהה</string>

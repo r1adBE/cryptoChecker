@@ -18,9 +18,9 @@
     <string name="pulse_less">Свернуть</string>
     <string name="pulse_updated">На %1$s</string>
     <string name="pulse_unavailable">Рыночные данные сейчас недоступны</string>
-    <string name="why_summary_title">Коротко</string>
+    <string name="why_summary_title">Вероятные причины</string>
     <string name="why_summary_market_volume">Движение сопровождается повышенным объёмом торгов и широким движением рынка.</string>
-    <string name="why_summary_market">Движение следует за рынком в целом.</string>
+    <string name="why_summary_market">Движение, вероятно, следует за рынком в целом.</string>
     <string name="why_summary_coin_volume">Движется только эта монета, при повышенном объёме – вероятно, причина в самой монете.</string>
     <string name="why_summary_coin">Движется только эта монета – вероятно, причина в самой монете.</string>
     <string name="why_summary_against">Монета движется против рынка.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Следить – ваши монеты, курсы, графики и виджеты</string>
     <string name="welcome_alert">Оповещать – цена, процент, объём и необычные движения</string>
     <string name="welcome_understand">Понимать – почему рынок движется прямо сейчас?</string>
-    <string name="welcome_start">Начать</string>
     <string name="portfolio_empty_example">Пример: 0,01 BTC куплено 1 марта по %1$s. Затем приложение покажет стоимость, среднюю цену покупки и прибыль/убыток – данные хранятся только на этом устройстве.</string>
     <string name="about_why">Crypto Checker – независимый проект r1AD: спокойный обзор курсов без аккаунта, рекламы и отслеживания. Вопросы и пожелания: %1$s</string>
     <string name="a11y_move_up">Переместить вверх</string>
@@ -61,38 +60,8 @@
     <string name="market_data_empty_error">Биржа не вернула данных.</string>
     <string name="sync_pairs_count">Торговые пары: %1$d</string>
     <string name="market_unavailable_error">Биржа недоступна</string>
-    <string name="refresh_report_aborted">Обновление прервано:</string>
-    <string name="refresh_report_wait">Ожидание до старта: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="one">Всего %1$s · %2$d пара</item>
-        <item quantity="few">Всего %1$s · %2$d пары</item>
-        <item quantity="many">Всего %1$s · %2$d пар</item>
-        <item quantity="other">Всего %1$s · %2$d пары</item>
-    </plurals>
-    <string name="refresh_report_network">Сеть %1$s</string>
-    <string name="refresh_report_database">База данных %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="one">Оповещения/уведомления %1$s · %2$d уведомление</item>
-        <item quantity="few">Оповещения/уведомления %1$s · %2$d уведомления</item>
-        <item quantity="many">Оповещения/уведомления %1$s · %2$d уведомлений</item>
-        <item quantity="other">Оповещения/уведомления %1$s · %2$d уведомления</item>
-    </plurals>
-    <string name="refresh_report_widgets">Виджеты %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="one">%1$s: %2$d пара, %3$s</item>
-        <item quantity="few">%1$s: %2$d пары, %3$s</item>
-        <item quantity="many">%1$s: %2$d пар, %3$s</item>
-        <item quantity="other">%1$s: %2$d пары, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="one">пакетный запрос %1$s (%2$d курс)</item>
-        <item quantity="few">пакетный запрос %1$s (%2$d курса)</item>
-        <item quantity="many">пакетный запрос %1$s (%2$d курсов)</item>
-        <item quantity="other">пакетный запрос %1$s (%2$d курса)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">пакетный запрос %1$s (ошибка)</string>
     <string name="refresh_report_singles">по отдельности: %1$d</string>
-    <string name="refresh_report_slowest">самая медленная %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">больше не торгуются: %1$d</item>
         <item quantity="few">больше не торгуются: %1$d</item>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">רמת ודאות: %1$s</string>
+    <string name="why_confidence_high">גבוהה</string>
+    <string name="why_confidence_medium">בינונית</string>
+    <string name="why_confidence_low">נמוכה</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d מתוך %2$d סימנים מצביע על כך</item>
+        <item quantity="two">%1$d מתוך %2$d סימנים מצביעים על כך</item>
+        <item quantity="other">%1$d מתוך %2$d סימנים מצביעים על כך</item>
+    </plurals>
+    <string name="why_confidence_partial">נתונים חלקיים</string>
+</resources>

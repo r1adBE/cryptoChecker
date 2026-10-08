@@ -34,6 +34,9 @@ enum AlarmEvaluator {
         case .NEAR_HIGH, .NEAR_LOW:
             // Braucht Hoch/Tief des Zeitraums, siehe `NearExtreme.decide`.
             return false
+        case .FUNDING_ABOVE, .FUNDING_BELOW, .OI_UP, .OI_DOWN:
+            // Braucht Funding/Open Interest, siehe `DerivativesAlarm.decide`.
+            return false
         }
     }
 
@@ -101,6 +104,10 @@ enum AlarmTexts {
         case .VOLUME_SPIKE: L("alarm_condition_volume_spike")
         case .NEAR_HIGH: L("alarm_condition_near_high")
         case .NEAR_LOW: L("alarm_condition_near_low")
+        case .FUNDING_ABOVE: L("alarm_condition_funding_above")
+        case .FUNDING_BELOW: L("alarm_condition_funding_below")
+        case .OI_UP: L("alarm_condition_oi_up")
+        case .OI_DOWN: L("alarm_condition_oi_down")
         }
     }
 
@@ -109,6 +116,19 @@ enum AlarmTexts {
         // «Volumen-Spike ×3»
         if alarm.condition == .VOLUME_SPIKE {
             return "\(name) ×\(factor(alarm.threshold))"
+        }
+        // «Funding über 0,05 %»
+        if alarm.condition.isFunding {
+            return "\(name) " + fundingPercent(alarm.threshold)
+        }
+        // «Open Interest steigt 10 % in 4 Std.»
+        if alarm.condition.isOpenInterest {
+            return "\(name) \(percent(alarm.threshold)) "
+                + L("alarm_window_hours", count: DerivativesAlarm.oiWindowHours(alarm.windowHours))
+        }
+        // Nur neue Hochs/Tiefs (Abstand 0): «Neues 30-Tage-Hoch»
+        if alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold) {
+            return newExtremeLabel(high: alarm.condition == .NEAR_HIGH, days: alarm.windowHours)
         }
         // «Nahe am Hoch 2.00% · 30 Tage»
         if alarm.condition.isNearExtreme {
@@ -136,6 +156,18 @@ enum AlarmTexts {
     /// der Hinweis `alarm_sentence_incomplete`.
     static func sentence(condition: AlarmCondition, base: String, threshold: Double?,
                          currency: String, windowHours: Int) -> String {
+        // Nur neue Hochs/Tiefs: «Sag mir Bescheid, wenn BTC ein neues 30-Tage-Hoch erreicht.»
+        if condition.isNearExtreme, let threshold, NearExtreme.isNewOnly(threshold) {
+            guard !base.trimmingCharacters(in: .whitespaces).isEmpty else { return L("alarm_sentence_incomplete") }
+            return L("alarm_sentence_new_extreme", base, extremeLabel(high: condition == .NEAR_HIGH, days: windowHours))
+        }
+        // Funding: mit Vorzeichen, auch 0 («unter 0 %» = Funding wird negativ)
+        if condition.isFunding {
+            guard let threshold, DerivativesAlarm.isValidThreshold(condition, threshold),
+                  !base.trimmingCharacters(in: .whitespaces).isEmpty else { return L("alarm_sentence_incomplete") }
+            return L(condition == .FUNDING_ABOVE ? "alarm_sentence_funding_above" : "alarm_sentence_funding_below",
+                     base, fundingPercent(threshold))
+        }
         guard let threshold, threshold > 0, threshold.isFinite else { return L("alarm_sentence_incomplete") }
         switch condition {
         case .PRICE_ABOVE:
@@ -155,12 +187,25 @@ enum AlarmTexts {
             return L("alarm_sentence_near_high", base, percent(threshold), extremeLabel(high: true, days: windowHours))
         case .NEAR_LOW:
             return L("alarm_sentence_near_low", base, percent(threshold), extremeLabel(high: false, days: windowHours))
+        case .FUNDING_ABOVE, .FUNDING_BELOW:
+            // Oben behandelt (Vorzeichen erlaubt)
+            return L("alarm_sentence_incomplete")
+        case .OI_UP, .OI_DOWN:
+            // «Sag mir Bescheid, wenn das Open Interest von BTC innerhalb von 4 Stunden um 10 % steigt.»
+            let hours = DerivativesAlarm.oiWindowHours(windowHours)
+            return L(condition == .OI_UP ? "alarm_sentence_oi_up" : "alarm_sentence_oi_down",
+                     count: hours, base, percent(threshold), hours)
         }
     }
 
     /// «30 Tage», «90 Tage», «1 Jahr» — Zeitraum des Alarms «Nahe am Hoch/Tief».
     static func windowLabel(_ days: Int) -> String {
         days >= 365 ? L("alarm_near_window_year") : L("alarm_near_window_days", count: days)
+    }
+
+    /// «Neues 30-Tage-Hoch», «Neues Jahrestief» — Titel und Schnell-Alarm.
+    static func newExtremeLabel(high: Bool, days: Int) -> String {
+        L("alarm_new_extreme", extremeLabel(high: high, days: days))
     }
 
     /// «30-Tage-Hoch», «Jahrestief» … für Satz und Benachrichtigung.
@@ -204,13 +249,40 @@ enum AlarmTexts {
         return f.string(from: NSNumber(value: value / 100)) ?? String(format: "%.2f%%", value)
     }
 
-    /// Faktor ohne überflüssige Nachkommastellen: 3 → "3", 4.25 → "4.3" (Punkt, wie Android).
+    /// Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen (wie `AlarmSentence.fundingPercent`).
+    static func fundingPercent(_ value: Double) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .percent
+        f.locale = Locale.current
+        f.minimumFractionDigits = 0
+        f.maximumFractionDigits = 4
+        // −0 nicht als «-0 %» zeigen
+        let shown = value == 0 ? 0 : value / 100
+        return f.string(from: NSNumber(value: shown)) ?? String(format: "%.4f%%", value)
+    }
+
+    /// Veränderung mit Vorzeichen und einer Nachkommastelle: «+12,3 %», «-4 %».
+    static func signedPercent(_ value: Double) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .percent
+        f.locale = Locale.current
+        f.minimumFractionDigits = 0
+        f.maximumFractionDigits = 1
+        let text = f.string(from: NSNumber(value: value / 100)) ?? String(format: "%.1f%%", value)
+        return value > 0 && !text.hasPrefix("+") ? "+" + text : text
+    }
+
+    /// Gemessener Wert in der Mitteilung eines Funding- bzw. Open-Interest-Alarms:
+    /// Funding «0,061 %», Open-Interest-Veränderung «+12,3 %» — wie `AlarmTexts.derivativesValue`.
+    static func derivativesValue(_ condition: AlarmCondition, _ value: Double) -> String {
+        condition.isFunding ? fundingPercent(value) : signedPercent(value)
+    }
+
+    /// Faktor ohne überflüssige Nachkommastellen: 3 → "3", 4.25 → "4.3" — in den Ziffern der
+    /// App-Sprache (wie Android `AlarmTexts.factor`).
     static func factor(_ value: Double) -> String {
-        guard value.isFinite else { return "0" }
-        let rounded = (value * 10).rounded() / 10
-        if abs(rounded) >= 1e15 { return String(format: "%.0f", locale: Locale(identifier: "en_US_POSIX"), rounded) }
-        if rounded.truncatingRemainder(dividingBy: 1) == 0 { return String(Int64(rounded)) }
-        return String(format: "%.1f", locale: Locale(identifier: "en_US_POSIX"), rounded)
+        guard value.isFinite else { return LocaleNumbers.integer(0) }
+        return LocaleNumbers.decimal(value, maxDecimals: 1, minDecimals: 0)
     }
 }
 
@@ -229,6 +301,10 @@ enum SpokenText {
         case .VOLUME_SPIKE: direction = L("tts_direction_volume_spike")
         case .NEAR_HIGH: direction = L("tts_direction_near_high")
         case .NEAR_LOW: direction = L("tts_direction_near_low")
+        case .FUNDING_ABOVE: direction = L("tts_direction_funding_above")
+        case .FUNDING_BELOW: direction = L("tts_direction_funding_below")
+        case .OI_UP: direction = L("tts_direction_oi_up")
+        case .OI_DOWN: direction = L("tts_direction_oi_down")
         }
         return L("tts_alarm", marketName(watch), watch.baseAsset, watch.quoteAsset, direction, PriceFormat.spokenPrice(price))
     }

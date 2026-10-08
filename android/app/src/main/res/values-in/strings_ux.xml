@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">hari ini %1$s</string>
     <string name="widget_portfolio_empty">Tambahkan pembelian di tab Portofolio</string>
     <string name="a11y_portfolio_widget">Portofolio %1$s, hari ini %2$s</string>
-    <string name="settings_section_advanced">Lanjutan</string>
-    <string name="settings_advanced_hint">Mode live, notifikasi permanen, futures, dan opsi pengembang</string>
     <string name="explain_funding">Biaya antara posisi long dan short. Sangat positif berarti banyak yang bertaruh harga naik.</string>
     <string name="explain_open_interest">Nilai semua posisi futures yang terbuka. Jika naik, makin banyak uang yang bertaruh pada pergerakan itu.</string>
     <string name="explain_rsi">Relative Strength Index, 0–100. Di atas 70 sering terlalu panas, di bawah 30 sering oversold.</string>

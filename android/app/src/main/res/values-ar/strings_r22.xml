@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">تم تحديث كل شيء</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="zero">أزواج لم تُحدَّث: %1$d</item>
+        <item quantity="one">أزواج لم تُحدَّث: %1$d</item>
+        <item quantity="two">أزواج لم تُحدَّث: %1$d</item>
+        <item quantity="few">أزواج لم تُحدَّث: %1$d</item>
+        <item quantity="many">أزواج لم تُحدَّث: %1$d</item>
+        <item quantity="other">أزواج لم تُحدَّث: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s غير متاحة</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="zero">منصات غير متاحة: %1$d</item>
+        <item quantity="one">منصات غير متاحة: %1$d</item>
+        <item quantity="two">منصات غير متاحة: %1$d</item>
+        <item quantity="few">منصات غير متاحة: %1$d</item>
+        <item quantity="many">منصات غير متاحة: %1$d</item>
+        <item quantity="other">منصات غير متاحة: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">أُلغي التحديث</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="zero">الأزواج: %1$d</item>
+        <item quantity="one">الأزواج: %1$d</item>
+        <item quantity="two">الأزواج: %1$d</item>
+        <item quantity="few">الأزواج: %1$d</item>
+        <item quantity="many">الأزواج: %1$d</item>
+        <item quantity="other">الأزواج: %1$d</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">المنصات</string>
+    <string name="refresh_sheet_section_steps">التفاصيل</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">الانتظار حتى البدء</string>
+    <string name="refresh_sheet_network">الشبكة</string>
+    <string name="refresh_sheet_database">قاعدة البيانات</string>
+    <string name="refresh_sheet_alarms">التنبيهات</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="zero">تم تفعيلها: %1$d</item>
+        <item quantity="one">تم تفعيلها: %1$d</item>
+        <item quantity="two">تم تفعيلها: %1$d</item>
+        <item quantity="few">تم تفعيلها: %1$d</item>
+        <item quantity="many">تم تفعيلها: %1$d</item>
+        <item quantity="other">تم تفعيلها: %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="zero">الإشعارات: %1$d</item>
+        <item quantity="one">الإشعارات: %1$d</item>
+        <item quantity="two">الإشعارات: %1$d</item>
+        <item quantity="few">الإشعارات: %1$d</item>
+        <item quantity="many">الإشعارات: %1$d</item>
+        <item quantity="other">الإشعارات: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">الأدوات</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="zero">الأزواج: %2$d من %1$d</item>
+        <item quantity="one">الأزواج: %2$d من %1$d</item>
+        <item quantity="two">الأزواج: %2$d من %1$d</item>
+        <item quantity="few">الأزواج: %2$d من %1$d</item>
+        <item quantity="many">الأزواج: %2$d من %1$d</item>
+        <item quantity="other">الأزواج: %2$d من %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="zero">طلب مجمّع %1$s · الأسعار: %2$d</item>
+        <item quantity="one">طلب مجمّع %1$s · الأسعار: %2$d</item>
+        <item quantity="two">طلب مجمّع %1$s · الأسعار: %2$d</item>
+        <item quantity="few">طلب مجمّع %1$s · الأسعار: %2$d</item>
+        <item quantity="many">طلب مجمّع %1$s · الأسعار: %2$d</item>
+        <item quantity="other">طلب مجمّع %1$s · الأسعار: %2$d</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">انتهت المهلة</string>
+    <string name="refresh_sheet_reason_offline">لا يوجد اتصال</string>
+    <string name="refresh_sheet_reason_rate_limit">طلبات كثيرة جدًا</string>
+    <string name="refresh_sheet_reason_server">خطأ في الخادم</string>
+    <string name="refresh_sheet_reason_no_data">لا توجد بيانات</string>
+    <string name="refresh_sheet_reason_unavailable">المنصة غير متاحة</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">تم تحديث الكل</string>
+    <string name="refresh_sheet_status_partial">تحديث جزئي</string>
+    <string name="refresh_sheet_status_failed">لم يتم التحديث</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s ثانية</string>
+</resources>

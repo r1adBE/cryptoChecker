@@ -4,7 +4,9 @@ import com.cryptochecker.marketdata.model.*
 import com.cryptochecker.marketdata.model.market.DexPool
 import com.cryptochecker.marketdata.model.market.DexScreener
 import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.remote.util.InFlightRequests
 import com.cryptochecker.app.data.remote.util.await
+import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.exceptions.*
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketPairsInfo
@@ -115,30 +117,38 @@ class MarketRemoteDataSource @Inject constructor(
      *   einmal die ungefilterte Abfrage.
      */
     suspend fun fetchBulkTickers(market: Market, pairIds: Collection<String>): BulkTickers {
-        val numOfRequests = market.bulkTickersNumOfRequests
-        if (numOfRequests <= 0) return BulkTickers()
+        if (market.bulkTickersNumOfRequests <= 0) return BulkTickers()
+        // Lange Paarlisten verteilt die Börse auf mehrere gefilterte Anfragen.
+        val numOfRequests = market.bulkTickersRequestCount(pairIds)
 
         val client = bulkHttpClient
         val result = LinkedHashMap<String, Ticker>()
         // Vollständig nur, wenn jede Teilabfrage geklappt hat.
         var allRequestsOk = true
+        // Schon geladene ungefilterte Abfragen: decken alle Teilanfragen mit derselben URL ab.
+        val loadedFullUrls = HashSet<String>()
 
         for (requestId in 0 until numOfRequests) {
             val filteredUrl = market.getBulkTickersUrl(requestId, pairIds)
             val fullUrl = market.getBulkTickersUrl(requestId)
-            if (filteredUrl.isNullOrEmpty()) continue
+            if (filteredUrl.isNullOrEmpty() || filteredUrl in loadedFullUrls) continue
 
             try {
                 val postInfo = market.getBulkTickersPostRequestInfo(requestId)
-                val responseString = try {
-                    client.callMarket(filteredUrl, postInfo)
-                } catch (ex: HttpMarketError) {
+                val tickers = try {
+                    market.parseBulkTickersMain(requestId, client.callMarket(filteredUrl, postInfo))
+                } catch (ex: Exception) {
+                    // Abgelehnt oder unlesbar (z. B. ein Paar wird nicht mehr gehandelt
+                    // und die Börse verwirft die ganze Liste): einmal ungefiltert.
+                    ex.rethrowIfCritical()
                     if (fullUrl.isNullOrEmpty() || fullUrl == filteredUrl) throw ex
-                    Timber.w("Gefilterte Massenabfrage abgelehnt (%d), hole alle Paare: %s", ex.httpCode, market.key)
-                    client.callMarket(fullUrl, postInfo)
+                    if (fullUrl in loadedFullUrls) continue
+                    Timber.w(ex, "Gefilterte Massenabfrage gescheitert, hole alle Paare: %s", market.key)
+                    market.parseBulkTickersMain(requestId, client.callMarket(fullUrl, postInfo))
+                        .also { loadedFullUrls.add(fullUrl) }
                 }
 
-                result.putAll(market.parseBulkTickersMain(requestId, responseString))
+                result.putAll(tickers)
             } catch (ex: Exception) {
                 ex.rethrowIfCritical()
                 Timber.w(ex, "Massenabfrage fehlgeschlagen (market=%s, request=%d)", market.key, requestId)
@@ -214,7 +224,12 @@ private suspend fun OkHttpClient.callMarketInternal(url: String, postRequestInfo
         val responseString = response.body.string()
 
         if(!response.isSuccessful)
-            throw HttpMarketError(response.code, responseString)
+            throw HttpMarketError(
+                response.code,
+                responseString,
+                // Bei «zu vielen Anfragen» sagt die Börse oft, wie lange sie Ruhe will
+                ExchangeBackoff.parseRetryAfterSeconds(response.header("Retry-After"), System.currentTimeMillis()),
+            )
 
         return responseString
     }
@@ -224,9 +239,11 @@ private suspend fun OkHttpClient.callMarketInternal(url: String, postRequestInfo
 
         if (postRequestInfo == null) {
             // logger.debug { "Market GET request: $url" }
-            // HTTP GET
+            // HTTP GET — gleiche gleichzeitige Anfragen nur einmal (InFlightRequests)
             val request = requestBuilder.build()
-            return getResponseString(this.newCall(request).await())
+            return InFlightRequests.shared("$callTimeoutMillis|$url") {
+                getResponseString(this.newCall(request).await())
+            }
         }
 
         // HTTP POST

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">לא מקוון</string>
+    <string name="offline_status_since">לא מקוון · נכון ל-%1$s</string>
+    <string name="error_market_unreachable">הבורסה לא זמינה כרגע – המחירים האחרונים נשארים מוצגים.</string>
+    <string name="error_market_unreachable_short">הבורסה לא זמינה כרגע</string>
+    <string name="refresh_sheet_paused_until">מושהה עד %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">מושהה עד %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">הפעלת האפליקציה</string>
+</resources>

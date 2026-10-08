@@ -29,6 +29,15 @@ object NearExtreme {
     const val DEFAULT_WINDOW_DAYS = 30
     const val DEFAULT_DISTANCE_PERCENT = 2.0
 
+    /**
+     * Abstand 0 = nur neue Hochs/Tiefs melden (Vorlage «Neues 30-Tage-Hoch»), keine
+     * Annäherung. Gespeichert wie jeder Abstand in `threshold`; ältere Versionen melden damit nie.
+     */
+    const val NEW_ONLY_DISTANCE = 0.0
+
+    /** Alarm meldet nur neue Hochs/Tiefs ([NEW_ONLY_DISTANCE])? */
+    fun isNewOnly(thresholdPercent: Double): Boolean = thresholdPercent == NEW_ONLY_DISTANCE
+
     /** Zwischenspeicher der Fenster-Hochs/-Tiefs je Paar. */
     const val CACHE_MILLIS = 6 * 60 * 60_000L
 
@@ -117,7 +126,8 @@ object NearExtreme {
         now: Long,
     ): Decision {
         if (!price.isFinite() || price <= 0.0 || !range.isValid) return Decision.None
-        if (!thresholdPercent.isFinite() || thresholdPercent <= 0.0) return Decision.None
+        // Abstand 0 = nur neue Hochs/Tiefs ([NEW_ONLY_DISTANCE]); negativ/ungültig = nichts
+        if (!thresholdPercent.isFinite() || thresholdPercent < 0.0) return Decision.None
 
         val extreme = if (side == Side.HIGH) range.high else range.low
         val beyond = if (side == Side.HIGH) price > extreme else price < extreme
@@ -138,7 +148,7 @@ object NearExtreme {
             return Decision.Fire(newExtreme = true, distancePercent = distance, extreme = extreme, level = price)
         }
 
-        if (distance <= thresholdPercent) {
+        if (thresholdPercent > 0.0 && distance <= thresholdPercent) {
             if (!armed || inCooldown) return Decision.None
             return Decision.Fire(newExtreme = false, distancePercent = distance, extreme = extreme, level = extreme)
         }

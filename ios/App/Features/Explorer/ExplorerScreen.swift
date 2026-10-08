@@ -1,10 +1,11 @@
 import SwiftUI
 import UIKit
 
-/// Tab «Hinzufügen»: Suche über alle Börsen, Schritt für Schritt ein Paar wählen,
+/// Seite «Paar hinzufügen»: Suche über alle Börsen, Schritt für Schritt ein Paar wählen,
 /// mehrere Paare auf einmal, DEX-Pools. Wie `ExplorerScreen.kt`.
 ///
-/// Enthält keinen `NavigationStack` — der Aufrufer bettet den Tab ein.
+/// Seit Runde 31 kein Tab mehr: die Merkliste legt sie auf ihren `NavigationStack`
+/// (`AppRouter.showExplorer` — «+», Shortcut, Widget, Link "add", «Heute auffällig»).
 struct ExplorerScreen: View {
     @StateObject private var vm = ExplorerViewModel()
     @EnvironmentObject private var data: AppData
@@ -13,14 +14,19 @@ struct ExplorerScreen: View {
 
     @State private var picker: ExplorerPickerKind?
     @State private var showSyncSheet = false
-    @State private var showBulk = false
+    // Auf-/Zugeklappt merkt sich die Sitzung (ExplorerSectionMemory), nicht nur dieser Bildschirm
+    @State private var showPrecise: Bool
+    @State private var showBulk: Bool
     @State private var showBulkList = false
     @State private var confirmBulk = false
     @State private var dexQuery = ""
     @FocusState private var searchFocused: Bool
     @FocusState private var dexFocused: Bool
 
-    init() {}
+    init() {
+        _showPrecise = State(initialValue: ExplorerSectionMemory.precise)
+        _showBulk = State(initialValue: ExplorerSectionMemory.bulk)
+    }
 
     var body: some View {
         ScrollView {
@@ -34,31 +40,38 @@ struct ExplorerScreen: View {
                         .transition(.opacity.combined(with: .move(edge: .top)))
                 } else {
                     Group {
-                        Text(L("explorer_precise_title"))
-                            .font(.subheadline.weight(.medium))
+                        // Die Suche ist der Hauptweg; das genaue Auswählen ist eingeklappt.
+                        Text(L("explorer_search_intro"))
+                            .font(.footnote)
                             .foregroundStyle(AppColors.onSurfaceVariant)
-                            .padding(.leading, 4)
-                            .padding(.top, 6)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.horizontal, 4)
 
-                        marketStep
+                        preciseToggle
+                            .padding(.top, 8)
 
-                        if vm.currentMarket != nil && vm.isDex {
-                            dexSection
-                                .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
-                        }
+                        if showPrecise {
+                            marketStep
+                                .transition(.opacity.combined(with: .move(edge: .top)))
 
-                        if vm.currentMarket != nil && !vm.isDex {
-                            pairStep
-                                .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
-                            if vm.hasPairs && !vm.bulkQuotes.isEmpty {
-                                bulkSection
-                                    .transition(.opacity)
+                            if vm.currentMarket != nil && vm.isDex {
+                                dexSection
+                                    .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
+                            }
+
+                            if vm.currentMarket != nil && !vm.isDex {
+                                pairStep
+                                    .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
+                                if vm.hasPairs && !vm.bulkQuotes.isEmpty {
+                                    bulkSection
+                                        .transition(.opacity)
+                                }
                             }
                         }
 
                         // Runde 13b: Börse fehlt? → GitHub-Vorlage «Exchange request»
                         if let url = URL(string: AppLinks.exchangeRequest) {
-                            HStack(spacing: 6) {
+                            HStack(spacing: Spacing.xs) {
                                 Text(L("explorer_exchange_missing"))
                                     .foregroundStyle(AppColors.onSurfaceVariant)
                                 Link(L("about_request_exchange"), destination: url)
@@ -91,13 +104,16 @@ struct ExplorerScreen: View {
         }
         .scrollDismissesKeyboard(.interactively)
         .background(AppColors.background.ignoresSafeArea())
-        .navigationTitle(L("action_add_pair"))
+        // Eigene Seite über der Merkliste (Runde 31): Titel wie der «+»-Knopf, ohne Tableiste
+        .navigationTitle(L("shortcut_add"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
         .overlay(alignment: .bottom) {
             ExplorerSnackbar(
                 message: $vm.message,
-                onView: { router.tab = .watchlist },
+                onView: { router.showExplorer = false },
                 onAlarm: { id in
-                    router.tab = .watchlist
+                    router.showExplorer = false
                     router.openAlarmsWatchId = id
                 }
             )
@@ -136,7 +152,7 @@ struct ExplorerScreen: View {
     // MARK: Suche
 
     private var searchField: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: Spacing.sm) {
             Image(systemName: "magnifyingglass")
                 .font(.body.weight(.semibold))
                 .foregroundStyle(searchFocused ? accent.primary : AppColors.onSurfaceVariant)
@@ -174,7 +190,7 @@ struct ExplorerScreen: View {
     private var searchResults: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let progress = vm.searchProgress {
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     if progress.total > 0 {
                         ProgressView(value: Double(progress.done), total: Double(max(progress.total, 1)))
                             .tint(accent.primary)
@@ -186,18 +202,18 @@ struct ExplorerScreen: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .monospacedDigit()
                 }
-                .padding(.vertical, 6)
+                .padding(.vertical, Spacing.sm)
             }
 
             if vm.searchHits.isEmpty && vm.searchProgress == nil {
-                HStack(spacing: 10) {
+                HStack(spacing: Spacing.sm) {
                     Image(systemName: "magnifyingglass")
                     Text(L("explorer_search_empty"))
                 }
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 28)
+                .padding(.vertical, Spacing.xxl)
             }
 
             // Ziel-Gruppe gilt für jeden angetippten Treffer
@@ -241,8 +257,8 @@ struct ExplorerScreen: View {
                     .contentTransition(.symbolEffect(.replace))
                     .accessibilityLabel(L(inList ? "a11y_in_watchlist" : "explorer_add_to_watchlist"))
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.md)
             .background(AppColors.container, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
@@ -253,6 +269,34 @@ struct ExplorerScreen: View {
         var parts = [hit.market.name]
         if hit.pair.contractType != .none { parts.append(hit.pair.contractType.backupName) }
         return parts.joined(separator: " · ")
+    }
+
+    // MARK: Genau auswählen (eingeklappt)
+
+    private var preciseToggle: some View {
+        Button {
+            let expanded = !showPrecise
+            ExplorerSectionMemory.precise = expanded
+            withAnimation(.snappy(duration: 0.3)) { showPrecise = expanded }
+        } label: {
+            HStack(spacing: Spacing.sm) {
+                Image(systemName: "slider.horizontal.3")
+                    .foregroundStyle(accent.primary)
+                Text(L("explorer_precise_title"))
+                    .font(.headline)
+                    .foregroundStyle(AppColors.onSurface)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .rotationEffect(.degrees(showPrecise ? 90 : 0))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, Spacing.lg)
+            .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: Schritt 1: Börse
@@ -313,7 +357,7 @@ struct ExplorerScreen: View {
         } else if vm.isDex {
             EmptyView()
         } else if vm.syncing {
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 ProgressView().progressViewStyle(.linear).tint(accent.primary)
                 Text(L("explorer_loading_pairs"))
                     .font(.footnote)
@@ -326,7 +370,7 @@ struct ExplorerScreen: View {
             Button {
                 showSyncSheet = true
             } label: {
-                HStack(spacing: 6) {
+                HStack(spacing: Spacing.xs) {
                     Image(systemName: "checkmark.seal.fill")
                         .foregroundStyle(accent.primary)
                     Text(L("explorer_pairs_status", count: info.count, info.count, lastSyncText(info)))
@@ -338,7 +382,7 @@ struct ExplorerScreen: View {
                 .font(.footnote)
             }
             .buttonStyle(.borderless)
-            .padding(.top, 10)
+            .padding(.top, Spacing.sm)
         } else if !vm.canUpdatePairs {
             ExplorerHint(text: L("checker_add_check_currency_empty_warning_title"))
         }
@@ -362,7 +406,7 @@ struct ExplorerScreen: View {
             )
 
             if vm.hasPairs {
-                VStack(spacing: 10) {
+                VStack(spacing: Spacing.sm) {
                     ExplorerPickerField(
                         label: L("market_screen_base"),
                         value: vm.currentBase,
@@ -385,27 +429,29 @@ struct ExplorerScreen: View {
                 .animation(.snappy(duration: 0.25), value: vm.hasContractTypes)
                 ExplorerHint(text: L("hint_favorites_list"))
             } else if !vm.syncing {
-                Button {
-                    if vm.canUpdatePairs { vm.syncCurrencyPairs() }
-                } label: {
-                    ExplorerHint(text: L("checker_add_check_currency_empty_warning_summary"))
-                        .multilineTextAlignment(.leading)
+                // Antippbar ist nur der Knopf — der Text sagt nicht mehr «hier tippen»
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    ExplorerHint(text: L("explorer_no_pairs_yet"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Button(L("market_screen_sync")) { vm.syncCurrencyPairs() }
+                        .font(.footnote.weight(.semibold))
+                        .tint(accent.primary)
+                        .buttonStyle(.borderless)
+                        .disabled(!vm.canUpdatePairs)
                 }
-                .buttonStyle(.borderless)
-                .disabled(!vm.canUpdatePairs)
             }
 
             // Kurs lädt automatisch, sobald ein Paar gewählt ist — über dem Knopf
             if vm.pairSelected {
                 tickerPreview
-                    .padding(.top, 14)
+                    .padding(.top, Spacing.md)
                     .transition(.opacity)
             }
 
             // Ziel-Gruppe für das neue Paar
             if !vm.baseAssets.isEmpty {
                 ExplorerGroupTargetSelector()
-                    .padding(.top, 14)
+                    .padding(.top, Spacing.md)
             }
 
             Button {
@@ -414,11 +460,11 @@ struct ExplorerScreen: View {
                 Label(L("explorer_add_to_watchlist"), systemImage: "plus")
                     .font(.headline)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
+                    .padding(.vertical, Spacing.lg)
             }
             .buttonStyle(AccentButtonStyle())
             .disabled(!(vm.pairSelected && !vm.syncing))
-            .padding(.top, vm.baseAssets.isEmpty ? 14 : 10)
+            .padding(.top, vm.baseAssets.isEmpty ? Spacing.md : Spacing.sm)
         }
     }
 
@@ -427,20 +473,20 @@ struct ExplorerScreen: View {
         Group {
             switch vm.ticker {
             case .none, .some(.loading):
-                HStack(spacing: 10) {
+                HStack(spacing: Spacing.sm) {
                     ProgressView().controlSize(.small).tint(accent.primary)
                     Text(L("explorer_price_loading"))
                         .font(.footnote)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
                 .frame(maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                .padding(14)
+                .padding(Spacing.md)
             case .some(.failed(let error)):
                 ExplorerErrorRow(message: error) { vm.retryTicker() }
                     .padding(.top, -10)
             case .some(.loaded(let ticker, let pair)):
                 TickerView(ticker: ticker, base: pair.base, quote: pair.quote)
-                    .padding(14)
+                    .padding(Spacing.md)
             }
         }
         .background(
@@ -468,9 +514,11 @@ struct ExplorerScreen: View {
         ExplorerStepCard {
             // Expertenfunktion: eingeklappt, bis man sie öffnet
             Button {
-                withAnimation(.snappy(duration: 0.3)) { showBulk.toggle() }
+                let expanded = !showBulk
+                ExplorerSectionMemory.bulk = expanded
+                withAnimation(.snappy(duration: 0.3)) { showBulk = expanded }
             } label: {
-                HStack(spacing: 10) {
+                HStack(spacing: Spacing.sm) {
                     Image(systemName: "square.stack.3d.up.fill")
                         .foregroundStyle(accent.primary)
                     Text(L("explorer_bulk_title"))
@@ -489,7 +537,7 @@ struct ExplorerScreen: View {
             if showBulk {
                 VStack(alignment: .leading, spacing: 0) {
                     bulkQuoteChips
-                        .padding(.top, 14)
+                        .padding(.top, Spacing.md)
 
                     Button {
                         vm.applyAllPairs()
@@ -537,7 +585,7 @@ struct ExplorerScreen: View {
                                 Text(quote)
                                     .font(.subheadline.weight(selected ? .semibold : .regular))
                             }
-                            .padding(.horizontal, 14)
+                            .padding(.horizontal, Spacing.md)
                             .padding(.vertical, 8)
                             .foregroundStyle(selected ? accent.onPrimary : AppColors.onSurface)
                             .background(selected ? AnyShapeStyle(accent.primary.gradient) : AnyShapeStyle(AppColors.containerHigh),
@@ -579,10 +627,10 @@ struct ExplorerScreen: View {
                 .foregroundStyle(accent.primary)
                 .buttonStyle(.borderless)
             }
-            .padding(.top, 14)
+            .padding(.top, Spacing.md)
 
             ExplorerGroupTargetSelector()
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
 
             Button {
                 confirmBulk = true
@@ -590,7 +638,7 @@ struct ExplorerScreen: View {
                 Text(L("explorer_add_all_pairs", count: vm.bulkPairs.count))
                     .font(.headline)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
+                    .padding(.vertical, Spacing.lg)
             }
             .buttonStyle(AccentButtonStyle())
             .disabled(vm.syncing)
@@ -622,7 +670,7 @@ struct ExplorerScreen: View {
             UISelectionFeedbackGenerator().selectionChanged()
             vm.selectBulkPair(pair)
         } label: {
-            HStack(spacing: 10) {
+            HStack(spacing: Spacing.sm) {
                 CoinBadge(symbol: pair.base, size: 28)
                 Text("\(pair.base)/\(pair.quote)")
                     .font(.subheadline.weight(selected ? .semibold : .regular))
@@ -640,7 +688,7 @@ struct ExplorerScreen: View {
                         .accessibilityLabel(L("a11y_in_watchlist"))
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, Spacing.sm)
             .frame(height: 44)
             .background(selected ? accent.container.opacity(0.5) : .clear,
                         in: RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -655,7 +703,7 @@ struct ExplorerScreen: View {
     /// bestimmten DEX und Chain; der Kurs kommt in USD.
     private var dexSection: some View {
         ExplorerStepCard {
-            HStack(spacing: 10) {
+            HStack(spacing: Spacing.sm) {
                 Image(systemName: "drop.fill")
                     .foregroundStyle(accent.primary)
                 Text("DexScreener").font(.headline)
@@ -674,7 +722,7 @@ struct ExplorerScreen: View {
                     .autocorrectionDisabled()
                     .submitLabel(.search)
                     .onSubmit { runDexSearch() }
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, Spacing.md)
                     .frame(height: 50)
                     .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .overlay(
@@ -695,7 +743,7 @@ struct ExplorerScreen: View {
                 ProgressView()
                     .tint(accent.primary)
                     .frame(maxWidth: .infinity)
-                    .padding(.top, 14)
+                    .padding(.top, Spacing.md)
             }
 
             if vm.dexNoResults {
@@ -736,7 +784,7 @@ struct ExplorerScreen: View {
                     .font(.headline)
                     .lineLimit(1)
                 Text(dexSubtitle(pool))
-                    .font(.caption)
+                    .font(.caption.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(2)
             }
@@ -746,12 +794,12 @@ struct ExplorerScreen: View {
             } label: {
                 Text(L("dex_add"))
                     .font(.subheadline.weight(.semibold))
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, Spacing.md)
                     .padding(.vertical, 8)
             }
             .buttonStyle(TonalButtonStyle())
         }
-        .padding(10)
+        .padding(Spacing.sm)
         .background(AppColors.containerHigh.opacity(0.6), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 
@@ -771,10 +819,9 @@ struct ExplorerScreen: View {
             f.maximumFractionDigits = 2
             return f.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)
         }
-        if value >= 0.0001 { return String(format: "%.6f", value) }
-        var s = String(format: "%.10f", value)
-        while s.hasSuffix("0") { s.removeLast() }
-        return s
+        // In den Ziffern der App-Sprache (wie Android); ganz kleine Preise ohne Nullen am Ende
+        if value >= 0.0001 { return LocaleNumbers.decimal(value, maxDecimals: 6) }
+        return LocaleNumbers.decimal(value, maxDecimals: 10, minDecimals: 0)
     }
 
     // MARK: Auswahllisten
@@ -832,4 +879,12 @@ struct ExplorerScreen: View {
 enum ExplorerPickerKind: String, Identifiable {
     case market, base, quote, contract
     var id: String { rawValue }
+}
+
+/// Auf-/Zuklappen von «Genau auswählen» und «Mehrere Paare auf einmal» bleibt für die
+/// ganze Sitzung (bis die App beendet wird). Standard: eingeklappt — die Suche ist der
+/// Hauptweg. Wie `ExplorerSections` in `ExplorerScreen.kt`.
+enum ExplorerSectionMemory {
+    nonisolated(unsafe) static var precise = false
+    nonisolated(unsafe) static var bulk = false
 }

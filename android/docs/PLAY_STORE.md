@@ -165,6 +165,10 @@ einfügen:
 | Kurzbeschreibung | `short_description.txt` | 80 Zeichen |
 | Vollständige Beschreibung | `full_description.txt` | 4000 Zeichen |
 
+**Leitidee:** «Crypto Checker erklärt dir, was im Markt passiert.» Dieser Satz (bzw. seine Übersetzung)
+steht in jeder Sprache am Anfang der Kurzbeschreibung und der vollständigen Beschreibung. Er bleibt
+beobachtend: keine Prognosen, keine Anlageberatung.
+
 Weitere Sprachen: **Übersetzungen verwalten → Eigene Übersetzungen
 hinzufügen** → Sprachen wählen. Die Ordnernamen entsprechen den Play-Codes
 (z. B. `de-DE`, `fr-FR`, `iw-IL` = Hebräisch, `no-NO` = Norwegisch,
@@ -233,13 +237,16 @@ Beschriftungen in 31 Sprachen, Rahmen-Skript):
    adb exec-out screencap -p > raw/de-DE/01.png
    ```
    Im Emulator: Kamera-Symbol in der Seitenleiste.
-3. Die sechs Szenen des Kits (in dieser Reihenfolge):
-   1. Merkliste mit «≈ … CHF» und Mini-Chart
-   2. Alarm-Editor mit Satz und «Alarm testen»
-   3. «Warum bewegt sich das?» mit «Kurz gesagt»
-   4. Crypto Pulse «Was gerade auffällt» im Markt-Tab
-   5. Portfolio-Tab mit Gesamtwert in CHF
-   6. Startbildschirm mit Merklisten-, Portfolio- und Einzel-Widget
+3. Die fünf Szenen des Kits (in dieser Reihenfolge, Titel hier auf Deutsch):
+   1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart
+   2. «Warum bewegt sich das?» – das Blatt mit «Kurz gesagt»
+   3. «Deine Merkliste, deine Börsen» – Seite «Paar hinzufügen» («+» in der Merkliste) mit der Börsenauswahl
+   4. «Alarme, wenn es zählt» – Alarm-Editor mit Satz und «Alarm testen»
+   5. «Dein Portfolio – geschützt» – Portfolio-Tab mit eingeschalteter Portfolio-Sperre
+
+   Titel und Untertitel für alle 31 Sprachen: `docs/store/screenshots/captions.json`
+   (Eingabe für `tools/frame_screenshots.py`) und als Tabellen im Kit-README unter
+   «Beschriftungen je Sprache».
 4. Vor dem Aufnehmen: Statusleiste aufräumen (Demo-Modus, Befehle im Kit),
    keine privaten Benachrichtigungen sichtbar. Für jede Sprache die
    Gerätesprache umstellen und die App neu starten. Ohne eigene Screenshots je
@@ -335,7 +342,7 @@ Da die App `FOREGROUND_SERVICE_DATA_SYNC` verwendet und auf Android 14+
 zielt, fragt die Play Console nach einer Erklärung:
 
 * Typ: **Datensynchronisierung (dataSync)**
-* Beschreibung, z. B.: «Live-Modus: Auf ausdrücklichen Wunsch des Nutzers
+* Beschreibung, z. B.: «Häufig aktualisieren: Auf ausdrücklichen Wunsch des Nutzers
   werden die Kurse der Merkliste in kurzen Intervallen (ab 15 Sekunden) von
   den Börsen abgerufen und in einer laufenden Benachrichtigung angezeigt. Der
   Dienst lässt sich jederzeit in den Einstellungen (Erweitert) oder über die
@@ -345,7 +352,9 @@ zielt, fragt die Play Console nach einer Erklärung:
   startet ihn erst beim nächsten Öffnen wieder. Nach einem Neustart startet ihn
   die App ab Android 15 nicht aus `BOOT_COMPLETED`, sondern beim Öffnen.
 * Video-Link: kurzes Bildschirmvideo (z. B. als «nicht gelistet» auf YouTube),
-  das das Einschalten des Live-Modus und die Benachrichtigung zeigt.
+  das das Einschalten von «Häufig aktualisieren» und die Benachrichtigung zeigt.
+  Wurde Erklärung oder Video noch mit dem alten Namen «Live-Modus» eingereicht:
+  beim nächsten Update Text und Video an den neuen Namen anpassen.
 
 ### Weitere Fragen
 * Nachrichten-App: **Nein** · Gesundheits-App: **Nein** ·

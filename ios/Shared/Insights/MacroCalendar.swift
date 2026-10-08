@@ -103,6 +103,15 @@ enum MacroCalendar {
         return MacroHint(items: items, released: released)
     }
 
+    /// Termin näher als so viel (davor oder danach): Hinweis oben im Abschnitt «Jetzt».
+    static let topWindowMillis: Int64 = 2 * 60 * 60_000
+
+    /// Steht der Hinweis oben im Markt-Tab («Jetzt»)? Nur bei einem Termin höchstens
+    /// `topWindowMillis` entfernt (bevorstehend oder eben veröffentlicht); sonst unter «Daten».
+    static func isImminent(_ hint: MacroHint, now: Int64) -> Bool {
+        hint.items.contains { abs($0.event.time - now) <= topWindowMillis }
+    }
+
     /// Termine für die Morgen-Mitteilung eines Tages (`day` = beliebiger Zeitpunkt dieses Tages):
     /// am selben Ortsdatum und nach 08:00.
     static func eventsOnDay(_ events: [MacroEvent], day: Date, calendar: Calendar = .current) -> [MacroEvent] {

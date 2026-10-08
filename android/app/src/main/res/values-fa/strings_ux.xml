@@ -16,8 +16,6 @@
     <string name="widget_portfolio_today">امروز %1$s</string>
     <string name="widget_portfolio_empty">خریدها را در زبانه پرتفوی ثبت کنید</string>
     <string name="a11y_portfolio_widget">پرتفوی %1$s، امروز %2$s</string>
-    <string name="settings_section_advanced">پیشرفته</string>
-    <string name="settings_advanced_hint">حالت زنده، اعلان دائمی، فیوچرز و گزینه‌های توسعه‌دهنده</string>
     <string name="explain_funding">کارمزدی بین موقعیت‌های لانگ و شورت. مثبتِ زیاد یعنی بسیاری روی افزایش قیمت شرط بسته‌اند.</string>
     <string name="explain_open_interest">ارزش همه موقعیت‌های باز فیوچرز. اگر بالا برود، پول بیشتری روی این حرکت شرط بسته شده است.</string>
     <string name="explain_rsi">شاخص قدرت نسبی، ۰ تا ۱۰۰. بالای ۷۰ اغلب بیش‌ازحد داغ، زیر ۳۰ اغلب بیش‌فروش.</string>

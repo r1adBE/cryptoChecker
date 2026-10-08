@@ -30,3 +30,6 @@ Version 16.2.2
 • Market tab: total crypto market cap and 24h volume in your currency
 • Futures: funding rate and open interest
 • Five accent colors with matching app icons
+• Stocks, gold, commodities and FX as futures (TradFi) at Binance, Bybit, OKX, MEXC and Bitget – behind a switch under Settings › Watchlist, new pairs go to the group «TradFi»; dated futures to «QTLY»
+• % change like Binance: last 24 h, since 00:00 in your device’s time zone or in a fixed zone from UTC+14 to UTC-12
+• Clear names: «Update frequently» and «Live prices»

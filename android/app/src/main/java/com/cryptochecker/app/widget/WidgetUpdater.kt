@@ -9,12 +9,20 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
+import android.os.PowerManager
+import android.util.SizeF
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.os.BundleCompat
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.shownChange24h
+import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.data.CachedValue
 import com.cryptochecker.app.data.CycleCacheCodecs
 import com.cryptochecker.app.data.CycleCacheStore
@@ -26,12 +34,15 @@ import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.PulseInput
+import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.domain.portfolio.PortfolioPosition
+import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSize
-import com.cryptochecker.app.domain.portfolio.PositionRows
-import com.cryptochecker.app.domain.portfolio.TopPositions
+import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
@@ -57,7 +68,8 @@ import kotlin.math.roundToInt
 /**
  * Zeitraum des Mini-Charts im Einzel-Widget: Kerzenintervall und Anzahl,
  * Länge einer Kerze und Abstand der senkrechten Gitterlinien.
- * Gespeichert wird der Name (siehe [WidgetPrefs.getChartRange]).
+ * Gespeichert wird der Name (siehe [WidgetPrefs.getChartRange]). [inWidget] = im
+ * Widget wählbar; 1 Jahr (365 Tageskerzen) gibt es nur im Chart des Aktionsblatts.
  */
 enum class WidgetChartRange(
     val candleInterval: CandleInterval,
@@ -66,20 +78,21 @@ enum class WidgetChartRange(
     val shortLabelRes: Int,
     val intervalMillis: Long,
     val gridUnit: ChartGridUnit,
+    val inWidget: Boolean = true,
 ) {
     DAY(CandleInterval.H1, 24, R.string.widget_range_24h, R.string.widget_range_short_24h, 3_600_000L, ChartGridUnit.HOUR),
     WEEK(CandleInterval.H4, 42, R.string.widget_range_7d, R.string.widget_range_short_7d, 4 * 3_600_000L, ChartGridUnit.DAY),
     MONTH(CandleInterval.D1, 30, R.string.widget_range_30d, R.string.widget_range_short_30d, 24 * 3_600_000L, ChartGridUnit.WEEK),
+    YEAR(CandleInterval.D1, 365, R.string.widget_range_1y, R.string.widget_range_short_1y, 24 * 3_600_000L, ChartGridUnit.MONTH, inWidget = false),
 }
 
-/** Ids einer Zeile der Positionsliste im Portfolio-Widget (widget_portfolio.xml). */
+/** Ids einer Zeile der Positionsliste im Portfolio-Widget (widget_portfolio_large.xml). */
 private class PortfolioRowIds(
     val row: Int,
     val symbol: Int,
-    val value: Int,
+    val track: Int,
+    val bar: Int,
     val share: Int,
-    val changeBox: Int,
-    val changeBg: Int,
     val change: Int,
 )
 
@@ -90,18 +103,14 @@ private val PULSE_CHIPS = listOf(
     Triple(R.id.pulse_chip_3, R.id.pulse_chip_3_bg, R.id.pulse_chip_3_text),
 )
 
-/** Die fünf festen Zeilen der Positionsliste (statisch statt Liste mit RemoteViewsService). */
+/** Die drei festen Zeilen der Positionsliste (statisch statt Liste mit RemoteViewsService). */
 private val PORTFOLIO_ROWS = listOf(
-    PortfolioRowIds(R.id.portfolio_pos_1, R.id.portfolio_pos_1_symbol, R.id.portfolio_pos_1_value, R.id.portfolio_pos_1_share,
-        R.id.portfolio_pos_1_change_box, R.id.portfolio_pos_1_change_bg, R.id.portfolio_pos_1_change),
-    PortfolioRowIds(R.id.portfolio_pos_2, R.id.portfolio_pos_2_symbol, R.id.portfolio_pos_2_value, R.id.portfolio_pos_2_share,
-        R.id.portfolio_pos_2_change_box, R.id.portfolio_pos_2_change_bg, R.id.portfolio_pos_2_change),
-    PortfolioRowIds(R.id.portfolio_pos_3, R.id.portfolio_pos_3_symbol, R.id.portfolio_pos_3_value, R.id.portfolio_pos_3_share,
-        R.id.portfolio_pos_3_change_box, R.id.portfolio_pos_3_change_bg, R.id.portfolio_pos_3_change),
-    PortfolioRowIds(R.id.portfolio_pos_4, R.id.portfolio_pos_4_symbol, R.id.portfolio_pos_4_value, R.id.portfolio_pos_4_share,
-        R.id.portfolio_pos_4_change_box, R.id.portfolio_pos_4_change_bg, R.id.portfolio_pos_4_change),
-    PortfolioRowIds(R.id.portfolio_pos_5, R.id.portfolio_pos_5_symbol, R.id.portfolio_pos_5_value, R.id.portfolio_pos_5_share,
-        R.id.portfolio_pos_5_change_box, R.id.portfolio_pos_5_change_bg, R.id.portfolio_pos_5_change),
+    PortfolioRowIds(R.id.portfolio_pos_1, R.id.portfolio_pos_1_symbol, R.id.portfolio_pos_1_track, R.id.portfolio_pos_1_bar,
+        R.id.portfolio_pos_1_share, R.id.portfolio_pos_1_change),
+    PortfolioRowIds(R.id.portfolio_pos_2, R.id.portfolio_pos_2_symbol, R.id.portfolio_pos_2_track, R.id.portfolio_pos_2_bar,
+        R.id.portfolio_pos_2_share, R.id.portfolio_pos_2_change),
+    PortfolioRowIds(R.id.portfolio_pos_3, R.id.portfolio_pos_3_symbol, R.id.portfolio_pos_3_track, R.id.portfolio_pos_3_bar,
+        R.id.portfolio_pos_3_share, R.id.portfolio_pos_3_change),
 )
 
 /** Zeichnet die Startbildschirm-Widgets neu. */
@@ -127,6 +136,12 @@ class WidgetUpdater @Inject constructor(
      */
     private val chartBitmaps = LatestPerWidget<ChartBitmapKey, android.graphics.Bitmap>()
 
+    /**
+     * Zuletzt gezeichneter Wertverlauf je Portfolio-Widget und Grösse (Schlüssel
+     * Widget-Id × [MAX_PORTFOLIO_SIZES] + Grösse), beim Löschen entfernt ([forgetPortfolioWidgets]).
+     */
+    private val portfolioCharts = LatestPerWidget<PortfolioChartKey, android.graphics.Bitmap>()
+
     /** Stand der Momentaufnahme beim letzten Zeichnen der Portfolio-Widgets ([updatePortfolio]). */
     @Volatile
     private var portfolioDrawn: PortfolioDrawState? = null
@@ -137,6 +152,13 @@ class WidgetUpdater @Inject constructor(
             manager.getAppWidgetIds(ComponentName(context, SingleWidgetProvider::class.java))
         }.getOrNull() ?: IntArray(0)
     }
+
+    /**
+     * %-Basis der Widgets und ob die gespeicherten Veränderungen noch dazu passen (Stempel des
+     * letzten Durchlaufs); sonst «—» bis zur nächsten Aktualisierung.
+     */
+    fun changeView(basis: ChangeBasis, now: Long = System.currentTimeMillis()): ChangeView =
+        ChangeView.of(refreshStats.changeStamp.value, basis, now)
 
     /** Zeichnet Einzel-Widgets neu: Paar, Kurs, Änderung, Chart (Kerzen/Linie; 24 h / 7 / 30 Tage). */
     suspend fun updateSingle(appWidgetIds: IntArray) {
@@ -149,6 +171,7 @@ class WidgetUpdater @Inject constructor(
         val watches = watchRepository.getWatches().associateBy { it.id }
         val now = System.currentTimeMillis()
         val outdatedAfter = WidgetOutdated.afterMillis(settings)
+        val changeView = changeView(settings.changeBasis, now)
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
@@ -174,17 +197,17 @@ class WidgetUpdater @Inject constructor(
                 views.setTextViewText(R.id.single_price, PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
                 views.setTextColor(R.id.single_price, colors.textColor)
 
-                // Veränderung über 24 Stunden wie die Pille in der Merkliste, mit «24h» — der
-                // Chart daneben kann einen anderen Zeitraum zeigen. Ohne 24-h-Bezug «—»,
-                // ebenso bei nicht mehr gehandelten Paaren (dann auch kein Chart).
-                val change = watch.shownChange24h?.takeIf { it.isFinite() }
-                val day = context.getString(R.string.widget_range_short_24h)
+                // Veränderung gemäss %-Basis wie die Pille in der Merkliste, mit «24h» / «heute» — der
+                // Chart daneben kann einen anderen Zeitraum zeigen. Ohne Bezug «—», ebenso bei
+                // nicht mehr gehandelten Paaren (dann auch kein Chart) und veralteter Basis.
+                val change = changeView.shown(watch.shownChange24h)
+                val day = ChangeBasisText.shortLabel(context, changeView.basis)
                 // Pfeil wie in der Merkliste (folgt dem Vorzeichen, nie dem Farbtausch)
                 val changeText = when {
                     change == null -> "— $day"
                     else -> PriceFormat.changePercent(change)?.let { text ->
                         PriceFormat.changeArrow(change).let { if (it.isEmpty()) text else "$it $text" }
-                    }?.let { "$it $day" } ?: "0.00% $day"
+                    }?.let { "$it $day" } ?: "${PriceFormat.zeroPercent()} $day"
                 }
                 views.setTextViewText(R.id.single_change, changeText)
                 // Paar ganz, wenn es neben der Veränderung Platz hat, sonst nur die Basis
@@ -246,6 +269,7 @@ class WidgetUpdater @Inject constructor(
                         market = watch.marketName,
                         price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
                         change24h = change,
+                        basis = changeView.basis,
                         extras = listOf(
                             chartDescription,
                             if (outdated) WidgetOutdated.spoken(context, watch.lastUpdate)
@@ -305,6 +329,17 @@ class WidgetUpdater @Inject constructor(
         update(widgetIds())
         updateSingle(singleWidgetIds())
         updatePortfolio(portfolioWidgetIds())
+    }
+
+    /**
+     * Schon geladene Stundenkerzen (24 h, gegen USDT) eines Einzel-Widgets als Kurse mit Zeit —
+     * ohne Netz, für den Wertverlauf des Portfolio-Widgets ([PortfolioSnapshotUpdater]).
+     * Höchstens [PortfolioWidgetSeries.KEEP_MILLIS] alt; sonst null.
+     */
+    fun cachedHourlyPrices(base: String): List<TimedPrice>? {
+        val (time, candles) = sparkCache[base.trim().uppercase() + USDT + "|" + WidgetChartRange.DAY.name] ?: return null
+        if (System.currentTimeMillis() - time !in 0..PortfolioWidgetSeries.KEEP_MILLIS) return null
+        return PortfolioWidgetSeries.fromCandles(candles.map { it.openTime to it.close }, time)
     }
 
     /**
@@ -447,6 +482,10 @@ class WidgetUpdater @Inject constructor(
         if (hasWidgets) updateAll() else widgetPrefs.lastHighContrast = effective
     }
 
+    /** Bildschirm an (bzw. Gerät bedienbar)? Ohne PowerManager: ja. */
+    fun isScreenInteractive(): Boolean =
+        context.getSystemService(PowerManager::class.java)?.isInteractive ?: true
+
     suspend fun updateAll() {
         update(widgetIds())
         updateSingle(singleWidgetIds())
@@ -492,10 +531,12 @@ class WidgetUpdater @Inject constructor(
 
     /**
      * Portfolio-Widgets aus der letzten Momentaufnahme ([PortfolioSnapshotStore]) zeichnen —
-     * ohne Netz. Was sichtbar ist, richtet sich nach der Widget-Grösse ([PortfolioWidgetMath.size]):
-     * klein = Gesamtwert, je Widget wählbar «≈ … USDT», Uhrzeit; mittel = dazu «heute» als
-     * Pille in den Kursfarben und der Wertverlauf; gross = dazu die grössten Positionen.
-     * Mit Portfolio-Sperre nur Titel, Schloss und «Gesperrt – in der App entsperren», ohne Werte.
+     * ohne Netz. Layout je Stufe ([PortfolioWidgetMath.size]): klein = Kopfzeile mit Pille,
+     * Gesamtwert, Betrag über 24 h; schmal-hoch = dazu der Wertverlauf darunter; mittel = Werte
+     * links, Wertverlauf rechts; gross = dazu die drei grössten Positionen. Ab Android 12 je
+     * Grösse des Launchers ein eigenes Layout (RemoteViews mit Grössen-Zuordnung), sonst nach
+     * der Grösse aus den Widget-Optionen. Mit Portfolio-Sperre nur Titel, Schloss und
+     * «Gesperrt – in der App entsperren», ohne Werte.
      */
     suspend fun updatePortfolio(appWidgetIds: IntArray) {
         if (appWidgetIds.isEmpty()) return
@@ -504,221 +545,349 @@ class WidgetUpdater @Inject constructor(
         val accent = settings.accentColor
         val highContrast = HighContrast.isEffective(context, settings.highContrast)
         widgetPrefs.lastHighContrast = highContrast
-        val snapshot = portfolioSnapshotStore.snapshot()
-        portfolioDrawn = PortfolioDrawState(snapshot?.total, snapshot?.time)
-        val title = context.getString(R.string.widget_portfolio_name)
+        val stored = portfolioSnapshotStore.snapshot()
+        portfolioDrawn = PortfolioDrawState(stored?.total, stored?.time)
+        // %-Basis: Aufnahme mit anderer Basis oder von einem früheren Tag → Veränderung «—»
+        // (bis zur nächsten Aufnahme); der Verlauf bleibt, beschriftet nach seiner eigenen Basis
+        val snapshot = stored?.let {
+            if (ChangeBasisMath.isCurrent(it.stamp, settings.changeBasis, System.currentTimeMillis())) it
+            else it.copy(changeAmount = null, changePercent = null, positions = it.positions.map { p -> p.copy(change24hPercent = null) })
+        }
         val fontScale = context.resources.configuration.fontScale.takeIf { it > 0f } ?: 1f
-        val portfolioOutdated = snapshot != null &&
+        val outdated = snapshot != null &&
             OutdatedRule.isOutdated(snapshot.time, System.currentTimeMillis(), WidgetOutdated.afterMillis(settings))
+        val locked = PortfolioLockPolicy.widgetLocked(settings.appLock)
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
-            val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
-            val views = RemoteViews(context.packageName, R.layout.widget_portfolio)
-
-            background(views, R.id.portfolio_bg, colors, widgetPrefs.getOpacity(appWidgetId))
-            views.setImageViewResource(R.id.portfolio_logo, accent.logoRes(dark))
-            views.setTextViewText(R.id.portfolio_title, title)
-            views.setTextColor(R.id.portfolio_title, colors.textColor)
-            views.setOnClickPendingIntent(R.id.portfolio_root, openPortfolio())
-            // Normale Kopfzeile; die kompakte Stufe (klein) setzt unten kleinere Werte. Immer beide
-            // setzen: Der Launcher wendet neue RemoteViews auf die bestehenden Views an.
-            compactPortfolio(views, compact = false)
-
-            // Portfolio-Sperre: normaler Rahmen mit Titel, Schloss und Hinweis; Tipp öffnet den Portfolio-Tab
-            val locked = PortfolioLockPolicy.widgetLocked(settings.appLock)
+            val style = PortfolioStyle(
+                colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted),
+                dark = dark,
+                highContrast = highContrast,
+                logoRes = accent.logoRes(dark),
+                opacity = widgetPrefs.getOpacity(appWidgetId),
+                basis = settings.changeBasis,
+                hideAmounts = settings.hidePortfolioAmounts,
+            )
             val message: String? = when {
                 locked -> context.getString(R.string.widget_portfolio_locked_hint)
                 snapshot == null || snapshot.empty -> context.getString(R.string.widget_portfolio_empty)
                 else -> null
             }
-
-            if (locked) {
-                views.setViewVisibility(R.id.portfolio_lock_icon, View.VISIBLE)
-                views.setInt(R.id.portfolio_lock_icon, "setColorFilter", colors.secondaryTextColor)
+            val views = if (message != null || snapshot == null) {
+                portfolioMessageViews(style, message.orEmpty(), locked)
             } else {
-                views.setViewVisibility(R.id.portfolio_lock_icon, View.GONE)
+                val wantUsdt = snapshot.totalUsdt != null &&
+                    PortfolioWidgetMath.showsUsdt(widgetPrefs.getPortfolioShowUsdt(appWidgetId), snapshot.currency)
+                val sizes = portfolioSizesDp(manager, appWidgetId)
+                if (sizes.size > 1 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    // Je Grösse (Hoch-/Querformat) ein Layout; der Launcher wählt ohne neuen Aufruf
+                    RemoteViews(
+                        sizes.mapIndexed { slot, (w, h) ->
+                            SizeF(w.toFloat(), h.toFloat()) to
+                                portfolioViews(appWidgetId, slot, w, h, snapshot, style, outdated, fontScale, wantUsdt)
+                        }.toMap()
+                    )
+                } else {
+                    val (w, h) = sizes.firstOrNull() ?: (0 to 0)
+                    portfolioViews(appWidgetId, 0, w, h, snapshot, style, outdated, fontScale, wantUsdt)
+                }
             }
-
-            if (message != null || snapshot == null) {
-                views.setViewVisibility(R.id.portfolio_values, View.GONE)
-                views.setViewVisibility(R.id.portfolio_message, View.VISIBLE)
-                views.setTextViewText(R.id.portfolio_message, message.orEmpty())
-                views.setTextColor(R.id.portfolio_message, colors.secondaryTextColor)
-                views.setContentDescription(R.id.portfolio_root, listOf(title, message.orEmpty()).joinToString(", "))
-            } else {
-                views.setViewVisibility(R.id.portfolio_values, View.VISIBLE)
-                views.setViewVisibility(R.id.portfolio_message, View.GONE)
-
-                val (widthDp, heightDp) = widgetSizeDp(manager, appWidgetId)
-                val size = PortfolioWidgetMath.size(widthDp, heightDp)
-                val atLeastMedium = size != PortfolioWidgetSize.SMALL
-                // Klein (z. B. 2 × 1, rund 92 dp): kleinere Kopfzeile und kleinerer Gesamtwert,
-                // damit «≈ … USDT» darunter Platz hat
-                val compact = PortfolioWidgetMath.isCompact(size, heightDp)
-                compactPortfolio(views, compact)
-
-                val total = PriceFormat.valueWithCurrency(snapshot.total, snapshot.currency)
-                views.setTextViewText(R.id.portfolio_total, total)
-                views.setTextColor(R.id.portfolio_total, colors.textColor)
-                views.setTextViewText(R.id.portfolio_total_compact, total)
-                views.setTextColor(R.id.portfolio_total_compact, colors.textColor)
-
-                // Was in die Höhe passt (nie abschneiden): Gesamtwert > «heute» > ≈ USDT >
-                // Wertverlauf > Uhrzeit > Positionsliste
-                val totalUsdt = snapshot.totalUsdt
-                val amount = snapshot.changeAmount
-                val percent = snapshot.changePercent
-                val parts = PortfolioWidgetMath.parts(
-                    heightDp = heightDp,
-                    fontScale = fontScale,
-                    today = amount != null && atLeastMedium,
-                    usdt = totalUsdt != null &&
-                        PortfolioWidgetMath.showsUsdt(widgetPrefs.getPortfolioShowUsdt(appWidgetId), snapshot.currency),
-                    chart = atLeastMedium && snapshot.history.size >= 2,
-                    list = size == PortfolioWidgetSize.LARGE,
-                    compact = compact,
-                )
-
-                // «≈ 92’310.00 USDT» — je Widget wählbar; nicht, wenn die Anzeige schon USD ist
-                val usdt = if (parts.usdt && totalUsdt != null) PriceFormat.valueWithCurrency(totalUsdt, USDT) else null
-                if (usdt != null) {
-                    views.setViewVisibility(R.id.portfolio_usdt, View.VISIBLE)
-                    views.setTextViewText(R.id.portfolio_usdt, "≈ $usdt")
-                    views.setTextColor(R.id.portfolio_usdt, colors.secondaryTextColor)
-                } else {
-                    views.setViewVisibility(R.id.portfolio_usdt, View.GONE)
-                }
-
-                // «heute» ab mittlerer Grösse, als Pille; ohne Vergleichsbasis ausgeblendet.
-                // Passt «heute ▲ +997.62 CHF · +1.24%» nicht in die Breite: nur «heute ▲ +1.24%».
-                val changeText = if (amount != null && parts.today) {
-                    // Pfeil nach dem Vorzeichen des Betrags (nie nach dem Farbtausch)
-                    val arrow = when {
-                        PortfolioSnapshotMath.isZero(amount) -> null
-                        amount > 0 -> "▲"
-                        else -> "▼"
-                    }
-                    val percentText = percent?.let { PortfolioSnapshotMath.signedPercent(it) }
-                    fun arrowed(values: String) = if (arrow == null) values else "$arrow $values"
-                    val values = listOfNotNull(
-                        PortfolioSnapshotMath.signedAmount(amount, snapshot.currency),
-                        percentText,
-                    ).joinToString(" · ")
-                    WidgetTextFit.todayText(
-                        full = context.getString(R.string.widget_portfolio_today, arrowed(values)),
-                        percentOnly = percentText?.let { context.getString(R.string.widget_portfolio_today, arrowed(it)) },
-                        availableDp = PortfolioWidgetMath.todayTextWidthDp(widthDp),
-                    ) { textWidthDp(it, 12f, tabular = true) }
-                } else null
-                if (changeText != null && amount != null) {
-                    val color = when {
-                        PortfolioSnapshotMath.isZero(amount) -> colors.neutralColor
-                        amount > 0 -> colors.upColor
-                        else -> colors.downColor
-                    }
-                    views.setViewVisibility(R.id.portfolio_change_box, View.VISIBLE)
-                    views.setTextViewText(R.id.portfolio_change, changeText)
-                    views.setTextColor(R.id.portfolio_change, color)
-                    pill(views, R.id.portfolio_change_bg, color, dark, highContrast)
-                } else {
-                    views.setViewVisibility(R.id.portfolio_change_box, View.GONE)
-                }
-
-                // Gross: die grössten Positionen, so viele wie passen (höchstens 5 und «+ n weitere»)
-                val history = snapshot.history.takeIf { parts.chart && it.size >= 2 }
-                val rows = if (size == PortfolioWidgetSize.LARGE) {
-                    PortfolioWidgetMath.rows(TopPositions(snapshot.positions, snapshot.otherPositions), parts.listLines)
-                } else PositionRows(emptyList(), 0)
-                val positionTexts = renderPositions(views, rows, snapshot.currency, colors, dark, highContrast)
-
-                // Mittel und gross: Wertverlauf (Linie wie im Einzel-Widget, ohne Achsen)
-                val periodLong = history?.let { context.getString(if (spanAtMostDay(it)) R.string.widget_range_24h else R.string.widget_portfolio_range_48h) }
-                val periodShort = history?.let { context.getString(if (spanAtMostDay(it)) R.string.widget_range_short_24h else R.string.widget_portfolio_range_short_48h) }
-                val chartDescription = if (history != null && periodLong != null) {
-                    A11yText.chart(context, periodLong, history.map { it.value }) { PriceFormat.valueWithCurrency(it, snapshot.currency) }
-                } else null
-                val chartBitmap = history?.let {
-                    val listLines = if (rows.shown.isEmpty()) 0 else rows.shown.size + if (rows.more > 0) 1 else 0
-                    val chartHDp = PortfolioWidgetMath.chartHeightDp(heightDp, fontScale, parts, listLines)
-                    val chartWDp = widthDp - 24f
-                    withContext(Dispatchers.Default) {
-                        runCatching { drawPortfolioChart(it, colors, chartWDp, chartHDp) }
-                            .onFailure { e -> Timber.w(e, "Wertverlauf für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
-                            .getOrNull()
-                    }
-                }
-                if (chartBitmap != null) {
-                    views.setImageViewBitmap(R.id.portfolio_chart, chartBitmap)
-                    views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
-                    views.setContentDescription(R.id.portfolio_chart, chartDescription)
-                } else {
-                    views.setViewVisibility(R.id.portfolio_chart, View.GONE)
-                }
-                // Ohne Wertverlauf füllt der Platzhalter: Liste und Uhrzeit bleiben unten
-                views.setViewVisibility(R.id.portfolio_spacer, if (chartBitmap != null) View.GONE else View.VISIBLE)
-
-                // Uhrzeit; mit Wertverlauf dessen Zeitraum daneben, z. B. «14:05 · 48h»;
-                // alter Stand ausgeschrieben: «veraltet · 06:42 · 48h»
-                views.setViewVisibility(R.id.portfolio_time, if (parts.time) View.VISIBLE else View.GONE)
-                val timeText = if (portfolioOutdated) WidgetOutdated.label(context, snapshot.time) else PriceFormat.time(snapshot.time)
-                views.setTextViewText(
-                    R.id.portfolio_time,
-                    listOfNotNull(timeText, periodShort?.takeIf { chartBitmap != null }).joinToString(" · ")
-                )
-                views.setTextColor(R.id.portfolio_time, colors.secondaryTextColor)
-
-                // Screenreader: «Portfolio 12'345.67 CHF, heute plus 1.23 %» — ohne Basis nur der Wert;
-                // dann ≈ USDT, Verlauf, Positionen, Uhrzeit (nur was sichtbar ist)
-                val description = if (changeText != null && amount != null) {
-                    val direction = when {
-                        PortfolioSnapshotMath.isZero(amount) -> context.getString(R.string.a11y_change_flat)
-                        percent != null -> A11yText.change(context, percent)
-                        else -> context.getString(
-                            if (amount > 0) R.string.a11y_change_up else R.string.a11y_change_down,
-                            PriceFormat.valueWithCurrency(kotlin.math.abs(amount), snapshot.currency)
-                        )
-                    }
-                    context.getString(R.string.a11y_portfolio_widget, total, direction)
-                } else {
-                    "$title, $total"
-                }
-                views.setContentDescription(
-                    R.id.portfolio_root,
-                    listOfNotNull(
-                        description,
-                        usdt?.let { context.getString(R.string.a11y_converted, it) },
-                        chartDescription?.takeIf { chartBitmap != null },
-                        positionTexts,
-                        // Veraltet immer sagen, auch wenn die Zeitzeile keinen Platz hat
-                        if (portfolioOutdated) WidgetOutdated.spoken(context, snapshot.time)
-                        else PriceFormat.time(snapshot.time).takeIf { it != "—" && parts.time },
-                    ).joinToString(", ")
-                )
-            }
-
             runCatching { manager.updateAppWidget(appWidgetId, views) }
                 .onFailure { Timber.w(it, "Portfolio-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
         scheduleOutdatedCheck()
     }
 
+    /** Farben und Einstellungen eines Portfolio-Widgets. */
+    private class PortfolioStyle(
+        val colors: WidgetColors,
+        val dark: Boolean,
+        val highContrast: Boolean,
+        val logoRes: Int,
+        val opacity: Int,
+        /** %-Basis (Zeitraum neben Betrag und Pille, Screenreader). */
+        val basis: ChangeBasis = ChangeBasis.DEFAULT,
+        /** «Beträge verbergen»: Gesamtwert und Betrag als «•••», ohne ≈ USDT; Prozente bleiben. */
+        val hideAmounts: Boolean = false,
+    )
+
+    /** Hintergrund, Logo, Titel und Tipp (öffnet den Portfolio-Tab) — in jedem Layout gleich. */
+    private fun portfolioFrame(views: RemoteViews, style: PortfolioStyle) {
+        background(views, R.id.portfolio_bg, style.colors, style.opacity)
+        views.setImageViewResource(R.id.portfolio_logo, style.logoRes)
+        views.setTextViewText(R.id.portfolio_title, context.getString(R.string.widget_portfolio_name))
+        views.setTextColor(R.id.portfolio_title, style.colors.textColor)
+        views.setOnClickPendingIntent(R.id.portfolio_root, openPortfolio())
+    }
+
+    /** Sperre oder «leer»: Titel, (Schloss,) Hinweis — keine Werte, kein Chart, keine Positionen. */
+    private fun portfolioMessageViews(style: PortfolioStyle, message: String, locked: Boolean): RemoteViews {
+        val views = RemoteViews(context.packageName, R.layout.widget_portfolio)
+        portfolioFrame(views, style)
+        views.setViewVisibility(R.id.portfolio_pill, View.GONE)
+        views.setViewVisibility(R.id.portfolio_values, View.GONE)
+        views.setViewVisibility(R.id.portfolio_lock_icon, if (locked) View.VISIBLE else View.GONE)
+        if (locked) views.setInt(R.id.portfolio_lock_icon, "setColorFilter", style.colors.secondaryTextColor)
+        views.setViewVisibility(R.id.portfolio_message, View.VISIBLE)
+        views.setTextViewText(R.id.portfolio_message, message)
+        views.setTextColor(R.id.portfolio_message, style.colors.secondaryTextColor)
+        views.setContentDescription(
+            R.id.portfolio_root,
+            listOf(context.getString(R.string.widget_portfolio_name), message).joinToString(", ")
+        )
+        return views
+    }
+
     /**
-     * Zeilen der Positionsliste füllen: Kürzel, Wert (ohne Währung, die steht beim Gesamtwert),
-     * Anteil, Veränderung als Pille (ohne Vergleichsbasis keine). Nicht gebrauchte Zeilen
-     * ausblenden. @return Satz für den Screenreader oder null ohne Liste
+     * Ein Portfolio-Widget in der Grösse [widthDp] × [heightDp] (0 = unbekannt). [slot] trennt
+     * die Chart-Bilder der Grössen eines Widgets im Zwischenspeicher ([portfolioCharts]).
+     */
+    private suspend fun portfolioViews(
+        appWidgetId: Int,
+        slot: Int,
+        widthDp: Int,
+        heightDp: Int,
+        snapshot: PortfolioSnapshot,
+        style: PortfolioStyle,
+        outdated: Boolean,
+        fontScale: Float,
+        wantUsdt: Boolean,
+    ): RemoteViews {
+        val colors = style.colors
+        val amount = snapshot.changeAmount?.takeIf { it.isFinite() }
+        val percent = snapshot.changePercent?.takeIf { it.isFinite() }
+        val layout = PortfolioWidgetMath.layout(
+            widthDp = widthDp,
+            heightDp = heightDp,
+            fontScale = fontScale,
+            hasChange = amount != null,
+            wantUsdt = wantUsdt,
+            positions = snapshot.positions.size,
+        )
+        val views = RemoteViews(
+            context.packageName,
+            when (layout.size) {
+                PortfolioWidgetSize.MEDIUM -> R.layout.widget_portfolio_medium
+                PortfolioWidgetSize.LARGE -> R.layout.widget_portfolio_large
+                PortfolioWidgetSize.SMALL, PortfolioWidgetSize.TALL -> R.layout.widget_portfolio
+            }
+        )
+        portfolioFrame(views, style)
+        if (layout.size == PortfolioWidgetSize.SMALL || layout.size == PortfolioWidgetSize.TALL) {
+            views.setViewVisibility(R.id.portfolio_lock_icon, View.GONE)
+            views.setViewVisibility(R.id.portfolio_message, View.GONE)
+        }
+        views.setViewVisibility(R.id.portfolio_values, View.VISIBLE)
+
+        // Richtung nach dem Vorzeichen des Betrags (nie nach dem Farbtausch): Farbe UND Pfeil
+        val direction = amount?.let { PortfolioWidgetSeries.direction(it) }
+        val priceColor = when (direction) {
+            1 -> colors.upColor
+            -1 -> colors.downColor
+            else -> colors.neutralColor
+        }
+        val arrow = when (direction) {
+            1 -> "▲"
+            -1 -> "▼"
+            else -> null
+        }
+
+        // Kopfzeile rechts: «▼ 2.31%» (24 h) als Pille in der Kursfarbe; wird es eng, fällt der
+        // Titel weg (Logo und Pille bleiben), statt «Portf…»
+        val pillText = if (percent != null && amount != null) {
+            listOfNotNull(arrow, PortfolioSnapshotMath.unsignedPercent(percent)).joinToString(" ")
+        } else null
+        val title = context.getString(R.string.widget_portfolio_name)
+        val titleFits = PortfolioWidgetMath.showsTitle(
+            widthDp,
+            textWidthDp(title, 13f),
+            pillText?.let { textWidthDp(it, 11f, tabular = true) },
+        )
+        views.setTextViewText(R.id.portfolio_title, if (titleFits) title else "")
+        if (pillText != null) {
+            views.setViewVisibility(R.id.portfolio_pill, View.VISIBLE)
+            views.setTextViewText(R.id.portfolio_pill_text, pillText)
+            views.setTextColor(R.id.portfolio_pill_text, priceColor)
+            pill(views, R.id.portfolio_pill_bg, priceColor, style.dark, style.highContrast)
+        } else {
+            views.setViewVisibility(R.id.portfolio_pill, View.GONE)
+        }
+
+        // Gesamtwert (passt sich der Breite an)
+        val total = PortfolioInsights.mask(PriceFormat.valueWithCurrency(snapshot.total, snapshot.currency), style.hideAmounts)
+        views.setTextViewText(R.id.portfolio_total, total)
+        views.setTextColor(R.id.portfolio_total, colors.textColor)
+
+        // «▼ −1’968.40 CHF · 24h»; passt «· 24h» nicht in die Breite, ohne
+        val textWidth = when {
+            widthDp <= 0 -> null
+            layout.size == PortfolioWidgetSize.MEDIUM -> (widthDp - 24f - 12f) / 2f
+            else -> widthDp - 24f
+        }
+        if (layout.changeLine && amount != null) {
+            val value = listOfNotNull(
+                arrow,
+                PortfolioInsights.mask(PortfolioSnapshotMath.signedAmount(amount, snapshot.currency), style.hideAmounts),
+            ).joinToString(" ")
+            val text = WidgetTextFit.firstFitting(
+                listOf("$value · ${ChangeBasisText.shortLabel(context, style.basis)}", value),
+                textWidth?.minus(WidgetTextFit.SAFETY_DP),
+            ) { textWidthDp(it, 12f, tabular = true) }
+            views.setViewVisibility(R.id.portfolio_change, View.VISIBLE)
+            views.setTextViewText(R.id.portfolio_change, text)
+            views.setTextColor(R.id.portfolio_change, priceColor)
+        } else {
+            views.setViewVisibility(R.id.portfolio_change, View.GONE)
+        }
+
+        // «≈ 100’143.67 USDT» — je Widget wählbar; nicht, wenn die Anzeige schon USD ist
+        val usdt = snapshot.totalUsdt?.takeIf { layout.usdt && !style.hideAmounts }?.let { PriceFormat.valueWithCurrency(it, USDT) }
+        if (usdt != null) {
+            views.setViewVisibility(R.id.portfolio_usdt, View.VISIBLE)
+            views.setTextViewText(R.id.portfolio_usdt, "≈ $usdt")
+            views.setTextColor(R.id.portfolio_usdt, colors.secondaryTextColor)
+        } else {
+            views.setViewVisibility(R.id.portfolio_usdt, View.GONE)
+        }
+
+        // Wertverlauf: Fläche ab genug Stundenwerten, sonst ruhig «Verlauf folgt»
+        val points = snapshot.history.filter { it.value.isFinite() }
+        val drawable = layout.chart && PortfolioWidgetSeries.drawable(points)
+        // Verlauf seit Tagesbeginn: «heute» / «heute UTC»; sonst «24h» bzw. «48h» (ältere Aufnahmen)
+        val chartBasis = snapshot.stamp?.basis ?: ChangeBasis.ROLLING_24H
+        val periodShort = if (drawable) {
+            when {
+                chartBasis.isDay -> ChangeBasisText.shortLabel(context, chartBasis)
+                spanAtMostDay(points) -> context.getString(R.string.widget_range_short_24h)
+                else -> context.getString(R.string.widget_portfolio_range_short_48h)
+            }
+        } else null
+        val chartDescription = if (drawable) {
+            val periodLong = when {
+                chartBasis.isDay -> ChangeBasisText.longLabel(context, chartBasis)
+                spanAtMostDay(points) -> context.getString(R.string.widget_range_24h)
+                else -> context.getString(R.string.widget_portfolio_range_48h)
+            }
+            val hiddenSpoken = context.getString(R.string.a11y_amount_hidden)
+            A11yText.chart(context, periodLong, points.map { it.value }) {
+                if (style.hideAmounts) hiddenSpoken else PriceFormat.valueWithCurrency(it, snapshot.currency)
+            }
+        } else null
+        if (layout.chart) {
+            views.setViewVisibility(R.id.portfolio_chart_box, View.VISIBLE)
+            val chartColor = when (direction ?: if (PortfolioWidgetMath.isUp(points)) 1 else -1) {
+                1 -> colors.upColor
+                -1 -> colors.downColor
+                else -> colors.neutralColor
+            }
+            val (chartW, chartH) = PortfolioWidgetMath.chartSizeDp(layout, widthDp, heightDp, fontScale)
+            val bitmap = if (drawable) {
+                withContext(Dispatchers.Default) {
+                    runCatching { drawPortfolioChart(appWidgetId, slot, points, chartColor, colors.secondaryTextColor, chartW, chartH) }
+                        .onFailure { Timber.w(it, "Wertverlauf für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
+                        .getOrNull()
+                }
+            } else null
+            if (bitmap != null) {
+                views.setImageViewBitmap(R.id.portfolio_chart, bitmap)
+                views.setViewVisibility(R.id.portfolio_chart, View.VISIBLE)
+                views.setViewVisibility(R.id.portfolio_chart_pending, View.GONE)
+            } else {
+                views.setViewVisibility(R.id.portfolio_chart, View.GONE)
+                views.setViewVisibility(R.id.portfolio_chart_pending, View.VISIBLE)
+                views.setTextColor(R.id.portfolio_chart_pending, colors.secondaryTextColor)
+            }
+        } else {
+            views.setViewVisibility(R.id.portfolio_chart_box, View.GONE)
+        }
+        // Platzhalter hält die Fusszeile unten: klein und mittel (linke Spalte); sonst füllt der Chart
+        views.setViewVisibility(
+            R.id.portfolio_spacer,
+            if (layout.size == PortfolioWidgetSize.SMALL || layout.size == PortfolioWidgetSize.MEDIUM) View.VISIBLE else View.GONE
+        )
+
+        // Gross: die drei grössten Positionen
+        val positionsText = if (layout.size == PortfolioWidgetSize.LARGE) {
+            renderPositions(views, snapshot.positions.take(layout.rows), colors, style.basis)
+        } else null
+
+        // «Stand 15:19 · 24h»; alter Stand ausgeschrieben: «veraltet · 06:42»
+        val stamp = WidgetOutdated.stamp(context, snapshot.time)
+        val timeText = if (outdated) WidgetOutdated.label(context, snapshot.time)
+        else context.getString(R.string.widget_portfolio_as_of, stamp)
+        views.setViewVisibility(R.id.portfolio_time, if (layout.footer) View.VISIBLE else View.GONE)
+        views.setTextViewText(R.id.portfolio_time, listOfNotNull(timeText, periodShort).joinToString(" · "))
+        views.setTextColor(R.id.portfolio_time, colors.secondaryTextColor)
+
+        // Screenreader: «Portfolio 83’170.32 CHF, gesunken um 2.31% in 24 Stunden, Stand 15:19» —
+        // dann ≈ USDT, Verlauf und Positionen (nur was sichtbar ist); veraltet immer
+        val change = when {
+            percent != null -> ChangeBasisText.spoken(context, style.basis, percent)
+            amount != null && direction == 0 ->
+                ChangeBasisText.spokenPhrase(context, style.basis, context.getString(R.string.a11y_change_flat))
+            amount != null -> ChangeBasisText.spokenPhrase(
+                context,
+                style.basis,
+                context.getString(
+                    if (amount > 0) R.string.a11y_change_up else R.string.a11y_change_down,
+                    if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden)
+                    else PriceFormat.valueWithCurrency(kotlin.math.abs(amount), snapshot.currency)
+                )
+            )
+            else -> null
+        }
+        views.setContentDescription(
+            R.id.portfolio_root,
+            listOfNotNull(
+                "$title " + if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden) else total,
+                change,
+                if (outdated) WidgetOutdated.spoken(context, snapshot.time)
+                else context.getString(R.string.widget_portfolio_as_of, stamp),
+                usdt?.let { context.getString(R.string.a11y_converted, it) },
+                chartDescription,
+                positionsText,
+            ).joinToString(", ")
+        )
+        return views
+    }
+
+    /**
+     * Grössen des Widgets in dp: ab Android 12 alle, die der Launcher meldet (Hoch- und
+     * Querformat, höchstens [MAX_PORTFOLIO_SIZES]); sonst bzw. ohne Angabe die eine aus
+     * [widgetSizeDp]. Leer nie — unbekannt ist (0, 0).
+     */
+    private fun portfolioSizesDp(manager: AppWidgetManager, appWidgetId: Int): List<Pair<Int, Int>> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val options = runCatching { manager.getAppWidgetOptions(appWidgetId) }.getOrNull()
+            val sizes = options?.let {
+                runCatching { BundleCompat.getParcelableArrayList(it, AppWidgetManager.OPTION_APPWIDGET_SIZES, SizeF::class.java) }
+                    .getOrNull()
+            }.orEmpty()
+                .map { it.width.roundToInt() to it.height.roundToInt() }
+                .filter { (w, h) -> w > 0 && h > 0 }
+                .distinct()
+                .take(MAX_PORTFOLIO_SIZES)
+            if (sizes.isNotEmpty()) return sizes
+        }
+        return listOf(widgetSizeDp(manager, appWidgetId))
+    }
+
+    /**
+     * Zeilen der Positionsliste (gross): Kürzel, Anteil als Text und dünner Balken (neutral, nicht
+     * in der Akzentfarbe), Veränderung über 24 h mit Pfeil und Vorzeichen in der Kursfarbe
+     * (ohne Vergleichswert «—»). Nicht gebrauchte Zeilen ausblenden.
+     * @return Satz für den Screenreader oder null ohne Liste
      */
     private fun renderPositions(
         views: RemoteViews,
-        rows: PositionRows,
-        currency: String,
+        shown: List<PortfolioPosition>,
         colors: WidgetColors,
-        dark: Boolean,
-        highContrast: Boolean,
+        basis: ChangeBasis,
     ): String? {
         val spoken = mutableListOf<String>()
         PORTFOLIO_ROWS.forEachIndexed { index, ids ->
-            val position = rows.shown.getOrNull(index)
+            val position = shown.getOrNull(index)
             if (position == null) {
                 views.setViewVisibility(ids.row, View.GONE)
                 return@forEachIndexed
@@ -726,14 +895,16 @@ class WidgetUpdater @Inject constructor(
             views.setViewVisibility(ids.row, View.VISIBLE)
             views.setTextViewText(ids.symbol, position.symbol)
             views.setTextColor(ids.symbol, colors.textColor)
-            views.setTextViewText(ids.value, PriceFormat.valueWithCurrency(position.value, "").trim())
-            views.setTextColor(ids.value, colors.textColor)
             val share = PortfolioWidgetMath.shareText(position.sharePercent)
             views.setTextViewText(ids.share, share)
             views.setTextColor(ids.share, colors.secondaryTextColor)
+            views.setInt(ids.track, "setColorFilter", colors.secondaryTextColor or 0xFF000000.toInt())
+            views.setInt(ids.track, "setImageAlpha", SHARE_TRACK_ALPHA)
+            views.setInt(ids.bar, "setColorFilter", colors.secondaryTextColor or 0xFF000000.toInt())
+            views.setInt(ids.bar, "setImageAlpha", SHARE_BAR_ALPHA)
+            views.setInt(ids.bar, "setImageLevel", (position.sharePercent.coerceIn(0.0, 100.0) * 100.0).roundToInt())
 
-            val change = position.change24hPercent
-            val value = PriceFormat.valueWithCurrency(position.value, currency)
+            val change = position.change24hPercent?.takeIf { it.isFinite() }
             if (change != null) {
                 val color = when {
                     kotlin.math.abs(change) < 0.005 -> colors.neutralColor
@@ -743,29 +914,20 @@ class WidgetUpdater @Inject constructor(
                 // Pfeil folgt dem Vorzeichen (nie dem Farbtausch); «0.00%» ohne Pfeil
                 val text = PortfolioSnapshotMath.signedPercent(change)
                 val arrow = PriceFormat.changeArrow(change)
-                views.setViewVisibility(ids.changeBox, View.VISIBLE)
                 views.setTextViewText(ids.change, if (arrow.isEmpty()) text else "$arrow $text")
                 views.setTextColor(ids.change, color)
-                pill(views, ids.changeBg, color, dark, highContrast)
                 spoken += context.getString(
-                    R.string.a11y_portfolio_position_change, position.symbol, value, share, A11yText.change(context, change)
+                    R.string.a11y_portfolio_position_24h, position.symbol, share, ChangeBasisText.spoken(context, basis, change)
                 )
             } else {
-                views.setViewVisibility(ids.changeBox, View.GONE)
-                spoken += context.getString(R.string.a11y_portfolio_position, position.symbol, value, share)
+                views.setTextViewText(ids.change, "—")
+                views.setTextColor(ids.change, colors.secondaryTextColor)
+                spoken += context.getString(
+                    R.string.a11y_portfolio_position_24h, position.symbol, share, ChangeBasisText.spoken(context, basis, null)
+                )
             }
         }
-        val moreText = rows.more.takeIf { it > 0 && rows.shown.isNotEmpty() }
-            ?.let { context.resources.getQuantityString(R.plurals.widget_portfolio_more, it, it) }
-        if (moreText != null) {
-            views.setViewVisibility(R.id.portfolio_more, View.VISIBLE)
-            views.setTextViewText(R.id.portfolio_more, moreText)
-            views.setTextColor(R.id.portfolio_more, colors.secondaryTextColor)
-            spoken += moreText
-        } else {
-            views.setViewVisibility(R.id.portfolio_more, View.GONE)
-        }
-        val visible = rows.shown.isNotEmpty()
+        val visible = shown.isNotEmpty()
         views.setViewVisibility(R.id.portfolio_positions, if (visible) View.VISIBLE else View.GONE)
         return if (visible) context.getString(R.string.a11y_portfolio_positions, spoken.joinToString("; ")) else null
     }
@@ -780,17 +942,6 @@ class WidgetUpdater @Inject constructor(
         val color = colors.colorWithOpacity(opacityPercent)
         views.setInt(layerId, "setColorFilter", color or 0xFF000000.toInt())
         views.setInt(layerId, "setImageAlpha", Color.alpha(color))
-    }
-
-    /** Kompakte (klein) oder normale Kopfzeile und Gesamtwert des Portfolio-Widgets. */
-    private fun compactPortfolio(views: RemoteViews, compact: Boolean) {
-        val density = context.resources.displayMetrics.density
-        val horizontal = (12f * density).roundToInt()
-        val vertical = ((if (compact) 8f else 12f) * density).roundToInt()
-        views.setViewPadding(R.id.portfolio_root, horizontal, vertical, horizontal, vertical)
-        views.setTextViewTextSize(R.id.portfolio_title, TypedValue.COMPLEX_UNIT_SP, if (compact) 12f else 14f)
-        views.setViewVisibility(R.id.portfolio_total, if (compact) View.GONE else View.VISIBLE)
-        views.setViewVisibility(R.id.portfolio_total_compact, if (compact) View.VISIBLE else View.GONE)
     }
 
     /**
@@ -901,6 +1052,18 @@ class WidgetUpdater @Inject constructor(
         val now = System.currentTimeMillis()
         val report = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }?.let { CryptoPulse.evaluate(it.value) }
         val title = context.getString(R.string.pulse_now_title)
+        // Fear & Greed nur aus dem Zwischenspeicher (Markt-Tab oder Pulse, ≤ 24 h) — kein eigener Abruf
+        val fearGreedValue = if (report == null) null else {
+            val cachedFng = cycleCacheStore.read(CycleSource.FEAR_GREED.key, CycleCacheCodecs.fearGreed)
+            PulseWidgetMath.fearGreed(
+                cached = cachedFng?.value?.value,
+                cachedAt = cachedFng?.savedAt,
+                pulse = value.value.fearGreed,
+                pulseAt = value.savedAt,
+                now = now,
+            )
+        }
+        val fearGreedText = fearGreedValue?.let { PulseWidgetTexts.fearGreed(context, it) }
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
@@ -948,6 +1111,14 @@ class WidgetUpdater @Inject constructor(
                 views.setTextColor(R.id.pulse_lead, colors.textColor)
                 views.setInt(R.id.pulse_lead, "setMaxLines", PulseWidgetMath.leadLines(heightDp, headlineStyle.lines))
 
+                // «Fear & Greed 72 · Gier»: nur mittel/gross und wenn der Text ganz passt
+                val showFng = fearGreedText != null && PulseWidgetMath.showsFearGreed(
+                    widgetWidthDp, heightDp, headlineStyle.lines, textWidthDp(fearGreedText, 11f, bold = false, tabular = true)
+                )
+                views.setViewVisibility(R.id.pulse_fng, if (showFng) View.VISIBLE else View.GONE)
+                views.setTextViewText(R.id.pulse_fng, if (showFng) fearGreedText else "")
+                views.setTextColor(R.id.pulse_fng, colors.secondaryTextColor)
+
                 // Nur so viele Chips, wie ganz in die Breite passen (nie ein abgeschnittener)
                 val allCoins = PulseWidgetMath.coins(report, 3)
                 val chipWidths = allCoins.map { textWidthDp(PulseWidgetMath.chipText(it), 11f, tabular = true) }
@@ -982,7 +1153,12 @@ class WidgetUpdater @Inject constructor(
                 }
                 views.setContentDescription(
                     R.id.pulse_root,
-                    listOfNotNull("$title. $headline. $lead", "$spokenCoins.", stand).joinToString(" ")
+                    listOfNotNull(
+                        "$title. $headline. $lead",
+                        "$spokenCoins.",
+                        fearGreedText?.takeIf { showFng }?.let { "$it." },
+                        stand,
+                    ).joinToString(" ")
                 )
             }
 
@@ -1023,28 +1199,43 @@ class WidgetUpdater @Inject constructor(
         points.last().time - points.first().time <= DAY_SPAN_MILLIS
 
     /**
-     * Wertverlauf als Bitmap in der Grösse der Bildfläche ([wDp] × [hDp], aus den
-     * Widget-Optionen); ohne Angaben eine feste Grösse.
+     * Wertverlauf als Bitmap in der Grösse der Bildfläche ([wDp] × [hDp], aus
+     * [PortfolioWidgetMath.chartSizeDp]); ohne Angaben eine feste Grösse. Gleiche Punkte,
+     * Farben und Grösse ergeben dasselbe Bild — dann aus [portfolioCharts] statt neu gezeichnet.
      */
     private fun drawPortfolioChart(
+        appWidgetId: Int,
+        slot: Int,
         points: List<PortfolioValuePoint>,
-        colors: WidgetColors,
+        color: Int,
+        baselineColor: Int,
         wDp: Float,
         hDp: Float,
     ): android.graphics.Bitmap {
         val density = context.resources.displayMetrics.density
-        val w = (if (wDp > 0f) wDp else DEFAULT_CHART_WIDTH_DP).coerceAtLeast(60f)
+        val w = (if (wDp > 0f) wDp else DEFAULT_CHART_WIDTH_DP).coerceAtLeast(40f)
         val h = (if (hDp > 0f) hDp else DEFAULT_CHART_HEIGHT_DP).coerceAtLeast(PortfolioWidgetMath.CHART_MIN_HEIGHT_DP)
         var scale = density
         val pixels = w * scale * h * scale
         if (pixels > MAX_CHART_PIXELS) scale *= kotlin.math.sqrt(MAX_CHART_PIXELS / pixels)
-        return WidgetChartRenderer.drawValueLine(
+        val widthPx = (w * scale).toInt()
+        val heightPx = (h * scale).toInt()
+        val key = PortfolioChartKey(points, color, baselineColor, widthPx, heightPx, scale)
+        val cacheId = appWidgetId * MAX_PORTFOLIO_SIZES + slot
+        portfolioCharts.get(cacheId, key)?.let { return it }
+        return WidgetChartRenderer.drawPortfolioArea(
             points = points,
-            colors = colors,
-            widthPx = (w * scale).toInt(),
-            heightPx = (h * scale).toInt(),
+            color = color,
+            baselineColor = baselineColor,
+            widthPx = widthPx,
+            heightPx = heightPx,
             density = scale,
-        )
+        ).also { portfolioCharts.put(cacheId, key, it) }
+    }
+
+    /** Gelöschte Portfolio-Widgets: zwischengespeicherte Charts aller Grössen freigeben. */
+    fun forgetPortfolioWidgets(appWidgetIds: IntArray) {
+        appWidgetIds.forEach { id -> repeat(MAX_PORTFOLIO_SIZES) { portfolioCharts.remove(id * MAX_PORTFOLIO_SIZES + it) } }
     }
 
     /**
@@ -1236,6 +1427,16 @@ class WidgetUpdater @Inject constructor(
         val locale: String,
     )
 
+    /** Wovon das Bild des Portfolio-Wertverlaufs abhängt (siehe [portfolioCharts]). */
+    private data class PortfolioChartKey(
+        val points: List<PortfolioValuePoint>,
+        val color: Int,
+        val baselineColor: Int,
+        val widthPx: Int,
+        val heightPx: Int,
+        val density: Float,
+    )
+
     private companion object {
         /** Bildfläche ohne Widget-Optionen (dp), etwa die bisherige Mindestgrösse. */
         const val DEFAULT_CHART_WIDTH_DP = 160f
@@ -1246,6 +1447,11 @@ class WidgetUpdater @Inject constructor(
         /** Bis zu dieser Spanne heisst der Wertverlauf «24h», darüber «48h». */
         const val DAY_SPAN_MILLIS = 25 * 3_600_000L
         const val USDT = "USDT"
+        /** Höchstens so viele Grössen je Portfolio-Widget (Hoch-/Querformat, Faltgeräte). */
+        const val MAX_PORTFOLIO_SIZES = 4
+        /** Deckkraft von Spur und Füllung des Anteil-Balkens (0–255). */
+        const val SHARE_TRACK_ALPHA = 46
+        const val SHARE_BAR_ALPHA = 170
         const val ACTION_OPEN_PORTFOLIO = "com.cryptochecker.app.action.OPEN_PORTFOLIO"
         const val ACTION_OPEN_MARKET = "com.cryptochecker.app.action.OPEN_MARKET"
         const val ACTION_OPEN_WIDGET = "com.cryptochecker.app.action.OPEN_FROM_WIDGET"

@@ -5,6 +5,17 @@ import SwiftUI
 struct AlarmsOverviewScreen: View {
     @EnvironmentObject private var data: AppData
     @Environment(\.appAccent) private var accent
+    @ObservedObject private var lock = AppLock.shared
+    /// Portfolio-Alarm, der gelöscht werden soll (Rückfrage).
+    @State private var deletePortfolio: PortfolioAlarm?
+
+    /// Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie niemand).
+    private var portfolioAlarms: [PortfolioAlarm] {
+        data.settings.portfolioEnabled ? data.portfolioAlarms : []
+    }
+
+    /// Beträge der Portfolio-Alarme verbergen: «Beträge verbergen» oder Portfolio gesperrt.
+    private var hidePortfolio: Bool { data.settings.hidePortfolioAmounts || lock.locked }
 
     init() {}
 
@@ -32,9 +43,11 @@ struct AlarmsOverviewScreen: View {
 
     var body: some View {
         let groups = self.groups
+        let portfolio = portfolioAlarms
         let active = groups.reduce(0) { sum, g in sum + g.filter(\.alarm.enabled).count }
+            + portfolio.filter(\.enabled).count
         Group {
-            if groups.isEmpty {
+            if groups.isEmpty && portfolio.isEmpty {
                 ScrollView {
                     EmptyStateView(systemImage: "bell.slash", title: L("alarms_overview_empty"))
                         .containerRelativeFrame(.vertical, alignment: .center)
@@ -42,6 +55,10 @@ struct AlarmsOverviewScreen: View {
             } else {
                 ScrollView {
                     LazyVStack(spacing: 12) {
+                        // Alarme «Portfolio-Wert» zuerst, als eigene Karte
+                        if !portfolio.isEmpty {
+                            portfolioCard(portfolio)
+                        }
                         ForEach(groups, id: \.first?.watch.id) { group in
                             if let watch = group.first?.watch {
                                 groupCard(watch: watch, items: group)
@@ -57,6 +74,18 @@ struct AlarmsOverviewScreen: View {
             }
         }
         .background(AppColors.background.ignoresSafeArea())
+        .confirmationDialog(L("alarm_delete_title"), isPresented: Binding(
+            get: { deletePortfolio != nil },
+            set: { if !$0 { deletePortfolio = nil } }
+        ), titleVisibility: .visible, presenting: deletePortfolio) { alarm in
+            Button(L("action_delete"), role: .destructive) {
+                withAnimation(.snappy) { data.deletePortfolioAlarm(alarm.id) }
+                deletePortfolio = nil
+            }
+            Button(L("action_cancel"), role: .cancel) { deletePortfolio = nil }
+        } message: { alarm in
+            Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis, hidden: hidePortfolio))
+        }
         .navigationTitle(L("alarms_overview_title"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -121,7 +150,7 @@ struct AlarmsOverviewScreen: View {
                             withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
                         }
                     )) {
-                        HStack(spacing: 10) {
+                        HStack(spacing: Spacing.sm) {
                             Image(systemName: AlarmStyle.symbol(alarm.condition))
                                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
                                 .foregroundStyle(alarm.enabled ? accent.primary : AppColors.outline)
@@ -142,6 +171,68 @@ struct AlarmsOverviewScreen: View {
                     .tint(accent.primary)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
+                }
+            }
+            .padding(.vertical, 4)
+        }
+        .background(AppColors.container, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(anyActive ? accent.primary.opacity(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
+        )
+    }
+
+    /// Karte «Portfolio»: je Alarm Satz und Schalter (ganze Zeile); Löschen über das Kontextmenü.
+    private func portfolioCard(_ alarms: [PortfolioAlarm]) -> some View {
+        let anyActive = alarms.contains(where: \.enabled)
+        return VStack(spacing: 0) {
+            HStack(spacing: 12) {
+                Image(systemName: "chart.pie")
+                    .scaledFont(size: 17, weight: .semibold, relativeTo: .headline)
+                    .foregroundStyle(accent.primary)
+                    .frame(width: 38, height: 38)
+                    .background(accent.primary.opacity(0.14), in: Circle())
+                    .accessibilityHidden(true)
+                Text(L("portfolio_title"))
+                    .font(.headline)
+                    .foregroundStyle(AppColors.onSurface)
+                    .accessibilityAddTraits(.isHeader)
+                Spacer(minLength: 8)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+
+            RowDivider().padding(.horizontal, 16)
+
+            VStack(spacing: 0) {
+                ForEach(alarms) { alarm in
+                    Toggle(isOn: Binding(
+                        get: { alarm.enabled },
+                        set: { enabled in
+                            WatchlistHaptics.selection()
+                            withAnimation(.snappy) { data.setPortfolioAlarmEnabled(alarm.id, enabled) }
+                        }
+                    )) {
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis, hidden: hidePortfolio))
+                                .font(.subheadline.monospacedDigit())
+                                .foregroundStyle(alarm.enabled ? AppColors.onSurface : AppColors.onSurfaceVariant)
+                            Text(L(alarm.repeating ? "alarm_repeating" : "alarm_once"))
+                                .font(.caption)
+                                .foregroundStyle(AppColors.onSurfaceVariant)
+                        }
+                    }
+                    .tint(accent.primary)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            deletePortfolio = alarm
+                        } label: {
+                            Label(L("action_delete"), systemImage: "trash")
+                        }
+                    }
+                    .accessibilityAction(named: Text(L("action_delete"))) { deletePortfolio = alarm }
                 }
             }
             .padding(.vertical, 4)

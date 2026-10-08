@@ -57,6 +57,11 @@ enum PortfolioLockPolicy {
     /// (der Wert bleibt beim Ausblenden erhalten).
     static func showSetting(portfolioEnabled: Bool) -> Bool { portfolioEnabled }
 
+    /// Fenster schützen, solange die Sperre an ist und Portfolio-Beträge sichtbar sein können
+    /// (Android: FLAG_SECURE). iOS deckt stattdessen die ganze App ab, sobald die Szene nicht
+    /// aktiv ist und die Sperre an ist (`AppLock`, Sichtschutz-Fenster) — einfacher und strenger.
+    static func secureWindow(lockSetting: Bool, portfolioVisible: Bool) -> Bool { lockSetting && portfolioVisible }
+
     /// Portfolio-Widget: ohne App-Sitzung, also gesperrt, solange die Einstellung an ist.
     static func widgetLocked(lockSetting: Bool) -> Bool { lockSetting }
 }

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_market_alerts">Ειδοποιήσεις αγοράς</string>
-    <string name="settings_market_alerts_hint">Φάση αγοράς, Fear &amp; Greed, τέλη gas, ασυνήθιστη δραστηριότητα, οικονομικές ημερομηνίες</string>
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d ενεργό</item>
         <item quantity="other">%1$d ενεργά</item>
     </plurals>
-    <string name="settings_tts_row_hint">Εκφωνεί τιμές και ειδοποιήσεις τιμής</string>
     <string name="settings_summary_on">Ενεργό</string>
 
     <string name="alarm_first_text_checked">Το Crypto Checker παρακολουθεί τώρα το %1$s για εσάς. Όταν το %1$s φτάσει το όριό σας, θα λάβετε ειδοποίηση μόλις η εφαρμογή ελέγξει την τιμή. Με κλειστή την εφαρμογή, αυτό γίνεται στο διάστημα ενημέρωσης στο παρασκήνιο – αργότερα, αν η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή.</string>

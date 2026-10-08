@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Logo für App-Kopfzeile und Widget (light): mittlerer 72er-Ausschnitt des Icons auf rundem Grund. -->
+<!-- Logo für App-Kopfzeile und Widget (light) «Glocke pur»: dunkle volle Glocke mit
+     ausgesparter Kurslinie und Klöppel auf rundem Grund. 72er-Raster. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="72dp" android:height="72dp"
@@ -21,28 +22,8 @@
             </gradient>
         </aapt:attr>
     </path>
-    <group android:translateX="-18" android:translateY="-18">
-        <group android:pivotX="54" android:pivotY="54" android:scaleX="0.82" android:scaleY="0.82" android:translateY="3.0">
-            <path android:pathData="M28,38 A24,24 0 0,0 28,60" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round"/>
-            <path android:pathData="M80,38 A24,24 0 0,1 80,60" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round"/>
-            <path android:pathData="M22,33 A31,31 0 0,0 22,65" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round" android:strokeAlpha="0.5"/>
-            <path android:pathData="M86,33 A31,31 0 0,1 86,65" android:strokeColor="#161616" android:strokeWidth="2.8" android:strokeLineCap="round" android:strokeAlpha="0.5"/>
-            <group android:translateX="54" android:translateY="47" android:scaleX="1.4" android:scaleY="1.4">
-                <path android:pathData="M-6,-14 C-6,-15.5 6,-15.5 6,-14 C10,-12 11,-6 11,0 C11,5 13,8 16,11 L-16,11 C-13,8 -11,5 -11,0 C-11,-6 -10,-12 -6,-14 Z" android:strokeColor="#161616" android:strokeWidth="2.7" android:strokeLineJoin="round"/>
-                <path android:pathData="M-2,-17 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 Z" android:fillColor="#161616"/>
-            </group>
-            <path android:pathData="M45,54 L51,48 L56,52 L63,44" android:strokeColor="#161616" android:strokeWidth="3.6" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-            <path android:pathData="M58,43 L63,44 L63,49" android:strokeColor="#161616" android:strokeWidth="3.6" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-            <path android:pathData="M46.2,72.5 a7.8,7.8 0 1,0 15.6,0 a7.8,7.8 0 1,0 -15.6,0 Z" android:fillColor="#161616"/>
-            <group android:translateX="54" android:translateY="72.5" android:rotation="14" android:scaleX="0.95" android:scaleY="0.95">
-                <path android:pathData="M-2,-4.5 L-2,4.5" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-                <path android:pathData="M-3.4,-4.5 L0.8,-4.5 C3.1,-4.5 3.1,-0.2 0.8,-0.2 L-2,-0.2" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-                <path android:pathData="M-2,-0.2 L1.3,-0.2 C3.9,-0.2 3.9,4.5 1.3,4.5 L-3.4,4.5" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-                <path android:pathData="M-0.9,-4.5 L-0.9,-6.4" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-                <path android:pathData="M0.9,-4.5 L0.9,-6.4" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-                <path android:pathData="M-0.9,4.5 L-0.9,6.4" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-                <path android:pathData="M0.9,4.5 L0.9,6.4" android:strokeColor="#22A96C" android:strokeWidth="1.55" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-            </group>
-        </group>
+    <group android:translateX="0.42" android:translateY="-0.2" android:scaleX="0.06949" android:scaleY="0.06949">
+        <path android:fillType="evenOdd" android:fillColor="#FF161616"
+            android:pathData="M512,190c-150,0 -215,120 -215,270v130l-75,95h580l-75,-95V460c0,-150 -65,-270 -215,-270zM379.8,579.8L452.63,506.97L513.2,552.4A28,28 0 0,0 550.52,549.05L680.52,409.05A28,28 0 0,0 679.05,369.48A28,28 0 0,0 639.48,370.95L526.63,492.48L466.8,447.6A28,28 0 0,0 430.2,450.2L340.2,540.2A28,28 0 0,0 340.2,579.8A28,28 0 0,0 379.8,579.8zM450,790a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z"/>
     </group>
 </vector>

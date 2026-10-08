@@ -7,17 +7,21 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import androidx.core.content.getSystemService
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.alarm.AlarmSignal
 
 object NotificationChannels {
 
     /** Laufende Kursanzeige – lautlos. */
     const val PRICES = "prices"
 
-    /** Ausgelöste Alarme – mit Ton und Vibration. Ab einem eigenen Ton: «alarms_v<n>». */
-    const val ALARMS = "alarms"
+    /**
+     * Ausgelöste Alarme – mit Ton und Vibration. Ab einem eigenen Ton: «alarms_v<n>».
+     * Weitere Alarm-Kanäle je «Alarm-Signal»: siehe [AlarmSignal.channelId].
+     */
+    const val ALARMS = AlarmSignal.SYSTEM_BASE
 
     /** Kanal-ID für eine Version des Alarmtons (0 = ursprünglicher Kanal mit Standardton). */
-    fun alarmsId(version: Int): String = if (version <= 0) ALARMS else "${ALARMS}_v$version"
+    fun alarmsId(version: Int): String = AlarmSignal.channelId(AlarmSignal.SYSTEM, version)
 
     /**
      * Legt den Alarm-Kanal für den gewählten Ton an (falls nötig) und räumt alte
@@ -26,32 +30,52 @@ object NotificationChannels {
      * @param soundUri null = Standard-Mitteilungston
      * @return die Kanal-ID, die für Alarme zu verwenden ist
      */
-    fun ensureAlarmChannel(context: Context, version: Int, soundUri: String?): String {
-        val id = alarmsId(version)
+    fun ensureAlarmChannel(context: Context, version: Int, soundUri: String?): String =
+        ensureAlarmChannel(context, AlarmSignal.SYSTEM, version, soundUri)
+
+    /**
+     * Wie oben, für ein «Alarm-Signal» ([AlarmSignal]): je Signal ein eigener Kanal
+     * (gleiche Wichtigkeit «hoch», damit der Alarm oben erscheint — auch lautlos).
+     * Weggeräumt werden nur alte Ton-Versionen DESSELBEN Signals; die Kanäle der
+     * anderen Signale bleiben, falls man sie in den Systemeinstellungen angepasst hat.
+     */
+    fun ensureAlarmChannel(context: Context, mode: AlarmSignal, version: Int, soundUri: String?): String {
+        val id = AlarmSignal.channelId(mode, version)
         val manager = context.getSystemService<NotificationManager>() ?: return id
-        manager.notificationChannels
-            .filter { (it.id == ALARMS || it.id.startsWith("${ALARMS}_v")) && it.id != id }
-            .forEach { manager.deleteNotificationChannel(it.id) }
+        AlarmSignal.staleChannelIds(manager.notificationChannels.map { it.id }, mode, version)
+            .forEach { manager.deleteNotificationChannel(it) }
         if (manager.getNotificationChannel(id) != null) return id
-        val sound = soundUri?.let { runCatching { android.net.Uri.parse(it) }.getOrNull() }
-            ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val channel = NotificationChannel(
             id,
-            context.getString(R.string.channel_alarms),
+            context.getString(alarmChannelName(mode)),
             NotificationManager.IMPORTANCE_HIGH
         ).apply {
             description = context.getString(R.string.channel_alarms_description)
-            enableVibration(true)
-            setSound(
-                sound,
-                AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-            )
+            enableVibration(mode.vibrate)
+            if (mode.sound) {
+                val sound = soundUri?.let { runCatching { android.net.Uri.parse(it) }.getOrNull() }
+                    ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                setSound(
+                    sound,
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build()
+                )
+            } else {
+                setSound(null, null)
+            }
         }
         manager.createNotificationChannel(channel)
         return id
+    }
+
+    private fun alarmChannelName(mode: AlarmSignal): Int = when (mode) {
+        AlarmSignal.SYSTEM -> R.string.channel_alarms
+        AlarmSignal.SOUND_VIBRATE -> R.string.channel_alarms_sound_vibrate
+        AlarmSignal.SOUND -> R.string.channel_alarms_sound
+        AlarmSignal.VIBRATE -> R.string.channel_alarms_vibrate
+        AlarmSignal.SILENT -> R.string.channel_alarms_silent
     }
 
     /**

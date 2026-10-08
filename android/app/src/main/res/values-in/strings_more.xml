@@ -18,9 +18,9 @@
     <string name="pulse_less">Tampilkan lebih sedikit</string>
     <string name="pulse_updated">Per %1$s</string>
     <string name="pulse_unavailable">Data pasar saat ini tidak tersedia</string>
-    <string name="why_summary_title">Singkatnya</string>
+    <string name="why_summary_title">Kemungkinan penyebab</string>
     <string name="why_summary_market_volume">Pergerakan ini disertai volume perdagangan lebih tinggi dan pasar yang bergerak secara luas.</string>
-    <string name="why_summary_market">Pergerakan ini mengikuti pasar secara keseluruhan.</string>
+    <string name="why_summary_market">Pergerakan ini kemungkinan mengikuti pasar secara keseluruhan.</string>
     <string name="why_summary_coin_volume">Hanya koin ini yang bergerak, dengan volume lebih tinggi – kemungkinan penyebabnya ada pada koin itu sendiri.</string>
     <string name="why_summary_coin">Hanya koin ini yang bergerak – kemungkinan penyebabnya ada pada koin itu sendiri.</string>
     <string name="why_summary_against">Koin ini bergerak berlawanan dengan pasar.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">Pantau – koin, harga, grafik, dan widget Anda</string>
     <string name="welcome_alert">Peringatkan – harga, persen, volume, dan pergerakan tak biasa</string>
     <string name="welcome_understand">Pahami – mengapa pasar bergerak saat ini?</string>
-    <string name="welcome_start">Mulai</string>
     <string name="portfolio_empty_example">Contoh: 0,01 BTC dibeli pada 1 Maret seharga %1$s. Aplikasi lalu menampilkan nilai, harga beli rata-rata, dan untung/rugi – hanya tersimpan di perangkat ini.</string>
     <string name="about_why">Crypto Checker adalah proyek independen dari r1AD: ringkasan harga yang tenang tanpa akun, iklan, atau pelacakan. Pertanyaan dan saran: %1$s</string>
     <string name="a11y_move_up">Pindahkan ke atas</string>
@@ -61,26 +60,8 @@
     <string name="market_data_empty_error">Tidak ada data yang diterima dari bursa.</string>
     <string name="sync_pairs_count">Pasangan perdagangan: %1$d</string>
     <string name="market_unavailable_error">Bursa tidak tersedia</string>
-    <string name="refresh_report_aborted">Pembaruan dibatalkan:</string>
-    <string name="refresh_report_wait">Menunggu hingga mulai: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="other">Total %1$s · %2$d pasangan</item>
-    </plurals>
-    <string name="refresh_report_network">Jaringan %1$s</string>
-    <string name="refresh_report_database">Basis data %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="other">Alarm/notifikasi %1$s · %2$d notifikasi</item>
-    </plurals>
-    <string name="refresh_report_widgets">Widget %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="other">%1$s: %2$d pasangan, %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="other">permintaan massal %1$s (%2$d harga)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">permintaan massal %1$s (gagal)</string>
     <string name="refresh_report_singles">%1$d satu per satu</string>
-    <string name="refresh_report_slowest">paling lambat %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="other">%1$d tidak lagi diperdagangkan</item>
     </plurals>

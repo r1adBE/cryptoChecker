@@ -28,11 +28,15 @@ class MarketRevealTest {
     fun elevenSlotsInTabOrder() {
         assertEquals(11, n)
         assertEquals(0, MarketRevealSlot.PULSE.ordinal)
-        // «Heute auffällig» direkt unter dem Pulse, vor Fear & Greed
+        // «Heute auffällig» direkt unter dem Pulse; danach «Einordnung» mit Fear & Greed zuerst
         assertEquals(1, MarketRevealSlot.UNUSUAL.ordinal)
-        assertEquals(2, MarketRevealSlot.FEAR_GREED.ordinal)
-        assertEquals(4, MarketRevealSlot.HEADER_CONTEXT.ordinal)
-        assertEquals(10, MarketRevealSlot.GAS.ordinal)
+        assertEquals(2, MarketRevealSlot.HEADER_CONTEXT.ordinal)
+        assertEquals(3, MarketRevealSlot.FEAR_GREED.ordinal)
+        // «Krypto-Markt», Gas und Coin unter «Daten»
+        assertEquals(7, MarketRevealSlot.HEADER_DATA.ordinal)
+        assertEquals(8, MarketRevealSlot.MARKET_TOTALS.ordinal)
+        assertEquals(9, MarketRevealSlot.GAS.ordinal)
+        assertEquals(10, MarketRevealSlot.COIN.ordinal)
     }
 
     @Test
@@ -66,24 +70,24 @@ class MarketRevealTest {
 
     @Test
     fun cardWaitsForPreviousEvenIfReadyEarlier() {
-        // Gas ist sofort da, Pulse erst nach 300 ms: Gas kommt trotzdem zuletzt
+        // Coin ist sofort da, Pulse erst nach 300 ms: Coin kommt trotzdem zuletzt
         val ready = MutableList<Long?>(n) { start + 300 }
-        ready[MarketRevealSlot.GAS.ordinal] = start + 1
+        ready[MarketRevealSlot.COIN.ordinal] = start + 1
         val times = revealTimes(ready)
         assertEquals(start + 300, times[0])
-        assertEquals(start + 300 + 10 * STAGGER_MILLIS, times[MarketRevealSlot.GAS.ordinal])
+        assertEquals(start + 300 + 10 * STAGGER_MILLIS, times[MarketRevealSlot.COIN.ordinal])
     }
 
     @Test
     fun slowSourceDoesNotBlockTheRest() {
-        // Marktphase kommt nie: erscheint 1,5 s nach dem Abschnittstitel als Platzhalter
+        // Marktphase kommt nie: erscheint 1,5 s nach Fear & Greed (Zeile darüber) als Platzhalter
         val ready = MutableList<Long?>(n) { start + 10 }
         ready[MarketRevealSlot.PHASE.ordinal] = null
         val times = revealTimes(ready)
-        val header = times[MarketRevealSlot.HEADER_CONTEXT.ordinal]
-        assertEquals(header + WAIT_MILLIS, times[MarketRevealSlot.PHASE.ordinal])
+        val above = times[MarketRevealSlot.FEAR_GREED.ordinal]
+        assertEquals(above + WAIT_MILLIS, times[MarketRevealSlot.PHASE.ordinal])
         assertEquals(
-            header + WAIT_MILLIS + STAGGER_MILLIS,
+            above + WAIT_MILLIS + STAGGER_MILLIS,
             times[MarketRevealSlot.DOMINANCE.ordinal]
         )
         assertEquals(n, times.size)
@@ -93,21 +97,24 @@ class MarketRevealTest {
     fun lateDataAfterDeadline_countsAsTimeout() {
         val ready = MutableList<Long?>(n) { start }
         ready[MarketRevealSlot.FEAR_GREED.ordinal] = start + 5_000
-        // Pulse und «Heute auffällig» sofort, Fear & Greed nach 1,5 s als Platzhalter — nicht erst nach 5 s
+        // Pulse, «Heute auffällig» und «Einordnung» sofort, Fear & Greed nach 1,5 s als
+        // Platzhalter — nicht erst nach 5 s
         val plan = MarketReveal.plan(ready, start, start + WAIT_MILLIS)
-        assertEquals(3, plan.revealed)
-        assertEquals(2, MarketReveal.instantCount(ready, start))
+        assertEquals(4, plan.revealed)
+        assertEquals(3, MarketReveal.instantCount(ready, start))
     }
 
     @Test
     fun slowUnusualCard_doesNotHoldBackFearGreed() {
-        // «Heute auffällig» kommt nie: Platzhalter 1,5 s nach dem Pulse, Fear & Greed 60 ms danach
+        // «Heute auffällig» kommt nie: Platzhalter 1,5 s nach dem Pulse, «Einordnung» 60 ms
+        // danach, Fear & Greed weitere 60 ms später
         val ready = MutableList<Long?>(n) { start + 10 }
         ready[MarketRevealSlot.UNUSUAL.ordinal] = null
         val times = revealTimes(ready)
         val pulse = times[MarketRevealSlot.PULSE.ordinal]
         assertEquals(pulse + WAIT_MILLIS, times[MarketRevealSlot.UNUSUAL.ordinal])
-        assertEquals(pulse + WAIT_MILLIS + STAGGER_MILLIS, times[MarketRevealSlot.FEAR_GREED.ordinal])
+        assertEquals(pulse + WAIT_MILLIS + STAGGER_MILLIS, times[MarketRevealSlot.HEADER_CONTEXT.ordinal])
+        assertEquals(pulse + WAIT_MILLIS + 2 * STAGGER_MILLIS, times[MarketRevealSlot.FEAR_GREED.ordinal])
     }
 
     @Test

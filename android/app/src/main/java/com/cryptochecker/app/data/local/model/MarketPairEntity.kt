@@ -30,4 +30,8 @@ data class MarketPairEntity(
 
     @ColumnInfo
     val marketPairId: String?,
+
+    /** Kein Krypto-Token (Aktie, Rohstoff, Devisen, Pre-IPO); seit MIGRATION_11_12. */
+    @ColumnInfo(defaultValue = "0")
+    val tradFi: Boolean = false,
 )

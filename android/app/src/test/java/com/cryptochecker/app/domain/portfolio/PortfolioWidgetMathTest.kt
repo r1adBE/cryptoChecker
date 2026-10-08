@@ -16,16 +16,23 @@ class PortfolioWidgetMathTest {
     fun sizeBuckets() {
         // Unbekannt und flach: klein
         assertEquals(PortfolioWidgetSize.SMALL, PortfolioWidgetMath.size(0, 0))
-        assertEquals(PortfolioWidgetSize.SMALL, PortfolioWidgetMath.size(180, 109))
-        // 2 × 2 (z. B. 150 × 160 dp): mittel
-        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(150, 110))
-        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(150, 220))
-        // Breit genug und 180 hoch: gross; schmal braucht 250 Höhe
-        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(249, 200))
-        assertEquals(PortfolioWidgetSize.LARGE, PortfolioWidgetMath.size(250, 180))
-        // Schmal und hoch bleibt mittel (Liste hätte keinen Platz in der Breite)
-        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(150, 250))
-        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(180, 400))
+        assertEquals(PortfolioWidgetSize.SMALL, PortfolioWidgetMath.size(150, 110))
+        assertEquals(PortfolioWidgetSize.SMALL, PortfolioWidgetMath.size(300, 80))
+        // Schmal und hoch (2 × 3): Wertverlauf unter den Werten
+        assertEquals(PortfolioWidgetSize.TALL, PortfolioWidgetMath.size(150, 260))
+        assertEquals(PortfolioWidgetSize.TALL, PortfolioWidgetMath.size(249, 400))
+        // Breit (4 × 2): nebeneinander
+        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(300, 110))
+        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(250, 180))
+        // Breit und hoch: gross
+        assertEquals(PortfolioWidgetSize.LARGE, PortfolioWidgetMath.size(300, 260))
+        // Grosse Schrift braucht mehr Höhe für dieselbe Stufe
+        assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(300, 250, 1.3f))
+        // Schwellen genau
+        val tall = PortfolioWidgetMath.baseHeightDp(1f) + PortfolioWidgetMath.changeLineHeightDp(1f) +
+            PortfolioWidgetMath.footerHeightDp(1f) + PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 6f
+        assertEquals(PortfolioWidgetSize.TALL, PortfolioWidgetMath.size(150, kotlin.math.ceil(tall).toInt()))
+        assertEquals(PortfolioWidgetSize.SMALL, PortfolioWidgetMath.size(150, kotlin.math.floor(tall).toInt() - 1))
     }
 
     @Test
@@ -106,109 +113,80 @@ class PortfolioWidgetMathTest {
         assertEquals(PositionRows(emptyList(), 0), PortfolioWidgetMath.rows(TopPositions(positions(2), 0), 0))
     }
 
-    /** Höhe der gezeigten Teile ohne Wertverlauf und Liste. */
-    private fun fixed(p: PortfolioWidgetParts, fs: Float): Float =
-        PortfolioWidgetMath.baseHeightDp(fs) +
-            (if (p.today) PortfolioWidgetMath.todayHeightDp(fs) else 0f) +
-            (if (p.usdt) PortfolioWidgetMath.usdtHeightDp(fs) else 0f) +
-            (if (p.time) PortfolioWidgetMath.timeHeightDp(fs) else 0f)
-
     @Test
-    fun listLinesGrowWithHeight() {
-        fun lines(h: Int, fs: Float = 1f) = PortfolioWidgetMath.parts(h, fs, true, true, true, list = true).listLines
-        assertEquals(0, lines(0))
-        assertEquals(0, lines(150))
-        assertEquals(PortfolioWidgetMath.MAX_POSITIONS + 1, lines(400))
-        val mid = lines(250)
-        assertTrue(mid in 1..PortfolioWidgetMath.MAX_POSITIONS)
-        // Grosse Schrift: weniger Zeilen
-        assertTrue(lines(250, 1.3f) <= mid)
-        // Ohne Liste (klein/mittel) keine Zeilen
-        assertEquals(0, PortfolioWidgetMath.parts(400, 1f, true, true, true, list = false).listLines)
-    }
-
-    @Test
-    fun partsFollowPriorityAndNeverOverflow() {
-        // Unbekannte Höhe: alles Gewünschte, keine Liste
-        assertEquals(PortfolioWidgetParts(true, true, true, true, 0), PortfolioWidgetMath.parts(0, 1f, true, true, true, true))
-        // Nicht gewünscht = nie gezeigt
-        val none = PortfolioWidgetMath.parts(500, 1f, today = false, usdt = false, chart = false, list = false)
-        assertEquals(PortfolioWidgetParts(false, false, false, true, 0), none)
-        // Reichlich Platz: alles
-        assertEquals(PortfolioWidgetParts(true, true, true, true, 0), PortfolioWidgetMath.parts(300, 1f, true, true, true, false))
-        for (fs in listOf(0.85f, 1f, 1.3f, 2f)) {
-            var previous: PortfolioWidgetParts? = null
-            for (h in 60..400) {
-                val p = PortfolioWidgetMath.parts(h, fs, true, true, true, true)
-                // Was gezeigt wird, passt immer (Wertverlauf mit Mindesthöhe, Liste mit ihren Zeilen)
-                val chart = if (p.chart) PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 6f else 0f
-                val list = if (p.listLines > 0) 4f + p.listLines * PortfolioWidgetMath.rowHeightDp(fs) else 0f
-                if (h >= PortfolioWidgetMath.baseHeightDp(fs)) assertTrue("h=$h fs=$fs", fixed(p, fs) + chart + list <= h)
-                // Gesamtwert, «heute» und ≈ USDT zuerst: gezeigt, sobald zusammen genug Höhe da ist
-                if (h >= PortfolioWidgetMath.baseHeightDp(fs) + PortfolioWidgetMath.todayHeightDp(fs) + 0.01f) assertTrue(p.today)
-                // Mehr Höhe nimmt «heute» nie weg (kleinere Teile dürfen höheren Platz machen)
-                previous?.let { q -> assertTrue(!q.today || p.today) }
-                previous = p
+    fun layoutFollowsPriorityAndNeverOverflows() {
+        // Unbekannte Höhe: alles Gewünschte
+        assertEquals(
+            PortfolioWidgetLayout(PortfolioWidgetSize.SMALL, true, true, true, 0),
+            PortfolioWidgetMath.layout(0, 0, 1f, hasChange = true, wantUsdt = true, positions = 5),
+        )
+        // Nicht gewünscht oder unbekannt = nie gezeigt
+        val none = PortfolioWidgetMath.layout(150, 400, 1f, hasChange = false, wantUsdt = false, positions = 5)
+        assertFalse(none.changeLine)
+        assertFalse(none.usdt)
+        assertTrue(none.footer)
+        // Gross: höchstens drei Zeilen, weniger bei weniger Positionen
+        assertEquals(3, PortfolioWidgetMath.layout(320, 400, 1f, true, true, 5).rows)
+        assertEquals(2, PortfolioWidgetMath.layout(320, 400, 1f, true, true, 2).rows)
+        assertEquals(0, PortfolioWidgetMath.layout(320, 140, 1f, true, true, 5).rows)
+        // Vorrang Betrag > Fusszeile > ≈ USDT, und was gezeigt wird, passt
+        for (fs in listOf(1f, 1.3f)) {
+            for (h in 60..420 step 3) {
+                for (w in listOf(150, 320)) {
+                    val l = PortfolioWidgetMath.layout(w, h, fs, hasChange = true, wantUsdt = true, positions = 5)
+                    if (l.usdt) assertTrue(l.footer)
+                    if (l.footer) assertTrue(l.changeLine)
+                    val column = l.size == PortfolioWidgetSize.TALL || l.size == PortfolioWidgetSize.LARGE
+                    val used = PortfolioWidgetMath.baseHeightDp(fs) +
+                        (if (l.changeLine) PortfolioWidgetMath.changeLineHeightDp(fs) else 0f) +
+                        (if (l.usdt) PortfolioWidgetMath.usdtHeightDp(fs) else 0f) +
+                        (if (l.footer) PortfolioWidgetMath.footerHeightDp(fs) else 0f) +
+                        PortfolioWidgetMath.rowsHeightDp(fs, l.rows) +
+                        (if (column) PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 6f else 0f)
+                    if (l.changeLine) assertTrue("h=$h w=$w fs=$fs", used <= h + 0.01f)
+                }
             }
         }
     }
 
     @Test
-    fun partsDropLowerPriorityFirst() {
-        val fs = 1f
-        val base = PortfolioWidgetMath.baseHeightDp(fs)
-        val today = PortfolioWidgetMath.todayHeightDp(fs)
-        val usdt = PortfolioWidgetMath.usdtHeightDp(fs)
-        // Nur Platz für «heute»: ≈ USDT, Verlauf, Uhrzeit entfallen
-        val p1 = PortfolioWidgetMath.parts(kotlin.math.ceil(base + today).toInt(), fs, true, true, true, false)
-        assertEquals(PortfolioWidgetParts(true, false, false, false, 0), p1)
-        // Ohne «heute» (keine Basis) rückt ≈ USDT nach
-        val p2 = PortfolioWidgetMath.parts(kotlin.math.ceil(base + usdt).toInt(), fs, false, true, true, false)
-        assertEquals(PortfolioWidgetParts(false, true, false, false, 0), p2)
-        // Zu niedrig für den Wertverlauf, aber Platz für die Uhrzeit: Uhrzeit ohne Verlauf
-        val time = PortfolioWidgetMath.timeHeightDp(fs)
-        val p3 = PortfolioWidgetMath.parts((base + today + usdt + time + 1f).toInt(), fs, true, true, true, false)
-        assertEquals(PortfolioWidgetParts(true, true, false, true, 0), p3)
+    fun chartAreaPerSize() {
+        val small = PortfolioWidgetMath.layout(150, 100, 1f, true, true, 3)
+        assertEquals(0f to 0f, PortfolioWidgetMath.chartSizeDp(small, 150, 100, 1f))
+        // Mittel: rechte Hälfte unter der Kopfzeile
+        val medium = PortfolioWidgetMath.layout(300, 140, 1f, true, true, 3)
+        assertEquals(PortfolioWidgetSize.MEDIUM, medium.size)
+        val (mw, mh) = PortfolioWidgetMath.chartSizeDp(medium, 300, 140, 1f)
+        assertEquals((300f - 24f - 12f) / 2f, mw, 0.01f)
+        assertEquals(140f - 24f - PortfolioWidgetMath.headerHeightDp(1f) - 4f, mh, 0.01f)
+        // Schmal-hoch: volle Breite, mindestens die Mindesthöhe, wächst mit der Höhe
+        val t1 = PortfolioWidgetMath.layout(150, 220, 1f, true, true, 3)
+        val t2 = PortfolioWidgetMath.layout(150, 320, 1f, true, true, 3)
+        val h1 = PortfolioWidgetMath.chartSizeDp(t1, 150, 220, 1f).second
+        val h2 = PortfolioWidgetMath.chartSizeDp(t2, 150, 320, 1f).second
+        assertTrue(h1 >= PortfolioWidgetMath.CHART_MIN_HEIGHT_DP)
+        assertEquals(100f, h2 - h1, 0.01f)
+        assertEquals(126f, PortfolioWidgetMath.chartSizeDp(t1, 150, 220, 1f).first, 0.01f)
     }
 
     @Test
-    fun compactSmallFitsTotalAndUsdtAt92dp() {
-        // Klein mit bekannter Höhe: kompakt; mittel, gross und unbekannt nicht
-        assertTrue(PortfolioWidgetMath.isCompact(PortfolioWidgetSize.SMALL, 92))
-        assertFalse(PortfolioWidgetMath.isCompact(PortfolioWidgetSize.SMALL, 0))
-        assertFalse(PortfolioWidgetMath.isCompact(PortfolioWidgetSize.MEDIUM, 160))
-        // 2 × 1 (152 × 92 dp): bisher fiel ≈ USDT weg, kompakt passt es (auch mit grösserer Schrift)
-        assertFalse(PortfolioWidgetMath.parts(92, 1f, false, usdt = true, chart = false, list = false).usdt)
-        for (fs in listOf(0.85f, 1f, 1.15f)) {
-            val p = PortfolioWidgetMath.parts(92, fs, false, usdt = true, chart = false, list = false, compact = true)
-            assertTrue("fs=$fs", p.usdt)
-            val used = PortfolioWidgetMath.compactBaseHeightDp(fs) + PortfolioWidgetMath.usdtHeightDp(fs) +
-                (if (p.time) PortfolioWidgetMath.timeHeightDp(fs) else 0f)
-            assertTrue("fs=$fs", used <= 92f)
-        }
-        // Ausgeschaltet bleibt es weg; mehr Höhe bringt die Uhrzeit dazu
-        assertFalse(PortfolioWidgetMath.parts(92, 1f, false, usdt = false, chart = false, list = false, compact = true).usdt)
-        assertTrue(PortfolioWidgetMath.parts(105, 1f, false, usdt = true, chart = false, list = false, compact = true).time)
-        assertTrue(PortfolioWidgetMath.compactBaseHeightDp(1f) < PortfolioWidgetMath.baseHeightDp(1f))
+    fun titleOnlyWhenItFitsBesideThePill() {
+        assertTrue(PortfolioWidgetMath.showsTitle(150, 60f, null))
+        assertTrue(PortfolioWidgetMath.showsTitle(0, 60f, 50f))
+        assertTrue(PortfolioWidgetMath.showsTitle(300, 60f, 50f))
+        // 60 + 50 + 66 fest + 2 Reserve = 178
+        assertTrue(PortfolioWidgetMath.showsTitle(178, 60f, 50f))
+        assertFalse(PortfolioWidgetMath.showsTitle(177, 60f, 50f))
     }
 
     @Test
-    fun todayTextWidth() {
-        // 2 × 2 (152 dp): Rand 24, Innenrand der Pille 14
-        assertEquals(114f, PortfolioWidgetMath.todayTextWidthDp(152)!!, 0.001f)
-        assertNull(PortfolioWidgetMath.todayTextWidthDp(0))
-    }
-
-    @Test
-    fun chartHeightTakesTheRest() {
-        val fs = 1f
-        val p = PortfolioWidgetMath.parts(300, fs, true, true, true, list = true)
-        val h0 = PortfolioWidgetMath.chartHeightDp(300, fs, p, 0)
-        val h2 = PortfolioWidgetMath.chartHeightDp(300, fs, p, 2)
-        assertTrue(h0 > h2)
-        assertEquals(2 * PortfolioWidgetMath.rowHeightDp(fs) + 4f, h0 - h2, 0.001f)
-        assertTrue(PortfolioWidgetMath.chartHeightDp(300, fs, p, p.listLines) >= PortfolioWidgetMath.CHART_MIN_HEIGHT_DP)
-        assertEquals(0f, PortfolioWidgetMath.chartHeightDp(0, fs, p, 0), 0f)
+    fun valueYMatchesLineScale() {
+        val points = listOf(PortfolioValuePoint(0L, 10.0), PortfolioValuePoint(10L, 20.0))
+        assertEquals(45f, PortfolioWidgetMath.valueY(points, 10.0, 50f, 5f)!!, 1e-4f)
+        assertEquals(25f, PortfolioWidgetMath.valueY(points, 15.0, 50f, 5f)!!, 1e-4f)
+        // Ausserhalb geklemmt; ohne Linie nichts
+        assertEquals(5f, PortfolioWidgetMath.valueY(points, 99.0, 50f, 5f)!!, 1e-4f)
+        assertNull(PortfolioWidgetMath.valueY(points.take(1), 10.0, 50f, 5f))
     }
 
     @Test

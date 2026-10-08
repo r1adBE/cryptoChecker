@@ -18,9 +18,9 @@
     <string name="pulse_less">عرض أقل</string>
     <string name="pulse_updated">حتى %1$s</string>
     <string name="pulse_unavailable">بيانات السوق غير متاحة حاليًا</string>
-    <string name="why_summary_title">باختصار</string>
+    <string name="why_summary_title">أسباب محتملة</string>
     <string name="why_summary_market_volume">تترافق الحركة مع حجم تداول أعلى وسوق يتحرك على نطاق واسع.</string>
-    <string name="why_summary_market">الحركة تتبع السوق ككل.</string>
+    <string name="why_summary_market">يُرجَّح أن الحركة تتبع السوق ككل.</string>
     <string name="why_summary_coin_volume">هذه العملة وحدها تتحرك، بحجم أعلى – على الأرجح لسبب خاص بالعملة نفسها.</string>
     <string name="why_summary_coin">هذه العملة وحدها تتحرك – على الأرجح لسبب خاص بالعملة نفسها.</string>
     <string name="why_summary_against">العملة تتحرك عكس السوق.</string>
@@ -42,7 +42,6 @@
     <string name="welcome_watch">راقب – عملاتك والأسعار والرسوم البيانية والأدوات</string>
     <string name="welcome_alert">نبّه – السعر والنسبة المئوية والحجم والحركات غير العادية</string>
     <string name="welcome_understand">افهم – لماذا يتحرك السوق الآن؟</string>
-    <string name="welcome_start">ابدأ الآن</string>
     <string name="portfolio_empty_example">مثال: 0.01 BTC اشتُريت في 1 مارس بسعر %1$s. يعرض التطبيق بعدها القيمة ومتوسط سعر الشراء والربح/الخسارة – محفوظة على هذا الجهاز فقط.</string>
     <string name="about_why">Crypto Checker مشروع مستقل من r1AD: نظرة هادئة على الأسعار دون حساب أو إعلانات أو تتبع. للأسئلة والاقتراحات: %1$s</string>
     <string name="a11y_move_up">نقل لأعلى</string>
@@ -61,46 +60,8 @@
     <string name="market_data_empty_error">لم تُستلم أي بيانات من المنصة.</string>
     <string name="sync_pairs_count">أزواج التداول: %1$d</string>
     <string name="market_unavailable_error">المنصة غير متاحة</string>
-    <string name="refresh_report_aborted">أُلغي التحديث:</string>
-    <string name="refresh_report_wait">الانتظار حتى البدء: %1$s</string>
-    <plurals name="refresh_report_total">
-        <item quantity="zero">الإجمالي %1$s · الأزواج: %2$d</item>
-        <item quantity="one">الإجمالي %1$s · الأزواج: %2$d</item>
-        <item quantity="two">الإجمالي %1$s · الأزواج: %2$d</item>
-        <item quantity="few">الإجمالي %1$s · الأزواج: %2$d</item>
-        <item quantity="many">الإجمالي %1$s · الأزواج: %2$d</item>
-        <item quantity="other">الإجمالي %1$s · الأزواج: %2$d</item>
-    </plurals>
-    <string name="refresh_report_network">الشبكة %1$s</string>
-    <string name="refresh_report_database">قاعدة البيانات %1$s</string>
-    <plurals name="refresh_report_effects">
-        <item quantity="zero">التنبيهات/الإشعارات %1$s · الإشعارات: %2$d</item>
-        <item quantity="one">التنبيهات/الإشعارات %1$s · الإشعارات: %2$d</item>
-        <item quantity="two">التنبيهات/الإشعارات %1$s · الإشعارات: %2$d</item>
-        <item quantity="few">التنبيهات/الإشعارات %1$s · الإشعارات: %2$d</item>
-        <item quantity="many">التنبيهات/الإشعارات %1$s · الإشعارات: %2$d</item>
-        <item quantity="other">التنبيهات/الإشعارات %1$s · الإشعارات: %2$d</item>
-    </plurals>
-    <string name="refresh_report_widgets">الأدوات %1$s</string>
-    <plurals name="refresh_report_market">
-        <item quantity="zero">%1$s: الأزواج: %2$d، %3$s</item>
-        <item quantity="one">%1$s: الأزواج: %2$d، %3$s</item>
-        <item quantity="two">%1$s: الأزواج: %2$d، %3$s</item>
-        <item quantity="few">%1$s: الأزواج: %2$d، %3$s</item>
-        <item quantity="many">%1$s: الأزواج: %2$d، %3$s</item>
-        <item quantity="other">%1$s: الأزواج: %2$d، %3$s</item>
-    </plurals>
-    <plurals name="refresh_report_bulk_ok">
-        <item quantity="zero">طلب مجمّع %1$s (الأسعار: %2$d)</item>
-        <item quantity="one">طلب مجمّع %1$s (الأسعار: %2$d)</item>
-        <item quantity="two">طلب مجمّع %1$s (الأسعار: %2$d)</item>
-        <item quantity="few">طلب مجمّع %1$s (الأسعار: %2$d)</item>
-        <item quantity="many">طلب مجمّع %1$s (الأسعار: %2$d)</item>
-        <item quantity="other">طلب مجمّع %1$s (الأسعار: %2$d)</item>
-    </plurals>
     <string name="refresh_report_bulk_failed">طلب مجمّع %1$s (فشل)</string>
     <string name="refresh_report_singles">فرديًا: %1$d</string>
-    <string name="refresh_report_slowest">الأبطأ %1$s %2$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="zero">لم تعد متداولة: %1$d</item>
         <item quantity="one">لم تعد متداولة: %1$d</item>

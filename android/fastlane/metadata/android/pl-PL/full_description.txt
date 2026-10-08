@@ -1,9 +1,9 @@
-Miej kursy kryptowalut na oku bez ciągłego otwierania aplikacji giełd. Ustawiaj alarmy, zauważaj nietypowe ruchy i w kilka sekund zrozum, dlaczego dana moneta się rusza.
+Crypto Checker wyjaśnia, co dzieje się na rynku. Ustawiaj alarmy, zauważaj nietypowe ruchy i w kilka sekund zrozum, dlaczego dana moneta się rusza – bez prognoz.
 
-Obserwuj – kursy prosto z giełdy, w twojej walucie
-Alarmuj – kurs, %, ruchy i wolumen, jako proste zdanie
 Zrozum – „Dlaczego to się rusza?” z krótkim podsumowaniem
 Przegląd – Crypto Pulse, Fear & Greed, cykl i portfel
+Obserwuj – kursy prosto z giełdy, w twojej walucie
+Alarmuj – kurs, %, ruchy i wolumen, jako proste zdanie
 
 Czytelne dla wszystkich: kolory kursów zielony/czerwony lub niebieski/pomarańczowy, do zamiany, wysoki kontrast, znak i strzałka zamiast samego koloru, TalkBack czyta każdy wiersz jako zdanie.
 
@@ -46,7 +46,7 @@ PRZEGLĄD RYNKU
 WIDŻETY I POWIADOMIENIA
 • Widżety: cała lista, wartość portfela ze zmianą dzisiaj, jedna moneta w dużym formacie z wykresem – świece lub linia, ze znacznikami maksimum, środka i minimum
 • Ciche powiadomienie o cenie dla każdej pary
-• Tryb na żywo z aktualizacją co 15 sekund, w tle od 15 minut
+• Częste odświeżanie co 15 sekund, w tle od 15 minut
 
 DODATKOWO
 • Komunikaty głosowe: odczytywanie cen i alarmów

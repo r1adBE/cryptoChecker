@@ -4,7 +4,6 @@
     <string name="widget_outdated_time">verouderd · %1$s</string>
 
     <string name="settings_widgets">Widgets</string>
-    <string name="settings_widgets_hint">Zet koersen op je beginscherm</string>
     <string name="widgets_sheet_title">Widget toevoegen</string>
     <string name="widget_kind_single">Eén munt</string>
     <string name="widgets_add">Toevoegen</string>

@@ -1,9 +1,9 @@
-Mějte ceny svých kryptoměn pod dohledem, aniž byste stále otevírali aplikace burz. Nastavte alarmy, odhalte neobvyklé pohyby a během pár sekund pochopte, proč se mince hýbe.
+Crypto Checker vám vysvětlí, co se děje na trhu. Nastavte alarmy, odhalte neobvyklé pohyby a během pár sekund pochopte, proč se mince hýbe – bez prognózy.
 
-Sledovat – ceny přímo z burzy, ve vaší měně
-Upozornit – cena, %, pohyby a objem, jako jedna věta
 Pochopit – „Proč se to hýbe?“ s krátkým shrnutím
 Přehled – Crypto Pulse, Fear & Greed, cyklus a portfolio
+Sledovat – ceny přímo z burzy, ve vaší měně
+Upozornit – cena, %, pohyby a objem, jako jedna věta
 
 Čitelné pro všechny: barvy kurzů zelená/červená nebo modrá/oranžová, na přání prohozené, vysoký kontrast, znaménko a šipka místo pouhé barvy, VoiceOver čte každý řádek jako větu.
 
@@ -51,7 +51,7 @@ WIDGETY NA PLOCHU A ZAMČENOU OBRAZOVKU
 • Živá aktivita na zamčené obrazovce: cena mince na první pohled
 
 DALŠÍ FUNKCE
-• Živý režim s krátkými intervaly, dokud je aplikace otevřená; aktualizace na pozadí plánuje iOS
+• Časté obnovování, dokud je aplikace otevřená; aktualizace na pozadí plánuje iOS
 • Hlasové čtení cen a alarmů
 • Záloha a obnovení přes aplikaci Soubory
 • Rychlé akce na ikoně aplikace, světlý a tmavý režim

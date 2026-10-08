@@ -28,6 +28,9 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 9. [Tests and checks](#9-tests-and-checks)
 10. [Advanced cases](#10-advanced-cases)
 11. [24 h change](#11-24-h-change)
+12. [Running the tests](#12-running-the-tests)
+13. [Market tab caching](#13-market-tab-caching)
+14. [Live prices (WebSocket)](#14-live-prices-websocket)
 
 ## 1. Structure
 
@@ -197,6 +200,11 @@ override fun parseBulkTickers(requestId: Int, responseString: String, tickers: M
   tradable pair (then a missing pair is treated as no longer traded).
 * If the exchange can filter the bulk request by pair ids, override
   `getBulkTickersUrl(requestId, pairIds)` to download only what is needed.
+  For a comma list in the URL (Kraken `?pair=`, Bitfinex `?symbols=`) use
+  `BulkPairChunks` and override `bulkTickersRequestCount(pairIds)` as well, so
+  long lists are split into several requests with URLs under 2000 characters.
+  If a filtered request fails (rejected or unreadable), the app loads the
+  unfiltered one once instead.
 
 ## 7. Errors
 
@@ -246,7 +254,7 @@ The **key** identifies the exchange in saved watchlists, alarms and backups:
   * single ticker and bulk ticker return the same price for a few pairs;
   * a pair that does not exist produces a readable error, not a crash.
 * No API keys, tokens or personal data in code, tests or sample responses.
-* Run the unit tests: `cd android && ./gradlew test` (Windows: `gradlew.bat test`).
+* Run the unit tests on both platforms – see [Running the tests](#12-running-the-tests).
 
 ## 10. Advanced cases
 
@@ -305,7 +313,7 @@ Rules:
 | Bitvavo | `open` (`/ticker/24h`) | price 24 h ago |
 | BtcTurk | `open`, else `dailyPercent` | price 24 h ago / percent |
 | Bybit, Bybit Futures | `price24hPcnt` | fraction × 100 |
-| Coinbase | `open` from `/stats` (request 2), against `last` of `/ticker` | price 24 h ago |
+| Coinbase | `open` from `/stats` (the only request), against `last` of the same response | price 24 h ago |
 | Crypto.com | `c` | fraction × 100; `null` without trades |
 | Deribit | `stats.price_change` (single), `price_change` (bulk) | percent |
 | DexScreener | `priceChange.h24` | percent |
@@ -334,3 +342,161 @@ Rules:
 Unit-check a new field with a sample response from the documentation: a value
 of `0.0123` can be 1.23 % (fraction) or 0.0123 % (percent) – compare it with
 `last` and the 24 h open or high/low to be sure.
+
+## 12. Running the tests
+
+**Android unit tests** (JVM, no device; also run by the *Android* workflow on every push):
+
+```sh
+cd android
+./gradlew testDebugUnitTest        # or: ./gradlew test (debug + release, all modules)
+```
+
+Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
+
+**Shared test cases (parity).** `android/testdata/parity/*.json` hold input → expected
+result for alarms (crossing, re-arm, cooldown, volume spike), threshold parsing, the basis
+of the % change (including daylight-saving days), «no longer traded» and the 24 h change
+selection. Both platforms read the same files:
+
+* Android: `ParityFixturesTest` (part of `testDebugUnitTest`; finds the folder from the
+  module or the project directory).
+* iOS: `ParityFixtureTests`; `ios/tools/gen_xcodeproj.py` copies the files to
+  `ios/Tests/Parity/` and bundles them with the test target.
+
+Change a rule → change the JSON once, then run both test suites. Numbers JSON cannot hold
+are written as `"NaN"`, `"Infinity"`, `"-Infinity"`; `null` means «no value».
+
+**iOS unit tests** (target `CryptoCheckerTests`, hosted by the app, `@testable import
+CryptoChecker`):
+
+```sh
+cd ios
+python3 tools/gen_xcodeproj.py     # after adding/removing Swift files or changing the JSON cases
+xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
+  -destination 'platform=iOS Simulator,name=iPhone 16'
+```
+
+In Xcode: scheme *CryptoChecker* → Product › Test (⌘U). The *iOS* workflow (started by
+hand under Actions) builds the app and runs the same tests in the Simulator.
+
+**Android instrumented test** (`app/src/androidTest`, `CoreFlowTest`): starter selection →
+add BTC → price alarm → new price → alarm and notification → swipe to delete → Undo →
+portfolio lock shows the locked state. Hilt replaces the network client with fixed prices
+(`FakeRemoteDataModule`), so no exchange is called. Needs an emulator or a device:
+
+```sh
+cd android
+./gradlew :app:connectedDebugAndroidTest
+```
+
+The portfolio-lock test sets a temporary screen-lock PIN through `locksettings` (removed
+afterwards) and is skipped where that is not possible. CI only compiles the instrumented
+tests (`assembleDebugAndroidTest`); running them on an emulator in GitHub Actions is
+possible but slow and not set up.
+
+## 13. Market tab caching
+
+Every area of the Market tab is stored on the device with a timestamp (Android
+`CycleCacheStore`, iOS `CycleCache`), shown immediately on open and reloaded quietly in the
+background only when it is older than its TTL. The TTLs live in one place per platform —
+`CycleSource` / `CycleCachePolicy` (Android, `domain/market/CycleCache.kt`) and
+`CycleCachePolicy` (iOS, `App/Features/Cycle/CycleCache.swift`) — and must stay equal:
+
+| Area | TTL | Why |
+|------|-----|-----|
+| Crypto Pulse | 5 min | 24 h changes, BTC volume, funding |
+| Unusual today | 10 min | 24 h tickers and funding of all perpetuals |
+| Gas | 1 min | fees change by the block |
+| Coin analysis | 15 min | per coin |
+| Fear & Greed | 1 h | the index changes once a day |
+| Market cap / volume / dominance (CoinGecko `/global`) | 30 min | slow-moving |
+| Market phase (scores) | 1 h | several sources with fallbacks |
+| Altcoin season | 3 h | ~20 histories; moves over days |
+| On-chain values (Coin Metrics) | 12 h | daily data |
+| Cycle comparison (halving curves) | 12 h | daily candles since 2016 |
+| Economic calendar | 24 h | one small JSON file |
+
+**Manual reloads.** Pull-to-refresh, «Retry» and the small «Refresh» action under the
+altcoin season force a reload, but slow, expensive areas (altcoin season, market phase,
+on-chain values, cycle comparison) reload by hand at most every **5 minutes**
+(`CycleCachePolicy.manualMinInterval` / `MANUAL_MIN_INTERVAL_MILLIS`); within that window
+the stored value stays. The altcoin season details show «As of 14:05» from the stored
+timestamp; its «Refresh» stays disabled until 5 minutes have passed.
+
+**Source and age.** Every row under «Context» and «Data» (except the calendar-based halving)
+ends its secondary line with the provider that actually delivered the value and its age, e.g.
+«Greed · alternative.me · today 02:00» or «CoinGecko · 3 min ago» (`DataFreshness` /
+`DataStamp`, both platforms). Sources with a fallback chain report the one that answered
+(candles: Binance / Binance.US / Coinbase / Bybit; market phase adds «Coin Metrics» when
+on-chain values are present; gas: the Ethereum RPC host and mempool.space). The provider is
+stored next to the timestamp in the cache file (`src` on Android, `provider` on iOS; older
+files without it simply show no provider). Age: < 1 min «just now», < 60 min «N min ago»,
+today «today HH:MM», otherwise the date. Older than **3 × TTL** → the age is shown in the
+warning colour and screen readers add «outdated».
+
+**Widget «What stands out».** The Fear & Greed line in the widget never fetches: Android
+takes the newer of the Market tab entry and the Pulse input, iOS the value stored in the
+App Group by every successful Fear & Greed fetch (`FearGreedShared`). Older than 24 h → no
+line.
+
+Changing a TTL: update both platforms, `CycleCachePolicyTest` (Android),
+`MarketTabCacheTests` (iOS) and this table.
+
+## 14. Live prices (WebSocket)
+
+While the **watchlist is on screen and the app is in the foreground**, prices of the
+visible pairs (the selected group) come from the exchanges' public WebSocket tickers instead
+of REST polling. Setting: *Settings › Updates › «Live prices»*, off on a
+new install. Background refresh (WorkManager, foreground service, BGTask) and widgets never open a
+WebSocket — they keep using REST.
+
+**Supported exchanges** (only documented public endpoints, no keys):
+
+| Exchange (adapter key) | Endpoint | Subscription | Fields used | 24 h change |
+|---|---|---|---|---|
+| Binance (`Binance`) | `wss://stream.binance.com:9443/ws` | `SUBSCRIBE` `<symbol>@ticker` | `s`, `c`, `P` (%), `E` | yes (rolling) |
+| Binance USDⓈ-M (`BinanceFutures`) | `wss://fstream.binance.com/ws` | same; perpetuals only, no COIN-M (`2:` prefix) | same | yes |
+| Bybit spot / linear (`Bybit`, `BybitFutures`) | `wss://stream.bybit.com/v5/public/spot` · `/linear` | `tickers.<symbol>`, ≤ 10 args per message | `lastPrice`, `price24hPcnt` (fraction), `ts`; linear sends deltas | yes |
+| OKX spot / swap (`Okex`, `OkexFutures`) | `wss://ws.okx.com:8443/ws/v5/public` | channel `tickers`, `instId` | `last`, `open24h`, `ts` | yes (from `open24h`) |
+| Coinbase Exchange (`Coinbase`) | `wss://ws-feed.exchange.coinbase.com` | channel `ticker` | `price`, `open_24h` | yes (from `open_24h`) |
+| Kraken (`Kraken`) | `wss://ws.kraken.com/v2` | channel `ticker`, symbols `BTC/USD` | `last` | no – as with REST, candles |
+
+All other exchanges keep REST polling at the configured interval.
+
+**Architecture** (same on both platforms; pure logic shared via `testdata/parity/live_feed.json`):
+
+* `LiveFeed` – pure: `LiveExchange` (endpoint, stream symbol per pair, subscribe messages,
+  ping), `LiveParser` (message → ticks; acks, pongs and heartbeats are ignored), `LivePlanner`
+  (connections: ≤ 200 symbols each, at most 3 per exchange; paused exchanges and pairs no
+  longer traded are skipped), `LiveBackoff` (reconnect after 1, 2, 4 … 60 s; HTTP 429/418 → 5 min),
+  `LiveRules`, `LiveBuffer`.
+  Android: `android/app/…/domain/live/LiveFeed.kt` (with a tiny JSON reader, `LiveJson.kt`,
+  so the parsers run in plain unit tests); iOS: `ios/Shared/Services/LiveFeed.swift`.
+* Connections: Android `data/live/LivePriceStream.kt` (OkHttp WebSocket, protocol pings every
+  20 s), iOS `ios/App/Services/LivePriceStream.swift` (actor, `URLSessionWebSocketTask`). Bybit,
+  OKX and Kraken additionally get their text ping (`{"op":"ping"}`, `ping`, `{"method":"ping"}`);
+  without any message for 60 s those connections are reopened.
+* Lifecycle: the watchlist reports its visible pairs and whether it is shown (Android
+  `LifecycleStartEffect`, iOS `onAppear`/`onDisappear`); app foreground (Android
+  `AppVisibility`, iOS `scenePhase`), the setting and `NetworkStatus`/`ConnectivityMonitor`
+  gate the stream. Leaving the watchlist closes the sockets and saves what is pending.
+* Display: live quotes are laid over the stored pairs at most twice per second
+  (`LiveRules.UI_INTERVAL_MILLIS`); the status pill shows a small «LIVE» badge with a pulsing
+  dot (static with Reduce Motion), the refresh report lists «Live: Binance, Bybit …».
+* Storage, alarms, widgets: pending quotes are written in one batch every 10 s through
+  `PriceRefresher.applyLive` (iOS: `AppData.applyLive` → `PriceRefresher.refresh(liveQuotes:)`)
+  – the same path as a refresh, so alarm crossings, cooldowns and re-arming are shared and
+  nothing is notified twice. No price announcements and no volume alarms in that path (volume
+  needs hourly candles; REST checks it). Widgets are redrawn at most once a minute and when the
+  watchlist is left. If a refresh is running, the batch waits for the next round.
+* 24 h change: the stream's value is used only with the basis «Last 24 h», a matching change
+  stamp and an exchange whose stream value is rolling (`LiveRules.chooseChange`); otherwise the
+  stored value stays until the next REST refresh.
+* REST while live: a pair with a live quote younger than 30 s is skipped by the REST refresh
+  (`LiveRules.skipRest`, rolling basis only); if the stream stalls, the pair falls back to REST
+  automatically.
+
+Tests: `LiveFeedTest.kt` / `LiveFeedTests.swift` (parser samples per exchange, symbols,
+subscribe messages, plan, backoff, rules, buffer). Adding an exchange: add a `LiveExchange`
+case on both platforms, sample messages to `live_feed.json`, and a row to the table above.

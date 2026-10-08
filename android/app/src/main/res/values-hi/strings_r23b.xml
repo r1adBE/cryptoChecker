@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">सभी मार्केट में एक साथ खोजता है – किसी नतीजे पर टैप करके उसे वॉचलिस्ट में जोड़ें।</string>
+    <string name="explorer_no_pairs_yet">इस मार्केट के लिए अभी तक कोई पेयर लोड नहीं हुआ है।</string>
+</resources>

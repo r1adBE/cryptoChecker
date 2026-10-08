@@ -8,7 +8,6 @@
 
     <!-- Runde 13b: Widgets aus der App hinzufügen -->
     <string name="settings_widgets">Widgets</string>
-    <string name="settings_widgets_hint">Add prices to your home screen</string>
     <string name="widgets_sheet_title">Add a widget</string>
     <string name="widget_kind_single">Single coin</string>
     <string name="widgets_add">Add</string>

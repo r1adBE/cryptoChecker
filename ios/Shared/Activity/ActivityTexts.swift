@@ -26,9 +26,11 @@ enum ActivityTexts {
     static func percent(_ value: Double, _ decimals: Int) -> String {
         guard value.isFinite else { return "—" }
         let rounded = String(format: "%.\(decimals)f", locale: Locale.current, abs(value))
-        let isZero = rounded.allSatisfy { $0 == "0" || $0 == "." || $0 == "," }
+        // Nullprüfung mit lateinischen Ziffern (die Anzeige kann arabische Ziffern haben)
+        let isZero = String(format: "%.\(decimals)f", abs(value)).allSatisfy { $0 == "0" || $0 == "." }
         let sign = isZero ? "" : (value > 0 ? "+" : "−")
-        return "\(sign)\(rounded) %"
+        // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
+        return BidiText.ltr("\(sign)\(rounded) %")
     }
 
     /// «4.2×»-Zahl ohne Zeichen, eine Nachkommastelle.
