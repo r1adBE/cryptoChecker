@@ -219,4 +219,17 @@ class ChangeBasisTest {
         assertEquals(2, ChangeBasisMath.keptDayStarts(ChangeBasis.ROLLING_24H, now, zurich).size)
         assertEquals(2, ChangeBasisMath.keptDayStarts(ChangeBasis.UTC_DAY, now, zurich).size)
     }
+
+    @Test
+    fun `day end is the next day start`() {
+        val utcStart = t("2026-10-08T00:00:00Z")
+        assertEquals(t("2026-10-09T00:00:00Z"), ChangeBasisMath.dayEnd(ChangeBasis.UTC_DAY, utcStart, zurich))
+        val plus8 = ChangeBasis.utc(8)!!
+        val start8 = ChangeBasisMath.dayStart(plus8, utcStart, zurich)!!
+        assertEquals(start8 + ChangeBasisMath.DAY_MILLIS, ChangeBasisMath.dayEnd(plus8, start8, zurich))
+        // Sommerzeit endet (25. Oktober 2026): der Tag hat 25 Stunden
+        val local = ChangeBasisMath.dayStart(ChangeBasis.LOCAL_DAY, t("2026-10-25T10:00:00Z"), zurich)!!
+        assertEquals(local + 25 * ChangeBasisMath.HOUR_MILLIS, ChangeBasisMath.dayEnd(ChangeBasis.LOCAL_DAY, local, zurich))
+        assertNull(ChangeBasisMath.dayEnd(ChangeBasis.ROLLING_24H, utcStart, zurich))
+    }
 }

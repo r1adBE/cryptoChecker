@@ -21,7 +21,9 @@ data class PortfolioChange(val amount: Double, val percent: Double?)
  * zählt er mit dem aktuellen Kurs (flach). Eine Stunde gilt nur, wenn Coins mit Kurs
  * mindestens [MIN_COVERAGE] des heutigen Werts ausmachen; sonst fällt sie weg.
  * Bleiben weniger als [MIN_POINTS] Punkte, gibt es keinen Stundenverlauf (dann die
- * gespeicherten Aufnahmen bzw. «Verlauf folgt»).
+ * gespeicherten Aufnahmen bzw. «Verlauf folgt»); bei der Tages-Basis reichen [MIN_DAY_POINTS].
+ * Fehlen einem Coin die Stundenkurse ([needsCandles]), lädt [candleCoins] einmal je Stunde
+ * seine Stundenkerzen nach (PortfolioSnapshotUpdater).
  */
 object PortfolioWidgetSeries {
 
@@ -42,6 +44,18 @@ object PortfolioWidgetSeries {
 
     /** Höchstens so viele Stunden hat ein Tag (Ende der Sommerzeit: 25). */
     private const val MAX_DAY_HOURS = 25
+
+    /** Tages-Basis: ab so vielen Punkten (Tagesbeginn und jetzt) wächst der Chart über den Tag. */
+    const val MIN_DAY_POINTS = 2
+
+    /** Weniger Stunden mit Kurs in den letzten 24 h: Stundenkerzen für den Coin laden. */
+    const val CANDLE_MIN_HOURS = 20
+
+    /** Je Coin höchstens ein Kerzen-Abruf in dieser Zeit (auch wenn keine Quelle ihn kennt). */
+    const val CANDLE_RETRY_MILLIS = HOUR_MILLIS
+
+    /** Höchstens so viele Coins je Aktualisierung, die grössten zuerst. */
+    const val CANDLE_MAX_COINS = 8
 
     /** Erst ab dieser Spanne gilt der Verlauf als «24 h» (Veränderung, Beschriftung). */
     const val DAY_MIN_SPAN_MILLIS = 20 * HOUR_MILLIS
@@ -185,6 +199,41 @@ object PortfolioWidgetSeries {
 
     /** Verlauf gross genug für den Flächen-Chart? */
     fun drawable(points: List<PortfolioValuePoint>): Boolean = points.count { it.value.isFinite() } >= MIN_POINTS
+
+    /**
+     * Tages-Basis: Chart schon ab [MIN_DAY_POINTS] Punkten — er beginnt beim Tagesbeginn und
+     * füllt sich über den Tag (feste Zeitachse bis zum Tagesende), statt bis zum Morgen
+     * «Verlauf folgt» zu zeigen.
+     */
+    fun drawableDay(points: List<PortfolioValuePoint>): Boolean = points.count { it.value.isFinite() } >= MIN_DAY_POINTS
+
+    /** Hat [prices] weniger als [CANDLE_MIN_HOURS] Stunden mit Kurs in den 24 h vor [now]? */
+    fun needsCandles(prices: List<TimedPrice>?, now: Long): Boolean =
+        prices.orEmpty()
+            .filter { valid(it.price) != null && it.time <= now && now - it.time <= WINDOW_MILLIS }
+            .map { Math.floorDiv(it.time, HOUR_MILLIS) }
+            .toSet().size < CANDLE_MIN_HOURS
+
+    /**
+     * Coins, für die jetzt Stundenkerzen geladen werden: aus [coins] (Reihenfolge = Vorrang,
+     * z. B. nach Wert), ohne [stables], nur mit Lücken ([needsCandles]) und wenn der letzte
+     * Versuch ([lastAttempt], Grossschreibung) mindestens [CANDLE_RETRY_MILLIS] her ist;
+     * höchstens [CANDLE_MAX_COINS]. Ergebnis in Grossschreibung.
+     */
+    fun candleCoins(
+        coins: List<String>,
+        prices: Map<String, List<TimedPrice>>,
+        lastAttempt: Map<String, Long>,
+        now: Long,
+        stables: Set<String>,
+    ): List<String> = coins.asSequence()
+        .map { it.trim().uppercase() }
+        .filter { it.isNotEmpty() && it !in stables }
+        .distinct()
+        .filter { coin -> lastAttempt[coin]?.let { now - it in 0 until CANDLE_RETRY_MILLIS } != true }
+        .filter { needsCandles(prices[it], now) }
+        .take(CANDLE_MAX_COINS)
+        .toList()
 
     /** Deckt der Verlauf rund einen Tag ab (erster Punkt mindestens [DAY_MIN_SPAN_MILLIS] vor dem letzten)? */
     fun coversDay(points: List<PortfolioValuePoint>): Boolean =

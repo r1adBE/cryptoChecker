@@ -231,6 +231,21 @@ class PortfolioWidgetMathTest {
     }
 
     @Test
+    fun linePointsOnFixedDayAxis() {
+        // Tag 0…100, bisher bis 40: die Linie füllt die ersten 40 % der Breite
+        val points = listOf(PortfolioValuePoint(0L, 10.0), PortfolioValuePoint(40L, 20.0))
+        val xy = PortfolioWidgetMath.linePoints(points, 100f, 50f, 5f, from = 0L, to = 100L)
+        assertEquals(0f, xy[0].first, 1e-4f)
+        assertEquals(40f, xy[1].first, 1e-4f)
+        // Erster Wert erst nach Tagesbeginn: beginnt weiter rechts; ausserhalb wird geklemmt
+        val late = PortfolioWidgetMath.linePoints(listOf(PortfolioValuePoint(20L, 1.0), PortfolioValuePoint(120L, 2.0)), 100f, 50f, 5f, 0L, 100L)
+        assertEquals(20f, late[0].first, 1e-4f)
+        assertEquals(100f, late[1].first, 1e-4f)
+        // Ungültige Achse: wie ohne
+        assertEquals(100f, PortfolioWidgetMath.linePoints(points, 100f, 50f, 5f, from = 50L, to = 50L)[1].first, 1e-4f)
+    }
+
+    @Test
     fun snapshotCarriesWidgetDetails() {
         val history = listOf(PriceSample(now - 24 * h, mapOf("BTC" to 100.0, "ETH" to 10.0)))
         val s = PortfolioSnapshotMath.snapshot(

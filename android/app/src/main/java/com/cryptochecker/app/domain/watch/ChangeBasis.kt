@@ -174,6 +174,13 @@ object ChangeBasisMath {
     }
 
     /**
+     * Ende des Tags, der bei [dayStart] beginnt (= nächster Tagesbeginn; Ortszeit mit
+     * Sommerzeit 23 oder 25 Stunden später); null bei der rollenden Basis.
+     */
+    fun dayEnd(basis: ChangeBasis, dayStart: Long, zone: ZoneId = ZoneId.systemDefault()): Long? =
+        dayStart(basis, dayStart + 30 * HOUR_MILLIS, zone)?.takeIf { it > dayStart }
+
+    /**
      * Tagesbeginne, deren Kerzen der Zwischenspeicher behält: UTC, Ortszeit und die gewählte
      * Basis (ohne doppelte). Mehr braucht keine Anzeige, auch nicht nach einem Wechsel zurück.
      */

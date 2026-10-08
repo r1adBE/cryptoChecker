@@ -222,7 +222,8 @@ object PortfolioSnapshotMath {
             totalUsdt = totalUsd,
             positions = top.positions,
             otherPositions = top.others,
-            history = raw.takeIf { PortfolioWidgetSeries.drawable(it) }
+            // Stundenwerte ab Tagesbeginn schon ab zwei Punkten (der Chart wächst über den Tag)
+            history = raw.takeIf { PortfolioWidgetSeries.drawableDay(it) }
                 ?: PortfolioWidgetMath.valueHistory(open, history.filter { it.time >= dayStart }, current, now, fxRate),
             stamp = stamp,
             coinChanges = coinChanges,

@@ -156,4 +156,11 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     kspAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
     androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    // Gleiche Version in App und androidTest (sonst: «conflicting requirements … from lock file»
+    // bei :app:assembleDebugAndroidTest und in Android Studio «Failed to resolve androidx.concurrent»).
+    constraints {
+        implementation "androidx.concurrent:concurrent-futures:$concurrent_futures_version"
+        implementation "androidx.concurrent:concurrent-futures-ktx:$concurrent_futures_version"
+    }
 }

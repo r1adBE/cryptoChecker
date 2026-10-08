@@ -343,6 +343,16 @@ class WidgetUpdater @Inject constructor(
     }
 
     /**
+     * Stundenkerzen (24 h, gegen USDT) für [base] laden — für Portfolio-Coins ohne Mini-Chart
+     * in der Merkliste ([PortfolioSnapshotUpdater]); gleicher Zwischenspeicher wie die
+     * Einzel-Widgets (10 Minuten). Danach wie [cachedHourlyPrices]; null ohne Quelle.
+     */
+    suspend fun loadHourlyPrices(base: String): List<TimedPrice>? {
+        sparkline(base, USDT, WidgetChartRange.DAY)
+        return cachedHourlyPrices(base)
+    }
+
+    /**
      * Kerzen für den Chart — gleiches Paar, auch wenn das Widget eine andere
      * Börse zeigt. Quelle über die Ausweich-Kette (Binance, Binance.US, Coinbase),
      * siehe [CandleDataSource]. 24 h = 24 × 1 h, 7 Tage = 42 × 4 h, 30 Tage = 30 × 1 Tag.
@@ -751,11 +761,15 @@ class WidgetUpdater @Inject constructor(
             views.setViewVisibility(R.id.portfolio_usdt, View.GONE)
         }
 
-        // Wertverlauf: Fläche ab genug Stundenwerten, sonst ruhig «Verlauf folgt»
+        // Wertverlauf: Fläche ab genug Stundenwerten, sonst ruhig «Verlauf folgt». Tages-Basis:
+        // feste Achse vom Tagesbeginn bis Tagesende, der Verlauf wächst ab dem ersten Wert über den Tag
         val points = snapshot.history.filter { it.value.isFinite() }
-        val drawable = layout.chart && PortfolioWidgetSeries.drawable(points)
         // Verlauf seit Tagesbeginn: «heute» / «heute UTC»; sonst «24h» bzw. «48h» (ältere Aufnahmen)
         val chartBasis = snapshot.stamp?.basis ?: ChangeBasis.ROLLING_24H
+        val dayAxis = snapshot.stamp?.takeIf { it.basis.isDay }
+            ?.let { s -> ChangeBasisMath.dayEnd(s.basis, s.dayStart)?.let { end -> s.dayStart to end } }
+        val drawable = layout.chart &&
+            if (dayAxis != null) PortfolioWidgetSeries.drawableDay(points) else PortfolioWidgetSeries.drawable(points)
         val periodShort = if (drawable) {
             when {
                 chartBasis.isDay -> ChangeBasisText.shortLabel(context, chartBasis)
@@ -784,7 +798,7 @@ class WidgetUpdater @Inject constructor(
             val (chartW, chartH) = PortfolioWidgetMath.chartSizeDp(layout, widthDp, heightDp, fontScale)
             val bitmap = if (drawable) {
                 withContext(Dispatchers.Default) {
-                    runCatching { drawPortfolioChart(appWidgetId, slot, points, chartColor, colors.secondaryTextColor, chartW, chartH) }
+                    runCatching { drawPortfolioChart(appWidgetId, slot, points, chartColor, colors.secondaryTextColor, chartW, chartH, dayAxis) }
                         .onFailure { Timber.w(it, "Wertverlauf für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
                         .getOrNull()
                 }
@@ -1211,6 +1225,7 @@ class WidgetUpdater @Inject constructor(
         baselineColor: Int,
         wDp: Float,
         hDp: Float,
+        axis: Pair<Long, Long>?,
     ): android.graphics.Bitmap {
         val density = context.resources.displayMetrics.density
         val w = (if (wDp > 0f) wDp else DEFAULT_CHART_WIDTH_DP).coerceAtLeast(40f)
@@ -1220,7 +1235,7 @@ class WidgetUpdater @Inject constructor(
         if (pixels > MAX_CHART_PIXELS) scale *= kotlin.math.sqrt(MAX_CHART_PIXELS / pixels)
         val widthPx = (w * scale).toInt()
         val heightPx = (h * scale).toInt()
-        val key = PortfolioChartKey(points, color, baselineColor, widthPx, heightPx, scale)
+        val key = PortfolioChartKey(points, color, baselineColor, widthPx, heightPx, scale, axis)
         val cacheId = appWidgetId * MAX_PORTFOLIO_SIZES + slot
         portfolioCharts.get(cacheId, key)?.let { return it }
         return WidgetChartRenderer.drawPortfolioArea(
@@ -1230,6 +1245,7 @@ class WidgetUpdater @Inject constructor(
             widthPx = widthPx,
             heightPx = heightPx,
             density = scale,
+            axis = axis,
         ).also { portfolioCharts.put(cacheId, key, it) }
     }
 
@@ -1435,6 +1451,7 @@ class WidgetUpdater @Inject constructor(
         val widthPx: Int,
         val heightPx: Int,
         val density: Float,
+        val axis: Pair<Long, Long>?,
     )
 
     private companion object {

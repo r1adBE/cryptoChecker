@@ -169,6 +169,14 @@ enum ChangeBasisMath {
         }
     }
 
+    /// Ende des Tags, der bei `dayStart` beginnt (= nächster Tagesbeginn; Ortszeit mit Sommerzeit
+    /// 23 oder 25 Stunden später); nil bei rollend — wie `dayEnd` in Android.
+    static func dayEnd(_ basis: ChangeBasis, dayStart: Int64, timeZone: TimeZone = .current) -> Int64? {
+        guard let next = self.dayStart(basis, now: dayStart + 30 * hourMillis, timeZone: timeZone),
+              next > dayStart else { return nil }
+        return next
+    }
+
     /// Tagesbeginne, deren Kerzen der Zwischenspeicher behält: UTC, Ortszeit und die gewählte
     /// Basis (ohne doppelte) — wie `keptDayStarts` in Android.
     static func keptDayStarts(_ selected: ChangeBasis, now: Int64, timeZone: TimeZone = .current) -> [Int64] {

@@ -132,4 +132,30 @@ final class PortfolioWidgetSeriesTests: XCTestCase {
         XCTAssertEqual(try XCTUnwrap(since["BTC"]), (110.0 / 101.0 - 1) * 100, accuracy: 1e-9)
         XCTAssertTrue(PortfolioWidgetSeries.coinChangesSince(current: ["BTC": 110], prices: late, dayStart: dayStart).isEmpty)
     }
+
+    func testCandlesOnlyForCoinsWithGaps() {
+        let full = series { _ in 100 }
+        let sparse = Array(full.suffix(5))
+        XCTAssertFalse(PortfolioWidgetSeries.needsCandles(full, now: now))
+        XCTAssertTrue(PortfolioWidgetSeries.needsCandles(sparse, now: now))
+        XCTAssertTrue(PortfolioWidgetSeries.needsCandles(nil, now: now))
+        XCTAssertTrue(PortfolioWidgetSeries.needsCandles(full.map { PortfolioTimedPrice(at: $0.at - 30 * h, price: $0.price) }, now: now))
+
+        let prices = ["BTC": full, "ETH": sparse]
+        XCTAssertEqual(PortfolioWidgetSeries.candleCoins(["btc", "eth", "USDT", "pepe", "ETH"], prices: prices,
+                                                         lastAttempt: [:], now: now, stables: stables), ["ETH", "PEPE"])
+        let tried: [String: Int64] = ["ETH": now - 30 * 60_000, "PEPE": now - h]
+        XCTAssertEqual(PortfolioWidgetSeries.candleCoins(["ETH", "PEPE"], prices: prices, lastAttempt: tried,
+                                                         now: now, stables: stables), ["PEPE"])
+        let many = (1...20).map { "C\($0)" }
+        XCTAssertEqual(PortfolioWidgetSeries.candleCoins(many, prices: [:], lastAttempt: [:], now: now, stables: stables).count,
+                       PortfolioWidgetSeries.candleMaxCoins)
+    }
+
+    func testDayChartFromTwoPoints() {
+        let two = [PortfolioWidgetPoint(at: now - h, value: 1), PortfolioWidgetPoint(at: now, value: 2)]
+        XCTAssertTrue(PortfolioWidgetSeries.drawableDay(two))
+        XCTAssertFalse(PortfolioWidgetSeries.drawable(two))
+        XCTAssertFalse(PortfolioWidgetSeries.drawableDay(Array(two.prefix(1))))
+    }
 }

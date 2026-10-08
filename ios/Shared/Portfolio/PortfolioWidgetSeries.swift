@@ -18,12 +18,14 @@ struct PortfolioChange: Equatable, Sendable {
 /// Quelle sind Stundenkurse, die ohnehin schon vorliegen — Mini-Charts der Merkliste
 /// (`DayReferenceStore`), Kerzen der Einzel-Widgets (`WidgetSparkline`) und die eigenen
 /// Kursaufnahmen —, je Coin gemerkt (`merge`, höchstens einer je Stunde, 26 h lang).
-/// Das Widget selbst fragt dafür nichts im Netz ab.
+/// Fehlen sie, lädt die Aktualisierung die Stundenkerzen des Coins (siehe unten).
 ///
 /// Wert je Stunde = Σ heutiger Bestand × Kurs zu dieser Stunde. Fehlt einem Coin der Kurs,
 /// zählt er mit dem aktuellen Kurs (flach). Eine Stunde gilt nur, wenn Coins mit Kurs mindestens
 /// 80 % des heutigen Werts ausmachen. Bleiben weniger als 6 Punkte, gibt es keinen Stundenverlauf
-/// (dann die gespeicherten Aufnahmen bzw. «Verlauf folgt»).
+/// (dann die gespeicherten Aufnahmen bzw. «Verlauf folgt»); bei der Tages-Basis reichen 2.
+/// Fehlen einem Coin die Stundenkurse (`needsCandles`), lädt `PortfolioWidgetStore.refresh` einmal
+/// je Stunde seine Stundenkerzen nach (`candleCoins`).
 enum PortfolioWidgetSeries {
     static let hourMillis: Int64 = 3_600_000
     static let windowMillis: Int64 = 24 * hourMillis
@@ -35,6 +37,14 @@ enum PortfolioWidgetSeries {
     static let minCoverage = 0.8
     /// Darunter kein Flächen-Chart (statt eines groben Dreiecks).
     static let minPoints = 6
+    /// Tages-Basis: ab so vielen Punkten (Tagesbeginn und jetzt) wächst der Chart über den Tag.
+    static let minDayPoints = 2
+    /// Weniger Stunden mit Kurs in den letzten 24 h: Stundenkerzen für den Coin laden.
+    static let candleMinHours = 20
+    /// Je Coin höchstens ein Kerzen-Abruf in dieser Zeit.
+    static let candleRetryMillis: Int64 = hourMillis
+    /// Höchstens so viele Coins je Aktualisierung, die grössten zuerst.
+    static let candleMaxCoins = 8
     /// Erst ab dieser Spanne gilt der Verlauf als «24 h».
     static let dayMinSpanMillis: Int64 = 20 * hourMillis
 
@@ -166,6 +176,38 @@ enum PortfolioWidgetSeries {
     /// Verlauf gross genug für den Flächen-Chart?
     static func drawable(_ points: [PortfolioWidgetPoint]) -> Bool {
         points.filter { $0.value.isFinite }.count >= minPoints
+    }
+
+    /// Tages-Basis: Chart schon ab `minDayPoints` Punkten — er beginnt beim Tagesbeginn und füllt
+    /// sich über den Tag (feste Zeitachse bis Tagesende) statt bis zum Morgen «Verlauf folgt».
+    static func drawableDay(_ points: [PortfolioWidgetPoint]) -> Bool {
+        points.filter { $0.value.isFinite }.count >= minDayPoints
+    }
+
+    /// Hat `prices` weniger als `candleMinHours` Stunden mit Kurs in den 24 h vor `now`?
+    static func needsCandles(_ prices: [PortfolioTimedPrice]?, now: Int64) -> Bool {
+        var hours = Set<Int64>()
+        for p in prices ?? [] where valid(p.price) != nil && p.at <= now && now - p.at <= windowMillis {
+            hours.insert(Int64((Double(p.at) / Double(hourMillis)).rounded(.down)))
+        }
+        return hours.count < candleMinHours
+    }
+
+    /// Coins, für die jetzt Stundenkerzen geladen werden: aus `coins` (Reihenfolge = Vorrang),
+    /// ohne `stables`, nur mit Lücken (`needsCandles`) und wenn der letzte Versuch (`lastAttempt`,
+    /// Grossschreibung) mindestens `candleRetryMillis` her ist; höchstens `candleMaxCoins`.
+    static func candleCoins(_ coins: [String], prices: [String: [PortfolioTimedPrice]],
+                            lastAttempt: [String: Int64], now: Int64, stables: Set<String>) -> [String] {
+        var out: [String] = []
+        for raw in coins {
+            let coin = raw.trimmingCharacters(in: .whitespaces).uppercased()
+            guard !coin.isEmpty, !stables.contains(coin), !out.contains(coin) else { continue }
+            if let last = lastAttempt[coin], now - last >= 0, now - last < candleRetryMillis { continue }
+            guard needsCandles(prices[coin], now: now) else { continue }
+            out.append(coin)
+            if out.count >= candleMaxCoins { break }
+        }
+        return out
     }
 
     /// Deckt der Verlauf rund einen Tag ab?

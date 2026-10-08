@@ -57,6 +57,10 @@
 * Portfolio lock (biometrics or device passcode) for the portfolio only.
 * «Hide amounts»: values shown as ••• in the portfolio, its widget and
   portfolio alarms; percentages stay visible.
+* Portfolio widget: hourly prices for coins that are only in the portfolio
+  (not on the watchlist) are loaded once an hour, so the value history no
+  longer stays at «History coming soon»; with «today since 00:00» the chart
+  starts at midnight and fills up over the day.
 * Backups can be protected with a password (AES-256-GCM, PBKDF2) and are
   interchangeable between Android and iOS. Android system backup now includes
   watchlist, alarms and settings.

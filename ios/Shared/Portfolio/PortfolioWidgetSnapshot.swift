@@ -108,6 +108,10 @@ enum PortfolioWidgetStore {
     private static let historyKey = "portfolio_widget_history"
     /// Gemerkte Stundenkurse je Coin für den 24-h-Wertverlauf (`PortfolioWidgetSeries.merge`).
     private static let hourlyKey = "portfolio_widget_hourly_v1"
+    /// Letzter Kerzen-Abruf je Coin (ms) — höchstens einer je Stunde, auch über App und Widget.
+    private static let candleAttemptsKey = "portfolio_widget_candle_attempts_v1"
+    /// Kerzen für alle fehlenden Coins zusammen höchstens so lange laden (Sekunden).
+    private static let candleLoadTimeout: Double = 4
     /// Vergleichsstand mindestens so alt.
     static let referenceMinAgeMillis: Int64 = 20 * 3_600_000
     /// Ältere Stände werden verworfen.
@@ -393,7 +397,8 @@ enum PortfolioWidgetStore {
             }
             pastShown = past
         }
-        let useHourly = PortfolioWidgetSeries.drawable(hourly)
+        // Seit Tagesbeginn schon ab zwei Punkten (der Chart wächst über den Tag)
+        let useHourly = dayStart != nil ? PortfolioWidgetSeries.drawableDay(hourly) : PortfolioWidgetSeries.drawable(hourly)
         let top = topPositions(valuesUsd: values, totalUsd: summary.totalValue, factor: factor, changes: changes)
         let points = useHourly
             ? hourly
@@ -450,9 +455,65 @@ enum PortfolioWidgetStore {
         }
         let prices = await PortfolioPriceSource.prices(transactions.map(\.coin))
         let rate = await FxRateSource.usdTo(currency)
-        let extra = await cachedHourly(Set(transactions.map { $0.coin.uppercased() }))
+        var extra = await cachedHourly(Set(transactions.map { $0.coin.uppercased() }))
+        for (coin, list) in await loadMissingCandles(transactions: transactions, prices: prices, known: extra) {
+            extra[coin, default: []] += list
+        }
         return update(transactions: transactions, prices: prices, currency: currency, rate: rate, reload: reload,
                       extraHourly: extra)
+    }
+
+    /// Stundenkerzen für offene Coins, denen Stundenkurse fehlen — z. B. Coins, die nur im Portfolio
+    /// und nicht in der Merkliste sind. Die grössten Positionen zuerst, je Coin höchstens ein Abruf
+    /// pro Stunde (`PortfolioWidgetSeries.candleCoins`), zusammen höchstens `candleLoadTimeout`.
+    /// Wie `loadMissingCandles` in Android. Fehler bleiben still.
+    private static func loadMissingCandles(transactions: [PortfolioTx], prices: PortfolioPrices,
+                                           known: [String: [PortfolioTimedPrice]]) async -> [String: [PortfolioTimedPrice]] {
+        guard prices.updatedAt > 0 else { return [:] }
+        let open = PortfolioCalculator.summarize(transactions, prices: prices.prices).open.map(\.coin)
+        guard !open.isEmpty else { return [:] }
+        let now = TimeUtils.nowMillis
+        let merged = PortfolioWidgetSeries.merge(stored: loadHourly(), fresh: known, now: now)
+        var attempts = (SharedStorage.defaults.dictionary(forKey: candleAttemptsKey) as? [String: Double]) ?? [:]
+        let due = PortfolioWidgetSeries.candleCoins(open, prices: merged,
+                                                    lastAttempt: attempts.mapValues { Int64($0) }, now: now,
+                                                    stables: CurrencyConversion.usdStables)
+        guard !due.isEmpty else { return [:] }
+        for coin in due { attempts[coin] = Double(now) }
+        // Alte Einträge nicht ewig mitschleppen
+        attempts = attempts.filter { Double(now) - $0.value < Double(PortfolioWidgetSeries.keepMillis) }
+        SharedStorage.defaults.set(attempts, forKey: candleAttemptsKey)
+
+        return await withTaskGroup(of: CandleLoad.self) { group in
+            for coin in due {
+                group.addTask {
+                    guard let candles = await CandleDataSource.candles(base: coin, quote: "USDT", interval: .h1, limit: 24),
+                          candles.count >= 2 else { return .empty }
+                    let list = PortfolioWidgetSeries.fromCandles(candles.map { (open: $0.openTime, close: $0.close) },
+                                                                 fetchedAt: TimeUtils.nowMillis)
+                    return list.isEmpty ? .empty : .candles(coin, list)
+                }
+            }
+            group.addTask {
+                try? await Task.sleep(nanoseconds: UInt64(candleLoadTimeout * 1_000_000_000))
+                return .timeout
+            }
+            var out: [String: [PortfolioTimedPrice]] = [:]
+            var remaining = due.count
+            while remaining > 0, let next = await group.next() {
+                switch next {
+                case .candles(let coin, let list):
+                    out[coin] = list
+                    remaining -= 1
+                case .empty:
+                    remaining -= 1
+                case .timeout:
+                    remaining = 0
+                }
+            }
+            group.cancelAll()
+            return out
+        }
     }
 
     /// Mini-Chart-Kurse der Merkliste, die schon im Speicher liegen (`DayReferenceStore`) — ohne Netz.
@@ -465,4 +526,11 @@ enum PortfolioWidgetStore {
         }
         return out
     }
+}
+
+/// Ergebnis eines Kerzen-Abrufs für das Portfolio-Widget (`loadMissingCandles`).
+private enum CandleLoad: Sendable {
+    case candles(String, [PortfolioTimedPrice])
+    case empty
+    case timeout
 }

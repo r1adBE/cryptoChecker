@@ -313,18 +313,28 @@ object PortfolioWidgetMath {
     /**
      * Linie in Pixeln: x nach der Zeit über [width], y zwischen [inset] und [height] − [inset]
      * (höchster Wert oben). Ohne Spanne mittig. Weniger als zwei Punkte: leer.
+     * [from]/[to]: feste Zeitachse (Tages-Basis: Tagesbeginn bis Tagesende) — die Linie füllt
+     * dann nur den bisherigen Teil des Tages; ohne Angabe erster bis letzter Punkt.
      */
-    fun linePoints(points: List<PortfolioValuePoint>, width: Float, height: Float, inset: Float): List<Pair<Float, Float>> {
+    fun linePoints(
+        points: List<PortfolioValuePoint>,
+        width: Float,
+        height: Float,
+        inset: Float,
+        from: Long? = null,
+        to: Long? = null,
+    ): List<Pair<Float, Float>> {
         val clean = points.filter { it.value.isFinite() }
         if (clean.size < 2) return emptyList()
-        val t0 = clean.first().time
-        val span = (clean.last().time - t0).toDouble()
+        val axis = if (from != null && to != null && to > from) from to to else null
+        val t0 = axis?.first ?: clean.first().time
+        val span = ((axis?.second ?: clean.last().time) - t0).toDouble()
         val low = clean.minOf { it.value }
         val high = clean.maxOf { it.value }
         val top = inset
         val bottom = max(inset, height - inset)
         return clean.mapIndexed { i, p ->
-            val fx = if (span > 0.0) (p.time - t0) / span else i.toDouble() / (clean.size - 1)
+            val fx = (if (span > 0.0) (p.time - t0) / span else i.toDouble() / (clean.size - 1)).coerceIn(0.0, 1.0)
             val x = (fx * width).toFloat()
             val y = if (high > low) {
                 (bottom - (p.value - low) / (high - low) * (bottom - top)).toFloat()

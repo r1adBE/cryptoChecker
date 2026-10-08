@@ -187,9 +187,18 @@ enum PortfolioWidgetText {
     }
 
     /// Wertverlauf mit genug Punkten für den Flächen-Chart, sonst nil («Verlauf folgt»).
+    /// Tages-Basis: schon ab zwei Punkten, der Chart wächst über den Tag (`dayAxis`).
     static func chartPoints(_ s: PortfolioWidgetSnapshot) -> [PortfolioWidgetPoint]? {
         let points = s.valueHistory.filter { $0.value.isFinite }
-        return PortfolioWidgetSeries.drawable(points) ? points : nil
+        let enough = dayAxis(s) != nil ? PortfolioWidgetSeries.drawableDay(points) : PortfolioWidgetSeries.drawable(points)
+        return enough ? points : nil
+    }
+
+    /// Tages-Basis: feste Zeitachse vom Tagesbeginn bis Tagesende; nil bei rollend.
+    static func dayAxis(_ s: PortfolioWidgetSnapshot) -> (from: Int64, to: Int64)? {
+        guard let stamp = s.stamp, stamp.basis.isDay,
+              let end = ChangeBasisMath.dayEnd(stamp.basis, dayStart: stamp.dayStart) else { return nil }
+        return (from: stamp.dayStart, to: end)
     }
 
     /// Zeitraum des Wertverlaufs: lang (VoiceOver) bzw. kurz (Fusszeile); seit Tagesbeginn
@@ -571,7 +580,8 @@ private struct PortfolioHomeView: View {
         if let points {
             let direction = PortfolioWidgetText.directionValue(s)
                 ?? ((points.last?.value ?? 0) >= (points.first?.value ?? 0) ? 1 : -1)
-            PortfolioValueChart(points: points, color: palette.change(direction), baseline: palette.secondary)
+            PortfolioValueChart(points: points, color: palette.change(direction), baseline: palette.secondary,
+                                axis: PortfolioWidgetText.dayAxis(s))
                 // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)
                 .environment(\.layoutDirection, .leftToRight)
         } else {
@@ -603,13 +613,15 @@ private struct PortfolioValueChart: View {
     let points: [PortfolioWidgetPoint]
     let color: Color
     let baseline: Color
+    /// Feste Zeitachse (Tages-Basis); nil = erster bis letzter Punkt.
+    var axis: (from: Int64, to: Int64)? = nil
     var lineWidth: CGFloat = 1.75
     var dot: CGFloat = 2.5
 
     var body: some View {
         GeometryReader { geo in
             let inset = dot + lineWidth / 2
-            let xy = Self.positions(points, size: geo.size, inset: inset)
+            let xy = Self.positions(points, size: geo.size, inset: inset, axis: axis)
             if xy.count >= 2, let first = xy.first, let last = xy.last {
                 let top = xy.map(\.y).min() ?? 0
                 let baseY = Self.valueY(points, value: points[0].value, height: geo.size.height, inset: inset)
@@ -645,17 +657,21 @@ private struct PortfolioValueChart: View {
 
     /// x nach der Zeit über die Breite (Rand `inset` links und rechts), y zwischen `inset` und
     /// Höhe − `inset` (höchster Wert oben); ohne Spanne mittig — wie `PortfolioWidgetMath.linePoints`.
-    static func positions(_ points: [PortfolioWidgetPoint], size: CGSize, inset: CGFloat) -> [CGPoint] {
+    /// `axis`: feste Zeitachse (Tages-Basis) — die Linie füllt nur den bisherigen Teil des Tages.
+    static func positions(_ points: [PortfolioWidgetPoint], size: CGSize, inset: CGFloat,
+                          axis: (from: Int64, to: Int64)? = nil) -> [CGPoint] {
         guard points.count >= 2, let first = points.first, let last = points.last else { return [] }
         let values = points.map(\.value)
         guard let low = values.min(), let high = values.max() else { return [] }
-        let span = Double(last.at - first.at)
+        let fixed = axis.flatMap { $0.to > $0.from ? $0 : nil }
+        let t0 = fixed?.from ?? first.at
+        let span = Double((fixed?.to ?? last.at) - t0)
         let width = Swift.max(0, size.width - 2 * inset)
         let top = inset
         let bottom = Swift.max(inset, size.height - inset)
         var out: [CGPoint] = []
         for (i, p) in points.enumerated() {
-            let fx = span > 0 ? Double(p.at - first.at) / span : Double(i) / Double(points.count - 1)
+            let fx = Swift.min(1, Swift.max(0, span > 0 ? Double(p.at - t0) / span : Double(i) / Double(points.count - 1)))
             let x = inset + CGFloat(fx) * width
             let y: CGFloat
             if high > low {

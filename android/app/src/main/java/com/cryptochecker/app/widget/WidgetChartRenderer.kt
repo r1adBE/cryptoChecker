@@ -196,6 +196,8 @@ object WidgetChartRenderer {
      * Richtung), Fläche darunter als Verlauf von 25 % an der Linie bis 0 unten, gestrichelte
      * schwache Linie beim Ausgangswert (erster Punkt), kleiner Punkt am letzten Wert. Keine
      * Achsen, keine Beschriftung. Lage aus [PortfolioWidgetMath.linePoints].
+     * [axis]: feste Zeitachse (Tages-Basis: Tagesbeginn bis Tagesende) — der Verlauf füllt
+     * nur den bisherigen Teil des Tages; null = erster bis letzter Punkt.
      */
     fun drawPortfolioArea(
         points: List<PortfolioValuePoint>,
@@ -204,6 +206,7 @@ object WidgetChartRenderer {
         widthPx: Int,
         heightPx: Int,
         density: Float,
+        axis: Pair<Long, Long>? = null,
     ): Bitmap {
         val w = widthPx.coerceAtLeast(2)
         val h = heightPx.coerceAtLeast(2)
@@ -213,7 +216,7 @@ object WidgetChartRenderer {
         val dot = 2.5f * density
         // Rand: Platz für den Punkt am Ende und runde Linienenden
         val inset = dot + stroke / 2f
-        val xy = PortfolioWidgetMath.linePoints(points, w - 2f * inset, h.toFloat(), inset)
+        val xy = PortfolioWidgetMath.linePoints(points, w - 2f * inset, h.toFloat(), inset, axis?.first, axis?.second)
             .map { (x, y) -> x + inset to y }
         if (xy.size < 2) return bitmap
         val line = Path()

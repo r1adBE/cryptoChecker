@@ -17,17 +17,23 @@ import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.settings.SettingsRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
  * Berechnet die Momentaufnahme für das Portfolio-Widget (Gesamtwert, «heute»,
  * Währung, Zeit; dazu USDT-Gesamtwert, grösste Positionen und Wertverlauf aus den
- * vorhandenen Kursen — ohne zusätzliche Abfragen) und zeichnet die Portfolio-Widgets neu.
+ * vorhandenen Kursen; fehlen einem Coin Stundenkurse, lädt [refresh] einmal je Stunde
+ * seine Stundenkerzen) und zeichnet die Portfolio-Widgets neu.
  *
  * Aufgerufen, wenn die App die Portfolio-Werte berechnet ([record], ohne Netz) und
  * bei jeder Hintergrund-Aktualisierung ([refreshIfWidgets], holt Kurse — nur wenn ein
@@ -71,12 +77,19 @@ class PortfolioSnapshotUpdater @Inject constructor(
         false
     }
 
-    /** Kurse (60 s zwischengespeichert) und Devisenkurs holen, dann aufnehmen. Fehler bleiben still. */
+    /** Letzter Kerzen-Abruf je Coin (Grossschreibung) — höchstens einer je Stunde. */
+    private val candleAttempts = ConcurrentHashMap<String, Long>()
+
+    /**
+     * Kurse (60 s zwischengespeichert) und Devisenkurs holen, fehlende Stundenkerzen laden
+     * ([loadMissingCandles]), dann aufnehmen. Fehler bleiben still.
+     */
     suspend fun refresh(deferWidgetsWhenScreenOff: Boolean = false): Unit = withContext(Dispatchers.IO) {
         try {
             val transactions = repository.getTransactions()
             val coins = transactions.map { it.coin }.toSet()
             val prices = if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).prices
+            loadMissingCandles(transactions, prices)
             val currency = settingsRepository.current().portfolioCurrency
             record(transactions, prices, currency, fxSource.usdTo(currency), deferWidgetsWhenScreenOff)
         } catch (e: CancellationException) {
@@ -158,6 +171,43 @@ class PortfolioSnapshotUpdater @Inject constructor(
     }
 
     /**
+     * Stundenkerzen für offene Coins, denen Stundenkurse fehlen — z. B. Coins, die nur im
+     * Portfolio und nicht in der Merkliste sind (dort liefern sonst die Mini-Charts die Kurse).
+     * Die grössten Positionen zuerst, je Coin höchstens ein Abruf pro Stunde
+     * ([PortfolioWidgetSeries.candleCoins]), gemeinsam höchstens [CANDLE_LOAD_TIMEOUT_MILLIS]
+     * (das Widget wartet insgesamt nur 8 s). Die Kerzen landen im Zwischenspeicher von
+     * [WidgetUpdater]; [record] führt sie mit den gemerkten Kursen zusammen. Fehler bleiben still.
+     */
+    private suspend fun loadMissingCandles(transactions: List<PortfolioTxEntity>, prices: Map<String, Double>) {
+        val open = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices).open.map { it.coin }
+        if (open.isEmpty()) return
+        val now = System.currentTimeMillis()
+        val known = PortfolioWidgetSeries.merge(
+            stored = store.hourlyPrices(),
+            fresh = cachedHourlyPrices(open.toSet(), emptyList(), emptyMap(), now),
+            now = now,
+        )
+        val due = PortfolioWidgetSeries.candleCoins(open, known, candleAttempts, now, CurrencyConversion.USD_STABLES)
+        if (due.isEmpty()) return
+        due.forEach { candleAttempts[it] = now }
+        withTimeoutOrNull(CANDLE_LOAD_TIMEOUT_MILLIS) {
+            coroutineScope {
+                due.map { coin ->
+                    async {
+                        try {
+                            widgetUpdater.loadHourlyPrices(coin)
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Exception) {
+                            Timber.d(e, "Portfolio-Widget: Stundenkerzen für %s nicht geladen", coin)
+                        }
+                    }
+                }.awaitAll()
+            }
+        }
+    }
+
+    /**
      * Bereits geladene Stundenkurse der [coins] — ohne Netz: Mini-Charts der Merkliste
      * ([SparklineRepository]), Kerzen der Einzel-Widgets, die Kursaufnahmen ([history]) und
      * der aktuelle Kurs. Zusammengeführt wird später ([PortfolioWidgetSeries.merge]).
@@ -183,5 +233,10 @@ class PortfolioSnapshotUpdater @Inject constructor(
             if (all.isNotEmpty()) out[coin] = all
         }
         return out
+    }
+
+    private companion object {
+        /** Kerzen für alle fehlenden Coins zusammen höchstens so lange laden. */
+        const val CANDLE_LOAD_TIMEOUT_MILLIS = 4_000L
     }
 }

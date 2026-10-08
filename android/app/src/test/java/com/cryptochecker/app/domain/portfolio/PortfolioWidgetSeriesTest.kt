@@ -162,4 +162,39 @@ class PortfolioWidgetSeriesTest {
         assertEquals(mapOf("BTC" to (110.0 / 101.0 - 1) * 100), PortfolioWidgetSeries.coinChangesSince(mapOf("BTC" to 110.0), prices, dayStart))
         assertTrue(PortfolioWidgetSeries.coinChangesSince(mapOf("BTC" to 110.0), late, dayStart).isEmpty())
     }
+
+    @Test
+    fun candlesOnlyForCoinsWithGaps() {
+        val full = series { 100.0 }
+        val sparse = full.takeLast(5)
+        assertFalse(PortfolioWidgetSeries.needsCandles(full, now))
+        assertTrue(PortfolioWidgetSeries.needsCandles(sparse, now))
+        assertTrue(PortfolioWidgetSeries.needsCandles(null, now))
+        // Älter als 24 h zählt nicht
+        assertTrue(PortfolioWidgetSeries.needsCandles(full.map { it.copy(time = it.time - 30 * h) }, now))
+
+        val prices = mapOf("BTC" to full, "ETH" to sparse)
+        // Reihenfolge = Vorrang; Stablecoins und vollständige Coins fallen weg; Grossschreibung
+        assertEquals(
+            listOf("ETH", "PEPE"),
+            PortfolioWidgetSeries.candleCoins(listOf("btc", "eth", "USDT", "pepe", "ETH"), prices, emptyMap(), now, stables),
+        )
+        // Höchstens ein Versuch je Stunde
+        val tried = mapOf("ETH" to now - 30 * 60_000L, "PEPE" to now - h)
+        assertEquals(listOf("PEPE"), PortfolioWidgetSeries.candleCoins(listOf("ETH", "PEPE"), prices, tried, now, stables))
+        // Höchstens CANDLE_MAX_COINS
+        val many = (1..20).map { "C$it" }
+        assertEquals(
+            PortfolioWidgetSeries.CANDLE_MAX_COINS,
+            PortfolioWidgetSeries.candleCoins(many, emptyMap(), emptyMap(), now, stables).size,
+        )
+    }
+
+    @Test
+    fun dayChartFromTwoPoints() {
+        val two = listOf(PortfolioValuePoint(now - h, 1.0), PortfolioValuePoint(now, 2.0))
+        assertTrue(PortfolioWidgetSeries.drawableDay(two))
+        assertFalse(PortfolioWidgetSeries.drawable(two))
+        assertFalse(PortfolioWidgetSeries.drawableDay(two.take(1)))
+    }
 }

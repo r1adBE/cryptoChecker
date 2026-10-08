@@ -189,4 +189,16 @@ final class ChangeBasisTests: XCTestCase {
                        [t("2026-10-07T00:00:00Z"), t("2026-10-06T22:00:00Z"), t("2026-10-06T16:00:00Z")])
         XCTAssertEqual(ChangeBasisMath.keptDayStarts(.ROLLING_24H, now: now, timeZone: zurich).count, 2)
     }
+
+    func testDayEndIsNextDayStart() throws {
+        let utcStart = t("2026-10-08T00:00:00Z")
+        XCTAssertEqual(ChangeBasisMath.dayEnd(.UTC_DAY, dayStart: utcStart, timeZone: zurich), t("2026-10-09T00:00:00Z"))
+        let plus8 = try XCTUnwrap(ChangeBasis.utc(8))
+        let start8 = try XCTUnwrap(ChangeBasisMath.dayStart(plus8, now: utcStart, timeZone: zurich))
+        XCTAssertEqual(ChangeBasisMath.dayEnd(plus8, dayStart: start8, timeZone: zurich), start8 + ChangeBasisMath.dayMillis)
+        // Sommerzeit endet (25. Oktober 2026): der Tag hat 25 Stunden
+        let local = try XCTUnwrap(ChangeBasisMath.dayStart(.LOCAL_DAY, now: t("2026-10-25T10:00:00Z"), timeZone: zurich))
+        XCTAssertEqual(ChangeBasisMath.dayEnd(.LOCAL_DAY, dayStart: local, timeZone: zurich), local + 25 * ChangeBasisMath.hourMillis)
+        XCTAssertNil(ChangeBasisMath.dayEnd(.ROLLING_24H, dayStart: utcStart, timeZone: zurich))
+    }
 }
