@@ -39,7 +39,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle (with cache)
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
@@ -98,7 +98,7 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Submit Gradle dependency graph
-        uses: gradle/actions/dependency-submission@v5
+        uses: gradle/actions/dependency-submission@v6
         with:
           build-root-directory: android
 
