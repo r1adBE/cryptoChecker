@@ -44,7 +44,7 @@ buildscript {
         // Benchmark 1.5 braucht für AGP 9 kein «newDsl=false» mehr.
         benchmark_version = '1.5.0'
         profileinstaller_version = '1.4.1'
-        uiautomator_version = '2.3.0'
+        uiautomator_version = '2.4.0'
     }
     // AGP 9 bringt Kotlin eingebaut mit (ohne Plugin org.jetbrains.kotlin.android).
     // Die Kotlin-Version kommt über diesen Klassenpfad; Hilt 2.60 braucht >= 2.3.21.
