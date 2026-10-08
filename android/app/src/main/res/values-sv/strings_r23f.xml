@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Terminer med förfall</string>
     <string name="settings_tradfi_futures">Aktier, råvaror och valutor (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Visar även terminer på aktier, guld och andra råvaror, valutor och bolag före börsnotering när du väljer ett par. Det är kontrakt, inte tokens.</string>
+    <string name="settings_watchlist_activity_card">Ovanlig aktivitet i listan</string>
+    <string name="settings_watchlist_activity_card_hint">Visar kortet ”Något händer just nu” ovanför paren. Aviseringar ställs in under Marknadsaviseringar.</string>
     <string name="settings_row_about">Om appen</string>
     <string name="price_colors_green_up">Grönt stiger / rött faller</string>
     <string name="price_colors_red_up">Rött stiger / grönt faller</string>

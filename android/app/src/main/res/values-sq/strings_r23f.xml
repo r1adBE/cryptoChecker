@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures me afat</string>
     <string name="settings_tradfi_futures">Aksione, mallra dhe valuta (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Gjatë zgjedhjes së çiftit shfaq edhe futures mbi aksione, ar dhe mallra të tjerë, valuta dhe kompani para kuotimit. Këto janë kontrata, jo tokenë.</string>
+    <string name="settings_watchlist_activity_card">Aktivitet i pazakontë në listë</string>
+    <string name="settings_watchlist_activity_card_hint">Shfaq kartën «Diçka po ndodh tani» mbi çiftet. Njoftimet caktohen te Njoftime tregu.</string>
     <string name="settings_row_about">Rreth aplikacionit</string>
     <string name="price_colors_green_up">E gjelbër rritet / e kuqe bie</string>
     <string name="price_colors_red_up">E kuqe rritet / e gjelbër bie</string>

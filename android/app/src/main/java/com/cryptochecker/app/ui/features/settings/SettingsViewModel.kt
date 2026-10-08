@@ -293,6 +293,8 @@ class SettingsViewModel @Inject constructor(
     /** Mini-Chart in der Merkliste ein/aus. */
     fun setWatchlistSparkline(show: Boolean) = update { settingsRepository.setWatchlistSparkline(show) }
 
+    fun setWatchlistActivityCard(show: Boolean) = update { settingsRepository.setWatchlistActivityCard(show) }
+
     /**
      * «Basis der %-Änderung»: Bis neu gerechnet ist, zeigen Pillen und Widgets «—» (der Stempel
      * passt nicht mehr); gleich eine Aktualisierung anstossen, Widgets und Portfolio-Widget folgen.

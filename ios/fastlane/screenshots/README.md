@@ -89,7 +89,7 @@ was im Markt passiert.»
 
 1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart
 2. «Warum bewegt sich das?» – das Blatt mit «Kurz gesagt»
-3. «Deine Merkliste, deine Börsen» – Seite «Paar hinzufügen» («+» oben in der Merkliste) mit der Börsenauswahl
+3. «Deine Merkliste, deine Börsen» – Seite «Paar hinzufügen» («+» neben der Lupe in der Merkliste) mit der Börsenauswahl
 4. «Alarme, wenn es zählt» – Alarm-Editor mit Satz und «Alarm testen»
 5. «Dein Portfolio – geschützt» – Portfolio-Tab mit eingeschalteter Portfolio-Sperre
    (Face ID/Touch ID oder Code; die Demo-Sicherung lässt die Sperre aus, also vorher einschalten);

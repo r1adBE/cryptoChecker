@@ -84,7 +84,11 @@ final class AppData: ObservableObject {
 
     private var portfolioFile: PortfolioFile
     private var liveTask: Task<Void, Never>?
-    private var appActive = false
+    private(set) var appActive = false
+
+    /// «In Gruppe» beim Hinzufügen: nur für die laufende Sitzung, nicht gespeichert.
+    /// nil = «Keine Gruppe».
+    @Published var addTargetGroup: String?
 
     private init() {
         snapshot = SharedStorage.loadSnapshot()
@@ -130,135 +134,11 @@ final class AppData: ObservableObject {
         appStartMillis = millis
     }
 
-    // MARK: Lesen
-
-    /// Anzeige-Reihenfolge: Favoriten zuerst, dann sortOrder, dann id.
-    /// Gespeicherte Kurse (alle 10 s mit den Live-Kursen nachgeführt); den Live-Kurs legt jede
-    /// Zeile selbst darüber (`LivePrices`, `WatchlistLiveRow`), damit ein Tick nur sie neu zeichnet.
-    var watches: [Watch] {
-        snapshot.watches.sorted {
-            if $0.favorite != $1.favorite { return $0.favorite }
-            if $0.sortOrder != $1.sortOrder { return $0.sortOrder < $1.sortOrder }
-            return $0.id < $1.id
-        }
-    }
-
-    var alarms: [Alarm] { snapshot.alarms.sorted { $0.id < $1.id } }
-
-    // MARK: Gruppen
-
-    /// Vorhandene Gruppen, alphabetisch ohne Gross/Klein — wie `groupsOf` in Android.
-    /// Eine Gruppe gibt es, solange mindestens ein Paar sie nutzt.
-    var watchGroups: [String] {
-        Self.groups(of: snapshot.watches)
-    }
-
-    static func groups(of watches: [Watch]) -> [String] {
-        Array(Set(watches.compactMap(\.groupName)))
-            .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
-    }
-
-    /// Gewählte Gruppe der Merkliste; nil = «Alle» (auch wenn es die Gruppe nicht mehr gibt).
-    var selectedWatchlistGroup: String? {
-        guard let group = settings.watchlistGroup, snapshot.watches.contains(where: { $0.groupName == group })
-        else { return nil }
-        return group
-    }
-
-    /// Sichtbare Paare: alle oder nur die der gewählten Gruppe (Anzeige-Reihenfolge).
-    var visibleWatches: [Watch] {
-        guard let group = selectedWatchlistGroup else { return watches }
-        return watches.filter { $0.groupName == group }
-    }
-
-    func selectWatchlistGroup(_ group: String?) {
-        settings.watchlistGroup = group
-    }
-
-    /// «Gruppe bearbeiten» in einem Schritt (eine Speicherung) — wie
-    /// `WatchRepository.applyGroupEdit`: Die bisherige Gruppe `oldName`
-    /// (nil = neue Gruppe) wird aufgelöst, danach erhalten genau `memberIds`
-    /// den Namen `newName`. Deckt Umbenennen, Hinzufügen, Entfernen und
-    /// Verschieben aus anderen Gruppen ab; gleicht der Name einer anderen
-    /// Gruppe, werden beide zusammengeführt. Eine neue Gruppe ohne Paare
-    /// entsteht nicht. Die Auswahl der Merkliste folgt einer Umbenennung.
-    func applyGroupEdit(oldName: String?, newName: String, memberIds: Set<Int64>) {
-        guard let name = Watch.validGroupName(newName) else { return }
-        if oldName == nil && memberIds.isEmpty { return }
-        // Vor dem Speichern umstellen — sonst gälte die alte Gruppe als verschwunden («Alle»)
-        if let oldName, oldName != name, !memberIds.isEmpty, settings.watchlistGroup == oldName {
-            settings.watchlistGroup = name
-        }
-        mutate { s in
-            for i in s.watches.indices {
-                if let oldName, s.watches[i].groupName == oldName { s.watches[i].groupName = nil }
-                if memberIds.contains(s.watches[i].id) { s.watches[i].groupName = name }
-            }
-        }
-    }
-
-    /// Gruppe löschen: Die Paare bleiben in der Merkliste, nur ohne Gruppe;
-    /// die Ansicht springt auf «Alle».
-    func deleteGroup(_ name: String) {
-        if settings.watchlistGroup == name { settings.watchlistGroup = nil }
-        mutate { s in
-            for i in s.watches.indices where s.watches[i].groupName == name {
-                s.watches[i].groupName = nil
-            }
-        }
-    }
-
-    /// «In Gruppe» beim Hinzufügen: nur für die laufende Sitzung, nicht gespeichert.
-    /// nil = «Keine Gruppe».
-    @Published var addTargetGroup: String?
-
-    /// Verschwindet die gewählte Gruppe (letztes Paar entfernt oder umgruppiert),
-    /// gilt wieder «Alle».
-    private func dropMissingWatchlistGroup() {
-        guard let group = settings.watchlistGroup,
-              !snapshot.watches.contains(where: { $0.groupName == group }) else { return }
-        settings.watchlistGroup = nil
-    }
-
-    func watch(_ id: Int64) -> Watch? {
-        guard let found = snapshot.watches.first(where: { $0.id == id }) else { return nil }
-        // Im `body` gelesen beobachtet die Ansicht nur den Live-Kurs dieses einen Paars
-        return found.withLive(LivePrices.shared.quote(for: id), rollingBasis: !settings.changeBasis.isDay)
-    }
-
-    func alarms(for watchId: Int64) -> [Alarm] { alarms.filter { $0.watchId == watchId } }
-
-    var alarmsWithWatch: [AlarmWithWatch] {
-        let byId = Dictionary(uniqueKeysWithValues: snapshot.watches.map { ($0.id, $0) })
-        return alarms.compactMap { a in byId[a.watchId].map { AlarmWithWatch(alarm: a, watch: $0) } }
-    }
-
-    /// Anzahl aktiver Alarme je Paar.
-    var activeAlarmCounts: [Int64: Int] {
-        Dictionary(grouping: snapshot.alarms.filter(\.enabled), by: \.watchId).mapValues(\.count)
-    }
-
-    /// Ab diesem Alter gilt ein Kurs als veraltet: 2,5 × Intervall, mindestens 5 Minuten.
-    var staleAfterMillis: Int64 {
-        max(refreshIntervalMillis * 5 / 2, 5 * 60_000)
-    }
-
-    /// Ab diesem Alter steht in der Zeile «veraltet»: im Live-Modus (App vorne mit Live-Abfrage)
-    /// nach 2 Minuten, sonst 3 × Intervall, mindestens 15 Minuten (`OutdatedRule`).
-    var outdatedAfterMillis: Int64 {
-        OutdatedRule.afterMillis(settings, live: appActive && settings.liveService)
-    }
-
-    /// Eingestelltes Aktualisierungs-Intervall (Live bzw. Hintergrund).
-    private var refreshIntervalMillis: Int64 {
-        settings.liveService ? Int64(settings.liveIntervalSeconds) * 1000
-            : Int64(settings.backgroundIntervalMinutes) * 60_000
-    }
-
     // MARK: Speichern
 
     /// - Parameter widgetKinds: nur diese Widget-Arten neu laden; nil = alle.
-    private func mutate(_ body: (inout SharedStorage.Snapshot) -> Void, reloadWidgets: Bool = true, widgetKinds: [String]? = nil) {
+    /// Für die Erweiterungen (`AppData+…`): jede Änderung am gespeicherten Stand läuft hierüber.
+    func mutate(_ body: (inout SharedStorage.Snapshot) -> Void, reloadWidgets: Bool = true, widgetKinds: [String]? = nil) {
         var s = snapshot
         body(&s)
         snapshot = s
@@ -288,37 +168,12 @@ final class AppData: ObservableObject {
         ChangeView.of(stamp: changeStamp, basis: settings.changeBasis, now: now)
     }
 
-    // MARK: Merkliste
-
-    /// nil, wenn das Paar schon beobachtet wird.
-    @discardableResult
-    /// `group`: Gruppe für das NEUE Paar; ein bereits vorhandenes behält seine.
-    func addWatch(market: Market, pair: CurrencyPairInfo, group: String? = nil) -> Int64? {
-        var newId: Int64?
-        mutate { s in
-            newId = Self.insert(&s, market: market, pair: pair, group: group)
-        }
-        if newId != nil { markFirstPairAdded() }
-        return newId
-    }
-
-    func addWatches(market: Market, pairs: [CurrencyPairInfo], group: String? = nil) -> BulkAddResult {
-        var added = 0, skipped = 0
-        mutate { s in
-            for p in pairs {
-                if Self.insert(&s, market: market, pair: p, group: group) != nil { added += 1 } else { skipped += 1 }
-            }
-        }
-        if added > 0 { markFirstPairAdded() }
-        return BulkAddResult(added: added, skipped: skipped)
-    }
-
     // MARK: Erst-Hinzufügen
 
     /// Wäre das nächste Paar das allererste? (Merker nicht gesetzt und Merkliste leer.)
     var isFirstPairAdd: Bool { !settings.firstPairAdded && snapshot.watches.isEmpty }
 
-    private func markFirstPairAdded() {
+    func markFirstPairAdded() {
         if !settings.firstPairAdded { settings.firstPairAdded = true }
     }
 
@@ -401,7 +256,7 @@ final class AppData: ObservableObject {
         }
     }
 
-    private static func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair: CurrencyPairInfo,
+    static func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair: CurrencyPairInfo,
                                group: String? = nil) -> Int64? {
         if s.watches.contains(where: {
             $0.marketKey == market.key && $0.baseAsset == pair.base && $0.quoteAsset == pair.quote && $0.contractType == pair.contractType
@@ -611,290 +466,6 @@ final class AppData: ObservableObject {
         }
     }
 
-    func setNotificationEnabled(_ watch: Watch, _ enabled: Bool) {
-        mutate({ s in
-            guard let i = s.watches.firstIndex(where: { $0.id == watch.id }) else { return }
-            s.watches[i].notificationEnabled = enabled
-            if enabled {
-                // Bewusst eingeschaltet: einmal zeigen, Bezug auf den aktuellen Kurs setzen.
-                Notifier.showPrice(s.watches[i])
-                s.watches[i].notifiedPrice = s.watches[i].lastPrice
-                s.watches[i].notifiedAt = TimeUtils.nowMillis
-            } else {
-                Notifier.cancelPrice(watch.id)
-                s.watches[i].notifiedPrice = nil
-            }
-        }, reloadWidgets: false)
-    }
-
-    func setTtsEnabled(_ watch: Watch, _ enabled: Bool) {
-        mutate({ s in
-            if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].ttsEnabled = enabled }
-        }, reloadWidgets: false)
-    }
-
-    /// Notiz setzen; nil oder leer = keine Notiz. Widgets zeigen keine Notiz.
-    func setNote(_ watch: Watch, _ note: String?) {
-        let value = Watch.validNote(note)
-        mutate({ s in
-            if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].note = value }
-        }, reloadWidgets: false)
-    }
-
-    /// Gruppe setzen; nil oder leer = keine Gruppe. Widgets neu zeichnen (Gruppen-Filter).
-    func setGroup(_ watch: Watch, _ groupName: String?) {
-        let value = Watch.validGroupName(groupName)
-        mutate { s in
-            if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].groupName = value }
-        }
-    }
-
-    /// Favorit an/aus (Stern, Wischen nach rechts, Aktionen-Menü).
-    func toggleFavorite(_ watch: Watch) {
-        mutate { s in
-            if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].favorite.toggle() }
-        }
-    }
-
-    /// Verschiebt ein Paar innerhalb seiner Abteilung (Favoriten bzw. übrige —
-    /// Favoriten bleiben immer oben). Mit `group` nur unter den Paaren dieser
-    /// Gruppe (gefilterte Ansicht); ausgeblendete Paare behalten ihren Platz.
-    /// Danach wird die ganze Liste fortlaufend neu nummeriert — wie `WatchRepository.move`.
-    func move(_ watch: Watch, _ move: WatchMove, group: String? = nil) {
-        let all = watches
-        guard let current = all.first(where: { $0.id == watch.id }) else { return }
-        var section = all.filter { $0.favorite == current.favorite && (group == nil || $0.groupName == group) }
-        // Paar gehört nicht zur gefilterten Gruppe: nichts zu verschieben
-        guard let from = section.firstIndex(where: { $0.id == watch.id }) else { return }
-        let to: Int
-        switch move {
-        case .top: to = 0
-        case .up: to = max(from - 1, 0)
-        case .down: to = min(from + 1, section.count - 1)
-        case .bottom: to = section.count - 1
-        }
-        guard from != to else { return }
-        section.insert(section.remove(at: from), at: to)
-        renumber(Self.placeInSlots(all, section).map(\.id))
-    }
-
-    /// Übernimmt eine per Ziehen festgelegte Reihenfolge der sichtbaren Paare.
-    /// In einer gefilterten Ansicht enthält `orderedIds` nur die Paare der Gruppe:
-    /// Sie tauschen untereinander die Plätze, alle anderen bleiben, wo sie sind.
-    /// Favoriten bleiben trotzdem immer vor den übrigen — wie `WatchRepository.reorder`.
-    func reorder(_ orderedIds: [Int64]) {
-        let all = watches
-        let byId = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
-        var seen = Set<Int64>()
-        let wanted = orderedIds.filter { seen.insert($0).inserted }.compactMap { byId[$0] }
-        renumber(Self.placeInSlots(all, wanted).map(\.id))
-    }
-
-    /// Setzt `subset` in neuer Reihenfolge auf die Plätze, die seine Paare in `all`
-    /// bisher belegen; die übrigen Paare bleiben unverändert. Favoriten danach oben
-    /// (stabile Aufteilung) — wie `placeInSlots` in Android.
-    static func placeInSlots(_ all: [Watch], _ subset: [Watch]) -> [Watch] {
-        let ids = Set(subset.map(\.id))
-        let slots = all.indices.filter { ids.contains(all[$0].id) }
-        var result = all
-        for (i, slot) in slots.enumerated() where i < subset.count {
-            result[slot] = subset[i]
-        }
-        return result.filter(\.favorite) + result.filter { !$0.favorite }
-    }
-
-    private func renumber(_ ids: [Int64]) {
-        mutate { s in
-            for (index, id) in ids.enumerated() {
-                if let i = s.watches.firstIndex(where: { $0.id == id }) { s.watches[i].sortOrder = index }
-            }
-        }
-    }
-
-    // MARK: Alarme
-
-    /// Speichert einen Alarm (id 0 = neu) — Bezugskurs wie in `AlarmsViewModel.save`.
-    /// - Returns: true, wenn es der allererste Alarm ist (Bestätigung zeigen);
-    ///   `firstAlarmShown` ist dann schon gesetzt.
-    @discardableResult
-    func saveAlarm(watchId: Int64, id: Int64, condition: AlarmCondition, threshold: Double,
-                   repeating: Bool, sound: Bool, vibrate: Bool, speak: Bool, windowHours: Int,
-                   currency: String? = nil) -> Bool {
-        let existing = snapshot.alarms.first { $0.id == id && id != 0 }
-        // Erster Alarm überhaupt? Gibt es schon Alarme, gilt die Bestätigung als gezeigt.
-        let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
-        if !settings.firstAlarmShown { settings.firstAlarmShown = true }
-        // Eigene Währung nur bei Kursalarmen und nur, wenn sie von der Quote abweicht
-        let validCode = Alarm.validCurrency(currency)
-        let differsFromQuote = !CurrencyConversion.sameCurrency(validCode, watch(watchId)?.quoteAsset)
-        let alarmCurrency: String? = condition.isPriceThreshold && differsFromQuote ? validCode : nil
-        let keep = existing != nil && existing?.condition == condition && existing?.windowHours == windowHours
-        let referencePrice: Double?
-        if !condition.isPercent { referencePrice = nil }
-        else if keep { referencePrice = existing?.referencePrice }
-        else { referencePrice = watch(watchId)?.lastPrice }
-
-        // Bewegungs-Alarm: Fenster beginnt jetzt (oder läuft unverändert weiter).
-        // Volumen-Spike: zuletzt gemeldete Kerze behalten, damit sie nicht nochmals meldet.
-        let referenceAt: Int64
-        if condition == .VOLUME_SPIKE {
-            referenceAt = existing?.condition == .VOLUME_SPIKE ? (existing?.referenceAt ?? 0) : 0
-        } else if condition != .MOVE_PERCENT_WINDOW { referenceAt = 0 }
-        else if keep { referenceAt = existing?.referenceAt ?? 0 }
-        else if referencePrice != nil { referenceAt = TimeUtils.nowMillis }
-        else { referenceAt = 0 }
-
-        mutate({ s in
-            var alarmId = id
-            if alarmId == 0 {
-                alarmId = max(s.nextAlarmId, (s.alarms.map(\.id).max() ?? 0) + 1)
-                s.nextAlarmId = alarmId + 1
-            }
-            let alarm = Alarm(id: alarmId, watchId: watchId, condition: condition, threshold: threshold,
-                              enabled: true, repeating: repeating, sound: sound, vibrate: vibrate, speak: speak,
-                              referencePrice: referencePrice, lastTriggeredAt: 0, lastTriggeredPrice: nil,
-                              windowHours: windowHours, referenceAt: referenceAt, currency: alarmCurrency)
-            if let i = s.alarms.firstIndex(where: { $0.id == alarmId }) { s.alarms[i] = alarm } else { s.alarms.append(alarm) }
-        }, reloadWidgets: false)
-        Task { _ = await Notifier.requestPermission() }
-        return firstAlarm
-    }
-
-    /// Schnell-Alarm sofort anlegen (scharf, Ton/Vibration wie neue Alarme) — wie
-    /// `AlarmsViewModel.createFromTemplate`. Liefert die Id (für «Rückgängig») und ob es
-    /// der allererste Alarm überhaupt ist (Bestätigung zeigen).
-    func createAlarm(watchId: Int64, from def: AlarmTemplates.Definition) -> (id: Int64, firstAlarm: Bool) {
-        let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
-        if !settings.firstAlarmShown { settings.firstAlarmShown = true }
-        var newId: Int64 = 0
-        mutate({ s in
-            let alarmId = max(s.nextAlarmId, (s.alarms.map(\.id).max() ?? 0) + 1)
-            s.nextAlarmId = alarmId + 1
-            newId = alarmId
-            s.alarms.append(Alarm(id: alarmId, watchId: watchId, condition: def.condition, threshold: def.threshold,
-                                  enabled: true, repeating: def.repeating, sound: true, vibrate: true, speak: false,
-                                  referencePrice: def.referencePrice, lastTriggeredAt: 0, lastTriggeredPrice: nil,
-                                  windowHours: def.windowHours, referenceAt: 0, currency: nil))
-        }, reloadWidgets: false)
-        Task { _ = await Notifier.requestPermission() }
-        return (newId, firstAlarm)
-    }
-
-    // MARK: Portfolio-Alarme («Portfolio-Wert»)
-
-    /// Alarme «Portfolio-Wert», nach Id.
-    var portfolioAlarms: [PortfolioAlarm] { (snapshot.portfolioAlarms ?? []).sorted { $0.id < $1.id } }
-
-    /// Mindestens ein scharfer Portfolio-Alarm (und Portfolio eingeschaltet)?
-    var hasActivePortfolioAlarms: Bool {
-        settings.portfolioEnabled && (snapshot.portfolioAlarms ?? []).contains(where: \.enabled)
-    }
-
-    /// Neuer Portfolio-Alarm (scharf); Beträge in der Umrechnungswährung `currency`.
-    func addPortfolioAlarm(kind: PortfolioAlarmKind, threshold: Double, currency: String, repeating: Bool) {
-        guard PortfolioAlarmLogic.isValidThreshold(kind, threshold) else { return }
-        mutate({ s in
-            var list = s.portfolioAlarms ?? []
-            let id = max(s.nextPortfolioAlarmId ?? 1, (list.map(\.id).max() ?? 0) + 1)
-            list.append(PortfolioAlarm(id: id, kind: kind, threshold: threshold,
-                                       currency: kind.isValue ? currency : nil, repeating: repeating))
-            s.portfolioAlarms = list
-            s.nextPortfolioAlarmId = id + 1
-        }, reloadWidgets: false)
-        Task { _ = await Notifier.requestPermission() }
-    }
-
-    /// Ein-/Ausschalten; eingeschaltet wieder scharf (wie die Kursmarken der Paar-Alarme).
-    func setPortfolioAlarmEnabled(_ id: Int64, _ enabled: Bool) {
-        mutate({ s in
-            guard var list = s.portfolioAlarms, let i = list.firstIndex(where: { $0.id == id }) else { return }
-            list[i].enabled = enabled
-            if enabled { list[i].referenceAt = 0 }
-            s.portfolioAlarms = list
-        }, reloadWidgets: false)
-    }
-
-    func deletePortfolioAlarm(_ id: Int64) {
-        mutate({ s in s.portfolioAlarms?.removeAll { $0.id == id } }, reloadWidgets: false)
-    }
-
-    /// Nach jeder neuen Berechnung des Portfolio-Stands (Portfolio-Tab, volle Aktualisierung,
-    /// Hintergrund): Alarme prüfen (`PortfolioAlarmLogic`), Zustand speichern, dann melden.
-    /// Nur mit eingeschaltetem Portfolio — wie `PortfolioAlarmChecker` (Android).
-    func evaluatePortfolioAlarms(_ widget: PortfolioWidgetSnapshot?) {
-        guard let widget, hasActivePortfolioAlarms else { return }
-        let current = settings
-        let reading = PortfolioReading(total: widget.total, currency: widget.currency, totalUsdt: widget.totalUsdt,
-                                       changePercent: widget.changePercent, empty: widget.empty)
-        let now = TimeUtils.nowMillis
-        var list = snapshot.portfolioAlarms ?? []
-        var fired: [(alarm: PortfolioAlarm, value: Double)] = []
-        var changed = false
-        for i in list.indices {
-            switch PortfolioAlarmLogic.decide(list[i], reading, now: now, cooldownMinutes: current.alarmCooldownMinutes) {
-            case .nothing:
-                break
-            case .rearm:
-                list[i].referenceAt = 0
-                changed = true
-            case .fire(let value):
-                list[i].referenceAt = now
-                list[i].lastTriggeredAt = now
-                list[i].lastTriggeredValue = value
-                list[i].enabled = PortfolioAlarmLogic.enabledAfterFire(repeating: list[i].repeating)
-                changed = true
-                fired.append((list[i], value))
-            }
-        }
-        guard changed else { return }
-        let updated = list
-        mutate({ s in s.portfolioAlarms = updated }, reloadWidgets: false)
-        // Erst nach dem Speichern melden (sonst wiederholt sich der Alarm, wenn iOS die App dazwischen beendet)
-        for item in fired {
-            Notifier.showPortfolioAlarm(item.alarm, measured: item.value, settings: current)
-        }
-    }
-
-    // MARK: Probe-Alarm
-
-    enum AlarmTestOutcome { case sent, sentDuringQuietHours, denied }
-
-    /// Probe-Alarm wie ein echter Kursalarm (Ton, zeitkritisch, Ansage) — ohne Nachtruhe.
-    /// Fragt einmal nach der Erlaubnis, falls noch nie gefragt.
-    func sendTestAlarm() async -> AlarmTestOutcome {
-        var status = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
-        if status == .notDetermined {
-            _ = await Notifier.requestPermission()
-            status = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
-        }
-        guard status == .authorized || status == .provisional || status == .ephemeral else { return .denied }
-        let current = settings
-        Notifier.showTestAlarm(settings: current)
-        if current.ttsEnabled {
-            Speaker.shared.speak(L("alarm_test_title") + ". " + L("alarm_test_text"), rate: current.ttsSpeechRate, flush: true)
-        }
-        return QuietHours.isQuietNow(current) ? .sentDuringQuietHours : .sent
-    }
-
-    func deleteAlarm(_ id: Int64) {
-        mutate({ s in s.alarms.removeAll { $0.id == id } }, reloadWidgets: false)
-    }
-
-    func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {
-        mutate({ s in
-            if let i = s.alarms.firstIndex(where: { $0.id == id }) {
-                s.alarms[i].enabled = enabled
-                // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden
-                // wieder (wie WatchDao.rearmAlarm)
-                let condition = s.alarms[i].condition
-                if enabled && (condition.isNearExtreme || condition.isPriceThreshold || condition.isDerivatives) {
-                    s.alarms[i].referencePrice = nil
-                    s.alarms[i].referenceAt = 0
-                }
-            }
-        }, reloadWidgets: false)
-    }
-
     // MARK: Portfolio
 
     /// Neu anlegen (id 0) oder ändern — wie `PortfolioRepository.save`.
@@ -976,22 +547,6 @@ final class AppData: ObservableObject {
         PortfolioStore.save(file)
         // Portfolio-Widget mit den bekannten Kursen nachführen
         PortfolioWidgetStore.updateFromCache(transactions: file.transactions, currency: settings.portfolioCurrency)
-    }
-
-    // MARK: Favoriten der Auswahllisten
-
-    func isFavorite(_ kind: FavoriteKind, _ item: String) -> Bool { favorites[kind]?.contains(item) ?? false }
-
-    func toggleFavorite(_ kind: FavoriteKind, _ item: String) {
-        var set = favorites[kind] ?? []
-        if set.contains(item) { set.remove(item) } else { set.insert(item) }
-        favorites[kind] = set
-        SharedStorage.setFavorites(kind, set)
-    }
-
-    func setFavorites(_ kind: FavoriteKind, _ items: Set<String>) {
-        favorites[kind] = items
-        SharedStorage.setFavorites(kind, items)
     }
 
     // MARK: Aktualisieren

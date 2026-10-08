@@ -178,7 +178,7 @@ r1AD — riad.work@outlook.com
   Volumen, Hebel, Schwankung 1h, Fear & Greed) mit ✓ (stützt die Bewegung),
   ! (erhöht) oder – (neutral); Rohwerte unter «Details anzeigen», Fusszeile
   «Keine Prognose · Keine Anlageberatung» (`domain/activity/WhySummary.kt`,
-  `ui/features/watchlist/ActivityUi.kt`).
+  `ui/features/watchlist/WatchWhySheet.kt`, `WatchWhyFactors.kt`).
 * **Einstellungen in Gruppen** — Darstellung · Währung & Umrechnung · Alarme &
   Benachrichtigungen · Daten & Aktualisierung · Portfolio · Sicherheit & Backup
   · Erweitert (eingeklappt) · Über (`ui/features/settings/SettingsScreen.kt`), mit
@@ -187,7 +187,7 @@ r1AD — riad.work@outlook.com
   häufigsten gleich gross: Alarm, Warum?, Favorit. Nach dem Hinzufügen bietet
   der Hinweis «… wird jetzt überwacht» direkt «Alarm setzen», solange die
   neuen Paare noch keinen Alarm haben.
-* **Chart im Aktionsblatt** — über Alarm · Warum? · Favorit: 24h · 7T · 30T, Kerzen/Linie (zuletzt gewählt), Geometrie und Kerzen wie das Einzel-Widget, lange drücken/waagrecht ziehen zeigt Kurs, Zeit und Veränderung; DEX-Paare ohne Chart (`ui/features/watchlist/SheetPriceChart.kt`, `domain/watch/SheetChart.kt`).
+* **Chart im Aktionsblatt** — über Alarm · Warum? · Favorit: 24h · 7T · 30T, Kerzen/Linie (zuletzt gewählt), Geometrie und Kerzen wie das Einzel-Widget, lange drücken/waagrecht ziehen zeigt Kurs, Zeit und Veränderung; DEX-Paare ohne Chart (`ui/features/watchlist/WatchSheetChartView.kt`, `domain/watch/SheetChart.kt`).
 * **Stern nur bei Favoriten** — in der Merkliste steht der Stern nur noch vor
   Favoriten, nicht als leerer Umriss in jeder Zeile.
 * **Alarm testen** — Einstellungen → Alarme & Benachrichtigungen; gleicher Weg wie ein echter
@@ -272,7 +272,7 @@ r1AD — riad.work@outlook.com
   von BTC/ETH/SOL, wie ganz passen); Titel und Schlagzeile werden kleiner bzw.
   zweizeilig statt abgeschnitten; Tippen öffnet den Markt-Tab. Daten aus dem
   Zwischenspeicher des Markt-Tabs (5 Min.), sonst über dieselbe Quelle
-  (`widget/PulseWidget*`, `WidgetUpdater.updatePulse`).
+  (`widget/PulseWidget*`, `PulseWidgetRenderer`).
 * **Widget-Ecken** — alle Widgets mit runden Ecken (ab Android 12 Radius des
   Systems): eingefärbte Fläche als ImageView unter dem Inhalt, Wurzel
   `@android:id/background`. Die Kopfzeile der Liste zeigt Logo · «Merkliste» ·
@@ -304,7 +304,7 @@ r1AD — riad.work@outlook.com
 
 ## Funktionen
 
-**Merkliste** — Börse und Handelspaar auf der Seite «Paar hinzufügen» («+» oben in der Merkliste) wählen und übernehmen
+**Merkliste** — Börse und Handelspaar auf der Seite «Paar hinzufügen» («+» neben der Lupe in der Merkliste) wählen und übernehmen
 (oder bei leerer Merkliste die Startauswahl nutzen). Jeder Eintrag speichert
 Kurs, Vorkurs und Zeitpunkt in Room, dazu die Veränderung über 24 Stunden
 (`change24h`, Room v10): Die Prozent-Pille «▲ +1.80% 24h» (auch Aktionen-Kopf,
@@ -365,14 +365,30 @@ Ein Boot-Receiver plant nach einem Neustart die Hintergrundaktualisierung neu;
 marketdata/   Börsen, Handelspaare, Ticker-Parser
 app/
   data/       Room (watches, alarms, markets), Repositories, OkHttp
-  domain/     AlarmEvaluator, PriceRefresher
+  domain/     AlarmEvaluator; PriceRefresher steuert die Aktualisierung, dazu
+              PriceFetcher (Kurse holen), DayReferences (24-h-/Tages-Bezüge),
+              RefreshEffects (Alarme, Kurs-Meldungen, Ansagen)
   notification/ Kanäle und Benachrichtigungen
   tts/        Sprachausgabe
   service/    Vordergrunddienst
   work/       WorkManager, Boot-Receiver
-  widget/     Widget-Provider und Einrichtung
+  widget/     Widget-Provider und Einrichtung; je Widget-Art ein Renderer
+              (ListWidgetRenderer, SingleWidgetRenderer, PortfolioWidgetRenderer,
+              PulseWidgetRenderer), WidgetUpdater entscheidet, was neu muss
   ui/         Compose: Merkliste, Börsen, Alarme, Markt, Portfolio, Einstellungen
 ```
+
+Grosse Bildschirme sind nach Aufgaben aufgeteilt, mit denselben Dateinamen wie in iOS:
+Merkliste (`WatchlistScreen` setzt zusammen; `WatchlistHeader`, `WatchlistStatus`,
+`WatchlistSearch`, `WatchlistList`, `WatchlistRow`, `WatchlistSheets`, `WatchlistJump`,
+`WatchlistBanner` …), Markt-Karten (`Market…Card`, `MarketCycleChart`, `MarketCardParts`),
+Einstellungen (`SettingsScreen`, `SettingsComponents`, `SettingsPickers`, je Gruppe
+`Settings…Pages`), Alarme (`AlarmsScreen`, `AlarmEditorSheet`, `AlarmAdvancedOptions`),
+«Paar hinzufügen» (`ExplorerScreen`, `ExplorerSearchUi`, `ExplorerSteps`, `ExplorerBulk`,
+`ExplorerDex`), Aktionsblatt (`WatchActionsSheet`, `WatchSheetActions`,
+`WatchSheetFutures`, `WatchSheetChartView`, `WatchSheetChartCanvas`), Portfolio
+(`PortfolioScreen`, `PortfolioTotalCard`, `PortfolioRows`, `PortfolioHistoryCard`,
+`PortfolioHistoryChart`). ViewModels bleiben je Bildschirm eine Klasse.
 
 ## Bauen
 

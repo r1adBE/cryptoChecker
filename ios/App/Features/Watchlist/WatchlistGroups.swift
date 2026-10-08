@@ -1,7 +1,6 @@
 import SwiftUI
 
-// Gruppen der Merkliste — wie die entsprechenden Teile von
-// `WatchlistScreen.kt` (GroupChips, GroupDialog). Bestände zeigt die Merkliste
+// Gruppen der Merkliste — wie `WatchlistGroups.kt` (GroupChips, GroupDialog). Bestände zeigt die Merkliste
 // seit 16.2.2 nicht mehr; sie gehören in den Portfolio-Tab.
 
 // MARK: Gruppen-Chips
@@ -25,12 +24,11 @@ struct WatchlistGroupChips: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                if !groups.isEmpty {
-                    chip(L("group_all"), isSelected: selected == nil, action: { onSelect(nil) })
-                    ForEach(groups, id: \.self) { group in
-                        chip(group, isSelected: selected == group, action: { onSelect(group) },
-                             longPress: onEdit.map { edit -> () -> Void in { edit(group) } })
-                    }
+                // «Alle» steht immer da, sobald die Merkliste ein Paar hat (die Kopfzeile gibt es erst dann)
+                chip(L("group_all"), isSelected: selected == nil, action: { onSelect(nil) })
+                ForEach(groups, id: \.self) { group in
+                    chip(group, isSelected: selected == group, action: { onSelect(group) },
+                         longPress: onEdit.map { edit -> () -> Void in { edit(group) } })
                 }
                 if let onAdd {
                     Button(action: onAdd) {

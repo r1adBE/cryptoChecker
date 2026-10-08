@@ -1,6 +1,6 @@
 import SwiftUI
 
-// «Gruppe bearbeiten» — wie `GroupEditSheet.kt` und `GroupNameDialog.kt`.
+// «Gruppe bearbeiten» — wie `WatchGroupEditSheet.kt` und `GroupNameDialog.kt`.
 
 /// Gruppennamen: Höchstlänge, Säubern und Schreibweise.
 enum WatchGroupNames {

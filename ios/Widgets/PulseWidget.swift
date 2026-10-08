@@ -3,7 +3,7 @@ import SwiftUI
 import WidgetKit
 
 // «Was gerade auffällt» (Crypto Pulse) als Widget — wie `PulseWidgetProvider` /
-// `WidgetUpdater.updatePulse` in Android. Auswertung und Leitsatz unverändert aus
+// `PulseWidgetRenderer` in Android. Auswertung und Leitsatz unverändert aus
 // `CryptoPulse` (Shared), Daten aus `CryptoPulseSource` (Shared) mit seinem
 // Zwischenspeicher (5 Min., App Group — derselbe Stand wie in der App).
 

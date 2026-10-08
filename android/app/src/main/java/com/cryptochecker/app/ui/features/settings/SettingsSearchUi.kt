@@ -178,6 +178,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("watchlist.converted", stringResource(R.string.settings_show_converted), watchlist,
         SettingsSearchTarget.Page(SettingsPage.WATCHLIST, "watchlist.converted"),
         stringResource(R.string.settings_show_converted_hint, settings.portfolioCurrency))
+    add("watchlist.activity", stringResource(R.string.settings_watchlist_activity_card), watchlist,
+        SettingsSearchTarget.Page(SettingsPage.WATCHLIST, "watchlist.activity"),
+        stringResource(R.string.settings_watchlist_activity_card_hint), "⚡")
 
     // 2 Darstellung
     val appearance = stringResource(R.string.settings_section_appearance)

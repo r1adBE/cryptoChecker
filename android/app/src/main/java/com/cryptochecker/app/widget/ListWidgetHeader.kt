@@ -2,8 +2,8 @@ package com.cryptochecker.app.widget
 
 /**
  * Kopfzeile des Listen-Widgets: Logo · Titel («Merkliste») · «Uhrzeit · Dauer» · Knopf.
- * Reine Regeln ohne Android (getestet in ListWidgetHeaderTest); gemessen wird im
- * [WidgetUpdater] mit der echten Schrift. Nie abgeschnitten — passt es nicht, fällt
+ * Reine Regeln ohne Android (getestet in ListWidgetHeaderTest); gemessen wird mit
+ * [WidgetToolkit.textWidthDp] (echte Schrift). Nie abgeschnitten — passt es nicht, fällt
  * zuerst die Dauer weg, dann wird der Titel kleiner, dann fällt die Uhrzeit weg.
  * Der Titel bleibt immer.
  */

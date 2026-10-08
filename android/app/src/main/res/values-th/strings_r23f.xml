@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">ฟิวเจอร์สที่มีวันหมดอายุ</string>
     <string name="settings_tradfi_futures">หุ้น สินค้าโภคภัณฑ์ และสกุลเงิน (TradFi)</string>
     <string name="settings_tradfi_futures_hint">เมื่อเลือกคู่เหรียญ จะแสดงฟิวเจอร์สของหุ้น ทองคำและสินค้าโภคภัณฑ์อื่น สกุลเงิน และบริษัทก่อน IPO ด้วย เป็นสัญญา ไม่ใช่โทเคน</string>
+    <string name="settings_watchlist_activity_card">กิจกรรมผิดปกติในรายการ</string>
+    <string name="settings_watchlist_activity_card_hint">แสดงการ์ด “มีบางอย่างเกิดขึ้นตอนนี้” เหนือคู่เหรียญ ตั้งค่าการแจ้งเตือนได้ที่ การแจ้งเตือนตลาด</string>
     <string name="settings_row_about">เกี่ยวกับแอป</string>
     <string name="price_colors_green_up">เขียวขึ้น / แดงลง</string>
     <string name="price_colors_red_up">แดงขึ้น / เขียวลง</string>

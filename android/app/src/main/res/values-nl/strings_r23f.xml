@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures met looptijd</string>
     <string name="settings_tradfi_futures">Aandelen, grondstoffen en valuta (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Toont bij het kiezen van een paar ook futures op aandelen, goud en andere grondstoffen, valuta en bedrijven vóór de beursgang. Dit zijn contracten, geen tokens.</string>
+    <string name="settings_watchlist_activity_card">Ongewone activiteit in de lijst</string>
+    <string name="settings_watchlist_activity_card_hint">Toont de kaart ‘Er gebeurt nu iets’ boven de paren. Meldingen stel je in bij Marktmeldingen.</string>
     <string name="settings_row_about">Over de app</string>
     <string name="price_colors_green_up">Groen stijgt / rood daalt</string>
     <string name="price_colors_red_up">Rood stijgt / groen daalt</string>

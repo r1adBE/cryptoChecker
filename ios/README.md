@@ -97,7 +97,7 @@ Frühere Runden:
   `Shared/Resources/macro_events.json`. Optional Morgen-Mitteilung um 08:00 («Wirtschaftstermine», Standard
   aus; lokal geplant) (`Shared/Insights/MacroCalendar.swift`, `App/Services/MacroNotifications.swift`).
 - **«Warum bewegt sich …?» als Checkliste**: oben «Kurz gesagt» in einem Satz, darunter die Faktoren
-  mit ✓ / ! / –, Rohwerte unter «Details anzeigen» (`App/Features/Watchlist/WatchlistActivity.swift`).
+  mit ✓ / ! / –, Rohwerte unter «Details anzeigen» (`App/Features/Watchlist/WatchWhySheet.swift`, `WatchWhyFactors.swift`).
 - **Einstellungen in Gruppen** wie Android: Darstellung · Währung & Umrechnung · Alarme &
   Benachrichtigungen · Daten & Aktualisierung · Portfolio · Sicherheit & Backup · Erweitert
   (eingeklappt) · Über.
@@ -116,7 +116,7 @@ Frühere Runden:
   ein Tipp öffnet die Aktionen sofort (kein Doppeltippen, das jeden Tipp ~0,3 s verzögert hätte);
   «Löschen» im Aktionsblatt wirkt wie Wischen (sofort, mit «Rückgängig», ohne Rückfrage).
   Nicht im Sortiermodus und nicht mit VoiceOver (dort Aktionen)
-  (`App/Features/Watchlist/WatchlistScreen.swift`).
+  (`App/Features/Watchlist/WatchlistEditing.swift`).
 - **Markt-Tab in drei Abschnitten**: «Jetzt» (Crypto Pulse, «Heute auffällig», Fear & Greed), «Einordnung»
   (Marktphase, Dominanz mit Altcoin-Saison, Halving), «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin); Überschriften für VoiceOver.
 - **Markt-Tab sofort da**: zeigt die zuletzt gespeicherten Daten («Stand … · wird

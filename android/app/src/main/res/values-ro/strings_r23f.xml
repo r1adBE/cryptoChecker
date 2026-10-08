@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures cu scadență</string>
     <string name="settings_tradfi_futures">Acțiuni, mărfuri și valute (TradFi)</string>
     <string name="settings_tradfi_futures_hint">La alegerea perechii arată și futures pe acțiuni, aur și alte mărfuri, valute și companii înainte de listare. Sunt contracte, nu tokenuri.</string>
+    <string name="settings_watchlist_activity_card">Activitate neobișnuită în listă</string>
+    <string name="settings_watchlist_activity_card_hint">Afișează cardul „Se întâmplă ceva chiar acum” deasupra perechilor. Notificările se setează la Alerte de piață.</string>
     <string name="settings_row_about">Despre aplicație</string>
     <string name="price_colors_green_up">Verde crește / roșu scade</string>
     <string name="price_colors_red_up">Roșu crește / verde scade</string>

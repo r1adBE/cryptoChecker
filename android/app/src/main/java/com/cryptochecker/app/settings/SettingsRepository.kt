@@ -65,6 +65,7 @@ class SettingsRepository @Inject constructor(
         val showConverted = booleanPreferencesKey("show_converted")
         val priceColorScheme = stringPreferencesKey("price_color_scheme")
         val watchlistSparkline = booleanPreferencesKey("watchlist_sparkline")
+        val watchlistActivityCard = booleanPreferencesKey("watchlist_activity_card")
         val changeBasis = stringPreferencesKey("change_basis")
         val highContrast = booleanPreferencesKey("high_contrast")
         val priceColorsInverted = booleanPreferencesKey("price_colors_inverted")
@@ -128,6 +129,7 @@ class SettingsRepository @Inject constructor(
             showConverted = prefs[Keys.showConverted] ?: defaults.showConverted,
             priceColorScheme = PriceColorScheme.fromName(prefs[Keys.priceColorScheme]),
             watchlistSparkline = prefs[Keys.watchlistSparkline] ?: defaults.watchlistSparkline,
+            watchlistActivityCard = prefs[Keys.watchlistActivityCard] ?: defaults.watchlistActivityCard,
             changeBasis = ChangeBasis.fromName(prefs[Keys.changeBasis]),
             highContrast = prefs[Keys.highContrast] ?: defaults.highContrast,
             // Nie gesetzt: Standard nach Region des Geräts
@@ -278,6 +280,8 @@ class SettingsRepository @Inject constructor(
 
     /** Mini-Chart in der Merkliste. */
     suspend fun setWatchlistSparkline(show: Boolean) = edit { it[Keys.watchlistSparkline] = show }
+
+    suspend fun setWatchlistActivityCard(show: Boolean) = edit { it[Keys.watchlistActivityCard] = show }
 
     /** «Basis der %-Änderung». */
     suspend fun setChangeBasis(basis: ChangeBasis) = edit { it[Keys.changeBasis] = basis.name }

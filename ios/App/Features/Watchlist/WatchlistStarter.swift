@@ -1,3 +1,4 @@
+import Accessibility
 import SwiftUI
 
 /// Start-Auswahl der leeren Merkliste — wie `StarterPicker` in Android.
@@ -205,5 +206,121 @@ struct WatchlistStarterPicker: View {
             prices = loaded
             loadingPrices = false
         }
+    }
+}
+
+/// Leere Merkliste (Start-Auswahl) und der «Erst-Hinzufügen»-Moment.
+extension WatchlistScreen {
+    /// Holt den ausstehenden Moment ab, sobald die Merkliste sichtbar ist (aktiver Tab, Seite
+    /// «Paar hinzufügen» geschlossen). Start-Tipp: Banner, eine Haptik und die VoiceOver-Ansage
+    /// hier; beim Hinzufügen über die Seite hat sie das schon gemacht — hier nur die Zeilen.
+    func takeCelebration() {
+        guard router.tab == .watchlist, !router.showExplorer, let celebration = data.takeAddCelebration() else { return }
+        var positions: [Int64: Int] = [:]
+        for (index, id) in celebration.watchIds.enumerated() { positions[id] = index }
+        celebrating = positions
+        if celebration.announceInWatchlist {
+            firstAddHaptic += 1
+            // Noch kein Alarm auf den neuen Paaren: «Alarm setzen» öffnet die Alarme des
+            // ersten (wie im Aktionsblatt). Kein weiterer Banner danach.
+            let counts = data.activeAlarmCounts
+            let noAlarms = celebration.watchIds.allSatisfy { (counts[$0] ?? 0) == 0 }
+            let action: WatchlistBannerAction? = noAlarms ? celebration.watchIds.first.map { id in
+                WatchlistBannerAction(title: L("add_alarm_action")) { alarmsFor = id }
+            } : nil
+            banner = WatchlistBannerMessage(text: celebration.message, long: true, action: action)
+            let text = celebration.message
+            Task { @MainActor in
+                // Erst nach dem Wechsel zur Liste ansagen, sonst geht es im Fokuswechsel unter
+                try? await Task.sleep(nanoseconds: 400_000_000)
+                AccessibilityNotification.Announcement(text).post()
+            }
+        }
+        // Moment vorbei: Zeilen wieder im Normalzustand (Versatz + Einblenden + Häkchen)
+        let ids = Set(celebration.watchIds)
+        let nanos = UInt64(max(celebration.watchIds.count - 1, 0)) * 90_000_000 + 2_600_000_000
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: nanos)
+            if Set(celebrating.keys) == ids { celebrating = [:] }
+        }
+    }
+
+    /// Start-Tipp: frische Liste, sonst Zwischenspeicher (auch älter), sonst Ersatzliste —
+    /// so steht sofort etwas da.
+    private var shownStarterCoins: [StarterCoin] {
+        starterCoins ?? StarterCoins.initial(us: StarterCoins.isUS())
+    }
+
+    /// Top 5 nach Marktkapitalisierung höchstens alle 24 h neu holen; kommt die Liste,
+    /// bevor jemand tippt, wird still getauscht.
+    private func refreshStarterCoins() async {
+        let us = StarterCoins.isUS()
+        guard !StarterCoins.isFresh(us: us) else { return }
+        guard let fresh = await StarterCoins.load(us: us), !Task.isCancelled else { return }
+        if data.watches.isEmpty { starterCoins = fresh }
+    }
+
+    /// Leere Merkliste: die fünf grössten Coins zur Auswahl (alle vorgewählt) und in
+    /// einem Schritt hinzufügen; darunter der Weg über «Paar hinzufügen» (auch «+» oben rechts).
+    var emptyState: some View {
+        let coins = shownStarterCoins
+        return GeometryReader { geo in
+            ScrollView {
+                VStack(spacing: Spacing.md) {
+                    WatchlistLogo(size: 64)
+                        .padding(16)
+                        .background(accent.container.opacity(0.5), in: Circle())
+                        .accessibilityHidden(true)
+                    Text(L("starter_title"))
+                        .font(.title3.weight(.semibold))
+                        .multilineTextAlignment(.center)
+                        .accessibilityAddTraits(.isHeader)
+                    Text(L("starter_text"))
+                        .font(.subheadline)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    WatchlistStarterPicker(coins: coins, us: StarterCoins.isUS()) { symbols in
+                        addStarter(symbols)
+                    }
+
+                    // Kein Erklärsatz davor: der Knopf sagt selbst, was er tut
+                    Button {
+                        router.openExplorer()
+                    } label: {
+                        Text(L("starter_custom"))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(accent.primary)
+                            .multilineTextAlignment(.center)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.horizontal, Spacing.lg)
+                .padding(.vertical, Spacing.xxl)
+                .frame(maxWidth: 480)
+                // Mittig, solange es passt; sonst scrollbar (grosse Schrift, kleine Geräte)
+                .frame(maxWidth: .infinity, minHeight: geo.size.height)
+            }
+            .refreshable { await data.refreshAll() }
+        }
+        // «+» oben rechts (der Hinweis verweist darauf); in der Merkliste steht es neben der Lupe
+        .overlay(alignment: .topTrailing) {
+            addPairButton
+                .padding(.trailing, Spacing.xs)
+        }
+        .task { await refreshStarterCoins() }
+    }
+
+    /// Haptik, Banner und Ansage kommen mit dem «Erst-Hinzufügen»-Moment (`takeCelebration`).
+    private func addStarter(_ symbols: [String]) {
+        withAnimation(.spring(duration: 0.35)) {
+            _ = data.addStarterCoins(symbols)
+        }
+        // Gleich abholen, damit die neuen Zeilen schon im ersten Bild verborgen sind
+        takeCelebration()
     }
 }

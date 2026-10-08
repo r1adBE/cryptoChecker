@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Строкові ф’ючерси</string>
     <string name="settings_tradfi_futures">Акції, сировина та валюти (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Під час вибору пари показує також ф’ючерси на акції, золото й іншу сировину, валюти та компанії до IPO. Це контракти, а не токени.</string>
+    <string name="settings_watchlist_activity_card">Незвична активність у списку</string>
+    <string name="settings_watchlist_activity_card_hint">Показує картку «Просто зараз щось відбувається» над парами. Сповіщення налаштовуються в розділі «Ринкові сповіщення».</string>
     <string name="settings_row_about">Про застосунок</string>
     <string name="price_colors_green_up">Зелений — зростання / червоний — падіння</string>
     <string name="price_colors_red_up">Червоний — зростання / зелений — падіння</string>

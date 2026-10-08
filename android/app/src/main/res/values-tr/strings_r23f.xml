@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Vadeli futures</string>
     <string name="settings_tradfi_futures">Hisseler, emtialar ve döviz (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Parite seçerken hisse senetleri, altın ve diğer emtialar, döviz ve halka arz öncesi şirketler üzerindeki vadeli işlemleri de gösterir. Bunlar token değil, sözleşmedir.</string>
+    <string name="settings_watchlist_activity_card">Listede olağandışı hareket</string>
+    <string name="settings_watchlist_activity_card_hint">Paritelerin üstünde “Şu anda bir şeyler oluyor” kartını gösterir. Bildirimler Piyasa bildirimleri bölümünden ayarlanır.</string>
     <string name="settings_row_about">Uygulama hakkında</string>
     <string name="price_colors_green_up">Yeşil yükselir / kırmızı düşer</string>
     <string name="price_colors_red_up">Kırmızı yükselir / yeşil düşer</string>

@@ -203,6 +203,9 @@ fun AppNavHost(
                     onOpenAllAlarms = { navigation.navigate(ScreenRoute.AlarmsOverview) },
                     onOpenActivitySettings = {
                         navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
+                    },
+                    onOpenAbout = {
+                        navigation.navigate(ScreenRoute.settingsPage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
                     }
                 )
             }

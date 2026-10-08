@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">交割合约</string>
     <string name="settings_tradfi_futures">股票、大宗商品和外汇（TradFi）</string>
     <string name="settings_tradfi_futures_hint">选择交易对时也显示股票、黄金等大宗商品、外汇以及上市前公司的合约。这些是合约，不是代币。</string>
+    <string name="settings_watchlist_activity_card">在列表中显示异常活动</string>
+    <string name="settings_watchlist_activity_card_hint">在交易对上方显示“此刻正有异动”卡片。通知在“市场通知”中设置。</string>
     <string name="settings_row_about">关于应用</string>
     <string name="price_colors_green_up">绿涨 / 红跌</string>
     <string name="price_colors_red_up">红涨 / 绿跌</string>

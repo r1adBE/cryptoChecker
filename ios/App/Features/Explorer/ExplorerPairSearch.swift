@@ -1,6 +1,6 @@
 import Foundation
 
-/// Ein Treffer der Suche über alle Börsen — wie `SearchHit` in `PairSearch.kt`.
+/// Ein Treffer der Suche über alle Börsen — wie `SearchHit` in `ExplorerPairSearch.kt`.
 struct ExplorerSearchHit: Identifiable, Sendable {
     let market: Market
     let pair: CurrencyPairInfo

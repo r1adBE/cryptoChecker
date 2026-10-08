@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">만기 선물</string>
     <string name="settings_tradfi_futures">주식·원자재·외환 (TradFi)</string>
     <string name="settings_tradfi_futures_hint">페어를 고를 때 주식, 금 등 원자재, 외환, 상장 전 기업에 대한 선물도 표시합니다. 토큰이 아니라 계약입니다.</string>
+    <string name="settings_watchlist_activity_card">목록에 이상 움직임 표시</string>
+    <string name="settings_watchlist_activity_card_hint">페어 위에 \'지금 무언가 일어나고 있습니다\' 카드를 표시합니다. 알림은 \'시장 알림\'에서 설정합니다.</string>
     <string name="settings_row_about">앱 정보</string>
     <string name="price_colors_green_up">초록 상승 / 빨강 하락</string>
     <string name="price_colors_red_up">빨강 상승 / 초록 하락</string>

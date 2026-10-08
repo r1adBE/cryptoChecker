@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Kompakte Auswahl «In Gruppe: …» neben den Hinzufügen-Knöpfen — wie
-/// `GroupTargetSelector.kt`. Gilt nur für neue Paare; bereits vorhandene
+/// `ExplorerGroupTarget.kt`. Gilt nur für neue Paare; bereits vorhandene
 /// behalten ihre Gruppe. Die Wahl gilt nur für die laufende Sitzung
 /// (`AppData.addTargetGroup`, nicht gespeichert).
 @MainActor

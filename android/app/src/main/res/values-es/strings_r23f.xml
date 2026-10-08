@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futuros con vencimiento</string>
     <string name="settings_tradfi_futures">Acciones, materias primas y divisas (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Al elegir un par, muestra también futuros sobre acciones, oro y otras materias primas, divisas y empresas antes de su salida a bolsa. Son contratos, no tokens.</string>
+    <string name="settings_watchlist_activity_card">Actividad inusual en la lista</string>
+    <string name="settings_watchlist_activity_card_hint">Muestra la tarjeta «Algo está pasando ahora mismo» encima de los pares. Los avisos se ajustan en Avisos del mercado.</string>
     <string name="settings_row_about">Acerca de la app</string>
     <string name="price_colors_green_up">Sube en verde / baja en rojo</string>
     <string name="price_colors_red_up">Sube en rojo / baja en verde</string>

@@ -176,7 +176,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
      * Die grössten Positionen zuerst, je Coin höchstens ein Abruf pro Stunde
      * ([PortfolioWidgetSeries.candleCoins]), gemeinsam höchstens [CANDLE_LOAD_TIMEOUT_MILLIS]
      * (das Widget wartet insgesamt nur 8 s). Die Kerzen landen im Zwischenspeicher von
-     * [WidgetUpdater]; [record] führt sie mit den gemerkten Kursen zusammen. Fehler bleiben still.
+     * [SingleWidgetRenderer]; [record] führt sie mit den gemerkten Kursen zusammen. Fehler bleiben still.
      */
     private suspend fun loadMissingCandles(transactions: List<PortfolioTxEntity>, prices: Map<String, Double>) {
         val open = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices).open.map { it.coin }

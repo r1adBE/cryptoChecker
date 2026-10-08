@@ -19,7 +19,7 @@ das in fünf Schritten – erst verstehen, dann eigene Auswahl, Alarme und ein g
 |---|---|---|---|
 | 01 | Den Markt verstehen, ohne Lärm | Merkliste | Tab «Merkliste»: BTC/USDT, ETH/USDT, SOL/USDT (Binance), zweite Zeile «≈ … CHF», Mini-Chart in jeder Zeile, Gruppe «Layer 1» |
 | 02 | Warum bewegt sich das? | «Warum bewegt sich das?» | Bei BTC oder SOL «Warum bewegt sich das?» öffnen, «Kurz gesagt» (Kurzfazit) oben im Bild |
-| 03 | Deine Merkliste, deine Börsen | Seite «Paar hinzufügen» | In der Merkliste «+» oben tippen: Börsenauswahl mit Spot und Futures (41 Märkte auf 32 Börsen, DEX-Token über DexScreener) |
+| 03 | Deine Merkliste, deine Börsen | Seite «Paar hinzufügen» | In der Merkliste «+» neben der Lupe tippen: Börsenauswahl mit Spot und Futures (41 Märkte auf 32 Börsen, DEX-Token über DexScreener) |
 | 04 | Alarme, wenn es zählt | Alarm-Editor | Neuen Alarm für BTC/USDT öffnen: Satz «Wenn BTC unter 90 000 geht», darüber die Schnell-Alarme (+1 %, −5 %, 30-Tage-Hoch …) |
 | 05 | Dein Portfolio – geschützt | Portfolio mit Sperre | Vorher Einstellungen → Portfolio-Sperre einschalten (die Demo-Sicherung lässt sie aus). Dann Tab «Portfolio»: entweder der Sperr-Hinweis «Portfolio ist gesperrt» oder nach dem Entsperren 0,05 BTC, 1,2 ETH, 10 SOL mit Gesamtwert in CHF |
 

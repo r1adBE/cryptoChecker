@@ -2,7 +2,7 @@ package com.cryptochecker.app.widget
 
 /**
  * Welcher Text passt in eine Widget-Zeile? Reine Regeln ohne Android (getestet in
- * WidgetTextFitTest); gemessen wird im [WidgetUpdater] mit der echten Schrift.
+ * WidgetTextFitTest); gemessen wird mit [WidgetToolkit.textWidthDp] (echte Schrift).
  * Lieber kürzer als abgeschnitten: «BT…» oder «heute ▲ +997.6…» sagen nichts.
  */
 object WidgetTextFit {

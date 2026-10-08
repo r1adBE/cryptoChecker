@@ -67,6 +67,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var priceColorScheme: PriceColorScheme = .default
     /// Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste.
     var watchlistSparkline: Bool = true
+    /// Karte «Hier passiert gerade etwas» über der Merkliste. Nur die Anzeige: Mitteilungen dazu
+    /// stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
+    var watchlistActivityCard: Bool = true
     /// «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00
     /// Ortszeit — für Pille, Puls, Aktionsblatt, Widgets und Live Activity; Alarme unabhängig davon.
     var changeBasis: ChangeBasis = .default
@@ -164,6 +167,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         // Unbekannter Wert (z. B. aus einer neueren Version) → Standard
         priceColorScheme = (try? c.decodeIfPresent(PriceColorScheme.self, forKey: .priceColorScheme)) ?? d.priceColorScheme
         watchlistSparkline = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistSparkline)) ?? d.watchlistSparkline
+        watchlistActivityCard = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistActivityCard)) ?? d.watchlistActivityCard
         // Fehlt (ältere Einstellungen) oder unbekannt: «Letzte 24 Std.»
         changeBasis = ChangeBasis.from(name: try? c.decodeIfPresent(String.self, forKey: .changeBasis))
         highContrast = (try? c.decodeIfPresent(Bool.self, forKey: .highContrast)) ?? d.highContrast

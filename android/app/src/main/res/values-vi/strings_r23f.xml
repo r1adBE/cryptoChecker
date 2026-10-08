@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures có kỳ hạn</string>
     <string name="settings_tradfi_futures">Cổ phiếu, hàng hóa và ngoại hối (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Khi chọn cặp, cũng hiển thị hợp đồng tương lai trên cổ phiếu, vàng và hàng hóa khác, tiền tệ và công ty trước IPO. Đây là hợp đồng, không phải token.</string>
+    <string name="settings_watchlist_activity_card">Hoạt động bất thường trong danh sách</string>
+    <string name="settings_watchlist_activity_card_hint">Hiển thị thẻ “Đang có điều gì đó xảy ra” phía trên các cặp. Thông báo được đặt trong Thông báo thị trường.</string>
     <string name="settings_row_about">Giới thiệu ứng dụng</string>
     <string name="price_colors_green_up">Xanh lá tăng / đỏ giảm</string>
     <string name="price_colors_red_up">Đỏ tăng / xanh lá giảm</string>

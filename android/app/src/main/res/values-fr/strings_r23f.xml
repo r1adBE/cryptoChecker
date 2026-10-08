@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures à échéance</string>
     <string name="settings_tradfi_futures">Actions, matières premières et devises (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Affiche aussi, lors du choix d’une paire, les futures sur actions, or et autres matières premières, devises et sociétés avant leur introduction en bourse. Ce sont des contrats, pas des jetons.</string>
+    <string name="settings_watchlist_activity_card">Activité inhabituelle dans la liste</string>
+    <string name="settings_watchlist_activity_card_hint">Affiche la carte « Il se passe quelque chose en ce moment » au-dessus des paires. Les alertes se règlent sous Notifications de marché.</string>
     <string name="settings_row_about">À propos de l’app</string>
     <string name="price_colors_green_up">Hausse en vert / baisse en rouge</string>
     <string name="price_colors_red_up">Hausse en rouge / baisse en vert</string>

@@ -132,6 +132,8 @@ enum SettingsSearchCatalog {
             [L("settings_watchlist_sparkline_hint")])
         add("watchlist.converted", L("settings_show_converted"), watchlist, .page(.watchlist, anchor: "watchlist.converted"),
             [L("settings_show_converted_hint", settings.portfolioCurrency)])
+        add("watchlist.activity", L("settings_watchlist_activity_card"), watchlist, .page(.watchlist, anchor: "watchlist.activity"),
+            [L("settings_watchlist_activity_card_hint"), "⚡"])
 
         // 2 Darstellung
         let appearance = L("settings_section_appearance")

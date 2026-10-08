@@ -169919,6 +169919,388 @@
         }
       }
     },
+    "settings_watchlist_activity_card" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشاط غير معتاد في القائمة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neobvyklá aktivita v seznamu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usædvanlig aktivitet i listen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungewöhnliche Aktivität in der Liste"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ασυνήθιστη δραστηριότητα στη λίστα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unusual activity in the list"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actividad inusual en la lista"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعالیت غیرعادی در فهرست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Epätavallinen aktiivisuus listassa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activité inhabituelle dans la liste"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "פעילות חריגה ברשימה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सूची में असामान्य गतिविधि"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szokatlan aktivitás a listában"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivitas tidak biasa di daftar"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attività insolita nella lista"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リストに異常な動きを表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목록에 이상 움직임 표시"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uvanlig aktivitet i listen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongewone activiteit in de lijst"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nietypowa aktywność na liście"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atividade invulgar na lista"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atividade incomum na lista"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activitate neobișnuită în listă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Необычная активность в списке"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivitet i pazakontë në listë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ovanlig aktivitet i listan"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กิจกรรมผิดปกติในรายการ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listede olağandışı hareket"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Незвична активність у списку"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoạt động bất thường trong danh sách"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在列表中显示异常活动"
+          }
+        }
+      }
+    },
+    "settings_watchlist_activity_card_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يعرض بطاقة «شيء ما يحدث الآن» فوق الأزواج. تُضبط التنبيهات في إشعارات السوق."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazí kartu „Právě se něco děje“ nad páry. Upozornění nastavíte v Tržní upozornění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viser kortet »Her sker der noget lige nu« over parrene. Meddelelser indstilles under Markedsmeddelelser."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeigt die Karte «Hier passiert gerade etwas» über den Paaren. Mitteilungen dazu stellst du unter Markt-Meldungen ein."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφανίζει την κάρτα «Κάτι συμβαίνει αυτή τη στιγμή» πάνω από τα ζεύγη. Οι ειδοποιήσεις ρυθμίζονται στο Ειδοποιήσεις αγοράς."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows the card “Something is happening right now” above the pairs. Alerts are set under Market alerts."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra la tarjeta «Algo está pasando ahora mismo» encima de los pares. Los avisos se ajustan en Avisos del mercado."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کارت «همین حالا اتفاقی در جریان است» را بالای جفت‌ها نشان می‌دهد. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näyttää kortin ”Nyt tapahtuu jotain” parien yläpuolella. Ilmoitukset asetetaan kohdassa Markkinailmoitukset."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affiche la carte « Il se passe quelque chose en ce moment » au-dessus des paires. Les alertes se règlent sous Notifications de marché."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מציג את הכרטיס „משהו קורה עכשיו” מעל הצמדים. התראות מוגדרות בהתראות שוק."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जोड़ियों के ऊपर “अभी कुछ हो रहा है” कार्ड दिखाता है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A párok felett mutatja a(z) „Most éppen történik valami” kártyát. Az értesítések: Piaci értesítések."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menampilkan kartu “Sesuatu sedang terjadi” di atas pasangan. Notifikasi diatur di Peringatan pasar."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra la scheda «Sta succedendo qualcosa» sopra le coppie. Le notifiche si impostano in Avvisi di mercato."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ペアの上に「今まさに動きがあります」カードを表示します。通知は「相場のお知らせ」で設定します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "페어 위에 '지금 무언가 일어나고 있습니다' 카드를 표시합니다. 알림은 '시장 알림'에서 설정합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viser kortet «Her skjer det noe akkurat nå» over parene. Varsler stilles inn under Markedsvarsler."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toont de kaart ‘Er gebeurt nu iets’ boven de paren. Meldingen stel je in bij Marktmeldingen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokazuje kartę „Coś się właśnie dzieje” nad parami. Powiadomienia ustawisz w Powiadomienia rynkowe."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra o cartão «Algo está a acontecer agora» acima dos pares. Os alertas definem-se em Avisos de mercado."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra o cartão “Algo está acontecendo agora” acima dos pares. Os alertas são definidos em Alertas de mercado."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afișează cardul „Se întâmplă ceva chiar acum” deasupra perechilor. Notificările se setează la Alerte de piață."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показывает карточку «Прямо сейчас что-то происходит» над парами. Уведомления настраиваются в разделе «Рыночные уведомления»."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq kartën «Diçka po ndodh tani» mbi çiftet. Njoftimet caktohen te Njoftime tregu."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visar kortet ”Något händer just nu” ovanför paren. Aviseringar ställs in under Marknadsaviseringar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงการ์ด “มีบางอย่างเกิดขึ้นตอนนี้” เหนือคู่เหรียญ ตั้งค่าการแจ้งเตือนได้ที่ การแจ้งเตือนตลาด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paritelerin üstünde “Şu anda bir şeyler oluyor” kartını gösterir. Bildirimler Piyasa bildirimleri bölümünden ayarlanır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показує картку «Просто зараз щось відбувається» над парами. Сповіщення налаштовуються в розділі «Ринкові сповіщення»."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiển thị thẻ “Đang có điều gì đó xảy ra” phía trên các cặp. Thông báo được đặt trong Thông báo thị trường."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在交易对上方显示“此刻正有异动”卡片。通知在“市场通知”中设置。"
+          }
+        }
+      }
+    },
     "settings_watchlist_sparkline" : {
       "extractionState" : "manual",
       "localizations" : {

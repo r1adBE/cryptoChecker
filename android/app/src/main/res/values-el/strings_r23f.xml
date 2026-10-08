@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures με λήξη</string>
     <string name="settings_tradfi_futures">Μετοχές, εμπορεύματα και νομίσματα (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Στην επιλογή ζεύγους δείχνει και futures σε μετοχές, χρυσό και άλλα εμπορεύματα, νομίσματα και εταιρείες πριν από την εισαγωγή τους στο χρηματιστήριο. Είναι συμβόλαια, όχι tokens.</string>
+    <string name="settings_watchlist_activity_card">Ασυνήθιστη δραστηριότητα στη λίστα</string>
+    <string name="settings_watchlist_activity_card_hint">Εμφανίζει την κάρτα «Κάτι συμβαίνει αυτή τη στιγμή» πάνω από τα ζεύγη. Οι ειδοποιήσεις ρυθμίζονται στο Ειδοποιήσεις αγοράς.</string>
     <string name="settings_row_about">Σχετικά με την εφαρμογή</string>
     <string name="price_colors_green_up">Πράσινο ανεβαίνει / κόκκινο πέφτει</string>
     <string name="price_colors_red_up">Κόκκινο ανεβαίνει / πράσινο πέφτει</string>

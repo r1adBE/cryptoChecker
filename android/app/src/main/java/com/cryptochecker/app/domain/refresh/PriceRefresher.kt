@@ -1,76 +1,52 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.MarketRepository
-import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.PriceWrite
+import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.SparklineRepository
-import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.domain.watch.ChangeBasisMath
-import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.domain.watch.DayChange
-import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.convertCurrency
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.data.remote.VolumeSpike
-import com.cryptochecker.app.data.remote.NearExtremeDataSource
-import com.cryptochecker.app.data.remote.WindowRanges
-import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
 import com.cryptochecker.app.domain.activity.ActivityMonitor
 import com.cryptochecker.app.domain.gas.GasAlertChecker
-import com.cryptochecker.app.domain.alarm.AlarmEvaluator
-import com.cryptochecker.app.domain.alarm.DerivativesAlarm
-import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
-import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.tts.SpokenText
-import com.cryptochecker.app.tts.TtsSpeaker
-import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
-import com.cryptochecker.app.widget.LiveWidgetGate
-import com.cryptochecker.app.widget.WidgetUpdater
-import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
 import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.watch.ChangeStamp
+import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.AppVisibility
 import com.cryptochecker.app.util.ConnectivityMonitor
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import com.cryptochecker.app.domain.model.BulkTickers
-import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.app.widget.LiveWidgetGate
+import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
+import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import kotlin.math.abs
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -84,30 +60,27 @@ import javax.inject.Singleton
 @Singleton
 class PriceRefresher @Inject constructor(
     private val watchRepository: WatchRepository,
-    private val marketRepository: MarketRepository,
     private val settingsRepository: SettingsRepository,
-    private val alarmEvaluator: AlarmEvaluator,
     private val notifier: AppNotifier,
-    private val ttsSpeaker: TtsSpeaker,
-    private val spokenText: SpokenText,
     private val widgetUpdater: WidgetUpdater,
     private val refreshStats: RefreshStats,
-    private val volumeDataSource: VolumeDataSource,
     private val activityMonitor: ActivityMonitor,
     private val gasAlertChecker: GasAlertChecker,
-    private val currencyConverter: CurrencyConverter,
     private val portfolioSnapshotUpdater: PortfolioSnapshotUpdater,
-    private val nearExtremeDataSource: NearExtremeDataSource,
     /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
     private val sparklineRepository: SparklineRepository,
     /** Ohne Netz keine Aktualisierung (keine Fehlerzustände, siehe [OfflineGate]). */
     private val connectivity: ConnectivityMonitor,
     /** Paare mit frischem Live-Kurs (WebSocket, Merkliste offen) lässt die REST-Abfrage aus. */
     private val liveCoverage: LiveCoverage,
-    /** Funding/Open Interest für die Futures-Alarme (je Paar höchstens alle 5 Min.). */
-    private val derivativesAlarmData: DerivativesAlarmData,
     /** Live-Takte zeichnen die Widgets nur über dieses Tor (Bildschirm aus: aufschieben). */
     private val liveWidgetGate: LiveWidgetGate,
+    /** Kurse holen (gesammelt oder einzeln, je Börse). */
+    private val priceFetcher: PriceFetcher,
+    /** 24-h- und Tages-Bezüge aus Kerzen. */
+    private val dayReferences: DayReferences,
+    /** Alarme, Kurs-Meldungen und Ansagen nach einem neuen Kurs. */
+    private val effects: RefreshEffects,
 ) {
     private val mutex = Mutex()
 
@@ -246,8 +219,8 @@ class PriceRefresher @Inject constructor(
         // (rollend: Ticker ohne 24-h-Wert; Tages-Basen: alle); der Rest nach den Kursen.
         sparklineRepository.awaitRestored()
         val startedKeys = HashSet<Pair<String, String>>()
-        val earlyWatches = if (dayStart != null) watches else watches.filter { it.id in candleWatchIds }
-        val earlyLoads = startDayReferenceLoads(earlyWatches, startedKeys, dayStart)
+        val earlyWatches = if (dayStart != null) watches else watches.filter { it.id in dayReferences.candleWatchIds }
+        val earlyLoads = dayReferences.startDayReferenceLoads(earlyWatches, startedKeys, dayStart)
 
         // 1) Netz: alle Börsen gleichzeitig. Je Börse erst die Massenabfrage,
         //    was dort fehlt, parallel einzeln. Früher lief das strikt
@@ -261,7 +234,7 @@ class PriceRefresher @Inject constructor(
         val fetched = HashMap<Long, Fetched>()
         val activeReports = coroutineScope {
             activeGroups
-                .map { group -> async { fetchGroup(group.value, settings.includeRollingFutures) } }
+                .map { group -> async { priceFetcher.fetchGroup(group.value, settings.includeRollingFutures) } }
                 .awaitAll()
         }.map { (results, fetchedGroup) ->
             fetched.putAll(results)
@@ -291,11 +264,11 @@ class PriceRefresher @Inject constructor(
         refreshStats.setBackoffStates(backoff)
         val groupReports = activeReports + pausedReports
         val activeWatches = watches.filter { it.id !in pausedIds }
-        val lateLoads = startDayReferenceLoads(
-            watchesNeedingCandles(watches, fetched, settings.changeBasis, remember = true), startedKeys, dayStart
+        val lateLoads = dayReferences.startDayReferenceLoads(
+            dayReferences.watchesNeedingCandles(watches, fetched, settings.changeBasis, remember = true), startedKeys, dayStart
         )
         val dayLoads = earlyLoads + lateLoads
-        awaitDayReferenceLoads(dayLoads)
+        dayReferences.awaitDayReferenceLoads(dayLoads)
         val networkMillis = System.currentTimeMillis() - startedAt
 
         // 2) Auswerten: erst alle Kurse in EINEM Datenbank-Vorgang speichern,
@@ -346,125 +319,6 @@ class PriceRefresher @Inject constructor(
         )
     }
 
-    /**
-     * Holt die Kurse aller Paare einer Börse; Schlüssel ist die Watch-Id.
-     * Dazu der Eintrag für den Bericht: was geklappt hat und wie lange es dauerte.
-     */
-    private suspend fun fetchGroup(
-        group: List<WatchEntity>,
-        includeRollingFutures: Boolean,
-    ): Pair<Map<Long, Fetched>, FetchedGroup> {
-        val groupStartedAt = System.currentTimeMillis()
-        val bulk = loadBulkTickers(group)
-        val bulkTickers = bulk.tickers
-        val bulkMillis = System.currentTimeMillis() - groupStartedAt
-        val bulkTried = group.size >= MIN_WATCHES_FOR_BULK
-        // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher,
-        // das verschlimmerte es nur — die Börse wird pausiert (ExchangeBackoff).
-        val bulkRateLimited = bulk.error != null &&
-            RefreshReportLogic.classify(bulk.error) == RefreshFailure.RATE_LIMIT
-
-        // Eigene Grenze je Börse, damit niemand ins Rate-Limit läuft.
-        val limit = Semaphore(MAX_PARALLEL_REQUESTS_PER_MARKET)
-
-        val results = coroutineScope {
-            group.map { watch ->
-                async {
-                    val bulkTicker = watch.pairId?.let { bulkTickers[it] }
-                    watch to when {
-                        bulkTicker != null -> Fetched(bulkTicker, null)
-
-                        // Vollständige Liste ohne dieses Paar: nicht mehr gehandelt.
-                        // Früher kostete das je Paar eine Einzelabfrage, die
-                        // ohnehin scheiterte — bei 131 Paaren rund 11 s.
-                        // Laufzeit-Futures nur nachprüfen, wenn so eingestellt.
-                        bulk.complete &&
-                            (!includeRollingFutures || watch.contractType !in ROLLING_CONTRACTS) ->
-                            Fetched(null, NOT_TRADED_ERROR, notTraded = true)
-
-                        bulkRateLimited -> Fetched(null, bulk.error)
-
-                        else -> limit.withPermit { fetchSingle(watch) }
-                    }
-                }
-            }.awaitAll()
-        }
-
-        val notTraded = results.count { it.second.notTraded }
-        val errors = results.map { it.second }.filter { (it.ticker == null || it.error != null) && !it.notTraded }
-
-        val entry = MarketRefresh(
-            name = group.first().marketName,
-            millis = System.currentTimeMillis() - groupStartedAt,
-            pairs = group.size,
-            updated = group.size - notTraded - errors.size,
-            notTraded = notTraded,
-            failed = errors.size,
-            bulkTried = bulkTried,
-            bulkMillis = bulkMillis,
-            bulkPrices = bulkTickers.size,
-            singles = results.count { it.second.fromSingle },
-            reason = RefreshReportLogic.reason(errors.map { it.error }),
-        )
-        val errorTexts = errors.map { it.error } + listOfNotNull(bulk.error)
-        val signals = FetchedGroup(
-            marketKey = group.first().marketKey,
-            report = entry,
-            failures = errorTexts.map(RefreshReportLogic::classify),
-            retryAfterMillis = ExchangeBackoff.retryAfterMillis(errorTexts),
-        )
-
-        return results.associate { (watch, fetched) -> watch.id to fetched } to signals
-    }
-
-    /**
-     * Holt die Kurse einer Börse gesammelt, sofern sie das anbietet und sich
-     * der Aufwand lohnt. Wo möglich nur für die beobachteten Paare. Bei einem
-     * Fehler bleibt die Karte leer und jedes Paar wird einzeln abgefragt.
-     */
-    private suspend fun loadBulkTickers(group: List<WatchEntity>): BulkTickers {
-        if (group.size < MIN_WATCHES_FOR_BULK) return BulkTickers()
-
-        val sample = group.first()
-        val market = MarketInfo(sample.marketKey, sample.marketName)
-        val pairIds = group.mapNotNull { it.pairId }.distinct()
-
-        return runCatching {
-            if (!marketRepository.isMarketSupportsBulkTickers(market)) return BulkTickers()
-            marketRepository.getBulkTickers(market, pairIds)
-        }
-            .onFailure { Timber.w(it, "Massenabfrage fehlgeschlagen: %s", sample.marketName) }
-            .getOrDefault(BulkTickers())
-    }
-
-    /** Bericht einer Börse plus was die Pause je Börse ([ExchangeBackoff]) braucht. */
-    private class FetchedGroup(
-        val marketKey: String,
-        val report: MarketRefresh,
-        /** Ursachen aller Fehler (auch einer gescheiterten Sammelabfrage). */
-        val failures: List<RefreshFailure>,
-        val retryAfterMillis: Long?,
-    )
-
-    private suspend fun fetchSingle(watch: WatchEntity): Fetched {
-        return runCatching {
-            marketRepository.getMarketTicker(
-                MarketInfo(watch.marketKey, watch.marketName),
-                watch.toPairInfo()
-            )
-        }.fold(
-            onSuccess = { Fetched(it.ticker, it.error, fromSingle = true) },
-            onFailure = { failure ->
-                // Zeitüberschreitungen kommen als CancellationException an und
-                // gelten nur als Fehler dieses Paares. Abbrechen nur, wenn der
-                // Durchlauf selbst abgebrochen wurde.
-                currentCoroutineContext().ensureActive()
-                Timber.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
-                Fetched(null, failure.message, fromSingle = true)
-            }
-        )
-    }
-
     suspend fun refreshOne(watchId: Long): RefreshSummary = mutex.withLock {
         withContext(Dispatchers.IO) {
             val startedAt = System.currentTimeMillis()
@@ -478,12 +332,12 @@ class PriceRefresher @Inject constructor(
             }
             val settings = settingsRepository.current()
             sparklineRepository.awaitRestored()
-            val single = fetchSingle(watch)
+            val single = priceFetcher.fetchSingle(watch)
             // Kerzen nur, wenn der Ticker keinen 24-h-Wert liefert (Tages-Basen: immer)
             val dayStart = ChangeBasisMath.dayStart(settings.changeBasis, startedAt)
-            awaitDayReferenceLoads(
-                startDayReferenceLoads(
-                    watchesNeedingCandles(listOf(watch), mapOf(watch.id to single), settings.changeBasis, remember = false),
+            dayReferences.awaitDayReferenceLoads(
+                dayReferences.startDayReferenceLoads(
+                    dayReferences.watchesNeedingCandles(listOf(watch), mapOf(watch.id to single), settings.changeBasis, remember = false),
                     HashSet(),
                     dayStart,
                 )
@@ -594,7 +448,7 @@ class PriceRefresher @Inject constructor(
             }
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
-            val dayChange = if (live) ticker.change24hPercent else change24h(watch, price, ticker, settings.changeBasis, dayStart)
+            val dayChange = if (live) ticker.change24hPercent else dayReferences.change24h(watch, price, ticker, settings.changeBasis, dayStart)
             priceWrites += PriceWrite(watch.id, price, time, dayChange)
             // Entspricht dem, was das UPDATE in der Datenbank setzt.
             updatedWatches += watch.copy(
@@ -627,14 +481,14 @@ class PriceRefresher @Inject constructor(
 
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
-            val triggered = checkAlarms(
+            val triggered = effects.checkAlarms(
                 watch, price, watch.previousPrice,
                 alarmsByWatch[watch.id].orEmpty(), settings, now, live,
             )
             alarms += triggered
 
-            if (updateNotification(watch, settings, shownNotifications)) notifiedPrices += watch.id to price
-            if (!live) speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
+            if (effects.updateNotification(watch, settings, shownNotifications)) notifiedPrices += watch.id to price
+            if (!live) effects.speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
         }
 
         watchRepository.setNotifiedPrices(notifiedPrices, now)
@@ -651,332 +505,8 @@ class PriceRefresher @Inject constructor(
         )
     }
 
-    private suspend fun checkAlarms(
-        watch: WatchEntity,
-        price: Double,
-        previousPrice: Double?,
-        enabledAlarms: List<AlarmEntity>,
-        settings: AppSettings,
-        now: Long,
-        /**
-         * Live-Kurse: Volumen-, Funding- und Open-Interest-Alarme auslassen (die REST-Abfrage prüft
-         * sie mit Stundenkerzen bzw. Futures-Daten).
-         */
-        live: Boolean = false,
-    ): Int {
-        var count = 0
-
-        // Nicht abwarten: Die Ansage läuft in der Warteschlange der Sprachausgabe (Reihenfolge bleibt)
-        fun speakIfWanted(alarm: AlarmEntity) {
-            // Nachtruhe: Alarm kommt lautlos, also auch ohne Sprachausgabe
-            if (settings.ttsEnabled && alarm.speak && !isQuiet(settings)) {
-                ttsSpeaker.enqueue(
-                    spokenText.alarm(watch, alarm.condition, price),
-                    speechRate = settings.ttsSpeechRate,
-                    flush = true
-                )
-            }
-        }
-
-        // Volumendaten nur holen, wenn dieses Paar einen Volumen-Alarm hat — und dann nur einmal.
-        var volume: VolumeSpike? = null
-        var volumeLoaded = false
-
-        // Umrechnungsfaktoren für Kursalarme in einer anderen Währung: je Währung einmal pro Durchlauf.
-        val rates = HashMap<String, Double?>()
-        suspend fun rateFor(currency: String): Double? {
-            val key = currency.uppercase()
-            if (rates.containsKey(key)) return rates[key]
-            val rate = try {
-                currencyConverter.rate(watch.quoteAsset, key)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.d(e, "Alarm: Umrechnung %s → %s fehlgeschlagen", watch.quoteAsset, key)
-                null
-            }
-            rates[key] = rate
-            return rate
-        }
-
-        // «Nahe am Hoch/Tief»: Hoch/Tief der Zeiträume nur bei Bedarf, je Paar einmal (6 h zwischengespeichert)
-        var nearRanges: WindowRanges? = null
-        var nearLoaded = false
-
-        // Funding/Open Interest: nur für Paare mit solchen Alarmen, je Paar höchstens alle 5 Min. abgefragt
-        var derivatives: DerivativesAlarmData.Values? = null
-        var derivativesLoaded = false
-
-        for (alarm in enabledAlarms) {
-            if (alarm.condition.isDerivatives) {
-                // Nicht bei Live-Kursen (WebSocket): die normale Aktualisierung prüft sie
-                if (live) continue
-                if (!derivativesLoaded) {
-                    derivatives = derivativesAlarmData.values(watch, price, now)
-                    derivativesLoaded = true
-                }
-                val values = derivatives ?: continue
-                val value = if (alarm.condition.isFunding) values.fundingPercent
-                else derivativesAlarmData.oiChange(watch, values, DerivativesAlarm.oiWindowHours(alarm.windowHours), now)
-                when (val decision = DerivativesAlarm.decide(
-                    condition = alarm.condition,
-                    threshold = alarm.threshold,
-                    value = value,
-                    armed = alarm.referenceAt <= 0L,
-                    enabled = alarm.enabled,
-                    lastTriggeredAt = alarm.lastTriggeredAt,
-                    now = now,
-                    cooldownMinutes = settings.alarmCooldownMinutes,
-                )) {
-                    DerivativesAlarm.Decision.None -> Unit
-                    DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarm(alarm.id)
-                    is DerivativesAlarm.Decision.Fire -> {
-                        notifier.showAlarm(watch, alarm, price, derivativesValue = decision.value)
-                        watchRepository.markAlarmTriggered(alarm, price, now)
-                        count++
-                        speakIfWanted(alarm)
-                    }
-                }
-                continue
-            }
-            if (alarm.condition.isNearExtreme) {
-                if (!nearLoaded) {
-                    nearRanges = try {
-                        nearExtremeDataSource.ranges(watch.baseAsset, watch.quoteAsset)
-                    } catch (e: CancellationException) {
-                        throw e
-                    } catch (e: Exception) {
-                        Timber.d(e, "Alarm: Hoch/Tief für %s nicht verfügbar", watch.displayName)
-                        null
-                    }
-                    nearLoaded = true
-                }
-                val ranges = nearRanges ?: continue
-                val days = NearExtreme.windowDays(alarm.windowHours)
-                val raw = ranges.ranges[days] ?: continue
-                // Nur USDT-Kerzen: Hoch/Tief in die Quote des Paars umrechnen; ohne Faktor diesmal auslassen
-                val range = if (ranges.currency.equals(watch.quoteAsset, ignoreCase = true)) raw else {
-                    // rateFor = Faktor Quote → Kerzenwährung; Hoch/Tief also dadurch teilen
-                    val rate = rateFor(ranges.currency)?.takeIf { it > 0.0 } ?: continue
-                    raw.scaled(1.0 / rate)
-                }
-                val decision = NearExtreme.decide(
-                    side = if (alarm.condition == AlarmCondition.NEAR_HIGH) NearExtreme.Side.HIGH else NearExtreme.Side.LOW,
-                    price = price,
-                    range = range,
-                    thresholdPercent = alarm.threshold,
-                    armed = alarm.referenceAt <= 0L,
-                    lastLevel = alarm.referencePrice,
-                    inCooldown = NearExtreme.inCooldown(alarm.lastTriggeredAt, now, settings.alarmCooldownMinutes),
-                    lastTriggeredAt = alarm.lastTriggeredAt,
-                    now = now,
-                )
-                when (decision) {
-                    NearExtreme.Decision.None -> Unit
-                    NearExtreme.Decision.Rearm -> watchRepository.rearmAlarm(alarm.id)
-                    is NearExtreme.Decision.Fire -> {
-                        notifier.showAlarm(watch, alarm, price, nearFire = decision)
-                        watchRepository.markAlarmTriggered(alarm, price, now, nearLevel = decision.level)
-                        count++
-                        speakIfWanted(alarm)
-                    }
-                }
-                continue
-            }
-            if (alarm.condition == AlarmCondition.VOLUME_SPIKE) {
-                if (live) continue
-                if (!volumeLoaded) {
-                    volume = volumeDataSource.hourlySpike(watch.baseAsset, watch.quoteAsset)
-                    volumeLoaded = true
-                }
-                val spike = volume ?: continue
-                val spikeFires = alarmEvaluator.shouldTriggerVolumeSpike(
-                    alarm = alarm,
-                    ratio = spike.ratio,
-                    candleOpenTime = spike.candleOpenTime,
-                    now = now,
-                    cooldownMinutes = settings.alarmCooldownMinutes
-                )
-                if (!spikeFires) continue
-
-                notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio)
-                watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime)
-                count++
-                speakIfWanted(alarm)
-                continue
-            }
-
-            // Bewegungs-Alarm: abgelaufenes Fenster neu beginnen, ohne auszulösen
-            if (alarmEvaluator.needsWindowReset(alarm, now)) {
-                watchRepository.setAlarmReference(alarm.id, price, now)
-                continue
-            }
-            // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
-            val convertTo = alarm.convertCurrency
-            val comparePrice = if (convertTo == null) price else {
-                val rate = rateFor(convertTo) ?: continue
-                price * rate
-            }
-            // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
-            if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice)) {
-                watchRepository.rearmAlarm(alarm.id)
-                continue
-            }
-            val fires = alarmEvaluator.shouldTrigger(
-                alarm = alarm,
-                price = comparePrice,
-                previousPrice = previousPrice,
-                now = now,
-                cooldownMinutes = settings.alarmCooldownMinutes
-            )
-            if (!fires) continue
-
-            notifier.showAlarm(watch, alarm, price)
-            watchRepository.markAlarmTriggered(alarm, price, now)
-            count++
-            speakIfWanted(alarm)
-        }
-        return count
-    }
-
     /**
-     * Zeigt die Kurs-Benachrichtigung — je nach Einstellung nur dann, wenn sich
-     * der Kurs seit der letzten Meldung deutlich genug bewegt hat.
-     * @return true, wenn gemeldet wurde; der Aufrufer setzt dann den neuen
-     *   Bezugspunkt (gesammelt für alle Paare in einem Schreibvorgang).
-     */
-    private fun updateNotification(watch: WatchEntity, settings: AppSettings, shown: Set<Int>?): Boolean {
-        if (!settings.priceNotifications || !watch.notificationEnabled) {
-            notifier.cancelPriceIfShown(watch.id, shown)
-            return false
-        }
-
-        val price = watch.lastPrice
-        if (price == null || price <= 0.0) {
-            notifier.cancelPriceIfShown(watch.id, shown)
-            return false
-        }
-
-        val threshold = settings.notificationChangePercent
-        val reference = watch.notifiedPrice
-
-        if (threshold > 0 && reference != null && reference > 0.0) {
-            val change = abs((price - reference) / reference * 100.0)
-            if (change < threshold) return false
-        }
-
-        // Erst melden — die Benachrichtigung zeigt den Vergleich zur vorigen —
-        // danach wird der neue Bezugspunkt gesetzt.
-        notifier.showPrice(watch, ongoing = settings.ongoingNotifications)
-        return true
-    }
-
-    /** Kursansage in die Warteschlange der Sprachausgabe — die Aktualisierung wartet nicht darauf. */
-    private fun speakPriceIfWanted(
-        watch: WatchEntity,
-        price: Double,
-        settings: AppSettings,
-        spokenAlready: Boolean,
-    ) {
-        if (spokenAlready) return
-        if (!settings.ttsEnabled || settings.ttsAlarmsOnly) return
-        if (!watch.ttsEnabled) return
-        // Nachtruhe: auch normale Kursansagen schweigen
-        if (isQuiet(settings)) return
-
-        ttsSpeaker.enqueue(spokenText.price(watch, price), speechRate = settings.ttsSpeechRate, key = watch.id)
-    }
-
-    /**
-     * Paare, die beim letzten vollen Durchlauf Kerzen brauchten (Ticker ohne 24-h-Wert) —
-     * deren Bezüge werden gleich zu Beginn parallel zu den Kursen angestossen.
-     */
-    @Volatile
-    private var candleWatchIds: Set<Long> = emptySet()
-
-    /**
-     * Paare mit Kurs, die Kerzen brauchen ([ChangeBasisMath.needsCandles]): rollend nur ohne
-     * brauchbaren 24-h-Wert im Ticker, Tages-Basen alle.
-     * [remember]: Menge für den nächsten Durchlauf merken (nur bei vollen Durchläufen,
-     * damit [refreshOne] sie nicht verkleinert).
-     */
-    private fun watchesNeedingCandles(
-        watches: List<WatchEntity>,
-        fetched: Map<Long, Fetched>,
-        basis: ChangeBasis,
-        remember: Boolean,
-    ): List<WatchEntity> {
-        val needing = watches.filter { watch ->
-            val ticker = fetched[watch.id]?.ticker ?: return@filter false
-            ChangeBasisMath.needsCandles(basis, ticker.change24hPercent)
-        }
-        if (remember) candleWatchIds = needing.mapTo(HashSet()) { it.id }
-        return needing
-    }
-
-    /**
-     * Stösst das Laden der 24-h-Bezüge an: je Basis-Asset die Reihe in der Quote des Paars
-     * (USD-artige teilen sich die USDT-Reihe des Mini-Charts), bei Fiat-Quotes zusätzlich
-     * die USDT-Reihe als Ausweich. Läuft im eigenen Scope, damit ein Abruf nach dem
-     * Warten ([awaitDayReferenceLoads]) fertig wird und beim nächsten Durchlauf bereitliegt.
-     * Schlüssel in [started] werden übersprungen und ergänzt (kein doppelter Start).
-     * [dayStart]: Tages-Basis — Bezug seit diesem Tagesbeginn statt rollend.
-     */
-    private fun startDayReferenceLoads(
-        watches: List<WatchEntity>,
-        started: MutableSet<Pair<String, String>>,
-        dayStart: Long?,
-    ): List<Job> =
-        watches.flatMap { watch ->
-            val quote = DayChange.candleQuote(watch.quoteAsset)
-            if (quote != DAY_QUOTE && isFiat(watch.quoteAsset)) {
-                listOf(watch.baseAsset to quote, watch.baseAsset to DAY_QUOTE)
-            } else {
-                listOf(watch.baseAsset to quote)
-            }
-        }
-            .map { (base, quote) -> base.trim().uppercase() to quote }
-            .filter { started.add(it) }
-            .map { (base, quote) ->
-                activityScope.launch {
-                    runCatching {
-                        if (dayStart != null) sparklineRepository.dayStartReference(base, quote, dayStart)
-                        else sparklineRepository.dayReference(base, quote)
-                    }
-                }
-            }
-
-    /** Wartet höchstens [DAY_REFERENCE_WAIT_MILLIS]; was dann fehlt, kommt aus dem Zwischenspeicher. */
-    private suspend fun awaitDayReferenceLoads(jobs: List<Job>) {
-        if (jobs.isEmpty()) return
-        withTimeoutOrNull(DAY_REFERENCE_WAIT_MILLIS) { jobs.joinAll() }
-    }
-
-    /**
-     * Veränderung zum neuen Kurs gemäss %-Basis ([ChangeBasisMath.choose]). Rollend: zuerst der
-     * 24-h-Wert aus dem Ticker (gilt für das Paar selbst, also schon in seiner Quote — auch bei
-     * Fiat-Quotes), sonst aus Kerzen. Tages-Basen ([dayStart]): nur aus Kerzen seit Tagesbeginn.
-     * Kerzen mit [DayChange.select] (Kursabstand-Prüfung); null ohne Bezug — nie die
-     * Veränderung seit der letzten Abfrage.
-     */
-    private fun change24h(watch: WatchEntity, price: Double, ticker: Ticker, basis: ChangeBasis, dayStart: Long?): Double? =
-        ChangeBasisMath.choose(basis, ticker.change24hPercent) { candleChange(watch, price, dayStart) }
-
-    /** Veränderung aus gemerkten Kerzen: rollend ([dayStart] null) oder seit Tagesbeginn. */
-    private fun candleChange(watch: WatchEntity, price: Double, dayStart: Long?): Double? {
-        val quote = DayChange.candleQuote(watch.quoteAsset)
-        fun reference(q: String) = if (dayStart != null) sparklineRepository.cachedDayStartReference(watch.baseAsset, q, dayStart)
-        else sparklineRepository.cachedDayReference(watch.baseAsset, q)
-        return DayChange.select(
-            price = price,
-            pairReference = reference(quote),
-            usdtReference = reference(DAY_QUOTE),
-            quoteIsFiat = isFiat(watch.quoteAsset),
-        )
-    }
-
-    /**
-     * Tages-Basen: Bezüge, die nach dem Warten ([DAY_REFERENCE_WAIT_MILLIS]) noch kommen,
+     * Tages-Basen: Bezüge, die nach dem Warten ([DayReferences.awaitDayReferenceLoads]) noch kommen,
      * im Hintergrund nachtragen — nur die Veränderung, nur solange Kurs und Basis gleich
      * geblieben sind; danach die Widgets neu zeichnen (Live-Dienst bei ausgeschaltetem
      * Bildschirm: aufgeschoben, [deferWidgets]). Bricht nichts ab und meldet nichts.
@@ -996,7 +526,7 @@ class PriceRefresher @Inject constructor(
                     var count = 0
                     for (watch in missing) {
                         val price = watch.lastPrice ?: continue
-                        val change = candleChange(watch, price, stamp.dayStart)?.takeIf { it.isFinite() } ?: continue
+                        val change = dayReferences.candleChange(watch, price, stamp.dayStart)?.takeIf { it.isFinite() } ?: continue
                         if (watchRepository.fillChange(watch.id, watch.lastUpdate, change)) count++
                     }
                     count
@@ -1005,25 +535,6 @@ class PriceRefresher @Inject constructor(
             }.onFailure { if (it is CancellationException) throw it }
         }
     }
-
-    private fun isFiat(quote: String): Boolean = quote.trim().uppercase() in FxRateSource.CURRENCIES
-
-    /** Nachtruhe in diesem Moment (Ortszeit des Geräts)? */
-    private fun isQuiet(settings: AppSettings): Boolean =
-        QuietHours.isQuiet(
-            settings.quietHoursEnabled,
-            settings.quietHoursStart,
-            settings.quietHoursEnd,
-            QuietHours.minuteOfDay(),
-        )
-
-    /** Ergebnis der Netzabfrage für ein Paar; ticker == null heißt gescheitert. */
-    private class Fetched(
-        val ticker: Ticker?,
-        val error: String?,
-        val fromSingle: Boolean = false,
-        val notTraded: Boolean = false,
-    )
 
     private class Processed(
         val checked: Int,
@@ -1039,36 +550,8 @@ class PriceRefresher @Inject constructor(
     )
 
     private companion object {
-        /** Unter so wenigen Paaren spart die Massenabfrage nichts. */
-        const val MIN_WATCHES_FOR_BULK = 3
-
-        /** Gleichzeitige Einzelabfragen je Börse. */
-        const val MAX_PARALLEL_REQUESTS_PER_MARKET = 4
-
-        const val NOT_TRADED_ERROR = NOT_TRADED_MARKER
-
-        /** Kerzen-Quote der Mini-Charts (Ausweich-Reihe für Fiat-Quotes). */
-        const val DAY_QUOTE = "USDT"
-
-        /** So lange wartet ein Durchlauf nach den Kursen noch auf fehlende 24-h-Bezüge. */
-        const val DAY_REFERENCE_WAIT_MILLIS = 5_000L
-
         /** So lange werden späte Tages-Bezüge im Hintergrund noch nachgetragen. */
         const val LATE_FILL_MILLIS = 90_000L
-
-        /**
-         * Laufzeit-Kontrakte wechseln ihre Kennung beim Verfall (z. B.
-         * BTCUSDT_250926 → BTCUSDT_251226). Die gespeicherte Kennung fehlt dann
-         * in der Liste, die Einzelabfrage findet aber den aktuellen Kontrakt.
-         */
-        val ROLLING_CONTRACTS = setOf(
-            FuturesContractType.WEEKLY,
-            FuturesContractType.BIWEEKLY,
-            FuturesContractType.MONTHLY,
-            FuturesContractType.BIMONTHLY,
-            FuturesContractType.QUARTERLY,
-            FuturesContractType.BIQUARTERLY,
-        )
     }
 }
 

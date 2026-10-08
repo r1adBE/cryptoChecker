@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// «LIVE» in der Status-Pille, solange Kurse per WebSocket kommen (`LivePriceStream`) — wie
-/// `LiveBadge.kt`: kleiner pulsierender Punkt und Schriftzug in der Farbe der Pille.
+/// `WatchlistLiveBadge.kt`: kleiner pulsierender Punkt und Schriftzug in der Farbe der Pille.
 /// «Bewegung reduzieren»: Punkt steht still.
 struct WatchlistLiveBadge: View {
     let color: Color

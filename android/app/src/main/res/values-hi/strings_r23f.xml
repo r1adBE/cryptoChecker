@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">एक्सपायरी वाले फ़्यूचर्स</string>
     <string name="settings_tradfi_futures">शेयर, कमोडिटी और मुद्राएँ (TradFi)</string>
     <string name="settings_tradfi_futures_hint">जोड़ी चुनते समय शेयरों, सोने व अन्य कमोडिटी, मुद्राओं और IPO से पहले की कंपनियों पर फ़्यूचर्स भी दिखाता है। ये अनुबंध हैं, टोकन नहीं।</string>
+    <string name="settings_watchlist_activity_card">सूची में असामान्य गतिविधि</string>
+    <string name="settings_watchlist_activity_card_hint">जोड़ियों के ऊपर “अभी कुछ हो रहा है” कार्ड दिखाता है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।</string>
     <string name="settings_row_about">ऐप के बारे में</string>
     <string name="price_colors_green_up">हरा बढ़त / लाल गिरावट</string>
     <string name="price_colors_red_up">लाल बढ़त / हरा गिरावट</string>

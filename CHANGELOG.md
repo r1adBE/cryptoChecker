@@ -18,6 +18,11 @@
 * Swipe left to delete (with Undo), right for favourite; star only on
   favourites; jump button in long lists.
 * Groups, a note per coin, second line «≈ value» in one of 31 currencies.
+* Header with more room for groups: «All» as soon as there is one pair, no
+  logo; bell and ⋯ menu on the right (logo and app name → About, Refresh,
+  Sort, report). «+» (add pair) next to the search icon.
+* «Something is happening right now» card can be hidden under Settings ›
+  Watchlist; market alerts stay as they are.
 * «Outdated» / «exchange not reachable» per row and in all widgets (after
   2 minutes with «Update frequently»).
 * Start with one tap: the five largest coins with live prices, all preselected.
@@ -126,6 +131,11 @@
   License (`android/`, `ios/`); exchange guide moved to `DEVELOPMENT.md`.
 * GitHub Actions: Android unit tests and debug build, translation check,
   iOS simulator build (manual).
+* Code split by responsibility, same file names on Android and iOS, no
+  behaviour change: watchlist, action sheet and chart, add pair, market cards,
+  settings, alarms, portfolio, widgets, price refresh (`PriceFetcher`,
+  `DayReferences`, `RefreshEffects`), iOS `AppData` extensions. ViewModels stay
+  one class per screen.
 
 ### Exchange library
 * 15 new exchanges: WOO X (spot, futures), Deribit (futures), Phemex (spot,

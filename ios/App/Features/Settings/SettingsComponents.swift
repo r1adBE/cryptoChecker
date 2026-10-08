@@ -35,146 +35,93 @@ struct SettingsHint: View {
     }
 }
 
-/// Wie das System, Hell oder Dunkel — gilt für App und Widgets.
-/// Segmentleiste mit gleitender Markierung.
+/// Zeile der Hauptseite, die zu einer Unterseite führt: Titel links, Wert grau rechts
+/// (einzeilig, gekürzt); den Pfeil setzt die Liste. Für VoiceOver «Titel, Wert, Taste».
 @MainActor
-struct SettingsThemePicker: View {
-    let selection: Bool?
-    let onSelect: (Bool?) -> Void
-    @Environment(\.appAccent) private var accent
-    @Namespace private var namespace
+struct SettingsNavRow<Value: View, Destination: View>: View {
+    let title: String
+    let valueDescription: String?
+    let value: () -> Value
+    let destination: () -> Destination
 
-    private static let options: [(value: Bool?, key: String, icon: String)] = [
-        (nil, "theme_system", "circle.lefthalf.filled"),
-        (false, "theme_light", "sun.max.fill"),
-        (true, "theme_dark", "moon.fill"),
-    ]
+    init(
+        title: String,
+        valueDescription: String?,
+        @ViewBuilder value: @escaping () -> Value,
+        @ViewBuilder destination: @escaping () -> Destination
+    ) {
+        self.title = title
+        self.valueDescription = valueDescription
+        self.value = value
+        self.destination = destination
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(L("settings_theme_mode")).font(.body)
-            HStack(spacing: 4) {
-                ForEach(Array(Self.options.enumerated()), id: \.offset) { _, option in
-                    let selected = option.value == selection
-                    Button {
-                        withAnimation(.spring(duration: 0.3)) { onSelect(option.value) }
-                    } label: {
-                        HStack(spacing: Spacing.xs) {
-                            Image(systemName: option.icon).font(.footnote.weight(.semibold))
-                            Text(L(option.key))
-                                .font(.subheadline.weight(selected ? .semibold : .regular))
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.8)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, Spacing.md)
-                        .foregroundStyle(selected ? accent.onContainer : AppColors.onSurfaceVariant)
-                        .background {
-                            if selected {
-                                RoundedRectangle(cornerRadius: 11, style: .continuous)
-                                    .fill(accent.container)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 11, style: .continuous)
-                                            .strokeBorder(accent.primary.opacity(0.5), lineWidth: 1)
-                                    )
-                                    .matchedGeometryEffect(id: "theme", in: namespace)
-                            }
-                        }
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityAddTraits(selected ? .isSelected : [])
-                }
+        NavigationLink {
+            destination()
+        } label: {
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(.body)
+                    .foregroundStyle(AppColors.onSurface)
+                Spacer(minLength: 8)
+                value()
+                    .font(.body)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
-            .padding(4)
-            .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         }
-        .padding(.top, 12)
-        .padding(.bottom, 8)
-        .sensoryFeedback(.selection, trigger: selection)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(title)
+        .accessibilityValue(valueDescription ?? "")
+        .accessibilityAddTraits(.isButton)
     }
 }
 
-/// Farbkreise zur Auswahl der Akzentfarbe; die gewählte hat Ring und Haken.
-@MainActor
-struct SettingsAccentPicker: View {
-    let selection: AccentColor
-    let onSelect: (AccentColor) -> Void
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text(L("settings_accent")).font(.body)
-            HStack(spacing: 0) {
-                ForEach(AccentColor.allCases) { accent in
-                    let selected = accent == selection
-                    let seed = accent.seedColor
-                    Button {
-                        withAnimation(.spring(duration: 0.3)) { onSelect(accent) }
-                    } label: {
-                        VStack(spacing: Spacing.xs) {
-                            ZStack {
-                                Circle()
-                                    .fill(LinearGradient(colors: [seed.opacity(0.85), seed],
-                                                         startPoint: .topLeading, endPoint: .bottomTrailing))
-                                    .frame(width: 42, height: 42)
-                                    .shadow(color: seed.opacity(selected ? 0.55 : 0), radius: 8, y: 3)
-                                if selected {
-                                    Image(systemName: "checkmark")
-                                        .scaledFont(size: 16, weight: .bold, relativeTo: .callout)
-                                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                                        .foregroundStyle(AppColors.onVivid)
-                                        .transition(.scale.combined(with: .opacity))
-                                }
-                            }
-                            .padding(4)
-                            .overlay(Circle().strokeBorder(selected ? seed : .clear, lineWidth: 2.5))
-                            .scaleEffect(selected ? 1.06 : 1)
-
-                            // Fünf gleich breite Spalten: lange Namen («Marrs Green») brechen auf
-                            // schmalen Geräten (iPhone SE) in die zweite Zeile um.
-                            Text(L(accent.labelKey))
-                                .font(.caption.weight(selected ? .semibold : .regular))
-                                .foregroundStyle(selected ? AppColors.onSurface : AppColors.onSurfaceVariant)
-                                .multilineTextAlignment(.center)
-                                .lineLimit(2)
-                                .minimumScaleFactor(0.85)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(L(accent.labelKey))
-                    .accessibilityAddTraits(selected ? .isSelected : [])
-                }
-            }
-        }
-        .padding(.vertical, 8)
-        .sensoryFeedback(.selection, trigger: selection)
+extension SettingsNavRow where Value == Text {
+    /// Wert als Text (oder keiner).
+    init(title: String, value: String?, @ViewBuilder destination: @escaping () -> Destination) {
+        self.init(title: title, valueDescription: value, value: { Text(value ?? "") }, destination: destination)
     }
 }
 
-/// Melde-Schwelle: 0 / 3 / 5 / 7 % oder ein eigener Wert.
-enum SettingsPercentOption: Hashable {
-    case value(Double)
-    case custom
+/// Zeile mit Aktion statt Unterseite (Link nach aussen, Blatt): Titel, optional Wert, Symbol rechts.
+@MainActor
+struct SettingsButtonRow: View {
+    let title: String
+    var value: String? = nil
+    var trailingIcon: String = "chevron.forward"
+    var hint: String? = nil
+    let action: () -> Void
 
-    /// «5» statt «5.0», «2,5» mit dem Dezimaltrenner der Sprache.
-    static func format(_ value: Double) -> String {
-        if value.rounded() == value, abs(value) < 1e9 { return String(Int(value)) }
-        let f = NumberFormatter()
-        f.locale = Locale.current
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = 4
-        return f.string(from: NSNumber(value: value)) ?? String(value)
-    }
-
-    /// Wie Android: Komma oder Punkt, 0 – 100; arabische/persische Ziffern gelten
-    /// (`ThresholdParser.latinDigits`, auch für den vorbefüllten Wert aus `format`).
-    static func parse(_ text: String) -> Double? {
-        let cleaned = ThresholdParser.latinDigits(text).trimmingCharacters(in: .whitespaces)
-            .replacingOccurrences(of: "%", with: "")
-            .replacingOccurrences(of: ",", with: ".")
-        guard let v = Double(cleaned), v >= 0, v <= 100 else { return nil }
-        return v
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(.body)
+                    .foregroundStyle(AppColors.onSurface)
+                Spacer(minLength: 8)
+                if let value, !value.isEmpty {
+                    Text(value)
+                        .font(.body)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .lineLimit(1)
+                }
+                // Spiegelt sich in Rechts-nach-links-Sprachen automatisch
+                Image(systemName: trailingIcon)
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(AppColors.outline)
+                    .accessibilityHidden(true)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(title)
+        .accessibilityValue(value ?? "")
+        .accessibilityHint(hint ?? "")
+        .accessibilityAddTraits(.isButton)
     }
 }

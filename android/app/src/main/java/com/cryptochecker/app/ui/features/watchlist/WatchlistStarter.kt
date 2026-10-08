@@ -83,7 +83,7 @@ internal fun StarterPicker(
     val selectedCount = StarterSelection.selected(coins, deselected).size
     val allSelected = StarterSelection.allSelected(coins, deselected)
 
-    // «+» oben rechts wie in der Kopfzeile der Merkliste (der Hinweis unten verweist darauf)
+    // «+» oben rechts (der Hinweis unten verweist darauf); in der Merkliste steht es neben der Lupe
     Box(modifier = modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

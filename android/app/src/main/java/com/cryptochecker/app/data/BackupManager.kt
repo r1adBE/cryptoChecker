@@ -341,6 +341,7 @@ class BackupManager @Inject constructor(
             .put("showConverted", s.showConverted)
             .put("priceColorScheme", s.priceColorScheme.name)
             .put("watchlistSparkline", s.watchlistSparkline)
+            .put("watchlistActivityCard", s.watchlistActivityCard)
             .put("changeBasis", s.changeBasis.name)
             .put("highContrast", s.highContrast)
             .put("priceColorsInverted", s.priceColorsInverted)
@@ -389,6 +390,7 @@ class BackupManager @Inject constructor(
             setPriceColorScheme(com.cryptochecker.app.settings.PriceColorScheme.fromName(o.optString("priceColorScheme")))
         }
         if (o.has("watchlistSparkline")) setWatchlistSparkline(o.optBoolean("watchlistSparkline", true))
+        if (o.has("watchlistActivityCard")) setWatchlistActivityCard(o.optBoolean("watchlistActivityCard", true))
         // %-Basis: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen; unbekannt → «Letzte 24 Std.»
         if (o.has("changeBasis")) {
             setChangeBasis(

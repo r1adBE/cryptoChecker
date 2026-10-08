@@ -185,6 +185,12 @@ class WatchlistViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached.watchlistSparkline)
 
+    /** Karte «Hier passiert gerade etwas» zeigen (Einstellung, Standard an). */
+    val activityCardEnabled: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.watchlistActivityCard }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached.watchlistActivityCard)
+
     /** Zwischengespeicherter 24-Stunden-Verlauf, ohne Netz — für den ersten Frame einer Zeile. */
     fun cachedSparkline(baseAsset: String): List<Double>? = sparklineRepository.cached(baseAsset)
 

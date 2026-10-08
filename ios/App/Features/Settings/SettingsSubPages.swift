@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Runde 13b: Unterseiten der Einstellungen — wie `SettingsSubScreens.kt`.
+// Runde 13b: Unterseiten der Einstellungen — wie `SettingsSubPages.kt`.
 // «Alarme & Benachrichtigungen» hatte 17 Bedienelemente; Markt-Meldungen und
 // Sprachausgabe stehen jetzt je auf einer eigenen Seite, erreichbar über eine
 // Zeile mit Kurzwert. Einstellungen und Verhalten unverändert.

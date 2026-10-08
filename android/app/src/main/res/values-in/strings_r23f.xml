@@ -15,6 +15,8 @@
     <string name="settings_row_dated_futures">Futures berjangka</string>
     <string name="settings_tradfi_futures">Saham, komoditas, dan valas (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Saat memilih pasangan, juga menampilkan futures atas saham, emas dan komoditas lain, mata uang, serta perusahaan sebelum IPO. Ini kontrak, bukan token.</string>
+    <string name="settings_watchlist_activity_card">Aktivitas tidak biasa di daftar</string>
+    <string name="settings_watchlist_activity_card_hint">Menampilkan kartu “Sesuatu sedang terjadi” di atas pasangan. Notifikasi diatur di Peringatan pasar.</string>
     <string name="settings_row_about">Tentang aplikasi</string>
     <string name="price_colors_green_up">Hijau naik / merah turun</string>
     <string name="price_colors_red_up">Merah naik / hijau turun</string>

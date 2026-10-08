@@ -145,6 +145,12 @@ data class AppSettings(
     val watchlistSparkline: Boolean = true,
 
     /**
+     * Karte «Hier passiert gerade etwas» (ungewöhnliche Aktivität) über der Merkliste. Nur die
+     * Anzeige: Meldungen dazu stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
+     */
+    val watchlistActivityCard: Boolean = true,
+
+    /**
      * «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00
      * Ortszeit — für Pille, Puls, Aktionsblatt und Widgets; Alarme rechnen unabhängig davon.
      */
