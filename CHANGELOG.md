@@ -11,12 +11,14 @@
 * Clear names for the two update modes: «Update frequently» (short intervals,
   also with the app closed, shows a notification) and «Live prices» (instant,
   only while the watchlist is open). No more «WebSocket» in the settings.
-* Mini chart (24 h) in every row; the % pill uses the same candles. Pulse line
-  at the top («▲ 7 rising · ▼ 3 falling»).
+* Mini chart (24 h) per row, switched on under Settings › Watchlist (off on a new
+  install); the % pill uses the same candles. Pulse line at the top
+  («▲ 7 rising · ▼ 3 falling»).
 * Tap opens the action sheet at once (no double tap), with a chart: 24 h / 7 d /
   30 d, candles or line, touch to read price and time.
-* Swipe left to delete (with Undo), right for favourite; star only on
-  favourites; jump button in long lists.
+* Swipe left to delete (with Undo), right for favorite; no star button any more:
+  favorites keep the accent border and, with coin logos on, get a small star on
+  the logo; jump button in long lists.
 * Groups, a note per coin, second line «≈ value» in one of 31 currencies.
 * Header with more room for groups: «All» as soon as there is one pair, no
   logo; bell and ⋯ menu on the right (logo and app name → About, Refresh,
@@ -54,6 +56,11 @@
   today», Fear & Greed; market phase, dominance, altcoin season, halving; total
   market cap and volume, network fees (Ethereum, Base, Arbitrum, Polygon, BNB
   Chain, Bitcoin), cycle comparison, economic-calendar hint.
+* «What stands out» now also shows market breadth («Top 30 ▲ 22 · ▼ 8»: how many
+  of the 30 largest coins, without stablecoins, are up over 24 h) and the total
+  crypto market cap with its 24 h change; a sentence only in clear cases (almost
+  all rising/falling, or Bitcoin moving while most large coins don't follow). The
+  widget shows the breadth next to Fear & Greed when there is room.
 * Opens instantly from stored data; every row shows source and age, outdated
   values in a warning colour; «Context» and «Data» start collapsed (also on the first visit).
 * Short explanations for funding rate, open interest, RSI and Pi cycle.
@@ -79,6 +86,30 @@
   group per widget.
 * Add a widget from inside the app (Android: pin, iOS: short guide).
 * iOS: Live Activity for one pair on the Lock Screen and in the Dynamic Island.
+* Coin logos in the watchlist and single-coin widgets (own switch, see below).
+
+**Coin logos**
+* Real coin logos instead of letters: watchlist rows, action sheet header,
+  portfolio, market cards, add-pair lists (iOS) and the watchlist and single-coin
+  widgets. Round, fixed size, never at the expense of price or number columns; a
+  light backing in dark mode keeps dark logos visible.
+* Nothing bundled, nothing fetched one by one: logos come from CoinGecko
+  (CoinMarketCap would need an API key). The app downloads the logos of all of the
+  roughly 1,000 largest coins at once, then only new ones (symbol list at most
+  weekly), and shows them only from the device (iOS: App Group, so widgets use them
+  too). Gaps such as gold, silver and stocks are filled from the Binance website's
+  public symbol list (unofficial; if it disappears, those keep their initials).
+  Every install makes the same requests, so neither provider can tell which coins
+  you follow.
+* Without a logo (unknown coin, offline, error) the circle with the coin's initials
+  appears — never a broken image. DEX pools always show initials, so a token that
+  calls itself «BTC» never gets the Bitcoin logo.
+* With a switch off, that area shows neither logos nor initials (no empty
+  placeholder).
+* Three switches under Settings › Appearance › Coin logos: «In the app», «In the
+  portfolio» and «In widgets». A new install has only «In the portfolio» on (and
+  loads logos only once the Portfolio tab is enabled); all off means nothing is
+  loaded. Included in backups (Android ↔ iOS).
 
 **Settings & navigation**
 * Four tabs: Watchlist · Market · Portfolio (optional) · Settings. «Add pair»
@@ -92,7 +123,9 @@
   (together with dated futures). New pairs without a chosen group go to
   «TradFi» or, for dated futures, «QTLY».
 * Basis of the % change like Binance: last 24 h, since 00:00 in the device time
-  zone (with summer time) or since 00:00 in a fixed zone UTC+14 … UTC-12.
+  zone (with summer time) or since 00:00 in a fixed zone UTC+14 … UTC-12. Like Binance’s
+  «Change(%) & Chart Timezone», the chosen zone also sets the times in the charts.
+* Settings › Updates (Android): battery usage moved to the bottom of the page.
 * Android app shortcuts: Add pair, All alarms, Market.
 * Questions, wishes and exchange requests via GitHub issues (link under About).
 
@@ -105,7 +138,7 @@
 * TalkBack and VoiceOver read every row, chart and widget as one sentence;
   Dynamic Type on iOS; Reduce Motion and right-to-left languages respected.
 * 31 languages (Brazilian Portuguese added) with correct plural forms; readable
-  width on tablets and iPad.
+  width on Android tablets.
 * Developer shown as r1AD.
 
 **Reliability & performance**
@@ -133,6 +166,12 @@
   License (`android/`, `ios/`); exchange guide moved to `DEVELOPMENT.md`.
 * GitHub Actions: Android unit tests and debug build, translation check,
   iOS simulator build (manual).
+* One shared change pill, switch row, loading placeholder and colour tokens on
+  Android and iOS; iOS no longer redraws every tab when live prices are saved.
+* CI: lint and unsigned release build as gates, dependency review on pull
+  requests, Dependabot; iOS build and tests run automatically on iOS changes.
+* Store texts, screenshot captions and app texts in all 31 languages
+  reviewed for natural wording and consistent terms.
 * Code split by responsibility, same file names on Android and iOS, no
   behaviour change: watchlist, action sheet and chart, add pair, market cards,
   settings, alarms, portfolio, widgets, price refresh (`PriceFetcher`,
@@ -153,3 +192,7 @@
 * Also covers notes, portfolio transactions and cached market data stored on
   the device, and questions via GitHub issues.
 * The apps contain no payment or donation feature.
+* Coin logos: all logos of the largest coins downloaded at once from CoinGecko’s
+  image servers, gaps (gold, silver, stocks) from Binance’s public symbol list
+  (never one by one), shown from the device; one switch each for
+  app, portfolio and widgets (all off = no requests).

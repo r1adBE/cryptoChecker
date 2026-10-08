@@ -30,7 +30,7 @@ enum TradFi {
 
     private static let mexcZones = ["tradfi", "stock", "metals", "commodit", "forex"]
 
-    /// Bitget (`/api/v2/mix/market/contracts`): `isRwa` «YES» (Aktien- und Index-Futures, «RWA»).
+    /// Bitget (`/api/v2/mix/market/contracts`): `isRwa` «YES»/«NO» je Kontrakt (Aktien-, Rohstoff- und Index-Futures, «RWA»; Live-Daten: rund 335 von 801).
     static func bitget(isRwa: String) -> Bool {
         isRwa.caseInsensitiveCompare("YES") == .orderedSame || isRwa.caseInsensitiveCompare("true") == .orderedSame
     }

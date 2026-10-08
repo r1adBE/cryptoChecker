@@ -17,7 +17,7 @@
     <string name="widget_portfolio_empty">Добавьте покупки на вкладке «Портфель»</string>
     <string name="a11y_portfolio_widget">Портфель %1$s, сегодня %2$s</string>
     <string name="explain_funding">Плата между длинными и короткими позициями. Сильно положительная — многие ставят на рост цен.</string>
-    <string name="explain_open_interest">Стоимость всех открытых фьючерсных позиций. Если растёт, на движение ставит больше денег.</string>
+    <string name="explain_open_interest">Стоимость всех открытых фьючерсных позиций. Если растёт, на движение ставится больше денег.</string>
     <string name="explain_rsi">Индекс относительной силы, 0–100. Выше 70 — часто перегрет, ниже 30 — часто перепродан.</string>
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
     <string name="explain_show">Пояснение</string>

@@ -39,7 +39,7 @@
     <string name="alarm_test_denied">Thông báo của Crypto Checker đang tắt.</string>
     <string name="alarm_test_open_settings">Mở cài đặt</string>
     <string name="alarm_first_title">Đã thiết lập xong</string>
-    <string name="welcome_watch">Theo dõi – coin, giá, biểu đồ và widget của bạn</string>
+    <string name="welcome_watch">Theo dõi – coin, giá, biểu đồ và tiện ích của bạn</string>
     <string name="welcome_alert">Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường</string>
     <string name="welcome_understand">Hiểu – vì sao thị trường đang biến động?</string>
     <string name="portfolio_empty_example">Ví dụ: 0,01 BTC mua ngày 1 tháng 3 với giá %1$s. Ứng dụng sẽ hiển thị giá trị, giá mua trung bình và lãi/lỗ – chỉ lưu trên thiết bị này.</string>

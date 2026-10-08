@@ -13,6 +13,11 @@ struct PulseMarketData: Equatable, Sendable, Codable {
     let fundingPercent: Double?
     /// Zeitpunkt der Abfrage (Epoch-ms) — für «Stand HH:mm».
     let time: Int64
+    /// Marktbreite: 24-h-Veränderung der grössten Coins (fehlt in älteren Ständen).
+    var topChanges: [Double]? = nil
+    /// Krypto-Markt gesamt in USD und seine Veränderung über 24 h (CoinGecko `/global`).
+    var marketCapUsd: Double? = nil
+    var marketCap24h: Double? = nil
 
     var hasMarket: Bool { btc != nil && eth != nil && sol != nil }
 }
@@ -23,6 +28,9 @@ actor CryptoPulseSource {
     static let coins = ["BTC", "ETH", "SOL"]
 
     private var cached: PulseMarketData?
+    /// Krypto-Markt gesamt bewegt sich langsam: 30 Minuten im Speicher (schont das Abruflimit).
+    private var globalCache: (at: Int64, market: GlobalMarket)?
+    static let globalCacheMillis: Int64 = 30 * 60_000
 
     /// - Parameter force: Zwischenspeicher übergehen (Ziehen nach unten, «Erneut»).
     /// Wirft, wenn die 24-h-Veränderungen fehlen.
@@ -38,12 +46,19 @@ actor CryptoPulseSource {
         async let changesJob = Self.changes()
         async let spikeJob = VolumeDataSource.hourlySpike(base: "BTC", quote: "USDT")
         async let fundingJob = Self.funding()
+        async let topJob = Self.topChanges()
+        async let globalJob = globalMarket()
         let changes = await changesJob
         let spike = await spikeJob
         let funding = await fundingJob
+        let top = await topJob
+        let global = await globalJob
         let data = PulseMarketData(btc: changes["BTC"], eth: changes["ETH"], sol: changes["SOL"],
                                    volumeRatio: spike?.ratio, fundingPercent: funding,
-                                   time: TimeUtils.nowMillis)
+                                   time: TimeUtils.nowMillis,
+                                   topChanges: top.isEmpty ? nil : top,
+                                   marketCapUsd: global?.totalMarketCap["usd"],
+                                   marketCap24h: global?.change24hPercent)
         guard data.hasMarket else { throw JSONError(message: "Pulse: Marktdaten fehlen") }
         cached = data
         Self.store(data)
@@ -70,6 +85,37 @@ actor CryptoPulseSource {
     private static func store(_ data: PulseMarketData) {
         guard let raw = try? JSONEncoder().encode(data) else { return }
         SharedStorage.defaults.set(raw, forKey: storeKey)
+    }
+
+    private func globalMarket() async -> GlobalMarket? {
+        let now = TimeUtils.nowMillis
+        if let globalCache, now - globalCache.at >= 0, now - globalCache.at < Self.globalCacheMillis {
+            return globalCache.market
+        }
+        guard let market = try? await InsightsDataSource.global().market else { return nil }
+        globalCache = (now, market)
+        return market
+    }
+
+    /// 24-h-Veränderung der grössten Coins (CoinGecko-Rangliste), ohne Stablecoins und
+    /// Doppelgänger (`CoinExclusion`), höchstens `CryptoPulse.breadthCoins`; leer bei Fehler.
+    static func topChanges() async -> [Double] {
+        let url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
+            + "&per_page=50&page=1&sparkline=false"
+        guard let text = try? await MarketHTTP.call(url),
+              let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
+        else { return [] }
+        var out: [Double] = []
+        for item in array {
+            let symbol = item["symbol"] as? String ?? ""
+            let name = item["name"] as? String ?? ""
+            guard !CoinExclusion.isExcluded(symbol: symbol, name: name),
+                  let change = (item["price_change_percentage_24h"] as? NSNumber)?.doubleValue, change.isFinite
+            else { continue }
+            out.append(change)
+            if out.count == CryptoPulse.breadthCoins { break }
+        }
+        return out
     }
 
     private static func funding() async -> Double? {

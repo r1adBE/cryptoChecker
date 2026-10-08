@@ -4,7 +4,7 @@
     <string name="watchlist_jump_start">Az elejére</string>
     <string name="watchlist_jump_end">A végére</string>
     <string name="settings_activity_sensitivity">Érzékenység</string>
-    <string name="settings_activity_sensitivity_hint">Milyen könnyen számít egy coin szokatlannak – ugyanúgy a figyelőlista kártyájára és az értesítésekre. „Kevesebb” esetén a kártya csak a 3 legerősebbet mutatja.</string>
+    <string name="settings_activity_sensitivity_hint">Milyen könnyen számít egy érme szokatlannak – ugyanúgy a figyelőlista kártyájára és az értesítésekre. „Kevesebb” esetén a kártya csak a 3 legerősebbet mutatja.</string>
     <string name="activity_sensitivity_less">Kevesebb</string>
     <string name="activity_sensitivity_normal">Normál</string>
     <string name="activity_sensitivity_more">Több</string>

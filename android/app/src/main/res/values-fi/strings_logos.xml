@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Kolikoiden logot</string>
+    <string name="settings_coin_logos_app">Sovelluksessa</string>
+    <string name="settings_coin_logos_app_hint">Seurantalista, parin näkymä ja markkinakortit</string>
+    <string name="settings_coin_logos_portfolio">Salkussa</string>
+    <string name="settings_coin_logos_portfolio_hint">Omistukset, kolikon tiedot ja näkymät</string>
+    <string name="settings_coin_logos_widgets">Widgeteissä</string>
+    <string name="settings_coin_logos_widgets_hint">Seurantalista- ja yhden kolikon widgetit</string>
+    <string name="settings_coin_logos_footer">Logot tulevat CoinGeckosta ja, jos CoinGeckolla ei ole niitä (esim. kulta, hopea, osakkeet), Binancesta. Sovellus lataa kaikki logot kerralla ja tallentaa ne tähän laitteeseen, joten kumpikaan ei tiedä, mitä kolikoita seuraat. Kolikoista ilman logoa näytetään nimikirjaimet. Suosikit saavat logoon pienen tähden. Kun kytkin on pois päältä, logoja tai nimikirjaimia ei näytetä; kun kaikki on pois päältä, mitään ei ladata.</string>
+    <string name="settings_coin_logos_value_app">Sovellus</string>
+</resources>

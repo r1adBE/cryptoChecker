@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CoinPosition
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.ReadableMaxWidth
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
@@ -47,8 +48,9 @@ internal fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(horizontal = Spacing.md, vertical = 12.dp)
         ) {
-            CoinBadge(position.coin)
-            Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
+            // Abstand an der Plakette: Logos aus → keine Plakette, kein Einzug
+            CoinBadge(position.coin, portfolio = true, modifier = Modifier.padding(end = 12.dp))
+            Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         position.coin,
@@ -117,11 +119,11 @@ internal fun ClosedRow(position: CoinPosition, onClick: () -> Unit) {
             .clickable(onClick = onClick)
             .padding(horizontal = Spacing.md, vertical = 8.dp)
     ) {
-        CoinBadge(position.coin, size = 32.dp)
+        CoinBadge(position.coin, size = 32.dp, portfolio = true, modifier = Modifier.padding(end = 12.dp))
         Text(
             position.coin,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f).padding(start = 12.dp)
+            modifier = Modifier.weight(1f)
         )
         Text(
             maskAmount(PortfolioFormat.signedUsdt(position.realized)),

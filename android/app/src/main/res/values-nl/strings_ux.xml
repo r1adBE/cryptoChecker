@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="starter_title">Begin met één tik</string>
-    <string name="starter_text">Kies munten en voeg ze in één keer toe. Exchange en paar kun je later wijzigen.</string>
-    <string name="starter_custom">Exchange en paar kiezen</string>
+    <string name="starter_text">Kies munten en voeg ze in één keer toe. Beurs en paar kun je later wijzigen.</string>
+    <string name="starter_custom">Beurs en paar kiezen</string>
     <string name="settings_quiet_hours">Stille uren</string>
     <string name="settings_quiet_hours_hint">Tussen %1$s en %2$s komen alarmen geluidloos binnen: zonder geluid, trillen of spraak.</string>
     <string name="settings_quiet_hours_from">Van</string>

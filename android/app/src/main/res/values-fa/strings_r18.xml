@@ -4,7 +4,7 @@
     <string name="watchlist_jump_start">به ابتدا</string>
     <string name="watchlist_jump_end">به انتها</string>
     <string name="settings_activity_sensitivity">حساسیت</string>
-    <string name="settings_activity_sensitivity_hint">چقدر آسان یک کوین غیرعادی به شمار می‌آید – برای کارت فهرست پیگیری و اعلان‌ها یکسان. با «کمتر» کارت فقط ۳ مورد قوی‌تر را نشان می‌دهد.</string>
+    <string name="settings_activity_sensitivity_hint">چقدر آسان یک کوین غیرعادی به شمار می‌آید – برای کارت واچ‌لیست و اعلان‌ها یکسان. با «کمتر» کارت فقط ۳ مورد قوی‌تر را نشان می‌دهد.</string>
     <string name="activity_sensitivity_less">کمتر</string>
     <string name="activity_sensitivity_normal">عادی</string>
     <string name="activity_sensitivity_more">بیشتر</string>

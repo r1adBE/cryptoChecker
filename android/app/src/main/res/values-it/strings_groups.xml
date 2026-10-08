@@ -3,7 +3,7 @@
     <string name="group_edit_title">Modifica gruppo</string>
     <string name="group_rename">Rinomina</string>
     <string name="group_delete">Elimina gruppo</string>
-    <string name="group_delete_confirm">Le coppie restano nella tua watchlist.</string>
+    <string name="group_delete_confirm">Le coppie restano nella tua lista.</string>
     <string name="group_done">Fatto</string>
     <string name="group_add">Nuovo gruppo</string>
     <string name="group_in_other">in %1$s</string>

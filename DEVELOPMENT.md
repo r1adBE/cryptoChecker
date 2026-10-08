@@ -377,13 +377,16 @@ xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
   -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-In Xcode: scheme *CryptoChecker* → Product › Test (⌘U). The *iOS* workflow (started by
-hand under Actions) builds the app and runs the same tests in the Simulator.
+In Xcode: scheme *CryptoChecker* → Product › Test (⌘U). The *iOS* workflow (automatic on
+changes in `ios/` and by hand under Actions) builds the app and runs the same tests in the Simulator.
 
 **Android instrumented test** (`app/src/androidTest`, `CoreFlowTest`): starter selection →
 add BTC → price alarm → new price → alarm and notification → swipe to delete → Undo →
 portfolio lock shows the locked state. Hilt replaces the network client with fixed prices
-(`FakeRemoteDataModule`), so no exchange is called. Needs an emulator or a device:
+(`FakeRemoteDataModule`), so no exchange is called. `DatabaseMigrationTest` checks the
+update path of the database: it creates an old database (schema v3 from `app/schemas/…/3.json`,
+and v10 via the app's own migrations), fills it, and lets Room open it – Room runs the
+migrations and validates the result against the entities. Needs an emulator or a device:
 
 ```sh
 cd android
@@ -395,6 +398,14 @@ afterwards) and is skipped where that is not possible. CI only compiles the inst
 tests (`assembleDebugAndroidTest`); running them on an emulator in GitHub Actions is
 possible but slow and not set up.
 
+**CI gates** (`.github/workflows/android.yml`, on pushes and pull requests touching
+`android/`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
+build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
+submit the Gradle dependency graph (Dependabot alerts); pull requests run a dependency review
+that fails on new dependencies with known high-severity vulnerabilities.
+`.github/dependabot.yml` opens weekly update PRs for GitHub Actions and Gradle. The *iOS*
+workflow builds and tests in the Simulator when `ios/` or the shared parity cases change.
+
 ## 13. Market tab caching
 
 Every area of the Market tab is stored on the device with a timestamp (Android
@@ -405,7 +416,7 @@ background only when it is older than its TTL. The TTLs live in one place per pl
 
 | Area | TTL | Why |
 |------|-----|-----|
-| Crypto Pulse | 5 min | 24 h changes, BTC volume, funding |
+| Crypto Pulse | 5 min | 24 h changes, BTC volume, funding, breadth of the top 30 (total market cap: 30 min in memory) |
 | Unusual today | 10 min | 24 h tickers and funding of all perpetuals |
 | Gas | 1 min | fees change by the block |
 | Coin analysis | 15 min | per coin |
@@ -416,6 +427,25 @@ background only when it is older than its TTL. The TTLs live in one place per pl
 | On-chain values (Coin Metrics) | 12 h | daily data |
 | Cycle comparison (halving curves) | 12 h | daily candles since 2016 |
 | Economic calendar | 24 h | one small JSON file |
+
+**Coin logos** (`CoinLogos.kt` / `CoinLogos.swift`, parity cases `coin_logos.json`): the
+symbol → image map comes from CoinGecko `/coins/markets` (top 1000, first occurrence by
+market cap wins), gaps filled from the Binance website list `bapi/composite/v1/public/marketing/symbol/list`
+(`name` → `logo` on `*.bnbstatic.com`, unofficial; only symbols CoinGecko lacks, e.g. XAU, XAG,
+stocks) and is kept for **7 days** (retry after 1 h on failure). For privacy the
+logos of **all** coins in that list are downloaded in one background sync (`startSync` /
+`syncAll`, 4 parallel, small variant first) — never one logo on demand, so the image
+requests are the same for every install. Images are scaled to 128 px and stored as PNG (Android `cacheDir/coin_logos`, iOS App
+Group `coin_logos/`), a failed image is retried after **1 day**; display reads only from memory/disk, and a
+`revision` counter (every 25 new logos) lets badges retry. Only HTTPS images from
+`*.coingecko.com`; DEX pools (`DexScreener`) always show initials. Android:
+`CoinLogoRepository` → `LocalCoinLogoSource` (null when «In the app» is off) →
+`CoinBadge` (`portfolio = true` → `LocalPortfolioCoinLogoSource`), sync started by
+`CoinLogoSync` when `CoinLogoUse.needed` (app, widgets, or portfolio with the tab on; app
+start, switch on, portfolio tab on). Defaults: app off, portfolio on, widgets off; widgets via
+`WidgetCoinLogos` (24 dp bitmaps). iOS: `CoinLogoStore` (actor, `syncAll` from
+`AppData.startCoinLogoSync`) → `CoinBadge` (`coinLogosEnabled` environment,
+`CoinLogoRevision`); widgets via `WidgetLogos` (disk only) and the `widgetLogos` environment.
 
 **Manual reloads.** Pull-to-refresh, «Retry» and the small «Refresh» action under the
 altcoin season force a reload, but slow, expensive areas (altcoin season, market phase,

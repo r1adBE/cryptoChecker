@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Логотипи монет</string>
+    <string name="settings_coin_logos_app">У застосунку</string>
+    <string name="settings_coin_logos_app_hint">Список, картка пари й картки ринку</string>
+    <string name="settings_coin_logos_portfolio">У портфелі</string>
+    <string name="settings_coin_logos_portfolio_hint">Позиції, відомості про монети й огляд</string>
+    <string name="settings_coin_logos_widgets">У віджетах</string>
+    <string name="settings_coin_logos_widgets_hint">Віджети списку й однієї монети</string>
+    <string name="settings_coin_logos_footer">Логотипи надходять із CoinGecko, а те, чого немає в CoinGecko (наприклад, золото, срібло, акції), — із Binance. Застосунок завантажує всі логотипи одразу й зберігає їх на цьому пристрої, тож жоден із сервісів не знає, які монети ви відстежуєте. Монети без логотипа показують ініціали. Обране отримує маленьку зірочку на логотипі. Де перемикач вимкнено, не показуються ні логотипи, ні ініціали; якщо все вимкнено, нічого не завантажується.</string>
+    <string name="settings_coin_logos_value_app">Застосунок</string>
+</resources>

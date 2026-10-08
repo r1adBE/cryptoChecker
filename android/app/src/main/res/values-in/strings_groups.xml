@@ -3,7 +3,7 @@
     <string name="group_edit_title">Edit grup</string>
     <string name="group_rename">Ganti nama</string>
     <string name="group_delete">Hapus grup</string>
-    <string name="group_delete_confirm">Pasangan tetap ada di daftar pantauan Anda.</string>
+    <string name="group_delete_confirm">Pasangan tetap ada di daftar pantau Anda.</string>
     <string name="group_done">Selesai</string>
     <string name="group_add">Grup baru</string>
     <string name="group_in_other">di %1$s</string>

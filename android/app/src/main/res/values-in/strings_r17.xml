@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
     <string name="settings_portfolio_lock">Kunci portofolio</string>
-    <string name="settings_portfolio_lock_hint">Hanya melindungi portofolio: buka dengan sidik jari, wajah, atau PIN perangkat. Terkunci lagi setelah lebih dari satu menit di latar belakang. Daftar pantauan, alarm, dan widget lain tetap terbuka.</string>
+    <string name="settings_portfolio_lock_hint">Hanya melindungi portofolio: buka dengan sidik jari, wajah, atau PIN perangkat. Terkunci lagi setelah lebih dari satu menit di latar belakang. Daftar pantau, alarm, dan widget lain tetap terbuka.</string>
     <string name="portfolio_locked_title">Portofolio terkunci</string>
     <string name="portfolio_locked_text">Buka kunci untuk melihat kepemilikan dan nilainya.</string>
     <string name="portfolio_lock_reason">Buka kunci portofolio</string>

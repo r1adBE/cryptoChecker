@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Pesquisa em todos os mercados de uma vez – toque num resultado para o adicionar à lista de acompanhamento.</string>
-    <string name="explorer_no_pairs_yet">Ainda não foram carregados pares para este mercado.</string>
+    <string name="explorer_search_intro">Pesquisa em todas as exchanges de uma vez – toque num resultado para o adicionar à lista de acompanhamento.</string>
+    <string name="explorer_no_pairs_yet">Ainda não foram carregados pares para esta exchange.</string>
 </resources>

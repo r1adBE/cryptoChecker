@@ -14,7 +14,7 @@
     <string name="widget_group_hint">केवल इस समूह के पेयर दिखाएँ।</string>
 
     <!-- Portfolio (Tab, Erfassen, Detail) -->
-    <string name="portfolio_title">पोर्टफोलियो</string>
+    <string name="portfolio_title">पोर्टफ़ोलियो</string>
     <string name="portfolio_setting_hint">वैकल्पिक: खरीद और बिक्री दर्ज करें और अलग टैब में मूल्य व लाभ/हानि देखें।</string>
     <string name="portfolio_total_value">कुल मूल्य</string>
     <string name="portfolio_invested">निवेशित</string>
@@ -30,7 +30,7 @@
     <string name="portfolio_price_missing">मूल्य नहीं है</string>
     <string name="portfolio_price_missing_hint">कुछ खरीदों में मूल्य नहीं है। लाभ/हानि देखने के लिए खरीद मूल्य जोड़ें।</string>
     <string name="portfolio_current_missing">%1$s का वर्तमान भाव उपलब्ध नहीं</string>
-    <string name="portfolio_oversold">बिक्री होल्डिंग से अधिक है – कृपया लेन-देन जांचें।</string>
+    <string name="portfolio_oversold">बिक्री होल्डिंग से अधिक है – कृपया लेन-देन जाँचें।</string>
     <plurals name="portfolio_closed">
         <item quantity="one">बंद पोज़िशन (%1$d)</item>
         <item quantity="other">बंद पोज़िशन (%1$d)</item>
@@ -51,11 +51,11 @@
     <string name="portfolio_tx_note">नोट (वैकल्पिक)</string>
     <string name="portfolio_tx_total">कुल: %1$s</string>
     <string name="portfolio_sell_exceeds">आपकी होल्डिंग से अधिक (%1$s)</string>
-    <string name="portfolio_tx_delete_title">लेन-देन हटाएं?</string>
-    <string name="portfolio_tx_delete_confirm">यह लेन-देन पोर्टफोलियो से हटा दिया जाएगा।</string>
+    <string name="portfolio_tx_delete_title">लेन-देन हटाएँ?</string>
+    <string name="portfolio_tx_delete_confirm">यह लेन-देन पोर्टफ़ोलियो से हटा दिया जाएगा।</string>
     <string name="portfolio_empty_title">अभी कोई लेन-देन नहीं</string>
     <string name="portfolio_empty_text">अपनी खरीद और बिक्री दर्ज करें। मूल्य और लाभ/हानि USDT में वर्तमान भावों से गणना होते हैं।</string>
     <string name="portfolio_empty_action">पहली खरीद दर्ज करें</string>
     <string name="portfolio_disclaimer">केवल इसी डिवाइस पर सहेजा गया। यह निवेश सलाह नहीं है।</string>
-    <string name="portfolio_add_from_watch">पोर्टफोलियो में जोड़ें</string>
+    <string name="portfolio_add_from_watch">पोर्टफ़ोलियो में जोड़ें</string>
 </resources>

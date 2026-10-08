@@ -3,9 +3,9 @@
     <string name="check_error_generic_prefix">Eroare: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Nicio pereche valutară</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Încarcă perechile actuale ale pieței selectate.</string>
-    <string name="checker_add_dynamic_currency_pairs_dialog_title">Actualizați perechile valutare</string>
-    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizați acum!</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Încarcă perechile actuale ale bursei selectate.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Actualizează perechile valutare</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizează acum!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Ultima sincronizare: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">niciodată</string>
 
@@ -25,7 +25,7 @@
     <string name="ticker_timestamp">Ora</string>
 
 
-    <string name="try_again">Reîncercați</string>
+    <string name="try_again">Reîncearcă</string>
     <string name="no_internet_connection">Nicio conexiune la internet</string>
     <string name="something_went_wrong">Ceva nu a funcționat</string>
 
@@ -35,7 +35,7 @@
         <item quantity="few">%1$d perechi %2$s găsite</item>
         <item quantity="other">%1$d de perechi %2$s găsite</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">Această bursă nu are perechi %1$s pentru tipul de contract selectat. Sincronizați mai întâi bursa sau încercați alt tip de contract.</string>
+    <string name="bulk_all_pairs_empty">Această bursă nu are perechi %1$s pentru tipul de contract selectat. Sincronizează mai întâi bursa sau încearcă alt tip de contract.</string>
 
     <string name="action_refresh">Actualizează</string>
     <string name="action_delete">Șterge</string>
@@ -110,11 +110,11 @@
     <string name="ind_ath">Luni de la maximul istoric</string>
     <string name="ind_points_top">+%1$d top</string>
     <string name="ind_points_bottom">+%1$d bottom</string>
-    <string name="market_phase_disclaimer">Pe baza ciclurilor anterioare și a trendului de preț. Nu este o prognoză și nici un sfat de investiții.</string>
-    <string name="action_retry">Reîncercați</string>
+    <string name="market_phase_disclaimer">Pe baza ciclurilor anterioare și a trendului de preț. Nu este o prognoză și nici consultanță de investiții.</string>
+    <string name="action_retry">Reîncearcă</string>
     <string name="settings_section_language">Limbă</string>
     <string name="settings_language_system">Limba sistemului</string>
-    <string name="settings_language_choose">Alegeți limba</string>
+    <string name="settings_language_choose">Alege limba</string>
     <string name="settings_section_appearance">Aspect</string>
     <string name="settings_theme_mode">Mod</string>
     <string name="theme_light">Luminos</string>
@@ -159,8 +159,8 @@
     <string name="settings_tts_alarms_only_hint">Dezactivat: fiecare actualizare a unei perechi marcate „Citește prețul” este anunțată.</string>
     <string name="settings_speech_rate">Viteza vorbirii: %1$.1f×</string>
     <string name="settings_tts_test">Testează vocea</string>
-    <string name="battery_title">Păstrați prețurile actualizate</string>
-    <string name="battery_message">Android amână activitatea în fundal pentru a economisi energie — prețurile și widgeturile pot fi atunci vechi de câteva ore. Setarea utilizării bateriei la nerestricționat le menține actualizate. Puteți schimba oricând acest lucru în setările Android.</string>
+    <string name="battery_title">Păstrează prețurile actualizate</string>
+    <string name="battery_message">Android amână activitatea în fundal pentru a economisi energie — prețurile și widgeturile pot fi atunci vechi de câteva ore. Setarea utilizării bateriei la nerestricționat le menține actualizate. Poți schimba oricând acest lucru în setările Android.</string>
     <string name="battery_later">Mai târziu</string>
     <string name="settings_battery_ok">Utilizarea bateriei: nerestricționată</string>
     <string name="settings_battery_restricted">Utilizarea bateriei: restricționată</string>
@@ -173,7 +173,7 @@
     <string name="about_version">Crypto Checker %1$s</string>
     <string name="about_license">Prețurile vin direct de la burse; fără cont și fără urmărire.</string>
 
-    <string name="dex_intro">Tokenuri din afara marilor burse, de pe burse descentralizate (Uniswap, PancakeSwap, Raydium …) prin DexScreener. Căutați un token și adăugați pool-ul său de tranzacționare – prețuri în dolari americani.</string>
+    <string name="dex_intro">Tokenuri din afara marilor burse, de pe burse descentralizate (Uniswap, PancakeSwap, Raydium …) prin DexScreener. Caută un token și adaugă pool-ul său de tranzacționare – prețuri în dolari americani.</string>
     <string name="dex_search_hint">Numele, simbolul sau adresa tokenului</string>
     <string name="dex_search">Caută</string>
     <string name="dex_no_results">Nu s-au găsit pooluri.</string>
@@ -200,17 +200,17 @@
     <string name="explorer_add_to_watchlist">Adaugă în lista de urmărire</string>
     <string name="explorer_added_to_watchlist">Adăugat în lista de urmărire.</string>
     <string name="explorer_already_in_watchlist">Această pereche este deja în lista de urmărire.</string>
-    <string name="explorer_no_pair_selected">Alegeți mai întâi o pereche.</string>
+    <string name="explorer_no_pair_selected">Alege mai întâi o pereche.</string>
 
     <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
     <string name="tts_alarm">Alarmă. %1$s, %2$s %3$s %4$s, acum %5$s</string>
     <string name="tts_direction_up">a crescut</string>
     <string name="tts_direction_down">a scăzut</string>
     <string name="watchlist_refresh_report">Ultima actualizare</string>
-    <string name="watchlist_refresh_report_empty">Încă nu există detalii: această versiune nu a finalizat o actualizare completă. Atingeți actualizare și așteptați până se oprește indicatorul.</string>
+    <string name="watchlist_refresh_report_empty">Încă nu există detalii: această versiune nu a finalizat o actualizare completă. Atinge Actualizează și așteaptă până se oprește indicatorul.</string>
     <string name="action_close">Închide</string>
     <string name="watchlist_clear">Golește lista de urmărire</string>
-    <string name="watchlist_clear_confirm">Eliminați toate perechile din lista de urmărire? Alarmele lor vor fi șterse și ele.</string>
+    <string name="watchlist_clear_confirm">Elimini toate perechile din lista de urmărire? Alarmele lor vor fi șterse și ele.</string>
     <string name="market_scores_hint">Maxim = semne ca la maximele ciclurilor trecute, minim = semne ca la minimele ciclurilor trecute. De la 4 puncte domină o parte, de la 7 este extremă. Niciun preț țintă și nicio prognoză.</string>
     <string name="market_scores_none">Niciun semn de maxim sau minim nu este activ: fază de mijloc calmă, decide trendul prețului.</string>
     <string name="market_scores_info_title">Semnale de ciclu</string>
@@ -225,7 +225,7 @@
     <string name="theme_system">Sistem</string>
     <string name="settings_section_developer">Dezvoltator</string>
     <string name="settings_http_log">Afișează jurnalul HTTP</string>
-    <string name="settings_http_log_hint">Afișează în partea de jos a paginii „Adaugă pereche” cererile către exchange-uri – pentru depanare.</string>
+    <string name="settings_http_log_hint">Afișează în partea de jos a paginii „Adaugă pereche” cererile către burse – pentru depanare.</string>
     <string name="language_search">Caută limba</string>
     <string name="alarm_delete_title">Ștergi alarma?</string>
     <string name="alarm_delete_confirm">Această alarmă va fi eliminată.</string>
@@ -260,10 +260,10 @@
     </plurals>
     <string name="explorer_bulk_tap_hint">Atinge o pereche pentru a o selecta mai sus.</string>
     <string name="loading_hint">Se încarcă…</string>
-    <string name="explorer_select_market_hint">Alege un exchange – perechile se încarcă automat.</string>
+    <string name="explorer_select_market_hint">Alege o bursă – perechile se încarcă automat.</string>
     <string name="explorer_precise_title">Alege precis</string>
     <string name="explorer_search_hint">Caută monedă, ex. BTC sau ETH USDT</string>
-    <string name="explorer_search_loading">Se caută pe exchange-uri… %1$d/%2$d</string>
+    <string name="explorer_search_loading">Se caută pe burse… %1$d/%2$d</string>
     <string name="explorer_search_empty">Niciun rezultat.</string>
     <string name="action_clear">Șterge</string>
     <string name="explorer_bulk_show_list">Arată lista</string>
@@ -282,8 +282,8 @@
     <string name="watchlist_all_fresh">Totul la zi · %1$s</string>
     <string name="explorer_price_loading">Se încarcă prețul…</string>
     <string name="zone_top_risk">Risc de vârf</string>
-    <string name="zone_bottom_chance">Formare de bază</string>
-    <string name="timeout_error_message">Exchange-ul nu răspunde acum.</string>
+    <string name="zone_bottom_chance">Formare de minim</string>
+    <string name="timeout_error_message">Bursa nu răspunde acum.</string>
     <string name="widget_background">Fundal</string>
     <string name="widget_configure_title">Configurează widgetul</string>
     <string name="widget_configure_hint">Alege fundalul și opacitatea. Culoarea urmează aplicația. Widgetul arată toată lista; atinge un rând pentru a deschide aplicația.</string>
@@ -313,12 +313,12 @@
     <string name="altseason_btc">Sezonul Bitcoin</string>
     <string name="altseason_mixed">Mixt</string>
     <plurals name="insights_altseason_value">
-        <item quantity="one">%1$d din %2$d altcoin-uri mari bate Bitcoin în 90 de zile</item>
-        <item quantity="few">%1$d din %2$d altcoin-uri mari bat Bitcoin în 90 de zile</item>
-        <item quantity="other">%1$d din %2$d altcoin-uri mari bat Bitcoin în 90 de zile</item>
+        <item quantity="one">%1$d din %2$d altcoinuri mari bate Bitcoin în 90 de zile</item>
+        <item quantity="few">%1$d din %2$d altcoinuri mari bat Bitcoin în 90 de zile</item>
+        <item quantity="other">%1$d din %2$d altcoinuri mari bat Bitcoin în 90 de zile</item>
     </plurals>
     <string name="insights_source_dominance">Sursă: CoinGecko, Binance</string>
-    <string name="coin_title">Analiză monedă</string>
+    <string name="coin_title">Analiza monedei</string>
     <string name="coin_choose">Monedă</string>
     <string name="coin_no_data">Nu există date de preț pentru această monedă pe Binance sau Bybit.</string>
     <plurals name="coin_short_history">
@@ -326,12 +326,12 @@
         <item quantity="few">Doar %1$d zile de istoric – lipsesc unii indicatori.</item>
         <item quantity="other">Doar %1$d de zile de istoric – lipsesc unii indicatori.</item>
     </plurals>
-    <string name="coin_price_only">Doar pe baza prețului – datele on-chain (MVRV, Puell, hashrate) sunt libere doar pentru Bitcoin.</string>
+    <string name="coin_price_only">Doar pe baza prețului – datele on-chain (MVRV, Puell, hashrate) sunt disponibile gratuit doar pentru Bitcoin.</string>
     <string name="ind_rsi_weekly">RSI (săptămânal)</string>
     <string name="ind_rsi_daily">RSI (zilnic)</string>
     <string name="ind_pi_cycle">Pi cycle (111/350 zile)</string>
     <string name="ind_cross">Trend 50/200 zile</string>
-    <string name="ind_vs_btc">Forță față de Bitcoin (90 zile)</string>
+    <string name="ind_vs_btc">Forță față de Bitcoin (90 de zile)</string>
     <string name="ind_missing">date insuficiente</string>
     <string name="channel_market">Faza pieței</string>
     <string name="channel_market_description">Anunță când se schimbă faza pieței Bitcoin</string>
@@ -351,15 +351,15 @@
     <string name="settings_fng_above">Fear &amp; Greed: anunță peste</string>
     <string name="option_off">Oprit</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">Indicele a scăzut sub %1$d – piața se teme.</string>
-    <string name="notification_fng_above">Indicele a urcat peste %1$d – piața e lacomă.</string>
+    <string name="notification_fng_below">Indicele a scăzut sub %1$d – pe piață domină frica.</string>
+    <string name="notification_fng_above">Indicele a urcat peste %1$d – pe piață domină lăcomia.</string>
     <string name="futures_title">Date futures</string>
     <string name="futures_funding">Rata de finanțare</string>
     <string name="futures_next_funding">următoarea în %1$d h %2$d min</string>
     <string name="futures_open_interest">Interes deschis</string>
     <string name="futures_source">Sursă: %1$s</string>
-    <string name="single_widget_label">Crypto Checker – o monedă</string>
-    <string name="single_widget_description">Arată o monedă mare cu preț, variație și grafic pe 24 de ore.</string>
+    <string name="single_widget_label">Crypto Checker – o singură monedă</string>
+    <string name="single_widget_description">Arată o singură monedă, în format mare, cu preț, variație și grafic pe 24 de ore.</string>
     <string name="single_widget_choose">Alege o pereche</string>
     <string name="single_widget_title">Configurează widgetul individual</string>
     <string name="shortcut_add">Adaugă pereche</string>

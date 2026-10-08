@@ -45,7 +45,15 @@ struct DeletedWatch {
 final class AppData: ObservableObject {
     static let shared = AppData()
 
-    @Published private(set) var snapshot: SharedStorage.Snapshot
+    /// Gespeicherter Stand. Von Hand veröffentlicht statt `@Published`: Speichert der Live-Strom
+    /// nur Kurs, Änderung und Zeit (`applyLive`), bleibt die Veröffentlichung aus — die Zeilen
+    /// zeigen diese Werte schon über ihre `LiveQuoteBox` (`LivePrices`), und Markt, Portfolio und
+    /// Einstellungen bauen nicht alle 10 s neu. Gelesen wird trotzdem immer der aktuelle Stand.
+    private(set) var snapshot: SharedStorage.Snapshot {
+        willSet { if !quietPriceSave { objectWillChange.send() } }
+    }
+    /// Nur während `mutate(…, quiet: true)`: Änderung nicht veröffentlichen.
+    private var quietPriceSave = false
     @Published var settings: AppSettings {
         didSet {
             guard settings != oldValue else { return }
@@ -138,10 +146,13 @@ final class AppData: ObservableObject {
 
     /// - Parameter widgetKinds: nur diese Widget-Arten neu laden; nil = alle.
     /// Für die Erweiterungen (`AppData+…`): jede Änderung am gespeicherten Stand läuft hierüber.
-    func mutate(_ body: (inout SharedStorage.Snapshot) -> Void, reloadWidgets: Bool = true, widgetKinds: [String]? = nil) {
+    func mutate(_ body: (inout SharedStorage.Snapshot) -> Void, reloadWidgets: Bool = true, widgetKinds: [String]? = nil,
+                quiet: Bool = false) {
         var s = snapshot
         body(&s)
+        quietPriceSave = quiet
         snapshot = s
+        quietPriceSave = false
         SharedStorage.saveSnapshot(s)
         dropMissingWatchlistGroup()
         guard reloadWidgets else { return }
@@ -619,7 +630,10 @@ final class AppData: ObservableObject {
         apply(outcome, full: false)
     }
 
-    private func apply(_ outcome: PriceRefresher.Outcome, full: Bool, reloadWidgets: Bool = true) {
+    /// - Parameter live: gespeicherte Live-Kurse (`applyLive`): Ändert das Ergebnis nur Kurs,
+    ///   Änderung und Zeit (kein Alarm, keine Mitteilung, kein Fehler), wird der Stand still
+    ///   übernommen (`mutate(…, quiet: true)`) — siehe `snapshot`.
+    private func apply(_ outcome: PriceRefresher.Outcome, full: Bool, reloadWidgets: Bool = true, live: Bool = false) {
         // Uhrzeit und Dauer zuerst speichern, dann die Widgets neu laden —
         // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
         // Ohne einen einzigen Kurs (z. B. offline) bleibt die Zeit der letzten
@@ -643,7 +657,11 @@ final class AppData: ObservableObject {
         // lädt sich selbst, wenn sich seine Momentaufnahme ändert; «Was gerade auffällt» hängt
         // nicht an einem Paar.
         let kinds: [String]? = full ? nil : [SharedStorage.watchlistWidgetKind, SharedStorage.singleWidgetKind]
-        mutate({ s in outcome.apply(to: &s) }, reloadWidgets: reloadWidgets, widgetKinds: kinds)
+        // Fehlerzustand einer Zeile verschwindet (z. B. «nicht erreichbar» → Kurs): das ist mehr als ein Kurs
+        let clearsError = live && snapshot.watches.contains { outcome.prices[$0.id] != nil && $0.lastError != nil }
+        let pricesOnly = live && !clearsError && outcome.alarms.isEmpty && outcome.pendingAlarms.isEmpty
+            && outcome.notified.isEmpty && outcome.prices.values.allSatisfy { $0.price != nil }
+        mutate({ s in outcome.apply(to: &s) }, reloadWidgets: reloadWidgets, widgetKinds: kinds, quiet: pricesOnly)
         // Erst nach dem Speichern melden (sonst wiederholt sich ein Alarm, wenn iOS die App
         // dazwischen beendet) und die Alarm-Lease freigeben.
         outcome.deliverAlarms()
@@ -758,7 +776,7 @@ final class AppData: ObservableObject {
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveQuotes: chosen)
         // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
         if reloadWidgets && outcome.checked > outcome.failed { SharedStorage.lastRefreshAt = TimeUtils.nowMillis }
-        apply(outcome, full: false, reloadWidgets: reloadWidgets)
+        apply(outcome, full: false, reloadWidgets: reloadWidgets, live: true)
         return true
     }
 
@@ -834,6 +852,14 @@ final class AppData: ObservableObject {
             PriceColors.inverted = settings.priceColorsInverted
             WidgetCenter.shared.reloadAllTimelines()
         }
+        if CoinLogoUse.needed(settings) && !CoinLogoUse.needed(old) {
+            startCoinLogoSync()
+        }
+        if old.widgetCoinLogos != settings.widgetCoinLogos {
+            // Coin-Logos in Widgets an/aus: gleich neu zeichnen
+            WidgetCenter.shared.reloadTimelines(ofKind: SharedStorage.watchlistWidgetKind)
+            WidgetCenter.shared.reloadTimelines(ofKind: SharedStorage.singleWidgetKind)
+        }
         if old.highContrast != settings.highContrast {
             // Hoher Kontrast: App über die Wurzel (Environment, Trait), Widgets neu zeichnen
             HighContrast.setting = settings.highContrast
@@ -896,5 +922,23 @@ enum AppIconSwitcher {
         let name = accent.iconName
         guard UIApplication.shared.alternateIconName != name else { return }
         UIApplication.shared.setAlternateIconName(name) { _ in }
+    }
+}
+
+// MARK: Coin-Logos
+
+extension AppData {
+    /// Lädt im Hintergrund die Logos aller Coins der Rangliste, die noch fehlen (nie einzeln,
+    /// damit CoinGecko keine Merkliste ablesen kann) — sofern Logos irgendwo gebraucht werden.
+    /// Kamen neue dazu und sind sie für Widgets an, zeichnen die Widgets neu.
+    func startCoinLogoSync() {
+        guard CoinLogoUse.needed(settings) else { return }
+        Task {
+            let added = await CoinLogoStore.shared.syncAll()
+            if added > 0 && settings.widgetCoinLogos {
+                WidgetCenter.shared.reloadTimelines(ofKind: SharedStorage.watchlistWidgetKind)
+                WidgetCenter.shared.reloadTimelines(ofKind: SharedStorage.singleWidgetKind)
+            }
+        }
     }
 }

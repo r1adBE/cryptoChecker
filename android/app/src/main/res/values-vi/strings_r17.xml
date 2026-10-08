@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
     <string name="settings_portfolio_lock">Khóa danh mục</string>
-    <string name="settings_portfolio_lock_hint">Chỉ bảo vệ danh mục: mở khóa bằng vân tay, khuôn mặt hoặc mã PIN thiết bị. Khóa lại sau hơn một phút chạy nền. Danh sách theo dõi, cảnh báo và các widget khác vẫn mở.</string>
+    <string name="settings_portfolio_lock_hint">Chỉ bảo vệ danh mục: mở khóa bằng vân tay, khuôn mặt hoặc mã PIN thiết bị. Khóa lại sau hơn một phút chạy nền. Danh sách theo dõi, cảnh báo và các tiện ích khác vẫn mở.</string>
     <string name="portfolio_locked_title">Danh mục đang bị khóa</string>
     <string name="portfolio_locked_text">Mở khóa để xem tài sản nắm giữ và giá trị.</string>
     <string name="portfolio_lock_reason">Mở khóa danh mục</string>

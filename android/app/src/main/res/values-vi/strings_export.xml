@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Xuất theo ngày chốt</string>
     <string name="portfolio_export_date">Ngày chốt</string>
     <string name="portfolio_export_currency">Tiền tệ: %1$s</string>
-    <string name="portfolio_export_hint">Số lượng nắm giữ vào cuối ngày đã chọn, định giá theo giá đóng cửa ngày (UTC) bằng USDT và quy đổi theo tỷ giá tham chiếu ECB của ngày đó. Đổi tiền tệ trong «Quy đổi sang».</string>
+    <string name="portfolio_export_hint">Số lượng nắm giữ vào cuối ngày đã chọn, định giá theo giá đóng cửa ngày (UTC) bằng USDT và quy đổi theo tỷ giá tham chiếu ECB của ngày đó. Đổi tiền tệ trong “Quy đổi sang”.</string>
     <string name="portfolio_export_button">Xuất CSV</string>
     <string name="portfolio_export_running">Đang lấy giá lịch sử…</string>
     <string name="portfolio_export_done">Đã lưu bản xuất</string>

@@ -201,4 +201,13 @@ final class ChangeBasisTests: XCTestCase {
         XCTAssertEqual(ChangeBasisMath.dayEnd(.LOCAL_DAY, dayStart: local, timeZone: zurich), local + 25 * ChangeBasisMath.hourMillis)
         XCTAssertNil(ChangeBasisMath.dayEnd(.ROLLING_24H, dayStart: utcStart, timeZone: zurich))
     }
+
+    func testChartTimeZoneFollowsBasis() throws {
+        XCTAssertEqual(ChangeBasisMath.chartTimeZone(try XCTUnwrap(ChangeBasis.utc(8)), device: zurich).secondsFromGMT(), 8 * 3600)
+        XCTAssertEqual(ChangeBasisMath.chartTimeZone(.UTC_DAY, device: zurich).secondsFromGMT(), 0)
+        XCTAssertEqual(ChangeBasisMath.chartTimeZone(try XCTUnwrap(ChangeBasis.utc(-5)), device: zurich).secondsFromGMT(), -5 * 3600)
+        XCTAssertEqual(ChangeBasisMath.chartTimeZone(.LOCAL_DAY, device: zurich), zurich)
+        XCTAssertEqual(ChangeBasisMath.chartTimeZone(.ROLLING_24H, device: zurich), zurich)
+    }
 }
+

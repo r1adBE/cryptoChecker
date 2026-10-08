@@ -4,7 +4,7 @@
     <string name="alarm_condition_volume_spike">זינוק במחזור</string>
     <string name="alarm_volume_factor_label">מחזור השעה האחרונה לעומת הרגיל</string>
     <string name="alarm_volume_hint">נתוני המחזור מגיעים מ-Binance — צמדים שאינם רשומים שם לעולם לא יופעלו.</string>
-    <string name="notification_volume_spike_text">מחזור פי %1$s× מהרגיל בשעה האחרונה</string>
+    <string name="notification_volume_spike_text">מחזור פי %1$s מהרגיל בשעה האחרונה</string>
     <string name="tts_direction_volume_spike">עם זינוק במחזור</string>
 
     <!-- Einzel-Widget: Chart-Zeitraum -->

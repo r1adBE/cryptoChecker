@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">شعارات العملات</string>
+    <string name="settings_coin_logos_app">في التطبيق</string>
+    <string name="settings_coin_logos_app_hint">قائمة المتابعة وورقة الزوج وبطاقات السوق</string>
+    <string name="settings_coin_logos_portfolio">في المحفظة</string>
+    <string name="settings_coin_logos_portfolio_hint">المراكز وتفاصيل العملات والتحليلات</string>
+    <string name="settings_coin_logos_widgets">في الأدوات</string>
+    <string name="settings_coin_logos_widgets_hint">أداتا قائمة المتابعة والعملة الواحدة</string>
+    <string name="settings_coin_logos_footer">تأتي الشعارات من CoinGecko، ومن Binance لما لا يدرجه CoinGecko (مثل الذهب والفضة والأسهم). يحمّل التطبيق جميع الشعارات دفعة واحدة ويحفظها على هذا الجهاز، فلا يعرف أيٌّ منهما العملات التي تتابعها. العملات بلا شعار تظهر بأحرفها الأولى. تحصل المفضلة على نجمة صغيرة على الشعار. حيث يكون المفتاح متوقفًا لا تظهر شعارات ولا أحرف أولى؛ وعند إيقاف كل الخيارات لا يُحمَّل شيء.</string>
+    <string name="settings_coin_logos_value_app">التطبيق</string>
+</resources>

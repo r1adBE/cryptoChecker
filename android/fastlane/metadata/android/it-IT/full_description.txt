@@ -5,58 +5,58 @@ Panoramica – Crypto Pulse, Fear & Greed, ciclo e portafoglio
 Osservare – prezzi diretti dall'exchange, nella tua valuta
 Avvisare – prezzo, %, movimenti e volume, in una frase
 
-Leggibile per tutti: colori dei prezzi verde/rosso o blu/arancione, contrasto elevato, segno e freccia oltre al colore, e TalkBack legge ogni riga in una frase.
+Leggibile per tutti: verde/rosso o blu/arancione, contrasto elevato, segno e freccia oltre al colore, TalkBack: ogni riga in una frase.
 
-UNA LISTA PER 32 EXCHANGE
-• Lista vuota: le 5 maggiori monete per capitalizzazione con un tocco
-• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e molti altri – su richiesta anche azioni, oro e valute (TradFi), in un gruppo dedicato
+LISTA: 41 MERCATI SU 32 EXCHANGE
+• Lista vuota: le 5 maggiori monete con prezzi live, aggiunte con un tocco
+• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e altri – su richiesta anche azioni, oro e valute (TradFi), in un gruppo dedicato
 • Token DEX tramite DexScreener
-• Organizza le coppie in gruppi, segna i preferiti, riordina trascinando
-• Una nota per ogni moneta, ad es. il tuo prezzo di ingresso
-• Riga «≈ valore» nella tua valuta: 31 valute (EUR, CHF, USD, GBP, JPY…), predefinita secondo la regione
-• Mini grafico 24 ore in ogni riga; variazione % su 24 ore o dalle 00:00 nel tuo fuso orario
-• Portafoglio in una scheda dedicata: acquisti e vendite, prezzo medio, utile/perdita e valore totale nella tua valuta
-• Export alla data di riferimento (ad es. 31/12) nella tua valuta come CSV – non è consulenza fiscale
+• Scorri: a sinistra elimina (con Annulla), a destra preferito; gruppi, ordinamento trascinando
+• Nota per moneta, ad es. il tuo prezzo di ingresso
+• Riga «≈ valore» in una di 31 valute (EUR, CHF, USD…), predefinita secondo la regione
+• Mini grafico in ogni riga; variazione % su 24 ore o dalle 00:00 nel tuo fuso orario
+• Scheda Portafoglio: acquisti e vendite, prezzo medio, utile/perdita e valore totale nella tua valuta
+• Export alla data di riferimento: valore del portafoglio (ad es. al 31/12) in CSV – non è consulenza fiscale
+• Le righe indicano «non aggiornato» o «exchange non raggiungibile»
 
-ALLARMI SU MISURA PER LA TUA STRATEGIA
+ALLARMI SECONDO LE TUE REGOLE
 • Prezzo sopra o sotto una soglia, rialzo o ribasso di una percentuale
 • Allarmi nella tua valuta, ad es. a 60.000 EUR su una coppia USDT
 • Allarme come frase: «Avvisami quando BTC scende sotto 60.000 CHF.»
-• Movimento di x % in una finestra di tempo, ad es. 5 % in 1 ora
+• Movimento di x % in un dato intervallo, ad es. 5 % in 1 ora
 • Picco di volume: volume improvvisamente molto sopra la media
-• Singolo o ripetuto, con suono, vibrazione e annuncio vocale opzionale
-• Il tuo suono di allarme: suono di sistema o un tuo file audio
-• Un tempo di pausa regolabile evita raffiche di allarmi
+• Singolo o ripetuto, con suono (anche un tuo file audio), vibrazione e annuncio vocale opzionale
+• Pausa regolabile contro raffiche di allarmi
 • Ore di silenzio: di notte (ad es. 23–7) allarmi senza suono, vibrazione o voce
 • «Prova allarme»: senti in anticipo come arriva un allarme
 
 ATTIVITÀ INSOLITA E PERCHÉ SI MUOVE?
-• Attività insolita rileva movimenti di prezzo e volume fuori dal normale nella tua lista
-• «Perché si muove?» spiega un movimento con volume, mercato generale e dati futures, con un breve riepilogo
+• Attività insolita rileva movimenti di prezzo e volume fuori dal normale nella tua lista, con notifiche facoltative
+• «Perché si muove?» spiega un movimento con volume, mercato generale e futures, con breve riepilogo – non è consulenza finanziaria
 
 PANORAMICA DEL MERCATO
-• Crypto Pulse: cosa succede ora? BTC, ETH, SOL, altcoin rispetto a BTC, volume, Fear & Greed, funding, gas ETH e un riepilogo in una frase, senza previsioni
+• Crypto Pulse: cosa succede ora? BTC, ETH, SOL, altcoin rispetto a BTC, volume, Fear & Greed, funding, gas ETH e riepilogo, senza previsioni
 • Indice Fear & Greed con storico e notifica opzionale
 • Mercato crypto: capitalizzazione totale e volume 24 h nella tua valuta
-• Scheda Mercato: fase di mercato con segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia per l'halving, dominanza e altcoin season
+• Scheda Mercato: fase, segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia all'halving, dominanza e altcoin season
 • Analisi moneta: RSI, trend, Pi Cycle e forza rispetto a Bitcoin
-• Dati futures: funding rate e open interest
-• Commissioni di rete per Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, con allarme gas
+• Dati futures: funding rate e open interest, con brevi spiegazioni
+• Commissioni di rete (Ethereum, Base, Arbitrum, Polygon, BNB Chain, Bitcoin) con allarme gas
 
 WIDGET E NOTIFICHE
-• Widget: tutta la lista, valore del portafoglio con variazione di oggi, una moneta in grande con grafico
+• Widget: tutta la lista, valore del portafoglio con variazione di oggi, una moneta con grafico (candele o linea) e livelli massimo/medio/minimo
 • Notifica silenziosa del prezzo per ogni coppia
-• Aggiornamento frequente ogni 15 secondi, in background da 15 minuti
+• Aggiornamento frequente fino a ogni 15 s, in background fino a ogni 15 min
 
 E INOLTRE
-• Lettura vocale di prezzi e allarmi (sintesi vocale)
+• Lettura vocale di prezzi e allarmi
 • Backup e ripristino in un file a tua scelta – anche tra Android e iPhone
 • Scorciatoie dell'app, tema chiaro e scuro
 • Cinque colori d'accento con icona dell'app abbinata
-• Blocco portafoglio: impronta, volto, PIN
+• Blocco portafoglio: impronta, volto o PIN
 • Disponibile in 31 lingue
 
 PRIVACY AL PRIMO POSTO
 Nessun account, nessuna pubblicità, nessuna analisi. I prezzi arrivano direttamente dalle API pubbliche degli exchange. Lista, allarmi e quantità restano sul tuo dispositivo. Open source (licenza MIT): il codice è pubblico su GitHub.
 
-Nota: Crypto Checker mostra solo i prezzi. Non è un exchange né un wallet, non esegue operazioni e non costituisce consulenza finanziaria.
+Nota: Crypto Checker mostra solo i prezzi: non è un exchange né un wallet, non esegue operazioni e non è consulenza finanziaria.

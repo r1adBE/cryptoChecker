@@ -73,12 +73,12 @@
     <string name="starter_add_selected">Zur Merkliste hinzufügen (%1$d)</string>
     <string name="starter_select_all">Alle auswählen</string>
     <string name="starter_select_none">Keine auswählen</string>
-    <string name="starter_loading_prices">Kurse werden geladen …</string>
+    <string name="starter_loading_prices">Kurse werden geladen…</string>
     <string name="watchlist_removed">%1$s entfernt</string>
     <string name="action_undo">Rückgängig</string>
     <string name="favorite_added">%1$s zu den Favoriten hinzugefügt</string>
     <string name="favorite_removed">%1$s aus den Favoriten entfernt</string>
-    <string name="cycle_data_as_of">Stand %1$s · wird aktualisiert …</string>
+    <string name="cycle_data_as_of">Stand %1$s · wird aktualisiert…</string>
     <string name="settings_conversion_currency_hint">Gilt auch für Portfolio, Alarme in deiner Währung, die Karte Krypto-Markt und das Portfolio-Widget.</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="one">%1$d steigt</item>

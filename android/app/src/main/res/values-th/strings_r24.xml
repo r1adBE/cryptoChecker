@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">การเปลี่ยนแปลง %1$s</string>
+    <string name="settings_change_basis">การเปลี่ยนแปลง %1$s และเขตเวลาของกราฟ</string>
     <string name="change_basis_rolling">24 ชม. ล่าสุด</string>
     <string name="change_basis_utc_zone">ตั้งแต่ 00:00 %1$s</string>
     <string name="change_basis_local">ตั้งแต่ 00:00 เวลาท้องถิ่น</string>
-    <string name="settings_change_basis_hint_1">เขตเวลาที่เลือกกำหนดว่าการเปลี่ยนแปลงเป็นเปอร์เซ็นต์เริ่มนับเมื่อใด ในรายการเฝ้าดู แถวชีพจร แผ่นคู่เหรียญ และวิดเจ็ต</string>
-    <string name="settings_change_basis_hint_2">«%1$s» เทียบกับราคาเมื่อ 24 ชั่วโมงก่อนพอดี «00:00» เทียบกับราคาเปิดตอนเที่ยงคืนในเขตเวลานั้น</string>
-    <string name="settings_change_basis_hint_3">ไม่มีผลกับการแจ้งเตือน</string>
+    <string name="settings_change_basis_hint_1">เขตเวลาที่เลือกกำหนดว่าการเปลี่ยนแปลงเป็นเปอร์เซ็นต์เริ่มนับเมื่อใด (รายการติดตาม แถวสรุป หน้าคู่เหรียญ วิดเจ็ต) และเวลาที่แสดงบนกราฟ</string>
+    <string name="settings_change_basis_hint_2">“%1$s” เทียบกับราคาเมื่อ 24 ชั่วโมงก่อนพอดี “00:00” เทียบกับราคาเปิดตอนเที่ยงคืนในเขตเวลานั้น</string>
+    <string name="settings_change_basis_hint_3">ไม่มีผลกับสัญญาณเตือน</string>
     <string name="change_basis_device">%1$s, 00:00 (เขตเวลาของอุปกรณ์)</string>
     <string name="change_short_today">วันนี้</string>
     <string name="change_short_today_zone">วันนี้ %1$s</string>

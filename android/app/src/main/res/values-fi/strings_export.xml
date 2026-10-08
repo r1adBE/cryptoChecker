@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Tilannepäivän vienti</string>
     <string name="portfolio_export_date">Tilannepäivä</string>
     <string name="portfolio_export_currency">Valuutta: %1$s</string>
-    <string name="portfolio_export_hint">Omistus valitun päivän lopussa, arvostettuna päivän päätöshintaan (UTC) USDT:nä ja muunnettuna EKP:n saman päivän viitekurssilla. Vaihda valuutta kohdasta „Muunna valuuttaan”.</string>
+    <string name="portfolio_export_hint">Omistus valitun päivän lopussa, arvostettuna päivän päätöshintaan (UTC) USDT:nä ja muunnettuna EKP:n saman päivän viitekurssilla. Vaihda valuutta kohdasta ”Muunna valuuttaan”.</string>
     <string name="portfolio_export_button">Vie CSV</string>
     <string name="portfolio_export_running">Haetaan historiallisia hintoja…</string>
     <string name="portfolio_export_done">Vienti tallennettu</string>

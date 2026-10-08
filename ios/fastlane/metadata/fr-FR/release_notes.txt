@@ -1,7 +1,7 @@
 Version 16.2.2
 • Crypto Pulse : ce qui se passe sur le marché en ce moment
-• Pourquoi ça bouge ? avec un court résumé
-• Tester l'alerte : son, vibration et voix
+• « Pourquoi ça bouge ? » : explication des mouvements de prix fondée sur les données, avec un court résumé
+• Tester l’alerte : son, vibration et voix
 • Prix convertis : ligne « ≈ valeur » dans votre devise (31 devises, p. ex. EUR, CHF, USD, GBP, JPY ; par défaut selon votre région)
 • Alertes dans votre devise, p. ex. à 60 000 EUR sur une paire USDT
 • Export à date de référence : valeur du portefeuille à toute date (p. ex. 31 décembre) dans votre devise, en CSV – utile pour les impôts (sans conseil fiscal)
@@ -22,14 +22,13 @@ Version 16.2.2
 • Une note pour chaque crypto de votre liste de suivi
 • Choix du son d’alerte
 • Activité inhabituelle : repère les mouvements de prix et de volume anormaux, notifications facultatives
-• Pourquoi ça bouge ? Une explication fondée sur les données
 • Portefeuille dans son propre onglet : achats et ventes, prix moyen, gains/pertes
 • Comparaison des cycles : sommets et creux marqués, y compris doubles sommets et doubles creux
 • Groupes pour votre liste de suivi
 • Nouvelles alertes : mouvement de X % en Y heures et pic de volume
 • Widget d’une crypto : bougies ou ligne, période du graphique 24 h, 7 jours ou 30 jours, repères haut, milieu et bas, cours actuel mis en évidence
 • Onglet Marché : capitalisation totale du marché crypto et volume 24 h dans votre devise
-• Futures : funding rate et open interest
+• Futures : taux de financement et intérêt ouvert
 • Cinq couleurs d’accent avec icônes assorties
 • Actions, or, matières premières et devises en futures (TradFi) chez Binance, Bybit, OKX, MEXC et Bitget – via un interrupteur dans Paramètres › Liste, nouvelles paires automatiquement dans le groupe « TradFi » ; futures à échéance dans « QTLY »
 • Variation en % comme chez Binance : 24 dernières heures, depuis 00:00 dans le fuseau de l’appareil ou dans un fuseau fixe de UTC+14 à UTC-12

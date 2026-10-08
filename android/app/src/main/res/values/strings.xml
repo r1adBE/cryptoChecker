@@ -6,15 +6,15 @@
 	<string name="checker_add_check_currency_empty_warning_title">No currency pairs</string>
     <string name="checker_add_check_currency_empty_warning_summary">Loads the current pairs of the selected exchange.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Update currency pairs</string>
-    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchronize now!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sync now</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Last sync: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">never</string>
 
     <string name="market_screen_sync">Sync</string>
     <string name="market_screen_base">Coin</string>
     <string name="market_screen_quote">Quote</string>
-    <string name="market_screen_market">Market</string>
-    <string name="market_screen_contract_type">Contract Type</string>
+    <string name="market_screen_market">Exchange</string>
+    <string name="market_screen_contract_type">Contract type</string>
     <string name="market_screen_spot">Spot</string>
 
     <string name="ticker_high">High</string>
@@ -26,7 +26,7 @@
     <string name="ticker_timestamp">Time</string>
 
 
-    <string name="try_again">Try Again</string>
+    <string name="try_again">Try again</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="something_went_wrong">Something went wrong</string>
 
@@ -159,7 +159,7 @@
     <string name="settings_alarm_cooldown">Quiet time before an alarm fires again</string>
     <string name="settings_tts">Spoken output</string>
     <string name="settings_tts_alarms_only">Alarms only</string>
-    <string name="settings_tts_alarms_only_hint">Off: every update of a pair marked "Speak price" is read out.</string>
+    <string name="settings_tts_alarms_only_hint">Off: every update of a pair marked “Speak price” is read aloud.</string>
     <string name="settings_speech_rate">Speech rate: %1$.1f×</string>
     <string name="settings_tts_test">Test voice</string>
     <string name="battery_title">Keep prices up to date</string>

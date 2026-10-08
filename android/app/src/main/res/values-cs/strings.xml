@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Chyba: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Žádné měnové páry</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Načte aktuální páry vybraného trhu.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Načte aktuální páry vybrané burzy.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Aktualizovat měnové páry</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchronizovat nyní!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Poslední synchronizace: %1$s</string>
@@ -79,7 +79,7 @@
     <string name="channel_alarms">Alarmy</string>
     <string name="channel_alarms_description">Oznámení při spuštění cenového alarmu.</string>
     <string name="channel_service">Časté obnovování</string>
-    <string name="channel_service_description">Upozornění, zatímco se ceny aktualizují v krátkých intervalech.</string>
+    <string name="channel_service_description">Upozornění během aktualizace cen v krátkých intervalech.</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s, z %2$s (před %3$s)</string>
     <string name="notification_price_change_no_age">%1$s, z %2$s</string>
@@ -151,7 +151,7 @@
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Cenová oznámení</string>
     <string name="settings_price_notifications_hint">Zobrazovat aktuální cenu zapnutých párů ve stavovém řádku.</string>
-    <string name="settings_ongoing_notifications">Nelze odsunout</string>
+    <string name="settings_ongoing_notifications">Nelze zavřít přejetím</string>
     <string name="settings_ongoing_notifications_hint">Cenová oznámení zůstanou připnutá.</string>
     <string name="settings_notification_change">Oznamovat jen při změně ceny</string>
     <string name="settings_notification_change_always">Vždy</string>
@@ -159,7 +159,7 @@
     <string name="settings_alarm_cooldown">Klidová doba před opětovným spuštěním alarmu</string>
     <string name="settings_tts">Hlasový výstup</string>
     <string name="settings_tts_alarms_only">Jen alarmy</string>
-    <string name="settings_tts_alarms_only_hint">Vypnuto: každá aktualizace páru označeného „Číst cenu nahlas” se přečte.</string>
+    <string name="settings_tts_alarms_only_hint">Vypnuto: každá aktualizace páru označeného „Číst cenu nahlas“ se přečte.</string>
     <string name="settings_speech_rate">Rychlost řeči: %1$.1f×</string>
     <string name="settings_tts_test">Vyzkoušet hlas</string>
     <string name="battery_title">Udržovat ceny aktuální</string>
@@ -219,7 +219,7 @@
     <string name="market_scores_hint">Vrchol = známky jako u dřívějších vrcholů cyklu, dno = známky jako u dřívějších den cyklu. Od 4 bodů převažuje jedna strana, od 7 je extrémní. Žádný cenový cíl a žádná prognóza.</string>
     <string name="market_scores_none">Nejsou aktivní žádné známky vrcholu ani dna: klidná střední fáze, rozhoduje cenový trend.</string>
     <string name="market_scores_info_title">Signály cyklu</string>
-    <string name="market_scores_info_text">Známky možného vrcholu počítají signály z vrcholů minulých cyklů: silné nadhodnocení (MVRV), velmi vysoké příjmy těžařů (Puell), cena vysoko nad 200denním nebo 200týdenním průměrem, parabolický růst a období 12–18 měsíců po halvingu.\n\nZnámky možného dna počítají signály minulých den: nízké MVRV, slabé příjmy těžařů, silný pokles z historického maxima, cena u 200týdenního průměru, klesající hashrate a vrchol starší než rok.\n\nOd 4 bodů náskoku je zóna Bull nebo Bear, od 7 Extrémní. Pokud nevede žádná strana, rozhoduje cenový trend. 0/10 na obou stranách znamená: ani euforie, ani kapitulace.\n\nŽádný cenový cíl a žádná prognóza: signály jen popisují, jak vypadaly minulé cykly.</string>
+    <string name="market_scores_info_text">Známky možného vrcholu počítají signály z vrcholů minulých cyklů: silné nadhodnocení (MVRV), velmi vysoké příjmy těžařů (Puell), cena vysoko nad 200denním nebo 200týdenním průměrem, parabolický růst a období 12–18 měsíců po halvingu.\n\nZnámky možného dna počítají signály minulých den: nízké MVRV, slabé příjmy těžařů, silný pokles z historického maxima, cena u 200týdenního průměru, klesající hashrate a vrchol starší než rok.\n\nOd 4 bodů náskoku je zóna Bull nebo Bear, od 7 Extreme. Pokud nevede žádná strana, rozhoduje cenový trend. 0/10 na obou stranách znamená: ani euforie, ani kapitulace.\n\nŽádný cenový cíl a žádná prognóza: signály jen popisují, jak vypadaly minulé cykly.</string>
     <string name="battery_open_settings">Otevřít nastavení baterie</string>
     <string name="battery_steps">V informacích o aplikaci klepněte na Baterie (nebo Využití baterie aplikací) a zvolte Neomezeno.</string>
     <string name="explorer_select_placeholder">Vyberte</string>
@@ -310,7 +310,7 @@
     <string name="insights_chart_axis">Roky od halvingu</string>
     <string name="insights_chart_hint">Cena jako násobek ceny v den halvingu (log. měřítko). Minulé cykly jsou vzorec, ne předpověď.</string>
     <string name="insights_source_history">Zdroj: Coin Metrics (CC BY-NC 4.0), Binance</string>
-    <string name="insights_fng_title">Strach a chamtivost</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
     <string name="fng_extreme_fear">Extrémní strach</string>
     <string name="fng_fear">Strach</string>
     <string name="fng_neutral">Neutrální</string>
@@ -340,8 +340,8 @@
         <item quantity="other">Jen %1$d dní historie – některé ukazatele chybí.</item>
     </plurals>
     <string name="coin_price_only">Pouze podle ceny – on-chain data (MVRV, Puell, hashrate) jsou zdarma jen pro bitcoin.</string>
-    <string name="ind_rsi_weekly">RSI (týden)</string>
-    <string name="ind_rsi_daily">RSI (den)</string>
+    <string name="ind_rsi_weekly">RSI (týdenní)</string>
+    <string name="ind_rsi_daily">RSI (denní)</string>
     <string name="ind_pi_cycle">Pi cyklus (111/350 dní)</string>
     <string name="ind_cross">Trend 50/200 dní</string>
     <string name="ind_vs_btc">Síla vůči bitcoinu (90 dní)</string>
@@ -351,7 +351,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Fáze trhu se změnila z %1$s na %2$s.</string>
     <string name="settings_zone_alerts">Upozornit na změnu fáze</string>
-    <string name="settings_zone_alerts_hint">Kontroluje dvakrát denně a upozorní, když bitcoin změní zónu, např. z Neutrální na Bull.</string>
+    <string name="settings_zone_alerts_hint">Kontroluje dvakrát denně a upozorní, když bitcoin změní zónu, např. z Neutral na Bull.</string>
     <string name="alarm_condition_move_percent">Pohne se o</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">za %1$d h</item>
@@ -367,15 +367,15 @@
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
     <string name="notification_fng_below">Index klesl pod %1$d – trh má strach.</string>
     <string name="notification_fng_above">Index stoupl nad %1$d – trh je chamtivý.</string>
-    <string name="futures_title">Futures data</string>
+    <string name="futures_title">Data futures</string>
     <string name="futures_funding">Funding rate</string>
     <string name="futures_next_funding">další za %1$d h %2$d min</string>
     <string name="futures_open_interest">Open interest</string>
     <string name="futures_source">Zdroj: %1$s</string>
     <string name="single_widget_label">Crypto Checker – jedna mince</string>
-    <string name="single_widget_description">Ukáže jednu minci velce s cenou, změnou a 24hodinovým grafem.</string>
+    <string name="single_widget_description">Zobrazí jednu minci ve velkém formátu s cenou, změnou a 24hodinovým grafem.</string>
     <string name="single_widget_choose">Vyberte pár</string>
-    <string name="single_widget_title">Nastavit samostatný widget</string>
+    <string name="single_widget_title">Nastavit widget jedné mince</string>
     <string name="shortcut_add">Přidat pár</string>
     <string name="shortcut_alarms">Všechny alarmy</string>
     <string name="shortcut_cycle">Trh</string>

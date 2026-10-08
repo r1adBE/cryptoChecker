@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">%1$s-os változás</string>
+    <string name="settings_change_basis">%1$s-os változás és diagram-időzóna</string>
     <string name="change_basis_rolling">Elmúlt 24 óra</string>
     <string name="change_basis_utc_zone">00:00 %1$s óta</string>
     <string name="change_basis_local">00:00 helyi idő óta</string>
-    <string name="settings_change_basis_hint_1">A választott időzóna határozza meg, mikortól számít a százalékos változás: a figyelőlistában, a pulzussorban, a pár lapján és a widgetekben.</string>
+    <string name="settings_change_basis_hint_1">A választott időzóna határozza meg, mikortól számít a százalékos változás (figyelőlista, pulzussor, a pár lapja, widgetek), és milyen időt mutatnak a diagramok.</string>
     <string name="settings_change_basis_hint_2">A „%1$s” a pontosan 24 órával korábbi árfolyamhoz hasonlít. A „00:00” az ebben az időzónában éjfélkor érvényes nyitóárfolyamhoz hasonlít.</string>
     <string name="settings_change_basis_hint_3">A riasztásokat ez nem érinti.</string>
     <string name="change_basis_device">%1$s, 00:00 (az eszköz időzónája)</string>
@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Az éjfél (%1$s) óta tartó változás nem érhető el</string>
     <string name="sheet_chart_today">Ma</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Bezárt appnál legfeljebb percenként egyszer</string>
+    <string name="settings_live_interval_hidden_hint">Bezárt alkalmazásnál legfeljebb percenként egyszer</string>
     <string name="sheet_more">Továbbiak</string>
     <string name="a11y_expanded">Kibontva</string>
     <string name="a11y_collapsed">Összecsukva</string>

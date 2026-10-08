@@ -6,7 +6,7 @@
     <string name="unusual_fact_stronger">خیلی قوی‌تر از BTC حرکت می‌کند</string>
     <string name="unusual_fact_weaker">خیلی ضعیف‌تر از BTC حرکت می‌کند</string>
     <string name="unusual_fact_against">خلاف جهت بازار حرکت می‌کند</string>
-    <string name="unusual_fact_volume">حجم %1$s× حالت عادی</string>
+    <string name="unusual_fact_volume">حجم %1$s برابر حالت عادی</string>
     <string name="unusual_fact_funding_high">فاندینگ بالا (%1$s)</string>
     <string name="unusual_fact_funding_negative">فاندینگ منفی (%1$s)</string>
     <string name="unusual_source">حدود ۳۰ ارز بزرگ بدون استیبل‌کوین‌ها · Binance، CoinGecko</string>

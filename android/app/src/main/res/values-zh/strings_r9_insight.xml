@@ -49,7 +49,7 @@
     <string name="why_f_leverage_longs">杠杆：多单较多</string>
     <string name="why_f_leverage_shorts">杠杆：空单较多</string>
     <string name="why_f_leverage_balanced">杠杆均衡</string>
-    <string name="insights_dominance_eth">占总市场：ETH %1$s</string>
+    <string name="insights_dominance_eth">ETH 占总市值 %1$s</string>
     <plurals name="market_phase_cycle_since">
         <item quantity="other">距 %2$s 减半已 %1$d 个月</item>
     </plurals>

@@ -57,9 +57,9 @@
     <string name="market_cap_label">Capitalização de mercado</string>
     <string name="market_volume_label">Volume 24 h</string>
     <string name="market_cap_source">Todas as moedas · CoinGecko</string>
-    <string name="market_data_empty_error">Não foram recebidos dados da corretora.</string>
+    <string name="market_data_empty_error">Não foram recebidos dados da exchange.</string>
     <string name="sync_pairs_count">Pares de negociação: %1$d</string>
-    <string name="market_unavailable_error">Corretora indisponível</string>
+    <string name="market_unavailable_error">Exchange indisponível</string>
     <string name="refresh_report_bulk_failed">pedido agrupado %1$s (falhou)</string>
     <string name="refresh_report_singles">%1$d individualmente</string>
     <plurals name="refresh_report_not_traded">

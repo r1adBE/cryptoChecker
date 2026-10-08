@@ -20,7 +20,7 @@
     </plurals>
     <!-- Abschnittstitel -->
     <string name="refresh_sheet_section_markets">Bursat</string>
-    <string name="refresh_sheet_section_steps">Ecuria</string>
+    <string name="refresh_sheet_section_steps">Detajet</string>
     <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
     <string name="refresh_sheet_wait">Pritja deri në nisje</string>
     <string name="refresh_sheet_network">Rrjeti</string>

@@ -161,6 +161,12 @@ fun SettingsScreen(
                         value = ChangeBasisText.summary(settings.changeBasis),
                         onClick = { onOpenPage(SettingsPage.CHANGE_BASIS) }
                     )
+                    // Coin-Logos: je ein Schalter für App, Portfolio und Widgets
+                    SettingsNavRow(
+                        title = stringResource(R.string.settings_coin_logos),
+                        value = coinLogosSummary(settings),
+                        onClick = { onOpenPage(SettingsPage.COIN_LOGOS) }
+                    )
                     // Widgets direkt aus der App auf den Startbildschirm (Runde 13b)
                     SettingsAnchor("main.widgets") {
                         SettingsNavRow(

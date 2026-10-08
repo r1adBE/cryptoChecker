@@ -3,7 +3,7 @@
     <string name="group_edit_title">Изменить группу</string>
     <string name="group_rename">Переименовать</string>
     <string name="group_delete">Удалить группу</string>
-    <string name="group_delete_confirm">Пары останутся в списке отслеживания.</string>
+    <string name="group_delete_confirm">Пары останутся в вашем списке.</string>
     <string name="group_done">Готово</string>
     <string name="group_add">Новая группа</string>
     <string name="group_in_other">в %1$s</string>

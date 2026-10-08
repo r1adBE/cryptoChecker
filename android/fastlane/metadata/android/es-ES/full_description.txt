@@ -5,57 +5,59 @@ Visión general – Crypto Pulse, Fear & Greed, ciclo y cartera
 Observar – precios directos del exchange, en tu moneda
 Avisar – precio, %, movimientos y volumen, en una frase
 
-Legible para todos: colores de precio verde/rojo o azul/naranja, intercambiables si quieres, alto contraste, signo y flecha en lugar de solo color, y TalkBack lee cada fila en una frase.
+Legible para todos: colores de precio verde/rojo o azul/naranja, alto contraste, signo y flecha además del color; TalkBack lee cada fila en una frase.
 
-UNA LISTA PARA 32 EXCHANGES
-• Spot y futuros de Binance, Coinbase, Kraken, OKX, Bybit y muchos más
+LISTA: 41 MERCADOS EN 32 EXCHANGES
+• Lista vacía: las 5 mayores monedas con precio en directo, añadidas con un toque
+• Spot y futuros de Binance, Coinbase, Kraken, OKX, Bybit y más; opcional: acciones, oro y divisas (TradFi), en grupo propio
 • Tokens DEX a través de DexScreener
-• Organiza los pares en grupos, marca favoritos y reordena arrastrando
-• Una nota para cada moneda, p. ej. tu precio de entrada
-• Línea «≈ valor» en tu moneda: 31 monedas (EUR, CHF, USD, GBP, JPY…), por defecto según la región
-• Minigráfico de 24 h en cada fila
-• Cartera en su propia pestaña: compras y ventas, precio medio, ganancias/pérdidas y valor total en tu moneda
-• Exportación a fecha de corte (p. ej. 31 dic.) en tu moneda, en CSV – útil para impuestos, sin asesoramiento fiscal
+• Desliza a la izquierda para eliminar (con Deshacer), a la derecha para favorito; grupos y orden arrastrando
+• Nota por moneda, p. ej. tu precio de entrada, justo bajo el precio
+• Línea «≈ valor» en 31 monedas (EUR, CHF, USD…), por defecto según la región
+• Minigráfico en cada fila; variación en 24 h o desde las 00:00 en tu zona horaria
+• Pestaña Cartera: compras y ventas, precio medio, ganancias/pérdidas y valor total en tu moneda
+• Exportación a fecha de corte: valor de la cartera en cualquier día (p. ej. 31/12) en CSV, sin asesoría fiscal
+• Las filas indican «desactualizado» o «exchange no disponible»
 
 ALARMAS A LA MEDIDA DE TU ESTRATEGIA
-• Precio por encima o por debajo de un nivel, subida o bajada de un porcentaje
+• Precio por encima o por debajo de un nivel, subida o bajada en %
 • Alarmas en tu moneda, p. ej. a 60.000 EUR en un par USDT
-• Alarma como frase: «Avísame cuando BTC baje por debajo de 60.000 CHF.»
-• Movimiento de x % en una ventana de tiempo, p. ej. 5 % en 1 hora
-• Pico de volumen: el volumen de negociación se dispara sobre la media
-• Única o repetida, con sonido, vibración y aviso por voz opcional
-• Tu propio sonido de alarma: sonido del sistema o tu propio archivo de audio
-• Un tiempo de espera ajustable evita la avalancha de alarmas
-• Horas de silencio: de noche (p. ej. 23–7 h) alarmas sin sonido, vibración ni voz
+• Alarma como frase: «Avísame cuando BTC baje de 60.000 CHF.»
+• Movimiento de x % en un intervalo, p. ej. 5 % en 1 hora
+• Pico de volumen: volumen de repente muy por encima de la media
+• Única o repetida, con sonido, vibración y voz opcional
+• Tu propio sonido: del sistema o tu archivo de audio
+• Una pausa ajustable evita avalanchas de alarmas
+• Horas de silencio: de noche (p. ej. 23–7 h), sin sonido, vibración ni voz
 • «Probar alarma»: oye y siente de antemano cómo llega una alarma
 
 ACTIVIDAD INUSUAL Y ¿POR QUÉ SE MUEVE?
-• Actividad inusual detecta movimientos de precio y volumen fuera de lo normal en tu lista, con notificaciones opcionales
-• «¿Por qué se mueve?» explica un movimiento con el volumen, el mercado global y los futuros, con un breve resumen, sin asesoramiento de inversión
+• Actividad inusual: movimientos de precio y volumen fuera de lo normal en tu lista, con aviso opcional
+• «¿Por qué se mueve?» lo explica con volumen, mercado global y futuros, con breve resumen, sin asesoramiento de inversión
 
 VISIÓN DEL MERCADO
-• Crypto Pulse: ¿qué está pasando? BTC, ETH, SOL, altcoins frente a BTC, volumen, Fear & Greed, funding, gas de ETH y un resumen en una frase, sin pronóstico
-• Índice Fear & Greed con historial y notificación opcional
+• Crypto Pulse: ¿qué está pasando? BTC, ETH, SOL, altcoins frente a BTC, volumen, Fear & Greed, funding, gas de ETH y resumen en una frase, sin pronóstico
+• Índice Fear & Greed con historial y aviso opcional
 • Mercado cripto: capitalización total y volumen 24 h en tu moneda
-• Pestaña Mercado: fase del mercado con señales de un posible máximo o mínimo (sin pronóstico), cuenta atrás del halving, comparación de ciclos, dominancia y temporada de altcoins
+• Pestaña Mercado: fase con señales de un posible máximo o mínimo (sin pronóstico), cuenta atrás del halving, dominancia, temporada de altcoins
 • Análisis de moneda: RSI, tendencia, Pi Cycle y fuerza frente a Bitcoin
-• Datos de futuros: tasa de financiación e interés abierto
-• Comisiones de red para Ethereum, Base, Arbitrum, Polygon, BNB Chain y Bitcoin, con alarma de gas
+• Futuros: tasa de financiación e interés abierto, con breves explicaciones
+• Comisiones de red de Ethereum, Base, Arbitrum, Polygon, BNB Chain y Bitcoin, con alarma de gas
 
 WIDGETS Y NOTIFICACIONES
-• Widgets: toda la lista, valor de la cartera con el cambio de hoy, una moneda en grande con gráfico – velas o línea, con marcas de máximo, medio y mínimo
+• Widgets: toda la lista, total de la cartera con el cambio de hoy, una moneda con gráfico (velas o línea) y máximo/medio/mínimo
 • Notificación de precio silenciosa por par
-• Actualización frecuente cada 15 segundos; en segundo plano desde 15 minutos
+• Actualización frecuente desde 15 segundos; en segundo plano desde 15 minutos
 
 ADEMÁS
-• Lectura en voz alta de precios y alarmas
-• Copia de seguridad y restauración en un archivo que tú eliges, también entre Android y iPhone
+• Precios y alarmas en voz alta
+• Copia de seguridad y restauración en un archivo a tu elección, también entre Android y iPhone
 • Accesos directos, modo claro y oscuro
-• Cinco colores de acento con icono de app a juego
+• Cinco colores de acento con icono a juego
 • Bloqueo de la cartera: huella, rostro o PIN
 • Disponible en 31 idiomas
 
 PRIVACIDAD ANTE TODO
-Sin cuenta, sin anuncios, sin analíticas. Los precios llegan directamente de las API públicas de los exchanges. Tu lista, tus alarmas y tus tenencias se quedan en tu dispositivo. Código abierto (licencia MIT): el código es público en GitHub.
+Sin cuenta, sin anuncios, sin analíticas. Los precios llegan directamente de las API públicas de los exchanges. Tu lista, alarmas y tenencias se quedan en tu dispositivo. Código abierto (MIT): el código es público en GitHub.
 
 Nota: Crypto Checker solo muestra precios. No es un exchange ni una cartera, no opera y no ofrece asesoramiento de inversión.

@@ -19,7 +19,7 @@
     <string name="pulse_updated">Per %1$s</string>
     <string name="pulse_unavailable">Marknadsdata är inte tillgängliga just nu</string>
     <string name="why_summary_title">Troliga orsaker</string>
-    <string name="why_summary_market_volume">Rörelsen åtföljs av högre handelsvolym och en brett rörlig marknad.</string>
+    <string name="why_summary_market_volume">Rörelsen åtföljs av högre handelsvolym och en marknad i bred rörelse.</string>
     <string name="why_summary_market">Rörelsen följer troligen marknaden som helhet.</string>
     <string name="why_summary_coin_volume">Bara det här myntet rör sig, med högre volym – troligen en orsak hos myntet självt.</string>
     <string name="why_summary_coin">Bara det här myntet rör sig – troligen en orsak hos myntet självt.</string>
@@ -51,7 +51,7 @@
     <string name="about_privacy_policy">Integritetspolicy</string>
     <string name="widget_chart_type">Diagramtyp</string>
     <string name="widget_chart_line">Linje</string>
-    <string name="widget_chart_candles">Ljus</string>
+    <string name="widget_chart_candles">Candlestick</string>
     <string name="pair_added_watching">%1$s bevakas nu</string>
     <string name="market_cap_title">Kryptomarknaden</string>
     <string name="market_cap_label">Börsvärde</string>

@@ -3,6 +3,6 @@
     <string name="note_title">Nota</string>
     <string name="note_add">Añadir nota</string>
     <string name="note_edit">Editar nota</string>
-    <string name="note_hint">p. ej. entrada a 0.42, objetivo 0.60</string>
+    <string name="note_hint">p. ej. entrada a 0,42, objetivo 0,60</string>
     <string name="note_remove">Quitar</string>
 </resources>

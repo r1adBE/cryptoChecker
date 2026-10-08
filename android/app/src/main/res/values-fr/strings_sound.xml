@@ -4,7 +4,7 @@
     <string name="settings_alarm_sound_default">Son par défaut</string>
     <string name="settings_alarm_sound_custom">Son personnalisé</string>
     <string name="settings_alarm_sound_system">Choisir un son système…</string>
-    <string name="settings_alarm_sound_file">Fichier audio perso…</string>
+    <string name="settings_alarm_sound_file">Fichier audio personnel…</string>
     <string name="settings_alarm_sound_reset">Utiliser le son par défaut</string>
     <string name="settings_alarm_sound_error">Impossible d\'utiliser ce son.</string>
 </resources>

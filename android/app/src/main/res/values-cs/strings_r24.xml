@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Změna v %1$s</string>
+    <string name="settings_change_basis">Změna v %1$s a časové pásmo grafu</string>
     <string name="change_basis_rolling">Posledních 24 h</string>
     <string name="change_basis_utc_zone">Od 00:00 %1$s</string>
     <string name="change_basis_local">Od 00:00 místního času</string>
-    <string name="settings_change_basis_hint_1">Zvolené časové pásmo určuje, odkdy se počítá procentní změna: v seznamu sledovaných, řádku pulzu, listu páru a widgetech.</string>
+    <string name="settings_change_basis_hint_1">Zvolené časové pásmo určuje, odkdy se počítá procentní změna (seznam sledovaných, řádek pulzu, list páru, widgety), a také časy v grafech.</string>
     <string name="settings_change_basis_hint_2">„%1$s“ porovnává s cenou přesně před 24 hodinami. „00:00“ porovnává s otevírací cenou o půlnoci v tomto časovém pásmu.</string>
     <string name="settings_change_basis_hint_3">Alarmů se to netýká.</string>
     <string name="change_basis_device">%1$s, 00:00 (časové pásmo zařízení)</string>

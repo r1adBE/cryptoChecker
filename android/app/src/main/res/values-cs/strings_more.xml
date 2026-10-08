@@ -110,8 +110,8 @@
         <item quantity="many">klesá %1$d</item>
         <item quantity="other">klesá %1$d</item>
     </plurals>
-    <string name="pulse_headline_up">Plošná síla</string>
-    <string name="pulse_headline_down">Plošná slabost</string>
+    <string name="pulse_headline_up">Plošný růst</string>
+    <string name="pulse_headline_down">Plošný pokles</string>
     <string name="pulse_headline_mixed">Smíšený obraz</string>
     <string name="pulse_headline_calm">Klidný trh</string>
     <string name="pulse_chip_funding_high">Funding zvýšený</string>

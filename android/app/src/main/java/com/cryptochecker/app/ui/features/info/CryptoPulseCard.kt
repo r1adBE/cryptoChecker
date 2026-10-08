@@ -24,14 +24,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -44,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.PulseAlts
+import com.cryptochecker.app.domain.market.PulseBreadthNote
 import com.cryptochecker.app.domain.market.PulseDetail
 import com.cryptochecker.app.domain.market.PulseFactor
 import com.cryptochecker.app.domain.market.PulseFactorKind
@@ -52,8 +55,10 @@ import com.cryptochecker.app.domain.market.PulseLeadKind
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.notification.ActivityTexts
+import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.FactorRow
 import com.cryptochecker.app.ui.components.SkeletonLine
+import com.cryptochecker.app.ui.components.SkeletonPill
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalHighContrast
@@ -62,6 +67,8 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import java.text.DateFormat
 import java.util.Date
@@ -148,20 +155,12 @@ private fun PulseSkeleton() {
         ) {
             repeat(3) {
                 // Gleiche Form und Höhe wie [PulseCoinChip], nur ohne Inhalt
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clip(RoundedCornerShape(50))
-                        .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                ) {
-                    Text(
-                        " ",
-                        style = MaterialTheme.typography.labelMedium.amountNumbers(),
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.clearAndSetSemantics { }
-                    )
-                }
+                SkeletonPill(
+                    MaterialTheme.typography.labelMedium.amountNumbers(),
+                    Modifier.weight(1f),
+                    horizontal = 8.dp,
+                    vertical = 4.dp,
+                )
             }
         }
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
@@ -210,6 +209,9 @@ private fun PulseContent(report: PulseReport, expanded: Boolean, onToggle: () ->
                 }
             )
         )
+
+        // Was «Top 30» bedeutet (nur mit Marktbreite)
+        report.breadth?.let { PulseLine(stringResource(R.string.pulse_breadth_hint, it.total)) }
 
         val factors = CryptoPulse.factors(report)
         if (factors.isNotEmpty()) {
@@ -321,12 +323,29 @@ private fun PulseHero(report: PulseReport) {
             PulseFunding.SLIGHT, PulseFunding.NEUTRAL, null -> Unit
         }
     }
+    // Marktbreite und Krypto-Markt gesamt (nur mit Daten)
+    val breadth = report.breadth
+    val breadthNote = report.breadthNote?.let { stringResource(breadthNoteRes(it)) }
+    val breadthLabel = breadth?.let { stringResource(R.string.pulse_breadth_label, it.total) }
+    val breadthSpoken = breadth?.let { stringResource(R.string.pulse_breadth_spoken, it.total, it.up, it.down) }
+    val marketTitle = stringResource(R.string.market_cap_title)
+    val locale = LocalConfiguration.current.locales[0]
+    val marketCap = report.marketCapUsd?.let { remember(it, locale) { CompactAmount.format(it, "USD", locale) } }
+    val marketSpoken = marketCap?.let { cap ->
+        buildString {
+            append(marketTitle).append(' ').append(cap)
+            report.marketCap24h?.let { append(", ").append(A11yText.change(context, it, decimals = 1)) }
+        }
+    }
     val spoken = buildString {
         append(overline).append(". ")
         append(headline).append(". ")
         append(lead).append(" ")
         append(coins.joinToString(", ") { (_, name, change) -> name + " " + coinSpoken(context, change) })
         if (chips.isNotEmpty()) append(". ").append(chips.joinToString(", "))
+        breadthNote?.let { append(". ").append(it) }
+        breadthSpoken?.let { append(". ").append(it) }
+        marketSpoken?.let { append(". ").append(it) }
     }
 
     Column(
@@ -378,7 +397,76 @@ private fun PulseHero(report: PulseReport) {
                 chips.forEach { PulseMetricChip(it) }
             }
         }
+
+        // «Top 30   ▲ 22 · ▼ 8» und «Krypto-Markt   3.42 Bio. $  ▲ +2.1%»
+        if (breadth != null || marketCap != null) {
+            Column(modifier = Modifier.padding(top = 12.dp)) {
+                if (breadth != null && breadthLabel != null) {
+                    PulseFactRow(breadthLabel) {
+                        Text(
+                            "▲ " + LocaleNumbers.integer(breadth.up, locale),
+                            style = MaterialTheme.typography.labelLarge.amountNumbers(),
+                            fontWeight = FontWeight.SemiBold,
+                            color = PriceColors.up
+                        )
+                        Text(
+                            "  ·  ",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            "▼ " + LocaleNumbers.integer(breadth.down, locale),
+                            style = MaterialTheme.typography.labelLarge.amountNumbers(),
+                            fontWeight = FontWeight.SemiBold,
+                            color = PriceColors.down
+                        )
+                    }
+                }
+                if (marketCap != null) {
+                    PulseFactRow(marketTitle) {
+                        Text(
+                            marketCap,
+                            style = MaterialTheme.typography.labelLarge.amountNumbers(),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        report.marketCap24h?.let { change ->
+                            ChangePill(change, modifier = Modifier.padding(start = 8.dp))
+                        }
+                    }
+                }
+            }
+        }
+        if (breadthNote != null) {
+            Text(
+                breadthNote,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(top = Spacing.sm)
+            )
+        }
     }
+}
+
+/** Zeile «Bezeichnung … Wert» unter den Coin-Pillen. */
+@Composable
+private fun PulseFactRow(label: String, value: @Composable () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)) {
+        Text(
+            label,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            modifier = Modifier.weight(1f)
+        )
+        value()
+    }
+}
+
+private fun breadthNoteRes(note: PulseBreadthNote): Int = when (note) {
+    PulseBreadthNote.BROAD_UP -> R.string.pulse_breadth_note_broad_up
+    PulseBreadthNote.BROAD_DOWN -> R.string.pulse_breadth_note_broad_down
+    PulseBreadthNote.NARROW_UP -> R.string.pulse_breadth_note_narrow_up
+    PulseBreadthNote.NARROW_DOWN -> R.string.pulse_breadth_note_narrow_down
 }
 
 /** «BTC ▲ +2.8%» im Stil der Prozent-Pille der Merkliste: Kursfarbe auf 14 % Tönung. */

@@ -4,8 +4,8 @@
     <string name="pulse_alts_stronger">آلت‌کوین‌ها قوی‌تر از Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin قوی‌تر از آلت‌کوین‌ها</string>
     <string name="pulse_alts_even">آلت‌کوین‌ها و Bitcoin هم‌جهت حرکت می‌کنند</string>
-    <string name="pulse_volume_high">حجم معاملات به‌طور غیرعادی بالا (%1$s× حالت معمول)</string>
-    <string name="pulse_volume_low">حجم معاملات پایین (%1$s× حالت معمول)</string>
+    <string name="pulse_volume_high">حجم معاملات به‌طور غیرعادی بالا (%1$s برابر حالت معمول)</string>
+    <string name="pulse_volume_low">حجم معاملات پایین (%1$s برابر حالت معمول)</string>
     <string name="pulse_volume_normal">حجم معاملات معمول</string>
     <string name="pulse_funding_high">نرخ تأمین مالی به‌وضوح مثبت: لانگ‌های اهرمی زیاد</string>
     <string name="pulse_funding_slight">نرخ تأمین مالی کمی مثبت</string>
@@ -39,7 +39,7 @@
     <string name="alarm_test_denied">اعلان‌ها برای Crypto Checker خاموش است.</string>
     <string name="alarm_test_open_settings">باز کردن تنظیمات</string>
     <string name="alarm_first_title">همه چیز آماده است</string>
-    <string name="welcome_watch">دنبال کنید – کوین‌ها، قیمت‌ها، نمودارها و ویجت‌های شما</string>
+    <string name="welcome_watch">دنبال کنید – کوین‌ها، قیمت‌ها، نمودارها و ابزارک‌های شما</string>
     <string name="welcome_alert">هشدار بگیرید – قیمت، درصد، حجم و حرکت‌های غیرعادی</string>
     <string name="welcome_understand">بفهمید – چرا بازار همین حالا حرکت می‌کند؟</string>
     <string name="portfolio_empty_example">مثال: 0.01 BTC در ۱ مارس به قیمت %1$s خریده شده. سپس برنامه ارزش، میانگین قیمت خرید و سود/زیان را نشان می‌دهد – فقط روی همین دستگاه ذخیره می‌شود.</string>
@@ -100,7 +100,7 @@
     </plurals>
     <string name="pulse_headline_up">قدرت گسترده</string>
     <string name="pulse_headline_down">ضعف گسترده</string>
-    <string name="pulse_headline_mixed">تصویر متفاوت</string>
+    <string name="pulse_headline_mixed">تصویر ناهمگون</string>
     <string name="pulse_headline_calm">بازار آرام</string>
     <string name="pulse_chip_funding_high">فاندینگ بالا</string>
     <string name="pulse_chip_funding_negative">فاندینگ منفی</string>

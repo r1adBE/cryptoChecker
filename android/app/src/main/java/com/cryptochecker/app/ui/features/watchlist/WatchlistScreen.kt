@@ -408,7 +408,6 @@ fun WatchlistScreen(
                             hasActivity = watch.id in activeSignals,
                             onOpenWhy = { ui.whyFor = watch.id },
                             onOpenActions = { ui.actionsFor = watch.id },
-                            onToggleFavorite = { viewModel.toggleFavorite(watch) },
                             onMove = { viewModel.move(watch, it) },
                             onDelete = { deleteWithUndo(watch) },
                             onFavoriteWithBanner = { favoriteWithBanner(watch) },

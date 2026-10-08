@@ -42,7 +42,7 @@ internal fun CurrencyPage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
     }
 }
 
-/** Aktualisierung: Hintergrund und Intervall, Akku, Live-Modus, feste Mitteilung. */
+/** Aktualisierung: Hintergrund und Intervall, Live-Modus, feste Mitteilung, ganz unten die Akkunutzung. */
 @Composable
 internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
@@ -73,32 +73,6 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                         optionLabel = { stringResource(R.string.settings_minutes, it) },
                         onSelected = viewModel::setBackgroundInterval
                     )
-                }
-            }
-            RowDivider()
-            // Akku gehört zur Hintergrund-Aktualisierung
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = Spacing.md)
-            ) {
-                StatusDot(ok = batteryUnrestricted)
-                Text(
-                    text = stringResource(
-                        if (batteryUnrestricted) R.string.settings_battery_ok
-                        else R.string.settings_battery_restricted
-                    ),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = Spacing.sm)
-                )
-            }
-            Hint(stringResource(R.string.settings_battery_hint))
-            if (!batteryUnrestricted) {
-                Hint(stringResource(R.string.battery_steps))
-                FilledTonalButton(
-                    onClick = { BatteryOptimization.openSettings(context) },
-                    modifier = Modifier.padding(bottom = 8.dp)
-                ) {
-                    Text(stringResource(R.string.battery_open_settings))
                 }
             }
         }
@@ -143,6 +117,36 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                     checked = settings.ongoingNotifications,
                     onCheckedChange = viewModel::setOngoingNotifications
                 )
+            }
+        }
+        // Akkunutzung ganz unten: Hinweis und Weg in die Android-Einstellungen
+        Spacer(Modifier.height(12.dp))
+        SettingsAnchor("updates.battery") {
+            GroupCard {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(vertical = Spacing.md)
+                ) {
+                    StatusDot(ok = batteryUnrestricted)
+                    Text(
+                        text = stringResource(
+                            if (batteryUnrestricted) R.string.settings_battery_ok
+                            else R.string.settings_battery_restricted
+                        ),
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = Spacing.sm)
+                    )
+                }
+                Hint(stringResource(R.string.settings_battery_hint))
+                if (!batteryUnrestricted) {
+                    Hint(stringResource(R.string.battery_steps))
+                    FilledTonalButton(
+                        onClick = { BatteryOptimization.openSettings(context) },
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    ) {
+                        Text(stringResource(R.string.battery_open_settings))
+                    }
+                }
             }
         }
     }

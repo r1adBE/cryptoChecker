@@ -4,5 +4,5 @@
     <string name="watchlist_status_group_empty">此分组中没有交易对</string>
     <string name="watchlist_status_none_traded">这里没有交易中的交易对</string>
     <string name="watchlist_group_empty_hint">长按分组以选择其交易对。</string>
-    <string name="watchlist_just_refreshed">刚刚已更新</string>
+    <string name="watchlist_just_refreshed">刚刚更新</string>
 </resources>

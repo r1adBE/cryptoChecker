@@ -105,6 +105,15 @@ enum SettingsSummary {
         }.joined(separator: " · ")
     }
 
+    /// «App · Portfolio · Widgets», einzelne davon oder «Aus» (Coin-Logos).
+    static func coinLogosText(_ s: AppSettings) -> String {
+        var parts: [String] = []
+        if s.coinLogos { parts.append(L("settings_coin_logos_value_app")) }
+        if s.portfolioCoinLogos { parts.append(L("portfolio_title")) }
+        if s.widgetCoinLogos { parts.append(L("settings_widgets")) }
+        return parts.isEmpty ? L("option_off") : parts.joined(separator: " · ")
+    }
+
     /// «System», «Hell» oder «Dunkel», bei hohem Kontrast mit Zusatz.
     static func displayModeText(_ s: AppSettings) -> String {
         let mode = L(themeModeKey(s.darkMode))

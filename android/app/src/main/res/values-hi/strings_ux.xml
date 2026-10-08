@@ -11,12 +11,12 @@
     <string name="channel_alarms_quiet_description">मौन घंटों के दौरान बिना आवाज़ वाले अलार्म।</string>
     <string name="app_lock_unlock">अनलॉक करें</string>
     <string name="app_lock_unavailable">इस डिवाइस पर कोई स्क्रीन लॉक सेट नहीं है। पहले सिस्टम सेटिंग्स में एक सेट करें।</string>
-    <string name="widget_portfolio_name">पोर्टफोलियो</string>
-    <string name="widget_portfolio_description">आपके पोर्टफोलियो का कुल मूल्य और आज का बदलाव</string>
+    <string name="widget_portfolio_name">पोर्टफ़ोलियो</string>
+    <string name="widget_portfolio_description">आपके पोर्टफ़ोलियो का कुल मूल्य और आज का बदलाव</string>
     <string name="widget_portfolio_today">आज %1$s</string>
-    <string name="widget_portfolio_empty">पोर्टफोलियो टैब में खरीदारी जोड़ें</string>
-    <string name="a11y_portfolio_widget">पोर्टफोलियो %1$s, आज %2$s</string>
-    <string name="explain_funding">लॉन्ग और शॉर्ट पोज़िशन के बीच शुल्क। काफ़ी पॉज़िटिव होने का मतलब है कि कई लोग कीमतें बढ़ने पर दांव लगा रहे हैं।</string>
+    <string name="widget_portfolio_empty">पोर्टफ़ोलियो टैब में खरीदारी जोड़ें</string>
+    <string name="a11y_portfolio_widget">पोर्टफ़ोलियो %1$s, आज %2$s</string>
+    <string name="explain_funding">लॉन्ग और शॉर्ट पोज़िशन के बीच शुल्क। काफ़ी पॉज़िटिव होने का मतलब है कि कई लोग कीमतें बढ़ने पर दाँव लगा रहे हैं।</string>
     <string name="explain_open_interest">सभी खुली फ़्यूचर्स पोज़िशन का मूल्य। अगर यह बढ़ता है, तो उस चाल पर ज़्यादा पैसा लगा है।</string>
     <string name="explain_rsi">रिलेटिव स्ट्रेंथ इंडेक्स, 0–100। 70 से ऊपर अक्सर ओवरहीटेड, 30 से नीचे अक्सर ओवरसोल्ड।</string>
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.CandleDataSource
+import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.isNotTraded
@@ -16,6 +17,7 @@ import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,6 +41,7 @@ class SingleWidgetRenderer @Inject constructor(
     private val watchRepository: com.cryptochecker.app.data.WatchRepository,
     private val candleDataSource: CandleDataSource,
     private val toolkit: WidgetToolkit,
+    private val coinLogos: WidgetCoinLogos,
 ) {
     /** Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie). */
     private val sparkCache = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, List<WidgetCandle>>>()
@@ -71,6 +74,18 @@ class SingleWidgetRenderer @Inject constructor(
 
             toolkit.background(views, R.id.single_bg, colors, widgetPrefs.getOpacity(appWidgetId))
             views.setImageViewResource(R.id.single_logo, accent.logoRes(dark))
+            // Coin-Logo statt App-Logo, sofern eingeschaltet und ein Paar gewählt ist
+            if (settings.widgetCoinLogos && watch != null) {
+                views.setImageViewBitmap(
+                    R.id.single_coin_logo,
+                    coinLogos.bitmap(watch.baseAsset, colors, logo = CoinLogos.allowedFor(watch.marketKey))
+                )
+                views.setViewVisibility(R.id.single_coin_logo, View.VISIBLE)
+                views.setViewVisibility(R.id.single_logo, View.GONE)
+            } else {
+                views.setViewVisibility(R.id.single_coin_logo, View.GONE)
+                views.setViewVisibility(R.id.single_logo, View.VISIBLE)
+            }
             // Noch ohne Paar (z. B. aus der App hinzugefügt, Einrichten nicht geöffnet):
             // Tippen öffnet das Einrichten statt der App
             views.setOnClickPendingIntent(R.id.single_root, if (watch == null) configureSingle(appWidgetId) else toolkit.openApp())
@@ -138,7 +153,7 @@ class SingleWidgetRenderer @Inject constructor(
                 // Zeichnen nicht auf dem Main-Thread (Aufrufe auch aus App und ViewModel)
                 val chartBitmap = candles?.takeIf { it.size >= 2 }?.let {
                     withContext(Dispatchers.Default) {
-                        runCatching { drawChart(manager, appWidgetId, it, chartType, range, colors, highContrast, watch.lastPrice) }
+                        runCatching { drawChart(manager, appWidgetId, it, chartType, range, colors, highContrast, watch.lastPrice, ChangeBasisMath.chartZone(changeView.basis)) }
                             .onFailure { e -> Timber.w(e, "Chart für Widget %d nicht gezeichnet", appWidgetId) }
                             .getOrNull()
                     }
@@ -262,6 +277,8 @@ class SingleWidgetRenderer @Inject constructor(
         colors: WidgetColors,
         highContrast: Boolean,
         currentPrice: Double?,
+        /** Tages-/Stundenraster in der Chart-Zeitzone ([ChangeBasisMath.chartZone]). */
+        zone: java.time.ZoneId,
     ): android.graphics.Bitmap {
         val metrics = context.resources.displayMetrics
         val config = context.resources.configuration
@@ -288,7 +305,6 @@ class SingleWidgetRenderer @Inject constructor(
         val widthPx = (wDp * scale).toInt()
         val heightPx = (hDp * scale).toInt()
         val compact = WidgetChartGeometry.isCompact(wDp, hDp)
-        val zone = java.time.ZoneId.systemDefault()
 
         // Alles, wovon das Bild abhängt; der Kurs nur so genau, wie er im Etikett steht
         val key = ChartBitmapKey(

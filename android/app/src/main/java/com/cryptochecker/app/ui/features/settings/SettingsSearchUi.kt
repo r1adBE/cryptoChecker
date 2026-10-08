@@ -155,7 +155,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("page.updates", updates, general, SettingsSearchTarget.Page(SettingsPage.UPDATES))
     add("updates.background", stringResource(R.string.settings_background_updates), updates,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.background"),
-        stringResource(R.string.settings_background_updates_hint), stringResource(R.string.settings_battery_hint))
+        stringResource(R.string.settings_background_updates_hint))
+    // Akkunutzung steht ganz unten auf der Seite: eigener Treffer, damit die Suche dorthin springt
+    add("updates.battery", stringResource(R.string.settings_battery_restricted), updates,
+        SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.battery"),
+        stringResource(R.string.settings_battery_ok), stringResource(R.string.settings_battery_hint))
     add("updates.background_interval", stringResource(R.string.settings_background_interval), updates,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.background_interval"))
     add("updates.live", stringResource(R.string.settings_live_service), updates,
@@ -204,6 +208,18 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         // Alle Zonen in einem Text: «UTC+8» findet die Seite einmal, nicht 27 fast gleiche Treffer
         ChangeBasis.entries.filter { it.kind == ChangeBasis.Kind.UTC_DAY }
             .joinToString(" ") { ChangeBasisText.zoneChoice(it) })
+    val logos = stringResource(R.string.settings_coin_logos)
+    add("page.coin_logos", logos, appearance, SettingsSearchTarget.Page(SettingsPage.COIN_LOGOS),
+        stringResource(R.string.settings_coin_logos_footer), "CoinGecko")
+    add("logos.app", stringResource(R.string.settings_coin_logos_app), logos,
+        SettingsSearchTarget.Page(SettingsPage.COIN_LOGOS, "logos.app"),
+        stringResource(R.string.settings_coin_logos_app_hint))
+    add("logos.portfolio", stringResource(R.string.settings_coin_logos_portfolio), logos,
+        SettingsSearchTarget.Page(SettingsPage.COIN_LOGOS, "logos.portfolio"),
+        stringResource(R.string.settings_coin_logos_portfolio_hint))
+    add("logos.widgets", stringResource(R.string.settings_coin_logos_widgets), logos,
+        SettingsSearchTarget.Page(SettingsPage.COIN_LOGOS, "logos.widgets"),
+        stringResource(R.string.settings_coin_logos_widgets_hint))
     add("main.widgets", stringResource(R.string.settings_widgets), appearance, SettingsSearchTarget.Main("main.widgets"))
 
     // 3 Alarme & Mitteilungen

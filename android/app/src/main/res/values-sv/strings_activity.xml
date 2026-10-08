@@ -26,7 +26,7 @@
     <string name="why_disclaimer">Automatisk bedömning utifrån marknadsdata, inte investeringsrådgivning.</string>
     <string name="why_data_time">Data per %1$s</string>
     <string name="why_no_data">Inga data från Binance för det här paret</string>
-    <string name="why_no_data_hint">Kurs, volym och volatilitet kommer från Binances timljus.</string>
+    <string name="why_no_data_hint">Kurs, volym och volatilitet kommer från Binances candlesticks per timme.</string>
 
     <string name="why_market_wide_text">Det här myntet: %1$s på 24 h – drivkraften är troligen hela marknaden, inte myntet självt.</string>
     <string name="why_coin_only_text">%1$s på 24 h medan marknaden är lugn: orsaken ligger troligen hos myntet självt.</string>

@@ -1,44 +1,28 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.ui.theme.PriceColors
-import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.PriceFormat
 
 /**
- * Veränderung gemäss %-Basis (`WatchEntity.change24h`, [LocalChangeView]) als Pille wie
- * [ChangePill], daneben klein der Zeitraum «24h», «heute» oder «heute UTC». Ohne Bezug eine
- * graue Pille «—» ohne Pfeil — nie die Veränderung seit der letzten Abfrage.
+ * Veränderung gemäss %-Basis (`WatchEntity.change24h`, [LocalChangeView]): [ChangePill] und
+ * daneben klein der Zeitraum «24h», «heute» oder «heute UTC». Ohne Bezug eine graue Pille «—»
+ * ohne Pfeil — nie die Veränderung seit der letzten Abfrage.
  * Screenreader: «up 2.30% in 24 hours» / «… today».
  */
 @Composable
 internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier) {
     val value = change?.takeIf { it.isFinite() }
-    val formatted = PriceFormat.changePercent(value)
-    // Pfeil folgt dem Vorzeichen, nie dem Farbtausch; bei 0.00% und «—» keiner
-    val text = when {
-        value == null -> "—"
-        formatted != null -> "${PriceFormat.changeArrow(value)} $formatted"
-        else -> PriceFormat.zeroPercent()
-    }
-    val color = if (value == null || formatted == null) MaterialTheme.colorScheme.onSurfaceVariant
-    else PriceColors.forChange(value)
     val basis = LocalChangeView.current.basis
     val spoken = ChangeBasisText.spoken(LocalContext.current, basis, value)
     Row(
@@ -47,17 +31,7 @@ internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier) {
             .padding(top = 3.dp)
             .clearAndSetSemantics { contentDescription = spoken }
     ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelMedium.amountNumbers(),
-            fontWeight = FontWeight.SemiBold,
-            color = color,
-            maxLines = 1,
-            modifier = Modifier
-                .clip(RoundedCornerShape(50))
-                .background(color.copy(alpha = 0.14f))
-                .padding(horizontal = 8.dp, vertical = 2.dp)
-        )
+        ChangePill(change = value, dashWhenMissing = true)
         Text(
             text = ChangeBasisText.shortLabel(basis),
             style = MaterialTheme.typography.labelSmall,

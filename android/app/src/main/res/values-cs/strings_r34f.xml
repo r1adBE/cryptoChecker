@@ -12,7 +12,7 @@
     <string name="tts_direction_oi_up">s rostoucím open interest</string>
     <string name="tts_direction_oi_down">s klesajícím open interest</string>
     <string name="alarm_funding_hint">Funding za zúčtovací období (obvykle každých 8 hodin). Záporný znamená, že shorty platí longům. ± mění znaménko.</string>
-    <string name="alarm_oi_hint">Porovnává open interest s hodnotou uloženou před tolika hodinami. Nový alarm se ozve, až aplikace sbírá data dost dlouho; kontrola nejvýše každých 5 minut.</string>
+    <string name="alarm_oi_hint">Porovnává open interest s hodnotou uloženou před tolika hodinami. Nový alarm se ozve, až aplikace nasbírá data za celé toto období; kontrola nejvýše každých 5 minut.</string>
     <string name="alarm_funding_sign_a11y">Změnit znaménko</string>
     <plurals name="alarm_sentence_oi_up">
         <item quantity="one">Upozornit, až open interest %1$s během %3$d h stoupne o %2$s.</item>

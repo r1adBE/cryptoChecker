@@ -1,10 +1,10 @@
 Nowości w 16.2.2
-• Crypto Pulse: co dzieje się teraz na rynku
-• Nietypowa aktywność, Dlaczego to się rusza? teraz z krótkim podsumowaniem
-• Testuj alarm
-• Ceny i alarmy w twojej walucie
-• Eksport stanu na dzień do CSV
-• Dostępność: niebieski/pomarańczowy, wysoki kontrast, zamiana kolorów, TalkBack
-• Start jednym dotknięciem, godziny ciszy, blokada i widżet Portfel, alarm jako zdanie
-• 15 nowych giełd, opłaty sieciowe z alarmem gas
-• Wykres świecowy w widżecie, kapitalizacja
+• Crypto Pulse: co dzieje się teraz
+• Nietypowa aktywność, „Dlaczego to się rusza?” z podsumowaniem
+• Start jednym dotknięciem: top 5 monet, bieżące kursy
+• Przesuń, by usunąć (z Cofnij) lub dodać do ulubionych
+• Ceny i alarmy w twojej walucie, eksport na dzień (CSV)
+• Dostępność: niebieski/pomarańczowy, kontrast, TalkBack
+• Godziny ciszy, test alarmu, alarm jako zdanie, blokada, widżet
+• 15 nowych giełd, alarm gas, świece w widżecie
+• Akcje, złoto, waluty (TradFi); % wg strefy

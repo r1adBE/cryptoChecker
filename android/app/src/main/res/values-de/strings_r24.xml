@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">%1$s-Änderung</string>
+    <string name="settings_change_basis">%1$s-Änderung &amp; Chart-Zeitzone</string>
     <string name="change_basis_rolling">Letzte 24 Std.</string>
     <string name="change_basis_utc_zone">Seit 00:00 %1$s</string>
     <string name="change_basis_local">Seit 00:00 Ortszeit</string>
-    <string name="settings_change_basis_hint_1">Die gewählte Zeitzone legt fest, ab wann die Prozent-Änderung zählt: in Merkliste, Puls-Zeile, Aktionsblatt und Widgets.</string>
+    <string name="settings_change_basis_hint_1">Die gewählte Zeitzone legt fest, ab wann die Prozent-Änderung zählt (Merkliste, Puls-Zeile, Aktionsblatt, Widgets) und in welcher Zeit die Charts beschriftet sind.</string>
     <string name="settings_change_basis_hint_2">«%1$s» vergleicht mit dem Kurs vor genau 24 Stunden. «00:00» vergleicht mit dem Eröffnungskurs um Mitternacht in dieser Zeitzone.</string>
     <string name="settings_change_basis_hint_3">Alarme sind davon nicht betroffen.</string>
     <string name="change_basis_device">%1$s, 00:00 (Zeitzone des Geräts)</string>

@@ -312,9 +312,7 @@ struct PortfolioPlPill: View {
         }
         .foregroundStyle(color)
         .lineLimit(1)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 2)
-        .background(color.opacity(0.14), in: Capsule())
+        .changePillBackground(color)
         .contentTransition(.numericText())
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
     }

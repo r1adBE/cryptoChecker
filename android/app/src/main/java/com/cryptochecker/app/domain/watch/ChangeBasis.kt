@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.watch
 
 import java.time.Instant
 import java.time.ZoneId
+import java.time.ZoneOffset
 
 /**
  * «Basis der %-Änderung» (Einstellungen › Darstellung, wie bei Binance «Change(%) & Chart
@@ -172,6 +173,14 @@ object ChangeBasisMath {
         ChangeBasis.Kind.LOCAL_DAY -> Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
             .atStartOfDay(zone).toInstant().toEpochMilli()
     }
+
+    /**
+     * Zeitzone der Charts (wie Binance «Change(%) & Chart Timezone»): Uhrzeiten an der Achse,
+     * beim Ziehen und die Tages-/Stundenraster folgen der gewählten Zone. Feste Zone UTC±h bei
+     * [ChangeBasis.Kind.UTC_DAY]; rollend und «Gerät» nehmen die Zeitzone des Geräts ([device]).
+     */
+    fun chartZone(basis: ChangeBasis, device: ZoneId = ZoneId.systemDefault()): ZoneId =
+        if (basis.kind == ChangeBasis.Kind.UTC_DAY) ZoneOffset.ofHours(basis.utcOffsetHours) else device
 
     /**
      * Ende des Tags, der bei [dayStart] beginnt (= nächster Tagesbeginn; Ortszeit mit

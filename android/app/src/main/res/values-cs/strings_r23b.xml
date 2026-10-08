@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Hledá na všech trzích najednou – klepnutím na výsledek ho přidáte do sledovaných.</string>
-    <string name="explorer_no_pairs_yet">Pro tento trh zatím nejsou načtené žádné páry.</string>
+    <string name="explorer_search_intro">Hledá na všech burzách najednou – klepnutím na výsledek ho přidáte do sledovaných.</string>
+    <string name="explorer_no_pairs_yet">Pro tuto burzu zatím nejsou načtené žádné páry.</string>
 </resources>

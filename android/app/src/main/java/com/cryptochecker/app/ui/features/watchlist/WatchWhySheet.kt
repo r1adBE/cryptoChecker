@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -53,10 +52,10 @@ import com.cryptochecker.app.domain.activity.WhyFactors
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.activity.WhySummary
 import com.cryptochecker.app.notification.ActivityTexts
+import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.FactorRow
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.tabularNumbers
@@ -64,7 +63,6 @@ import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
-import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /** Ladezustand des «Warum»-Blatts. */
@@ -225,38 +223,22 @@ internal fun WhySheet(
     }
 }
 
-/** «1h +2.31 %» — grün/rot, grau bei 0.00 %; «—» ohne Daten. */
+/** «1h» und daneben die Änderung als [ChangePill] («—» ohne Daten). */
 @Composable
 private fun ChangeBadge(label: String, change: Double?) {
-    val zero = change == null || abs(change) < 0.005
-    // Pfeil wie in der Merkliste (folgt dem Vorzeichen, nie dem Farbtausch)
-    val text = change?.let { value ->
-        val arrow = PriceFormat.changeArrow(value)
-        (if (arrow.isEmpty()) "" else "$arrow ") + ActivityTexts.percent(value, 2)
-    } ?: "—"
-    val color = if (zero) MaterialTheme.colorScheme.onSurfaceVariant else PriceColors.forChange(change)
     // Screenreader: «1h, gestiegen um 2.31%» statt «1h +2.31 %»
     val spoken = change?.let { "$label, " + A11yText.change(LocalContext.current, it) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)
-            .clip(RoundedCornerShape(50))
-            .background(color.copy(alpha = 0.12f))
-            .padding(horizontal = Spacing.sm, vertical = 4.dp)
+        modifier = Modifier.then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)
     ) {
         Text(
             label,
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(end = Spacing.xs)
         )
-        Text(
-            text,
-            style = MaterialTheme.typography.labelMedium.tabularNumbers(),
-            fontWeight = FontWeight.SemiBold,
-            color = color,
-            modifier = Modifier.padding(start = Spacing.xs)
-        )
+        ChangePill(change = change, dashWhenMissing = true)
     }
 }
 

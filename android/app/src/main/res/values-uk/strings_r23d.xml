@@ -4,5 +4,5 @@
     <!-- Titel des Formulars und Screenreader-Name des Stifts -->
     <string name="watch_edit_title">Змінити пару</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Сповіщення залишаться – перевірте пороги</string>
+    <string name="watch_edit_alarms_warning">Сигнали залишаться – перевірте пороги</string>
 </resources>

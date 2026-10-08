@@ -19,9 +19,9 @@
     <string name="why_fn_leader_calm">ביטקוין רגוע</string>
     <string name="why_fn_volatility_stronger">חזק מהרגיל</string>
     <string name="why_fn_volatility_usual">כרגיל</string>
-    <string name="why_fn_oi_up">הריבית הפתוחה עלתה</string>
-    <string name="why_fn_oi_down">הריבית הפתוחה ירדה</string>
-    <string name="why_fn_oi_flat">הריבית הפתוחה כמעט לא השתנתה</string>
+    <string name="why_fn_oi_up">Open interest עלה</string>
+    <string name="why_fn_oi_down">Open interest ירד</string>
+    <string name="why_fn_oi_flat">Open interest כמעט לא השתנה</string>
     <string name="why_fn_high_at">בשיא של 30 יום</string>
     <string name="why_fn_high_below">מתחת לשיא של 30 יום</string>
     <string name="why_fn_funding_longs">רבים מהמרים על עליות</string>

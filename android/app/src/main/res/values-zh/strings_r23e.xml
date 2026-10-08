@@ -7,7 +7,7 @@
     <string name="alarm_signal_sound">仅声音</string>
     <string name="alarm_signal_vibrate">仅振动</string>
     <string name="alarm_signal_silent">静音（仅通知）</string>
-    <string name="settings_alarm_signal_system_hint">按手机的通知设置。</string>
+    <string name="settings_alarm_signal_system_hint">跟随手机的通知设置。</string>
     <string name="settings_alarm_signal_open_system">在系统设置中调整</string>
     <string name="channel_alarms_sound_vibrate">提醒（声音和振动）</string>
     <string name="channel_alarms_sound">提醒（仅声音）</string>

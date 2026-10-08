@@ -28,16 +28,16 @@
     <string name="why_no_data">Немає даних Binance для цієї пари</string>
     <string name="why_no_data_hint">Ціна, обсяг і волатильність беруться з годинних свічок Binance.</string>
 
-    <string name="why_market_wide_text">Ця монета: %1$s за 24г — рушійна сила, найімовірніше, весь ринок, а не сама монета.</string>
-    <string name="why_coin_only_text">%1$s за 24г при спокійному ринку: причина, найімовірніше, у самій монеті.</string>
-    <string name="why_against_market_text">Ця монета %1$s, BTC %2$s за 24г — помітно самостійний рух.</string>
-    <string name="why_market_calm_text">Ця монета: %1$s за 24г. Ні ринок, ні монета особливо не рухаються.</string>
-    <string name="why_market_leader_text">Як лідер ринку, BTC зазвичай тягне за собою решту ринку. ETH: %1$s за 24г.</string>
+    <string name="why_market_wide_text">Ця монета: %1$s за 24 год — рушійна сила, найімовірніше, весь ринок, а не сама монета.</string>
+    <string name="why_coin_only_text">%1$s за 24 год при спокійному ринку: причина, найімовірніше, у самій монеті.</string>
+    <string name="why_against_market_text">Ця монета %1$s, BTC %2$s за 24 год — помітно самостійний рух.</string>
+    <string name="why_market_calm_text">Ця монета: %1$s за 24 год. Ні ринок, ні монета особливо не рухаються.</string>
+    <string name="why_market_leader_text">Як лідер ринку, BTC зазвичай тягне за собою решту ринку. ETH: %1$s за 24 год.</string>
     <string name="why_market_leader_text_no_eth">Як лідер ринку, BTC зазвичай тягне за собою решту ринку.</string>
 
     <string name="why_volume_high_text">За останню годину торгували значно більше, ніж зазвичай, — рух має широку підтримку.</string>
     <string name="why_volume_low_text">Рух слабкий і може швидко розвернутися.</string>
-    <string name="why_volume_normal_text">Торгівля за останню годину відповідає останнім 24 годинам.</string>
+    <string name="why_volume_normal_text">Обсяг торгів за останню годину на рівні останніх 24 годин.</string>
 
     <string name="why_leverage_longs_text">Лонги платять шортам — підвищений ризик ліквідацій у разі падіння ціни.</string>
     <string name="why_leverage_shorts_text">Шорти платять лонгам — зростання ціни може спричинити шорт-сквіз.</string>

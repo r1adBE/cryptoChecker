@@ -138,7 +138,7 @@
     <!-- Einstellungen -->
     <string name="settings_title">Cài đặt</string>
     <string name="settings_background_updates">Cập nhật nền</string>
-    <string name="settings_background_updates_hint">Giá, cảnh báo và widget vẫn được cập nhật ngay cả khi ứng dụng đã đóng.</string>
+    <string name="settings_background_updates_hint">Giá, cảnh báo và tiện ích vẫn được cập nhật ngay cả khi ứng dụng đã đóng.</string>
     <string name="settings_background_interval">Chu kỳ cập nhật</string>
     <string name="settings_live_service">Cập nhật thường xuyên</string>
     <string name="settings_live_service_hint">Kiểm tra giá theo chu kỳ ngắn, kể cả khi ứng dụng đã đóng. Hiển thị một thông báo và tốn pin hơn.</string>
@@ -155,11 +155,11 @@
     <string name="settings_alarm_cooldown">Thời gian chờ trước khi cảnh báo kích hoạt lại</string>
     <string name="settings_tts">Đọc bằng giọng nói</string>
     <string name="settings_tts_alarms_only">Chỉ cảnh báo</string>
-    <string name="settings_tts_alarms_only_hint">Tắt: mọi cập nhật của cặp có bật «Đọc giá» đều được đọc to.</string>
+    <string name="settings_tts_alarms_only_hint">Tắt: mọi cập nhật của cặp có bật “Đọc giá” đều được đọc to.</string>
     <string name="settings_speech_rate">Tốc độ đọc: %1$.1f×</string>
     <string name="settings_tts_test">Thử giọng nói</string>
     <string name="battery_title">Giữ giá luôn cập nhật</string>
-    <string name="battery_message">Android trì hoãn tác vụ nền để tiết kiệm pin — khi đó giá và widget có thể cũ đến vài giờ. Đặt mức sử dụng pin thành không hạn chế giúp chúng luôn cập nhật. Bạn có thể thay đổi bất cứ lúc nào trong cài đặt Android.</string>
+    <string name="battery_message">Android trì hoãn tác vụ nền để tiết kiệm pin — khi đó giá và tiện ích có thể cũ đến vài giờ. Đặt mức sử dụng pin thành không hạn chế giúp chúng luôn cập nhật. Bạn có thể thay đổi bất cứ lúc nào trong cài đặt Android.</string>
     <string name="battery_later">Để sau</string>
     <string name="settings_battery_ok">Sử dụng pin: không hạn chế</string>
     <string name="settings_battery_restricted">Sử dụng pin: bị hạn chế</string>
@@ -320,7 +320,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Giai đoạn thị trường đã đổi từ %1$s sang %2$s.</string>
     <string name="settings_zone_alerts">Thông báo khi đổi giai đoạn</string>
-    <string name="settings_zone_alerts_hint">Kiểm tra hai lần mỗi ngày và thông báo khi Bitcoin đổi vùng, vd. từ Trung lập sang Bull.</string>
+    <string name="settings_zone_alerts_hint">Kiểm tra hai lần mỗi ngày và thông báo khi Bitcoin đổi vùng, vd. từ Neutral sang Bull.</string>
     <string name="alarm_condition_move_percent">Biến động</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">trong %1$d giờ</item>

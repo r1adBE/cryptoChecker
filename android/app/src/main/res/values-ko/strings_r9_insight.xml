@@ -38,7 +38,7 @@
     <string name="factor_spoken_volume">평소의 %1$s배</string>
     <string name="factor_spoken_volatility">평소 변동폭의 %1$s배</string>
 
-    <string name="why_title_coin">%1$s 왜 움직이나요?</string>
+    <string name="why_title_coin">%1$s은(는) 왜 움직이나요?</string>
     <string name="why_details">자세히 보기</string>
     <string name="why_details_hide">자세히 숨기기</string>
     <string name="why_f_market_wide">시장 전체가 움직임</string>

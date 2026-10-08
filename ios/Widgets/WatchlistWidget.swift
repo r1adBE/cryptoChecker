@@ -23,6 +23,10 @@ struct WatchlistEntry: TimelineEntry {
     /// «Basis der %-Änderung» und Stempel der gespeicherten Werte (beim Erstellen gelesen).
     var changeBasis: ChangeBasis = SharedStorage.loadSettings().changeBasis
     var changeStamp: ChangeStamp? = SharedStorage.changeStamp
+    /// Coin-Logos je Basis-Symbol (`WidgetLogos`); leer = Initialen.
+    var logos: [String: UIImage] = [:]
+    /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
+    var showLogos: Bool = SharedStorage.loadSettings().widgetCoinLogos
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
@@ -54,16 +58,19 @@ struct WatchlistProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: WatchlistWidgetIntent, in context: Context) async -> WatchlistEntry {
-        let entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
+        var entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
         // Galerie: ohne Paare oder noch ganz ohne Kurse das Beispiel (BTC, ETH, SOL, XRP …)
         let noPrices = entry.watches.allSatisfy { $0.lastPrice == nil }
-        return context.isPreview && noPrices ? .sample(theme: configuration.theme) : entry
+        if context.isPreview && noPrices { return .sample(theme: configuration.theme) }
+        entry.logos = await WidgetLogos.load(for: entry.watches)
+        return entry
     }
 
     func timeline(for configuration: WatchlistWidgetIntent, in context: Context) async -> Timeline<WatchlistEntry> {
         // Alte Kurse zuerst auffrischen (mit Alarmen und Mitteilungen).
         await WidgetRefresh.refreshIfStale(deadline: 20, otherKinds: [WidgetData.singleKind])
-        let entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
+        var entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
+        entry.logos = await WidgetLogos.load(for: entry.watches)
         // Zweiter Eintrag, sobald die Uhrzeit oder ein Kurs veraltet («veraltet · 06:42»)
         let times = [entry.lastRefreshAt] + entry.watches.filter { !ConnectionErrors.isNotTraded($0.lastError) }.map(\.lastUpdate)
         let entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
@@ -100,12 +107,16 @@ struct WatchlistWidgetView: View {
     var body: some View {
         WidgetThemed(theme: entry.theme, accent: entry.accent, priceColors: entry.priceColors,
                      highContrast: entry.highContrast, inverted: entry.priceColorsInverted) { palette in
-            switch family {
-            case .systemSmall:
-                WatchlistSmallView(entry: entry, palette: palette)
-            default:
-                WatchlistListView(entry: entry, palette: palette, rows: family == .systemLarge ? 10 : 4)
+            Group {
+                switch family {
+                case .systemSmall:
+                    WatchlistSmallView(entry: entry, palette: palette)
+                default:
+                    WatchlistListView(entry: entry, palette: palette, rows: family == .systemLarge ? 10 : 4)
+                }
             }
+            .environment(\.widgetLogos, entry.logos)
+            .environment(\.widgetLogosEnabled, entry.showLogos)
         }
     }
 }
@@ -279,7 +290,8 @@ private struct WatchlistWidgetRow: View {
 
     var body: some View {
         HStack(spacing: 6) {
-            WidgetCoinBadge(symbol: watch.baseAsset, size: 22, dark: palette.dark)
+            WidgetCoinBadge(symbol: watch.baseAsset, size: 22, dark: palette.dark, accent: palette.accent,
+                            logo: CoinLogos.allowed(forMarket: watch.marketKey))
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 3) {
                     Text(watch.displayName)
@@ -340,7 +352,8 @@ private struct WatchlistSmallView: View {
             if let watch {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(spacing: 6) {
-                        WidgetCoinBadge(symbol: watch.baseAsset, size: 20, dark: palette.dark)
+                        WidgetCoinBadge(symbol: watch.baseAsset, size: 20, dark: palette.dark, accent: palette.accent,
+                                        logo: CoinLogos.allowed(forMarket: watch.marketKey))
                         Text(watch.displayName)
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundStyle(palette.text)

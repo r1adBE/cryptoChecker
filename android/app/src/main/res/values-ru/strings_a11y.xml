@@ -2,7 +2,7 @@
 <resources>
     <string name="settings_price_colors">Цвета цен</string>
     <string name="settings_price_colors_hint">Синий / оранжевый хорошо различимы при любом нарушении цветового зрения (красно-зелёном и сине-жёлтом). Направление к тому же всегда показано знаками + / −.</string>
-    <string name="settings_watchlist_sparkline">Мини-график в избранном</string>
+    <string name="settings_watchlist_sparkline">Мини-график в списке</string>
     <string name="settings_watchlist_sparkline_hint">Динамика за 24 часа рядом с ценой</string>
 
 

@@ -37,7 +37,7 @@
     </plurals>
     <string name="portfolio_transactions">Transaktioner</string>
     <string name="portfolio_add_tx">Registrér køb/salg</string>
-    <string name="portfolio_edit_tx">Redigér transaktion</string>
+    <string name="portfolio_edit_tx">Rediger transaktion</string>
     <string name="portfolio_buy">Køb</string>
     <string name="portfolio_sell">Salg</string>
     <string name="portfolio_coin">Coin</string>

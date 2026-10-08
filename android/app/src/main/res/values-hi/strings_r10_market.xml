@@ -11,7 +11,7 @@
     <string name="unusual_fact_funding_negative">फ़ंडिंग नेगेटिव (%1$s)</string>
     <string name="unusual_source">स्टेबलकॉइन छोड़कर लगभग 30 सबसे बड़े कॉइन · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s। %3$s।</string>
-    <string name="unusual_action_why">यह क्यों हिल रहा है?</string>
+    <string name="unusual_action_why">इसमें हलचल क्यों है?</string>
     <string name="unusual_action_add">जोड़ने के लिए पेयर ढूँढें</string>
 
     <string name="macro_title">आर्थिक आँकड़े</string>

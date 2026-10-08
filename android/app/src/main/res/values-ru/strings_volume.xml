@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Всплеск объёма</string>
     <string name="alarm_volume_factor_label">Объём за последний час относительно нормы</string>
-    <string name="alarm_volume_hint">Данные об объёме берутся с Binance — пары, которых там нет, никогда не срабатывают.</string>
+    <string name="alarm_volume_hint">Данные об объёме берутся с Binance — для пар, которых там нет, оповещение не сработает.</string>
     <string name="notification_volume_spike_text">Объём %1$s× от нормы за последний час</string>
     <string name="tts_direction_volume_spike">со всплеском объёма</string>
 

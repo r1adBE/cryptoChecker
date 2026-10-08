@@ -3,8 +3,8 @@
     <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
     <string name="offline_status">Offline</string>
     <string name="offline_status_since">Offline · às %1$s</string>
-    <string name="error_market_unreachable">Corretora indisponível no momento – os últimos preços continuam visíveis.</string>
-    <string name="error_market_unreachable_short">Corretora indisponível no momento</string>
+    <string name="error_market_unreachable">Exchange indisponível no momento – os últimos preços continuam visíveis.</string>
+    <string name="error_market_unreachable_short">Exchange indisponível no momento</string>
     <string name="refresh_sheet_paused_until">pausada até %1$s</string>
     <string name="refresh_sheet_paused_until_reason">pausada até %1$s (%2$s)</string>
     <string name="refresh_sheet_app_start">Início do app</string>

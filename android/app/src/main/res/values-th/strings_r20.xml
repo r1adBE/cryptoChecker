@@ -5,7 +5,7 @@
     <string name="watchlist_remove_not_traded_title">ลบคู่ที่ไม่มีการซื้อขาย</string>
     <string name="watchlist_remove_not_traded_action">ลบ</string>
     <plurals name="watchlist_remove_not_traded_confirm">
-        <item quantity="other">ลบ %1$d คู่ที่ไม่มีการซื้อขายในกระดานของตนแล้วไหม? สัญญาณเตือนของคู่เหล่านั้นจะถูกลบด้วย</item>
+        <item quantity="other">ลบ %1$d คู่ที่ไม่มีการซื้อขายในกระดานเทรดแล้วไหม? สัญญาณเตือนของคู่เหล่านั้นจะถูกลบด้วย</item>
     </plurals>
     <plurals name="watchlist_removed_not_traded">
         <item quantity="other">ลบคู่ที่ไม่มีการซื้อขายแล้ว %1$d คู่</item>

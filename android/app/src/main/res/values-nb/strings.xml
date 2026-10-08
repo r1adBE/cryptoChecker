@@ -136,7 +136,7 @@
 
     <string name="settings_title">Innstillinger</string>
     <string name="settings_background_updates">Oppdater i bakgrunnen</string>
-    <string name="settings_background_updates_hint">Kurser, alarmer og moduler oppdateres også når appen er lukket.</string>
+    <string name="settings_background_updates_hint">Kurser, alarmer og widgeter oppdateres også når appen er lukket.</string>
     <string name="settings_background_interval">Intervall</string>
     <string name="settings_live_service">Oppdater ofte</string>
     <string name="settings_live_service_hint">Henter kurser med korte mellomrom, også når appen er lukket. Viser et varsel og bruker mer strøm.</string>
@@ -157,7 +157,7 @@
     <string name="settings_speech_rate">Talehastighet: %1$.1f×</string>
     <string name="settings_tts_test">Test stemme</string>
     <string name="battery_title">Hold kursene oppdatert</string>
-    <string name="battery_message">Android utsetter bakgrunnsarbeid for å spare strøm — kurser og moduler kan da være flere timer gamle. Med ubegrenset batteribruk holdes de oppdatert. Du kan endre dette når som helst i Android-innstillingene.</string>
+    <string name="battery_message">Android utsetter bakgrunnsarbeid for å spare strøm — kurser og widgeter kan da være flere timer gamle. Med ubegrenset batteribruk holdes de oppdatert. Du kan endre dette når som helst i Android-innstillingene.</string>
     <string name="battery_later">Senere</string>
     <string name="settings_battery_ok">Batteribruk: ubegrenset</string>
     <string name="settings_battery_restricted">Batteribruk: begrenset</string>

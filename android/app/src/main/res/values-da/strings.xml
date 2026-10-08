@@ -220,7 +220,7 @@
     <string name="theme_system">System</string>
     <string name="settings_section_developer">Udvikler</string>
     <string name="settings_http_log">Vis HTTP-log</string>
-    <string name="settings_http_log_hint">Viser forespørgslerne til børserne nederst på siden »Tilføj par« – til fejlsøgning.</string>
+    <string name="settings_http_log_hint">Viser forespørgslerne til børserne nederst på siden ”Tilføj par” – til fejlsøgning.</string>
     <string name="language_search">Søg sprog</string>
     <string name="alarm_delete_title">Slet alarm?</string>
     <string name="alarm_delete_confirm">Denne alarm fjernes.</string>
@@ -266,7 +266,7 @@
     <string name="tab_watchlist">Liste</string>
     <string name="tab_market_phase">Marked</string>
     <plurals name="watchlist_stale_count">
-        <item quantity="one">%1$d af %2$d forældede</item>
+        <item quantity="one">%1$d af %2$d forældet</item>
         <item quantity="other">%1$d af %2$d forældede</item>
     </plurals>
     <string name="watchlist_all_fresh">Alt opdateret · %1$s</string>

@@ -7,5 +7,5 @@
     <string name="licenses_marketdata_changes">Změny: %1$s</string>
     <string name="licenses_font_title">Písmo Rubik</string>
     <string name="licenses_libraries_title">Knihovny pro Android</string>
-    <string name="licenses_libraries_intro">Aplikace používá tyto knihovny pod licencí Apache License 2.0:</string>
+    <string name="licenses_libraries_intro">Aplikace používá tyto knihovny pod licencí Apache 2.0:</string>
 </resources>

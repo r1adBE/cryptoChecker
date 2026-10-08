@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">ปริมาณพุ่ง</string>
     <string name="alarm_volume_factor_label">ปริมาณชั่วโมงล่าสุดเทียบกับปกติ</string>
-    <string name="alarm_volume_hint">ข้อมูลปริมาณมาจาก Binance — คู่ที่ไม่ได้จดทะเบียนที่นั่นจะไม่ทำงาน</string>
+    <string name="alarm_volume_hint">ข้อมูลปริมาณมาจาก Binance — คู่ที่ไม่มีใน Binance จะไม่ทำงาน</string>
     <string name="notification_volume_spike_text">ปริมาณ %1$s× ของปกติในชั่วโมงล่าสุด</string>
     <string name="tts_direction_volume_spike">พร้อมปริมาณพุ่ง</string>
 

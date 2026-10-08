@@ -4,7 +4,7 @@
     <string name="cycle_marker_top">שיא %1$s</string>
     <string name="cycle_marker_high_so_far">השיא עד כה</string>
     <string name="cycle_marker_bottom">שפל %1$s</string>
-    <string name="cycle_since_halving">%1$s מאז ההאלבינג</string>
+    <string name="cycle_since_halving">%1$s מאז ההלווינג</string>
     <string name="cycle_from_top">%1$s מהשיא</string>
     <string name="cycle_marker_double_top">שיא כפול %1$s</string>
     <string name="cycle_marker_double_bottom">שפל כפול %1$s</string>

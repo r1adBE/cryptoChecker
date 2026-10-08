@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Akcje, surowce i waluty (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Przy wyborze pary pokazuje też kontrakty futures na akcje, złoto i inne surowce, waluty oraz spółki przed debiutem giełdowym. To kontrakty, nie tokeny.</string>
     <string name="settings_watchlist_activity_card">Nietypowa aktywność na liście</string>
-    <string name="settings_watchlist_activity_card_hint">Pokazuje kartę „Coś się właśnie dzieje” nad parami. Powiadomienia ustawisz w Powiadomienia rynkowe.</string>
+    <string name="settings_watchlist_activity_card_hint">Pokazuje kartę „Coś się właśnie dzieje” nad parami. Powiadomienia ustawisz w sekcji „Powiadomienia rynkowe”.</string>
     <string name="settings_row_about">O aplikacji</string>
     <string name="price_colors_green_up">Zielony wzrost / czerwony spadek</string>
     <string name="price_colors_red_up">Czerwony wzrost / zielony spadek</string>

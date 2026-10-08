@@ -10,7 +10,7 @@
         <item quantity="other">+ %1$d tane daha</item>
     </plurals>
     <string name="widget_portfolio_range_48h">48 sa</string>
-    <string name="widget_portfolio_range_short_48h">48s</string>
+    <string name="widget_portfolio_range_short_48h">48sa</string>
     <string name="a11y_portfolio_position">%1$s %2$s, portföyün %3$s kadarı</string>
     <string name="a11y_portfolio_position_change">%1$s %2$s, portföyün %3$s kadarı, bugün %4$s</string>
     <string name="a11y_portfolio_positions">En büyük pozisyonlar: %1$s</string>

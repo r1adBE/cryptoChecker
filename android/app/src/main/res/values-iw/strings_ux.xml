@@ -21,7 +21,7 @@
     <string name="explain_rsi">מדד העוצמה היחסית, 0–100. מעל 70 לרוב התחממות יתר, מתחת ל־30 לרוב מכירת יתר.</string>
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
     <string name="explain_show">הסבר</string>
-    <string name="explain_pi_cycle">משווה את הממוצע של 111 ימים לפעמיים הממוצע של 350 ימים. חצייה סימנה בעבר שיאי מחזור.</string>
+    <string name="explain_pi_cycle">משווה את הממוצע של 111 ימים עם הממוצע של 350 ימים כפול שניים. חצייה סימנה בעבר שיאי מחזור.</string>
     <string name="alarm_sentence_above">להודיע לי כש־%1$s עולה מעל %2$s.</string>
     <string name="alarm_sentence_below">להודיע לי כש־%1$s יורד מתחת ל־%2$s.</string>
     <string name="alarm_sentence_up_percent">להודיע לי כש־%1$s עולה ב־%2$s.</string>
@@ -31,7 +31,7 @@
         <item quantity="two">להודיע לי כש־%1$s זז ב־%2$s תוך %3$d שעות.</item>
         <item quantity="other">להודיע לי כש־%1$s זז ב־%2$s תוך %3$d שעות.</item>
     </plurals>
-    <string name="alarm_sentence_volume">להודיע לי כשמחזור המסחר של %1$s מגיע ל־%2$s× מהרגיל.</string>
+    <string name="alarm_sentence_volume">להודיע לי כשמחזור המסחר של %1$s גבוה פי %2$s מהרגיל.</string>
     <string name="alarm_sentence_incomplete">הזינו ערך כדי לראות את ההתראה כמשפט.</string>
     <string name="watchlist_row_unreachable">%1$s · %2$s לא זמינה</string>
     <string name="watchlist_row_outdated">%1$s · לא עדכני</string>

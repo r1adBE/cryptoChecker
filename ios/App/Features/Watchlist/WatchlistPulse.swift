@@ -129,9 +129,7 @@ struct WatchlistPulseLine: View {
                 .contentTransition(.numericText(value: value))
         }
         .foregroundStyle(color)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 2)
-        .background(color.opacity(0.14), in: Capsule())
+        .changePillBackground(color)
         .fixedSize()
     }
 }

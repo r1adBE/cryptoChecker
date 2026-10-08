@@ -11,12 +11,12 @@
     <string name="why_fn_volume_lower">ниже обычного</string>
     <string name="why_fn_volume_usual">как обычно</string>
     <string name="why_fn_market_pulls">BTC тянет рынок за собой</string>
-    <string name="why_fn_market_lags">Рынок движется, эта монета почти нет</string>
+    <string name="why_fn_market_lags">Рынок движется, а эта монета – почти нет</string>
     <string name="why_fn_market_alone">Рынок спокоен – монета движется сама по себе</string>
     <string name="why_fn_market_against">Монета движется против рынка</string>
     <string name="why_fn_market_calm">Рынок спокоен</string>
-    <string name="why_fn_leader_moves">Bitcoin задаёт направление</string>
-    <string name="why_fn_leader_calm">Bitcoin спокоен</string>
+    <string name="why_fn_leader_moves">Биткоин задаёт направление</string>
+    <string name="why_fn_leader_calm">Биткоин спокоен</string>
     <string name="why_fn_volatility_stronger">сильнее обычного</string>
     <string name="why_fn_volatility_usual">как обычно</string>
     <string name="why_fn_oi_up">Открытый интерес вырос</string>

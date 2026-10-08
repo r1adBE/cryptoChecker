@@ -110,7 +110,7 @@ struct AlarmsOverviewScreen: View {
                 AlarmsScreen(watchId: watch.id)
             } label: {
                 HStack(spacing: 12) {
-                    CoinBadge(symbol: watch.baseAsset, size: 38)
+                    CoinBadge(symbol: watch.baseAsset, size: 38, logo: CoinLogos.allowed(forMarket: watch.marketKey))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(watch.displayName)
                             .font(.headline)
@@ -143,13 +143,13 @@ struct AlarmsOverviewScreen: View {
                 ForEach(items) { item in
                     let alarm = item.alarm
                     // Ganze Zeile schaltet
-                    Toggle(isOn: Binding(
+                    SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
                             WatchlistHaptics.selection()
                             withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
                         }
-                    )) {
+                    ), verticalPadding: 8) {
                         HStack(spacing: Spacing.sm) {
                             Image(systemName: AlarmStyle.symbol(alarm.condition))
                                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
@@ -168,9 +168,7 @@ struct AlarmsOverviewScreen: View {
                             }
                         }
                     }
-                    .tint(accent.primary)
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
                 }
             }
             .padding(.vertical, 4)
@@ -206,13 +204,13 @@ struct AlarmsOverviewScreen: View {
 
             VStack(spacing: 0) {
                 ForEach(alarms) { alarm in
-                    Toggle(isOn: Binding(
+                    SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
                             WatchlistHaptics.selection()
                             withAnimation(.snappy) { data.setPortfolioAlarmEnabled(alarm.id, enabled) }
                         }
-                    )) {
+                    ), verticalPadding: 8) {
                         VStack(alignment: .leading, spacing: 1) {
                             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis, hidden: hidePortfolio))
                                 .font(.subheadline.monospacedDigit())
@@ -222,9 +220,7 @@ struct AlarmsOverviewScreen: View {
                                 .foregroundStyle(AppColors.onSurfaceVariant)
                         }
                     }
-                    .tint(accent.primary)
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
                     .contextMenu {
                         Button(role: .destructive) {
                             deletePortfolio = alarm

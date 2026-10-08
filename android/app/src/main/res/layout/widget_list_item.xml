@@ -4,6 +4,7 @@
     Veränderung. Ohne Schriftabstand (includeFontPadding) und mit wenig
     Innenabstand passen 6–7 Paare ins Widget.
     Pfeil und Vorzeichen zeigen die Richtung, die Farbe zusätzlich (0.00 % grau, ohne Pfeil).
+    Links optional das Coin-Logo (24 dp, passt in die Zeilenhöhe).
     Unter jeder Zeile ausser der letzten eine 1-dp-Trennlinie in der Akzentfarbe mit
     geringer Deckkraft (Farbe und Sichtbarkeit setzt PriceWidgetService), eingerückt wie
     der Text. Unten 1 dp weniger Innenabstand, damit die Zeilenhöhe gleich bleibt.
@@ -24,6 +25,18 @@
         android:gravity="center_vertical"
         android:paddingTop="3dp"
         android:paddingBottom="2dp">
+
+        <!-- Coin-Logo bzw. Initialen-Kreis (Schalter «Coin-Logos in Widgets»; aus = GONE).
+             Feste 24 dp: nimmt nur dem Paar Platz, nie der Kurs-Spalte. -->
+        <ImageView
+            android:id="@+id/item_logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no" />
 
         <LinearLayout
             android:layout_width="0dp"

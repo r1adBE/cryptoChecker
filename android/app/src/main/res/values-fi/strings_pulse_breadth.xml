@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: nousussa %2$d, laskussa %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: markkina-arvoltaan suurimmat kolikot ilman vakaakolikoita; muutos 24 tunnin aikana (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Laaja liike: useimmat suuret kolikot nousevat.</string>
+    <string name="pulse_breadth_note_broad_down">Laaja lasku: useimmat suuret kolikot laskevat.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin nousee, mutta useimmat muut suuret kolikot eivät seuraa.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin laskee, mutta useimmat muut suuret kolikot pitävät pintansa.</string>
+</resources>

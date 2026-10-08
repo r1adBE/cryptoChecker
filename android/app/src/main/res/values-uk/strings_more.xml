@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pulse_section_market">Ринок сьогодні</string>
-    <string name="pulse_alts_stronger">Альткоїни сильніші за Bitcoin</string>
-    <string name="pulse_alts_weaker">Bitcoin сильніший за альткоїни</string>
-    <string name="pulse_alts_even">Альткоїни та Bitcoin рухаються однаково</string>
+    <string name="pulse_alts_stronger">Альткоїни сильніші за біткоїн</string>
+    <string name="pulse_alts_weaker">Біткоїн сильніший за альткоїни</string>
+    <string name="pulse_alts_even">Альткоїни та біткоїн рухаються однаково</string>
     <string name="pulse_volume_high">Обсяг торгів незвично високий (%1$s× від звичайного)</string>
     <string name="pulse_volume_low">Обсяг торгів низький (%1$s× від звичайного)</string>
     <string name="pulse_volume_normal">Обсяг торгів звичайний</string>
@@ -40,7 +40,7 @@
     <string name="alarm_test_open_settings">Відкрити налаштування</string>
     <string name="alarm_first_title">Усе готово</string>
     <string name="welcome_watch">Стежити – ваші монети, курси, графіки та віджети</string>
-    <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичні рухи</string>
+    <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи</string>
     <string name="welcome_understand">Розуміти – чому ринок рухається просто зараз?</string>
     <string name="portfolio_empty_example">Приклад: 0,01 BTC куплено 1 березня за %1$s. Застосунок покаже вартість, середню ціну купівлі та прибуток/збиток – дані зберігаються лише на цьому пристрої.</string>
     <string name="about_why">Crypto Checker – незалежний проєкт r1AD: спокійний огляд курсів без акаунта, реклами та стеження. Запитання й побажання: %1$s</string>

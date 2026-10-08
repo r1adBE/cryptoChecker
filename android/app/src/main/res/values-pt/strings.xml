@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Erro: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Sem pares</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Carrega os pares atuais do mercado selecionado.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Carrega os pares atuais da exchange selecionada.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Atualizar pares</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizar agora</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Última sincronização: %1$s</string>
@@ -195,7 +195,7 @@
     <string name="sort_move_down">Descer</string>
     <string name="sort_move_bottom">Para o fim</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">Adicionar o %1$d par à lista de acompanhamento</item>
+        <item quantity="one">Adicionar %1$d par à lista de acompanhamento</item>
         <item quantity="many">Adicionar os %1$d pares à lista de acompanhamento</item>
         <item quantity="other">Adicionar os %1$d pares à lista de acompanhamento</item>
     </plurals>
@@ -233,17 +233,17 @@
     <string name="theme_system">Sistema</string>
     <string name="settings_section_developer">Programador</string>
     <string name="settings_http_log">Mostrar registo HTTP</string>
-    <string name="settings_http_log_hint">Mostra no fundo da página «Adicionar par» os pedidos às corretoras – para diagnóstico.</string>
+    <string name="settings_http_log_hint">Mostra no fundo da página «Adicionar par» os pedidos às exchanges – para diagnóstico.</string>
     <string name="language_search">Procurar idioma</string>
-    <string name="alarm_delete_title">Eliminar alerta?</string>
-    <string name="alarm_delete_confirm">Este alerta será removido.</string>
-    <string name="alarms_overview_title">Todos os alertas</string>
+    <string name="alarm_delete_title">Eliminar alarme?</string>
+    <string name="alarm_delete_confirm">Este alarme será removido.</string>
+    <string name="alarms_overview_title">Todos os alarmes</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d ativo</item>
         <item quantity="many">%1$d ativos</item>
         <item quantity="other">%1$d ativos</item>
     </plurals>
-    <string name="alarms_overview_empty">Ainda sem alertas. Abra um par e adicione um em Alertas.</string>
+    <string name="alarms_overview_empty">Ainda sem alarmes. Abra um par e adicione um em Alarmes.</string>
     <string name="action_more">Mais opções</string>
     <string name="watchlist_last_run">Última execução %1$s</string>
     <string name="watchlist_pull_to_refresh">Puxe para baixo para atualizar</string>
@@ -262,16 +262,16 @@
         <item quantity="other">Adicionar %1$d pares?</item>
     </plurals>
     <plurals name="explorer_bulk_confirm_text">
-        <item quantity="one">O %1$d par %2$s de %3$s será adicionado à lista, se ainda não estiver.</item>
+        <item quantity="one">%1$d par %2$s de %3$s: será adicionado à lista, se ainda não estiver.</item>
         <item quantity="many">Todos os %1$d pares %2$s de %3$s serão adicionados à lista. Os já existentes são ignorados.</item>
         <item quantity="other">Todos os %1$d pares %2$s de %3$s serão adicionados à lista. Os já existentes são ignorados.</item>
     </plurals>
     <string name="explorer_bulk_tap_hint">Toque num par para o selecionar acima.</string>
     <string name="loading_hint">A carregar…</string>
-    <string name="explorer_select_market_hint">Escolha uma corretora – os pares carregam automaticamente.</string>
+    <string name="explorer_select_market_hint">Escolha uma exchange – os pares carregam automaticamente.</string>
     <string name="explorer_precise_title">Escolher com precisão</string>
     <string name="explorer_search_hint">Procurar moeda, ex. BTC ou ETH USDT</string>
-    <string name="explorer_search_loading">A procurar nas corretoras… %1$d/%2$d</string>
+    <string name="explorer_search_loading">A procurar nas exchanges… %1$d/%2$d</string>
     <string name="explorer_search_empty">Sem resultados.</string>
     <string name="action_clear">Limpar</string>
     <string name="explorer_bulk_show_list">Mostrar lista</string>
@@ -279,7 +279,7 @@
     <string name="time_just_now">agora mesmo</string>
     <string name="welcome_text">Os seus preços. Os seus alarmes. A sua visão geral.\nSem conta. Sem anúncios. Sem rastreio.</string>
     <string name="developer_unlocked">Opções de programador desbloqueadas</string>
-    <string name="hint_favorites_list">Dica: toque em ☆ para favorito – os favoritos ficam no topo.</string>
+    <string name="hint_favorites_list">Dica: toque em ☆ para marcar como favorito – os favoritos ficam no topo.</string>
     <string name="tab_watchlist">Lista</string>
     <string name="tab_market_phase">Mercado</string>
     <plurals name="watchlist_stale_count">
@@ -291,7 +291,7 @@
     <string name="explorer_price_loading">A carregar preço…</string>
     <string name="zone_top_risk">Risco de topo</string>
     <string name="zone_bottom_chance">Formação de fundo</string>
-    <string name="timeout_error_message">A corretora não está a responder neste momento.</string>
+    <string name="timeout_error_message">A exchange não está a responder neste momento.</string>
     <string name="widget_background">Fundo</string>
     <string name="widget_configure_title">Configurar widget</string>
     <string name="widget_configure_hint">Escolha o fundo e a opacidade. A cor segue a app. O widget mostra toda a lista; toque numa linha para abrir a app.</string>
@@ -334,7 +334,7 @@
         <item quantity="many">Apenas %1$d dias de histórico – faltam alguns indicadores.</item>
         <item quantity="other">Apenas %1$d dias de histórico – faltam alguns indicadores.</item>
     </plurals>
-    <string name="coin_price_only">Baseado só no preço – dados on-chain (MVRV, Puell, hashrate) só são livres para a Bitcoin.</string>
+    <string name="coin_price_only">Baseado só no preço – dados on-chain (MVRV, Puell, hashrate) só estão disponíveis gratuitamente para a Bitcoin.</string>
     <string name="ind_rsi_weekly">RSI (semanal)</string>
     <string name="ind_rsi_daily">RSI (diário)</string>
     <string name="ind_pi_cycle">Pi cycle (111/350 dias)</string>
@@ -347,19 +347,19 @@
     <string name="notification_zone_text">A fase do mercado passou de %1$s para %2$s.</string>
     <string name="settings_zone_alerts">Avisar na mudança de fase</string>
     <string name="settings_zone_alerts_hint">Verifica duas vezes por dia e avisa quando a Bitcoin muda de zona, p. ex. de Neutro para Bull.</string>
-    <string name="alarm_condition_move_percent">Move-se</string>
+    <string name="alarm_condition_move_percent">Varia</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">em %1$d h</item>
         <item quantity="many">em %1$d h</item>
         <item quantity="other">em %1$d h</item>
     </plurals>
     <string name="alarm_window_label">Janela de tempo</string>
-    <string name="tts_direction_move">move-se fortemente</string>
+    <string name="tts_direction_move">move-se com força</string>
     <string name="settings_fng_below">Fear &amp; Greed: avisar abaixo de</string>
     <string name="settings_fng_above">Fear &amp; Greed: avisar acima de</string>
     <string name="option_off">Não</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">O índice desceu abaixo de %1$d – o mercado tem medo.</string>
+    <string name="notification_fng_below">O índice caiu abaixo de %1$d – o mercado tem medo.</string>
     <string name="notification_fng_above">O índice subiu acima de %1$d – o mercado está ganancioso.</string>
     <string name="futures_title">Dados de futuros</string>
     <string name="futures_funding">Taxa de financiamento</string>
@@ -371,13 +371,13 @@
     <string name="single_widget_choose">Escolher par</string>
     <string name="single_widget_title">Configurar widget individual</string>
     <string name="shortcut_add">Adicionar par</string>
-    <string name="shortcut_alarms">Todos os alertas</string>
+    <string name="shortcut_alarms">Todos os alarmes</string>
     <string name="shortcut_cycle">Mercado</string>
     <string name="backup_title">Cópia de segurança</string>
-    <string name="backup_hint">Guarda lista com notas e grupos, alertas, favoritos, portfólio e definições num ficheiro que guarda – p. ex. para um telemóvel novo.</string>
+    <string name="backup_hint">Guarda a lista com notas e grupos, alarmes, favoritos, portfólio e definições num ficheiro que guarda – p. ex. para um telemóvel novo.</string>
     <string name="backup_export">Exportar</string>
     <string name="backup_import">Importar</string>
-    <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alertas, favoritos, portfólio e definições pela cópia.</string>
+    <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e definições pela cópia.</string>
     <string name="backup_exported">Cópia guardada.</string>
     <string name="backup_failed">Não resultou. É uma cópia do Crypto Checker?</string>
     <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
@@ -387,8 +387,8 @@
         <item quantity="other">%1$d pares</item>
     </plurals>
     <plurals name="backup_restored_alarms">
-        <item quantity="one">%1$d alerta</item>
-        <item quantity="many">%1$d alertas</item>
-        <item quantity="other">%1$d alertas</item>
+        <item quantity="one">%1$d alarme</item>
+        <item quantity="many">%1$d alarmes</item>
+        <item quantity="other">%1$d alarmes</item>
     </plurals>
 </resources>

@@ -1,1 +1,1 @@
-bitcoin,btc,ethereum,eth,kripto,mata uang kripto,daftar pantau,altcoin,takut,serakah,futures,dex
+bitcoin,btc,ethereum,eth,koin,mata uang kripto,daftar pantau,altcoin,takut,serakah,futures,dex

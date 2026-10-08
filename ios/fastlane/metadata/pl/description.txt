@@ -1,52 +1,53 @@
-Crypto Checker wyjaśnia, co dzieje się na rynku. Ustawiaj alarmy, zauważaj nietypowe ruchy i w kilka sekund zrozum, dlaczego dana moneta się rusza – bez prognoz.
+Crypto Checker wyjaśnia, co dzieje się na rynku. Ustawiaj alarmy, zauważaj nietypowe ruchy i w kilka sekund zrozum, dlaczego moneta się rusza – bez prognoz.
 
 Zrozum – „Dlaczego to się rusza?” z krótkim podsumowaniem
 Przegląd – Crypto Pulse, Fear & Greed, cykl i portfel
 Obserwuj – kursy prosto z giełdy, w twojej walucie
 Alarmuj – kurs, %, ruchy i wolumen, jako proste zdanie
 
-Czytelne dla wszystkich: kolory kursów zielony/czerwony lub niebieski/pomarańczowy, do zamiany, wysoki kontrast, znak i strzałka zamiast samego koloru, VoiceOver czyta każdy wiersz jako zdanie.
+Czytelne dla wszystkich: kolory zielony/czerwony lub niebieski/pomarańczowy, wysoki kontrast, znak i strzałka zamiast samego koloru, Dynamic Type, VoiceOver: każdy wiersz jako jedno zdanie.
 
-LISTA OBSERWOWANYCH: 41 RYNKÓW
-• Pusta lista: 5 największych monet wg kapitalizacji jednym dotknięciem
-• Spot i futures z Binance, Coinbase, Kraken, OKX, Bybit i wielu innych
+LISTA OBSERWOWANYCH: 41 RYNKÓW NA 32 GIEŁDACH
+• Pusta lista: 5 największych monet dodasz jednym dotknięciem
+• Spot i futures z Binance, Coinbase, Kraken, OKX, Bybit i wielu innych – opcjonalnie też akcje, złoto i waluty (TradFi) we własnej grupie
 • Tokeny DEX przez DexScreener
-• Grupy, ulubione i sortowanie przeciąganiem
+• Przesuń: w lewo usuń (z Cofnij), w prawo ulubione; grupy i sortowanie przeciąganiem
 • Notatka do każdej monety, np. twoja cena wejścia
-• Druga linia „≈ wartość” w twojej walucie: 31 walut (EUR, CHF, USD, GBP, JPY…), domyślnie wg regionu
-• Miniwykres w każdym wierszu: trend 24-godzinny obok ceny
-• Portfel w osobnej karcie: kupno i sprzedaż, średnia cena, zysk/strata i wartość łączna w CHF lub twojej walucie
-• Eksport stanu na dzień: wartość portfela na dowolny dzień (np. 31.12) w twojej walucie jako CSV – przy zeznaniu podatkowym, bez doradztwa podatkowego
+• Druga linia „≈ wartość” w jednej z 31 walut (EUR, CHF, USD …), domyślnie wg regionu
+• Miniwykres w każdym wierszu; zmiana % za 24 h lub od 00:00 w twojej strefie czasowej
+• Karta Portfel: kupno, sprzedaż, średnia cena, zysk/strata, wartość łączna w twojej walucie
+• Eksport stanu portfela na dowolny dzień (np. 31.12) jako CSV – bez doradztwa podatkowego
+• Wiersze sygnalizują „nieaktualne” lub „giełda niedostępna”
 
-ALARMY DOPASOWANE DO TWOJEJ STRATEGII
+ALARMY NA TWOICH ZASADACH
 • Kurs powyżej lub poniżej progu, wzrost lub spadek o procent
 • Alarmy w twojej walucie, np. przy 60 000 EUR na parze z USDT
 • Alarm jako zdanie: „Powiadom mnie, gdy BTC spadnie poniżej 60 000 CHF.”
-• Ruch o X % w ciągu Y godzin, np. 5 % w 1 godzinę
-• Skok wolumenu: wolumen obrotu nagle znacznie powyżej średniej
-• Jednorazowo lub cyklicznie, jako powiadomienie z opcjonalnym odczytem głosowym
+• Ruch o X% w ciągu Y godzin, np. 5% w ciągu 1 godziny
+• Skok wolumenu: obrót nagle znacznie powyżej średniej
+• Jednorazowo lub cyklicznie, jako pilne powiadomienie, opcjonalnie odczytywane
 • Wybierz dźwięk alarmu
-• Regulowany czas ciszy zapobiega lawinie alarmów
+• Regulowana przerwa zapobiega lawinie alarmów
 • Godziny ciszy: w nocy (np. 23–7) alarmy bez dźwięku, wibracji i głosu
-• „Testuj alarm”: usłysz i poczuj z góry, jak przychodzi alarm
+• „Testuj alarm”: usłysz i poczuj wcześniej, jak dociera alarm
 
-NIETYPOWA AKTYWNOŚĆ I DLACZEGO TO SIĘ RUSZA?
-• Nietypowa aktywność wykrywa nietypowe ruchy ceny i wolumenu na Twojej liście
-• „Dlaczego to się rusza?” wyjaśnia ruch na podstawie wolumenu, całego rynku i danych futures, z krótkim podsumowaniem – bez doradztwa inwestycyjnego
+NIETYPOWA AKTYWNOŚĆ I „DLACZEGO TO SIĘ RUSZA?”
+• Nietypowa aktywność wykrywa nietypowe ruchy ceny i wolumenu na twojej liście, opcjonalnie z powiadomieniami
+• „Dlaczego to się rusza?” wyjaśnia ruch na podstawie wolumenu, całego rynku i futures, z podsumowaniem – bez doradztwa inwestycyjnego
 
 PRZEGLĄD RYNKU
-• Crypto Pulse: co dzieje się teraz? BTC, ETH, SOL, altcoiny wobec BTC, wolumen, Fear & Greed, funding, gas ETH i podsumowanie w jednym zdaniu, bez prognoz
+• Crypto Pulse: co dzieje się teraz – BTC, ETH, SOL, altcoiny wobec BTC, wolumen, Fear & Greed, funding, gas ETH i podsumowanie jednym zdaniem, bez prognoz
 • Indeks Fear & Greed z historią
-• Rynek kryptowalut: łączna kapitalizacja i wolumen 24 h w twojej walucie
-• Karta Rynek: faza rynku z oznakami możliwego szczytu lub dołka (bez prognozy), odliczanie do halvingu, porównanie cykli, dominacja i sezon altcoinów
-• Analiza monet: RSI, trend, Pi Cycle i siła względem bitcoina
-• Dane futures: funding rate i open interest
-• Opłaty sieciowe dla Ethereum, Base, Arbitrum, Polygon, BNB Chain i Bitcoin z alarmem gas
+• Rynek krypto: łączna kapitalizacja i wolumen 24 h w twojej walucie
+• Karta Rynek: faza rynku z oznakami możliwego szczytu lub dołka (bez prognozy), odliczanie do halvingu, dominacja, sezon altcoinów
+• Analiza monety: RSI, trend, Pi Cycle i siła względem Bitcoina
+• Dane kontraktów: stopa finansowania i otwarte pozycje, z wyjaśnieniami
+• Opłaty sieciowe dla Ethereum, Base, Arbitrum, Polygon, BNB Chain i Bitcoina, z alarmem gas
 
-WIDŻETY NA EKRAN POCZĄTKOWY I EKRAN BLOKADY
-• Widżety w trzech rozmiarach: lista, portfel (także na ekranie blokady), jedna moneta z wykresem 24 h, 7 lub 30 dni – świece lub linia, ze znacznikami maksimum, środka i minimum
+WIDŻETY NA EKRAN POCZĄTKOWY I BLOKADY
+• Widżety w trzech rozmiarach: lista, portfel (także na ekranie blokady), jedna moneta z wykresem (24 h, 7 lub 30 dni; świece lub linia) i znacznikami maks./śr./min.
 • Odświeżanie prosto z widżetu
-• Aktywność na żywo na ekranie blokady: kurs monety w mgnieniu oka
+• Aktywność na żywo: kurs monety na ekranie blokady
 
 WIĘCEJ
 • Częste odświeżanie, gdy aplikacja jest otwarta; aktualizacje w tle planuje iOS
@@ -54,10 +55,10 @@ WIĘCEJ
 • Kopia zapasowa i przywracanie przez aplikację Pliki
 • Szybkie czynności na ikonie aplikacji, tryb jasny i ciemny
 • Pięć kolorów akcentu z pasującymi ikonami aplikacji
-• Blokada portfela: Face ID, Touch ID lub kod
+• Blokada portfela: Face ID, Touch ID lub kod urządzenia
 • Dostępna w 31 językach
 
 PRYWATNOŚĆ PRZEDE WSZYSTKIM
-Bez konta, bez reklam, bez analityki, bez śledzenia. Kursy pochodzą bezpośrednio z publicznych API giełd. Twoja lista, alarmy i stan posiadania zostają na Twoim urządzeniu. Open source (licencja MIT) – kod jest publiczny na GitHubie.
+Bez konta, bez reklam, bez analityki, bez śledzenia. Kursy pochodzą wprost z publicznych API giełd. Twoja lista, alarmy i stan posiadania zostają na urządzeniu. Open source (licencja MIT) – kod jest publiczny na GitHubie.
 
-Uwaga: Crypto Checker tylko wyświetla kursy. Nie jest giełdą ani portfelem kryptowalut, nie handluje i nie udziela porad inwestycyjnych.
+Uwaga: Crypto Checker tylko wyświetla kursy. Nie jest giełdą ani portfelem, nie handluje i nie udziela porad inwestycyjnych.

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Variație în %1$s</string>
+    <string name="settings_change_basis">Variație în %1$s și fusul graficului</string>
     <string name="change_basis_rolling">Ultimele 24 h</string>
     <string name="change_basis_utc_zone">De la 00:00 %1$s</string>
     <string name="change_basis_local">De la 00:00 ora locală</string>
-    <string name="settings_change_basis_hint_1">Fusul orar ales stabilește de când se calculează variația procentuală: în lista de urmărire, linia de puls, fișa perechii și widgeturi.</string>
+    <string name="settings_change_basis_hint_1">Fusul orar ales stabilește de când se calculează variația procentuală (lista de urmărire, linia de puls, fișa perechii, widgeturi) și orele afișate în grafice.</string>
     <string name="settings_change_basis_hint_2">„%1$s” compară cu prețul de acum exact 24 de ore. „00:00” compară cu prețul de deschidere de la miezul nopții în acest fus orar.</string>
     <string name="settings_change_basis_hint_3">Alarmele nu sunt afectate.</string>
     <string name="change_basis_device">%1$s, 00:00 (fusul orar al dispozitivului)</string>

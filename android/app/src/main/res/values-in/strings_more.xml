@@ -14,7 +14,7 @@
     <string name="pulse_gas_low">Gas Ethereum rendah (%1$s gwei)</string>
     <string name="pulse_gas_normal">Gas Ethereum normal (%1$s gwei)</string>
     <string name="pulse_gas_high">Gas Ethereum tinggi (%1$s gwei)</string>
-    <string name="pulse_disclaimer">Bukan prakiraan · Bukan nasihat investasi</string>
+    <string name="pulse_disclaimer">Bukan prediksi · Bukan saran investasi</string>
     <string name="pulse_less">Tampilkan lebih sedikit</string>
     <string name="pulse_updated">Per %1$s</string>
     <string name="pulse_unavailable">Data pasar saat ini tidak tersedia</string>

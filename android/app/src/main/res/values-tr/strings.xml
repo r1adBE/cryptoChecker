@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Hata: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Döviz çifti yok</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Seçilen piyasanın güncel çiftlerini yükler.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Seçilen borsanın güncel çiftlerini yükler.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Döviz çiftlerini güncelle</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Şimdi eşitle!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Son eşitleme: %1$s</string>
@@ -50,7 +50,7 @@
     <string name="watchlist_notification">Bildirim</string>
     <string name="watchlist_tts">Fiyatı sesli oku</string>
     <plurals name="watchlist_alarms_count">
-        <item quantity="one">Alarmlar (%1$d)</item>
+        <item quantity="one">Alarm (%1$d)</item>
         <item quantity="other">Alarmlar (%1$d)</item>
     </plurals>
 
@@ -99,7 +99,7 @@
     <string name="zone_hint_neutral">Karışık sinyaller, net bir yön yok.</string>
     <string name="zone_hint_bull">Aşırı ısınma olmadan yükseliş trendi.</string>
     <string name="zone_hint_extreme_bull">Aynı anda çok sayıda tarihsel tepe sinyali – yüksek tepe riski.</string>
-    <string name="market_scores">Olası bir tepe işaretleri %1$d/10 · dip %2$d/10</string>
+    <string name="market_scores">Olası tepe işaretleri %1$d/10 · dip %2$d/10</string>
     <string name="market_show_indicators">Göstergeleri göster</string>
     <string name="market_hide_indicators">Göstergeleri gizle</string>
     <string name="market_onchain_missing">On-chain veriler (Coin Metrics) şu anda kullanılamıyor – skor yalnızca fiyat verilerine dayanıyor.</string>
@@ -108,7 +108,7 @@
     <string name="ind_drawdown">Tüm zamanların zirvesinden düşüş</string>
     <string name="ind_hash">Madenci kapitülasyonu (hash ribbons)</string>
     <string name="ind_parabolic">Parabolik yükseliş (30 gün)</string>
-    <string name="ind_halving">Halving\'den bu yana geçen ay</string>
+    <string name="ind_halving">Yarılanmadan bu yana geçen ay</string>
     <string name="ind_ath">Zirveden bu yana geçen ay</string>
     <string name="ind_points_top">+%1$d tepe</string>
     <string name="ind_points_bottom">+%1$d dip</string>
@@ -126,8 +126,8 @@
     <string name="accent_red">Kırmızı</string>
     <string name="accent_blue">Mavi</string>
     <string name="accent_green">Yeşil</string>
-    <string name="settings_rolling_futures">Üç aylık &amp; diğer vadeli futures dahil</string>
-    <string name="settings_rolling_futures_hint">Kapalı: Borsa listesinde bulunmayan vadeli futures tek tek kontrol edilmek yerine artık işlem görmüyor olarak işaretlenir. Her yenilemede zaman kazandırır.</string>
+    <string name="settings_rolling_futures">Üç aylık ve diğer vade tarihli kontratlar dahil</string>
+    <string name="settings_rolling_futures_hint">Kapalı: Borsa listesinde bulunmayan vade tarihli kontratlar tek tek kontrol edilmek yerine artık işlem görmüyor olarak işaretlenir. Her yenilemede zaman kazandırır.</string>
     <string name="notification_refreshing">Fiyatlar güncelleniyor…</string>
     <string name="notification_service_title">Crypto Checker sık güncelleniyor</string>
     <string name="notification_service_starting">Başlatılıyor…</string>
@@ -158,7 +158,7 @@
     <string name="settings_alarm_cooldown">Alarm yeniden çalmadan önceki bekleme süresi</string>
     <string name="settings_tts">Sesli çıkış</string>
     <string name="settings_tts_alarms_only">Yalnızca alarmlar</string>
-    <string name="settings_tts_alarms_only_hint">Kapalı: „Fiyatı sesli oku“ işaretli bir çiftin her güncellemesi okunur.</string>
+    <string name="settings_tts_alarms_only_hint">Kapalı: “Fiyatı sesli oku” işaretli bir çiftin her güncellemesi okunur.</string>
     <string name="settings_speech_rate">Konuşma hızı: %1$.1f×</string>
     <string name="settings_tts_test">Sesi test et</string>
     <string name="battery_title">Fiyatları güncel tut</string>
@@ -192,7 +192,7 @@
     <string name="sort_move_down">Aşağı</string>
     <string name="sort_move_bottom">En alta</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">%1$d çiftin tümünü izleme listesine ekle</item>
+        <item quantity="one">%1$d çifti izleme listesine ekle</item>
         <item quantity="other">%1$d çiftin tümünü izleme listesine ekle</item>
     </plurals>
     <plurals name="explorer_bulk_added">
@@ -217,7 +217,7 @@
     <string name="market_scores_hint">Tepe = geçmiş döngü zirvelerindeki gibi işaretler, dip = geçmiş döngü diplerindeki gibi işaretler. 4 puandan itibaren bir taraf baskındır, 7\'den itibaren aşırıdır. Fiyat hedefi değildir ve tahmin değildir.</string>
     <string name="market_scores_none">Etkin bir tepe ya da dip işareti yok: sakin ara evre, fiyat trendi belirler.</string>
     <string name="market_scores_info_title">Döngü sinyalleri</string>
-    <string name="market_scores_info_text">Olası bir tepe işaretleri, geçmiş döngü zirvelerinde görülen sinyalleri sayar: güçlü aşırı değerleme (MVRV), çok yüksek madenci geliri (Puell), fiyatın 200 günlük veya 200 haftalık ortalamanın çok üzerinde olması, parabolik yükseliş ve halving\'den sonraki 12–18 aylık dönem.\n\nOlası bir dip işaretleri, geçmiş diplerin sinyallerini sayar: düşük MVRV, zayıf madenci geliri, tüm zamanların zirvesinden sert düşüş, 200 haftalık ortalamaya yakın fiyat, düşen hashrate ve bir yıldan eski bir zirve.\n\n4 puan farkla bölge Bull veya Bear, 7\'den itibaren Aşırıdır. Hiçbir taraf önde değilse fiyat trendi belirler. İki tarafta da 0/10: ne coşku ne teslimiyet.\n\nFiyat hedefi değildir ve tahmin değildir: sinyaller yalnızca geçmiş döngülerin nasıl göründüğünü anlatır.</string>
+    <string name="market_scores_info_text">Olası tepe işaretleri, geçmiş döngü zirvelerinde görülen sinyalleri sayar: güçlü aşırı değerleme (MVRV), çok yüksek madenci geliri (Puell), fiyatın 200 günlük veya 200 haftalık ortalamanın çok üzerinde olması, parabolik yükseliş ve yarılanmadan sonraki 12–18 aylık dönem.\n\nOlası dip işaretleri, geçmiş diplerin sinyallerini sayar: düşük MVRV, zayıf madenci geliri, tüm zamanların zirvesinden sert düşüş, 200 haftalık ortalamaya yakın fiyat, düşen hashrate ve bir yıldan eski bir zirve.\n\n4 puan farkla bölge Bull veya Bear, 7\'den itibaren Extreme. Hiçbir taraf önde değilse fiyat trendi belirler. İki tarafta da 0/10: ne coşku ne teslimiyet.\n\nFiyat hedefi değildir ve tahmin değildir: sinyaller yalnızca geçmiş döngülerin nasıl göründüğünü anlatır.</string>
     <string name="battery_open_settings">Pil ayarlarını aç</string>
     <string name="battery_steps">Uygulama bilgisinde Pil (veya Uygulama pil kullanımı) öğesine dokunun ve Kısıtlanmamış seçin.</string>
     <string name="explorer_select_placeholder">Lütfen seçin</string>
@@ -254,7 +254,7 @@
         <item quantity="other">%1$d çift eklensin mi?</item>
     </plurals>
     <plurals name="explorer_bulk_confirm_text">
-        <item quantity="one">%3$s borsasındaki %1$d %2$s çiftinin tümü listeye eklenecek. Listede olanlar atlanır.</item>
+        <item quantity="one">%3$s borsasındaki %1$d %2$s çifti, listede değilse izleme listesine eklenecek.</item>
         <item quantity="other">%3$s borsasındaki %1$d %2$s çiftinin tümü listeye eklenecek. Listede olanlar atlanır.</item>
     </plurals>
     <string name="explorer_bulk_tap_hint">Yukarıda seçmek için bir çifte dokunun.</string>
@@ -274,8 +274,8 @@
     <string name="tab_watchlist">Liste</string>
     <string name="tab_market_phase">Piyasa</string>
     <plurals name="watchlist_stale_count">
-        <item quantity="one">%2$d çiftten %1$d tanesi eski</item>
-        <item quantity="other">%2$d çiftten %1$d tanesi eski</item>
+        <item quantity="one">%2$d çiftten %1$d tanesi güncel değil</item>
+        <item quantity="other">%2$d çiftten %1$d tanesi güncel değil</item>
     </plurals>
     <string name="watchlist_all_fresh">Hepsi güncel · %1$s</string>
     <string name="explorer_price_loading">Fiyat yükleniyor…</string>
@@ -321,7 +321,7 @@
         <item quantity="one">Yalnızca %1$d günlük geçmiş – bazı göstergeler eksik.</item>
         <item quantity="other">Yalnızca %1$d günlük geçmiş – bazı göstergeler eksik.</item>
     </plurals>
-    <string name="coin_price_only">Yalnızca fiyata dayalı – zincir üstü veriler (MVRV, Puell, hashrate) yalnızca Bitcoin için ücretsiz.</string>
+    <string name="coin_price_only">Yalnızca fiyata dayalı – zincir üstü veriler (MVRV, Puell, hashrate) yalnızca Bitcoin için ücretsiz olarak mevcut.</string>
     <string name="ind_rsi_weekly">RSI (haftalık)</string>
     <string name="ind_rsi_daily">RSI (günlük)</string>
     <string name="ind_pi_cycle">Pi döngüsü (111/350 gün)</string>
@@ -333,7 +333,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Piyasa evresi %1$s → %2$s olarak değişti.</string>
     <string name="settings_zone_alerts">Piyasa evresi değişince bildir</string>
-    <string name="settings_zone_alerts_hint">Günde iki kez kontrol eder ve Bitcoin bölge değiştirdiğinde bildirir, ör. Nötr\'den Bull\'a.</string>
+    <string name="settings_zone_alerts_hint">Günde iki kez kontrol eder ve Bitcoin bölge değiştirdiğinde bildirir, ör. Neutral\'dan Bull\'a.</string>
     <string name="alarm_condition_move_percent">Şu kadar hareket ederse</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d saat içinde</item>

@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">कट-ऑफ़ तारीख़ एक्सपोर्ट</string>
     <string name="portfolio_export_date">कट-ऑफ़ तारीख़</string>
     <string name="portfolio_export_currency">मुद्रा: %1$s</string>
-    <string name="portfolio_export_hint">चुने गए दिन के अंत में होल्डिंग, दिन के क्लोज़िंग भाव (UTC) पर USDT में आंकी गई और उस दिन की ECB संदर्भ दर से बदली गई। मुद्रा «इसमें बदलें» से बदलें।</string>
+    <string name="portfolio_export_hint">चुने गए दिन के अंत में होल्डिंग, दिन के क्लोज़िंग भाव (UTC) पर USDT में आंकी गई और उस दिन की ECB संदर्भ दर से बदली गई। मुद्रा “इसमें बदलें” से बदलें।</string>
     <string name="portfolio_export_button">CSV एक्सपोर्ट करें</string>
     <string name="portfolio_export_running">पुराने भाव लाए जा रहे हैं…</string>
     <string name="portfolio_export_done">एक्सपोर्ट सहेजा गया</string>

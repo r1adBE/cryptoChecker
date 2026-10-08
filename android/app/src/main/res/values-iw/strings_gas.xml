@@ -2,7 +2,7 @@
 <resources>
     <string name="settings_gas_eth_below">גז Ethereum מתחת ל- (gwei)</string>
     <string name="settings_gas_btc_below">עמלת Bitcoin מתחת ל- (sat/vB)</string>
-    <string name="settings_gas_alert_hint">מתריע פעם אחת כשהעמלה הרגילה יורדת מתחת לסף. נבדק בעדכון השערים, לכל היותר כל 10 דקות.</string>
+    <string name="settings_gas_alert_hint">מתריע פעם אחת כשהעמלה הרגילה יורדת מתחת לסף. נבדק בעדכון המחירים, לכל היותר כל 10 דקות.</string>
     <string name="notification_gas_eth_title">גז Ethereum: %1$s gwei</string>
     <string name="notification_gas_eth_text">מתחת לסף שלך של %1$s gwei · העברה ≈ %2$s</string>
     <string name="notification_gas_btc_title">עמלת Bitcoin: %1$s sat/vB</string>

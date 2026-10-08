@@ -24,7 +24,8 @@ fun JSONArray.forEachJSONArray(function: (item: JSONArray) -> Unit) {
 }
 
 fun JSONObject.forEachName(function: (name: String, item: JSONObject) -> Unit) {
-    val namesJsonArray = this.names()!!
+    // Leeres Objekt: names() ist null – dann gibt es nichts zu durchlaufen
+    val namesJsonArray = this.names() ?: return
     for (i in 0 until namesJsonArray.length()) {
         val name = namesJsonArray.getString(i)
         val item = this.getJSONObject(name)

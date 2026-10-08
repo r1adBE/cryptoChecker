@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Hiba: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Nincsenek devizapárok</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Betölti a kiválasztott piac aktuális párjait.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Betölti a kiválasztott tőzsde aktuális párjait.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Devizapárok frissítése</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Szinkronizálás most!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Utolsó szinkronizálás: %1$s</string>
@@ -31,8 +31,8 @@
 
     <string name="bulk_all_pairs">A tőzsde összes %1$s-párja</string>
     <plurals name="bulk_all_pairs_applied">
-        <item quantity="one">Talált %2$s-párok: %1$d</item>
-        <item quantity="other">Talált %2$s-párok: %1$d</item>
+        <item quantity="one">%1$d %2$s-pár található</item>
+        <item quantity="other">%1$d %2$s-pár található</item>
     </plurals>
     <string name="bulk_all_pairs_empty">Ezen a tőzsdén nincs %1$s-pár a kiválasztott szerződéstípushoz. Először szinkronizálja a tőzsdét, vagy próbáljon másik szerződéstípust.</string>
 
@@ -48,7 +48,7 @@
     <string name="watchlist_notification">Értesítés</string>
     <string name="watchlist_tts">Ár felolvasása</string>
     <plurals name="watchlist_alarms_count">
-        <item quantity="one">Riasztások (%1$d)</item>
+        <item quantity="one">Riasztás (%1$d)</item>
         <item quantity="other">Riasztások (%1$d)</item>
     </plurals>
 
@@ -82,7 +82,7 @@
     <string name="notification_price_first">Első értesítés ehhez a párhoz</string>
     <string name="notification_alarm_title">Riasztás: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — most %2$s</string>
-    <string name="market_phase_title">Bitcoin piaci fázis</string>
+    <string name="market_phase_title">A Bitcoin piaci fázisa</string>
     <string name="market_phase_trend_loading">Áradatok betöltése…</string>
     <string name="market_phase_trend_failed">Áradatok nem érhetők el</string>
     <string name="zone_extreme_bear">Extreme Bear</string>
@@ -104,7 +104,7 @@
     <string name="ind_drawdown">Esés a történelmi csúcstól</string>
     <string name="ind_hash">Bányászkapituláció (hash ribbons)</string>
     <string name="ind_parabolic">Parabolikus emelkedés (30 nap)</string>
-    <string name="ind_halving">Hónapok a halving óta</string>
+    <string name="ind_halving">Hónapok a felezés óta</string>
     <string name="ind_ath">Hónapok a történelmi csúcs óta</string>
     <string name="ind_points_top">+%1$d csúcs</string>
     <string name="ind_points_bottom">+%1$d mélypont</string>
@@ -139,7 +139,7 @@
     <string name="settings_background_updates_hint">Az árak, riasztások és widgetek bezárt alkalmazás mellett is frissülnek.</string>
     <string name="settings_background_interval">Időköz</string>
     <string name="settings_live_service">Gyakori frissítés</string>
-    <string name="settings_live_service_hint">Rövid időközönként lekéri az árfolyamokat, bezárt appnál is. Értesítést mutat, és több akkut használ.</string>
+    <string name="settings_live_service_hint">Rövid időközönként lekéri az árfolyamokat, bezárt alkalmazásnál is. Értesítést jelenít meg, és több akkumulátort fogyaszt.</string>
     <string name="settings_live_interval">Milyen gyakran</string>
     <string name="settings_minutes">%1$d perc</string>
     <string name="settings_seconds">%1$d mp</string>
@@ -185,7 +185,7 @@
     <string name="sort_move_down">Le</string>
     <string name="sort_move_bottom">Legalulra</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">Mind a(z) %1$d pár hozzáadása a figyelőlistához</item>
+        <item quantity="one">A(z) %1$d pár hozzáadása a figyelőlistához</item>
         <item quantity="other">Mind a(z) %1$d pár hozzáadása a figyelőlistához</item>
     </plurals>
     <plurals name="explorer_bulk_added">
@@ -209,7 +209,7 @@
     <string name="market_scores_hint">Csúcs = jelek, mint a korábbi ciklustetőknél, mélypont = jelek, mint a korábbi ciklusaljaknál. 4 ponttól az egyik oldal dominál, 7-től extrém. Nincs célár és nincs előrejelzés.</string>
     <string name="market_scores_none">Nem aktív csúcsra vagy mélypontra utaló jel: nyugodt középső szakasz, az ártrend dönt.</string>
     <string name="market_scores_info_title">Ciklusjelek</string>
-    <string name="market_scores_info_text">Egy lehetséges csúcs jelei a korábbi ciklustetőknél látott jeleket számolják: erős túlértékeltség (MVRV), nagyon magas bányászbevétel (Puell), az ár messze a 200 napos vagy 200 hetes átlag felett, parabolikus emelkedés és a halving utáni 12–18 hónapos időszak.\n\nEgy lehetséges mélypont jelei a korábbi mélypontok jeleit számolják: alacsony MVRV, gyenge bányászbevétel, erős esés a történelmi csúcsról, ár a 200 hetes átlag közelében, csökkenő hashrate és egy évnél régebbi csúcs.\n\n4 pont előnytől a zóna Bull vagy Bear, 7-től Extrém. Ha egyik oldal sem vezet, az ártrend dönt. Mindkét oldalon 0/10: se eufória, se kapituláció.\n\nNincs célár és nincs előrejelzés: a jelek csak azt írják le, hogyan néztek ki a korábbi ciklusok.</string>
+    <string name="market_scores_info_text">Egy lehetséges csúcs jelei a korábbi ciklustetőknél látott jeleket számolják: erős túlértékeltség (MVRV), nagyon magas bányászbevétel (Puell), az ár messze a 200 napos vagy 200 hetes átlag felett, parabolikus emelkedés és a halving utáni 12–18 hónapos időszak.\n\nEgy lehetséges mélypont jelei a korábbi mélypontok jeleit számolják: alacsony MVRV, gyenge bányászbevétel, erős esés a történelmi csúcsról, ár a 200 hetes átlag közelében, csökkenő hashrate és egy évnél régebbi csúcs.\n\n4 pont előnytől a zóna Bull vagy Bear, 7-től Extreme. Ha egyik oldal sem vezet, az ártrend dönt. Mindkét oldalon 0/10: se eufória, se kapituláció.\n\nNincs célár és nincs előrejelzés: a jelek csak azt írják le, hogyan néztek ki a korábbi ciklusok.</string>
     <string name="battery_open_settings">Akkubeállítások megnyitása</string>
     <string name="battery_steps">Az alkalmazásinformációban koppintson az Akkumulátor (vagy Alkalmazás akkuhasználata) elemre, és válassza a Korlátlan lehetőséget.</string>
     <string name="explorer_select_placeholder">Kérjük, válasszon</string>
@@ -235,7 +235,7 @@
     <string name="watchlist_pull_to_refresh">Húzza le a frissítéshez</string>
     <string name="favorite_add">Hozzáadás a kedvencekhez</string>
     <string name="favorite_remove">Eltávolítás a kedvencekből</string>
-    <string name="action_view">Megnézem</string>
+    <string name="action_view">Megtekintés</string>
     <string name="explorer_loading_pairs">Kereskedési párok betöltése…</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d pár · frissítve %2$s</item>
@@ -288,7 +288,7 @@
     <string name="insights_chart_axis">Évek a felezés óta</string>
     <string name="insights_chart_hint">Az ár a felezés napi ár többszöröseként (log skála). A korábbi ciklusok minta, nem előrejelzés.</string>
     <string name="insights_source_history">Forrás: Coin Metrics (CC BY-NC 4.0), Binance</string>
-    <string name="insights_fng_title">Félelem és kapzsiság</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
     <string name="fng_extreme_fear">Extrém félelem</string>
     <string name="fng_fear">Félelem</string>
     <string name="fng_neutral">Semleges</string>
@@ -325,7 +325,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">A piaci fázis megváltozott: %1$s → %2$s.</string>
     <string name="settings_zone_alerts">Értesítés fázisváltáskor</string>
-    <string name="settings_zone_alerts_hint">Naponta kétszer ellenőriz, és értesít, ha a Bitcoin zónát vált, pl. Semlegesről Bullra.</string>
+    <string name="settings_zone_alerts_hint">Naponta kétszer ellenőriz, és értesít, ha a Bitcoin zónát vált, pl. Neutralról Bullra.</string>
     <string name="alarm_condition_move_percent">Elmozdul</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d órán belül</item>
@@ -352,7 +352,7 @@
     <string name="shortcut_alarms">Összes riasztás</string>
     <string name="shortcut_cycle">Piac</string>
     <string name="backup_title">Mentés és visszaállítás</string>
-    <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet ön őriz – pl. új telefonhoz.</string>
+    <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet Ön őriz – pl. új telefonhoz.</string>
     <string name="backup_export">Exportálás</string>
     <string name="backup_import">Importálás</string>
     <string name="backup_restore_confirm">Az importálás a mentésre cseréli a listát (jegyzetekkel és csoportokkal), a riasztásokat, kedvenceket, a portfóliót és a beállításokat.</string>

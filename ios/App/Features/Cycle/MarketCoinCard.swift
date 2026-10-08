@@ -141,7 +141,7 @@ struct CycleCoinReportContent: View {
     /// Signal eine Zeile (Erklärtexte unsichtbar in voller Höhe); der feste Hinweis echt.
     static var skeleton: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CycleSkeleton(label: L("loading_hint")) {
+            SkeletonPulse(label: L("loading_hint")) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(spacing: 12) {
                         CycleSkeletonPill(font: .title3, width: 90, horizontal: 16, vertical: 5)

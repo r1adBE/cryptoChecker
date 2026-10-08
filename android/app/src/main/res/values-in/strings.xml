@@ -3,14 +3,14 @@
     <string name="check_error_generic_prefix">Kesalahan: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Tidak ada pasangan mata uang</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Memuat pasangan terbaru dari pasar yang dipilih.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Memuat pasangan terbaru dari bursa yang dipilih.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Perbarui pasangan mata uang</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sinkronkan sekarang!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Sinkronisasi terakhir: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">belum pernah</string>
 
     <string name="market_screen_sync">Sinkronkan</string>
-    <string name="market_screen_base">Base</string>
+    <string name="market_screen_base">Koin</string>
     <string name="market_screen_quote">Quote</string>
     <string name="market_screen_market">Pasar</string>
     <string name="market_screen_contract_type">Jenis kontrak</string>
@@ -124,10 +124,10 @@
     <string name="accent_red">Merah</string>
     <string name="accent_blue">Biru</string>
     <string name="accent_green">Hijau</string>
-    <string name="settings_rolling_futures">Termasuk futures kuartalan &amp; berjangka lainnya</string>
-    <string name="settings_rolling_futures_hint">Nonaktif: futures berjangka yang tidak ada di daftar bursa ditandai tidak lagi diperdagangkan, alih-alih diperiksa satu per satu. Menghemat waktu setiap kali memuat ulang.</string>
+    <string name="settings_rolling_futures">Termasuk futures kuartalan &amp; jatuh tempo lainnya</string>
+    <string name="settings_rolling_futures_hint">Nonaktif: futures dengan jatuh tempo yang tidak ada di daftar bursa ditandai tidak lagi diperdagangkan, alih-alih diperiksa satu per satu. Menghemat waktu setiap kali memuat ulang.</string>
     <string name="notification_refreshing">Memperbarui harga…</string>
-    <string name="notification_service_title">Crypto Checker sering diperbarui</string>
+    <string name="notification_service_title">Crypto Checker sering memperbarui harga</string>
     <string name="notification_service_starting">Memulai…</string>
     <plurals name="notification_service_running">
         <item quantity="other">%1$d pasangan · %2$s</item>
@@ -140,7 +140,7 @@
     <string name="settings_background_updates">Pembaruan latar belakang</string>
     <string name="settings_background_updates_hint">Harga, alarm, dan widget tetap diperbarui meskipun aplikasi ditutup.</string>
     <string name="settings_background_interval">Interval</string>
-    <string name="settings_live_service">Perbarui sering</string>
+    <string name="settings_live_service">Pembaruan sering</string>
     <string name="settings_live_service_hint">Memeriksa harga dalam interval pendek, bahkan saat aplikasi ditutup. Menampilkan notifikasi dan memakai lebih banyak baterai.</string>
     <string name="settings_live_interval">Seberapa sering</string>
     <string name="settings_minutes">%1$d mnt</string>
@@ -155,7 +155,7 @@
     <string name="settings_alarm_cooldown">Jeda sebelum alarm berbunyi lagi</string>
     <string name="settings_tts">Output suara</string>
     <string name="settings_tts_alarms_only">Hanya alarm</string>
-    <string name="settings_tts_alarms_only_hint">Nonaktif: setiap pembaruan pasangan dengan «Ucapkan harga» akan dibacakan.</string>
+    <string name="settings_tts_alarms_only_hint">Nonaktif: setiap pembaruan pasangan dengan “Ucapkan harga” akan dibacakan.</string>
     <string name="settings_speech_rate">Kecepatan bicara: %1$.1f×</string>
     <string name="settings_tts_test">Tes suara</string>
     <string name="battery_title">Jaga harga tetap terkini</string>
@@ -209,11 +209,11 @@
     <string name="action_close">Tutup</string>
     <string name="watchlist_clear">Kosongkan daftar pantau</string>
     <string name="watchlist_clear_confirm">Hapus semua pasangan dari daftar pantau? Alarmnya juga akan ikut terhapus.</string>
-    <string name="market_scores_hint">Puncak = tanda seperti pada puncak siklus sebelumnya, dasar = tanda seperti pada dasar siklus sebelumnya. Mulai 4 poin satu sisi dominan, mulai 7 ekstrem. Tanpa target harga dan tanpa prakiraan.</string>
+    <string name="market_scores_hint">Puncak = tanda seperti pada puncak siklus sebelumnya, dasar = tanda seperti pada dasar siklus sebelumnya. Mulai 4 poin satu sisi dominan, mulai 7 ekstrem. Tanpa target harga dan tanpa prediksi.</string>
     <string name="market_scores_none">Tidak ada tanda puncak atau dasar yang aktif: fase tengah yang tenang, tren harga yang menentukan.</string>
     <string name="market_scores_info_title">Sinyal siklus</string>
-    <string name="market_scores_info_text">Tanda kemungkinan puncak menghitung sinyal yang muncul di puncak siklus sebelumnya: overvaluasi kuat (MVRV), pendapatan penambang sangat tinggi (Puell), harga jauh di atas rata-rata 200 hari atau 200 minggu, kenaikan parabolik, dan jendela 12–18 bulan setelah halving.\n\nTanda kemungkinan dasar menghitung sinyal dasar sebelumnya: MVRV rendah, pendapatan penambang lemah, penurunan tajam dari harga tertinggi sepanjang masa, harga dekat rata-rata 200 minggu, hashrate menurun, dan puncak lebih dari setahun lalu.\n\nDengan keunggulan 4 poin zonanya Bull atau Bear, mulai 7 Ekstrem. Jika tidak ada sisi yang unggul, tren harga yang menentukan. 0/10 di kedua sisi berarti: bukan euforia, bukan kapitulasi.\n\nTanpa target harga dan tanpa prakiraan: sinyal hanya menggambarkan seperti apa siklus-siklus sebelumnya.</string>
-    <string name="battery_open_settings">Buka setelan baterai</string>
+    <string name="market_scores_info_text">Tanda kemungkinan puncak menghitung sinyal yang muncul di puncak siklus sebelumnya: overvaluasi kuat (MVRV), pendapatan penambang sangat tinggi (Puell), harga jauh di atas rata-rata 200 hari atau 200 minggu, kenaikan parabolik, dan jendela 12–18 bulan setelah halving.\n\nTanda kemungkinan dasar menghitung sinyal dasar sebelumnya: MVRV rendah, pendapatan penambang lemah, penurunan tajam dari harga tertinggi sepanjang masa, harga dekat rata-rata 200 minggu, hashrate menurun, dan puncak lebih dari setahun lalu.\n\nDengan keunggulan 4 poin zonanya Bull atau Bear, mulai 7 Extreme. Jika tidak ada sisi yang unggul, tren harga yang menentukan. 0/10 di kedua sisi berarti: bukan euforia, bukan kapitulasi.\n\nTanpa target harga dan tanpa prediksi: sinyal hanya menggambarkan seperti apa siklus-siklus sebelumnya.</string>
+    <string name="battery_open_settings">Buka pengaturan baterai</string>
     <string name="battery_steps">Di info aplikasi, ketuk Baterai (atau Penggunaan baterai aplikasi) lalu pilih Tidak dibatasi.</string>
     <string name="explorer_select_placeholder">Silakan pilih</string>
     <string name="explorer_bulk_title">Beberapa pasangan sekaligus</string>
@@ -283,7 +283,7 @@
     <string name="insights_cycle_progress">%1$d %% dari siklus saat ini</string>
     <string name="insights_cycle_chart">Siklus sejak halving</string>
     <string name="insights_chart_axis">Tahun sejak halving</string>
-    <string name="insights_chart_hint">Harga sebagai kelipatan harga pada hari halving (skala log). Siklus lalu adalah pola, bukan ramalan.</string>
+    <string name="insights_chart_hint">Harga sebagai kelipatan harga pada hari halving (skala log). Siklus lalu adalah pola, bukan prediksi.</string>
     <string name="insights_source_history">Sumber: Coin Metrics (CC BY-NC 4.0), Binance</string>
     <string name="insights_fng_title">Fear &amp; Greed</string>
     <string name="fng_extreme_fear">Ketakutan ekstrem</string>
@@ -320,7 +320,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Fase pasar telah berubah dari %1$s ke %2$s.</string>
     <string name="settings_zone_alerts">Beri tahu saat fase berubah</string>
-    <string name="settings_zone_alerts_hint">Memeriksa dua kali sehari dan memberi tahu saat Bitcoin berpindah zona, mis. dari Netral ke Bull.</string>
+    <string name="settings_zone_alerts_hint">Memeriksa dua kali sehari dan memberi tahu saat Bitcoin berpindah zona, mis. dari Neutral ke Bull.</string>
     <string name="alarm_condition_move_percent">Bergerak sebesar</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">dalam %1$d jam</item>
@@ -346,10 +346,10 @@
     <string name="shortcut_alarms">Semua alarm</string>
     <string name="shortcut_cycle">Pasar</string>
     <string name="backup_title">Cadangkan &amp; pulihkan</string>
-    <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan setelan ke file yang Anda simpan sendiri – mis. untuk ponsel baru.</string>
+    <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan pengaturan ke file yang Anda simpan sendiri – mis. untuk ponsel baru.</string>
     <string name="backup_export">Ekspor</string>
     <string name="backup_import">Impor</string>
-    <string name="backup_restore_confirm">Impor mengganti daftar (beserta catatan dan grup), alarm, favorit, portofolio, dan setelan Anda dengan cadangan.</string>
+    <string name="backup_restore_confirm">Impor mengganti daftar (beserta catatan dan grup), alarm, favorit, portofolio, dan pengaturan Anda dengan cadangan.</string>
     <string name="backup_exported">Cadangan disimpan.</string>
     <string name="backup_failed">Gagal. Apakah ini cadangan Crypto Checker?</string>
     <string name="backup_restored">Dipulihkan: %1$s, %2$s.</string>

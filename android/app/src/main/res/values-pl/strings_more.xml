@@ -110,8 +110,8 @@
         <item quantity="many">spada %1$d</item>
         <item quantity="other">spada %1$d</item>
     </plurals>
-    <string name="pulse_headline_up">Szeroka siła</string>
-    <string name="pulse_headline_down">Szeroka słabość</string>
+    <string name="pulse_headline_up">Szerokie wzrosty</string>
+    <string name="pulse_headline_down">Szerokie spadki</string>
     <string name="pulse_headline_mixed">Mieszany obraz</string>
     <string name="pulse_headline_calm">Spokojny rynek</string>
     <string name="pulse_chip_funding_high">Funding podwyższony</string>

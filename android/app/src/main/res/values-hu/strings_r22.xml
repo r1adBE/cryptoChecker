@@ -20,7 +20,7 @@
     </plurals>
     <!-- Abschnittstitel -->
     <string name="refresh_sheet_section_markets">Tőzsdék</string>
-    <string name="refresh_sheet_section_steps">Lefutás</string>
+    <string name="refresh_sheet_section_steps">Részletezés</string>
     <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
     <string name="refresh_sheet_wait">Várakozás az indulásig</string>
     <string name="refresh_sheet_network">Hálózat</string>

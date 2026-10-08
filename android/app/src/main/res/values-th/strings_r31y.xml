@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
     <string name="watchlist_row_outdated_age">ข้อมูลเก่า · %1$s</string>
-    <string name="why_brief_label">สรุปสั้นๆ:</string>
+    <string name="why_brief_label">สรุปสั้น ๆ:</string>
     <string name="why_factor_market">ตลาดโดยรวม</string>
     <string name="why_factor_futures">ฟิวเจอร์ส</string>
     <string name="why_factor_near_high">ใกล้จุดสูงสุด</string>

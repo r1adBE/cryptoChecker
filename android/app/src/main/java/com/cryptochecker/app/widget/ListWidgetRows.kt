@@ -7,6 +7,7 @@ import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.settings.HighContrast
@@ -27,6 +28,8 @@ internal class ListWidgetRowData(
     val changeView: ChangeView,
     /** Ab diesem Alter «veraltet» ([WidgetOutdated]). */
     val outdatedAfter: Long,
+    /** Coin-Logo bzw. Initialen-Kreis je Basis-Symbol; null = Schalter «Coin-Logos in Widgets» aus. */
+    val logos: Map<String, android.graphics.Bitmap>? = null,
 )
 
 /**
@@ -40,6 +43,7 @@ class ListWidgetRows @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val widgetPrefs: WidgetPrefs,
     private val toolkit: WidgetToolkit,
+    private val coinLogos: WidgetCoinLogos,
 ) {
     /** Lädt die Daten für das Widget [appWidgetId]. */
     internal suspend fun load(appWidgetId: Int): ListWidgetRowData {
@@ -61,14 +65,36 @@ class ListWidgetRows @Inject constructor(
             background = background,
             changeView = toolkit.changeView(settings.changeBasis),
             outdatedAfter = WidgetOutdated.afterMillis(settings),
+            logos = if (settings.widgetCoinLogos) widgetLogos(watches, background) else null,
         )
     }
+
+    /**
+     * Logos je Basis-Symbol; DEX-Pools ([CoinLogos.allowedFor]) nur mit Initialen (Schlüssel mit
+     * Börse, damit ein «BTC»-Pool nie das Bitcoin-Logo bekommt).
+     */
+    private suspend fun widgetLogos(watches: List<WatchEntity>, colors: WidgetColors): Map<String, android.graphics.Bitmap> {
+        val (withLogo, withoutLogo) = watches.partition { CoinLogos.allowedFor(it.marketKey) }
+        return coinLogos.bitmaps(withLogo.map { it.baseAsset }, colors) +
+            withoutLogo.associate { logoKey(it) to coinLogos.initials(it.baseAsset, colors) }
+    }
+
+    private fun logoKey(watch: WatchEntity): String =
+        if (CoinLogos.allowedFor(watch.marketKey)) watch.baseAsset else "${watch.marketKey}|${watch.baseAsset}"
 
     /** Zeile [position]; ausserhalb der Liste eine leere Zeile. */
     internal fun row(data: ListWidgetRowData, position: Int): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
         val watch = data.watches.getOrNull(position) ?: return views
         val background = data.background
+
+        val logo = data.logos?.get(logoKey(watch))
+        if (logo != null) {
+            views.setImageViewBitmap(R.id.item_logo, logo)
+            views.setViewVisibility(R.id.item_logo, View.VISIBLE)
+        } else {
+            views.setViewVisibility(R.id.item_logo, View.GONE)
+        }
 
         views.setTextViewText(R.id.item_pair, watch.displayName)
         views.setTextColor(R.id.item_pair, background.textColor)

@@ -4,5 +4,5 @@
     <!-- Titel des Formulars und Screenreader-Name des Stifts -->
     <string name="watch_edit_title">แก้ไขคู่เทรด</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">การแจ้งเตือนยังคงอยู่ – ตรวจสอบเกณฑ์</string>
+    <string name="watch_edit_alarms_warning">สัญญาณเตือนยังคงอยู่ – ตรวจสอบเกณฑ์</string>
 </resources>

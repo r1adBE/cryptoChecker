@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
     <string name="watchlist_status_group_empty">جفتی در این گروه نیست</string>
-    <string name="watchlist_status_none_traded">جفت فعالی اینجا نیست</string>
+    <string name="watchlist_status_none_traded">اینجا جفتی معامله نمی‌شود</string>
     <string name="watchlist_group_empty_hint">برای انتخاب جفت‌های یک گروه، آن را لمس طولانی کنید.</string>
     <string name="watchlist_just_refreshed">همین حالا به‌روز شد</string>
 </resources>

@@ -49,6 +49,17 @@ internal fun watchlistSummary(settings: AppSettings): String {
     }
 }
 
+/** Kurzwert «Coin-Logos»: «App · Portfolio · Widgets», einzelne davon oder «Aus». */
+@Composable
+internal fun coinLogosSummary(settings: AppSettings): String {
+    val parts = buildList {
+        if (settings.coinLogos) add(stringResource(R.string.settings_coin_logos_value_app))
+        if (settings.portfolioCoinLogos) add(stringResource(R.string.portfolio_title))
+        if (settings.widgetCoinLogos) add(stringResource(R.string.settings_widgets))
+    }
+    return if (parts.isEmpty()) stringResource(R.string.option_off) else parts.joinToString(" · ")
+}
+
 /** Kurzwert «Modus»: «System», «Hell» oder «Dunkel», bei hohem Kontrast mit Zusatz. */
 @Composable
 internal fun displayModeSummary(settings: AppSettings): String {

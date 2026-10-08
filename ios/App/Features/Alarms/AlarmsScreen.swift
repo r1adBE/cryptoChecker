@@ -220,9 +220,9 @@ private struct AlarmCard: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            Toggle("", isOn: Binding(get: { alarm.enabled }, set: onToggle))
-                .labelsHidden()
-                .tint(accent.primary)
+            SwitchRow(isOn: Binding(get: { alarm.enabled }, set: onToggle), verticalPadding: 0, labelHidden: true) {
+                Text(verbatim: "")
+            }
         }
         .padding(.leading, 12)
         .padding(.trailing, Spacing.md)

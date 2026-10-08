@@ -43,7 +43,7 @@ struct CycleUnusualCard: View {
 
     /// Platzhalter in Zeilenform: drei Zeilen mit Plakette, Symbol, Satz und Pille.
     private var skeleton: some View {
-        CycleSkeleton {
+        SkeletonPulse {
             VStack(spacing: 2) {
                 ForEach(0..<3, id: \.self) { _ in
                     HStack(spacing: 12) {

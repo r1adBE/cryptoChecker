@@ -16,7 +16,7 @@
     <string name="widget_portfolio_today">วันนี้ %1$s</string>
     <string name="widget_portfolio_empty">เพิ่มรายการซื้อในแท็บพอร์ตโฟลิโอ</string>
     <string name="a11y_portfolio_widget">พอร์ตโฟลิโอ %1$s วันนี้ %2$s</string>
-    <string name="explain_funding">ค่าธรรมเนียมระหว่างสถานะ long และ short ค่าบวกสูงหมายความว่าหลายคนเดิมพันว่าราคาจะขึ้น</string>
+    <string name="explain_funding">ค่าธรรมเนียมระหว่างสถานะ Long และ Short ค่าบวกสูงหมายความว่าหลายคนเดิมพันว่าราคาจะขึ้น</string>
     <string name="explain_open_interest">มูลค่าของสถานะฟิวเจอร์สที่เปิดอยู่ทั้งหมด หากเพิ่มขึ้น แปลว่ามีเงินเดิมพันกับการเคลื่อนไหวนี้มากขึ้น</string>
     <string name="explain_rsi">ดัชนีกำลังสัมพัทธ์ 0–100 สูงกว่า 70 มักร้อนแรงเกินไป ต่ำกว่า 30 มักถูกขายมากเกินไป</string>
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->

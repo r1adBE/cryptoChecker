@@ -11,9 +11,9 @@
     <string name="why_fn_volume_lower">më i ulët se zakonisht</string>
     <string name="why_fn_volume_usual">si zakonisht</string>
     <string name="why_fn_market_pulls">BTC e tërheq tregun</string>
-    <string name="why_fn_market_lags">Tregu lëviz, ky coin mezi</string>
-    <string name="why_fn_market_alone">Treg i qetë – ky coin lëviz vetë</string>
-    <string name="why_fn_market_against">Coini lëviz kundër tregut</string>
+    <string name="why_fn_market_lags">Tregu lëviz, kjo monedhë mezi</string>
+    <string name="why_fn_market_alone">Treg i qetë – kjo monedhë lëviz vetë</string>
+    <string name="why_fn_market_against">Monedha lëviz kundër tregut</string>
     <string name="why_fn_market_calm">Treg i qetë</string>
     <string name="why_fn_leader_moves">Bitcoin jep drejtimin</string>
     <string name="why_fn_leader_calm">Bitcoin i qetë</string>
@@ -24,7 +24,7 @@
     <string name="why_fn_oi_flat">Open interest pothuajse i pandryshuar</string>
     <string name="why_fn_high_at">në majën 30-ditore</string>
     <string name="why_fn_high_below">nën majën 30-ditore</string>
-    <string name="why_fn_funding_longs">shumë vënë bast për rritje</string>
-    <string name="why_fn_funding_shorts">shumë vënë bast për rënie</string>
+    <string name="why_fn_funding_longs">shumë po vënë bast për rritje</string>
+    <string name="why_fn_funding_shorts">shumë po vënë bast për rënie</string>
     <string name="why_fn_funding_neutral">neutral</string>
 </resources>

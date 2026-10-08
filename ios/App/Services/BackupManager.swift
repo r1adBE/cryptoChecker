@@ -365,6 +365,9 @@ enum BackupManager {
             "priceColorScheme": s.priceColorScheme.rawValue,
             "watchlistSparkline": s.watchlistSparkline,
             "watchlistActivityCard": s.watchlistActivityCard,
+            "coinLogos": s.coinLogos,
+            "widgetCoinLogos": s.widgetCoinLogos,
+            "portfolioCoinLogos": s.portfolioCoinLogos,
             "changeBasis": s.changeBasis.rawValue,
             "highContrast": s.highContrast,
             "priceColorsInverted": s.priceColorsInverted,
@@ -417,6 +420,9 @@ enum BackupManager {
         }
         if let v = bool(o, "watchlistSparkline") { s.watchlistSparkline = v }
         if let v = bool(o, "watchlistActivityCard") { s.watchlistActivityCard = v }
+        if let v = bool(o, "coinLogos") { s.coinLogos = v }
+        if let v = bool(o, "widgetCoinLogos") { s.widgetCoinLogos = v }
+        if let v = bool(o, "portfolioCoinLogos") { s.portfolioCoinLogos = v }
         // %-Basis (wie Android): fehlt der Schlüssel, bleibt der Wert; unbekannt → «Letzte 24 Std.»
         if o["changeBasis"] != nil {
             s.changeBasis = ChangeBasis.from(name: isNull(o, "changeBasis") ? nil : string(o, "changeBasis"))

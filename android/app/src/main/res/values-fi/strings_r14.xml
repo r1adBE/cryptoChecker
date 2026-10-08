@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
     <string name="about_licenses">Lisenssit</string>
-    <string name="licenses_marketdata_title">Kurssitietokirjasto</string>
+    <string name="licenses_marketdata_title">Hintatietokirjasto</string>
     <string name="licenses_marketdata_intro">Osa pörssiyhteydestä perustuu MIT-lisenssin alaiseen ohjelmistoon:</string>
     <string name="licenses_marketdata_changes">Muutokset: %1$s</string>
     <string name="licenses_font_title">Rubik-fontti</string>

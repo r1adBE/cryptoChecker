@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Αναζητά σε όλες τις αγορές ταυτόχρονα – πατήστε ένα αποτέλεσμα για να το προσθέσετε στη λίστα παρακολούθησης.</string>
-    <string name="explorer_no_pairs_yet">Δεν έχουν φορτωθεί ακόμη ζεύγη για αυτή την αγορά.</string>
+    <string name="explorer_search_intro">Αναζητά σε όλα τα ανταλλακτήρια ταυτόχρονα – πατήστε ένα αποτέλεσμα για να το προσθέσετε στη λίστα παρακολούθησης.</string>
+    <string name="explorer_no_pairs_yet">Δεν έχουν φορτωθεί ακόμη ζεύγη για αυτό το ανταλλακτήριο.</string>
 </resources>

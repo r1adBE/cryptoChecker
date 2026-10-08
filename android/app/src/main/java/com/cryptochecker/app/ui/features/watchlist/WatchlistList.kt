@@ -213,7 +213,6 @@ internal fun LazyItemScope.WatchlistItem(
     hasActivity: Boolean,
     onOpenWhy: () -> Unit,
     onOpenActions: () -> Unit,
-    onToggleFavorite: () -> Unit,
     onMove: (WatchMove) -> Unit,
     /** Löschen mit «Rückgängig» (Wischen, Screenreader-Aktion). */
     onDelete: () -> Unit,
@@ -307,10 +306,6 @@ internal fun LazyItemScope.WatchlistItem(
                 highlighted = dragging,
                 sortMode = sortMode,
                 onClick = { if (!sortMode) onOpenActions() },
-                onToggleFavorite = {
-                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                    onToggleFavorite()
-                },
                 onMove = onMove,
                 // Screenreader: «Löschen» und «Favorit» wie Wischen
                 onDeleteAction = onDelete,

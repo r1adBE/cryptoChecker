@@ -4,7 +4,7 @@
     <string name="settings_alarm_sound_default">Tingulli i parazgjedhur</string>
     <string name="settings_alarm_sound_custom">Tingull i personalizuar</string>
     <string name="settings_alarm_sound_system">Zgjidh tingull sistemi…</string>
-    <string name="settings_alarm_sound_file">Skedar audio i yti…</string>
+    <string name="settings_alarm_sound_file">Skedari yt audio…</string>
     <string name="settings_alarm_sound_reset">Përdor tingullin e parazgjedhur</string>
-    <string name="settings_alarm_sound_error">Tingulli nuk mund të përdorej.</string>
+    <string name="settings_alarm_sound_error">Tingulli nuk mund të përdoret.</string>
 </resources>

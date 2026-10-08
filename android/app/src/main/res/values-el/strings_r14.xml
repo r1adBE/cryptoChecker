@@ -7,5 +7,5 @@
     <string name="licenses_marketdata_changes">Αλλαγές: %1$s</string>
     <string name="licenses_font_title">Γραμματοσειρά Rubik</string>
     <string name="licenses_libraries_title">Βιβλιοθήκες Android</string>
-    <string name="licenses_libraries_intro">Η εφαρμογή χρησιμοποιεί αυτές τις βιβλιοθήκες με την άδεια Apache License 2.0:</string>
+    <string name="licenses_libraries_intro">Η εφαρμογή χρησιμοποιεί αυτές τις βιβλιοθήκες με την άδεια Apache 2.0:</string>
 </resources>

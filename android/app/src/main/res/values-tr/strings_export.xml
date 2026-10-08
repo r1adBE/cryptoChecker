@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Referans tarihi dışa aktarımı</string>
     <string name="portfolio_export_date">Referans tarihi</string>
     <string name="portfolio_export_currency">Para birimi: %1$s</string>
-    <string name="portfolio_export_hint">Seçilen günün sonundaki varlık; USDT cinsinden günlük kapanış fiyatıyla (UTC) değerlenir ve o günün ECB referans kuruyla çevrilir. Para birimini „Şuna çevir“ ile değiştir.</string>
+    <string name="portfolio_export_hint">Seçilen günün sonundaki varlıklar; USDT cinsinden günlük kapanış fiyatıyla (UTC) değerlenir ve o günün ECB referans kuruyla çevrilir. Para birimini “Şuna çevir” ile değiştirin.</string>
     <string name="portfolio_export_button">CSV dışa aktar</string>
     <string name="portfolio_export_running">Geçmiş fiyatlar alınıyor…</string>
     <string name="portfolio_export_done">Dışa aktarım kaydedildi</string>

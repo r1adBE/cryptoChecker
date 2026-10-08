@@ -1,6 +1,6 @@
 Version 16.2.2
-• Crypto Pulse: vad som händer i marknaden just nu
-• Varför rör den sig? nu med kort sammanfattning
+• Crypto Pulse: vad som händer på marknaden just nu
+• ”Varför rör den sig?”: en databaserad förklaring till kursrörelser, med kort sammanfattning
 • Testa larm: ljud, vibration och uppläsning
 • Omräknade kurser: en andra rad ”≈ värde” i din omräkningsvaluta – 31 valutor som EUR, CHF, USD, GBP eller JPY, som standard enligt enhetens region
 • Larm i din valuta, t.ex. vid 60 000 EUR på ett USDT-par
@@ -16,18 +16,20 @@ Version 16.2.2
 • Portföljwidget för hem- och låsskärm: totalt värde i din valuta och förändring i dag
 • Varje larm som en mening: ”Meddela mig när BTC sjunker under 60 000 CHF.”
 • Korta förklaringar av funding rate, open interest, RSI och Pi Cycle
-• Rader visar ”inaktuellt” eller ”kan inte nås” när en kurs inte är aktuell
+• Rader visar ”inaktuellt” eller ”börsen kan inte nås” när en kurs inte är aktuell
 • 15 nya börser: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
 • Nätverksavgifter för Ethereum, Base, Arbitrum, Polygon, BNB Chain och Bitcoin på fliken Marknad, med gaslarm
 • Anteckning för varje mynt i bevakningslistan
 • Välj ett larmljud
 • Ovanlig aktivitet: upptäcker ovanliga kurs- och volymrörelser, valfria notiser
-• Varför rör den sig? En databaserad förklaring till rörelser
 • Portfölj som egen flik: köp och försäljningar, snittpris, vinst/förlust
 • Jämförelse av cykler: toppar och bottnar markerade, inkl. dubbeltoppar och dubbelbottnar
 • Grupper för bevakningslistan
 • Nya larm: rörelse på X % inom Y timmar och volymspik
-• Widget för ett mynt: ljus eller linje, diagramperiod 24 h, 7 eller 30 dagar, markeringar för högsta, mitt och lägsta, aktuell kurs framhävd
+• Widget för ett mynt: candlestick eller linje, diagramperiod 24 h, 7 eller 30 dagar, markeringar för högsta, mitt och lägsta, aktuell kurs framhävd
 • Fliken Marknad: kryptomarknadens totala börsvärde och 24 h-volym i din valuta
 • Terminer: funding rate och open interest
 • Fem accentfärger med matchande appsymboler
+• Aktier, guld, råvaror och valutor som terminer (TradFi) hos Binance, Bybit, OKX, MEXC och Bitget – slås på under Inställningar › Bevakningslista; nya par hamnar i gruppen ”TradFi”, terminer med förfall i ”QTLY”
+• %-förändring som hos Binance: senaste 24 timmarna, sedan 00:00 i enhetens tidszon eller i en fast zon från UTC+14 till UTC-12
+• Tydligare namn: ”Uppdatera ofta” och ”Livekurser”

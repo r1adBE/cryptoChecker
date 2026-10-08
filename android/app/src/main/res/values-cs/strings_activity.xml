@@ -6,8 +6,8 @@
     <string name="activity_indicator">Neobvyklá aktivita</string>
 
     <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
-    <string name="activity_signal_price_move">Neobvyklý pohyb: %1$s za hodinu (%2$s× normál)</string>
-    <string name="activity_signal_volume">Objem %1$s× normál za poslední hodinu</string>
+    <string name="activity_signal_price_move">Neobvyklý pohyb: %1$s za hodinu (%2$s× obvyklého)</string>
+    <string name="activity_signal_volume">Objem %1$s× obvyklého za poslední hodinu</string>
     <string name="activity_signal_open_interest">Open interest %1$s během %2$d min</string>
     <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
     <string name="activity_signal_funding_long">Funding %1$s – mnoho pákových longů</string>
@@ -47,6 +47,6 @@
     <string name="why_volatility_high_text">Poslední hodina: %1$s – měřeno vůči typickému hodinovému výkyvu za posledních 24 hodin.</string>
     <string name="why_volatility_normal_text">Poslední hodina: %1$s – v obvyklém rozmezí.</string>
 
-    <string name="why_sentiment_text">Index Strach a chamtivost celého kryptotrhu, %1$s oproti včerejšku.</string>
-    <string name="why_sentiment_text_no_change">Index Strach a chamtivost celého kryptotrhu.</string>
+    <string name="why_sentiment_text">Index Fear &amp; Greed celého kryptotrhu, %1$s oproti včerejšku.</string>
+    <string name="why_sentiment_text_no_change">Index Fear &amp; Greed celého kryptotrhu.</string>
 </resources>

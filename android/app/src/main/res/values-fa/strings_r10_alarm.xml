@@ -9,7 +9,7 @@
         <item quantity="one">%1$d روز</item>
         <item quantity="other">%1$d روز</item>
     </plurals>
-    <string name="alarm_near_window_year">۱ سال</string>
+    <string name="alarm_near_window_year">یک سال</string>
     <string name="alarm_near_hint">هنگام ثبت سقف یا کف جدید هم خبر می‌دهد. بر اساس کندل‌های روزانه، هر ۶ ساعت به‌روز می‌شود.</string>
     <string name="alarm_near_extreme_high_30">سقف ۳۰ روزه</string>
     <string name="alarm_near_extreme_high_90">سقف ۹۰ روزه</string>

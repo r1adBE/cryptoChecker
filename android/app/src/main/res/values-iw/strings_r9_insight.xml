@@ -51,8 +51,8 @@
     <string name="why_f_leverage_balanced">מינוף מאוזן</string>
     <string name="insights_dominance_eth">ETH %1$s מכלל השוק</string>
     <plurals name="market_phase_cycle_since">
-        <item quantity="one">%1$d חודש מאז ה־halving ב־%2$s</item>
-        <item quantity="two">%1$d חודשים מאז ה־halving ב־%2$s</item>
-        <item quantity="other">%1$d חודשים מאז ה־halving ב־%2$s</item>
+        <item quantity="one">%1$d חודש מאז ההלווינג ב־%2$s</item>
+        <item quantity="two">%1$d חודשים מאז ההלווינג ב־%2$s</item>
+        <item quantity="other">%1$d חודשים מאז ההלווינג ב־%2$s</item>
     </plurals>
 </resources>

@@ -12,5 +12,5 @@
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="a11y_portfolio_position">%1$s %2$s, 포트폴리오의 %3$s</string>
     <string name="a11y_portfolio_position_change">%1$s %2$s, 포트폴리오의 %3$s, 오늘 %4$s</string>
-    <string name="a11y_portfolio_positions">큰 포지션: %1$s</string>
+    <string name="a11y_portfolio_positions">가장 큰 포지션: %1$s</string>
 </resources>

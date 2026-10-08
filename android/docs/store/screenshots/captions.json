@@ -32,8 +32,8 @@
     },
     "cs-CZ": {
       "01": {
-        "caption": "Pochopit trh bez šumu",
-        "subline": "Přímo z burzy, i v CHF, s minigrafem"
+        "caption": "Trh bez zbytečného šumu",
+        "subline": "Přímo z burzy, i v CHF, s minigrafy"
       },
       "02": {
         "caption": "Proč se to hýbe?",
@@ -99,7 +99,7 @@
     "el-GR": {
       "01": {
         "caption": "Η αγορά, χωρίς θόρυβο",
-        "subline": "Από το ανταλλακτήριο, και σε CHF, με μίνι γράφημα"
+        "subline": "Απευθείας από το ανταλλακτήριο, και σε CHF, με μίνι γράφημα"
       },
       "02": {
         "caption": "Γιατί κινείται;",
@@ -115,7 +115,7 @@
       },
       "05": {
         "caption": "Το χαρτοφυλάκιό σου – ασφαλές",
-        "subline": "Κλείδωμα με δακτυλικό αποτύπωμα, πρόσωπο ή PIN"
+        "subline": "Κλείδωμα με αποτύπωμα, πρόσωπο ή PIN – χωρίς λογαριασμό"
       }
     },
     "en-US": {
@@ -143,7 +143,7 @@
     "es-ES": {
       "01": {
         "caption": "Entiende el mercado sin ruido",
-        "subline": "Directos del exchange, también en CHF, con minigráfico"
+        "subline": "Precios del exchange, también en CHF, con minigráfico"
       },
       "02": {
         "caption": "¿Por qué se mueve?",
@@ -203,13 +203,13 @@
       },
       "05": {
         "caption": "Salkkusi – suojattu",
-        "subline": "Lukitus sormenjäljellä, kasvoilla tai PIN-koodilla"
+        "subline": "Lukitse sormenjäljellä, kasvoilla tai PIN:llä – ei tiliä"
       }
     },
     "fr-FR": {
       "01": {
         "caption": "Comprendre le marché au calme",
-        "subline": "Direct des plateformes, aussi en CHF, avec mini-graphique"
+        "subline": "En direct des plateformes, aussi en CHF, avec mini-graphique"
       },
       "02": {
         "caption": "Pourquoi ça bouge ?",
@@ -234,7 +234,7 @@
         "subline": "सीधे एक्सचेंज से, CHF में भी, मिनी चार्ट के साथ"
       },
       "02": {
-        "caption": "यह क्यों हिल रहा है?",
+        "caption": "इसमें हलचल क्यों है?",
         "subline": "वॉल्यूम, पूरा बाज़ार और फ़्यूचर्स – संक्षेप में"
       },
       "03": {
@@ -269,7 +269,7 @@
       },
       "05": {
         "caption": "A portfóliód – védve",
-        "subline": "Zár ujjlenyomattal, arccal vagy PIN-nel – fiók nélkül"
+        "subline": "Zárolás ujjlenyomattal, arccal vagy PIN-nel – fiók nélkül"
       }
     },
     "id": {
@@ -297,7 +297,7 @@
     "it-IT": {
       "01": {
         "caption": "Capire il mercato senza rumore",
-        "subline": "Diretti dall'exchange, anche in CHF, con mini grafico"
+        "subline": "Direttamente dall’exchange, anche in CHF, con mini grafico"
       },
       "02": {
         "caption": "Perché si muove?",
@@ -371,14 +371,14 @@
       },
       "03": {
         "caption": "나의 목록, 나의 거래소",
-        "subline": "32개 거래소의 41개 마켓, DEX 토큰까지"
+        "subline": "32개 거래소의 41개 시장, DEX 토큰까지"
       },
       "04": {
         "caption": "중요할 때 울리는 경보",
         "subline": "‘BTC가 90,000 CHF 아래로 내려가면 알려 주세요’"
       },
       "05": {
-        "caption": "포트폴리오 – 보호됨",
+        "caption": "포트폴리오를 안전하게",
         "subline": "지문, 얼굴 또는 PIN으로 잠금 – 계정 불필요"
       }
     },
@@ -401,7 +401,7 @@
       },
       "05": {
         "caption": "Je portfolio – beschermd",
-        "subline": "Vergrendeling met vingerafdruk, gezicht of pincode"
+        "subline": "Slot met vingerafdruk, gezicht of pincode – zonder account"
       }
     },
     "no-NO": {
@@ -429,7 +429,7 @@
     "pl-PL": {
       "01": {
         "caption": "Zrozum rynek bez szumu",
-        "subline": "Prosto z giełdy, także w CHF, z minimalnym wykresem"
+        "subline": "Prosto z giełdy, także w CHF, z miniwykresami"
       },
       "02": {
         "caption": "Dlaczego to się rusza?",
@@ -467,13 +467,13 @@
       },
       "05": {
         "caption": "Seu portfólio, protegido",
-        "subline": "Bloqueio por digital, rosto ou PIN, sem conta"
+        "subline": "Bloqueio com digital, rosto ou PIN, sem conta"
       }
     },
     "pt-PT": {
       "01": {
         "caption": "Perceber o mercado sem ruído",
-        "subline": "Diretos da exchange, também em CHF, com minigráfico"
+        "subline": "Preços da exchange, também em CHF, com minigráfico"
       },
       "02": {
         "caption": "Porque está a mexer?",
@@ -488,8 +488,8 @@
         "subline": "«Avisar-me quando BTC descer abaixo de 90 000 CHF»"
       },
       "05": {
-        "caption": "O seu portefólio, protegido",
-        "subline": "Bloqueio por impressão digital, rosto ou PIN"
+        "caption": "O seu portfólio, protegido",
+        "subline": "Bloqueio por impressão digital, rosto ou PIN, sem conta"
       }
     },
     "ro": {
@@ -517,7 +517,7 @@
     "ru-RU": {
       "01": {
         "caption": "Понимать рынок без шума",
-        "subline": "Напрямую с биржи, и в CHF, с мини-графиком"
+        "subline": "Напрямую с биржи, в том числе в CHF, с мини-графиком"
       },
       "02": {
         "caption": "Почему это движется?",
@@ -539,7 +539,7 @@
     "sq": {
       "01": {
         "caption": "Kupto tregun pa zhurmë",
-        "subline": "Drejt nga bursa, edhe në CHF, me mini-grafik"
+        "subline": "Direkt nga bursa, edhe në CHF, me mini-grafikë"
       },
       "02": {
         "caption": "Pse po lëviz?",
@@ -591,7 +591,7 @@
       },
       "03": {
         "caption": "รายการของคุณ กระดานเทรดของคุณ",
-        "subline": "41 ตลาดบน 32 กระดานเทรด รวมโทเคน DEX"
+        "subline": "41 ตลาดบน 32 กระดานเทรด รวมโทเค็น DEX"
       },
       "04": {
         "caption": "แจ้งเตือนเมื่อสำคัญ",
@@ -616,18 +616,18 @@
         "subline": "32 borsada 41 piyasa, ayrıca DEX tokenleri"
       },
       "04": {
-        "caption": "Önemli anda alarm",
+        "caption": "Önemli olduğunda alarm",
         "subline": "“BTC 90.000 CHF altına düşünce bana haber ver”"
       },
       "05": {
-        "caption": "Portföyün – korunuyor",
+        "caption": "Portföyün güvende",
         "subline": "Parmak izi, yüz veya PIN ile kilit – hesap yok"
       }
     },
     "uk": {
       "01": {
         "caption": "Розуміти ринок без шуму",
-        "subline": "Напряму з біржі, і в CHF, з міні-графіком"
+        "subline": "Напряму з біржі, зокрема в CHF, з міні-графіком"
       },
       "02": {
         "caption": "Чому це рухається?",
@@ -665,7 +665,7 @@
       },
       "05": {
         "caption": "Danh mục của bạn – được bảo vệ",
-        "subline": "Khóa bằng vân tay, khuôn mặt hoặc PIN – không tài khoản"
+        "subline": "Khóa bằng vân tay, khuôn mặt hoặc PIN – không cần tài khoản"
       }
     },
     "zh-CN": {

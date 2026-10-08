@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Aktier, råvarer og valuta (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Viser også futures på aktier, guld og andre råvarer, valuta og selskaber før børsnotering, når du vælger et par. Det er kontrakter, ikke tokens.</string>
     <string name="settings_watchlist_activity_card">Usædvanlig aktivitet i listen</string>
-    <string name="settings_watchlist_activity_card_hint">Viser kortet »Her sker der noget lige nu« over parrene. Meddelelser indstilles under Markedsmeddelelser.</string>
+    <string name="settings_watchlist_activity_card_hint">Viser kortet ”Her sker der noget lige nu” over parrene. Meddelelser indstilles under Markedsmeddelelser.</string>
     <string name="settings_row_about">Om appen</string>
     <string name="price_colors_green_up">Grøn stiger / rød falder</string>
     <string name="price_colors_red_up">Rød stiger / grøn falder</string>

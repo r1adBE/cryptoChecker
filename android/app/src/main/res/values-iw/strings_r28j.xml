@@ -9,7 +9,7 @@
     <string name="a11y_portfolio_show_amounts">הצגת סכומים</string>
     <string name="a11y_amount_hidden">הסכום מוסתר</string>
     <string name="portfolio_alarm_action">התראה</string>
-    <string name="portfolio_alarm_title">התראה „שווי התיק”</string>
+    <string name="portfolio_alarm_title">התראה ״שווי התיק״</string>
     <string name="portfolio_alarm_kind_above">התיק מעל סכום</string>
     <string name="portfolio_alarm_kind_below">התיק מתחת לסכום</string>
     <string name="portfolio_alarm_kind_up">התיק עולה</string>

@@ -9,7 +9,7 @@
     <string name="a11y_portfolio_show_amounts">Показати суми</string>
     <string name="a11y_amount_hidden">суму приховано</string>
     <string name="portfolio_alarm_action">Сигнал</string>
-    <string name="portfolio_alarm_title">Сигнал «вартість портфеля»</string>
+    <string name="portfolio_alarm_title">Сигнал вартості портфеля</string>
     <string name="portfolio_alarm_kind_above">Портфель вище суми</string>
     <string name="portfolio_alarm_kind_below">Портфель нижче суми</string>
     <string name="portfolio_alarm_kind_up">Портфель зростає</string>

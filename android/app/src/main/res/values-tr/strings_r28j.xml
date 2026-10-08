@@ -9,13 +9,13 @@
     <string name="a11y_portfolio_show_amounts">Tutarları göster</string>
     <string name="a11y_amount_hidden">tutar gizli</string>
     <string name="portfolio_alarm_action">Alarm</string>
-    <string name="portfolio_alarm_title">Alarm “portföy değeri”</string>
+    <string name="portfolio_alarm_title">Portföy değeri alarmı</string>
     <string name="portfolio_alarm_kind_above">Portföy tutarın üstünde</string>
     <string name="portfolio_alarm_kind_below">Portföy tutarın altında</string>
     <string name="portfolio_alarm_kind_up">Portföy yükselir</string>
     <string name="portfolio_alarm_kind_down">Portföy düşer</string>
     <string name="portfolio_alarm_amount">Tutar (%1$s)</string>
-    <string name="portfolio_alarm_hint">Her yenilemeden sonra kontrol edilir. Fiyat alarmları gibi: eşik aşıldığında bildirir, yeniden ancak değer geri döndükten sonra.</string>
+    <string name="portfolio_alarm_hint">Her yenilemeden sonra kontrol edilir. Fiyat alarmları gibi: eşik aşıldığında tetiklenir, yeniden ancak değer geri döndükten sonra tetiklenir.</string>
     <string name="portfolio_alarm_sentence_above">Portföy %1$s üstünde</string>
     <string name="portfolio_alarm_sentence_below">Portföy %1$s altında</string>
     <string name="portfolio_alarm_sentence_up">Portföy %1$s yükseldi (%2$s)</string>

@@ -7,7 +7,7 @@
     <string name="settings_row_updates">Обновление</string>
     <string name="settings_updates_live">Часто · %1$s</string>
     <string name="settings_updates_every">Каждые %1$s</string>
-    <string name="settings_row_watchlist">Избранное</string>
+    <string name="settings_row_watchlist">Список</string>
     <string name="settings_watchlist_value_sparkline">Мини-график</string>
     <string name="settings_watchlist_value_price_only">Только цена</string>
     <string name="settings_row_alarms">Оповещения</string>

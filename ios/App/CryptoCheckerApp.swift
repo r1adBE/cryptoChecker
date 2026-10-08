@@ -84,6 +84,9 @@ struct CryptoCheckerApp: App {
                     }
                 }
                 .environment(\.appAccent, data.settings.accentColor)
+                // Coin-Logos (Schalter «In der App», «Im Portfolio»); aus → Initialen
+                .environment(\.coinLogosEnabled, data.settings.coinLogos)
+                .environment(\.portfolioCoinLogosEnabled, data.settings.portfolioCoinLogos)
                 .environment(\.priceColorScheme, data.settings.priceColorScheme)
                 .environment(\.priceColorsInverted, data.settings.priceColorsInverted)
                 // Hoher Kontrast: Einstellung oder «Kontrast erhöhen» des Systems
@@ -106,6 +109,8 @@ struct CryptoCheckerApp: App {
             case .active:
                 data.setAppActive(true)
                 QuickActions.install()
+                // Coin-Logos: fehlende (alle Coins der Rangliste, nie einzeln) nachladen
+                data.startCoinLogoSync()
                 // Morgen-Mitteilungen «Wirtschaftstermine» an Kalender und Einstellung anpassen
                 MacroNotifications.refresh(settings: data.settings)
             case .background:

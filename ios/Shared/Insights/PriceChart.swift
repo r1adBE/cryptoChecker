@@ -274,7 +274,7 @@ enum PriceChartRenderer {
     @discardableResult
     static func render(_ ctx: inout GraphicsContext, size: CGSize, candles: [MarketCandle], type: PriceChartType,
                        range: PriceChartRange, style: PriceChartStyle, currentPrice: Double?,
-                       px: CGFloat) -> PriceChartLayout? {
+                       px: CGFloat, timeZone: TimeZone = .current) -> PriceChartLayout? {
         let data = WidgetChartGeometry.clean(candles)
         guard data.count >= 2, size.width > 0, size.height > 0,
               let levels = WidgetChartGeometry.levels(data, type: type),
@@ -327,7 +327,7 @@ enum PriceChartRenderer {
         let interval = range.candleMillis
         var grid = Path()
         for time in WidgetChartGeometry.gridTimes(firstOpen: first.openTime, endMillis: last.openTime + interval,
-                                                  range: range) {
+                                                  range: range, timeZone: timeZone) {
             guard let gx = WidgetChartGeometry.x(time: time, openTimes: openTimes, intervalMillis: interval,
                                                  left: plotLeft, slot: slot),
                   gx > plotLeft + px, gx < plotRight - px else { continue }

@@ -11,7 +11,7 @@
     </plurals>
     <string name="widget_portfolio_range_48h">48h</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
-    <string name="a11y_portfolio_position">%1$s %2$s, पोर्टफोलियो का %3$s</string>
-    <string name="a11y_portfolio_position_change">%1$s %2$s, पोर्टफोलियो का %3$s, आज %4$s</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, पोर्टफ़ोलियो का %3$s</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, पोर्टफ़ोलियो का %3$s, आज %4$s</string>
     <string name="a11y_portfolio_positions">सबसे बड़ी पोज़िशन: %1$s</string>
 </resources>

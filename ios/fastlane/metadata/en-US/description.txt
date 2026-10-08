@@ -11,7 +11,7 @@ WATCHLIST: 41 MARKETS ON 32 EXCHANGES
 • Empty watchlist: the top 5 coins by market cap with live prices, added with one tap
 • Spot and futures from Binance, Coinbase, Kraken, OKX, Bybit and many more – optionally stocks, gold and FX (TradFi), automatically in their own group
 • DEX tokens via DexScreener
-• Swipe left to delete (with Undo), swipe right for a favorite; groups and drag & drop sorting
+• Swipe left to delete (with Undo), swipe right to mark a favorite; groups and drag & drop sorting
 • A note for each coin, e.g. your entry price – right below the price
 • Second line “≈ value” in your currency: 31 currencies (EUR, CHF, USD, GBP, JPY …), default by device region
 • Mini chart in every row; % change over 24 h or since 00:00 in your time zone

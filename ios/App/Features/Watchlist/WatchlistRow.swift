@@ -35,91 +35,9 @@ enum WatchlistTime {
     }
 }
 
-// MARK: Prozent-Pille
-
-/// Prozent-Änderung als Pille in der Kursfarbe (Grün/Rot bzw. Blau/Orange),
-/// immer mit Vorzeichen und Pfeil — die Bedeutung hängt nie allein an der Farbe.
-/// Praktisch keine Änderung: graues «0.00%» statt einer Lücke — wie `ChangePill`.
-struct WatchlistChangePill: View {
-    let change: Double?
-    var large = false
-    @Environment(\.priceColorScheme) private var priceColors
-    @Environment(\.priceHighContrast) private var highContrast
-    @Environment(\.priceColorsInverted) private var inverted
-
-    var body: some View {
-        if let change {
-            let formatted = PriceFormat.changePercent(change)
-            let color = formatted == nil ? AppColors.onSurfaceVariant : priceColors.forChange(change, highContrast: highContrast, inverted: inverted)
-            HStack(spacing: 3) {
-                if formatted != nil {
-                    Image(systemName: change >= 0 ? "arrow.up.right" : "arrow.down.right")
-                        .scaledFont(size: large ? 11 : 9, weight: .bold, relativeTo: .caption)
-                }
-                Text(formatted ?? PriceFormat.zeroPercent())
-                    .font(AppFont.amount(large ? .subheadline : .caption, weight: .semibold))
-            }
-            .foregroundStyle(color)
-            .padding(.horizontal, Spacing.sm)
-            .padding(.vertical, large ? 4 : 2)
-            .background(color.opacity(0.14), in: Capsule())
-            .contentTransition(.numericText())
-            // Pille wächst mit der Textgrösse, aber nicht über AX2 (sonst sprengt sie die Zeile)
-            .dynamicTypeSize(...DynamicTypeSize.accessibility2)
-            // Vorgelesen mit Richtungswort statt «+»/«−»
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(A11y.change(change) ?? "")
-        }
-    }
-}
-
-// MARK: Umrechnung
-
-/// «≈ Umrechnung» der Merkliste — wie `convertedPrice` / `convertRates` in Android.
-enum WatchlistConversion {
-    /// Faktoren höchstens so oft neu holen (ausser die Quote-Währungen ändern sich).
-    static let refreshNanos: UInt64 = 60_000_000_000
-
-    /// Quote-Währungen der Merkliste, die nicht schon die Zielwährung sind (Grossbuchstaben, sortiert).
-    static func quotes(_ watches: [Watch], target: String) -> [String] {
-        Set(watches.map { CurrencyConversion.normalize($0.quoteAsset) })
-            .filter { !$0.isEmpty && !CurrencyConversion.sameCurrency($0, target) }
-            .sorted()
-    }
-
-    /// «≈ 61’234 CHF»: nur mit Zielwährung, bekanntem Faktor, gültigem Kurs und
-    /// wenn die Quote nicht schon die Zielwährung ist.
-    static func text(_ watch: Watch, target: String?, rates: [String: Double]) -> String? {
-        guard let target, !CurrencyConversion.sameCurrency(watch.quoteAsset, target) else { return nil }
-        guard let price = watch.lastPrice, price > 0 else { return nil }
-        guard let value = CurrencyConversion.convert(price, rate: rates[CurrencyConversion.normalize(watch.quoteAsset)])
-        else { return nil }
-        return "≈ " + PriceFormat.priceWithCurrency(value, target)
-    }
-}
-
-// MARK: Platzhalter
-
-/// Grauer, sanft pulsierender Block — wie `SkeletonList.kt`.
-struct WatchlistSkeletonBlock: View {
-    var width: CGFloat
-    var height: CGFloat
-
-    var body: some View {
-        RoundedRectangle(cornerRadius: height / 2, style: .continuous)
-            .fill(AppColors.containerHighest)
-            .frame(width: width, height: height)
-            .phaseAnimator([0.45, 1.0]) { view, phase in
-                view.opacity(phase)
-            } animation: { _ in
-                .easeInOut(duration: 0.9)
-            }
-    }
-}
-
 // MARK: Zeile
 
-/// Kompakte Zeile: Stern (nur Favoriten), Coin, Paar, Börse, Kurs und Prozent-Pille.
+/// Kompakte Zeile: Coin-Logo (Stern bei Favoriten, nur mit Coin-Logos), Paar, Börse, Kurs und Prozent-Pille.
 /// Bestände zeigt die Merkliste nicht mehr — dafür gibt es den Portfolio-Tab.
 /// Tippen öffnet die Aktionen sofort (kein Doppeltippen),
 /// lange drücken und ziehen sortiert (macht die Liste).
@@ -193,21 +111,10 @@ struct WatchlistRow: View {
 
     var body: some View {
         HStack(spacing: Spacing.sm) {
-            // Stern nur bei Favoriten — kein leerer Umriss, der dem Kurs Breite nimmt
-            if !sorting && watch.favorite {
-                Button(action: onToggleFavorite) {
-                    Image(systemName: "star.fill")
-                        .scaledFont(size: 17, weight: .semibold, relativeTo: .body)
-                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                        .foregroundStyle(accent.primary)
-                        .frame(width: 30, height: 40)
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L("favorite_remove"))
-            }
-
-            CoinBadge(symbol: watch.baseAsset, size: 38)
+            // Coin-Logo (bzw. Initialen), Favorit als kleiner Stern daran. Logos aus: keine Plakette,
+            // Favoriten zeigt dann nur der Akzent-Rand — kein eigener Stern, der dem Paar Breite nimmt.
+            CoinBadge(symbol: watch.baseAsset, size: 38, logo: CoinLogos.allowed(forMarket: watch.marketKey),
+                      favorite: watch.favorite && !sorting)
 
             // Mini-Chart zwischen Paar und Kurs — nur, wenn das Paar genug Platz behält;
             // im Sortiermodus ausgeblendet.
@@ -224,7 +131,7 @@ struct WatchlistRow: View {
                 // Veraltete Kurse abblassen
                 .opacity(stale ? 0.5 : 1)
         }
-        .padding(.leading, sorting ? Spacing.md : (watch.favorite ? Spacing.xs : Spacing.md))
+        .padding(.leading, Spacing.md)
         .padding(.trailing, Spacing.md)
         .padding(.vertical, Spacing.md)
         .background(cardBackground)
@@ -237,7 +144,7 @@ struct WatchlistRow: View {
         .offset(y: entryHidden && !reduceMotion ? 12 : 0)
         .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         // Nur einfacher Tipp: Ein Doppeltippen liesse jeden Tipp ~0,3 s warten.
-        // Favorit über Stern, Wischen nach rechts, Aktionen-Menü oder VoiceOver-Aktion.
+        // Favorit über Wischen nach rechts, Aktionsblatt oder VoiceOver-Aktion.
         .onTapGesture {
             guard !sorting else { return }
             onTap()
@@ -467,8 +374,12 @@ struct WatchlistRow: View {
     private var priceColumn: some View {
         VStack(alignment: .trailing, spacing: 4) {
             if watch.lastPrice == nil && loading {
-                WatchlistSkeletonBlock(width: 80, height: 14)
-                WatchlistSkeletonBlock(width: 48, height: 12)
+                SkeletonPulse {
+                    VStack(alignment: .trailing, spacing: 4) {
+                        SkeletonBlock(width: 80, height: 14)
+                        SkeletonBlock(width: 48, height: 12)
+                    }
+                }
             } else {
                 HStack(spacing: Spacing.xs) {
                     if loading {

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
@@ -13,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,6 +33,7 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.notification.AlarmTexts
+import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 
 /** Kopf «Erweitert» zum Auf-/Zuklappen (Screenreader: «aufgeklappt/zugeklappt»). */
@@ -252,7 +251,7 @@ internal fun AdvancedOptions(
     // «Nahe am Hoch/Tief»: Zeitraum 30 Tage / 90 Tage / 1 Jahr, dazu «Nur neue Hochs/Tiefs»
     if (draft.condition.isNearExtreme) {
         SwitchRow(
-            label = stringResource(R.string.alarm_near_new_only),
+            title = stringResource(R.string.alarm_near_new_only),
             checked = draft.newExtremeOnly,
             onCheckedChange = { onDraftChange(draft.copy(newExtremeOnly = it)) }
         )
@@ -283,33 +282,18 @@ internal fun AdvancedOptions(
     }
 
     SwitchRow(
-        label = stringResource(R.string.alarm_option_sound),
+        title = stringResource(R.string.alarm_option_sound),
         checked = draft.sound,
         onCheckedChange = { onDraftChange(draft.copy(sound = it)) }
     )
     SwitchRow(
-        label = stringResource(R.string.alarm_option_vibrate),
+        title = stringResource(R.string.alarm_option_vibrate),
         checked = draft.vibrate,
         onCheckedChange = { onDraftChange(draft.copy(vibrate = it)) }
     )
     SwitchRow(
-        label = stringResource(R.string.alarm_option_speak),
+        title = stringResource(R.string.alarm_option_speak),
         checked = draft.speak,
         onCheckedChange = { onDraftChange(draft.copy(speak = it)) }
     )
-}
-
-@Composable
-private fun SwitchRow(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
-    // Ganze Zeile antippbar
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
-            .padding(vertical = Spacing.sm),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(label, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
-        Switch(checked = checked, onCheckedChange = null)
-    }
 }

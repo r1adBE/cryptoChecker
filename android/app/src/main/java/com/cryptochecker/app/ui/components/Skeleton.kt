@@ -87,7 +87,11 @@ fun SkeletonList(modifier: Modifier = Modifier, rows: Int = 3) {
  * Ebene ([graphicsLayer]) und setzt den Inhalt nicht jedes Bild neu zusammen.
  */
 @Composable
-fun SkeletonPulse(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+fun SkeletonPulse(
+    modifier: Modifier = Modifier,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    content: @Composable ColumnScope.() -> Unit,
+) {
     // Wert ändert sich zur Laufzeit nicht (einmal gelesen) — der bedingte Aufruf ist stabil
     val pulse = if (rememberReduceMotion()) null else rememberInfiniteTransition(label = "skeleton").animateFloat(
         initialValue = 0.45f,
@@ -95,7 +99,11 @@ fun SkeletonPulse(modifier: Modifier = Modifier, content: @Composable ColumnScop
         animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
         label = "pulse"
     )
-    Column(modifier = modifier.graphicsLayer { alpha = pulse?.value ?: 0.7f }, content = content)
+    Column(
+        modifier = modifier.graphicsLayer { alpha = pulse?.value ?: 0.7f },
+        horizontalAlignment = horizontalAlignment,
+        content = content,
+    )
 }
 
 /**

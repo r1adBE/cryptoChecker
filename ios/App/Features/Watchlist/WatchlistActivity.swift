@@ -148,7 +148,7 @@ struct WatchlistActivityCard: View {
             onOpen(watch)
         } label: {
             HStack(spacing: Spacing.xs) {
-                CoinBadge(symbol: watch.baseAsset, size: 18)
+                CoinBadge(symbol: watch.baseAsset, size: 18, logo: CoinLogos.allowed(forMarket: watch.marketKey))
                 Text(watch.baseAsset)
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(AppColors.onSurface)

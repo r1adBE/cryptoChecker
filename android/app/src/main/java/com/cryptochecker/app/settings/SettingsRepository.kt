@@ -66,6 +66,9 @@ class SettingsRepository @Inject constructor(
         val priceColorScheme = stringPreferencesKey("price_color_scheme")
         val watchlistSparkline = booleanPreferencesKey("watchlist_sparkline")
         val watchlistActivityCard = booleanPreferencesKey("watchlist_activity_card")
+        val coinLogos = booleanPreferencesKey("coin_logos")
+        val widgetCoinLogos = booleanPreferencesKey("widget_coin_logos")
+        val portfolioCoinLogos = booleanPreferencesKey("portfolio_coin_logos")
         val changeBasis = stringPreferencesKey("change_basis")
         val highContrast = booleanPreferencesKey("high_contrast")
         val priceColorsInverted = booleanPreferencesKey("price_colors_inverted")
@@ -130,6 +133,9 @@ class SettingsRepository @Inject constructor(
             priceColorScheme = PriceColorScheme.fromName(prefs[Keys.priceColorScheme]),
             watchlistSparkline = prefs[Keys.watchlistSparkline] ?: defaults.watchlistSparkline,
             watchlistActivityCard = prefs[Keys.watchlistActivityCard] ?: defaults.watchlistActivityCard,
+            coinLogos = prefs[Keys.coinLogos] ?: defaults.coinLogos,
+            widgetCoinLogos = prefs[Keys.widgetCoinLogos] ?: defaults.widgetCoinLogos,
+            portfolioCoinLogos = prefs[Keys.portfolioCoinLogos] ?: defaults.portfolioCoinLogos,
             changeBasis = ChangeBasis.fromName(prefs[Keys.changeBasis]),
             highContrast = prefs[Keys.highContrast] ?: defaults.highContrast,
             // Nie gesetzt: Standard nach Region des Geräts
@@ -282,6 +288,15 @@ class SettingsRepository @Inject constructor(
     suspend fun setWatchlistSparkline(show: Boolean) = edit { it[Keys.watchlistSparkline] = show }
 
     suspend fun setWatchlistActivityCard(show: Boolean) = edit { it[Keys.watchlistActivityCard] = show }
+
+    /** Coin-Logos in der App. */
+    suspend fun setCoinLogos(show: Boolean) = edit { it[Keys.coinLogos] = show }
+
+    /** Coin-Logos in den Widgets. */
+    suspend fun setWidgetCoinLogos(show: Boolean) = edit { it[Keys.widgetCoinLogos] = show }
+
+    /** Coin-Logos im Portfolio. */
+    suspend fun setPortfolioCoinLogos(show: Boolean) = edit { it[Keys.portfolioCoinLogos] = show }
 
     /** «Basis der %-Änderung». */
     suspend fun setChangeBasis(basis: ChangeBasis) = edit { it[Keys.changeBasis] = basis.name }

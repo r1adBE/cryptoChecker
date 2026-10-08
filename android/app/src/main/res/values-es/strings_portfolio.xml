@@ -57,6 +57,6 @@
     <string name="portfolio_empty_title">Aún no hay transacciones</string>
     <string name="portfolio_empty_text">Registra tus compras y ventas. El valor y las ganancias/pérdidas se calculan con precios actuales en USDT.</string>
     <string name="portfolio_empty_action">Registrar la primera compra</string>
-    <string name="portfolio_disclaimer">Guardado solo en este dispositivo. No es asesoramiento financiero.</string>
+    <string name="portfolio_disclaimer">Guardado solo en este dispositivo. No es asesoramiento de inversión.</string>
     <string name="portfolio_add_from_watch">Añadir a la cartera</string>
 </resources>

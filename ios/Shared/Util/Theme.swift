@@ -202,24 +202,68 @@ extension UIColor {
     }
 }
 
-/// Neutrale Flächen — wie die grauen Flächen der Android-Farbschemata.
+/// Hex-Werte der neutralen Flächen, Texte und Linien — dieselben Werte wie die grauen Rollen in
+/// `AppColorSchemes.kt` (Android). Einzige Quelle: `AppColors` (App) und `WidgetPalette`
+/// (Widgets) lesen daraus, keine zweite Tabelle.
+enum ColorTokens {
+    /// Ein Wert für Hell und einer für Dunkel.
+    struct Pair: Sendable {
+        let light: UInt32
+        let dark: UInt32
+        func hex(dark isDark: Bool) -> UInt32 { isDark ? dark : light }
+    }
+
+    static let background = Pair(light: 0xF9F9F9, dark: 0x131313)
+    static let surfaceContainerLow = Pair(light: 0xF3F3F3, dark: 0x1B1B1B)
+    static let surfaceContainer = Pair(light: 0xEEEEEE, dark: 0x1F1F1F)
+    static let surfaceContainerHigh = Pair(light: 0xE8E8E8, dark: 0x2A2A2A)
+    static let surfaceContainerHighest = Pair(light: 0xE2E2E2, dark: 0x353535)
+    static let onSurface = Pair(light: 0x1B1B1B, dark: 0xE2E2E2)
+    static let onSurfaceVariant = Pair(light: 0x474747, dark: 0xC6C6C6)
+    static let outline = Pair(light: 0x777777, dark: 0x919191)
+    static let outlineVariant = Pair(light: 0xC6C6C6, dark: 0x474747)
+    static let error = Pair(light: 0xBA1A1A, dark: 0xFFB4AB)
+    /// Tiefere Fläche im Widget (unter der Grundfläche `surfaceContainer`).
+    static let widgetSurfaceDeep = Pair(light: 0xE4E4E4, dark: 0x151515)
+
+    /// Marktskala «Extrem Bear» … «Extrem Bull» — wie `MarketScaleColors` in Android.
+    static let scaleExtremeBear: UInt32 = 0xB42318
+    static let scaleBear: UInt32 = 0xE5484D
+    static let scaleNeutral: UInt32 = 0x7A7A7A
+    static let scaleBull: UInt32 = 0x2FA36B
+    static let scaleExtremeBull: UInt32 = 0x0B7A45
+    /// Dunkler Text auf hellen Skalenstufen (Android `OnLight`).
+    static let onLightStep: UInt32 = 0x111111
+}
+
+extension Color {
+    /// Hell/Dunkel aus einem Token-Paar.
+    static func dynamic(_ pair: ColorTokens.Pair) -> Color { dynamic(light: pair.light, dark: pair.dark) }
+}
+
+extension UIColor {
+    /// Wie `contrastDynamic(light:dark:…)`, aus Token-Paaren (Normal und hoher Kontrast).
+    static func contrastDynamic(_ pair: ColorTokens.Pair, high: ColorTokens.Pair, highAlpha: CGFloat = 1) -> UIColor {
+        contrastDynamic(light: pair.light, dark: pair.dark, highLight: high.light, highDark: high.dark, highAlpha: highAlpha)
+    }
+}
+
+/// Neutrale Flächen — wie die grauen Flächen der Android-Farbschemata (Werte: `ColorTokens`).
 /// Bei hohem Kontrast werden Nebentexte und Linien zu `onSurface` (wie Android:
 /// onSurfaceVariant = outline = onSurface, outlineVariant = onSurface · 0.6).
 enum AppColors {
-    static let background = Color.dynamic(light: 0xF9F9F9, dark: 0x131313)
-    static let surface = Color.dynamic(light: 0xF9F9F9, dark: 0x131313)
-    static let containerLow = Color.dynamic(light: 0xF3F3F3, dark: 0x1B1B1B)
-    static let container = Color.dynamic(light: 0xEEEEEE, dark: 0x1F1F1F)
-    static let containerHigh = Color.dynamic(light: 0xE8E8E8, dark: 0x2A2A2A)
-    static let containerHighest = Color.dynamic(light: 0xE2E2E2, dark: 0x353535)
-    static let onSurface = Color.dynamic(light: 0x1B1B1B, dark: 0xE2E2E2)
-    static let onSurfaceVariant = Color(uiColor: .contrastDynamic(light: 0x474747, dark: 0xC6C6C6,
-                                                                 highLight: 0x1B1B1B, highDark: 0xE2E2E2))
-    static let outline = Color(uiColor: .contrastDynamic(light: 0x777777, dark: 0x919191,
-                                                        highLight: 0x1B1B1B, highDark: 0xE2E2E2))
-    static let outlineVariant = Color(uiColor: .contrastDynamic(light: 0xC6C6C6, dark: 0x474747,
-                                                               highLight: 0x1B1B1B, highDark: 0xE2E2E2, highAlpha: 0.6))
-    static let error = Color.dynamic(light: 0xBA1A1A, dark: 0xFFB4AB)
+    static let background = Color.dynamic(ColorTokens.background)
+    static let surface = Color.dynamic(ColorTokens.background)
+    static let containerLow = Color.dynamic(ColorTokens.surfaceContainerLow)
+    static let container = Color.dynamic(ColorTokens.surfaceContainer)
+    static let containerHigh = Color.dynamic(ColorTokens.surfaceContainerHigh)
+    static let containerHighest = Color.dynamic(ColorTokens.surfaceContainerHighest)
+    static let onSurface = Color.dynamic(ColorTokens.onSurface)
+    static let onSurfaceVariant = Color(uiColor: .contrastDynamic(ColorTokens.onSurfaceVariant, high: ColorTokens.onSurface))
+    static let outline = Color(uiColor: .contrastDynamic(ColorTokens.outline, high: ColorTokens.onSurface))
+    static let outlineVariant = Color(uiColor: .contrastDynamic(ColorTokens.outlineVariant, high: ColorTokens.onSurface,
+                                                               highAlpha: 0.6))
+    static let error = Color.dynamic(ColorTokens.error)
 
     // Semantische Farben (wie Android `AppColors`): Akzent = `AccentColor.primary`,
     // steigend/fallend immer aus `PriceColorScheme`/`PriceColors`, «in Ordnung» = `PriceColors.ok`.
@@ -243,16 +287,16 @@ enum AppColors {
 /// wie `MarketScaleColors` in Android. Feste Farben: Stufen, keine Kursrichtung.
 enum MarketScaleColors {
     static let steps: [Color] = [
-        Color(hex: 0xB42318), // Extrem Bear
-        Color(hex: 0xE5484D), // Bear
-        Color(hex: 0x7A7A7A), // Neutral
-        Color(hex: 0x2FA36B), // Bull
-        Color(hex: 0x0B7A45), // Extrem Bull
+        Color(hex: ColorTokens.scaleExtremeBear),
+        Color(hex: ColorTokens.scaleBear),
+        Color(hex: ColorTokens.scaleNeutral),
+        Color(hex: ColorTokens.scaleBull),
+        Color(hex: ColorTokens.scaleExtremeBull),
     ]
 
     /// Text auf einer Stufe: weiss nur auf den dunklen Randstufen, sonst dunkel (Kontrast).
     static func onStep(_ index: Int) -> Color {
-        index == 0 || index == steps.count - 1 ? AppColors.onVivid : Color(hex: 0x111111)
+        index == 0 || index == steps.count - 1 ? AppColors.onVivid : Color(hex: ColorTokens.onLightStep)
     }
 }
 

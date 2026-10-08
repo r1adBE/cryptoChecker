@@ -47,9 +47,9 @@
         <item quantity="other">%2$d מתוך %1$d צמדים</item>
     </plurals>
     <plurals name="refresh_sheet_bulk">
-        <item quantity="one">בקשה מרוכזת %1$s · %2$d שער</item>
-        <item quantity="two">בקשה מרוכזת %1$s · %2$d שערים</item>
-        <item quantity="other">בקשה מרוכזת %1$s · %2$d שערים</item>
+        <item quantity="one">בקשה מרוכזת %1$s · %2$d מחיר</item>
+        <item quantity="two">בקשה מרוכזת %1$s · %2$d מחירים</item>
+        <item quantity="other">בקשה מרוכזת %1$s · %2$d מחירים</item>
     </plurals>
     <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
     <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>

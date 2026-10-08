@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Экспорт на отчётную дату</string>
     <string name="portfolio_export_date">Отчётная дата</string>
     <string name="portfolio_export_currency">Валюта: %1$s</string>
-    <string name="portfolio_export_hint">Владение на конец выбранного дня, оценённое по цене закрытия дня (UTC) в USDT и пересчитанное по референсному курсу ЕЦБ на этот день. Валюту можно изменить в «Пересчитать в».</string>
+    <string name="portfolio_export_hint">Активы на конец выбранного дня, оценённые по цене закрытия дня (UTC) в USDT и пересчитанные по референсному курсу ЕЦБ на этот день. Валюту можно изменить в «Пересчитать в».</string>
     <string name="portfolio_export_button">Экспорт CSV</string>
     <string name="portfolio_export_running">Загрузка исторических цен…</string>
     <string name="portfolio_export_done">Экспорт сохранён</string>

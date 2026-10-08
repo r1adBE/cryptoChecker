@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Логотипы монет</string>
+    <string name="settings_coin_logos_app">В приложении</string>
+    <string name="settings_coin_logos_app_hint">Список, карточка пары и карточки рынка</string>
+    <string name="settings_coin_logos_portfolio">В портфеле</string>
+    <string name="settings_coin_logos_portfolio_hint">Позиции, сведения о монетах и обзор</string>
+    <string name="settings_coin_logos_widgets">В виджетах</string>
+    <string name="settings_coin_logos_widgets_hint">Виджеты списка и одной монеты</string>
+    <string name="settings_coin_logos_footer">Логотипы берутся из CoinGecko, а то, чего нет в CoinGecko (например, золото, серебро, акции), — из Binance. Приложение загружает все логотипы сразу и хранит их на этом устройстве, поэтому ни один из сервисов не знает, какие монеты вы отслеживаете. У монет без логотипа показываются инициалы. У избранного на логотипе появляется маленькая звёздочка. Где переключатель выключен, не показываются ни логотипы, ни инициалы; если всё выключено, ничего не загружается.</string>
+    <string name="settings_coin_logos_value_app">Приложение</string>
+</resources>

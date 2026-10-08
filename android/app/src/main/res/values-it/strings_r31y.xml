@@ -11,9 +11,9 @@
     <string name="why_fn_volume_lower">più basso del solito</string>
     <string name="why_fn_volume_usual">come al solito</string>
     <string name="why_fn_market_pulls">BTC trascina il mercato</string>
-    <string name="why_fn_market_lags">Il mercato si muove, questa coin appena</string>
-    <string name="why_fn_market_alone">Mercato calmo – questa coin si muove da sola</string>
-    <string name="why_fn_market_against">La coin va contro il mercato</string>
+    <string name="why_fn_market_lags">Il mercato si muove, questa moneta appena</string>
+    <string name="why_fn_market_alone">Mercato calmo – questa moneta si muove da sola</string>
+    <string name="why_fn_market_against">La moneta va contro il mercato</string>
     <string name="why_fn_market_calm">Mercato calmo</string>
     <string name="why_fn_leader_moves">Bitcoin detta la direzione</string>
     <string name="why_fn_leader_calm">Bitcoin calmo</string>

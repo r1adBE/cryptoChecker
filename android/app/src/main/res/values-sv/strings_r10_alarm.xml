@@ -10,7 +10,7 @@
         <item quantity="other">%1$d dagar</item>
     </plurals>
     <string name="alarm_near_window_year">1 år</string>
-    <string name="alarm_near_hint">Meddelar också vid en ny topp eller botten. Baserat på dagliga ljus, uppdateras var 6:e timme.</string>
+    <string name="alarm_near_hint">Meddelar också vid en ny topp eller botten. Baserat på dagliga candlesticks, uppdateras var 6:e timme.</string>
     <string name="alarm_near_extreme_high_30">30-dagarstopp</string>
     <string name="alarm_near_extreme_high_90">90-dagarstopp</string>
     <string name="alarm_near_extreme_high_365">årstopp</string>

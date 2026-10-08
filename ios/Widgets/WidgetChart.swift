@@ -42,6 +42,8 @@ struct WidgetPriceChartView: View {
     /// VoiceOver-Satz (Zeitraum, Start, Ende, Veränderung, Hoch, Tief); nil = Zierde.
     var accessibilityText: String? = nil
     @Environment(\.displayScale) private var displayScale
+    /// %-Basis: Zeit-Linien in der Chart-Zeitzone (`ChangeBasisMath.chartTimeZone`).
+    @Environment(\.changeView) private var changeView
 
     var body: some View {
         let px = 1 / Swift.max(displayScale, 1)
@@ -50,9 +52,10 @@ struct WidgetPriceChartView: View {
                                     highContrast: palette.highContrast, lineWidth: lineWidth)
         let chartType = type.chartType
         let chartRange = range.chartRange
+        let zone = ChangeBasisMath.chartTimeZone(changeView.basis)
         Canvas { context, size in
             _ = PriceChartRenderer.render(&context, size: size, candles: candles, type: chartType, range: chartRange,
-                                          style: style, currentPrice: currentPrice, px: px)
+                                          style: style, currentPrice: currentPrice, px: px, timeZone: zone)
         }
         // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)
         .environment(\.layoutDirection, .leftToRight)

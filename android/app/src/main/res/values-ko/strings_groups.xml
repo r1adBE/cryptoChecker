@@ -3,11 +3,11 @@
     <string name="group_edit_title">그룹 편집</string>
     <string name="group_rename">이름 변경</string>
     <string name="group_delete">그룹 삭제</string>
-    <string name="group_delete_confirm">페어는 관심 목록에 그대로 남습니다.</string>
+    <string name="group_delete_confirm">거래쌍은 관심 목록에 그대로 남습니다.</string>
     <string name="group_done">완료</string>
     <string name="group_add">새 그룹</string>
     <string name="group_in_other">%1$s에 있음</string>
     <string name="group_target">그룹</string>
-    <string name="group_search_hint">페어 검색</string>
+    <string name="group_search_hint">거래쌍 검색</string>
     <string name="group_next">다음</string>
 </resources>

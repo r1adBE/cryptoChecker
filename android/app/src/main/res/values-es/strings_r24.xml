@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Variación en %1$s</string>
+    <string name="settings_change_basis">Variación en %1$s y zona horaria del gráfico</string>
     <string name="change_basis_rolling">Últimas 24 h</string>
     <string name="change_basis_utc_zone">Desde las 00:00 %1$s</string>
     <string name="change_basis_local">Desde las 00:00 hora local</string>
-    <string name="settings_change_basis_hint_1">La zona horaria elegida fija desde cuándo cuenta la variación porcentual: en la lista de seguimiento, la línea de pulso, la hoja del par y los widgets.</string>
+    <string name="settings_change_basis_hint_1">La zona horaria elegida fija desde cuándo cuenta la variación porcentual (lista de seguimiento, línea de pulso, hoja del par, widgets) y las horas que muestran los gráficos.</string>
     <string name="settings_change_basis_hint_2">«%1$s» compara con el precio de hace exactamente 24 horas. «00:00» compara con el precio de apertura a medianoche en esa zona horaria.</string>
     <string name="settings_change_basis_hint_3">Las alarmas no se ven afectadas.</string>
     <string name="change_basis_device">%1$s, 00:00 (zona horaria del dispositivo)</string>

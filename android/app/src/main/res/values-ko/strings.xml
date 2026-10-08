@@ -11,7 +11,7 @@
 
     <string name="market_screen_sync">동기화</string>
     <string name="market_screen_base">기준 통화</string>
-    <string name="market_screen_quote">호가 통화</string>
+    <string name="market_screen_quote">결제 통화</string>
     <string name="market_screen_market">거래소</string>
     <string name="market_screen_contract_type">계약 유형</string>
     <string name="market_screen_spot">현물</string>
@@ -208,22 +208,22 @@
     <string name="battery_open_settings">배터리 설정 열기</string>
     <string name="battery_steps">앱 정보에서 배터리(또는 앱 배터리 사용량)를 누르고 제한 없음을 선택하세요.</string>
     <string name="explorer_select_placeholder">선택하세요</string>
-    <string name="explorer_bulk_title">여러 쌍 한 번에</string>
-    <string name="watchlist_sort_hint">쌍을 길게 눌러 끌거나 핸들을 사용하세요. 즐겨찾기는 위에 유지됩니다.</string>
+    <string name="explorer_bulk_title">여러 거래쌍 한 번에</string>
+    <string name="watchlist_sort_hint">거래쌍을 길게 눌러 끌거나 핸들을 사용하세요. 즐겨찾기는 위에 유지됩니다.</string>
     <string name="sort_drag_handle">끌어서 이동</string>
-    <string name="explorer_step_pair">쌍 선택</string>
+    <string name="explorer_step_pair">거래쌍 선택</string>
     <string name="theme_system">시스템</string>
     <string name="settings_section_developer">개발자</string>
     <string name="settings_http_log">HTTP 로그 표시</string>
-    <string name="settings_http_log_hint">‘쌍 추가’ 화면 하단에 거래소로 보낸 요청을 표시합니다 – 문제 해결용.</string>
+    <string name="settings_http_log_hint">‘거래쌍 추가’ 화면 하단에 거래소로 보낸 요청을 표시합니다 – 문제 해결용.</string>
     <string name="language_search">언어 검색</string>
-    <string name="alarm_delete_title">알림을 삭제할까요?</string>
-    <string name="alarm_delete_confirm">이 알림이 삭제됩니다.</string>
-    <string name="alarms_overview_title">모든 알림</string>
+    <string name="alarm_delete_title">경보를 삭제할까요?</string>
+    <string name="alarm_delete_confirm">이 경보가 삭제됩니다.</string>
+    <string name="alarms_overview_title">모든 경보</string>
     <plurals name="alarms_overview_active">
         <item quantity="other">활성 %1$d개</item>
     </plurals>
-    <string name="alarms_overview_empty">아직 알림이 없습니다. 쌍을 열고 알림에서 추가하세요.</string>
+    <string name="alarms_overview_empty">아직 경보가 없습니다. 거래쌍을 열고 경보에서 추가하세요.</string>
     <string name="action_more">옵션 더보기</string>
     <string name="watchlist_last_run">마지막 실행 %1$s</string>
     <string name="watchlist_pull_to_refresh">아래로 당겨 새로고침</string>
@@ -232,15 +232,15 @@
     <string name="action_view">보기</string>
     <string name="explorer_loading_pairs">거래쌍 불러오는 중…</string>
     <plurals name="explorer_pairs_status">
-        <item quantity="other">%1$d개 쌍 · 업데이트 %2$s</item>
+        <item quantity="other">거래쌍 %1$d개 · 업데이트 %2$s</item>
     </plurals>
     <plurals name="explorer_bulk_confirm_title">
-        <item quantity="other">%1$d개 쌍을 추가할까요?</item>
+        <item quantity="other">거래쌍 %1$d개를 추가할까요?</item>
     </plurals>
     <plurals name="explorer_bulk_confirm_text">
-        <item quantity="other">%3$s의 %2$s 쌍 %1$d개가 모두 목록에 추가됩니다. 이미 있는 쌍은 건너뜁니다.</item>
+        <item quantity="other">%3$s의 %2$s 거래쌍 %1$d개가 모두 목록에 추가됩니다. 이미 있는 거래쌍은 건너뜁니다.</item>
     </plurals>
-    <string name="explorer_bulk_tap_hint">쌍을 탭하면 위에서 선택됩니다.</string>
+    <string name="explorer_bulk_tap_hint">거래쌍을 탭하면 위에서 선택됩니다.</string>
     <string name="loading_hint">불러오는 중…</string>
     <string name="explorer_select_market_hint">거래소를 선택하면 거래쌍이 자동으로 로드됩니다.</string>
     <string name="explorer_precise_title">정확히 선택</string>
@@ -272,10 +272,10 @@
     <plurals name="insights_halving_countdown">
         <item quantity="other">다음 반감기까지 약 %1$d일 (%2$s)</item>
     </plurals>
-    <string name="insights_cycle_progress">현재 주기의 %1$d %%</string>
-    <string name="insights_cycle_chart">반감기 이후 주기</string>
+    <string name="insights_cycle_progress">현재 사이클의 %1$d %%</string>
+    <string name="insights_cycle_chart">반감기 이후 사이클</string>
     <string name="insights_chart_axis">반감기 이후 연수</string>
-    <string name="insights_chart_hint">반감기 당일 가격 대비 배수 (로그 스케일). 과거 주기는 패턴일 뿐 예측이 아닙니다.</string>
+    <string name="insights_chart_hint">반감기 당일 가격 대비 배수 (로그 스케일). 과거 사이클은 패턴일 뿐 예측이 아닙니다.</string>
     <string name="insights_source_history">출처: Coin Metrics (CC BY-NC 4.0), Binance</string>
     <string name="insights_fng_title">공포·탐욕 지수</string>
     <string name="fng_extreme_fear">극도의 공포</string>
@@ -298,9 +298,9 @@
     <string name="coin_choose">코인</string>
     <string name="coin_no_data">이 코인은 Binance나 Bybit에 가격 데이터가 없습니다.</string>
     <plurals name="coin_short_history">
-        <item quantity="other">가격 기록이 %1$d일뿐이라 일부 지표가 없습니다.</item>
+        <item quantity="other">가격 기록이 %1$d일분밖에 없어 일부 지표가 없습니다.</item>
     </plurals>
-    <string name="coin_price_only">가격 기반만 – 온체인 데이터(MVRV, Puell, 해시레이트)는 비트코인만 무료로 제공됩니다.</string>
+    <string name="coin_price_only">가격만으로 계산 – 온체인 데이터(MVRV, Puell, 해시레이트)는 비트코인만 무료로 제공됩니다.</string>
     <string name="ind_rsi_weekly">RSI (주간)</string>
     <string name="ind_rsi_daily">RSI (일간)</string>
     <string name="ind_pi_cycle">Pi 사이클 (111/350일)</string>
@@ -311,8 +311,8 @@
     <string name="channel_market_description">비트코인 시장 국면이 바뀌면 알립니다</string>
     <string name="notification_zone_title">비트코인: %1$s</string>
     <string name="notification_zone_text">시장 국면이 %1$s에서 %2$s(으)로 바뀌었습니다.</string>
-    <string name="settings_zone_alerts">국면 변경 시 알림</string>
-    <string name="settings_zone_alerts_hint">하루 두 번 확인하고 비트코인 구간이 바뀌면 알립니다 (예: 중립 → Bull).</string>
+    <string name="settings_zone_alerts">시장 국면 변경 시 알림</string>
+    <string name="settings_zone_alerts_hint">하루 두 번 확인하고 비트코인 구간이 바뀌면 알립니다 (예: Neutral → Bull).</string>
     <string name="alarm_condition_move_percent">변동폭</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d시간 이내</item>
@@ -323,8 +323,8 @@
     <string name="settings_fng_above">Fear &amp; Greed: 이상일 때 알림</string>
     <string name="option_off">끔</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">지수가 %1$d 아래로 떨어졌습니다 – 시장이 두려워합니다.</string>
-    <string name="notification_fng_above">지수가 %1$d 위로 올랐습니다 – 시장이 탐욕적입니다.</string>
+    <string name="notification_fng_below">지수가 %1$d 아래로 떨어졌습니다 – 시장에 공포 심리가 큽니다.</string>
+    <string name="notification_fng_above">지수가 %1$d 위로 올랐습니다 – 시장에 탐욕 심리가 큽니다.</string>
     <string name="futures_title">선물 데이터</string>
     <string name="futures_funding">펀딩비</string>
     <string name="futures_next_funding">다음까지 %1$d시간 %2$d분</string>
@@ -332,23 +332,23 @@
     <string name="futures_source">출처: %1$s</string>
     <string name="single_widget_label">Crypto Checker – 코인 하나</string>
     <string name="single_widget_description">코인 하나를 크게 표시: 시세, 변동, 24시간 차트.</string>
-    <string name="single_widget_choose">쌍 선택</string>
+    <string name="single_widget_choose">거래쌍 선택</string>
     <string name="single_widget_title">단일 위젯 설정</string>
-    <string name="shortcut_add">쌍 추가</string>
-    <string name="shortcut_alarms">모든 알림</string>
+    <string name="shortcut_add">거래쌍 추가</string>
+    <string name="shortcut_alarms">모든 경보</string>
     <string name="shortcut_cycle">시장</string>
     <string name="backup_title">백업 및 복원</string>
-    <string name="backup_hint">메모와 그룹을 포함한 목록, 알림, 즐겨찾기, 포트폴리오, 설정을 직접 보관하는 파일로 저장합니다 (예: 새 휴대폰용).</string>
+    <string name="backup_hint">메모와 그룹을 포함한 목록, 경보, 즐겨찾기, 포트폴리오, 설정을 직접 보관하는 파일로 저장합니다 (예: 새 휴대폰용).</string>
     <string name="backup_export">내보내기</string>
     <string name="backup_import">가져오기</string>
-    <string name="backup_restore_confirm">가져오면 목록(메모와 그룹 포함), 알림, 즐겨찾기, 포트폴리오, 설정이 백업 내용으로 바뀝니다.</string>
+    <string name="backup_restore_confirm">가져오면 목록(메모와 그룹 포함), 경보, 즐겨찾기, 포트폴리오, 설정이 백업 내용으로 바뀝니다.</string>
     <string name="backup_exported">백업을 저장했습니다.</string>
     <string name="backup_failed">실패했습니다. Crypto Checker 백업이 맞나요?</string>
     <string name="backup_restored">복원됨: %1$s, %2$s.</string>
     <plurals name="backup_restored_pairs">
-        <item quantity="other">쌍 %1$d개</item>
+        <item quantity="other">거래쌍 %1$d개</item>
     </plurals>
     <plurals name="backup_restored_alarms">
-        <item quantity="other">알림 %1$d개</item>
+        <item quantity="other">경보 %1$d개</item>
     </plurals>
 </resources>

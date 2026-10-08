@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
@@ -186,8 +187,8 @@ private fun PositionCard(p: CoinPosition) {
     ) {
         Column(modifier = Modifier.padding(Spacing.lg)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                CoinBadge(p.coin, size = 44.dp)
-                Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
+                CoinBadge(p.coin, size = 44.dp, portfolio = true, modifier = Modifier.padding(end = 12.dp))
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                         stringResource(R.string.portfolio_value),
                         style = MaterialTheme.typography.labelLarge,

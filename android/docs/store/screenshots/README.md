@@ -101,7 +101,7 @@ Das Skript erzeugt die Zielgrössen selbst; die rohen Screenshots sollten mindes
 | Google Play – Tablet 7" | `play-tablet7` | 1200 × 1920 | optional |
 | Google Play – Tablet 10" | `play-tablet10` | 1600 × 2560 | optional |
 | App Store – iPhone 6,9" | `ios-iphone69` | 1320 × 2868 | ja |
-| App Store – iPad 13" | `ios-ipad13` | 2064 × 2752 | nur wenn iPad aktiviert bleibt |
+| App Store – iPad 13" | `ios-ipad13` | 2064 × 2752 | nein (App vorerst nur iPhone) |
 
 Rohe Aufnahmen dafür: Android-Telefon (z. B. Pixel-Emulator 1080 × 2400), iPhone 16 Pro Max / 17 Pro Max Simulator (1320 × 2868), iPad Pro 13" Simulator (2064 × 2752). Die fertigen PNGs haben keinen Alpha-Kanal (App Store lehnt Transparenz ab).
 

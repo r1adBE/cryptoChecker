@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Runde 32: «Warum?» Gleichlauf mit Bitcoin, Sats im Aktionsblatt -->
 <resources>
-    <string name="why_btc_tight">A(z) %1$s jelenleg szorosan együtt mozog a bitcoinnal.</string>
-    <string name="why_btc_independent">A(z) %1$s jelenleg a bitcointól függetlenül mozog.</string>
+    <string name="why_btc_tight">A(z) %1$s jelenleg szorosan együtt mozog a Bitcoinnal.</string>
+    <string name="why_btc_independent">A(z) %1$s jelenleg a Bitcointól függetlenül mozog.</string>
     <string name="sats_per_unit">%1$s %2$s = %3$s sat</string>
 </resources>

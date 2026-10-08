@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Kyçja mbron atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim.</string>
+    <string name="settings_portfolio_lock_footer">Kyçja mbron atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim. Kopjet rezervë të gjithë pajisjes (kopja e sistemit) i përmbajnë megjithatë këto të dhëna.</string>
     <string name="backup_protect">Mbro me fjalëkalim</string>
     <string name="backup_protect_hint">Enkripton skedarin (AES-256). Rekomandohet kur përmban të dhëna të portofolit.</string>
     <string name="backup_password">Fjalëkalimi</string>

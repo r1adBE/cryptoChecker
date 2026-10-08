@@ -37,7 +37,10 @@ struct CryptoPulseCard: View {
             volumeRatio: data.volumeRatio,
             fearGreed: fearGreed?.value,
             fundingPercent: data.fundingPercent,
-            ethGasGwei: ethGas
+            ethGasGwei: ethGas,
+            topChanges: data.topChanges ?? [],
+            marketCapUsd: data.marketCapUsd,
+            marketCap24h: data.marketCap24h
         ))
     }
 
@@ -165,10 +168,46 @@ struct CryptoPulseCard: View {
                     }
                     .padding(.top, Spacing.sm)
                 }
+                // «Top 30   ▲ 22 · ▼ 8» und «Krypto-Markt   3,42 Bio. USD  ▲ +2,1 %»
+                if report.breadth != nil || report.marketCapUsd != nil {
+                    VStack(alignment: .leading, spacing: 6) {
+                        if let breadth = report.breadth {
+                            factRow(L("pulse_breadth_label", breadth.total)) {
+                                HStack(spacing: 6) {
+                                    Text("▲ " + LocaleNumbers.integer(breadth.up))
+                                        .foregroundStyle(priceColors.forChange(1, highContrast: highContrast, inverted: inverted))
+                                    Text("·").foregroundStyle(AppColors.onSurfaceVariant)
+                                    Text("▼ " + LocaleNumbers.integer(breadth.down))
+                                        .foregroundStyle(priceColors.forChange(-1, highContrast: highContrast, inverted: inverted))
+                                }
+                                .font(.subheadline.weight(.semibold).monospacedDigit())
+                            }
+                        }
+                        if let cap = report.marketCapUsd {
+                            factRow(L("market_cap_title")) {
+                                HStack(spacing: 8) {
+                                    Text(CycleFormat.compactMoney(cap, "USD"))
+                                        .font(.subheadline.monospacedDigit())
+                                        .foregroundStyle(AppColors.onSurface)
+                                    if let change = report.marketCap24h { ChangePill(change: change) }
+                                }
+                            }
+                        }
+                    }
+                    .padding(.top, 12)
+                }
+                if let note = report.breadthNote {
+                    Text(L(note.key))
+                        .font(.subheadline)
+                        .foregroundStyle(AppColors.onSurface)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, Spacing.sm)
+                }
             }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(Self.spokenSummary(overline: L("pulse_now_title"), headline: headline,
-                                                   lead: lead, coins: report.coins, chips: chips))
+                                                   lead: lead, coins: report.coins, chips: chips)
+                                + Self.spokenExtras(report))
             .accessibilityAddTraits(.isHeader)
 
             // Stand und «Warum? →»
@@ -198,6 +237,11 @@ struct CryptoPulseCard: View {
                 PulseSectionTitle(text: L("pulse_section_market"))
                 PulseTextRow(text: L(report.alts.key))
                     .padding(.top, 4)
+                // Was «Top 30» bedeutet (nur mit Marktbreite)
+                if let breadth = report.breadth {
+                    PulseTextRow(text: L("pulse_breadth_hint", breadth.total))
+                        .padding(.top, 4)
+                }
 
                 if !factors.isEmpty {
                     PulseSectionTitle(text: L("pulse_section_factors"))
@@ -214,6 +258,33 @@ struct CryptoPulseCard: View {
 }
 
 extension CryptoPulseCard {
+    /// Zeile «Bezeichnung … Wert» unter den Kurs-Chips.
+    func factRow<Value: View>(_ label: String, @ViewBuilder value: () -> Value) -> some View {
+        HStack(spacing: 8) {
+            Text(label)
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .lineLimit(1)
+            Spacer(minLength: 8)
+            value()
+        }
+    }
+
+    /// VoiceOver: Satz zur Marktbreite, «Top 30: 22 steigen, 8 fallen», Krypto-Markt mit Veränderung.
+    static func spokenExtras(_ report: PulseReport) -> String {
+        var parts: [String?] = []
+        if let note = report.breadthNote { parts.append(L(note.key)) }
+        if let breadth = report.breadth {
+            parts.append(L("pulse_breadth_spoken", breadth.total, breadth.up, breadth.down))
+        }
+        if let cap = report.marketCapUsd {
+            parts.append(A11y.join([L("market_cap_title"), CycleFormat.compactMoney(cap, "USD"),
+                                    report.marketCap24h.flatMap { A11y.change($0) }]))
+        }
+        let text = A11y.join(parts)
+        return text.isEmpty ? "" : ". " + text
+    }
+
     /// ▲ / ▼ nach der Richtung (nie getauscht), gemischt/ruhig ohne Zeichen.
     static func glyph(_ summary: PulseSummary) -> String? {
         switch direction(summary) {
@@ -275,7 +346,7 @@ extension CryptoPulseCard {
 /// mit Stand und «Warum?». Höhen aus der echten Typografie — beim Laden springt nichts.
 private struct PulseSkeleton: View {
     var body: some View {
-        CycleSkeleton {
+        SkeletonPulse {
             VStack(alignment: .leading, spacing: 0) {
                 Text(verbatim: " ")
                     .font(AppFont.headline)

@@ -3,11 +3,11 @@
     <string name="group_edit_title">समूह संपादित करें</string>
     <string name="group_rename">नाम बदलें</string>
     <string name="group_delete">समूह हटाएँ</string>
-    <string name="group_delete_confirm">जोड़े आपकी वॉचलिस्ट में बने रहेंगे।</string>
+    <string name="group_delete_confirm">पेयर आपकी वॉचलिस्ट में बने रहेंगे।</string>
     <string name="group_done">हो गया</string>
     <string name="group_add">नया समूह</string>
     <string name="group_in_other">%1$s में</string>
     <string name="group_target">समूह में</string>
-    <string name="group_search_hint">जोड़ा खोजें</string>
+    <string name="group_search_hint">पेयर खोजें</string>
     <string name="group_next">आगे</string>
 </resources>

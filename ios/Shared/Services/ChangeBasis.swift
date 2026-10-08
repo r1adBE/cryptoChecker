@@ -169,6 +169,14 @@ enum ChangeBasisMath {
         }
     }
 
+    /// Zeitzone der Charts (wie Binance «Change(%) & Chart Timezone»): Uhrzeiten beim Ziehen und
+    /// Tages-/Stundenraster folgen der gewählten Zone. Feste Zone UTC±h bei `utcDay`; rollend und
+    /// «Gerät» nehmen die Zeitzone des Geräts — wie `chartZone` in Android.
+    static func chartTimeZone(_ basis: ChangeBasis, device: TimeZone = .current) -> TimeZone {
+        guard basis.kind == .utcDay else { return device }
+        return TimeZone(secondsFromGMT: basis.utcOffsetHours * 3600) ?? device
+    }
+
     /// Ende des Tags, der bei `dayStart` beginnt (= nächster Tagesbeginn; Ortszeit mit Sommerzeit
     /// 23 oder 25 Stunden später); nil bei rollend — wie `dayEnd` in Android.
     static func dayEnd(_ basis: ChangeBasis, dayStart: Int64, timeZone: TimeZone = .current) -> Int64? {

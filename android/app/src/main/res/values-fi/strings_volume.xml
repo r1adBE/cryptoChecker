@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Volyymipiikki</string>
     <string name="alarm_volume_factor_label">Viime tunnin volyymi normaaliin verrattuna</string>
-    <string name="alarm_volume_hint">Volyymitiedot tulevat Binancesta – siellä listaamattomat parit eivät koskaan laukea.</string>
+    <string name="alarm_volume_hint">Volyymitiedot tulevat Binancesta – siellä listaamattomat parit eivät koskaan laukaise hälytystä.</string>
     <string name="notification_volume_spike_text">Volyymi %1$s× normaali viime tunnin aikana</string>
     <string name="tts_direction_volume_spike">volyymipiikin kera</string>
 

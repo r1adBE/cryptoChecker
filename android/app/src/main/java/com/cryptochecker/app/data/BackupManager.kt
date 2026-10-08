@@ -342,6 +342,9 @@ class BackupManager @Inject constructor(
             .put("priceColorScheme", s.priceColorScheme.name)
             .put("watchlistSparkline", s.watchlistSparkline)
             .put("watchlistActivityCard", s.watchlistActivityCard)
+            .put("coinLogos", s.coinLogos)
+            .put("widgetCoinLogos", s.widgetCoinLogos)
+            .put("portfolioCoinLogos", s.portfolioCoinLogos)
             .put("changeBasis", s.changeBasis.name)
             .put("highContrast", s.highContrast)
             .put("priceColorsInverted", s.priceColorsInverted)
@@ -391,6 +394,9 @@ class BackupManager @Inject constructor(
         }
         if (o.has("watchlistSparkline")) setWatchlistSparkline(o.optBoolean("watchlistSparkline", true))
         if (o.has("watchlistActivityCard")) setWatchlistActivityCard(o.optBoolean("watchlistActivityCard", true))
+        if (o.has("coinLogos")) setCoinLogos(o.optBoolean("coinLogos", false))
+        if (o.has("widgetCoinLogos")) setWidgetCoinLogos(o.optBoolean("widgetCoinLogos", false))
+        if (o.has("portfolioCoinLogos")) setPortfolioCoinLogos(o.optBoolean("portfolioCoinLogos", true))
         // %-Basis: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen; unbekannt → «Letzte 24 Std.»
         if (o.has("changeBasis")) {
             setChangeBasis(

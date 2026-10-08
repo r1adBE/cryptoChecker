@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Suche in der Merkliste -->
-    <string name="watchlist_search_hint">Parite veya borsa ara</string>
+    <string name="watchlist_search_hint">Çift veya borsa ara</string>
     <string name="watchlist_search_open">Ara</string>
     <string name="watchlist_search_close">Aramayı kapat</string>
     <string name="watchlist_search_empty">“%1$s” için sonuç yok</string>

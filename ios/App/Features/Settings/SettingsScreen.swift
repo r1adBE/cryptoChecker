@@ -144,6 +144,10 @@ struct SettingsScreen: View {
             SettingsNavRow(title: L("settings_change_basis", "%"), value: A11y.changeSummary(settings.changeBasis)) {
                 ChangeBasisSettingsPage()
             }
+            // Coin-Logos: je ein Schalter für App und Widgets
+            SettingsNavRow(title: L("settings_coin_logos"), value: SettingsSummary.coinLogosText(settings)) {
+                CoinLogosSettingsPage()
+            }
             SettingsButtonRow(title: L("settings_widgets"), trailingIcon: "chevron.forward") {
                 showWidgets = true
             }

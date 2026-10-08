@@ -1,62 +1,64 @@
 O Crypto Checker explica o que se passa no mercado. Defina alarmes, detete movimentos invulgares e perceba em segundos porque uma moeda está a mexer, sem previsões.
 
 Perceber – «Porque está a mexer?» com um breve resumo
-Visão geral – Crypto Pulse, Fear & Greed, ciclo e portefólio
+Visão geral – Crypto Pulse, Fear & Greed, ciclo e portfólio
 Acompanhar – preços diretos da exchange, na sua moeda
 Alertar – preço, %, movimentos e volume, numa frase
 
-Legível para todos: cores de preço verde/vermelho ou azul/laranja, trocadas se quiser, alto contraste, sinal e seta em vez de apenas cor, e o VoiceOver lê cada linha numa frase.
+Legível para todos: cores de preço verde/vermelho ou azul/laranja, alto contraste, sinal e seta além da cor, texto dinâmico; o VoiceOver lê cada linha numa frase.
 
-LISTA DE ACOMPANHAMENTO COM 41 MERCADOS
-• Spot e futuros da Binance, Coinbase, Kraken, OKX, Bybit e muitas mais
+LISTA: 41 MERCADOS EM 32 EXCHANGES
+• Lista vazia: as 5 maiores moedas em direto, com um toque
+• Spot e futuros da Binance, Coinbase, Kraken, OKX, Bybit e mais; opcional: ações, ouro e divisas (TradFi), em grupo próprio
 • Tokens DEX através do DexScreener
-• Grupos, favoritos e ordenação por arrastar e largar
-• Uma nota para cada moeda, p. ex. o seu preço de entrada
-• Linha «≈ valor» na sua moeda: 31 moedas (EUR, CHF, USD, GBP, JPY…), por predefinição conforme a região
-• Minigráfico de 24 h em cada linha
-• Portefólio num separador próprio: compras e vendas, preço médio, lucro/prejuízo e valor total na sua moeda
-• Exportação à data de referência: valor do portefólio em qualquer data (p. ex. 31/12) na sua moeda, em CSV – útil para impostos, sem aconselhamento fiscal
+• Deslize: à esquerda eliminar (com Anular), à direita favorito; grupos e ordenação por arrastar
+• Nota por moeda (p. ex. preço de entrada), logo abaixo do preço
+• Linha «≈ valor» em 31 moedas (EUR, CHF, USD, GBP, JPY…), por predefinição conforme a região
+• Minigráfico em cada linha; variação em 24 h ou desde as 00:00 no seu fuso horário
+• Separador Portfólio: compras, vendas, preço médio, lucro/prejuízo e valor total na sua moeda
+• Exportação à data de referência: valor do portfólio em qualquer dia (p. ex. 31/12), CSV, sem aconselhamento fiscal
+• Linhas marcadas «desatualizado» ou «exchange inacessível»
 
 ALARMES À MEDIDA DA SUA ESTRATÉGIA
-• Preço acima ou abaixo de um nível, subida ou descida de uma percentagem
+• Preço acima ou abaixo de um nível, subida ou descida em %
 • Alarmes na sua moeda, p. ex. a 60 000 EUR num par USDT
 • Alarme como frase: «Avisar-me quando BTC descer abaixo de 60 000 CHF.»
 • Movimento de X % em Y horas, p. ex. 5 % em 1 hora
-• Pico de volume: volume de negociação de repente muito acima da média
-• Uma vez ou repetidos, como notificação com leitura em voz alta opcional
+• Pico de volume: muito acima da média
+• Únicos ou repetidos, como notificação urgente, lidos em voz alta se quiser
 • Escolha o som do alarme
-• Um tempo de pausa ajustável evita avalanches de alarmes
-• Horas de silêncio: à noite (p. ex. 23–7 h) alarmes sem som, vibração nem voz
-• «Testar alarme»: ouça e sinta antecipadamente como chega um alarme
+• Uma pausa ajustável evita avalanches de alarmes
+• Horas de silêncio: à noite (p. ex. 23–7 h), sem som, vibração nem voz
+• «Testar alarme»: ouça e sinta antes como chega
 
 ATIVIDADE INVULGAR E PORQUE ESTÁ A MEXER?
-• Atividade invulgar deteta movimentos de preço e volume fora do normal na sua lista
-• «Porque está a mexer?» explica um movimento pelo volume, o mercado global e os futuros, com um breve resumo – sem aconselhamento de investimento
+• Atividade invulgar: preço e volume fora do normal na sua lista, com aviso opcional
+• «Porque está a mexer?» explica-o pelo volume, mercado global e futuros, com breve resumo – sem aconselhamento de investimento
 
 VISÃO DO MERCADO
-• Crypto Pulse: o que se passa agora? BTC, ETH, SOL, altcoins face ao BTC, volume, Fear & Greed, funding, gas ETH e um resumo numa frase, sem previsão
+• Crypto Pulse: o que se passa agora? BTC, ETH, SOL, altcoins face ao BTC, volume, Fear & Greed, funding, gas ETH e resumo numa frase, sem previsão
 • Índice Fear & Greed com histórico
 • Mercado cripto: capitalização total e volume 24 h na sua moeda
-• Separador Mercado: fase do mercado com sinais de um possível máximo ou mínimo (sem previsão), contagem para o halving, comparação de ciclos, dominância e época das altcoins
-• Análise de moedas: RSI, tendência, Pi Cycle e força face à Bitcoin
-• Dados de futuros: funding rate e open interest
-• Taxas de rede para Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, com alarme de gas
+• Separador Mercado: fase com sinais de um possível máximo ou mínimo (sem previsão), contagem decrescente para o halving, dominância, época das altcoins
+• Análise de moeda: RSI, tendência, Pi Cycle e força face à Bitcoin
+• Futuros: taxa de financiamento e interesse aberto, com breves explicações
+• Taxas de rede de Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, com alarme de gas
 
 WIDGETS PARA O ECRÃ PRINCIPAL E O ECRÃ BLOQUEADO
-• Widgets em três tamanhos: lista, portefólio (também no ecrã bloqueado), uma moeda com gráfico de 24 h, 7 ou 30 dias – velas ou linha, com marcas de máximo, meio e mínimo
+• Widgets em três tamanhos: lista, portfólio (também no ecrã bloqueado), uma moeda com gráfico de 24 h, 7 ou 30 dias (velas ou linha), máximo/meio/mínimo
 • Atualize diretamente a partir do widget
-• Atividade em direto no ecrã bloqueado: o preço de uma moeda num relance
+• Atividade em direto no ecrã bloqueado: uma moeda num relance
 
 E AINDA
-• Atualização frequente com a app aberta; o iOS agenda as atualizações em segundo plano
-• Leitura em voz alta de preços e alarmes
+• Atualização frequente com a app aberta; em segundo plano, conforme o iOS
+• Preços e alarmes lidos em voz alta
 • Cópia de segurança e restauro na app Ficheiros
-• Ações rápidas no ícone da app, modo claro e escuro
-• Cinco cores de destaque com ícones da app a condizer
+• Ações rápidas no ícone, modo claro e escuro
+• Cinco cores de destaque com ícones a condizer
 • Bloqueio do portfólio: Face ID, Touch ID ou código
 • Disponível em 31 idiomas
 
 PRIVACIDADE EM PRIMEIRO LUGAR
-Sem conta, sem anúncios, sem análises, sem rastreio. Os preços vêm diretamente das API públicas das corretoras. A sua lista, os seus alarmes e as suas posições ficam no seu dispositivo. Código aberto (licença MIT): o código é público no GitHub.
+Sem conta, sem anúncios, sem análises, sem rastreio. Os preços vêm diretamente das API públicas das exchanges. A sua lista, alarmes e posições ficam no seu dispositivo. Código aberto (MIT): o código é público no GitHub.
 
-Nota: o Crypto Checker apenas mostra preços. Não é uma corretora nem uma carteira, não negoceia e não presta aconselhamento de investimento.
+Nota: o Crypto Checker apenas mostra preços. Não é uma exchange nem uma carteira, não negoceia e não constitui aconselhamento de investimento.

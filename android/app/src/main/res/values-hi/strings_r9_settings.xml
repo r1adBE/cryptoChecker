@@ -2,5 +2,5 @@
 <resources>
     <!-- r9_settings -->
     <string name="settings_group_alerts">अलार्म और नोटिफ़िकेशन</string>
-    <string name="settings_portfolio_tab">पोर्टफोलियो टैब दिखाएँ</string>
+    <string name="settings_portfolio_tab">पोर्टफ़ोलियो टैब दिखाएँ</string>
 </resources>

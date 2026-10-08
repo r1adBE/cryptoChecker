@@ -15,23 +15,23 @@
     <string name="pulse_lead_mixed">Monedhat e mëdha po lëvizin në drejtime të ndryshme.</string>
     <string name="pulse_lead_calm">Tregu mezi lëviz.</string>
 
-    <string name="pulse_detail_vol_above">Volumi %1$d%% mbi normalen.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volumi %1$d%% mbi normalen, funding neutral.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volumi %1$d%% mbi normalen, funding i lartë.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volumi %1$d%% mbi normalen, funding negativ.</string>
-    <string name="pulse_detail_vol_below">Volumi %1$d%% nën normalen.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volumi %1$d%% nën normalen, funding neutral.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volumi %1$d%% nën normalen, funding i lartë.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volumi %1$d%% nën normalen, funding negativ.</string>
-    <string name="pulse_detail_vol_normal">Volumi normal.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volumi normal, funding neutral.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volumi normal, funding i lartë.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volumi normal, funding negativ.</string>
+    <string name="pulse_detail_vol_above">Vëllimi %1$d%% mbi normalen.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Vëllimi %1$d%% mbi normalen, funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Vëllimi %1$d%% mbi normalen, funding i lartë.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Vëllimi %1$d%% mbi normalen, funding negativ.</string>
+    <string name="pulse_detail_vol_below">Vëllimi %1$d%% nën normalen.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Vëllimi %1$d%% nën normalen, funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Vëllimi %1$d%% nën normalen, funding i lartë.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Vëllimi %1$d%% nën normalen, funding negativ.</string>
+    <string name="pulse_detail_vol_normal">Vëllimi normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Vëllimi normal, funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Vëllimi normal, funding i lartë.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Vëllimi normal, funding negativ.</string>
     <string name="pulse_detail_fund_neutral">Funding neutral.</string>
     <string name="pulse_detail_fund_high">Funding i lartë.</string>
     <string name="pulse_detail_fund_negative">Funding negativ.</string>
 
-    <string name="factor_volume">Volumi</string>
+    <string name="factor_volume">Vëllimi</string>
     <string name="factor_fear_greed">Fear &amp; Greed</string>
     <string name="factor_funding">Funding</string>
     <string name="factor_volatility">Luhatja (1h)</string>

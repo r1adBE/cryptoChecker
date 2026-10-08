@@ -34,14 +34,15 @@ struct WidgetPalette {
         self.accent = accent.primary(dark: dark)
         onAccent = accent.onPrimary(dark: dark)
         self.highContrast = highContrast
-        base = Color(hex: dark ? 0x1F1F1F : 0xEEEEEE)
-        baseDeep = Color(hex: dark ? 0x151515 : 0xE4E4E4)
-        text = Color(hex: dark ? 0xE2E2E2 : 0x1B1B1B)
+        // Werte aus `ColorTokens` (gleich wie die App und Android)
+        base = Color(hex: ColorTokens.surfaceContainer.hex(dark: dark))
+        baseDeep = Color(hex: ColorTokens.widgetSurfaceDeep.hex(dark: dark))
+        text = Color(hex: ColorTokens.onSurface.hex(dark: dark))
         // Hoher Kontrast: Nebentexte ohne Abschwächung, Grau für «0.00%» dunkler
         secondary = highContrast
-            ? Color(hex: dark ? 0xE2E2E2 : 0x1B1B1B)
-            : Color(hex: dark ? 0xC6C6C6 : 0x474747).opacity(dark ? 0.78 : 0.85)
-        neutral = Color(hex: highContrast ? (dark ? 0xC6C6C6 : 0x474747) : (dark ? 0x919191 : 0x777777))
+            ? Color(hex: ColorTokens.onSurface.hex(dark: dark))
+            : Color(hex: ColorTokens.onSurfaceVariant.hex(dark: dark)).opacity(dark ? 0.78 : 0.85)
+        neutral = Color(hex: (highContrast ? ColorTokens.onSurfaceVariant : ColorTokens.outline).hex(dark: dark))
         // Kursfarben wie in der App (Einstellung «Kursfarben», bei hohem Kontrast die
         // AAA-Werte, «Farben tauschen» vertauscht steigend/fallend).
         up = Color(hex: priceColors.upHex(dark: dark, highContrast: highContrast, inverted: inverted))
@@ -129,11 +130,42 @@ struct WidgetLogo: View {
     }
 }
 
-/// Runder Coin-Kreis mit Kürzel — wie `CoinBadge` der App.
+/// Coin-Logos der Widgets je Basis-Symbol (vom Timeline-Provider geladen, `WidgetLogos`).
+/// Leer: Schalter «Coin-Logos in Widgets» aus, Vorschau oder noch nicht geladen → Initialen.
+private struct WidgetLogosKey: EnvironmentKey {
+    static let defaultValue: [String: UIImage] = [:]
+}
+
+/// Schalter «Coin-Logos in Widgets»; aus → keine Plakette (weder Logo noch Initialen).
+private struct WidgetLogosEnabledKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    var widgetLogos: [String: UIImage] {
+        get { self[WidgetLogosKey.self] }
+        set { self[WidgetLogosKey.self] = newValue }
+    }
+
+    var widgetLogosEnabled: Bool {
+        get { self[WidgetLogosEnabledKey.self] }
+        set { self[WidgetLogosEnabledKey.self] = newValue }
+    }
+}
+
+/// Runde Coin-Plakette im Widget, nur mit Schalter «Coin-Logos in Widgets»: echtes Logo, sonst
+/// Kreis mit Initialen — nie ein kaputtes Bild; Schalter aus → nichts. Mit `accent` wie in der App
+/// und Android (Akzentfarbe mit 14 %). `always` (Live-Aktivität, kein Logo-Schalter): immer der
+/// Kreis mit der Farbe aus dem Symbol. `logo: false` bei DEX-Pools.
 struct WidgetCoinBadge: View {
     let symbol: String
     var size: CGFloat = 26
     let dark: Bool
+    var accent: Color? = nil
+    var logo: Bool = true
+    var always: Bool = false
+    @Environment(\.widgetLogos) private var logos
+    @Environment(\.widgetLogosEnabled) private var enabled
 
     private var hue: Double {
         var h = 5381
@@ -142,18 +174,43 @@ struct WidgetCoinBadge: View {
     }
 
     var body: some View {
-        let label = String(symbol.prefix(symbol.count > 4 ? 3 : 4))
+        if always || enabled { circle }
+    }
+
+    private var circle: some View {
         ZStack {
-            Circle().fill(Color(hue: hue, saturation: 0.45, brightness: 0.85).opacity(dark ? 0.22 : 0.30))
-            Circle().strokeBorder(Color(hue: hue, saturation: 0.6, brightness: 0.9).opacity(0.25), lineWidth: 0.5)
-            Text(label)
-                .font(.system(size: size * (symbol.count > 3 ? 0.28 : 0.34), weight: .bold, design: .rounded))
-                .foregroundStyle(Color(hue: hue, saturation: dark ? 0.55 : 0.7, brightness: dark ? 0.95 : 0.7))
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .padding(2)
+            if !always, logo, let image = logos[symbol] {
+                // Dunkel heller Grund, damit dunkle Logos sichtbar bleiben (wie Android)
+                Circle().fill(dark ? Color.dynamic(ColorTokens.onSurface).opacity(0.92)
+                                   : Color.dynamic(ColorTokens.onSurfaceVariant).opacity(0.11))
+                Image(uiImage: image)
+                    .resizable()
+                    .interpolation(.high)
+                    .scaledToFit()
+                    .clipShape(Circle())
+            } else if let accent {
+                let label = CoinLogos.initials(symbol)
+                Circle().fill(accent.opacity(0.14))
+                Text(label)
+                    .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
+                    .foregroundStyle(accent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(2)
+            } else {
+                let label = CoinLogos.initials(symbol)
+                Circle().fill(Color(hue: hue, saturation: 0.45, brightness: 0.85).opacity(dark ? 0.22 : 0.30))
+                Circle().strokeBorder(Color(hue: hue, saturation: 0.6, brightness: 0.9).opacity(0.25), lineWidth: 0.5)
+                Text(label)
+                    .font(.system(size: size * (label.count > 3 ? 0.28 : 0.34), weight: .bold, design: .rounded))
+                    .foregroundStyle(Color(hue: hue, saturation: dark ? 0.55 : 0.7, brightness: dark ? 0.95 : 0.7))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(2)
+            }
         }
         .frame(width: size, height: size)
+        .clipShape(Circle())
         // Zierde: Das Kürzel steht schon im Paar
         .accessibilityHidden(true)
     }

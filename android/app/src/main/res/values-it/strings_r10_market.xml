@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
-    <string name="unusual_title">Fuori dal comune oggi</string>
+    <string name="unusual_title">Insolito oggi</string>
     <string name="unusual_nothing">Oggi niente di insolito</string>
     <string name="unusual_fact_stronger">Si muove molto più di BTC</string>
     <string name="unusual_fact_weaker">Si muove molto meno di BTC</string>

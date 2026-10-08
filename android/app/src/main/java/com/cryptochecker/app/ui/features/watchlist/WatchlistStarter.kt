@@ -2,7 +2,6 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -31,7 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -44,12 +41,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterSelection
-import com.cryptochecker.app.ui.features.portfolio.CoinBadge
+import com.cryptochecker.app.ui.components.ChangePill
+import com.cryptochecker.app.ui.components.SkeletonBlock
+import com.cryptochecker.app.ui.components.SkeletonPulse
+import com.cryptochecker.app.ui.components.readableWidth
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.Spacing
@@ -200,12 +200,12 @@ private fun StarterRow(
             .padding(start = Spacing.md, end = Spacing.xs, top = Spacing.md, bottom = Spacing.md)
     ) {
         Box(Modifier.clearAndSetSemantics { }) {
-            CoinBadge(coin.symbol, size = 40.dp)
+            // Abstand an der Plakette: Logos aus → keine Plakette, kein Einzug
+            CoinBadge(coin.symbol, size = 40.dp, modifier = Modifier.padding(end = 12.dp))
         }
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 12.dp)
                 .clearAndSetSemantics { }
         ) {
             Text(
@@ -236,12 +236,12 @@ private fun StarterRow(
                         fontWeight = FontWeight.SemiBold,
                         maxLines = 1
                     )
-                    price.change24h?.let { ChangePill(change = it) }
+                    price.change24h?.let { ChangePill(change = it, modifier = Modifier.padding(top = 3.dp)) }
                 }
                 // Platzhalter, solange die Kurse laden
-                loading -> {
-                    PriceSkeleton(width = 76)
-                    PriceSkeleton(width = 52, modifier = Modifier.padding(top = Spacing.xs))
+                loading -> SkeletonPulse(horizontalAlignment = Alignment.End) {
+                    SkeletonBlock(Modifier.width(76.dp).height(14.dp))
+                    SkeletonBlock(Modifier.padding(top = Spacing.xs).width(52.dp).height(14.dp))
                 }
                 // Ohne Kurs (Fehler): Zeile bleibt wählbar, nur ohne Zahlen
             }
@@ -251,16 +251,4 @@ private fun StarterRow(
             Checkbox(checked = selected, onCheckedChange = null, modifier = Modifier.padding(start = Spacing.sm, end = 8.dp))
         }
     }
-}
-
-/** Grauer Balken anstelle einer Zahl. */
-@Composable
-private fun PriceSkeleton(width: Int, modifier: Modifier = Modifier) {
-    Box(
-        modifier
-            .width(width.dp)
-            .height(14.dp)
-            .clip(RoundedCornerShape(50))
-            .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-    )
 }

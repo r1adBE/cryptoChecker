@@ -18,7 +18,7 @@
     <string name="a11y_portfolio_widget">پرتفوی %1$s، امروز %2$s</string>
     <string name="explain_funding">کارمزدی بین موقعیت‌های لانگ و شورت. مثبتِ زیاد یعنی بسیاری روی افزایش قیمت شرط بسته‌اند.</string>
     <string name="explain_open_interest">ارزش همه موقعیت‌های باز فیوچرز. اگر بالا برود، پول بیشتری روی این حرکت شرط بسته شده است.</string>
-    <string name="explain_rsi">شاخص قدرت نسبی، ۰ تا ۱۰۰. بالای ۷۰ اغلب بیش‌ازحد داغ، زیر ۳۰ اغلب بیش‌فروش.</string>
+    <string name="explain_rsi">شاخص قدرت نسبی، ۰ تا ۱۰۰. بالای ۷۰ اغلب بیش‌خرید، زیر ۳۰ اغلب بیش‌فروش.</string>
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
     <string name="explain_show">توضیح</string>
     <string name="explain_pi_cycle">میانگین ۱۱۱ روزه را با دو برابر میانگین ۳۵۰ روزه مقایسه می‌کند. تقاطع آن‌ها سقف‌های چرخه‌های گذشته را نشان داده است.</string>
@@ -30,7 +30,7 @@
         <item quantity="one">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
         <item quantity="other">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
     </plurals>
-    <string name="alarm_sentence_volume">وقتی حجم معاملات %1$s به %2$s× حالت عادی رسید، به من خبر بده.</string>
+    <string name="alarm_sentence_volume">وقتی حجم معاملات %1$s به %2$s برابر حالت عادی رسید، به من خبر بده.</string>
     <string name="alarm_sentence_incomplete">یک مقدار وارد کنید تا هشدار به صورت جمله نمایش داده شود.</string>
     <string name="watchlist_row_unreachable">%1$s · %2$s در دسترس نیست</string>
     <string name="watchlist_row_outdated">%1$s · قدیمی</string>

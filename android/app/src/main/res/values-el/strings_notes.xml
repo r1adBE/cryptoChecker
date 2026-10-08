@@ -3,6 +3,6 @@
     <string name="note_title">Σημείωση</string>
     <string name="note_add">Προσθήκη σημείωσης</string>
     <string name="note_edit">Επεξεργασία σημείωσης</string>
-    <string name="note_hint">π.χ. είσοδος στο 0.42, στόχος 0.60</string>
+    <string name="note_hint">π.χ. είσοδος στο 0,42, στόχος 0,60</string>
     <string name="note_remove">Αφαίρεση</string>
 </resources>

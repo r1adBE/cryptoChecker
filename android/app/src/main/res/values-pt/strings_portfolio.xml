@@ -15,7 +15,7 @@
 
     <!-- Portfolio (Tab, Erfassen, Detail) -->
     <string name="portfolio_title">Portfólio</string>
-    <string name="portfolio_setting_hint">Opcional: registre compras e vendas e veja o valor e o lucro/prejuízo numa aba separada.</string>
+    <string name="portfolio_setting_hint">Opcional: registe compras e vendas e veja o valor e o lucro/prejuízo num separador próprio.</string>
     <string name="portfolio_total_value">Valor total</string>
     <string name="portfolio_invested">Investido</string>
     <string name="portfolio_unrealized">Lucro/prejuízo, ainda não vendido</string>
@@ -37,7 +37,7 @@
         <item quantity="other">Posições fechadas (%1$d)</item>
     </plurals>
     <string name="portfolio_transactions">Transações</string>
-    <string name="portfolio_add_tx">Registrar compra/venda</string>
+    <string name="portfolio_add_tx">Registar compra/venda</string>
     <string name="portfolio_edit_tx">Editar transação</string>
     <string name="portfolio_buy">Compra</string>
     <string name="portfolio_sell">Venda</string>
@@ -52,11 +52,11 @@
     <string name="portfolio_tx_note">Nota (opcional)</string>
     <string name="portfolio_tx_total">Total: %1$s</string>
     <string name="portfolio_sell_exceeds">Mais do que a sua posição (%1$s)</string>
-    <string name="portfolio_tx_delete_title">Excluir transação?</string>
+    <string name="portfolio_tx_delete_title">Eliminar transação?</string>
     <string name="portfolio_tx_delete_confirm">Esta transação será removida do portfólio.</string>
     <string name="portfolio_empty_title">Ainda sem transações</string>
-    <string name="portfolio_empty_text">Registre as suas compras e vendas. Valor e lucro/prejuízo são calculados com preços atuais em USDT.</string>
-    <string name="portfolio_empty_action">Registrar a primeira compra</string>
+    <string name="portfolio_empty_text">Registe as suas compras e vendas. Valor e lucro/prejuízo são calculados com preços atuais em USDT.</string>
+    <string name="portfolio_empty_action">Registar a primeira compra</string>
     <string name="portfolio_disclaimer">Guardado apenas neste dispositivo. Não é aconselhamento de investimento.</string>
     <string name="portfolio_add_from_watch">Adicionar ao portfólio</string>
 </resources>

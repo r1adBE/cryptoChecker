@@ -4,5 +4,5 @@
     <!-- Titel des Formulars und Screenreader-Name des Stifts -->
     <string name="watch_edit_title">编辑交易对</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">提醒将保留 – 请检查阈值</string>
+    <string name="watch_edit_alarms_warning">提醒将保留——请检查阈值</string>
 </resources>

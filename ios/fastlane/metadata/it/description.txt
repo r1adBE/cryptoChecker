@@ -2,61 +2,62 @@ Crypto Checker ti spiega cosa succede sul mercato. Imposta allarmi, individua mo
 
 Capire – «Perché si muove?» con un breve riepilogo
 Panoramica – Crypto Pulse, Fear & Greed, ciclo e portafoglio
-Osservare – prezzi diretti dall'exchange, nella tua valuta
+Osservare – prezzi diretti dall’exchange, nella tua valuta
 Avvisare – prezzo, %, movimenti e volume, in una frase
 
-Leggibile per tutti: colori dei prezzi verde/rosso o blu/arancione, contrasto elevato, segno e freccia oltre al colore, e VoiceOver legge ogni riga in una frase.
+Leggibile per tutti: verde/rosso o blu/arancione, contrasto elevato, segno e freccia oltre al colore, Dynamic Type, VoiceOver: ogni riga in una frase.
 
-WATCHLIST CON 41 MERCATI
-• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e molti altri – su richiesta anche azioni, oro e valute (TradFi), in un gruppo dedicato
+LISTA: 41 MERCATI SU 32 EXCHANGE
+• Lista vuota: le 5 maggiori monete con prezzi live, aggiunte con un tocco
+• Spot e futures da Binance, Coinbase, Kraken, OKX, Bybit e altri – su richiesta anche azioni, oro e valute (TradFi), in un gruppo dedicato
 • Token DEX tramite DexScreener
-• Gruppi, preferiti e ordinamento con trascinamento
-• Una nota per ogni moneta, ad es. il tuo prezzo di ingresso
-• Riga «≈ valore» nella tua valuta: 31 valute (EUR, CHF, USD, GBP, JPY…), predefinita secondo la regione
-• Mini grafico 24 ore in ogni riga; variazione % su 24 ore o dalle 00:00 nel tuo fuso orario
-• Portafoglio in una scheda dedicata: acquisti e vendite, prezzo medio, utile/perdita e valore totale nella tua valuta
-• Export alla data di riferimento (ad es. 31/12) nella tua valuta come CSV – non è consulenza fiscale
+• Scorri: a sinistra elimina (con Annulla), a destra preferito; gruppi, ordinamento trascinando
+• Nota per moneta, ad es. il tuo prezzo di ingresso
+• Riga «≈ valore» in una di 31 valute (EUR, CHF, USD…), predefinita secondo la regione
+• Mini grafico in ogni riga; variazione % su 24 ore o dalle 00:00 nel tuo fuso orario
+• Scheda Portafoglio: acquisti e vendite, prezzo medio, utile/perdita e valore totale nella tua valuta
+• Export alla data di riferimento: valore del portafoglio (ad es. al 31/12) in CSV – non è consulenza fiscale
+• Le righe indicano «non aggiornato» o «exchange non raggiungibile»
 
-ALLARMI SU MISURA PER LA TUA STRATEGIA
+ALLARMI SECONDO LE TUE REGOLE
 • Prezzo sopra o sotto una soglia, rialzo o ribasso di una percentuale
 • Allarmi nella tua valuta, ad es. a 60.000 EUR su una coppia USDT
 • Allarme come frase: «Avvisami quando BTC scende sotto 60.000 CHF.»
 • Movimento del X % entro Y ore, ad es. 5 % in 1 ora
-• Picco di volume: volume di scambi improvvisamente molto sopra la media
-• Singoli o ripetuti, come notifica con lettura vocale facoltativa
-• Scegli il suono di allarme
-• Un tempo di pausa regolabile evita raffiche di allarmi
+• Picco di volume: volume improvvisamente molto sopra la media
+• Singolo o ripetuto, come notifica urgente, suono a scelta, lettura vocale facoltativa
+• Pausa regolabile contro raffiche di allarmi
 • Ore di silenzio: di notte (ad es. 23–7) allarmi senza suono, vibrazione o voce
 • «Prova allarme»: senti in anticipo come arriva un allarme
 
 ATTIVITÀ INSOLITA E PERCHÉ SI MUOVE?
-• Attività insolita rileva movimenti di prezzo e volume fuori dal normale nella tua lista
-• «Perché si muove?» spiega un movimento con volume, mercato generale e dati futures, con un breve riepilogo
+• Attività insolita rileva movimenti di prezzo e volume fuori dal normale nella tua lista, con notifiche facoltative
+• «Perché si muove?» spiega un movimento con volume, mercato generale e futures, con breve riepilogo – non è consulenza finanziaria
 
-PANORAMICA DI MERCATO
-• Crypto Pulse: cosa succede ora? BTC, ETH, SOL, altcoin rispetto a BTC, volume, Fear & Greed, funding, gas ETH e un riepilogo in una frase, senza previsioni
-• Indice Fear & Greed con cronologia
+PANORAMICA DEL MERCATO
+• Crypto Pulse: cosa succede ora? BTC, ETH, SOL, altcoin rispetto a BTC, volume, Fear & Greed, funding, gas ETH e riepilogo, senza previsioni
+• Indice Fear & Greed con storico
 • Mercato crypto: capitalizzazione totale e volume 24 h nella tua valuta
-• Scheda Mercato: fase di mercato con segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia per l'halving, dominanza e altcoin season
-• Analisi delle monete: RSI, trend, Pi Cycle e forza rispetto al Bitcoin
-• Dati futures: funding rate e open interest
-• Commissioni di rete per Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin, con allarme gas
+• Scheda Mercato: fase, segnali di un possibile massimo o minimo (nessuna previsione), conto alla rovescia all’halving, dominanza e altcoin season
+• Analisi moneta: RSI, trend, Pi Cycle e forza rispetto a Bitcoin
+• Dati futures: funding rate e open interest, con brevi spiegazioni
+• Commissioni di rete (Ethereum, Base, Arbitrum, Polygon, BNB Chain, Bitcoin) con allarme gas
 
-WIDGET PER LA SCHERMATA HOME E DI BLOCCO
-• Widget in tre dimensioni: lista, portafoglio (anche sulla schermata di blocco), una moneta con grafico 24 h, 7 o 30 giorni
-• Aggiornamento direttamente dal widget
-• Attività Live sulla schermata di blocco: il prezzo di una moneta a colpo d'occhio
+WIDGET: HOME E SCHERMATA DI BLOCCO
+• Widget in tre dimensioni: lista, portafoglio (anche schermata di blocco), una moneta con grafico 24 h/7 g/30 g, candele o linea, livelli massimo/medio/minimo
+• Aggiornamento dal widget
+• Attività Live: il prezzo di una moneta sulla schermata di blocco
 
 E INOLTRE
-• Aggiornamento frequente ad app aperta; gli aggiornamenti in background li pianifica iOS
+• Aggiornamento frequente ad app aperta; in background lo pianifica iOS
 • Lettura vocale di prezzi e allarmi
-• Backup e ripristino tramite l'app File
-• Azioni rapide sull’icona dell’app, tema chiaro e scuro
-• Cinque colori d’accento con icone dell’app abbinate
+• Backup e ripristino tramite l’app File
+• Azioni rapide sull’icona, tema chiaro e scuro
+• Cinque colori d’accento, icone abbinate
 • Blocco portafoglio: Face ID, Touch ID o codice
 • Disponibile in 31 lingue
 
-PRIMA LA PRIVACY
-Nessun account, nessuna pubblicità, nessuna analisi, nessun tracciamento. I prezzi arrivano direttamente dalle API pubbliche degli exchange. La tua lista, i tuoi allarmi e le tue quantità restano sul tuo dispositivo. Open source (licenza MIT): il codice è pubblico su GitHub.
+PRIVACY AL PRIMO POSTO
+Nessun account, pubblicità, analisi o tracciamento. I prezzi arrivano direttamente dalle API pubbliche degli exchange. Lista, allarmi e quantità restano sul tuo dispositivo. Open source (licenza MIT), codice pubblico su GitHub.
 
-Nota: Crypto Checker mostra solo i prezzi. Non è un exchange né un wallet, non esegue operazioni e non fornisce consulenza sugli investimenti.
+Nota: Crypto Checker mostra solo i prezzi: non è un exchange né un wallet, non esegue operazioni e non è consulenza finanziaria.

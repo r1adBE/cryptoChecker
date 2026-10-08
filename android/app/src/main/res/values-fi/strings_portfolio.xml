@@ -22,14 +22,14 @@
     <string name="portfolio_realized">Voitto/tappio, myyty</string>
     <string name="portfolio_value">Arvo</string>
     <string name="portfolio_avg_price">Keskim. ostohinta</string>
-    <string name="portfolio_current_price">Nykyinen kurssi</string>
+    <string name="portfolio_current_price">Nykyinen hinta</string>
     <string name="portfolio_avg_and_now">Keskim. %1$s · nyt %2$s</string>
-    <string name="portfolio_updated">Kurssit klo %1$s</string>
+    <string name="portfolio_updated">Hinnat klo %1$s</string>
     <string name="portfolio_convert_to">Muunna valuuttaan</string>
     <string name="portfolio_convert_to_value">Muunna valuuttaan: %1$s</string>
     <string name="portfolio_price_missing">Hinta puuttuu</string>
     <string name="portfolio_price_missing_hint">Joistakin ostoista puuttuu hinta. Lisää ostohinta nähdäksesi voiton/tappion.</string>
-    <string name="portfolio_current_missing">Ei nykyistä kurssia: %1$s</string>
+    <string name="portfolio_current_missing">Ei nykyistä hintaa: %1$s</string>
     <string name="portfolio_oversold">Myynnit ylittävät omistuksen – tarkista tapahtumat.</string>
     <plurals name="portfolio_closed">
         <item quantity="one">Suljettu positio (%1$d)</item>
@@ -54,7 +54,7 @@
     <string name="portfolio_tx_delete_title">Poistetaanko tapahtuma?</string>
     <string name="portfolio_tx_delete_confirm">Tämä tapahtuma poistetaan salkusta.</string>
     <string name="portfolio_empty_title">Ei vielä tapahtumia</string>
-    <string name="portfolio_empty_text">Kirjaa ostot ja myynnit. Arvo ja voitto/tappio lasketaan nykyisillä USDT-kursseilla.</string>
+    <string name="portfolio_empty_text">Kirjaa ostot ja myynnit. Arvo ja voitto/tappio lasketaan nykyisillä USDT-hinnoilla.</string>
     <string name="portfolio_empty_action">Kirjaa ensimmäinen osto</string>
     <string name="portfolio_disclaimer">Tallennettu vain tälle laitteelle. Ei sijoitusneuvontaa.</string>
     <string name="portfolio_add_from_watch">Lisää salkkuun</string>

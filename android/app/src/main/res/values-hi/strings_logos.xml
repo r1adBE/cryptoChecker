@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">कॉइन लोगो</string>
+    <string name="settings_coin_logos_app">ऐप में</string>
+    <string name="settings_coin_logos_app_hint">वॉचलिस्ट, पेयर शीट और मार्केट कार्ड</string>
+    <string name="settings_coin_logos_portfolio">पोर्टफ़ोलियो में</string>
+    <string name="settings_coin_logos_portfolio_hint">पोज़िशन, कॉइन विवरण और विश्लेषण</string>
+    <string name="settings_coin_logos_widgets">विजेट में</string>
+    <string name="settings_coin_logos_widgets_hint">वॉचलिस्ट और एक-कॉइन विजेट</string>
+    <string name="settings_coin_logos_footer">लोगो CoinGecko से आते हैं, और जो CoinGecko पर नहीं हैं (जैसे सोना, चांदी, शेयर) वे Binance से। ऐप सभी लोगो एक साथ डाउनलोड करके इसी डिवाइस पर रखता है, इसलिए दोनों में से कोई नहीं जान पाता कि आप कौन-से कॉइन फ़ॉलो करते हैं। बिना लोगो वाले कॉइन के शुरुआती अक्षर दिखते हैं। पसंदीदा कॉइन के लोगो पर एक छोटा सितारा दिखता है। जहाँ स्विच बंद है, वहाँ न लोगो दिखता है न शुरुआती अक्षर; सब बंद होने पर कुछ भी लोड नहीं होता।</string>
+    <string name="settings_coin_logos_value_app">ऐप</string>
+</resources>

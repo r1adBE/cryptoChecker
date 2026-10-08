@@ -27,6 +27,10 @@ struct SingleEntry: TimelineEntry {
     /// «Basis der %-Änderung» und Stempel der gespeicherten Werte (beim Erstellen gelesen).
     var changeBasis: ChangeBasis = SharedStorage.loadSettings().changeBasis
     var changeStamp: ChangeStamp? = SharedStorage.changeStamp
+    /// Coin-Logo des Paares (`WidgetLogos`); leer = Initialen.
+    var logos: [String: UIImage] = [:]
+    /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
+    var showLogos: Bool = SharedStorage.loadSettings().widgetCoinLogos
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
@@ -87,9 +91,10 @@ struct SingleProvider: AppIntentTimelineProvider {
         let candles = await chart
         let watch = Self.watch(for: configuration)
         // Erst diese Aktualisierung kann «nicht mehr gehandelt» ergeben haben: dann kein Chart
-        let entry = SingleEntry(date: Date(), watch: watch, candles: watch?.isNotTraded == false ? candles : nil,
+        var entry = SingleEntry(date: Date(), watch: watch, candles: watch?.isNotTraded == false ? candles : nil,
                                 range: configuration.range, chartType: configuration.chartType,
                                 theme: configuration.theme, accent: SharedStorage.loadSettings().accentColor)
+        entry.logos = await WidgetLogos.load(for: watch.map { [$0] } ?? [])
         // Zweiter Eintrag, sobald der Kurs veraltet («veraltet · 06:42»)
         var times: [Int64] = []
         if let watch, !ConnectionErrors.isNotTraded(watch.lastError) { times = [watch.lastUpdate] }
@@ -103,9 +108,11 @@ struct SingleProvider: AppIntentTimelineProvider {
 
     private func entry(for configuration: SingleWidgetIntent, watch: Watch?) async -> SingleEntry {
         let candles = await Self.candles(for: watch, range: configuration.range)
-        return SingleEntry(date: Date(), watch: watch, candles: candles, range: configuration.range,
-                           chartType: configuration.chartType,
-                           theme: configuration.theme, accent: SharedStorage.loadSettings().accentColor)
+        var entry = SingleEntry(date: Date(), watch: watch, candles: candles, range: configuration.range,
+                                chartType: configuration.chartType,
+                                theme: configuration.theme, accent: SharedStorage.loadSettings().accentColor)
+        entry.logos = await WidgetLogos.load(for: watch.map { [$0] } ?? [])
+        return entry
     }
 
     private static func watch(for configuration: SingleWidgetIntent) -> Watch? {
@@ -146,6 +153,9 @@ struct SingleWidgetView: View {
         Group { content }
             // %-Basis für Zeitraum und VoiceOver der Veränderung
             .environment(\.changeView, entry.changeView)
+            // Coin-Logo (Schalter «Coin-Logos in Widgets»); leer = Initialen
+            .environment(\.widgetLogos, entry.logos)
+            .environment(\.widgetLogosEnabled, entry.showLogos)
     }
 
     @ViewBuilder
@@ -225,7 +235,8 @@ private struct SingleHeader: View {
     /// Basis («BTC» statt «BT…»). Die Veränderung wird nie gekürzt (feste Breite, Vorrang).
     var body: some View {
         HStack(spacing: 6) {
-            WidgetCoinBadge(symbol: watch.baseAsset, size: badge, dark: palette.dark)
+            WidgetCoinBadge(symbol: watch.baseAsset, size: badge, dark: palette.dark, accent: palette.accent,
+                            logo: CoinLogos.allowed(forMarket: watch.marketKey))
             ViewThatFits(in: .horizontal) {
                 pairText(watch.displayName)
                     .fixedSize(horizontal: true, vertical: false)
@@ -312,7 +323,8 @@ private struct SingleMediumView: View {
         HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 6) {
-                    WidgetCoinBadge(symbol: watch.baseAsset, size: 24, dark: palette.dark)
+                    WidgetCoinBadge(symbol: watch.baseAsset, size: 24, dark: palette.dark, accent: palette.accent,
+                                    logo: CoinLogos.allowed(forMarket: watch.marketKey))
                     VStack(alignment: .leading, spacing: 0) {
                         Text(watch.displayName)
                             .font(.system(size: 14, weight: .bold))

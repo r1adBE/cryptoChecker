@@ -13,7 +13,7 @@
     <string name="why_fn_market_pulls">BTC가 시장을 끌고 가는 중</string>
     <string name="why_fn_market_lags">시장은 움직이지만 이 코인은 거의 그대로</string>
     <string name="why_fn_market_alone">시장은 잠잠 – 이 코인만 따로 움직임</string>
-    <string name="why_fn_market_against">코인이 시장과 반대로 움직임</string>
+    <string name="why_fn_market_against">이 코인이 시장과 반대로 움직임</string>
     <string name="why_fn_market_calm">시장 잠잠</string>
     <string name="why_fn_leader_moves">비트코인이 방향을 정함</string>
     <string name="why_fn_leader_calm">비트코인 잠잠</string>

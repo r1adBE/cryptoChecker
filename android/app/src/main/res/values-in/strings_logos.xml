@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo koin</string>
+    <string name="settings_coin_logos_app">Di aplikasi</string>
+    <string name="settings_coin_logos_app_hint">Daftar pantau, halaman pasangan, dan kartu pasar</string>
+    <string name="settings_coin_logos_portfolio">Di portofolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Posisi, detail koin, dan wawasan</string>
+    <string name="settings_coin_logos_widgets">Di widget</string>
+    <string name="settings_coin_logos_widgets_hint">Widget daftar pantau dan satu koin</string>
+    <string name="settings_coin_logos_footer">Logo berasal dari CoinGecko, dan dari Binance untuk aset yang tidak ada di CoinGecko (mis. emas, perak, saham). Aplikasi mengunduh semua logo sekaligus dan menyimpannya di perangkat ini, sehingga keduanya tidak tahu koin mana yang Anda ikuti. Koin tanpa logo menampilkan inisialnya. Favorit mendapat bintang kecil di logonya. Jika sakelar dimatikan, logo maupun inisial tidak ditampilkan; jika semua dimatikan, tidak ada yang dimuat.</string>
+    <string name="settings_coin_logos_value_app">Aplikasi</string>
+</resources>

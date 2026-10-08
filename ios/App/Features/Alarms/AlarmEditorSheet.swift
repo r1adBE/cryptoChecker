@@ -82,7 +82,7 @@ struct AlarmEditorSheet: View {
                 VStack(alignment: .leading, spacing: Spacing.lg) {
                     if let watch {
                         HStack(spacing: 12) {
-                            CoinBadge(symbol: watch.baseAsset, size: 36)
+                            CoinBadge(symbol: watch.baseAsset, size: 36, logo: CoinLogos.allowed(forMarket: watch.marketKey))
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(watch.displayName).font(.headline)
                                 Text(watch.marketName).font(.caption).foregroundStyle(AppColors.onSurfaceVariant)

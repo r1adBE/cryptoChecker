@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Fordulónapi export</string>
     <string name="portfolio_export_date">Fordulónap</string>
     <string name="portfolio_export_currency">Pénznem: %1$s</string>
-    <string name="portfolio_export_hint">Állomány a választott nap végén, a napi záróárfolyamon (UTC) USDT-ben értékelve, és az EKB aznapi referencia-árfolyamával átváltva. A pénznemet az „Átváltás erre” menüben módosíthatod.</string>
+    <string name="portfolio_export_hint">Állomány a választott nap végén, a napi záróárfolyamon (UTC) USDT-ben értékelve, és az EKB aznapi referencia-árfolyamával átváltva. A pénznemet az „Átváltás erre” menüben módosíthatja.</string>
     <string name="portfolio_export_button">CSV exportálása</string>
     <string name="portfolio_export_running">Korábbi árfolyamok lekérése…</string>
     <string name="portfolio_export_done">Export mentve</string>

@@ -6,7 +6,7 @@
     <string name="unusual_fact_stronger">BTC\'den çok daha güçlü hareket ediyor</string>
     <string name="unusual_fact_weaker">BTC\'den çok daha zayıf hareket ediyor</string>
     <string name="unusual_fact_against">Piyasaya ters hareket ediyor</string>
-    <string name="unusual_fact_volume">Hacim normalin %1$s× katı</string>
+    <string name="unusual_fact_volume">Hacim normalin %1$s katı</string>
     <string name="unusual_fact_funding_high">Fonlama yüksek (%1$s)</string>
     <string name="unusual_fact_funding_negative">Fonlama negatif (%1$s)</string>
     <string name="unusual_source">Stablecoin\'ler hariç en büyük yaklaşık 30 coin · Binance, CoinGecko</string>

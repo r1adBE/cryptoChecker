@@ -13,7 +13,7 @@
     <string name="why_fn_market_pulls">BTCが市場を引っ張っている</string>
     <string name="why_fn_market_lags">市場は動いているが、このコインはほぼ動かない</string>
     <string name="why_fn_market_alone">市場は落ち着いている – このコインが単独で動いている</string>
-    <string name="why_fn_market_against">コインが市場と逆行している</string>
+    <string name="why_fn_market_against">このコインが市場と逆行している</string>
     <string name="why_fn_market_calm">市場は落ち着いている</string>
     <string name="why_fn_leader_moves">ビットコインが方向を決めている</string>
     <string name="why_fn_leader_calm">ビットコインは落ち着いている</string>

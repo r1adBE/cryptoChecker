@@ -125,6 +125,9 @@ object CycleCacheCodecs {
                 .putNumber("funding", p.fundingPercent)
                 .putNumber("gas", p.ethGasGwei)
                 .put("time", p.time)
+                .put("top", JSONArray(p.topChanges.filter { it.isFinite() }))
+                .putNumber("marketCap", p.marketCapUsd)
+                .putNumber("marketCap24h", p.marketCap24h)
         },
         decode = { o ->
             PulseInput(
@@ -136,6 +139,12 @@ object CycleCacheCodecs {
                 fundingPercent = o.doubleOrNull("funding"),
                 ethGasGwei = o.doubleOrNull("gas"),
                 time = o.getLong("time"),
+                // Ältere Einträge ohne diese Felder: Zeilen entfallen bis zum nächsten Abruf
+                topChanges = o.optJSONArray("top")?.let { a ->
+                    (0 until a.length()).mapNotNull { i -> a.optDouble(i).takeIf { it.isFinite() } }
+                }.orEmpty(),
+                marketCapUsd = o.doubleOrNull("marketCap"),
+                marketCap24h = o.doubleOrNull("marketCap24h"),
             )
         },
     )

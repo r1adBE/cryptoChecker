@@ -3,7 +3,7 @@
     <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
     <string name="about_licenses">Licenties</string>
     <string name="licenses_marketdata_title">Koersdatabibliotheek</string>
-    <string name="licenses_marketdata_intro">Delen van de exchange-koppeling zijn gebaseerd op software onder de MIT-licentie:</string>
+    <string name="licenses_marketdata_intro">Delen van de beurskoppeling zijn gebaseerd op software onder de MIT-licentie:</string>
     <string name="licenses_marketdata_changes">Wijzigingen: %1$s</string>
     <string name="licenses_font_title">Lettertype Rubik</string>
     <string name="licenses_libraries_title">Android-bibliotheken</string>

@@ -4,7 +4,7 @@
     <string name="watchlist_jump_start">ไปที่ด้านบน</string>
     <string name="watchlist_jump_end">ไปที่ด้านล่าง</string>
     <string name="settings_activity_sensitivity">ความไว</string>
-    <string name="settings_activity_sensitivity_hint">เกณฑ์ที่เหรียญจะถือว่าผิดปกติ – ใช้เหมือนกันทั้งการ์ดในรายการเฝ้าดูและการแจ้งเตือน เมื่อเลือก “น้อยลง” การ์ดจะแสดงเพียง 3 อันดับที่แรงที่สุด</string>
+    <string name="settings_activity_sensitivity_hint">เกณฑ์ที่เหรียญจะถือว่าผิดปกติ – ใช้เหมือนกันทั้งการ์ดในรายการติดตามและการแจ้งเตือน เมื่อเลือก “น้อยลง” การ์ดจะแสดงเพียง 3 อันดับที่แรงที่สุด</string>
     <string name="activity_sensitivity_less">น้อยลง</string>
     <string name="activity_sensitivity_normal">ปกติ</string>
     <string name="activity_sensitivity_more">มากขึ้น</string>

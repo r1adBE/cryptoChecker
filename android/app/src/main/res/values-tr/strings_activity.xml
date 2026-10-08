@@ -3,11 +3,11 @@
     <!-- Ungewöhnliche Aktivität: Merkliste -->
     <string name="activity_card_title">Şu anda bir şeyler oluyor</string>
     <string name="activity_more">+%1$d</string>
-    <string name="activity_indicator">Olağandışı hareket</string>
+    <string name="activity_indicator">Olağandışı etkinlik</string>
 
     <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
-    <string name="activity_signal_price_move">Olağandışı hareket: bir saatte %1$s (normalin %2$s× katı)</string>
-    <string name="activity_signal_volume">Son bir saatte hacim normalin %1$s× katı</string>
+    <string name="activity_signal_price_move">Olağandışı hareket: bir saatte %1$s (normalin %2$s katı)</string>
+    <string name="activity_signal_volume">Son bir saatte hacim normalin %1$s katı</string>
     <string name="activity_signal_open_interest">Açık pozisyon %2$d dk içinde %1$s</string>
     <string name="activity_signal_open_interest_no_time">Açık pozisyon %1$s</string>
     <string name="activity_signal_funding_long">Fonlama %1$s — çok sayıda kaldıraçlı long</string>
@@ -15,7 +15,7 @@
     <string name="notification_activity_title">%1$s · %2$s</string>
 
     <!-- Einstellungen -->
-    <string name="settings_activity_alerts">Olağandışı hareketi bildir</string>
+    <string name="settings_activity_alerts">Olağandışı etkinliği bildir</string>
     <string name="settings_activity_alerts_hint">Çift başına saatte en fazla bir kez: olağandışı fiyat hareketleri, hacim sıçramaları ve vadeli işlemlerdeki uç değerler (veriler Binance\'ten).</string>
 
     <!-- «Warum bewegt sich das?» -->
@@ -37,7 +37,7 @@
 
     <string name="why_volume_high_text">Son bir saatte normalden çok daha fazla işlem — hareket geniş çapta destekleniyor.</string>
     <string name="why_volume_low_text">Hareket zayıf ve hızla tersine dönebilir.</string>
-    <string name="why_volume_normal_text">Son bir saatteki işlemler son 24 saatle uyumlu.</string>
+    <string name="why_volume_normal_text">Son bir saatteki işlem hacmi son 24 saatle aynı düzeyde.</string>
 
     <string name="why_leverage_longs_text">Long’lar short’lara ödüyor — fiyat düşerse tasfiye riski artar.</string>
     <string name="why_leverage_shorts_text">Short’lar long’lara ödüyor — yükselen fiyat bir short squeeze tetikleyebilir.</string>

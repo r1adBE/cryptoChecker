@@ -24,7 +24,7 @@
     <string name="a11y_chart">Kaavio %1$s: alku %2$s, loppu %3$s, %4$s. Ylin %5$s, alin %6$s.</string>
     <string name="a11y_chart_empty">Kaavio: ei tietoja</string>
     <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
-    <string name="a11y_cycle">Sykli %1$s: %2$s halvingista, päivä %3$d.</string>
+    <string name="a11y_cycle">Sykli %1$s: %2$s puolittumisesta, päivä %3$d.</string>
     <string name="a11y_cycle_top">Huippu %1$s päivänä %2$d.</string>
     <string name="a11y_cycle_bottom">Pohja %1$s päivänä %2$d.</string>
     <string name="a11y_cycle_double_top">Tuplahuippu %1$s päivänä %2$d.</string>

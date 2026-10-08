@@ -3,7 +3,9 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.GasNetwork
+import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.PulseInput
+import com.cryptochecker.app.domain.starter.StarterCoins
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -26,6 +28,9 @@ import javax.inject.Singleton
  *    sonst je Coin aus Stundenkerzen der Ausweich-Kette (Binance … Coinbase, siehe [CandleDataSource])
  *  - BTC-Volumen-Verhältnis: wie «Warum bewegt sich das?» ([ActivityAnalyzer.hourStats])
  *  - Fear & Greed (alternative.me), BTC-Funding ([FuturesDataSource]), Ethereum-Gas ([GasDataSource])
+ *  - Marktbreite: 24-h-Veränderung der grössten Coins (CoinGecko-Rangliste, ohne Stablecoins und
+ *    Doppelgänger wie bei den Start-Coins); Krypto-Markt gesamt: CoinGecko `/global`
+ *    (30 Min. im Speicher — bewegt sich langsam, schont das Abruflimit)
  * Liefert die Eingaben ([PulseInput]); Auswertung mit [CryptoPulse.evaluate].
  * Zwischenspeicher (5 Min., auch auf dem Gerät) siehe Markt-Tab (InfoViewModel).
  */
@@ -52,6 +57,8 @@ class PulseDataSource @Inject constructor(
         val gasJob = async {
             timed { gasDataSource.fetch().evm.firstOrNull { it.network == GasNetwork.ETHEREUM }?.normalGwei }
         }
+        val topJob = async { timed { topChanges() } }
+        val globalJob = async { timed { globalTotals() } }
 
         val now = System.currentTimeMillis()
         val tickers = tickerJob.await().orEmpty()
@@ -75,7 +82,38 @@ class PulseDataSource @Inject constructor(
             fundingPercent = fundingJob.await(),
             ethGasGwei = gasJob.await(),
             time = now,
+            topChanges = topJob.await().orEmpty(),
+            marketCapUsd = globalJob.await()?.marketCap?.get("usd"),
+            marketCap24h = globalJob.await()?.changePercent24h,
         )
+    }
+
+    /**
+     * 24-h-Veränderung der grössten Coins (Rang-Reihenfolge), ohne Stablecoins und Doppelgänger,
+     * höchstens [CryptoPulse.BREADTH_COINS].
+     */
+    private suspend fun topChanges(): List<Double> {
+        val array = JSONArray(httpClient.callMarket(COINGECKO_TOP_URL, null))
+        return (0 until array.length()).mapNotNull { i ->
+            val o = array.optJSONObject(i) ?: return@mapNotNull null
+            val coin = StarterCoins.MarketCoin(
+                symbol = o.optString("symbol").trim().uppercase(),
+                name = o.optString("name").trim(),
+                rank = if (o.isNull("market_cap_rank")) null else o.optInt("market_cap_rank"),
+                marketCap = null,
+            )
+            if (StarterCoins.isExcluded(coin) || o.isNull("price_change_percentage_24h")) return@mapNotNull null
+            o.optDouble("price_change_percentage_24h").takeIf { it.isFinite() }
+        }.take(CryptoPulse.BREADTH_COINS)
+    }
+
+    @Volatile private var globalCache: Pair<Long, MarketTotals>? = null
+
+    /** Markt-Summen von CoinGecko `/global`, 30 Minuten im Speicher. */
+    private suspend fun globalTotals(): MarketTotals? {
+        val now = System.currentTimeMillis()
+        globalCache?.let { (at, totals) -> if (now - at in 0 until GLOBAL_CACHE_MILLIS) return totals }
+        return insightsDataSource.global().totals?.also { globalCache = now to it }
     }
 
     /** 24-h-Veränderung in % je Coin (BTC, ETH, SOL) vom Binance-Spiegel; leer bei Fehler. */
@@ -113,6 +151,9 @@ class PulseDataSource @Inject constructor(
 
     private companion object {
         val COINS = listOf("BTC", "ETH", "SOL")
+        const val COINGECKO_TOP_URL = "https://api.coingecko.com/api/v3/coins/markets" +
+            "?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false"
+        const val GLOBAL_CACHE_MILLIS = 30 * 60_000L
         const val SOURCE_TIMEOUT_MILLIS = 10_000L
     }
 }

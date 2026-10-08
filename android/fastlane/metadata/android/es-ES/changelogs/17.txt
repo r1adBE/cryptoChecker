@@ -1,10 +1,10 @@
 Novedades 16.2.2
-• Crypto Pulse: qué pasa ahora en el mercado
-• Actividad inusual, ¿Por qué se mueve? ahora con breve resumen
-• Probar alarma
-• Precios y alarmas en tu moneda
-• Exportación CSV a fecha de corte
-• Accesible: azul/naranja, alto contraste, colores intercambiados, TalkBack
-• Empieza con un toque, horas de silencio, bloqueo y widget de cartera, alarma como frase
-• 15 exchanges nuevos, comisiones de red con alarma de gas
-• Gráfico de velas en el widget, capitalización
+• Crypto Pulse: qué pasa ahora
+• Actividad inusual, «¿Por qué se mueve?» con resumen
+• Empieza con un toque: top 5 en vivo
+• Desliza: borrar (con Deshacer) o favorito
+• Precios y alarmas en tu moneda; CSV a fecha de corte
+• Accesible: azul/naranja, alto contraste, invertir colores, TalkBack
+• Horas de silencio, probar alarma, alarma como frase, bloqueo/widget de cartera
+• 15 exchanges nuevos, alarma de gas, velas en widget
+• Acciones, oro, divisas (TradFi); % por zona horaria

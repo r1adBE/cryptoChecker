@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Suche in der Merkliste -->
-    <string name="watchlist_search_hint">페어 또는 거래소 검색</string>
+    <string name="watchlist_search_hint">거래쌍 또는 거래소 검색</string>
     <string name="watchlist_search_open">검색</string>
     <string name="watchlist_search_close">검색 닫기</string>
     <string name="watchlist_search_empty">“%1$s”에 대한 결과 없음</string>

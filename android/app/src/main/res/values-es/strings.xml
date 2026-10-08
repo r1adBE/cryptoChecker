@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Error: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">No hay pares</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Carga los pares actuales del mercado seleccionado.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Carga los pares actuales del exchange seleccionado.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Actualizar pares</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizar ahora</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Última sincronización: %1$s</string>
@@ -96,7 +96,7 @@
     <string name="zone_neutral">Neutral</string>
     <string name="zone_bull">Bull</string>
     <string name="zone_extreme_bull">Extreme Bull</string>
-    <string name="zone_hint_extreme_bear">Muchas señales históricas de bottom a la vez – zona histórica de acumulación.</string>
+    <string name="zone_hint_extreme_bear">Muchas señales históricas de suelo a la vez – zona histórica de acumulación.</string>
     <string name="zone_hint_bear">Tendencia bajista o fase de bottom, aún sin capitulación generalizada.</string>
     <string name="zone_hint_neutral">Señales mixtas, sin dirección clara.</string>
     <string name="zone_hint_bull">Tendencia alcista sin sobrecalentamiento extremo.</string>
@@ -148,7 +148,7 @@
     <string name="settings_background_interval">Intervalo</string>
     <string name="settings_live_service">Actualizar a menudo</string>
     <string name="settings_live_service_hint">Consulta los precios en intervalos cortos, incluso con la app cerrada. Muestra una notificación y gasta más batería.</string>
-    <string name="settings_live_interval">Con qué frecuencia</string>
+    <string name="settings_live_interval">Frecuencia</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
     <string name="settings_price_notifications">Notificaciones de precio</string>
@@ -195,7 +195,7 @@
     <string name="sort_move_down">Bajar</string>
     <string name="sort_move_bottom">Al final</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">Añadir el %1$d par a la lista de seguimiento</item>
+        <item quantity="one">Añadir %1$d par a la lista de seguimiento</item>
         <item quantity="many">Añadir los %1$d pares a la lista de seguimiento</item>
         <item quantity="other">Añadir los %1$d pares a la lista de seguimiento</item>
     </plurals>
@@ -235,17 +235,17 @@
     <string name="settings_http_log">Mostrar registro HTTP</string>
     <string name="settings_http_log_hint">Muestra al final de la página «Añadir par» las solicitudes a los exchanges – para diagnosticar.</string>
     <string name="language_search">Buscar idioma</string>
-    <string name="alarm_delete_title">¿Eliminar alerta?</string>
-    <string name="alarm_delete_confirm">Esta alerta se eliminará.</string>
-    <string name="alarms_overview_title">Todas las alertas</string>
+    <string name="alarm_delete_title">¿Eliminar alarma?</string>
+    <string name="alarm_delete_confirm">Esta alarma se eliminará.</string>
+    <string name="alarms_overview_title">Todas las alarmas</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d activa</item>
         <item quantity="many">%1$d activas</item>
         <item quantity="other">%1$d activas</item>
     </plurals>
-    <string name="alarms_overview_empty">Aún no hay alertas. Abre un par y añade una en Alertas.</string>
+    <string name="alarms_overview_empty">Aún no hay alarmas. Abre un par y añade una en Alarmas.</string>
     <string name="action_more">Más opciones</string>
-    <string name="watchlist_last_run">Última pasada %1$s</string>
+    <string name="watchlist_last_run">Última ejecución %1$s</string>
     <string name="watchlist_pull_to_refresh">Desliza hacia abajo para actualizar</string>
     <string name="favorite_add">Añadir a favoritos</string>
     <string name="favorite_remove">Quitar de favoritos</string>
@@ -262,7 +262,7 @@
         <item quantity="other">¿Añadir %1$d pares?</item>
     </plurals>
     <plurals name="explorer_bulk_confirm_text">
-        <item quantity="one">El %1$d par %2$s de %3$s se añadirá a la lista si aún no está.</item>
+        <item quantity="one">%1$d par %2$s de %3$s: se añadirá a la lista si aún no está.</item>
         <item quantity="many">Los %1$d pares %2$s de %3$s se añadirán a la lista. Los que ya están se omiten.</item>
         <item quantity="other">Los %1$d pares %2$s de %3$s se añadirán a la lista. Los que ya están se omiten.</item>
     </plurals>
@@ -334,7 +334,7 @@
         <item quantity="many">Solo %1$d días de historial: faltan algunos indicadores.</item>
         <item quantity="other">Solo %1$d días de historial: faltan algunos indicadores.</item>
     </plurals>
-    <string name="coin_price_only">Solo basado en el precio: los datos on-chain (MVRV, Puell, hashrate) solo son libres para Bitcoin.</string>
+    <string name="coin_price_only">Solo basado en el precio: los datos on-chain (MVRV, Puell, hashrate) solo están disponibles gratis para Bitcoin.</string>
     <string name="ind_rsi_weekly">RSI (semanal)</string>
     <string name="ind_rsi_daily">RSI (diario)</string>
     <string name="ind_pi_cycle">Pi cycle (111/350 días)</string>
@@ -359,8 +359,8 @@
     <string name="settings_fng_above">Fear &amp; Greed: avisar por encima de</string>
     <string name="option_off">No</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">El índice bajó de %1$d: el mercado tiene miedo.</string>
-    <string name="notification_fng_above">El índice superó %1$d: el mercado es codicioso.</string>
+    <string name="notification_fng_below">El índice bajó de %1$d: domina el miedo.</string>
+    <string name="notification_fng_above">El índice superó %1$d: domina la codicia.</string>
     <string name="futures_title">Datos de futuros</string>
     <string name="futures_funding">Tasa de financiación</string>
     <string name="futures_next_funding">próxima en %1$d h %2$d min</string>
@@ -371,13 +371,13 @@
     <string name="single_widget_choose">Elegir par</string>
     <string name="single_widget_title">Configurar widget individual</string>
     <string name="shortcut_add">Añadir par</string>
-    <string name="shortcut_alarms">Todas las alertas</string>
+    <string name="shortcut_alarms">Todas las alarmas</string>
     <string name="shortcut_cycle">Mercado</string>
     <string name="backup_title">Copia de seguridad</string>
-    <string name="backup_hint">Guarda lista con notas y grupos, alertas, favoritos, cartera y ajustes en un archivo que guardas tú, p. ej. para un móvil nuevo.</string>
+    <string name="backup_hint">Guarda tu lista con notas y grupos, alarmas, favoritos, cartera y ajustes en un archivo que guardas tú, p. ej. para un móvil nuevo.</string>
     <string name="backup_export">Exportar</string>
     <string name="backup_import">Importar</string>
-    <string name="backup_restore_confirm">Importar sustituye tu lista (con notas y grupos), alertas, favoritos, cartera y ajustes por la copia.</string>
+    <string name="backup_restore_confirm">Importar sustituye tu lista (con notas y grupos), alarmas, favoritos, cartera y ajustes por la copia.</string>
     <string name="backup_exported">Copia guardada.</string>
     <string name="backup_failed">No funcionó. ¿Es una copia de Crypto Checker?</string>
     <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
@@ -387,8 +387,8 @@
         <item quantity="other">%1$d pares</item>
     </plurals>
     <plurals name="backup_restored_alarms">
-        <item quantity="one">%1$d alerta</item>
-        <item quantity="many">%1$d alertas</item>
-        <item quantity="other">%1$d alertas</item>
+        <item quantity="one">%1$d alarma</item>
+        <item quantity="many">%1$d alarmas</item>
+        <item quantity="other">%1$d alarmas</item>
     </plurals>
 </resources>

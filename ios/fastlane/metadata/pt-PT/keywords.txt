@@ -1,1 +1,1 @@
-bitcoin,btc,ethereum,eth,criptomoedas,preço,carteira,portefólio,altcoin,medo,ganância,futuros,dex
+bitcoin,btc,ethereum,eth,criptomoedas,preço,carteira,portfólio,altcoin,medo,ganância,futuros,dex

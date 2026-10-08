@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
-    <string name="unusual_title">Ieșit din comun azi</string>
+    <string name="unusual_title">Neobișnuit azi</string>
     <string name="unusual_nothing">Azi nimic ieșit din comun</string>
     <string name="unusual_fact_stronger">Se mișcă mult mai puternic decât BTC</string>
     <string name="unusual_fact_weaker">Se mișcă mult mai slab decât BTC</string>
@@ -16,7 +16,7 @@
 
     <string name="macro_title">Date economice</string>
     <string name="macro_cpi">inflația din SUA (CPI)</string>
-    <string name="macro_ppi">prețurile producției din SUA (PPI)</string>
+    <string name="macro_ppi">prețurile de producție din SUA (PPI)</string>
     <string name="macro_nfp">raportul locurilor de muncă din SUA</string>
     <string name="macro_fomc">decizia Fed privind dobânda</string>
     <string name="macro_pce">inflația PCE din SUA</string>

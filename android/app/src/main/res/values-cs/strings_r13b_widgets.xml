@@ -10,11 +10,11 @@
     <string name="widgets_add_named">Přidat widget %1$s</string>
     <string name="watch_action_add_widget">Přidat jako widget</string>
     <string name="widgets_manual_title">Přidejte widget sami</string>
-    <string name="widgets_manual_text">Vaše plocha neumí přidávat widgety z aplikace. Podržte prst na volném místě plochy, zvolte „Widgety” a vyhledejte „Crypto Checker”.</string>
+    <string name="widgets_manual_text">Vaše plocha neumí přidávat widgety z aplikace. Podržte prst na volném místě plochy, zvolte „Widgety“ a vyhledejte „Crypto Checker“.</string>
 
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS aplikacím nedovoluje přidávat widgety samy. Zabere to jen chvilku:</string>
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Podržte prst na volném místě plochy, dokud se aplikace nezačnou třást.</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Nahoře klepněte na „Upravit” › „Přidat widget” (ve starších verzích iOS na „+”).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Vyhledejte „Crypto Checker”, vyberte widget a klepněte na „Přidat widget”.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Nahoře klepněte na „Upravit“ › „Přidat widget“ (ve starších verzích iOS na „+“).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Vyhledejte „Crypto Checker“, vyberte widget a klepněte na „Přidat widget“.</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Dostupné widgety</string>
 </resources>

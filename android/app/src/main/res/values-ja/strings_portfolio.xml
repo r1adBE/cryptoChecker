@@ -44,7 +44,7 @@
     <string name="portfolio_coin_invalid">コインのシンボルを入力してください</string>
     <string name="portfolio_tx_amount">数量</string>
     <string name="portfolio_tx_price">1コインあたりの価格</string>
-    <string name="portfolio_tx_price_hint">USDT建て。不明な場合は空欄のまま。</string>
+    <string name="portfolio_tx_price_hint">USDT建て。不明な場合は空欄にしてください。</string>
     <string name="portfolio_tx_price_invalid">無効な価格</string>
     <string name="portfolio_tx_date">日付</string>
     <string name="portfolio_tx_note">メモ（任意）</string>

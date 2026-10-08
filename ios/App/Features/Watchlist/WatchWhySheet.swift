@@ -64,7 +64,7 @@ struct WatchlistWhySheet: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
                 HStack(spacing: 12) {
-                    CoinBadge(symbol: watch.baseAsset, size: 40)
+                    CoinBadge(symbol: watch.baseAsset, size: 40, logo: CoinLogos.allowed(forMarket: watch.marketKey))
                     VStack(alignment: .leading, spacing: 1) {
                         Text(watch.displayName)
                             .font(AppFont.headline)
@@ -176,32 +176,24 @@ struct WatchlistWhySheet: View {
     }
 }
 
-/// «1h +2.31 %» — grün/rot, grau bei 0.00 %; «—» ohne Daten.
+/// «1h» und daneben die Änderung als `ChangePill` («—» ohne Daten) — wie `ChangeBadge` in Android.
 private struct WatchlistWhyChangeBadge: View {
     let label: String
     let change: Double?
 
     var body: some View {
-        let zero = change.map { abs($0) < 0.005 } ?? true
-        let color = zero ? AppColors.onSurfaceVariant : PriceColors.forChange(change ?? 0)
         HStack(spacing: Spacing.xs) {
             Text(label)
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)
-            ChangeArrowIcon(change: change)
-                .scaledFont(size: 9, weight: .bold, relativeTo: .caption2)
-                .foregroundStyle(color)
-            Text(change.map { ActivityTexts.percent($0, 2) } ?? "—")
-                .font(.caption.weight(.semibold).monospacedDigit())
-                .foregroundStyle(color)
-                .contentTransition(.numericText())
+            ChangePill(change: change, dashWhenMissing: true)
         }
         .lineLimit(1)
         .fixedSize()
-        .padding(.horizontal, Spacing.sm)
-        .padding(.vertical, 4)
-        .background(color.opacity(0.12), in: Capsule())
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+        // «1h, gestiegen um 2.31%»
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(A11y.join([label, A11y.change(change) ?? "—"]))
     }
 }
 
@@ -254,20 +246,8 @@ private struct WatchlistWhyDetails: View {
 /// damit die Höhen auch bei grosser Schrift stimmen und beim Eintreffen nichts springt.
 /// Pulsiert ruhig, bei reduzierter Bewegung stehend.
 private struct WatchlistWhySkeleton: View {
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
     var body: some View {
-        if reduceMotion {
-            shape.opacity(0.7).accessibilityHidden(true)
-        } else {
-            shape
-                .phaseAnimator([0.45, 1.0]) { view, phase in
-                    view.opacity(phase)
-                } animation: { _ in
-                    .easeInOut(duration: 0.9)
-                }
-                .accessibilityHidden(true)
-        }
+        SkeletonPulse { shape }
     }
 
     private static let placeholders: [WhyFactor] = (0..<WhyFactors.maxFactors).map { _ in

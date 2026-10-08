@@ -4,6 +4,6 @@
     <string name="settings_live_websocket">Курси наживо</string>
     <string name="settings_live_websocket_hint">Курси йдуть за біржею без затримки, поки відкритий список. Для Binance, Bybit, OKX, Coinbase і Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
-    <string name="watchlist_live_a11y">Live-курси увімкнено</string>
-    <string name="refresh_report_live">Live: %1$s</string>
+    <string name="watchlist_live_a11y">Курси наживо ввімкнено</string>
+    <string name="refresh_report_live">Наживо: %1$s</string>
 </resources>

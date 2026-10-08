@@ -25,7 +25,22 @@ data class PulseInput(
     val ethGasGwei: Double?,
     /** Zeitpunkt der Daten (Epoch-ms). */
     val time: Long,
+    /**
+     * 24-h-Veränderung der grössten Coins ohne Stablecoins und Doppelgänger (CoinGecko-Rangliste,
+     * höchstens [CryptoPulse.BREADTH_COINS]); leer = unbekannt.
+     */
+    val topChanges: List<Double> = emptyList(),
+    /** Marktkapitalisierung aller Coins in USD (CoinGecko `/global`). */
+    val marketCapUsd: Double? = null,
+    /** Veränderung der Marktkapitalisierung über 24 h in %. */
+    val marketCap24h: Double? = null,
 )
+
+/** Marktbreite: wie viele der grössten Coins über 24 h steigen bzw. fallen. */
+data class PulseBreadth(val up: Int, val down: Int, val total: Int)
+
+/** Satz zur Marktbreite, nur in deutlichen Fällen. */
+enum class PulseBreadthNote { BROAD_UP, BROAD_DOWN, NARROW_UP, NARROW_DOWN }
 
 enum class PulseAlts { STRONGER, WEAKER, EVEN }
 enum class PulseVolume { HIGH, LOW, NORMAL }
@@ -89,6 +104,12 @@ data class PulseReport(
     val summary: PulseSummary,
     val extras: List<PulseExtra>,
     val time: Long,
+    /** null = zu wenige Werte, Zeile entfällt. */
+    val breadth: PulseBreadth? = null,
+    val breadthNote: PulseBreadthNote? = null,
+    /** null = Zeile «Krypto-Markt» entfällt. */
+    val marketCapUsd: Double? = null,
+    val marketCap24h: Double? = null,
 )
 
 object CryptoPulse {
@@ -113,6 +134,19 @@ object CryptoPulse {
 
     const val GREED_FROM = 70
     const val FEAR_TO = 30
+
+    /** Marktbreite aus so vielen der grössten Coins (ohne Stablecoins und Doppelgänger). */
+    const val BREADTH_COINS = 30
+
+    /** Weniger Werte: keine Marktbreite (zu wenig aussagekräftig). */
+    const val BREADTH_MIN_COINS = 15
+
+    /** Ab diesem Anteil steigender bzw. fallender Coins gilt die Bewegung als breit. */
+    const val BREADTH_BROAD_SHARE = 0.75
+
+    /** Bitcoin bewegt sich mindestens so weit, die Mehrheit aber nicht mit → «schmal». */
+    const val BREADTH_BTC_MOVE_PERCENT = 1.0
+    const val BREADTH_NARROW_SHARE = 0.4
 
     /** Ergebnis gilt so lange (Zwischenspeicher). */
     const val CACHE_MILLIS = 5 * 60_000L
@@ -144,7 +178,39 @@ object CryptoPulse {
             summary = summary(btc, eth, sol, ratio),
             extras = extras(fearGreed, funding),
             time = input.time,
+            breadth = breadth(input.topChanges),
+            breadthNote = breadth(input.topChanges)?.let { breadthNote(it, btc) },
+            marketCapUsd = input.marketCapUsd?.takeIf { it.isFinite() && it > 0.0 },
+            marketCap24h = input.marketCap24h?.takeIf {
+                it.isFinite() && input.marketCapUsd?.let { cap -> cap.isFinite() && cap > 0.0 } == true
+            },
         )
+    }
+
+    /**
+     * Steigend (> 0), fallend (< 0) und Anzahl der ersten [BREADTH_COINS] gültigen Werte;
+     * null bei weniger als [BREADTH_MIN_COINS].
+     */
+    fun breadth(changes: List<Double>): PulseBreadth? {
+        val valid = changes.filter { it.isFinite() }.take(BREADTH_COINS)
+        if (valid.size < BREADTH_MIN_COINS) return null
+        return PulseBreadth(up = valid.count { it > 0.0 }, down = valid.count { it < 0.0 }, total = valid.size)
+    }
+
+    /**
+     * Satz nur in deutlichen Fällen: fast alle steigen bzw. fallen, oder Bitcoin bewegt sich klar
+     * und die Mehrheit der grossen Coins geht nicht mit. Sonst null.
+     */
+    fun breadthNote(breadth: PulseBreadth, btc24h: Double): PulseBreadthNote? {
+        val upShare = breadth.up.toDouble() / breadth.total
+        val downShare = breadth.down.toDouble() / breadth.total
+        return when {
+            upShare >= BREADTH_BROAD_SHARE - EPS -> PulseBreadthNote.BROAD_UP
+            downShare >= BREADTH_BROAD_SHARE - EPS -> PulseBreadthNote.BROAD_DOWN
+            btc24h >= BREADTH_BTC_MOVE_PERCENT && upShare < BREADTH_NARROW_SHARE -> PulseBreadthNote.NARROW_UP
+            btc24h <= -BREADTH_BTC_MOVE_PERCENT && downShare < BREADTH_NARROW_SHARE -> PulseBreadthNote.NARROW_DOWN
+            else -> null
+        }
     }
 
     fun alts(btc: Double, eth: Double, sol: Double): PulseAlts {

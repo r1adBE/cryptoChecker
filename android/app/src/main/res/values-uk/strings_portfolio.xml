@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand -->
-    <string name="portfolio_holdings">Володіння</string>
+    <string name="portfolio_holdings">Активи</string>
     <string name="portfolio_invalid">Неправильна кількість</string>
 
     <!-- Gruppen -->

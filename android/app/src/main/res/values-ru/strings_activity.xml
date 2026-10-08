@@ -37,7 +37,7 @@
 
     <string name="why_volume_high_text">За последний час торговали гораздо больше обычного — движение имеет широкую поддержку.</string>
     <string name="why_volume_low_text">Движение слабое и может быстро развернуться.</string>
-    <string name="why_volume_normal_text">Торговля за последний час соответствует последним 24 часам.</string>
+    <string name="why_volume_normal_text">Объём торгов за последний час на уровне последних 24 часов.</string>
 
     <string name="why_leverage_longs_text">Лонги платят шортам — повышенный риск ликвидаций при падении цены.</string>
     <string name="why_leverage_shorts_text">Шорты платят лонгам — рост цены может вызвать шорт-сквиз.</string>

@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Skok wolumenu</string>
     <string name="alarm_volume_factor_label">Wolumen z ostatniej godziny względem normy</string>
-    <string name="alarm_volume_hint">Dane o wolumenie pochodzą z Binance — pary, których tam nie ma, nigdy się nie uruchomią.</string>
+    <string name="alarm_volume_hint">Dane o wolumenie pochodzą z Binance — alarmy dla par, których tam nie ma, nigdy nie zadziałają.</string>
     <string name="notification_volume_spike_text">Wolumen %1$s× normy w ostatniej godzinie</string>
     <string name="tts_direction_volume_spike">ze skokiem wolumenu</string>
 

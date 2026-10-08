@@ -36,6 +36,6 @@ object TradFi {
 
     private val MEXC_ZONES = listOf("tradfi", "stock", "metals", "commodit", "forex")
 
-    /** Bitget (`/api/v2/mix/market/contracts`): `isRwa` «YES» (Aktien- und Index-Futures, «RWA»). */
+    /** Bitget (`/api/v2/mix/market/contracts`): `isRwa` «YES»/«NO» je Kontrakt (Aktien-, Rohstoff- und Index-Futures, «RWA»; Live-Daten: rund 335 von 801). */
     fun bitget(isRwa: String): Boolean = isRwa.equals("YES", ignoreCase = true) || isRwa.equals("true", ignoreCase = true)
 }

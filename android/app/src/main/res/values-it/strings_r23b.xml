@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Cerca su tutti i mercati insieme: tocca un risultato per aggiungerlo alla lista di osservazione.</string>
-    <string name="explorer_no_pairs_yet">Nessuna coppia ancora caricata per questo mercato.</string>
+    <string name="explorer_search_intro">Cerca su tutti gli exchange insieme: tocca un risultato per aggiungerlo alla lista di osservazione.</string>
+    <string name="explorer_no_pairs_yet">Nessuna coppia ancora caricata per questo exchange.</string>
 </resources>

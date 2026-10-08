@@ -59,14 +59,15 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
         val utlTemplate: String
         val pairId: String
 
-        if(isCoinMPair(checkerInfo.currencyPairId!!)) {
-            pairId = checkerInfo.currencyPairId.substring(COIN_M_PREFIX.length)
+        val currencyPairId = requirePairId(checkerInfo)
+        if(isCoinMPair(currencyPairId)) {
+            pairId = currencyPairId.substring(COIN_M_PREFIX.length)
             // String.format(URL_COIN_M, pairId)
             utlTemplate = URL_COIN_M
         }
         else {
 //            String.format(URL_USD_M, checkerInfo.currencyPairId)
-            pairId = checkerInfo.currencyPairId
+            pairId = currencyPairId
             utlTemplate = URL_USD_M
         }
 
@@ -83,7 +84,7 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
         ticker: Ticker,
         checkerInfo: CheckerInfo
     ) {
-        if(isCoinMPair(checkerInfo.currencyPairId!!))
+        if(isCoinMPair(requirePairId(checkerInfo)))
             parseTicker(JSONArray(responseString).getJSONObject(0), ticker)
         else
             parseTicker(JSONObject(responseString), ticker)
@@ -151,4 +152,8 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
                 tradFi = TradFi.binance(rawContractType, marketJsonObject.optStrings("underlyingSubType"))))
         }
     }
+
+    /** Paar-Kennung des Eintrags; ohne Kennung lässt sich kein Kurs abfragen. */
+    private fun requirePairId(checkerInfo: CheckerInfo): String =
+        checkerInfo.currencyPairId ?: throw MarketParseException("Missing pair id")
 }

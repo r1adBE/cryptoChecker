@@ -20,6 +20,7 @@ import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -192,12 +193,25 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setTextColor(R.id.pulse_lead, colors.textColor)
                 views.setInt(R.id.pulse_lead, "setMaxLines", PulseWidgetMath.leadLines(heightDp, headlineStyle.lines))
 
-                // «Fear & Greed 72 · Gier»: nur mittel/gross und wenn der Text ganz passt
-                val showFng = fearGreedText != null && PulseWidgetMath.showsFearGreed(
-                    widgetWidthDp, heightDp, headlineStyle.lines, toolkit.textWidthDp(fearGreedText, 11f, bold = false, tabular = true)
-                )
-                views.setViewVisibility(R.id.pulse_fng, if (showFng) View.VISIBLE else View.GONE)
-                views.setTextViewText(R.id.pulse_fng, if (showFng) fearGreedText else "")
+                // Nebenzeile «Fear & Greed 72 · Gier · Top 30 ▲ 22 ▼ 8»: nur mittel/gross; passt
+                // nicht alles, zuerst Fear & Greed, sonst die Marktbreite — nie abgeschnitten
+                val breadth = report.breadth
+                val breadthText = breadth?.let {
+                    context.getString(R.string.pulse_breadth_label, it.total) + "  ▲ " + LocaleNumbers.integer(it.up) + "  ▼ " + LocaleNumbers.integer(it.down)
+                }
+                val sideText = listOfNotNull(
+                    listOfNotNull(fearGreedText, breadthText).takeIf { it.size == 2 }?.joinToString(" · "),
+                    fearGreedText,
+                    breadthText,
+                ).firstOrNull { text ->
+                    PulseWidgetMath.showsFearGreed(
+                        widgetWidthDp, heightDp, headlineStyle.lines, toolkit.textWidthDp(text, 11f, bold = false, tabular = true)
+                    )
+                }
+                val showFng = sideText != null && fearGreedText != null && sideText.contains(fearGreedText)
+                val showBreadth = sideText != null && breadthText != null && sideText.contains(breadthText)
+                views.setViewVisibility(R.id.pulse_fng, if (sideText != null) View.VISIBLE else View.GONE)
+                views.setTextViewText(R.id.pulse_fng, sideText.orEmpty())
                 views.setTextColor(R.id.pulse_fng, colors.secondaryTextColor)
 
                 // Nur so viele Chips, wie ganz in die Breite passen (nie ein abgeschnittener)
@@ -238,6 +252,9 @@ class PulseWidgetRenderer @Inject constructor(
                         "$title. $headline. $lead",
                         "$spokenCoins.",
                         fearGreedText?.takeIf { showFng }?.let { "$it." },
+                        breadth?.takeIf { showBreadth }?.let {
+                            context.getString(R.string.pulse_breadth_spoken, it.total, it.up, it.down) + "."
+                        },
                         stand,
                     ).joinToString(" ")
                 )

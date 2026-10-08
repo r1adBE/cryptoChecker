@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Errore: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Nessuna coppia</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Carica le coppie attuali del mercato selezionato.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Carica le coppie attuali dell\'exchange selezionato.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Aggiorna coppie</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizza ora</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Ultima sincronizzazione: %1$s</string>
@@ -12,7 +12,7 @@
     <string name="market_screen_sync">Sincronizza</string>
     <string name="market_screen_base">Base</string>
     <string name="market_screen_quote">Quotazione</string>
-    <string name="market_screen_market">Mercato</string>
+    <string name="market_screen_market">Exchange</string>
     <string name="market_screen_contract_type">Tipo di contratto</string>
     <string name="market_screen_spot">Spot</string>
 
@@ -157,7 +157,7 @@
     <string name="settings_ongoing_notifications_hint">Mantiene fisse le notifiche di prezzo.</string>
     <string name="settings_notification_change">Notifica solo se il prezzo cambia</string>
     <string name="settings_notification_change_always">Sempre</string>
-    <string name="settings_notification_change_hint">Una notifica appare solo quando il prezzo si è mosso almeno di questo valore dall\'ultima. Se mancano dati non viene mostrato nulla. Gli allarmi non sono interessati.</string>
+    <string name="settings_notification_change_hint">Una notifica appare solo quando il prezzo si è mosso almeno di questo valore dall\'ultima. Se mancano dati non viene mostrato nulla. Gli allarmi non ne sono influenzati.</string>
     <string name="settings_alarm_cooldown">Pausa prima che un allarme scatti di nuovo</string>
     <string name="settings_tts">Lettura vocale</string>
     <string name="settings_tts_alarms_only">Solo allarmi</string>
@@ -235,17 +235,17 @@
     <string name="settings_http_log">Mostra log HTTP</string>
     <string name="settings_http_log_hint">Mostra in fondo alla pagina «Aggiungi coppia» le richieste agli exchange – per la diagnosi.</string>
     <string name="language_search">Cerca lingua</string>
-    <string name="alarm_delete_title">Eliminare l\'avviso?</string>
-    <string name="alarm_delete_confirm">Questo avviso verrà rimosso.</string>
-    <string name="alarms_overview_title">Tutti gli avvisi</string>
+    <string name="alarm_delete_title">Eliminare l\'allarme?</string>
+    <string name="alarm_delete_confirm">Questo allarme verrà rimosso.</string>
+    <string name="alarms_overview_title">Tutti gli allarmi</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d attivo</item>
         <item quantity="many">%1$d attivi</item>
         <item quantity="other">%1$d attivi</item>
     </plurals>
-    <string name="alarms_overview_empty">Nessun avviso. Apri una coppia e aggiungine uno in Avvisi.</string>
+    <string name="alarms_overview_empty">Nessun allarme. Apri una coppia e aggiungine uno in Allarmi.</string>
     <string name="action_more">Altre opzioni</string>
-    <string name="watchlist_last_run">Ultimo giro %1$s</string>
+    <string name="watchlist_last_run">Ultima esecuzione %1$s</string>
     <string name="watchlist_pull_to_refresh">Trascina giù per aggiornare</string>
     <string name="favorite_add">Aggiungi ai preferiti</string>
     <string name="favorite_remove">Rimuovi dai preferiti</string>
@@ -276,7 +276,7 @@
     <string name="action_clear">Cancella</string>
     <string name="explorer_bulk_show_list">Mostra elenco</string>
     <string name="explorer_bulk_hide_list">Nascondi elenco</string>
-    <string name="time_just_now">proprio ora</string>
+    <string name="time_just_now">poco fa</string>
     <string name="welcome_text">I tuoi prezzi. I tuoi allarmi. La tua panoramica.\nNessun account. Nessuna pubblicità. Nessun tracciamento.</string>
     <string name="developer_unlocked">Opzioni sviluppatore sbloccate</string>
     <string name="hint_favorites_list">Suggerimento: tocca ☆ per un preferito – i preferiti restano in alto.</string>
@@ -371,15 +371,15 @@
     <string name="single_widget_choose">Scegli una coppia</string>
     <string name="single_widget_title">Configura widget singolo</string>
     <string name="shortcut_add">Aggiungi coppia</string>
-    <string name="shortcut_alarms">Tutti gli avvisi</string>
+    <string name="shortcut_alarms">Tutti gli allarmi</string>
     <string name="shortcut_cycle">Mercato</string>
     <string name="backup_title">Backup e ripristino</string>
-    <string name="backup_hint">Salva lista con note e gruppi, avvisi, preferiti, portafoglio e impostazioni in un file che conservi tu, ad es. per un nuovo telefono.</string>
+    <string name="backup_hint">Salva lista con note e gruppi, allarmi, preferiti, portafoglio e impostazioni in un file che conservi tu, ad es. per un nuovo telefono.</string>
     <string name="backup_export">Esporta</string>
     <string name="backup_import">Importa</string>
-    <string name="backup_restore_confirm">L\'importazione sostituisce lista (con note e gruppi), avvisi, preferiti, portafoglio e impostazioni con il backup.</string>
+    <string name="backup_restore_confirm">L\'importazione sostituisce lista (con note e gruppi), allarmi, preferiti, portafoglio e impostazioni con il backup.</string>
     <string name="backup_exported">Backup salvato.</string>
-    <string name="backup_failed">Non è riuscito. È un backup di Crypto Checker?</string>
+    <string name="backup_failed">Non ha funzionato. È un backup di Crypto Checker?</string>
     <string name="backup_restored">Ripristinati: %1$s, %2$s.</string>
     <plurals name="backup_restored_pairs">
         <item quantity="one">%1$d coppia</item>
@@ -387,8 +387,8 @@
         <item quantity="other">%1$d coppie</item>
     </plurals>
     <plurals name="backup_restored_alarms">
-        <item quantity="one">%1$d avviso</item>
-        <item quantity="many">%1$d avvisi</item>
-        <item quantity="other">%1$d avvisi</item>
+        <item quantity="one">%1$d allarme</item>
+        <item quantity="many">%1$d allarmi</item>
+        <item quantity="other">%1$d allarmi</item>
     </plurals>
 </resources>

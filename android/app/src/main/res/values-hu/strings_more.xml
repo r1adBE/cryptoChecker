@@ -39,7 +39,7 @@
     <string name="alarm_test_denied">Az értesítések ki vannak kapcsolva a Crypto Checker számára.</string>
     <string name="alarm_test_open_settings">Beállítások megnyitása</string>
     <string name="alarm_first_title">Minden kész</string>
-    <string name="welcome_watch">Figyelés – érméi, árfolyamok, grafikonok és widgetek</string>
+    <string name="welcome_watch">Figyelés – érmék, árfolyamok, grafikonok és widgetek</string>
     <string name="welcome_alert">Riasztás – ár, százalék, volumen és szokatlan mozgások</string>
     <string name="welcome_understand">Megértés – miért mozog most a piac?</string>
     <string name="portfolio_empty_example">Példa: 0,01 BTC március 1-jén %1$s áron vásárolva. Az alkalmazás ezután mutatja az értéket, az átlagos vételárat és a nyereséget/veszteséget – csak ezen az eszközön tárolva.</string>
@@ -63,8 +63,8 @@
     <string name="refresh_report_bulk_failed">csoportos lekérés %1$s (sikertelen)</string>
     <string name="refresh_report_singles">%1$d egyenként</string>
     <plurals name="refresh_report_not_traded">
-        <item quantity="one">%1$d már nem forog</item>
-        <item quantity="other">%1$d már nem forog</item>
+        <item quantity="one">%1$d már nem kereskedett</item>
+        <item quantity="other">%1$d már nem kereskedett</item>
     </plurals>
     <plurals name="refresh_report_errors">
         <item quantity="one">%1$d hiba</item>
@@ -79,7 +79,7 @@
     <string name="favorite_added">%1$s hozzáadva a kedvencekhez</string>
     <string name="favorite_removed">%1$s eltávolítva a kedvencekből</string>
     <string name="cycle_data_as_of">Adatok: %1$s · frissítés…</string>
-    <string name="settings_conversion_currency_hint">A portfólióhoz, a saját pénznemében megadott riasztásokhoz, a Kriptopiac kártyához és a Portfólió widgethez is ezt használja az app.</string>
+    <string name="settings_conversion_currency_hint">A portfólióhoz, a saját pénznemében megadott riasztásokhoz, a Kriptopiac kártyához és a Portfólió widgethez is ezt használja az alkalmazás.</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="one">%1$d emelkedik</item>
         <item quantity="other">%1$d emelkedik</item>
@@ -98,8 +98,8 @@
         <item quantity="one">%1$d esik</item>
         <item quantity="other">%1$d esik</item>
     </plurals>
-    <string name="pulse_headline_up">Széles erő</string>
-    <string name="pulse_headline_down">Széles gyengeség</string>
+    <string name="pulse_headline_up">Széles körű erősödés</string>
+    <string name="pulse_headline_down">Széles körű gyengülés</string>
     <string name="pulse_headline_mixed">Vegyes kép</string>
     <string name="pulse_headline_calm">Nyugodt piac</string>
     <string name="pulse_chip_funding_high">Funding emelkedett</string>

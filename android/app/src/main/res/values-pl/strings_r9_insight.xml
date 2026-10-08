@@ -8,11 +8,11 @@
     <string name="pulse_lead_btc_leads">Bitcoin prowadzi rynek.</string>
     <string name="pulse_lead_alts_stronger">Altcoiny są silniejsze od Bitcoina.</string>
     <string name="pulse_lead_btc_stronger">Bitcoin jest silniejszy od altcoinów.</string>
-    <string name="pulse_lead_broad_up">Rynek rośnie szeroko.</string>
-    <string name="pulse_lead_broad_down">Rynek spada szeroko.</string>
+    <string name="pulse_lead_broad_up">Rynek rośnie szerokim frontem.</string>
+    <string name="pulse_lead_broad_down">Rynek spada szerokim frontem.</string>
     <string name="pulse_lead_drift_up">Rynek lekko rośnie.</string>
     <string name="pulse_lead_drift_down">Rynek lekko spada.</string>
-    <string name="pulse_lead_mixed">Duże monety rozjeżdżają się.</string>
+    <string name="pulse_lead_mixed">Duże monety idą w różnych kierunkach.</string>
     <string name="pulse_lead_calm">Rynek prawie się nie rusza.</string>
 
     <string name="pulse_detail_vol_above">Wolumen %1$d%% powyżej normy.</string>

@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Volumepiek</string>
     <string name="alarm_volume_factor_label">Volume van het afgelopen uur t.o.v. normaal</string>
-    <string name="alarm_volume_hint">Volumegegevens komen van Binance – paren die daar niet genoteerd zijn, gaan nooit af.</string>
+    <string name="alarm_volume_hint">Volumegegevens komen van Binance – paren die daar niet genoteerd zijn, geven nooit een alarm.</string>
     <string name="notification_volume_spike_text">Volume %1$s× normaal in het afgelopen uur</string>
     <string name="tts_direction_volume_spike">met een volumepiek</string>
 

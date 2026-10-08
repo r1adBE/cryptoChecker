@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_insight -->
-    <string name="pulse_now_title">Що зараз виділяється</string>
+    <string name="pulse_now_title">Що зараз вирізняється</string>
     <string name="pulse_why_action">Чому? →</string>
     <string name="pulse_section_factors">Фактори</string>
 
-    <string name="pulse_lead_btc_leads">Bitcoin веде ринок.</string>
-    <string name="pulse_lead_alts_stronger">Альткоїни сильніші за Bitcoin.</string>
-    <string name="pulse_lead_btc_stronger">Bitcoin сильніший за альткоїни.</string>
+    <string name="pulse_lead_btc_leads">Біткоїн веде ринок.</string>
+    <string name="pulse_lead_alts_stronger">Альткоїни сильніші за біткоїн.</string>
+    <string name="pulse_lead_btc_stronger">Біткоїн сильніший за альткоїни.</string>
     <string name="pulse_lead_broad_up">Ринок зростає широким фронтом.</string>
     <string name="pulse_lead_broad_down">Ринок знижується широким фронтом.</string>
     <string name="pulse_lead_drift_up">Ринок трохи зростає.</string>
@@ -34,7 +34,7 @@
     <string name="factor_volume">Обсяг</string>
     <string name="factor_fear_greed">Fear &amp; Greed</string>
     <string name="factor_funding">Фандинг</string>
-    <string name="factor_volatility">Коливання (1г)</string>
+    <string name="factor_volatility">Коливання (1 год)</string>
     <string name="factor_spoken_volume">у %1$s раза більше звичайного</string>
     <string name="factor_spoken_volatility">коливання в %1$s раза сильніші за звичайні</string>
 
@@ -45,7 +45,7 @@
     <string name="why_f_coin_only">Лише ця монета</string>
     <string name="why_f_against">Проти ринку</string>
     <string name="why_f_market_calm">Спокійний ринок</string>
-    <string name="why_f_leader">Bitcoin задає напрямок</string>
+    <string name="why_f_leader">Біткоїн задає напрямок</string>
     <string name="why_f_leverage_longs">Плече: багато лонгів</string>
     <string name="why_f_leverage_shorts">Плече: багато шортів</string>
     <string name="why_f_leverage_balanced">Плече збалансоване</string>

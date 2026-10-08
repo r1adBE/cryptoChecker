@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
-    <string name="portfolio_allocation_title">配置</string>
+    <string name="portfolio_allocation_title">资产分布</string>
     <string name="portfolio_allocation_other">其他</string>
     <string name="portfolio_movers_title">最大变动</string>
     <string name="portfolio_hide_amounts">隐藏金额</string>
-    <string name="portfolio_hide_amounts_hint">在投资组合和投资组合小组件中以 ••• 显示金额和价值，百分比仍然可见。</string>
+    <string name="portfolio_hide_amounts_hint">在投资组合和投资组合小部件中以 ••• 显示金额和价值，百分比仍然可见。</string>
     <string name="a11y_portfolio_show_amounts">显示金额</string>
     <string name="a11y_amount_hidden">金额已隐藏</string>
     <string name="portfolio_alarm_action">提醒</string>
@@ -21,5 +21,5 @@
     <string name="portfolio_alarm_sentence_up">投资组合上涨 %1$s（%2$s）</string>
     <string name="portfolio_alarm_sentence_down">投资组合下跌 %1$s（%2$s）</string>
     <string name="notification_portfolio_alarm_title">投资组合价值</string>
-    <string name="notification_portfolio_alarm_text">%1$s – 当前 %2$s</string>
+    <string name="notification_portfolio_alarm_text">%1$s——当前 %2$s</string>
 </resources>

@@ -3,7 +3,7 @@
 **Crypto Checker explains what is happening in the market.** Prices and alarms
 straight from the exchanges, a market overview and “Why is this moving?” for
 single coins – no account, no forecasts, no investment advice.
-Android and iPhone/iPad · 31 languages · no ads · no tracking · open source (MIT).
+Android and iPhone · 31 languages · no ads · no tracking · open source (MIT).
 
 > **Deutsch:** Crypto Checker erklärt dir, was im Markt passiert – Kurse und
 > Alarme direkt von der Börse, ohne Konto, ohne Prognosen. Dieses
@@ -16,7 +16,7 @@ Android and iPhone/iPad · 31 languages · no ads · no tracking · open source 
 | Folder | Content |
 |---|---|
 | [`android/`](android) | Android app (Kotlin, Jetpack Compose) and the exchange library module [`android/marketdata`](android/marketdata) |
-| [`ios/`](ios) | iOS / iPadOS app with widgets (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
+| [`ios/`](ios) | iOS (iPhone) app with widgets (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
 | [`docs/`](docs) | Website and privacy policy (GitHub Pages) |
 | [`docs/macro/`](docs/macro) | Calendar of major US economic releases (CPI, PPI, jobs report, Fed decisions, PCE) used by the app's economic-data hint |
 | [`DEVELOPMENT.md`](DEVELOPMENT.md) | How exchange adapters work and how to add an exchange |

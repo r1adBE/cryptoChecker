@@ -1,63 +1,64 @@
-Crypto Checker legt uit wat er in de markt gebeurt. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt – geen voorspelling.
+Crypto Checker legt uit wat er in de markt gebeurt. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt – zonder voorspelling.
 
 Begrijpen – ‘Waarom beweegt dit?’ met korte samenvatting
 Overzicht – Crypto Pulse, Fear & Greed, cyclus en portfolio
 Volgen – koersen rechtstreeks van de beurs, in je valuta
-Alarmeren – koers, %, bewegingen en volume, als één zin
+Alarmeren – koers, %, bewegingen en volume, als eenvoudige zin
 
-Leesbaar voor iedereen: koerskleuren groen/rood of blauw/oranje, naar wens omgewisseld, hoog contrast, teken en pijl in plaats van alleen kleur, en VoiceOver leest elke regel als één zin voor.
+Leesbaar voor iedereen: groen/rood of blauw/oranje, hoog contrast, teken en pijl i.p.v. alleen kleur, Dynamic Type, en VoiceOver leest elke regel als één zin voor.
 
-VOLGLIJST MET 41 MARKTEN
-• Lege volglijst: de 5 grootste coins naar marktwaarde met één tik
-• Spot en futures van Binance, Coinbase, Kraken, OKX, Bybit en vele andere
+VOLGLIJST: 41 MARKTEN OP 32 BEURZEN
+• Lege volglijst: top 5 coins naar marktwaarde met live koersen, toevoegen met één tik
+• Spot en futures van Binance, Coinbase, Kraken, OKX, Bybit en meer – optioneel ook aandelen, goud en valuta (TradFi), automatisch in eigen groep
 • DEX-tokens via DexScreener
-• Groepen, favorieten en sorteren met slepen
-• Notitie per munt, bijv. je instapprijs
-• Tweede regel ‘≈ waarde’ in je valuta: 31 valuta (EUR, CHF, USD, GBP, JPY …), standaard volgens regio
-• Minigrafiek in elke regel: het 24-uursverloop naast de koers
-• Portfolio als eigen tabblad: aankopen en verkopen, gemiddelde prijs, winst/verlies en totale waarde in je eigen valuta
-• Peildatum-export: portfoliowaarde op elke datum (bijv. 31 dec.) in je valuta als CSV – handig voor de belastingaangifte, geen belastingadvies
+• Veeg links om te verwijderen (met ongedaan maken), rechts voor favoriet; groepen en sorteren door te slepen
+• Notitie per coin, bijv. je instapprijs – onder de koers
+• Tweede regel ‘≈ waarde’ in je valuta: 31 valuta (EUR, CHF, USD, GBP, JPY …), standaard volgens je regio
+• Minigrafiek in elke regel; %-verandering over 24 uur of sinds 00:00 in je tijdzone
+• Portfolio-tabblad: aankopen, verkopen, gem. prijs, winst/verlies en totale waarde in je valuta
+• Peildatum-export: portfoliowaarde op elke datum (bijv. 31 dec.) als CSV – geen belastingadvies
+• Regels tonen ‘verouderd’ of ‘beurs niet bereikbaar’
 
-ALARMEN DIE BIJ JE STRATEGIE PASSEN
-• Koers boven of onder een grens, stijging of daling met een percentage
-• Alarmen in je eigen valuta, bijv. bij 60.000 EUR op een USDT-paar
+ALARMEN OP JOUW VOORWAARDEN
+• Koers boven of onder een grens, of stijging/daling met een percentage
+• Alarmen in je valuta, bijv. bij 60.000 EUR op een USDT-paar
 • Alarm als zin: ‘Laat het me weten als BTC onder 60.000 CHF daalt.’
 • Beweging van X % binnen Y uur, bijv. 5 % in 1 uur
-• Volumepiek: volume plotseling ver boven het gemiddelde
-• Eenmalig of herhalend, als melding met optionele voorleesfunctie
+• Volumepiek: volume plotseling ver boven gemiddeld
+• Eenmalig of herhalend, als tijdgevoelige melding, optioneel voorgelezen
 • Kies je alarmgeluid
-• Instelbare rusttijd voorkomt een stortvloed aan alarmen
-• Stille uren: ’s nachts (bijv. 23–7 uur) alarmen zonder geluid, trilling of spraak
+• Instelbare rusttijd voorkomt een alarmstorm
+• Stille uren: ’s nachts (bijv. 23–7 u) alarmen zonder geluid, trillen of spraak
 • ‘Alarm testen’: hoor en voel vooraf hoe een alarm binnenkomt
 
 ONGEWONE ACTIVITEIT EN WAAROM BEWEEGT DIT?
-• Ongewone activiteit spot ongebruikelijke koers- en volumebewegingen in je lijst – met optionele meldingen
-• ‘Waarom beweegt dit?’ verklaart een beweging met volume, de totale markt en futuresdata, met korte samenvatting – geen beleggingsadvies
+• Ongewone activiteit: opvallende koers- en volumebewegingen in je lijst, met optionele meldingen
+• ‘Waarom beweegt dit?’ verklaart een beweging met volume, totale markt en futuresdata, kort samengevat – geen beleggingsadvies
 
 MARKTOVERZICHT
-• Crypto Pulse: wat gebeurt er nu? BTC, ETH, SOL, altcoins t.o.v. BTC, volume, Fear & Greed, funding, ETH-gas en een samenvatting in één zin, geen voorspelling
-• Fear & Greed-index met geschiedenis
-• Cryptomarkt: totale marktwaarde en 24-uursvolume in je eigen valuta
-• Tabblad Markt: marktfase met tekenen van een mogelijke top of bodem (geen voorspelling), halving-aftelling, cyclusvergelijking, dominantie en altcoinseizoen
-• Muntanalyse: RSI, trend, Pi Cycle en kracht ten opzichte van bitcoin
-• Futuresdata: funding rate en open interest
+• Crypto Pulse: wat gebeurt er nu? BTC, ETH, SOL, altcoins t.o.v. BTC, volume, Fear & Greed, funding, ETH-gas en samenvatting in één zin – geen voorspelling
+• Fear & Greed-index met verloop
+• Cryptomarkt: totale marktwaarde en 24-uursvolume in je valuta
+• Tabblad Markt: marktfase met tekenen van mogelijke top of bodem (geen voorspelling), halving-aftelling, dominantie, altcoinseizoen
+• Muntanalyse: RSI, trend, Pi Cycle en kracht t.o.v. Bitcoin
+• Futuresdata: funding rate en open interest, met korte uitleg
 • Netwerkkosten voor Ethereum, Base, Arbitrum, Polygon, BNB Chain en Bitcoin, met gasalarm
 
 WIDGETS VOOR BEGIN- EN TOEGANGSSCHERM
-• Widgets in drie formaten: lijst, portfolio (ook op het toegangsscherm), één coin met grafiek voor 24 u, 7 of 30 dagen – candles of lijn, met markeringen voor hoog, midden en laag
+• Widgets in 3 formaten: volglijst, portfolio (ook op het toegangsscherm), één coin met grafiek voor 24 u, 7 of 30 dagen – candles of lijn, hoog/midden/laag
 • Vernieuwen direct vanuit de widget
-• Live Activity op het toegangsscherm: de koers van een coin in één oogopslag
+• Live Activity op het toegangsscherm: koers van één coin in één oogopslag
 
 VERDER
-• Vaak bijwerken zolang de app open is; updates op de achtergrond worden door iOS ingepland
-• Koersen en alarmen worden voorgelezen
+• Vaak bijwerken als de app open is; achtergrondupdates plant iOS in
+• Koersen en alarmen voorlezen
 • Back-up en herstel via de app Bestanden
 • Snelle taken op het appsymbool, lichte en donkere modus
 • Vijf accentkleuren met bijpassende appsymbolen
-• Portfolio-vergrendeling: Face ID, Touch ID, code
+• Portfolio-vergrendeling: Face ID, Touch ID, toegangscode
 • Beschikbaar in 31 talen
 
 PRIVACY VOOROP
-Geen account, geen advertenties, geen analyse, geen tracking. De koersen komen rechtstreeks van de openbare API’s van de beurzen. Je lijst, alarmen en bezit blijven op je apparaat. Open source (MIT-licentie) – de code staat openbaar op GitHub.
+Geen account, geen advertenties, geen analyse, geen tracking. Koersen komen direct van de openbare API's van de beurzen. Je volglijst, alarmen en bezit blijven op je apparaat. Open source (MIT) – de code is openbaar op GitHub.
 
-Let op: Crypto Checker toont alleen koersen. De app is geen beurs en geen wallet, handelt niet en geeft geen beleggingsadvies.
+Let op: Crypto Checker toont alleen koersen. Het is geen beurs en geen wallet, handelt niet en geeft geen beleggingsadvies.

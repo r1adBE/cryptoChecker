@@ -1,6 +1,6 @@
 Version 16.2.2
 • Crypto Pulse: hvad der sker i markedet lige nu
-• Hvorfor bevæger den sig? nu med kort opsummering
+• »Hvorfor bevæger den sig?«: en databaseret forklaring på kursbevægelser med kort opsummering
 • Test alarm: lyd, vibration og oplæsning
 • Omregnede kurser: en ekstra linje »≈ værdi« i din omregningsvaluta – 31 valutaer som EUR, CHF, USD, GBP eller JPY, som standard efter din enheds region
 • Alarmer i din valuta, f.eks. ved 60.000 EUR på et USDT-par
@@ -16,18 +16,20 @@ Version 16.2.2
 • Portefølje-widget til hjem- og låseskærm: samlet værdi i din valuta og ændring i dag
 • Hver alarm som en sætning: »Giv mig besked, når BTC falder under 60.000 CHF.«
 • Korte forklaringer til funding rate, open interest, RSI og Pi Cycle
-• Rækker viser »forældet« eller »kan ikke nås«, når en kurs ikke er aktuel
+• Rækker viser »forældet« eller »børsen kan ikke nås«, når en kurs ikke er aktuel
 • 15 nye børser: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
 • Netværksgebyrer for Ethereum, Base, Arbitrum, Polygon, BNB Chain og Bitcoin på fanen Marked, med gas-alarm
-• Note til hver coin i din watchlist
+• Note til hver coin på din overvågningsliste
 • Vælg en alarmlyd
 • Usædvanlig aktivitet: opdager usædvanlige kurs- og volumenbevægelser, valgfri notifikationer
-• Hvorfor bevæger den sig? En databaseret forklaring på bevægelser
 • Portefølje som egen fane: køb og salg, gennemsnitspris, gevinst/tab
 • Sammenligning af cyklusser: toppe og bunde markeret, inkl. dobbelttop og dobbeltbund
-• Grupper til din watchlist
+• Grupper til din overvågningsliste
 • Nye alarmer: bevægelse på X % inden for Y timer og volumenspike
-• Widget med én coin: lys eller linje, grafperiode 24 t, 7 dage eller 30 dage, mærker for høj, midt og lav, aktuel kurs fremhævet
+• Widget med én coin: candlestick eller linje, grafperiode 24 t, 7 dage eller 30 dage, mærker for høj, midt og lav, aktuel kurs fremhævet
 • Fanen Marked: kryptomarkedets samlede markedsværdi og 24 t-volumen i din valuta
 • Futures: funding rate og open interest
 • Fem accentfarver med matchende appikoner
+• Aktier, guld, råvarer og valuta som futures (TradFi) hos Binance, Bybit, OKX, MEXC og Bitget – slås til under Indstillinger › Overvågningsliste; nye par lægges i gruppen »TradFi«, futures med udløb i »QTLY«
+• %-ændring som hos Binance: seneste 24 timer, siden 00:00 i enhedens tidszone eller i en fast zone fra UTC+14 til UTC-12
+• Tydeligere navne: »Opdater hyppigt« og »Livekurser«

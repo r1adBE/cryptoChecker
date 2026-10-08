@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">%1$s変動</string>
+    <string name="settings_change_basis">%1$s変動とチャートのタイムゾーン</string>
     <string name="change_basis_rolling">過去24時間</string>
     <string name="change_basis_utc_zone">00:00 %1$s から</string>
-    <string name="change_basis_local">00:00(現地時間)から</string>
-    <string name="settings_change_basis_hint_1">選んだタイムゾーンによって、ウォッチリスト、パルス行、ペアシート、ウィジェットの変動率をいつから数えるかが決まります。</string>
+    <string name="change_basis_local">00:00（現地時間）から</string>
+    <string name="settings_change_basis_hint_1">選んだタイムゾーンによって、ウォッチリスト、パルス行、ペアシート、ウィジェットの変動率をいつから数えるかと、チャートに表示される時刻が決まります。</string>
     <string name="settings_change_basis_hint_2">「%1$s」はちょうど24時間前の価格と比較します。「00:00」はそのタイムゾーンの午前0時の始値と比較します。</string>
     <string name="settings_change_basis_hint_3">アラームには影響しません。</string>
     <string name="change_basis_device">%1$s、00:00（デバイスのタイムゾーン）</string>

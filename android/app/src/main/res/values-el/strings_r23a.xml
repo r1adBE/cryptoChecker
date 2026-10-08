@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
     <string name="watchlist_status_group_empty">Δεν υπάρχουν ζεύγη σε αυτή την ομάδα</string>
-    <string name="watchlist_status_none_traded">Κανένα ενεργό ζεύγος εδώ</string>
+    <string name="watchlist_status_none_traded">Κανένα ζεύγος σε διαπραγμάτευση εδώ</string>
     <string name="watchlist_group_empty_hint">Πατήστε παρατεταμένα μια ομάδα για να επιλέξετε τα ζεύγη της.</string>
     <string name="watchlist_just_refreshed">Μόλις ανανεώθηκε</string>
 </resources>

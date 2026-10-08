@@ -36,7 +36,7 @@
     <string name="why_market_leader_text_no_eth">시장 주도주인 BTC는 보통 나머지 시장을 함께 끌고 갑니다.</string>
 
     <string name="why_volume_high_text">최근 1시간 거래가 평소보다 훨씬 많습니다 — 움직임이 폭넓게 뒷받침되고 있습니다.</string>
-    <string name="why_volume_low_text">움직임이 얇아 빠르게 되돌려질 수 있습니다.</string>
+    <string name="why_volume_low_text">거래가 얇은 움직임이라 빠르게 되돌려질 수 있습니다.</string>
     <string name="why_volume_normal_text">최근 1시간 거래가 지난 24시간과 비슷합니다.</string>
 
     <string name="why_leverage_longs_text">롱이 숏에게 지불 중 — 가격이 하락하면 청산 위험이 커집니다.</string>

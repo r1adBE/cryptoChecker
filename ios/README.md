@@ -17,6 +17,12 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 
 Zuletzt dazugekommen:
 
+- **Coin-Logos** von CoinGecko statt nur Initialen (Merkliste, Aktionsblatt, Portfolio, Markt,
+  «Paar hinzufügen», Widgets Merkliste und Einzel-Coin), alle Logos der Rangliste (Lücken wie Gold, Silber,
+  Aktien aus der Binance-Symbolliste) auf einmal geladen (nie einzeln) und im App-Group-Ordner gespeichert,
+  Schalter «In der App» / «Im Portfolio» (ab Werk als einziger an) / «In Widgets» unter
+  Einstellungen › Darstellung › Coin-Logos
+  (`Shared/Util/CoinLogos.swift`, `Shared/Storage/CoinLogoStore.swift`, `Widgets/WidgetLogos.swift`).
 - **Live-Kurse per WebSocket** in der geöffneten Merkliste (Binance, Bybit, OKX, Coinbase, Kraken;
   REST bleibt Rückfall), «LIVE» in der Status-Pille, je Tick wird nur die betroffene Zeile neu
   gezeichnet (`App/Services/LivePriceStream.swift`, `Shared/Services/LiveFeed.swift`).
@@ -51,7 +57,7 @@ Frühere Runden:
   Tagesschlusskursen, umgerechnet zum heutigen Kurs.
 - **Stichtag-Export** des Portfolios als CSV (`App/Features/Portfolio/PortfolioCutoffExport.swift`),
   gleiches Format wie Android: UTF-8 mit BOM, `;`, `cryptochecker-stichtag-JJJJ-MM-TT.csv`.
-- **Mini-Chart** (24 Std.) in jeder Zeile der Merkliste.
+- **Mini-Chart** (24 Std.) in jeder Zeile der Merkliste (Einstellungen › Merkliste, bei Neuinstallation aus).
 - **Sprungknopf** in langen Merklisten (> 30 Paare): «Zum Anfang» / «Zum Ende» beim Scrollen (`WatchlistJump.swift`); **Empfindlichkeit** der ungewöhnlichen Aktivität Weniger/Normal/Mehr (`Shared/Activity/ActivitySensitivity.swift`, Karte und Mitteilungen gleich).
 - **Barrierefreiheit** (Einstellungen › Darstellung, auch in Widgets): Kursfarben Grün/Rot oder
   Blau/Orange (bei jeder Farbsehschwäche unterscheidbar, Richtung immer zusätzlich als +/−);
@@ -80,7 +86,8 @@ Frühere Runden:
   Satz**, **veralteter Kurs sichtbar**, Erklärungen zu Funding, Open Interest, RSI, Pi-Cycle,
   Einstellungen «Erweitert». Hinweis unter dem Intervall: iOS plant den Hintergrund selbst.
 - **Crypto Pulse «Was gerade auffällt»** (erste Karte im Markt-Tab): Schlagzeile mit Leitsatz und
-  einem Satz zu Volumen/Funding, BTC/ETH/SOL und Funding-Chip (nur wenn erhöht/negativ); «Warum? →»
+  einem Satz zu Volumen/Funding, BTC/ETH/SOL, Funding-Chip (nur wenn erhöht/negativ), Marktbreite
+  «Top 30 ▲ · ▼» und Krypto-Markt gesamt (Satz zur Marktbreite nur in deutlichen Fällen); «Warum? →»
   klappt «Markt heute» (nur Altcoins vs. Bitcoin) und die Faktor-Checkliste auf — nur Funding (! / –); Volumen, Fear & Greed
   und Gas stehen nicht doppelt, sie haben eigene Karten im Tab
   (`App/Features/Cycle/CryptoPulseCard.swift`, `Shared/Insights/CryptoPulse.swift`).
@@ -105,7 +112,7 @@ Frühere Runden:
   (`App/Features/Watchlist/WatchActionsSheet.swift`); nach dem Hinzufügen bietet der Hinweis
   «… wird jetzt überwacht» direkt **«Alarm setzen»**, solange die neuen Paare keinen Alarm haben.
 - **Chart im Aktionsblatt**: über Alarm · Warum? · Favorit, 24h · 7T · 30T und Kerzen/Linie (zuletzt gewählt), gezeichnet wie das Einzel-Widget (`Shared/Insights/PriceChart.swift`), kurz drücken und ziehen zeigt Kurs, Zeit und Veränderung; DEX-Paare ohne Chart (`App/Features/Watchlist/WatchSheetChartView.swift`).
-  Der Stern steht nur noch vor Favoriten. Im Merklisten-Widget trennt eine dünne Linie die Paare
+  Favoriten: Akzent-Rand, mit Coin-Logos ein kleiner Stern am Logo (kein eigener Stern-Knopf). Im Merklisten-Widget trennt eine dünne Linie die Paare
   (nicht unter dem letzten; `Widgets/WatchlistWidget.swift`).
 - **Alarm testen** und «Alles eingerichtet» nach dem ersten Alarm, **Zyklus-Signale** statt
   Top-/Bottom-Score, «Was die App kann» mit drei Fragen (Was passiert? · Wann reagieren? · Warum?)
@@ -187,7 +194,7 @@ setzen, sonst warnt Xcode beim Archivieren. Alternativ die Konstanten oben in
 ## Generatoren erneut ausführen
 
 Alle Skripte brauchen nur Python 3 (für die Grafiken zusätzlich Pillow und die Systembibliothek libcairo)
-und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../cryptoChecker/app/src/main/res`
+und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../android/app/src/main/res`
 oder – im GitHub-Repository und im ZIP – aus `../android/app/src/main/res` (sonst `--android-res PFAD`).
 
 ```sh
@@ -207,7 +214,7 @@ erzeugt werden (überschreibt `CryptoChecker.xcodeproj`):
 
 ```sh
 brew install xcodegen
-cd cryptoCheckerIOS
+cd ios
 xcodegen
 ```
 

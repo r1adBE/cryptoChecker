@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Gabim: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Nuk ka çifte monedhash</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Ngarkon çiftet aktuale të tregut të zgjedhur.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Ngarkon çiftet aktuale të bursës së zgjedhur.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Përditëso çiftet e monedhave</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sinkronizo tani!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Sinkronizimi i fundit: %1$s</string>
@@ -90,11 +90,11 @@
     <string name="zone_neutral">Neutral</string>
     <string name="zone_bull">Bull</string>
     <string name="zone_extreme_bull">Extreme Bull</string>
-    <string name="zone_hint_extreme_bear">Shumë sinjale historike bottom-i njëkohësisht – zonë historike akumulimi.</string>
-    <string name="zone_hint_bear">Trend rënës ose fazë bottom-i, ende pa kapitullim të gjerë.</string>
+    <string name="zone_hint_extreme_bear">Shumë sinjale historike fundi njëkohësisht – zonë historike akumulimi.</string>
+    <string name="zone_hint_bear">Trend rënës ose formim fundi, ende pa kapitullim të gjerë.</string>
     <string name="zone_hint_neutral">Sinjale të përziera, pa drejtim të qartë.</string>
     <string name="zone_hint_bull">Trend rritës pa mbinxehje ekstreme.</string>
-    <string name="zone_hint_extreme_bull">Shumë sinjale historike top-i njëkohësisht – rrezik i shtuar top-i.</string>
+    <string name="zone_hint_extreme_bull">Shumë sinjale historike maje njëkohësisht – rrezik i shtuar maje.</string>
     <string name="market_scores">Shenja të një maksimumi të mundshëm %1$d/10 · minimumi %2$d/10</string>
     <string name="market_show_indicators">Shfaq treguesit</string>
     <string name="market_hide_indicators">Fshih treguesit</string>
@@ -106,8 +106,8 @@
     <string name="ind_parabolic">Rritje parabolike (30 ditë)</string>
     <string name="ind_halving">Muaj nga halving-u</string>
     <string name="ind_ath">Muaj nga maksimumi historik</string>
-    <string name="ind_points_top">+%1$d top</string>
-    <string name="ind_points_bottom">+%1$d bottom</string>
+    <string name="ind_points_top">+%1$d majë</string>
+    <string name="ind_points_bottom">+%1$d fund</string>
     <string name="market_phase_disclaimer">Bazuar në ciklet e kaluara dhe trendin e çmimit. Nuk është parashikim dhe as këshillë investimi.</string>
     <string name="action_retry">Riprovo</string>
     <string name="settings_section_language">Gjuha</string>
@@ -209,10 +209,10 @@
     <string name="market_scores_hint">Maksimum = shenja si në maksimumet e cikleve të kaluara, minimum = shenja si në minimumet e cikleve të kaluara. Nga 4 pikë mbizotëron një anë, nga 7 është ekstreme. Pa objektiv çmimi dhe pa parashikim.</string>
     <string name="market_scores_none">Asnjë shenjë maksimumi apo minimumi nuk është aktive: fazë e mesme e qetë, vendos trendi i çmimit.</string>
     <string name="market_scores_info_title">Sinjalet e ciklit</string>
-    <string name="market_scores_info_text">Shenjat e një maksimumi të mundshëm numërojnë sinjalet e parë në majat e cikleve të kaluara: mbivlerësim i fortë (MVRV), të ardhura shumë të larta të minerëve (Puell), çmim shumë mbi mesataren 200-ditore ose 200-javore, rritje parabolike dhe dritarja 12–18 muaj pas halving-ut.\n\nShenjat e një minimumi të mundshëm numërojnë sinjalet e fundeve të kaluara: MVRV i ulët, të ardhura të dobëta të minerëve, rënie e fortë nga maksimumi historik, çmim pranë mesatares 200-javore, hashrate në rënie dhe një maksimum mbi një vit më parë.\n\nMe 4 pikë epërsi zona është Bull ose Bear, nga 7 Ekstreme. Nëse asnjë anë nuk prin, vendos trendi i çmimit. 0/10 në të dyja anët do të thotë: as euforia as kapitullim.\n\nPa objektiv çmimi dhe pa parashikim: sinjalet vetëm përshkruajnë si dukeshin ciklet e kaluara.</string>
+    <string name="market_scores_info_text">Shenjat e një maksimumi të mundshëm numërojnë sinjalet e parë në majat e cikleve të kaluara: mbivlerësim i fortë (MVRV), të ardhura shumë të larta të minerëve (Puell), çmim shumë mbi mesataren 200-ditore ose 200-javore, rritje parabolike dhe dritarja 12–18 muaj pas halving-ut.\n\nShenjat e një minimumi të mundshëm numërojnë sinjalet e fundeve të kaluara: MVRV i ulët, të ardhura të dobëta të minerëve, rënie e fortë nga maksimumi historik, çmim pranë mesatares 200-javore, hashrate në rënie dhe një maksimum mbi një vit më parë.\n\nMe 4 pikë epërsi zona është Bull ose Bear, nga 7 Extreme. Nëse asnjë anë nuk prin, vendos trendi i çmimit. 0/10 në të dyja anët do të thotë: as euforia, as kapitullim.\n\nPa objektiv çmimi dhe pa parashikim: sinjalet vetëm përshkruajnë si dukeshin ciklet e kaluara.</string>
     <string name="battery_open_settings">Hap cilësimet e baterisë</string>
     <string name="battery_steps">Te informacioni i aplikacionit prek Bateria (ose Përdorimi i baterisë) dhe zgjidh Pa kufizime.</string>
-    <string name="explorer_select_placeholder">Ju lutem zgjidhni</string>
+    <string name="explorer_select_placeholder">Zgjidh</string>
     <string name="explorer_bulk_title">Disa çifte njëherësh</string>
     <string name="watchlist_sort_hint">Mbaj dhe tërhiq një çift, ose përdor dorezën. Të preferuarat mbeten lart.</string>
     <string name="sort_drag_handle">Tërhiq për ta zhvendosur</string>
@@ -277,7 +277,7 @@
     <string name="widget_background">Sfondi</string>
     <string name="widget_configure_title">Konfiguro widget-in</string>
     <string name="widget_configure_hint">Zgjidh sfondin dhe tejdukshmërinë. Ngjyra ndjek aplikacionin. Widget-i shfaq gjithë listën; prek një rresht për të hapur aplikacionin.</string>
-    <string name="settings_custom_value">Tjetër</string>
+    <string name="settings_custom_value">I personalizuar</string>
     <string name="insights_halving_title">Halving-u i Bitcoin</string>
     <plurals name="insights_halving_countdown">
         <item quantity="one">Halving-u i radhës pas rreth %1$d dite (%2$s)</item>
@@ -345,9 +345,9 @@
     <string name="futures_open_interest">Open interest</string>
     <string name="futures_source">Burimi: %1$s</string>
     <string name="single_widget_label">Crypto Checker – një monedhë</string>
-    <string name="single_widget_description">Shfaq një monedhë të madhe me çmim, ndryshim dhe grafik 24-orësh.</string>
+    <string name="single_widget_description">Shfaq një monedhë në format të madh me çmim, ndryshim dhe grafik 24-orësh.</string>
     <string name="single_widget_choose">Zgjidh një çift</string>
-    <string name="single_widget_title">Konfiguro widget-in e vetëm</string>
+    <string name="single_widget_title">Konfiguro widget-in e një monedhe</string>
     <string name="shortcut_add">Shto çift</string>
     <string name="shortcut_alarms">Të gjitha alarmet</string>
     <string name="shortcut_cycle">Tregu</string>

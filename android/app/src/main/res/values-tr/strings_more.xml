@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pulse_section_market">Bugün piyasa</string>
+    <string name="pulse_section_market">Bugünkü piyasa</string>
     <string name="pulse_alts_stronger">Altcoin\'ler Bitcoin\'den güçlü</string>
     <string name="pulse_alts_weaker">Bitcoin altcoin\'lerden güçlü</string>
     <string name="pulse_alts_even">Altcoin\'ler ve Bitcoin benzer hareket ediyor</string>
@@ -55,7 +55,7 @@
     <string name="pair_added_watching">%1$s artık izleniyor</string>
     <string name="market_cap_title">Kripto piyasası</string>
     <string name="market_cap_label">Piyasa değeri</string>
-    <string name="market_volume_label">Hacim 24 sa</string>
+    <string name="market_volume_label">24 sa hacim</string>
     <string name="market_cap_source">Tüm coin\'ler · CoinGecko</string>
     <string name="market_data_empty_error">Borsadan veri alınamadı.</string>
     <string name="sync_pairs_count">İşlem çiftleri: %1$d</string>
@@ -72,7 +72,7 @@
     </plurals>
     <string name="starter_add_selected">İzleme listesine ekle (%1$d)</string>
     <string name="starter_select_all">Tümünü seç</string>
-    <string name="starter_select_none">Hiçbirini seçme</string>
+    <string name="starter_select_none">Seçimi kaldır</string>
     <string name="starter_loading_prices">Fiyatlar yükleniyor…</string>
     <string name="watchlist_removed">%1$s kaldırıldı</string>
     <string name="action_undo">Geri al</string>
@@ -98,8 +98,8 @@
         <item quantity="one">%1$d düşüyor</item>
         <item quantity="other">%1$d düşüyor</item>
     </plurals>
-    <string name="pulse_headline_up">Geniş güç</string>
-    <string name="pulse_headline_down">Geniş zayıflık</string>
+    <string name="pulse_headline_up">Genel güç</string>
+    <string name="pulse_headline_down">Genel zayıflık</string>
     <string name="pulse_headline_mixed">Karışık görünüm</string>
     <string name="pulse_headline_calm">Sakin piyasa</string>
     <string name="pulse_chip_funding_high">Fonlama yüksek</string>

@@ -15,7 +15,7 @@
     <string name="portfolio_alarm_kind_up">Portfel rośnie</string>
     <string name="portfolio_alarm_kind_down">Portfel spada</string>
     <string name="portfolio_alarm_amount">Kwota (%1$s)</string>
-    <string name="portfolio_alarm_hint">Sprawdzany po każdym odświeżeniu. Jak alarmy cenowe: powiadamia po przekroczeniu progu i ponownie dopiero, gdy wartość wróci.</string>
+    <string name="portfolio_alarm_hint">Sprawdzany po każdym odświeżeniu. Jak alarmy cenowe: powiadamia po przekroczeniu progu i ponownie dopiero, gdy wartość wróci za próg.</string>
     <string name="portfolio_alarm_sentence_above">Portfel powyżej %1$s</string>
     <string name="portfolio_alarm_sentence_below">Portfel poniżej %1$s</string>
     <string name="portfolio_alarm_sentence_up">Portfel rośnie o %1$s (%2$s)</string>

@@ -1,6 +1,6 @@
 Versione 16.2.2
 • Crypto Pulse: cosa succede ora sul mercato
-• Perché si muove? ora con breve riepilogo
+• «Perché si muove?»: spiegazione dei movimenti di prezzo basata sui dati, con breve riepilogo
 • Prova allarme: suono, vibrazione e voce
 • Prezzi convertiti: riga «≈ valore» nella tua valuta (31 valute come EUR, CHF, USD, GBP, JPY; predefinita secondo la regione del dispositivo)
 • Allarmi nella tua valuta, ad es. a 60.000 EUR su una coppia USDT
@@ -19,13 +19,12 @@ Versione 16.2.2
 • Le righe indicano «non aggiornato» o «non raggiungibile» se il prezzo non è attuale
 • 15 nuovi exchange: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
 • Commissioni di rete per Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin nella scheda Mercato, con allarme gas
-• Note per ogni moneta della tua watchlist
+• Note per ogni moneta della tua lista
 • Scegli il suono dell’allarme
 • Attività insolita: rileva movimenti di prezzo e volume fuori dal normale, notifiche facoltative
-• Perché si muove? Una spiegazione basata sui dati
 • Portafoglio in una scheda dedicata: acquisti e vendite, prezzo medio, utile/perdita
 • Confronto dei cicli: massimi e minimi evidenziati, inclusi doppi massimi e doppi minimi
-• Gruppi per la tua watchlist
+• Gruppi per la tua lista
 • Nuovi allarmi: movimento del X % in Y ore e picco di volume
 • Widget di una moneta: candele o linea, intervallo del grafico 24 ore, 7 o 30 giorni, livelli massimo, medio e minimo, prezzo attuale evidenziato
 • Scheda Mercato: capitalizzazione totale del mercato crypto e volume 24 h nella tua valuta

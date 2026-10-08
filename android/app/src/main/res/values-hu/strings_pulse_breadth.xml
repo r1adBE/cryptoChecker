@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: emelkedik %2$d, csökken %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: a piaci érték szerint legnagyobb érmék, stablecoinok nélkül; változás 24 óra alatt (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Széles mozgás: a legtöbb nagy érme emelkedik.</string>
+    <string name="pulse_breadth_note_broad_down">Széles esés: a legtöbb nagy érme esik.</string>
+    <string name="pulse_breadth_note_narrow_up">A Bitcoin emelkedik, de a legtöbb többi nagy érme nem követi.</string>
+    <string name="pulse_breadth_note_narrow_down">A Bitcoin esik, de a legtöbb többi nagy érme tartja magát.</string>
+</resources>

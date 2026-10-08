@@ -22,8 +22,8 @@
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
     <string name="explain_show">Explicación</string>
     <string name="explain_pi_cycle">Compara la media de 111 días con el doble de la media de 350 días. Un cruce ha marcado máximos de ciclos anteriores.</string>
-    <string name="alarm_sentence_above">Avísame cuando %1$s suba por encima de %2$s.</string>
-    <string name="alarm_sentence_below">Avísame cuando %1$s baje por debajo de %2$s.</string>
+    <string name="alarm_sentence_above">Avísame cuando %1$s supere %2$s.</string>
+    <string name="alarm_sentence_below">Avísame cuando %1$s baje de %2$s.</string>
     <string name="alarm_sentence_up_percent">Avísame cuando %1$s suba un %2$s.</string>
     <string name="alarm_sentence_down_percent">Avísame cuando %1$s baje un %2$s.</string>
     <plurals name="alarm_sentence_move_percent">

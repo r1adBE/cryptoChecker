@@ -10,6 +10,6 @@
     <string name="gas_title">رسوم الشبكة</string>
     <string name="gas_slow_fast">بطيء %1$s · سريع %2$s</string>
     <string name="gas_alert_active">تنبيه: %1$s</string>
-    <string name="gas_source">عُقد RPC عامة و mempool.space · تكلفة تحويل بسيط، دون حصة L1 على شبكات L2</string>
+    <string name="gas_source">عُقد RPC عامة وmempool.space · تكلفة تحويل بسيط، دون حصة L1 على شبكات L2</string>
     <string name="gas_transfer_cost">التحويل ≈ %1$s</string>
 </resources>

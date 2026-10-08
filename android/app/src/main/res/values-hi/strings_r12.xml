@@ -4,5 +4,5 @@
     <!-- %1$s Veränderung mit Pfeil («▲ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
     <string name="sheet_chart_change">%2$s में %1$s</string>
     <!-- Keine Kerzen für das Paar (Chart im Aktionsblatt) -->
-    <string name="sheet_chart_no_data">इस जोड़ी के लिए कोई मूल्य डेटा नहीं</string>
+    <string name="sheet_chart_no_data">इस पेयर के लिए कोई भाव डेटा नहीं</string>
 </resources>

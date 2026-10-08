@@ -110,7 +110,7 @@ struct MarketRow: View {
                     .foregroundStyle(AppColors.onSurface)
                 switch state {
                 case .loading:
-                    CycleSkeleton {
+                    SkeletonPulse {
                         Text(verbatim: " ")
                             .font(AppFont.label)
                             .cycleSkeletonBar(width: 120)
@@ -135,7 +135,7 @@ struct MarketRow: View {
 
             switch state {
             case .loading:
-                CycleSkeleton {
+                SkeletonPulse {
                     Text(verbatim: " ")
                         .font(AppFont.title)
                         .cycleSkeletonBar(width: 56)

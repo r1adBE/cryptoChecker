@@ -54,6 +54,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioMover
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.ChangeBasisText
@@ -184,13 +185,13 @@ internal fun MoversCard(movers: List<PortfolioMover>, basis: ChangeBasis) {
                         .padding(vertical = Spacing.xs)
                         .clearAndSetSemantics { contentDescription = spoken }
                 ) {
-                    CoinBadge(mover.coin, size = 30.dp)
+                    CoinBadge(mover.coin, size = 30.dp, portfolio = true, modifier = Modifier.padding(end = Spacing.sm))
                     Text(
                         mover.coin,
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         maxLines = 1,
-                        modifier = Modifier.weight(1f).padding(start = Spacing.sm)
+                        modifier = Modifier.weight(1f)
                     )
                     Column(horizontalAlignment = Alignment.End) {
                         Text(

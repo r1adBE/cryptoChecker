@@ -7,5 +7,5 @@
     <string name="licenses_marketdata_changes">Módosítások: %1$s</string>
     <string name="licenses_font_title">Rubik betűtípus</string>
     <string name="licenses_libraries_title">Android-könyvtárak</string>
-    <string name="licenses_libraries_intro">Az app ezeket a könyvtárakat a(z) Apache License 2.0 alapján használja:</string>
+    <string name="licenses_libraries_intro">Az alkalmazás ezeket a könyvtárakat az Apache License 2.0 alapján használja:</string>
 </resources>

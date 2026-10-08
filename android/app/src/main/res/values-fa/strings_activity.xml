@@ -6,8 +6,8 @@
     <string name="activity_indicator">فعالیت غیرعادی</string>
 
     <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
-    <string name="activity_signal_price_move">حرکت غیرعادی: %1$s در یک ساعت (%2$s× حالت عادی)</string>
-    <string name="activity_signal_volume">حجم %1$s× حالت عادی در ساعت گذشته</string>
+    <string name="activity_signal_price_move">حرکت غیرعادی: %1$s در یک ساعت (%2$s برابر حالت عادی)</string>
+    <string name="activity_signal_volume">حجم %1$s برابر حالت عادی در ساعت گذشته</string>
     <string name="activity_signal_open_interest">موقعیت‌های باز %1$s در %2$d دقیقه</string>
     <string name="activity_signal_open_interest_no_time">موقعیت‌های باز %1$s</string>
     <string name="activity_signal_funding_long">نرخ تأمین مالی %1$s — لانگ‌های اهرمی زیاد</string>

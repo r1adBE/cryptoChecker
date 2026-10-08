@@ -139,6 +139,7 @@ internal fun SheetPriceChart(
                         range = frame.range,
                         quote = watch.quoteAsset,
                         currentPrice = watch.lastPrice,
+                        zone = ChangeBasisMath.chartZone(basis),
                     )
                 }
             }

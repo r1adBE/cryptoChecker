@@ -3,9 +3,9 @@
     <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
     <string name="unusual_title">Destaques de hoje</string>
     <string name="unusual_nothing">Nada fora do comum hoje</string>
-    <string name="unusual_fact_stronger">Movendo-se muito mais que o BTC</string>
-    <string name="unusual_fact_weaker">Movendo-se muito menos que o BTC</string>
-    <string name="unusual_fact_against">Indo contra o mercado</string>
+    <string name="unusual_fact_stronger">Oscila muito mais que o BTC</string>
+    <string name="unusual_fact_weaker">Oscila muito menos que o BTC</string>
+    <string name="unusual_fact_against">Vai contra o mercado</string>
     <string name="unusual_fact_volume">Volume %1$s× o normal</string>
     <string name="unusual_fact_funding_high">Funding elevado (%1$s)</string>
     <string name="unusual_fact_funding_negative">Funding negativo (%1$s)</string>

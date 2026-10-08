@@ -127,7 +127,7 @@ struct PortfolioHistoryCard: View {
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
         } else {
-            CycleSkeleton(label: nil) {
+            SkeletonPulse(label: nil) {
                 Text(verbatim: " ")
                     .font(.subheadline)
                     .cycleSkeletonBar(width: 64)
@@ -253,7 +253,7 @@ struct PortfolioHistoryCard: View {
 
     /// Platzhalter in der Form von Änderung und Chart.
     private var skeleton: some View {
-        CycleSkeleton(label: L("portfolio_history_loading")) {
+        SkeletonPulse(label: L("portfolio_history_loading")) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(verbatim: " ")
                     .font(.headline)

@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">出来高急増</string>
     <string name="alarm_volume_factor_label">直近1時間の出来高（通常比）</string>
-    <string name="alarm_volume_hint">出来高データは Binance から取得します。Binance に上場していないペアは発動しません。</string>
+    <string name="alarm_volume_hint">出来高データは Binance から取得します。Binance に上場していないペアは作動しません。</string>
     <string name="notification_volume_spike_text">直近1時間の出来高が通常の %1$s×</string>
     <string name="tts_direction_volume_spike">出来高急増を伴って</string>
 

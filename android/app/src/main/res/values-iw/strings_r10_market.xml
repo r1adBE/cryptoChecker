@@ -6,7 +6,7 @@
     <string name="unusual_fact_stronger">זז הרבה יותר חזק מ־BTC</string>
     <string name="unusual_fact_weaker">זז הרבה יותר חלש מ־BTC</string>
     <string name="unusual_fact_against">נע נגד השוק</string>
-    <string name="unusual_fact_volume">מחזור %1$s× מהרגיל</string>
+    <string name="unusual_fact_volume">מחזור פי %1$s מהרגיל</string>
     <string name="unusual_fact_funding_high">מימון גבוה (%1$s)</string>
     <string name="unusual_fact_funding_negative">מימון שלילי (%1$s)</string>
     <string name="unusual_source">כ־30 המטבעות הגדולים ללא מטבעות יציבים · Binance, CoinGecko</string>

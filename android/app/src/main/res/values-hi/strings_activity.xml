@@ -19,8 +19,8 @@
     <string name="settings_activity_alerts_hint">हर पेयर के लिए घंटे में अधिकतम एक बार: असामान्य भाव हलचल, वॉल्यूम स्पाइक और फ़्यूचर्स की चरम स्थितियाँ (डेटा Binance से)।</string>
 
     <!-- «Warum bewegt sich das?» -->
-    <string name="why_action">यह क्यों हिल रहा है?</string>
-    <string name="why_title">यह क्यों हिल रहा है?</string>
+    <string name="why_action">इसमें हलचल क्यों है?</string>
+    <string name="why_title">इसमें हलचल क्यों है?</string>
     <string name="why_change_1h">1h</string>
     <string name="why_change_24h">24h</string>
     <string name="why_disclaimer">मार्केट डेटा से स्वचालित आकलन, निवेश सलाह नहीं।</string>
@@ -31,7 +31,7 @@
     <string name="why_market_wide_text">यह कॉइन: 24 घंटे में %1$s — असली वजह शायद पूरा मार्केट है, कॉइन खुद नहीं।</string>
     <string name="why_coin_only_text">24 घंटे में %1$s जबकि मार्केट शांत है: वजह शायद इसी कॉइन से जुड़ी है।</string>
     <string name="why_against_market_text">यह कॉइन %1$s, BTC %2$s (24 घंटे में) — एक उल्लेखनीय रूप से स्वतंत्र हलचल।</string>
-    <string name="why_market_calm_text">यह कॉइन: 24 घंटे में %1$s। न मार्केट ज़्यादा हिल रहा है, न कॉइन।</string>
+    <string name="why_market_calm_text">यह कॉइन: 24 घंटे में %1$s। न मार्केट में ज़्यादा हलचल है, न कॉइन में।</string>
     <string name="why_market_leader_text">मार्केट लीडर होने के नाते BTC आमतौर पर बाकी मार्केट को साथ खींचता है। ETH: 24 घंटे में %1$s।</string>
     <string name="why_market_leader_text_no_eth">मार्केट लीडर होने के नाते BTC आमतौर पर बाकी मार्केट को साथ खींचता है।</string>
 

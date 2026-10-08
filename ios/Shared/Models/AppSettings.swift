@@ -66,10 +66,17 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Kursfarben steigend/fallend: Grün/Rot oder Blau/Orange (Rot-Grün-Sehschwäche).
     var priceColorScheme: PriceColorScheme = .default
     /// Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste.
-    var watchlistSparkline: Bool = true
+    var watchlistSparkline: Bool = false
     /// Karte «Hier passiert gerade etwas» über der Merkliste. Nur die Anzeige: Mitteilungen dazu
     /// stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
     var watchlistActivityCard: Bool = true
+    /// Echte Coin-Logos (alle auf einmal von CoinGecko geladen, auf dem Gerät gespeichert) in
+    /// Merkliste, Aktionsblatt, Markt und «Paar hinzufügen». Aus (Standard): Initialen.
+    var coinLogos: Bool = false
+    /// Coin-Logos im Portfolio (Positionen, Coin-Details, Auswertungen) — ab Werk an.
+    var portfolioCoinLogos: Bool = true
+    /// Coin-Logos in den Widgets «Merkliste» und «Einzelner Coin» — ab Werk aus.
+    var widgetCoinLogos: Bool = false
     /// «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00
     /// Ortszeit — für Pille, Puls, Aktionsblatt, Widgets und Live Activity; Alarme unabhängig davon.
     var changeBasis: ChangeBasis = .default
@@ -168,6 +175,9 @@ struct AppSettings: Codable, Equatable, Sendable {
         priceColorScheme = (try? c.decodeIfPresent(PriceColorScheme.self, forKey: .priceColorScheme)) ?? d.priceColorScheme
         watchlistSparkline = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistSparkline)) ?? d.watchlistSparkline
         watchlistActivityCard = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistActivityCard)) ?? d.watchlistActivityCard
+        coinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .coinLogos)) ?? d.coinLogos
+        widgetCoinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .widgetCoinLogos)) ?? d.widgetCoinLogos
+        portfolioCoinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioCoinLogos)) ?? d.portfolioCoinLogos
         // Fehlt (ältere Einstellungen) oder unbekannt: «Letzte 24 Std.»
         changeBasis = ChangeBasis.from(name: try? c.decodeIfPresent(String.self, forKey: .changeBasis))
         highContrast = (try? c.decodeIfPresent(Bool.self, forKey: .highContrast)) ?? d.highContrast

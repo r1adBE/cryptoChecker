@@ -16,7 +16,7 @@
     <string name="widget_portfolio_today">sot %1$s</string>
     <string name="widget_portfolio_empty">Shto blerje te skeda Portofoli</string>
     <string name="a11y_portfolio_widget">Portofoli %1$s, sot %2$s</string>
-    <string name="explain_funding">Tarifë midis pozicioneve long dhe short. Fort pozitive do të thotë se shumë vënë bast për rritjen e çmimeve.</string>
+    <string name="explain_funding">Tarifë midis pozicioneve long dhe short. Shumë pozitive do të thotë se shumë vënë bast për rritjen e çmimeve.</string>
     <string name="explain_open_interest">Vlera e të gjitha pozicioneve të hapura futures. Nëse rritet, më shumë para vihen bast për lëvizjen.</string>
     <string name="explain_rsi">Indeksi i forcës relative, 0–100. Mbi 70 shpesh i mbinxehur, nën 30 shpesh i mbishitur.</string>
     <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->

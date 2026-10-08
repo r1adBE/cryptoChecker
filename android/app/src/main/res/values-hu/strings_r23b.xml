@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Egyszerre keres az összes piacon – koppints egy találatra, hogy hozzáadd a figyelőlistához.</string>
-    <string name="explorer_no_pairs_yet">Ehhez a piachoz még nincsenek betöltve párok.</string>
+    <string name="explorer_search_intro">Egyszerre keres az összes tőzsdén – koppintson egy találatra, hogy hozzáadja a figyelőlistához.</string>
+    <string name="explorer_no_pairs_yet">Ehhez a tőzsdéhez még nincsenek betöltve párok.</string>
 </resources>

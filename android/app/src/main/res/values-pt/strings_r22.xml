@@ -10,9 +10,9 @@
     </plurals>
     <string name="refresh_sheet_market_unreachable">%1$s inacessível</string>
     <plurals name="refresh_sheet_markets_unreachable">
-        <item quantity="one">%1$d corretora inacessível</item>
-        <item quantity="many">%1$d corretoras inacessíveis</item>
-        <item quantity="other">%1$d corretoras inacessíveis</item>
+        <item quantity="one">%1$d exchange inacessível</item>
+        <item quantity="many">%1$d exchanges inacessíveis</item>
+        <item quantity="other">%1$d exchanges inacessíveis</item>
     </plurals>
     <string name="refresh_sheet_aborted">Atualização interrompida</string>
     <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
@@ -22,7 +22,7 @@
         <item quantity="other">%1$d pares</item>
     </plurals>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Corretoras</string>
+    <string name="refresh_sheet_section_markets">Exchanges</string>
     <string name="refresh_sheet_section_steps">Detalhe</string>
     <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
     <string name="refresh_sheet_wait">Espera até ao início</string>
@@ -59,7 +59,7 @@
     <string name="refresh_sheet_reason_rate_limit">demasiados pedidos</string>
     <string name="refresh_sheet_reason_server">erro do servidor</string>
     <string name="refresh_sheet_reason_no_data">sem dados</string>
-    <string name="refresh_sheet_reason_unavailable">corretora indisponível</string>
+    <string name="refresh_sheet_reason_unavailable">exchange indisponível</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
     <string name="refresh_sheet_status_ok">tudo atualizado</string>
     <string name="refresh_sheet_status_partial">atualizado em parte</string>

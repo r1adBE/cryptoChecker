@@ -55,7 +55,9 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.RollingNumberText
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
@@ -64,9 +66,9 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
 
 /**
- * Kompakte Zeile: Stern, Paar, Börse, Kurs und Prozent-Pille.
+ * Kompakte Zeile: Coin-Logo (mit Stern bei Favoriten), Paar, Börse, Kurs und Prozent-Pille.
  * Tippen öffnet die Aktionen sofort (kein Doppeltippen mehr, das jeden Tipp ~0,3 s
- * verzögert hätte); Favorit per Stern, Wischen nach rechts oder Aktionen-Menü;
+ * verzögert hätte); Favorit per Wischen nach rechts oder Aktionsblatt;
  * lange drücken startet das Sortieren.
  */
 @Composable
@@ -78,7 +80,6 @@ internal fun WatchRow(
     onClick: () -> Unit,
     /** Ohne Fehler, aber älter als das: «veraltet» statt der normalen Zeitzeile. */
     outdatedAfter: Long = Long.MAX_VALUE,
-    onToggleFavorite: () -> Unit,
     modifier: Modifier = Modifier,
     elevation: Dp = 0.dp,
     highlighted: Boolean = false,
@@ -119,7 +120,7 @@ internal fun WatchRow(
     val status = watchRowStatus(watch, now, stale, outdatedAfter)
 
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
-    // Alarme, Zustand). Favorit, ⚡ und Menü bleiben eigene Knöpfe; Tippen bleibt.
+    // Alarme, Zustand). ⚡ und Menü bleiben eigene Knöpfe, Favorit als Screenreader-Aktion; Tippen bleibt.
     val context = LocalContext.current
     val chartPeriod = stringResource(R.string.widget_range_24h)
     val moveUpLabel = stringResource(R.string.a11y_move_up)
@@ -186,10 +187,19 @@ internal fun WatchRow(
         ) {
             RowLeading(
                 sortMode = sortMode,
-                favorite = watch.favorite,
                 accent = accent,
                 handleModifier = handleModifier,
-                onToggleFavorite = onToggleFavorite,
+            )
+            // Coin-Logo (bzw. Initialen) vor dem Paar, Favorit als kleiner Stern daran; feste Grösse,
+            // nimmt nur dem Paar-Text Platz. Logos aus: keine Plakette, Favorit nur am Akzent-Rand.
+            CoinBadge(
+                watch.baseAsset,
+                size = ROW_BADGE_SIZE,
+                logo = CoinLogos.allowedFor(watch.marketKey),
+                favorite = watch.favorite && !sortMode,
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .alpha(if (stale) 0.5f else 1f)
             )
             RowInfo(
                 watch = watch,
@@ -201,7 +211,7 @@ internal fun WatchRow(
                 check = motion.check,
                 hasActivity = hasActivity,
                 onActivityClick = onActivityClick,
-                modifier = Modifier.weight(1f).padding(start = 2.dp),
+                modifier = Modifier.weight(1f),
             )
 
             // Mini-Chart zwischen Paar und Kurs; feste Grösse, der Kurs wird nie schmaler
@@ -211,7 +221,7 @@ internal fun WatchRow(
                     progress = { motion.draw.value },
                     modifier = Modifier
                         .padding(start = 8.dp)
-                        // 28 dp (früher 22): passt in die Zeilenhöhe, die der Stern-Knopf (48 dp) vorgibt
+                        // 28 dp (früher 22): passt in die Zeilenhöhe
                         .size(width = 56.dp, height = 28.dp)
                         .alpha(if (stale) 0.5f else 1f)
                         .clearAndSetSemantics { }
@@ -232,14 +242,19 @@ internal fun WatchRow(
     }
 }
 
-/** Links: Griff im Sortiermodus, sonst Stern bei Favoriten bzw. etwas Abstand. */
+/** Coin-Plakette in der Zeile (24–32 dp), damit die Zeile nicht höher wird. */
+private val ROW_BADGE_SIZE = 28.dp
+
+/**
+ * Links: Griff im Sortiermodus, sonst etwas Abstand. Favoriten zeigt der Akzent-Rand der Karte
+ * und, mit eingeschalteten Coin-Logos, ein kleiner Stern am Logo — kein eigener Stern-Knopf mehr,
+ * der dem Paar Breite nimmt (Favorit wechseln: nach rechts wischen, Aktionsblatt, Screenreader-Aktion).
+ */
 @Composable
 private fun RowLeading(
     sortMode: Boolean,
-    favorite: Boolean,
     accent: Color,
     handleModifier: Modifier,
-    onToggleFavorite: () -> Unit,
 ) {
     if (sortMode) {
         Box(
@@ -253,15 +268,6 @@ private fun RowLeading(
             Icon(
                 painterResource(R.drawable.ic_drag_handle),
                 contentDescription = stringResource(R.string.sort_drag_handle),
-                tint = accent
-            )
-        }
-    } else if (favorite) {
-        // Stern nur bei Favoriten — kein leerer Umriss, der dem Kurs Breite nimmt
-        IconButton(onClick = onToggleFavorite) {
-            Icon(
-                painterResource(R.drawable.ic_star),
-                contentDescription = stringResource(R.string.favorite_remove),
                 tint = accent
             )
         }
@@ -352,33 +358,4 @@ internal fun convertedPrice(watch: WatchEntity, target: String?, rates: Map<Stri
     val rate = rates[CurrencyConversion.normalize(watch.quoteAsset)] ?: return null
     val value = CurrencyConversion.convert(price, rate) ?: return null
     return "≈ " + PriceFormat.priceWithCurrency(value, target)
-}
-
-/**
- * Prozent-Änderung als Pille in der Kursfarbe (Grün/Rot bzw. Blau/Orange),
- * immer mit Vorzeichen — die Bedeutung hängt nie allein an der Farbe. Praktisch keine
- * Änderung: graues «0.00%» statt einer Lücke.
- */
-@Composable
-internal fun ChangePill(change: Double?) {
-    if (change == null) return
-    val formatted = PriceFormat.changePercent(change)
-    // Pfeil folgt dem Vorzeichen, nie dem Farbtausch; bei 0.00% keiner
-    val text = formatted?.let { "${PriceFormat.changeArrow(change)} $it" } ?: PriceFormat.zeroPercent()
-    val color = if (formatted == null) MaterialTheme.colorScheme.onSurfaceVariant
-    else PriceColors.forChange(change)
-    // Screenreader: «gestiegen um 2.35%» statt «+2.35%» (das «−» wird uneinheitlich gelesen)
-    val spoken = A11yText.change(LocalContext.current, change)
-    Text(
-        text = text,
-        style = MaterialTheme.typography.labelMedium.amountNumbers(),
-        fontWeight = FontWeight.SemiBold,
-        color = color,
-        modifier = Modifier
-            .clearAndSetSemantics { contentDescription = spoken }
-            .padding(top = 3.dp)
-            .clip(RoundedCornerShape(50))
-            .background(color.copy(alpha = 0.14f))
-            .padding(horizontal = 8.dp, vertical = 2.dp)
-    )
 }

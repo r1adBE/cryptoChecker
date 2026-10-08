@@ -7,12 +7,12 @@ Alles, was du in App Store Connect einfügen musst, liegt bereits im Projekt:
 
 | Was | Wo |
 |---|---|
-| Datenschutzerklärung (Android **und** iOS) | `../cryptoChecker/docs/privacy/index.html` |
+| Datenschutzerklärung (Android **und** iOS) | `../android/docs/privacy/index.html` |
 | Store-Texte in 29 Sprachen (fastlane-*deliver*-Format) | `fastlane/metadata/<sprache>/` |
 | Notizen für die App-Prüfung (Englisch) | `fastlane/metadata/review_information/notes.txt` |
 | Copyright, Kategorien | `fastlane/metadata/copyright.txt`, `primary_category.txt`, `secondary_category.txt` |
 | Icon 1024 × 1024 ohne Alphakanal (nur Referenz) | `fastlane/metadata/app_icon.png` |
-| Anleitung Screenshots | `fastlane/screenshots/README.md` (5 Szenen; Beschriftungen in allen Sprachen: `../cryptoChecker/docs/store/screenshots/captions.json` und Kit-README) |
+| Anleitung Screenshots | `fastlane/screenshots/README.md` (5 Szenen; Beschriftungen in allen Sprachen: `../android/docs/store/screenshots/captions.json` und Kit-README) |
 
 > **⚠️ Vor dem Einreichen ausfüllen:** Der Prüfungs-Kontakt enthält noch Platzhalter –
 > `fastlane/metadata/review_information/first_name.txt` (**VORNAME**),
@@ -167,12 +167,11 @@ Kursalarm») und `name.txt` in allen Sprachordnern anpassen.
 
 ### 4.2 Gerätefamilie
 
-`TARGETED_DEVICE_FAMILY = "1,2"` → die App läuft auf **iPhone und iPad**. Dann
-verlangt Apple auch iPad-Screenshots und prüft die App auf dem iPad. Die App
-vorher im Simulator «iPad Pro 13-inch» durchklicken. Soll sie nur aufs iPhone:
-bei beiden Targets *General › Supported Destinations* › iPad entfernen.
-Achtung: Einmal mit iPad veröffentlicht, lässt sich iPad-Unterstützung nicht mehr
-entfernen.
+**Entscheid für die erste Einreichung: nur iPhone.** `TARGETED_DEVICE_FAMILY = "1"`
+bei allen Targets (in `tools/gen_xcodeproj.py` und `project.yml` gesetzt). Apple
+verlangt deshalb **keine iPad-Screenshots**; auf dem iPad läuft die iPhone-Version
+im Kompatibilitätsmodus. iPad lässt sich später nachrüsten (`"1,2"`, dann
+iPad-Screenshots 13" nötig) – umgekehrt geht es nach der Veröffentlichung nicht mehr.
 
 ### 4.3 Version 16.2.2, Build 17
 
@@ -304,7 +303,7 @@ https://r1adbe.github.io/cryptoChecker/
 ```
 
 Die Seiten entstehen über GitHub Pages (Einrichtung: siehe
-`../cryptoChecker/docs/PLAY_STORE.md`, Abschnitt 1).
+`../android/docs/PLAY_STORE.md`, Abschnitt 1).
 
 **Vor dem Einreichen ausfüllen:** in `review_information/` Vorname, Nachname und
 Telefonnummer eintragen (`first_name.txt`, `last_name.txt`, `phone_number.txt` – nur
@@ -312,7 +311,7 @@ für Apple sichtbar). Dort stehen noch die Platzhalter `VORNAME`, `NACHNAME` und
 `+41 00 000 00 00`; `fastlane/Deliverfile` bricht den Upload ab, solange sie drinstehen.
 
 Apple verlangt als Support-URL eine Webseite (keine `mailto:`-Adresse). Die
-Startseite `../cryptoChecker/docs/index.html` genügt: Sie nennt Android und
+Startseite `../android/docs/index.html` genügt: Sie nennt Android und
 iPhone und verlinkt Datenschutzerklärung, GitHub-Issues (Fragen und Wünsche)
 und die Kontakt-E-Mail.
 
@@ -325,7 +324,7 @@ Sprach-Menü oben rechts hinzufügen.
 **Mit fastlane** (lädt alle 29 Sprachen auf einmal): Einen API-Schlüssel unter
 *Benutzer und Zugriff › Integrationen › App Store Connect API* erstellen
 (Rolle «App Manager», `.p8`-Datei herunterladen) und eine JSON-Datei dazu anlegen
-(siehe fastlane-Doku «App Store Connect API»). Dann im Ordner `cryptoCheckerIOS`:
+(siehe fastlane-Doku «App Store Connect API»). Dann im Ordner `ios`:
 
 ```sh
 fastlane deliver \
@@ -479,8 +478,10 @@ normalerweise nicht. Falls sie doch kommt (z. B. bei TestFlight von Hand):
   ausschliesslich die im Betriebssystem eingebaute Verschlüsselung (HTTPS über
   `URLSession`).
 * Keine Dokumente, keine CCATS, keine Jahresmeldung nötig.
-* Kommt später eigene Kryptografie hinzu (z. B. eine verschlüsselte
-  Sicherungsdatei mit eigener Bibliothek), neu beurteilen.
+* Die passwortgeschützte Sicherung (seit 16.2.2) verschlüsselt mit **Apple CryptoKit**
+  (AES-256-GCM, `BackupCrypto.swift`) – also mit der im Betriebssystem eingebauten
+  Kryptografie. Damit bleibt die Ausnahme bestehen und `NO` ist korrekt; die
+  Prüfnotizen erwähnen es. Kommt eine eigene Krypto-Bibliothek hinzu, neu beurteilen.
 
 ---
 
@@ -510,7 +511,7 @@ behält 15–30 % ein.
   Umrechnung, Alarme & Benachrichtigungen, Daten & Aktualisierung, Portfolio,
   Sicherheit & Backup, Erweitert, Über), Aktionsblatt mit Alarm/Warum?/Favorit
   oben, «Alarm setzen» im Hinweis nach dem Hinzufügen, Willkommen mit drei
-  Fragen, Stern nur bei Favoriten, Trennlinie im Merklisten-Widget.
+  Fragen, Favoriten mit Akzent-Rand (Stern am Logo), Trennlinie im Merklisten-Widget.
 * Keine Erwähnung anderer Plattformen in Texten und Screenshots: Die Store-Texte
   nennen «Android» nicht (geprüft). Dass Sicherungen mit der Android-App
   austauschbar sind, steht deshalb **nicht** in der Beschreibung, nur in der
@@ -524,7 +525,7 @@ behält 15–30 % ein.
 * Markt-Tab und Binance-Sperre in den USA (Punkt 0.5).
 * Auch Bybit sperrt US-Adressen. Die Prüfnotizen empfehlen den Prüfern Coinbase,
   Kraken oder Gemini.
-* Auf dem iPad testen (Prüfer testen dort, wenn die App iPad unterstützt).
+* Nur iPhone (4.2): Prüfer testen auf dem iPhone; auf dem iPad läuft die iPhone-Version.
 
 ### 11.4 Mindestfunktionalität – 4.2, 4.3
 
@@ -594,7 +595,7 @@ Marken in Keywords. Screenshots dürfen Börsennamen in der Merkliste zeigen.
 Die Längen aller Texte wurden geprüft (Name/Untertitel ≤ 30, Keywords ≤ 100 ohne
 Leerzeichen nach Kommas und ohne den App-Namen, Werbetext ≤ 170, Beschreibung und
 Neuerungen ≤ 4000, keine «Android»-Erwähnung, kein Eszett in de-DE). Nach eigenen
-Änderungen erneut prüfen – im Ordner `cryptoCheckerIOS`:
+Änderungen erneut prüfen – im Ordner `ios`:
 
 ```sh
 python3 - <<'EOF'
@@ -630,7 +631,7 @@ Den **Werbetext** kannst du jederzeit ohne neue Prüfung ändern.
 - [ ] App-Datenschutz: «Keine Daten erfasst», veröffentlicht
 - [ ] Altersfreigabe ausgefüllt (4+)
 - [ ] Kategorien Finanzen / Dienstprogramme, Copyright `2026 r1AD`
-- [ ] Screenshots iPhone 6,9" (und iPad 13", falls iPad aktiv) – 5 Szenen mit Beschriftungen aus `captions.json`
+- [ ] Screenshots iPhone 6,9" (1320 × 2868) – 5 Szenen mit Beschriftungen aus `captions.json` (keine iPad-Screenshots nötig, nur iPhone)
 - [ ] China (Festland) abgewählt
 - [x] Keine Spendenadressen in der App (11.1)
 - [ ] Build in TestFlight auf echtem iPhone getestet (Widgets, Alarme, Sicherung)

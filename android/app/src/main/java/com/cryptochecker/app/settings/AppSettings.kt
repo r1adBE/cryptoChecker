@@ -142,13 +142,25 @@ data class AppSettings(
     val priceColorScheme: PriceColorScheme = PriceColorScheme.DEFAULT,
 
     /** Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste. */
-    val watchlistSparkline: Boolean = true,
+    val watchlistSparkline: Boolean = false,
 
     /**
      * Karte «Hier passiert gerade etwas» (ungewöhnliche Aktivität) über der Merkliste. Nur die
      * Anzeige: Meldungen dazu stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
      */
     val watchlistActivityCard: Boolean = true,
+
+    /**
+     * Echte Coin-Logos (alle auf einmal von CoinGecko geladen, auf dem Gerät gespeichert) in
+     * Merkliste, Aktionsblatt, Start-Auswahl und Markt-Karten. Aus (Standard): keine Plakette.
+     */
+    val coinLogos: Boolean = false,
+
+    /** Coin-Logos im Portfolio (Positionen, Coin-Details, Auswertungen) — ab Werk an. */
+    val portfolioCoinLogos: Boolean = true,
+
+    /** Coin-Logos in den Widgets «Merkliste» und «Einzelner Coin» — ab Werk aus. */
+    val widgetCoinLogos: Boolean = false,
 
     /**
      * «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00

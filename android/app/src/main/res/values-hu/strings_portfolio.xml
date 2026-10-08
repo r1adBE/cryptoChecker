@@ -15,7 +15,7 @@
 
     <!-- Portfolio (Tab, Erfassen, Detail) -->
     <string name="portfolio_title">Portfólió</string>
-    <string name="portfolio_setting_hint">Opcionális: rögzítsd a vételeket és eladásokat, és lásd az értéket és a nyereséget/veszteséget külön lapon.</string>
+    <string name="portfolio_setting_hint">Opcionális: rögzítse a vételeket és eladásokat, és kövesse az értéket és a nyereséget/veszteséget külön lapon.</string>
     <string name="portfolio_total_value">Teljes érték</string>
     <string name="portfolio_invested">Befektetve</string>
     <string name="portfolio_unrealized">Nyereség/veszteség, még nem eladva</string>
@@ -28,9 +28,9 @@
     <string name="portfolio_convert_to">Átváltás erre</string>
     <string name="portfolio_convert_to_value">Átváltás erre: %1$s</string>
     <string name="portfolio_price_missing">Hiányzó ár</string>
-    <string name="portfolio_price_missing_hint">Néhány vételnél hiányzik az ár. Add meg a vételárat a nyereség/veszteség megjelenítéséhez.</string>
+    <string name="portfolio_price_missing_hint">Néhány vételnél hiányzik az ár. Adja meg a vételárat a nyereség/veszteség megjelenítéséhez.</string>
     <string name="portfolio_current_missing">Nincs aktuális árfolyam: %1$s</string>
-    <string name="portfolio_oversold">Az eladások meghaladják az állományt – ellenőrizd a tranzakciókat.</string>
+    <string name="portfolio_oversold">Az eladások meghaladják az állományt – ellenőrizze a tranzakciókat.</string>
     <plurals name="portfolio_closed">
         <item quantity="one">Lezárt pozíciók (%1$d)</item>
         <item quantity="other">Lezárt pozíciók (%1$d)</item>
@@ -42,19 +42,19 @@
     <string name="portfolio_sell">Eladás</string>
     <string name="portfolio_coin">Érme</string>
     <string name="portfolio_coin_search">Szimbólum keresése, pl. BTC</string>
-    <string name="portfolio_coin_invalid">Adj meg egy szimbólumot</string>
+    <string name="portfolio_coin_invalid">Adjon meg egy szimbólumot</string>
     <string name="portfolio_tx_amount">Mennyiség</string>
     <string name="portfolio_tx_price">Ár érménként</string>
-    <string name="portfolio_tx_price_hint">USDT-ben. Hagyd üresen, ha nem ismert.</string>
+    <string name="portfolio_tx_price_hint">USDT-ben. Hagyja üresen, ha nem ismert.</string>
     <string name="portfolio_tx_price_invalid">Érvénytelen ár</string>
     <string name="portfolio_tx_date">Dátum</string>
     <string name="portfolio_tx_note">Megjegyzés (nem kötelező)</string>
     <string name="portfolio_tx_total">Összesen: %1$s</string>
-    <string name="portfolio_sell_exceeds">Több, mint az állományod (%1$s)</string>
-    <string name="portfolio_tx_delete_title">Törlöd a tranzakciót?</string>
+    <string name="portfolio_sell_exceeds">Több, mint az állománya (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Törli a tranzakciót?</string>
     <string name="portfolio_tx_delete_confirm">Ez a tranzakció törlődik a portfólióból.</string>
     <string name="portfolio_empty_title">Még nincs tranzakció</string>
-    <string name="portfolio_empty_text">Rögzítsd a vételeidet és eladásaidat. Az érték és a nyereség/veszteség aktuális USDT-árfolyamokkal számolódik.</string>
+    <string name="portfolio_empty_text">Rögzítse vételeit és eladásait. Az érték és a nyereség/veszteség aktuális USDT-árfolyamokkal számolódik.</string>
     <string name="portfolio_empty_action">Első vétel rögzítése</string>
     <string name="portfolio_disclaimer">Csak ezen az eszközön tárolva. Nem befektetési tanácsadás.</string>
     <string name="portfolio_add_from_watch">Hozzáadás a portfólióhoz</string>

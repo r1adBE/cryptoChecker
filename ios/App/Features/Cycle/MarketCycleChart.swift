@@ -268,7 +268,7 @@ extension CycleHistoryChart {
     /// feste Texte (Achse, Hinweis, Quelle) stehen schon echt da.
     static var skeleton: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CycleSkeleton(label: L("loading_hint")) {
+            SkeletonPulse(label: L("loading_hint")) {
                 VStack(alignment: .leading, spacing: 0) {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(AppColors.containerHighest)
@@ -283,7 +283,7 @@ extension CycleHistoryChart {
             Text(L("insights_chart_axis"))
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)
-            CycleSkeleton {
+            SkeletonPulse {
                 Text(verbatim: " ")
                     .font(.caption.weight(.medium))
                     .cycleSkeletonBar(width: 180)

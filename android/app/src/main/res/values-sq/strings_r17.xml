@@ -2,11 +2,11 @@
 <resources>
     <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
     <string name="settings_portfolio_lock">Kyçja e portofolit</string>
-    <string name="settings_portfolio_lock_hint">Mbron vetëm portofolin: shkyçni me gjurmë gishti, fytyrë ose PIN të pajisjes. Kyçet përsëri pas më shumë se një minute në sfond. Lista e ndjekjes, alarmet dhe widget-et e tjera mbeten të hapura.</string>
+    <string name="settings_portfolio_lock_hint">Mbron vetëm portofolin: shkyç me gjurmë gishti, fytyrë ose PIN të pajisjes. Kyçet përsëri pas më shumë se një minute në sfond. Lista e ndjekjes, alarmet dhe widget-et e tjera mbeten të hapura.</string>
     <string name="portfolio_locked_title">Portofoli është i kyçur</string>
-    <string name="portfolio_locked_text">Shkyçeni për të parë zotërimet dhe vlerat.</string>
+    <string name="portfolio_locked_text">Shkyçe për të parë zotërimet dhe vlerat.</string>
     <string name="portfolio_lock_reason">Shkyç portofolin</string>
-    <string name="widget_portfolio_locked_hint">I kyçur – shkyçeni në aplikacion</string>
+    <string name="widget_portfolio_locked_hint">I kyçur – shkyçe në aplikacion</string>
     <string name="portfolio_history_range_since_first">Që nga blerja e 1-rë</string>
     <string name="portfolio_history_period_since_first">që nga blerja e parë</string>
     <string name="portfolio_history_range_since_first_a11y">Shfaq ecurinë që nga blerja e parë</string>

@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Lonjakan volume</string>
     <string name="alarm_volume_factor_label">Volume satu jam terakhir dibanding normal</string>
-    <string name="alarm_volume_hint">Data volume berasal dari Binance — pasangan yang tidak terdaftar di sana tidak akan pernah memicu.</string>
+    <string name="alarm_volume_hint">Data volume berasal dari Binance — pasangan yang tidak terdaftar di sana tidak akan pernah memicu alarm.</string>
     <string name="notification_volume_spike_text">Volume %1$s× normal dalam satu jam terakhir</string>
     <string name="tts_direction_volume_spike">dengan lonjakan volume</string>
 

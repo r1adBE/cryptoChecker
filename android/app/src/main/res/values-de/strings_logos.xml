@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Coin-Logos</string>
+    <string name="settings_coin_logos_app">In der App</string>
+    <string name="settings_coin_logos_app_hint">Merkliste, Aktionsblatt und Markt-Karten</string>
+    <string name="settings_coin_logos_portfolio">Im Portfolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Positionen, Coin-Details und Auswertungen</string>
+    <string name="settings_coin_logos_widgets">In Widgets</string>
+    <string name="settings_coin_logos_widgets_hint">Merklisten- und Einzel-Coin-Widgets</string>
+    <string name="settings_coin_logos_footer">Die Logos kommen von CoinGecko, für Coins, die CoinGecko nicht führt (z. B. Gold, Silber, Aktien), von Binance. Die App lädt alle Logos auf einmal und speichert sie auf diesem Gerät – so erfährt keiner der Anbieter, welche Coins du verfolgst. Coins ohne Logo zeigen ihre Initialen. Favoriten erhalten einen kleinen Stern am Logo. Wo ein Schalter aus ist, erscheinen weder Logos noch Initialen; sind alle aus, wird nichts geladen.</string>
+    <string name="settings_coin_logos_value_app">App</string>
+</resources>

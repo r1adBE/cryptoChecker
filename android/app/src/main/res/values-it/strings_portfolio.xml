@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand -->
-    <string name="portfolio_holdings">Possesso</string>
+    <string name="portfolio_holdings">Saldo</string>
     <string name="portfolio_invalid">Quantità non valida</string>
 
     <!-- Gruppen -->
@@ -30,7 +30,7 @@
     <string name="portfolio_price_missing">Prezzo mancante</string>
     <string name="portfolio_price_missing_hint">Ad alcuni acquisti manca il prezzo. Aggiungi il prezzo d\'acquisto per vedere utile/perdita.</string>
     <string name="portfolio_current_missing">Nessun prezzo attuale per %1$s</string>
-    <string name="portfolio_oversold">Le vendite superano il possesso – controlla le transazioni.</string>
+    <string name="portfolio_oversold">Le vendite superano il saldo – controlla le transazioni.</string>
     <plurals name="portfolio_closed">
         <item quantity="one">Posizione chiusa (%1$d)</item>
         <item quantity="many">Posizioni chiuse (%1$d)</item>
@@ -51,7 +51,7 @@
     <string name="portfolio_tx_date">Data</string>
     <string name="portfolio_tx_note">Nota (facoltativa)</string>
     <string name="portfolio_tx_total">Totale: %1$s</string>
-    <string name="portfolio_sell_exceeds">Più del tuo possesso (%1$s)</string>
+    <string name="portfolio_sell_exceeds">Più del tuo saldo (%1$s)</string>
     <string name="portfolio_tx_delete_title">Eliminare la transazione?</string>
     <string name="portfolio_tx_delete_confirm">Questa transazione verrà rimossa dal portafoglio.</string>
     <string name="portfolio_empty_title">Ancora nessuna transazione</string>

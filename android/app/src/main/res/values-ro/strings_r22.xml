@@ -10,9 +10,9 @@
     </plurals>
     <string name="refresh_sheet_market_unreachable">%1$s inaccesibil</string>
     <plurals name="refresh_sheet_markets_unreachable">
-        <item quantity="one">%1$d exchange inaccesibil</item>
-        <item quantity="few">%1$d exchange-uri inaccesibile</item>
-        <item quantity="other">%1$d de exchange-uri inaccesibile</item>
+        <item quantity="one">%1$d bursă inaccesibilă</item>
+        <item quantity="few">%1$d burse inaccesibile</item>
+        <item quantity="other">%1$d de burse inaccesibile</item>
     </plurals>
     <string name="refresh_sheet_aborted">Actualizare întreruptă</string>
     <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
@@ -22,8 +22,8 @@
         <item quantity="other">%1$d de perechi</item>
     </plurals>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Exchange-uri</string>
-    <string name="refresh_sheet_section_steps">Desfășurare</string>
+    <string name="refresh_sheet_section_markets">Burse</string>
+    <string name="refresh_sheet_section_steps">Detalii</string>
     <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
     <string name="refresh_sheet_wait">Așteptare până la start</string>
     <string name="refresh_sheet_network">Rețea</string>
@@ -59,7 +59,7 @@
     <string name="refresh_sheet_reason_rate_limit">prea multe cereri</string>
     <string name="refresh_sheet_reason_server">eroare de server</string>
     <string name="refresh_sheet_reason_no_data">fără date</string>
-    <string name="refresh_sheet_reason_unavailable">exchange indisponibil</string>
+    <string name="refresh_sheet_reason_unavailable">bursă indisponibilă</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
     <string name="refresh_sheet_status_ok">totul actualizat</string>
     <string name="refresh_sheet_status_partial">actualizat parțial</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pulse_section_market">Piața azi</string>
-    <string name="pulse_alts_stronger">Altcoin-urile mai puternice decât Bitcoin</string>
-    <string name="pulse_alts_weaker">Bitcoin mai puternic decât altcoin-urile</string>
-    <string name="pulse_alts_even">Altcoin-urile și Bitcoin se mișcă la fel</string>
+    <string name="pulse_alts_stronger">Altcoinuri mai puternice decât Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin mai puternic decât altcoinurile</string>
+    <string name="pulse_alts_even">Altcoinurile și Bitcoin se mișcă la fel</string>
     <string name="pulse_volume_high">Volum de tranzacționare neobișnuit de mare (%1$s× normal)</string>
     <string name="pulse_volume_low">Volum de tranzacționare mic (%1$s× normal)</string>
     <string name="pulse_volume_normal">Volum de tranzacționare normal</string>
@@ -19,7 +19,7 @@
     <string name="pulse_updated">La %1$s</string>
     <string name="pulse_unavailable">Datele de piață nu sunt disponibile acum</string>
     <string name="why_summary_title">Motive probabile</string>
-    <string name="why_summary_market_volume">Mișcarea este însoțită de volum de tranzacționare mai mare și o piață care se mișcă larg.</string>
+    <string name="why_summary_market_volume">Mișcarea este însoțită de volum de tranzacționare mai mare și o mișcare amplă a întregii piețe.</string>
     <string name="why_summary_market">Mișcarea urmează probabil piața în ansamblu.</string>
     <string name="why_summary_coin_volume">Doar această monedă se mișcă, la volum mai mare – probabil un motiv ce ține de moneda însăși.</string>
     <string name="why_summary_coin">Doar această monedă se mișcă – probabil un motiv ce ține de moneda însăși.</string>
@@ -57,9 +57,9 @@
     <string name="market_cap_label">Capitalizare de piață</string>
     <string name="market_volume_label">Volum 24 h</string>
     <string name="market_cap_source">Toate monedele · CoinGecko</string>
-    <string name="market_data_empty_error">Nu s-au primit date de la exchange.</string>
+    <string name="market_data_empty_error">Nu s-au primit date de la bursă.</string>
     <string name="sync_pairs_count">Perechi de tranzacționare: %1$d</string>
-    <string name="market_unavailable_error">Exchange indisponibil</string>
+    <string name="market_unavailable_error">Bursă indisponibilă</string>
     <string name="refresh_report_bulk_failed">cerere grupată %1$s (eșuată)</string>
     <string name="refresh_report_singles">%1$d individual</string>
     <plurals name="refresh_report_not_traded">
@@ -81,7 +81,7 @@
     <string name="favorite_added">%1$s a fost adăugat la favorite</string>
     <string name="favorite_removed">%1$s a fost eliminat din favorite</string>
     <string name="cycle_data_as_of">Date de la %1$s · se actualizează…</string>
-    <string name="settings_conversion_currency_hint">Folosită și pentru portofoliu, alarmele în moneda dvs., cardul Piața cripto și widgetul Portofoliu.</string>
+    <string name="settings_conversion_currency_hint">Folosită și pentru portofoliu, alarmele în moneda ta, cardul Piața cripto și widgetul Portofoliu.</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="one">%1$d în creștere</item>
         <item quantity="few">%1$d în creștere</item>

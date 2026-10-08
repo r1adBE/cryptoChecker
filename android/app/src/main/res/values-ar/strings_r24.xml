@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">تغيّر %1$s</string>
+    <string name="settings_change_basis">تغيّر %1$s ومنطقة الرسم البياني الزمنية</string>
     <string name="change_basis_rolling">آخر 24 ساعة</string>
     <string name="change_basis_utc_zone">منذ 00:00 %1$s</string>
     <string name="change_basis_local">منذ 00:00 بالتوقيت المحلي</string>
-    <string name="settings_change_basis_hint_1">تحدد المنطقة الزمنية المختارة بداية حساب نسبة التغيّر في قائمة المتابعة وسطر النبض وورقة الزوج والأدوات.</string>
+    <string name="settings_change_basis_hint_1">تحدد المنطقة الزمنية المختارة بداية حساب نسبة التغيّر في قائمة المتابعة وسطر النبض وورقة الزوج والأدوات، وكذلك الأوقات المعروضة في الرسوم البيانية.</string>
     <string name="settings_change_basis_hint_2">«%1$s» يقارن بالسعر قبل 24 ساعة تمامًا. «00:00» يقارن بسعر الافتتاح عند منتصف الليل في هذه المنطقة الزمنية.</string>
     <string name="settings_change_basis_hint_3">لا يؤثر ذلك على التنبيهات.</string>
     <string name="change_basis_device">%1$s، 00:00 (المنطقة الزمنية للجهاز)</string>

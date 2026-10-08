@@ -14,7 +14,7 @@
     <string name="widget_portfolio_name">Portfel</string>
     <string name="widget_portfolio_description">Łączna wartość portfela i dzisiejsza zmiana</string>
     <string name="widget_portfolio_today">dziś %1$s</string>
-    <string name="widget_portfolio_empty">Dodaj zakupy w zakładce Portfel</string>
+    <string name="widget_portfolio_empty">Dodaj zakupy na karcie Portfel</string>
     <string name="a11y_portfolio_widget">Portfel %1$s, dziś %2$s</string>
     <string name="explain_funding">Opłata między pozycjami long i short. Mocno dodatnia oznacza, że wielu stawia na wzrost cen.</string>
     <string name="explain_open_interest">Wartość wszystkich otwartych pozycji futures. Gdy rośnie, więcej pieniędzy stawia na ten ruch.</string>
@@ -32,7 +32,7 @@
         <item quantity="many">Powiadom mnie, gdy %1$s zmieni się o %2$s w ciągu %3$d godzin.</item>
         <item quantity="other">Powiadom mnie, gdy %1$s zmieni się o %2$s w ciągu %3$d godzin.</item>
     </plurals>
-    <string name="alarm_sentence_volume">Powiadom mnie, gdy wolumen %1$s osiągnie %2$s× normalnego.</string>
+    <string name="alarm_sentence_volume">Powiadom mnie, gdy wolumen %1$s osiągnie %2$s× normy.</string>
     <string name="alarm_sentence_incomplete">Wpisz wartość, aby zobaczyć alarm jako zdanie.</string>
     <string name="watchlist_row_unreachable">%1$s · %2$s niedostępna</string>
     <string name="watchlist_row_outdated">%1$s · nieaktualne</string>

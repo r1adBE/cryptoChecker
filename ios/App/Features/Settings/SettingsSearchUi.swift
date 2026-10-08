@@ -7,7 +7,7 @@ import SwiftUI
 
 /// Unterseiten, zu denen ein Treffer führt.
 enum SettingsSearchPage: Hashable {
-    case currency, updates, watchlist, displayMode, theme, priceColors, changeBasis
+    case currency, updates, watchlist, displayMode, theme, priceColors, changeBasis, coinLogos
     case alarms, marketAlerts, speech, portfolio, backup, about, developer
 }
 
@@ -150,6 +150,15 @@ enum SettingsSearchCatalog {
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_device", "UTC"),
              // Alle Zonen in einem Text: «UTC+8» findet die Seite einmal, nicht 27 fast gleiche Treffer
              ChangeBasis.allCases.filter { $0.kind == .utcDay }.map { A11y.changeZoneChoice($0) }.joined(separator: " ")])
+        let logos = L("settings_coin_logos")
+        add("page.coin_logos", logos, appearance, .page(.coinLogos, anchor: nil),
+            [L("settings_coin_logos_footer"), "CoinGecko"])
+        add("logos.app", L("settings_coin_logos_app"), logos, .page(.coinLogos, anchor: "logos.app"),
+            [L("settings_coin_logos_app_hint")])
+        add("logos.portfolio", L("settings_coin_logos_portfolio"), logos, .page(.coinLogos, anchor: "logos.portfolio"),
+            [L("settings_coin_logos_portfolio_hint")])
+        add("logos.widgets", L("settings_coin_logos_widgets"), logos, .page(.coinLogos, anchor: "logos.widgets"),
+            [L("settings_coin_logos_widgets_hint")])
         add("main.widgets", L("settings_widgets"), appearance, .main("main.widgets"))
 
         // 3 Alarme & Mitteilungen
@@ -240,6 +249,7 @@ enum SettingsSearchCatalog {
         case .theme: ThemeSettingsPage()
         case .priceColors: PriceColorsSettingsPage()
         case .changeBasis: ChangeBasisSettingsPage()
+        case .coinLogos: CoinLogosSettingsPage()
         case .alarms: AlarmSettingsPage()
         case .marketAlerts: MarketAlertsSettingsPage()
         case .speech: SpeechSettingsPage()

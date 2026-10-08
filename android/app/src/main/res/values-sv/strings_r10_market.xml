@@ -9,7 +9,7 @@
     <string name="unusual_fact_volume">Volym %1$s× normalt</string>
     <string name="unusual_fact_funding_high">Funding förhöjd (%1$s)</string>
     <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
-    <string name="unusual_source">Ungefär 30 största mynten utan stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_source">De cirka 30 största mynten utan stablecoins · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <string name="unusual_action_why">Varför rör den sig?</string>
     <string name="unusual_action_add">Hitta par att lägga till</string>
@@ -32,6 +32,6 @@
     <string name="macro_item_tomorrow">I morgon %1$s %2$s</string>
 
     <string name="settings_macro_notifications">Ekonomisk kalender</string>
-    <string name="settings_macro_notifications_hint">Kl. 08:00 dagar med viktig amerikansk ekonomisk statistik (inflation, jobbrapport, räntebesked). Kalendern hämtas från appens webbplats en gång om dagen.</string>
+    <string name="settings_macro_notifications_hint">Kl. 08:00 på dagar med viktig amerikansk ekonomisk statistik (inflation, jobbrapport, räntebesked). Kalendern hämtas från appens webbplats en gång om dagen.</string>
     <string name="notification_macro_title">Ekonomisk statistik i dag</string>
 </resources>

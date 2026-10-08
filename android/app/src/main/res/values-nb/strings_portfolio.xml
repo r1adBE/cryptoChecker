@@ -21,7 +21,7 @@
     <string name="portfolio_unrealized">Gevinst/tap, ikke solgt ennå</string>
     <string name="portfolio_realized">Gevinst/tap, solgt</string>
     <string name="portfolio_value">Verdi</string>
-    <string name="portfolio_avg_price">Snitt kjøpspris</string>
+    <string name="portfolio_avg_price">Snittkjøpspris</string>
     <string name="portfolio_current_price">Gjeldende kurs</string>
     <string name="portfolio_avg_and_now">Snitt %1$s · nå %2$s</string>
     <string name="portfolio_updated">Kurser fra %1$s</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Blocarea protejează afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă.</string>
+    <string name="settings_portfolio_lock_footer">Blocarea protejează afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă. Copiile de rezervă ale întregului dispozitiv (copia de sistem) includ totuși aceste date.</string>
     <string name="backup_protect">Protejează cu parolă</string>
     <string name="backup_protect_hint">Criptează fișierul (AES-256). Recomandat dacă include date din portofoliu.</string>
     <string name="backup_password">Parolă</string>

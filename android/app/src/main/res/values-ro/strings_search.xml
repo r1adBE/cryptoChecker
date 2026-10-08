@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Suche in der Merkliste -->
-    <string name="watchlist_search_hint">Căutați pereche sau bursă</string>
-    <string name="watchlist_search_open">Căutați</string>
-    <string name="watchlist_search_close">Închideți căutarea</string>
+    <string name="watchlist_search_hint">Caută pereche sau bursă</string>
+    <string name="watchlist_search_open">Caută</string>
+    <string name="watchlist_search_close">Închide căutarea</string>
     <string name="watchlist_search_empty">Niciun rezultat pentru „%1$s”</string>
 </resources>

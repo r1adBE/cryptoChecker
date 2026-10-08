@@ -3,14 +3,14 @@
     <string name="check_error_generic_prefix">ข้อผิดพลาด: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">ไม่มีคู่เหรียญ</string>
-    <string name="checker_add_check_currency_empty_warning_summary">โหลดคู่เทรดปัจจุบันของตลาดที่เลือก</string>
+    <string name="checker_add_check_currency_empty_warning_summary">โหลดคู่เทรดปัจจุบันของกระดานเทรดที่เลือก</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">อัปเดตคู่เหรียญ</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">ซิงค์เลย!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">ซิงค์ล่าสุด: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">ไม่เคย</string>
 
-    <string name="market_screen_sync">ปรับให้ตรงกัน</string>
-    <string name="market_screen_base">สกุลหลัก</string>
+    <string name="market_screen_sync">ซิงค์</string>
+    <string name="market_screen_base">เหรียญ</string>
     <string name="market_screen_quote">สกุลอ้างอิง</string>
     <string name="market_screen_market">ตลาด</string>
     <string name="market_screen_contract_type">ประเภทสัญญา</string>
@@ -73,7 +73,7 @@
     <string name="channel_alarms">สัญญาณเตือน</string>
     <string name="channel_alarms_description">แจ้งเตือนเมื่อสัญญาณเตือนราคาทำงาน</string>
     <string name="channel_service">อัปเดตบ่อย</string>
-    <string name="channel_service_description">แสดงขณะอัปเดตราคาในช่วงเวลาสั้นๆ</string>
+    <string name="channel_service_description">แสดงขณะอัปเดตราคาในช่วงเวลาสั้น ๆ</string>
     <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
     <string name="notification_price_change">%1$s จาก %2$s (%3$s ที่แล้ว)</string>
     <string name="notification_price_change_no_age">%1$s จาก %2$s</string>
@@ -120,7 +120,7 @@
     <string name="accent_red">แดง</string>
     <string name="accent_blue">น้ำเงิน</string>
     <string name="accent_green">เขียว</string>
-    <string name="settings_rolling_futures">รวมฟิวเจอร์สรายไตรมาส &amp; ที่มีวันหมดอายุอื่นๆ</string>
+    <string name="settings_rolling_futures">รวมฟิวเจอร์สรายไตรมาส &amp; ที่มีวันหมดอายุอื่น ๆ</string>
     <string name="settings_rolling_futures_hint">ปิด: ฟิวเจอร์สที่มีวันหมดอายุซึ่งไม่อยู่ในรายการของกระดานเทรด จะถูกทำเครื่องหมายว่าไม่มีการซื้อขายแล้ว แทนการตรวจทีละรายการ ช่วยประหยัดเวลาทุกครั้งที่รีเฟรช</string>
     <string name="notification_refreshing">กำลังอัปเดตราคา…</string>
     <string name="notification_service_title">Crypto Checker กำลังอัปเดตบ่อย</string>
@@ -167,8 +167,8 @@
     <string name="about_version">Crypto Checker %1$s</string>
     <string name="about_license">ราคามาจากกระดานเทรดโดยตรง ไม่ต้องมีบัญชีและไม่มีการติดตาม</string>
 
-    <string name="dex_intro">โทเคนนอกกระดานเทรดรายใหญ่ จากกระดานเทรดแบบกระจายศูนย์ (Uniswap, PancakeSwap, Raydium …) ผ่าน DexScreener ค้นหาโทเคนแล้วเพิ่มพูลซื้อขายของโทเคนนั้น – ราคาเป็นดอลลาร์สหรัฐ</string>
-    <string name="dex_search_hint">ชื่อโทเคน สัญลักษณ์ หรือแอดเดรส</string>
+    <string name="dex_intro">โทเค็นนอกกระดานเทรดรายใหญ่ จากกระดานเทรดแบบกระจายศูนย์ (Uniswap, PancakeSwap, Raydium …) ผ่าน DexScreener ค้นหาโทเค็นแล้วเพิ่มพูลซื้อขายของโทเค็นนั้น – ราคาเป็นดอลลาร์สหรัฐ</string>
+    <string name="dex_search_hint">ชื่อโทเค็น สัญลักษณ์ หรือแอดเดรส</string>
     <string name="dex_search">ค้นหา</string>
     <string name="dex_no_results">ไม่พบพูล</string>
     <string name="dex_added">เพิ่ม %1$s ไปยังรายการติดตามแล้ว</string>
@@ -204,7 +204,7 @@
     <string name="market_scores_hint">จุดสูงสุด = สัญญาณแบบที่เคยเห็นที่จุดสูงสุดของรอบก่อน ๆ, จุดต่ำสุด = สัญญาณแบบที่เคยเห็นที่จุดต่ำสุดของรอบก่อน ๆ ตั้งแต่ 4 คะแนนฝั่งหนึ่งครองตลาด ตั้งแต่ 7 ถือว่าสุดขั้ว ไม่ใช่ราคาเป้าหมายและไม่ใช่การคาดการณ์</string>
     <string name="market_scores_none">ไม่มีสัญญาณของจุดสูงสุดหรือจุดต่ำสุดที่ทำงานอยู่: ช่วงกลางที่สงบ แนวโน้มราคาเป็นตัวตัดสิน</string>
     <string name="market_scores_info_title">สัญญาณของรอบ</string>
-    <string name="market_scores_info_text">สัญญาณของจุดสูงสุดที่อาจเกิดขึ้นนับสัญญาณที่เคยเกิดที่จุดสูงสุดของรอบก่อน ๆ: มูลค่าสูงเกินจริงมาก (MVRV), รายได้นักขุดสูงมาก (Puell), ราคาสูงกว่าค่าเฉลี่ย 200 วันหรือ 200 สัปดาห์มาก, การพุ่งขึ้นแบบพาราโบลา และช่วง 12–18 เดือนหลัง halving\n\nสัญญาณของจุดต่ำสุดที่อาจเกิดขึ้นนับสัญญาณของจุดต่ำสุดในอดีต: MVRV ต่ำ, รายได้นักขุดอ่อนแอ, ราคาร่วงหนักจากจุดสูงสุดตลอดกาล, ราคาใกล้ค่าเฉลี่ย 200 สัปดาห์, hashrate ลดลง และจุดสูงสุดผ่านมานานกว่าหนึ่งปี\n\nนำ 4 คะแนนขึ้นไปโซนจะเป็น Bull หรือ Bear ตั้งแต่ 7 เป็นสุดขั้ว หากไม่มีฝั่งใดนำ แนวโน้มราคาเป็นตัวตัดสิน 0/10 ทั้งสองฝั่งหมายถึง: ไม่มีทั้งความคึกคักเกินเหตุและการยอมแพ้\n\nไม่ใช่ราคาเป้าหมายและไม่ใช่การคาดการณ์: สัญญาณเพียงอธิบายว่ารอบก่อน ๆ เป็นอย่างไร</string>
+    <string name="market_scores_info_text">สัญญาณของจุดสูงสุดที่อาจเกิดขึ้นนับสัญญาณที่เคยเกิดที่จุดสูงสุดของรอบก่อน ๆ: มูลค่าสูงเกินจริงมาก (MVRV), รายได้นักขุดสูงมาก (Puell), ราคาสูงกว่าค่าเฉลี่ย 200 วันหรือ 200 สัปดาห์มาก, การพุ่งขึ้นแบบพาราโบลา และช่วง 12–18 เดือนหลังฮาล์ฟวิ่ง\n\nสัญญาณของจุดต่ำสุดที่อาจเกิดขึ้นนับสัญญาณของจุดต่ำสุดในอดีต: MVRV ต่ำ, รายได้นักขุดอ่อนแอ, ราคาร่วงหนักจากจุดสูงสุดตลอดกาล, ราคาใกล้ค่าเฉลี่ย 200 สัปดาห์, แฮชเรตลดลง และจุดสูงสุดผ่านมานานกว่าหนึ่งปี\n\nนำ 4 คะแนนขึ้นไปโซนจะเป็น Bull หรือ Bear ตั้งแต่ 7 เป็นสุดขั้ว หากไม่มีฝั่งใดนำ แนวโน้มราคาเป็นตัวตัดสิน 0/10 ทั้งสองฝั่งหมายถึง: ไม่มีทั้งความคึกคักเกินเหตุและการยอมแพ้\n\nไม่ใช่ราคาเป้าหมายและไม่ใช่การคาดการณ์: สัญญาณเพียงอธิบายว่ารอบก่อน ๆ เป็นอย่างไร</string>
     <string name="battery_open_settings">เปิดการตั้งค่าแบตเตอรี่</string>
     <string name="battery_steps">ในข้อมูลแอป แตะแบตเตอรี่ (หรือการใช้แบตเตอรี่ของแอป) แล้วเลือกไม่จำกัด</string>
     <string name="explorer_select_placeholder">โปรดเลือก</string>
@@ -217,13 +217,13 @@
     <string name="settings_http_log">แสดงบันทึก HTTP</string>
     <string name="settings_http_log_hint">แสดงคำขอไปยังกระดานเทรดที่ด้านล่างของหน้า “เพิ่มคู่เทรด” – สำหรับแก้ปัญหา</string>
     <string name="language_search">ค้นหาภาษา</string>
-    <string name="alarm_delete_title">ลบการแจ้งเตือน?</string>
-    <string name="alarm_delete_confirm">การแจ้งเตือนนี้จะถูกลบ</string>
-    <string name="alarms_overview_title">การแจ้งเตือนทั้งหมด</string>
+    <string name="alarm_delete_title">ลบสัญญาณเตือน?</string>
+    <string name="alarm_delete_confirm">สัญญาณเตือนนี้จะถูกลบ</string>
+    <string name="alarms_overview_title">สัญญาณเตือนทั้งหมด</string>
     <plurals name="alarms_overview_active">
         <item quantity="other">เปิดอยู่ %1$d</item>
     </plurals>
-    <string name="alarms_overview_empty">ยังไม่มีการแจ้งเตือน เปิดคู่เทรดแล้วเพิ่มในส่วนการแจ้งเตือน</string>
+    <string name="alarms_overview_empty">ยังไม่มีสัญญาณเตือน เปิดคู่เทรดแล้วเพิ่มในส่วนสัญญาณเตือน</string>
     <string name="action_more">ตัวเลือกเพิ่มเติม</string>
     <string name="watchlist_last_run">รอบล่าสุด %1$s</string>
     <string name="watchlist_pull_to_refresh">ดึงลงเพื่อรีเฟรช</string>
@@ -312,7 +312,7 @@
     <string name="notification_zone_title">บิตคอยน์: %1$s</string>
     <string name="notification_zone_text">ช่วงตลาดเปลี่ยนจาก %1$s เป็น %2$s แล้ว</string>
     <string name="settings_zone_alerts">แจ้งเมื่อช่วงตลาดเปลี่ยน</string>
-    <string name="settings_zone_alerts_hint">ตรวจวันละสองครั้งและแจ้งเมื่อบิตคอยน์เปลี่ยนโซน เช่น จากเป็นกลางเป็น Bull</string>
+    <string name="settings_zone_alerts_hint">ตรวจวันละสองครั้งและแจ้งเมื่อบิตคอยน์เปลี่ยนโซน เช่น จาก Neutral เป็น Bull</string>
     <string name="alarm_condition_move_percent">เคลื่อนไหว</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">ภายใน %1$d ชม.</item>
@@ -335,13 +335,13 @@
     <string name="single_widget_choose">เลือกคู่เทรด</string>
     <string name="single_widget_title">ตั้งค่าวิดเจ็ตเหรียญเดียว</string>
     <string name="shortcut_add">เพิ่มคู่เทรด</string>
-    <string name="shortcut_alarms">การแจ้งเตือนทั้งหมด</string>
+    <string name="shortcut_alarms">สัญญาณเตือนทั้งหมด</string>
     <string name="shortcut_cycle">ตลาด</string>
     <string name="backup_title">สำรองและกู้คืน</string>
-    <string name="backup_hint">บันทึกรายการ (รวมบันทึกและกลุ่ม) การแจ้งเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าเป็นไฟล์ที่คุณเก็บเอง เช่น สำหรับโทรศัพท์เครื่องใหม่</string>
+    <string name="backup_hint">บันทึกรายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าเป็นไฟล์ที่คุณเก็บเอง เช่น สำหรับโทรศัพท์เครื่องใหม่</string>
     <string name="backup_export">ส่งออก</string>
     <string name="backup_import">นำเข้า</string>
-    <string name="backup_restore_confirm">การนำเข้าจะแทนที่รายการ (รวมบันทึกและกลุ่ม) การแจ้งเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
+    <string name="backup_restore_confirm">การนำเข้าจะแทนที่รายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
     <string name="backup_exported">บันทึกข้อมูลสำรองแล้ว</string>
     <string name="backup_failed">ไม่สำเร็จ ไฟล์นี้เป็นข้อมูลสำรองของ Crypto Checker หรือไม่</string>
     <string name="backup_restored">กู้คืนแล้ว: %1$s %2$s</string>
@@ -349,6 +349,6 @@
         <item quantity="other">%1$d คู่</item>
     </plurals>
     <plurals name="backup_restored_alarms">
-        <item quantity="other">%1$d การแจ้งเตือน</item>
+        <item quantity="other">สัญญาณเตือน %1$d รายการ</item>
     </plurals>
 </resources>

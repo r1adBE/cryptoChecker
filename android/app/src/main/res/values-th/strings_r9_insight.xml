@@ -51,6 +51,6 @@
     <string name="why_f_leverage_balanced">เลเวอเรจสมดุล</string>
     <string name="insights_dominance_eth">ETH %1$s ของตลาดทั้งหมด</string>
     <plurals name="market_phase_cycle_since">
-        <item quantity="other">%1$d เดือนนับจาก halving เมื่อ %2$s</item>
+        <item quantity="other">%1$d เดือนนับจากฮาล์ฟวิ่งเมื่อ %2$s</item>
     </plurals>
 </resources>

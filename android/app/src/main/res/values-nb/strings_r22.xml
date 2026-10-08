@@ -34,7 +34,7 @@
         <item quantity="one">%1$d varsel</item>
         <item quantity="other">%1$d varsler</item>
     </plurals>
-    <string name="refresh_sheet_widgets">Moduler</string>
+    <string name="refresh_sheet_widgets">Widgeter</string>
     <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
     <plurals name="refresh_sheet_pairs_of">
         <item quantity="one">%2$d av %1$d par</item>

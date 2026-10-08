@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Verandering in %1$s</string>
+    <string name="settings_change_basis">Verandering in %1$s en grafiektijdzone</string>
     <string name="change_basis_rolling">Laatste 24 uur</string>
     <string name="change_basis_utc_zone">Sinds 00:00 %1$s</string>
     <string name="change_basis_local">Sinds 00:00 lokale tijd</string>
-    <string name="settings_change_basis_hint_1">De gekozen tijdzone bepaalt vanaf wanneer de procentuele verandering telt: in de volglijst, pulsregel, paarblad en widgets.</string>
+    <string name="settings_change_basis_hint_1">De gekozen tijdzone bepaalt vanaf wanneer de procentuele verandering telt (volglijst, pulsregel, paarblad, widgets) en welke tijden de grafieken tonen.</string>
     <string name="settings_change_basis_hint_2">‘%1$s’ vergelijkt met de koers van precies 24 uur geleden. ‘00:00’ vergelijkt met de openingskoers om middernacht in die tijdzone.</string>
     <string name="settings_change_basis_hint_3">Alarmen worden niet beïnvloed.</string>
     <string name="change_basis_device">%1$s, 00:00 (tijdzone van het apparaat)</string>

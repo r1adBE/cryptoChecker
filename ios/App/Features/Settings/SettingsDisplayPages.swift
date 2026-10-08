@@ -40,6 +40,44 @@ struct ThemeSettingsPage: View {
     }
 }
 
+/// «Coin-Logos»: echte Logos (CoinGecko, alle auf einmal geladen und auf dem Gerät gespeichert)
+/// statt Initialen — getrennt für App, Portfolio und Widgets; ab Werk nur im Portfolio an.
+@MainActor
+struct CoinLogosSettingsPage: View {
+    @EnvironmentObject private var data: AppData
+
+    init() {}
+
+    var body: some View {
+        SettingsCardsPage(title: L("settings_coin_logos")) {
+            SettingsCard {
+                SwitchRow(
+                    title: L("settings_coin_logos_app"),
+                    subtitle: L("settings_coin_logos_app_hint"),
+                    isOn: $data.settings.coinLogos
+                )
+                .settingsAnchor("logos.app")
+                RowDivider()
+                SwitchRow(
+                    title: L("settings_coin_logos_portfolio"),
+                    subtitle: L("settings_coin_logos_portfolio_hint"),
+                    isOn: $data.settings.portfolioCoinLogos
+                )
+                .settingsAnchor("logos.portfolio")
+                RowDivider()
+                SwitchRow(
+                    title: L("settings_coin_logos_widgets"),
+                    subtitle: L("settings_coin_logos_widgets_hint"),
+                    isOn: $data.settings.widgetCoinLogos
+                )
+                .settingsAnchor("logos.widgets")
+            }
+            SettingsHint(text: L("settings_coin_logos_footer"), top: 2)
+                .padding(.horizontal, 16)
+        }
+    }
+}
+
 /// Kursfarben: Grün steigt / Rot fällt (Standard), Rot steigt / Grün fällt (Ostasien) und die
 /// Fassungen für Farbsehschwäche (Blau/Orange). Gespeichert als Schema + «getauscht».
 @MainActor

@@ -26,13 +26,13 @@
     <string name="why_disclaimer">Automatisk vurdering ud fra markedsdata, ikke investeringsrådgivning.</string>
     <string name="why_data_time">Data pr. %1$s</string>
     <string name="why_no_data">Ingen data fra Binance for dette par</string>
-    <string name="why_no_data_hint">Kurs, volumen og volatilitet kommer fra Binances timelys.</string>
+    <string name="why_no_data_hint">Kurs, volumen og volatilitet kommer fra Binances candlesticks på timebasis.</string>
 
-    <string name="why_market_wide_text">Denne mønt: %1$s på 24t – drivkraften er nok det samlede marked, ikke mønten selv.</string>
-    <string name="why_coin_only_text">%1$s på 24t, mens markedet er roligt: årsagen ligger nok hos mønten selv.</string>
-    <string name="why_against_market_text">Denne mønt %1$s, BTC %2$s på 24t – en påfaldende selvstændig bevægelse.</string>
-    <string name="why_market_calm_text">Denne mønt: %1$s på 24t. Hverken markedet eller mønten bevæger sig meget.</string>
-    <string name="why_market_leader_text">Som markedsleder trækker BTC som regel resten af markedet med. ETH: %1$s på 24t.</string>
+    <string name="why_market_wide_text">Denne mønt: %1$s på 24 t – drivkraften er nok det samlede marked, ikke mønten selv.</string>
+    <string name="why_coin_only_text">%1$s på 24 t, mens markedet er roligt: årsagen ligger nok hos mønten selv.</string>
+    <string name="why_against_market_text">Denne mønt %1$s, BTC %2$s på 24 t – en påfaldende selvstændig bevægelse.</string>
+    <string name="why_market_calm_text">Denne mønt: %1$s på 24 t. Hverken markedet eller mønten bevæger sig meget.</string>
+    <string name="why_market_leader_text">Som markedsleder trækker BTC som regel resten af markedet med. ETH: %1$s på 24 t.</string>
     <string name="why_market_leader_text_no_eth">Som markedsleder trækker BTC som regel resten af markedet med.</string>
 
     <string name="why_volume_high_text">Langt mere handel end normalt i den sidste time – bevægelsen har bred opbakning.</string>

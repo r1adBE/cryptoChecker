@@ -21,10 +21,10 @@
     <string name="why_summary_title">考えられる理由</string>
     <string name="why_summary_market_volume">この動きには取引量の増加と市場全体の幅広い動きが伴っています。</string>
     <string name="why_summary_market">この動きはおそらく市場全体に連動しています。</string>
-    <string name="why_summary_coin_volume">このコインだけが取引量の増加を伴って動いています – コイン自体に理由がある可能性があります。</string>
-    <string name="why_summary_coin">このコインだけが動いています – コイン自体に理由がある可能性があります。</string>
+    <string name="why_summary_coin_volume">このコインだけが取引量の増加を伴って動いています – コイン固有の理由がある可能性があります。</string>
+    <string name="why_summary_coin">このコインだけが動いています – コイン固有の理由がある可能性があります。</string>
     <string name="why_summary_against">このコインは市場と逆方向に動いています。</string>
-    <string name="why_summary_thin">この動きは薄い：裏付ける取引量が少ないです。</string>
+    <string name="why_summary_thin">薄商いの動きです：裏付けとなる取引量が少なめです。</string>
     <string name="why_summary_calm">目立った動きなし：市場もコインも落ち着いています。</string>
     <string name="why_summary_longs">先物：レバレッジのロングポジションが多い。</string>
     <string name="why_summary_shorts">先物：ショートポジションが多い。</string>
@@ -40,7 +40,7 @@
     <string name="alarm_test_open_settings">設定を開く</string>
     <string name="alarm_first_title">設定完了</string>
     <string name="welcome_watch">見守る – コイン、価格、チャート、ウィジェット</string>
-    <string name="welcome_alert">知らせる – 価格、パーセント、取引量、異例の動き</string>
+    <string name="welcome_alert">知らせる – 価格、パーセント、取引量、異常な動き</string>
     <string name="welcome_understand">理解する – なぜいま市場が動いているのか？</string>
     <string name="portfolio_empty_example">例：3月1日に 0.01 BTC を %1$s で購入。アプリが評価額、平均購入価格、損益を表示します – データはこのデバイスにのみ保存されます。</string>
     <string name="about_why">Crypto Checker は r1AD による独立したプロジェクトです。アカウント、広告、トラッキングなしの落ち着いた価格一覧。ご質問・ご要望：%1$s</string>
@@ -77,7 +77,7 @@
     <string name="favorite_added">%1$s をお気に入りに追加しました</string>
     <string name="favorite_removed">%1$s をお気に入りから削除しました</string>
     <string name="cycle_data_as_of">%1$s 時点のデータ · 更新中…</string>
-    <string name="settings_conversion_currency_hint">ポートフォリオ、自国通貨でのアラーム、暗号資産市場カード、ポートフォリオウィジェットにも使用されます。</string>
+    <string name="settings_conversion_currency_hint">ポートフォリオ、選んだ通貨でのアラーム、暗号資産市場カード、ポートフォリオウィジェットにも使用されます。</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="other">%1$d 上昇</item>
     </plurals>

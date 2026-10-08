@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: w górę %2$d, w dół %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: największe monety według wartości rynkowej, bez stablecoinów; zmiana w ciągu 24 godzin (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Szeroki ruch: większość dużych monet rośnie.</string>
+    <string name="pulse_breadth_note_broad_down">Szeroki spadek: większość dużych monet spada.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin rośnie, ale większość innych dużych monet nie podąża za nim.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin spada, ale większość innych dużych monet się trzyma.</string>
+</resources>

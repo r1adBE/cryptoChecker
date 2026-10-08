@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Το κλείδωμα προστατεύει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείς να προστατεύσεις τα αντίγραφα ασφαλείας με κωδικό.</string>
+    <string name="settings_portfolio_lock_footer">Το κλείδωμα προστατεύει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείτε να προστατεύσετε τα αντίγραφα ασφαλείας με κωδικό. Τα αντίγραφα ασφαλείας ολόκληρης της συσκευής (αντίγραφο συστήματος) εξακολουθούν να περιέχουν αυτά τα δεδομένα.</string>
     <string name="backup_protect">Προστασία με κωδικό</string>
     <string name="backup_protect_hint">Κρυπτογραφεί το αρχείο (AES-256). Συνιστάται αν περιέχει δεδομένα χαρτοφυλακίου.</string>
     <string name="backup_password">Κωδικός</string>
@@ -13,7 +13,7 @@
     <string name="backup_password_show">Εμφάνιση κωδικού</string>
     <string name="backup_password_hide">Απόκρυψη κωδικού</string>
     <string name="backup_password_title">Αντίγραφο με κωδικό</string>
-    <string name="backup_password_prompt">Πληκτρολόγησε τον κωδικό αυτού του αντιγράφου ασφαλείας.</string>
-    <string name="backup_password_wrong">Λάθος κωδικός ή κατεστραμμένο αρχείο. Δοκίμασε ξανά.</string>
+    <string name="backup_password_prompt">Πληκτρολογήστε τον κωδικό αυτού του αντιγράφου ασφαλείας.</string>
+    <string name="backup_password_wrong">Λάθος κωδικός ή κατεστραμμένο αρχείο. Δοκιμάστε ξανά.</string>
     <string name="backup_password_continue">Συνέχεια</string>
 </resources>

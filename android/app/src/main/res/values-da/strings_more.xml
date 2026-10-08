@@ -19,7 +19,7 @@
     <string name="pulse_updated">Pr. %1$s</string>
     <string name="pulse_unavailable">Markedsdata er ikke tilgængelige lige nu</string>
     <string name="why_summary_title">Sandsynlige årsager</string>
-    <string name="why_summary_market_volume">Bevægelsen ledsages af højere handelsvolumen og et bredt bevægeligt marked.</string>
+    <string name="why_summary_market_volume">Bevægelsen ledsages af højere handelsvolumen og et marked, der bevæger sig bredt.</string>
     <string name="why_summary_market">Bevægelsen følger sandsynligvis det samlede marked.</string>
     <string name="why_summary_coin_volume">Kun denne mønt bevæger sig, ved højere volumen – sandsynligvis en årsag hos selve mønten.</string>
     <string name="why_summary_coin">Kun denne mønt bevæger sig – sandsynligvis en årsag hos selve mønten.</string>
@@ -51,7 +51,7 @@
     <string name="about_privacy_policy">Privatlivspolitik</string>
     <string name="widget_chart_type">Diagramtype</string>
     <string name="widget_chart_line">Linje</string>
-    <string name="widget_chart_candles">Lys</string>
+    <string name="widget_chart_candles">Candlestick</string>
     <string name="pair_added_watching">%1$s overvåges nu</string>
     <string name="market_cap_title">Kryptomarkedet</string>
     <string name="market_cap_label">Markedsværdi</string>

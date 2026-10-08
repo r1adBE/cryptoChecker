@@ -1,12 +1,27 @@
 # Builds the iOS app (ios/) for the iOS Simulator without code signing and runs the
 # unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity).
-# Manual only (Actions -> iOS -> Run workflow): macOS runners are slow and the
-# project is developed against current Xcode releases, so a red badge on every
-# push would say little. Signing, archiving and uploading happen locally in Xcode.
+# Runs automatically when ios/ changes (pushes to main and pull requests) and by hand
+# (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only changes skip it.
+# Signing, archiving and uploading happen locally in Xcode.
 name: iOS
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'ios/**'
+      - 'android/testdata/parity/**'
+      - '.github/workflows/ios.yml'
+  pull_request:
+    paths:
+      - 'ios/**'
+      - 'android/testdata/parity/**'
+      - '.github/workflows/ios.yml'
   workflow_dispatch:
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

@@ -10,8 +10,8 @@
     <string name="activity_signal_volume">最近一小时成交量为正常的 %1$s×</string>
     <string name="activity_signal_open_interest">持仓量 %2$d 分钟内 %1$s</string>
     <string name="activity_signal_open_interest_no_time">持仓量 %1$s</string>
-    <string name="activity_signal_funding_long">资金费率 %1$s —— 大量杠杆多单</string>
-    <string name="activity_signal_funding_short">资金费率 %1$s —— 大量空单</string>
+    <string name="activity_signal_funding_long">资金费率 %1$s——大量杠杆多单</string>
+    <string name="activity_signal_funding_short">资金费率 %1$s——大量空单</string>
     <string name="notification_activity_title">%1$s · %2$s</string>
 
     <!-- Einstellungen -->
@@ -28,24 +28,24 @@
     <string name="why_no_data">该交易对没有 Binance 数据</string>
     <string name="why_no_data_hint">价格、成交量和波动率来自 Binance 小时 K 线。</string>
 
-    <string name="why_market_wide_text">该币种：24 小时 %1$s —— 驱动因素很可能是整体市场，而非币种本身。</string>
+    <string name="why_market_wide_text">该币种：24 小时 %1$s——驱动因素很可能是整体市场，而非币种本身。</string>
     <string name="why_coin_only_text">市场平静时 24 小时 %1$s：原因很可能在于该币种自身。</string>
-    <string name="why_against_market_text">该币种 %1$s，BTC %2$s（24 小时）—— 明显独立的走势。</string>
+    <string name="why_against_market_text">该币种 %1$s，BTC %2$s（24 小时）——明显独立的走势。</string>
     <string name="why_market_calm_text">该币种：24 小时 %1$s。市场和币种都没有大幅波动。</string>
     <string name="why_market_leader_text">作为市场龙头，BTC 通常会带动其余市场。ETH：24 小时 %1$s。</string>
     <string name="why_market_leader_text_no_eth">作为市场龙头，BTC 通常会带动其余市场。</string>
 
-    <string name="why_volume_high_text">最近一小时交易远多于平常 —— 这波走势得到广泛支撑。</string>
-    <string name="why_volume_low_text">走势单薄，可能很快反转。</string>
+    <string name="why_volume_high_text">最近一小时交易远多于平常——这波走势得到广泛支撑。</string>
+    <string name="why_volume_low_text">这波走势成交清淡，可能很快反转。</string>
     <string name="why_volume_normal_text">最近一小时的交易与过去 24 小时一致。</string>
 
-    <string name="why_leverage_longs_text">多头向空头支付费用 —— 若价格下跌，爆仓风险上升。</string>
-    <string name="why_leverage_shorts_text">空头向多头支付费用 —— 价格上涨可能引发轧空（Short Squeeze）。</string>
+    <string name="why_leverage_longs_text">多头向空头支付费用——若价格下跌，爆仓风险上升。</string>
+    <string name="why_leverage_shorts_text">空头向多头支付费用——价格上涨可能引发轧空（Short Squeeze）。</string>
     <string name="why_leverage_balanced_text">合约市场中多单和空单均无明显扎堆。</string>
     <string name="why_open_interest_change">自上次检查以来持仓量 %1$s。</string>
 
-    <string name="why_volatility_high_text">最近一小时：%1$s —— 相对于过去 24 小时的典型每小时波幅。</string>
-    <string name="why_volatility_normal_text">最近一小时：%1$s —— 处于正常范围内。</string>
+    <string name="why_volatility_high_text">最近一小时：%1$s——相对于过去 24 小时的典型每小时波幅。</string>
+    <string name="why_volatility_normal_text">最近一小时：%1$s——处于正常范围内。</string>
 
     <string name="why_sentiment_text">整个加密市场的恐惧与贪婪指数，较昨日 %1$s。</string>
     <string name="why_sentiment_text_no_change">整个加密市场的恐惧与贪婪指数。</string>

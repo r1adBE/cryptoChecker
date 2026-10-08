@@ -11,7 +11,7 @@ WATCHLIST: 41 MARKETS ON 32 EXCHANGES
 • Empty watchlist: the top 5 coins by market cap with live prices, added with one tap
 • Spot and futures from Binance, Coinbase, Kraken, OKX, Bybit and many more – optionally stocks, gold and FX (TradFi), automatically in their own group
 • DEX tokens via DexScreener (Uniswap, PancakeSwap, Raydium …)
-• Swipe left to delete (with Undo), swipe right for a favorite
+• Swipe left to delete (with Undo), swipe right to mark a favorite
 • Organize pairs in groups and reorder by drag & drop
 • A note for each coin, e.g. your entry price – right below the price
 • Second line “≈ value” in one of 31 currencies (EUR, CHF, USD …), default by device region
@@ -48,7 +48,7 @@ MARKET OVERVIEW
 WIDGETS & NOTIFICATIONS
 • Widgets: whole watchlist, portfolio total with today’s change, single coin with chart (candles or line) and high/mid/low marks
 • Silent price notification per pair
-• Update frequently, as often as every 15 seconds, background updates from 15 minutes
+• Frequent updates down to every 15 seconds, background updates down to every 15 minutes
 
 MORE
 • Prices and alarms read aloud (text-to-speech)

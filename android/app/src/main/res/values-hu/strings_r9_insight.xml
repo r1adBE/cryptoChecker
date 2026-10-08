@@ -51,7 +51,7 @@
     <string name="why_f_leverage_balanced">Kiegyensúlyozott tőkeáttétel</string>
     <string name="insights_dominance_eth">ETH %1$s a teljes piacból</string>
     <plurals name="market_phase_cycle_since">
-        <item quantity="one">Hónapok a halving óta (%2$s): %1$d</item>
-        <item quantity="other">Hónapok a halving óta (%2$s): %1$d</item>
+        <item quantity="one">%1$d hónap a felezés óta (%2$s)</item>
+        <item quantity="other">%1$d hónap a felezés óta (%2$s)</item>
     </plurals>
 </resources>

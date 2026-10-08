@@ -15,7 +15,7 @@
     <string name="portfolio_alarm_kind_up">포트폴리오 상승</string>
     <string name="portfolio_alarm_kind_down">포트폴리오 하락</string>
     <string name="portfolio_alarm_amount">금액 (%1$s)</string>
-    <string name="portfolio_alarm_hint">새로 고침할 때마다 확인합니다. 가격 경보처럼 기준을 넘으면 알리고, 값이 되돌아온 뒤에만 다시 알립니다.</string>
+    <string name="portfolio_alarm_hint">새로고침할 때마다 확인합니다. 가격 경보처럼 기준을 넘으면 알리고, 값이 되돌아온 뒤에만 다시 알립니다.</string>
     <string name="portfolio_alarm_sentence_above">포트폴리오 %1$s 초과</string>
     <string name="portfolio_alarm_sentence_below">포트폴리오 %1$s 미만</string>
     <string name="portfolio_alarm_sentence_up">포트폴리오 %1$s 상승 (%2$s)</string>

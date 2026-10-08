@@ -19,7 +19,7 @@
     <string name="pulse_updated">Per %1$s</string>
     <string name="pulse_unavailable">Markedsdata er ikke tilgjengelige akkurat nå</string>
     <string name="why_summary_title">Sannsynlige årsaker</string>
-    <string name="why_summary_market_volume">Bevegelsen følges av høyere handelsvolum og et bredt bevegelig marked.</string>
+    <string name="why_summary_market_volume">Bevegelsen følges av høyere handelsvolum og et marked i bred bevegelse.</string>
     <string name="why_summary_market">Bevegelsen følger trolig markedet som helhet.</string>
     <string name="why_summary_coin_volume">Bare denne mynten beveger seg, med høyere volum – trolig en årsak hos selve mynten.</string>
     <string name="why_summary_coin">Bare denne mynten beveger seg – trolig en årsak hos selve mynten.</string>
@@ -39,7 +39,7 @@
     <string name="alarm_test_denied">Varsler er slått av for Crypto Checker.</string>
     <string name="alarm_test_open_settings">Åpne innstillinger</string>
     <string name="alarm_first_title">Alt er klart</string>
-    <string name="welcome_watch">Følg med – myntene dine, kurser, diagrammer og moduler</string>
+    <string name="welcome_watch">Følg med – myntene dine, kurser, diagrammer og widgeter</string>
     <string name="welcome_alert">Varsle – kurs, prosent, volum og uvanlige bevegelser</string>
     <string name="welcome_understand">Forstå – hvorfor beveger markedet seg akkurat nå?</string>
     <string name="portfolio_empty_example">Eksempel: 0,01 BTC kjøpt 1. mars til %1$s. Appen viser da verdi, snittkjøpspris og gevinst/tap – lagret bare på denne enheten.</string>
@@ -51,7 +51,7 @@
     <string name="about_privacy_policy">Personvernerklæring</string>
     <string name="widget_chart_type">Diagramtype</string>
     <string name="widget_chart_line">Linje</string>
-    <string name="widget_chart_candles">Lys</string>
+    <string name="widget_chart_candles">Candlestick</string>
     <string name="pair_added_watching">%1$s overvåkes nå</string>
     <string name="market_cap_title">Kryptomarkedet</string>
     <string name="market_cap_label">Markedsverdi</string>
@@ -79,7 +79,7 @@
     <string name="favorite_added">%1$s lagt til i favoritter</string>
     <string name="favorite_removed">%1$s fjernet fra favoritter</string>
     <string name="cycle_data_as_of">Data per %1$s · oppdaterer…</string>
-    <string name="settings_conversion_currency_hint">Brukes også for porteføljen, alarmer i din valuta, Kryptomarkedet-kortet og Portefølje-modulen.</string>
+    <string name="settings_conversion_currency_hint">Brukes også for porteføljen, alarmer i din valuta, Kryptomarkedet-kortet og Portefølje-widgeten.</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="one">%1$d stiger</item>
         <item quantity="other">%1$d stiger</item>

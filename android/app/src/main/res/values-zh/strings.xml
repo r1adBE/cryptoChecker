@@ -79,7 +79,7 @@
     <string name="notification_price_change_no_age">%1$s，自 %2$s</string>
     <string name="notification_price_first">该交易对的首条通知</string>
     <string name="notification_alarm_title">提醒：%1$s · %2$s</string>
-    <string name="notification_alarm_text">%1$s — 当前 %2$s</string>
+    <string name="notification_alarm_text">%1$s——当前 %2$s</string>
     <string name="market_phase_title">Bitcoin 市场阶段</string>
     <string name="market_phase_trend_loading">正在加载价格数据…</string>
     <string name="market_phase_trend_failed">价格数据不可用</string>
@@ -88,15 +88,15 @@
     <string name="zone_neutral">Neutral</string>
     <string name="zone_bull">Bull</string>
     <string name="zone_extreme_bull">Extreme Bull</string>
-    <string name="zone_hint_extreme_bear">多个历史底部信号同时出现 – 历史性积累区间。</string>
+    <string name="zone_hint_extreme_bear">多个历史底部信号同时出现——历史性积累区间。</string>
     <string name="zone_hint_bear">下跌趋势或筑底阶段，尚未出现大范围投降。</string>
     <string name="zone_hint_neutral">信号混杂，方向不明。</string>
     <string name="zone_hint_bull">上涨趋势，尚未极度过热。</string>
-    <string name="zone_hint_extreme_bull">多个历史顶部信号同时出现 – 见顶风险升高。</string>
+    <string name="zone_hint_extreme_bull">多个历史顶部信号同时出现——见顶风险升高。</string>
     <string name="market_scores">可能顶部的迹象 %1$d/10 · 底部 %2$d/10</string>
     <string name="market_show_indicators">显示指标</string>
     <string name="market_hide_indicators">隐藏指标</string>
-    <string name="market_onchain_missing">链上数据（Coin Metrics）暂不可用 – 评分仅基于价格数据。</string>
+    <string name="market_onchain_missing">链上数据（Coin Metrics）暂不可用——评分仅基于价格数据。</string>
     <string name="market_source">数据：Binance · Coin Metrics (CC BY-NC 4.0)</string>
     <string name="ind_ma200w">价格与 200 周均线</string>
     <string name="ind_drawdown">距历史最高点跌幅</string>
@@ -154,7 +154,7 @@
     <string name="settings_speech_rate">语速：%1$.1f×</string>
     <string name="settings_tts_test">测试语音</string>
     <string name="battery_title">保持价格最新</string>
-    <string name="battery_message">Android 会为了省电而推迟后台任务 — 价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。你可以随时在 Android 设置中更改。</string>
+    <string name="battery_message">Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。你可以随时在 Android 设置中更改。</string>
     <string name="battery_later">稍后</string>
     <string name="settings_battery_ok">电池使用：不受限制</string>
     <string name="settings_battery_restricted">电池使用：受限制</string>
@@ -167,7 +167,7 @@
     <string name="about_version">Crypto Checker %1$s</string>
     <string name="about_license">价格直接来自交易所；无需账户，无跟踪。</string>
 
-    <string name="dex_intro">大型交易所之外的代币，来自去中心化交易所（Uniswap、PancakeSwap、Raydium …），通过 DexScreener 获取。搜索代币并添加其交易池 – 价格以美元计。</string>
+    <string name="dex_intro">大型交易所之外的代币，来自去中心化交易所（Uniswap、PancakeSwap、Raydium …），通过 DexScreener 获取。搜索代币并添加其交易池——价格以美元计。</string>
     <string name="dex_search_hint">代币名称、符号或地址</string>
     <string name="dex_search">搜索</string>
     <string name="dex_no_results">未找到流动性池。</string>
@@ -251,7 +251,7 @@
     <string name="explorer_bulk_show_list">显示列表</string>
     <string name="explorer_bulk_hide_list">隐藏列表</string>
     <string name="time_just_now">刚刚</string>
-    <string name="welcome_text">你的行情。你的提醒。你的概览。\n无需账号。没有广告。不做追踪。</string>
+    <string name="welcome_text">你的行情。你的提醒。你的概览。\n无需账户。没有广告。不做追踪。</string>
     <string name="developer_unlocked">已解锁开发者选项</string>
     <string name="hint_favorites_list">提示：点按 ☆ 设为收藏，收藏始终在最上方。</string>
     <string name="tab_watchlist">列表</string>
@@ -312,7 +312,7 @@
     <string name="notification_zone_title">比特币：%1$s</string>
     <string name="notification_zone_text">市场阶段已从 %1$s 变为 %2$s。</string>
     <string name="settings_zone_alerts">市场阶段变化时提醒</string>
-    <string name="settings_zone_alerts_hint">每天检查两次，比特币切换区间时提醒，例如从中性变为 Bull。</string>
+    <string name="settings_zone_alerts_hint">每天检查两次，比特币切换区间时提醒，例如从 Neutral 变为 Bull。</string>
     <string name="alarm_condition_move_percent">波动幅度</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d 小时内</item>
@@ -323,8 +323,8 @@
     <string name="settings_fng_above">Fear &amp; Greed：高于时提醒</string>
     <string name="option_off">关闭</string>
     <string name="notification_fng_title">Fear &amp; Greed：%1$d</string>
-    <string name="notification_fng_below">指数跌破 %1$d——市场恐惧。</string>
-    <string name="notification_fng_above">指数升破 %1$d——市场贪婪。</string>
+    <string name="notification_fng_below">指数跌破 %1$d——市场情绪恐惧。</string>
+    <string name="notification_fng_above">指数升破 %1$d——市场情绪贪婪。</string>
     <string name="futures_title">合约数据</string>
     <string name="futures_funding">资金费率</string>
     <string name="futures_next_funding">下次在 %1$d 小时 %2$d 分钟后</string>

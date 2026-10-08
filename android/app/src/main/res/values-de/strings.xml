@@ -146,7 +146,7 @@
     <string name="settings_price_notifications">Kurs-Benachrichtigungen</string>
     <string name="settings_price_notifications_hint">Zeigt den Kurs der aktivierten Paare in der Statusleiste.</string>
     <string name="settings_ongoing_notifications">Nicht wegwischbar</string>
-    <string name="settings_ongoing_notifications_hint">Hält die Kurs-Benachrichtigungen fest.</string>
+    <string name="settings_ongoing_notifications_hint">Heftet die Kurs-Benachrichtigungen an.</string>
     <string name="settings_notification_change">Nur bei Kursänderung melden</string>
     <string name="settings_notification_change_always">Immer</string>
     <string name="settings_notification_change_hint">Eine Benachrichtigung erscheint erst, wenn sich der Kurs seit der letzten um mindestens so viel bewegt hat. Fehlen Daten, wird nichts gezeigt. Alarme bleiben davon unberührt.</string>
@@ -157,7 +157,7 @@
     <string name="settings_speech_rate">Sprechtempo: %1$.1f×</string>
     <string name="settings_tts_test">Stimme testen</string>
     <string name="battery_title">Kurse aktuell halten</string>
-    <string name="battery_message">Android verschiebt Hintergrundarbeit, um Strom zu sparen — Kurse und Widgets können dann Stunden alt sein. Mit uneingeschränkter Akkunutzung bleiben sie aktuell. Du kannst das jederzeit in den Android-Einstellungen ändern.</string>
+    <string name="battery_message">Android verschiebt Hintergrundarbeit, um Strom zu sparen – Kurse und Widgets können dann Stunden alt sein. Mit uneingeschränkter Akkunutzung bleiben sie aktuell. Du kannst das jederzeit in den Android-Einstellungen ändern.</string>
     <string name="battery_later">Später</string>
     <string name="settings_battery_ok">Akkunutzung: unbeschränkt</string>
     <string name="settings_battery_restricted">Akkunutzung: eingeschränkt</string>
@@ -185,7 +185,7 @@
     <string name="sort_move_down">Nach unten</string>
     <string name="sort_move_bottom">Ganz nach unten</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">Das %1$d Paar in die Merkliste</item>
+        <item quantity="one">%1$d Paar in die Merkliste</item>
         <item quantity="other">Alle %1$d Paare in die Merkliste</item>
     </plurals>
     <plurals name="explorer_bulk_added">
@@ -205,7 +205,7 @@
     <string name="watchlist_refresh_report_empty">Noch keine Aufschlüsselung: Diese Version hat noch keine vollständige Aktualisierung abgeschlossen. Auf Aktualisieren tippen und warten, bis der Kreis stoppt.</string>
     <string name="action_close">Schliessen</string>
     <string name="watchlist_clear">Merkliste leeren</string>
-    <string name="watchlist_clear_confirm">Alle Paare aus der Merkliste entfernen? Ihre Alarme verschwinden mit.</string>
+    <string name="watchlist_clear_confirm">Alle Paare aus der Merkliste entfernen? Ihre Alarme werden ebenfalls gelöscht.</string>
     <string name="market_scores_hint">Hoch = Anzeichen wie an früheren Zyklus-Hochs, Tief = Anzeichen wie an früheren Zyklus-Tiefs. Ab 4 Punkten überwiegt eine Seite, ab 7 gilt sie als extrem. Kein Kursziel und keine Prognose.</string>
     <string name="market_scores_none">Keine Hinweise auf ein Hoch oder Tief aktiv: ruhige Mittelphase, der Kurstrend entscheidet.</string>
     <string name="market_scores_info_title">Zyklus-Signale</string>

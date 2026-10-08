@@ -3,7 +3,7 @@
     <string name="group_edit_title">Ndrysho grupin</string>
     <string name="group_rename">Riemërto</string>
     <string name="group_delete">Fshi grupin</string>
-    <string name="group_delete_confirm">Çiftet mbeten në listën tuaj të ndjekjes.</string>
+    <string name="group_delete_confirm">Çiftet mbeten në listën tënde të ndjekjes.</string>
     <string name="group_done">U krye</string>
     <string name="group_add">Grup i ri</string>
     <string name="group_in_other">në %1$s</string>

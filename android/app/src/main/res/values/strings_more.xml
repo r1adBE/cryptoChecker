@@ -19,7 +19,7 @@
     <string name="pulse_updated">As of %1$s</string>
     <string name="pulse_unavailable">Market data currently unavailable</string>
     <string name="why_summary_title">Likely reasons</string>
-    <string name="why_summary_market_volume">The move goes along with higher trading volume and a broadly moving market.</string>
+    <string name="why_summary_market_volume">The move comes with higher trading volume and a broadly moving market.</string>
     <string name="why_summary_market">The move likely follows the overall market.</string>
     <string name="why_summary_coin_volume">Only this coin is moving, on higher volume – likely a reason specific to the coin.</string>
     <string name="why_summary_coin">Only this coin is moving – likely a reason specific to the coin.</string>
@@ -42,7 +42,7 @@
     <string name="welcome_watch">Watch – your coins, prices, charts and widgets</string>
     <string name="welcome_alert">Alert – price, percent, volume and unusual moves</string>
     <string name="welcome_understand">Understand – why is the market moving right now?</string>
-    <string name="portfolio_empty_example">Example: 0.01 BTC bought on 1 March at %1$s. The app then shows value, average buy price and gain/loss – stored only on this device.</string>
+    <string name="portfolio_empty_example">Example: 0.01 BTC bought on March 1 at %1$s. The app then shows value, average buy price and gain/loss – stored only on this device.</string>
     <string name="about_why">Crypto Checker is an independent project by r1AD: a calm price overview without account, ads or tracking. Questions and wishes: %1$s</string>
     <string name="a11y_move_up">Move up</string>
     <string name="a11y_move_down">Move down</string>
@@ -73,12 +73,12 @@
     <string name="starter_add_selected">Add to watchlist (%1$d)</string>
     <string name="starter_select_all">Select all</string>
     <string name="starter_select_none">Select none</string>
-    <string name="starter_loading_prices">Loading prices …</string>
+    <string name="starter_loading_prices">Loading prices…</string>
     <string name="watchlist_removed">%1$s removed</string>
     <string name="action_undo">Undo</string>
     <string name="favorite_added">%1$s added to favorites</string>
     <string name="favorite_removed">%1$s removed from favorites</string>
-    <string name="cycle_data_as_of">Data as of %1$s · updating …</string>
+    <string name="cycle_data_as_of">Data as of %1$s · updating…</string>
     <string name="settings_conversion_currency_hint">Also used for the portfolio, alarms in your currency, the crypto market card and the portfolio widget.</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="one">%1$d up</item>

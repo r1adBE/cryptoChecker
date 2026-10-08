@@ -136,6 +136,51 @@ internal fun ChangeBasisPage(onBack: () -> Unit, viewModel: SettingsViewModel = 
     }
 }
 
+/**
+ * «Coin-Logos»: echte Logos (CoinGecko, alle auf einmal geladen und auf dem Gerät gespeichert)
+ * statt Initialen — getrennt für App, Portfolio und Widgets; ab Werk nur im Portfolio an.
+ */
+@Composable
+internal fun CoinLogosPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
+    val settings by viewModel.settings.collectAsStateWithLifecycle()
+    SettingsSubPage(title = stringResource(R.string.settings_coin_logos), onBack = onBack) {
+        GroupCard {
+            SettingsAnchor("logos.app") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_coin_logos_app),
+                    subtitle = stringResource(R.string.settings_coin_logos_app_hint),
+                    checked = settings.coinLogos,
+                    onCheckedChange = viewModel::setCoinLogos
+                )
+            }
+            RowDivider()
+            SettingsAnchor("logos.portfolio") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_coin_logos_portfolio),
+                    subtitle = stringResource(R.string.settings_coin_logos_portfolio_hint),
+                    checked = settings.portfolioCoinLogos,
+                    onCheckedChange = viewModel::setPortfolioCoinLogos
+                )
+            }
+            RowDivider()
+            SettingsAnchor("logos.widgets") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_coin_logos_widgets),
+                    subtitle = stringResource(R.string.settings_coin_logos_widgets_hint),
+                    checked = settings.widgetCoinLogos,
+                    onCheckedChange = viewModel::setWidgetCoinLogos
+                )
+            }
+        }
+        Text(
+            text = stringResource(R.string.settings_coin_logos_footer),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = Spacing.md)
+        )
+    }
+}
+
 /** Ein Punkt eines nummerierten Hinweises, Folgezeilen eingerückt («1. …»). */
 @Composable
 private fun NumberedHint(number: Int, text: String) {

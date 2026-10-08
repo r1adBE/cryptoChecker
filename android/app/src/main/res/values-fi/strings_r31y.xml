@@ -6,7 +6,7 @@
     <string name="why_factor_market">Koko markkina</string>
     <string name="why_factor_futures">Futuurit</string>
     <string name="why_factor_near_high">Lähellä huippua</string>
-    <string name="why_factor_funding">Rahoitus</string>
+    <string name="why_factor_funding">Funding</string>
     <string name="why_fn_volume_higher">tavallista suurempi</string>
     <string name="why_fn_volume_lower">tavallista pienempi</string>
     <string name="why_fn_volume_usual">tavanomainen</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">قفل از آنچه نمایش داده می‌شود محافظت می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانید از نسخه‌های پشتیبان با گذرواژه محافظت کنید.</string>
+    <string name="settings_portfolio_lock_footer">قفل از آنچه نمایش داده می‌شود محافظت می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانید از نسخه‌های پشتیبان با گذرواژه محافظت کنید. پشتیبان‌گیری از کل دستگاه (پشتیبان سیستم) همچنان این داده‌ها را دربر می‌گیرد.</string>
     <string name="backup_protect">محافظت با گذرواژه</string>
-    <string name="backup_protect_hint">فایل را رمزگذاری می‌کند (AES-256). اگر داده‌های سبد دارایی دارد توصیه می‌شود.</string>
+    <string name="backup_protect_hint">فایل را رمزگذاری می‌کند (AES-256). اگر داده‌های پرتفوی دارد توصیه می‌شود.</string>
     <string name="backup_password">گذرواژه</string>
     <string name="backup_password_repeat">تکرار گذرواژه</string>
     <!-- %1$d = Mindestlänge des Passworts (8) -->

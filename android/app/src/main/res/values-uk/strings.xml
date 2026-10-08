@@ -18,8 +18,8 @@
 
     <string name="ticker_high">Макс.</string>
     <string name="ticker_low">Мін.</string>
-    <string name="ticker_bid">Bid</string>
-    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Купівля</string>
+    <string name="ticker_ask">Продаж</string>
     <string name="ticker_vol_base">Обсяг (базова)</string>
     <string name="ticker_vol_quote">Обсяг (котирувальна)</string>
     <string name="ticker_timestamp">Час</string>
@@ -86,7 +86,7 @@
     <string name="notification_price_first">Перше сповіщення для цієї пари</string>
     <string name="notification_alarm_title">Сигнал: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — зараз %2$s</string>
-    <string name="market_phase_title">Фаза ринку Bitcoin</string>
+    <string name="market_phase_title">Фаза ринку біткоїна</string>
     <string name="market_phase_trend_loading">Завантаження цінових даних…</string>
     <string name="market_phase_trend_failed">Цінові дані недоступні</string>
     <string name="zone_extreme_bear">Extreme Bear</string>
@@ -216,10 +216,10 @@
     <string name="action_close">Закрити</string>
     <string name="watchlist_clear">Очистити список</string>
     <string name="watchlist_clear_confirm">Видалити всі пари зі списку? Їхні сигнали також буде видалено.</string>
-    <string name="market_scores_hint">Вершина – ознаки як на минулих вершинах циклу, дно – ознаки як на минулих днищах циклу. Від 4 балів переважає одна сторона, від 7 – екстремально. Не цільова ціна і не прогноз.</string>
+    <string name="market_scores_hint">Вершина – ознаки як на минулих вершинах циклу, дно – ознаки як на минулих мінімумах циклу. Від 4 балів переважає одна сторона, від 7 – екстремально. Не цільова ціна і не прогноз.</string>
     <string name="market_scores_none">Ознак вершини чи дна немає: спокійна середня фаза, вирішує ціновий тренд.</string>
     <string name="market_scores_info_title">Сигнали циклу</string>
-    <string name="market_scores_info_text">Ознаки можливої вершини – це сигнали, що спостерігалися на вершинах минулих циклів: сильна переоцінка (MVRV), дуже високий дохід майнерів (Puell), ціна значно вище 200-денної або 200-тижневої середньої, параболічне зростання та вікно 12–18 місяців після халвінгу.\n\nОзнаки можливого дна – це сигнали минулих днищ: низький MVRV, слабкий дохід майнерів, сильне падіння від історичного максимуму, ціна біля 200-тижневої середньої, падіння хешрейту та максимум понад рік тому.\n\nЗа переваги від 4 балів зона Bull або Bear, від 7 – Екстремальна. Якщо жодна сторона не лідирує, вирішує ціновий тренд. 0/10 з обох боків означає: ні ейфорії, ні капітуляції.\n\nНе цільова ціна і не прогноз: сигнали лише описують, який вигляд мали минулі цикли.</string>
+    <string name="market_scores_info_text">Ознаки можливої вершини – це сигнали, що спостерігалися на вершинах минулих циклів: сильна переоцінка (MVRV), дуже високий дохід майнерів (Puell), ціна значно вище 200-денної або 200-тижневої середньої, параболічне зростання та вікно 12–18 місяців після халвінгу.\n\nОзнаки можливого дна – це сигнали минулих мінімумів циклу: низький MVRV, слабкий дохід майнерів, сильне падіння від історичного максимуму, ціна біля 200-тижневої середньої, падіння хешрейту та максимум понад рік тому.\n\nЗа переваги від 4 балів зона Bull або Bear, від 7 – Extreme. Якщо жодна сторона не лідирує, вирішує ціновий тренд. 0/10 з обох боків означає: ні ейфорії, ні капітуляції.\n\nНе цільова ціна і не прогноз: сигнали лише описують, який вигляд мали минулі цикли.</string>
     <string name="battery_open_settings">Відкрити налаштування батареї</string>
     <string name="battery_steps">У відомостях про застосунок торкніться «Батарея» (або «Використання батареї») і виберіть «Без обмежень».</string>
     <string name="explorer_select_placeholder">Виберіть</string>
@@ -227,21 +227,21 @@
     <string name="watchlist_sort_hint">Утримуйте й перетягніть пару або скористайтеся ручкою. Обране лишається вгорі.</string>
     <string name="sort_drag_handle">Перетягніть, щоб перемістити</string>
     <string name="explorer_step_pair">Вибір пари</string>
-    <string name="theme_system">Системна</string>
+    <string name="theme_system">Системний</string>
     <string name="settings_section_developer">Розробник</string>
     <string name="settings_http_log">Показувати журнал HTTP</string>
     <string name="settings_http_log_hint">Показує внизу сторінки «Додати пару» запити до бірж – для діагностики.</string>
     <string name="language_search">Пошук мови</string>
-    <string name="alarm_delete_title">Видалити сповіщення?</string>
-    <string name="alarm_delete_confirm">Це сповіщення буде видалено.</string>
-    <string name="alarms_overview_title">Усі сповіщення</string>
+    <string name="alarm_delete_title">Видалити сигнал?</string>
+    <string name="alarm_delete_confirm">Цей сигнал буде видалено.</string>
+    <string name="alarms_overview_title">Усі сигнали</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">Активних: %1$d</item>
         <item quantity="few">Активних: %1$d</item>
         <item quantity="many">Активних: %1$d</item>
         <item quantity="other">Активних: %1$d</item>
     </plurals>
-    <string name="alarms_overview_empty">Сповіщень ще немає. Відкрийте пару й додайте його в розділі «Сповіщення».</string>
+    <string name="alarms_overview_empty">Сигналів ще немає. Відкрийте пару й додайте його в розділі «Сигнали».</string>
     <string name="action_more">Інші дії</string>
     <string name="watchlist_last_run">Останній прохід %1$s</string>
     <string name="watchlist_pull_to_refresh">Потягніть униз, щоб оновити</string>
@@ -351,7 +351,7 @@
     <string name="notification_zone_title">Біткоїн: %1$s</string>
     <string name="notification_zone_text">Фаза ринку змінилася: %1$s → %2$s.</string>
     <string name="settings_zone_alerts">Повідомляти про зміну фази</string>
-    <string name="settings_zone_alerts_hint">Перевіряє двічі на день і повідомляє, коли біткоїн змінює зону, напр. з Нейтральної на Bull.</string>
+    <string name="settings_zone_alerts_hint">Перевіряє двічі на день і повідомляє, коли біткоїн змінює зону, напр. з Neutral на Bull.</string>
     <string name="alarm_condition_move_percent">Зміниться на</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d год</item>
@@ -377,13 +377,13 @@
     <string name="single_widget_choose">Виберіть пару</string>
     <string name="single_widget_title">Налаштування віджета монети</string>
     <string name="shortcut_add">Додати пару</string>
-    <string name="shortcut_alarms">Усі сповіщення</string>
+    <string name="shortcut_alarms">Усі сигнали</string>
     <string name="shortcut_cycle">Ринок</string>
     <string name="backup_title">Резервна копія</string>
-    <string name="backup_hint">Зберігає список із нотатками та групами, сповіщення, обране, портфель і налаштування у файл, який зберігаєте ви — наприклад, для нового телефона.</string>
+    <string name="backup_hint">Зберігає список із нотатками та групами, сигнали, обране, портфель і налаштування у файл, який зберігаєте ви — наприклад, для нового телефона.</string>
     <string name="backup_export">Експорт</string>
     <string name="backup_import">Імпорт</string>
-    <string name="backup_restore_confirm">Імпорт замінить ваш список (із нотатками та групами), сповіщення, обране, портфель і налаштування даними з копії.</string>
+    <string name="backup_restore_confirm">Імпорт замінить ваш список (із нотатками та групами), сигнали, обране, портфель і налаштування даними з копії.</string>
     <string name="backup_exported">Копію збережено.</string>
     <string name="backup_failed">Не вдалося. Це копія Crypto Checker?</string>
     <string name="backup_restored">Відновлено: %1$s, %2$s.</string>
@@ -394,9 +394,9 @@
         <item quantity="other">%1$d пари</item>
     </plurals>
     <plurals name="backup_restored_alarms">
-        <item quantity="one">%1$d сповіщення</item>
-        <item quantity="few">%1$d сповіщення</item>
-        <item quantity="many">%1$d сповіщень</item>
-        <item quantity="other">%1$d сповіщення</item>
+        <item quantity="one">%1$d сигнал</item>
+        <item quantity="few">%1$d сигнали</item>
+        <item quantity="many">%1$d сигналів</item>
+        <item quantity="other">%1$d сигналу</item>
     </plurals>
 </resources>

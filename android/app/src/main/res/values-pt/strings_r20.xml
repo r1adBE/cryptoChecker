@@ -5,9 +5,9 @@
     <string name="watchlist_remove_not_traded_title">Remover pares sem negociação</string>
     <string name="watchlist_remove_not_traded_action">Remover</string>
     <plurals name="watchlist_remove_not_traded_confirm">
-        <item quantity="one">Remover %1$d par que já não é negociado na sua bolsa? Os respetivos alarmes também serão removidos.</item>
-        <item quantity="many">Remover %1$d pares que já não são negociados na sua bolsa? Os respetivos alarmes também serão removidos.</item>
-        <item quantity="other">Remover %1$d pares que já não são negociados na sua bolsa? Os respetivos alarmes também serão removidos.</item>
+        <item quantity="one">Remover %1$d par que já não é negociado na sua exchange? Os respetivos alarmes também serão removidos.</item>
+        <item quantity="many">Remover %1$d pares que já não são negociados na sua exchange? Os respetivos alarmes também serão removidos.</item>
+        <item quantity="other">Remover %1$d pares que já não são negociados na sua exchange? Os respetivos alarmes também serão removidos.</item>
     </plurals>
     <plurals name="watchlist_removed_not_traded">
         <item quantity="one">%1$d par sem negociação removido</item>

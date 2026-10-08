@@ -3,6 +3,6 @@
     <string name="note_title">Jegyzet</string>
     <string name="note_add">Jegyzet hozzáadása</string>
     <string name="note_edit">Jegyzet szerkesztése</string>
-    <string name="note_hint">pl. belépő 0.42, cél 0.60</string>
+    <string name="note_hint">pl. belépő 0,42, cél 0,60</string>
     <string name="note_remove">Eltávolítás</string>
 </resources>

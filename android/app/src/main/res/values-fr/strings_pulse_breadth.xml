@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d : %2$d en hausse, %3$d en baisse</string>
+    <string name="pulse_breadth_hint">Top %1$d : les plus grandes cryptos par valeur de marché, hors stablecoins ; variation sur 24 heures (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Mouvement général : la plupart des grandes cryptos montent.</string>
+    <string name="pulse_breadth_note_broad_down">Repli général : la plupart des grandes cryptos baissent.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin monte, mais la plupart des autres grandes cryptos ne suivent pas.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin baisse, mais la plupart des autres grandes cryptos tiennent bon.</string>
+</resources>

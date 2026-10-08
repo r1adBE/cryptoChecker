@@ -3,52 +3,51 @@ Crypto Checker vám vysvětlí, co se děje na trhu. Nastavte alarmy, odhalte ne
 Pochopit – „Proč se to hýbe?“ s krátkým shrnutím
 Přehled – Crypto Pulse, Fear & Greed, cyklus a portfolio
 Sledovat – ceny přímo z burzy, ve vaší měně
-Upozornit – cena, %, pohyby a objem, jako jedna věta
+Upozornit – cena, %, pohyby a objem, jako jednoduchá věta
 
-Čitelné pro všechny: barvy kurzů zelená/červená nebo modrá/oranžová, na přání prohozené, vysoký kontrast, znaménko a šipka místo pouhé barvy, VoiceOver čte každý řádek jako větu.
+Čitelné pro všechny: barvy kurzů zelená/červená nebo modrá/oranžová, vysoký kontrast, znaménko a šipka místo pouhé barvy, Dynamic Type a VoiceOver čte každý řádek jako jednu větu.
 
-SEZNAM SLEDOVANÝCH: 41 TRHŮ
-• Prázdný seznam: 5 největších coinů podle tržní kapitalizace jedním klepnutím
-• Spot a futures z Binance, Coinbase, Kraken, OKX, Bybit a mnoha dalších
+SEZNAM SLEDOVANÝCH: 41 TRHŮ NA 32 BURZÁCH
+• Prázdný seznam: 5 největších mincí přidáte jedním klepnutím
+• Spot a futures z Binance, Coinbase, Kraken, OKX, Bybit a mnoha dalších – volitelně i akcie, zlato a měny (TradFi) ve vlastní skupině
 • DEX tokeny přes DexScreener
-• Skupiny, oblíbené a řazení přetažením
+• Přejetím doleva smažete (s možností Zpět), doprava označíte oblíbené; skupiny a řazení přetažením
 • Poznámka ke každé minci, např. vaše vstupní cena – přímo pod cenou
-• Druhý řádek „≈ hodnota“ ve vaší měně: 31 měn (EUR, CHF, USD, GBP, JPY…), výchozí podle regionu
-• Minigraf v každém řádku: 24hodinový vývoj vedle ceny
-• Portfolio na vlastní kartě: nákupy a prodeje, průměrná cena, zisk/ztráta a celková hodnota v CHF nebo ve vaší měně
-• Export k rozhodnému dni: hodnota portfolia k libovolnému datu (např. 31. 12.) ve vaší měně jako CSV – pro daňové přiznání, nejde o daňové poradenství
-• Řádky hlásí „zastaralé“ nebo „není dostupná“
+• Druhý řádek „≈ hodnota“ ve vaší měně: 31 měn (EUR, CHF, USD, GBP, JPY…), výchozí podle regionu zařízení
+• Minigraf v každém řádku; změna v % za 24 h nebo od 00:00 ve vašem časovém pásmu
+• Portfolio na vlastní kartě: nákupy a prodeje, průměrná cena, zisk/ztráta a celková hodnota ve vaší měně
+• Export k rozhodnému dni: hodnota portfolia k libovolnému datu (např. 31. 12.) jako CSV – nejde o daňové poradenství
+• Řádky hlásí „zastaralé“ nebo „burza není dostupná“
 
-ALARMY PODLE VAŠÍ STRATEGIE
+ALARMY PODLE VAŠICH PRAVIDEL
 • Cena nad nebo pod hranicí, růst nebo pokles o procento
 • Alarmy ve vaší měně, např. při 60 000 EUR u páru s USDT
 • Alarm jako věta: „Upozornit, až BTC klesne pod 60 000 CHF.“
 • Pohyb o X % během Y hodin, např. 5 % za 1 hodinu
 • Skok objemu: objem obchodů náhle výrazně nad průměrem
-• Jednorázově nebo opakovaně, jako oznámení s volitelným hlasovým čtením
-• Výběr zvuku alarmu
+• Jednorázově nebo opakovaně, jako časově citlivé oznámení, volitelně s hlasovým čtením
+• Vyberte si zvuk alarmu
 • Nastavitelná doba klidu brání záplavě alarmů
 • Noční klid: v noci (např. 23–7 h) alarmy bez zvuku, vibrací a hlasu
 • „Otestovat alarm“: předem uslyšíte a ucítíte, jak alarm přijde
 
-NEOBVYKLÁ AKTIVITA A PROČ SE TO HÝBE?
+NEOBVYKLÁ AKTIVITA A „PROČ SE TO HÝBE?“
 • Neobvyklá aktivita odhalí neobvyklé pohyby ceny a objemu ve vašem seznamu – s volitelnými oznámeními
 • „Proč se to hýbe?“ vysvětlí pohyb podle objemu, celého trhu a dat futures, s krátkým shrnutím – bez investičního poradenství
 
 PŘEHLED TRHU
-• Crypto Pulse: co se právě děje? BTC, ETH, SOL, altcoiny vůči BTC, objem, Fear & Greed, funding, ETH gas a shrnutí jednou větou, bez prognózy
+• Crypto Pulse: co se právě děje – BTC, ETH, SOL, altcoiny vůči BTC, objem, Fear & Greed, funding, ETH gas a shrnutí jednou větou, bez prognózy
 • Index Fear & Greed s historií
 • Kryptotrh: celková tržní kapitalizace a objem za 24 h ve vaší měně
-• Karta Trh: fáze trhu se známkami možného vrcholu či dna (bez prognózy), odpočet do halvingu, srovnání cyklů, dominance a altcoinová sezóna
-• Analýza coinů: RSI, trend, Pi Cycle a síla vůči bitcoinu
-• Data futures: funding rate a open interest
-• Síťové poplatky pro Ethereum, Base, Arbitrum, Polygon, BNB Chain a Bitcoin s gas alarmem
-• Vysvětlení: funding rate, open interest, RSI, Pi Cycle
+• Karta Trh: fáze trhu se známkami možného vrcholu či dna (bez prognózy), odpočet do halvingu, dominance, altcoinová sezóna
+• Analýza mince: RSI, trend, Pi Cycle a síla vůči bitcoinu
+• Data futures: funding rate a open interest, s krátkým vysvětlením
+• Síťové poplatky pro Ethereum, Base, Arbitrum, Polygon, BNB Chain a Bitcoin, s gas alarmem
 
 WIDGETY NA PLOCHU A ZAMČENOU OBRAZOVKU
 • Widgety ve třech velikostech: seznam, portfolio (i na zamčené obrazovce), jedna mince s grafem 24 h, 7 nebo 30 dní – svíčky nebo čára, značky maxima, středu a minima
 • Aktualizace přímo z widgetu
-• Živá aktivita na zamčené obrazovce: cena mince na první pohled
+• Živá aktivita na zamčené obrazovce: cena jedné mince na první pohled
 
 DALŠÍ FUNKCE
 • Časté obnovování, dokud je aplikace otevřená; aktualizace na pozadí plánuje iOS
@@ -56,7 +55,7 @@ DALŠÍ FUNKCE
 • Záloha a obnovení přes aplikaci Soubory
 • Rychlé akce na ikoně aplikace, světlý a tmavý režim
 • Pět barev zvýraznění s odpovídajícími ikonami aplikace
-• Zámek portfolia: Face ID, Touch ID nebo kód
+• Zámek portfolia: Face ID, Touch ID nebo kód zařízení
 • K dispozici ve 31 jazycích
 
 SOUKROMÍ NA PRVNÍM MÍSTĚ

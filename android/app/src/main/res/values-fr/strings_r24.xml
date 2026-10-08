@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Variation en %1$s</string>
+    <string name="settings_change_basis">Variation en %1$s et fuseau du graphique</string>
     <string name="change_basis_rolling">Dernières 24 h</string>
     <string name="change_basis_utc_zone">Depuis 00:00 %1$s</string>
     <string name="change_basis_local">Depuis 00:00 heure locale</string>
-    <string name="settings_change_basis_hint_1">Le fuseau horaire choisi fixe à partir de quand la variation en pourcentage est calculée : dans la liste de suivi, la ligne de pouls, la fiche de la paire et les widgets.</string>
+    <string name="settings_change_basis_hint_1">Le fuseau horaire choisi fixe à partir de quand la variation en pourcentage est calculée (liste de suivi, ligne de pouls, fiche de la paire, widgets) et les heures affichées dans les graphiques.</string>
     <string name="settings_change_basis_hint_2">« %1$s » compare avec le cours d’il y a exactement 24 heures. « 00:00 » compare avec le cours d’ouverture à minuit dans ce fuseau horaire.</string>
-    <string name="settings_change_basis_hint_3">Les alarmes ne sont pas concernées.</string>
+    <string name="settings_change_basis_hint_3">Les alertes ne sont pas concernées.</string>
     <string name="change_basis_device">%1$s, 00:00 (fuseau horaire de l’appareil)</string>
     <string name="change_short_today">aujourd’hui</string>
     <string name="change_short_today_zone">auj. %1$s</string>

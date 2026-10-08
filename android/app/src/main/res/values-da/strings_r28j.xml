@@ -9,7 +9,7 @@
     <string name="a11y_portfolio_show_amounts">Vis beløb</string>
     <string name="a11y_amount_hidden">beløb skjult</string>
     <string name="portfolio_alarm_action">Alarm</string>
-    <string name="portfolio_alarm_title">Alarm »porteføljeværdi«</string>
+    <string name="portfolio_alarm_title">Alarm ”porteføljeværdi”</string>
     <string name="portfolio_alarm_kind_above">Portefølje over beløb</string>
     <string name="portfolio_alarm_kind_below">Portefølje under beløb</string>
     <string name="portfolio_alarm_kind_up">Portefølje stiger</string>

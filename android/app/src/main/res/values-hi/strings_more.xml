@@ -79,7 +79,7 @@
     <string name="favorite_added">%1$s पसंदीदा में जोड़ा गया</string>
     <string name="favorite_removed">%1$s पसंदीदा से हटाया गया</string>
     <string name="cycle_data_as_of">डेटा %1$s तक · अपडेट हो रहा है…</string>
-    <string name="settings_conversion_currency_hint">पोर्टफोलियो, आपकी मुद्रा में अलार्म, क्रिप्टो बाज़ार कार्ड और पोर्टफोलियो विजेट के लिए भी उपयोग होती है।</string>
+    <string name="settings_conversion_currency_hint">पोर्टफ़ोलियो, आपकी मुद्रा में अलार्म, क्रिप्टो बाज़ार कार्ड और पोर्टफ़ोलियो विजेट के लिए भी उपयोग होती है।</string>
     <plurals name="watchlist_pulse_up">
         <item quantity="one">%1$d ऊपर</item>
         <item quantity="other">%1$d ऊपर</item>

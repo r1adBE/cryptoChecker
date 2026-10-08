@@ -2,11 +2,11 @@
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
     <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
-    <string name="settings_change_basis">%1$s change</string>
+    <string name="settings_change_basis">%1$s change &amp; chart time zone</string>
     <string name="change_basis_rolling">Last 24 hrs</string>
     <string name="change_basis_utc_zone">Since 00:00 %1$s</string>
     <string name="change_basis_local">Since 00:00 local time</string>
-    <string name="settings_change_basis_hint_1">The chosen time zone sets from when the percentage change counts: in the watchlist, pulse line, pair sheet and widgets.</string>
+    <string name="settings_change_basis_hint_1">The chosen time zone sets from when the percentage change counts (watchlist, pulse line, pair sheet, widgets) and the times shown in the charts.</string>
     <string name="settings_change_basis_hint_2">“%1$s” compares with the price exactly 24 hours ago. “00:00” compares with the opening price at midnight in that time zone.</string>
     <string name="settings_change_basis_hint_3">Alarms are not affected.</string>
     <string name="change_basis_device">%1$s, 00:00 (device time zone)</string>

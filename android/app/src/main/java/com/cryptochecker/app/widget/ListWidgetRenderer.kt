@@ -148,7 +148,9 @@ class ListWidgetRenderer @Inject constructor(
     private suspend fun inlineRows(appWidgetId: Int): RemoteViews.RemoteCollectionItems? {
         return runCatching {
             val data = rows.load(appWidgetId)
-            if (data.watches.size > MAX_INLINE_ROWS) return@runCatching null
+            // Mit Logos reist je Zeile ein kleines Bild mit: früher an den Dienst abgeben
+            val limit = if (data.logos != null) MAX_INLINE_ROWS_WITH_LOGOS else MAX_INLINE_ROWS
+            if (data.watches.size > limit) return@runCatching null
             val builder = RemoteViews.RemoteCollectionItems.Builder()
                 .setHasStableIds(true)
                 .setViewTypeCount(1)
@@ -193,5 +195,8 @@ class ListWidgetRenderer @Inject constructor(
 
         /** Bis so viele Paare direkt im Widget; darüber über den Dienst (Grösse eines Binder-Aufrufs). */
         const val MAX_INLINE_ROWS = 200
+
+        /** Mit Coin-Logos (je Zeile bis 48 × 48 px, gleiche Coins teilen ein Bild). */
+        const val MAX_INLINE_ROWS_WITH_LOGOS = 40
     }
 }

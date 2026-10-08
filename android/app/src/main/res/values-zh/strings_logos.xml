@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">币种图标</string>
+    <string name="settings_coin_logos_app">在应用中</string>
+    <string name="settings_coin_logos_app_hint">自选列表、交易对页面和市场卡片</string>
+    <string name="settings_coin_logos_portfolio">在投资组合中</string>
+    <string name="settings_coin_logos_portfolio_hint">持仓、币种详情和分析</string>
+    <string name="settings_coin_logos_widgets">在小部件中</string>
+    <string name="settings_coin_logos_widgets_hint">自选列表和单币小部件</string>
+    <string name="settings_coin_logos_footer">图标来自 CoinGecko；CoinGecko 没有收录的（如黄金、白银、股票）来自 Binance。应用会一次性下载全部图标并保存在本设备上，因此两者都无法得知你关注哪些币种。没有图标的币种显示首字母。收藏的币种会在图标上显示一个小星标。开关关闭的地方既不显示图标也不显示首字母；全部关闭后不会加载任何内容。</string>
+    <string name="settings_coin_logos_value_app">应用</string>
+</resources>

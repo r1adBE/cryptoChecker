@@ -137,7 +137,7 @@ struct PortfolioMoversCard: View {
             A11y.change(mover.changePercent, basis: basis),
         ])
         return HStack(spacing: Spacing.sm) {
-            CoinBadge(symbol: mover.coin, size: 30)
+            CoinBadge(symbol: mover.coin, size: 30, portfolio: true)
             Text(mover.coin)
                 .font(.body.weight(.medium))
                 .foregroundStyle(AppColors.onSurface)
@@ -208,8 +208,7 @@ struct PortfolioAlarmSheet: View {
                         Text(kind.isValue ? currency : "%")
                             .foregroundStyle(AppColors.onSurfaceVariant)
                     }
-                    Toggle(L("alarm_repeating"), isOn: $repeating)
-                        .tint(accent.primary)
+                    SwitchRow(title: L("alarm_repeating"), isOn: $repeating, verticalPadding: 0)
                 } footer: {
                     Text(L("portfolio_alarm_hint"))
                 }

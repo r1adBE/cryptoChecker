@@ -51,7 +51,7 @@
     <string name="why_f_leverage_balanced">Vipu tasapainossa</string>
     <string name="insights_dominance_eth">ETH %1$s koko markkinasta</string>
     <plurals name="market_phase_cycle_since">
-        <item quantity="one">Halvingista (%2$s) kulunut %1$d kuukausi</item>
-        <item quantity="other">Halvingista (%2$s) kulunut %1$d kuukautta</item>
+        <item quantity="one">Puolittumisesta (%2$s) kulunut %1$d kuukausi</item>
+        <item quantity="other">Puolittumisesta (%2$s) kulunut %1$d kuukautta</item>
     </plurals>
 </resources>

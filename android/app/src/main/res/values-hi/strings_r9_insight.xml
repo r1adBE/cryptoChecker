@@ -13,7 +13,7 @@
     <string name="pulse_lead_drift_up">मार्केट हल्का चढ़ रहा है।</string>
     <string name="pulse_lead_drift_down">मार्केट हल्का गिर रहा है।</string>
     <string name="pulse_lead_mixed">बड़े कॉइन अलग-अलग दिशा में चल रहे हैं।</string>
-    <string name="pulse_lead_calm">मार्केट मुश्किल से हिल रहा है।</string>
+    <string name="pulse_lead_calm">मार्केट में मुश्किल से कोई हलचल है।</string>
 
     <string name="pulse_detail_vol_above">वॉल्यूम सामान्य से %1$d%% ज़्यादा।</string>
     <string name="pulse_detail_vol_above_fund_neutral">वॉल्यूम सामान्य से %1$d%% ज़्यादा, फ़ंडिंग न्यूट्रल।</string>
@@ -38,10 +38,10 @@
     <string name="factor_spoken_volume">सामान्य का %1$s गुना</string>
     <string name="factor_spoken_volatility">सामान्य उतार-चढ़ाव का %1$s गुना</string>
 
-    <string name="why_title_coin">%1$s क्यों हिल रहा है?</string>
+    <string name="why_title_coin">%1$s में हलचल क्यों है?</string>
     <string name="why_details">विवरण देखें</string>
     <string name="why_details_hide">विवरण छिपाएँ</string>
-    <string name="why_f_market_wide">पूरा मार्केट हिल रहा है</string>
+    <string name="why_f_market_wide">पूरे मार्केट में हलचल</string>
     <string name="why_f_coin_only">सिर्फ़ यह कॉइन</string>
     <string name="why_f_against">मार्केट के उलट</string>
     <string name="why_f_market_calm">शांत मार्केट</string>
@@ -51,7 +51,7 @@
     <string name="why_f_leverage_balanced">लीवरेज संतुलित</string>
     <string name="insights_dominance_eth">कुल बाज़ार में ETH %1$s</string>
     <plurals name="market_phase_cycle_since">
-        <item quantity="one">%2$s को हुए halving के बाद %1$d महीना</item>
-        <item quantity="other">%2$s को हुए halving के बाद %1$d महीने</item>
+        <item quantity="one">%2$s को हुई हॉल्विंग के बाद %1$d महीना</item>
+        <item quantity="other">%2$s को हुई हॉल्विंग के बाद %1$d महीने</item>
     </plurals>
 </resources>

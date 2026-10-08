@@ -12,7 +12,7 @@
     <string name="tts_direction_oi_up">미결제약정 증가와 함께</string>
     <string name="tts_direction_oi_down">미결제약정 감소와 함께</string>
     <string name="alarm_funding_hint">정산 주기별 펀딩비(보통 8시간마다). 음수는 숏이 롱에게 지급한다는 뜻입니다. ±로 부호를 바꿉니다.</string>
-    <string name="alarm_oi_hint">미결제약정을 그만큼 시간 전에 저장한 값과 비교합니다. 새 경보는 앱이 그 기간 동안 데이터를 모은 뒤에만 알립니다. 확인은 최대 5분마다 합니다.</string>
+    <string name="alarm_oi_hint">미결제약정을 해당 시간 전에 저장한 값과 비교합니다. 새 경보는 앱이 그 기간 동안 데이터를 모은 뒤에야 알립니다. 확인은 최소 5분 간격으로 합니다.</string>
     <string name="alarm_funding_sign_a11y">부호 바꾸기</string>
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">%1$s 미결제약정이 %3$d시간 안에 %2$s 늘면 알려 주세요.</item>

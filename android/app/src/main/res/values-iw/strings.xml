@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">שגיאה: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">אין צמדי מטבעות</string>
-    <string name="checker_add_check_currency_empty_warning_summary">טוען את הצמדים הנוכחיים של השוק שנבחר.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">טוען את הצמדים הנוכחיים של הבורסה שנבחרה.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">עדכון צמדי מטבעות</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">סנכרן עכשיו!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">סנכרון אחרון: %1$s</string>
@@ -35,7 +35,7 @@
         <item quantity="two">נמצאו %1$d צמדי %2$s</item>
         <item quantity="other">נמצאו %1$d צמדי %2$s</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">אין צמדי %1$s בבורסה זו עבור סוג החוזה שנבחר. סנכרן קודם את הבורסה או נסה סוג חוזה אחר.</string>
+    <string name="bulk_all_pairs_empty">אין צמדי %1$s בבורסה זו עבור סוג החוזה שנבחר. סנכרנו קודם את הבורסה או נסו סוג חוזה אחר.</string>
 
     <string name="action_refresh">רענון</string>
     <string name="action_delete">מחק</string>
@@ -106,7 +106,7 @@
     <string name="ind_drawdown">ירידה משיא כל הזמנים</string>
     <string name="ind_hash">כניעת כורים (Hash Ribbons)</string>
     <string name="ind_parabolic">עלייה פרבולית (30 יום)</string>
-    <string name="ind_halving">חודשים מאז ההאלבינג</string>
+    <string name="ind_halving">חודשים מאז ההלווינג</string>
     <string name="ind_ath">חודשים מאז שיא כל הזמנים</string>
     <string name="ind_points_top">+%1$d שיא</string>
     <string name="ind_points_bottom">+%1$d תחתית</string>
@@ -124,7 +124,7 @@
     <string name="accent_red">אדום</string>
     <string name="accent_blue">כחול</string>
     <string name="accent_green">ירוק</string>
-    <string name="settings_rolling_futures">כולל חוזים רבעוניים &amp; חוזים עתידיים מתוארכים אחרים</string>
+    <string name="settings_rolling_futures">כולל חוזים רבעוניים וחוזים עתידיים מתוארכים אחרים</string>
     <string name="settings_rolling_futures_hint">כבוי: חוזים עתידיים מתוארכים שחסרים ברשימת הבורסה יסומנו כלא נסחרים עוד במקום להיבדק אחד־אחד. חוסך זמן בכל רענון.</string>
     <string name="notification_refreshing">מעדכן מחירים…</string>
     <string name="notification_service_title">Crypto Checker מתעדכן לעיתים קרובות</string>
@@ -200,21 +200,21 @@
     <string name="explorer_add_to_watchlist">הוסף לרשימת המעקב</string>
     <string name="explorer_added_to_watchlist">נוסף לרשימת המעקב.</string>
     <string name="explorer_already_in_watchlist">הצמד הזה כבר ברשימת המעקב.</string>
-    <string name="explorer_no_pair_selected">בחר קודם צמד.</string>
+    <string name="explorer_no_pair_selected">בחרו קודם צמד.</string>
 
     <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
     <string name="tts_alarm">התראה. %1$s, %2$s %3$s %4$s, כעת %5$s</string>
     <string name="tts_direction_up">עלה</string>
     <string name="tts_direction_down">ירד</string>
     <string name="watchlist_refresh_report">רענון אחרון</string>
-    <string name="watchlist_refresh_report_empty">אין עדיין פירוט: גרסה זו טרם השלימה רענון מלא. הקש על רענון והמתן עד שסמל הטעינה ייעצר.</string>
+    <string name="watchlist_refresh_report_empty">אין עדיין פירוט: גרסה זו טרם השלימה רענון מלא. הקישו על רענון והמתינו עד שסמל הטעינה ייעצר.</string>
     <string name="action_close">סגור</string>
     <string name="watchlist_clear">ניקוי רשימת המעקב</string>
     <string name="watchlist_clear_confirm">להסיר את כל הצמדים מרשימת המעקב? גם ההתראות שלהם יימחקו.</string>
     <string name="market_scores_hint">שיא = סימנים כמו בשיאי מחזורים קודמים, שפל = סימנים כמו בשפלי מחזורים קודמים. מ-4 נקודות צד אחד שולט, מ-7 זה קיצוני. ללא יעד מחיר וללא תחזית.</string>
     <string name="market_scores_none">אין סימנים פעילים לשיא או לשפל: שלב ביניים רגוע, מגמת המחיר מכריעה.</string>
     <string name="market_scores_info_title">אותות מחזור</string>
-    <string name="market_scores_info_text">סימנים לשיא אפשרי סופרים אותות שנראו בשיאי מחזורים קודמים: תמחור יתר חזק (MVRV), הכנסות כורים גבוהות מאוד (Puell), מחיר הרבה מעל ממוצע 200 יום או 200 שבועות, עלייה פרבולית וחלון של 12–18 חודשים אחרי ההאלבינג.\n\nסימנים לשפל אפשרי סופרים אותות של שפלים קודמים: MVRV נמוך, הכנסות כורים חלשות, ירידה חדה מהשיא של כל הזמנים, מחיר קרוב לממוצע 200 שבועות, ירידה ב-hashrate ושיא שהיה לפני יותר משנה.\n\nביתרון של 4 נקודות האזור הוא Bull או Bear, מ-7 קיצוני. אם אף צד לא מוביל, מגמת המחיר מכריעה. 0/10 בשני הצדדים פירושו: לא אופוריה ולא כניעה.\n\nללא יעד מחיר וללא תחזית: האותות רק מתארים איך נראו מחזורים קודמים.</string>
+    <string name="market_scores_info_text">סימנים לשיא אפשרי סופרים אותות שנראו בשיאי מחזורים קודמים: תמחור יתר חזק (MVRV), הכנסות כורים גבוהות מאוד (Puell), מחיר הרבה מעל ממוצע 200 יום או 200 שבועות, עלייה פרבולית וחלון של 12–18 חודשים אחרי ההלווינג.\n\nסימנים לשפל אפשרי סופרים אותות של שפלים קודמים: MVRV נמוך, הכנסות כורים חלשות, ירידה חדה מהשיא של כל הזמנים, מחיר קרוב לממוצע 200 שבועות, ירידה ב-hashrate ושיא שהיה לפני יותר משנה.\n\nביתרון של 4 נקודות האזור הוא Bull או Bear, מ-7 קיצוני. אם אף צד לא מוביל, מגמת המחיר מכריעה. 0/10 בשני הצדדים פירושו: לא אופוריה ולא כניעה.\n\nללא יעד מחיר וללא תחזית: האותות רק מתארים איך נראו מחזורים קודמים.</string>
     <string name="battery_open_settings">פתיחת הגדרות סוללה</string>
     <string name="battery_steps">בפרטי האפליקציה הקישו על סוללה (או שימוש בסוללה של האפליקציה) ובחרו ללא הגבלה.</string>
     <string name="explorer_select_placeholder">נא לבחור</string>
@@ -225,7 +225,7 @@
     <string name="theme_system">מערכת</string>
     <string name="settings_section_developer">מפתחים</string>
     <string name="settings_http_log">הצגת יומן HTTP</string>
-    <string name="settings_http_log_hint">מציג בתחתית הדף “הוספת צמד” את הבקשות לבורסות – לאיתור תקלות.</string>
+    <string name="settings_http_log_hint">מציג בתחתית הדף ״הוספת צמד״ את הבקשות לבורסות – לאיתור תקלות.</string>
     <string name="language_search">חיפוש שפה</string>
     <string name="alarm_delete_title">למחוק את ההתראה?</string>
     <string name="alarm_delete_confirm">ההתראה הזו תוסר.</string>
@@ -269,7 +269,7 @@
     <string name="explorer_bulk_show_list">הצגת רשימה</string>
     <string name="explorer_bulk_hide_list">הסתרת רשימה</string>
     <string name="time_just_now">הרגע</string>
-    <string name="welcome_text">השערים שלכם. ההתראות שלכם. הסקירה שלכם.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
+    <string name="welcome_text">המחירים שלכם. ההתראות שלכם. הסקירה שלכם.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
     <string name="developer_unlocked">אפשרויות המפתחים נפתחו</string>
     <string name="hint_favorites_list">טיפ: הקישו על ☆ למועדף – המועדפים נשארים למעלה.</string>
     <string name="tab_watchlist">רשימה</string>
@@ -326,7 +326,7 @@
         <item quantity="two">רק %1$d ימי היסטוריה – חלק מהמדדים חסרים.</item>
         <item quantity="other">רק %1$d ימי היסטוריה – חלק מהמדדים חסרים.</item>
     </plurals>
-    <string name="coin_price_only">מבוסס מחיר בלבד – נתוני on-chain (MVRV, Puell, hashrate) זמינים בחינם רק לביטקוין.</string>
+    <string name="coin_price_only">מבוסס מחיר בלבד – נתוני און־צ׳יין (MVRV, Puell, hashrate) זמינים בחינם רק לביטקוין.</string>
     <string name="ind_rsi_weekly">RSI (שבועי)</string>
     <string name="ind_rsi_daily">RSI (יומי)</string>
     <string name="ind_pi_cycle">Pi cycle (111/350 ימים)</string>
@@ -336,9 +336,9 @@
     <string name="channel_market">שלב השוק</string>
     <string name="channel_market_description">מודיע כששלב השוק של ביטקוין משתנה</string>
     <string name="notification_zone_title">ביטקוין: %1$s</string>
-    <string name="notification_zone_text">שלב השוק עבר מ%1$s ל%2$s.</string>
+    <string name="notification_zone_text">שלב השוק עבר מ-%1$s ל-%2$s.</string>
     <string name="settings_zone_alerts">הודעה בשינוי שלב השוק</string>
-    <string name="settings_zone_alerts_hint">בודק פעמיים ביום ומודיע כשביטקוין מחליף אזור, למשל מניטרלי ל-Bull.</string>
+    <string name="settings_zone_alerts_hint">בודק פעמיים ביום ומודיע כשביטקוין מחליף אזור, למשל מ-Neutral ל-Bull.</string>
     <string name="alarm_condition_move_percent">זז ב-</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">תוך %1$d שעה</item>
@@ -351,8 +351,8 @@
     <string name="settings_fng_above">Fear &amp; Greed: התראה מעל</string>
     <string name="option_off">כבוי</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">המדד ירד מתחת ל-%1$d – השוק מפחד.</string>
-    <string name="notification_fng_above">המדד עלה מעל %1$d – השוק חמדן.</string>
+    <string name="notification_fng_below">המדד ירד מתחת ל-%1$d – בשוק שורר פחד.</string>
+    <string name="notification_fng_above">המדד עלה מעל %1$d – בשוק שוררת תאוות בצע.</string>
     <string name="futures_title">נתוני חוזים</string>
     <string name="futures_funding">שיעור מימון</string>
     <string name="futures_next_funding">הבא בעוד %1$d ש׳ %2$d ד׳</string>
@@ -361,12 +361,12 @@
     <string name="single_widget_label">Crypto Checker – מטבע אחד</string>
     <string name="single_widget_description">מציג מטבע אחד בגדול עם מחיר, שינוי וגרף 24 שעות.</string>
     <string name="single_widget_choose">בחירת צמד</string>
-    <string name="single_widget_title">הגדרת ווידג׳ט יחיד</string>
+    <string name="single_widget_title">הגדרת ווידג׳ט מטבע יחיד</string>
     <string name="shortcut_add">הוספת צמד</string>
     <string name="shortcut_alarms">כל ההתראות</string>
     <string name="shortcut_cycle">שוק</string>
     <string name="backup_title">גיבוי ושחזור</string>
-    <string name="backup_hint">שומר רשימה עם הערות וקבוצות, התראות, מועדפים, תיק השקעות והגדרות בקובץ שאתם שומרים – למשל לטלפון חדש.</string>
+    <string name="backup_hint">שומר את הרשימה עם ההערות והקבוצות, ההתראות, המועדפים, תיק ההשקעות וההגדרות בקובץ שנשאר אצלכם – למשל לטלפון חדש.</string>
     <string name="backup_export">ייצוא</string>
     <string name="backup_import">ייבוא</string>
     <string name="backup_restore_confirm">הייבוא מחליף את הרשימה (עם ההערות והקבוצות), ההתראות, המועדפים, תיק ההשקעות וההגדרות בגיבוי.</string>

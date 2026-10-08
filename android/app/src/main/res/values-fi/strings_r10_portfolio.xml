@@ -12,7 +12,7 @@
     <string name="portfolio_history_change_a11y">Arvo, %1$s: %2$s, %3$s</string>
     <string name="portfolio_history_today">Tänään</string>
     <string name="portfolio_history_converted">Muunnettu tämän päivän kurssilla</string>
-    <string name="portfolio_history_without">Ilman kohdetta %1$s (ei päiväkursseja)</string>
+    <string name="portfolio_history_without">Ilman kohdetta %1$s (ei päivähintoja)</string>
     <string name="portfolio_history_includes_trades">Sisältää jakson ostot ja myynnit</string>
     <string name="portfolio_history_too_short">Kehitys alkaa ensimmäisen kokonaisen päivän jälkeen.</string>
     <string name="portfolio_history_unavailable">Kehitystä ei ole juuri nyt saatavilla.</string>

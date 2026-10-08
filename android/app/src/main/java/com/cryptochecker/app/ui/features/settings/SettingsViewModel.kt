@@ -44,6 +44,7 @@ class SettingsViewModel @Inject constructor(
     private val notifier: AppNotifier,
     private val appearanceApplier: AppearanceApplier,
     private val widgetUpdater: WidgetUpdater,
+    private val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
     private val backupManager: com.cryptochecker.app.data.BackupManager,
     private val appLockState: AppLockState,
     private val portfolioSnapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
@@ -270,6 +271,8 @@ class SettingsViewModel @Inject constructor(
     /** Portfolio-Tab ein/aus; die Daten bleiben beim Ausschalten erhalten. */
     fun setPortfolioEnabled(enabled: Boolean) = update {
         settingsRepository.setPortfolioEnabled(enabled)
+        // Portfolio-Logos (ab Werk an) brauchen jetzt vielleicht den Abgleich
+        if (enabled) coinLogoSync.startIfEnabled()
     }
 
     /** Kursfarben (Grün/Rot oder Blau/Orange); Widgets gleich neu zeichnen. */
@@ -292,6 +295,23 @@ class SettingsViewModel @Inject constructor(
 
     /** Mini-Chart in der Merkliste ein/aus. */
     fun setWatchlistSparkline(show: Boolean) = update { settingsRepository.setWatchlistSparkline(show) }
+
+    fun setPortfolioCoinLogos(show: Boolean) = update {
+        settingsRepository.setPortfolioCoinLogos(show)
+        coinLogoSync.startIfEnabled()
+    }
+
+    fun setCoinLogos(show: Boolean) = update {
+        settingsRepository.setCoinLogos(show)
+        coinLogoSync.startIfEnabled()
+    }
+
+    /** Widgets gleich neu zeichnen, damit Logos sofort erscheinen bzw. verschwinden. */
+    fun setWidgetCoinLogos(show: Boolean) = update {
+        settingsRepository.setWidgetCoinLogos(show)
+        widgetUpdater.updateAll()
+        coinLogoSync.startIfEnabled()
+    }
 
     fun setWatchlistActivityCard(show: Boolean) = update { settingsRepository.setWatchlistActivityCard(show) }
 

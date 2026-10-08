@@ -93,6 +93,8 @@ internal fun SheetChartCanvas(
     range: SheetChartRange,
     quote: String,
     currentPrice: Double?,
+    /** Zeitzone der Uhrzeiten und Raster ([ChangeBasisMath.chartZone]). */
+    zone: ZoneId,
 ) {
     val context = LocalContext.current
     val haptics = LocalHapticFeedback.current
@@ -121,13 +123,13 @@ internal fun SheetChartCanvas(
         WidgetChartGeometry.summary(candles, type),
     ) { PriceFormat.priceWithCurrency(it, quote) }
 
-    // Datum/Uhrzeit beim Ziehen in der Ortszeit; 12/24 h nach Systemeinstellung
+    // Datum/Uhrzeit beim Ziehen in der Chart-Zeitzone (wie die %-Basis); 12/24 h nach Systemeinstellung
     val is24 = android.text.format.DateFormat.is24HourFormat(context)
-    val timeFormat = remember(range, is24) {
+    val timeFormat = remember(range, is24, zone) {
         android.icu.text.DateFormat.getInstanceForSkeleton(
             range.timeTemplate.replace("j", if (is24) "H" else "h"),
             Locale.getDefault(),
-        )
+        ).apply { timeZone = icuTimeZone(zone) }
     }
 
     Box(
@@ -205,7 +207,7 @@ internal fun SheetChartCanvas(
                     type = type,
                     gridUnit = widgetRange.gridUnit,
                     intervalMillis = widgetRange.intervalMillis,
-                    zone = ZoneId.systemDefault(),
+                    zone = zone,
                     width = size.width,
                     height = size.height,
                     labelColumnWidth = column,
@@ -339,4 +341,10 @@ internal fun SheetChartCanvas(
             }
         }
     }
+}
+
+/** ICU-Zeitzone zu [zone]; feste Versätze als «GMT+08:00» (ICU kennt «+08:00» nicht). */
+private fun icuTimeZone(zone: ZoneId): android.icu.util.TimeZone {
+    val id = (zone as? java.time.ZoneOffset)?.let { if (it.totalSeconds == 0) "GMT" else "GMT" + it.id } ?: zone.id
+    return android.icu.util.TimeZone.getTimeZone(id)
 }

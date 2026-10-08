@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -47,9 +45,10 @@ import com.cryptochecker.app.domain.market.UnusualReport
 import com.cryptochecker.app.domain.market.UnusualRow
 import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.notification.MacroTexts
+import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
-import com.cryptochecker.app.ui.features.portfolio.CoinBadge
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.features.portfolio.PlPill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.A11yText
@@ -133,11 +132,11 @@ private fun UnusualRowItem(row: UnusualRow, watched: Boolean, onTap: () -> Unit)
             }
             .padding(vertical = Spacing.sm)
     ) {
-        CoinBadge(row.symbol, size = 36.dp)
+        CoinBadge(row.symbol, size = 36.dp, modifier = Modifier.padding(end = 12.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 12.dp)
+                .padding(end = 12.dp)
         ) {
             Text(
                 row.symbol,
@@ -182,12 +181,7 @@ private fun UnusualSkeleton() {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(vertical = Spacing.sm)
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-                )
+                SkeletonBlock(Modifier.size(36.dp))
                 Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {
                     SkeletonLine(MaterialTheme.typography.titleSmall, Modifier.width(48.dp))
                     SkeletonLine(MaterialTheme.typography.bodySmall, Modifier.fillMaxWidth(0.8f))

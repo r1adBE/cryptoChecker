@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Export alla data di riferimento</string>
     <string name="portfolio_export_date">Data di riferimento</string>
     <string name="portfolio_export_currency">Valuta: %1$s</string>
-    <string name="portfolio_export_hint">Possesso alla fine del giorno scelto, valutato al prezzo di chiusura giornaliero (UTC) in USDT e convertito con il tasso di riferimento BCE di quel giorno. Cambia la valuta con «Converti in».</string>
+    <string name="portfolio_export_hint">Saldo alla fine del giorno scelto, valutato al prezzo di chiusura giornaliero (UTC) in USDT e convertito con il tasso di riferimento BCE di quel giorno. Cambia la valuta con «Converti in».</string>
     <string name="portfolio_export_button">Esporta CSV</string>
     <string name="portfolio_export_running">Recupero prezzi storici…</string>
     <string name="portfolio_export_done">Export salvato</string>

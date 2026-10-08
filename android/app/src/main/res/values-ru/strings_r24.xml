@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Изменение в %1$s</string>
+    <string name="settings_change_basis">Изменение в %1$s и часовой пояс графика</string>
     <string name="change_basis_rolling">Последние 24 ч</string>
     <string name="change_basis_utc_zone">С 00:00 %1$s</string>
     <string name="change_basis_local">С 00:00 по местному времени</string>
-    <string name="settings_change_basis_hint_1">Выбранный часовой пояс определяет, с какого момента считается процентное изменение: в списке наблюдения, строке пульса, карточке пары и виджетах.</string>
+    <string name="settings_change_basis_hint_1">Выбранный часовой пояс определяет, с какого момента считается процентное изменение (список наблюдения, строка пульса, карточка пары, виджеты), и время на графиках.</string>
     <string name="settings_change_basis_hint_2">«%1$s» сравнивает с ценой ровно 24 часа назад. «00:00» сравнивает с ценой открытия в полночь в этом часовом поясе.</string>
     <string name="settings_change_basis_hint_3">На оповещения это не влияет.</string>
     <string name="change_basis_device">%1$s, 00:00 (часовой пояс устройства)</string>

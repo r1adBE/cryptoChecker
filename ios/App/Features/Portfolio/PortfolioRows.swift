@@ -32,7 +32,7 @@ extension PortfolioScreen {
                         openCoin = position.coin
                     } label: {
                         HStack(spacing: 12) {
-                            CoinBadge(symbol: position.coin, size: 32)
+                            CoinBadge(symbol: position.coin, size: 32, portfolio: true)
                             Text(position.coin)
                                 .font(.body)
                                 .foregroundStyle(AppColors.onSurface)
@@ -94,7 +94,7 @@ struct PortfolioCoinRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            CoinBadge(symbol: position.coin, size: 40)
+            CoinBadge(symbol: position.coin, size: 40, portfolio: true)
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: Spacing.xs) {
                     Text(position.coin)

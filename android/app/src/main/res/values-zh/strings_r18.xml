@@ -4,7 +4,7 @@
     <string name="watchlist_jump_start">回到顶部</string>
     <string name="watchlist_jump_end">跳到末尾</string>
     <string name="settings_activity_sensitivity">灵敏度</string>
-    <string name="settings_activity_sensitivity_hint">币种被视为异常的难易程度 – 自选列表卡片与通知相同。选择“较少”时，卡片只显示最强的 3 个。</string>
+    <string name="settings_activity_sensitivity_hint">币种被视为异常的难易程度——自选列表卡片与通知相同。选择“较少”时，卡片只显示最强的 3 个。</string>
     <string name="activity_sensitivity_less">较少</string>
     <string name="activity_sensitivity_normal">标准</string>
     <string name="activity_sensitivity_more">较多</string>

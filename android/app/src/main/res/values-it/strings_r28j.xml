@@ -18,8 +18,8 @@
     <string name="portfolio_alarm_hint">Controllato dopo ogni aggiornamento. Come gli allarmi di prezzo: scatta al superamento della soglia e di nuovo solo dopo che il valore è tornato indietro.</string>
     <string name="portfolio_alarm_sentence_above">Portafoglio sopra %1$s</string>
     <string name="portfolio_alarm_sentence_below">Portafoglio sotto %1$s</string>
-    <string name="portfolio_alarm_sentence_up">Portafoglio su del %1$s (%2$s)</string>
-    <string name="portfolio_alarm_sentence_down">Portafoglio giù del %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_up">Portafoglio in rialzo del %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portafoglio in ribasso del %1$s (%2$s)</string>
     <string name="notification_portfolio_alarm_title">Valore del portafoglio</string>
     <string name="notification_portfolio_alarm_text">%1$s – ora %2$s</string>
 </resources>

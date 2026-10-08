@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: άνοδος %2$d, πτώση %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: τα μεγαλύτερα νομίσματα κατά αξία αγοράς, χωρίς stablecoins· μεταβολή 24 ωρών (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Ευρεία κίνηση: τα περισσότερα μεγάλα νομίσματα ανεβαίνουν.</string>
+    <string name="pulse_breadth_note_broad_down">Ευρεία πτώση: τα περισσότερα μεγάλα νομίσματα πέφτουν.</string>
+    <string name="pulse_breadth_note_narrow_up">Το Bitcoin ανεβαίνει, αλλά τα περισσότερα άλλα μεγάλα νομίσματα δεν ακολουθούν.</string>
+    <string name="pulse_breadth_note_narrow_down">Το Bitcoin πέφτει, αλλά τα περισσότερα άλλα μεγάλα νομίσματα αντέχουν.</string>
+</resources>

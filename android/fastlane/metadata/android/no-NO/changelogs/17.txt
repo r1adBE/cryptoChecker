@@ -1,10 +1,10 @@
 Nytt i 16.2.2
-• Crypto Pulse: hva som skjer i markedet nå
-• Uvanlig aktivitet, Hvorfor beveger den seg? nå med kort oppsummering
-• Test alarm: lyd, vibrasjon og opplesning
-• Kurser og alarmer i din valuta
-• Eksport per skjæringsdato: porteføljens verdi som CSV
-• Tilgjengelig: blå/oransje, høy kontrast, byttede farger, TalkBack
-• Kom i gang med ett trykk, nattro, porteføljelås og -widget, alarm som setning
-• 15 nye børser, nettverksgebyrer med gass-alarm
-• Lysdiagram i widget, markedsverdi
+• Crypto Pulse: hva som skjer nå
+• Uvanlig aktivitet, «Hvorfor beveger den seg?» med oppsummering
+• Kom i gang med ett trykk: topp 5 mynter, livekurser
+• Sveip: slett (med Angre) eller favoritt
+• Kurser og alarmer i din valuta, eksport per skjæringsdato (CSV)
+• Tilgjengelig: blå/oransje, kontrast, bytt farger, TalkBack
+• Nattro, test alarm, alarm som setning, porteføljelås og -widget
+• 15 nye børser, gass-alarm, candlestick i widget
+• Aksjer, gull, valuta (TradFi); % etter tidssone

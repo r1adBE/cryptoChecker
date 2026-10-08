@@ -1,20 +1,12 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -22,11 +14,9 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.ui.components.changePill
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
@@ -109,32 +99,8 @@ internal fun PlPill(percent: Double?, modifier: Modifier = Modifier) {
         maxLines = 1,
         modifier = modifier
             .then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)
-            .clip(RoundedCornerShape(50))
-            .background(color.copy(alpha = 0.14f))
-            .padding(horizontal = 8.dp, vertical = 2.dp)
+            .changePill(color)
     )
-}
-
-/** Runde Plakette mit den ersten Buchstaben des Coins. */
-@Composable
-internal fun CoinBadge(coin: String, size: Dp = 40.dp) {
-    val accent = MaterialTheme.colorScheme.primary
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .size(size)
-            .clip(CircleShape)
-            .background(accent.copy(alpha = 0.14f))
-    ) {
-        Text(
-            text = coin.take(if (coin.length <= 4) coin.length else 3),
-            color = accent,
-            fontWeight = FontWeight.Bold,
-            fontSize = if (coin.length <= 3) 13.sp else 11.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Clip
-        )
-    }
 }
 
 /** Kleine Kennzahl: Beschriftung oben, Wert darunter. */

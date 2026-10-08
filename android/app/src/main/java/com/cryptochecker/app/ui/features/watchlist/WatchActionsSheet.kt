@@ -48,9 +48,11 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.FuturesInfo
 import com.cryptochecker.app.domain.convert.Sats
+import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.NoteDialog
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.WidgetManualDialog
@@ -151,6 +153,12 @@ internal fun WatchActionsSheet(
         ) {
             // Kopf: Paar, Börse, Kurs gross; rechts der Stift «Paar bearbeiten»
             Row(verticalAlignment = Alignment.CenterVertically) {
+                CoinBadge(
+                    watch.baseAsset,
+                    size = 32.dp,
+                    logo = CoinLogos.allowedFor(watch.marketKey),
+                    modifier = Modifier.padding(end = 12.dp)
+                )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         watch.displayName,

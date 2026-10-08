@@ -15,7 +15,7 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_direction_a11y">Direção: %1$s</string>
     <string name="alarm_repeat_once">Uma vez</string>
-    <string name="alarm_repeat_each">Sempre</string>
+    <string name="alarm_repeat_each">Todas as vezes</string>
     <string name="alarm_advanced">Avançado</string>
     <string name="alarm_create">Criar alarme</string>
     <string name="alarm_near_new_only">Apenas novos máximos ou mínimos</string>

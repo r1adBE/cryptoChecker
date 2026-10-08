@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">Eksport stanu na dzień</string>
     <string name="portfolio_export_date">Stan na dzień</string>
     <string name="portfolio_export_currency">Waluta: %1$s</string>
-    <string name="portfolio_export_hint">Stan posiadania na koniec wybranego dnia, wyceniony po dziennym kursie zamknięcia (UTC) w USDT i przeliczony po kursie referencyjnym EBC z tego dnia. Walutę zmienisz w „Przelicz na“.</string>
+    <string name="portfolio_export_hint">Stan posiadania na koniec wybranego dnia, wyceniony po dziennym kursie zamknięcia (UTC) w USDT i przeliczony po kursie referencyjnym EBC z tego dnia. Walutę zmienisz w „Przelicz na”.</string>
     <string name="portfolio_export_button">Eksportuj CSV</string>
     <string name="portfolio_export_running">Pobieranie cen historycznych…</string>
     <string name="portfolio_export_done">Eksport zapisany</string>

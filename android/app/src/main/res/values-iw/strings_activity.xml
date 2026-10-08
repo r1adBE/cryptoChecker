@@ -6,8 +6,8 @@
     <string name="activity_indicator">פעילות חריגה</string>
 
     <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
-    <string name="activity_signal_price_move">תנועה חריגה: %1$s בשעה (פי %2$s× מהרגיל)</string>
-    <string name="activity_signal_volume">מחזור פי %1$s× מהרגיל בשעה האחרונה</string>
+    <string name="activity_signal_price_move">תנועה חריגה: %1$s בשעה (פי %2$s מהרגיל)</string>
+    <string name="activity_signal_volume">מחזור פי %1$s מהרגיל בשעה האחרונה</string>
     <string name="activity_signal_open_interest">Open interest %1$s תוך %2$d דק׳</string>
     <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
     <string name="activity_signal_funding_long">מימון %1$s — הרבה לונגים ממונפים</string>
@@ -30,7 +30,7 @@
 
     <string name="why_market_wide_text">המטבע הזה: %1$s ב-24 שעות — סביר שהמניע הוא השוק כולו ולא המטבע עצמו.</string>
     <string name="why_coin_only_text">%1$s ב-24 שעות בזמן שהשוק שקט: הסיבה כנראה ייחודית למטבע הזה.</string>
-    <string name="why_against_market_text">המטבע הזה %1$s, BTC %2$s ב-24 שעות — תנועה עצמאית במובהק.</string>
+    <string name="why_against_market_text">המטבע הזה %1$s, BTC %2$s ב-24 שעות — תנועה עצמאית באופן בולט.</string>
     <string name="why_market_calm_text">המטבע הזה: %1$s ב-24 שעות. לא השוק ולא המטבע זזים הרבה.</string>
     <string name="why_market_leader_text">כמוביל השוק, BTC בדרך כלל מושך איתו את שאר השוק. ETH: %1$s ב-24 שעות.</string>
     <string name="why_market_leader_text_no_eth">כמוביל השוק, BTC בדרך כלל מושך איתו את שאר השוק.</string>

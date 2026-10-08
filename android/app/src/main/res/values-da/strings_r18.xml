@@ -4,7 +4,7 @@
     <string name="watchlist_jump_start">Til toppen</string>
     <string name="watchlist_jump_end">Til slutningen</string>
     <string name="settings_activity_sensitivity">Følsomhed</string>
-    <string name="settings_activity_sensitivity_hint">Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med »Mindre« viser kortet kun de 3 stærkeste.</string>
+    <string name="settings_activity_sensitivity_hint">Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med ”Mindre” viser kortet kun de 3 stærkeste.</string>
     <string name="activity_sensitivity_less">Mindre</string>
     <string name="activity_sensitivity_normal">Normal</string>
     <string name="activity_sensitivity_more">Mere</string>

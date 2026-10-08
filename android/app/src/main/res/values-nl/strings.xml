@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Fout: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Geen valutaparen</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Laadt de actuele paren van de gekozen markt.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Laadt de actuele paren van de gekozen beurs.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Valutaparen bijwerken</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Nu synchroniseren!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Laatste sync: %1$s</string>
@@ -29,12 +29,12 @@
     <string name="no_internet_connection">Geen internetverbinding</string>
     <string name="something_went_wrong">Er ging iets mis</string>
 
-    <string name="bulk_all_pairs">Alle %1$s-paren van deze exchange</string>
+    <string name="bulk_all_pairs">Alle %1$s-paren van deze beurs</string>
     <plurals name="bulk_all_pairs_applied">
         <item quantity="one">%1$d %2$s-paar gevonden</item>
         <item quantity="other">%1$d %2$s-paren gevonden</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">Geen %1$s-paren op deze exchange voor het gekozen contracttype. Synchroniseer eerst de exchange of kies een ander contracttype.</string>
+    <string name="bulk_all_pairs_empty">Geen %1$s-paren op deze beurs voor het gekozen contracttype. Synchroniseer eerst de beurs of kies een ander contracttype.</string>
 
     <!-- Aktionen -->
     <string name="action_refresh">Vernieuwen</string>
@@ -127,7 +127,7 @@
     <string name="accent_blue">Blauw</string>
     <string name="accent_green">Groen</string>
     <string name="settings_rolling_futures">Incl. kwartaal- &amp; andere futures met vervaldatum</string>
-    <string name="settings_rolling_futures_hint">Uit: futures met vervaldatum die niet meer in de lijst van de exchange staan, worden als niet meer verhandeld gemarkeerd in plaats van één voor één gecontroleerd. Bespaart tijd bij elke vernieuwing.</string>
+    <string name="settings_rolling_futures_hint">Uit: futures met vervaldatum die niet meer in de lijst van de beurs staan, worden als niet meer verhandeld gemarkeerd in plaats van één voor één gecontroleerd. Bespaart tijd bij elke vernieuwing.</string>
     <string name="notification_refreshing">Koersen bijwerken…</string>
     <string name="notification_service_title">Crypto Checker werkt vaak bij</string>
     <string name="notification_service_starting">Starten…</string>
@@ -158,7 +158,7 @@
     <string name="settings_alarm_cooldown">Rusttijd voordat een alarm opnieuw afgaat</string>
     <string name="settings_tts">Gesproken uitvoer</string>
     <string name="settings_tts_alarms_only">Alleen alarmen</string>
-    <string name="settings_tts_alarms_only_hint">Uit: elke update van een paar met „Koers voorlezen“ wordt voorgelezen.</string>
+    <string name="settings_tts_alarms_only_hint">Uit: elke update van een paar met ‘Koers voorlezen’ wordt voorgelezen.</string>
     <string name="settings_speech_rate">Spreeksnelheid: %1$.1f×</string>
     <string name="settings_tts_test">Stem testen</string>
     <string name="battery_title">Koersen actueel houden</string>
@@ -174,10 +174,10 @@
     <string name="widget_opacity">Achtergronddekking: %1$d%%</string>
     <string name="settings_section_about">Over</string>
     <string name="about_version">Crypto Checker %1$s</string>
-    <string name="about_license">Koersen komen rechtstreeks van de exchanges; geen account en geen tracking.</string>
+    <string name="about_license">Koersen komen rechtstreeks van de beurzen; geen account en geen tracking.</string>
 
     <!-- Markets -->
-    <string name="dex_intro">Tokens buiten de grote exchanges, van gedecentraliseerde exchanges (Uniswap, PancakeSwap, Raydium …) via DexScreener. Zoek een token en voeg de handelspool ervan toe – koersen in Amerikaanse dollars.</string>
+    <string name="dex_intro">Tokens buiten de grote beurzen, van gedecentraliseerde beurzen (Uniswap, PancakeSwap, Raydium …) via DexScreener. Zoek een token en voeg de handelspool ervan toe – koersen in Amerikaanse dollars.</string>
     <string name="dex_search_hint">Tokennaam, symbool of adres</string>
     <string name="dex_search">Zoeken</string>
     <string name="dex_no_results">Geen pools gevonden.</string>
@@ -239,7 +239,7 @@
     </plurals>
     <string name="alarms_overview_empty">Nog geen alarmen. Open een paar en voeg er een toe onder Alarmen.</string>
     <string name="action_more">Meer opties</string>
-    <string name="watchlist_last_run">Laatste ronde %1$s</string>
+    <string name="watchlist_last_run">Laatst uitgevoerd %1$s</string>
     <string name="watchlist_pull_to_refresh">Trek omlaag om te vernieuwen</string>
     <string name="favorite_add">Aan favorieten toevoegen</string>
     <string name="favorite_remove">Uit favorieten verwijderen</string>
@@ -321,7 +321,7 @@
         <item quantity="one">Slechts %1$d dag koersverloop – enkele indicatoren ontbreken.</item>
         <item quantity="other">Slechts %1$d dagen koersverloop – enkele indicatoren ontbreken.</item>
     </plurals>
-    <string name="coin_price_only">Alleen op basis van de koers – on-chaindata (MVRV, Puell, hashrate) zijn vrij beschikbaar voor alleen Bitcoin.</string>
+    <string name="coin_price_only">Alleen op basis van de koers – on-chaindata (MVRV, Puell, hashrate) zijn alleen voor Bitcoin vrij beschikbaar.</string>
     <string name="ind_rsi_weekly">RSI (week)</string>
     <string name="ind_rsi_daily">RSI (dag)</string>
     <string name="ind_pi_cycle">Pi-cyclus (111/350 dagen)</string>

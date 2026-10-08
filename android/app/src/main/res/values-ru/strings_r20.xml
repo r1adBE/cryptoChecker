@@ -12,7 +12,7 @@
     </plurals>
     <plurals name="watchlist_removed_not_traded">
         <item quantity="one">Удалена %1$d неторгуемая пара</item>
-        <item quantity="few">Удалено %1$d неторгуемые пары</item>
+        <item quantity="few">Удалены %1$d неторгуемые пары</item>
         <item quantity="many">Удалено %1$d неторгуемых пар</item>
         <item quantity="other">Удалено %1$d неторгуемой пары</item>
     </plurals>

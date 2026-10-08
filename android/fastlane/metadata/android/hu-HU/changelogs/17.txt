@@ -1,10 +1,10 @@
-Újdonságok a 16.2.2-ben
-• Crypto Pulse: mi történik most a piacon
-• Szokatlan aktivitás, Miért mozog? most rövid összefoglalóval
-• Riasztás tesztelése
-• Árak és riasztások a saját pénznemedben
-• Fordulónapi export: portfólióérték CSV-ben
-• Akadálymentes: kék/narancs, nagy kontraszt, színcsere, TalkBack
-• Kezdés egy koppintással, csendes órák, portfóliózár és -widget, riasztás mondatként
-• 15 új tőzsde, hálózati díjak gas-riasztással
-• Gyertyás grafikon a widgetben, piaci kapitalizáció
+Újdonságok a 16.2.2-es verzióban
+• Crypto Pulse: mi történik most
+• Szokatlan aktivitás, „Miért mozog?” összefoglalóval
+• Kezdés egy koppintással: top 5 érme, élő árak
+• Húzással törlés (visszavonható) vagy kedvenc
+• Árak és riasztások a saját pénznemedben, fordulónapi CSV
+• Akadálymentesség: kék/narancs, kontraszt, TalkBack
+• Csendes órák, teszt, riasztás mondatként, zár, widget
+• 15 új tőzsde, gas-riasztás, gyertyák a widgetben
+• Részvények, arany, devizák (TradFi); % időzóna szerint

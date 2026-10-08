@@ -83,7 +83,8 @@ extension ExplorerScreen {
 
     private func dexRow(_ pool: DexPool) -> some View {
         HStack(spacing: 12) {
-            CoinBadge(symbol: pool.baseSymbol, size: 36)
+            // DEX: Symbole frei wählbar → nie das Logo eines bekannten Coins, nur Initialen
+            CoinBadge(symbol: pool.baseSymbol, size: 36, logo: false)
             VStack(alignment: .leading, spacing: 2) {
                 Text("\(pool.baseSymbol)/\(pool.quoteSymbol)")
                     .font(.headline)

@@ -5,51 +5,51 @@ Genel bakış – Crypto Pulse, Fear & Greed, döngü ve portföy
 İzle – fiyatlar doğrudan borsadan, kendi para biriminde
 Uyar – fiyat, %, hareket ve hacim, basit bir cümleyle
 
-Herkes için okunaklı: yeşil/kırmızı veya mavi/turuncu fiyat renkleri, isteğe göre değiştirilebilir, yüksek kontrast, yalnızca renk değil işaret ve ok, TalkBack her satırı tek cümle olarak okur.
+Herkes için okunaklı: yeşil/kırmızı veya mavi/turuncu fiyat renkleri, yüksek kontrast, yalnızca renk değil işaret ve ok, TalkBack her satırı tek cümle olarak okur.
 
-32 BORSA İÇİN TEK LİSTE
-• Boş liste: tek dokunuşla piyasa değerine göre en büyük 5 coin
-• Binance, Coinbase, Kraken, OKX, Bybit ve daha birçoğundan spot ve vadeli
-• DexScreener üzerinden DEX token'ları
-• Pariteleri gruplara ayır, favorileri işaretle, sürükleyerek sırala
-• Her coin için not, örn. giriş fiyatın – fiyatın hemen altında
-• Kendi para biriminde ikinci “≈ değer” satırı: 31 para birimi (EUR, CHF, USD…), varsayılan bölgeye göre
-• Her satırda mini grafik: fiyatın yanında 24 saatlik eğilim
+İZLEME LİSTESİ: 32 BORSADA 41 PİYASA
+• Boş liste: en büyük 5 coini tek dokunuşla ekle
+• Binance, Coinbase, Kraken, OKX, Bybit ve daha birçoğundan spot ve vadeli – istersen hisseler, altın ve döviz (TradFi), otomatik olarak ayrı bir grupta
+• DexScreener üzerinden DEX tokenleri
+• Kaydır: sola sil (Geri al ile), sağa favori; gruplar, sürükleyerek sıralama
+• Her coin için not, örn. giriş fiyatın
+• İkinci “≈ değer” satırı 31 para biriminden birinde (EUR, CHF, USD …), varsayılan bölgeye göre
+• Her satırda mini grafik; 24 saatlik veya kendi saat diliminde 00:00’dan beri % değişim
 • Ayrı sekmede portföy: alım ve satımlar, ortalama fiyat, kâr/zarar ve kendi para biriminde toplam değer
-• Referans tarihi dışa aktarımı: herhangi bir tarihteki portföy değeri (örn. 31.12) kendi para biriminde CSV olarak – vergi için pratik, vergi danışmanlığı değildir
+• Referans tarihi dışa aktarımı: herhangi bir tarihteki portföy değeri (örn. 31.12) CSV olarak – vergi danışmanlığı değildir
+• Satırlarda “güncel değil” veya “borsaya erişilemiyor” uyarısı
 
-STRATEJİNE UYGUN ALARMLAR
-• Fiyat bir seviyenin üstünde veya altında, yüzde olarak yükseliş veya düşüş
-• Kendi para biriminde alarmlar, örn. bir USDT paritesinde 60.000 EUR'da
+KENDİ KURALLARINLA ALARMLAR
+• Fiyat bir seviyenin üstünde veya altında ya da yüzde olarak yükseliş veya düşüş
+• Kendi para biriminde alarmlar, örn. bir USDT çiftinde 60.000 EUR’da
 • Cümle olarak alarm: “BTC fiyatı 60.000 CHF altına düştüğünde bana haber ver.”
-• Bir zaman aralığında x % hareket, örn. 1 saatte %5
+• Bir zaman aralığında %x hareket, örn. 1 saatte %5
 • Hacim sıçraması: işlem hacmi aniden ortalamanın çok üstünde
-• Tek seferlik veya tekrarlayan, ses (kendi ses dosyan da), titreşim ve isteğe bağlı sesli duyuru ile
-• Ayarlanabilir sessiz süre alarm yağmurunu önler
-• Sessiz saatler: gece (örn. 23–7) alarmlar ses, titreşim ve okuma olmadan
+• Tek seferlik veya tekrarlayan; ses (kendi ses dosyan da), titreşim ve isteğe bağlı sesli duyuruyla
+• Ayarlanabilir bekleme süresi alarm yağmurunu önler
+• Sessiz saatler: gece (örn. 23–7) alarmlar ses, titreşim ve sesli okuma olmadan gelir
 • “Alarmı test et”: alarmın nasıl geldiğini önceden duy ve hisset
 
-OLAĞANDIŞI ETKİNLİK VE NEDEN HAREKET EDİYOR?
+OLAĞANDIŞI ETKİNLİK VE “BU NEDEN HAREKET EDİYOR?”
 • Olağandışı Etkinlik, listendeki alışılmadık fiyat ve hacim hareketlerini yakalar – isteğe bağlı bildirimlerle
 • “Bu neden hareket ediyor?” hareketi hacim, genel piyasa ve vadeli işlem verileriyle açıklar, kısa bir özetle – yatırım tavsiyesi değildir
 
 PİYASA GÖRÜNÜMÜ
-• Crypto Pulse: şu an neler oluyor? BTC, ETH, SOL, BTC’ye karşı altcoinler, hacim, Fear & Greed, funding, ETH gas ve tek cümlelik özet, tahmin yok
-• Geçmişi ve isteğe bağlı bildirimiyle Korku ve Açgözlülük Endeksi
+• Crypto Pulse: şu anda neler oluyor – BTC, ETH, SOL, BTC’ye karşı altcoinler, hacim, Fear & Greed, fonlama, ETH gas ve tek cümlelik özet, tahmin yok
+• Geçmişi ve isteğe bağlı bildirimleriyle Korku ve Açgözlülük Endeksi
 • Kripto piyasası: kendi para biriminde toplam piyasa değeri ve 24 sa hacim
-• Piyasa sekmesi: olası bir zirve veya dip işaretleriyle piyasa evresi (tahmin değil), yarılanma geri sayımı, döngü karşılaştırması, dominans ve altcoin sezonu
-• Coin analizi: RSI, trend, Pi Cycle ve Bitcoin'e karşı güç
-• Vadeli işlem verileri: fonlama oranı ve açık pozisyon
+• Piyasa sekmesi: olası bir zirve veya dip işaretleriyle piyasa evresi (tahmin değil), yarılanma geri sayımı, hakimiyet, altcoin sezonu
+• Coin analizi: RSI, trend, Pi Cycle ve Bitcoin’e karşı güç
+• Vadeli işlem verileri: fonlama oranı ve açık pozisyon, kısa açıklamalarla
 • Ethereum, Base, Arbitrum, Polygon, BNB Chain ve Bitcoin için ağ ücretleri, gas alarmıyla
-• Kısa açıklamalar: fonlama oranı, açık pozisyon, RSI, Pi Cycle
 
-WIDGET'LAR VE BİLDİRİMLER
-• Widget’lar: tüm liste, bugünkü değişimle portföy değeri, fiyat ve grafikle tek coin – mum veya çizgi, en yüksek/orta/en düşük işaretleriyle
-• Her parite için sessiz fiyat bildirimi
-• 15 saniyede bir sık güncelleme, arka planda 15 dakikadan itibaren
+WIDGET’LAR VE BİLDİRİMLER
+• Widget’lar: tüm liste, bugünkü değişimle portföy toplamı, grafikli tek coin (mum veya çizgi) ve en yüksek/orta/en düşük işaretleri
+• Her çift için sessiz fiyat bildirimi
+• 15 saniyeye kadar sık güncelleme, arka planda 15 dakikadan itibaren
 
 DAHASI
-• Sesli çıkış: fiyatlar ve alarmlar yüksek sesle okunur
+• Fiyatlar ve alarmlar sesli okunur
 • Seçtiğin bir dosyaya yedekleme ve geri yükleme – Android ile iPhone arasında da
 • Uygulama kısayolları, açık ve koyu mod
 • Uyumlu uygulama simgesiyle beş vurgu rengi
@@ -57,6 +57,6 @@ DAHASI
 • 31 dilde kullanılabilir
 
 ÖNCE GİZLİLİK
-Hesap yok, reklam yok, analiz yok. Fiyatlar doğrudan borsaların herkese açık API'lerinden gelir. Listen, alarmların ve varlıkların cihazında kalır. Açık kaynak (MIT Lisansı) – kod GitHub'da herkese açık.
+Hesap yok, reklam yok, analiz yok. Fiyatlar doğrudan borsaların herkese açık API’lerinden gelir. İzleme listen, alarmların ve varlıkların cihazında kalır. Açık kaynak (MIT) – kod GitHub’da herkese açık.
 
-Not: Crypto Checker yalnızca fiyatları gösterir. Bir borsa veya cüzdan değildir, işlem yapmaz ve yatırım tavsiyesi değildir.
+Not: Crypto Checker yalnızca fiyatları gösterir. Bir borsa veya cüzdan değildir, işlem yapmaz ve yatırım tavsiyesi vermez.

@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.ui.components.RollingNumberText
+import com.cryptochecker.app.ui.components.changePill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.display
@@ -165,9 +165,6 @@ private fun TodayPill(percent: Double, modifier: Modifier = Modifier) {
         fontWeight = FontWeight.SemiBold,
         color = color,
         contentDescription = stringResource(R.string.widget_portfolio_today, A11yText.change(LocalContext.current, percent)),
-        modifier = modifier
-            .clip(RoundedCornerShape(50))
-            .background(color.copy(alpha = 0.14f))
-            .padding(horizontal = 8.dp, vertical = 2.dp)
+        modifier = modifier.changePill(color)
     )
 }

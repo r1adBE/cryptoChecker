@@ -24,7 +24,7 @@
     <string name="a11y_chart">차트 %1$s: 시작 %2$s, 끝 %3$s, %4$s. 고가 %5$s, 저가 %6$s.</string>
     <string name="a11y_chart_empty">차트: 데이터 없음</string>
     <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
-    <string name="a11y_cycle">주기 %1$s: 반감기 이후 %2$s, %3$d일째.</string>
+    <string name="a11y_cycle">사이클 %1$s: 반감기 이후 %2$s, %3$d일째.</string>
     <string name="a11y_cycle_top">%2$d일째 고점 %1$s.</string>
     <string name="a11y_cycle_bottom">%2$d일째 저점 %1$s.</string>
     <string name="a11y_cycle_double_top">%2$d일째 이중 고점 %1$s.</string>

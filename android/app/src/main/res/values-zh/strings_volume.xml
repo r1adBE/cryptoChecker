@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">成交量激增</string>
     <string name="alarm_volume_factor_label">最近一小时成交量与正常水平之比</string>
-    <string name="alarm_volume_hint">成交量数据来自 Binance —— 未在 Binance 上市的交易对永远不会触发。</string>
+    <string name="alarm_volume_hint">成交量数据来自 Binance——未在 Binance 上市的交易对不会触发。</string>
     <string name="notification_volume_spike_text">最近一小时成交量为正常的 %1$s×</string>
     <string name="tts_direction_volume_spike">伴随成交量激增</string>
 

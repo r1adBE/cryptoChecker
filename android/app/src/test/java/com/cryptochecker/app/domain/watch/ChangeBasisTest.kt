@@ -232,4 +232,13 @@ class ChangeBasisTest {
         assertEquals(local + 25 * ChangeBasisMath.HOUR_MILLIS, ChangeBasisMath.dayEnd(ChangeBasis.LOCAL_DAY, local, zurich))
         assertNull(ChangeBasisMath.dayEnd(ChangeBasis.ROLLING_24H, utcStart, zurich))
     }
+
+    @Test
+    fun `chart zone follows the basis`() {
+        assertEquals(java.time.ZoneOffset.ofHours(8), ChangeBasisMath.chartZone(ChangeBasis.utc(8)!!, zurich))
+        assertEquals(java.time.ZoneOffset.UTC, ChangeBasisMath.chartZone(ChangeBasis.UTC_DAY, zurich))
+        assertEquals(java.time.ZoneOffset.ofHours(-5), ChangeBasisMath.chartZone(ChangeBasis.utc(-5)!!, zurich))
+        assertEquals(zurich, ChangeBasisMath.chartZone(ChangeBasis.LOCAL_DAY, zurich))
+        assertEquals(zurich, ChangeBasisMath.chartZone(ChangeBasis.ROLLING_24H, zurich))
+    }
 }

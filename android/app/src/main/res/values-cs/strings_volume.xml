@@ -3,8 +3,8 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Skok objemu</string>
     <string name="alarm_volume_factor_label">Objem poslední hodiny oproti normálu</string>
-    <string name="alarm_volume_hint">Data o objemu pocházejí z Binance – páry, které tam nejsou, se nikdy nespustí.</string>
-    <string name="notification_volume_spike_text">Objem %1$s× normál za poslední hodinu</string>
+    <string name="alarm_volume_hint">Data o objemu pocházejí z Binance – alarmy pro páry, které tam nejsou, se nikdy nespustí.</string>
+    <string name="notification_volume_spike_text">Objem %1$s× obvyklého za poslední hodinu</string>
     <string name="tts_direction_volume_spike">se skokem objemu</string>
 
     <!-- Einzel-Widget: Chart-Zeitraum -->

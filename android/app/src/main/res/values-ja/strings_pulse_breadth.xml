@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">トップ%1$d</string>
+    <string name="pulse_breadth_spoken">トップ%1$d：上昇 %2$d、下落 %3$d</string>
+    <string name="pulse_breadth_hint">トップ%1$d：時価総額の大きいコイン（ステーブルコインを除く）、24時間の変動（CoinGecko）。</string>
+    <string name="pulse_breadth_note_broad_up">全面高：大型コインの多くが上昇しています。</string>
+    <string name="pulse_breadth_note_broad_down">全面安：大型コインの多くが下落しています。</string>
+    <string name="pulse_breadth_note_narrow_up">ビットコインは上昇していますが、ほかの大型コインの多くは追随していません。</string>
+    <string name="pulse_breadth_note_narrow_down">ビットコインは下落していますが、ほかの大型コインの多くは持ちこたえています。</string>
+</resources>

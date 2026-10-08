@@ -3,6 +3,6 @@
     <string name="note_title">Ghi chú</string>
     <string name="note_add">Thêm ghi chú</string>
     <string name="note_edit">Sửa ghi chú</string>
-    <string name="note_hint">vd. vào lệnh ở 0.42, mục tiêu 0.60</string>
+    <string name="note_hint">vd. vào lệnh ở 0,42, mục tiêu 0,60</string>
     <string name="note_remove">Bỏ</string>
 </resources>

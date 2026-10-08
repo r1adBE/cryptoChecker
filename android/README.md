@@ -22,6 +22,14 @@ r1AD — riad.work@outlook.com
 
 ### Zuletzt dazugekommen
 
+* **Coin-Logos** — echte Logos von CoinGecko in Merkliste, Aktionsblatt, Portfolio,
+  Markt-Karten und in den Widgets Merkliste und Einzel-Coin; alle Logos der rund 1000
+  grössten Coins (Lücken wie Gold, Silber, Aktien aus der Binance-Symbolliste) auf einmal geladen (nie einzeln, CoinGecko sieht keine Merkliste) und
+  auf dem Gerät gespeichert, sonst Initialen-Kreis (DEX-Pools immer).
+  Schalter «In der App», «Im Portfolio» (ab Werk als einziger an) und «In Widgets» unter
+  Einstellungen › Darstellung › Coin-Logos
+  (`domain/logos/CoinLogos.kt`, `data/CoinLogoRepository.kt`, `ui/components/CoinBadge.kt`,
+  `data/CoinLogoSync.kt`, `widget/WidgetCoinLogos.kt`).
 * **Live-Kurse per WebSocket** — solange die Merkliste offen ist, kommen die Kurse
   von Binance, Bybit, OKX, Coinbase und Kraken live (REST bleibt Rückfall); «LIVE»
   in der Status-Pille, Schalter unter Einstellungen › Aktualisierung
@@ -106,7 +114,7 @@ r1AD — riad.work@outlook.com
     beschrieben (`util/A11yText.kt`, `util/ChartSummary.kt`).
 * **Mini-Chart** — 24-Std.-Linie in jeder Merklisten-Zeile (stündliche
   Schlusskurse, 15 Min. zwischengespeichert, ab 360 dp Bildschirmbreite;
-  abschaltbar). Für TalkBack Teil des Zeilensatzes (Start, Ende, Hoch, Tief).
+  unter Einstellungen › Merkliste, bei Neuinstallation aus). Für TalkBack Teil des Zeilensatzes (Start, Ende, Hoch, Tief).
 * **15 neue Börsen** (siehe «Umfang»).
 * **Notiz pro Coin** — kurze eigene Notiz unter dem Paar,
   durchsuchbar und Teil der Sicherung (Room-Version 8).
@@ -148,8 +156,10 @@ r1AD — riad.work@outlook.com
 
 * **Crypto Pulse «Was gerade auffällt»** — erste Karte im Markt-Tab:
   Schlagzeile mit Leitsatz (z. B. «Bitcoin führt den Markt an.») und einem
-  zweiten Satz zu Volumen und Funding, darunter BTC, ETH, SOL (24 h) und ein
-  Funding-Chip (nur wenn erhöht/negativ). «Warum? →» klappt «Markt heute»
+  zweiten Satz zu Volumen und Funding, darunter BTC, ETH, SOL (24 h), ein
+  Funding-Chip (nur wenn erhöht/negativ), die Marktbreite «Top 30 ▲ 22 · ▼ 8» (grösste Coins
+  ohne Stablecoins, 24 h) und der Krypto-Markt gesamt mit Veränderung; ein Satz zur Marktbreite
+  nur in deutlichen Fällen. «Warum? →» klappt «Markt heute»
   (nur Altcoins vs. Bitcoin — die Kurse stehen schon in den Pillen) und die Faktor-Checkliste auf — nur Funding (! / –);
   Volumen, Fear & Greed und Gas stehen nicht doppelt, sie haben eigene Karten
   im Tab. Feste Regeln, keine Prognose (`domain/market/CryptoPulse.kt`,
@@ -188,8 +198,9 @@ r1AD — riad.work@outlook.com
   der Hinweis «… wird jetzt überwacht» direkt «Alarm setzen», solange die
   neuen Paare noch keinen Alarm haben.
 * **Chart im Aktionsblatt** — über Alarm · Warum? · Favorit: 24h · 7T · 30T, Kerzen/Linie (zuletzt gewählt), Geometrie und Kerzen wie das Einzel-Widget, lange drücken/waagrecht ziehen zeigt Kurs, Zeit und Veränderung; DEX-Paare ohne Chart (`ui/features/watchlist/WatchSheetChartView.kt`, `domain/watch/SheetChart.kt`).
-* **Stern nur bei Favoriten** — in der Merkliste steht der Stern nur noch vor
-  Favoriten, nicht als leerer Umriss in jeder Zeile.
+* **Favoriten ohne Stern-Knopf** — Favoriten erkennt man am Akzent-Rand der Karte und,
+  mit eingeschalteten Coin-Logos, an einem kleinen Stern am Logo; die Zeile verliert keine
+  Breite mehr an einen eigenen Stern.
 * **Alarm testen** — Einstellungen → Alarme & Benachrichtigungen; gleicher Weg wie ein echter
   Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alles eingerichtet».
 * **Zyklus-Signale** — statt «Top-/Bottom-Score» heisst es «Hinweise auf ein
@@ -221,7 +232,7 @@ r1AD — riad.work@outlook.com
 * **Wischen in der Merkliste** — nach links = löschen mit «Rückgängig», nach
   rechts = Favorit (`ui/features/watchlist/WatchSwipe.kt`). Nicht im Sortiermodus.
   Ein Tipp öffnet die Aktionen sofort; kein Doppeltippen (es hätte jeden Tipp
-  um ~0,3 s verzögert) — Favorit auch per Stern oder im Aktionen-Menü. «Löschen» im
+  um ~0,3 s verzögert) — Favorit auch im Aktionsblatt. «Löschen» im
   Aktionen-Menü wirkt wie Wischen: sofort, mit «Rückgängig», ohne Rückfrage.
 * **Akku-Hinweis erst nach dem ersten Alarm** — nie beim ersten Start oder beim
   Hinzufügen der ersten Coins; er erscheint, sobald man nach dem ersten Alarm

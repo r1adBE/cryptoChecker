@@ -12,7 +12,7 @@
     <string name="settings_watchlist_value_price_only">Harga saja</string>
     <string name="settings_row_alarms">Alarm</string>
     <string name="settings_portfolio_value_locked">Aktif, dengan kunci</string>
-    <string name="settings_row_dated_futures">Futures berjangka</string>
+    <string name="settings_row_dated_futures">Futures dengan jatuh tempo</string>
     <string name="settings_tradfi_futures">Saham, komoditas, dan valas (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Saat memilih pasangan, juga menampilkan futures atas saham, emas dan komoditas lain, mata uang, serta perusahaan sebelum IPO. Ini kontrak, bukan token.</string>
     <string name="settings_watchlist_activity_card">Aktivitas tidak biasa di daftar</string>

@@ -1,10 +1,10 @@
 Novinky ve verzi 16.2.2
-• Crypto Pulse: co se právě děje na trhu
-• Neobvyklá aktivita, Proč se to hýbe? nově s krátkým shrnutím
-• Otestovat alarm
-• Ceny a alarmy ve vaší měně
-• Export k rozhodnému dni: hodnota portfolia v CSV
-• Přístupnost: modrá/oranžová, vysoký kontrast, prohozené barvy, TalkBack
-• Start jedním klepnutím, noční klid, zámek a widget Portfolio, alarm jako věta
-• 15 nových burz, síťové poplatky s gas alarmem
-• Svíčkový graf ve widgetu, tržní kapitalizace
+• Crypto Pulse: co se právě děje
+• Neobvyklá aktivita, „Proč se to hýbe?“ se shrnutím
+• Start jedním klepnutím: top 5 mincí, živé ceny
+• Přejetím smazat (se Zpět) nebo označit oblíbené
+• Ceny a alarmy ve vaší měně, export k datu (CSV)
+• Přístupnost: modrá/oranžová, kontrast, TalkBack
+• Noční klid, test alarmu, alarm jako věta, zámek, widget
+• 15 nových burz, gas alarm, svíčky ve widgetu
+• Akcie, zlato, měny (TradFi); % podle pásma

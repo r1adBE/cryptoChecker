@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
-    <string name="watchlist_status_group_empty">इस समूह में कोई जोड़ी नहीं</string>
-    <string name="watchlist_status_none_traded">यहाँ कोई ट्रेड होने वाली जोड़ी नहीं</string>
-    <string name="watchlist_group_empty_hint">किसी समूह की जोड़ियाँ चुनने के लिए उसे देर तक दबाएँ।</string>
+    <string name="watchlist_status_group_empty">इस समूह में कोई पेयर नहीं</string>
+    <string name="watchlist_status_none_traded">यहाँ कोई ट्रेड होने वाला पेयर नहीं</string>
+    <string name="watchlist_group_empty_hint">किसी समूह के पेयर चुनने के लिए उसे देर तक दबाएँ।</string>
     <string name="watchlist_just_refreshed">अभी अपडेट हुआ</string>
 </resources>

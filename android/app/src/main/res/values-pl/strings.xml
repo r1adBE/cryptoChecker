@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Błąd: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Brak par walutowych</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Wczytuje aktualne pary wybranego rynku.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Wczytuje aktualne pary wybranej giełdy.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Aktualizuj pary walutowe</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchronizuj teraz!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Ostatnia synchronizacja: %1$s</string>
@@ -131,7 +131,7 @@
     <string name="accent_blue">Niebieski</string>
     <string name="accent_green">Zielony</string>
     <string name="settings_rolling_futures">Z kontraktami kwartalnymi i innymi terminowymi</string>
-    <string name="settings_rolling_futures_hint">Wył.: kontrakty terminowe, których brak na liście giełdy, są oznaczane jako niehandlowane zamiast sprawdzania ich pojedynczo. Oszczędza czas przy każdym odświeżeniu.</string>
+    <string name="settings_rolling_futures_hint">Wył.: kontrakty terminowe, których brak na liście giełdy, są oznaczane jako już nienotowane, zamiast być sprawdzane pojedynczo. Oszczędza to czas przy każdym odświeżeniu.</string>
     <string name="notification_refreshing">Aktualizowanie cen…</string>
     <string name="notification_service_title">Crypto Checker często odświeża kursy</string>
     <string name="notification_service_starting">Uruchamianie…</string>
@@ -164,7 +164,7 @@
     <string name="settings_alarm_cooldown">Przerwa przed ponownym alarmem</string>
     <string name="settings_tts">Komunikaty głosowe</string>
     <string name="settings_tts_alarms_only">Tylko alarmy</string>
-    <string name="settings_tts_alarms_only_hint">Wył.: każda aktualizacja pary z opcją „Czytaj cenę“ jest odczytywana.</string>
+    <string name="settings_tts_alarms_only_hint">Wył.: każda aktualizacja pary z opcją „Czytaj cenę” jest odczytywana.</string>
     <string name="settings_speech_rate">Tempo mowy: %1$.1f×</string>
     <string name="settings_tts_test">Testuj głos</string>
     <string name="battery_title">Aktualne ceny</string>
@@ -227,7 +227,7 @@
     <string name="market_scores_hint">Szczyt = oznaki jak na dawnych szczytach cyklu, dołek = oznaki jak na dawnych dołkach cyklu. Od 4 punktów przeważa jedna strona, od 7 jest ekstremalnie. Bez ceny docelowej i bez prognozy.</string>
     <string name="market_scores_none">Brak aktywnych oznak szczytu ani dołka: spokojna faza środkowa, decyduje trend ceny.</string>
     <string name="market_scores_info_title">Sygnały cyklu</string>
-    <string name="market_scores_info_text">Oznaki możliwego szczytu liczą sygnały widoczne na szczytach dawnych cykli: silne przewartościowanie (MVRV), bardzo wysokie przychody górników (Puell), cena daleko nad średnią 200-dniową lub 200-tygodniową, wzrost paraboliczny i okno 12–18 miesięcy po halvingu.\n\nOznaki możliwego dołka liczą sygnały dawnych den: niskie MVRV, słabe przychody górników, silny spadek od szczytu wszech czasów, cena blisko średniej 200-tygodniowej, spadający hashrate i szczyt sprzed ponad roku.\n\nOd 4 punktów przewagi strefa to Bull lub Bear, od 7 Ekstremalna. Gdy żadna strona nie prowadzi, decyduje trend ceny. 0/10 po obu stronach oznacza: ani euforia, ani kapitulacja.\n\nBez ceny docelowej i bez prognozy: sygnały opisują jedynie, jak wyglądały dawne cykle.</string>
+    <string name="market_scores_info_text">Oznaki możliwego szczytu liczą sygnały widoczne na szczytach dawnych cykli: silne przewartościowanie (MVRV), bardzo wysokie przychody górników (Puell), cena daleko nad średnią 200-dniową lub 200-tygodniową, wzrost paraboliczny i okno 12–18 miesięcy po halvingu.\n\nOznaki możliwego dołka liczą sygnały dawnych dołków: niskie MVRV, słabe przychody górników, silny spadek od szczytu wszech czasów, cena blisko średniej 200-tygodniowej, spadający hashrate i szczyt sprzed ponad roku.\n\nOd 4 punktów przewagi strefa to Bull lub Bear, od 7 Extreme. Gdy żadna strona nie prowadzi, decyduje trend ceny. 0/10 po obu stronach oznacza: ani euforia, ani kapitulacja.\n\nBez ceny docelowej i bez prognozy: sygnały opisują jedynie, jak wyglądały dawne cykle.</string>
     <string name="battery_open_settings">Otwórz ustawienia baterii</string>
     <string name="battery_steps">W informacjach o aplikacji dotknij Bateria (lub Użycie baterii przez aplikację) i wybierz Bez ograniczeń.</string>
     <string name="explorer_select_placeholder">Wybierz</string>
@@ -318,7 +318,7 @@
     <string name="insights_chart_axis">Lata od halvingu</string>
     <string name="insights_chart_hint">Cena jako wielokrotność ceny z dnia halvingu (skala log). Dawne cykle to wzorzec, nie prognoza.</string>
     <string name="insights_source_history">Źródło: Coin Metrics (CC BY-NC 4.0), Binance</string>
-    <string name="insights_fng_title">Strach i chciwość</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
     <string name="fng_extreme_fear">Skrajny strach</string>
     <string name="fng_fear">Strach</string>
     <string name="fng_neutral">Neutralnie</string>
@@ -348,8 +348,8 @@
         <item quantity="other">Tylko %1$d dni historii – brakuje niektórych wskaźników.</item>
     </plurals>
     <string name="coin_price_only">Tylko na podstawie ceny – dane on-chain (MVRV, Puell, hashrate) są darmowe tylko dla Bitcoina.</string>
-    <string name="ind_rsi_weekly">RSI (tydzień)</string>
-    <string name="ind_rsi_daily">RSI (dzień)</string>
+    <string name="ind_rsi_weekly">RSI (tygodniowy)</string>
+    <string name="ind_rsi_daily">RSI (dzienny)</string>
     <string name="ind_pi_cycle">Pi cycle (111/350 dni)</string>
     <string name="ind_cross">Trend 50/200 dni</string>
     <string name="ind_vs_btc">Siła względem Bitcoina (90 dni)</string>
@@ -359,7 +359,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Faza rynku zmieniła się z %1$s na %2$s.</string>
     <string name="settings_zone_alerts">Powiadamiaj o zmianie fazy</string>
-    <string name="settings_zone_alerts_hint">Sprawdza dwa razy dziennie i powiadamia, gdy Bitcoin zmieni strefę, np. z Neutralnej na Bull.</string>
+    <string name="settings_zone_alerts_hint">Sprawdza dwa razy dziennie i powiadamia, gdy Bitcoin zmieni strefę, np. z Neutral na Bull.</string>
     <string name="alarm_condition_move_percent">Zmienia się o</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">w ciągu %1$d h</item>

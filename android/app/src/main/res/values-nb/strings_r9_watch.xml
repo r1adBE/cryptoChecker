@@ -7,6 +7,6 @@
     <string name="watch_action_favorite">Favoritt</string>
     <string name="add_alarm_action">Sett alarm</string>
     <string name="welcome_watch_q">Hva skjer?</string>
-    <string name="welcome_alert_q">Når bør jeg handle?</string>
+    <string name="welcome_alert_q">Når bør jeg reagere?</string>
     <string name="welcome_understand_q">Hvorfor?</string>
 </resources>

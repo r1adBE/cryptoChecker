@@ -117,7 +117,7 @@
     <string name="ind_points_top">+%1$d قمة</string>
     <string name="ind_points_bottom">+%1$d قاع</string>
     <string name="market_phase_disclaimer">استنادًا إلى الدورات السابقة واتجاه السعر. ليس توقعًا ولا نصيحة استثمارية.</string>
-    <string name="action_retry">إعادة</string>
+    <string name="action_retry">إعادة المحاولة</string>
     <string name="settings_section_language">اللغة</string>
     <string name="settings_language_system">لغة النظام</string>
     <string name="settings_language_choose">اختيار اللغة</string>
@@ -377,7 +377,7 @@
     <string name="notification_zone_title">البيتكوين: %1$s</string>
     <string name="notification_zone_text">تغيّرت مرحلة السوق من %1$s إلى %2$s.</string>
     <string name="settings_zone_alerts">التنبيه عند تغيّر المرحلة</string>
-    <string name="settings_zone_alerts_hint">يفحص مرتين يوميًا وينبّه عندما يغيّر البيتكوين منطقته، مثلًا من محايد إلى Bull.</string>
+    <string name="settings_zone_alerts_hint">يفحص مرتين يوميًا وينبّه عندما يغيّر البيتكوين منطقته، مثلًا من Neutral إلى Bull.</string>
     <string name="alarm_condition_move_percent">يتحرك بنسبة</string>
     <plurals name="alarm_window_hours">
         <item quantity="zero">خلال %1$d ساعة</item>
@@ -393,8 +393,8 @@
     <string name="settings_fng_above">Fear &amp; Greed: تنبيه فوق</string>
     <string name="option_off">إيقاف</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">هبط المؤشر تحت %1$d – السوق خائف.</string>
-    <string name="notification_fng_above">ارتفع المؤشر فوق %1$d – السوق طمّاع.</string>
+    <string name="notification_fng_below">هبط المؤشر تحت %1$d – الخوف يسود السوق.</string>
+    <string name="notification_fng_above">ارتفع المؤشر فوق %1$d – الطمع يسود السوق.</string>
     <string name="futures_title">بيانات العقود</string>
     <string name="futures_funding">معدل التمويل</string>
     <string name="futures_next_funding">التالي بعد %1$d س %2$d د</string>
@@ -412,8 +412,8 @@
     <string name="backup_export">تصدير</string>
     <string name="backup_import">استيراد</string>
     <string name="backup_restore_confirm">الاستيراد يستبدل قائمتك (مع الملاحظات والمجموعات) وتنبيهاتك ومفضلتك ومحفظتك وإعداداتك بالنسخة الاحتياطية.</string>
-    <string name="backup_exported">تم حفظ النسخة.</string>
-    <string name="backup_failed">لم ينجح ذلك. هل هذه نسخة Crypto Checker؟</string>
+    <string name="backup_exported">تم حفظ النسخة الاحتياطية.</string>
+    <string name="backup_failed">لم ينجح ذلك. هل هذه نسخة احتياطية من Crypto Checker؟</string>
     <string name="backup_restored">تمت الاستعادة: %1$s، %2$s.</string>
     <plurals name="backup_restored_pairs">
         <item quantity="zero">%1$d زوج</item>

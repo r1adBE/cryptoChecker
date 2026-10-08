@@ -4,5 +4,5 @@
     <!-- Titel des Formulars und Screenreader-Name des Stifts -->
     <string name="watch_edit_title">Modifica coppia</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Gli avvisi restano – controlla le soglie</string>
+    <string name="watch_edit_alarms_warning">Gli allarmi restano – controlla le soglie</string>
 </resources>

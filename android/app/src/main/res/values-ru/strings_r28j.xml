@@ -9,7 +9,7 @@
     <string name="a11y_portfolio_show_amounts">Показать суммы</string>
     <string name="a11y_amount_hidden">сумма скрыта</string>
     <string name="portfolio_alarm_action">Оповещение</string>
-    <string name="portfolio_alarm_title">Оповещение «стоимость портфеля»</string>
+    <string name="portfolio_alarm_title">Оповещение о стоимости портфеля</string>
     <string name="portfolio_alarm_kind_above">Портфель выше суммы</string>
     <string name="portfolio_alarm_kind_below">Портфель ниже суммы</string>
     <string name="portfolio_alarm_kind_up">Портфель растёт</string>

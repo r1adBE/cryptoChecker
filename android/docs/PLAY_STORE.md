@@ -131,7 +131,14 @@ Vor dem Hochladen prüfen:
   weitere Upload braucht einen **höheren** `versionCode`.
 * Release-Build einmal auf einem echten Gerät installieren und kurz testen
   (R8/Minify ist aktiv – Fehler durch entfernte Klassen zeigen sich nur im
-  Release-Build).
+  Release-Build). Dabei auch das Merkliste-Widget hinzufügen und eine
+  Aktualisierung auslösen: Kopf **und** Zeilen müssen neue Kurse zeigen.
+* **16-KB-Seitengrösse:** Apps mit targetSdk 35+ müssen auf Geräten mit
+  16-KB-Speicherseiten laufen. Die App selbst hat keinen nativen Code; ob eine
+  Bibliothek `.so`-Dateien mitbringt, zeigt Android Studio unter
+  *Build › Analyze APK…* (Ordner `lib/`). Ist der Ordner leer oder fehlt er, ist
+  nichts zu tun; sonst meldet die Play Console nicht ausgerichtete Bibliotheken
+  beim Hochladen.
 
 ---
 
@@ -201,7 +208,7 @@ aber völlig ausreichend.
 Das Symbol stammt aus dem aktuellen App-Icon (Glocke, Orange) – Google rundet
 die Ecken selbst ab, deshalb ist die Vorlage randlos quadratisch. Wer andere
 Grafiken möchte: Vorlage ist
-`cryptoCheckerIOS/App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png`.
+`../ios/App/Resources/Assets.xcassets/AppIcon.appiconset/icon-1024.png`.
 Für Sprachen ohne eigene Feature-Grafik zeigt Play die englische an.
 
 **Markenfarbe Orange:** Orange ist die Erkennungsfarbe (Icon, Standard-Akzent bei
@@ -238,7 +245,7 @@ Beschriftungen in 31 Sprachen, Rahmen-Skript):
    ```
    Im Emulator: Kamera-Symbol in der Seitenleiste.
 3. Die fünf Szenen des Kits (in dieser Reihenfolge, Titel hier auf Deutsch):
-   1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart
+   1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart (vorher unter Einstellungen › Merkliste den Mini-Chart und unter Darstellung › Coin-Logos «In der App» einschalten – bei Neuinstallation beide aus)
    2. «Warum bewegt sich das?» – das Blatt mit «Kurz gesagt»
    3. «Deine Merkliste, deine Börsen» – Seite «Paar hinzufügen» («+» in der Merkliste) mit der Börsenauswahl
    4. «Alarme, wenn es zählt» – Alarm-Editor mit Satz und «Alarm testen»
@@ -426,9 +433,9 @@ Sprache anlegen (max. 500 Zeichen).
 
 - [ ] Datenschutz-URL öffnet sich im Browser (Deutsch und Englisch)
 - [ ] `keystore.properties` und `.jks` gesichert, **nicht** im Repository
-- [ ] AAB mit `versionCode 17` gebaut und auf einem Gerät getestet
+- [ ] AAB mit `versionCode 17` gebaut und auf einem Gerät getestet (inkl. Merkliste-Widget)
 - [ ] Store-Texte en-US (Standard) + weitere Sprachen eingefügt
-- [ ] Icon 512 × 512, Feature-Grafik 1024 × 500, mind. 2 (besser 4+) Screenshots
+- [ ] Icon 512 × 512 (RGBA, geprüft), Feature-Grafik 1024 × 500, 5 Screenshots je Sprache (mind. en-US und de-DE) mit `tools/frame_screenshots.py`
 - [ ] Kategorie «Finanzen», Kontakt-E-Mail eingetragen
 - [ ] App-Inhalte vollständig: Datenschutz, Werbung (Nein), App-Zugriff,
       Einstufung, Zielgruppe 18+, Datensicherheit, Finanzfunktionen,

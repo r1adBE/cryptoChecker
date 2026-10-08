@@ -1,6 +1,6 @@
 Versjon 16.2.2
 • Crypto Pulse: hva som skjer i markedet nå
-• Hvorfor beveger den seg? nå med kort oppsummering
+• «Hvorfor beveger den seg?»: en databasert forklaring på kursbevegelser, med kort oppsummering
 • Test alarm: lyd, vibrasjon og opplesning
 • Omregnede kurser: en ekstra linje «≈ verdi» i omregningsvalutaen din – 31 valutaer som EUR, CHF, USD, GBP eller JPY, som standard etter enhetens region
 • Alarmer i din valuta, f.eks. ved 60 000 EUR på et USDT-par
@@ -8,7 +8,7 @@ Versjon 16.2.2
 • Tilgjengelighet: kursfarger blå/oransje i stedet for grønn/rød, lette å skille ved alle former for fargesynsvansker (rød-grønn og blå-gul); «Bytt farger for stigning/fall»: rødt for stigning, grønt for fall, slik det er vanlig i Kina, Japan, Korea og Taiwan (automatisk på der); «Høy kontrast»: sterkere kursfarger, mørkere sekundærtekst og aksentfarge, følger også systemets kontrastinnstilling; full støtte for VoiceOver: hver rad i listen, hver graf og hver widget leses opp som én setning
 • Minigraf på hver rad: 24-timers utvikling ved siden av kursen
 • «Kom i gang med ett trykk»: en tom liste tilbyr de 5 største coinene etter markedsverdi (uten stablecoins)
-• Startlisten viser sanntidskurs og endring siste 24 t – alle fem er forhåndsvalgt og legges til med én knapp
+• Startlisten viser livekurs og endring siste 24 t – alle fem er forhåndsvalgt og legges til med én knapp
 • Sveip til venstre for å slette (med Angre), til høyre for favoritt
 • Fanen Marked åpnes umiddelbart med siste data og oppdateres i bakgrunnen
 • Nattro: om natten (f.eks. 23–7) kommer alarmer lydløst – uten lyd, vibrasjon eller opplesning
@@ -16,18 +16,20 @@ Versjon 16.2.2
 • Portefølje-widget for Hjem- og låseskjerm: samlet verdi i din valuta og endring i dag
 • Hver alarm som en setning: «Gi meg beskjed når BTC faller under 60 000 CHF.»
 • Korte forklaringer av funding rate, open interest, RSI og Pi Cycle
-• Rader viser «utdatert» eller «kan ikke nås» når en kurs ikke er aktuell
+• Rader viser «utdatert» eller «børsen kan ikke nås» når en kurs ikke er aktuell
 • 15 nye børser: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
 • Nettverksgebyrer for Ethereum, Base, Arbitrum, Polygon, BNB Chain og Bitcoin i fanen Marked, med gass-alarm
 • Notat for hver mynt i overvåkingslisten
 • Velg en alarmlyd
 • Uvanlig aktivitet: oppdager uvanlige kurs- og volumbevegelser, valgfrie varsler
-• Hvorfor beveger den seg? En databasert forklaring på bevegelser
 • Portefølje som egen fane: kjøp og salg, snittpris, gevinst/tap
 • Sammenligning av sykluser: topper og bunner markert, inkl. dobbelttopp og dobbeltbunn
 • Grupper for overvåkingslisten
-• Nye alarmer: bevegelse på X % innen Y timer og volumtopp
-• Widget med én mynt: lys eller linje, grafperiode 24 t, 7 eller 30 dager, merker for høy, midt og lav, gjeldende kurs uthevet
+• Nye alarmer: bevegelse på X % innen Y timer og volum-spike
+• Widget med én mynt: candlestick eller linje, grafperiode 24 t, 7 eller 30 dager, merker for høy, midt og lav, gjeldende kurs uthevet
 • Fanen Marked: kryptomarkedets samlede markedsverdi og 24 t-volum i din valuta
 • Futures: funding rate og open interest
 • Fem aksentfarger med matchende appsymboler
+• Aksjer, gull, råvarer og valuta som futures (TradFi) hos Binance, Bybit, OKX, MEXC og Bitget – slås på under Innstillinger › Overvåkingsliste; nye par havner i gruppen «TradFi», futures med forfall i «QTLY»
+• %-endring som hos Binance: siste 24 timer, siden 00:00 i enhetens tidssone eller i en fast sone fra UTC+14 til UTC-12
+• Tydeligere navn: «Oppdater ofte» og «Livekurser»

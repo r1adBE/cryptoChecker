@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Erreur : %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Aucune paire</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Charge les paires actuelles du marché sélectionné.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Charge les paires actuelles de la plateforme sélectionnée.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Mettre à jour les paires</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchroniser maintenant</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Dernière synchro : %1$s</string>
@@ -12,7 +12,7 @@
     <string name="market_screen_sync">Synchroniser</string>
     <string name="market_screen_base">Base</string>
     <string name="market_screen_quote">Cotation</string>
-    <string name="market_screen_market">Marché</string>
+    <string name="market_screen_market">Plateforme</string>
     <string name="market_screen_contract_type">Type de contrat</string>
     <string name="market_screen_spot">Spot</string>
 
@@ -128,7 +128,7 @@
     <string name="accent_red">Rouge</string>
     <string name="accent_blue">Bleu</string>
     <string name="accent_green">Vert</string>
-    <string name="settings_rolling_futures">Incl. futures trimestriels &amp; à échéance</string>
+    <string name="settings_rolling_futures">Incl. futures trimestriels et à échéance</string>
     <string name="settings_rolling_futures_hint">Désactivé : les futures à échéance absents de la liste de la plateforme sont marqués comme « plus négociés » au lieu d\'être vérifiés un par un. Fait gagner du temps à chaque actualisation.</string>
     <string name="notification_refreshing">Actualisation des prix…</string>
     <string name="notification_service_title">Crypto Checker se met à jour souvent</string>
@@ -215,7 +215,7 @@
     <string name="tts_direction_up">a augmenté</string>
     <string name="tts_direction_down">a baissé</string>
     <string name="watchlist_refresh_report">Dernière actualisation</string>
-    <string name="watchlist_refresh_report_empty">Pas encore de détail : cette version n\'a pas encore terminé d\'actualisation complète. Touchez Actualiser et attendez que l\'indicateur s\'arrête.</string>
+    <string name="watchlist_refresh_report_empty">Pas encore de détail : cette version n\'a pas encore effectué d\'actualisation complète. Touchez Actualiser et attendez que l\'indicateur s\'arrête.</string>
     <string name="action_close">Fermer</string>
     <string name="watchlist_clear">Vider la liste de suivi</string>
     <string name="watchlist_clear_confirm">Retirer toutes les paires de la liste de suivi ? Leurs alertes seront aussi supprimées.</string>
@@ -224,7 +224,7 @@
     <string name="market_scores_info_title">Signaux de cycle</string>
     <string name="market_scores_info_text">Les signes d\'un possible sommet comptent les signaux observés aux sommets des cycles passés : forte surévaluation (MVRV), revenus des mineurs très élevés (Puell), prix bien au-dessus de la moyenne 200 jours ou 200 semaines, hausse parabolique et la fenêtre de 12 à 18 mois après le halving.\n\nLes signes d\'un possible creux comptent les signaux des creux passés : MVRV bas, faibles revenus des mineurs, forte baisse depuis le plus haut historique, prix proche de la moyenne 200 semaines, hashrate en baisse et un sommet datant de plus d\'un an.\n\nÀ partir de 4 points d\'avance la zone est Bull ou Bear, à partir de 7 Extrême. Si aucun côté ne mène, la tendance du prix décide. 0/10 des deux côtés signifie : ni euphorie ni capitulation.\n\nNi objectif de prix ni prévision : les signaux décrivent seulement à quoi ressemblaient les cycles passés.</string>
     <string name="battery_open_settings">Ouvrir les réglages de batterie</string>
-    <string name="battery_steps">Dans les infos de l\'appli, touchez Batterie (ou Utilisation de la batterie) et choisissez Non restreinte.</string>
+    <string name="battery_steps">Dans les infos de l\'app, touchez Batterie (ou Utilisation de la batterie) et choisissez Non restreinte.</string>
     <string name="explorer_select_placeholder">Veuillez choisir</string>
     <string name="explorer_bulk_title">Plusieurs paires à la fois</string>
     <string name="watchlist_sort_hint">Maintenez et faites glisser une paire, ou utilisez la poignée. Les favoris restent en haut.</string>
@@ -270,7 +270,7 @@
     <string name="loading_hint">Chargement…</string>
     <string name="explorer_select_market_hint">Choisissez une plateforme – ses paires se chargent automatiquement.</string>
     <string name="explorer_precise_title">Choisir précisément</string>
-    <string name="explorer_search_hint">Rechercher une crypto, ex. BTC ou ETH USDT</string>
+    <string name="explorer_search_hint">Rechercher une crypto, p. ex. BTC ou ETH USDT</string>
     <string name="explorer_search_loading">Recherche sur les plateformes… %1$d/%2$d</string>
     <string name="explorer_search_empty">Aucun résultat.</string>
     <string name="action_clear">Effacer</string>
@@ -294,7 +294,7 @@
     <string name="timeout_error_message">La plateforme ne répond pas pour le moment.</string>
     <string name="widget_background">Arrière-plan</string>
     <string name="widget_configure_title">Configurer le widget</string>
-    <string name="widget_configure_hint">Choisissez l\'arrière-plan et l\'opacité. La couleur suit l\'appli. Le widget affiche toute la liste ; touchez une ligne pour ouvrir l\'appli.</string>
+    <string name="widget_configure_hint">Choisissez l\'arrière-plan et l\'opacité. La couleur suit l\'app. Le widget affiche toute la liste ; touchez une ligne pour ouvrir l\'app.</string>
     <string name="settings_custom_value">Autre</string>
     <string name="insights_halving_title">Halving du Bitcoin</string>
     <plurals name="insights_halving_countdown">

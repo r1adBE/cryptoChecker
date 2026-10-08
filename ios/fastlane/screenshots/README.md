@@ -10,25 +10,24 @@ in App Store Connect hineinziehen geht genauso.
 
 ## Welche Grössen nötig sind
 
-Das Projekt ist für iPhone **und** iPad eingestellt
-(`TARGETED_DEVICE_FAMILY = "1,2"` in `CryptoChecker.xcodeproj/project.pbxproj`).
-Darum verlangt App Store Connect beide Gerätegruppen:
+Das Projekt ist **nur für das iPhone** eingestellt
+(`TARGETED_DEVICE_FAMILY = "1"`, Entscheid für die erste Einreichung). Darum
+verlangt App Store Connect nur iPhone-Screenshots:
 
 | Gerät | Pflicht? | Auflösung (Hochformat, Pixel) | Simulator |
 |---|---|---|---|
 | iPhone 6,9" | **ja** | 1320 × 2868 (oder 1290 × 2796, 1260 × 2736) | iPhone 16 Pro Max / iPhone 17 Pro Max |
 | iPhone 6,5" | nur wenn keine 6,9"-Bilder vorhanden | 1284 × 2778 oder 1242 × 2688 | iPhone 11 Pro Max / XS Max |
-| iPad 13" | **ja**, solange die App auf dem iPad läuft | 2064 × 2752 oder 2048 × 2732 | iPad Pro 13-inch (M4 oder neuer) |
+| iPad 13" | nein (erst nötig, wenn iPad später aktiviert wird) | 2064 × 2752 oder 2048 × 2732 | iPad Pro 13-inch (M4 oder neuer) |
 
 * Je Gerätegruppe und Sprache **1 bis 10** Bilder, PNG oder JPEG, **ohne
   Transparenz** (RGB, flach).
 * Kleinere iPhones und iPads skaliert Apple automatisch aus den grossen Bildern.
 * Fehlen Screenshots für eine Sprache, zeigt der Store die der Hauptsprache
   (en-US). Für den Anfang reichen also Englisch und Deutsch.
-* Soll die App **nur auf dem iPhone** erscheinen, entfällt das iPad: dazu in Xcode
-  bei beiden Targets unter *General › Supported Destinations* das iPad entfernen
-  (das setzt `TARGETED_DEVICE_FAMILY = 1`). Achtung: Ist eine Version einmal mit
-  iPad-Unterstützung veröffentlicht, lässt sich das später nicht mehr zurücknehmen.
+* iPad später aktivieren: `TARGETED_DEVICE_FAMILY` auf `"1,2"` in
+  `tools/gen_xcodeproj.py` und `project.yml`, dann iPad-Screenshots 13" ergänzen.
+  Einmal mit iPad veröffentlicht, lässt sich das nicht mehr zurücknehmen.
 
 ## Ordnerstruktur für fastlane
 
@@ -38,7 +37,6 @@ fastlane/screenshots/
     01_watchlist.png        (1320 × 2868 → iPhone 6,9")
     02_why.png
     ...
-    01_watchlist_ipad.png   (2064 × 2752 → iPad 13")
   de-DE/
     01_watchlist.png
     ...
@@ -72,7 +70,7 @@ Dateinamen.
 5. Für andere Sprachen: *Product › Scheme › Edit Scheme… › Run › Options › App
    Language* umstellen, oder im Simulator *Einstellungen › Crypto Checker ›
    Sprache*.
-6. Dasselbe mit dem Simulator **iPad Pro 13-inch** wiederholen.
+6. (Nur falls iPad später aktiviert wird: dasselbe mit dem Simulator **iPad Pro 13-inch**.)
 7. Transparenz entfernen (Simulator-PNGs können einen Alphakanal haben), z. B.
    auf dem Mac:
 
@@ -84,10 +82,10 @@ Dateinamen.
 
 Dieselben fünf Szenen wie bei Google Play – Demo-Daten, Beschriftungen in allen
 Sprachen (`captions.json`, Tabellen im Kit-README) und das Rahmen-Skript liegen im Screenshot-Kit
-`../../../cryptoChecker/docs/store/screenshots/README.md`. Leitidee: «Crypto Checker erklärt dir,
+`../../../android/docs/store/screenshots/README.md`. Leitidee: «Crypto Checker erklärt dir,
 was im Markt passiert.»
 
-1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart
+1. «Den Markt verstehen, ohne Lärm» – Merkliste mit «≈ … CHF» und Mini-Chart (vorher unter Einstellungen › Merkliste den Mini-Chart und unter Darstellung › Coin-Logos «In der App» einschalten – bei Neuinstallation beide aus)
 2. «Warum bewegt sich das?» – das Blatt mit «Kurz gesagt»
 3. «Deine Merkliste, deine Börsen» – Seite «Paar hinzufügen» («+» neben der Lupe in der Merkliste) mit der Börsenauswahl
 4. «Alarme, wenn es zählt» – Alarm-Editor mit Satz und «Alarm testen»
@@ -107,7 +105,7 @@ die echte App-Oberfläche zu sehen ist.
 Orange ist die Erkennungsfarbe von Crypto Checker (App-Icon, Standard-Akzent bei
 neuen Installationen). **Alle Marketing-Bilder** – Screenshots, Promo-Bilder,
 Rahmen – zeigen den Akzent **Orange** (Einstellungen › Darstellung › Farbe; die
-Demo-Sicherung `../cryptoChecker/docs/store/screenshots/demo-backup.json` setzt
+Demo-Sicherung `../android/docs/store/screenshots/demo-backup.json` setzt
 ihn) und das orange Icon. Blau, Grün und Rot sind optionale Themes; sie dürfen im
 Text erwähnt werden, gehören aber nicht in die Store-Bilder. Die alten blauen
 Globus-Grafiken sind nicht mehr Teil der Marke.

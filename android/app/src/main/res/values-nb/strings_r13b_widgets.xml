@@ -3,18 +3,18 @@
     <string name="widget_outdated">utdatert</string>
     <string name="widget_outdated_time">utdatert · %1$s</string>
 
-    <string name="settings_widgets">Moduler</string>
-    <string name="widgets_sheet_title">Legg til en modul</string>
+    <string name="settings_widgets">Widgeter</string>
+    <string name="widgets_sheet_title">Legg til en widget</string>
     <string name="widget_kind_single">Én mynt</string>
     <string name="widgets_add">Legg til</string>
-    <string name="widgets_add_named">Legg til modulen %1$s</string>
-    <string name="watch_action_add_widget">Legg til som modul</string>
-    <string name="widgets_manual_title">Legg til modulen selv</string>
-    <string name="widgets_manual_text">Startskjermen din kan ikke legge til moduler fra appen. Trykk og hold på et tomt sted på startskjermen, velg «Moduler» og se etter «Crypto Checker».</string>
+    <string name="widgets_add_named">Legg til widgeten %1$s</string>
+    <string name="watch_action_add_widget">Legg til som widget</string>
+    <string name="widgets_manual_title">Legg til widgeten selv</string>
+    <string name="widgets_manual_text">Startskjermen din kan ikke legge til widgeter fra appen. Trykk og hold på et tomt sted på startskjermen, velg «Moduler» og se etter «Crypto Checker».</string>
 
-    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS lar ikke apper legge til moduler selv. Det tar bare et øyeblikk:</string>
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS lar ikke apper legge til widgeter selv. Det tar bare et øyeblikk:</string>
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Trykk og hold på et tomt sted på Hjem-skjermen til appene begynner å vrikke.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Trykk på «Rediger» › «Legg til widget» øverst (eller «+» i eldre iOS-versjoner).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Søk etter «Crypto Checker», velg en modul og trykk på «Legg til widget».</string>
-    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tilgjengelige moduler</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Søk etter «Crypto Checker», velg en widget og trykk på «Legg til widget».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tilgjengelige widgeter</string>
 </resources>

@@ -7,5 +7,5 @@
     <string name="licenses_marketdata_changes">Ndryshime: %1$s</string>
     <string name="licenses_font_title">Shkronja Rubik</string>
     <string name="licenses_libraries_title">Bibliotekat e Android</string>
-    <string name="licenses_libraries_intro">Aplikacioni i përdor këto biblioteka nën Apache License 2.0:</string>
+    <string name="licenses_libraries_intro">Aplikacioni i përdor këto biblioteka nën licencën Apache 2.0:</string>
 </resources>

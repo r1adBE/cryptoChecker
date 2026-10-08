@@ -128,7 +128,7 @@ private struct PortfolioPositionCard: View {
         let p = position
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 12) {
-                CoinBadge(symbol: p.coin, size: 44)
+                CoinBadge(symbol: p.coin, size: 44, portfolio: true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L("portfolio_value"))
                         .font(.subheadline.weight(.medium))

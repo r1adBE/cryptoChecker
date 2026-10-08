@@ -15,7 +15,7 @@
     <string name="settings_row_dated_futures">عقود آجلة ذات استحقاق</string>
     <string name="settings_tradfi_futures">الأسهم والسلع والعملات (TradFi)</string>
     <string name="settings_tradfi_futures_hint">يعرض عند اختيار الزوج أيضًا العقود الآجلة على الأسهم والذهب وغيره من السلع والعملات والشركات قبل طرحها العام. هذه عقود وليست رموزًا.</string>
-    <string name="settings_watchlist_activity_card">نشاط غير معتاد في القائمة</string>
+    <string name="settings_watchlist_activity_card">نشاط غير عادي في القائمة</string>
     <string name="settings_watchlist_activity_card_hint">يعرض بطاقة «شيء ما يحدث الآن» فوق الأزواج. تُضبط التنبيهات في إشعارات السوق.</string>
     <string name="settings_row_about">حول التطبيق</string>
     <string name="price_colors_green_up">الأخضر صعود / الأحمر هبوط</string>

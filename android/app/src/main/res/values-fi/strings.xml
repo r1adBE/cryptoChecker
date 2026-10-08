@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Virhe: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Ei valuuttapareja</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Lataa valitun markkinan nykyiset parit.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Lataa valitun pörssin nykyiset parit.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Päivitä valuuttaparit</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synkronoi nyt!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Viimeisin synkronointi: %1$s</string>
@@ -11,7 +11,7 @@
 
     <string name="market_screen_sync">Synkronoi</string>
     <string name="market_screen_base">Perusvaluutta</string>
-    <string name="market_screen_quote">Hinnoteltu</string>
+    <string name="market_screen_quote">Hintavaluutta</string>
     <string name="market_screen_market">Markkina</string>
     <string name="market_screen_contract_type">Sopimustyyppi</string>
     <string name="market_screen_spot">Spot</string>
@@ -21,7 +21,7 @@
     <string name="ticker_bid">Osto</string>
     <string name="ticker_ask">Myynti</string>
     <string name="ticker_vol_base">Volyymi (perus)</string>
-    <string name="ticker_vol_quote">Volyymi (hinnoteltu)</string>
+    <string name="ticker_vol_quote">Volyymi (hintavaluutta)</string>
     <string name="ticker_timestamp">Aika</string>
 
 
@@ -31,8 +31,8 @@
 
     <string name="bulk_all_pairs">Kaikki pörssin %1$s-parit</string>
     <plurals name="bulk_all_pairs_applied">
-        <item quantity="one">%2$s-pareja löytyi: %1$d</item>
-        <item quantity="other">%2$s-pareja löytyi: %1$d</item>
+        <item quantity="one">%1$d %2$s-pari löytyi</item>
+        <item quantity="other">%1$d %2$s-paria löytyi</item>
     </plurals>
     <string name="bulk_all_pairs_empty">Tässä pörssissä ei ole %1$s-pareja valitulle sopimustyypille. Synkronoi pörssi ensin tai kokeile toista sopimustyyppiä.</string>
 
@@ -90,8 +90,8 @@
     <string name="zone_neutral">Neutral</string>
     <string name="zone_bull">Bull</string>
     <string name="zone_extreme_bull">Extreme Bull</string>
-    <string name="zone_hint_extreme_bear">Monta historiallista pohjasignaalia yhtä aikaa – historiallinen kertymisvyöhyke.</string>
-    <string name="zone_hint_bear">Laskutrendi tai pohjanmuodostus, ei vielä laajaa antautumista.</string>
+    <string name="zone_hint_extreme_bear">Monta historiallista pohjasignaalia yhtä aikaa – historiallinen akkumulaatiovyöhyke.</string>
+    <string name="zone_hint_bear">Laskutrendi tai pohjanmuodostus, ei vielä laajaa kapitulaatiota.</string>
     <string name="zone_hint_neutral">Ristiriitaisia signaaleja, ei selvää suuntaa.</string>
     <string name="zone_hint_bull">Nousutrendi ilman äärimmäistä ylikuumenemista.</string>
     <string name="zone_hint_extreme_bull">Monta historiallista huippusignaalia yhtä aikaa – kohonnut huippuriski.</string>
@@ -102,13 +102,13 @@
     <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
     <string name="ind_ma200w">Hinta vs. 200 viikon keskiarvo</string>
     <string name="ind_drawdown">Lasku kaikkien aikojen huipusta</string>
-    <string name="ind_hash">Louhijoiden antautuminen (hash ribbons)</string>
+    <string name="ind_hash">Louhijoiden kapitulaatio (hash ribbons)</string>
     <string name="ind_parabolic">Parabolinen nousu (30 päivää)</string>
-    <string name="ind_halving">Kuukautta puoliintumisesta</string>
+    <string name="ind_halving">Kuukautta puolittumisesta</string>
     <string name="ind_ath">Kuukautta kaikkien aikojen huipusta</string>
     <string name="ind_points_top">+%1$d huippu</string>
     <string name="ind_points_bottom">+%1$d pohja</string>
-    <string name="market_phase_disclaimer">Perustuu aiempiin sykleihin ja hintatrendiin. Ei ennuste eikä sijoitusneuvo.</string>
+    <string name="market_phase_disclaimer">Perustuu aiempiin sykleihin ja hintatrendiin. Ei ennuste eikä sijoitusneuvontaa.</string>
     <string name="action_retry">Yritä uudelleen</string>
     <string name="settings_section_language">Kieli</string>
     <string name="settings_language_system">Järjestelmän kieli</string>
@@ -139,7 +139,7 @@
     <string name="settings_background_updates_hint">Hinnat, hälytykset ja widgetit päivittyvät myös sovelluksen ollessa suljettuna.</string>
     <string name="settings_background_interval">Aikaväli</string>
     <string name="settings_live_service">Päivitä tiheästi</string>
-    <string name="settings_live_service_hint">Hakee kurssit lyhyin väliajoin, myös kun sovellus on suljettu. Näyttää ilmoituksen ja kuluttaa enemmän akkua.</string>
+    <string name="settings_live_service_hint">Hakee hinnat lyhyin väliajoin, myös kun sovellus on suljettu. Näyttää ilmoituksen ja kuluttaa enemmän akkua.</string>
     <string name="settings_live_interval">Kuinka usein</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -151,9 +151,9 @@
     <string name="settings_notification_change_always">Aina</string>
     <string name="settings_notification_change_hint">Ilmoitus näytetään vasta, kun hinta on muuttunut vähintään tämän verran edellisestä ilmoituksesta. Kun tietoja puuttuu, mitään ei näytetä. Ei vaikuta hälytyksiin.</string>
     <string name="settings_alarm_cooldown">Tauko ennen kuin hälytys laukeaa uudelleen</string>
-    <string name="settings_tts">Puhuttu tuloste</string>
+    <string name="settings_tts">Ääneenluku</string>
     <string name="settings_tts_alarms_only">Vain hälytykset</string>
-    <string name="settings_tts_alarms_only_hint">Pois: jokainen päivitys luetaan ääneen pareille, joille on valittu „Lue hinta ääneen”.</string>
+    <string name="settings_tts_alarms_only_hint">Pois: jokainen päivitys luetaan ääneen pareille, joille on valittu ”Lue hinta ääneen”.</string>
     <string name="settings_speech_rate">Puhenopeus: %1$.1f×</string>
     <string name="settings_tts_test">Testaa ääntä</string>
     <string name="battery_title">Pidä hinnat ajan tasalla</string>
@@ -209,7 +209,7 @@
     <string name="market_scores_hint">Huippu = merkkejä kuten aiemmissa syklihuipuissa, pohja = merkkejä kuten aiemmissa syklipohjissa. 4 pisteestä alkaen toinen puoli hallitsee, 7:stä alkaen se on äärimmäinen. Ei hintatavoitetta eikä ennustetta.</string>
     <string name="market_scores_none">Merkkejä huipusta tai pohjasta ei ole aktiivisena: rauhallinen välivaihe, hintatrendi ratkaisee.</string>
     <string name="market_scores_info_title">Syklisignaalit</string>
-    <string name="market_scores_info_text">Merkit mahdollisesta huipusta laskevat aiempien syklihuippujen signaaleja: voimakas yliarvostus (MVRV), hyvin korkeat louhijatulot (Puell), hinta selvästi 200 päivän tai 200 viikon keskiarvon yläpuolella, parabolinen nousu ja 12–18 kuukauden jakso halvingin jälkeen.\n\nMerkit mahdollisesta pohjasta laskevat aiempien pohjien signaaleja: matala MVRV, heikot louhijatulot, jyrkkä lasku kaikkien aikojen huipusta, hinta lähellä 200 viikon keskiarvoa, laskeva hashrate ja yli vuoden takainen huippu.\n\n4 pisteen johdolla vyöhyke on Bull tai Bear, 7:stä alkaen Äärimmäinen. Jos kumpikaan ei johda, hintatrendi ratkaisee. 0/10 molemmin puolin tarkoittaa: ei euforiaa eikä antautumista.\n\nEi hintatavoitetta eikä ennustetta: signaalit kuvaavat vain, miltä aiemmat syklit näyttivät.</string>
+    <string name="market_scores_info_text">Merkit mahdollisesta huipusta laskevat aiempien syklihuippujen signaaleja: voimakas yliarvostus (MVRV), hyvin korkeat louhijatulot (Puell), hinta selvästi 200 päivän tai 200 viikon keskiarvon yläpuolella, parabolinen nousu ja 12–18 kuukauden jakso puolittumisen jälkeen.\n\nMerkit mahdollisesta pohjasta laskevat aiempien pohjien signaaleja: matala MVRV, heikot louhijatulot, jyrkkä lasku kaikkien aikojen huipusta, hinta lähellä 200 viikon keskiarvoa, laskeva hashrate ja yli vuoden takainen huippu.\n\nKun johto on vähintään 4 pistettä, vyöhyke on Bull tai Bear, 7 pisteestä alkaen Äärimmäinen. Jos kumpikaan ei johda, hintatrendi ratkaisee. 0/10 molemmin puolin tarkoittaa: ei euforiaa eikä kapitulaatiota.\n\nEi hintatavoitetta eikä ennustetta: signaalit kuvaavat vain, miltä aiemmat syklit näyttivät.</string>
     <string name="battery_open_settings">Avaa akkuasetukset</string>
     <string name="battery_steps">Napauta sovelluksen tiedoissa Akku (tai Sovelluksen akun käyttö) ja valitse Rajoittamaton.</string>
     <string name="explorer_select_placeholder">Valitse</string>
@@ -260,7 +260,7 @@
     <string name="explorer_bulk_show_list">Näytä lista</string>
     <string name="explorer_bulk_hide_list">Piilota lista</string>
     <string name="time_just_now">juuri nyt</string>
-    <string name="welcome_text">Sinun kurssisi. Sinun hälytyksesi. Sinun yleiskuvasi.\nEi tiliä. Ei mainoksia. Ei seurantaa.</string>
+    <string name="welcome_text">Sinun hintasi. Sinun hälytyksesi. Sinun yleiskuvasi.\nEi tiliä. Ei mainoksia. Ei seurantaa.</string>
     <string name="developer_unlocked">Kehittäjäasetukset avattu</string>
     <string name="hint_favorites_list">Vinkki: napauta ☆ lisätäksesi suosikin – suosikit pysyvät ylhäällä.</string>
     <string name="tab_watchlist">Lista</string>

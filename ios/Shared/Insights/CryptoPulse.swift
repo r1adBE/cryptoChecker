@@ -18,6 +18,34 @@ struct PulseInput: Equatable, Sendable {
     let fundingPercent: Double?
     /// Ethereum-Gebühr (normale Stufe) in gwei.
     let ethGasGwei: Double?
+    /// 24-h-Veränderung der grössten Coins ohne Stablecoins und Doppelgänger (Rang-Reihenfolge);
+    /// leer = unbekannt.
+    var topChanges: [Double] = []
+    /// Marktkapitalisierung aller Coins in USD (CoinGecko `/global`).
+    var marketCapUsd: Double? = nil
+    /// Veränderung der Marktkapitalisierung über 24 h in %.
+    var marketCap24h: Double? = nil
+}
+
+/// Marktbreite: wie viele der grössten Coins über 24 h steigen bzw. fallen.
+struct PulseBreadth: Equatable, Sendable {
+    let up: Int
+    let down: Int
+    let total: Int
+}
+
+/// Satz zur Marktbreite, nur in deutlichen Fällen.
+enum PulseBreadthNote: Equatable, Sendable {
+    case broadUp, broadDown, narrowUp, narrowDown
+
+    var key: String {
+        switch self {
+        case .broadUp: "pulse_breadth_note_broad_up"
+        case .broadDown: "pulse_breadth_note_broad_down"
+        case .narrowUp: "pulse_breadth_note_narrow_up"
+        case .narrowDown: "pulse_breadth_note_narrow_down"
+        }
+    }
 }
 
 /// Eine Zeile «Markt heute», z. B. Bitcoin +3,2 %.
@@ -169,6 +197,12 @@ struct PulseReport: Equatable, Sendable {
     let gas: PulseGas?
     let gasGwei: Double?
     let summary: PulseSummary
+    /// nil = zu wenige Werte, Zeile entfällt.
+    var breadth: PulseBreadth? = nil
+    var breadthNote: PulseBreadthNote? = nil
+    /// nil = Zeile «Krypto-Markt» entfällt.
+    var marketCapUsd: Double? = nil
+    var marketCap24h: Double? = nil
 }
 
 enum CryptoPulse {
@@ -183,6 +217,14 @@ enum CryptoPulse {
     static let fundingNegativePercent = -0.005
     static let gasLowGwei = 2.0
     static let gasHighGwei = 10.0
+    /// Marktbreite aus so vielen der grössten Coins; darunter nichts (zu wenig aussagekräftig).
+    static let breadthCoins = 30
+    static let breadthMinCoins = 15
+    /// Ab diesem Anteil steigender bzw. fallender Coins gilt die Bewegung als breit.
+    static let breadthBroadShare = 0.75
+    /// Bitcoin bewegt sich mindestens so weit, die Mehrheit aber nicht mit → «schmal».
+    static let breadthBtcMovePercent = 1.0
+    static let breadthNarrowShare = 0.4
 
     /// nil, wenn eine der drei 24-h-Veränderungen fehlt.
     static func evaluate(_ input: PulseInput) -> PulseReport? {
@@ -192,7 +234,9 @@ enum CryptoPulse {
         let gasGwei = finite(input.ethGasGwei).flatMap { $0 > 0 ? $0 : nil }
         let fearGreed = input.fearGreed.flatMap { (0...100).contains($0) ? $0 : nil }
 
-        return PulseReport(
+        let breadth = Self.breadth(input.topChanges)
+        let cap = finite(input.marketCapUsd).flatMap { $0 > 0 ? $0 : nil }
+        var report = PulseReport(
             coins: [
                 PulseCoinLine(name: "Bitcoin", changePercent: btc),
                 PulseCoinLine(name: "Ethereum", changePercent: eth),
@@ -208,6 +252,30 @@ enum CryptoPulse {
             gasGwei: gasGwei,
             summary: summary(btc: btc, eth: eth, sol: sol, volumeRatio: ratio)
         )
+        report.breadth = breadth
+        report.breadthNote = breadth.flatMap { breadthNote($0, btc24h: btc) }
+        report.marketCapUsd = cap
+        report.marketCap24h = cap == nil ? nil : finite(input.marketCap24h)
+        return report
+    }
+
+    /// Steigend (> 0), fallend (< 0) und Anzahl der ersten `breadthCoins` gültigen Werte;
+    /// nil bei weniger als `breadthMinCoins`.
+    static func breadth(_ changes: [Double]) -> PulseBreadth? {
+        let valid = Array(changes.filter(\.isFinite).prefix(breadthCoins))
+        guard valid.count >= breadthMinCoins else { return nil }
+        return PulseBreadth(up: valid.filter { $0 > 0 }.count, down: valid.filter { $0 < 0 }.count, total: valid.count)
+    }
+
+    /// Satz nur in deutlichen Fällen (wie Android `CryptoPulse.breadthNote`).
+    static func breadthNote(_ breadth: PulseBreadth, btc24h: Double) -> PulseBreadthNote? {
+        let upShare = Double(breadth.up) / Double(breadth.total)
+        let downShare = Double(breadth.down) / Double(breadth.total)
+        if upShare >= breadthBroadShare - 1e-9 { return .broadUp }
+        if downShare >= breadthBroadShare - 1e-9 { return .broadDown }
+        if btc24h >= breadthBtcMovePercent && upShare < breadthNarrowShare { return .narrowUp }
+        if btc24h <= -breadthBtcMovePercent && downShare < breadthNarrowShare { return .narrowDown }
+        return nil
     }
 
     static func alts(btc: Double, eth: Double, sol: Double) -> PulseAlts {

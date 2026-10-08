@@ -5,7 +5,7 @@
     <string name="portfolio_export_title">ייצוא לתאריך קובע</string>
     <string name="portfolio_export_date">תאריך קובע</string>
     <string name="portfolio_export_currency">מטבע: %1$s</string>
-    <string name="portfolio_export_hint">החזקה בסוף היום שנבחר, לפי מחיר הסגירה היומי (UTC) ב-USDT ומומרת לפי שער הייחוס של ה-ECB באותו יום. אפשר לשנות את המטבע דרך ״המרה ל״.</string>
+    <string name="portfolio_export_hint">האחזקות בסוף היום שנבחר, לפי מחיר הסגירה היומי (UTC) ב-USDT, מומרות לפי שער הייחוס של ה-ECB באותו יום. אפשר לשנות את המטבע דרך ״המרה ל״.</string>
     <string name="portfolio_export_button">ייצוא CSV</string>
     <string name="portfolio_export_running">טוען מחירים היסטוריים…</string>
     <string name="portfolio_export_done">הייצוא נשמר</string>

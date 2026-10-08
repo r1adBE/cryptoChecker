@@ -50,7 +50,9 @@ class Kraken : SimpleMarket(
     ) {
         val resultObject = jsonObject.getJSONObject("result")
 
-        readTicker(resultObject.getJSONObject(resultObject.names()!!.getString(0)), ticker)
+        // Ein Paar je Anfrage: der erste (einzige) Schlüssel ist das Paar; leeres Ergebnis = Fehler
+        val pairKey = resultObject.names()?.getString(0) ?: throw MarketParseException("Empty result")
+        readTicker(resultObject.getJSONObject(pairKey), ticker)
     }
 
     /** Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur. */

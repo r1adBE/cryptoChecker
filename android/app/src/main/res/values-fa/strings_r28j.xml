@@ -5,7 +5,7 @@
     <string name="portfolio_allocation_other">سایر</string>
     <string name="portfolio_movers_title">بزرگ‌ترین حرکت‌ها</string>
     <string name="portfolio_hide_amounts">پنهان کردن مبالغ</string>
-    <string name="portfolio_hide_amounts_hint">مبالغ و ارزش‌ها را در پرتفوی و ویجت پرتفوی به‌صورت ••• نشان می‌دهد – درصدها دیده می‌شوند.</string>
+    <string name="portfolio_hide_amounts_hint">مبالغ و ارزش‌ها را در پرتفوی و ابزارک پرتفوی به‌صورت ••• نشان می‌دهد – درصدها دیده می‌شوند.</string>
     <string name="a11y_portfolio_show_amounts">نمایش مبالغ</string>
     <string name="a11y_amount_hidden">مبلغ پنهان</string>
     <string name="portfolio_alarm_action">هشدار</string>

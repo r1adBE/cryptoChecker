@@ -98,8 +98,8 @@
         <item quantity="one">%1$d πέφτει</item>
         <item quantity="other">%1$d πέφτουν</item>
     </plurals>
-    <string name="pulse_headline_up">Ευρεία ισχύς</string>
-    <string name="pulse_headline_down">Ευρεία αδυναμία</string>
+    <string name="pulse_headline_up">Ευρεία άνοδος</string>
+    <string name="pulse_headline_down">Ευρεία πτώση</string>
     <string name="pulse_headline_mixed">Μικτή εικόνα</string>
     <string name="pulse_headline_calm">Ήρεμη αγορά</string>
     <string name="pulse_chip_funding_high">Funding αυξημένο</string>

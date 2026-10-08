@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">מניות, סחורות ומט״ח (TradFi)</string>
     <string name="settings_tradfi_futures_hint">בבחירת צמד מוצגים גם חוזים עתידיים על מניות, זהב וסחורות אחרות, מטבעות וחברות לפני הנפקה. אלה חוזים, לא טוקנים.</string>
     <string name="settings_watchlist_activity_card">פעילות חריגה ברשימה</string>
-    <string name="settings_watchlist_activity_card_hint">מציג את הכרטיס „משהו קורה עכשיו” מעל הצמדים. התראות מוגדרות בהתראות שוק.</string>
+    <string name="settings_watchlist_activity_card_hint">מציג את הכרטיס ״משהו קורה עכשיו״ מעל הצמדים. התראות מוגדרות בהתראות שוק.</string>
     <string name="settings_row_about">אודות האפליקציה</string>
     <string name="price_colors_green_up">ירוק עולה / אדום יורד</string>
     <string name="price_colors_red_up">אדום עולה / ירוק יורד</string>

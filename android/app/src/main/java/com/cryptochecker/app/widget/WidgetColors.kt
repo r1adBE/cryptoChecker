@@ -49,6 +49,14 @@ class WidgetColors(
     val dividerColor: Int
         get() = WidgetContrast.dividerColor(accentColor, dark, highContrast)
 
+    /**
+     * Grund hinter Coin-Logos: dunkel ein heller Kreis (Haupttext-Farbe, leicht gedämpft), damit
+     * dunkle Logos sichtbar bleiben; hell ein zarter grauer Kreis.
+     */
+    val logoBackingColor: Int
+        get() = if (dark) Color.argb(235, Color.red(textColor), Color.green(textColor), Color.blue(textColor))
+        else Color.argb(28, Color.red(secondaryTextColor), Color.green(secondaryTextColor), Color.blue(secondaryTextColor))
+
     companion object {
         const val DEFAULT_OPACITY = 90
 

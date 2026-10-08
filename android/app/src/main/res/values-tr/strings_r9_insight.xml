@@ -51,7 +51,7 @@
     <string name="why_f_leverage_balanced">Kaldıraç dengeli</string>
     <string name="insights_dominance_eth">Toplam piyasada ETH %1$s</string>
     <plurals name="market_phase_cycle_since">
-        <item quantity="one">%2$s tarihindeki halving üzerinden %1$d ay geçti</item>
-        <item quantity="other">%2$s tarihindeki halving üzerinden %1$d ay geçti</item>
+        <item quantity="one">%2$s tarihindeki yarılanmadan bu yana %1$d ay geçti</item>
+        <item quantity="other">%2$s tarihindeki yarılanmadan bu yana %1$d ay geçti</item>
     </plurals>
 </resources>

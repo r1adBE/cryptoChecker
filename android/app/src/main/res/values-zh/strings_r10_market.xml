@@ -20,11 +20,11 @@
     <string name="macro_nfp">美国非农就业报告</string>
     <string name="macro_fomc">美联储利率决议</string>
     <string name="macro_pce">美国 PCE 物价指数</string>
-    <string name="macro_hint_today">今天 %1$s：%2$s – 这类日子市场往往波动更大。</string>
-    <string name="macro_hint_tomorrow">明天 %1$s：%2$s – 这类日子市场往往波动更大。</string>
-    <string name="macro_hint_today_list">今天：%1$s – 这类日子市场往往波动更大。</string>
-    <string name="macro_hint_tomorrow_list">明天：%1$s – 这类日子市场往往波动更大。</string>
-    <string name="macro_hint_list">%1$s – 这类日子市场往往波动更大。</string>
+    <string name="macro_hint_today">今天 %1$s：%2$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_tomorrow">明天 %1$s：%2$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_today_list">今天：%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_tomorrow_list">明天：%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_list">%1$s——这类日子市场往往波动更大。</string>
     <string name="macro_released_one">今天 %1$s 公布：%2$s。</string>
     <string name="macro_released_list">今天公布：%1$s。</string>
     <string name="macro_item">%1$s %2$s</string>

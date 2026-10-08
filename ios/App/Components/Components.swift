@@ -6,6 +6,29 @@ private struct AppAccentKey: EnvironmentKey {
     static let defaultValue: AccentColor = .default
 }
 
+private struct CoinLogosEnabledKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+private struct PortfolioCoinLogosEnabledKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    /// Schalter «Coin-Logos in der App» (an der Wurzel gesetzt). Standard aus: Vorschauen und
+    /// Tests laden nichts.
+    var coinLogosEnabled: Bool {
+        get { self[CoinLogosEnabledKey.self] }
+        set { self[CoinLogosEnabledKey.self] = newValue }
+    }
+
+    /// Schalter «Im Portfolio» (an der Wurzel gesetzt).
+    var portfolioCoinLogosEnabled: Bool {
+        get { self[PortfolioCoinLogosEnabledKey.self] }
+        set { self[PortfolioCoinLogosEnabledKey.self] = newValue }
+    }
+}
+
 extension EnvironmentValues {
     /// Aktuelle Akzentfarbe der App.
     var appAccent: AccentColor {
@@ -44,27 +67,58 @@ struct SectionCard<Content: View>: View {
     }
 }
 
-/// Schalterzeile — die ganze Zeile ist antippbar.
-struct SwitchRow: View {
-    let title: String
-    var subtitle: String? = nil
+/// Schalterzeile — die ganze Zeile ist antippbar; einzige Stelle, die einen Schalter zeichnet
+/// (Akzentfarbe, Deaktiviert-Darstellung, Zeilenabstand) — wie `SwitchRow` in Android.
+/// Mit Titel/Untertitel (`init(title:subtitle:isOn:enabled:)`) oder eigener Beschriftung.
+struct SwitchRow<Label: View>: View {
     @Binding var isOn: Bool
     var enabled: Bool = true
+    /// Abstand oben/unten; 0 z. B. in Formularen (die Zeile hat dort schon Abstand) oder Karten.
+    var verticalPadding: CGFloat = Spacing.md
+    /// Beschriftung nur für VoiceOver (z. B. Schalter am Rand einer Karte).
+    var labelHidden: Bool = false
+    @ViewBuilder let label: () -> Label
     @Environment(\.appAccent) private var accent
 
     var body: some View {
-        Toggle(isOn: $isOn) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.body)
-                if let subtitle, !subtitle.isEmpty {
-                    Text(subtitle).font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
-                }
+        toggle
+            .tint(accent.primary)
+            .disabled(!enabled)
+            .opacity(enabled ? 1 : 0.5)
+            .padding(.vertical, verticalPadding)
+    }
+
+    @ViewBuilder
+    private var toggle: some View {
+        if labelHidden {
+            Toggle(isOn: $isOn, label: label).labelsHidden()
+        } else {
+            Toggle(isOn: $isOn, label: label)
+        }
+    }
+}
+
+extension SwitchRow where Label == SwitchRowText {
+    init(title: String, subtitle: String? = nil, isOn: Binding<Bool>, enabled: Bool = true,
+         verticalPadding: CGFloat = Spacing.md) {
+        self.init(isOn: isOn, enabled: enabled, verticalPadding: verticalPadding) {
+            SwitchRowText(title: title, subtitle: subtitle)
+        }
+    }
+}
+
+/// Titel und (optional) Untertitel einer `SwitchRow`.
+struct SwitchRowText: View {
+    let title: String
+    let subtitle: String?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(title).font(.body)
+            if let subtitle, !subtitle.isEmpty {
+                Text(subtitle).font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
             }
         }
-        .tint(accent.primary)
-        .disabled(!enabled)
-        .opacity(enabled ? 1 : 0.5)
-        .padding(.vertical, Spacing.md)
     }
 }
 
@@ -217,25 +271,94 @@ struct TickerView: View {
 
 // MARK: Coin-Logo
 
-/// Kreis mit den ersten Buchstaben des Coins, Farbe aus dem Namen abgeleitet.
+/// Runde Coin-Plakette, nur mit eingeschaltetem Schalter «Coin-Logos» (App bzw. `portfolio`):
+/// echtes Logo (`CoinLogoStore`), sonst der Kreis mit den Initialen in der Akzentfarbe — nie ein
+/// kaputtes Bild. Schalter aus: gar nichts (weder Logo noch Initialen, auch kein Platz). Feste
+/// Grösse, nimmt also nie Breite von Kurs- oder Zahlenspalten. Dunkel: heller Grund hinter dem
+/// Logo. Wie Android `CoinBadge`.
+///
+/// `logo: false` (DEX-Pools, deren Symbol jeder frei wählen kann): immer Initialen, damit nie das
+/// Logo eines bekannten Coins neben einem gleichnamigen fremden Token steht. `favorite`: kleiner
+/// Stern unten rechts (Ring in `ringColor`, der Farbe der Fläche darunter).
 struct CoinBadge: View {
     let symbol: String
     var size: CGFloat = 36
+    var logo: Bool = true
+    /// Eigener Schalter «Im Portfolio».
+    var portfolio: Bool = false
+    var favorite: Bool = false
+    var ringColor: Color = AppColors.container
+    @Environment(\.coinLogosEnabled) private var appEnabled
+    @Environment(\.portfolioCoinLogosEnabled) private var portfolioEnabled
+    @Environment(\.appAccent) private var accent
+    @Environment(\.colorScheme) private var colorScheme
+    /// Neue Logos auf dem Gerät (Abgleich im Hintergrund): fehlende erneut versuchen.
+    @ObservedObject private var revision = CoinLogoRevision.shared
+    /// Geladenes Logo samt Symbol (Zeilen werden wiederverwendet: nie das Logo eines anderen Coins).
+    @State private var loaded: (symbol: String, image: UIImage)?
+
+    init(symbol: String, size: CGFloat = 36, logo: Bool = true, portfolio: Bool = false,
+         favorite: Bool = false, ringColor: Color = AppColors.container) {
+        self.symbol = symbol
+        self.size = size
+        self.logo = logo
+        self.portfolio = portfolio
+        self.favorite = favorite
+        self.ringColor = ringColor
+    }
+
+    private var enabled: Bool { portfolio ? portfolioEnabled : appEnabled }
 
     var body: some View {
-        let hue = Double(abs(symbol.hashValueStable) % 360) / 360
+        // Schalter aus: weder Logo noch Platzhalter
+        if enabled {
+            badge
+                .overlay(alignment: .bottomTrailing) {
+                    if favorite { star }
+                }
+                // Zierde: Das Kürzel steht daneben im Paar bzw. Namen
+                .accessibilityHidden(true)
+                .task(id: logo ? "\(symbol)|\(revision.value)" : "") {
+                    guard logo else { loaded = nil; return }
+                    guard loaded?.symbol != symbol else { return }
+                    if let image = await CoinLogoStore.shared.logo(symbol) { loaded = (symbol, image) }
+                }
+        }
+    }
+
+    private var badge: some View {
         ZStack {
-            Circle().fill(Color(hue: hue, saturation: 0.45, brightness: 0.85).opacity(0.25))
-            Text(String(symbol.prefix(symbol.count > 4 ? 3 : 4)))
-                .font(.system(size: size * (symbol.count > 3 ? 0.28 : 0.34), weight: .bold, design: .rounded))
-                .foregroundStyle(Color(hue: hue, saturation: 0.7, brightness: 0.75))
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .padding(3)
+            if logo, let image = (loaded?.symbol == symbol ? loaded?.image : nil) ?? CoinLogoStore.cached(symbol) {
+                Circle().fill(colorScheme == .dark ? AppColors.onSurface.opacity(0.92) : AppColors.containerHigh)
+                Image(uiImage: image)
+                    .resizable()
+                    .interpolation(.high)
+                    .scaledToFit()
+                    .clipShape(Circle())
+            } else {
+                let label = CoinLogos.initials(symbol)
+                Circle().fill(accent.primary.opacity(0.14))
+                Text(label)
+                    .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
+                    .foregroundStyle(accent.primary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(2)
+            }
         }
         .frame(width: size, height: size)
-        // Zierde: Das Kürzel steht daneben im Paar bzw. Namen
-        .accessibilityHidden(true)
+        .clipShape(Circle())
+    }
+
+    /// Favorit: kleiner Stern in der Akzentfarbe mit Ring in der Farbe der Fläche darunter.
+    private var star: some View {
+        let starSize = max(12, size * 0.45)
+        return Image(systemName: "star.fill")
+            .font(.system(size: starSize * 0.62, weight: .bold))
+            .foregroundStyle(accent.primary)
+            .frame(width: starSize, height: starSize)
+            .background(Circle().fill(ringColor))
+            .offset(x: 3, y: 3)
     }
 }
 

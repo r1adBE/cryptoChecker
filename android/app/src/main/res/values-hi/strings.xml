@@ -3,14 +3,14 @@
     <string name="check_error_generic_prefix">त्रुटि: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">कोई करेंसी पेयर नहीं</string>
-    <string name="checker_add_check_currency_empty_warning_summary">चुने गए मार्केट के मौजूदा पेयर लोड करता है।</string>
+    <string name="checker_add_check_currency_empty_warning_summary">चुने गए एक्सचेंज के मौजूदा पेयर लोड करता है।</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">करेंसी पेयर अपडेट करें</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">अभी सिंक करें!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">पिछला सिंक: %1$s</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">कभी नहीं</string>
 
-    <string name="market_screen_sync">मिलान करें</string>
-    <string name="market_screen_base">बेस</string>
+    <string name="market_screen_sync">सिंक करें</string>
+    <string name="market_screen_base">कॉइन</string>
     <string name="market_screen_quote">कोट</string>
     <string name="market_screen_market">मार्केट</string>
     <string name="market_screen_contract_type">कॉन्ट्रैक्ट प्रकार</string>
@@ -158,7 +158,7 @@
     <string name="settings_alarm_cooldown">अलार्म दोबारा बजने से पहले शांत समय</string>
     <string name="settings_tts">बोलकर आउटपुट</string>
     <string name="settings_tts_alarms_only">केवल अलार्म</string>
-    <string name="settings_tts_alarms_only_hint">बंद: «कीमत बोलें» वाले हर पेयर का हर अपडेट बोला जाता है।</string>
+    <string name="settings_tts_alarms_only_hint">बंद: “कीमत बोलें” वाले हर पेयर का हर अपडेट बोला जाता है।</string>
     <string name="settings_speech_rate">बोलने की गति: %1$.1f×</string>
     <string name="settings_tts_test">आवाज़ जाँचें</string>
     <string name="battery_title">कीमतें अप-टू-डेट रखें</string>
@@ -333,7 +333,7 @@
     <string name="notification_zone_title">बिटकॉइन: %1$s</string>
     <string name="notification_zone_text">बाज़ार चरण %1$s से %2$s में बदला।</string>
     <string name="settings_zone_alerts">चरण बदलने पर सूचित करें</string>
-    <string name="settings_zone_alerts_hint">दिन में दो बार जाँचता है और बिटकॉइन के ज़ोन बदलने पर सूचित करता है, जैसे तटस्थ से Bull।</string>
+    <string name="settings_zone_alerts_hint">दिन में दो बार जाँचता है और बिटकॉइन के ज़ोन बदलने पर सूचित करता है, जैसे Neutral से Bull।</string>
     <string name="alarm_condition_move_percent">इतना बदले</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d घंटे में</item>
@@ -360,10 +360,10 @@
     <string name="shortcut_alarms">सभी अलार्म</string>
     <string name="shortcut_cycle">बाज़ार</string>
     <string name="backup_title">बैकअप और रीस्टोर</string>
-    <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे आप रखते हैं – जैसे नए फ़ोन के लिए।</string>
+    <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे आप रखते हैं – जैसे नए फ़ोन के लिए।</string>
     <string name="backup_export">निर्यात</string>
     <string name="backup_import">आयात</string>
-    <string name="backup_restore_confirm">आयात करने से आपकी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
+    <string name="backup_restore_confirm">आयात करने से आपकी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
     <string name="backup_exported">बैकअप सहेजा गया।</string>
     <string name="backup_failed">नहीं हुआ। क्या यह Crypto Checker बैकअप है?</string>
     <string name="backup_restored">रीस्टोर हुआ: %1$s, %2$s।</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand -->
-    <string name="portfolio_holdings">החזקה</string>
+    <string name="portfolio_holdings">אחזקות</string>
     <string name="portfolio_invalid">כמות לא תקינה</string>
 
     <!-- Gruppen -->

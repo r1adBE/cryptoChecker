@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">%1$d ارز برتر</string>
+    <string name="pulse_breadth_spoken">%1$d ارز برتر: %2$d صعودی، %3$d نزولی</string>
+    <string name="pulse_breadth_hint">%1$d ارز برتر: بزرگ‌ترین ارزها بر اساس ارزش بازار، بدون استیبل‌کوین‌ها؛ تغییر در ۲۴ ساعت (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">حرکت گسترده: بیشتر ارزهای بزرگ بالا می‌روند.</string>
+    <string name="pulse_breadth_note_broad_down">افت گسترده: بیشتر ارزهای بزرگ پایین می‌آیند.</string>
+    <string name="pulse_breadth_note_narrow_up">بیت‌کوین بالا می‌رود، اما بیشتر ارزهای بزرگ دیگر همراهی نمی‌کنند.</string>
+    <string name="pulse_breadth_note_narrow_down">بیت‌کوین پایین می‌آید، اما بیشتر ارزهای بزرگ دیگر مقاومت می‌کنند.</string>
+</resources>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Endring i %1$s</string>
+    <string name="settings_change_basis">Endring i %1$s og graf-tidssone</string>
     <string name="change_basis_rolling">Siste 24 timer</string>
     <string name="change_basis_utc_zone">Siden 00:00 %1$s</string>
     <string name="change_basis_local">Siden 00:00 lokal tid</string>
-    <string name="settings_change_basis_hint_1">Den valgte tidssonen bestemmer fra når den prosentvise endringen regnes: i overvåkingslisten, pulslinjen, parark og widgeter.</string>
+    <string name="settings_change_basis_hint_1">Den valgte tidssonen bestemmer fra når den prosentvise endringen regnes (overvåkingsliste, pulslinje, parark, widgeter), og hvilke klokkeslett grafene viser.</string>
     <string name="settings_change_basis_hint_2">«%1$s» sammenligner med kursen for nøyaktig 24 timer siden. «00:00» sammenligner med åpningskursen ved midnatt i denne tidssonen.</string>
     <string name="settings_change_basis_hint_3">Alarmer påvirkes ikke.</string>
     <string name="change_basis_device">%1$s, 00:00 (enhetens tidssone)</string>

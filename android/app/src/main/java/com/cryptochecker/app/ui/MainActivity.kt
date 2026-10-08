@@ -9,7 +9,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +19,10 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.service.PriceServiceController
 import com.cryptochecker.app.lock.AppLockState
+import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.ui.components.CoinLogoSource
+import com.cryptochecker.app.ui.components.LocalCoinLogoSource
+import com.cryptochecker.app.ui.components.LocalPortfolioCoinLogoSource
 import com.cryptochecker.app.ui.navigation.AppNavHost
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
@@ -37,6 +43,10 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var serviceController: PriceServiceController
 
     @Inject lateinit var widgetUpdater: com.cryptochecker.app.widget.WidgetUpdater
+
+    @Inject lateinit var coinLogoRepository: CoinLogoRepository
+
+    @Inject lateinit var coinLogoSync: com.cryptochecker.app.data.CoinLogoSync
 
     /** Ziel aus einer App-Verknüpfung («add», «alarms», «cycle»). */
     private val openTarget = androidx.compose.runtime.mutableStateOf<String?>(null)
@@ -73,14 +83,21 @@ class MainActivity : AppCompatActivity() {
                 highContrast = rememberHighContrast(settings.highContrast),
                 priceColorsInverted = settings.priceColorsInverted,
             ) {
-                // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
-                // für den Portfolio-Tab und seine Unterseiten.
-                // Benachrichtigungs-Erlaubnis erst, wenn eine Meldung eingeschaltet wird.
-                AppNavHost(
-                    navigation = navController,
-                    openTarget = openTarget.value,
-                    onOpenTargetHandled = { openTarget.value = null }
-                )
+                // Coin-Logos je Schalter (App, Portfolio); aus → null, keine Plakette
+                val repositorySource = remember { RepositoryLogoSource(coinLogoRepository) }
+                CompositionLocalProvider(
+                    LocalCoinLogoSource provides repositorySource.takeIf { settings.coinLogos },
+                    LocalPortfolioCoinLogoSource provides repositorySource.takeIf { settings.portfolioCoinLogos },
+                ) {
+                    // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
+                    // für den Portfolio-Tab und seine Unterseiten.
+                    // Benachrichtigungs-Erlaubnis erst, wenn eine Meldung eingeschaltet wird.
+                    AppNavHost(
+                        navigation = navController,
+                        openTarget = openTarget.value,
+                        onOpenTargetHandled = { openTarget.value = null }
+                    )
+                }
             }
         }
     }
@@ -96,6 +113,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             if (settingsRepository.current().liveService) serviceController.start()
         }
+        // Coin-Logos: fehlende (alle Coins der Rangliste, nie einzeln) im Hintergrund nachladen
+        lifecycleScope.launch { coinLogoSync.startIfEnabled() }
         // System-Kontrast geändert? Widgets mit den passenden Farben neu zeichnen.
         lifecycleScope.launch {
             runCatching { widgetUpdater.updateIfContrastChanged() }
@@ -140,4 +159,11 @@ class MainActivity : AppCompatActivity() {
         fun whyWatchId(target: String?): Long? =
             target?.takeIf { it.startsWith(WHY_PREFIX) }?.removePrefix(WHY_PREFIX)?.toLongOrNull()
     }
+}
+
+/** CoinBadge holt die Logos über das Repository (Speicher → Datei → CoinGecko). */
+private class RepositoryLogoSource(private val repository: CoinLogoRepository) : CoinLogoSource {
+    override val revision = repository.revision
+    override fun cached(symbol: String) = repository.cached(symbol)
+    override suspend fun load(symbol: String) = repository.logo(symbol)
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">โลโก้เหรียญ</string>
+    <string name="settings_coin_logos_app">ในแอป</string>
+    <string name="settings_coin_logos_app_hint">รายการติดตาม หน้าคู่เหรียญ และการ์ดตลาด</string>
+    <string name="settings_coin_logos_portfolio">ในพอร์ตโฟลิโอ</string>
+    <string name="settings_coin_logos_portfolio_hint">สถานะถือครอง รายละเอียดเหรียญ และบทวิเคราะห์</string>
+    <string name="settings_coin_logos_widgets">ในวิดเจ็ต</string>
+    <string name="settings_coin_logos_widgets_hint">วิดเจ็ตรายการติดตามและเหรียญเดียว</string>
+    <string name="settings_coin_logos_footer">โลโก้มาจาก CoinGecko และจาก Binance สำหรับสิ่งที่ CoinGecko ไม่มี (เช่น ทองคำ เงิน หุ้น) แอปจะดาวน์โหลดโลโก้ทั้งหมดในครั้งเดียวและเก็บไว้ในอุปกรณ์นี้ จึงไม่มีผู้ให้บริการรายใดรู้ว่าคุณติดตามเหรียญใด เหรียญที่ไม่มีโลโก้จะแสดงอักษรย่อ รายการโปรดจะมีดาวเล็ก ๆ บนโลโก้ ส่วนที่ปิดสวิตช์ไว้จะไม่แสดงทั้งโลโก้และอักษรย่อ เมื่อปิดทั้งหมดจะไม่โหลดอะไรเลย</string>
+    <string name="settings_coin_logos_value_app">แอป</string>
+</resources>

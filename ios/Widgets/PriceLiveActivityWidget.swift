@@ -81,7 +81,7 @@ private struct PriceActivityLockScreenView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
-                WidgetCoinBadge(symbol: attributes.symbol, size: 22, dark: true)
+                WidgetCoinBadge(symbol: attributes.symbol, size: 22, dark: true, always: true)
                 Text(attributes.pairLabel)
                     .font(.system(size: 15, weight: .semibold))
                     .lineLimit(1)

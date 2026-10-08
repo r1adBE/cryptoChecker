@@ -47,6 +47,6 @@
     <string name="why_volatility_high_text">Utolsó óra: %1$s – az elmúlt 24 óra jellemző óránkénti kilengéséhez mérve.</string>
     <string name="why_volatility_normal_text">Utolsó óra: %1$s – a szokásos tartományon belül.</string>
 
-    <string name="why_sentiment_text">A teljes kriptopiac Félelem és kapzsiság indexe, %1$s a tegnapihoz képest.</string>
-    <string name="why_sentiment_text_no_change">A teljes kriptopiac Félelem és kapzsiság indexe.</string>
+    <string name="why_sentiment_text">A teljes kriptopiac Fear &amp; Greed indexe, %1$s a tegnapihoz képest.</string>
+    <string name="why_sentiment_text_no_change">A teljes kriptopiac Fear &amp; Greed indexe.</string>
 </resources>

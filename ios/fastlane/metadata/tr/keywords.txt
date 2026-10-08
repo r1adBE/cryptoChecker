@@ -1,1 +1,1 @@
-bitcoin,btc,ethereum,eth,kripto,kripto para,coin,izleme listesi,altcoin,korku,açgözlülük,vadeli,dex
+bitcoin,btc,ethereum,eth,kriptopara,coin,izleme listesi,altcoin,korku,açgözlülük,vadeli,dex,portföy

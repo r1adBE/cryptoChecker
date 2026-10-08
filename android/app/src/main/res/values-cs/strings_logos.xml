@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Loga mincí</string>
+    <string name="settings_coin_logos_app">V aplikaci</string>
+    <string name="settings_coin_logos_app_hint">Seznam, list páru a karty trhu</string>
+    <string name="settings_coin_logos_portfolio">V portfoliu</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozice, detaily mincí a přehledy</string>
+    <string name="settings_coin_logos_widgets">Ve widgetech</string>
+    <string name="settings_coin_logos_widgets_hint">Widgety seznamu a jedné mince</string>
+    <string name="settings_coin_logos_footer">Loga pocházejí z CoinGecko a u toho, co CoinGecko nevede (např. zlato, stříbro, akcie), z Binance. Aplikace stáhne všechna loga najednou a uloží je v tomto zařízení, takže žádný z nich neví, které mince sledujete. Mince bez loga zobrazují iniciály. Oblíbené mají na logu malou hvězdičku. Kde je přepínač vypnutý, nezobrazí se loga ani iniciály; když je vypnuté vše, nic se nestahuje.</string>
+    <string name="settings_coin_logos_value_app">Aplikace</string>
+</resources>

@@ -24,10 +24,11 @@ extension WatchSheetChartView {
         let price = watch.lastPrice
         let marker = AppColors.onSurface
         let scrub = scrubIndex(candles.count)
+        let zone = ChangeBasisMath.chartTimeZone(changeView.basis)
         return Canvas { context, canvasSize in
             guard let layout = PriceChartRenderer.render(&context, size: canvasSize, candles: candles, type: type,
                                                          range: chartRange, style: style, currentPrice: price,
-                                                         px: px) else { return }
+                                                         px: px, timeZone: zone) else { return }
             box.layout = layout
             // Ziehen: senkrechte Markierung und Punkt auf dem Schluss
             guard let i = scrub, candles.indices.contains(i) else { return }
@@ -79,7 +80,8 @@ extension WatchSheetChartView {
     private func scrubLabel(_ candles: [MarketCandle], index: Int, type: PriceChartType) -> some View {
         let candle = candles[index]
         let change = SheetChart.scrubChange(candles, type: type, index: index)
-        let time = Self.timeFormatter(range).string(from: Date(millis: candle.openTime))
+        let zone = ChangeBasisMath.chartTimeZone(changeView.basis)
+        let time = Self.timeFormatter(range, timeZone: zone).string(from: Date(millis: candle.openTime))
         return VStack(alignment: .leading, spacing: 1) {
             Text(verbatim: BidiText.isolate(PriceFormat.priceWithCurrency(candle.close, watch.quoteAsset)) + " · " + time)
                 .font(AppFont.amount(.caption, weight: .medium))
@@ -95,16 +97,18 @@ extension WatchSheetChartView {
         .fixedSize()
     }
 
-    private static var timeFormatters: [PriceChartRange: DateFormatter] = [:]
+    private static var timeFormatters: [String: DateFormatter] = [:]
 
-    /// Ortszeit; Datum für 7 und 30 Tage und 1 Jahr (mit Jahr), 12/24 h nach Systemeinstellung.
-    private static func timeFormatter(_ range: PriceChartRange) -> DateFormatter {
-        if let f = timeFormatters[range] { return f }
+    /// Chart-Zeitzone (wie die %-Basis); Datum für 7 und 30 Tage und 1 Jahr (mit Jahr), 12/24 h
+    /// nach Systemeinstellung.
+    private static func timeFormatter(_ range: PriceChartRange, timeZone: TimeZone) -> DateFormatter {
+        let key = "\(range)|\(timeZone.identifier)"
+        if let f = timeFormatters[key] { return f }
         let f = DateFormatter()
         f.locale = Locale.current
-        f.timeZone = TimeZone.current
+        f.timeZone = timeZone
         f.setLocalizedDateFormatFromTemplate(range.sheetTimeTemplate)
-        timeFormatters[range] = f
+        timeFormatters[key] = f
         return f
     }
 }

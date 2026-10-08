@@ -4,7 +4,7 @@
     <string name="watchlist_jump_start">להתחלה</string>
     <string name="watchlist_jump_end">לסוף</string>
     <string name="settings_activity_sensitivity">רגישות</string>
-    <string name="settings_activity_sensitivity_hint">כמה בקלות מטבע נחשב חריג – זהה לכרטיס ברשימת המעקב ולהתראות. ב„פחות” הכרטיס מציג רק את 3 החזקים ביותר.</string>
+    <string name="settings_activity_sensitivity_hint">כמה בקלות מטבע נחשב חריג – זהה לכרטיס ברשימת המעקב ולהתראות. באפשרות ״פחות״ הכרטיס מציג רק את 3 החזקים ביותר.</string>
     <string name="activity_sensitivity_less">פחות</string>
     <string name="activity_sensitivity_normal">רגיל</string>
     <string name="activity_sensitivity_more">יותר</string>

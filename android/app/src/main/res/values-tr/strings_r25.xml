@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Kilit, görüntülenen bilgileri korur. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsin.</string>
+    <string name="settings_portfolio_lock_footer">Kilit, görüntülenen bilgileri korur. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsiniz. Cihazın tamamının yedekleri (sistem yedeği) bu verileri yine de içerir.</string>
     <string name="backup_protect">Parolayla koru</string>
     <string name="backup_protect_hint">Dosyayı şifreler (AES-256). Portföy verisi içeriyorsa önerilir.</string>
     <string name="backup_password">Parola</string>
-    <string name="backup_password_repeat">Parolayı tekrarla</string>
+    <string name="backup_password_repeat">Parolayı tekrar girin</string>
     <!-- %1$d = Mindestlänge des Passworts (8) -->
     <string name="backup_password_min">En az %1$d karakter</string>
     <string name="backup_password_mismatch">Parolalar eşleşmiyor</string>
@@ -13,7 +13,7 @@
     <string name="backup_password_show">Parolayı göster</string>
     <string name="backup_password_hide">Parolayı gizle</string>
     <string name="backup_password_title">Parola korumalı yedek</string>
-    <string name="backup_password_prompt">Bu yedeğin parolasını gir.</string>
-    <string name="backup_password_wrong">Yanlış parola veya dosya bozuk. Tekrar dene.</string>
+    <string name="backup_password_prompt">Bu yedeğin parolasını girin.</string>
+    <string name="backup_password_wrong">Yanlış parola veya dosya bozuk. Tekrar deneyin.</string>
     <string name="backup_password_continue">Devam</string>
 </resources>

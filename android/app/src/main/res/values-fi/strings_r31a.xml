@@ -8,7 +8,7 @@
     <string name="alarm_template_a11y_down">Luo hälytys miinus %1$s prosentin kohdalle</string>
     <string name="alarm_template_a11y">Luo hälytys: %1$s</string>
     <string name="alarm_template_created">Hälytys luotu</string>
-    <string name="alarm_sentence_new_extreme">Ilmoita, kun %1$s tekee uuden %2$s.</string>
+    <string name="alarm_sentence_new_extreme">Ilmoita, kun %1$s saavuttaa uuden tason: %2$s.</string>
     <string name="alarm_simple_when">Kun %1$s</string>
     <string name="alarm_simple_above">nousee yli</string>
     <string name="alarm_simple_below">laskee alle</string>

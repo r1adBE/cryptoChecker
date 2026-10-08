@@ -145,14 +145,16 @@ struct WatchlistStarterPicker: View {
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
-                WatchlistChangePill(change: price.change)
+                ChangePill(change: price.change)
             }
             .fixedSize(horizontal: true, vertical: false)
             .transition(.opacity)
         } else if loadingPrices {
-            VStack(alignment: .trailing, spacing: Spacing.xs) {
-                WatchlistSkeletonBlock(width: 72, height: 12)
-                WatchlistSkeletonBlock(width: 44, height: 10)
+            SkeletonPulse {
+                VStack(alignment: .trailing, spacing: Spacing.xs) {
+                    SkeletonBlock(width: 72, height: 12)
+                    SkeletonBlock(width: 44, height: 10)
+                }
             }
             .transition(.opacity)
         }

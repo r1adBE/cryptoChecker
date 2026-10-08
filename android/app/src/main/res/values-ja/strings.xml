@@ -10,7 +10,7 @@
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">なし</string>
 
     <string name="market_screen_sync">同期</string>
-    <string name="market_screen_base">基軸</string>
+    <string name="market_screen_base">コイン</string>
     <string name="market_screen_quote">クオート通貨</string>
     <string name="market_screen_market">取引所</string>
     <string name="market_screen_contract_type">契約タイプ</string>
@@ -20,7 +20,7 @@
     <string name="ticker_low">安値</string>
     <string name="ticker_bid">買気配</string>
     <string name="ticker_ask">売気配</string>
-    <string name="ticker_vol_base">出来高（基軸）</string>
+    <string name="ticker_vol_base">出来高（コイン）</string>
     <string name="ticker_vol_quote">出来高（クオート通貨）</string>
     <string name="ticker_timestamp">時刻</string>
 
@@ -202,9 +202,9 @@
     <string name="watchlist_clear">ウォッチリストを消去</string>
     <string name="watchlist_clear_confirm">ウォッチリストからすべてのペアを削除しますか？各ペアのアラームも削除されます。</string>
     <string name="market_scores_hint">高値 = 過去のサイクル天井と同様のサイン、安値 = 過去のサイクル底と同様のサイン。4ポイント以上で一方が優勢、7以上で極端です。目標価格でも予測でもありません。</string>
-    <string name="market_scores_none">高値・安値のサインはどちらも出ていません：落ち着いた中間局面で、価格トレンドが決めます。</string>
+    <string name="market_scores_none">高値・安値のサインはどちらも出ていません：落ち着いた中間局面で、価格トレンドで判断します。</string>
     <string name="market_scores_info_title">サイクルシグナル</string>
-    <string name="market_scores_info_text">高値の可能性を示すサインは、過去のサイクル天井で見られたシグナルを数えます：強い割高感（MVRV）、非常に高いマイナー収入（Puell）、200日または200週平均を大きく上回る価格、放物線的な上昇、半減期後12〜18か月の期間。\n\n安値の可能性を示すサインは、過去の底のシグナルを数えます：低い MVRV、弱いマイナー収入、史上最高値からの大幅下落、200週平均付近の価格、ハッシュレートの低下、1年以上前の高値。\n\n4ポイント以上リードするとゾーンは Bull または Bear、7以上で極端。どちらもリードしない場合は価格トレンドが決めます。両方0/10は、熱狂も投げ売りもない状態です。\n\n目標価格でも予測でもありません：シグナルは過去のサイクルがどうだったかを示すだけです。</string>
+    <string name="market_scores_info_text">高値の可能性を示すサインは、過去のサイクル天井で見られたシグナルを数えます：強い割高感（MVRV）、非常に高いマイナー収入（Puell）、200日または200週平均を大きく上回る価格、放物線的な上昇、半減期後12〜18か月の期間。\n\n安値の可能性を示すサインは、過去の底のシグナルを数えます：低い MVRV、弱いマイナー収入、史上最高値からの大幅下落、200週平均付近の価格、ハッシュレートの低下、1年以上前の高値。\n\n4ポイント以上リードするとゾーンは Bull または Bear、7以上で極端。どちらもリードしない場合は価格トレンドで判断します。両方0/10は、熱狂も投げ売りもない状態です。\n\n目標価格でも予測でもありません：シグナルは過去のサイクルがどうだったかを示すだけです。</string>
     <string name="battery_open_settings">バッテリー設定を開く</string>
     <string name="battery_steps">アプリ情報で「バッテリー」（または「アプリのバッテリー使用量」）をタップし、「制限なし」を選択します。</string>
     <string name="explorer_select_placeholder">選択してください</string>
@@ -300,19 +300,19 @@
     <plurals name="coin_short_history">
         <item quantity="other">価格履歴は %1$d 日分のみ – 一部の指標がありません。</item>
     </plurals>
-    <string name="coin_price_only">価格のみに基づきます – オンチェーンデータ（MVRV、Puell、ハッシュレート）が無料なのはビットコインのみです。</string>
+    <string name="coin_price_only">価格のみに基づきます – オンチェーンデータ（MVRV、Puell、ハッシュレート）を無料で利用できるのはビットコインのみです。</string>
     <string name="ind_rsi_weekly">RSI（週）</string>
     <string name="ind_rsi_daily">RSI（日）</string>
     <string name="ind_pi_cycle">Pi サイクル（111/350日）</string>
     <string name="ind_cross">トレンド 50/200日</string>
     <string name="ind_vs_btc">ビットコイン比の強さ（90日）</string>
     <string name="ind_missing">データ不足</string>
-    <string name="channel_market">相場フェーズ</string>
-    <string name="channel_market_description">ビットコインの相場フェーズが変わると通知します</string>
+    <string name="channel_market">市場フェーズ</string>
+    <string name="channel_market_description">ビットコインの市場フェーズが変わると通知します</string>
     <string name="notification_zone_title">ビットコイン: %1$s</string>
-    <string name="notification_zone_text">相場フェーズが %1$s から %2$s に変わりました。</string>
-    <string name="settings_zone_alerts">相場フェーズの変化を通知</string>
-    <string name="settings_zone_alerts_hint">1日2回確認し、ビットコインのゾーンが変わると通知します（例: 中立 → Bull）。</string>
+    <string name="notification_zone_text">市場フェーズが %1$s から %2$s に変わりました。</string>
+    <string name="settings_zone_alerts">市場フェーズの変化を通知</string>
+    <string name="settings_zone_alerts_hint">1日2回確認し、ビットコインのゾーンが変わると通知します（例: Neutral → Bull）。</string>
     <string name="alarm_condition_move_percent">変動幅</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d 時間以内</item>
@@ -323,15 +323,15 @@
     <string name="settings_fng_above">Fear &amp; Greed: 上回ったら通知</string>
     <string name="option_off">オフ</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_fng_below">指数が %1$d を下回りました – 市場は恐怖。</string>
-    <string name="notification_fng_above">指数が %1$d を上回りました – 市場は強欲。</string>
+    <string name="notification_fng_below">指数が %1$d を下回りました – 市場は恐怖に傾いています。</string>
+    <string name="notification_fng_above">指数が %1$d を上回りました – 市場は強欲に傾いています。</string>
     <string name="futures_title">先物データ</string>
     <string name="futures_funding">資金調達率</string>
     <string name="futures_next_funding">次回まで %1$d 時間 %2$d 分</string>
     <string name="futures_open_interest">建玉</string>
     <string name="futures_source">出典: %1$s</string>
     <string name="single_widget_label">Crypto Checker – 1 コイン</string>
-    <string name="single_widget_description">1つのコインを大きく表示：価格、変化、24時間チャート。</string>
+    <string name="single_widget_description">1つのコインを価格・変動・24時間チャート付きで大きく表示します。</string>
     <string name="single_widget_choose">ペアを選択</string>
     <string name="single_widget_title">単体ウィジェットの設定</string>
     <string name="shortcut_add">ペアを追加</string>

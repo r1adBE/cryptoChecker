@@ -4,5 +4,5 @@
     <!-- Titel des Formulars und Screenreader-Name des Stifts -->
     <string name="watch_edit_title">Pár szerkesztése</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">A riasztások megmaradnak – ellenőrizd a küszöböket</string>
+    <string name="watch_edit_alarms_warning">A riasztások megmaradnak – ellenőrizze a küszöböket</string>
 </resources>

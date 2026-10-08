@@ -4,7 +4,7 @@
     <string name="cycle_marker_top">Huippu %1$s</string>
     <string name="cycle_marker_high_so_far">Korkein tähän asti</string>
     <string name="cycle_marker_bottom">Pohja %1$s</string>
-    <string name="cycle_since_halving">%1$s halvingista</string>
+    <string name="cycle_since_halving">%1$s puolittumisesta</string>
     <string name="cycle_from_top">%1$s huipusta</string>
     <string name="cycle_marker_double_top">Tuplahuippu %1$s</string>
     <string name="cycle_marker_double_bottom">Tuplapohja %1$s</string>

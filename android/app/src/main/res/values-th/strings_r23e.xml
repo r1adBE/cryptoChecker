@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
-    <string name="settings_alarm_signal">สัญญาณการแจ้งเตือน</string>
+    <string name="settings_alarm_signal">รูปแบบสัญญาณเตือน</string>
     <string name="alarm_signal_system">ระบบ</string>
     <string name="alarm_signal_sound_vibrate">เสียงและการสั่น</string>
     <string name="alarm_signal_sound">เสียงเท่านั้น</string>

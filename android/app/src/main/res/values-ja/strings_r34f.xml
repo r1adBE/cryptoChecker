@@ -12,7 +12,7 @@
     <string name="tts_direction_oi_up">建玉の増加を伴って</string>
     <string name="tts_direction_oi_down">建玉の減少を伴って</string>
     <string name="alarm_funding_hint">精算期間ごとの資金調達率（通常は8時間ごと）。マイナスはショートがロングに支払うことを意味します。± で符号を切り替えます。</string>
-    <string name="alarm_oi_hint">建玉を、同じ時間だけ前に保存した値と比べます。新しいアラームは、アプリがその期間のデータを集めてから通知します。確認は最大5分ごとです。</string>
+    <string name="alarm_oi_hint">建玉を、同じ時間だけ前に保存した値と比べます。新しいアラームは、アプリがその期間のデータを集めてから通知します。確認は最短5分ごとです。</string>
     <string name="alarm_funding_sign_a11y">符号を切り替え</string>
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">%1$s の建玉が %3$d 時間以内に %2$s 増えたら知らせる。</item>

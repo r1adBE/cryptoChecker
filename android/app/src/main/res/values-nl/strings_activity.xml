@@ -28,11 +28,11 @@
     <string name="why_no_data">Geen gegevens van Binance voor dit paar</string>
     <string name="why_no_data_hint">Koers, volume en volatiliteit komen uit de uurcandles van Binance.</string>
 
-    <string name="why_market_wide_text">Deze munt: %1$s in 24u – de drijvende kracht is waarschijnlijk de hele markt, niet de munt zelf.</string>
-    <string name="why_coin_only_text">%1$s in 24u terwijl de markt rustig is: de oorzaak ligt waarschijnlijk bij de munt zelf.</string>
-    <string name="why_against_market_text">Deze munt %1$s, BTC %2$s in 24u – een opvallend zelfstandige beweging.</string>
-    <string name="why_market_calm_text">Deze munt: %1$s in 24u. Markt noch munt bewegen veel.</string>
-    <string name="why_market_leader_text">Als marktleider trekt BTC meestal de rest van de markt mee. ETH: %1$s in 24u.</string>
+    <string name="why_market_wide_text">Deze munt: %1$s in 24 u – de drijvende kracht is waarschijnlijk de hele markt, niet de munt zelf.</string>
+    <string name="why_coin_only_text">%1$s in 24 u terwijl de markt rustig is: de oorzaak ligt waarschijnlijk bij de munt zelf.</string>
+    <string name="why_against_market_text">Deze munt %1$s, BTC %2$s in 24 u – een opvallend zelfstandige beweging.</string>
+    <string name="why_market_calm_text">Deze munt: %1$s in 24 u. Markt noch munt bewegen veel.</string>
+    <string name="why_market_leader_text">Als marktleider trekt BTC meestal de rest van de markt mee. ETH: %1$s in 24 u.</string>
     <string name="why_market_leader_text_no_eth">Als marktleider trekt BTC meestal de rest van de markt mee.</string>
 
     <string name="why_volume_high_text">Veel meer handel dan normaal in het afgelopen uur – de beweging wordt breed gedragen.</string>

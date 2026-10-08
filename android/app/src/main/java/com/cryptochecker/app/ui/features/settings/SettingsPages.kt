@@ -30,7 +30,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 /** Unterseiten der Einstellungen; der Name steht in der Route `settings/page/{page}`. */
 enum class SettingsPage {
     CURRENCY, UPDATES, WATCHLIST,
-    DISPLAY_MODE, THEME, PRICE_COLORS, CHANGE_BASIS,
+    DISPLAY_MODE, THEME, PRICE_COLORS, CHANGE_BASIS, COIN_LOGOS,
     ALARMS,
     PORTFOLIO,
     BACKUP,
@@ -52,6 +52,7 @@ fun SettingsPageScreen(page: SettingsPage?, onBack: () -> Unit) {
         SettingsPage.THEME -> ThemePage(onBack)
         SettingsPage.PRICE_COLORS -> PriceColorsPage(onBack)
         SettingsPage.CHANGE_BASIS -> ChangeBasisPage(onBack)
+        SettingsPage.COIN_LOGOS -> CoinLogosPage(onBack)
         SettingsPage.ALARMS -> AlarmsPage(onBack)
         SettingsPage.PORTFOLIO -> PortfolioPage(onBack)
         SettingsPage.BACKUP -> BackupPage(onBack)

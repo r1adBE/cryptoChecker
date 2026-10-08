@@ -321,7 +321,7 @@
     <string name="ind_vs_btc">Styrka mot Bitcoin (90 dagar)</string>
     <string name="ind_missing">för lite data</string>
     <string name="channel_market">Marknadsfas</string>
-    <string name="channel_market_description">Meddelar när Bitcoins marknadsfas byts</string>
+    <string name="channel_market_description">Meddelar när Bitcoins marknadsfas skiftar</string>
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Marknadsfasen har ändrats från %1$s till %2$s.</string>
     <string name="settings_zone_alerts">Meddela vid byte av marknadsfas</string>
@@ -357,7 +357,7 @@
     <string name="backup_import">Importera</string>
     <string name="backup_restore_confirm">Import ersätter din lista (med anteckningar och grupper), larm, favoriter, portfölj och inställningar med säkerhetskopian.</string>
     <string name="backup_exported">Säkerhetskopia sparad.</string>
-    <string name="backup_failed">Det gick inte. Är det en Crypto Checker-kopia?</string>
+    <string name="backup_failed">Det gick inte. Är det en säkerhetskopia från Crypto Checker?</string>
     <string name="backup_restored">Återställt: %1$s, %2$s.</string>
     <plurals name="backup_restored_pairs">
         <item quantity="one">%1$d par</item>

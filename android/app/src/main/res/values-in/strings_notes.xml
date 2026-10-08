@@ -3,6 +3,6 @@
     <string name="note_title">Catatan</string>
     <string name="note_add">Tambah catatan</string>
     <string name="note_edit">Edit catatan</string>
-    <string name="note_hint">mis. masuk di 0.42, target 0.60</string>
+    <string name="note_hint">mis. masuk di 0,42; target 0,60</string>
     <string name="note_remove">Hapus</string>
 </resources>

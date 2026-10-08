@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">コインのロゴ</string>
+    <string name="settings_coin_logos_app">アプリ内</string>
+    <string name="settings_coin_logos_app_hint">ウォッチリスト、ペアシート、マーケットカード</string>
+    <string name="settings_coin_logos_portfolio">ポートフォリオ内</string>
+    <string name="settings_coin_logos_portfolio_hint">保有銘柄、コインの詳細、分析</string>
+    <string name="settings_coin_logos_widgets">ウィジェット内</string>
+    <string name="settings_coin_logos_widgets_hint">ウォッチリストと 1 コインのウィジェット</string>
+    <string name="settings_coin_logos_footer">ロゴは CoinGecko から、CoinGecko にないもの（金、銀、株式など）は Binance から取得します。すべてのロゴを一度にまとめて読み込み、この端末に保存するため、どのコインをフォローしているかはどちらにも伝わりません。ロゴのないコインは頭文字を表示します。お気に入りにはロゴに小さな星が付きます。スイッチがオフの場所にはロゴも頭文字も表示されません。すべてオフのときは何も読み込みません。</string>
+    <string name="settings_coin_logos_value_app">アプリ</string>
+</resources>

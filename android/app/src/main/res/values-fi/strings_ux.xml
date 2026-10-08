@@ -30,7 +30,7 @@
         <item quantity="one">Ilmoita, kun %1$s liikkuu vähintään %2$s %3$d tunnin sisällä.</item>
         <item quantity="other">Ilmoita, kun %1$s liikkuu vähintään %2$s %3$d tunnin sisällä.</item>
     </plurals>
-    <string name="alarm_sentence_volume">Ilmoita, kun %1$s-kaupankäynnin volyymi on %2$s× tavallinen.</string>
+    <string name="alarm_sentence_volume">Ilmoita, kun kohteen %1$s kaupankäyntivolyymi on %2$s× tavallinen.</string>
     <string name="alarm_sentence_incomplete">Syötä arvo, niin hälytys näkyy tässä lauseena.</string>
     <string name="watchlist_row_unreachable">%1$s · %2$s ei tavoitettavissa</string>
     <string name="watchlist_row_outdated">%1$s · vanhentunut</string>

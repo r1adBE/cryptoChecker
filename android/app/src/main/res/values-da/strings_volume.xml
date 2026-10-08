@@ -3,7 +3,7 @@
     <!-- Volumen-Spike-Alarm -->
     <string name="alarm_condition_volume_spike">Volumen-spike</string>
     <string name="alarm_volume_factor_label">Sidste times volumen i forhold til normalt</string>
-    <string name="alarm_volume_hint">Volumendata kommer fra Binance – par, der ikke er noteret der, udløser aldrig.</string>
+    <string name="alarm_volume_hint">Volumendata kommer fra Binance – par, der ikke er noteret der, udløser aldrig en alarm.</string>
     <string name="notification_volume_spike_text">Volumen %1$s× normalt i den sidste time</string>
     <string name="tts_direction_volume_spike">med volumen-spike</string>
 

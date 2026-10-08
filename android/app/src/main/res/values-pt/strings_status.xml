@@ -7,5 +7,5 @@
         <item quantity="many">%1$d de %2$d sem preço</item>
         <item quantity="other">%1$d de %2$d sem preço</item>
     </plurals>
-    <string name="watch_not_traded">Já não é negociado nesta bolsa</string>
+    <string name="watch_not_traded">Já não é negociado nesta exchange</string>
 </resources>

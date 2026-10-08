@@ -24,7 +24,7 @@
     <string name="refresh_sheet_database">データベース</string>
     <string name="refresh_sheet_alarms">アラーム</string>
     <plurals name="refresh_sheet_alarms_triggered">
-        <item quantity="other">%1$d 件発動</item>
+        <item quantity="other">%1$d 件作動</item>
     </plurals>
     <plurals name="refresh_sheet_notifications">
         <item quantity="other">通知 %1$d 件</item>

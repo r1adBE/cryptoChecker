@@ -10,7 +10,7 @@
     <string name="settings_row_watchlist">Lista</string>
     <string name="settings_watchlist_value_sparkline">Mini grafico</string>
     <string name="settings_watchlist_value_price_only">Solo prezzo</string>
-    <string name="settings_row_alarms">Avvisi</string>
+    <string name="settings_row_alarms">Allarmi</string>
     <string name="settings_portfolio_value_locked">On, con blocco</string>
     <string name="settings_row_dated_futures">Futures con scadenza</string>
     <string name="settings_tradfi_futures">Azioni, materie prime e valute (TradFi)</string>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logot e monedhave</string>
+    <string name="settings_coin_logos_app">Në aplikacion</string>
+    <string name="settings_coin_logos_app_hint">Lista, fleta e çiftit dhe kartat e tregut</string>
+    <string name="settings_coin_logos_portfolio">Në portofol</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozicionet, detajet e monedhave dhe analizat</string>
+    <string name="settings_coin_logos_widgets">Në widget-et</string>
+    <string name="settings_coin_logos_widgets_hint">Widget-et e listës dhe të një monedhe</string>
+    <string name="settings_coin_logos_footer">Logot vijnë nga CoinGecko dhe, për ato që CoinGecko nuk i ka (p.sh. ari, argjendi, aksionet), nga Binance. Aplikacioni shkarkon njëherësh të gjitha logot dhe i ruan në këtë pajisje, kështu asnjëri nuk e di cilat monedha ndjek. Monedhat pa logo shfaqin inicialet. Të preferuarat marrin një yll të vogël te logoja. Aty ku një çelës është i çaktivizuar nuk shfaqen as logo, as iniciale; kur gjithçka është e çaktivizuar, nuk ngarkohet asgjë.</string>
+    <string name="settings_coin_logos_value_app">Aplikacioni</string>
+</resources>

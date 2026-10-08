@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
-    <string name="settings_change_basis">Зміна в %1$s</string>
+    <string name="settings_change_basis">Зміна в %1$s і часовий пояс графіка</string>
     <string name="change_basis_rolling">Останні 24 год</string>
     <string name="change_basis_utc_zone">З 00:00 %1$s</string>
     <string name="change_basis_local">З 00:00 за місцевим часом</string>
-    <string name="settings_change_basis_hint_1">Вибраний часовий пояс визначає, з якого моменту рахується відсоткова зміна: у списку спостереження, рядку пульсу, картці пари та віджетах.</string>
+    <string name="settings_change_basis_hint_1">Вибраний часовий пояс визначає, з якого моменту рахується відсоткова зміна (список спостереження, рядок пульсу, картка пари, віджети), і час на графіках.</string>
     <string name="settings_change_basis_hint_2">«%1$s» порівнює з ціною рівно 24 години тому. «00:00» порівнює з ціною відкриття опівночі в цьому часовому поясі.</string>
-    <string name="settings_change_basis_hint_3">На сповіщення це не впливає.</string>
+    <string name="settings_change_basis_hint_3">На сигнали це не впливає.</string>
     <string name="change_basis_device">%1$s, 00:00 (часовий пояс пристрою)</string>
     <string name="change_short_today">сьогодні</string>
     <string name="change_short_today_zone">сьогодні %1$s</string>

@@ -6,7 +6,7 @@
     <string name="activity_indicator">Nietypowa aktywność</string>
 
     <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
-    <string name="activity_signal_price_move">Nietypowy ruch: %1$s w godzinę (%2$s× normy)</string>
+    <string name="activity_signal_price_move">Nietypowy ruch: %1$s w ciągu godziny (%2$s× normy)</string>
     <string name="activity_signal_volume">Wolumen %1$s× normy w ostatniej godzinie</string>
     <string name="activity_signal_open_interest">Otwarte pozycje %1$s w ciągu %2$d min</string>
     <string name="activity_signal_open_interest_no_time">Otwarte pozycje %1$s</string>
@@ -47,6 +47,6 @@
     <string name="why_volatility_high_text">Ostatnia godzina: %1$s — w odniesieniu do typowego godzinowego wahania z ostatnich 24 godzin.</string>
     <string name="why_volatility_normal_text">Ostatnia godzina: %1$s — w zwykłym zakresie.</string>
 
-    <string name="why_sentiment_text">Indeks Strach i chciwość całego rynku krypto, %1$s względem wczoraj.</string>
-    <string name="why_sentiment_text_no_change">Indeks Strach i chciwość całego rynku krypto.</string>
+    <string name="why_sentiment_text">Indeks Fear &amp; Greed całego rynku krypto, %1$s od wczoraj.</string>
+    <string name="why_sentiment_text_no_change">Indeks Fear &amp; Greed całego rynku krypto.</string>
 </resources>

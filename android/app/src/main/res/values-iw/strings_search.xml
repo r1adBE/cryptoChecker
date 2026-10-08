@@ -4,5 +4,5 @@
     <string name="watchlist_search_hint">חיפוש צמד או בורסה</string>
     <string name="watchlist_search_open">חיפוש</string>
     <string name="watchlist_search_close">סגירת החיפוש</string>
-    <string name="watchlist_search_empty">אין תוצאות עבור “%1$s”</string>
+    <string name="watchlist_search_empty">אין תוצאות עבור ״%1$s״</string>
 </resources>

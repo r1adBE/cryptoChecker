@@ -4,7 +4,7 @@
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d activă</item>
         <item quantity="few">%1$d active</item>
-        <item quantity="other">%1$d de active</item>
+        <item quantity="other">%1$d active</item>
     </plurals>
     <string name="settings_summary_on">Pornit</string>
 

@@ -3,7 +3,7 @@
     <string name="check_error_generic_prefix">Σφάλμα: %1$s</string>
 
     <string name="checker_add_check_currency_empty_warning_title">Δεν υπάρχουν ζεύγη νομισμάτων</string>
-    <string name="checker_add_check_currency_empty_warning_summary">Φορτώνει τα τρέχοντα ζεύγη της επιλεγμένης αγοράς.</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Φορτώνει τα τρέχοντα ζεύγη του επιλεγμένου ανταλλακτηρίου.</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_title">Ενημέρωση ζευγών νομισμάτων</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Συγχρονισμός τώρα!</string>
     <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Τελευταίος συγχρονισμός: %1$s</string>
@@ -94,11 +94,11 @@
     <string name="zone_neutral">Neutral</string>
     <string name="zone_bull">Bull</string>
     <string name="zone_extreme_bull">Extreme Bull</string>
-    <string name="zone_hint_extreme_bear">Πολλά ιστορικά σήματα bottom ταυτόχρονα – ιστορική ζώνη συσσώρευσης.</string>
-    <string name="zone_hint_bear">Πτωτική τάση ή σχηματισμός bottom, χωρίς ακόμη ευρεία συνθηκολόγηση.</string>
+    <string name="zone_hint_extreme_bear">Πολλά ιστορικά σήματα πυθμένα ταυτόχρονα – ιστορική ζώνη συσσώρευσης.</string>
+    <string name="zone_hint_bear">Πτωτική τάση ή σχηματισμός πυθμένα, χωρίς ακόμη ευρεία συνθηκολόγηση.</string>
     <string name="zone_hint_neutral">Μικτά σήματα, χωρίς σαφή κατεύθυνση.</string>
     <string name="zone_hint_bull">Ανοδική τάση χωρίς ακραία υπερθέρμανση.</string>
-    <string name="zone_hint_extreme_bull">Πολλά ιστορικά σήματα top ταυτόχρονα – αυξημένος κίνδυνος top.</string>
+    <string name="zone_hint_extreme_bull">Πολλά ιστορικά σήματα κορυφής ταυτόχρονα – αυξημένος κίνδυνος κορυφής.</string>
     <string name="market_scores">Ενδείξεις πιθανής κορυφής %1$d/10 · πυθμένα %2$d/10</string>
     <string name="market_show_indicators">Εμφάνιση δεικτών</string>
     <string name="market_hide_indicators">Απόκρυψη δεικτών</string>
@@ -110,8 +110,8 @@
     <string name="ind_parabolic">Παραβολική άνοδος (30 ημέρες)</string>
     <string name="ind_halving">Μήνες από το halving</string>
     <string name="ind_ath">Μήνες από το ιστορικό υψηλό</string>
-    <string name="ind_points_top">+%1$d top</string>
-    <string name="ind_points_bottom">+%1$d bottom</string>
+    <string name="ind_points_top">+%1$d κορυφή</string>
+    <string name="ind_points_bottom">+%1$d πυθμένας</string>
     <string name="market_phase_disclaimer">Βασίζεται σε προηγούμενους κύκλους και στην τάση της τιμής. Δεν αποτελεί πρόβλεψη ούτε επενδυτική συμβουλή.</string>
     <string name="action_retry">Επανάληψη</string>
     <string name="settings_section_language">Γλώσσα</string>
@@ -217,7 +217,7 @@
     <string name="market_scores_hint">Κορυφή = ενδείξεις όπως σε προηγούμενες κορυφές κύκλου, πυθμένας = ενδείξεις όπως σε προηγούμενους πυθμένες κύκλου. Από 4 πόντους κυριαρχεί μία πλευρά, από 7 είναι ακραία. Καμία τιμή-στόχος και καμία πρόβλεψη.</string>
     <string name="market_scores_none">Καμία ένδειξη κορυφής ή πυθμένα δεν είναι ενεργή: ήρεμη ενδιάμεση φάση, αποφασίζει η τάση της τιμής.</string>
     <string name="market_scores_info_title">Σήματα κύκλου</string>
-    <string name="market_scores_info_text">Οι ενδείξεις πιθανής κορυφής μετρούν σήματα που εμφανίστηκαν σε κορυφές προηγούμενων κύκλων: ισχυρή υπερτίμηση (MVRV), πολύ υψηλά έσοδα miners (Puell), τιμή πολύ πάνω από τον μέσο όρο 200 ημερών ή 200 εβδομάδων, παραβολική άνοδος και το διάστημα 12–18 μηνών μετά το halving.\n\nΟι ενδείξεις πιθανού πυθμένα μετρούν σήματα προηγούμενων πυθμένων: χαμηλό MVRV, αδύναμα έσοδα miners, μεγάλη πτώση από το ιστορικό υψηλό, τιμή κοντά στον μέσο όρο 200 εβδομάδων, πτωτικό hashrate και κορυφή πριν από πάνω από έναν χρόνο.\n\nΜε προβάδισμα 4 πόντων η ζώνη είναι Bull ή Bear, από 7 Ακραία. Αν καμία πλευρά δεν προηγείται, αποφασίζει η τάση της τιμής. 0/10 και στις δύο πλευρές σημαίνει: ούτε ευφορία ούτε συνθηκολόγηση.\n\nΚαμία τιμή-στόχος και καμία πρόβλεψη: τα σήματα περιγράφουν μόνο πώς έμοιαζαν οι προηγούμενοι κύκλοι.</string>
+    <string name="market_scores_info_text">Οι ενδείξεις πιθανής κορυφής μετρούν σήματα που εμφανίστηκαν σε κορυφές προηγούμενων κύκλων: ισχυρή υπερτίμηση (MVRV), πολύ υψηλά έσοδα miners (Puell), τιμή πολύ πάνω από τον μέσο όρο 200 ημερών ή 200 εβδομάδων, παραβολική άνοδος και το διάστημα 12–18 μηνών μετά το halving.\n\nΟι ενδείξεις πιθανού πυθμένα μετρούν σήματα προηγούμενων πυθμένων: χαμηλό MVRV, αδύναμα έσοδα miners, μεγάλη πτώση από το ιστορικό υψηλό, τιμή κοντά στον μέσο όρο 200 εβδομάδων, πτωτικό hashrate και κορυφή πριν από περισσότερο από έναν χρόνο.\n\nΜε προβάδισμα 4 πόντων η ζώνη είναι Bull ή Bear, από 7 Extreme. Αν καμία πλευρά δεν προηγείται, αποφασίζει η τάση της τιμής. 0/10 και στις δύο πλευρές σημαίνει: ούτε ευφορία ούτε συνθηκολόγηση.\n\nΚαμία τιμή-στόχος και καμία πρόβλεψη: τα σήματα περιγράφουν μόνο πώς έμοιαζαν οι προηγούμενοι κύκλοι.</string>
     <string name="battery_open_settings">Άνοιγμα ρυθμίσεων μπαταρίας</string>
     <string name="battery_steps">Στις πληροφορίες εφαρμογής πατήστε Μπαταρία (ή Χρήση μπαταρίας εφαρμογής) και επιλέξτε Χωρίς περιορισμούς.</string>
     <string name="explorer_select_placeholder">Επιλέξτε</string>
@@ -285,7 +285,7 @@
     <string name="widget_background">Φόντο</string>
     <string name="widget_configure_title">Ρύθμιση widget</string>
     <string name="widget_configure_hint">Επιλέξτε φόντο και αδιαφάνεια. Το χρώμα ακολουθεί την εφαρμογή. Το widget δείχνει όλη τη λίστα· πατήστε μια γραμμή για να ανοίξει η εφαρμογή.</string>
-    <string name="settings_custom_value">Άλλο</string>
+    <string name="settings_custom_value">Προσαρμοσμένο</string>
     <string name="insights_halving_title">Halving του Bitcoin</string>
     <plurals name="insights_halving_countdown">
         <item quantity="one">Επόμενο halving σε περίπου %1$d ημέρα (%2$s)</item>
@@ -322,8 +322,8 @@
         <item quantity="other">Μόνο %1$d ημέρες ιστορικού – λείπουν κάποιοι δείκτες.</item>
     </plurals>
     <string name="coin_price_only">Μόνο με βάση την τιμή – τα on-chain δεδομένα (MVRV, Puell, hashrate) είναι ελεύθερα μόνο για το Bitcoin.</string>
-    <string name="ind_rsi_weekly">RSI (εβδομάδα)</string>
-    <string name="ind_rsi_daily">RSI (ημέρα)</string>
+    <string name="ind_rsi_weekly">RSI (εβδομαδιαίο)</string>
+    <string name="ind_rsi_daily">RSI (ημερήσιο)</string>
     <string name="ind_pi_cycle">Pi cycle (111/350 ημέρες)</string>
     <string name="ind_cross">Τάση 50/200 ημερών</string>
     <string name="ind_vs_btc">Δύναμη έναντι Bitcoin (90 ημέρες)</string>
@@ -333,7 +333,7 @@
     <string name="notification_zone_title">Bitcoin: %1$s</string>
     <string name="notification_zone_text">Η φάση αγοράς άλλαξε από %1$s σε %2$s.</string>
     <string name="settings_zone_alerts">Ειδοποίηση σε αλλαγή φάσης</string>
-    <string name="settings_zone_alerts_hint">Ελέγχει δύο φορές την ημέρα και ειδοποιεί όταν το Bitcoin αλλάζει ζώνη, π.χ. από Ουδέτερο σε Bull.</string>
+    <string name="settings_zone_alerts_hint">Ελέγχει δύο φορές την ημέρα και ειδοποιεί όταν το Bitcoin αλλάζει ζώνη, π.χ. από Neutral σε Bull.</string>
     <string name="alarm_condition_move_percent">Κινείται κατά</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">σε %1$d ώρα</item>
@@ -353,17 +353,17 @@
     <string name="futures_open_interest">Ανοιχτό ενδιαφέρον</string>
     <string name="futures_source">Πηγή: %1$s</string>
     <string name="single_widget_label">Crypto Checker – ένα νόμισμα</string>
-    <string name="single_widget_description">Δείχνει ένα νόμισμα μεγάλο με τιμή, μεταβολή και γράφημα 24 ωρών.</string>
+    <string name="single_widget_description">Δείχνει ένα νόμισμα σε μεγάλο μέγεθος με τιμή, μεταβολή και γράφημα 24 ωρών.</string>
     <string name="single_widget_choose">Επιλογή ζεύγους</string>
-    <string name="single_widget_title">Ρύθμιση μεμονωμένου widget</string>
+    <string name="single_widget_title">Ρύθμιση widget ενός νομίσματος</string>
     <string name="shortcut_add">Προσθήκη ζεύγους</string>
     <string name="shortcut_alarms">Όλες οι ειδοποιήσεις</string>
     <string name="shortcut_cycle">Αγορά</string>
     <string name="backup_title">Αντίγραφο ασφαλείας</string>
-    <string name="backup_hint">Αποθηκεύει λίστα με σημειώσεις και ομάδες, ειδοποιήσεις, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις σε αρχείο που κρατάτε εσείς – π.χ. για νέο κινητό.</string>
+    <string name="backup_hint">Αποθηκεύει τη λίστα σας με σημειώσεις και ομάδες, ειδοποιήσεις, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις σε αρχείο που κρατάτε εσείς – π.χ. για νέο κινητό.</string>
     <string name="backup_export">Εξαγωγή</string>
     <string name="backup_import">Εισαγωγή</string>
-    <string name="backup_restore_confirm">Η εισαγωγή αντικαθιστά λίστα (με σημειώσεις και ομάδες), ειδοποιήσεις, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις με το αντίγραφο.</string>
+    <string name="backup_restore_confirm">Η εισαγωγή αντικαθιστά την τρέχουσα λίστα σας (με σημειώσεις και ομάδες), τις ειδοποιήσεις, τα αγαπημένα, το χαρτοφυλάκιο και τις ρυθμίσεις με εκείνα του αντιγράφου.</string>
     <string name="backup_exported">Το αντίγραφο αποθηκεύτηκε.</string>
     <string name="backup_failed">Δεν πέτυχε. Είναι αντίγραφο του Crypto Checker;</string>
     <string name="backup_restored">Επαναφέρθηκαν: %1$s, %2$s.</string>

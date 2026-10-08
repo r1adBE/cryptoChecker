@@ -24,7 +24,7 @@
     <string name="refresh_sheet_database">데이터베이스</string>
     <string name="refresh_sheet_alarms">경보</string>
     <plurals name="refresh_sheet_alarms_triggered">
-        <item quantity="other">%1$d개 발동</item>
+        <item quantity="other">%1$d개 울림</item>
     </plurals>
     <plurals name="refresh_sheet_notifications">
         <item quantity="other">알림 %1$d개</item>

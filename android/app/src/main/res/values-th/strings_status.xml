@@ -5,5 +5,5 @@
     <plurals name="watchlist_failed_count">
         <item quantity="other">%1$d จาก %2$d ไม่มีราคา</item>
     </plurals>
-    <string name="watch_not_traded">ไม่มีการซื้อขายในกระดานนี้แล้ว</string>
+    <string name="watch_not_traded">ไม่มีการซื้อขายในกระดานเทรดนี้แล้ว</string>
 </resources>

@@ -34,7 +34,10 @@ keys or other secrets never belong in this repository.
 * **Backups.** Exported via the system file picker only (no temporary copies),
   optionally encrypted with a password (AES-256-GCM, PBKDF2-HMAC-SHA256). The
   password is never stored. Android's system backup covers only the app's own
-  data files listed in its backup rules.
+  data files listed in its backup rules – these include the database (watchlist,
+  alarms, portfolio). The portfolio lock protects what the app shows on the
+  device; it does not protect Android system backups or iOS device backups. A
+  switch to keep the portfolio out of the system backup is planned (16.3).
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.

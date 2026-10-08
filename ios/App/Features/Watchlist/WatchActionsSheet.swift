@@ -234,7 +234,7 @@ struct WatchActionsSheet: View {
 
     private func header(_ watch: Watch) -> some View {
         HStack(spacing: Spacing.md) {
-            CoinBadge(symbol: watch.baseAsset, size: 48)
+            CoinBadge(symbol: watch.baseAsset, size: 48, logo: CoinLogos.allowed(forMarket: watch.marketKey))
             VStack(alignment: .leading, spacing: 2) {
                 Text(watch.displayName)
                     .font(AppFont.headline)

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Myntlogoer</string>
+    <string name="settings_coin_logos_app">I appen</string>
+    <string name="settings_coin_logos_app_hint">Overvåkingsliste, parark og markedskort</string>
+    <string name="settings_coin_logos_portfolio">I porteføljen</string>
+    <string name="settings_coin_logos_portfolio_hint">Beholdninger, myntdetaljer og innsikt</string>
+    <string name="settings_coin_logos_widgets">I widgeter</string>
+    <string name="settings_coin_logos_widgets_hint">Widgeter for overvåkingsliste og én mynt</string>
+    <string name="settings_coin_logos_footer">Logoene kommer fra CoinGecko og, for det CoinGecko ikke har (f.eks. gull, sølv, aksjer), fra Binance. Appen laster ned alle logoene på én gang og lagrer dem på denne enheten, så ingen av dem vet hvilke mynter du følger. Mynter uten logo viser initialene sine. Favoritter får en liten stjerne på logoen. Der en bryter er av, vises verken logoer eller initialer; er alt av, lastes ingenting inn.</string>
+    <string name="settings_coin_logos_value_app">App</string>
+</resources>

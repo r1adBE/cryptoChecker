@@ -17,7 +17,7 @@ struct WatchSheetChartView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.displayScale) var displayScale
     /// %-Basis: bei «seit 00:00» heisst der erste Zeitraum «Heute» und beginnt beim Tagesbeginn.
-    @Environment(\.changeView) private var changeView
+    @Environment(\.changeView) var changeView
     /// Beschriftung im Chart wächst mit der Textgrösse, höchstens bis 13 pt.
     @ScaledMetric(relativeTo: .caption2) var labelSize: CGFloat = 10
 
@@ -158,15 +158,7 @@ struct WatchSheetChartView: View {
                 .frame(height: Self.chartHeight)
         }
         .accessibilityHidden(true)
-        if reduceMotion {
-            shape.opacity(0.7)
-        } else {
-            shape.phaseAnimator([0.45, 1.0]) { view, phase in
-                view.opacity(phase)
-            } animation: { _ in
-                .easeInOut(duration: 0.9)
-            }
-        }
+        SkeletonPulse { shape }
     }
 
     // MARK: Zeitraum und Chart-Art

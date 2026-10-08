@@ -29,7 +29,7 @@
     <string name="why_no_data_hint">ราคา ปริมาณ และความผันผวนมาจากแท่งเทียนรายชั่วโมงของ Binance</string>
 
     <string name="why_market_wide_text">เหรียญนี้: %1$s ใน 24 ชม. — แรงขับน่าจะมาจากตลาดโดยรวม ไม่ใช่ตัวเหรียญเอง</string>
-    <string name="why_coin_only_text">%1$s ใน 24 ชม. ขณะที่ตลาดเงียบ: สาเหตุน่าจะเฉพาะเจาะจงกับเหรียญนี้</string>
+    <string name="why_coin_only_text">%1$s ใน 24 ชม. ขณะที่ตลาดเงียบ: สาเหตุน่าจะมาจากตัวเหรียญเอง</string>
     <string name="why_against_market_text">เหรียญนี้ %1$s, BTC %2$s ใน 24 ชม. — การเคลื่อนไหวที่เป็นอิสระอย่างเห็นได้ชัด</string>
     <string name="why_market_calm_text">เหรียญนี้: %1$s ใน 24 ชม. ทั้งตลาดและเหรียญไม่ได้เคลื่อนไหวมาก</string>
     <string name="why_market_leader_text">ในฐานะผู้นำตลาด BTC มักดึงตลาดส่วนที่เหลือไปด้วย ETH: %1$s ใน 24 ชม.</string>

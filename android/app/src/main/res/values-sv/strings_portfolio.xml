@@ -21,7 +21,7 @@
     <string name="portfolio_unrealized">Vinst/förlust, ännu inte sålt</string>
     <string name="portfolio_realized">Vinst/förlust, sålt</string>
     <string name="portfolio_value">Värde</string>
-    <string name="portfolio_avg_price">Snitt köppris</string>
+    <string name="portfolio_avg_price">Snittköppris</string>
     <string name="portfolio_current_price">Aktuell kurs</string>
     <string name="portfolio_avg_and_now">Snitt %1$s · nu %2$s</string>
     <string name="portfolio_updated">Kurser från %1$s</string>
