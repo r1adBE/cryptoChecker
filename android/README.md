@@ -374,7 +374,8 @@ app/
   work/       WorkManager, Boot-Receiver
   widget/     Widget-Provider und Einrichtung; je Widget-Art ein Renderer
               (ListWidgetRenderer, SingleWidgetRenderer, PortfolioWidgetRenderer,
-              PulseWidgetRenderer), WidgetUpdater entscheidet, was neu muss
+              PulseWidgetRenderer), WidgetUpdater entscheidet, was neu muss;
+              Zeilen der Liste aus ListWidgetRows (ab Android 12 direkt im Widget)
   ui/         Compose: Merkliste, Börsen, Alarme, Markt, Portfolio, Einstellungen
 ```
 

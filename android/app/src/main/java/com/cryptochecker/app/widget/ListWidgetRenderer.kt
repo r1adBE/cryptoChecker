@@ -5,8 +5,10 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.util.TypedValue
 import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.refresh.OutdatedRule
@@ -15,11 +17,17 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/** Listen-Widget «Merkliste»: Kopf mit Uhrzeit und Aktualisieren, die Zeilen liefert [PriceWidgetService]. */
+/**
+ * Listen-Widget «Merkliste»: Kopf mit Uhrzeit und Aktualisieren, darunter die Zeilen ([ListWidgetRows]).
+ * Ab Android 12 kommen die Zeilen im selben Schritt wie der Kopf ins Widget (RemoteCollectionItems) —
+ * kein Dienst, der erst gebunden werden muss und hängen bleiben kann («Wird geladen …»). Darunter
+ * und bei sehr langen Listen liefert sie [PriceWidgetService].
+ */
 @Singleton
 class ListWidgetRenderer @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -27,6 +35,7 @@ class ListWidgetRenderer @Inject constructor(
     private val refreshStats: RefreshStats,
     private val settingsRepository: SettingsRepository,
     private val toolkit: WidgetToolkit,
+    private val rows: ListWidgetRows,
 ) {
     /** Zeichnet die Listen-Widgets [appWidgetIds]; false, wenn nichts zu zeichnen war. */
     suspend fun update(appWidgetIds: IntArray): Boolean {
@@ -43,20 +52,25 @@ class ListWidgetRenderer @Inject constructor(
         val lastRefresh = refreshStats.lastRefresh()
         val outdated = OutdatedRule.isOutdated(lastRefresh, System.currentTimeMillis(), WidgetOutdated.afterMillis(settings))
 
+        // Widgets, deren Zeilen der Dienst liefert: danach neu laden lassen
+        val viaService = ArrayList<Int>()
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
+            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId) else null
+            if (inline == null) viaService += appWidgetId
             runCatching {
-                manager.updateAppWidget(appWidgetId, render(manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, outdated))
+                manager.updateAppWidget(appWidgetId, render(manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, outdated, inline))
             }.onFailure { Timber.w(it, "Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
 
-        // Fordert die Liste an, ihre Daten neu zu laden.
-        // Seit API 31 zugunsten von RemoteCollectionItems abgekündigt; das
-        // würde den RemoteViewsService ersetzen und minSdk 31 verlangen.
-        @Suppress("DEPRECATION")
-        runCatching { manager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list) }
-            .onFailure { Timber.w(it, "Widget-Liste konnte nicht aktualisiert werden") }
+        // Fordert die Liste an, ihre Daten neu zu laden (nur Zeilen aus dem Dienst).
+        // Seit API 31 zugunsten von RemoteCollectionItems abgekündigt — die nutzen wir dort.
+        if (viaService.isNotEmpty()) {
+            @Suppress("DEPRECATION")
+            runCatching { manager.notifyAppWidgetViewDataChanged(viaService.toIntArray(), R.id.widget_list) }
+                .onFailure { Timber.w(it, "Widget-Liste konnte nicht aktualisiert werden") }
+        }
         return true
     }
 
@@ -67,6 +81,8 @@ class ListWidgetRenderer @Inject constructor(
         logoRes: Int,
         lastRefresh: Long,
         outdated: Boolean,
+        /** Zeilen direkt im Widget (ab Android 12); null = Dienst. */
+        inline: RemoteViews.RemoteCollectionItems?,
     ): RemoteViews {
         val opacity = widgetPrefs.getOpacity(appWidgetId)
         val views = RemoteViews(context.packageName, R.layout.widget_list)
@@ -102,13 +118,17 @@ class ListWidgetRenderer @Inject constructor(
         views.setTextViewText(R.id.widget_empty, context.getString(R.string.widget_empty))
         views.setTextColor(R.id.widget_empty, background.secondaryTextColor)
 
-        val adapterIntent = Intent(context, PriceWidgetService::class.java).apply {
-            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            // Ohne eigene data-Uri teilen sich mehrere Widgets eine Fabrik.
-            data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+        if (inline != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            views.setRemoteAdapter(R.id.widget_list, inline)
+        } else {
+            val adapterIntent = Intent(context, PriceWidgetService::class.java).apply {
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+                // Ohne eigene data-Uri teilen sich mehrere Widgets eine Fabrik.
+                data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+            }
+            @Suppress("DEPRECATION")
+            views.setRemoteAdapter(R.id.widget_list, adapterIntent)
         }
-        @Suppress("DEPRECATION")
-        views.setRemoteAdapter(R.id.widget_list, adapterIntent)
         views.setEmptyView(R.id.widget_list, R.id.widget_empty)
 
         views.setPendingIntentTemplate(R.id.widget_list, openAppTemplate())
@@ -117,6 +137,27 @@ class ListWidgetRenderer @Inject constructor(
         views.setOnClickPendingIntent(R.id.widget_refresh, refreshIntent(appWidgetId))
 
         return views
+    }
+
+    /**
+     * Zeilen für [appWidgetId] direkt im Widget (ab Android 12). Null unter Android 12, bei mehr als
+     * [MAX_INLINE_ROWS] Paaren (alles geht in einem Binder-Aufruf mit) oder bei einem Fehler —
+     * dann liefert sie [PriceWidgetService].
+     */
+    @RequiresApi(Build.VERSION_CODES.S)
+    private suspend fun inlineRows(appWidgetId: Int): RemoteViews.RemoteCollectionItems? {
+        return runCatching {
+            val data = rows.load(appWidgetId)
+            if (data.watches.size > MAX_INLINE_ROWS) return@runCatching null
+            val builder = RemoteViews.RemoteCollectionItems.Builder()
+                .setHasStableIds(true)
+                .setViewTypeCount(1)
+            data.watches.forEachIndexed { index, watch -> builder.addItem(watch.id, rows.row(data, index)) }
+            builder.build()
+        }.onFailure {
+            if (it is CancellationException) throw it
+            Timber.w(it, "Widget-Zeilen %d: weiter über den Dienst", appWidgetId)
+        }.getOrNull()
     }
 
     /** Vorlage für die Zeilen; die Zeile ergänzt nur noch die Id ihres Paares. */
@@ -149,5 +190,8 @@ class ListWidgetRenderer @Inject constructor(
 
     private companion object {
         const val ACTION_OPEN_WIDGET_ROW = "com.cryptochecker.app.action.OPEN_FROM_WIDGET_ROW"
+
+        /** Bis so viele Paare direkt im Widget; darüber über den Dienst (Grösse eines Binder-Aufrufs). */
+        const val MAX_INLINE_ROWS = 200
     }
 }

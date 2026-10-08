@@ -25,6 +25,8 @@
   Watchlist; market alerts stay as they are.
 * «Outdated» / «exchange not reachable» per row and in all widgets (after
   2 minutes with «Update frequently»).
+* Watchlist widget: rows arrive together with the header (Android 12+), no
+  more rows stuck on «Loading…»; updates with every refresh in the app.
 * Start with one tap: the five largest coins with live prices, all preselected.
 * BTC pairs show «1 CHF = n sats».
 
