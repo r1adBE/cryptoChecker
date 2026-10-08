@@ -13,7 +13,7 @@ buildscript {
         appcompat_version = '1.8.0'
         coroutine_version = '1.11.0'
 
-        compose_bom_version = '2025.10.01'
+        compose_bom_version = '2026.09.00'
         activity_compose_version = '1.13.0'
         lifecycle_version = '2.9.4'
         navigation_version = '2.9.5'
