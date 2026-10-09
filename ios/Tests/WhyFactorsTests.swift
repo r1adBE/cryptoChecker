@@ -104,11 +104,16 @@ final class WhyFactorsTests: XCTestCase {
     func testHigh30dNeedsThirtyRecentDays() {
         let day = ActivityAnalyzer.dayMillis
         let now = 100 * day + 5_000
+        // In Schritten mit festen Typen (sonst braucht der Swift-Compiler zu lange)
         func candles(_ n: Int, endOpen: Int64) -> [MarketCandle] {
-            (0..<n).map { i in
-                MarketCandle(openTime: endOpen - Int64(n - 1 - i) * day, open: 10,
-                             high: i == 3 ? 50 : 20 + Double(i) * 0.1, low: 9, close: 10, volume: 1)
+            var out: [MarketCandle] = []
+            for i in 0..<n {
+                let back: Int64 = Int64(n - 1 - i)
+                let openTime: Int64 = endOpen - back * day
+                let high: Double = i == 3 ? 50 : 20 + Double(i) * 0.1
+                out.append(MarketCandle(openTime: openTime, open: 10, high: high, low: 9, close: 10, volume: 1))
             }
+            return out
         }
         XCTAssertNil(ActivityAnalyzer.high30d(nil, now: now))
         XCTAssertNil(ActivityAnalyzer.high30d(candles(29, endOpen: 100 * day), now: now))

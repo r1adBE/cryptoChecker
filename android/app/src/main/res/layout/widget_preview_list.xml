@@ -3,6 +3,7 @@
      widget_list.xml / widget_list_item.xml mit vier Beispielpaaren, Standard-Palette
      (dunkel, Akzent ORANGE). Nur RemoteViews-taugliche Views, keine IDs, kein Code. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -54,6 +55,7 @@
             android:padding="10dp"
             android:src="@drawable/ic_widget_refresh"
             android:tint="@color/widget_preview_text"
+            tools:ignore="UseAppTint"
             android:contentDescription="@null" />
     </LinearLayout>
 
