@@ -1,6 +1,7 @@
 package com.cryptochecker.app.notification
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
@@ -442,6 +443,8 @@ class AppNotifier @Inject constructor(
         if (settingsRepository.cached.appIconBadge) setNumber(1)
         else setNumber(0).setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
 
+    // Erlaubnis prüft hasPermission() direkt davor (Android 13+); SecurityException fängt runCatching
+    @SuppressLint("MissingPermission")
     private fun notify(id: Int, notification: Notification) {
         if (!hasPermission()) {
             Timber.d("Benachrichtigung unterdrückt: keine Berechtigung")

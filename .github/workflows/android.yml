@@ -59,6 +59,12 @@ jobs:
       - name: Lint
         run: ./gradlew :app:lintDebug --stacktrace
 
+      # Lint errors as annotations (the log shows only the first one; the run page shows these
+      # without signing in)
+      - name: Lint errors
+        if: failure()
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace
 
@@ -83,12 +89,16 @@ jobs:
           path: |
             android/**/build/reports/tests/
             android/app/build/reports/lint-results-*.html
+            android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
           if-no-files-found: ignore
 
   # Dependency graph for GitHub (Dependabot alerts) from the resolved Gradle dependencies.
   dependency-submission:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    # Fails while «Dependency graph» is off in the repository settings; that must not turn the
+    # whole run red
+    continue-on-error: true
     permissions:
       contents: write
     steps:

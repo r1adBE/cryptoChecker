@@ -12,11 +12,13 @@ on:
       - 'ios/**'
       - 'android/testdata/parity/**'
       - '.github/workflows/ios.yml'
+      - '.github/scripts/xcode_errors.sh'
   pull_request:
     paths:
       - 'ios/**'
       - 'android/testdata/parity/**'
       - '.github/workflows/ios.yml'
+      - '.github/scripts/xcode_errors.sh'
   workflow_dispatch:
 
 concurrency:
@@ -36,10 +38,14 @@ jobs:
       - name: Xcode version
         run: xcodebuild -version
 
+      # The whole log goes to a file (it used to be «| tail -n 200», which cut off the error
+      # lines). Compiler errors are printed at the end and turned into annotations, so they
+      # show on the run page even without signing in.
       - name: Build for iOS Simulator (no signing)
         working-directory: ios
         run: |
-          set -o pipefail
+          LOG="$RUNNER_TEMP/xcode-build.log"
+          set +e
           xcodebuild build \
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
@@ -47,19 +53,25 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-            | tail -n 200
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 60 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
 
       # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app).
       # "iPhone 16" if the installed Xcode has it, otherwise its first available iPhone.
       - name: Unit tests (iOS Simulator)
         working-directory: ios
         run: |
-          set -o pipefail
           DEVICE="iPhone 16"
           if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
             DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
           fi
           echo "Simulator: $DEVICE"
+          LOG="$RUNNER_TEMP/xcode-test.log"
+          set +e
           xcodebuild test \
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
@@ -67,4 +79,18 @@ jobs:
             -destination "platform=iOS Simulator,name=$DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-            | tail -n 300
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 120 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      - name: Upload Xcode logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: xcode-logs
+          path: ${{ runner.temp }}/xcode-*.log
+          if-no-files-found: ignore
+          retention-days: 14

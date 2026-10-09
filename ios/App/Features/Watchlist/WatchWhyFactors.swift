@@ -63,7 +63,7 @@ enum WatchlistWhyTexts {
 
     static func factorLine(_ f: WhyFactor) -> FactorLine {
         func pct(_ v: Double) -> String { ActivityTexts.percent(v, 1) }
-        func spokenChange(_ v: Double) -> String { A11y.change(abs(v) < 0.05 ? 0 : v) }
+        func spokenChange(_ v: Double) -> String { A11y.change(abs(v) < 0.05 ? 0 : v) ?? "" }
         let title: String
         var value = ""
         var spokenValue = ""

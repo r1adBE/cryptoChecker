@@ -8,8 +8,8 @@ struct AppMenuHead: View {
     let refreshing: Bool
     let onOpenAbout: () -> Void
     let onRefresh: () -> Void
-    @Environment(\.appAccent) private var accent
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.appAccent) var accent
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         Button(action: onOpenAbout) {

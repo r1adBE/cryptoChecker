@@ -97,9 +97,9 @@ struct PortfolioCoinRow: View {
     /// Anzahl Transaktionen: nur die Zahl, klein neben der Menge — wie `TxCountBadge` (Android).
     var txCount = 0
     @Environment(\.hidePortfolioAmounts) var hideAmounts
-    @Environment(\.priceColorScheme) private var priceColors
-    @Environment(\.priceHighContrast) private var highContrast
-    @Environment(\.priceColorsInverted) private var inverted
+    @Environment(\.priceColorScheme) var priceColors
+    @Environment(\.priceHighContrast) var highContrast
+    @Environment(\.priceColorsInverted) var inverted
 
     var body: some View {
         HStack(spacing: 12) {
