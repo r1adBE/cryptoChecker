@@ -120,8 +120,7 @@ struct CryptoPulseCard: View {
                 .foregroundStyle(accent.primary)
                 .accessibilityHidden(true)
             Text(L("pulse_now_title"))
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(AppColors.onSurfaceVariant)
+                .sectionTitleStyle()
         }
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -494,8 +493,7 @@ private struct PulseSectionTitle: View {
 
     var body: some View {
         Text(text)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(AppColors.onSurfaceVariant)
+            .sectionTitleStyle()
             .padding(.top, Spacing.md)
             .accessibilityAddTraits(.isHeader)
     }

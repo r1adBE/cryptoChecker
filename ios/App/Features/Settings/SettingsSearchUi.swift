@@ -179,6 +179,8 @@ enum SettingsSearchCatalog {
             [L("ios_settings_alarm_signal_footer")])
         add("alarms.quiet", L("settings_quiet_hours"), alarms, .page(.alarms, anchor: "alarms.quiet"),
             [L("settings_quiet_hours_from"), L("settings_quiet_hours_to")])
+        add("alarms.badge", L("settings_app_badge"), alarms, .page(.alarms, anchor: "alarms.badge"),
+            [L("ios_settings_app_badge_hint")])
         add("alarms.test", L("alarm_test"), alarms, .page(.alarms, anchor: "alarms.test"), [L("alarm_test_hint")])
         let market = L("settings_market_alerts")
         add("page.market_alerts", market, alerts, .page(.marketAlerts, anchor: nil))
@@ -218,6 +220,7 @@ enum SettingsSearchCatalog {
         add("page.backup", backup, dataGroup, .page(.backup, anchor: nil), [L("backup_hint")])
         add("backup.export", L("backup_export"), backup, .page(.backup, anchor: "backup.actions"))
         add("backup.import", L("backup_import"), backup, .page(.backup, anchor: "backup.actions"))
+        add("main.reset", L("settings_reset_app"), dataGroup, .main("main.reset"), [L("settings_reset_app_confirm")])
         // Laufzeit-Futures und TradFi liegen auf der Seite «Merkliste»
         let futures = L("settings_row_watchlist")
         add("futures.rolling", L("settings_rolling_futures"), futures, .page(.watchlist, anchor: "futures.rolling"),

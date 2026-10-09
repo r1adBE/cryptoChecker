@@ -332,6 +332,9 @@ class SettingsViewModel @Inject constructor(
         scheduler.refreshNow()
     }
 
+    /** «Zahl am App-Symbol» (gilt für neue Mitteilungen). */
+    fun setAppIconBadge(show: Boolean) = update { settingsRepository.setAppIconBadge(show) }
+
     /** Zeitraum neben der %-Änderung («24h», «heute»); Widgets zeichnen gleich neu. */
     fun setShowChangePeriod(show: Boolean) = update {
         settingsRepository.setShowChangePeriod(show)

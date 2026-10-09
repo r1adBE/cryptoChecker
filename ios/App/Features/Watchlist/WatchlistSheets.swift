@@ -30,7 +30,7 @@ extension WatchlistScreen {
             }
             // «Warum bewegt sich das?» — gleich in voller Höhe: Laden und «Details» lassen
             // nur den Inhalt im ScrollView wachsen, das Blatt springt nicht
-            .sheet(item: $whyFor) { target in
+            .sheet(item: $whyFor, onDismiss: reopenActions) { target in
                 WatchlistWhySheet(watchId: target.id)
                     .environmentObject(data)
                     .environment(\.appAccent, accent)
@@ -101,6 +101,10 @@ extension WatchlistScreen {
                     // Leiste hier ausdrücklich zeigen (in der Merkliste ist sie ausgeblendet)
                     .toolbar(.visible, for: .navigationBar)
             }
+            // Zurück aus «Alarme»: Aktionsblatt wieder öffnen, falls von dort gekommen
+            .onChange(of: alarmsFor) { _, id in
+                if id == nil { reopenActions() }
+            }
             .navigationDestination(item: $alarmsFor) { id in
                 AlarmsScreen(watchId: id)
                     .toolbar(.visible, for: .navigationBar)
@@ -135,10 +139,12 @@ extension WatchlistScreen {
     private func afterSheet() {
         if let id = pendingWhy {
             pendingWhy = nil
+            returnToActions = id
             whyFor = WatchlistSheetTarget(id: id)
         }
         if let id = pendingAlarms {
             pendingAlarms = nil
+            returnToActions = id
             alarmsFor = id
         }
         if let watch = pendingDelete {
@@ -156,6 +162,14 @@ extension WatchlistScreen {
         }
     }
 
+    /// Zurück aus «Alarme» bzw. «Warum?»: Aktionsblatt des Paars wieder öffnen, falls von dort gekommen.
+    private func reopenActions() {
+        guard let id = returnToActions else { return }
+        returnToActions = nil
+        guard data.watch(id) != nil else { return }
+        actionsFor = WatchlistSheetTarget(id: id)
+    }
+
     /// Zum Paar scrollen, kurz hervorheben und seine Aktionen öffnen.
     func focus(on id: Int64, proxy: ScrollViewProxy) {
         guard let watch = data.watch(id) else { return }
@@ -164,6 +178,7 @@ extension WatchlistScreen {
             data.selectWatchlistGroup(nil)
         }
         showOverview = false
+        returnToActions = nil
         alarmsFor = nil
         whyFor = nil
         withAnimation(.easeInOut(duration: 0.35)) { proxy.scrollTo(id, anchor: .center) }

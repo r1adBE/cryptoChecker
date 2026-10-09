@@ -1,8 +1,10 @@
+import Accessibility
 import SwiftUI
 
 /// Ein Coin: Kennzahlen und seine Transaktionen — wie `PortfolioDetailScreen.kt`.
-/// Tippen bearbeitet, nach links wischen oder lange drücken löscht (mit Rückfrage).
-/// «+» wählt den Coin schon vor. Ist die letzte Transaktion weg, geht es zurück.
+/// Tippen bearbeitet; nach links wischen löscht sofort, mit «Rückgängig» im Banner (wie in der
+/// Merkliste). «+» wählt den Coin schon vor. Ist die letzte Transaktion weg (und «Rückgängig»
+/// vorbei), geht es zurück.
 @MainActor
 struct PortfolioCoinDetail: View {
     let coin: String
@@ -13,7 +15,10 @@ struct PortfolioCoinDetail: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var sheet: PortfolioTxDraft?
-    @State private var askDelete: PortfolioTx?
+    @State private var banner: WatchlistBannerMessage?
+    @State private var deleteTick = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
 
     init(coin: String) {
         self.coin = PortfolioCalculator.normalizeCoin(coin)
@@ -28,8 +33,8 @@ struct PortfolioCoinDetail: View {
                 .portfolioListRow(top: 4, bottom: 4)
 
             Text(L("portfolio_transactions"))
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppColors.onSurfaceVariant)
+                .sectionTitleStyle()
+                .accessibilityAddTraits(.isHeader)
                 .padding(.leading, 4)
                 .portfolioListRow(top: 12, bottom: 2)
 
@@ -40,24 +45,18 @@ struct PortfolioCoinDetail: View {
                     PortfolioTxRow(tx: tx)
                 }
                 .buttonStyle(.plain)
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button {
-                        askDelete = tx
-                    } label: {
-                        Label(L("action_delete"), systemImage: "trash")
-                    }
-                    .tint(AppColors.error)
+                // VoiceOver: Löschen wie nach links wischen (mit «Rückgängig»)
+                .accessibilityActions {
+                    Button(L("action_delete")) { deleteTx(tx) }
                 }
-                .contextMenu {
-                    Button {
-                        sheet = PortfolioTxDraft(tx: tx)
-                    } label: {
-                        Label(L("portfolio_edit_tx"), systemImage: "pencil")
-                    }
-                    Button(role: .destructive) {
-                        askDelete = tx
-                    } label: {
-                        Label(L("action_delete"), systemImage: "trash")
+                // Nach links wischen = löschen ohne Rückfrage (Rückgängig im Banner)
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    if !voiceOver {
+                        Button(role: .destructive) { deleteTx(tx) } label: {
+                            Label(L("action_delete"), systemImage: "trash")
+                        }
+                        // Systemrot: weisse Schrift bleibt auch im Dunkelmodus lesbar
+                        .tint(AppColors.destructive)
                     }
                 }
                 .portfolioListRow(top: 4, bottom: 4)
@@ -83,10 +82,15 @@ struct PortfolioCoinDetail: View {
         .navigationTitle(coin)
         .navigationBarTitleDisplayMode(.inline)
         .task { await model.refresh(force: false) }
-        // Letzte Transaktion gelöscht: zurück zur Übersicht
-        .onChange(of: own.isEmpty, initial: true) { _, empty in
-            if empty { dismiss() }
+        // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist
+        .onChange(of: own.isEmpty && banner == nil, initial: true) { _, leave in
+            if leave { dismiss() }
         }
+        .overlay(alignment: .bottom) {
+            WatchlistBanner(message: $banner) { _ in }
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
+        }
+        .sensoryFeedback(.impact(weight: .medium), trigger: deleteTick)
         .sheet(item: $sheet) { draft in
             PortfolioTxSheet(initial: draft)
                 .environmentObject(data)
@@ -96,18 +100,24 @@ struct PortfolioCoinDetail: View {
                 .presentationCornerRadius(28)
                 .presentationBackground(AppColors.background)
         }
-        .alert(
-            L("portfolio_tx_delete_title"),
-            isPresented: Binding(get: { askDelete != nil }, set: { if !$0 { askDelete = nil } }),
-            presenting: askDelete
-        ) { tx in
-            Button(L("action_delete"), role: .destructive) {
-                withAnimation { data.deletePortfolioTx(tx.id) }
-                askDelete = nil
+    }
+
+    /// Nach links gewischt oder VoiceOver «Löschen»: sofort löschen, Banner mit «Rückgängig».
+    private func deleteTx(_ tx: PortfolioTx) {
+        deleteTick += 1
+        let text = L("portfolio_tx_removed")
+        // Banner zuerst: sonst ginge die Ansicht bei der letzten Transaktion gleich zurück
+        banner = WatchlistBannerMessage(
+            text: text,
+            icon: "trash",
+            action: WatchlistBannerAction(title: L("action_undo")) {
+                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.restorePortfolioTxs([tx]) }
             }
-            Button(L("action_cancel"), role: .cancel) { askDelete = nil }
-        } message: { _ in
-            Text(L("portfolio_tx_delete_confirm"))
+        )
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.deletePortfolioTx(tx.id) }
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            AccessibilityNotification.Announcement(text).post()
         }
     }
 }

@@ -57,12 +57,7 @@ import com.cryptochecker.app.widget.WidgetPinner
  */
 @Composable
 fun AddWidgetsSheet(portfolioEnabled: Boolean, onDismiss: () -> Unit) {
-    val context = LocalContext.current
-    val supported = remember { WidgetPinner.isSupported(context) }
-    var showManual by remember { mutableStateOf(false) }
-    val kinds = WidgetKind.entries.filter { it != WidgetKind.PORTFOLIO || portfolioEnabled }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
             modifier = Modifier
@@ -79,23 +74,37 @@ fun AddWidgetsSheet(portfolioEnabled: Boolean, onDismiss: () -> Unit) {
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.semantics { heading() }
             )
-            if (!supported) {
-                Text(
-                    stringResource(R.string.widgets_manual_text),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-            }
-            kinds.forEachIndexed { index, kind ->
-                if (index > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                WidgetKindRow(
-                    kind = kind,
-                    showAdd = supported,
-                    onAdd = { if (!WidgetPinner.request(context, kind)) showManual = true }
-                )
-            }
+            AddWidgetsContent(portfolioEnabled)
         }
+    }
+}
+
+/**
+ * Inhalt «Widgets hinzufügen»: je Widget-Art Vorschau, Name, Satz und «Hinzufügen» (bzw. der
+ * Hinweis für Startbildschirme ohne Anheften). Als Blatt ([AddWidgetsSheet]) oder als Seite der
+ * Einstellungen.
+ */
+@Composable
+fun AddWidgetsContent(portfolioEnabled: Boolean) {
+    val context = LocalContext.current
+    val supported = remember { WidgetPinner.isSupported(context) }
+    var showManual by remember { mutableStateOf(false) }
+    val kinds = WidgetKind.entries.filter { it != WidgetKind.PORTFOLIO || portfolioEnabled }
+    if (!supported) {
+        Text(
+            stringResource(R.string.widgets_manual_text),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+    kinds.forEachIndexed { index, kind ->
+        if (index > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+        WidgetKindRow(
+            kind = kind,
+            showAdd = supported,
+            onAdd = { if (!WidgetPinner.request(context, kind)) showManual = true }
+        )
     }
     if (showManual) WidgetManualDialog(onDismiss = { showManual = false })
 }

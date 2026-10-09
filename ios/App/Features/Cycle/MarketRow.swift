@@ -271,8 +271,7 @@ struct MarketSectionHeader: View {
         Button(action: onToggle) {
             HStack(spacing: Spacing.md) {
                 Text(title)
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .sectionTitleStyle()
                     .lineLimit(1)
                     .layoutPriority(1)
                 // Offen: keine Zusammenfassung (die Zeilen stehen darunter)

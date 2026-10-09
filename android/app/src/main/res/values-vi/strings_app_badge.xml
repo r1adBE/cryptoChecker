@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Số trên biểu tượng ứng dụng</string>
+    <string name="settings_app_badge_hint">Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: «Có số»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Đếm cảnh báo và thông báo thị trường mới; về 0 khi mở ứng dụng.</string>
+</resources>

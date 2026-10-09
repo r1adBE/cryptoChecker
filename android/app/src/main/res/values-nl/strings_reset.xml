@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">App resetten</string>
+    <string name="settings_reset_app_title">App resetten?</string>
+    <string name="settings_reset_app_confirm">Verwijdert volglijst, alarmen, portfolio, instellingen en alle opgeslagen gegevens, zoals na de installatie. Dit kan niet ongedaan worden gemaakt. Tip: maak eerst een back-up.</string>
+    <string name="settings_reset_app_action">Alles verwijderen</string>
+</resources>

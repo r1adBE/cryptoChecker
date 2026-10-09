@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,17 +51,13 @@ import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.portfolio.AllocationSlice
-import com.cryptochecker.app.domain.portfolio.PortfolioMover
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
-import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.PriceFormat
 import java.text.DecimalFormatSymbols
-import kotlin.math.abs
 
 /** Karte im Stil des Wertverlaufs: gleiche Fläche, Rand und Ecken, ruhiger Titel. */
 @Composable
@@ -74,8 +71,8 @@ private fun InsightCard(title: String, content: @Composable () -> Unit) {
         Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp)) {
             Text(
                 title,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
+                style = SectionTitle.style,
+                color = SectionTitle.color,
                 modifier = Modifier.semantics { heading() }
             )
             content()
@@ -152,62 +149,6 @@ internal fun AllocationCard(slices: List<AllocationSlice>) {
                         maxLines = 1,
                         modifier = Modifier.padding(start = 12.dp)
                     )
-                }
-            }
-        }
-    }
-}
-
-/**
- * «Grösste Bewegungen · 24h»: die drei Positionen mit der grössten Wertänderung über die gewählte
- * %-Basis, mit ▲/▼, Betrag und Kursänderung. Betrag mit «Beträge verbergen» als «•••».
- */
-@Composable
-internal fun MoversCard(movers: List<PortfolioMover>, basis: ChangeBasis) {
-    val context = LocalContext.current
-    val title = stringResource(R.string.portfolio_movers_title) + " · " + ChangeBasisText.shortLabel(context, basis)
-    InsightCard(title) {
-        Column(modifier = Modifier.padding(top = Spacing.xs)) {
-            movers.forEach { mover ->
-                val color = plColor(mover.changeUsd)
-                val arrow = PriceFormat.changeArrow(mover.changeUsd)
-                val amount = maskAmount(PortfolioFormat.signedUsdt(mover.changeUsd))
-                val spokenValue = spokenAmount(PriceFormat.valueWithCurrency(abs(mover.changeUsd), PortfolioFormat.USDT))
-                val spoken = listOf(
-                    mover.coin,
-                    stringResource(if (mover.changeUsd > 0) R.string.a11y_change_up else R.string.a11y_change_down, spokenValue),
-                    ChangeBasisText.spoken(context, basis, mover.changePercent),
-                ).joinToString(", ")
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = Spacing.xs)
-                        .clearAndSetSemantics { contentDescription = spoken }
-                ) {
-                    CoinBadge(mover.coin, size = 30.dp, portfolio = true, modifier = Modifier.padding(end = Spacing.sm))
-                    Text(
-                        mover.coin,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Medium,
-                        maxLines = 1,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Column(horizontalAlignment = Alignment.End) {
-                        Text(
-                            if (arrow.isEmpty()) amount else "$arrow $amount",
-                            style = MaterialTheme.typography.bodyMedium.amountNumbers(),
-                            fontWeight = FontWeight.SemiBold,
-                            color = color,
-                            maxLines = 1
-                        )
-                        Text(
-                            PortfolioFormat.signedPercent(mover.changePercent),
-                            style = MaterialTheme.typography.labelSmall.amountNumbers(),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1
-                        )
-                    }
                 }
             }
         }

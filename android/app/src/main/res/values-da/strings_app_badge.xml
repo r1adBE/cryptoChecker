@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Tal på appikonet</string>
+    <string name="settings_app_badge_hint">Tæller åbne alarmnotifikationer. Om der vises et tal eller en prik, bestemmer startskærmen (f.eks. Samsung: «Med tal»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Tæller nye alarmer og markedsmeddelelser; nulstilles, når du åbner appen.</string>
+</resources>

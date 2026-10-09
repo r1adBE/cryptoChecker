@@ -29,8 +29,16 @@ object CoinLogos {
     /** Fehlgeschlagenes Bild erst nach einem Tag erneut versuchen. */
     const val FAILURE_TTL_MILLIS = 24L * 60 * 60 * 1000
 
-    /** Seiten à 250 Coins: die grössten 1000 decken praktisch jede Merkliste ab. */
+    /** Seiten à 250 Coins: die grössten 1000 zuerst (vor der Binance-Liste). */
     const val PAGES = 4
+
+    /**
+     * Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken — kleinere Coins wie AIN, AGT,
+     * AIA oder LUNA (Terra 2.0). Erst nach der Binance-Liste, damit deren Logos bei gleichem Kürzel
+     * vorgehen; mit Pause zwischen den Seiten (Abfragegrenze von CoinGecko).
+     */
+    const val EXTRA_PAGES = 6
+    const val EXTRA_PAGE_PAUSE_MILLIS = 2_000L
     const val PER_PAGE = 250
 
     /** Kantenlänge der gespeicherten Bilder in Pixeln (scharf bis etwa 44 dp/pt bei 3×). */
@@ -45,7 +53,8 @@ object CoinLogos {
 
     /** Hebel-Präfixe der Futures («1000PEPE», «1MBABYDOGE») und Börsen-Eigenheiten («XBT»). */
     private val MULTIPLIER_PREFIXES = listOf("1000000", "100000", "10000", "1000", "1M")
-    private val ALIASES = mapOf("XBT" to "BTC", "XDG" to "DOGE")
+    // «LUNA2»: Terra 2.0 heisst bei den Futures-Börsen so (LUNA2USDT), Logo und Name sind die von LUNA
+    private val ALIASES = mapOf("XBT" to "BTC", "XDG" to "DOGE", "LUNA2" to "LUNA")
 
     /**
      * Symbol, unter dem das Logo gesucht wird: gross, ohne Leerraum, ohne Hebel-Präfix
@@ -128,6 +137,36 @@ object CoinLogos {
     /** Schlüssel für die Plakette: TradFi-Paare im eigenen Namensraum, sonst das Symbol. */
     fun logoKey(symbol: String, tradFi: Boolean): String = if (tradFi) tradFiKey(symbol) else symbol
 
+    /**
+     * Aktien-Logo auf dem Bild-Server von Binance («https://bin.bnbstatic.com/static/stock/BYD.png»)
+     * für ein TradFi-Kürzel; null, wenn das Kürzel nicht passt (nur A–Z, 0–9, Punkt, höchstens 12).
+     * Geladen wird es für **alle** TradFi-Kürzel der gespeicherten Paarlisten (nie nur die der
+     * Merkliste) und nur, wenn die Binance-Liste für das Kürzel kein Logo hat. Rohstoffe und
+     * Devisen haben dort meist keins → Initialen.
+     */
+    fun stockLogoUrl(symbol: String): String? {
+        val s = symbol.trim().uppercase()
+        if (s.isEmpty() || s.length > 12 || !s.all { it in 'A'..'Z' || it in '0'..'9' || it == '.' }) return null
+        return "$STOCK_LOGO_BASE$s.png"
+    }
+
+    /**
+     * Zuordnung samt Aktien-Logos: zu [map] (Rangliste, Binance-Liste) kommt für jedes Kürzel aus
+     * [tradFiBases] ohne eigenen Eintrag ([tradFiKey]) das Logo aus [stockLogoUrl].
+     */
+    fun withStockLogos(map: Map<String, String>, tradFiBases: Collection<String>): Map<String, String> {
+        if (tradFiBases.isEmpty()) return map
+        val out = LinkedHashMap(map)
+        for (base in tradFiBases.sorted()) {
+            val key = tradFiKey(base)
+            if (key in out || fileName(key) == null) continue
+            out[key] = stockLogoUrl(base) ?: continue
+        }
+        return out
+    }
+
+    private const val STOCK_LOGO_BASE = "https://bin.bnbstatic.com/static/stock/"
+
     /** Symbol zum Anzeigen (Initialen) ohne [TRADFI_PREFIX]. */
     fun displaySymbol(key: String): String = key.removePrefix(TRADFI_PREFIX)
 
@@ -193,14 +232,15 @@ object CoinLogos {
 
     /**
      * Name zum Anzeigen: ohne Zusatz der tokenisierten Aktien («NVIDIA bStocks» → «NVIDIA»), ohne
-     * Tabs und Zeilenumbrüche, gekürzt auf [NAME_MAX]. null, wenn leer oder gleich dem Kürzel
-     * ([symbol]) — dann sagt der Name nichts Neues.
+     * Tabs und Zeilenumbrüche, gekürzt auf [NAME_MAX]. null, wenn leer. Ein Name gleich dem Kürzel
+     * bleibt («BNB», «XRP», «Bonk» zu BONK) — besser als «–». [symbol] ist nur noch der Vollständigkeit
+     * halber da (Aufrufer und gemeinsame Testfälle).
      */
+    @Suppress("UNUSED_PARAMETER")
     fun cleanName(raw: String?, symbol: String? = null): String? {
         var s = raw?.replace(SPACES, " ")?.trim() ?: return null
         s = s.replace(STOCK_SUFFIX, "").trim()
         if (s.isEmpty()) return null
-        if (symbol != null && s.equals(symbol.trim(), ignoreCase = true)) return null
         return if (s.length > NAME_MAX) s.take(NAME_MAX - 1).trimEnd() + "…" else s
     }
 
@@ -212,6 +252,70 @@ object CoinLogos {
             into[key] = cleanName(name, symbol) ?: continue
         }
         return into
+    }
+
+    // ---- Aktiennamen aus der Nasdaq-Symbolliste (alle US-Aktien, zwei Textdateien)
+
+    /** Offizielle Symbolliste von Nasdaq (Nasdaq-Aktien) und der übrigen US-Börsen (NYSE u. a.). */
+    const val NASDAQ_LISTED_URL = "https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt"
+    const val OTHER_LISTED_URL = "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt"
+
+    private val STOCK_NAME_TAIL = Regex(
+        "[\\s,]*(?:New\\s+)?(?:(?:Class|Series)\\s+[A-Z0-9]+\\s+)?(?:Common Stock|Common Shares|Ordinary Shares|" +
+            "American Deposit[ao]ry Shares|Depositary Shares|Shares of Beneficial Interest)\\b.*$",
+        RegexOption.IGNORE_CASE
+    )
+
+    /**
+     * Firmenname aus der Symbolliste ohne Wertpapier-Zusatz: «Caterpillar, Inc. Common Stock» →
+     * «Caterpillar, Inc.», «Apple Inc. - Common Stock» → «Apple Inc.», «Alphabet Inc. - Class A
+     * Common Stock» → «Alphabet Inc.». Danach wie [cleanName]; null, wenn nichts bleibt.
+     */
+    fun cleanStockName(raw: String?): String? {
+        var s = raw?.replace(SPACES, " ")?.trim() ?: return null
+        val dash = s.indexOf(" - ")
+        if (dash > 0) s = s.substring(0, dash)
+        s = s.replace(STOCK_NAME_TAIL, "").trim().trimEnd(',', ' ')
+        return cleanName(s)
+    }
+
+    /**
+     * Eine Datei der Nasdaq-Symbolliste («Symbol|Security Name|…» bzw. «ACT Symbol|…») → Kürzel →
+     * Name ([cleanStockName]). Test-Einträge («Test Issue» = Y) und die Schlusszeile fallen weg;
+     * erstes Vorkommen gewinnt.
+     */
+    fun parseSymbolDirectory(text: String?, into: MutableMap<String, String> = LinkedHashMap()): Map<String, String> {
+        val lines = text?.lineSequence()?.iterator() ?: return into
+        if (!lines.hasNext()) return into
+        val header = lines.next().split('|').map { it.trim() }
+        val sym = header.indexOfFirst { it == "Symbol" || it == "ACT Symbol" }
+        val name = header.indexOf("Security Name")
+        val test = header.indexOf("Test Issue")
+        if (sym < 0 || name < 0) return into
+        for (line in lines) {
+            val parts = line.split('|')
+            if (parts.size <= maxOf(sym, name)) continue
+            if (test >= 0 && parts.getOrNull(test)?.trim() == "Y") continue
+            val symbol = parts[sym].trim().uppercase()
+            if (symbol.isEmpty() || symbol in into) continue
+            into[symbol] = cleanStockName(parts[name]) ?: continue
+        }
+        return into
+    }
+
+    /**
+     * Namen der TradFi-Kürzel [tradFiBases] aus der Symbolliste [stockNames] ([tradFiKey] als
+     * Schlüssel), nur wo [names] noch keinen hat (bStocks-Namen der Binance-Liste gehen vor).
+     */
+    fun withStockNames(names: Map<String, String>, stockNames: Map<String, String>, tradFiBases: Collection<String>): Map<String, String> {
+        if (tradFiBases.isEmpty() || stockNames.isEmpty()) return names
+        val out = LinkedHashMap(names)
+        for (base in tradFiBases.sorted()) {
+            val key = tradFiKey(base)
+            if (key in out) continue
+            out[key] = stockNames[base.trim().uppercase()] ?: continue
+        }
+        return out
     }
 
     /** Namen-Zwischenspeicher: eine Zeile je Coin, «BTC\tBitcoin». */

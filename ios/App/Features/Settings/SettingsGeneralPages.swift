@@ -159,8 +159,7 @@ struct WatchlistSettingsPage: View {
             }
             // Futures: welche Kontrakte in der Auswahl erscheinen und wie die Merkliste sie prüft
             Text(L("settings_row_dated_futures"))
-                .font(.footnote.weight(.medium))
-                .foregroundStyle(AppColors.onSurfaceVariant)
+                .sectionTitleStyle()
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
                 .accessibilityAddTraits(.isHeader)

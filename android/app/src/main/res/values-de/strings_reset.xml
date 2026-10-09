@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">App zurücksetzen</string>
+    <string name="settings_reset_app_title">App zurücksetzen?</string>
+    <string name="settings_reset_app_confirm">Löscht Merkliste, Alarme, Portfolio, Einstellungen und alle gespeicherten Daten, wie nach der Installation. Das lässt sich nicht rückgängig machen. Tipp: vorher eine Sicherung erstellen.</string>
+    <string name="settings_reset_app_action">Alles löschen</string>
+</resources>

@@ -68,6 +68,38 @@
 **Portfolio & privacy**
 * Optional portfolio tab: buys and sells, average price, profit/loss, value
   history (7 d / 30 d / 1 y / since first buy), cut-off date export as CSV.
+* Number on the app icon (Settings › Alarms, on by default): on iOS every new
+  alarm or market alert counts +1 and opening the app resets it to 0, like
+  messengers do; on Android each alarm counts 1 and the home screen decides
+  between number and dot (e.g. Samsung «Show with number»).
+* Section headings look the same everywhere (settings, portfolio, market,
+  refresh report, licences): small, bold, in the theme colour.
+* Same ⋯ menu start in Watchlist, Market and Portfolio: app logo and name
+  (About), then Refresh, then the tab's own items; the Market tab gets a ⋯ menu.
+* Settings › Data › «Reset app»: deletes everything, like a fresh install
+  (with confirmation).
+* Back from Alarms or «Why?» returns to the pair's action sheet; back again
+  shows the watchlist.
+* Watchlist with names: pair/price, name/% pill and exchange/≈ value line up
+  row by row; a missing name shows «–»; names equal to the ticker are shown
+  («BNB»), so 1000BONK now shows «Bonk».
+* Coin logos and names now also for smaller coins (CoinGecko ranks up to
+  2,500, after the Binance list), e.g. AIN, AGT, AIA and LUNA.
+* LUNA2 (Terra 2.0 futures) shows the LUNA logo and name.
+* Stock perpetuals without a tokenised bStock (e.g. CAT, BYD) get their logo
+  from Binance's stock images; loaded for all stock tickers of the stored pair
+  lists, never just the watched ones.
+* Quieter first day: on a new install only the market phase change notifies;
+  Fear & Greed, unusual activity and the economic-calendar morning notice are
+  off until switched on (⚡ in the watchlist and the activity card stay).
+* Stock names with «Show names»: CAT shows «Caterpillar, Inc.», BYD «Boyd
+  Gaming Corporation» (official Nasdaq symbol list, loaded at most weekly).
+* Portfolio works like the watchlist: swipe a coin left to delete all its
+  transactions (with Undo), swipe a transaction left to delete it (with Undo,
+  no long press); ⋯ menu with «Refresh» on top and «Clear portfolio» at the
+  bottom (red, with confirmation); pull down to refresh, no refresh button in
+  the top bar. The «Biggest movers» card is gone: each coin row shows its
+  24 h change instead, and the number of transactions next to the amount.
 * Portfolio lock (biometrics or device passcode) for the portfolio only.
 * «Hide amounts»: values shown as ••• in the portfolio, its widget and
   portfolio alarms; percentages stay visible.
@@ -95,7 +127,7 @@
   light backing in dark mode keeps dark logos visible.
 * Nothing bundled, nothing fetched one by one: logos come from CoinGecko
   (CoinMarketCap would need an API key). The app downloads the logos of all of the
-  roughly 1,000 largest coins at once, then only new ones (symbol list at most
+  roughly 2,500 largest coins at once, then only new ones (symbol list at most
   weekly), and shows them only from the device (iOS: App Group, so widgets use them
   too). Gaps such as gold, silver and stocks are filled from the Binance website's
   public symbol list (unofficial; if it disappears, those keep their initials).
@@ -129,6 +161,9 @@
 * The period next to the % change («24h», «today», «last update») is hidden by default;
   Settings › % change › «Show period next to the change» brings it back (watchlist pill,
   pulse line, single-coin widget, iOS Live Activity). Screen readers always say it.
+* Settings › «Widgets» and «Licences» open as normal pages like every other row (no sheet
+  any more); links to a website (privacy policy, request an exchange, source code) show an
+  «open externally» arrow instead of «›», and screen readers add «opens in the browser».
 * Settings: every single-choice page looks the same – a list where the chosen row is softly
   tinted in the accent colour with a check mark (mode, theme, price colours, % change basis,
   language, currency). Theme as a list with colour dots; currency as a list with search and

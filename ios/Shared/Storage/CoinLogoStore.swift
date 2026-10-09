@@ -7,7 +7,8 @@ import UIKit
 /// Coins in einer Merkliste stehen:
 ///
 /// 1. Rangliste der grössten 1000 Coins, Lücken (TradFi wie Gold, Silber, Aktien) aus der
-///    Symbolliste der Binance-Website; höchstens einmal pro Woche, für alle Nutzer gleich.
+///    Symbolliste der Binance-Website, übrige Lücken aus Rang 1001–2500; höchstens einmal pro
+///    Woche, für alle Nutzer gleich.
 /// 2. `syncAll` lädt die Logos **aller** Coins dieser Liste (kleine Fassung, auf
 ///    `CoinLogos.storedPixels` begrenzt) in den gemeinsamen Ordner (App Group) — so finden auch
 ///    die Widgets sie ohne Netz. Später fehlen nur neu dazugekommene Coins.
@@ -25,9 +26,9 @@ actor CoinLogoStore {
         return cache
     }()
 
-    // «v3»: Zuordnung mit TradFi-Logos; ältere Installationen holen sie einmal neu
-    private static let mapTimeKey = "coin_logos_map_time_v3"
-    private static let mapAttemptKey = "coin_logos_map_attempt_v3"
+    // «v4»: Zuordnung mit TradFi-Logos und Rang bis 2500; ältere Installationen holen sie einmal neu
+    private static let mapTimeKey = "coin_logos_map_time_v4"
+    private static let mapAttemptKey = "coin_logos_map_attempt_v4"
     private static let failedKey = "coin_logos_failed"
     /// Rangliste nicht erreichbar: frühestens nach einer Stunde erneut.
     private static let mapRetryMillis: Int64 = 60 * 60 * 1000
@@ -62,8 +63,8 @@ actor CoinLogoStore {
         return url
     }()
 
-    private static var mapURL: URL { directory.appendingPathComponent("map3.txt") }
-    private static var namesURL: URL { directory.appendingPathComponent("names3.txt") }
+    private static var mapURL: URL { directory.appendingPathComponent("map4.txt") }
+    private static var namesURL: URL { directory.appendingPathComponent("names4.txt") }
 
     // MARK: Anzeigen (nie Netz; auch für Widgets)
 
@@ -106,7 +107,8 @@ actor CoinLogoStore {
         syncing = true
         defer { syncing = false }
 
-        let wanted = await symbolMap()
+        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag in der Liste dazu
+        let wanted = CoinLogos.withStockLogos(await symbolMap(), tradFiBases: Self.tradFiBases)
         guard images else { return 0 }
         guard !wanted.isEmpty else { return 0 }
         let now = TimeUtils.nowMillis
@@ -164,6 +166,39 @@ actor CoinLogoStore {
         return false
     }
 
+    // MARK: Aktiennamen (Nasdaq-Symbolliste)
+
+    private static let stockNamesTimeKey = "coin_logos_stock_names_time_v1"
+    private static let stockNamesAttemptKey = "coin_logos_stock_names_attempt_v1"
+    fileprivate static var stockNamesURL: URL { directory.appendingPathComponent("stock_names1.txt") }
+
+    /// Aktiennamen («CAT» → «Caterpillar, Inc.») aus der offiziellen Nasdaq-Symbolliste (zwei
+    /// Textdateien mit allen US-Aktien, für alle gleich) — nur wenn es TradFi-Kürzel gibt; höchstens
+    /// einmal pro Woche, nach einem Fehler frühestens nach einer Stunde. true = neue Namen.
+    @discardableResult
+    func refreshStockNames() async -> Bool {
+        guard !Self.tradFiBases.isEmpty else { return false }
+        let defaults = SharedStorage.defaults
+        let now = TimeUtils.nowMillis
+        let known = Self.stockNames
+        if CoinLogos.isFresh(savedAt: Int64(defaults.double(forKey: Self.stockNamesTimeKey)), now: now), !known.isEmpty { return false }
+        if CoinLogos.isFresh(savedAt: Int64(defaults.double(forKey: Self.stockNamesAttemptKey)), now: now,
+                             ttl: Self.mapRetryMillis) { return false }
+        defaults.set(Double(now), forKey: Self.stockNamesAttemptKey)
+        var fresh: [String: String] = [:]
+        for url in [CoinLogos.nasdaqListedURL, CoinLogos.otherListedURL] {
+            guard let text = try? await MarketHTTP.call(url) else { continue }
+            CoinLogos.parseSymbolDirectory(text, into: &fresh)
+        }
+        guard !fresh.isEmpty else { return false }
+        try? CoinLogos.encodeNames(fresh, order: fresh.keys.sorted())
+            .write(to: Self.stockNamesURL, atomically: true, encoding: .utf8)
+        defaults.set(Double(now), forKey: Self.stockNamesTimeKey)
+        Self.stockNamesBox.store(fresh)
+        await CoinLogoRevision.bump()
+        return true
+    }
+
     /// Zuordnung aus Datei bzw. frisch von CoinGecko; bei Fehlern die alte (auch abgelaufen).
     private func symbolMap() async -> [String: String] {
         let defaults = SharedStorage.defaults
@@ -208,6 +243,18 @@ actor CoinLogoStore {
             CoinLogos.pickTradFi(entries, crypto: crypto, into: &fresh, order: &order)
             CoinLogos.pickNames(entries.map { (symbol: $0.name, name: $0.fullName) }, into: &names, order: &nameOrder)
             CoinLogos.pickTradFiNames(entries, crypto: crypto, into: &names, order: &nameOrder)
+        }
+        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken, mit Pause zwischen den Seiten
+        for page in (CoinLogos.pages + 1)...(CoinLogos.pages + CoinLogos.extraPages) {
+            try? await Task.sleep(nanoseconds: CoinLogos.extraPagePauseNanos)
+            guard let text = try? await MarketHTTP.call(CoinLogos.marketsURL(page: page)),
+                  let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
+            else { break }
+            CoinLogos.pick(array.map { (symbol: $0["symbol"] as? String ?? "", image: $0["image"] as? String) },
+                           into: &fresh, order: &order)
+            CoinLogos.pickNames(array.map { (symbol: $0["symbol"] as? String ?? "", name: $0["name"] as? String) },
+                                into: &names, order: &nameOrder)
+            if array.count < CoinLogos.perPage { break }
         }
         guard !fresh.isEmpty else { return known }
         try? CoinLogos.encode(fresh, order: order).write(to: Self.mapURL, atomically: true, encoding: .utf8)
@@ -266,6 +313,12 @@ actor CoinLogoStore {
 
 extension CoinLogoStore {
     fileprivate static let namesBox = NamesBox()
+    fileprivate static let stockNamesBox = NamesBox()
+
+    /// Alle US-Aktien der Nasdaq-Symbolliste: Kürzel → Name (leer, bis geladen).
+    static var stockNames: [String: String] {
+        stockNamesBox.read { CoinLogos.decodeNames(try? String(contentsOf: stockNamesURL, encoding: .utf8)) }
+    }
 
     /// Namen der Coins und TradFi-Paare (Schlüssel `CoinLogos.nameKey`); leer, bis die Liste da ist.
     static var names: [String: String] {
@@ -275,7 +328,10 @@ extension CoinLogoStore {
     /// Name für ein Paar der Merkliste (TradFi beachtet); nil bei DEX-Pools und unbekannten Coins.
     static func name(for watch: Watch) -> String? {
         guard CoinLogos.allowed(forMarket: watch.marketKey) else { return nil }
-        return names[CoinLogos.nameKey(watch.baseAsset, tradFi: tradFiPairs.contains(watch.logoPairKey))]
+        let tradFi = tradFiPairs.contains(watch.logoPairKey)
+        if let name = names[CoinLogos.nameKey(watch.baseAsset, tradFi: tradFi)] { return name }
+        // Aktie ohne Namen in der Binance-Liste: aus der Nasdaq-Symbolliste
+        return tradFi ? stockNames[watch.baseAsset.uppercased()] : nil
     }
 }
 
@@ -314,6 +370,22 @@ extension CoinLogoStore {
     static func setTradFiPairs(_ pairs: Set<String>) -> Bool {
         guard pairs != tradFiPairs else { return false }
         SharedStorage.defaults.set(pairs.sorted(), forKey: tradFiPairsKey)
+        return true
+    }
+
+    private static let tradFiBasesKey = "coin_logos_tradfi_bases"
+
+    /// Alle TradFi-Kürzel der gespeicherten Paarlisten der Futures-Börsen der Merkliste (nicht nur
+    /// die beobachteten): für sie lädt `syncAll` Aktien-Logos — für alle gleich, so verrät der
+    /// Abruf keine einzelne Aktie.
+    static var tradFiBases: Set<String> {
+        Set(SharedStorage.defaults.stringArray(forKey: tradFiBasesKey) ?? [])
+    }
+
+    @discardableResult
+    static func setTradFiBases(_ bases: Set<String>) -> Bool {
+        guard bases != tradFiBases else { return false }
+        SharedStorage.defaults.set(bases.sorted(), forKey: tradFiBasesKey)
         return true
     }
 

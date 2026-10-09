@@ -18,8 +18,8 @@ struct PortfolioTotalCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(L("portfolio_total_value"))
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppColors.onSurfaceVariant)
+                .sectionTitleStyle()
+                .accessibilityAddTraits(.isHeader)
             Text(PortfolioInsights.mask(PortfolioFormat.usdtValue(summary.totalValue), hidden: hideAmounts))
                 .displayFont()
                 .lineLimit(1)

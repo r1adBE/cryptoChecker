@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">앱 아이콘 숫자</string>
+    <string name="settings_app_badge_hint">열려 있는 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung «숫자 표시»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">새 알림과 시장 알림을 세며, 앱을 열면 0으로 돌아갑니다.</string>
+</resources>

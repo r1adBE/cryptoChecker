@@ -45,7 +45,7 @@ enum class SettingsPage {
     ALARMS,
     PORTFOLIO,
     BACKUP,
-    ABOUT, DEVELOPER;
+    ABOUT, LICENSES, WIDGETS, DEVELOPER;
 
     companion object {
         fun fromName(name: String?): SettingsPage? = entries.firstOrNull { it.name == name }
@@ -69,6 +69,8 @@ fun SettingsPageScreen(page: SettingsPage?, onBack: () -> Unit) {
         SettingsPage.PORTFOLIO -> PortfolioPage(onBack)
         SettingsPage.BACKUP -> BackupPage(onBack)
         SettingsPage.ABOUT -> AboutPage(onBack)
+        SettingsPage.LICENSES -> LicensesPage(onBack)
+        SettingsPage.WIDGETS -> WidgetsPage(onBack)
         SettingsPage.DEVELOPER -> DeveloperPage(onBack)
         null -> LaunchedEffect(Unit) { onBack() }
     }

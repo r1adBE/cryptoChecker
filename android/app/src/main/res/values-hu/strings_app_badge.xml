@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Szám az alkalmazásikonon</string>
+    <string name="settings_app_badge_hint">Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: «Számmal»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Megszámolja az új riasztásokat és piaci értesítéseket; az app megnyitásakor visszaáll 0-ra.</string>
+</resources>

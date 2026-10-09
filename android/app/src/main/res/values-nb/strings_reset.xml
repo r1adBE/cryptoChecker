@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">Tilbakestill appen</string>
+    <string name="settings_reset_app_title">Tilbakestille appen?</string>
+    <string name="settings_reset_app_confirm">Sletter overvåkingsliste, alarmer, portefølje, innstillinger og alle lagrede data, som etter installasjon. Kan ikke angres. Tips: ta en sikkerhetskopi først.</string>
+    <string name="settings_reset_app_action">Slett alt</string>
+</resources>

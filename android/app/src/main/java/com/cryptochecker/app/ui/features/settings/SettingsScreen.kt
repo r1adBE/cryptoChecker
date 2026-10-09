@@ -2,6 +2,11 @@
 
 package com.cryptochecker.app.ui.features.settings
 
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
+import android.app.ActivityManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,12 +67,34 @@ fun SettingsScreen(
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val languageTag by viewModel.languageTag.collectAsStateWithLifecycle()
     val uriHandler = LocalUriHandler.current
-    var widgetsOpen by rememberSaveable { mutableStateOf(false) }
-    var licensesOpen by rememberSaveable { mutableStateOf(false) }
     // Runde 31: Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer)
     var query by rememberSaveable { mutableStateOf("") }
     // Treffer auf der Hauptseite selbst (Sprache, Widgets, Links): Zeile kurz hervorheben
     var mainHighlight by remember { mutableStateOf<String?>(null) }
+    // «App zurücksetzen» — Rückfrage
+    var askReset by remember { mutableStateOf(false) }
+    val resetContext = LocalContext.current
+    if (askReset) {
+        AlertDialog(
+            onDismissRequest = { askReset = false },
+            title = { Text(stringResource(R.string.settings_reset_app_title)) },
+            text = { Text(stringResource(R.string.settings_reset_app_confirm)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    askReset = false
+                    // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
+                    // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
+                    // danach, beim nächsten Öffnen startet sie wie neu installiert.
+                    resetContext.getSystemService(ActivityManager::class.java)?.clearApplicationUserData()
+                }) {
+                    Text(stringResource(R.string.settings_reset_app_action), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { askReset = false }) { Text(stringResource(R.string.action_cancel)) }
+            }
+        )
+    }
     val focusManager = LocalFocusManager.current
     LaunchedEffect(mainHighlight) {
         if (mainHighlight != null) {
@@ -171,7 +198,7 @@ fun SettingsScreen(
                     SettingsAnchor("main.widgets") {
                         SettingsNavRow(
                             title = stringResource(R.string.settings_widgets),
-                            onClick = { widgetsOpen = true }
+                            onClick = { onOpenPage(SettingsPage.WIDGETS) }
                         )
                     }
 
@@ -207,6 +234,13 @@ fun SettingsScreen(
                         title = stringResource(R.string.backup_title),
                         onClick = { onOpenPage(SettingsPage.BACKUP) }
                     )
+                    // «App zurücksetzen»: alles löschen wie nach der Installation (mit Rückfrage)
+                    SettingsAnchor("main.reset") {
+                        SettingsDangerRow(
+                            title = stringResource(R.string.settings_reset_app),
+                            onClick = { askReset = true }
+                        )
+                    }
 
                     // 6 Über: App, Datenschutz, Börse wünschen, Quellcode, Lizenzen, Entwickler
                     SettingsSectionHeader(stringResource(R.string.settings_section_about))
@@ -220,25 +254,28 @@ fun SettingsScreen(
                     SettingsAnchor("main.privacy") {
                         SettingsNavRow(
                             title = stringResource(R.string.about_privacy_policy),
+                            external = true,
                             onClick = { runCatching { uriHandler.openUri(PRIVACY_POLICY_URL) } }
                         )
                     }
                     SettingsAnchor("main.exchange") {
                         SettingsNavRow(
                             title = stringResource(R.string.about_request_exchange),
+                            external = true,
                             onClick = { runCatching { uriHandler.openUri(EXCHANGE_REQUEST_URL) } }
                         )
                     }
                     SettingsAnchor("main.source") {
                         SettingsNavRow(
                             title = stringResource(R.string.about_source_code),
+                            external = true,
                             onClick = { runCatching { uriHandler.openUri(SOURCE_CODE_URL) } }
                         )
                     }
                     SettingsAnchor("main.licenses") {
                         SettingsNavRow(
                             title = stringResource(R.string.about_licenses),
-                            onClick = { licensesOpen = true }
+                            onClick = { onOpenPage(SettingsPage.LICENSES) }
                         )
                     }
                     // Entwickler erst nach sieben Tipps auf die Version (Seite «Über die App»)
@@ -254,10 +291,6 @@ fun SettingsScreen(
         }
     }
 
-    if (widgetsOpen) {
-        AddWidgetsSheet(portfolioEnabled = settings.portfolioEnabled, onDismiss = { widgetsOpen = false })
-    }
-    if (licensesOpen) LicensesSheet(onDismiss = { licensesOpen = false })
 }
 
 /** Dauer der Hervorhebung einer Zeile der Hauptseite nach einem Suchtreffer (ms). */

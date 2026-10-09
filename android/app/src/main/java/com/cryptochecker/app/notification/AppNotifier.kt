@@ -206,6 +206,7 @@ class AppNotifier @Inject constructor(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setAutoCancel(true)
+            .appBadge()
             .setContentIntent(openAppIntent(watch.id))
         // «Warum?»: öffnet die App direkt mit «Warum bewegt sich das?» des Paars — nur für gehandelte Paare
         if (!watch.isNotTraded) {
@@ -246,6 +247,7 @@ class AppNotifier @Inject constructor(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setAutoCancel(true)
+            .appBadge()
             .setContentIntent(openTargetIntent(OPEN_PORTFOLIO, PORTFOLIO_REQUEST_CODE))
         if (settings.appLock) {
             builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
@@ -301,6 +303,7 @@ class AppNotifier @Inject constructor(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setAutoCancel(true)
+            .appBadge()
             .setContentIntent(openAppIntent(null))
             .build()
         notify(TEST_ALARM_NOTIFICATION_ID, notification)
@@ -319,6 +322,7 @@ class AppNotifier @Inject constructor(
             .setContentText(text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setAutoCancel(true)
+            .appBadge()
             .setSilent(quiet)
             .setContentIntent(openAppIntent(watch.id))
             .build()
@@ -340,6 +344,7 @@ class AppNotifier @Inject constructor(
             .setContentText(text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setAutoCancel(true)
+            .appBadge()
             .setContentIntent(openAppIntent(null))
             .build()
         notify(ZONE_NOTIFICATION_ID, notification)
@@ -357,6 +362,7 @@ class AppNotifier @Inject constructor(
             .setContentTitle(context.getString(R.string.notification_fng_title, value))
             .setContentText(text)
             .setAutoCancel(true)
+            .appBadge()
             .setContentIntent(openAppIntent(null))
             .build()
         notify(FNG_NOTIFICATION_ID, notification)
@@ -374,6 +380,7 @@ class AppNotifier @Inject constructor(
             .setContentText(text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setAutoCancel(true)
+            .appBadge()
             .setSilent(quiet)
             .setContentIntent(openAppIntent(null))
             .build()
@@ -425,6 +432,15 @@ class AppNotifier @Inject constructor(
             .setShowWhen(false)
             .setCategory(NotificationCompat.CATEGORY_PROGRESS)
             .build()
+
+    /**
+     * «Zahl am App-Symbol»: Jede Alarm- bzw. Marktmeldung zählt 1 (der Startbildschirm zählt die
+     * offenen Mitteilungen zusammen; Zahl oder Punkt entscheidet er). Aus: Hinweis «kein
+     * Kennzeichen» — ganz aus nur über die Systemeinstellung der App.
+     */
+    private fun NotificationCompat.Builder.appBadge(): NotificationCompat.Builder =
+        if (settingsRepository.cached.appIconBadge) setNumber(1)
+        else setNumber(0).setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
 
     private fun notify(id: Int, notification: Notification) {
         if (!hasPermission()) {

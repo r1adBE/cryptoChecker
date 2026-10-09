@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">重置应用</string>
+    <string name="settings_reset_app_title">要重置应用吗？</string>
+    <string name="settings_reset_app_confirm">删除关注列表、警报、投资组合、设置和所有已保存的数据，恢复到安装后的状态。此操作无法撤销。提示：请先备份。</string>
+    <string name="settings_reset_app_action">全部删除</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio wie die Merkliste: ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">포트폴리오 비우기</string>
+    <string name="portfolio_clear_confirm">포트폴리오의 모든 거래를 삭제할까요? 되돌릴 수 없습니다.</string>
+    <string name="portfolio_tx_removed">거래가 삭제됨</string>
+</resources>

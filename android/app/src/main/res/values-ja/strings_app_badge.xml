@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">アプリアイコンの数字</string>
+    <string name="settings_app_badge_hint">未読のアラーム通知を数えます。数字か点かはホーム画面が決めます（例：Samsung「数字で表示」）。</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">新しいアラームと市場の通知を数え、アプリを開くと0に戻ります。</string>
+</resources>

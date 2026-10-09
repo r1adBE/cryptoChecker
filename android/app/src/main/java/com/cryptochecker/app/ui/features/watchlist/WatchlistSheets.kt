@@ -118,7 +118,8 @@ internal fun WatchlistSheets(
                 },
                 onTtsChange = { viewModel.setTtsEnabled(watch, it) },
                 onToggleFavorite = { viewModel.toggleFavorite(watch) },
-                onOpenAlarms = { ui.actionsFor = null; onOpenAlarms(watch.id) },
+                // Zurück aus «Alarme» öffnet dieses Blatt wieder
+                onOpenAlarms = { ui.returnToActions = watch.id; ui.actionsFor = null; onOpenAlarms(watch.id) },
                 onRefresh = { viewModel.refreshOne(watch.id) },
                 // Wie nach links wischen: sofort löschen, «Rückgängig» im Banner (keine Rückfrage)
                 onDelete = { ui.actionsFor = null; onDelete(watch) },
@@ -134,7 +135,7 @@ internal fun WatchlistSheets(
                 onSetGroup = { viewModel.setGroup(watch, it) },
                 onSetNote = { viewModel.setNote(watch, it) },
                 loadFutures = viewModel::fetchFutures,
-                onWhy = { ui.actionsFor = null; ui.whyFor = watch.id },
+                onWhy = { ui.returnToActions = watch.id; ui.actionsFor = null; ui.whyFor = watch.id },
                 chartLine = sheetChartLine,
                 onChartLineChange = viewModel::setSheetChartLine,
                 cachedChart = viewModel::cachedSheetChart,
@@ -189,7 +190,7 @@ internal fun WatchlistSheets(
             watch = watch,
             signals = activeSignals[watch.id].orEmpty(),
             load = viewModel::explain,
-            onDismiss = { ui.whyFor = null }
+            onDismiss = { ui.whyFor = null; ui.reopenActions() }
         )
     }
 }

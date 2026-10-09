@@ -339,6 +339,27 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch { repository.delete(id) }
     }
 
+    /**
+     * Wischen auf einem Coin: alle seine Transaktionen löschen; [onDeleted] erhält sie
+     * für «Rückgängig» ([restore]).
+     */
+    fun deleteCoin(coin: String, onDeleted: (List<PortfolioTxEntity>) -> Unit) {
+        viewModelScope.launch {
+            val removed = safe { repository.deleteCoin(coin) }.orEmpty()
+            if (removed.isNotEmpty()) onDeleted(removed)
+        }
+    }
+
+    /** «Rückgängig»: gelöschte Transaktionen mit ihren ids wieder anlegen. */
+    fun restore(transactions: List<PortfolioTxEntity>) {
+        viewModelScope.launch { safe { repository.restore(transactions) } }
+    }
+
+    /** «Portfolio leeren» (nach Bestätigung): alle Transaktionen löschen. */
+    fun clearAll() {
+        viewModelScope.launch { safe { repository.clearAll() } }
+    }
+
     /** «Beträge verbergen» umschalten; das Portfolio-Widget zeichnet gleich neu. */
     fun setHideAmounts(hidden: Boolean) {
         viewModelScope.launch {

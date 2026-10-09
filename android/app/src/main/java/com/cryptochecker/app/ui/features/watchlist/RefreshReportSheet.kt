@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -190,8 +191,8 @@ private fun ReportSummary(report: RefreshReport, now: Long, locale: Locale) {
 private fun ReportSection(title: String, content: @Composable () -> Unit) {
     Text(
         title,
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.primary,
+        style = SectionTitle.style,
+        color = SectionTitle.color,
         modifier = Modifier
             .padding(top = Spacing.lg, bottom = 8.dp)
             .semantics { heading() }

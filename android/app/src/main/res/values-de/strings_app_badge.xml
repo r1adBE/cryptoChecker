@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Zahl am App-Symbol</string>
+    <string name="settings_app_badge_hint">Zählt offene Alarm-Mitteilungen. Ob eine Zahl oder ein Punkt erscheint, bestimmt der Startbildschirm (z. B. Samsung: «Mit Zahl»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Zählt neue Alarme und Marktmeldungen; beim Öffnen der App wieder 0.</string>
+</resources>

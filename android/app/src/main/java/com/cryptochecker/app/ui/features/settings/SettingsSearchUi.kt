@@ -228,7 +228,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("logos.widgets", stringResource(R.string.settings_coin_logos_widgets), logos,
         SettingsSearchTarget.Page(SettingsPage.COIN_LOGOS, "logos.widgets"),
         stringResource(R.string.settings_coin_logos_widgets_hint))
-    add("main.widgets", stringResource(R.string.settings_widgets), appearance, SettingsSearchTarget.Main("main.widgets"))
+    add("main.widgets", stringResource(R.string.settings_widgets), appearance, SettingsSearchTarget.Page(SettingsPage.WIDGETS))
 
     // 3 Alarme & Mitteilungen
     val alerts = stringResource(R.string.settings_group_alerts)
@@ -250,6 +250,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("alarms.quiet", stringResource(R.string.settings_quiet_hours), alarms,
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.quiet"),
         stringResource(R.string.settings_quiet_hours_from), stringResource(R.string.settings_quiet_hours_to))
+    add("alarms.badge", stringResource(R.string.settings_app_badge), alarms,
+        SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.badge"),
+        stringResource(R.string.settings_app_badge_hint))
     add("alarms.test", stringResource(R.string.alarm_test), alarms,
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.test"),
         stringResource(R.string.alarm_test_hint))
@@ -300,6 +303,8 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         SettingsSearchTarget.Page(SettingsPage.BACKUP, "backup.actions"))
     add("backup.import", stringResource(R.string.backup_import), backup,
         SettingsSearchTarget.Page(SettingsPage.BACKUP, "backup.actions"))
+    add("main.reset", stringResource(R.string.settings_reset_app), dataGroup, SettingsSearchTarget.Main("main.reset"),
+        stringResource(R.string.settings_reset_app_confirm))
     // Laufzeit-Futures und TradFi liegen auf der Seite «Merkliste»
     val futures = stringResource(R.string.settings_row_watchlist)
     add("futures.rolling", stringResource(R.string.settings_rolling_futures), futures,
@@ -316,7 +321,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("main.privacy", stringResource(R.string.about_privacy_policy), about, SettingsSearchTarget.Main("main.privacy"))
     add("main.exchange", stringResource(R.string.about_request_exchange), about, SettingsSearchTarget.Main("main.exchange"))
     add("main.source", stringResource(R.string.about_source_code), about, SettingsSearchTarget.Main("main.source"))
-    add("main.licenses", stringResource(R.string.about_licenses), about, SettingsSearchTarget.Main("main.licenses"))
+    add("main.licenses", stringResource(R.string.about_licenses), about, SettingsSearchTarget.Page(SettingsPage.LICENSES))
     // Entwickler nur, wenn freigeschaltet (wie die Zeile der Hauptseite)
     if (settings.developerUnlocked) {
         val developer = stringResource(R.string.settings_section_developer)

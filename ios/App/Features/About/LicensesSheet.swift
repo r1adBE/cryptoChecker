@@ -20,49 +20,59 @@ struct LicensesSheet: View {
     @Environment(\.appAccent) private var accent
     @State private var marketdata = ""
 
+    /// true: als Seite der Einstellungen (im Navigationsstapel, ohne «Schliessen»).
+    var asPage = false
+
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: Spacing.sm) {
-                    // Runde 15: die App selbst ist quelloffen (MIT)
-                    Text(L("licenses_app_intro"))
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.onSurface)
-                        .padding(.bottom, Spacing.xs)
-                    Text(L("licenses_marketdata_title"))
-                        .font(.headline)
-                        .foregroundStyle(accent.primary)
-                        .accessibilityAddTraits(.isHeader)
-                    Text(L("licenses_marketdata_intro"))
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.onSurface)
-                    if !marketdata.isEmpty {
-                        Text(marketdata)
-                            .font(.caption.monospaced())
-                            .foregroundStyle(AppColors.onSurfaceVariant)
+        if asPage {
+            content
+        } else {
+            NavigationStack {
+                content
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("action_close")) { dismiss() }
+                        }
                     }
-                    Text(L("licenses_marketdata_changes", LicenseNotices.ownerCopyright))
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.onSurface)
-                }
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(16)
-                .readableContentWidth()
             }
-            .background(AppColors.background)
-            .navigationTitle(L("about_licenses"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(L("action_close")) { dismiss() }
-                }
-            }
-            .task { marketdata = LicenseNotices.text("MIT-marketdata") }
+            .tint(accent.primary)
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
+            .presentationBackground(AppColors.background)
         }
-        .tint(accent.primary)
-        .presentationDetents([.large])
-        .presentationDragIndicator(.visible)
-        .presentationBackground(AppColors.background)
+    }
+
+    private var content: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                // Runde 15: die App selbst ist quelloffen (MIT)
+                Text(L("licenses_app_intro"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                    .padding(.bottom, Spacing.xs)
+                Text(L("licenses_marketdata_title"))
+                    .sectionTitleStyle()
+                    .accessibilityAddTraits(.isHeader)
+                Text(L("licenses_marketdata_intro"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                if !marketdata.isEmpty {
+                    Text(marketdata)
+                        .font(.caption.monospaced())
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                }
+                Text(L("licenses_marketdata_changes", LicenseNotices.ownerCopyright))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+            }
+            .textSelection(.enabled)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+            .readableContentWidth()
+        }
+        .background(AppColors.background)
+        .navigationTitle(L("about_licenses"))
+        .navigationBarTitleDisplayMode(.inline)
+        .task { marketdata = LicenseNotices.text("MIT-marketdata") }
     }
 }

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -53,7 +54,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.DataStamp
@@ -382,8 +382,8 @@ internal fun MarketSectionHeader(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.labelLarge.copy(letterSpacing = 0.4.sp),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = SectionTitle.style,
+            color = SectionTitle.color,
             maxLines = 1,
         )
         Text(

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -243,8 +244,8 @@ private fun PulseFactorRow(report: PulseReport, factor: PulseFactor) {
 private fun PulseOverline(modifier: Modifier = Modifier) {
     Text(
         stringResource(R.string.pulse_now_title),
-        style = MaterialTheme.typography.labelMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = SectionTitle.style,
+        color = SectionTitle.color,
         modifier = modifier
     )
 }
@@ -520,8 +521,8 @@ private fun coinSpoken(context: Context, change: Double): String =
 private fun PulseSectionTitle(text: String) {
     Text(
         text,
-        style = MaterialTheme.typography.labelLarge,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = SectionTitle.style,
+        color = SectionTitle.color,
         modifier = Modifier.padding(top = 12.dp, bottom = 4.dp).semantics { heading() }
     )
 }

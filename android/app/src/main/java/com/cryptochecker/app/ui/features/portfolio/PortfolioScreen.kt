@@ -15,15 +15,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -34,10 +35,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -49,15 +52,26 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
+import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
+import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
+import com.cryptochecker.app.ui.components.AppMenuHead
 import com.cryptochecker.app.ui.components.ReadableInset
+import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.theme.Spacing
 
-/** Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+». */
+/**
+ * Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+». Bedienung wie in der
+ * Merkliste: nach unten ziehen oder ⋯ › «Aktualisieren» lädt die Kurse neu; einen Coin nach
+ * links wischen löscht alle seine Transaktionen (Banner mit «Rückgängig»); ⋯ › «Portfolio
+ * leeren» löscht nach Rückfrage alles.
+ */
 @Composable
 fun PortfolioScreen(
     onOpenCoin: (String) -> Unit,
+    onOpenAbout: () -> Unit = {},
     viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
     val transactions by viewModel.transactions.collectAsStateWithLifecycle()
@@ -89,6 +103,12 @@ fun PortfolioScreen(
     var exportOpen by rememberSaveable { mutableStateOf(false) }
     // Neuer Alarm «Portfolio-Wert»
     var alarmOpen by rememberSaveable { mutableStateOf(false) }
+    // «Portfolio leeren» — Rückfrage
+    var askClear by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val banner = rememberWatchlistBanner(scope)
+    val reduceMotion = rememberReduceMotion()
 
     sheet?.let { draft ->
         PortfolioTxSheet(initial = draft, viewModel = viewModel, onDismiss = { sheet = null })
@@ -116,7 +136,34 @@ fun PortfolioScreen(
         )
     }
 
+    if (askClear) {
+        AlertDialog(
+            onDismissRequest = { askClear = false },
+            title = { Text(stringResource(R.string.portfolio_clear)) },
+            text = { Text(stringResource(R.string.portfolio_clear_confirm)) },
+            confirmButton = {
+                TextButton(onClick = { askClear = false; viewModel.clearAll() }) {
+                    Text(stringResource(R.string.portfolio_clear), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { askClear = false }) { Text(stringResource(R.string.action_cancel)) }
+            }
+        )
+    }
+
     val hasTransactions = !transactions.isNullOrEmpty()
+    // Anzahl Transaktionen je Coin (kleine Zahl neben der Menge)
+    val txCounts = remember(transactions) {
+        transactions.orEmpty().groupingBy { PortfolioCalculator.normalizeCoin(it.coin) }.eachCount()
+    }
+
+    // Wischen auf einem Coin: alle Transaktionen weg, «Rückgängig» im Banner
+    fun deleteCoin(coin: String) {
+        viewModel.deleteCoin(coin) { removed ->
+            banner.show(context.getString(R.string.watchlist_removed, coin)) { viewModel.restore(removed) }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -134,19 +181,6 @@ fun PortfolioScreen(
                             )
                         }
                     }
-                    if (refreshing) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.padding(horizontal = Spacing.md).size(20.dp),
-                            strokeWidth = 2.dp
-                        )
-                    } else if (hasTransactions) {
-                        IconButton(onClick = { viewModel.refresh(force = true) }) {
-                            Icon(
-                                painterResource(R.drawable.ic_refresh),
-                                contentDescription = stringResource(R.string.action_refresh)
-                            )
-                        }
-                    }
                     Box {
                         IconButton(onClick = { menuOpen = true }) {
                             Icon(
@@ -155,19 +189,41 @@ fun PortfolioScreen(
                             )
                         }
                         DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                            // Gleicher Anfang wie Merkliste und Markt: App (→ «Über»), Aktualisieren
+                            AppMenuHead(
+                                refreshing = refreshing,
+                                onClose = { menuOpen = false },
+                                onOpenAbout = onOpenAbout,
+                                onRefresh = { viewModel.refresh(force = true) }
+                            )
+                            HorizontalDivider()
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.portfolio_convert_to_value, currency)) },
+                                leadingIcon = { Icon(painterResource(R.drawable.ic_swap_horiz), null) },
                                 onClick = { menuOpen = false; pickCurrency = true }
                             )
                             if (hasTransactions) {
                                 DropdownMenuItem(
                                     text = { Text(stringResource(R.string.portfolio_export_action)) },
+                                    leadingIcon = { Icon(painterResource(R.drawable.ic_download), null) },
                                     onClick = { menuOpen = false; exportOpen = true }
                                 )
                                 // Alarm «Portfolio-Wert» (erscheint in der Alarm-Übersicht)
                                 DropdownMenuItem(
                                     text = { Text(stringResource(R.string.portfolio_alarm_action)) },
+                                    leadingIcon = { Icon(painterResource(R.drawable.ic_notifications), null) },
                                     onClick = { menuOpen = false; alarmOpen = true }
+                                )
+                                HorizontalDivider()
+                                // Wie «Merkliste leeren»: zuunterst, rot, mit Rückfrage
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(stringResource(R.string.portfolio_clear), color = MaterialTheme.colorScheme.error)
+                                    },
+                                    leadingIcon = {
+                                        Icon(painterResource(R.drawable.ic_delete), null, tint = MaterialTheme.colorScheme.error)
+                                    },
+                                    onClick = { menuOpen = false; askClear = true }
                                 )
                             }
                         }
@@ -175,6 +231,7 @@ fun PortfolioScreen(
                 }
             )
         },
+        snackbarHost = { SnackbarHost(banner.host) },
         floatingActionButton = {
             if (hasTransactions) {
                 FloatingActionButton(onClick = { sheet = TxDraft() }) {
@@ -237,13 +294,25 @@ fun PortfolioScreen(
                         if (slices.size >= 2) {
                             item(key = "allocation") { AllocationCard(slices) }
                         }
-                        // Grösste Bewegungen über die %-Basis (sobald es eine Vergleichsbasis gibt)
-                        val movers = PortfolioInsights.movers(current.open, coinChanges)
-                        if (movers.isNotEmpty()) {
-                            item(key = "movers") { MoversCard(movers, changeBasis) }
-                        }
+                        // Nach links wischen = Coin löschen (Rückgängig im Banner); kein Favorit
                         items(current.open, key = { "open:${it.coin}" }) { position ->
-                            CoinRow(position = position, onClick = { onOpenCoin(position.coin) })
+                            SwipeActionsRow(
+                                enabled = true,
+                                favorite = false,
+                                onDelete = { deleteCoin(position.coin) },
+                                onToggleFavorite = null,
+                                reduceMotion = reduceMotion,
+                                modifier = Modifier.animateItem()
+                            ) {
+                                CoinRow(
+                                    position = position,
+                                    onClick = { onOpenCoin(position.coin) },
+                                    dayChange = coinChanges[position.coin] ?: coinChanges[position.coin.uppercase()],
+                                    basis = changeBasis,
+                                    onDelete = { deleteCoin(position.coin) },
+                                    txCount = txCounts[position.coin] ?: 0
+                                )
+                            }
                         }
                         if (current.closed.isNotEmpty()) {
                             item(key = "closed_header") {

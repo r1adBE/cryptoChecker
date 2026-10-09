@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">Reimposta app</string>
+    <string name="settings_reset_app_title">Reimpostare l’app?</string>
+    <string name="settings_reset_app_confirm">Elimina lista, allarmi, portafoglio, impostazioni e tutti i dati salvati, come dopo l’installazione. Non si può annullare. Consiglio: crea prima un backup.</string>
+    <string name="settings_reset_app_action">Elimina tutto</string>
+</resources>

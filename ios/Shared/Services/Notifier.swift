@@ -34,6 +34,28 @@ enum Notifier {
         return s.authorizationStatus == .authorized || s.authorizationStatus == .provisional || s.authorizationStatus == .ephemeral
     }
 
+    // MARK: Zahl am App-Symbol
+
+    private static let badgeKey = "app_icon_badge_count"
+
+    /// «Zahl am App-Symbol»: zählt diese Mitteilung (+1) und gibt die neue Zahl mit — wie
+    /// WhatsApp. Zähler im App-Group-Speicher, weil auch die Hintergrund-Aktualisierung meldet.
+    /// Einstellung aus: kein Kennzeichen.
+    static func badge(_ content: UNMutableNotificationContent, _ settings: AppSettings) {
+        guard settings.appIconBadge else { return }
+        let defaults = SharedStorage.defaults
+        let count = defaults.integer(forKey: badgeKey) + 1
+        defaults.set(count, forKey: badgeKey)
+        content.badge = NSNumber(value: count)
+    }
+
+    /// App geöffnet (oder Einstellung aus): Zahl am App-Symbol auf 0. Die Mitteilungen selbst
+    /// bleiben in der Mitteilungszentrale.
+    static func clearBadge() {
+        SharedStorage.defaults.set(0, forKey: badgeKey)
+        center.setBadgeCount(0) { _ in }
+    }
+
     private static func post(id: String, content: UNMutableNotificationContent) {
         let request = UNNotificationRequest(identifier: id, content: content, trigger: nil)
         center.add(request) { _ in }
@@ -102,6 +124,7 @@ enum Notifier {
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
         if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
         applyQuietHours(content, settings)
+        badge(content, settings)
         post(id: alarmId(alarm.id), content: content)
     }
 
@@ -126,6 +149,7 @@ enum Notifier {
         content.userInfo = ["open": "portfolio"]
         if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
         applyQuietHours(content, settings)
+        badge(content, settings)
         post(id: portfolioAlarmId(alarm.id), content: content)
     }
 
@@ -159,7 +183,9 @@ enum Notifier {
         content.threadIdentifier = "activity"
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
         if #available(iOS 15.0, *) { content.interruptionLevel = .active }
-        applyQuietHours(content, SharedStorage.loadSettings())
+        let settings = SharedStorage.loadSettings()
+        applyQuietHours(content, settings)
+        badge(content, settings)
         post(id: activityId(watch.id), content: content)
     }
 
@@ -178,6 +204,7 @@ enum Notifier {
         content.body = L("notification_zone_text", L(fromKey), to)
         content.sound = .default
         content.threadIdentifier = "market"
+        badge(content, SharedStorage.loadSettings())
         post(id: "zone", content: content)
     }
 
@@ -191,6 +218,7 @@ enum Notifier {
         }
         content.sound = .default
         content.threadIdentifier = "market"
+        badge(content, SharedStorage.loadSettings())
         post(id: "fng", content: content)
     }
 
@@ -203,7 +231,9 @@ enum Notifier {
         content.body = body
         content.sound = .default
         content.threadIdentifier = "market"
-        applyQuietHours(content, SharedStorage.loadSettings())
+        let settings = SharedStorage.loadSettings()
+        applyQuietHours(content, settings)
+        badge(content, settings)
         post(id: id, content: content)
     }
 

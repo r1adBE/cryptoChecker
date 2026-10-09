@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -184,15 +185,20 @@ internal fun WatchRow(
                 if (actions.isNotEmpty()) customActions = actions
             }
     ) {
+        // Mit «Namen anzeigen» oben bündig: links Paar / Name / Börse, rechts Kurs / Pille /
+        // ≈ Umrechnung stehen je auf einer Linie; Logo, Mini-Chart und Griff bleiben mittig
+        val namesOn = LocalCoinNameSource.current != null
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = if (namesOn) Alignment.Top else Alignment.CenterVertically,
             modifier = Modifier.padding(start = 4.dp, end = Spacing.md, top = Spacing.md, bottom = Spacing.md)
         ) {
-            RowLeading(
-                sortMode = sortMode,
-                accent = accent,
-                handleModifier = handleModifier,
-            )
+            Box(Modifier.align(Alignment.CenterVertically)) {
+                RowLeading(
+                    sortMode = sortMode,
+                    accent = accent,
+                    handleModifier = handleModifier,
+                )
+            }
             // Coin-Logo (bzw. Initialen) vor dem Paar, Favorit als kleiner Stern daran; feste Grösse,
             // nimmt nur dem Paar-Text Platz. Logos aus: keine Plakette, Favorit nur am Akzent-Rand.
             CoinBadge(
@@ -202,6 +208,7 @@ internal fun WatchRow(
                 pair = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
                 favorite = watch.favorite && !sortMode,
                 modifier = Modifier
+                    .align(Alignment.CenterVertically)
                     .padding(end = 8.dp)
                     .alpha(if (stale) 0.5f else 1f)
             )
@@ -224,6 +231,7 @@ internal fun WatchRow(
                     values = sparkline,
                     progress = { motion.draw.value },
                     modifier = Modifier
+                        .align(Alignment.CenterVertically)
                         .padding(start = 8.dp)
                         // 28 dp (früher 22): passt in die Zeilenhöhe
                         .size(width = 56.dp, height = 28.dp)
@@ -241,7 +249,7 @@ internal fun WatchRow(
             )
 
             // Sortiermodus: «ganz nach oben/unten» im Zeilenmenü statt als Symbole
-            if (sortMode) RowSortMenu(onMove = onMove)
+            if (sortMode) Box(Modifier.align(Alignment.CenterVertically)) { RowSortMenu(onMove = onMove) }
         }
     }
 }

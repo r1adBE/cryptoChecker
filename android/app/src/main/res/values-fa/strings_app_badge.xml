@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">عدد روی نماد برنامه</string>
+    <string name="settings_app_badge_hint">اعلان‌های هشدار باز را می‌شمارد. نمایش عدد یا نقطه را صفحهٔ اصلی تعیین می‌کند (مثلاً Samsung: «با عدد»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">هشدارها و اعلان‌های بازار جدید را می‌شمارد؛ با باز کردن برنامه به 0 برمی‌گردد.</string>
+</resources>

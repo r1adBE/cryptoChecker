@@ -24,8 +24,12 @@ enum CoinLogos {
     static let mapTTLMillis: Int64 = 7 * 24 * 60 * 60 * 1000
     /// Fehlgeschlagenes Bild erst nach einem Tag erneut versuchen.
     static let failureTTLMillis: Int64 = 24 * 60 * 60 * 1000
-    /// Seiten à 250 Coins: die grössten 1000.
+    /// Seiten à 250 Coins: die grössten 1000 zuerst (vor der Binance-Liste).
     static let pages = 4
+    /// Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken (AIN, AGT, AIA, LUNA …), erst
+    /// nach der Binance-Liste und mit Pause zwischen den Seiten — wie `EXTRA_PAGES` (Android).
+    static let extraPages = 6
+    static let extraPagePauseNanos: UInt64 = 2_000_000_000
     static let perPage = 250
     /// Kantenlänge der gespeicherten Bilder in Pixeln.
     static let storedPixels = 128
@@ -39,7 +43,8 @@ enum CoinLogos {
     }
 
     private static let multiplierPrefixes = ["1000000", "100000", "10000", "1000", "1M"]
-    private static let aliases = ["XBT": "BTC", "XDG": "DOGE"]
+    // «LUNA2»: Terra 2.0 heisst bei den Futures-Börsen so (LUNA2USDT) — wie Android
+    private static let aliases = ["XBT": "BTC", "XDG": "DOGE", "LUNA2": "LUNA"]
 
     /// Symbol, unter dem das Logo gesucht wird: gross, ohne Leerraum, ohne Hebel-Präfix
     /// («1000PEPE» → «PEPE»), Börsen-Kürzel vereinheitlicht («XBT» → «BTC»).
@@ -108,6 +113,29 @@ enum CoinLogos {
     static let tradFiPrefix = "TRADFI:"
 
     /// Schlüssel des Logos für ein TradFi-Paar: «TRADFI:NVDA».
+    /// Aktien-Logo auf dem Bild-Server von Binance («…/static/stock/BYD.png») für ein TradFi-Kürzel;
+    /// nil, wenn das Kürzel nicht passt (nur A–Z, 0–9, Punkt, höchstens 12) — wie `stockLogoUrl` (Android).
+    /// Geladen für **alle** TradFi-Kürzel der gespeicherten Paarlisten, nur ohne Logo aus der Binance-Liste.
+    static func stockLogoURL(_ symbol: String) -> String? {
+        let s = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard !s.isEmpty, s.count <= 12,
+              s.unicodeScalars.allSatisfy({ ("A"..."Z").contains($0) || ("0"..."9").contains($0) || $0 == "." })
+        else { return nil }
+        return "https://bin.bnbstatic.com/static/stock/\(s).png"
+    }
+
+    /// Zuordnung samt Aktien-Logos: für jedes Kürzel aus `tradFiBases` ohne eigenen Eintrag
+    /// (`tradFiKey`) das Logo aus `stockLogoURL` — wie `withStockLogos` (Android).
+    static func withStockLogos(_ map: [String: String], tradFiBases: Set<String>) -> [String: String] {
+        var out = map
+        for base in tradFiBases.sorted() {
+            let key = tradFiKey(base)
+            guard out[key] == nil, fileName(key) != nil, let url = stockLogoURL(base) else { continue }
+            out[key] = url
+        }
+        return out
+    }
+
     static func tradFiKey(_ symbol: String) -> String {
         tradFiPrefix + symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     }
@@ -184,7 +212,8 @@ enum CoinLogos {
     static let nameMax = 40
 
     /// Name zum Anzeigen: ohne Zusatz der tokenisierten Aktien («NVIDIA bStocks» → «NVIDIA»), ohne
-    /// Tabs und Zeilenumbrüche, gekürzt auf `nameMax`. nil, wenn leer oder gleich dem Kürzel — wie Android.
+    /// Tabs und Zeilenumbrüche, gekürzt auf `nameMax`. nil, wenn leer. Ein Name gleich dem Kürzel bleibt
+    /// («BNB», «XRP», «Bonk» zu BONK) — besser als «–»; wie Android.
     static func cleanName(_ raw: String?, symbol: String? = nil) -> String? {
         guard let raw else { return nil }
         var s = raw.split(whereSeparator: { $0.isWhitespace }).joined(separator: " ")
@@ -194,7 +223,6 @@ enum CoinLogos {
         }
         s = s.trimmingCharacters(in: .whitespaces)
         guard !s.isEmpty else { return nil }
-        if let symbol, s.caseInsensitiveCompare(symbol.trimmingCharacters(in: .whitespacesAndNewlines)) == .orderedSame { return nil }
         if s.count > nameMax {
             return String(s.prefix(nameMax - 1)).trimmingCharacters(in: .whitespaces) + "…"
         }
@@ -210,6 +238,63 @@ enum CoinLogos {
             map[key] = clean
             order.append(key)
         }
+    }
+
+    // MARK: Aktiennamen aus der Nasdaq-Symbolliste — wie Android
+
+    /// Offizielle Symbolliste von Nasdaq (Nasdaq-Aktien) und der übrigen US-Börsen (NYSE u. a.).
+    static let nasdaqListedURL = "https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt"
+    static let otherListedURL = "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt"
+
+    private static let stockNameTail = #"[\s,]*(?:New\s+)?(?:(?:Class|Series)\s+[A-Z0-9]+\s+)?(?:Common Stock|Common Shares|Ordinary Shares|American Deposit[ao]ry Shares|Depositary Shares|Shares of Beneficial Interest)\b.*$"#
+
+    /// Firmenname ohne Wertpapier-Zusatz: «Caterpillar, Inc. Common Stock» → «Caterpillar, Inc.»,
+    /// «Apple Inc. - Common Stock» → «Apple Inc.»; danach wie `cleanName` — wie `cleanStockName` (Android).
+    static func cleanStockName(_ raw: String?) -> String? {
+        guard let raw else { return nil }
+        var s = raw.split(whereSeparator: { $0.isWhitespace }).joined(separator: " ")
+        if let dash = s.range(of: " - "), dash.lowerBound > s.startIndex {
+            s = String(s[..<dash.lowerBound])
+        }
+        if let range = s.range(of: stockNameTail, options: [.regularExpression, .caseInsensitive]) {
+            s.removeSubrange(range)
+        }
+        s = s.trimmingCharacters(in: CharacterSet(charactersIn: ", ").union(.whitespaces))
+        return cleanName(s)
+    }
+
+    /// Eine Datei der Nasdaq-Symbolliste → Kürzel → Name; Test-Einträge und die Schlusszeile fallen
+    /// weg, erstes Vorkommen gewinnt — wie `parseSymbolDirectory` (Android).
+    static func parseSymbolDirectory(_ text: String?, into out: inout [String: String]) {
+        guard let text else { return }
+        var lines = text.split(whereSeparator: \.isNewline).makeIterator()
+        guard let headerLine = lines.next() else { return }
+        let header = headerLine.split(separator: "|", omittingEmptySubsequences: false)
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+        guard let sym = header.firstIndex(where: { $0 == "Symbol" || $0 == "ACT Symbol" }),
+              let name = header.firstIndex(of: "Security Name") else { return }
+        let test = header.firstIndex(of: "Test Issue")
+        while let line = lines.next() {
+            let parts = line.split(separator: "|", omittingEmptySubsequences: false).map(String.init)
+            guard parts.count > max(sym, name) else { continue }
+            if let test, test < parts.count, parts[test].trimmingCharacters(in: .whitespaces) == "Y" { continue }
+            let symbol = parts[sym].trimmingCharacters(in: .whitespaces).uppercased()
+            guard !symbol.isEmpty, out[symbol] == nil, let clean = cleanStockName(parts[name]) else { continue }
+            out[symbol] = clean
+        }
+    }
+
+    /// Namen der TradFi-Kürzel aus der Symbolliste (Schlüssel `tradFiKey`), nur wo `names` noch
+    /// keinen hat — wie `withStockNames` (Android).
+    static func withStockNames(_ names: [String: String], stockNames: [String: String], tradFiBases: Set<String>) -> [String: String] {
+        var out = names
+        for base in tradFiBases.sorted() {
+            let key = tradFiKey(base)
+            guard out[key] == nil,
+                  let name = stockNames[base.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()] else { continue }
+            out[key] = name
+        }
+        return out
     }
 
     /// Namen-Zwischenspeicher: eine Zeile je Coin, «BTC\tBitcoin».

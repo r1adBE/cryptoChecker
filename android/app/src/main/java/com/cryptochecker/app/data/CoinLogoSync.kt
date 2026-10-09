@@ -49,6 +49,16 @@ class CoinLogoSync @Inject constructor(
         // «Namen anzeigen» braucht nur die Liste (Namen stehen darin), keine Bilder
         if (!logos && !settings.watchlistNames) return
         watchTradFi()
+        // «Namen anzeigen» gerade eingeschaltet: Aktiennamen holen, falls es TradFi-Kürzel gibt
+        if (settings.watchlistNames) scope.launch {
+            try {
+                repository.refreshStockNames()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Aktiennamen nicht geladen")
+            }
+        }
         repository.startSync(images = logos) { added ->
             if (added > 0 && settingsRepository.current().widgetCoinLogos) widgetUpdater.updateAll()
         }
@@ -68,8 +78,18 @@ class CoinLogoSync @Inject constructor(
                     .distinctUntilChanged()
                     .collectLatest { pairs ->
                         try {
-                            if (repository.setTradFiPairs(tradFiPairs(pairs)) && settingsRepository.current().widgetCoinLogos) {
+                            val (found, bases) = tradFiPairs(pairs)
+                            if (repository.setTradFiPairs(found) && settingsRepository.current().widgetCoinLogos) {
                                 widgetUpdater.updateAll()
+                            }
+                            // Neue TradFi-Kürzel (andere Börse in der Merkliste): Aktien-Logos nachladen
+                            val basesChanged = repository.setTradFiBases(bases)
+                            // Aktiennamen nur mit «Namen anzeigen» (Nasdaq-Symbolliste, höchstens wöchentlich)
+                            if (settingsRepository.current().watchlistNames) repository.refreshStockNames()
+                            if (basesChanged && CoinLogoUse.needed(settingsRepository.current())) {
+                                repository.startSync(images = true) { added ->
+                                    if (added > 0 && settingsRepository.current().widgetCoinLogos) widgetUpdater.updateAll()
+                                }
                             }
                         } catch (e: CancellationException) {
                             throw e
@@ -81,16 +101,22 @@ class CoinLogoSync @Inject constructor(
         }
     }
 
-    private suspend fun tradFiPairs(pairs: Set<Triple<String, Pair<String, String>, String>>): Set<String> {
+    /**
+     * TradFi-Paare der Merkliste und alle TradFi-Kürzel der gespeicherten Listen dieser Börsen
+     * (für die Aktien-Logos — alle, nicht nur die beobachteten).
+     */
+    private suspend fun tradFiPairs(pairs: Set<Triple<String, Pair<String, String>, String>>): Pair<Set<String>, Set<String>> {
         val out = HashSet<String>()
+        val bases = HashSet<String>()
         for ((marketKey, group) in pairs.groupBy { it.first }) {
             val tradFi = storedTradFi(marketKey) ?: continue
+            tradFi.mapTo(bases) { it.split('|')[1] }
             for ((_, bq, contract) in group) {
                 val key = CoinLogos.pairKey(marketKey, bq.first, bq.second, contract)
                 if (key in tradFi) out += key
             }
         }
-        return out
+        return out to bases
     }
 
     /** TradFi-Paare der gespeicherten Liste; fehlt sie, einmal laden. null = unbekannt. */

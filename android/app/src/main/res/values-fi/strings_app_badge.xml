@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Numero sovelluskuvakkeessa</string>
+    <string name="settings_app_badge_hint">Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: «Numerolla»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Laskee uudet hälytykset ja markkinailmoitukset; nollautuu, kun avaat sovelluksen.</string>
+</resources>

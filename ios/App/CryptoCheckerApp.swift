@@ -109,6 +109,8 @@ struct CryptoCheckerApp: App {
             switch phase {
             case .active:
                 data.setAppActive(true)
+                // «Zahl am App-Symbol»: App geöffnet = gesehen, wie bei WhatsApp
+                Notifier.clearBadge()
                 QuickActions.install()
                 // Coin-Logos: fehlende (alle Coins der Rangliste, nie einzeln) nachladen
                 data.startCoinLogoSync()

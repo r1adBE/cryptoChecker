@@ -19,14 +19,15 @@ struct SettingsScreen: View {
     @EnvironmentObject private var data: AppData
     @Environment(\.scenePhase) private var scenePhase
 
-    @State private var showWidgets = false
-    @State private var showLicenses = false
     /// Erlaubnis für Mitteilungen; `.authorized` als Startwert, damit kein Hinweis aufblitzt.
     @State private var notificationStatus: UNAuthorizationStatus = .authorized
     /// Runde 31: Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer).
     @State private var query = ""
     /// Treffer auf der Hauptseite selbst (Sprache, Widgets, Links): Zeile kurz hervorheben.
     @State private var mainHighlight: String?
+    /// «App zurücksetzen» — Rückfrage.
+    @State private var askReset = false
+    @EnvironmentObject private var router: AppRouter
 
     init() {}
 
@@ -73,15 +74,6 @@ struct SettingsScreen: View {
         .navigationTitle(L("settings_title"))
         .navigationBarTitleDisplayMode(.large)
         .animation(.spring(duration: 0.35), value: settings.developerUnlocked)
-        .sheet(isPresented: $showWidgets) {
-            // iOS lässt Apps keine Widgets anlegen — drei Schritte (Runde 13b)
-            AddWidgetHelpSheet(portfolioEnabled: settings.portfolioEnabled)
-                // Eine feste Höhe: Schritte und Widget-Arten sind höher als «halb», nie ein Stufenwechsel
-                .presentationDetents([.large])
-        }
-        .sheet(isPresented: $showLicenses) {
-            LicensesSheet()
-        }
         // Auch nach der Rückkehr von einer Unterseite (Probe-Alarm) und aus den iOS-Einstellungen
         .onAppear { Task { await refreshNotificationStatus() } }
         .onChange(of: scenePhase) { _, phase in
@@ -114,6 +106,7 @@ struct SettingsScreen: View {
             }
         } header: {
             Text(L("settings_group_general"))
+                .sectionTitleStyle()
         }
         .listRowBackground(AppColors.container)
     }
@@ -148,12 +141,13 @@ struct SettingsScreen: View {
             SettingsNavRow(title: L("settings_coin_logos"), value: SettingsSummary.coinLogosText(settings)) {
                 CoinLogosSettingsPage()
             }
-            SettingsButtonRow(title: L("settings_widgets"), trailingIcon: "chevron.forward") {
-                showWidgets = true
+            SettingsNavRow(title: L("settings_widgets"), value: nil) {
+                AddWidgetHelpSheet(portfolioEnabled: settings.portfolioEnabled, asPage: true)
             }
             .settingsAnchor("main.widgets")
         } header: {
             Text(L("settings_section_appearance"))
+                .sectionTitleStyle()
         }
         .listRowBackground(AppColors.container)
     }
@@ -186,6 +180,7 @@ struct SettingsScreen: View {
             }
         } header: {
             Text(L("settings_group_alerts"))
+                .sectionTitleStyle()
         }
         .listRowBackground(AppColors.container)
     }
@@ -199,6 +194,7 @@ struct SettingsScreen: View {
             }
         } header: {
             Text(L("portfolio_title"))
+                .sectionTitleStyle()
         }
         .listRowBackground(AppColors.container)
     }
@@ -210,8 +206,32 @@ struct SettingsScreen: View {
             SettingsNavRow(title: L("backup_title"), value: nil) {
                 BackupSettingsPage()
             }
+            // «App zurücksetzen»: alles löschen wie nach der Installation (mit Rückfrage)
+            Button(role: .destructive) {
+                askReset = true
+            } label: {
+                HStack {
+                    Text(L("settings_reset_app"))
+                    Spacer()
+                    Image(systemName: "trash")
+                        .accessibilityHidden(true)
+                }
+                .foregroundStyle(AppColors.destructive)
+            }
+            .settingsAnchor("main.reset")
+            .confirmationDialog(L("settings_reset_app_title"), isPresented: $askReset, titleVisibility: .visible) {
+                Button(L("settings_reset_app_action"), role: .destructive) {
+                    data.resetApp()
+                    query = ""
+                    router.tab = .watchlist
+                }
+                Button(L("action_cancel"), role: .cancel) {}
+            } message: {
+                Text(L("settings_reset_app_confirm"))
+            }
         } header: {
             Text(L("settings_group_data_only"))
+                .sectionTitleStyle()
         }
         .listRowBackground(AppColors.container)
     }
@@ -224,23 +244,23 @@ struct SettingsScreen: View {
                 AboutSettingsPage()
             }
             // Pflicht für den App Store: Datenschutzerklärung auch in der App erreichbar
-            SettingsButtonRow(title: L("about_privacy_policy"), trailingIcon: "arrow.up.forward") {
+            SettingsButtonRow(title: L("about_privacy_policy"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link")) {
                 openURL(AppLinks.privacyPolicy)
             }
             .settingsAnchor("main.privacy")
             // Runde 13b: fehlende Börse direkt mit der GitHub-Vorlage wünschen
-            SettingsButtonRow(title: L("about_request_exchange"), trailingIcon: "arrow.up.forward") {
+            SettingsButtonRow(title: L("about_request_exchange"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link")) {
                 openURL(AppLinks.exchangeRequest)
             }
             .settingsAnchor("main.exchange")
             // Runde 15: Quellcode öffentlich auf GitHub (MIT)
-            SettingsButtonRow(title: L("about_source_code"), trailingIcon: "arrow.up.forward") {
+            SettingsButtonRow(title: L("about_source_code"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link")) {
                 openURL(AppLinks.sourceCode)
             }
             .settingsAnchor("main.source")
             // Runde 14: Lizenzhinweise
-            SettingsButtonRow(title: L("about_licenses"), trailingIcon: "chevron.forward") {
-                showLicenses = true
+            SettingsNavRow(title: L("about_licenses"), value: nil) {
+                LicensesSheet(asPage: true)
             }
             .settingsAnchor("main.licenses")
             // Entwickler erst nach sieben Tipps auf die Version (Seite «Über die App»)
@@ -251,6 +271,7 @@ struct SettingsScreen: View {
             }
         } header: {
             Text(L("settings_section_about"))
+                .sectionTitleStyle()
         }
         .listRowBackground(AppColors.container)
     }

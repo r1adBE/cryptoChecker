@@ -50,6 +50,26 @@ extension EnvironmentValues {
 // MARK: Abschnitt
 
 /// Abschnitt mit kleiner Überschrift und Inhalt auf abgerundeter Fläche — wie `SectionCard`.
+/// Abschnittsüberschrift überall gleich: klein, fett, in der Themenfarbe — Einstellungen
+/// («Allgemein», «Darstellung» …), Portfolio («Gesamtwert», «Wertverlauf» …) und Markt
+/// («Jetzt», «Einordnung», «Daten» …); wie `SectionTitle` (Android). Die einzige Ausnahme von
+/// «Themenfarbe nur für Bedienbares»: klein und fett, nicht mit Knöpfen zu verwechseln.
+struct SectionTitleStyle: ViewModifier {
+    @Environment(\.appAccent) private var accent
+
+    func body(content: Content) -> some View {
+        content
+            .font(.footnote.weight(.bold))
+            .foregroundStyle(accent.primary)
+            .textCase(nil)
+    }
+}
+
+extension View {
+    /// Siehe `SectionTitleStyle`.
+    func sectionTitleStyle() -> some View { modifier(SectionTitleStyle()) }
+}
+
 struct SectionCard<Content: View>: View {
     let title: String?
     @ViewBuilder var content: () -> Content
@@ -63,9 +83,9 @@ struct SectionCard<Content: View>: View {
         VStack(alignment: .leading, spacing: 8) {
             if let title, !title.isEmpty {
                 Text(title)
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .sectionTitleStyle()
                     .padding(.leading, 4)
+                    .accessibilityAddTraits(.isHeader)
             }
             VStack(alignment: .leading, spacing: 0, content: content)
                 .padding(.horizontal, 16)
@@ -371,12 +391,13 @@ struct CoinBadge: View {
         .clipShape(Circle())
     }
 
-    /// Favorit: kleiner Stern in der Akzentfarbe mit Ring in der Farbe der Fläche darunter.
+    /// Favorit: kleiner Stern in der Schriftfarbe (hell/dunkel, nicht die Akzentfarbe — ruhig und
+    /// einheitlich) mit Ring in der Farbe der Fläche darunter.
     private var star: some View {
         let starSize = max(12, size * 0.45)
         return Image(systemName: "star.fill")
             .font(.system(size: starSize * 0.62, weight: .bold))
-            .foregroundStyle(accent.primary)
+            .foregroundStyle(AppColors.onSurface)
             .frame(width: starSize, height: starSize)
             .background(Circle().fill(ringColor))
             .offset(x: 3, y: 3)

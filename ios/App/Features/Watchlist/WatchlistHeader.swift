@@ -96,25 +96,15 @@ extension WatchlistScreen {
                 // Menü: oben Logo und App-Name («Über die App»), dann Aktualisieren, Sortieren,
                 // Bericht, nicht gehandelte Paare entfernen, Merkliste leeren
                 Menu {
-                    Button {
-                        showAbout = true
-                    } label: {
-                        // Menüs zeigen nur Bilder aus dem Katalog bzw. Symbole, keine eigenen Ansichten
-                        let logo = accent.logoName(dark: colorScheme == .dark)
-                        if UIImage(named: logo) != nil {
-                            Label(L("app_name"), image: logo)
-                        } else {
-                            Label(L("app_name"), systemImage: "chart.line.uptrend.xyaxis.circle.fill")
+                    // Gleicher Anfang wie Markt und Portfolio: App (→ «Über»), Aktualisieren
+                    AppMenuHead(
+                        refreshing: data.refreshing,
+                        onOpenAbout: { showAbout = true },
+                        onRefresh: {
+                            WatchlistHaptics.impact(.light)
+                            Task { await refreshByUser() }
                         }
-                    }
-                    Divider()
-                    Button {
-                        WatchlistHaptics.impact(.light)
-                        Task { await refreshByUser() }
-                    } label: {
-                        Label(L("action_refresh"), systemImage: "arrow.clockwise")
-                    }
-                    .disabled(data.refreshing)
+                    )
                     if watches.count > 1 {
                         Button {
                             if searching { closeSearch() }

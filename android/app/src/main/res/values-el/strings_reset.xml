@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">Επαναφορά εφαρμογής</string>
+    <string name="settings_reset_app_title">Επαναφορά της εφαρμογής;</string>
+    <string name="settings_reset_app_confirm">Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας.</string>
+    <string name="settings_reset_app_action">Διαγραφή όλων</string>
+</resources>

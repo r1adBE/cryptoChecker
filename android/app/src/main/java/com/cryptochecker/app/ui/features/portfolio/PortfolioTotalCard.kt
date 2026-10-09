@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -64,8 +65,8 @@ internal fun TotalCard(
         ) {
             Text(
                 stringResource(R.string.portfolio_total_value),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = SectionTitle.style,
+                color = SectionTitle.color
             )
             FittedTotal(
                 text = maskAmount(PortfolioFormat.usdt(summary.totalValue)),

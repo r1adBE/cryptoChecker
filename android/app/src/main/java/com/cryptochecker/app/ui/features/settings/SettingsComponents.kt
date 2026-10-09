@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,8 +34,8 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
@@ -53,14 +54,38 @@ internal fun SettingsSectionHeader(title: String, first: Boolean = false) {
     }
     Text(
         text = title,
-        style = MaterialTheme.typography.labelLarge,
-        fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = SectionTitle.style,
+        color = SectionTitle.color,
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp)
             .semantics { heading() }
     )
+}
+
+/** Zeile mit unwiderruflicher Aktion («App zurücksetzen»): rot, Papierkorb rechts. */
+@Composable
+internal fun SettingsDangerRow(title: String, onClick: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .clickable(role = androidx.compose.ui.semantics.Role.Button, onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Text(
+            title,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.error,
+            modifier = Modifier.weight(1f).padding(end = 16.dp)
+        )
+        Icon(
+            painterResource(R.drawable.ic_delete),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.error
+        )
+    }
 }
 
 /** Grauer Wert rechts in einer Zeile, einzeilig mit «…». */
@@ -89,8 +114,11 @@ internal fun SettingsNavRow(
     value: String? = null,
     valueDescription: String? = value,
     valueContent: (@Composable () -> Unit)? = null,
+    /** Öffnet eine Website (Browser): Pfeil nach oben rechts statt «›», vorgelesen mit «Link». */
+    external: Boolean = false,
     onClick: () -> Unit,
 ) {
+    val linkLabel = stringResource(R.string.a11y_external_link)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -98,8 +126,11 @@ internal fun SettingsNavRow(
             .heightIn(min = 56.dp)
             .clickable(role = androidx.compose.ui.semantics.Role.Button, onClick = onClick)
             .clearAndSetSemantics {
-                contentDescription = listOfNotNull(title, valueDescription?.takeIf { it.isNotEmpty() })
-                    .joinToString(", ")
+                contentDescription = listOfNotNull(
+                    title,
+                    valueDescription?.takeIf { it.isNotEmpty() },
+                    linkLabel.takeIf { external },
+                ).joinToString(", ")
             }
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -118,10 +149,10 @@ internal fun SettingsNavRow(
             }
         }
         Icon(
-            painterResource(R.drawable.ic_chevron_right),
+            painterResource(if (external) R.drawable.ic_open_external else R.drawable.ic_chevron_right),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = 4.dp)
+            modifier = Modifier.padding(start = 4.dp).then(if (external) Modifier.size(20.dp) else Modifier)
         )
     }
 }

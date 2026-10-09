@@ -174,6 +174,9 @@ fun WatchlistScreen(
     val starterAdding by viewModel.starterAdding.collectAsStateWithLifecycle()
 
     val ui = rememberWatchlistUiState()
+    // Zurück aus «Alarme» (eigene Seite): Die Merkliste kommt wieder ins Bild — war das
+    // Aktionsblatt der Ausgangspunkt, öffnet es sich wieder
+    LaunchedEffect(Unit) { if (ui.whyFor == null) ui.reopenActions() }
     // Aus der Alarm-Meldung («Warum?»): Blatt öffnen, sobald die Merkliste da ist (nicht gehandelte Paare zeigen keins)
     LaunchedEffect(openWhyWatchId) {
         val id = openWhyWatchId ?: return@LaunchedEffect

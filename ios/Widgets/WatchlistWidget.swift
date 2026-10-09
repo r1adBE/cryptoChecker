@@ -301,7 +301,7 @@ private struct WatchlistWidgetRow: View {
                     if watch.favorite {
                         Image(systemName: "star.fill")
                             .font(.system(size: 7, weight: .bold))
-                            .foregroundStyle(palette.accent)
+                            .foregroundStyle(palette.text)
                     }
                 }
                 Text(outdated ? L("watchlist_row_outdated", BidiText.isolate(watch.marketName)) : watch.marketName)

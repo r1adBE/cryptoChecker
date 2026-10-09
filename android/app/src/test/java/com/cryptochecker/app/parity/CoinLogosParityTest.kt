@@ -100,6 +100,38 @@ class CoinLogosParityTest {
     }
 
     @Test
+    fun stockLogos() {
+        data["stockLogo"].list().map { it.obj() }.forEach { c ->
+            assertEquals("stockLogo: $c", c["expected"], CoinLogos.stockLogoUrl(c["symbol"] as String))
+        }
+        val w = data["withStockLogos"].obj()
+        val map = w["map"].obj().mapValues { it.value as String }
+        val bases = w["bases"].list().map { it as String }
+        assertEquals(w["expected"].obj().mapValues { it.value as String }, CoinLogos.withStockLogos(map, bases))
+    }
+
+    @Test
+    fun stockNames() {
+        data["cleanStockName"].list().map { it.obj() }.forEach { c ->
+            assertEquals("cleanStockName: $c", c["expected"], CoinLogos.cleanStockName(c["raw"] as String?))
+        }
+        val d = data["symbolDirectory"].obj()
+        val parsed = LinkedHashMap<String, String>()
+        CoinLogos.parseSymbolDirectory(d["other"] as String, parsed)
+        CoinLogos.parseSymbolDirectory(d["nasdaq"] as String, parsed)
+        assertEquals(d["expectedOtherFirst"].obj().mapValues { it.value as String }, parsed)
+        val w = data["withStockNames"].obj()
+        assertEquals(
+            w["expected"].obj().mapValues { it.value as String },
+            CoinLogos.withStockNames(
+                w["names"].obj().mapValues { it.value as String },
+                w["stockNames"].obj().mapValues { it.value as String },
+                w["bases"].list().map { it as String },
+            )
+        )
+    }
+
+    @Test
     fun names() {
         data["cleanName"].list().map { it.obj() }.forEach { c ->
             assertEquals("cleanName: $c", c["expected"], CoinLogos.cleanName(c["raw"] as String?, c["symbol"] as String?))

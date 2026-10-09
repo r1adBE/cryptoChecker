@@ -75,9 +75,12 @@ data class AppSettings(
     /** Bei einem Wechsel der Bitcoin-Marktphase benachrichtigen. */
     val zoneAlerts: Boolean = true,
 
-    /** Fear & Greed: melden, wenn der Index unter/über diesen Wert fällt/steigt (0 = aus). */
-    val fearGreedBelow: Int = 25,
-    val fearGreedAbove: Int = 75,
+    /**
+     * Fear & Greed: melden, wenn der Index unter/über diesen Wert fällt/steigt (0 = aus). Ab Werk
+     * aus — am ersten Tag soll nur kommen, was man selbst eingestellt hat (nur die Marktphase ist an).
+     */
+    val fearGreedBelow: Int = 0,
+    val fearGreedAbove: Int = 0,
 
     /** Gas-Alarm Ethereum: melden, wenn die normale Gebühr unter diesen Wert fällt — in Zehntel-gwei (0 = aus). */
     val gasAlertEthTenths: Int = 0,
@@ -116,15 +119,18 @@ data class AppSettings(
     /** Gewählte Gruppe in der Merkliste. null = «Alle». */
     val watchlistGroup: String? = null,
 
-    /** Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Benachrichtigung melden. */
-    val activityAlerts: Boolean = true,
+    /**
+     * Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Benachrichtigung melden. Ab Werk aus;
+     * das ⚡ in der Merkliste und die Karte «Hier passiert gerade etwas» bleiben.
+     */
+    val activityAlerts: Boolean = false,
 
     /** Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Meldungen); Standard = bisherige Schwellen. */
     val activitySensitivity: com.cryptochecker.app.domain.activity.ActivitySensitivity =
         com.cryptochecker.app.domain.activity.ActivitySensitivity.NORMAL,
 
-    /** Morgen-Meldung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten. */
-    val macroNotifications: Boolean = true,
+    /** Morgen-Meldung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten. Ab Werk aus. */
+    val macroNotifications: Boolean = false,
 
     /** Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). */
     val portfolioEnabled: Boolean = false,
@@ -152,6 +158,12 @@ data class AppSettings(
      * Einzel-Widget; ab Werk aus. Der Screenreader nennt ihn immer.
      */
     val showChangePeriod: Boolean = false,
+
+    /**
+     * «Zahl am App-Symbol»: Alarme und Marktmeldungen zählen am App-Symbol (iOS-Kennzeichen;
+     * Android gibt je Mitteilung 1 mit, Zahl oder Punkt entscheidet der Startbildschirm). Ab Werk an.
+     */
+    val appIconBadge: Boolean = true,
 
     /**
      * Karte «Hier passiert gerade etwas» (ungewöhnliche Aktivität) über der Merkliste. Nur die

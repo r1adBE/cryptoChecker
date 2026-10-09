@@ -35,45 +35,55 @@ struct AddWidgetHelpSheet: View {
 
     private var steps: [String] { [L("widgets_ios_step1"), L("widgets_ios_step2"), L("widgets_ios_step3")] }
 
+    /// true: als Seite der Einstellungen (im Navigationsstapel, ohne «Schliessen»).
+    var asPage = false
+
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text(L("widgets_ios_intro"))
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
-                            stepRow(number: index + 1, text: step)
+        if asPage {
+            content
+        } else {
+            NavigationStack {
+                content
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("action_close")) { dismiss() }
                         }
                     }
-
-                    Text(L("widgets_ios_kinds"))
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .accessibilityAddTraits(.isHeader)
-                        .padding(.top, 4)
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        ForEach(kinds) { kind in
-                            kindRow(kind)
-                        }
-                    }
-                }
-                .padding(Spacing.lg)
-                .readableContentWidth()
-            }
-            .background(AppColors.background.ignoresSafeArea())
-            .navigationTitle(L("widgets_sheet_title"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(L("action_close")) { dismiss() }
-                }
             }
         }
+    }
+
+    private var content: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Text(L("widgets_ios_intro"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                VStack(alignment: .leading, spacing: 12) {
+                    ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
+                        stepRow(number: index + 1, text: step)
+                    }
+                }
+
+                Text(L("widgets_ios_kinds"))
+                    .sectionTitleStyle()
+                    .accessibilityAddTraits(.isHeader)
+                    .padding(.top, 4)
+
+                VStack(alignment: .leading, spacing: 12) {
+                    ForEach(kinds) { kind in
+                        kindRow(kind)
+                    }
+                }
+            }
+            .padding(Spacing.lg)
+            .readableContentWidth()
+        }
+        .background(AppColors.background.ignoresSafeArea())
+        .navigationTitle(L("widgets_sheet_title"))
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     /// «1» im Kreis, daneben der Schritt; VoiceOver liest «1. Halte …».

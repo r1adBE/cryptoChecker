@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">מספר על סמל האפליקציה</string>
+    <string name="settings_app_badge_hint">סופר התראות פתוחות. מסך הבית קובע אם יופיע מספר או נקודה (למשל Samsung: «עם מספר»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">סופר התראות והודעות שוק חדשות; חוזר ל־0 כשפותחים את האפליקציה.</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">Resetuj aplikację</string>
+    <string name="settings_reset_app_title">Zresetować aplikację?</string>
+    <string name="settings_reset_app_confirm">Usuwa listę obserwowanych, alarmy, portfel, ustawienia i wszystkie zapisane dane, jak po instalacji. Tej operacji nie można cofnąć. Wskazówka: najpierw zrób kopię zapasową.</string>
+    <string name="settings_reset_app_action">Usuń wszystko</string>
+</resources>

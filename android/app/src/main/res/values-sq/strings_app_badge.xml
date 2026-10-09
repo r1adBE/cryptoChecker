@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Numër në ikonën e aplikacionit</string>
+    <string name="settings_app_badge_hint">Numëron njoftimet e hapura të alarmeve. Nëse shfaqet numër apo pikë e vendos ekrani bazë (p.sh. Samsung: «Me numër»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Numëron alarmet dhe njoftimet e reja të tregut; kthehet në 0 kur hap aplikacionin.</string>
+</resources>

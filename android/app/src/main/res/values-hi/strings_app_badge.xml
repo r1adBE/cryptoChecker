@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ऐप आइकन पर संख्या</string>
+    <string name="settings_app_badge_hint">खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: «संख्या के साथ»)।</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">नए अलार्म और बाज़ार सूचनाएँ गिनता है; ऐप खोलने पर फिर 0।</string>
+</resources>

@@ -5,8 +5,9 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -24,8 +24,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -34,11 +34,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,11 +57,17 @@ import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.SkeletonList
+import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
+import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
-/** Ein Coin: Kennzahlen und seine Transaktionen (Tipp = bearbeiten, lange drücken = löschen). */
+/**
+ * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen = löschen,
+ * mit «Rückgängig» im Banner (wie in der Merkliste).
+ */
 @Composable
 fun PortfolioDetailScreen(
     coin: String,
@@ -84,33 +94,27 @@ fun PortfolioDetailScreen(
         PortfolioCalculator.position(symbol, all.orEmpty().map { it.toTrade() }, prices.prices[symbol])
     }
 
-    // Letzte Transaktion gelöscht: zurück zur Übersicht
-    LaunchedEffect(all != null && own.isEmpty()) {
-        if (all != null && own.isEmpty()) onBack()
+    val scope = rememberCoroutineScope()
+    val banner = rememberWatchlistBanner(scope)
+    val reduceMotion = rememberReduceMotion()
+    val removedText = stringResource(R.string.portfolio_tx_removed)
+
+    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist
+    val bannerShown = banner.host.currentSnackbarData != null
+    LaunchedEffect(all != null && own.isEmpty(), bannerShown) {
+        if (all != null && own.isEmpty() && !bannerShown) onBack()
     }
 
     var sheet by remember { mutableStateOf<TxDraft?>(null) }
-    var askDelete by remember { mutableStateOf<PortfolioTxEntity?>(null) }
+
+    fun deleteTx(tx: PortfolioTxEntity) {
+        banner.show(removedText) { viewModel.restore(listOf(tx)) }
+        viewModel.delete(tx.id)
+    }
 
     sheet?.let { draft ->
         PortfolioTxSheet(initial = draft, viewModel = viewModel, onDismiss = { sheet = null })
     }
-    askDelete?.let { tx ->
-        AlertDialog(
-            onDismissRequest = { askDelete = null },
-            title = { Text(stringResource(R.string.portfolio_tx_delete_title)) },
-            text = { Text(stringResource(R.string.portfolio_tx_delete_confirm)) },
-            confirmButton = {
-                TextButton(onClick = { viewModel.delete(tx.id); askDelete = null }) {
-                    Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { askDelete = null }) { Text(stringResource(R.string.action_cancel)) }
-            }
-        )
-    }
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -125,6 +129,7 @@ fun PortfolioDetailScreen(
                 }
             )
         },
+        snackbarHost = { SnackbarHost(banner.host) },
         floatingActionButton = {
             // «+» wählt den Coin schon vor
             FloatingActionButton(onClick = { sheet = TxDraft(coin = symbol) }) {
@@ -156,17 +161,26 @@ fun PortfolioDetailScreen(
                         item(key = "tx_header") {
                             Text(
                                 stringResource(R.string.portfolio_transactions),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = SectionTitle.style,
+                                color = SectionTitle.color,
                                 modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp)
                             )
                         }
                         items(own, key = { it.id }) { tx ->
-                            TxRow(
-                                tx = tx,
-                                onClick = { sheet = tx.toDraft() },
-                                onLongClick = { askDelete = tx }
-                            )
+                            SwipeActionsRow(
+                                enabled = true,
+                                favorite = false,
+                                onDelete = { deleteTx(tx) },
+                                onToggleFavorite = null,
+                                reduceMotion = reduceMotion,
+                                modifier = Modifier.animateItem()
+                            ) {
+                                TxRow(
+                                    tx = tx,
+                                    onClick = { sheet = tx.toDraft() },
+                                    onDelete = { deleteTx(tx) }
+                                )
+                            }
                         }
                         item(key = "disclaimer") { PortfolioDisclaimer() }
                     }
@@ -263,14 +277,17 @@ private fun PositionCard(p: CoinPosition) {
 
 /** Transaktion: Art und Datum, Menge × Preis, Summe. */
 @Composable
-private fun TxRow(tx: PortfolioTxEntity, onClick: () -> Unit, onLongClick: () -> Unit) {
+private fun TxRow(tx: PortfolioTxEntity, onClick: () -> Unit, onDelete: () -> Unit) {
+    // Screenreader: Löschen (sonst nur per Wischen) als eigene Aktion der Zeile
+    val deleteLabel = stringResource(R.string.action_delete)
     val typeColor = if (tx.type == PortfolioTxType.BUY) PriceColors.up else PriceColors.down
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         modifier = Modifier
             .fillMaxWidth()
-            .combinedClickable(onClick = onClick, onLongClick = onLongClick)
+            .clickable(onClick = onClick)
+            .semantics { customActions = listOf(CustomAccessibilityAction(deleteLabel) { onDelete(); true }) }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

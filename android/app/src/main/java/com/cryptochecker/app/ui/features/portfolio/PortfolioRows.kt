@@ -3,7 +3,9 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +22,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,21 +36,44 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CoinPosition
+import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.ReadableMaxWidth
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 
-/** Zeile je Coin: Plakette, Symbol, Menge, Ø/aktuell, Wert und ± %. */
+/**
+ * Zeile je Coin: Plakette, Symbol, Menge, Ø/aktuell, Wert und ± %. Darunter klein die
+ * Kursänderung [dayChange] über die %-Basis [basis] (z. B. «24h ▲ +2.1 %»), sobald es eine gibt
+ * — ersetzt die frühere Karte «Grösste Bewegungen».
+ */
 @Composable
-internal fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
+internal fun CoinRow(
+    position: CoinPosition,
+    onClick: () -> Unit,
+    dayChange: Double? = null,
+    basis: ChangeBasis? = null,
+    onDelete: (() -> Unit)? = null,
+    txCount: Int = 0,
+) {
+    // Screenreader: Löschen (sonst nur per Wischen) als eigene Aktion der Zeile
+    val deleteLabel = stringResource(R.string.action_delete)
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick)
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .then(
+                if (onDelete != null) Modifier.semantics {
+                    customActions = listOf(CustomAccessibilityAction(deleteLabel) { onDelete(); true })
+                } else Modifier
+            )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -67,14 +98,19 @@ internal fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
                         )
                     }
                 }
-                Text(
-                    maskAmount(PortfolioFormat.amount(position.holdings, position.coin)),
-                    style = MaterialTheme.typography.bodySmall.amountNumbers(),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    // Grosse Schrift: Menge bricht um statt abgeschnitten zu werden
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
+                // Menge, daneben die Anzahl Transaktionen als kleine Zahl («1.2 BTC  3»)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        maskAmount(PortfolioFormat.amount(position.holdings, position.coin)),
+                        style = MaterialTheme.typography.bodySmall.amountNumbers(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        // Grosse Schrift: Menge bricht um statt abgeschnitten zu werden
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                    if (txCount > 0) TxCountBadge(txCount)
+                }
                 Text(
                     stringResource(
                         R.string.portfolio_avg_and_now,
@@ -104,9 +140,46 @@ internal fun CoinRow(position: CoinPosition, onClick: () -> Unit) {
                 } else {
                     PlPill(position.unrealizedPercent, modifier = Modifier.padding(top = 3.dp))
                 }
+                if (dayChange != null && basis != null && dayChange.isFinite()) {
+                    val context = LocalContext.current
+                    val arrow = dayChange.takeUnless { PortfolioFormat.isZero(it) }
+                        ?.let { PriceFormat.changeArrow(it) }.orEmpty()
+                    val percent = PortfolioFormat.signedPercent(dayChange)
+                    val spoken = ChangeBasisText.spoken(context, basis, dayChange)
+                    Text(
+                        ChangeBasisText.shortLabel(context, basis) + " " + (if (arrow.isEmpty()) percent else "$arrow $percent"),
+                        style = MaterialTheme.typography.labelSmall.amountNumbers(),
+                        color = plColor(dayChange),
+                        maxLines = 1,
+                        modifier = Modifier
+                            .padding(top = 3.dp)
+                            .clearAndSetSemantics { contentDescription = spoken }
+                    )
+                }
             }
         }
     }
+}
+
+/**
+ * Anzahl Transaktionen eines Coins: nur die Zahl, klein und grau in einer Kapsel. Screenreader:
+ * «Transaktionen: 3».
+ */
+@Composable
+private fun TxCountBadge(count: Int) {
+    val spoken = stringResource(R.string.portfolio_transactions) + ": " + LocaleNumbers.integer(count)
+    Text(
+        LocaleNumbers.integer(count),
+        style = MaterialTheme.typography.labelSmall.tabularNumbers(),
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 1,
+        modifier = Modifier
+            .padding(start = Spacing.xs)
+            .background(MaterialTheme.colorScheme.surfaceContainerHighest, CircleShape)
+            .padding(horizontal = 6.dp, vertical = 1.dp)
+            .clearAndSetSemantics { contentDescription = spoken }
+    )
 }
 
 /** Geschlossene Position: nur der realisierte Gewinn/Verlust. */

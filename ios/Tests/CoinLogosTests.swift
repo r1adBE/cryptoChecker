@@ -95,6 +95,34 @@ final class CoinLogosTests: XCTestCase {
                        "BinanceFutures|NVDA|USDT|PERPETUAL")
     }
 
+    func testStockLogos() throws {
+        let data = try S.fixture("coin_logos")
+        for c in S.list(data["stockLogo"]) {
+            XCTAssertEqual(CoinLogos.stockLogoURL(string(c["symbol"]) ?? ""), string(c["expected"]), "stockLogo: \(c)")
+        }
+        let w = try XCTUnwrap(data["withStockLogos"] as? [String: Any])
+        let map = try XCTUnwrap(w["map"] as? [String: String])
+        let bases = Set(try XCTUnwrap(w["bases"] as? [String]))
+        XCTAssertEqual(CoinLogos.withStockLogos(map, tradFiBases: bases), try XCTUnwrap(w["expected"] as? [String: String]))
+    }
+
+    func testStockNames() throws {
+        let data = try S.fixture("coin_logos")
+        for c in S.list(data["cleanStockName"]) {
+            XCTAssertEqual(CoinLogos.cleanStockName(string(c["raw"])), string(c["expected"]), "cleanStockName: \(c)")
+        }
+        let d = try XCTUnwrap(data["symbolDirectory"] as? [String: Any])
+        var parsed: [String: String] = [:]
+        CoinLogos.parseSymbolDirectory(string(d["other"]), into: &parsed)
+        CoinLogos.parseSymbolDirectory(string(d["nasdaq"]), into: &parsed)
+        XCTAssertEqual(parsed, try XCTUnwrap(d["expectedOtherFirst"] as? [String: String]))
+        let w = try XCTUnwrap(data["withStockNames"] as? [String: Any])
+        XCTAssertEqual(CoinLogos.withStockNames(try XCTUnwrap(w["names"] as? [String: String]),
+                                                stockNames: try XCTUnwrap(w["stockNames"] as? [String: String]),
+                                                tradFiBases: Set(try XCTUnwrap(w["bases"] as? [String]))),
+                       try XCTUnwrap(w["expected"] as? [String: String]))
+    }
+
     func testNames() throws {
         let data = try S.fixture("coin_logos")
         for c in S.list(data["cleanName"]) {

@@ -22,12 +22,26 @@ internal class WatchlistUiState(
     whyForState: MutableState<Long?>,
     editGroupState: MutableState<String?>,
     editGroupIsNewState: MutableState<Boolean>,
+    returnToActionsState: MutableState<Long?>,
 ) {
     /** Sortiermodus: Griff und «ganz nach oben/unten» an den Karten. */
     var sortMode by sortModeState
 
     /** Paar, dessen Aktionen gerade offen sind (Tipp auf die Karte). */
     var actionsFor by actionsForState
+
+    /**
+     * Aus dem Aktionsblatt zu «Alarme» oder «Warum?» gewechselt: Zurück öffnet das Blatt dieses
+     * Paars wieder (Merkliste › Paar › Alarme › Zurück = Paar › Zurück = Merkliste).
+     */
+    var returnToActions by returnToActionsState
+
+    /** Zurück aus «Alarme» bzw. «Warum?»: Aktionsblatt wieder öffnen, falls von dort gekommen. */
+    fun reopenActions() {
+        val id = returnToActions ?: return
+        returnToActions = null
+        actionsFor = id
+    }
 
     /** Paar, dessen «Warum bewegt sich das?» offen ist. */
     var whyFor by whyForState
@@ -83,5 +97,6 @@ internal fun rememberWatchlistUiState(): WatchlistUiState {
     val whyFor = rememberSaveable { mutableStateOf<Long?>(null) }
     val editGroup = rememberSaveable { mutableStateOf<String?>(null) }
     val editGroupIsNew = rememberSaveable { mutableStateOf(false) }
-    return remember { WatchlistUiState(sortMode, actionsFor, whyFor, editGroup, editGroupIsNew) }
+    val returnToActions = rememberSaveable { mutableStateOf<Long?>(null) }
+    return remember { WatchlistUiState(sortMode, actionsFor, whyFor, editGroup, editGroupIsNew, returnToActions) }
 }

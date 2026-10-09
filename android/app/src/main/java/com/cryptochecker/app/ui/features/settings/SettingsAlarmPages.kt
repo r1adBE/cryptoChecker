@@ -115,6 +115,16 @@ internal fun AlarmsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                 )
             }
             RowDivider()
+            // Zahl am App-Symbol (Zahl oder Punkt entscheidet der Startbildschirm)
+            SettingsAnchor("alarms.badge") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_app_badge),
+                    subtitle = stringResource(R.string.settings_app_badge_hint),
+                    checked = settings.appIconBadge,
+                    onCheckedChange = viewModel::setAppIconBadge
+                )
+            }
+            RowDivider()
             // Beispiel-Alarm mit Ton, Vibration und Sprachausgabe (ohne Nachtruhe)
             SettingsAnchor("alarms.test") {
                 FilledTonalButton(

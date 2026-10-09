@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.layout.Column
@@ -84,19 +85,26 @@ internal fun RowInfo(
                 ActivityBolt(onClick = onActivityClick, modifier = Modifier.padding(start = 2.dp))
             }
         }
-        // «Namen anzeigen»: Name unter dem Paar («Bitcoin», «NVIDIA»); im Zeilensatz enthalten
-        coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)?.let { name ->
+        // «Namen anzeigen»: Name unter dem Paar («Bitcoin», «NVIDIA»), ohne bekannten Namen «–»;
+        // im Zeilensatz enthalten. Gleiche Höhe wie die %-Pille rechts (bodySmall = labelMedium
+        // 16 sp + 2 × 2 dp), so stehen Paar/Kurs, Name/Pille und Börse/≈ Umrechnung je auf einer Linie.
+        val namesOn = LocalCoinNameSource.current != null
+        if (namesOn) {
             Text(
-                text = name,
+                text = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name) ?: "–",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.clearAndSetSemantics { }
+                modifier = Modifier.padding(vertical = 2.dp).clearAndSetSemantics { }
             )
         }
         // Im Zeilensatz enthalten, hier für den Screenreader ausgeblendet
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clearAndSetSemantics { }) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            // Mit Namen: gleicher Abstand wie die ≈ Umrechnung rechts
+            modifier = Modifier.padding(top = if (namesOn) 2.dp else 0.dp).clearAndSetSemantics { }
+        ) {
             // Warnung (nicht erreichbar / veraltet) ersetzt die normale Zeitzeile
             val warning = status.warning
             if (warning != null) {

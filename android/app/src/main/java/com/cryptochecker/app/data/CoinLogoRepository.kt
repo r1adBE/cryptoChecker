@@ -42,7 +42,8 @@ import kotlin.math.max
  * einzeln geholt — so erfährt CoinGecko nie, welche Coins in einer Merkliste stehen:
  *
  * 1. Rangliste der grössten 1000 Coins (`/coins/markets`), Lücken (TradFi wie Gold, Silber,
- *    Aktien) aus der Symbolliste der Binance-Website; höchstens einmal pro Woche, für alle gleich.
+ *    Aktien) aus der Symbolliste der Binance-Website, übrige Lücken aus Rang 1001–2500;
+ *    höchstens einmal pro Woche, für alle gleich.
  * 2. [startSync] lädt die Logos **aller** Coins dieser Liste (kleine Fassung, auf
  *    [CoinLogos.STORED_PX] begrenzt) und legt sie als PNG im Cache-Ordner ab. Später fehlen nur
  *    neu dazugekommene Coins; ohne Neues geht kein Bild-Abruf ins Netz.
@@ -117,6 +118,79 @@ class CoinLogoRepository @Inject constructor(
         return true
     }
 
+    private val _tradFiBases = MutableStateFlow(loadTradFiBases())
+
+    /**
+     * Alle TradFi-Kürzel der gespeicherten Paarlisten der Futures-Börsen der Merkliste (nicht nur
+     * die beobachteten): für sie lädt [startSync] Aktien-Logos ([CoinLogos.withStockLogos]) — für
+     * alle gleich, so verrät der Abruf keine einzelne Aktie.
+     */
+    fun setTradFiBases(bases: Set<String>): Boolean {
+        if (bases == _tradFiBases.value) return false
+        prefs.edit { putStringSet(KEY_TRADFI_BASES, bases) }
+        _tradFiBases.value = bases
+        publishNames()
+        return true
+    }
+
+    /** Namen aus Rangliste und Binance-Liste (ohne Aktiennamen). */
+    @Volatile private var baseNames: Map<String, String> = emptyMap()
+
+    /** Alle US-Aktien der Nasdaq-Symbolliste: Kürzel → Name; null = noch nicht gelesen. */
+    @Volatile private var stockNames: Map<String, String>? = null
+    private val stockNamesFile by lazy { File(context.noBackupFilesDir, STOCK_NAMES_FILE) }
+    private val stockMutex = Mutex()
+
+    /** [names] = Namen der Listen, dazu die Aktiennamen der TradFi-Kürzel ([CoinLogos.withStockNames]). */
+    private fun publishNames() {
+        _names.value = CoinLogos.withStockNames(baseNames, stockNames.orEmpty(), _tradFiBases.value)
+    }
+
+    /**
+     * Aktiennamen («CAT» → «Caterpillar, Inc.») aus der offiziellen Nasdaq-Symbolliste (zwei
+     * Textdateien mit allen US-Aktien, für alle gleich) — nur wenn es TradFi-Kürzel gibt; höchstens
+     * einmal pro Woche, nach einem Fehler frühestens nach einer Stunde erneut.
+     */
+    suspend fun refreshStockNames() = stockMutex.withLock {
+        if (_tradFiBases.value.isEmpty()) return@withLock
+        if (stockNames == null) {
+            stockNames = withContext(Dispatchers.IO) {
+                CoinLogos.decodeNames(runCatching { stockNamesFile.readText() }.getOrNull())
+            }
+            publishNames()
+        }
+        val now = System.currentTimeMillis()
+        if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_TIME, 0L), now) && !stockNames.isNullOrEmpty()) return@withLock
+        if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_ATTEMPT, 0L), now, MAP_RETRY_MILLIS)) return@withLock
+        prefs.edit { putLong(KEY_STOCK_NAMES_ATTEMPT, now) }
+        val fresh = withContext(Dispatchers.IO) {
+            val out = LinkedHashMap<String, String>()
+            for (url in listOf(CoinLogos.NASDAQ_LISTED_URL, CoinLogos.OTHER_LISTED_URL)) {
+                try {
+                    CoinLogos.parseSymbolDirectory(apiClient.callMarket(url, null), out)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    Timber.w("Nasdaq-Symbolliste nicht verfügbar: %s", e.message)
+                }
+            }
+            out
+        }
+        if (fresh.isEmpty()) return@withLock
+        withContext(Dispatchers.IO) {
+            runCatching {
+                stockNamesFile.parentFile?.mkdirs()
+                stockNamesFile.writeText(CoinLogos.encodeNames(fresh))
+            }.onFailure { Timber.w(it, "Aktiennamen nicht gespeichert") }
+        }
+        prefs.edit { putLong(KEY_STOCK_NAMES_TIME, now) }
+        stockNames = fresh
+        publishNames()
+    }
+
+    private fun loadTradFiBases(): Set<String> =
+        runCatching { prefs.getStringSet(KEY_TRADFI_BASES, null)?.toSet() }.getOrNull() ?: emptySet()
+
     private fun loadTradFiPairs(): Set<String> =
         runCatching { prefs.getStringSet(KEY_TRADFI_PAIRS, null)?.toSet() }.getOrNull() ?: emptySet()
 
@@ -143,23 +217,38 @@ class CoinLogoRepository @Inject constructor(
      */
     fun startSync(images: Boolean = true, onDone: suspend (added: Int) -> Unit = {}) {
         synchronized(syncLock) {
-            if (syncJob?.isActive == true) return
+            // Läuft schon einer: danach noch einmal (z. B. neue TradFi-Kürzel während des Abgleichs)
+            if (syncJob?.isActive == true) {
+                if (images) rerunImages = true
+                return
+            }
             syncJob = scope.launch {
-                val added = try {
-                    if (images) syncAll() else { symbolMap(); 0 }
-                } catch (e: CancellationException) {
-                    throw e
-                } catch (e: Exception) {
-                    Timber.w(e, "Coin-Logos: Abgleich fehlgeschlagen")
-                    0
+                var added = 0
+                var again = images
+                while (again) {
+                    added += runSync(true)
+                    again = synchronized(syncLock) { rerunImages.also { rerunImages = false } }
                 }
+                if (!images) added = runSync(false)
                 onDone(added)
             }
         }
     }
 
+    @Volatile private var rerunImages = false
+
+    private suspend fun runSync(images: Boolean): Int = try {
+        if (images) syncAll() else { symbolMap(); 0 }
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.w(e, "Coin-Logos: Abgleich fehlgeschlagen")
+        0
+    }
+
     private suspend fun syncAll(): Int {
-        val wanted = symbolMap()
+        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag in der Liste dazu
+        val wanted = CoinLogos.withStockLogos(symbolMap(), _tradFiBases.value)
         if (wanted.isEmpty()) return 0
         val now = System.currentTimeMillis()
         val failed = loadFailures(now)
@@ -212,8 +301,9 @@ class CoinLogoRepository @Inject constructor(
         val known = map ?: withContext(Dispatchers.IO) {
             CoinLogos.decode(runCatching { mapFile.readText() }.getOrNull())
         }.also { map = it }
-        if (_names.value.isEmpty()) {
-            _names.value = withContext(Dispatchers.IO) { CoinLogos.decodeNames(runCatching { namesFile.readText() }.getOrNull()) }
+        if (baseNames.isEmpty()) {
+            baseNames = withContext(Dispatchers.IO) { CoinLogos.decodeNames(runCatching { namesFile.readText() }.getOrNull()) }
+            publishNames()
         }
         if (CoinLogos.isFresh(prefs.getLong(KEY_MAP_TIME, 0L), now) && known.isNotEmpty()) return known
         // Letzter Versuch scheiterte vor Kurzem: nicht bei jedem Start erneut fragen
@@ -232,7 +322,10 @@ class CoinLogoRepository @Inject constructor(
         }
         prefs.edit { putLong(KEY_MAP_TIME, now) }
         map = fresh
-        if (names.isNotEmpty()) _names.value = names
+        if (names.isNotEmpty()) {
+            baseNames = names
+            publishNames()
+        }
         return fresh
     }
 
@@ -242,14 +335,23 @@ class CoinLogoRepository @Inject constructor(
      */
     private suspend fun fetchMap(names: LinkedHashMap<String, String>): Map<String, String> {
         val out = LinkedHashMap<String, String>()
-        fetchCoinGecko(out, names)
+        fetchCoinGecko(out, names, 1..CoinLogos.PAGES)
         val crypto = out.keys.toSet()
         fetchBinance(out, crypto, names)
+        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken
+        fetchCoinGecko(out, names, (CoinLogos.PAGES + 1)..(CoinLogos.PAGES + CoinLogos.EXTRA_PAGES),
+            pauseMillis = CoinLogos.EXTRA_PAGE_PAUSE_MILLIS)
         return out
     }
 
-    private suspend fun fetchCoinGecko(out: LinkedHashMap<String, String>, names: LinkedHashMap<String, String>) {
-        for (page in 1..CoinLogos.PAGES) {
+    private suspend fun fetchCoinGecko(
+        out: LinkedHashMap<String, String>,
+        names: LinkedHashMap<String, String>,
+        pages: IntRange,
+        pauseMillis: Long = 0L,
+    ) {
+        for (page in pages) {
+            if (pauseMillis > 0) kotlinx.coroutines.delay(pauseMillis)
             try {
                 val array = JSONArray(apiClient.callMarket(CoinLogos.marketsUrl(page), null))
                 val ranked = (0 until array.length()).mapNotNull { i ->
@@ -357,13 +459,17 @@ class CoinLogoRepository @Inject constructor(
 
     private companion object {
         const val PREFS = "coin_logos"
-        // «v3»: Zuordnung mit TradFi-Logos; ältere Installationen holen sie einmal neu
-        const val KEY_MAP_TIME = "map_time_v3"
-        const val KEY_MAP_ATTEMPT = "map_attempt_v3"
+        // «v4»: Zuordnung mit TradFi-Logos und Rang bis 2500; ältere Installationen holen sie einmal neu
+        const val KEY_MAP_TIME = "map_time_v4"
+        const val KEY_MAP_ATTEMPT = "map_attempt_v4"
         const val KEY_FAILED = "failed"
         const val KEY_TRADFI_PAIRS = "tradfi_pairs"
-        const val MAP_FILE = "coin_logos/map3.txt"
-        const val NAMES_FILE = "coin_logos/names3.txt"
+        const val KEY_TRADFI_BASES = "tradfi_bases"
+        const val KEY_STOCK_NAMES_TIME = "stock_names_time_v1"
+        const val KEY_STOCK_NAMES_ATTEMPT = "stock_names_attempt_v1"
+        const val STOCK_NAMES_FILE = "coin_logos/stock_names1.txt"
+        const val MAP_FILE = "coin_logos/map4.txt"
+        const val NAMES_FILE = "coin_logos/names4.txt"
         const val IMAGE_DIR = "coin_logos"
         const val MEMORY_BYTES = 4 * 1024 * 1024
         const val MAX_PARALLEL_DOWNLOADS = 4

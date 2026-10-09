@@ -1,5 +1,5 @@
 {
-  "description": "Coin logos (CoinGecko, gaps filled from the Binance symbol list) (Android CoinLogos.kt / iOS CoinLogos.swift): symbol normalisation, initials for the fallback circle, allowed image hosts (no «missing_» placeholders), the small image variant, markets with logos (never for DEX pools), file names and the CoinGecko ranking -> symbol map (first occurrence wins). TradFi pairs (stocks, commodities) never use CoinGecko: tradFi builds their logos from the Binance list (tokenised stock «NVDAB» with tag bStocks first, then futures-only entries, then names CoinGecko does not know, never via multiplier prefixes), keys «TRADFI:NVDA», files «T_NVDA.png». Names (cleanName, pickNames, tradFi.expectedNames): «NVIDIA bStocks» → «NVIDIA», name equal to the ticker dropped, at most 40 characters (39 + «…»).",
+  "description": "Coin logos (CoinGecko, gaps filled from the Binance symbol list) (Android CoinLogos.kt / iOS CoinLogos.swift): symbol normalisation, initials for the fallback circle, allowed image hosts (no «missing_» placeholders), the small image variant, markets with logos (never for DEX pools), file names and the CoinGecko ranking -> symbol map (first occurrence wins). TradFi pairs (stocks, commodities) never use CoinGecko: tradFi builds their logos from the Binance list (tokenised stock «NVDAB» with tag bStocks first, then futures-only entries, then names CoinGecko does not know, never via multiplier prefixes), keys «TRADFI:NVDA», files «T_NVDA.png». Names (cleanName, pickNames, tradFi.expectedNames): «NVIDIA bStocks» → «NVIDIA», a name equal to the ticker stays («BNB», «Bonk» for 1000BONK), at most 40 characters (39 + «…»). Stock logos (stockLogo, withStockLogos): «https://bin.bnbstatic.com/static/stock/BYD.png» for every TradFi ticker of the stored pair lists without an own entry (A–Z, 0–9, dot, max. 12; file name rule still applies, so «BRK.B» gets none). Stock names (cleanStockName, symbolDirectory, withStockNames): official Nasdaq symbol directory (nasdaqlisted.txt / otherlisted.txt), security suffixes removed, test issues skipped, first occurrence wins; only for TradFi tickers without a name from the Binance list.",
   "normalize": [
     {
       "symbol": "btc",
@@ -40,6 +40,10 @@
     {
       "symbol": "XDG",
       "expected": "DOGE"
+    },
+    {
+      "symbol": "LUNA2",
+      "expected": "LUNA"
     },
     {
       "symbol": "",
@@ -412,9 +416,24 @@
       "expected": "Bitcoin"
     },
     {
-      "raw": "btc",
-      "symbol": "BTC",
-      "expected": null
+      "raw": "BNB",
+      "symbol": "BNB",
+      "expected": "BNB"
+    },
+    {
+      "raw": "Bonk",
+      "symbol": "1000BONK",
+      "expected": "Bonk"
+    },
+    {
+      "raw": "Bonk",
+      "symbol": "BONK",
+      "expected": "Bonk"
+    },
+    {
+      "raw": "XRP",
+      "symbol": "XRP",
+      "expected": "XRP"
     },
     {
       "raw": "  Wrapped\tBitcoin \n",
@@ -472,7 +491,122 @@
       "BTC": "Bitcoin",
       "ETH": "Ethereum",
       "UNI": "Uniswap",
-      "PEPE": "Pepe"
+      "PEPE": "Pepe",
+      "USDT": "USDT"
+    }
+  },
+  "stockLogo": [
+    {
+      "symbol": "BYD",
+      "expected": "https://bin.bnbstatic.com/static/stock/BYD.png"
+    },
+    {
+      "symbol": " cat ",
+      "expected": "https://bin.bnbstatic.com/static/stock/CAT.png"
+    },
+    {
+      "symbol": "BRK.B",
+      "expected": "https://bin.bnbstatic.com/static/stock/BRK.B.png"
+    },
+    {
+      "symbol": "A/B",
+      "expected": null
+    },
+    {
+      "symbol": "",
+      "expected": null
+    },
+    {
+      "symbol": "ABCDEFGHIJKLM",
+      "expected": null
+    }
+  ],
+  "withStockLogos": {
+    "map": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "TRADFI:NVDA": "https://bin.bnbstatic.com/image/nvdab.png"
+    },
+    "bases": [
+      "NVDA",
+      "CAT",
+      "BYD",
+      "BRK.B"
+    ],
+    "expected": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "TRADFI:NVDA": "https://bin.bnbstatic.com/image/nvdab.png",
+      "TRADFI:BYD": "https://bin.bnbstatic.com/static/stock/BYD.png",
+      "TRADFI:CAT": "https://bin.bnbstatic.com/static/stock/CAT.png"
+    }
+  },
+  "cleanStockName": [
+    {
+      "raw": "Caterpillar, Inc. Common Stock",
+      "expected": "Caterpillar, Inc."
+    },
+    {
+      "raw": "Boyd Gaming Corporation Common Stock",
+      "expected": "Boyd Gaming Corporation"
+    },
+    {
+      "raw": "Apple Inc. - Common Stock",
+      "expected": "Apple Inc."
+    },
+    {
+      "raw": "Alphabet Inc. - Class A Common Stock",
+      "expected": "Alphabet Inc."
+    },
+    {
+      "raw": "Berkshire Hathaway Inc. New Class B Common Stock",
+      "expected": "Berkshire Hathaway Inc."
+    },
+    {
+      "raw": "Taiwan Semiconductor Manufacturing Company Ltd. American Depositary Shares",
+      "expected": "Taiwan Semiconductor Manufacturing Comp…"
+    },
+    {
+      "raw": "SPDR S&P 500 ETF Trust",
+      "expected": "SPDR S&P 500 ETF Trust"
+    },
+    {
+      "raw": "Common Stock",
+      "expected": null
+    },
+    {
+      "raw": null,
+      "expected": null
+    }
+  ],
+  "symbolDirectory": {
+    "nasdaq": "Symbol|Security Name|Market Category|Test Issue|Financial Status|Round Lot Size|ETF|NextShares\nAAPL|Apple Inc. - Common Stock|Q|N|N|100|N|N\nZXZZT|NASDAQ TEST STOCK|G|Y|N|100|N|N\nCAT|Should not win|Q|N|N|100|N|N\nFile Creation Time: 1009202612:00|||||||",
+    "other": "ACT Symbol|Security Name|Exchange|CQS Symbol|ETF|Round Lot Size|Test Issue|NASDAQ Symbol\nCAT|Caterpillar, Inc. Common Stock|N|CAT|N|100|N|CAT\nBYD|Boyd Gaming Corporation Common Stock|N|BYD|N|100|N|BYD\nBROKEN\nFile Creation Time: 1009202612:00|||||||",
+    "expectedOtherFirst": {
+      "CAT": "Caterpillar, Inc.",
+      "BYD": "Boyd Gaming Corporation",
+      "AAPL": "Apple Inc."
+    }
+  },
+  "withStockNames": {
+    "names": {
+      "BTC": "Bitcoin",
+      "TRADFI:NVDA": "NVIDIA"
+    },
+    "stockNames": {
+      "NVDA": "NVIDIA Corporation",
+      "CAT": "Caterpillar, Inc.",
+      "BYD": "Boyd Gaming Corporation"
+    },
+    "bases": [
+      "NVDA",
+      "CAT",
+      "BYD",
+      "XAU"
+    ],
+    "expected": {
+      "BTC": "Bitcoin",
+      "TRADFI:NVDA": "NVIDIA",
+      "TRADFI:BYD": "Boyd Gaming Corporation",
+      "TRADFI:CAT": "Caterpillar, Inc."
     }
   }
 }

@@ -36,8 +36,8 @@ struct AppSettings: Codable, Equatable, Sendable {
     var developerUnlocked: Bool = false
     var zoneAlerts: Bool = true
     /// Fear & Greed: melden unter/über diesem Wert (0 = aus).
-    var fearGreedBelow: Int = 25
-    var fearGreedAbove: Int = 75
+    var fearGreedBelow: Int = 0
+    var fearGreedAbove: Int = 0
     /// Gas-Alarm Ethereum in Zehntel-gwei (0 = aus) — wie `gasAlertEthTenths`.
     var gasAlertEthTenths: Int = 0
     /// Gas-Alarm Bitcoin in sat/vB (0 = aus).
@@ -51,11 +51,11 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Gewählte Gruppe der Merkliste; nil = «Alle».
     var watchlistGroup: String? = nil
     /// Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Mitteilung melden.
-    var activityAlerts: Bool = true
+    var activityAlerts: Bool = false
     /// Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Mitteilungen); Standard = bisherige Schwellen.
     var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
-    var macroNotifications: Bool = true
+    var macroNotifications: Bool = false
     /// Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen).
     var portfolioEnabled: Bool = false
     /// Umrechnungswährung: Zielwährung der Umrechnungszeile im Portfolio und der
@@ -72,6 +72,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Zeitraum der %-Änderung («24h», «heute», «letzter Stand») klein neben Pille, Puls,
     /// Einzel-Widget und Live-Aktivität; ab Werk aus. VoiceOver nennt ihn immer.
     var showChangePeriod: Bool = false
+    /// «Zahl am App-Symbol»: neue Alarme und Marktmeldungen zählen am Kennzeichen, beim Öffnen
+    /// der App wieder 0 (`Notifier.badge`); ab Werk an — wie `appIconBadge` (Android).
+    var appIconBadge: Bool = true
     /// Karte «Hier passiert gerade etwas» über der Merkliste. Nur die Anzeige: Mitteilungen dazu
     /// stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
     var watchlistActivityCard: Bool = true
@@ -181,6 +184,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         watchlistSparkline = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistSparkline)) ?? d.watchlistSparkline
         watchlistNames = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistNames)) ?? d.watchlistNames
         showChangePeriod = (try? c.decodeIfPresent(Bool.self, forKey: .showChangePeriod)) ?? d.showChangePeriod
+        appIconBadge = (try? c.decodeIfPresent(Bool.self, forKey: .appIconBadge)) ?? d.appIconBadge
         watchlistActivityCard = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistActivityCard)) ?? d.watchlistActivityCard
         coinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .coinLogos)) ?? d.coinLogos
         widgetCoinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .widgetCoinLogos)) ?? d.widgetCoinLogos

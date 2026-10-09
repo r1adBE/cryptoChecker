@@ -271,8 +271,7 @@ struct RefreshReportSectionTitle: View {
 
     var body: some View {
         Text(title)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(AppColors.onSurfaceVariant)
+            .sectionTitleStyle()
             .padding(.leading, 4)
             .padding(.bottom, 8)
             .accessibilityAddTraits(.isHeader)

@@ -67,6 +67,7 @@ class SettingsRepository @Inject constructor(
         val watchlistSparkline = booleanPreferencesKey("watchlist_sparkline")
         val watchlistNames = booleanPreferencesKey("watchlist_names")
         val showChangePeriod = booleanPreferencesKey("show_change_period")
+        val appIconBadge = booleanPreferencesKey("app_icon_badge")
         val watchlistActivityCard = booleanPreferencesKey("watchlist_activity_card")
         val coinLogos = booleanPreferencesKey("coin_logos")
         val widgetCoinLogos = booleanPreferencesKey("widget_coin_logos")
@@ -136,6 +137,7 @@ class SettingsRepository @Inject constructor(
             watchlistSparkline = prefs[Keys.watchlistSparkline] ?: defaults.watchlistSparkline,
             watchlistNames = prefs[Keys.watchlistNames] ?: defaults.watchlistNames,
             showChangePeriod = prefs[Keys.showChangePeriod] ?: defaults.showChangePeriod,
+            appIconBadge = prefs[Keys.appIconBadge] ?: defaults.appIconBadge,
             watchlistActivityCard = prefs[Keys.watchlistActivityCard] ?: defaults.watchlistActivityCard,
             coinLogos = prefs[Keys.coinLogos] ?: defaults.coinLogos,
             widgetCoinLogos = prefs[Keys.widgetCoinLogos] ?: defaults.widgetCoinLogos,
@@ -292,6 +294,7 @@ class SettingsRepository @Inject constructor(
     suspend fun setWatchlistSparkline(show: Boolean) = edit { it[Keys.watchlistSparkline] = show }
     suspend fun setWatchlistNames(show: Boolean) = edit { it[Keys.watchlistNames] = show }
     suspend fun setShowChangePeriod(show: Boolean) = edit { it[Keys.showChangePeriod] = show }
+    suspend fun setAppIconBadge(show: Boolean) = edit { it[Keys.appIconBadge] = show }
 
     suspend fun setWatchlistActivityCard(show: Boolean) = edit { it[Keys.watchlistActivityCard] = show }
 

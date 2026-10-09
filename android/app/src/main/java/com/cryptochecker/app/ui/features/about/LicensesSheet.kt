@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.about
 
+import com.cryptochecker.app.ui.components.SectionTitle
 import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -62,53 +63,59 @@ private val ANDROID_LIBRARIES = listOf(
 @Composable
 fun LicensesSheet(onDismiss: () -> Unit) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState())
+                .navigationBarsPadding()
+                .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
+        ) {
+            Text(
+                stringResource(R.string.about_licenses),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.semantics { heading() }
+            )
+            LicensesContent()
+        }
+    }
+}
+
+/** Inhalt «Lizenzhinweise» (auswählbar): als Blatt ([LicensesSheet]) oder als Seite der Einstellungen. */
+@Composable
+fun LicensesContent() {
     val context = LocalContext.current
     val marketdata by produceState("") { value = readAsset(context, ASSET_MARKETDATA) }
     val font by produceState("") { value = readAsset(context, ASSET_FONT) }
     val apache by produceState("") { value = readAsset(context, ASSET_APACHE) }
+    SelectionContainer {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            // Runde 15: die App selbst ist quelloffen (MIT)
+            BodyText(stringResource(R.string.licenses_app_intro))
 
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
-        SelectionContainer {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
-                    .fillMaxHeight()
-                    .verticalScroll(rememberScrollState())
-                    .navigationBarsPadding()
-                    .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
-            ) {
+            SectionTitle(stringResource(R.string.licenses_marketdata_title))
+            BodyText(stringResource(R.string.licenses_marketdata_intro))
+            LicenseText(marketdata)
+            BodyText(stringResource(R.string.licenses_marketdata_changes, OWNER_COPYRIGHT))
+
+            SectionDivider()
+            SectionTitle(stringResource(R.string.licenses_font_title))
+            LicenseText(font)
+
+            SectionDivider()
+            SectionTitle(stringResource(R.string.licenses_libraries_title))
+            BodyText(stringResource(R.string.licenses_libraries_intro))
+            ANDROID_LIBRARIES.forEach { name ->
                 Text(
-                    stringResource(R.string.about_licenses),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.semantics { heading() }
+                    "• $name — $APACHE_NAME",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 2.dp)
                 )
-
-                // Runde 15: die App selbst ist quelloffen (MIT)
-                BodyText(stringResource(R.string.licenses_app_intro))
-
-                SectionTitle(stringResource(R.string.licenses_marketdata_title))
-                BodyText(stringResource(R.string.licenses_marketdata_intro))
-                LicenseText(marketdata)
-                BodyText(stringResource(R.string.licenses_marketdata_changes, OWNER_COPYRIGHT))
-
-                SectionDivider()
-                SectionTitle(stringResource(R.string.licenses_font_title))
-                LicenseText(font)
-
-                SectionDivider()
-                SectionTitle(stringResource(R.string.licenses_libraries_title))
-                BodyText(stringResource(R.string.licenses_libraries_intro))
-                ANDROID_LIBRARIES.forEach { name ->
-                    Text(
-                        "• $name — $APACHE_NAME",
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                }
-                LicenseText(apache)
             }
+            LicenseText(apache)
         }
     }
 }
@@ -117,8 +124,8 @@ fun LicensesSheet(onDismiss: () -> Unit) {
 private fun SectionTitle(text: String) {
     Text(
         text,
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.primary,
+        style = SectionTitle.style,
+        color = SectionTitle.color,
         modifier = Modifier
             .padding(top = 16.dp, bottom = 4.dp)
             .semantics { heading() }

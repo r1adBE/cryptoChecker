@@ -80,8 +80,7 @@ struct PortfolioHistoryCard: View {
         } label: {
             HStack(spacing: 8) {
                 Text(expanded ? L("portfolio_history_title") : "\(L("portfolio_history_title")) · \(range.shortLabel)")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .sectionTitleStyle()
                     .lineLimit(1)
                 Spacer(minLength: 8)
                 if !expanded {

@@ -24,7 +24,9 @@ r1AD — riad.work@outlook.com
 
 * **Coin-Logos** — echte Logos von CoinGecko in Merkliste, Aktionsblatt, Portfolio,
   Markt-Karten und in den Widgets Merkliste und Einzel-Coin; alle Logos der rund 1000
-  grössten Coins (Lücken wie Gold, Silber, Aktien aus der Binance-Symbolliste) auf einmal geladen (nie einzeln, CoinGecko sieht keine Merkliste) und
+  grössten Coins, Lücken (Gold, Silber, bStocks) aus der Binance-Symbolliste, danach Rang
+  1001–2500; Aktien-Logos von Binance (`static/stock/…png`) für alle TradFi-Kürzel der
+  gespeicherten Paarlisten — alles auf einmal geladen (nie einzeln, niemand sieht eine Merkliste) und
   auf dem Gerät gespeichert, sonst Initialen-Kreis (DEX-Pools immer).
   Schalter «In der App» und «Im Portfolio» (ab Werk an) und «In Widgets» (ab Werk aus) unter
   Einstellungen › Darstellung › Coin-Logos
@@ -76,11 +78,28 @@ r1AD — riad.work@outlook.com
 * **💡 «Warum bewegt sich das?»** — Markt vs. Coin, Volumen, Hebel
   (Funding/Open Interest), Volatilität und Fear & Greed. Nur Daten, keine News,
   keine Anlageberatung.
+* **Gleiches ⋯-Menü** in Merkliste, Markt und Portfolio: App-Logo und Name (→ «Über»),
+  «Aktualisieren», dann die Einträge des Tabs (`ui/components/AppMenuItems.kt`).
+* **App zurücksetzen** (Einstellungen › Daten, mit Rückfrage): löscht alle Daten wie
+  «Speicher löschen» (`clearApplicationUserData`), danach startet die App wie neu installiert.
+* **Überschriften einheitlich** klein, fett, in der Themenfarbe (`SectionTitle` in
+  `ui/components/Sections.kt`): Einstellungen, Portfolio, Markt, Bericht, Lizenzen.
+* **Zurück** aus «Alarme» oder «Warum?» öffnet wieder das Aktionsblatt des Paars.
+* **Namen in der Merkliste** («Namen anzeigen»): Paar/Kurs, Name/%-Pille und Börse/≈ Umrechnung
+  je auf einer Linie, ohne Namen «–». Aktien ohne bStock bekommen ihren Namen aus der
+  offiziellen Nasdaq-Symbolliste (`CoinLogos.parseSymbolDirectory`, höchstens wöchentlich).
+* **Zahl am App-Symbol** (Einstellungen › Alarme, ab Werk an): jede Alarm- und
+  Marktmeldung zählt 1; ob Zahl oder Punkt, entscheidet der Startbildschirm
+  (Samsung «Mit Zahl», Pixel nur Punkt). Kurs- und Dienst-Mitteilung zählen nie.
 * **Portfolio** — eigener Tab (in den Einstellungen einschaltbar): Käufe und
   Verkäufe mit Datum und Preis, Durchschnittspreis, Gewinn/Verlust, Summe in
   USDT plus Umrechnung in eine wählbare Währung (31 Währungen; Standard
   richtet sich nach der Region des Geräts, z. B. CHF in der Schweiz, EUR in
   Deutschland, sonst USD).
+  Bedienung wie die Merkliste: Coin oder Transaktion nach links wischen löscht
+  (mit «Rückgängig»), ⋯ › «Aktualisieren» / «Portfolio leeren», nach unten
+  ziehen aktualisiert; jede Coin-Zeile zeigt die 24-h-Änderung und
+  die Anzahl Transaktionen.
 * **«≈ Umrechnung» in der Merkliste** — zweite Zeile «≈ 58 912 EUR» unter
   der Veränderung, in der Umrechnungswährung (Einstellungen → Währung &
   Umrechnung; gilt

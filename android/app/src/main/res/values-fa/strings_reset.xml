@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">بازنشانی برنامه</string>
+    <string name="settings_reset_app_title">برنامه بازنشانی شود؟</string>
+    <string name="settings_reset_app_confirm">فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید.</string>
+    <string name="settings_reset_app_action">حذف همه</string>
+</resources>

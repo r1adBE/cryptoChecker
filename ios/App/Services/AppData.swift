@@ -1,3 +1,4 @@
+import BackgroundTasks
 import Foundation
 import SwiftUI
 import WidgetKit
@@ -508,6 +509,38 @@ final class AppData: ObservableObject {
         setPortfolioFile(file)
     }
 
+    /// Wischen auf einem Coin: alle seine Transaktionen löschen und zurückgeben (für
+    /// «Rückgängig») — wie `PortfolioRepository.deleteCoin`.
+    @discardableResult
+    func deletePortfolioCoin(_ coin: String) -> [PortfolioTx] {
+        let key = PortfolioCalculator.normalizeCoin(coin)
+        var file = portfolioFile
+        let removed = file.transactions.filter { PortfolioCalculator.normalizeCoin($0.coin) == key }
+        guard !removed.isEmpty else { return [] }
+        file.transactions.removeAll { PortfolioCalculator.normalizeCoin($0.coin) == key }
+        setPortfolioFile(file)
+        return removed
+    }
+
+    /// «Rückgängig»: gelöschte Transaktionen mit ihren alten ids wieder anlegen — wie
+    /// `PortfolioRepository.restore`. Die ids vergibt `nextId` nie doppelt.
+    func restorePortfolioTxs(_ transactions: [PortfolioTx]) {
+        guard !transactions.isEmpty else { return }
+        var file = portfolioFile
+        let ids = Set(transactions.map(\.id))
+        file.transactions.removeAll { ids.contains($0.id) }
+        file.transactions.append(contentsOf: transactions)
+        setPortfolioFile(file)
+    }
+
+    /// «Portfolio leeren» (nach Rückfrage): alle Transaktionen löschen — wie
+    /// `PortfolioRepository.clearAll`.
+    func clearPortfolio() {
+        var file = portfolioFile
+        file.transactions.removeAll()
+        setPortfolioFile(file)
+    }
+
     /// Bestand eines Coins ohne die Transaktion `excludingId` (für die Verkaufs-Warnung).
     func portfolioHoldings(of coin: String, excludingId: Int64) -> Double {
         let trades = portfolio.filter { $0.id != excludingId }
@@ -559,6 +592,55 @@ final class AppData: ObservableObject {
         PortfolioStore.save(file)
         // Portfolio-Widget mit den bekannten Kursen nachführen
         PortfolioWidgetStore.updateFromCache(transactions: file.transactions, currency: settings.portfolioCurrency)
+    }
+
+    // MARK: App zurücksetzen
+
+    /// «App zurücksetzen» (Einstellungen › Daten, nach Rückfrage): alles löschen wie nach der
+    /// Installation — Merkliste, Alarme, Portfolio, Einstellungen, Zwischenspeicher, Logos,
+    /// Mitteilungen, Live-Aktivitäten und geplante Hintergrund-Aufgaben. Android löscht mit
+    /// `clearApplicationUserData()` und beendet die App; iOS leert die Speicher und setzt den
+    /// Zustand im Speicher auf die Werte einer frischen Installation (kein Beenden der App).
+    func resetApp() {
+        // Laufendes anhalten
+        liveTask?.cancel()
+        liveTask = nil
+        Task { await LiveActivityController.endAll() }
+        BGTaskScheduler.shared.cancelAllTaskRequests()
+        let center = UNUserNotificationCenter.current()
+        center.removeAllDeliveredNotifications()
+        center.removeAllPendingNotificationRequests()
+        Notifier.clearBadge()
+
+        // Speicher leeren: Einstellungen (App und App Group), dann alle Dateien
+        if let bundleId = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleId)
+        }
+        SharedStorage.defaults.removePersistentDomain(forName: SharedStorage.appGroup)
+        let fm = FileManager.default
+        var folders = [SharedStorage.directory]
+        for dir in [FileManager.SearchPathDirectory.applicationSupportDirectory, .documentDirectory, .cachesDirectory] {
+            folders.append(contentsOf: fm.urls(for: dir, in: .userDomainMask))
+        }
+        for folder in folders {
+            let items = (try? fm.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)) ?? []
+            // «Library» im App-Group-Ordner enthält die (eben geleerten) Einstellungen selbst
+            for item in items where item.lastPathComponent != "Library" {
+                try? fm.removeItem(at: item)
+            }
+        }
+
+        // Zustand im Speicher wie nach der Installation
+        snapshot.watches.forEach { Notifier.cancelActivity($0.id) }
+        ActivityRepository.retain([])
+        activityReports = [:]
+        mutate { s in s = SharedStorage.Snapshot() }
+        for kind in FavoriteKind.allCases { setFavorites(kind, []) }
+        setPortfolioFile(PortfolioFile())
+        PortfolioStore.holdingsMigrated = true
+        addTargetGroup = nil
+        settings = AppSettings()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     // MARK: Aktualisieren
@@ -942,8 +1024,10 @@ extension AppData {
         guard logos || settings.watchlistNames else { return }
         Task {
             let tradFiChanged = await refreshTradFiPairs()
+            // Aktiennamen nur mit «Namen anzeigen» (Nasdaq-Symbolliste, höchstens wöchentlich)
+            let stockNames = settings.watchlistNames ? await CoinLogoStore.shared.refreshStockNames() : false
             let added = await CoinLogoStore.shared.syncAll(images: logos)
-            if (added > 0 || tradFiChanged) && settings.widgetCoinLogos {
+            if (added > 0 || tradFiChanged || stockNames) && settings.widgetCoinLogos {
                 WidgetCenter.shared.reloadTimelines(ofKind: SharedStorage.watchlistWidgetKind)
                 WidgetCenter.shared.reloadTimelines(ofKind: SharedStorage.singleWidgetKind)
             }
@@ -958,6 +1042,8 @@ extension AppData {
     func refreshTradFiPairs() async -> Bool {
         let watches = snapshot.watches.filter { CoinLogos.tradFiMarkets.contains($0.marketKey) }
         var found = Set<String>()
+        // Alle TradFi-Kürzel dieser Listen (für die Aktien-Logos, nicht nur die beobachteten)
+        var bases = Set<String>()
         for (marketKey, group) in Dictionary(grouping: watches, by: \.marketKey) {
             var known = await PairCache.shared.tradFiPairKeys(for: marketKey)
             if known == nil, !Self.tradFiListsTried.contains(marketKey) {
@@ -966,8 +1052,13 @@ extension AppData {
                 known = await PairCache.shared.tradFiPairKeys(for: marketKey)
             }
             guard let known else { continue }
+            for key in known {
+                let parts = key.split(separator: "|", omittingEmptySubsequences: false)
+                if parts.count > 1 { bases.insert(String(parts[1])) }
+            }
             for watch in group where known.contains(watch.logoPairKey) { found.insert(watch.logoPairKey) }
         }
+        CoinLogoStore.setTradFiBases(bases)
         guard CoinLogoStore.setTradFiPairs(found) else { return false }
         CoinLogoRevision.bump()
         return true

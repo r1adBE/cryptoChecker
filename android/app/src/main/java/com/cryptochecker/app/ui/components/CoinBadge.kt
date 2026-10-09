@@ -168,7 +168,7 @@ private fun InitialsCircle(coin: String, size: Dp) {
     }
 }
 
-/** Favorit: kleiner Stern in der Akzentfarbe, mit Ring in der Farbe der Fläche darunter. */
+/** Favorit: kleiner Stern in der Schriftfarbe (hell/dunkel, nicht die Akzentfarbe — ruhig und einheitlich), mit Ring in der Farbe der Fläche darunter. */
 @Composable
 private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
     val starSize = maxOf(12.dp, badgeSize * 0.45f)
@@ -184,7 +184,7 @@ private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
         Icon(
             painterResource(R.drawable.ic_star),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.fillMaxSize()
         )
     }

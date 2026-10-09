@@ -3,7 +3,6 @@
     <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
     <string name="portfolio_allocation_title">Dağılım</string>
     <string name="portfolio_allocation_other">Diğer</string>
-    <string name="portfolio_movers_title">En büyük hareketler</string>
     <string name="portfolio_hide_amounts">Tutarları gizle</string>
     <string name="portfolio_hide_amounts_hint">Portföydeki ve portföy widget’ındaki tutarları ve değerleri ••• olarak gösterir – yüzdeler görünür kalır.</string>
     <string name="a11y_portfolio_show_amounts">Tutarları göster</string>

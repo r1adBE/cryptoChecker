@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio wie die Merkliste: ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Vaciar cartera</string>
+    <string name="portfolio_clear_confirm">¿Eliminar todas las transacciones de la cartera? No se puede deshacer.</string>
+    <string name="portfolio_tx_removed">Transacción eliminada</string>
+</resources>

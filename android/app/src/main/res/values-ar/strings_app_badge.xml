@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">رقم على أيقونة التطبيق</string>
+    <string name="settings_app_badge_hint">يعدّ إشعارات التنبيه المفتوحة. تحدد الشاشة الرئيسية ظهور رقم أو نقطة (مثل Samsung: «مع رقم»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">يعدّ التنبيهات وإشعارات السوق الجديدة، ويعود إلى 0 عند فتح التطبيق.</string>
+</resources>

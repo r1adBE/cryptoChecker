@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">应用图标上的数字</string>
+    <string name="settings_app_badge_hint">统计未处理的警报通知。显示数字还是圆点由主屏幕决定（例如 Samsung：“显示数字”）。</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">统计新的警报和市场提醒；打开应用后归零。</string>
+</resources>

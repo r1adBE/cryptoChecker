@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio wie die Merkliste: ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Tøm portefølje</string>
+    <string name="portfolio_clear_confirm">Slette alle transaksjoner fra porteføljen? Dette kan ikke angres.</string>
+    <string name="portfolio_tx_removed">Transaksjon slettet</string>
+</resources>

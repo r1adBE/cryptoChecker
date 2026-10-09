@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ตัวเลขบนไอคอนแอป</string>
+    <string name="settings_app_badge_hint">นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: «แสดงตัวเลข»)</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">นับสัญญาณเตือนและการแจ้งเตือนตลาดใหม่ กลับเป็น 0 เมื่อเปิดแอป</string>
+</resources>

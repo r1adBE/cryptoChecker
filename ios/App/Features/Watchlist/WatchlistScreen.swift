@@ -45,6 +45,9 @@ struct WatchlistScreen: View {
     /// Logo mit App-Namen im Menü: «Über die App».
     @State var showAbout = false
     @State var alarmsFor: Int64?
+    /// Aus dem Aktionsblatt zu «Alarme» oder «Warum?» gewechselt: Zurück öffnet das Blatt dieses
+    /// Paars wieder (Merkliste › Paar › Alarme › Zurück = Paar › Zurück = Merkliste).
+    @State var returnToActions: Int64?
     @State var editMode: EditMode = .inactive
     @State var highlightedId: Int64?
     @State var reorderTick = 0

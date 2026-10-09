@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">Alkalmazás visszaállítása</string>
+    <string name="settings_reset_app_title">Visszaállítja az alkalmazást?</string>
+    <string name="settings_reset_app_confirm">Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést.</string>
+    <string name="settings_reset_app_action">Minden törlése</string>
+</resources>

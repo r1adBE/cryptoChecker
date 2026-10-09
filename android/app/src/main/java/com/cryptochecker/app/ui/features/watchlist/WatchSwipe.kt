@@ -60,13 +60,15 @@ private const val SWIPE_THRESHOLD = 0.38f
  * Tippen und langes Drücken (Sortieren) in Ruhe und kommt ohne die je
  * nach Material-Version veränderte Bestätigungs-API aus.
  * Für den Screenreader sind beide Aktionen eigene Aktionen der Zeile (siehe WatchRow).
+ * Ohne [onToggleFavorite] (Portfolio) gibt es nur das Löschen; zum Zeilenanfang hin bewegt
+ * sich die Zeile dann nicht.
  */
 @Composable
 internal fun SwipeActionsRow(
     enabled: Boolean,
     favorite: Boolean,
     onDelete: () -> Unit,
-    onToggleFavorite: () -> Unit,
+    onToggleFavorite: (() -> Unit)?,
     modifier: Modifier = Modifier,
     reduceMotion: Boolean = false,
     content: @Composable () -> Unit,
@@ -88,7 +90,9 @@ internal fun SwipeActionsRow(
     val dragState = rememberDraggableState { delta ->
         val before = offset
         val limit = width.toFloat()
-        offset = (offset + delta).coerceIn(-limit, limit)
+        val next = (offset + delta).coerceIn(-limit, limit)
+        // Nur Löschen: Bewegung zum Zeilenanfang hin sperren
+        offset = if (currentFavorite == null && next * endSign < 0f) 0f else next
         // Schwelle überschritten (in beide Richtungen): ein leichtes Signal
         if (beyond(before) != beyond(offset)) {
             view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
@@ -117,8 +121,8 @@ internal fun SwipeActionsRow(
                                 delay(2_000)
                                 offset = 0f
                             }
-                            beyond(x) -> {
-                                currentFavorite()
+                            beyond(x) && currentFavorite != null -> {
+                                currentFavorite?.invoke()
                                 if (reduceMotion) offset = 0f
                                 else animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
                             }

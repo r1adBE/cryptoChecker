@@ -1,5 +1,8 @@
 package com.cryptochecker.app.ui.components
 
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -20,6 +23,19 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.Spacing
 
 /**
+ * Abschnittsüberschrift überall gleich: klein, fett, in der Themenfarbe — Einstellungen
+ * («Allgemein», «Darstellung» …), Portfolio («Gesamtwert», «Wertverlauf» …) und Markt
+ * («Jetzt», «Einordnung», «Daten» …). Die einzige Ausnahme von «Themenfarbe nur für
+ * Bedienbares»: klein und fett, deshalb nicht mit Knöpfen zu verwechseln.
+ */
+object SectionTitle {
+    val style: TextStyle
+        @Composable get() = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.2.sp)
+    val color: Color
+        @Composable get() = MaterialTheme.colorScheme.primary
+}
+
+/**
  * Abschnitt mit kleiner Überschrift und Inhalt auf einer abgerundeten Fläche.
  * Einheitlich für Einstellungen, Aktionen und Übersichten.
  */
@@ -31,12 +47,11 @@ fun SectionCard(
 ) {
     Column(modifier = modifier.fillMaxWidth().padding(bottom = Spacing.lg)) {
         if (!title.isNullOrEmpty()) {
-            // Ruhige Überschrift: keine Grossbuchstaben, keine Akzentfarbe
+            // Überschrift wie überall: klein, fett, Themenfarbe (keine Grossbuchstaben)
             Text(
                 text = title,
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = SectionTitle.style,
+                color = SectionTitle.color,
                 modifier = Modifier.padding(start = 4.dp, bottom = 8.dp)
             )
         }

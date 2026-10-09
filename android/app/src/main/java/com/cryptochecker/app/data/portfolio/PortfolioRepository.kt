@@ -47,6 +47,23 @@ class PortfolioRepository @Inject constructor(
 
     suspend fun delete(id: Long) = portfolioDao.delete(id)
 
+    /** Löscht alle Transaktionen von [coin] und gibt sie zurück (für «Rückgängig»). */
+    suspend fun deleteCoin(coin: String): List<PortfolioTxEntity> = database.withTransaction {
+        val key = PortfolioCalculator.normalizeCoin(coin)
+        val removed = portfolioDao.getAll().filter { PortfolioCalculator.normalizeCoin(it.coin) == key }
+        removed.forEach { portfolioDao.delete(it.id) }
+        removed
+    }
+
+    /** Legt gelöschte Transaktionen mit ihren alten ids wieder an («Rückgängig»). */
+    suspend fun restore(transactions: List<PortfolioTxEntity>) {
+        if (transactions.isEmpty()) return
+        database.withTransaction { transactions.forEach { portfolioDao.insert(it) } }
+    }
+
+    /** «Portfolio leeren»: alle Transaktionen löschen. */
+    suspend fun clearAll() = portfolioDao.deleteAll()
+
     /** Ersetzt alle Transaktionen (Wiederherstellen einer Sicherung). */
     suspend fun replaceAll(transactions: List<PortfolioTxEntity>) {
         database.withTransaction {

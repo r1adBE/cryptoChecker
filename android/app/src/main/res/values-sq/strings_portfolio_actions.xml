@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio wie die Merkliste: ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Pastro portofolin</string>
+    <string name="portfolio_clear_confirm">Të fshihen të gjitha transaksionet nga portofoli? Kjo nuk mund të zhbëhet.</string>
+    <string name="portfolio_tx_removed">Transaksioni u fshi</string>
+</resources>

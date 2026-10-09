@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio wie die Merkliste: ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">清空投资组合</string>
+    <string name="portfolio_clear_confirm">要删除投资组合中的所有交易吗？此操作无法撤销。</string>
+    <string name="portfolio_tx_removed">交易已删除</string>
+</resources>

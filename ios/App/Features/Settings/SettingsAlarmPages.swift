@@ -94,6 +94,17 @@ struct AlarmSettingsPage: View {
                 .padding(.bottom, Spacing.xs)
             }
             RowDivider()
+            // Zahl am App-Symbol: zählt neue Alarme, beim Öffnen der App wieder 0
+            SwitchRow(
+                title: L("settings_app_badge"),
+                subtitle: L("ios_settings_app_badge_hint"),
+                isOn: $data.settings.appIconBadge
+            )
+            .settingsAnchor("alarms.badge")
+            .onChange(of: settings.appIconBadge) { _, on in
+                if !on { Notifier.clearBadge() }
+            }
+            RowDivider()
             // Probe-Alarm: gleicher Weg wie ein echter Alarm, aber ohne Nachtruhe
             Button {
                 alarmTestTrigger += 1

@@ -8,15 +8,12 @@ package com.cryptochecker.app.ui.features.watchlist
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -40,8 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.AlarmPulse
-import com.cryptochecker.app.ui.theme.LocalAccentColor
-import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.app.ui.components.AppMenuHead
 import com.cryptochecker.app.util.LocaleNumbers
 
 /**
@@ -171,35 +167,12 @@ private fun WatchlistMenu(
             )
         }
         DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                },
-                leadingIcon = {
-                    Image(
-                        painter = painterResource(LocalAccentColor.current.logoRes(LocalDarkTheme.current)),
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                onClick = { menuOpen = false; onOpenAbout() }
-            )
-            HorizontalDivider()
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.action_refresh)) },
-                leadingIcon = {
-                    if (refreshing) {
-                        CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
-                    } else {
-                        Icon(painterResource(R.drawable.ic_refresh), null)
-                    }
-                },
-                enabled = !refreshing,
-                onClick = { menuOpen = false; onRefresh() }
+            // Gleicher Anfang wie Markt und Portfolio: App (→ «Über»), Aktualisieren
+            AppMenuHead(
+                refreshing = refreshing,
+                onClose = { menuOpen = false },
+                onOpenAbout = onOpenAbout,
+                onRefresh = onRefresh
             )
             if (canSort) {
                 DropdownMenuItem(

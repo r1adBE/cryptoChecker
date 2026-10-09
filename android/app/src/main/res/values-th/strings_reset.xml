@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">รีเซ็ตแอป</string>
+    <string name="settings_reset_app_title">รีเซ็ตแอปใช่ไหม</string>
+    <string name="settings_reset_app_confirm">ลบรายการติดตาม สัญญาณเตือน พอร์ตโฟลิโอ การตั้งค่า และข้อมูลที่บันทึกทั้งหมด เหมือนหลังติดตั้ง ย้อนกลับไม่ได้ เคล็ดลับ: สำรองข้อมูลก่อน</string>
+    <string name="settings_reset_app_action">ลบทั้งหมด</string>
+</resources>

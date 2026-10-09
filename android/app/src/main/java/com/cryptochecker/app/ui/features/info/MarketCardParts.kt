@@ -1,5 +1,8 @@
 package com.cryptochecker.app.ui.features.info
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.heading
+import com.cryptochecker.app.ui.components.SectionTitle
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateContentSize
@@ -38,9 +41,9 @@ internal fun InsightCard(title: String, content: @Composable ColumnScope.() -> U
         Column(modifier = Modifier.padding(Spacing.lg)) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 12.dp)
+                style = SectionTitle.style,
+                color = SectionTitle.color,
+                modifier = Modifier.padding(bottom = 12.dp).semantics { heading() }
             )
             content()
         }

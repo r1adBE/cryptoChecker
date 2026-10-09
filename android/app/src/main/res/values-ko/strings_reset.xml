@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">앱 초기화</string>
+    <string name="settings_reset_app_title">앱을 초기화할까요?</string>
+    <string name="settings_reset_app_confirm">관심 목록, 알림, 포트폴리오, 설정 및 저장된 모든 데이터를 설치 직후처럼 삭제합니다. 되돌릴 수 없습니다. 먼저 백업을 만드세요.</string>
+    <string name="settings_reset_app_action">모두 삭제</string>
+</resources>

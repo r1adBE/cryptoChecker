@@ -76,6 +76,14 @@ struct WatchlistRow: View {
     /// %-Basis (Zeitraum und Gültigkeit der Veränderung, für VoiceOver).
     @Environment(\.changeView) private var changeView
     @Environment(\.coinNamesEnabled) private var namesEnabled
+    // «Namen anzeigen»: drei feste Zeilen links und rechts — Paar/Kurs, Name/Pille,
+    // Börse/≈ Umrechnung stehen je auf einer Linie (wachsen mit der Schriftgrösse)
+    @ScaledMetric(relativeTo: .headline) private var line1: CGFloat = 22
+    @ScaledMetric(relativeTo: .footnote) private var line2: CGFloat = 20
+    @ScaledMetric(relativeTo: .footnote) private var line3: CGFloat = 18
+    /// Mitte der drei Zeilen (Abstand 2): Logo und Mini-Chart stehen mittig dazu, weitere
+    /// Zeilen (Fehler, Notiz) wachsen nach unten.
+    private var threeLineCenter: CGFloat { (line1 + line2 + line3 + 4) / 2 }
     /// Neue Namen geladen (Abgleich im Hintergrund): Zeile neu zeichnen.
     @ObservedObject private var logoRevision = CoinLogoRevision.shared
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -130,10 +138,16 @@ struct WatchlistRow: View {
                         .opacity(stale ? 0.5 : 1)
                 }
             }
+            .alignmentGuide(VerticalAlignment.center) { d in
+                namesEnabled ? threeLineCenter : d[VerticalAlignment.center]
+            }
 
             priceColumn
                 // Veraltete Kurse abblassen
                 .opacity(stale ? 0.5 : 1)
+                .alignmentGuide(VerticalAlignment.center) { d in
+                    namesEnabled ? threeLineCenter : d[VerticalAlignment.center]
+                }
         }
         .padding(.leading, Spacing.md)
         .padding(.trailing, Spacing.md)
@@ -321,14 +335,17 @@ struct WatchlistRow: View {
                         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
                 }
             }
+            .frame(minHeight: namesEnabled ? line1 : nil, alignment: .leading)
 
-            // «Namen anzeigen»: Name unter dem Paar («Bitcoin», «NVIDIA»); im Zeilensatz enthalten
-            if let name = coinName {
-                Text(name)
+            // «Namen anzeigen»: Name unter dem Paar («Bitcoin», «NVIDIA»), ohne bekannten Namen «–»;
+            // im Zeilensatz enthalten. Gleiche Zeilenhöhe wie die %-Pille rechts.
+            if namesEnabled {
+                Text(coinName ?? "–")
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurface.opacity(0.8))
                     .lineLimit(1)
                     .truncationMode(.tail)
+                    .frame(minHeight: line2, alignment: .leading)
                     .accessibilityHidden(true)
             }
 
@@ -364,6 +381,7 @@ struct WatchlistRow: View {
                     .accessibilityLabel(L("watchlist_alarms_count", count: alarmCount))
                 }
             }
+            .frame(minHeight: namesEnabled ? line3 : nil, alignment: .leading)
 
             // «nicht erreichbar» steht schon in der Zeitzeile: dann keine zweite Fehlerzeile
             if let error = watch.lastError, !error.isEmpty,
@@ -393,7 +411,8 @@ struct WatchlistRow: View {
 
     @ViewBuilder
     private var priceColumn: some View {
-        VStack(alignment: .trailing, spacing: 4) {
+        // Mit «Namen anzeigen» gleicher Abstand und gleiche Zeilenhöhen wie links
+        VStack(alignment: .trailing, spacing: namesEnabled ? 2 : 4) {
             if watch.lastPrice == nil && loading {
                 SkeletonPulse {
                     VStack(alignment: .trailing, spacing: 4) {
@@ -423,8 +442,10 @@ struct WatchlistRow: View {
                 .transition(celebrationIndex != nil && !reduceMotion
                             ? AnyTransition.opacity.combined(with: .scale(scale: 0.85, anchor: .trailing))
                             : AnyTransition.opacity)
+                .frame(minHeight: namesEnabled ? line1 : nil, alignment: .trailing)
                 if watch.lastPrice != nil {
                     WatchlistDayChangePill(watch: watch)
+                        .frame(minHeight: namesEnabled ? line2 : nil, alignment: .trailing)
                 }
                 if let converted {
                     Text(converted)
@@ -432,6 +453,7 @@ struct WatchlistRow: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .lineLimit(1)
                         .padding(.trailing, 2)
+                        .frame(minHeight: namesEnabled ? line3 : nil, alignment: .trailing)
                 }
             }
         }

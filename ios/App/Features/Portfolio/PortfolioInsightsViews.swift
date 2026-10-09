@@ -44,8 +44,7 @@ struct PortfolioAllocationCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(L("portfolio_allocation_title"))
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(AppColors.onSurface)
+                .sectionTitleStyle()
                 .accessibilityAddTraits(.isHeader)
 
             // Gestapelter Balken (2 pt Abstand); für VoiceOver zählt die Liste darunter
@@ -95,71 +94,6 @@ struct PortfolioAllocationCard: View {
             .padding(.top, Spacing.sm)
         }
         .portfolioSurface()
-    }
-}
-
-// MARK: Grösste Bewegungen
-
-/// «Grösste Bewegungen · 24h»: die drei Positionen mit der grössten Wertänderung über die
-/// %-Basis, mit ▲/▼, Betrag und Kursänderung — wie `MoversCard` (Android).
-struct PortfolioMoversCard: View {
-    let movers: [PortfolioMover]
-    let basis: ChangeBasis
-    @Environment(\.hidePortfolioAmounts) private var hidden
-    @Environment(\.priceColorScheme) private var priceColors
-    @Environment(\.priceHighContrast) private var highContrast
-    @Environment(\.priceColorsInverted) private var inverted
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(L("portfolio_movers_title") + " · " + A11y.changeShortLabel(basis))
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(AppColors.onSurface)
-                .accessibilityAddTraits(.isHeader)
-            VStack(spacing: 8) {
-                ForEach(movers) { mover in
-                    row(mover)
-                }
-            }
-            .padding(.top, 8)
-        }
-        .portfolioSurface()
-    }
-
-    private func row(_ mover: PortfolioMover) -> some View {
-        let color = PortfolioFormat.plColor(mover.changeUsd, scheme: priceColors, highContrast: highContrast, inverted: inverted)
-        let amount = PortfolioInsights.mask(PortfolioFormat.signedUsdt(mover.changeUsd), hidden: hidden)
-        let spokenValue = portfolioSpokenAmount(PriceFormat.valueWithCurrency(abs(mover.changeUsd), PortfolioFormat.usdt),
-                                                hidden: hidden)
-        let spoken = A11y.join([
-            mover.coin,
-            L(mover.changeUsd > 0 ? "a11y_change_up" : "a11y_change_down", spokenValue),
-            A11y.change(mover.changePercent, basis: basis),
-        ])
-        return HStack(spacing: Spacing.sm) {
-            CoinBadge(symbol: mover.coin, size: 30, portfolio: true)
-            Text(mover.coin)
-                .font(.body.weight(.medium))
-                .foregroundStyle(AppColors.onSurface)
-                .lineLimit(1)
-            Spacer(minLength: 8)
-            VStack(alignment: .trailing, spacing: 1) {
-                HStack(spacing: 3) {
-                    ChangeArrowIcon(change: mover.changeUsd)
-                        .scaledFont(size: 9, weight: .bold, relativeTo: .caption2)
-                    Text(amount)
-                        .font(AppFont.amount(.subheadline, weight: .semibold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.75)
-                }
-                .foregroundStyle(color)
-                Text(PortfolioFormat.signedPercent(mover.changePercent))
-                    .font(.caption2.monospacedDigit())
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-            }
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(spoken)
     }
 }
 

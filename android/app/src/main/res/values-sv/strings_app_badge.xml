@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Siffra på appikonen</string>
+    <string name="settings_app_badge_hint">Räknar öppna larmaviseringar. Om en siffra eller en prick visas avgör hemskärmen (t.ex. Samsung: «Med siffra»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Räknar nya larm och marknadsaviseringar; tillbaka till 0 när du öppnar appen.</string>
+</resources>

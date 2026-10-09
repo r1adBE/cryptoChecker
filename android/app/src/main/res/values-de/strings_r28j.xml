@@ -3,7 +3,6 @@
     <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
     <string name="portfolio_allocation_title">Aufteilung</string>
     <string name="portfolio_allocation_other">Andere</string>
-    <string name="portfolio_movers_title">Grösste Bewegungen</string>
     <string name="portfolio_hide_amounts">Beträge verbergen</string>
     <string name="portfolio_hide_amounts_hint">Zeigt Beträge und Werte im Portfolio und im Portfolio-Widget als ••• – Prozente bleiben sichtbar.</string>
     <string name="a11y_portfolio_show_amounts">Beträge anzeigen</string>

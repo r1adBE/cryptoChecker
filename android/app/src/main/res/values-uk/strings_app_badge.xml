@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Число на значку застосунку</string>
+    <string name="settings_app_badge_hint">Рахує відкриті сповіщення про сигнали. Чи буде число, чи крапка, вирішує головний екран (напр. Samsung: «З числом»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Рахує нові сигнали й ринкові сповіщення; скидається, коли відкриваєте застосунок.</string>
+</resources>

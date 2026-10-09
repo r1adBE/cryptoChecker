@@ -90,7 +90,16 @@ extension PortfolioScreen {
 /// Zeile je Coin: Plakette, Symbol, Menge, Ø/aktuell, Wert und ± %.
 struct PortfolioCoinRow: View {
     let position: CoinPosition
+    /// Kursänderung über die %-Basis (z. B. «24h ▲ +2.1 %»), klein unter dem ± % — ersetzt die
+    /// frühere Karte «Grösste Bewegungen»; wie `CoinRow(dayChange)` (Android).
+    var dayChange: Double?
+    var basis: ChangeBasis?
+    /// Anzahl Transaktionen: nur die Zahl, klein neben der Menge — wie `TxCountBadge` (Android).
+    var txCount = 0
     @Environment(\.hidePortfolioAmounts) var hideAmounts
+    @Environment(\.priceColorScheme) private var priceColors
+    @Environment(\.priceHighContrast) private var highContrast
+    @Environment(\.priceColorsInverted) private var inverted
 
     var body: some View {
         HStack(spacing: 12) {
@@ -108,10 +117,21 @@ struct PortfolioCoinRow: View {
                             .accessibilityLabel(L("portfolio_oversold"))
                     }
                 }
-                Text(PortfolioInsights.mask(PortfolioFormat.amount(position.holdings, position.coin), hidden: hideAmounts))
-                    .font(AppFont.amount(.caption))
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .lineLimit(1)
+                HStack(spacing: Spacing.xs) {
+                    Text(PortfolioInsights.mask(PortfolioFormat.amount(position.holdings, position.coin), hidden: hideAmounts))
+                        .font(AppFont.amount(.caption))
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .lineLimit(1)
+                    if txCount > 0 {
+                        Text(verbatim: LocaleNumbers.integer(txCount))
+                            .font(.caption2.weight(.semibold).monospacedDigit())
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 1)
+                            .background(AppColors.containerHighest, in: Capsule())
+                            .accessibilityLabel(Text(verbatim: L("portfolio_transactions") + ": " + LocaleNumbers.integer(txCount)))
+                    }
+                }
                 Text(L("portfolio_avg_and_now", PriceFormat.price(position.avgCost), PriceFormat.price(position.currentPrice)))
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
@@ -133,6 +153,22 @@ struct PortfolioCoinRow: View {
                         .lineLimit(1)
                 } else {
                     PortfolioPlPill(percent: position.unrealizedPercent)
+                }
+                if let dayChange, let basis, dayChange.isFinite {
+                    HStack(spacing: 3) {
+                        Text(A11y.changeShortLabel(basis))
+                        if !PortfolioFormat.isZero(dayChange) {
+                            ChangeArrowIcon(change: dayChange)
+                                .scaledFont(size: 8, weight: .bold, relativeTo: .caption2)
+                        }
+                        Text(PortfolioFormat.signedPercent(dayChange))
+                    }
+                    .font(.caption2.monospacedDigit())
+                    .foregroundStyle(PortfolioFormat.plColor(dayChange, scheme: priceColors,
+                                                             highContrast: highContrast, inverted: inverted))
+                    .lineLimit(1)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(A11y.change(dayChange, basis: basis))
                 }
             }
         }

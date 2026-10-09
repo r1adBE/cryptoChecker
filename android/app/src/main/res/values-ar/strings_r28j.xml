@@ -3,7 +3,6 @@
     <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
     <string name="portfolio_allocation_title">التوزيع</string>
     <string name="portfolio_allocation_other">أخرى</string>
-    <string name="portfolio_movers_title">أكبر التحركات</string>
     <string name="portfolio_hide_amounts">إخفاء المبالغ</string>
     <string name="portfolio_hide_amounts_hint">يعرض المبالغ والقيم في المحفظة وأداة المحفظة على شكل ••• – تبقى النسب المئوية ظاهرة.</string>
     <string name="a11y_portfolio_show_amounts">إظهار المبالغ</string>

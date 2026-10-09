@@ -53,6 +53,29 @@ internal fun AboutPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltVi
     }
 }
 
+/** Lizenzhinweise als eigene Seite (wie alle Zeilen der Einstellungen). */
+@Composable
+internal fun LicensesPage(onBack: () -> Unit) {
+    SettingsSubPage(title = stringResource(R.string.about_licenses), onBack = onBack) {
+        GroupCard {
+            Column(modifier = Modifier.padding(vertical = 8.dp)) {
+                com.cryptochecker.app.ui.features.about.LicensesContent()
+            }
+        }
+    }
+}
+
+/** Widgets hinzufügen als eigene Seite (wie alle Zeilen der Einstellungen). */
+@Composable
+internal fun WidgetsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
+    val settings by viewModel.settings.collectAsStateWithLifecycle()
+    SettingsSubPage(title = stringResource(R.string.settings_widgets), onBack = onBack) {
+        GroupCard {
+            com.cryptochecker.app.ui.components.AddWidgetsContent(portfolioEnabled = settings.portfolioEnabled)
+        }
+    }
+}
+
 /** Entwickler: HTTP-Protokoll unten auf der Seite «Paar hinzufügen». */
 @Composable
 internal fun DeveloperPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {

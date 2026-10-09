@@ -429,10 +429,14 @@ background only when it is older than its TTL. The TTLs live in one place per pl
 | Economic calendar | 24 h | one small JSON file |
 
 **Coin logos** (`CoinLogos.kt` / `CoinLogos.swift`, parity cases `coin_logos.json`): the
-symbol → image map comes from CoinGecko `/coins/markets` (top 1000, first occurrence by
+symbol → image map comes from CoinGecko `/coins/markets` (top 1000 first, first occurrence by
 market cap wins), gaps filled from the Binance website list `bapi/composite/v1/public/marketing/symbol/list`
 (`name` → `logo` on `*.bnbstatic.com`, unofficial; only symbols CoinGecko lacks, e.g. XAU, XAG,
-stocks) and is kept for **7 days** (retry after 1 h on failure). For privacy the
+stocks), then CoinGecko ranks 1001–2500 for the remaining gaps (e.g. AIN, AGT, AIA, LUNA; 2 s
+pause between those pages), and is kept for **7 days**. Stock perps without a Binance bStock get
+their logo from `bin.bnbstatic.com/static/stock/TICKER.png` (all TradFi tickers of the stored pair
+lists) and, with «Show names», their name from the official Nasdaq symbol directory
+(`nasdaqlisted.txt` + `otherlisted.txt`, weekly, `cleanStockName` strips «Common Stock» etc.) (retry after 1 h on failure). For privacy the
 logos of **all** coins in that list are downloaded in one background sync (`startSync` /
 `syncAll`, 4 parallel, small variant first) — never one logo on demand, so the image
 requests are the same for every install. Images are scaled to 128 px and stored as PNG (Android `cacheDir/coin_logos`, iOS App

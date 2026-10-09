@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio wie die Merkliste: ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">पोर्टफ़ोलियो खाली करें</string>
+    <string name="portfolio_clear_confirm">पोर्टफ़ोलियो से सभी लेन-देन हटाएँ? इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="portfolio_tx_removed">लेन-देन हटाया गया</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">איפוס האפליקציה</string>
+    <string name="settings_reset_app_title">לאפס את האפליקציה?</string>
+    <string name="settings_reset_app_confirm">מוחק את רשימת המעקב, ההתראות, תיק ההשקעות, ההגדרות וכל הנתונים השמורים, כמו אחרי התקנה. לא ניתן לבטל. טיפ: צרו גיבוי קודם.</string>
+    <string name="settings_reset_app_action">מחיקת הכול</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Daten: «App zurücksetzen» (alles löschen wie nach der Installation) -->
+    <string name="settings_reset_app">Сбросить приложение</string>
+    <string name="settings_reset_app_title">Сбросить приложение?</string>
+    <string name="settings_reset_app_confirm">Удаляет список наблюдения, сигналы, портфель, настройки и все сохранённые данные, как после установки. Отменить нельзя. Совет: сначала создайте резервную копию.</string>
+    <string name="settings_reset_app_action">Удалить всё</string>
+</resources>

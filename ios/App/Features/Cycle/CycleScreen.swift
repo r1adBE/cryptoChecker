@@ -16,6 +16,8 @@ struct CycleScreen: View {
     @Environment(\.appAccent) private var accent
     /// «Warum?»-Blatt für einen beobachteten Coin aus «Heute auffällig».
     @State private var whyFor: CycleWhyTarget?
+    /// ⋯ › App-Logo und Name: «Über».
+    @State private var showAbout = false
     /// Was beim ersten Anzeigen schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel).
     @State private var revealedOnEntry: Int
     /// Letzter gezeigter «Stand …»-Text, damit die Zeile beim Ausblenden nicht leer springt.
@@ -175,6 +177,28 @@ struct CycleScreen: View {
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await viewModel.refreshAll() }
         .navigationTitle(L("tab_market_phase"))
+        .toolbar {
+            // ⋯ wie in Merkliste und Portfolio: App (→ «Über»), Aktualisieren
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    AppMenuHead(
+                        refreshing: !viewModel.refreshingKeys.isEmpty,
+                        onOpenAbout: { showAbout = true },
+                        onRefresh: refreshAll
+                    )
+                } label: {
+                    if viewModel.refreshingKeys.isEmpty {
+                        Image(systemName: "ellipsis.circle")
+                    } else {
+                        ProgressView().controlSize(.small)
+                    }
+                }
+                .accessibilityLabel(L("action_more"))
+            }
+        }
+        .navigationDestination(isPresented: $showAbout) {
+            AboutSettingsPage()
+        }
         .onAppear { viewModel.onAppear() }
         // «Warum bewegt sich das?» wie in der Merkliste — gleich in voller Höhe, springt nicht
         .sheet(item: $whyFor) { target in
@@ -298,8 +322,7 @@ struct CycleScreen: View {
     /// die erste Zeile darunter bringt ihren Innenabstand mit.
     private func sectionHeader(_ key: String, top: CGFloat = 8) -> some View {
         Text(L(key))
-            .font(.footnote.weight(.semibold))
-            .foregroundStyle(AppColors.onSurfaceVariant)
+            .sectionTitleStyle()
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 4)
             .padding(.top, top)

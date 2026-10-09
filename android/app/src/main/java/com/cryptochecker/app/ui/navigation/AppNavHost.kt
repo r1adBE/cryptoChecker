@@ -297,13 +297,21 @@ fun AppNavHost(
                         explorerSearch = query
                         navigation.navigateToTab(ScreenRoute.Watchlist)
                         navigation.openExplorer()
+                    },
+                    onOpenAbout = {
+                        navigation.navigate(ScreenRoute.settingsPage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
                     }
                 )
             }
 
             composable(ScreenRoute.Portfolio) {
                 PortfolioGate(portfolioAccess, requestUnlock) {
-                    PortfolioScreen(onOpenCoin = { coin -> navigation.navigate(ScreenRoute.portfolioCoin(coin)) })
+                    PortfolioScreen(
+                        onOpenCoin = { coin -> navigation.navigate(ScreenRoute.portfolioCoin(coin)) },
+                        onOpenAbout = {
+                            navigation.navigate(ScreenRoute.settingsPage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
+                        }
+                    )
                 }
             }
 

@@ -18,8 +18,9 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 Zuletzt dazugekommen:
 
 - **Coin-Logos** von CoinGecko statt nur Initialen (Merkliste, Aktionsblatt, Portfolio, Markt,
-  «Paar hinzufügen», Widgets Merkliste und Einzel-Coin), alle Logos der Rangliste (Lücken wie Gold, Silber,
-  Aktien aus der Binance-Symbolliste) auf einmal geladen (nie einzeln) und im App-Group-Ordner gespeichert,
+  «Paar hinzufügen», Widgets Merkliste und Einzel-Coin), alle Logos der Rangliste (Top 1000, Lücken wie Gold,
+  Silber, bStocks aus der Binance-Symbolliste, danach Rang 1001–2500; Aktien-Logos von Binance `static/stock/…png`
+  für alle TradFi-Kürzel der gespeicherten Paarlisten) auf einmal geladen (nie einzeln) und im App-Group-Ordner gespeichert,
   Schalter «In der App» / «Im Portfolio» (ab Werk an) / «In Widgets» (ab Werk aus) unter
   Einstellungen › Darstellung › Coin-Logos
   (`Shared/Util/CoinLogos.swift`, `Shared/Storage/CoinLogoStore.swift`, `Widgets/WidgetLogos.swift`).
@@ -37,6 +38,12 @@ Zuletzt dazugekommen:
   (AES-256-GCM, PBKDF2; `App/Services/BackupCrypto.swift`), **Basis der %-Änderung** (24 Std.,
   seit letzter Aktualisierung, seit 00:00 in der Zone des Geräts oder fest UTC+14 … UTC-12), **Suche in den Einstellungen**
   (`App/Features/Settings/SettingsSearch.swift`).
+- **Portfolio wie Merkliste**: Coin oder Transaktion nach links wischen löscht (mit «Rückgängig»), ⋯ › «Aktualisieren» / «Portfolio leeren», 24-h-Änderung und Anzahl Transaktionen je Coin-Zeile.
+- **Gleiches ⋯-Menü** in Merkliste, Markt und Portfolio: App-Logo und Name (→ «Über»), «Aktualisieren», dann die Einträge des Tabs (`App/Components/AppMenuHead.swift`).
+- **App zurücksetzen** (Einstellungen › Daten, mit Rückfrage): `AppData.resetApp()` leert Einstellungen, Dateien, Mitteilungen, Kennzeichen, Live-Aktivitäten und Hintergrund-Aufgaben; danach Startauswahl wie nach der Installation.
+- **Überschriften einheitlich** klein, fett, in der Themenfarbe (`sectionTitleStyle()` in `App/Components/Components.swift`).
+- **Zurück** aus «Alarme» oder «Warum?» öffnet wieder das Aktionsblatt des Paars; Merkliste mit «Namen anzeigen»: drei Zeilen links/rechts auf einer Linie, ohne Namen «–»; Aktien ohne bStock mit Namen aus der Nasdaq-Symbolliste (`CoinLogoStore.refreshStockNames`).
+- **Zahl am App-Symbol** (Einstellungen › Alarme, ab Werk an): neue Alarme und Marktmeldungen zählen am Kennzeichen, beim Öffnen der App wieder 0 (`Notifier.badge`).
 - **«Warum?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin, «1 CHF = n Sats» bei BTC-Paaren,
   Quelle und Alter je Zeile im Markt-Tab.
 

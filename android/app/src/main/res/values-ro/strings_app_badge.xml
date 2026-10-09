@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen › Alarme: Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Număr pe pictograma aplicației</string>
+    <string name="settings_app_badge_hint">Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: «Cu număr»).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Numără alarmele și alertele de piață noi; revine la 0 când deschizi aplicația.</string>
+</resources>

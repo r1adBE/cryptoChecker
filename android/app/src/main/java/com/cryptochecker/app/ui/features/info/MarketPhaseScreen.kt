@@ -1,5 +1,11 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.components.AppMenuHead
+import androidx.compose.ui.res.painterResource
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.DropdownMenu
+import com.cryptochecker.app.ui.components.SectionTitle
 import android.text.format.DateUtils
 import androidx.annotation.StringRes
 import androidx.compose.animation.EnterTransition
@@ -50,7 +56,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -88,6 +93,8 @@ fun MarketPhaseScreen(
     viewModel: InfoViewModel = hiltViewModel(),
     /** «Heute auffällig» → Coin nicht in der Merkliste: Hinzufügen-Tab mit dieser Suche. */
     onOpenExplorer: (String) -> Unit = {},
+    /** ⋯ › App-Logo und Name: Einstellungen › «Über». */
+    onOpenAbout: () -> Unit = {},
 ) {
     val market by viewModel.market.collectAsStateWithLifecycle()
     val fearGreed by viewModel.fearGreed.collectAsStateWithLifecycle()
@@ -144,7 +151,31 @@ fun MarketPhaseScreen(
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.tab_market_phase)) }) }
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.tab_market_phase)) },
+                actions = {
+                    // ⋯ wie in Merkliste und Portfolio: App (→ «Über»), Aktualisieren
+                    var menuOpen by remember { mutableStateOf(false) }
+                    Box {
+                        IconButton(onClick = { menuOpen = true }) {
+                            Icon(
+                                painterResource(R.drawable.ic_more_vert),
+                                contentDescription = stringResource(R.string.action_more)
+                            )
+                        }
+                        DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                            AppMenuHead(
+                                refreshing = pullRefreshing,
+                                onClose = { menuOpen = false },
+                                onOpenAbout = onOpenAbout,
+                                onRefresh = viewModel::refreshAll
+                            )
+                        }
+                    }
+                }
+            )
+        }
     ) { padding ->
         PullToRefreshBox(
             isRefreshing = pullRefreshing,
@@ -460,8 +491,8 @@ private fun AsOfLine(at: Long?, animate: Boolean) {
 private fun SectionHeader(@StringRes textRes: Int) {
     Text(
         text = stringResource(textRes),
-        style = MaterialTheme.typography.labelLarge.copy(letterSpacing = 0.4.sp),
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = SectionTitle.style,
+        color = SectionTitle.color,
         modifier = Modifier
             .padding(start = 4.dp, top = 8.dp, bottom = 8.dp)
             .semantics { heading() }
