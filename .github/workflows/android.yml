@@ -93,11 +93,12 @@ jobs:
           if-no-files-found: ignore
 
   # Dependency graph for GitHub (Dependabot alerts) from the resolved Gradle dependencies.
+  # Only when «Dependency graph» is on in the repository settings AND the repository variable
+  # DEPENDENCY_GRAPH is «true» (Settings › Secrets and variables › Actions › Variables);
+  # otherwise GitHub rejects the upload with «The Dependency graph is disabled».
   dependency-submission:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-latest
-    # Fails while «Dependency graph» is off in the repository settings; that must not turn the
-    # whole run red
     continue-on-error: true
     permissions:
       contents: write
@@ -114,7 +115,7 @@ jobs:
 
   # Pull requests: fail on newly added dependencies with known vulnerabilities (high and above).
   dependency-review:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
