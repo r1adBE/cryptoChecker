@@ -1,0 +1,10 @@
+Novedades 16.2.2
+• Crypto Pulse: qué pasa ahora
+• Actividad inusual, «¿Por qué se mueve?» con resumen
+• Empieza con un toque: top 5 en vivo
+• Desliza: borrar (con Deshacer) o favorito
+• Precios y alarmas en tu moneda; CSV a fecha de corte
+• Accesible: azul/naranja, alto contraste, invertir colores, TalkBack
+• Horas de silencio, probar alarma, alarma como frase, bloqueo/widget de cartera
+• 15 exchanges nuevos, alarma de gas, velas en widget
+• Acciones, oro, divisas (TradFi); % por zona horaria

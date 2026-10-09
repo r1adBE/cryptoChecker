@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Không có cặp nào trong nhóm này</string>
+    <string name="watchlist_status_none_traded">Không có cặp đang giao dịch</string>
+    <string name="watchlist_group_empty_hint">Nhấn giữ một nhóm để chọn các cặp của nhóm.</string>
+    <string name="watchlist_just_refreshed">Vừa cập nhật</string>
+</resources>

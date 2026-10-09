@@ -1,0 +1,10 @@
+Baru di 16.2.2
+• Crypto Pulse: yang terjadi saat ini
+• Aktivitas tidak biasa, “Kenapa ini bergerak?” dengan ringkasan
+• Mulai sekali ketuk: top 5 koin, harga live
+• Geser: hapus (dengan Urungkan) atau favorit
+• Harga & alarm di mata uang Anda, ekspor CSV tanggal acuan
+• Aksesibel: biru/oranye, kontras tinggi, tukar warna, TalkBack
+• Jam tenang, uji alarm, alarm berupa kalimat, kunci & widget portofolio
+• 15 bursa baru, alarm gas, candle di widget
+• Saham, emas, valas (TradFi); % per zona waktu

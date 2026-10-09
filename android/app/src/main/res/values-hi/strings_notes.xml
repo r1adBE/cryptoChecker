@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">नोट</string>
+    <string name="note_add">नोट जोड़ें</string>
+    <string name="note_edit">नोट बदलें</string>
+    <string name="note_hint">जैसे 0.42 पर एंट्री, लक्ष्य 0.60</string>
+    <string name="note_remove">हटाएँ</string>
+</resources>

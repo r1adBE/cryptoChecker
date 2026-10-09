@@ -1,0 +1,64 @@
+Crypto Checker legt uit wat er in de markt gebeurt. Stel alarmen in, zie ongewone bewegingen en begrijp in seconden waarom een coin beweegt – zonder voorspelling.
+
+Begrijpen – ‘Waarom beweegt dit?’ met korte samenvatting
+Overzicht – Crypto Pulse, Fear & Greed, cyclus en portfolio
+Volgen – koersen rechtstreeks van de beurs, in je valuta
+Alarmeren – koers, %, bewegingen en volume, als eenvoudige zin
+
+Leesbaar voor iedereen: groen/rood of blauw/oranje, hoog contrast, teken en pijl i.p.v. alleen kleur, en TalkBack leest elke regel als één zin voor.
+
+VOLGLIJST: 41 MARKTEN OP 32 BEURZEN
+• Lege volglijst: top 5 coins naar marktwaarde met live koersen, toevoegen met één tik
+• Spot en futures van Binance, Coinbase, Kraken, OKX, Bybit en meer – optioneel ook aandelen, goud en valuta (TradFi), automatisch in eigen groep
+• DEX-tokens via DexScreener
+• Veeg links om te verwijderen (met ongedaan maken), rechts voor favoriet
+• Paren in groepen ordenen en sorteren door te slepen
+• Notitie per coin, bijv. je instapprijs – onder de koers
+• Tweede regel ‘≈ waarde’ in een van 31 valuta (EUR, CHF, USD …), standaard volgens je regio
+• Minigrafiek in elke regel; %-verandering over 24 uur of sinds 00:00 in je tijdzone
+• Portfolio-tabblad: aankopen, verkopen, gem. prijs, winst/verlies en totale waarde in je valuta
+• Peildatum-export: portfoliowaarde op elke datum (bijv. 31 dec.) als CSV – geen belastingadvies
+• Regels tonen ‘verouderd’ of ‘beurs niet bereikbaar’
+
+ALARMEN OP JOUW VOORWAARDEN
+• Koers boven of onder een grens, of stijging/daling met een percentage
+• Alarmen in je valuta, bijv. bij 60.000 EUR op een USDT-paar
+• Alarm als zin: ‘Laat het me weten als BTC onder 60.000 CHF daalt.’
+• Beweging van x % binnen een tijdvenster, bijv. 5 % in 1 uur
+• Volumepiek: volume plotseling ver boven gemiddeld
+• Eenmalig of herhalend, met geluid, trillen en optioneel voorlezen
+• Eigen alarmgeluid: systeemgeluid of eigen audiobestand
+• Instelbare rusttijd voorkomt een alarmstorm
+• Stille uren: ’s nachts (bijv. 23–7 u) alarmen zonder geluid, trillen of spraak
+• ‘Alarm testen’: hoor en voel vooraf hoe een alarm binnenkomt
+
+ONGEWONE ACTIVITEIT EN WAAROM BEWEEGT DIT?
+• Ongewone activiteit: opvallende koers- en volumebewegingen in je lijst, met optionele meldingen
+• ‘Waarom beweegt dit?’ verklaart een beweging met volume, totale markt en futuresdata, kort samengevat – geen beleggingsadvies
+
+MARKTOVERZICHT
+• Crypto Pulse: wat gebeurt er nu? BTC, ETH, SOL, altcoins t.o.v. BTC, volume, Fear & Greed, funding, ETH-gas en samenvatting in één zin – geen voorspelling
+• Fear & Greed-index met verloop en optionele meldingen
+• Cryptomarkt: totale marktwaarde en 24-uursvolume in je valuta
+• Tabblad Markt: marktfase met tekenen van mogelijke top of bodem (geen voorspelling), halving-aftelling, dominantie, altcoinseizoen
+• Muntanalyse: RSI, trend, Pi Cycle en kracht t.o.v. Bitcoin
+• Futuresdata: funding rate en open interest, met korte uitleg
+• Netwerkkosten voor Ethereum, Base, Arbitrum, Polygon, BNB Chain en Bitcoin, met gasalarm
+
+WIDGETS EN MELDINGEN
+• Widgets: hele volglijst, portfoliototaal met verandering vandaag, één coin met grafiek (candles of lijn) en hoog/midden/laag
+• Stille koersmelding per paar
+• Vaak bijwerken, tot elke 15 seconden; op de achtergrond vanaf 15 minuten
+
+VERDER
+• Koersen en alarmen voorlezen (tekst-naar-spraak)
+• Back-up en herstel naar een zelfgekozen bestand – ook tussen Android en iPhone
+• App-snelkoppelingen, lichte en donkere modus
+• Vijf accentkleuren met bijpassend app-pictogram
+• Portfolio-vergrendeling: vingerafdruk, gezicht of pincode
+• Beschikbaar in 31 talen
+
+PRIVACY VOOROP
+Geen account, geen advertenties, geen analyse. Koersen komen direct van de openbare API's van de beurzen. Je volglijst, alarmen en bezit blijven op je apparaat. Open source (MIT) – de code is openbaar op GitHub.
+
+Let op: Crypto Checker toont alleen koersen. Het is geen beurs en geen wallet, handelt niet en geeft geen beleggingsadvies.

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Megbízhatóság: %1$s</string>
+    <string name="why_confidence_high">magas</string>
+    <string name="why_confidence_medium">közepes</string>
+    <string name="why_confidence_low">alacsony</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%2$d jelből %1$d erre utal</item>
+        <item quantity="other">%2$d jelből %1$d erre utal</item>
+    </plurals>
+    <string name="why_confidence_partial">hiányos adatok</string>
+</resources>

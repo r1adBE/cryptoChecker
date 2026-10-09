@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Đỉnh %1$s</string>
+    <string name="cycle_marker_high_so_far">Cao nhất đến nay</string>
+    <string name="cycle_marker_bottom">Đáy %1$s</string>
+    <string name="cycle_since_halving">%1$s kể từ halving</string>
+    <string name="cycle_from_top">%1$s so với đỉnh</string>
+    <string name="cycle_marker_double_top">Đỉnh đôi %1$s</string>
+    <string name="cycle_marker_double_bottom">Đáy đôi %1$s</string>
+</resources>

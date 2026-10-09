@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runde 33: Markt-Tab, Abschnitte «Einordnung» und «Daten» zuklappbar -->
+<resources>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Hiện %1$s</string>
+    <string name="market_section_collapse">Ẩn %1$s</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">Tìm cặp hoặc sàn</string>
+    <string name="watchlist_search_open">Tìm kiếm</string>
+    <string name="watchlist_search_close">Đóng tìm kiếm</string>
+    <string name="watchlist_search_empty">Không có kết quả cho “%1$s”</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runde 32: «Warum?» Gleichlauf mit Bitcoin, Sats im Aktionsblatt -->
+<resources>
+    <string name="why_btc_tight">%1$s följer just nu Bitcoin tätt.</string>
+    <string name="why_btc_independent">%1$s rör sig just nu oberoende av Bitcoin.</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

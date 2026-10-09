@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Mit einem Tipp starten</string>
+    <string name="starter_text">Coins auswählen und in einem Schritt hinzufügen. Börse und Paar kannst du später ändern.</string>
+    <string name="starter_custom">Börse und Paar selbst wählen</string>
+    <string name="settings_quiet_hours">Nachtruhe</string>
+    <string name="settings_quiet_hours_hint">Zwischen %1$s und %2$s kommen Alarme lautlos: ohne Ton, Vibration und Sprachausgabe.</string>
+    <string name="settings_quiet_hours_from">Von</string>
+    <string name="settings_quiet_hours_to">Bis</string>
+    <string name="channel_alarms_quiet">Alarme (Nachtruhe)</string>
+    <string name="channel_alarms_quiet_description">Lautlose Alarme während der Nachtruhe.</string>
+    <string name="app_lock_unlock">Entsperren</string>
+    <string name="app_lock_unavailable">Auf diesem Gerät ist keine Displaysperre eingerichtet. Richte zuerst eine in den Systemeinstellungen ein.</string>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_description">Gesamtwert deines Portfolios und Veränderung heute</string>
+    <string name="widget_portfolio_today">heute %1$s</string>
+    <string name="widget_portfolio_empty">Käufe im Portfolio-Tab erfassen</string>
+    <string name="a11y_portfolio_widget">Portfolio %1$s, heute %2$s</string>
+    <string name="explain_funding">Gebühr zwischen Long- und Short-Positionen. Stark positiv heisst: viele wetten auf steigende Kurse.</string>
+    <string name="explain_open_interest">Wert aller offenen Futures-Positionen. Steigt er, setzt mehr Geld auf die Bewegung.</string>
+    <string name="explain_rsi">Relative-Stärke-Index, 0–100. Über 70 oft überhitzt, unter 30 oft überverkauft.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Erklärung</string>
+    <string name="explain_pi_cycle">Vergleicht den 111-Tage-Schnitt mit dem doppelten 350-Tage-Schnitt. Ein Kreuzen markierte frühere Zyklus-Hochs.</string>
+    <string name="alarm_sentence_above">Sag mir Bescheid, wenn %1$s über %2$s steigt.</string>
+    <string name="alarm_sentence_below">Sag mir Bescheid, wenn %1$s unter %2$s fällt.</string>
+    <string name="alarm_sentence_up_percent">Sag mir Bescheid, wenn %1$s um %2$s steigt.</string>
+    <string name="alarm_sentence_down_percent">Sag mir Bescheid, wenn %1$s um %2$s fällt.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Sag mir Bescheid, wenn sich %1$s innerhalb von %3$d Stunde um %2$s bewegt.</item>
+        <item quantity="other">Sag mir Bescheid, wenn sich %1$s innerhalb von %3$d Stunden um %2$s bewegt.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Sag mir Bescheid, wenn bei %1$s %2$s-mal so viel gehandelt wird wie üblich.</string>
+    <string name="alarm_sentence_incomplete">Wert eingeben, dann steht der Alarm hier als Satz.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nicht erreichbar</string>
+    <string name="watchlist_row_outdated">%1$s · veraltet</string>
+</resources>

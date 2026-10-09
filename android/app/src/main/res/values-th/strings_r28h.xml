@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">ความมั่นใจ: %1$s</string>
+    <string name="why_confidence_high">สูง</string>
+    <string name="why_confidence_medium">ปานกลาง</string>
+    <string name="why_confidence_low">ต่ำ</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="other">%1$d จาก %2$d สัญญาณชี้ไปทางนี้</item>
+    </plurals>
+    <string name="why_confidence_partial">ข้อมูลไม่ครบ</string>
+</resources>

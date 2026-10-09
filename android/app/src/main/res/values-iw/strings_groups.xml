@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">עריכת קבוצה</string>
+    <string name="group_rename">שינוי שם</string>
+    <string name="group_delete">מחיקת קבוצה</string>
+    <string name="group_delete_confirm">הצמדים נשארים ברשימת המעקב שלך.</string>
+    <string name="group_done">סיום</string>
+    <string name="group_add">קבוצה חדשה</string>
+    <string name="group_in_other">ב־%1$s</string>
+    <string name="group_target">בקבוצה</string>
+    <string name="group_search_hint">חיפוש צמד</string>
+    <string name="group_next">הבא</string>
+</resources>

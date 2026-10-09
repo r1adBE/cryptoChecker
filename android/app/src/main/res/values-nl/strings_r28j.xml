@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Verdeling</string>
+    <string name="portfolio_allocation_other">Overige</string>
+    <string name="portfolio_movers_title">Grootste bewegingen</string>
+    <string name="portfolio_hide_amounts">Bedragen verbergen</string>
+    <string name="portfolio_hide_amounts_hint">Toont bedragen en waarden in de portfolio en de portfoliowidget als ••• – percentages blijven zichtbaar.</string>
+    <string name="a11y_portfolio_show_amounts">Bedragen tonen</string>
+    <string name="a11y_amount_hidden">bedrag verborgen</string>
+    <string name="portfolio_alarm_action">Alarm</string>
+    <string name="portfolio_alarm_title">Alarm ‘portfoliowaarde’</string>
+    <string name="portfolio_alarm_kind_above">Portfolio boven bedrag</string>
+    <string name="portfolio_alarm_kind_below">Portfolio onder bedrag</string>
+    <string name="portfolio_alarm_kind_up">Portfolio stijgt</string>
+    <string name="portfolio_alarm_kind_down">Portfolio daalt</string>
+    <string name="portfolio_alarm_amount">Bedrag (%1$s)</string>
+    <string name="portfolio_alarm_hint">Wordt na elke vernieuwing gecontroleerd. Net als koersalarmen: meldt bij het overschrijden van de grens en pas opnieuw als de waarde is teruggekeerd.</string>
+    <string name="portfolio_alarm_sentence_above">Portfolio boven %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfolio onder %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Portfolio stijgt %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portfolio daalt %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Portfoliowaarde</string>
+    <string name="notification_portfolio_alarm_text">%1$s – nu %2$s</string>
+</resources>

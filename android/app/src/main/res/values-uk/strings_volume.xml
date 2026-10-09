@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Volumen-Spike-Alarm -->
+    <string name="alarm_condition_volume_spike">Сплеск обсягу</string>
+    <string name="alarm_volume_factor_label">Обсяг за останню годину відносно норми</string>
+    <string name="alarm_volume_hint">Дані про обсяг беруться з Binance — для пар, яких там немає, сигнал не спрацює.</string>
+    <string name="notification_volume_spike_text">Обсяг %1$s× від норми за останню годину</string>
+    <string name="tts_direction_volume_spike">зі сплеском обсягу</string>
+
+    <!-- Einzel-Widget: Chart-Zeitraum -->
+    <string name="widget_chart_range">Період графіка</string>
+    <string name="widget_range_24h">24 год</string>
+    <string name="widget_range_7d">7 днів</string>
+    <string name="widget_range_30d">30 днів</string>
+    <string name="widget_range_short_24h">24г</string>
+    <string name="widget_range_short_7d">7Д</string>
+    <string name="widget_range_short_30d">30Д</string>
+</resources>

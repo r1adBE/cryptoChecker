@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Periode naast de verandering tonen</string>
+    <string name="settings_change_period_hint">Klein ‘24h’, ‘vandaag’ of ‘laatste update’ naast de verandering in de volglijst en de widget met één munt. De schermlezer noemt hem altijd.</string>
+</resources>

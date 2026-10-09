@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">הערה</string>
+    <string name="note_add">הוספת הערה</string>
+    <string name="note_edit">עריכת הערה</string>
+    <string name="note_hint">למשל כניסה ב-0.42, יעד 0.60</string>
+    <string name="note_remove">הסרה</string>
+</resources>

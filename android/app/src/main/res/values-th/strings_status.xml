@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">ไม่มีการเชื่อมต่อ</string>
+    <string name="watchlist_offline_since">ไม่มีการเชื่อมต่อ · ข้อมูลเมื่อ %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d จาก %2$d ไม่มีราคา</item>
+    </plurals>
+    <string name="watch_not_traded">ไม่มีการซื้อขายในกระดานเทรดนี้แล้ว</string>
+</resources>

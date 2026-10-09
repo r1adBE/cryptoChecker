@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Λογότυπα νομισμάτων</string>
+    <string name="settings_coin_logos_app">Στην εφαρμογή</string>
+    <string name="settings_coin_logos_app_hint">Λίστα, φύλλο ζεύγους και κάρτες αγοράς</string>
+    <string name="settings_coin_logos_portfolio">Στο χαρτοφυλάκιο</string>
+    <string name="settings_coin_logos_portfolio_hint">Θέσεις, λεπτομέρειες νομισμάτων και αναλύσεις</string>
+    <string name="settings_coin_logos_widgets">Στα widget</string>
+    <string name="settings_coin_logos_widgets_hint">Widget λίστας και ενός νομίσματος</string>
+    <string name="settings_coin_logos_footer">Τα λογότυπα προέρχονται από το CoinGecko και, για ό,τι δεν έχει το CoinGecko (π.χ. χρυσός, ασήμι, μετοχές), από το Binance. Η εφαρμογή κατεβάζει μονομιάς όλα τα λογότυπα και τα φυλάσσει σε αυτή τη συσκευή, έτσι κανείς από τους δύο δεν ξέρει ποια νομίσματα παρακολουθείτε. Τα νομίσματα χωρίς λογότυπο δείχνουν τα αρχικά τους. Τα αγαπημένα παίρνουν ένα μικρό αστέρι στο λογότυπο. Όπου ένας διακόπτης είναι κλειστός, δεν εμφανίζονται ούτε λογότυπα ούτε αρχικά· όταν όλα είναι κλειστά, δεν φορτώνεται τίποτα.</string>
+    <string name="settings_coin_logos_value_app">Εφαρμογή</string>
+</resources>

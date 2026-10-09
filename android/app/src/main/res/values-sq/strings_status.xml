@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Pa lidhje</string>
+    <string name="watchlist_offline_since">Pa lidhje · gjendja %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d nga %2$d pa çmim</item>
+        <item quantity="other">%1$d nga %2$d pa çmim</item>
+    </plurals>
+    <string name="watch_not_traded">Nuk tregtohet më në këtë bursë</string>
+</resources>

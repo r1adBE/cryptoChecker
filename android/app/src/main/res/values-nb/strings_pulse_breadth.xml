@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Topp %1$d</string>
+    <string name="pulse_breadth_spoken">Topp %1$d: %2$d opp, %3$d ned</string>
+    <string name="pulse_breadth_hint">Topp %1$d: de største myntene etter markedsverdi, uten stablecoins; endring over 24 timer (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Bred bevegelse: de fleste store mynter stiger.</string>
+    <string name="pulse_breadth_note_broad_down">Bredt fall: de fleste store mynter faller.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin stiger, men de fleste andre store mynter henger ikke med.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin faller, men de fleste andre store mynter holder seg.</string>
+</resources>

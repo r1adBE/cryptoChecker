@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding acima de</string>
+    <string name="alarm_condition_funding_below">Funding abaixo de</string>
+    <string name="alarm_condition_oi_up">Interesse aberto sobe</string>
+    <string name="alarm_condition_oi_down">Interesse aberto desce</string>
+    <string name="alarm_sentence_funding_above">Avisar-me quando o funding de %1$s subir acima de %2$s.</string>
+    <string name="alarm_sentence_funding_below">Avisar-me quando o funding de %1$s descer abaixo de %2$s.</string>
+    <string name="tts_direction_funding_above">com funding alto</string>
+    <string name="tts_direction_funding_below">com funding baixo</string>
+    <string name="tts_direction_oi_up">com interesse aberto a subir</string>
+    <string name="tts_direction_oi_down">com interesse aberto a descer</string>
+    <string name="alarm_funding_hint">Taxa de funding por período de liquidação (normalmente a cada 8 horas). Negativo: os shorts pagam aos longs. ± troca o sinal.</string>
+    <string name="alarm_oi_hint">Compara o interesse aberto com o valor guardado há essas horas. Um alarme novo só avisa depois de a app recolher dados durante esse tempo; verificação no máximo a cada 5 minutos.</string>
+    <string name="alarm_funding_sign_a11y">Trocar sinal</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Avisar-me quando o interesse aberto de %1$s subir %2$s em %3$d hora.</item>
+        <item quantity="many">Avisar-me quando o interesse aberto de %1$s subir %2$s em %3$d horas.</item>
+        <item quantity="other">Avisar-me quando o interesse aberto de %1$s subir %2$s em %3$d horas.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Avisar-me quando o interesse aberto de %1$s descer %2$s em %3$d hora.</item>
+        <item quantity="many">Avisar-me quando o interesse aberto de %1$s descer %2$s em %3$d horas.</item>
+        <item quantity="other">Avisar-me quando o interesse aberto de %1$s descer %2$s em %3$d horas.</item>
+    </plurals>
+</resources>

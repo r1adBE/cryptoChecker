@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">משהו קורה עכשיו</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">פעילות חריגה</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">תנועה חריגה: %1$s בשעה (פי %2$s מהרגיל)</string>
+    <string name="activity_signal_volume">מחזור פי %1$s מהרגיל בשעה האחרונה</string>
+    <string name="activity_signal_open_interest">Open interest %1$s תוך %2$d דק׳</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">מימון %1$s — הרבה לונגים ממונפים</string>
+    <string name="activity_signal_funding_short">מימון %1$s — הרבה שורטים</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">דווח על פעילות חריגה</string>
+    <string name="settings_activity_alerts_hint">לכל היותר פעם בשעה לכל צמד: תנועות מחיר חריגות, זינוקי מחזור וקיצוניות בחוזים עתידיים (נתונים מ-Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">למה זה זז?</string>
+    <string name="why_title">למה זה זז?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">הערכה אוטומטית מנתוני שוק, לא ייעוץ השקעות.</string>
+    <string name="why_data_time">נתונים נכון ל-%1$s</string>
+    <string name="why_no_data">אין נתונים מ-Binance לצמד זה</string>
+    <string name="why_no_data_hint">מחיר, מחזור ותנודתיות מגיעים מנרות שעתיים של Binance.</string>
+
+    <string name="why_market_wide_text">המטבע הזה: %1$s ב-24 שעות — סביר שהמניע הוא השוק כולו ולא המטבע עצמו.</string>
+    <string name="why_coin_only_text">%1$s ב-24 שעות בזמן שהשוק שקט: הסיבה כנראה ייחודית למטבע הזה.</string>
+    <string name="why_against_market_text">המטבע הזה %1$s, BTC %2$s ב-24 שעות — תנועה עצמאית באופן בולט.</string>
+    <string name="why_market_calm_text">המטבע הזה: %1$s ב-24 שעות. לא השוק ולא המטבע זזים הרבה.</string>
+    <string name="why_market_leader_text">כמוביל השוק, BTC בדרך כלל מושך איתו את שאר השוק. ETH: %1$s ב-24 שעות.</string>
+    <string name="why_market_leader_text_no_eth">כמוביל השוק, BTC בדרך כלל מושך איתו את שאר השוק.</string>
+
+    <string name="why_volume_high_text">הרבה יותר מסחר מהרגיל בשעה האחרונה — לתנועה יש תמיכה רחבה.</string>
+    <string name="why_volume_low_text">התנועה דלילה ועלולה להתהפך במהירות.</string>
+    <string name="why_volume_normal_text">המסחר בשעה האחרונה תואם את 24 השעות האחרונות.</string>
+
+    <string name="why_leverage_longs_text">הלונגים משלמים לשורטים — סיכון מוגבר לחיסולים אם המחיר יורד.</string>
+    <string name="why_leverage_shorts_text">השורטים משלמים ללונגים — עליית מחיר עלולה לגרום ל-Short Squeeze.</string>
+    <string name="why_leverage_balanced_text">אין הצטברות של פוזיציות לונג או שורט בשוק החוזים העתידיים.</string>
+    <string name="why_open_interest_change">Open interest %1$s מאז הבדיקה האחרונה.</string>
+
+    <string name="why_volatility_high_text">השעה האחרונה: %1$s — ביחס לתנודה השעתית הטיפוסית ב-24 השעות האחרונות.</string>
+    <string name="why_volatility_normal_text">השעה האחרונה: %1$s — בטווח הרגיל.</string>
+
+    <string name="why_sentiment_text">מדד פחד ותאוות בצע של כל שוק הקריפטו, %1$s לעומת אתמול.</string>
+    <string name="why_sentiment_text_no_change">מדד פחד ותאוות בצע של כל שוק הקריפטו.</string>
+</resources>

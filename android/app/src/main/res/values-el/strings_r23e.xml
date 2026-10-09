@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Σήμα ειδοποίησης</string>
+    <string name="alarm_signal_system">Σύστημα</string>
+    <string name="alarm_signal_sound_vibrate">Ήχος και δόνηση</string>
+    <string name="alarm_signal_sound">Μόνο ήχος</string>
+    <string name="alarm_signal_vibrate">Μόνο δόνηση</string>
+    <string name="alarm_signal_silent">Σίγαση (μόνο ειδοποίηση)</string>
+    <string name="settings_alarm_signal_system_hint">Ακολουθεί τις ρυθμίσεις ειδοποιήσεων του τηλεφώνου.</string>
+    <string name="settings_alarm_signal_open_system">Προσαρμογή στις ρυθμίσεις συστήματος</string>
+    <string name="channel_alarms_sound_vibrate">Ειδοποιήσεις τιμής (ήχος και δόνηση)</string>
+    <string name="channel_alarms_sound">Ειδοποιήσεις τιμής (μόνο ήχος)</string>
+    <string name="channel_alarms_vibrate">Ειδοποιήσεις τιμής (μόνο δόνηση)</string>
+    <string name="channel_alarms_silent">Ειδοποιήσεις τιμής (σίγαση)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Η δόνηση ακολουθεί τις ρυθμίσεις του iPhone (Ήχοι και απτική απόκριση).</string>
+</resources>

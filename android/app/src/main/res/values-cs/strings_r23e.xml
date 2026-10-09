@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Signál alarmu</string>
+    <string name="alarm_signal_system">Systém</string>
+    <string name="alarm_signal_sound_vibrate">Zvuk a vibrace</string>
+    <string name="alarm_signal_sound">Jen zvuk</string>
+    <string name="alarm_signal_vibrate">Jen vibrace</string>
+    <string name="alarm_signal_silent">Tiše (jen oznámení)</string>
+    <string name="settings_alarm_signal_system_hint">Řídí se nastavením oznámení v telefonu.</string>
+    <string name="settings_alarm_signal_open_system">Upravit v nastavení systému</string>
+    <string name="channel_alarms_sound_vibrate">Alarmy (zvuk a vibrace)</string>
+    <string name="channel_alarms_sound">Alarmy (jen zvuk)</string>
+    <string name="channel_alarms_vibrate">Alarmy (jen vibrace)</string>
+    <string name="channel_alarms_silent">Alarmy (tiše)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrace se řídí nastavením iPhonu (Zvuky a haptika).</string>
+</resources>

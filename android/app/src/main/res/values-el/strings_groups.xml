@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Επεξεργασία ομάδας</string>
+    <string name="group_rename">Μετονομασία</string>
+    <string name="group_delete">Διαγραφή ομάδας</string>
+    <string name="group_delete_confirm">Τα ζεύγη παραμένουν στη λίστα παρακολούθησης.</string>
+    <string name="group_done">Τέλος</string>
+    <string name="group_add">Νέα ομάδα</string>
+    <string name="group_in_other">σε %1$s</string>
+    <string name="group_target">Στην ομάδα</string>
+    <string name="group_search_hint">Αναζήτηση ζεύγους</string>
+    <string name="group_next">Επόμενο</string>
+</resources>

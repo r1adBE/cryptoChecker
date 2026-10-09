@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Favoriter</string>
+    <string name="watchlist_favorites_empty_hint">Inga favoriter än. Svep ett par åt höger eller tryck på ”Favorit” i parbladet.</string>
+    <string name="settings_watchlist_names">Visa namn</string>
+    <string name="settings_watchlist_names_hint">Namn under paret, t.ex. Bitcoin eller NVIDIA. Följer med logolistorna och hämtas en gång för alla mynt.</string>
+    <string name="settings_watchlist_value_names">Namn</string>
+</resources>

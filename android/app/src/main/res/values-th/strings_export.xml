@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">ส่งออก ณ วันที่อ้างอิง…</string>
+    <string name="portfolio_export_title">ส่งออก ณ วันที่อ้างอิง</string>
+    <string name="portfolio_export_date">วันที่อ้างอิง</string>
+    <string name="portfolio_export_currency">สกุลเงิน: %1$s</string>
+    <string name="portfolio_export_hint">ยอดถือครอง ณ สิ้นวันที่เลือก ประเมินมูลค่าด้วยราคาปิดรายวัน (UTC) เป็น USDT และแปลงด้วยอัตราอ้างอิงของ ECB ในวันนั้น เปลี่ยนสกุลเงินได้ที่ “แปลงเป็น”</string>
+    <string name="portfolio_export_button">ส่งออก CSV</string>
+    <string name="portfolio_export_running">กำลังดึงราคาย้อนหลัง…</string>
+    <string name="portfolio_export_done">บันทึกการส่งออกแล้ว</string>
+    <string name="portfolio_export_failed">ส่งออกไม่สำเร็จ</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># วันที่อ้างอิง %1$s, สกุลเงิน %2$s, อัตราแลกเปลี่ยน ณ %3$s</string>
+    <string name="portfolio_export_col_coin">เหรียญ</string>
+    <string name="portfolio_export_col_amount">จำนวน</string>
+    <string name="portfolio_export_col_price">ราคา USDT</string>
+    <string name="portfolio_export_col_value">มูลค่า USDT</string>
+    <string name="portfolio_export_col_rate">อัตรา USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">มูลค่า %1$s</string>
+    <string name="portfolio_export_col_note">หมายเหตุ</string>
+    <string name="portfolio_export_total">รวม</string>
+    <string name="portfolio_export_no_price">ไม่มีราคา</string>
+    <string name="portfolio_export_no_fx">ไม่มีอัตราแลกเปลี่ยน</string>
+    <string name="portfolio_export_incomplete">ไม่ครบถ้วน</string>
+</resources>

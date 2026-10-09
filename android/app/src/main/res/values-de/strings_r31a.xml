@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">Schnell-Alarme</string>
+    <string name="alarm_template_volume">Volumen ×%1$s</string>
+    <string name="alarm_new_extreme">Neues %1$s</string>
+    <string name="alarm_template_a11y_up">Alarm bei plus %1$s Prozent erstellen</string>
+    <string name="alarm_template_a11y_down">Alarm bei minus %1$s Prozent erstellen</string>
+    <string name="alarm_template_a11y">Alarm erstellen: %1$s</string>
+    <string name="alarm_template_created">Alarm erstellt</string>
+    <string name="alarm_sentence_new_extreme">Sag mir Bescheid, wenn %1$s ein neues %2$s erreicht.</string>
+    <string name="alarm_simple_when">Wenn %1$s</string>
+    <string name="alarm_simple_above">über</string>
+    <string name="alarm_simple_below">unter</string>
+    <string name="alarm_simple_end">geht</string>
+    <string name="alarm_simple_direction_a11y">Richtung: %1$s</string>
+    <string name="alarm_repeat_once">Einmal</string>
+    <string name="alarm_repeat_each">Jedes Mal</string>
+    <string name="alarm_advanced">Erweitert</string>
+    <string name="alarm_create">Alarm erstellen</string>
+    <string name="alarm_near_new_only">Nur bei neuem Hoch oder Tief</string>
+</resources>

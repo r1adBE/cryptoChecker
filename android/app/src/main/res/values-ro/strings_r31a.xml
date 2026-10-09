@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">Alarme rapide</string>
+    <string name="alarm_template_volume">Volum ×%1$s</string>
+    <string name="alarm_new_extreme">Nou %1$s</string>
+    <string name="alarm_template_a11y_up">Creează alarmă la plus %1$s la sută</string>
+    <string name="alarm_template_a11y_down">Creează alarmă la minus %1$s la sută</string>
+    <string name="alarm_template_a11y">Creează alarma: %1$s</string>
+    <string name="alarm_template_created">Alarmă creată</string>
+    <string name="alarm_sentence_new_extreme">Anunță-mă când %1$s atinge un nou %2$s.</string>
+    <string name="alarm_simple_when">Când %1$s</string>
+    <string name="alarm_simple_above">trece peste</string>
+    <string name="alarm_simple_below">scade sub</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_direction_a11y">Direcție: %1$s</string>
+    <string name="alarm_repeat_once">O dată</string>
+    <string name="alarm_repeat_each">De fiecare dată</string>
+    <string name="alarm_advanced">Avansat</string>
+    <string name="alarm_create">Creează alarma</string>
+    <string name="alarm_near_new_only">Doar noi maxime sau minime</string>
+</resources>

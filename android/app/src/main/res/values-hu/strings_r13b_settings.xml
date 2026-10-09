@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Piaci értesítések</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktív</item>
+        <item quantity="other">%1$d aktív</item>
+    </plurals>
+    <string name="settings_summary_on">Be</string>
+
+    <string name="alarm_first_text_checked">A Crypto Checker most figyeli Önnek ezt: %1$s. Ha a(z) %1$s eléri a határértékét, értesítést kap, amint az alkalmazás ellenőrzi az árat. Bezárt alkalmazásnál ez a háttérfrissítés időközében történik – később, ha az akkumulátor-optimalizálás korlátozza az alkalmazást.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">A Crypto Checker most figyeli Önnek ezt: %1$s. Értesítést kap, amint az alkalmazás ellenőrzi az árat. Bezárt alkalmazásnál az iOS dönti el, mikor történik ez – eltarthat egy ideig. Amíg az alkalmazás nyitva van, az árakat időben ellenőrzi.</string>
+
+    <string name="about_request_exchange">Tőzsde kérése</string>
+    <string name="explorer_exchange_missing">Hiányzik egy tőzsde?</string>
+</resources>

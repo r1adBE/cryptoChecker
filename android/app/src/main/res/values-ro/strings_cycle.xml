@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Vârf %1$s</string>
+    <string name="cycle_marker_high_so_far">Maxim de până acum</string>
+    <string name="cycle_marker_bottom">Minim %1$s</string>
+    <string name="cycle_since_halving">%1$s de la halving</string>
+    <string name="cycle_from_top">%1$s față de vârf</string>
+    <string name="cycle_marker_double_top">Vârf dublu %1$s</string>
+    <string name="cycle_marker_double_bottom">Minim dublu %1$s</string>
+</resources>

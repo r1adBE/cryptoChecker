@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Il se passe quelque chose en ce moment</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Activité inhabituelle</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Mouvement inhabituel : %1$s en une heure (%2$s× la normale)</string>
+    <string name="activity_signal_volume">Volume %1$s× la normale sur la dernière heure</string>
+    <string name="activity_signal_open_interest">Intérêt ouvert %1$s en %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Intérêt ouvert %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — beaucoup de longs à effet de levier</string>
+    <string name="activity_signal_funding_short">Funding %1$s — beaucoup de shorts</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Signaler une activité inhabituelle</string>
+    <string name="settings_activity_alerts_hint">Au plus une fois par heure et par paire : mouvements de prix inhabituels, pics de volume et extrêmes sur les futures (données Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Pourquoi ça bouge ?</string>
+    <string name="why_title">Pourquoi ça bouge ?</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_disclaimer">Évaluation automatique à partir des données de marché, pas un conseil en investissement.</string>
+    <string name="why_data_time">Données du %1$s</string>
+    <string name="why_no_data">Aucune donnée Binance pour cette paire</string>
+    <string name="why_no_data_hint">Le prix, le volume et la volatilité proviennent des bougies horaires de Binance.</string>
+
+    <string name="why_market_wide_text">Cette crypto : %1$s sur 24 h — le moteur est probablement le marché dans son ensemble, pas la crypto elle-même.</string>
+    <string name="why_coin_only_text">%1$s sur 24 h alors que le marché est calme : la raison est probablement propre à cette crypto.</string>
+    <string name="why_against_market_text">Cette crypto %1$s, BTC %2$s sur 24 h — un mouvement nettement indépendant.</string>
+    <string name="why_market_calm_text">Cette crypto : %1$s sur 24 h. Ni le marché ni la crypto ne bougent beaucoup.</string>
+    <string name="why_market_leader_text">En tant que leader du marché, BTC entraîne généralement le reste du marché. ETH : %1$s sur 24 h.</string>
+    <string name="why_market_leader_text_no_eth">En tant que leader du marché, BTC entraîne généralement le reste du marché.</string>
+
+    <string name="why_volume_high_text">Beaucoup plus d\'échanges que d\'habitude sur la dernière heure — le mouvement est largement soutenu.</string>
+    <string name="why_volume_low_text">Le mouvement est fragile et peut s\'inverser rapidement.</string>
+    <string name="why_volume_normal_text">Les échanges de la dernière heure sont conformes aux dernières 24 heures.</string>
+
+    <string name="why_leverage_longs_text">Les longs paient les shorts — risque accru de liquidations si le prix baisse.</string>
+    <string name="why_leverage_shorts_text">Les shorts paient les longs — une hausse du prix peut déclencher un short squeeze.</string>
+    <string name="why_leverage_balanced_text">Pas d\'accumulation de positions longues ou courtes sur le marché des futures.</string>
+    <string name="why_open_interest_change">Intérêt ouvert %1$s depuis la dernière vérification.</string>
+
+    <string name="why_volatility_high_text">Dernière heure : %1$s — par rapport à la variation horaire typique des dernières 24 heures.</string>
+    <string name="why_volatility_normal_text">Dernière heure : %1$s — dans la fourchette habituelle.</string>
+
+    <string name="why_sentiment_text">Indice Fear &amp; Greed de l\'ensemble du marché crypto, %1$s par rapport à hier.</string>
+    <string name="why_sentiment_text_no_change">Indice Fear &amp; Greed de l\'ensemble du marché crypto.</string>
+</resources>

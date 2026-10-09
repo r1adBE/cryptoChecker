@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo-urile monedelor</string>
+    <string name="settings_coin_logos_app">În aplicație</string>
+    <string name="settings_coin_logos_app_hint">Lista, fișa perechii și cardurile pieței</string>
+    <string name="settings_coin_logos_portfolio">În portofoliu</string>
+    <string name="settings_coin_logos_portfolio_hint">Poziții, detalii monede și analize</string>
+    <string name="settings_coin_logos_widgets">În widgeturi</string>
+    <string name="settings_coin_logos_widgets_hint">Widgeturile listă și o singură monedă</string>
+    <string name="settings_coin_logos_footer">Logo-urile vin de la CoinGecko și, pentru ce nu are CoinGecko (de ex. aur, argint, acțiuni), de la Binance. Aplicația descarcă dintr-o dată toate logo-urile și le păstrează pe acest dispozitiv, astfel niciunul nu știe ce monede urmărești. Monedele fără logo afișează inițialele. Favoritele primesc o steluță pe logo. Acolo unde un comutator este dezactivat nu apar nici logo-uri, nici inițiale; când totul este dezactivat, nu se încarcă nimic.</string>
+    <string name="settings_coin_logos_value_app">Aplicație</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Groep bewerken</string>
+    <string name="group_rename">Hernoemen</string>
+    <string name="group_delete">Groep verwijderen</string>
+    <string name="group_delete_confirm">De paren blijven in je volglijst.</string>
+    <string name="group_done">Klaar</string>
+    <string name="group_add">Nieuwe groep</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_target">In groep</string>
+    <string name="group_search_hint">Paar zoeken</string>
+    <string name="group_next">Volgende</string>
+</resources>

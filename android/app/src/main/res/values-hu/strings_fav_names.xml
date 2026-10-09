@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Kedvencek</string>
+    <string name="watchlist_favorites_empty_hint">Még nincsenek kedvencek. Húzzon egy párt jobbra, vagy koppintson a pár lapján a „Kedvenc” gombra.</string>
+    <string name="settings_watchlist_names">Nevek megjelenítése</string>
+    <string name="settings_watchlist_names_hint">Név a pár alatt, pl. Bitcoin vagy NVIDIA. A logólistákkal érkezik, egyszer töltődik be minden érméhez.</string>
+    <string name="settings_watchlist_value_names">Nevek</string>
+</resources>

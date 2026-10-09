@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">General</string>
+    <string name="settings_group_data_only">Datos</string>
+    <string name="settings_row_currency">Moneda</string>
+    <string name="settings_row_updates">Actualización</string>
+    <string name="settings_updates_live">A menudo · %1$s</string>
+    <string name="settings_updates_every">Cada %1$s</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_watchlist_value_sparkline">Minigráfico</string>
+    <string name="settings_watchlist_value_price_only">Solo precio</string>
+    <string name="settings_row_alarms">Alarmas</string>
+    <string name="settings_portfolio_value_locked">Sí, con bloqueo</string>
+    <string name="settings_row_dated_futures">Futuros con vencimiento</string>
+    <string name="settings_tradfi_futures">Acciones, materias primas y divisas (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Al elegir un par, muestra también futuros sobre acciones, oro y otras materias primas, divisas y empresas antes de su salida a bolsa. Son contratos, no tokens.</string>
+    <string name="settings_watchlist_activity_card">Actividad inusual en la lista</string>
+    <string name="settings_watchlist_activity_card_hint">Muestra la tarjeta «Algo está pasando ahora mismo» encima de los pares. Los avisos se ajustan en Avisos del mercado.</string>
+    <string name="settings_row_about">Acerca de la app</string>
+    <string name="price_colors_green_up">Sube en verde / baja en rojo</string>
+    <string name="price_colors_red_up">Sube en rojo / baja en verde</string>
+    <string name="price_colors_blue_up">Sube en azul / baja en naranja</string>
+    <string name="price_colors_orange_up">Sube en naranja / baja en azul</string>
+    <string name="price_colors_red_up_hint">Habitual en China, Japón, Corea y Taiwán</string>
+</resources>

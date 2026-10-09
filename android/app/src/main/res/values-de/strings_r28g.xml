@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">Offline</string>
+    <string name="offline_status_since">Offline · Stand %1$s</string>
+    <string name="error_market_unreachable">Börse gerade nicht erreichbar – letzte Kurse bleiben sichtbar.</string>
+    <string name="error_market_unreachable_short">Börse gerade nicht erreichbar</string>
+    <string name="refresh_sheet_paused_until">pausiert bis %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pausiert bis %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">App-Start</string>
+</resources>

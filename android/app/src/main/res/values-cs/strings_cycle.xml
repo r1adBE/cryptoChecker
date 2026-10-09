@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Vrchol %1$s</string>
+    <string name="cycle_marker_high_so_far">Dosavadní maximum</string>
+    <string name="cycle_marker_bottom">Dno %1$s</string>
+    <string name="cycle_since_halving">%1$s od halvingu</string>
+    <string name="cycle_from_top">%1$s od vrcholu</string>
+    <string name="cycle_marker_double_top">Dvojitý vrchol %1$s</string>
+    <string name="cycle_marker_double_bottom">Dvojité dno %1$s</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Ingen par i denne gruppen</string>
+    <string name="watchlist_status_none_traded">Ingen handlede par her</string>
+    <string name="watchlist_group_empty_hint">Trykk lenge på en gruppe for å velge parene.</string>
+    <string name="watchlist_just_refreshed">Nettopp oppdatert</string>
+</resources>

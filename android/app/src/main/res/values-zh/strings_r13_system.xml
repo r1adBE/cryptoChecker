@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">朗读价格和提醒。设备处于静音或振动模式时保持安静。</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Zámek chrání zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžete chránit heslem. Zálohy celého zařízení (systémová záloha) tato data přesto obsahují.</string>
+    <string name="backup_protect">Chránit heslem</string>
+    <string name="backup_protect_hint">Zašifruje soubor (AES-256). Doporučeno, pokud obsahuje data portfolia.</string>
+    <string name="backup_password">Heslo</string>
+    <string name="backup_password_repeat">Zopakovat heslo</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Alespoň %1$d znaků</string>
+    <string name="backup_password_mismatch">Hesla se neshodují</string>
+    <string name="backup_password_warning">Bez hesla nelze zálohu obnovit.</string>
+    <string name="backup_password_show">Zobrazit heslo</string>
+    <string name="backup_password_hide">Skrýt heslo</string>
+    <string name="backup_password_title">Záloha chráněná heslem</string>
+    <string name="backup_password_prompt">Zadejte heslo k této záloze.</string>
+    <string name="backup_password_wrong">Špatné heslo, nebo je soubor poškozený. Zkuste to znovu.</string>
+    <string name="backup_password_continue">Pokračovat</string>
+</resources>

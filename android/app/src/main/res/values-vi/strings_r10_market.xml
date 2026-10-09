@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Nổi bật hôm nay</string>
+    <string name="unusual_nothing">Hôm nay không có gì bất thường</string>
+    <string name="unusual_fact_stronger">Biến động mạnh hơn BTC nhiều</string>
+    <string name="unusual_fact_weaker">Biến động yếu hơn BTC nhiều</string>
+    <string name="unusual_fact_against">Đi ngược thị trường</string>
+    <string name="unusual_fact_volume">Khối lượng gấp %1$s× bình thường</string>
+    <string name="unusual_fact_funding_high">Funding cao (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding âm (%1$s)</string>
+    <string name="unusual_source">Khoảng 30 coin lớn nhất, không gồm stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Vì sao nó biến động?</string>
+    <string name="unusual_action_add">Tìm cặp để thêm</string>
+
+    <string name="macro_title">Dữ liệu kinh tế</string>
+    <string name="macro_cpi">lạm phát Mỹ (CPI)</string>
+    <string name="macro_ppi">giá sản xuất Mỹ (PPI)</string>
+    <string name="macro_nfp">báo cáo việc làm Mỹ</string>
+    <string name="macro_fomc">quyết định lãi suất của Fed</string>
+    <string name="macro_pce">lạm phát PCE Mỹ</string>
+    <string name="macro_hint_today">Hôm nay %1$s: %2$s – những ngày như vậy thị trường thường dao động mạnh hơn.</string>
+    <string name="macro_hint_tomorrow">Ngày mai %1$s: %2$s – những ngày như vậy thị trường thường dao động mạnh hơn.</string>
+    <string name="macro_hint_today_list">Hôm nay: %1$s – những ngày như vậy thị trường thường dao động mạnh hơn.</string>
+    <string name="macro_hint_tomorrow_list">Ngày mai: %1$s – những ngày như vậy thị trường thường dao động mạnh hơn.</string>
+    <string name="macro_hint_list">%1$s – những ngày như vậy thị trường thường dao động mạnh hơn.</string>
+    <string name="macro_released_one">Công bố hôm nay lúc %1$s: %2$s.</string>
+    <string name="macro_released_list">Công bố hôm nay: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Hôm nay %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Ngày mai %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Lịch kinh tế</string>
+    <string name="settings_macro_notifications_hint">Lúc 08:00 vào những ngày có dữ liệu kinh tế Mỹ quan trọng (lạm phát, việc làm, quyết định của Fed). Lịch được tải từ trang web của ứng dụng mỗi ngày một lần.</string>
+    <string name="notification_macro_title">Hôm nay có dữ liệu kinh tế</string>
+</resources>

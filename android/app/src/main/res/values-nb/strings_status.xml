@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Ingen tilkobling</string>
+    <string name="watchlist_offline_since">Ingen tilkobling · per %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d av %2$d uten kurs</item>
+        <item quantity="other">%1$d av %2$d uten kurs</item>
+    </plurals>
+    <string name="watch_not_traded">Handles ikke lenger på børsen</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">ポートフォリオのロック</string>
+    <string name="settings_portfolio_lock_hint">ポートフォリオだけを保護します：指紋、顔、または端末のPINでロック解除。バックグラウンドに1分以上あると再びロックされます。ウォッチリスト、アラーム、その他のウィジェットはそのまま使えます。</string>
+    <string name="portfolio_locked_title">ポートフォリオはロックされています</string>
+    <string name="portfolio_locked_text">保有資産と評価額を見るにはロックを解除してください。</string>
+    <string name="portfolio_lock_reason">ポートフォリオのロックを解除</string>
+    <string name="widget_portfolio_locked_hint">ロック中 – アプリで解除してください</string>
+    <string name="portfolio_history_range_since_first">初回購入から</string>
+    <string name="portfolio_history_period_since_first">初回購入から</string>
+    <string name="portfolio_history_range_since_first_a11y">初回購入からの推移を表示</string>
+    <string name="portfolio_history_change_since_first_a11y">初回購入からの評価額：%1$s、%2$s</string>
+    <string name="portfolio_history_capped">直近5年間のみ表示しています。</string>
+    <string name="portfolio_history_expand">評価額の推移を表示</string>
+    <string name="portfolio_history_collapse">評価額の推移を隠す</string>
+</resources>

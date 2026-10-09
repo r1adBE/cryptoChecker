@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Ξεχωρίζουν σήμερα</string>
+    <string name="unusual_nothing">Τίποτα ασυνήθιστο σήμερα</string>
+    <string name="unusual_fact_stronger">Κινείται πολύ πιο έντονα από το BTC</string>
+    <string name="unusual_fact_weaker">Κινείται πολύ πιο αδύναμα από το BTC</string>
+    <string name="unusual_fact_against">Κινείται αντίθετα με την αγορά</string>
+    <string name="unusual_fact_volume">Όγκος %1$s× του συνήθους</string>
+    <string name="unusual_fact_funding_high">Funding αυξημένο (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding αρνητικό (%1$s)</string>
+    <string name="unusual_source">Περίπου 30 μεγαλύτερα νομίσματα χωρίς stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Γιατί κινείται;</string>
+    <string name="unusual_action_add">Εύρεση ζεύγους για προσθήκη</string>
+
+    <string name="macro_title">Οικονομικά στοιχεία</string>
+    <string name="macro_cpi">πληθωρισμός ΗΠΑ (CPI)</string>
+    <string name="macro_ppi">τιμές παραγωγού ΗΠΑ (PPI)</string>
+    <string name="macro_nfp">έκθεση απασχόλησης ΗΠΑ</string>
+    <string name="macro_fomc">απόφαση της Fed για τα επιτόκια</string>
+    <string name="macro_pce">πληθωρισμός PCE ΗΠΑ</string>
+    <string name="macro_hint_today">Σήμερα %1$s: %2$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_tomorrow">Αύριο %1$s: %2$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_today_list">Σήμερα: %1$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_tomorrow_list">Αύριο: %1$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_list">%1$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_released_one">Δημοσιεύθηκε σήμερα στις %1$s: %2$s.</string>
+    <string name="macro_released_list">Δημοσιεύθηκε σήμερα: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Σήμερα %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Αύριο %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Οικονομικό ημερολόγιο</string>
+    <string name="settings_macro_notifications_hint">Στις 08:00 τις ημέρες με σημαντικά οικονομικά στοιχεία των ΗΠΑ (πληθωρισμός, απασχόληση, απόφαση της Fed). Το ημερολόγιο έρχεται από τον ιστότοπο της εφαρμογής και φορτώνεται μία φορά την ημέρα.</string>
+    <string name="notification_macro_title">Οικονομικά στοιχεία σήμερα</string>
+</resources>

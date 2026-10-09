@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Odczytuje na głos ceny i alarmy. Milczy, gdy urządzenie jest w trybie cichym lub wibracji.</string>
+</resources>

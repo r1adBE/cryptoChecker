@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Megjelenítés</string>
+    <string name="widget_portfolio_display_conversion">Csak átváltás</string>
+    <string name="widget_portfolio_display_conversion_usdt">Átváltás + USDT</string>
+    <string name="widget_portfolio_display_hint">Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d további</item>
+        <item quantity="other">+ %1$d további</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, a portfólió %3$s-a</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, a portfólió %3$s-a, ma %4$s</string>
+    <string name="a11y_portfolio_positions">Legnagyobb pozíciók: %1$s</string>
+</resources>

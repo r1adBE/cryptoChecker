@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Почніть одним дотиком</string>
+    <string name="starter_text">Виберіть монети й додайте їх за один раз. Біржу й пару можна змінити пізніше.</string>
+    <string name="starter_custom">Вибрати біржу й пару</string>
+    <string name="settings_quiet_hours">Тихі години</string>
+    <string name="settings_quiet_hours_hint">З %1$s до %2$s сигнали надходять беззвучно: без звуку, вібрації та озвучення.</string>
+    <string name="settings_quiet_hours_from">З</string>
+    <string name="settings_quiet_hours_to">До</string>
+    <string name="channel_alarms_quiet">Сигнали (тихі години)</string>
+    <string name="channel_alarms_quiet_description">Беззвучні сигнали в тихі години.</string>
+    <string name="app_lock_unlock">Розблокувати</string>
+    <string name="app_lock_unavailable">На цьому пристрої не налаштовано блокування екрана. Спершу налаштуйте його в системних налаштуваннях.</string>
+    <string name="widget_portfolio_name">Портфель</string>
+    <string name="widget_portfolio_description">Загальна вартість портфеля та зміна за сьогодні</string>
+    <string name="widget_portfolio_today">сьогодні %1$s</string>
+    <string name="widget_portfolio_empty">Додайте купівлі на вкладці «Портфель»</string>
+    <string name="a11y_portfolio_widget">Портфель %1$s, сьогодні %2$s</string>
+    <string name="explain_funding">Плата між довгими та короткими позиціями. Сильно додатна — багато хто ставить на зростання цін.</string>
+    <string name="explain_open_interest">Вартість усіх відкритих ф\'ючерсних позицій. Якщо зростає, на рух ставлять більше грошей.</string>
+    <string name="explain_rsi">Індекс відносної сили, 0–100. Понад 70 — часто перегрітий, нижче 30 — часто перепроданий.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Пояснення</string>
+    <string name="explain_pi_cycle">Порівнює 111-денну середню з подвоєною 350-денною. Їхній перетин позначав минулі вершини циклів.</string>
+    <string name="alarm_sentence_above">Повідомити, коли %1$s підніметься вище %2$s.</string>
+    <string name="alarm_sentence_below">Повідомити, коли %1$s опуститься нижче %2$s.</string>
+    <string name="alarm_sentence_up_percent">Повідомити, коли %1$s зросте на %2$s.</string>
+    <string name="alarm_sentence_down_percent">Повідомити, коли %1$s впаде на %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Повідомити, коли %1$s зміниться на %2$s за %3$d годину.</item>
+        <item quantity="few">Повідомити, коли %1$s зміниться на %2$s за %3$d години.</item>
+        <item quantity="many">Повідомити, коли %1$s зміниться на %2$s за %3$d годин.</item>
+        <item quantity="other">Повідомити, коли %1$s зміниться на %2$s за %3$d години.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Повідомити, коли обсяг торгів %1$s сягне %2$s× від звичайного.</string>
+    <string name="alarm_sentence_incomplete">Введіть значення, щоб побачити сигнал у вигляді речення.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s недоступна</string>
+    <string name="watchlist_row_outdated">%1$s · застаріло</string>
+</resources>

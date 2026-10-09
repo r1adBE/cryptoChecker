@@ -1,0 +1,25 @@
+{
+  "description": "When a price counts as outdated (Android OutdatedRule.kt / iOS OutdatedRule.swift). afterMillis: limit from the settings and the live-mode input (app in front with live polling, or live stream): live = max(2 min, 2 x live interval when polling), otherwise max(3 x interval, 15 min). stale: price of age ageMillis (null = never updated) at now -> outdated?",
+  "now": 1700000000000,
+  "afterMillis": [
+    {"name": "background 15 min", "liveService": false, "liveIntervalSeconds": 60, "backgroundIntervalMinutes": 15, "live": false, "expected": 2700000},
+    {"name": "background 60 min", "liveService": false, "liveIntervalSeconds": 60, "backgroundIntervalMinutes": 60, "live": false, "expected": 10800000},
+    {"name": "live service, app closed: floor 15 min", "liveService": true, "liveIntervalSeconds": 60, "backgroundIntervalMinutes": 15, "live": false, "expected": 900000},
+    {"name": "live service 10 min, app closed", "liveService": true, "liveIntervalSeconds": 600, "backgroundIntervalMinutes": 15, "live": false, "expected": 1800000},
+    {"name": "live mode 15 s", "liveService": true, "liveIntervalSeconds": 15, "backgroundIntervalMinutes": 15, "live": true, "expected": 120000},
+    {"name": "live mode 60 s", "liveService": true, "liveIntervalSeconds": 60, "backgroundIntervalMinutes": 15, "live": true, "expected": 120000},
+    {"name": "live mode 5 min: two intervals", "liveService": true, "liveIntervalSeconds": 300, "backgroundIntervalMinutes": 15, "live": true, "expected": 600000},
+    {"name": "live stream without live polling", "liveService": false, "liveIntervalSeconds": 300, "backgroundIntervalMinutes": 60, "live": true, "expected": 120000}
+  ],
+  "stale": [
+    {"name": "live: 18 s old", "afterMillis": 120000, "ageMillis": 18000, "expected": false},
+    {"name": "live: exactly 2 min", "afterMillis": 120000, "ageMillis": 120000, "expected": false},
+    {"name": "live: 2 min + 1 ms", "afterMillis": 120000, "ageMillis": 120001, "expected": true},
+    {"name": "live: 4 min old", "afterMillis": 120000, "ageMillis": 240000, "expected": true},
+    {"name": "live: never updated", "afterMillis": 120000, "ageMillis": null, "expected": false},
+    {"name": "live: clock set back (future time)", "afterMillis": 120000, "ageMillis": -600000, "expected": false},
+    {"name": "background: 4 min old", "afterMillis": 2700000, "ageMillis": 240000, "expected": false},
+    {"name": "background: 44 min old", "afterMillis": 2700000, "ageMillis": 2640000, "expected": false},
+    {"name": "background: 45 min + 1 ms", "afterMillis": 2700000, "ageMillis": 2700001, "expected": true}
+  ]
+}

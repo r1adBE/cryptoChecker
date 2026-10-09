@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Нотатка</string>
+    <string name="note_add">Додати нотатку</string>
+    <string name="note_edit">Змінити нотатку</string>
+    <string name="note_hint">напр. вхід за 0.42, ціль 0.60</string>
+    <string name="note_remove">Прибрати</string>
+</resources>

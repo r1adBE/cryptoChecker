@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Фандинг вище</string>
+    <string name="alarm_condition_funding_below">Фандинг нижче</string>
+    <string name="alarm_condition_oi_up">Відкритий інтерес зростає</string>
+    <string name="alarm_condition_oi_down">Відкритий інтерес падає</string>
+    <string name="alarm_sentence_funding_above">Повідомити, коли фандинг %1$s підніметься вище %2$s.</string>
+    <string name="alarm_sentence_funding_below">Повідомити, коли фандинг %1$s опуститься нижче %2$s.</string>
+    <string name="tts_direction_funding_above">з високим фандингом</string>
+    <string name="tts_direction_funding_below">з низьким фандингом</string>
+    <string name="tts_direction_oi_up">зі зростанням відкритого інтересу</string>
+    <string name="tts_direction_oi_down">з падінням відкритого інтересу</string>
+    <string name="alarm_funding_hint">Ставка фандингу за розрахунковий період (зазвичай кожні 8 годин). Від’ємна — шорти платять лонгам. ± змінює знак.</string>
+    <string name="alarm_oi_hint">Порівнює відкритий інтерес зі значенням, збереженим стільки годин тому. Новий сигнал спрацює, лише коли застосунок збере дані за цей час; перевірка не частіше ніж раз на 5 хвилин.</string>
+    <string name="alarm_funding_sign_a11y">Змінити знак</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d годину.</item>
+        <item quantity="few">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d години.</item>
+        <item quantity="many">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d годин.</item>
+        <item quantity="other">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d години.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d годину.</item>
+        <item quantity="few">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d години.</item>
+        <item quantity="many">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d годин.</item>
+        <item quantity="other">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d години.</item>
+    </plurals>
+</resources>

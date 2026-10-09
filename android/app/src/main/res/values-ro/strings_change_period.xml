@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Afișează perioada lângă variație</string>
+    <string name="settings_change_period_hint">„24h”, „azi” sau „ultima actualizare” mic lângă variație în listă și în widgetul cu o monedă. Cititorul de ecran o spune mereu.</string>
+</resources>

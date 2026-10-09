@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">ویرایش گروه</string>
+    <string name="group_rename">تغییر نام</string>
+    <string name="group_delete">حذف گروه</string>
+    <string name="group_delete_confirm">جفت‌ها در واچ‌لیست شما باقی می‌مانند.</string>
+    <string name="group_done">تمام</string>
+    <string name="group_add">گروه جدید</string>
+    <string name="group_in_other">در %1$s</string>
+    <string name="group_target">در گروه</string>
+    <string name="group_search_hint">جستجوی جفت</string>
+    <string name="group_next">بعدی</string>
+</resources>

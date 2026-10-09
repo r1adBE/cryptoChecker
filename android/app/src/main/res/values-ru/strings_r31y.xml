@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">устарело · %1$s</string>
+    <string name="why_brief_label">Коротко:</string>
+    <string name="why_factor_market">Рынок в целом</string>
+    <string name="why_factor_futures">Фьючерсы</string>
+    <string name="why_factor_near_high">Близко к максимуму</string>
+    <string name="why_factor_funding">Фандинг</string>
+    <string name="why_fn_volume_higher">выше обычного</string>
+    <string name="why_fn_volume_lower">ниже обычного</string>
+    <string name="why_fn_volume_usual">как обычно</string>
+    <string name="why_fn_market_pulls">BTC тянет рынок за собой</string>
+    <string name="why_fn_market_lags">Рынок движется, а эта монета – почти нет</string>
+    <string name="why_fn_market_alone">Рынок спокоен – монета движется сама по себе</string>
+    <string name="why_fn_market_against">Монета движется против рынка</string>
+    <string name="why_fn_market_calm">Рынок спокоен</string>
+    <string name="why_fn_leader_moves">Биткоин задаёт направление</string>
+    <string name="why_fn_leader_calm">Биткоин спокоен</string>
+    <string name="why_fn_volatility_stronger">сильнее обычного</string>
+    <string name="why_fn_volatility_usual">как обычно</string>
+    <string name="why_fn_oi_up">Открытый интерес вырос</string>
+    <string name="why_fn_oi_down">Открытый интерес снизился</string>
+    <string name="why_fn_oi_flat">Открытый интерес почти не изменился</string>
+    <string name="why_fn_high_at">на 30-дневном максимуме</string>
+    <string name="why_fn_high_below">ниже 30-дневного максимума</string>
+    <string name="why_fn_funding_longs">многие ставят на рост</string>
+    <string name="why_fn_funding_shorts">многие ставят на падение</string>
+    <string name="why_fn_funding_neutral">нейтрально</string>
+</resources>

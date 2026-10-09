@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">接近高点</string>
+    <string name="alarm_condition_near_low">接近低点</string>
+    <string name="alarm_near_field_distance">距离</string>
+    <string name="alarm_near_window_label">周期</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d 天</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 年</string>
+    <string name="alarm_near_hint">创出新高点或新低点时也会提醒。基于日 K 线，每 6 小时更新一次。</string>
+    <string name="alarm_near_extreme_high_30">30 日高点</string>
+    <string name="alarm_near_extreme_high_90">90 日高点</string>
+    <string name="alarm_near_extreme_high_365">1 年高点</string>
+    <string name="alarm_near_extreme_low_30">30 日低点</string>
+    <string name="alarm_near_extreme_low_90">90 日低点</string>
+    <string name="alarm_near_extreme_low_365">1 年低点</string>
+    <string name="alarm_sentence_near_high">当 %1$s 距%3$s不超过 %2$s 时提醒我。</string>
+    <string name="alarm_sentence_near_low">当 %1$s 距%3$s不超过 %2$s 时提醒我。</string>
+    <string name="alarm_near_notification_high">%1$s 比%3$s低 %2$s（%4$s / %5$s）</string>
+    <string name="alarm_near_notification_low">%1$s 比%3$s高 %2$s（%4$s / %5$s）</string>
+    <string name="alarm_near_notification_new">%2$s 刷新%1$s：%3$s（此前 %4$s）</string>
+    <string name="tts_direction_near_high">接近高点</string>
+    <string name="tts_direction_near_low">接近低点</string>
+</resources>

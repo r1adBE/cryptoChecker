@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">पोर्टफ़ोलियो लॉक</string>
+    <string name="settings_portfolio_lock_hint">केवल पोर्टफ़ोलियो की सुरक्षा करता है: फ़िंगरप्रिंट, चेहरे या डिवाइस PIN से अनलॉक करें। बैकग्राउंड में एक मिनट से ज़्यादा रहने पर फिर लॉक हो जाता है। वॉचलिस्ट, अलार्म और बाकी विजेट खुले रहते हैं।</string>
+    <string name="portfolio_locked_title">पोर्टफ़ोलियो लॉक है</string>
+    <string name="portfolio_locked_text">अपनी होल्डिंग और मूल्य देखने के लिए अनलॉक करें।</string>
+    <string name="portfolio_lock_reason">पोर्टफ़ोलियो अनलॉक करें</string>
+    <string name="widget_portfolio_locked_hint">लॉक – ऐप में अनलॉक करें</string>
+    <string name="portfolio_history_range_since_first">पहली खरीद से</string>
+    <string name="portfolio_history_period_since_first">पहली खरीद से</string>
+    <string name="portfolio_history_range_since_first_a11y">पहली खरीद से इतिहास दिखाएँ</string>
+    <string name="portfolio_history_change_since_first_a11y">पहली खरीद से मूल्य: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">केवल पिछले 5 साल दिखाता है।</string>
+    <string name="portfolio_history_expand">मूल्य इतिहास दिखाएँ</string>
+    <string name="portfolio_history_collapse">मूल्य इतिहास छिपाएँ</string>
+</resources>

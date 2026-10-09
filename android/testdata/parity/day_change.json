@@ -1,0 +1,68 @@
+{
+  "description": "24 h change (Android DayChange.kt + marketdata Change24h.kt / iOS DayChange.swift + MarketModels.swift). fromTicker: usable ticker value; select: candle reference [open, lastClose] of the pair and of the USDT series; reference: DayReference.of validity; candleQuote; change24h: exchange fields -> percent (args: percent/fraction [value], fromOpen [last, open], fromAbsolute [last, change]). Percent values compared with an absolute tolerance of 1e-9.",
+  "fromTicker": [
+    {"value": 3.5, "expected": 3.5},
+    {"value": -99.9, "expected": -99.9},
+    {"value": 0, "expected": 0},
+    {"value": null, "expected": null},
+    {"value": "NaN", "expected": null},
+    {"value": "Infinity", "expected": null},
+    {"value": 10000, "expected": null},
+    {"value": -10000, "expected": null},
+    {"value": 9999, "expected": 9999},
+    {"value": -9999.5, "expected": -9999.5}
+  ],
+  "select": [
+    {"name": "pair series with live price", "price": 105, "pair": [100, 105], "usdt": [50, 60], "quoteIsFiat": true, "expected": 5},
+    {"name": "pair series but price does not fit: no fallback", "price": 500, "pair": [100, 105], "usdt": [50, 60], "quoteIsFiat": true, "expected": null},
+    {"name": "fiat quote falls back to the usdt series", "price": 55, "pair": null, "usdt": [50, 60], "quoteIsFiat": true, "expected": 20},
+    {"name": "non-fiat quote has no fallback", "price": 55, "pair": null, "usdt": [50, 60], "quoteIsFiat": false, "expected": null},
+    {"name": "no series at all", "price": 55, "pair": null, "usdt": null, "quoteIsFiat": true, "expected": null},
+    {"name": "price against the 24 h open", "price": 102.3, "pair": [100, 101], "usdt": null, "quoteIsFiat": false, "expected": 2.3},
+    {"name": "falling", "price": 96, "pair": [100, 101], "usdt": null, "quoteIsFiat": false, "expected": -4},
+    {"name": "no price", "price": null, "pair": [100, 100], "usdt": null, "quoteIsFiat": false, "expected": null},
+    {"name": "zero price", "price": 0, "pair": [100, 100], "usdt": null, "quoteIsFiat": false, "expected": null},
+    {"name": "NaN price", "price": "NaN", "pair": [100, 100], "usdt": null, "quoteIsFiat": false, "expected": null},
+    {"name": "price 30 % off the last close (other token)", "price": 130, "pair": [100, 100], "usdt": null, "quoteIsFiat": false, "expected": null},
+    {"name": "price 30 % below the last close", "price": 70, "pair": [100, 100], "usdt": null, "quoteIsFiat": false, "expected": null},
+    {"name": "24 % off is still the same series", "price": 124, "pair": [100, 100], "usdt": null, "quoteIsFiat": false, "expected": 24}
+  ],
+  "reference": [
+    {"open": 100, "lastClose": 110, "valid": true},
+    {"open": null, "lastClose": 110, "valid": false},
+    {"open": 100, "lastClose": null, "valid": false},
+    {"open": 0, "lastClose": 110, "valid": false},
+    {"open": 100, "lastClose": -1, "valid": false},
+    {"open": "NaN", "lastClose": 110, "valid": false},
+    {"open": 100, "lastClose": "Infinity", "valid": false}
+  ],
+  "candleQuote": [
+    {"quote": "usd", "expected": "USDT"},
+    {"quote": "USDC", "expected": "USDT"},
+    {"quote": "FDUSD", "expected": "USDT"},
+    {"quote": "USDT", "expected": "USDT"},
+    {"quote": " eur ", "expected": "EUR"},
+    {"quote": "BTC", "expected": "BTC"}
+  ],
+  "change24h": [
+    {"kind": "percent", "args": [1.24], "expected": 1.24},
+    {"kind": "percent", "args": [-0.947], "expected": -0.947},
+    {"kind": "percent", "args": [0], "expected": 0},
+    {"kind": "percent", "args": ["NaN"], "expected": null},
+    {"kind": "percent", "args": ["Infinity"], "expected": null},
+    {"kind": "fraction", "args": [0.0068], "expected": 0.68},
+    {"kind": "fraction", "args": [-0.0055], "expected": -0.55},
+    {"kind": "fraction", "args": ["NaN"], "expected": null},
+    {"kind": "fromOpen", "args": [26216, 25895], "expected": 1.2396215485614985},
+    {"kind": "fromOpen", "args": [50, 100], "expected": -50},
+    {"kind": "fromOpen", "args": [100, 100], "expected": 0},
+    {"kind": "fromOpen", "args": [100, "NaN"], "expected": null},
+    {"kind": "fromOpen", "args": [100, 0], "expected": null},
+    {"kind": "fromOpen", "args": [100, -1], "expected": null},
+    {"kind": "fromOpen", "args": [-1, 100], "expected": null},
+    {"kind": "fromOpen", "args": ["NaN", 100], "expected": null},
+    {"kind": "fromAbsolute", "args": [36599.54, -105.64], "expected": -0.287806789123497},
+    {"kind": "fromAbsolute", "args": [100, "NaN"], "expected": null},
+    {"kind": "fromAbsolute", "args": [100, 100], "expected": null}
+  ]
+}

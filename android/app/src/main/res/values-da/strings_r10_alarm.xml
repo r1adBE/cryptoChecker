@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Tæt på toppen</string>
+    <string name="alarm_condition_near_low">Tæt på bunden</string>
+    <string name="alarm_near_field_distance">Afstand</string>
+    <string name="alarm_near_window_label">Periode</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dage</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 år</string>
+    <string name="alarm_near_hint">Giver også besked ved en ny top eller bund. Baseret på daglige candlesticks, opdateret hver 6. time.</string>
+    <string name="alarm_near_extreme_high_30">30-dages top</string>
+    <string name="alarm_near_extreme_high_90">90-dages top</string>
+    <string name="alarm_near_extreme_high_365">årstop</string>
+    <string name="alarm_near_extreme_low_30">30-dages bund</string>
+    <string name="alarm_near_extreme_low_90">90-dages bund</string>
+    <string name="alarm_near_extreme_low_365">årsbund</string>
+    <string name="alarm_sentence_near_high">Giv mig besked, når %1$s højst er %2$s under sin %3$s.</string>
+    <string name="alarm_sentence_near_low">Giv mig besked, når %1$s højst er %2$s over sin %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s er %2$s under sin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s er %2$s over sin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Ny %1$s for %2$s: %3$s (tidligere %4$s)</string>
+    <string name="tts_direction_near_high">er tæt på toppen</string>
+    <string name="tts_direction_near_low">er tæt på bunden</string>
+</resources>

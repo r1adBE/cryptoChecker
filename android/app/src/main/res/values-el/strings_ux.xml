@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Ξεκινήστε με ένα πάτημα</string>
+    <string name="starter_text">Επιλέξτε νομίσματα και προσθέστε τα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος αργότερα.</string>
+    <string name="starter_custom">Επιλογή ανταλλακτηρίου και ζεύγους</string>
+    <string name="settings_quiet_hours">Ώρες ησυχίας</string>
+    <string name="settings_quiet_hours_hint">Μεταξύ %1$s και %2$s οι ειδοποιήσεις τιμής έρχονται αθόρυβα: χωρίς ήχο, δόνηση ή εκφώνηση.</string>
+    <string name="settings_quiet_hours_from">Από</string>
+    <string name="settings_quiet_hours_to">Έως</string>
+    <string name="channel_alarms_quiet">Ειδοποιήσεις τιμής (ώρες ησυχίας)</string>
+    <string name="channel_alarms_quiet_description">Αθόρυβες ειδοποιήσεις τιμής κατά τις ώρες ησυχίας.</string>
+    <string name="app_lock_unlock">Ξεκλείδωμα</string>
+    <string name="app_lock_unavailable">Δεν έχει ρυθμιστεί κλείδωμα οθόνης σε αυτή τη συσκευή. Ρυθμίστε πρώτα ένα στις ρυθμίσεις συστήματος.</string>
+    <string name="widget_portfolio_name">Χαρτοφυλάκιο</string>
+    <string name="widget_portfolio_description">Συνολική αξία του χαρτοφυλακίου σας και σημερινή μεταβολή</string>
+    <string name="widget_portfolio_today">σήμερα %1$s</string>
+    <string name="widget_portfolio_empty">Προσθέστε αγορές στην καρτέλα Χαρτοφυλάκιο</string>
+    <string name="a11y_portfolio_widget">Χαρτοφυλάκιο %1$s, σήμερα %2$s</string>
+    <string name="explain_funding">Χρέωση μεταξύ θέσεων long και short. Έντονα θετική σημαίνει ότι πολλοί ποντάρουν σε άνοδο των τιμών.</string>
+    <string name="explain_open_interest">Αξία όλων των ανοιχτών θέσεων futures. Όταν αυξάνεται, περισσότερα χρήματα ποντάρουν στην κίνηση.</string>
+    <string name="explain_rsi">Δείκτης σχετικής ισχύος, 0–100. Πάνω από 70 συχνά υπερθέρμανση, κάτω από 30 συχνά υπερπώληση.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Επεξήγηση</string>
+    <string name="explain_pi_cycle">Συγκρίνει τον μέσο όρο 111 ημερών με το διπλάσιο του μέσου όρου 350 ημερών. Μια διασταύρωση έχει σημάνει παλαιότερες κορυφές κύκλων.</string>
+    <string name="alarm_sentence_above">Ειδοποίηση όταν το %1$s ανέβει πάνω από %2$s.</string>
+    <string name="alarm_sentence_below">Ειδοποίηση όταν το %1$s πέσει κάτω από %2$s.</string>
+    <string name="alarm_sentence_up_percent">Ειδοποίηση όταν το %1$s ανέβει κατά %2$s.</string>
+    <string name="alarm_sentence_down_percent">Ειδοποίηση όταν το %1$s πέσει κατά %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Ειδοποίηση όταν το %1$s κινηθεί κατά %2$s μέσα σε %3$d ώρα.</item>
+        <item quantity="other">Ειδοποίηση όταν το %1$s κινηθεί κατά %2$s μέσα σε %3$d ώρες.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Ειδοποίηση όταν ο όγκος συναλλαγών του %1$s φτάσει %2$s× τον κανονικό.</string>
+    <string name="alarm_sentence_incomplete">Εισαγάγετε μια τιμή για να δείτε την ειδοποίηση ως πρόταση.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s μη προσβάσιμο</string>
+    <string name="watchlist_row_outdated">%1$s · παρωχημένο</string>
+</resources>

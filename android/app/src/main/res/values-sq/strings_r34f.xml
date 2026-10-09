@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding mbi</string>
+    <string name="alarm_condition_funding_below">Funding nën</string>
+    <string name="alarm_condition_oi_up">Open interest rritet</string>
+    <string name="alarm_condition_oi_down">Open interest bie</string>
+    <string name="alarm_sentence_funding_above">Më njofto kur funding-u i %1$s të rritet mbi %2$s.</string>
+    <string name="alarm_sentence_funding_below">Më njofto kur funding-u i %1$s të bjerë nën %2$s.</string>
+    <string name="tts_direction_funding_above">me funding të lartë</string>
+    <string name="tts_direction_funding_below">me funding të ulët</string>
+    <string name="tts_direction_oi_up">me open interest në rritje</string>
+    <string name="tts_direction_oi_down">me open interest në rënie</string>
+    <string name="alarm_funding_hint">Norma e funding-ut për periudhë shlyerjeje (zakonisht çdo 8 orë). Negative do të thotë se short-et paguajnë long-et. ± ndryshon shenjën.</string>
+    <string name="alarm_oi_hint">Krahason open interest me vlerën e ruajtur para po aq orësh. Një alarm i ri njofton vetëm pasi aplikacioni të ketë mbledhur të dhëna për aq kohë; kontrollohet jo më shpesh se çdo 5 minuta.</string>
+    <string name="alarm_funding_sign_a11y">Ndrysho shenjën</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Më njofto kur open interest i %1$s të rritet me %2$s brenda %3$d ore.</item>
+        <item quantity="other">Më njofto kur open interest i %1$s të rritet me %2$s brenda %3$d orëve.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Më njofto kur open interest i %1$s të bjerë me %2$s brenda %3$d ore.</item>
+        <item quantity="other">Më njofto kur open interest i %1$s të bjerë me %2$s brenda %3$d orëve.</item>
+    </plurals>
+</resources>

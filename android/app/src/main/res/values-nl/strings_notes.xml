@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Notitie</string>
+    <string name="note_add">Notitie toevoegen</string>
+    <string name="note_edit">Notitie bewerken</string>
+    <string name="note_hint">bijv. instap op 0.42, doel 0.60</string>
+    <string name="note_remove">Verwijderen</string>
+</resources>

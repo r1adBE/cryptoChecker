@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Şu anda bir şeyler oluyor</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Olağandışı etkinlik</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Olağandışı hareket: bir saatte %1$s (normalin %2$s katı)</string>
+    <string name="activity_signal_volume">Son bir saatte hacim normalin %1$s katı</string>
+    <string name="activity_signal_open_interest">Açık pozisyon %2$d dk içinde %1$s</string>
+    <string name="activity_signal_open_interest_no_time">Açık pozisyon %1$s</string>
+    <string name="activity_signal_funding_long">Fonlama %1$s — çok sayıda kaldıraçlı long</string>
+    <string name="activity_signal_funding_short">Fonlama %1$s — çok sayıda short</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Olağandışı etkinliği bildir</string>
+    <string name="settings_activity_alerts_hint">Çift başına saatte en fazla bir kez: olağandışı fiyat hareketleri, hacim sıçramaları ve vadeli işlemlerdeki uç değerler (veriler Binance\'ten).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Bu neden hareket ediyor?</string>
+    <string name="why_title">Bu neden hareket ediyor?</string>
+    <string name="why_change_1h">1sa</string>
+    <string name="why_change_24h">24sa</string>
+    <string name="why_disclaimer">Piyasa verilerinden otomatik değerlendirme, yatırım tavsiyesi değildir.</string>
+    <string name="why_data_time">Veri zamanı: %1$s</string>
+    <string name="why_no_data">Bu çift için Binance verisi yok</string>
+    <string name="why_no_data_hint">Fiyat, hacim ve volatilite Binance saatlik mumlarından gelir.</string>
+
+    <string name="why_market_wide_text">Bu coin: 24 saatte %1$s — itici güç muhtemelen coin’in kendisi değil, genel piyasa.</string>
+    <string name="why_coin_only_text">Piyasa sakinken 24 saatte %1$s: neden muhtemelen bu coin’e özgü.</string>
+    <string name="why_against_market_text">Bu coin %1$s, BTC %2$s (24 saatte) — belirgin şekilde bağımsız bir hareket.</string>
+    <string name="why_market_calm_text">Bu coin: 24 saatte %1$s. Ne piyasa ne de coin pek hareket ediyor.</string>
+    <string name="why_market_leader_text">Piyasa lideri olarak BTC genellikle piyasanın geri kalanını da peşinden sürükler. ETH: 24 saatte %1$s.</string>
+    <string name="why_market_leader_text_no_eth">Piyasa lideri olarak BTC genellikle piyasanın geri kalanını da peşinden sürükler.</string>
+
+    <string name="why_volume_high_text">Son bir saatte normalden çok daha fazla işlem — hareket geniş çapta destekleniyor.</string>
+    <string name="why_volume_low_text">Hareket zayıf ve hızla tersine dönebilir.</string>
+    <string name="why_volume_normal_text">Son bir saatteki işlem hacmi son 24 saatle aynı düzeyde.</string>
+
+    <string name="why_leverage_longs_text">Long’lar short’lara ödüyor — fiyat düşerse tasfiye riski artar.</string>
+    <string name="why_leverage_shorts_text">Short’lar long’lara ödüyor — yükselen fiyat bir short squeeze tetikleyebilir.</string>
+    <string name="why_leverage_balanced_text">Vadeli işlem piyasasında long veya short pozisyon yığılması yok.</string>
+    <string name="why_open_interest_change">Son kontrolden bu yana açık pozisyon %1$s.</string>
+
+    <string name="why_volatility_high_text">Son saat: %1$s — son 24 saatin tipik saatlik salınımına göre.</string>
+    <string name="why_volatility_normal_text">Son saat: %1$s — olağan aralıkta.</string>
+
+    <string name="why_sentiment_text">Tüm kripto piyasasının Korku ve Açgözlülük endeksi, düne göre %1$s.</string>
+    <string name="why_sentiment_text_no_change">Tüm kripto piyasasının Korku ve Açgözlülük endeksi.</string>
+</resources>

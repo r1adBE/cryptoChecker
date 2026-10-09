@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Ce iese în evidență</string>
+    <string name="pulse_why_action">De ce? →</string>
+    <string name="pulse_section_factors">Factori</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin conduce piața.</string>
+    <string name="pulse_lead_alts_stronger">Altcoinurile sunt mai puternice decât Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin este mai puternic decât altcoinurile.</string>
+    <string name="pulse_lead_broad_up">Piața crește pe scară largă.</string>
+    <string name="pulse_lead_broad_down">Piața scade pe scară largă.</string>
+    <string name="pulse_lead_drift_up">Piața crește ușor.</string>
+    <string name="pulse_lead_drift_down">Piața scade ușor.</string>
+    <string name="pulse_lead_mixed">Monedele mari merg în direcții diferite.</string>
+    <string name="pulse_lead_calm">Piața abia se mișcă.</string>
+
+    <string name="pulse_detail_vol_above">Volum cu %1$d%% peste normal.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volum cu %1$d%% peste normal, funding neutru.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volum cu %1$d%% peste normal, funding ridicat.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volum cu %1$d%% peste normal, funding negativ.</string>
+    <string name="pulse_detail_vol_below">Volum cu %1$d%% sub normal.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volum cu %1$d%% sub normal, funding neutru.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volum cu %1$d%% sub normal, funding ridicat.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volum cu %1$d%% sub normal, funding negativ.</string>
+    <string name="pulse_detail_vol_normal">Volum normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volum normal, funding neutru.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volum normal, funding ridicat.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volum normal, funding negativ.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutru.</string>
+    <string name="pulse_detail_fund_high">Funding ridicat.</string>
+    <string name="pulse_detail_fund_negative">Funding negativ.</string>
+
+    <string name="factor_volume">Volum</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Fluctuație (1h)</string>
+    <string name="factor_spoken_volume">de %1$s ori față de normal</string>
+    <string name="factor_spoken_volatility">de %1$s ori oscilația obișnuită</string>
+
+    <string name="why_title_coin">De ce se mișcă %1$s?</string>
+    <string name="why_details">Arată detaliile</string>
+    <string name="why_details_hide">Ascunde detaliile</string>
+    <string name="why_f_market_wide">Se mișcă toată piața</string>
+    <string name="why_f_coin_only">Doar această monedă</string>
+    <string name="why_f_against">Împotriva pieței</string>
+    <string name="why_f_market_calm">Piață calmă</string>
+    <string name="why_f_leader">Bitcoin dă direcția</string>
+    <string name="why_f_leverage_longs">Levier: multe long-uri</string>
+    <string name="why_f_leverage_shorts">Levier: multe short-uri</string>
+    <string name="why_f_leverage_balanced">Levier echilibrat</string>
+    <string name="insights_dominance_eth">ETH %1$s din piața totală</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d lună de la halving-ul din %2$s</item>
+        <item quantity="few">%1$d luni de la halving-ul din %2$s</item>
+        <item quantity="other">%1$d de luni de la halving-ul din %2$s</item>
+    </plurals>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Топ-%1$d</string>
+    <string name="pulse_breadth_spoken">Топ-%1$d: зростають — %2$d, падають — %3$d</string>
+    <string name="pulse_breadth_hint">Топ-%1$d: найбільші монети за ринковою вартістю без стейблкоїнів; зміна за 24 години (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Широкий рух: більшість великих монет зростає.</string>
+    <string name="pulse_breadth_note_broad_down">Широке зниження: більшість великих монет падає.</string>
+    <string name="pulse_breadth_note_narrow_up">Біткоїн зростає, але більшість інших великих монет не підтримують зростання.</string>
+    <string name="pulse_breadth_note_narrow_down">Біткоїн падає, але більшість інших великих монет тримаються.</string>
+</resources>

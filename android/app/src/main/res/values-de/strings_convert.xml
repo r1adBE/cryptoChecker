@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Umgerechnete Kurse</string>
+    <string name="settings_show_converted_hint">Zeigt die Kurse in der Merkliste zusätzlich in %1$s</string>
+    <string name="settings_conversion_currency">Umrechnungswährung</string>
+    <string name="alarm_currency_label">Währung</string>
+</resources>

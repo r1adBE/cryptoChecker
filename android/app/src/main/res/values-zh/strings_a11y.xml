@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">价格颜色</string>
+    <string name="settings_price_colors_hint">蓝 / 橙在各种色觉障碍（红绿和蓝黄）下都易于区分。方向还会始终以 + / − 显示。</string>
+    <string name="settings_watchlist_sparkline">自选列表迷你走势图</string>
+    <string name="settings_watchlist_sparkline_hint">价格旁显示 24 小时走势</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">高对比度</string>
+    <string name="settings_high_contrast_hint">更鲜明的价格颜色和更深的次要文字。系统要求更高对比度时也会开启。</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s 上的 %1$s</string>
+    <string name="a11y_price">价格 %1$s</string>
+    <string name="a11y_change_up">上涨 %1$s</string>
+    <string name="a11y_change_down">下跌 %1$s</string>
+    <string name="a11y_change_flat">无变化</string>
+    <string name="a11y_converted">约 %1$s</string>
+    <string name="a11y_note">备注：%1$s</string>
+    <string name="a11y_alarm_count">提醒：%1$d 个</string>
+    <string name="a11y_stale">已过时，最后更新 %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">图表 %1$s：从 %2$s 到 %3$s，%4$s。最高 %5$s，最低 %6$s。</string>
+    <string name="a11y_chart_empty">图表：无数据</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">周期 %1$s：减半以来 %2$s，第 %3$d 天。</string>
+    <string name="a11y_cycle_top">第 %2$d 天顶部 %1$s。</string>
+    <string name="a11y_cycle_bottom">第 %2$d 天底部 %1$s。</string>
+    <string name="a11y_cycle_double_top">第 %2$d 天双顶 %1$s。</string>
+    <string name="a11y_cycle_double_bottom">第 %2$d 天双底 %1$s。</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">从 %1$s 到 %2$s 的刻度：%3$d，满分 100</string>
+</resources>

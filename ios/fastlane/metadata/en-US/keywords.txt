@@ -1,0 +1,1 @@
+bitcoin,btc,ethereum,eth,coin,tracker,portfolio,watchlist,altcoin,fear,greed,futures,funding,dex

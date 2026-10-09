@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Близько до максимуму</string>
+    <string name="alarm_condition_near_low">Близько до мінімуму</string>
+    <string name="alarm_near_field_distance">Відстань</string>
+    <string name="alarm_near_window_label">Період</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+        <item quantity="other">%1$d дні</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 рік</string>
+    <string name="alarm_near_hint">Також повідомляє про новий максимум або мінімум. За денними свічками, оновлюється кожні 6 годин.</string>
+    <string name="alarm_near_extreme_high_30">максимуму за 30 днів</string>
+    <string name="alarm_near_extreme_high_90">максимуму за 90 днів</string>
+    <string name="alarm_near_extreme_high_365">річного максимуму</string>
+    <string name="alarm_near_extreme_low_30">мінімуму за 30 днів</string>
+    <string name="alarm_near_extreme_low_90">мінімуму за 90 днів</string>
+    <string name="alarm_near_extreme_low_365">річного мінімуму</string>
+    <string name="alarm_sentence_near_high">Повідомити, коли %1$s буде не більше ніж на %2$s нижче свого %3$s.</string>
+    <string name="alarm_sentence_near_low">Повідомити, коли %1$s буде не більше ніж на %2$s вище свого %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s на %2$s нижче свого %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s на %2$s вище свого %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: оновлення %1$s — %3$s (раніше %4$s)</string>
+    <string name="tts_direction_near_high">близько до максимуму</string>
+    <string name="tts_direction_near_low">близько до мінімуму</string>
+</resources>

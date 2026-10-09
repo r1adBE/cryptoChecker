@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Κάτι συμβαίνει αυτή τη στιγμή</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Ασυνήθιστη δραστηριότητα</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Ασυνήθιστη κίνηση: %1$s σε μία ώρα (%2$s× του κανονικού)</string>
+    <string name="activity_signal_volume">Όγκος %1$s× του κανονικού την τελευταία ώρα</string>
+    <string name="activity_signal_open_interest">Ανοιχτό ενδιαφέρον %1$s μέσα σε %2$d λεπ.</string>
+    <string name="activity_signal_open_interest_no_time">Ανοιχτό ενδιαφέρον %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — πολλά long με μόχλευση</string>
+    <string name="activity_signal_funding_short">Funding %1$s — πολλά short</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Αναφορά ασυνήθιστης δραστηριότητας</string>
+    <string name="settings_activity_alerts_hint">Το πολύ μία φορά την ώρα ανά ζεύγος: ασυνήθιστες κινήσεις τιμής, άλματα όγκου και ακραίες τιμές στα futures (δεδομένα από Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Γιατί κινείται;</string>
+    <string name="why_title">Γιατί κινείται;</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Αυτόματη εκτίμηση από δεδομένα αγοράς, όχι επενδυτική συμβουλή.</string>
+    <string name="why_data_time">Δεδομένα από %1$s</string>
+    <string name="why_no_data">Δεν υπάρχουν δεδομένα από Binance για αυτό το ζεύγος</string>
+    <string name="why_no_data_hint">Τιμή, όγκος και μεταβλητότητα προέρχονται από ωριαία κεριά του Binance.</string>
+
+    <string name="why_market_wide_text">Αυτό το νόμισμα: %1$s σε 24ω — η κίνηση πιθανότατα οφείλεται στη συνολική αγορά, όχι στο ίδιο το νόμισμα.</string>
+    <string name="why_coin_only_text">%1$s σε 24ω ενώ η αγορά είναι ήσυχη: η αιτία πιθανότατα αφορά το ίδιο το νόμισμα.</string>
+    <string name="why_against_market_text">Αυτό το νόμισμα %1$s, BTC %2$s σε 24ω — μια αισθητά ανεξάρτητη κίνηση.</string>
+    <string name="why_market_calm_text">Αυτό το νόμισμα: %1$s σε 24ω. Ούτε η αγορά ούτε το νόμισμα κινούνται πολύ.</string>
+    <string name="why_market_leader_text">Ως ηγέτης της αγοράς, το BTC συνήθως παρασύρει την υπόλοιπη αγορά. ETH: %1$s σε 24ω.</string>
+    <string name="why_market_leader_text_no_eth">Ως ηγέτης της αγοράς, το BTC συνήθως παρασύρει την υπόλοιπη αγορά.</string>
+
+    <string name="why_volume_high_text">Πολύ περισσότερες συναλλαγές από το συνηθισμένο την τελευταία ώρα — η κίνηση έχει ευρεία στήριξη.</string>
+    <string name="why_volume_low_text">Η κίνηση είναι αδύναμη και μπορεί να αντιστραφεί γρήγορα.</string>
+    <string name="why_volume_normal_text">Οι συναλλαγές της τελευταίας ώρας είναι σύμφωνες με τις τελευταίες 24 ώρες.</string>
+
+    <string name="why_leverage_longs_text">Τα long πληρώνουν τα short — αυξημένος κίνδυνος ρευστοποιήσεων αν η τιμή πέσει.</string>
+    <string name="why_leverage_shorts_text">Τα short πληρώνουν τα long — μια άνοδος της τιμής μπορεί να προκαλέσει short squeeze.</string>
+    <string name="why_leverage_balanced_text">Καμία συσσώρευση long ή short θέσεων στην αγορά futures.</string>
+    <string name="why_open_interest_change">Ανοιχτό ενδιαφέρον %1$s από τον τελευταίο έλεγχο.</string>
+
+    <string name="why_volatility_high_text">Τελευταία ώρα: %1$s — σε σχέση με την τυπική ωριαία διακύμανση των τελευταίων 24 ωρών.</string>
+    <string name="why_volatility_normal_text">Τελευταία ώρα: %1$s — εντός του συνηθισμένου εύρους.</string>
+
+    <string name="why_sentiment_text">Δείκτης Fear &amp; Greed όλης της αγοράς κρυπτονομισμάτων, %1$s σε σχέση με χθες.</string>
+    <string name="why_sentiment_text_no_change">Δείκτης Fear &amp; Greed όλης της αγοράς κρυπτονομισμάτων.</string>
+</resources>

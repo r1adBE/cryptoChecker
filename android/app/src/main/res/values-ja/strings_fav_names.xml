@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">お気に入り</string>
+    <string name="watchlist_favorites_empty_hint">お気に入りはまだありません。ペアを右にスワイプするか、ペアシートで「お気に入り」をタップしてください。</string>
+    <string name="settings_watchlist_names">名前を表示</string>
+    <string name="settings_watchlist_names_hint">ペアの下に名前を表示（例: Bitcoin、NVIDIA）。ロゴの一覧と一緒に、全コイン分を一度だけ読み込みます。</string>
+    <string name="settings_watchlist_value_names">名前</string>
+</resources>

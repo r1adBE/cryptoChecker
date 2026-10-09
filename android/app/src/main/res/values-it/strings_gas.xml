@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum sotto (gwei)</string>
+    <string name="settings_gas_btc_below">Commissione Bitcoin sotto (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Avvisa una volta quando la commissione normale scende sotto il limite. Controllato durante l\'aggiornamento dei prezzi, al massimo ogni 10 minuti.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Sotto il tuo limite di %1$s gwei · Trasferimento ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Commissione Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Sotto il tuo limite di %1$s sat/vB · Trasferimento ≈ %2$s</string>
+    <string name="gas_title">Commissioni di rete</string>
+    <string name="gas_slow_fast">Lenta %1$s · Veloce %2$s</string>
+    <string name="gas_alert_active">Allarme: %1$s</string>
+    <string name="gas_source">Nodi RPC pubblici e mempool.space · Costo di un trasferimento semplice, senza la quota L1 sui L2</string>
+    <string name="gas_transfer_cost">Trasferimento ≈ %1$s</string>
+</resources>

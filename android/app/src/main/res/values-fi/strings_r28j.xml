@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Jakauma</string>
+    <string name="portfolio_allocation_other">Muut</string>
+    <string name="portfolio_movers_title">Suurimmat liikkeet</string>
+    <string name="portfolio_hide_amounts">Piilota summat</string>
+    <string name="portfolio_hide_amounts_hint">Näyttää salkun ja salkkuwidgetin summat ja arvot muodossa ••• – prosentit pysyvät näkyvissä.</string>
+    <string name="a11y_portfolio_show_amounts">Näytä summat</string>
+    <string name="a11y_amount_hidden">summa piilotettu</string>
+    <string name="portfolio_alarm_action">Hälytys</string>
+    <string name="portfolio_alarm_title">Hälytys ”salkun arvo”</string>
+    <string name="portfolio_alarm_kind_above">Salkku yli summan</string>
+    <string name="portfolio_alarm_kind_below">Salkku alle summan</string>
+    <string name="portfolio_alarm_kind_up">Salkku nousee</string>
+    <string name="portfolio_alarm_kind_down">Salkku laskee</string>
+    <string name="portfolio_alarm_amount">Summa (%1$s)</string>
+    <string name="portfolio_alarm_hint">Tarkistetaan jokaisen päivityksen jälkeen. Kuten hintahälytykset: ilmoittaa rajan ylittyessä ja uudelleen vasta, kun arvo on palannut.</string>
+    <string name="portfolio_alarm_sentence_above">Salkku yli %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Salkku alle %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Salkku nousee %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Salkku laskee %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Salkun arvo</string>
+    <string name="notification_portfolio_alarm_text">%1$s – nyt %2$s</string>
+</resources>

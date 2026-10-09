@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">obsolète</string>
+    <string name="widget_outdated_time">obsolète · %1$s</string>
+
+    <string name="settings_widgets">Widgets</string>
+    <string name="widgets_sheet_title">Ajouter un widget</string>
+    <string name="widget_kind_single">Une crypto</string>
+    <string name="widgets_add">Ajouter</string>
+    <string name="widgets_add_named">Ajouter le widget %1$s</string>
+    <string name="watch_action_add_widget">Ajouter en widget</string>
+    <string name="widgets_manual_title">Ajoutez le widget vous-même</string>
+    <string name="widgets_manual_text">Votre écran d\'accueil ne peut pas ajouter de widgets depuis l\'app. Appuyez longuement sur un espace vide de l\'écran d\'accueil, choisissez « Widgets » et cherchez « Crypto Checker ».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ne permet pas aux apps d\'ajouter elles-mêmes des widgets. Cela ne prend qu\'un instant :</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Maintenez le doigt sur un espace vide de l\'écran d\'accueil jusqu\'à ce que les apps se mettent à trembler.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Touchez « Modifier » › « Ajouter un widget » en haut (ou « + » dans les anciennes versions d\'iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Cherchez « Crypto Checker », choisissez un widget et touchez « Ajouter le widget ».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widgets disponibles</string>
+</resources>

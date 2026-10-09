@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">قیمت‌های تبدیل‌شده</string>
+    <string name="settings_show_converted_hint">قیمت‌ها را در واچ‌لیست به %1$s هم نشان می‌دهد</string>
+    <string name="settings_conversion_currency">ارز تبدیل</string>
+    <string name="alarm_currency_label">ارز</string>
+</resources>

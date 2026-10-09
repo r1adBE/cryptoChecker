@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einheitliche Auswahl-Listen: Suchfeld der Währungsseite und Hinweis unter «Theme» -->
+    <string name="currency_search">Kërko monedhën</string>
+    <string name="settings_accent_hint">Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit.</string>
+</resources>

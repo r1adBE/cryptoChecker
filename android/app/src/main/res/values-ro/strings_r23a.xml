@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Nicio pereche în acest grup</string>
+    <string name="watchlist_status_none_traded">Nicio pereche tranzacționată aici</string>
+    <string name="watchlist_group_empty_hint">Apasă lung pe un grup pentru a-i alege perechile.</string>
+    <string name="watchlist_just_refreshed">Tocmai actualizat</string>
+</resources>

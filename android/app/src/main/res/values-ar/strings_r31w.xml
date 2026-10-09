@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">أسعار مباشرة</string>
+    <string name="settings_live_websocket_hint">تتبع الأسعار المنصة دون تأخير ما دامت القائمة مفتوحة. لـ Binance وBybit وOKX وCoinbase وKraken.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">الأسعار المباشرة مفعّلة</string>
+    <string name="refresh_report_live">مباشر: %1$s</string>
+</resources>

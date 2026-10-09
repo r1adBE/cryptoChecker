@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Riwayat nilai</string>
+    <string name="portfolio_history_range_7d">7 H</string>
+    <string name="portfolio_history_range_30d">30 H</string>
+    <string name="portfolio_history_range_1y">1 T</string>
+    <string name="portfolio_history_period_7d">7 hari</string>
+    <string name="portfolio_history_period_30d">30 hari</string>
+    <string name="portfolio_history_period_1y">1 tahun</string>
+    <string name="portfolio_history_range_a11y">Tampilkan riwayat %1$s</string>
+    <string name="portfolio_history_change_a11y">Nilai selama %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Hari ini</string>
+    <string name="portfolio_history_converted">Dikonversi dengan kurs hari ini</string>
+    <string name="portfolio_history_without">Tanpa %1$s (tidak ada harga harian)</string>
+    <string name="portfolio_history_includes_trades">Termasuk pembelian dan penjualan pada periode ini</string>
+    <string name="portfolio_history_too_short">Riwayat dimulai setelah hari penuh pertama Anda.</string>
+    <string name="portfolio_history_unavailable">Riwayat tidak tersedia saat ini.</string>
+    <string name="portfolio_history_loading">Memuat riwayat nilai</string>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Începe cu o atingere</string>
+    <string name="starter_text">Alege monedele și adaugă-le dintr-odată. Poți schimba bursa și perechea mai târziu.</string>
+    <string name="starter_custom">Alege bursa și perechea</string>
+    <string name="settings_quiet_hours">Ore de liniște</string>
+    <string name="settings_quiet_hours_hint">Între %1$s și %2$s alarmele sosesc în liniște: fără sunet, vibrații sau voce.</string>
+    <string name="settings_quiet_hours_from">De la</string>
+    <string name="settings_quiet_hours_to">Până la</string>
+    <string name="channel_alarms_quiet">Alarme (ore de liniște)</string>
+    <string name="channel_alarms_quiet_description">Alarme silențioase în orele de liniște.</string>
+    <string name="app_lock_unlock">Deblochează</string>
+    <string name="app_lock_unavailable">Pe acest dispozitiv nu este configurată nicio blocare a ecranului. Configurează mai întâi una în setările sistemului.</string>
+    <string name="widget_portfolio_name">Portofoliu</string>
+    <string name="widget_portfolio_description">Valoarea totală a portofoliului și variația de azi</string>
+    <string name="widget_portfolio_today">azi %1$s</string>
+    <string name="widget_portfolio_empty">Adaugă achiziții în fila Portofoliu</string>
+    <string name="a11y_portfolio_widget">Portofoliu %1$s, azi %2$s</string>
+    <string name="explain_funding">Taxă între pozițiile long și short. Puternic pozitivă înseamnă că mulți pariază pe creșterea prețurilor.</string>
+    <string name="explain_open_interest">Valoarea tuturor pozițiilor futures deschise. Dacă crește, mai mulți bani pariază pe mișcare.</string>
+    <string name="explain_rsi">Indicele de forță relativă, 0–100. Peste 70 adesea supraîncălzit, sub 30 adesea supravândut.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explicație</string>
+    <string name="explain_pi_cycle">Compară media pe 111 zile cu dublul mediei pe 350 de zile. O intersecție a marcat vârfurile ciclurilor trecute.</string>
+    <string name="alarm_sentence_above">Anunță-mă când %1$s urcă peste %2$s.</string>
+    <string name="alarm_sentence_below">Anunță-mă când %1$s coboară sub %2$s.</string>
+    <string name="alarm_sentence_up_percent">Anunță-mă când %1$s crește cu %2$s.</string>
+    <string name="alarm_sentence_down_percent">Anunță-mă când %1$s scade cu %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Anunță-mă când %1$s se mișcă cu %2$s în %3$d oră.</item>
+        <item quantity="few">Anunță-mă când %1$s se mișcă cu %2$s în %3$d ore.</item>
+        <item quantity="other">Anunță-mă când %1$s se mișcă cu %2$s în %3$d de ore.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Anunță-mă când volumul pentru %1$s ajunge la %2$s× față de normal.</string>
+    <string name="alarm_sentence_incomplete">Introdu o valoare pentru a vedea alarma ca propoziție.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s indisponibil</string>
+    <string name="watchlist_row_outdated">%1$s · învechit</string>
+</resources>

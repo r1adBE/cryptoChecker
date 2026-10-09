@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Bezit</string>
+    <string name="portfolio_invalid">Ongeldige hoeveelheid</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Groep</string>
+    <string name="group_value">Groep: %1$s</string>
+    <string name="group_all">Alle</string>
+    <string name="group_none">Geen groep</string>
+    <string name="group_new">Nieuwe groep…</string>
+    <string name="group_name">Groepsnaam</string>
+    <string name="widget_group_hint">Alleen de paren van deze groep tonen.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portfolio</string>
+    <string name="portfolio_setting_hint">Optioneel: aankopen en verkopen vastleggen en waarde en winst/verlies in een apart tabblad zien.</string>
+    <string name="portfolio_total_value">Totale waarde</string>
+    <string name="portfolio_invested">Geïnvesteerd</string>
+    <string name="portfolio_unrealized">Winst/verlies, nog niet verkocht</string>
+    <string name="portfolio_realized">Winst/verlies, verkocht</string>
+    <string name="portfolio_value">Waarde</string>
+    <string name="portfolio_avg_price">Gem. aankoopprijs</string>
+    <string name="portfolio_current_price">Huidige koers</string>
+    <string name="portfolio_avg_and_now">Gem. %1$s · nu %2$s</string>
+    <string name="portfolio_updated">Koersen van %1$s</string>
+    <string name="portfolio_convert_to">Omrekenen naar</string>
+    <string name="portfolio_convert_to_value">Omrekenen naar: %1$s</string>
+    <string name="portfolio_price_missing">Prijs ontbreekt</string>
+    <string name="portfolio_price_missing_hint">Bij sommige aankopen ontbreekt de prijs. Vul de aankoopprijs in om winst/verlies te zien.</string>
+    <string name="portfolio_current_missing">Geen actuele koers voor %1$s</string>
+    <string name="portfolio_oversold">Verkopen overschrijden het bezit – controleer de transacties.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Gesloten positie (%1$d)</item>
+        <item quantity="other">Gesloten posities (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transacties</string>
+    <string name="portfolio_add_tx">Aankoop/verkoop vastleggen</string>
+    <string name="portfolio_edit_tx">Transactie bewerken</string>
+    <string name="portfolio_buy">Aankoop</string>
+    <string name="portfolio_sell">Verkoop</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Symbool zoeken, bijv. BTC</string>
+    <string name="portfolio_coin_invalid">Voer een symbool in</string>
+    <string name="portfolio_tx_amount">Aantal</string>
+    <string name="portfolio_tx_price">Prijs per coin</string>
+    <string name="portfolio_tx_price_hint">In USDT. Leeg laten indien onbekend.</string>
+    <string name="portfolio_tx_price_invalid">Ongeldige prijs</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_note">Notitie (optioneel)</string>
+    <string name="portfolio_tx_total">Totaal: %1$s</string>
+    <string name="portfolio_sell_exceeds">Meer dan je bezit (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Transactie verwijderen?</string>
+    <string name="portfolio_tx_delete_confirm">Deze transactie wordt uit het portfolio verwijderd.</string>
+    <string name="portfolio_empty_title">Nog geen transacties</string>
+    <string name="portfolio_empty_text">Leg je aankopen en verkopen vast. Waarde en winst/verlies worden berekend met actuele koersen in USDT.</string>
+    <string name="portfolio_empty_action">Eerste aankoop vastleggen</string>
+    <string name="portfolio_disclaimer">Alleen op dit apparaat opgeslagen. Geen beleggingsadvies.</string>
+    <string name="portfolio_add_from_watch">Aan portfolio toevoegen</string>
+</resources>

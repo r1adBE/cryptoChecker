@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">编辑分组</string>
+    <string name="group_rename">重命名</string>
+    <string name="group_delete">删除分组</string>
+    <string name="group_delete_confirm">交易对仍保留在自选列表中。</string>
+    <string name="group_done">完成</string>
+    <string name="group_add">新建分组</string>
+    <string name="group_in_other">在 %1$s</string>
+    <string name="group_target">分组</string>
+    <string name="group_search_hint">搜索交易对</string>
+    <string name="group_next">下一步</string>
+</resources>

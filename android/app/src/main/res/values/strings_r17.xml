@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Portfolio lock</string>
+    <string name="settings_portfolio_lock_hint">Protects only the portfolio: unlock with fingerprint, face or device PIN. Locks again after more than a minute in the background. Watchlist, alarms and other widgets stay open.</string>
+    <string name="portfolio_locked_title">Portfolio is locked</string>
+    <string name="portfolio_locked_text">Unlock to see your holdings and values.</string>
+    <string name="portfolio_lock_reason">Unlock portfolio</string>
+    <string name="widget_portfolio_locked_hint">Locked – unlock in the app</string>
+    <string name="portfolio_history_range_since_first">Since 1st buy</string>
+    <string name="portfolio_history_period_since_first">since first buy</string>
+    <string name="portfolio_history_range_since_first_a11y">Show history since your first buy</string>
+    <string name="portfolio_history_change_since_first_a11y">Value since your first buy: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Shows the last 5 years only.</string>
+    <string name="portfolio_history_expand">Show value history</string>
+    <string name="portfolio_history_collapse">Hide value history</string>
+</resources>

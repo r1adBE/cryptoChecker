@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einheitliche Auswahl-Listen: Suchfeld der Währungsseite und Hinweis unter «Theme» -->
+    <string name="currency_search">Rechercher une devise</string>
+    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app.</string>
+</resources>

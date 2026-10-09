@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">포트폴리오 잠금</string>
+    <string name="settings_portfolio_lock_hint">포트폴리오만 보호합니다: 지문, 얼굴 또는 기기 PIN으로 잠금 해제. 백그라운드에서 1분 넘게 있으면 다시 잠깁니다. 관심 목록, 경보 및 다른 위젯은 잠기지 않습니다.</string>
+    <string name="portfolio_locked_title">포트폴리오가 잠겨 있습니다</string>
+    <string name="portfolio_locked_text">보유 자산과 가치를 보려면 잠금을 해제하세요.</string>
+    <string name="portfolio_lock_reason">포트폴리오 잠금 해제</string>
+    <string name="widget_portfolio_locked_hint">잠김 – 앱에서 잠금 해제</string>
+    <string name="portfolio_history_range_since_first">첫 매수 이후</string>
+    <string name="portfolio_history_period_since_first">첫 매수 이후</string>
+    <string name="portfolio_history_range_since_first_a11y">첫 매수 이후 추이 보기</string>
+    <string name="portfolio_history_change_since_first_a11y">첫 매수 이후 가치: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">최근 5년만 표시합니다.</string>
+    <string name="portfolio_history_expand">가치 추이 보기</string>
+    <string name="portfolio_history_collapse">가치 추이 숨기기</string>
+</resources>

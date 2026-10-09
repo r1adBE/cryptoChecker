@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">سیگنال هشدار</string>
+    <string name="alarm_signal_system">سیستم</string>
+    <string name="alarm_signal_sound_vibrate">صدا و لرزش</string>
+    <string name="alarm_signal_sound">فقط صدا</string>
+    <string name="alarm_signal_vibrate">فقط لرزش</string>
+    <string name="alarm_signal_silent">بی‌صدا (فقط اعلان)</string>
+    <string name="settings_alarm_signal_system_hint">از تنظیمات اعلان گوشی پیروی می‌کند.</string>
+    <string name="settings_alarm_signal_open_system">تنظیم در تنظیمات سیستم</string>
+    <string name="channel_alarms_sound_vibrate">هشدارها (صدا و لرزش)</string>
+    <string name="channel_alarms_sound">هشدارها (فقط صدا)</string>
+    <string name="channel_alarms_vibrate">هشدارها (فقط لرزش)</string>
+    <string name="channel_alarms_silent">هشدارها (بی‌صدا)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">لرزش از تنظیمات iPhone پیروی می‌کند (صداها و لمسی).</string>
+</resources>

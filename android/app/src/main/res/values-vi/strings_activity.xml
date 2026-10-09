@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Đang có điều gì đó xảy ra</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Hoạt động bất thường</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Biến động bất thường: %1$s trong một giờ (gấp %2$s× bình thường)</string>
+    <string name="activity_signal_volume">Khối lượng gấp %1$s× bình thường trong giờ qua</string>
+    <string name="activity_signal_open_interest">Open interest %1$s trong %2$d phút</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — nhiều lệnh long dùng đòn bẩy</string>
+    <string name="activity_signal_funding_short">Funding %1$s — nhiều lệnh short</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Báo hoạt động bất thường</string>
+    <string name="settings_activity_alerts_hint">Tối đa mỗi giờ một lần cho mỗi cặp: biến động giá bất thường, khối lượng tăng vọt và mức cực đoan trên futures (dữ liệu từ Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Vì sao nó biến động?</string>
+    <string name="why_title">Vì sao nó biến động?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Đánh giá tự động từ dữ liệu thị trường, không phải lời khuyên đầu tư.</string>
+    <string name="why_data_time">Dữ liệu lúc %1$s</string>
+    <string name="why_no_data">Không có dữ liệu Binance cho cặp này</string>
+    <string name="why_no_data_hint">Giá, khối lượng và độ biến động lấy từ nến giờ của Binance.</string>
+
+    <string name="why_market_wide_text">Coin này: %1$s trong 24h — động lực nhiều khả năng đến từ toàn thị trường, không phải bản thân coin.</string>
+    <string name="why_coin_only_text">%1$s trong 24h khi thị trường yên ắng: nguyên nhân nhiều khả năng nằm ở chính coin này.</string>
+    <string name="why_against_market_text">Coin này %1$s, BTC %2$s trong 24h — một biến động độc lập đáng chú ý.</string>
+    <string name="why_market_calm_text">Coin này: %1$s trong 24h. Cả thị trường lẫn coin đều không biến động nhiều.</string>
+    <string name="why_market_leader_text">Là coin dẫn đầu thị trường, BTC thường kéo phần còn lại của thị trường theo. ETH: %1$s trong 24h.</string>
+    <string name="why_market_leader_text_no_eth">Là coin dẫn đầu thị trường, BTC thường kéo phần còn lại của thị trường theo.</string>
+
+    <string name="why_volume_high_text">Giao dịch trong giờ qua nhiều hơn hẳn bình thường — biến động được hỗ trợ rộng rãi.</string>
+    <string name="why_volume_low_text">Biến động mỏng và có thể đảo chiều nhanh.</string>
+    <string name="why_volume_normal_text">Giao dịch trong giờ qua tương đương 24 giờ vừa qua.</string>
+
+    <string name="why_leverage_longs_text">Long trả phí cho short — rủi ro thanh lý tăng nếu giá giảm.</string>
+    <string name="why_leverage_shorts_text">Short trả phí cho long — giá tăng có thể gây ra short squeeze.</string>
+    <string name="why_leverage_balanced_text">Không có sự dồn ứ vị thế long hay short trên thị trường futures.</string>
+    <string name="why_open_interest_change">Open interest %1$s kể từ lần kiểm tra trước.</string>
+
+    <string name="why_volatility_high_text">Giờ qua: %1$s — so với mức dao động theo giờ điển hình trong 24 giờ qua.</string>
+    <string name="why_volatility_normal_text">Giờ qua: %1$s — trong phạm vi thông thường.</string>
+
+    <string name="why_sentiment_text">Chỉ số Sợ hãi &amp; Tham lam của toàn thị trường crypto, %1$s so với hôm qua.</string>
+    <string name="why_sentiment_text_no_change">Chỉ số Sợ hãi &amp; Tham lam của toàn thị trường crypto.</string>
+</resources>

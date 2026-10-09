@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Hintojen värit</string>
+    <string name="settings_price_colors_hint">Sininen / oranssi erottuu hyvin kaikissa värinäön poikkeamissa (puna-viher ja sini-kelta). Suunta näytetään lisäksi aina merkeillä + / −.</string>
+    <string name="settings_watchlist_sparkline">Minikaavio seurantalistassa</string>
+    <string name="settings_watchlist_sparkline_hint">24 tunnin kehitys hinnan vieressä</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Suuri kontrasti</string>
+    <string name="settings_high_contrast_hint">Voimakkaammat hintavärit ja tummempi toissijainen teksti. Käytössä myös, kun järjestelmä pyytää suurempaa kontrastia.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s pörssissä %2$s</string>
+    <string name="a11y_price">hinta %1$s</string>
+    <string name="a11y_change_up">noussut %1$s</string>
+    <string name="a11y_change_down">laskenut %1$s</string>
+    <string name="a11y_change_flat">ennallaan</string>
+    <string name="a11y_converted">noin %1$s</string>
+    <string name="a11y_note">muistiinpano: %1$s</string>
+    <string name="a11y_alarm_count">hälytykset: %1$d</string>
+    <string name="a11y_stale">vanhentunut, viimeisin päivitys %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Kaavio %1$s: alku %2$s, loppu %3$s, %4$s. Ylin %5$s, alin %6$s.</string>
+    <string name="a11y_chart_empty">Kaavio: ei tietoja</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Sykli %1$s: %2$s puolittumisesta, päivä %3$d.</string>
+    <string name="a11y_cycle_top">Huippu %1$s päivänä %2$d.</string>
+    <string name="a11y_cycle_bottom">Pohja %1$s päivänä %2$d.</string>
+    <string name="a11y_cycle_double_top">Tuplahuippu %1$s päivänä %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Tuplapohja %1$s päivänä %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Asteikko %1$s – %2$s: %3$d sadasta</string>
+</resources>

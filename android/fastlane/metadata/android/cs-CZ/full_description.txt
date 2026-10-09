@@ -1,0 +1,64 @@
+Crypto Checker vám vysvětlí, co se děje na trhu. Nastavte alarmy, odhalte neobvyklé pohyby a během pár sekund pochopte, proč se mince hýbe – bez prognózy.
+
+Pochopit – „Proč se to hýbe?“ s krátkým shrnutím
+Přehled – Crypto Pulse, Fear & Greed, cyklus a portfolio
+Sledovat – ceny přímo z burzy, ve vaší měně
+Upozornit – cena, %, pohyby a objem, jako jednoduchá věta
+
+Čitelné pro všechny: barvy kurzů zelená/červená nebo modrá/oranžová, vysoký kontrast, znaménko a šipka místo pouhé barvy a TalkBack čte každý řádek jako jednu větu.
+
+SEZNAM SLEDOVANÝCH: 41 TRHŮ NA 32 BURZÁCH
+• Prázdný seznam: 5 největších mincí přidáte jedním klepnutím
+• Spot a futures z Binance, Coinbase, Kraken, OKX, Bybit a mnoha dalších – volitelně i akcie, zlato a měny (TradFi) ve vlastní skupině
+• DEX tokeny přes DexScreener (Uniswap, PancakeSwap, Raydium …)
+• Přejetím doleva smažete (s možností Zpět), doprava označíte oblíbené
+• Řaďte páry do skupin a měňte pořadí přetažením
+• Poznámka ke každé minci, např. vaše vstupní cena – přímo pod cenou
+• Druhý řádek „≈ hodnota“ v jedné z 31 měn (EUR, CHF, USD …), výchozí podle regionu zařízení
+• Minigraf v každém řádku; změna v % za 24 h nebo od 00:00 ve vašem časovém pásmu
+• Portfolio na vlastní kartě: nákupy a prodeje, průměrná cena, zisk/ztráta a celková hodnota ve vaší měně
+• Export k rozhodnému dni: hodnota portfolia k libovolnému datu (např. 31. 12.) jako CSV – nejde o daňové poradenství
+• Řádky hlásí „zastaralé“ nebo „burza není dostupná“
+
+ALARMY PODLE VAŠICH PRAVIDEL
+• Cena nad nebo pod hranicí, růst nebo pokles o procento
+• Alarmy ve vaší měně, např. při 60 000 EUR u páru s USDT
+• Alarm jako věta: „Upozornit, až BTC klesne pod 60 000 CHF.“
+• Pohyb o x % v časovém okně, např. 5 % za 1 hodinu
+• Skok objemu: objem obchodů náhle výrazně nad průměrem
+• Jednorázově nebo opakovaně, se zvukem, vibracemi a volitelným hlasovým hlášením
+• Vlastní zvuk alarmu: systémový zvuk nebo vlastní zvukový soubor
+• Nastavitelná doba klidu brání záplavě alarmů
+• Noční klid: v noci (např. 23–7 h) alarmy bez zvuku, vibrací a hlasu
+• „Otestovat alarm“: předem uslyšíte a ucítíte, jak alarm přijde
+
+NEOBVYKLÁ AKTIVITA A „PROČ SE TO HÝBE?“
+• Neobvyklá aktivita odhalí neobvyklé pohyby ceny a objemu ve vašem seznamu – s volitelnými oznámeními
+• „Proč se to hýbe?“ vysvětlí pohyb podle objemu, celého trhu a dat futures, s krátkým shrnutím – bez investičního poradenství
+
+PŘEHLED TRHU
+• Crypto Pulse: co se právě děje – BTC, ETH, SOL, altcoiny vůči BTC, objem, Fear & Greed, funding, ETH gas a shrnutí jednou větou, bez prognózy
+• Index Fear & Greed s historií a volitelnými oznámeními
+• Kryptotrh: celková tržní kapitalizace a objem za 24 h ve vaší měně
+• Karta Trh: fáze trhu se známkami možného vrcholu či dna (bez prognózy), odpočet do halvingu, dominance, altcoinová sezóna
+• Analýza mince: RSI, trend, Pi Cycle a síla vůči bitcoinu
+• Data futures: funding rate a open interest, s krátkým vysvětlením
+• Síťové poplatky pro Ethereum, Base, Arbitrum, Polygon, BNB Chain a Bitcoin, s gas alarmem
+
+WIDGETY A OZNÁMENÍ
+• Widgety: celý seznam, celková hodnota portfolia s dnešní změnou, jedna mince s grafem (svíčky nebo čára) a značkami maxima, středu a minima
+• Tiché oznámení ceny pro každý pár
+• Časté obnovování až každých 15 sekund, na pozadí od 15 minut
+
+A NAVÍC
+• Hlasový výstup: předčítání cen a alarmů
+• Záloha a obnovení do zvoleného souboru – i mezi Androidem a iPhonem
+• Zkratky aplikace, světlý a tmavý režim
+• Pět barev zvýraznění s odpovídající ikonou aplikace
+• Zámek portfolia: otisk prstu, obličej nebo PIN
+• K dispozici ve 31 jazycích
+
+SOUKROMÍ NA PRVNÍM MÍSTĚ
+Žádný účet, žádné reklamy, žádná analytika. Ceny přicházejí přímo z veřejných API burz. Váš seznam, alarmy a držby zůstávají ve vašem zařízení. Open source (licence MIT) – kód je veřejně na GitHubu.
+
+Upozornění: Crypto Checker pouze zobrazuje ceny. Není burzou ani peněženkou, neobchoduje a neposkytuje investiční poradenství.

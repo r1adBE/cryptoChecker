@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">고점 %1$s</string>
+    <string name="cycle_marker_high_so_far">현재까지 최고</string>
+    <string name="cycle_marker_bottom">저점 %1$s</string>
+    <string name="cycle_since_halving">반감기 이후 %1$s</string>
+    <string name="cycle_from_top">고점 대비 %1$s</string>
+    <string name="cycle_marker_double_top">이중 고점 %1$s</string>
+    <string name="cycle_marker_double_bottom">이중 저점 %1$s</string>
+</resources>

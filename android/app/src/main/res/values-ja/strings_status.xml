@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">接続なし</string>
+    <string name="watchlist_offline_since">接続なし · %1$s時点</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%2$d件中%1$d件の価格なし</item>
+    </plurals>
+    <string name="watch_not_traded">この取引所では取引終了</string>
+</resources>

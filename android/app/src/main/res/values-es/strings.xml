@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Error: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">No hay pares</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Carga los pares actuales del exchange seleccionado.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Actualizar pares</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Sincronizar ahora</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Última sincronización: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">nunca</string>
+
+    <string name="market_screen_sync">Sincronizar</string>
+    <string name="market_screen_base">Base</string>
+    <string name="market_screen_quote">Cotización</string>
+    <string name="market_screen_market">Mercado</string>
+    <string name="market_screen_contract_type">Tipo de contrato</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Máximo</string>
+    <string name="ticker_low">Mínimo</string>
+    <string name="ticker_bid">Compra</string>
+    <string name="ticker_ask">Venta</string>
+    <string name="ticker_vol_base">Volumen (base)</string>
+    <string name="ticker_vol_quote">Volumen (cotización)</string>
+    <string name="ticker_timestamp">Hora</string>
+
+
+    <string name="try_again">Reintentar</string>
+    <string name="no_internet_connection">Sin conexión a Internet</string>
+    <string name="something_went_wrong">Algo salió mal</string>
+
+    <string name="bulk_all_pairs">Todos los pares %1$s de este exchange</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d par %2$s encontrado</item>
+        <item quantity="many">%1$d pares %2$s encontrados</item>
+        <item quantity="other">%1$d pares %2$s encontrados</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">No hay pares %1$s en este exchange para el tipo de contrato seleccionado. Sincroniza primero el exchange o prueba otro tipo de contrato.</string>
+
+    <!-- Acciones -->
+    <string name="action_refresh">Actualizar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_back">Atrás</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Aún no hay pares</string>
+    <string name="watchlist_updated">Actualizado: %1$s</string>
+    <string name="watchlist_notification">Notificación</string>
+    <string name="watchlist_tts">Decir precio</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarma (%1$d)</item>
+        <item quantity="many">Alarmas (%1$d)</item>
+        <item quantity="other">Alarmas (%1$d)</item>
+    </plurals>
+
+    <!-- Alarmas -->
+    <string name="alarms_title">Alarmas</string>
+    <string name="alarms_add">Nueva alarma</string>
+    <string name="alarms_edit">Editar alarma</string>
+    <string name="alarms_empty">Aún no hay alarmas para este par.</string>
+    <string name="alarm_condition_above">Precio por encima de</string>
+    <string name="alarm_condition_below">Precio por debajo de</string>
+    <string name="alarm_condition_up_percent">Sube un</string>
+    <string name="alarm_condition_down_percent">Baja un</string>
+    <string name="alarm_repeating">Repetida</string>
+    <string name="alarm_once">Una vez</string>
+    <string name="alarm_last_triggered">última: %1$s</string>
+    <string name="alarm_field_price">Precio</string>
+    <string name="alarm_field_percent">Porcentaje</string>
+    <string name="alarm_option_repeating">Mantener la alarma tras saltar</string>
+    <string name="alarm_option_sound">Sonido</string>
+    <string name="alarm_option_vibrate">Vibración</string>
+    <string name="alarm_option_speak">Decir alarma</string>
+
+    <!-- Notificaciones -->
+    <string name="channel_prices">Precios</string>
+    <string name="channel_prices_description">Notificación silenciosa con el precio actual de un par.</string>
+    <string name="channel_alarms">Alarmas</string>
+    <string name="channel_alarms_description">Notificación cuando salta una alarma de precio.</string>
+    <string name="channel_service">Actualización frecuente</string>
+    <string name="channel_service_description">Aviso mientras los precios se actualizan en intervalos cortos.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, desde %2$s (hace %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, desde %2$s</string>
+    <string name="notification_price_first">Primera notificación para este par</string>
+    <string name="notification_alarm_title">Alarma: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ahora %2$s</string>
+    <string name="market_phase_title">Fase del mercado de Bitcoin</string>
+    <string name="market_phase_trend_loading">Cargando datos de precio…</string>
+    <string name="market_phase_trend_failed">Datos de precio no disponibles</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Muchas señales históricas de suelo a la vez – zona histórica de acumulación.</string>
+    <string name="zone_hint_bear">Tendencia bajista o fase de bottom, aún sin capitulación generalizada.</string>
+    <string name="zone_hint_neutral">Señales mixtas, sin dirección clara.</string>
+    <string name="zone_hint_bull">Tendencia alcista sin sobrecalentamiento extremo.</string>
+    <string name="zone_hint_extreme_bull">Muchas señales históricas de top a la vez – riesgo de top elevado.</string>
+    <string name="market_scores">Señales de un posible máximo %1$d/10 · mínimo %2$d/10</string>
+    <string name="market_show_indicators">Mostrar indicadores</string>
+    <string name="market_hide_indicators">Ocultar indicadores</string>
+    <string name="market_onchain_missing">Datos on-chain (Coin Metrics) no disponibles por ahora – puntuación basada solo en datos de precio.</string>
+    <string name="market_source">Datos: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Precio vs. media de 200 semanas</string>
+    <string name="ind_drawdown">Caída desde el máximo histórico</string>
+    <string name="ind_hash">Capitulación de mineros (hash ribbons)</string>
+    <string name="ind_parabolic">Subida parabólica (30 días)</string>
+    <string name="ind_halving">Meses desde el halving</string>
+    <string name="ind_ath">Meses desde el máximo histórico</string>
+    <string name="ind_points_top">+%1$d top</string>
+    <string name="ind_points_bottom">+%1$d bottom</string>
+    <string name="market_phase_disclaimer">Basado en ciclos pasados y en la tendencia del precio. No es una previsión ni un consejo de inversión.</string>
+    <string name="action_retry">Reintentar</string>
+    <string name="settings_section_language">Idioma</string>
+    <string name="settings_language_system">Idioma del sistema</string>
+    <string name="settings_language_choose">Elegir idioma</string>
+    <string name="settings_section_appearance">Apariencia</string>
+    <string name="settings_theme_mode">Modo</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="settings_accent">Tema</string>
+    <string name="accent_orange">Naranja</string>
+    <string name="accent_red">Rojo</string>
+    <string name="accent_blue">Azul</string>
+    <string name="accent_green">Verde</string>
+    <string name="settings_rolling_futures">Incl. futuros trimestrales &amp; con vencimiento</string>
+    <string name="settings_rolling_futures_hint">Desactivado: los futuros con vencimiento que faltan en la lista del exchange se marcan como «ya no se negocian» en lugar de comprobarse uno a uno. Ahorra tiempo en cada actualización.</string>
+    <string name="notification_refreshing">Actualizando precios…</string>
+    <string name="notification_service_title">Crypto Checker se actualiza a menudo</string>
+    <string name="notification_service_starting">Iniciando…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d par · %2$s</item>
+        <item quantity="many">%1$d pares · %2$s</item>
+        <item quantity="other">%1$d pares · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">No hay pares en la lista de seguimiento</string>
+    <string name="notification_service_error">Error al actualizar</string>
+
+    <!-- Ajustes -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_background_updates">Actualización en segundo plano</string>
+    <string name="settings_background_updates_hint">Precios, alarmas y widgets se actualizan aunque la app esté cerrada.</string>
+    <string name="settings_background_interval">Intervalo</string>
+    <string name="settings_live_service">Actualizar a menudo</string>
+    <string name="settings_live_service_hint">Consulta los precios en intervalos cortos, incluso con la app cerrada. Muestra una notificación y gasta más batería.</string>
+    <string name="settings_live_interval">Frecuencia</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_price_notifications">Notificaciones de precio</string>
+    <string name="settings_price_notifications_hint">Muestra el precio actual de los pares activados en la barra de estado.</string>
+    <string name="settings_ongoing_notifications">No se pueden descartar</string>
+    <string name="settings_ongoing_notifications_hint">Mantiene fijas las notificaciones de precio.</string>
+    <string name="settings_notification_change">Notificar solo si cambia el precio</string>
+    <string name="settings_notification_change_always">Siempre</string>
+    <string name="settings_notification_change_hint">Solo aparece una notificación cuando el precio se ha movido al menos esta cantidad desde la última. No se muestra nada mientras falten datos. Las alarmas no se ven afectadas.</string>
+    <string name="settings_alarm_cooldown">Pausa antes de que una alarma vuelva a saltar</string>
+    <string name="settings_tts">Salida de voz</string>
+    <string name="settings_tts_alarms_only">Solo alarmas</string>
+    <string name="settings_tts_alarms_only_hint">Desactivado: se lee cada actualización de un par marcado con «Decir precio».</string>
+    <string name="settings_speech_rate">Velocidad de voz: %1$.1f×</string>
+    <string name="settings_tts_test">Probar voz</string>
+    <string name="battery_title">Mantener los precios al día</string>
+    <string name="battery_message">Android retrasa el trabajo en segundo plano para ahorrar energía — los precios y widgets pueden tener horas de antigüedad. Con el uso de batería sin restricciones se mantienen al día. Puedes cambiarlo cuando quieras en los ajustes de Android.</string>
+    <string name="battery_later">Más tarde</string>
+    <string name="settings_battery_ok">Uso de batería: sin restricciones</string>
+    <string name="settings_battery_restricted">Uso de batería: restringido</string>
+    <string name="settings_battery_hint">Restringido significa que Android puede retrasar las actualizaciones en segundo plano varias horas.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Muestra el precio de un par de tu lista de seguimiento.</string>
+    <string name="widget_empty">Aún no hay pares en la lista de seguimiento.</string>
+    <string name="widget_opacity">Opacidad del fondo: %1$d%%</string>
+    <string name="settings_section_about">Acerca de</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Los precios vienen directamente de los exchanges; sin cuenta y sin rastreo.</string>
+
+    <!-- Mercados -->
+    <string name="dex_intro">Tokens fuera de los grandes exchanges, de exchanges descentralizados (Uniswap, PancakeSwap, Raydium …) a través de DexScreener. Busca un token y añade su pool de trading – precios en dólares estadounidenses.</string>
+    <string name="dex_search_hint">Nombre, símbolo o dirección del token</string>
+    <string name="dex_search">Buscar</string>
+    <string name="dex_no_results">No se encontraron pools.</string>
+    <string name="dex_added">%1$s añadido a la lista de seguimiento.</string>
+    <string name="dex_already">%1$s ya está en la lista de seguimiento.</string>
+    <string name="dex_liquidity">Liquidez %1$s</string>
+    <string name="dex_add">Añadir</string>
+    <string name="action_sort">Ordenar</string>
+    <string name="action_sort_done">Listo</string>
+    <string name="sort_move_top">Al principio</string>
+    <string name="sort_move_up">Subir</string>
+    <string name="sort_move_down">Bajar</string>
+    <string name="sort_move_bottom">Al final</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Añadir %1$d par a la lista de seguimiento</item>
+        <item quantity="many">Añadir los %1$d pares a la lista de seguimiento</item>
+        <item quantity="other">Añadir los %1$d pares a la lista de seguimiento</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d añadido, %2$d ya estaban en la lista de seguimiento.</item>
+        <item quantity="many">%1$d añadidos, %2$d ya estaban en la lista de seguimiento.</item>
+        <item quantity="other">%1$d añadidos, %2$d ya estaban en la lista de seguimiento.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Añadir a la lista de seguimiento</string>
+    <string name="explorer_added_to_watchlist">Añadido a la lista de seguimiento.</string>
+    <string name="explorer_already_in_watchlist">Este par ya está en la lista de seguimiento.</string>
+    <string name="explorer_no_pair_selected">Elige primero un par.</string>
+
+    <!-- Voz -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Alarma. %1$s, %2$s %3$s %4$s, ahora %5$s</string>
+    <string name="tts_direction_up">ha subido</string>
+    <string name="tts_direction_down">ha bajado</string>
+    <string name="watchlist_refresh_report">Última actualización</string>
+    <string name="watchlist_refresh_report_empty">Aún no hay desglose: esta versión no ha completado ninguna actualización completa. Toca Actualizar y espera a que el indicador se detenga.</string>
+    <string name="action_close">Cerrar</string>
+    <string name="watchlist_clear">Vaciar lista de seguimiento</string>
+    <string name="watchlist_clear_confirm">¿Quitar todos los pares de la lista de seguimiento? Sus alarmas también se eliminarán.</string>
+    <string name="market_scores_hint">Máximo = señales como en máximos de ciclos pasados, mínimo = señales como en mínimos de ciclos pasados. Desde 4 puntos domina un lado, desde 7 es extremo. Sin precio objetivo y sin previsión.</string>
+    <string name="market_scores_none">No hay señales activas de un máximo ni de un mínimo: fase intermedia tranquila, decide la tendencia del precio.</string>
+    <string name="market_scores_info_title">Señales del ciclo</string>
+    <string name="market_scores_info_text">Las señales de un posible máximo cuentan indicios vistos en máximos de ciclos pasados: fuerte sobrevaloración (MVRV), ingresos de mineros muy altos (Puell), precio muy por encima de la media de 200 días o 200 semanas, subida parabólica y la ventana de 12–18 meses tras el halving.\n\nLas señales de un posible mínimo cuentan indicios de mínimos pasados: MVRV bajo, ingresos de mineros débiles, fuerte caída desde el máximo histórico, precio cerca de la media de 200 semanas, hashrate en descenso y un máximo de hace más de un año.\n\nCon 4 puntos de ventaja la zona es Bull o Bear, con 7 Extrema. Si ningún lado lidera, decide la tendencia del precio. 0/10 en ambos lados significa: ni euforia ni capitulación.\n\nSin precio objetivo y sin previsión: las señales solo describen cómo fueron los ciclos pasados.</string>
+    <string name="battery_open_settings">Abrir ajustes de batería</string>
+    <string name="battery_steps">En la información de la app, toca Batería (o Uso de batería de la app) y elige Sin restricciones.</string>
+    <string name="explorer_select_placeholder">Selecciona</string>
+    <string name="explorer_bulk_title">Varios pares a la vez</string>
+    <string name="watchlist_sort_hint">Mantén pulsado y arrastra un par, o usa el asa. Los favoritos quedan arriba.</string>
+    <string name="sort_drag_handle">Arrastrar para mover</string>
+    <string name="explorer_step_pair">Elegir par</string>
+    <string name="theme_system">Sistema</string>
+    <string name="settings_section_developer">Desarrollador</string>
+    <string name="settings_http_log">Mostrar registro HTTP</string>
+    <string name="settings_http_log_hint">Muestra al final de la página «Añadir par» las solicitudes a los exchanges – para diagnosticar.</string>
+    <string name="language_search">Buscar idioma</string>
+    <string name="alarm_delete_title">¿Eliminar alarma?</string>
+    <string name="alarm_delete_confirm">Esta alarma se eliminará.</string>
+    <string name="alarms_overview_title">Todas las alarmas</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d activa</item>
+        <item quantity="many">%1$d activas</item>
+        <item quantity="other">%1$d activas</item>
+    </plurals>
+    <string name="alarms_overview_empty">Aún no hay alarmas. Abre un par y añade una en Alarmas.</string>
+    <string name="action_more">Más opciones</string>
+    <string name="watchlist_last_run">Última ejecución %1$s</string>
+    <string name="watchlist_pull_to_refresh">Desliza hacia abajo para actualizar</string>
+    <string name="favorite_add">Añadir a favoritos</string>
+    <string name="favorite_remove">Quitar de favoritos</string>
+    <string name="action_view">Ver</string>
+    <string name="explorer_loading_pairs">Cargando pares…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d par · actualizado %2$s</item>
+        <item quantity="many">%1$d pares · actualizado %2$s</item>
+        <item quantity="other">%1$d pares · actualizado %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">¿Añadir %1$d par?</item>
+        <item quantity="many">¿Añadir %1$d pares?</item>
+        <item quantity="other">¿Añadir %1$d pares?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d par %2$s de %3$s: se añadirá a la lista si aún no está.</item>
+        <item quantity="many">Los %1$d pares %2$s de %3$s se añadirán a la lista. Los que ya están se omiten.</item>
+        <item quantity="other">Los %1$d pares %2$s de %3$s se añadirán a la lista. Los que ya están se omiten.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Toca un par para seleccionarlo arriba.</string>
+    <string name="loading_hint">Cargando…</string>
+    <string name="explorer_select_market_hint">Elige un exchange – sus pares se cargan automáticamente.</string>
+    <string name="explorer_precise_title">Elegir con precisión</string>
+    <string name="explorer_search_hint">Buscar moneda, p. ej. BTC o ETH USDT</string>
+    <string name="explorer_search_loading">Buscando en exchanges… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Sin resultados.</string>
+    <string name="action_clear">Borrar</string>
+    <string name="explorer_bulk_show_list">Mostrar lista</string>
+    <string name="explorer_bulk_hide_list">Ocultar lista</string>
+    <string name="time_just_now">ahora mismo</string>
+    <string name="welcome_text">Tus precios. Tus alarmas. Tu resumen.\nSin cuenta. Sin anuncios. Sin rastreo.</string>
+    <string name="developer_unlocked">Opciones de desarrollador activadas</string>
+    <string name="hint_favorites_list">Consejo: toca ☆ para marcar como favorito; los favoritos quedan arriba.</string>
+    <string name="tab_watchlist">Lista</string>
+    <string name="tab_market_phase">Mercado</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d de %2$d desactualizado</item>
+        <item quantity="many">%1$d de %2$d desactualizados</item>
+        <item quantity="other">%1$d de %2$d desactualizados</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Todo al día · %1$s</string>
+    <string name="explorer_price_loading">Cargando precio…</string>
+    <string name="zone_top_risk">Riesgo de techo</string>
+    <string name="zone_bottom_chance">Formando suelo</string>
+    <string name="timeout_error_message">El exchange no responde en este momento.</string>
+    <string name="widget_background">Fondo</string>
+    <string name="widget_configure_title">Configurar widget</string>
+    <string name="widget_configure_hint">Elige fondo y opacidad. El color sigue a la app. El widget muestra toda la lista; toca una fila para abrir la app.</string>
+    <string name="settings_custom_value">Otro</string>
+    <string name="insights_halving_title">Halving de Bitcoin</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">Próximo halving en unos %1$d día (%2$s)</item>
+        <item quantity="many">Próximo halving en unos %1$d días (%2$s)</item>
+        <item quantity="other">Próximo halving en unos %1$d días (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% del ciclo actual</string>
+    <string name="insights_cycle_chart">Ciclos desde el halving</string>
+    <string name="insights_chart_axis">Años desde el halving</string>
+    <string name="insights_chart_hint">Precio como múltiplo del precio el día del halving (escala log). Los ciclos pasados son un patrón, no una previsión.</string>
+    <string name="insights_source_history">Fuente: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="fng_extreme_fear">Miedo extremo</string>
+    <string name="fng_fear">Miedo</string>
+    <string name="fng_neutral">Neutral</string>
+    <string name="fng_greed">Codicia</string>
+    <string name="fng_extreme_greed">Codicia extrema</string>
+    <string name="insights_fng_history">Ayer %1$s · hace una semana %2$s · hace un mes %3$s</string>
+    <string name="insights_source_fng">Fuente: alternative.me</string>
+    <string name="insights_dominance_title">Dominancia de Bitcoin</string>
+    <string name="insights_altseason_title">Temporada de altcoins</string>
+    <string name="altseason_alt">Temporada de altcoins</string>
+    <string name="altseason_btc">Temporada de Bitcoin</string>
+    <string name="altseason_mixed">Mixto</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d de %2$d grandes altcoins supera a Bitcoin en 90 días</item>
+        <item quantity="many">%1$d de %2$d grandes altcoins superan a Bitcoin en 90 días</item>
+        <item quantity="other">%1$d de %2$d grandes altcoins superan a Bitcoin en 90 días</item>
+    </plurals>
+    <string name="insights_source_dominance">Fuente: CoinGecko, Binance</string>
+    <string name="coin_title">Análisis de moneda</string>
+    <string name="coin_choose">Moneda</string>
+    <string name="coin_no_data">No hay datos de precio para esta moneda en Binance ni Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Solo %1$d día de historial: faltan algunos indicadores.</item>
+        <item quantity="many">Solo %1$d días de historial: faltan algunos indicadores.</item>
+        <item quantity="other">Solo %1$d días de historial: faltan algunos indicadores.</item>
+    </plurals>
+    <string name="coin_price_only">Solo basado en el precio: los datos on-chain (MVRV, Puell, hashrate) solo están disponibles gratis para Bitcoin.</string>
+    <string name="ind_rsi_weekly">RSI (semanal)</string>
+    <string name="ind_rsi_daily">RSI (diario)</string>
+    <string name="ind_pi_cycle">Pi cycle (111/350 días)</string>
+    <string name="ind_cross">Tendencia 50/200 días</string>
+    <string name="ind_vs_btc">Fuerza frente a Bitcoin (90 días)</string>
+    <string name="ind_missing">datos insuficientes</string>
+    <string name="channel_market">Fase del mercado</string>
+    <string name="channel_market_description">Avisa cuando cambia la fase del mercado de Bitcoin</string>
+    <string name="notification_zone_title">Bitcoin: %1$s</string>
+    <string name="notification_zone_text">La fase del mercado ha cambiado de %1$s a %2$s.</string>
+    <string name="settings_zone_alerts">Avisar al cambiar de fase</string>
+    <string name="settings_zone_alerts_hint">Comprueba dos veces al día y avisa cuando Bitcoin cambia de zona, p. ej. de Neutral a Bull.</string>
+    <string name="alarm_condition_move_percent">Se mueve un</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">en %1$d h</item>
+        <item quantity="many">en %1$d h</item>
+        <item quantity="other">en %1$d h</item>
+    </plurals>
+    <string name="alarm_window_label">Ventana de tiempo</string>
+    <string name="tts_direction_move">se mueve con fuerza</string>
+    <string name="settings_fng_below">Fear &amp; Greed: avisar por debajo de</string>
+    <string name="settings_fng_above">Fear &amp; Greed: avisar por encima de</string>
+    <string name="option_off">No</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">El índice bajó de %1$d: domina el miedo.</string>
+    <string name="notification_fng_above">El índice superó %1$d: domina la codicia.</string>
+    <string name="futures_title">Datos de futuros</string>
+    <string name="futures_funding">Tasa de financiación</string>
+    <string name="futures_next_funding">próxima en %1$d h %2$d min</string>
+    <string name="futures_open_interest">Interés abierto</string>
+    <string name="futures_source">Fuente: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – una moneda</string>
+    <string name="single_widget_description">Muestra una moneda en grande con precio, cambio y gráfico de 24 horas.</string>
+    <string name="single_widget_choose">Elegir par</string>
+    <string name="single_widget_title">Configurar widget individual</string>
+    <string name="shortcut_add">Añadir par</string>
+    <string name="shortcut_alarms">Todas las alarmas</string>
+    <string name="shortcut_cycle">Mercado</string>
+    <string name="backup_title">Copia de seguridad</string>
+    <string name="backup_hint">Guarda tu lista con notas y grupos, alarmas, favoritos, cartera y ajustes en un archivo que guardas tú, p. ej. para un móvil nuevo.</string>
+    <string name="backup_export">Exportar</string>
+    <string name="backup_import">Importar</string>
+    <string name="backup_restore_confirm">Importar sustituye tu lista (con notas y grupos), alarmas, favoritos, cartera y ajustes por la copia.</string>
+    <string name="backup_exported">Copia guardada.</string>
+    <string name="backup_failed">No funcionó. ¿Es una copia de Crypto Checker?</string>
+    <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="many">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarma</item>
+        <item quantity="many">%1$d alarmas</item>
+        <item quantity="other">%1$d alarmas</item>
+    </plurals>
+</resources>

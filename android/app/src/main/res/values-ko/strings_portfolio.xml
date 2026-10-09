@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">보유량</string>
+    <string name="portfolio_invalid">잘못된 수량</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">그룹</string>
+    <string name="group_value">그룹: %1$s</string>
+    <string name="group_all">전체</string>
+    <string name="group_none">그룹 없음</string>
+    <string name="group_new">새 그룹…</string>
+    <string name="group_name">그룹 이름</string>
+    <string name="widget_group_hint">이 그룹의 거래쌍만 표시합니다.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">포트폴리오</string>
+    <string name="portfolio_setting_hint">선택 사항: 매수와 매도를 기록하고 별도 탭에서 평가액과 손익을 확인합니다.</string>
+    <string name="portfolio_total_value">총 평가액</string>
+    <string name="portfolio_invested">투자금</string>
+    <string name="portfolio_unrealized">손익, 아직 매도 안 함</string>
+    <string name="portfolio_realized">손익, 매도 완료</string>
+    <string name="portfolio_value">평가액</string>
+    <string name="portfolio_avg_price">평균 매수가</string>
+    <string name="portfolio_current_price">현재가</string>
+    <string name="portfolio_avg_and_now">평균 %1$s · 현재 %2$s</string>
+    <string name="portfolio_updated">%1$s 기준 시세</string>
+    <string name="portfolio_convert_to">환산 통화</string>
+    <string name="portfolio_convert_to_value">환산 통화: %1$s</string>
+    <string name="portfolio_price_missing">가격 없음</string>
+    <string name="portfolio_price_missing_hint">일부 매수에 가격이 없습니다. 손익을 보려면 매수가를 입력하세요.</string>
+    <string name="portfolio_current_missing">%1$s의 현재가가 없습니다</string>
+    <string name="portfolio_oversold">매도량이 보유량을 초과합니다. 거래를 확인하세요.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">종료된 포지션 (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">거래</string>
+    <string name="portfolio_add_tx">매수/매도 기록</string>
+    <string name="portfolio_edit_tx">거래 편집</string>
+    <string name="portfolio_buy">매수</string>
+    <string name="portfolio_sell">매도</string>
+    <string name="portfolio_coin">코인</string>
+    <string name="portfolio_coin_search">심볼 검색 (예: BTC)</string>
+    <string name="portfolio_coin_invalid">코인 심볼을 입력하세요</string>
+    <string name="portfolio_tx_amount">수량</string>
+    <string name="portfolio_tx_price">코인당 가격</string>
+    <string name="portfolio_tx_price_hint">USDT 기준. 모르면 비워 두세요.</string>
+    <string name="portfolio_tx_price_invalid">잘못된 가격</string>
+    <string name="portfolio_tx_date">날짜</string>
+    <string name="portfolio_tx_note">메모 (선택)</string>
+    <string name="portfolio_tx_total">합계: %1$s</string>
+    <string name="portfolio_sell_exceeds">보유량보다 많습니다 (%1$s)</string>
+    <string name="portfolio_tx_delete_title">거래를 삭제할까요?</string>
+    <string name="portfolio_tx_delete_confirm">이 거래가 포트폴리오에서 삭제됩니다.</string>
+    <string name="portfolio_empty_title">아직 거래가 없습니다</string>
+    <string name="portfolio_empty_text">매수와 매도를 기록하세요. 평가액과 손익은 USDT 기준 현재가로 계산됩니다.</string>
+    <string name="portfolio_empty_action">첫 매수 기록</string>
+    <string name="portfolio_disclaimer">이 기기에만 저장됩니다. 투자 조언이 아닙니다.</string>
+    <string name="portfolio_add_from_watch">포트폴리오에 추가</string>
+</resources>

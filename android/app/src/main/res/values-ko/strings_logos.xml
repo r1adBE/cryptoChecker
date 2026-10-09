@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">코인 로고</string>
+    <string name="settings_coin_logos_app">앱에서</string>
+    <string name="settings_coin_logos_app_hint">관심 목록, 거래쌍 시트, 마켓 카드</string>
+    <string name="settings_coin_logos_portfolio">포트폴리오에서</string>
+    <string name="settings_coin_logos_portfolio_hint">보유 자산, 코인 상세, 분석</string>
+    <string name="settings_coin_logos_widgets">위젯에서</string>
+    <string name="settings_coin_logos_widgets_hint">관심 목록 위젯과 코인 하나 위젯</string>
+    <string name="settings_coin_logos_footer">로고는 CoinGecko에서, CoinGecko에 없는 항목(예: 금, 은, 주식)은 Binance에서 가져옵니다. 앱이 모든 로고를 한 번에 내려받아 이 기기에 저장하므로 어느 쪽도 어떤 코인을 지켜보는지 알 수 없습니다. 로고가 없는 코인은 이니셜이 표시됩니다. 즐겨찾기에는 로고에 작은 별이 표시됩니다. 스위치가 꺼진 곳에는 로고도 이니셜도 표시되지 않으며, 모두 끄면 아무것도 불러오지 않습니다.</string>
+    <string name="settings_coin_logos_value_app">앱</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">搜索交易对或交易所</string>
+    <string name="watchlist_search_open">搜索</string>
+    <string name="watchlist_search_close">关闭搜索</string>
+    <string name="watchlist_search_empty">未找到与“%1$s”匹配的结果</string>
+</resources>

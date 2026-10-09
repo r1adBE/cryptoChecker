@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Neobișnuit azi</string>
+    <string name="unusual_nothing">Azi nimic ieșit din comun</string>
+    <string name="unusual_fact_stronger">Se mișcă mult mai puternic decât BTC</string>
+    <string name="unusual_fact_weaker">Se mișcă mult mai slab decât BTC</string>
+    <string name="unusual_fact_against">Merge împotriva pieței</string>
+    <string name="unusual_fact_volume">Volum %1$s× față de normal</string>
+    <string name="unusual_fact_funding_high">Funding ridicat (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_source">Cele mai mari circa 30 de monede, fără stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">De ce se mișcă?</string>
+    <string name="unusual_action_add">Caută pereche de adăugat</string>
+
+    <string name="macro_title">Date economice</string>
+    <string name="macro_cpi">inflația din SUA (CPI)</string>
+    <string name="macro_ppi">prețurile de producție din SUA (PPI)</string>
+    <string name="macro_nfp">raportul locurilor de muncă din SUA</string>
+    <string name="macro_fomc">decizia Fed privind dobânda</string>
+    <string name="macro_pce">inflația PCE din SUA</string>
+    <string name="macro_hint_today">Azi %1$s: %2$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_tomorrow">Mâine %1$s: %2$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_today_list">Azi: %1$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_tomorrow_list">Mâine: %1$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_list">%1$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_released_one">Publicat azi la %1$s: %2$s.</string>
+    <string name="macro_released_list">Publicat azi: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Azi %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Mâine %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Calendar economic</string>
+    <string name="settings_macro_notifications_hint">La 08:00 în zilele cu date economice importante din SUA (inflație, locuri de muncă, decizia Fed). Calendarul vine de pe site-ul aplicației și se încarcă o dată pe zi.</string>
+    <string name="notification_macro_title">Date economice azi</string>
+</resources>

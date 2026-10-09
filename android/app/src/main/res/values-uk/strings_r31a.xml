@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">Швидкі сигнали</string>
+    <string name="alarm_template_volume">Обсяг ×%1$s</string>
+    <string name="alarm_new_extreme">Оновлення %1$s</string>
+    <string name="alarm_template_a11y_up">Створити сигнал при плюс %1$s відсотках</string>
+    <string name="alarm_template_a11y_down">Створити сигнал при мінус %1$s відсотках</string>
+    <string name="alarm_template_a11y">Створити сигнал: %1$s</string>
+    <string name="alarm_template_created">Сигнал створено</string>
+    <string name="alarm_sentence_new_extreme">Повідомити при оновленні %2$s для %1$s.</string>
+    <string name="alarm_simple_when">Коли %1$s</string>
+    <string name="alarm_simple_above">підніметься вище</string>
+    <string name="alarm_simple_below">опуститься нижче</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_direction_a11y">Напрямок: %1$s</string>
+    <string name="alarm_repeat_once">Один раз</string>
+    <string name="alarm_repeat_each">Щоразу</string>
+    <string name="alarm_advanced">Додатково</string>
+    <string name="alarm_create">Створити сигнал</string>
+    <string name="alarm_near_new_only">Лише новий максимум або мінімум</string>
+</resources>

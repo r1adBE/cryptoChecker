@@ -1,0 +1,1 @@
+bitcoin,btc,ethereum,eth,kriptovaluta,árfolyam,portfólió,figyelőlista,altcoin,félelem,kapzsiság,dex

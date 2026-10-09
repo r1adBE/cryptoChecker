@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Felolvassa az árakat és a riasztásokat. Néma marad, amíg a készülék néma vagy rezgő módban van.</string>
+</resources>

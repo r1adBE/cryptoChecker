@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: în creștere %2$d, în scădere %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: cele mai mari monede după valoarea de piață, fără stablecoins; variație pe 24 de ore (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Mișcare largă: majoritatea monedelor mari cresc.</string>
+    <string name="pulse_breadth_note_broad_down">Scădere generalizată: majoritatea monedelor mari scad.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin crește, dar majoritatea celorlalte monede mari nu urmează.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin scade, dar majoritatea celorlalte monede mari rezistă.</string>
+</resources>

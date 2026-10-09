@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget, grosse Stufe (breit und hoch, z. B. 4 × 3): Kopfzeile, Gesamtwert, Betrag,
+     ≈ USDT, Wertverlauf, die drei grössten Positionen (Kürzel, Anteil mit dünnem Balken,
+     24 h in der Kursfarbe) und die Fusszeile. Gleiche Ids wie widget_portfolio.xml.
+     Nur RemoteViews-taugliche Views. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outline"
+    android:clipToOutline="true"
+    tools:targetApi="31">
+
+    <ImageView
+        android:id="@+id/portfolio_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_background"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/portfolio_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <include layout="@layout/widget_portfolio_header" />
+
+        <LinearLayout
+            android:id="@+id/portfolio_values"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <include layout="@layout/widget_portfolio_value_block" />
+
+            <include layout="@layout/widget_portfolio_chart" />
+
+            <FrameLayout
+                android:id="@+id/portfolio_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/portfolio_positions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/portfolio_pos_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:baselineAligned="false"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_1_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="3"
+                        android:maxEms="5"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!-- Anteil als dünner Balken: Spur schwach, Füllung per setImageLevel (clip, 0–10000) -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <ImageView
+                            android:id="@+id/portfolio_pos_1_track"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/widget_share_bar"
+                            android:importantForAccessibility="no"
+                            android:contentDescription="@null" />
+
+                        <ImageView
+                            android:id="@+id/portfolio_pos_1_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/widget_share_bar_fill"
+                            android:importantForAccessibility="no"
+                            android:contentDescription="@null" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_1_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="3"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textSize="11sp"
+                        android:fontFeatureSettings="tnum" />
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_1_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:minEms="4"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/portfolio_pos_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:baselineAligned="false"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_2_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="3"
+                        android:maxEms="5"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!-- Anteil als dünner Balken: Spur schwach, Füllung per setImageLevel (clip, 0–10000) -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <ImageView
+                            android:id="@+id/portfolio_pos_2_track"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/widget_share_bar"
+                            android:importantForAccessibility="no"
+                            android:contentDescription="@null" />
+
+                        <ImageView
+                            android:id="@+id/portfolio_pos_2_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/widget_share_bar_fill"
+                            android:importantForAccessibility="no"
+                            android:contentDescription="@null" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_2_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="3"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textSize="11sp"
+                        android:fontFeatureSettings="tnum" />
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_2_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:minEms="4"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/portfolio_pos_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:baselineAligned="false"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_3_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="3"
+                        android:maxEms="5"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!-- Anteil als dünner Balken: Spur schwach, Füllung per setImageLevel (clip, 0–10000) -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <ImageView
+                            android:id="@+id/portfolio_pos_3_track"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/widget_share_bar"
+                            android:importantForAccessibility="no"
+                            android:contentDescription="@null" />
+
+                        <ImageView
+                            android:id="@+id/portfolio_pos_3_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/widget_share_bar_fill"
+                            android:importantForAccessibility="no"
+                            android:contentDescription="@null" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_3_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="3"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textSize="11sp"
+                        android:fontFeatureSettings="tnum" />
+
+                    <TextView
+                        android:id="@+id/portfolio_pos_3_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:minEms="4"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:fontFeatureSettings="tnum" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/portfolio_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="10sp"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

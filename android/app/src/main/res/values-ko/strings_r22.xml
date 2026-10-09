@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">모두 업데이트됨</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">거래쌍 %1$d개 업데이트 안 됨</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s에 연결할 수 없음</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">거래소 %1$d곳에 연결할 수 없음</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">새로고침 중단됨</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">거래쌍 %1$d개</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">거래소</string>
+    <string name="refresh_sheet_section_steps">세부 내역</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">시작까지 대기</string>
+    <string name="refresh_sheet_network">네트워크</string>
+    <string name="refresh_sheet_database">데이터베이스</string>
+    <string name="refresh_sheet_alarms">경보</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d개 울림</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">알림 %1$d개</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">위젯</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">거래쌍 %1$d개 중 %2$d개</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">일괄 요청 %1$s · 시세 %2$d개</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">시간 초과</string>
+    <string name="refresh_sheet_reason_offline">연결 없음</string>
+    <string name="refresh_sheet_reason_rate_limit">요청 과다</string>
+    <string name="refresh_sheet_reason_server">서버 오류</string>
+    <string name="refresh_sheet_reason_no_data">데이터 없음</string>
+    <string name="refresh_sheet_reason_unavailable">거래소를 사용할 수 없음</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">모두 업데이트됨</string>
+    <string name="refresh_sheet_status_partial">일부 업데이트됨</string>
+    <string name="refresh_sheet_status_failed">업데이트 안 됨</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s초</string>
+</resources>

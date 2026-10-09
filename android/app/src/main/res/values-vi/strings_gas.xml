@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Gas Ethereum dưới (gwei)</string>
+    <string name="settings_gas_btc_below">Phí Bitcoin dưới (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Báo một lần khi phí thông thường xuống dưới ngưỡng. Kiểm tra khi cập nhật giá, tối đa mỗi 10 phút một lần.</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Dưới ngưỡng %1$s gwei của bạn · Chuyển ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Phí Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Dưới ngưỡng %1$s sat/vB của bạn · Chuyển ≈ %2$s</string>
+    <string name="gas_title">Phí mạng</string>
+    <string name="gas_slow_fast">Chậm %1$s · Nhanh %2$s</string>
+    <string name="gas_alert_active">Cảnh báo: %1$s</string>
+    <string name="gas_source">Nút RPC công khai và mempool.space · Chi phí một lần chuyển đơn giản, không gồm phần L1 trên L2</string>
+    <string name="gas_transfer_cost">Chuyển ≈ %1$s</string>
+</resources>

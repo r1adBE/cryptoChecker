@@ -1,0 +1,64 @@
+Crypto Checker piyasada neler olduğunu sana açıklar. Alarm kur, olağandışı hareketleri fark et ve bir coinin neden hareket ettiğini saniyeler içinde anla – tahmin yok.
+
+Anla – “Bu neden hareket ediyor?” kısa bir özetle
+Genel bakış – Crypto Pulse, Fear & Greed, döngü ve portföy
+İzle – fiyatlar doğrudan borsadan, kendi para biriminde
+Uyar – fiyat, %, hareket ve hacim, basit bir cümleyle
+
+Herkes için okunaklı: yeşil/kırmızı veya mavi/turuncu fiyat renkleri, yüksek kontrast, yalnızca renk değil işaret ve ok, Dinamik Yazı, VoiceOver her satırı tek cümle olarak okur.
+
+İZLEME LİSTESİ: 32 BORSADA 41 PİYASA
+• Boş liste: en büyük 5 coini tek dokunuşla ekle
+• Binance, Coinbase, Kraken, OKX, Bybit ve daha birçoğundan spot ve vadeli – istersen hisseler, altın ve döviz (TradFi), ayrı bir grupta
+• DexScreener üzerinden DEX tokenleri
+• Kaydır: sola sil (Geri al ile), sağa favori; gruplar, sürükleyerek sıralama
+• Her coin için not, örn. giriş fiyatın
+• İkinci “≈ değer” satırı 31 para biriminden birinde (EUR, CHF, USD, GBP, JPY …), varsayılan bölgeye göre
+• Her satırda mini grafik; 24 saatlik veya kendi saat diliminde 00:00’dan beri % değişim
+• Ayrı sekmede portföy: alım ve satımlar, ortalama fiyat, kâr/zarar ve kendi para biriminde toplam değer
+• Herhangi bir tarihteki portföy değerini (örn. 31.12) CSV olarak dışa aktar – vergi danışmanlığı değildir
+• Satırlarda “güncel değil” veya “borsaya erişilemiyor” uyarısı
+
+KENDİ KURALLARINLA ALARMLAR
+• Fiyat bir seviyenin üstünde veya altında ya da yüzde olarak yükseliş veya düşüş
+• Kendi para biriminde alarmlar, örn. bir USDT çiftinde 60.000 EUR’da
+• Cümle olarak alarm: “BTC fiyatı 60.000 CHF altına düştüğünde bana haber ver.”
+• Y saat içinde %X hareket, örn. 1 saatte %5
+• Hacim sıçraması: işlem hacmi aniden ortalamanın çok üstünde
+• Tek seferlik veya tekrarlayan, Zamana Duyarlı bildirim olarak, istersen sesli
+• Alarm sesini seç
+• Ayarlanabilir bekleme süresi alarm yağmurunu önler
+• Sessiz saatler: gece (örn. 23–7) alarmlar ses, titreşim ve sesli okuma olmadan gelir
+• “Alarmı test et”: alarmın nasıl geldiğini önceden duy ve hisset
+
+OLAĞANDIŞI ETKİNLİK VE “BU NEDEN HAREKET EDİYOR?”
+• Olağandışı Etkinlik, listendeki alışılmadık fiyat ve hacim hareketlerini yakalar – isteğe bağlı bildirimlerle
+• “Bu neden hareket ediyor?” hareketi hacim, genel piyasa ve vadeli işlem verileriyle açıklar, kısa bir özetle – yatırım tavsiyesi değildir
+
+PİYASA GÖRÜNÜMÜ
+• Crypto Pulse: şu an neler oluyor – BTC, ETH, SOL, BTC’ye karşı altcoinler, hacim, Fear & Greed, fonlama, ETH gas ve tek cümlelik özet, tahmin yok
+• Geçmişiyle Korku ve Açgözlülük Endeksi
+• Kripto piyasası: kendi para biriminde toplam piyasa değeri ve 24 sa hacim
+• Piyasa sekmesi: olası bir zirve veya dip işaretleriyle piyasa evresi (tahmin değil), yarılanma geri sayımı, hakimiyet, altcoin sezonu
+• Coin analizi: RSI, trend, Pi Cycle ve Bitcoin’e karşı güç
+• Vadeli işlem verileri: fonlama oranı ve açık pozisyon, kısa açıklamalarla
+• Ethereum, Base, Arbitrum, Polygon, BNB Chain ve Bitcoin için ağ ücretleri, gas alarmıyla
+
+ANA EKRAN VE KİLİTLİ EKRAN İÇİN WIDGET’LAR
+• Üç boyutta widget: liste, portföy (Kilitli Ekran’da da), 24 sa, 7 veya 30 günlük grafikle tek coin – mum veya çizgi, en yüksek/orta/en düşük işaretleri
+• Doğrudan widget’tan yenileme
+• Kilitli Ekran’da Canlı Etkinlik: bir coinin fiyatı tek bakışta
+
+DAHASI
+• Uygulama açıkken sık güncelleme; arka plan güncellemelerini iOS planlar
+• Fiyatlar ve alarmlar sesli okunur
+• Dosyalar uygulamasıyla yedekleme ve geri yükleme
+• Simgede hızlı işlemler, açık ve koyu mod
+• Uyumlu simgelerle beş vurgu rengi
+• Portföy kilidi: Face ID, Touch ID veya parola
+• 31 dilde kullanılabilir
+
+ÖNCE GİZLİLİK
+Hesap yok, reklam yok, analiz yok, izleme yok. Fiyatlar doğrudan borsaların herkese açık API’lerinden gelir. Listen, alarmların ve varlıkların cihazında kalır. Açık kaynak (MIT), kod GitHub’da.
+
+Not: Crypto Checker yalnızca fiyatları gösterir. Bir borsa veya cüzdan değildir, işlem yapmaz ve yatırım tavsiyesi vermez.

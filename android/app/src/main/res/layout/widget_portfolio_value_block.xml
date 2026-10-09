@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Werte des Portfolio-Widgets (alle Stufen): Gesamtwert (passt sich der Breite an),
+     darunter «▼ −1’968.40 CHF · 24h» in der Kursfarbe und kleiner «≈ … USDT». -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/portfolio_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="13sp"
+        android:autoSizeMaxTextSize="26sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFeatureSettings="tnum" />
+
+    <TextView
+        android:id="@+id/portfolio_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:fontFeatureSettings="tnum"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/portfolio_usdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:fontFeatureSettings="tnum"
+        android:visibility="gone" />
+</LinearLayout>

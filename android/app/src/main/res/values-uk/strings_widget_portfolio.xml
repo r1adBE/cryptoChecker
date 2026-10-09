@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Відображення</string>
+    <string name="widget_portfolio_display_conversion">Лише перерахунок</string>
+    <string name="widget_portfolio_display_conversion_usdt">Перерахунок + USDT</string>
+    <string name="widget_portfolio_display_hint">Рядок USDT приховано, якщо валюта перерахунку — USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ ще %1$d</item>
+        <item quantity="few">+ ще %1$d</item>
+        <item quantity="many">+ ще %1$d</item>
+        <item quantity="other">+ ще %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48 год</string>
+    <string name="widget_portfolio_range_short_48h">48г</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s портфеля</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s портфеля, сьогодні %4$s</string>
+    <string name="a11y_portfolio_positions">Найбільші позиції: %1$s</string>
+</resources>

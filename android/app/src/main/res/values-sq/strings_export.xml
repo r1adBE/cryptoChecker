@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Eksport në datën e referencës…</string>
+    <string name="portfolio_export_title">Eksport në datën e referencës</string>
+    <string name="portfolio_export_date">Data e referencës</string>
+    <string name="portfolio_export_currency">Monedha: %1$s</string>
+    <string name="portfolio_export_hint">Zotërimi në fund të ditës së zgjedhur, i vlerësuar me çmimin e mbylljes ditore (UTC) në USDT dhe i konvertuar me kursin e referencës së BQE-së për atë ditë. Ndrysho monedhën te «Konverto në».</string>
+    <string name="portfolio_export_button">Eksporto CSV</string>
+    <string name="portfolio_export_running">Po merren çmimet historike…</string>
+    <string name="portfolio_export_done">Eksporti u ruajt</string>
+    <string name="portfolio_export_failed">Eksporti dështoi</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Data e referencës %1$s, monedha %2$s, kursi i këmbimit i %3$s</string>
+    <string name="portfolio_export_col_coin">Monedha</string>
+    <string name="portfolio_export_col_amount">Sasia</string>
+    <string name="portfolio_export_col_price">Çmimi USDT</string>
+    <string name="portfolio_export_col_value">Vlera USDT</string>
+    <string name="portfolio_export_col_rate">Kursi USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Vlera %1$s</string>
+    <string name="portfolio_export_col_note">Shënim</string>
+    <string name="portfolio_export_total">Gjithsej</string>
+    <string name="portfolio_export_no_price">pa çmim</string>
+    <string name="portfolio_export_no_fx">pa kurs këmbimi</string>
+    <string name="portfolio_export_incomplete">e paplotë</string>
+</resources>

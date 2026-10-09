@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Hapus pasangan yang tidak diperdagangkan (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Hapus pasangan yang tidak diperdagangkan</string>
+    <string name="watchlist_remove_not_traded_action">Hapus</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">Hapus %1$d pasangan yang tidak lagi diperdagangkan di bursanya? Alarmnya juga akan ikut terhapus.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">%1$d pasangan yang tidak diperdagangkan dihapus</item>
+    </plurals>
+</resources>

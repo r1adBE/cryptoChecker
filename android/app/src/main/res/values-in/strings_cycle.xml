@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Puncak %1$s</string>
+    <string name="cycle_marker_high_so_far">Tertinggi sejauh ini</string>
+    <string name="cycle_marker_bottom">Dasar %1$s</string>
+    <string name="cycle_since_halving">%1$s sejak halving</string>
+    <string name="cycle_from_top">%1$s dari puncak</string>
+    <string name="cycle_marker_double_top">Puncak ganda %1$s</string>
+    <string name="cycle_marker_double_bottom">Dasar ganda %1$s</string>
+</resources>

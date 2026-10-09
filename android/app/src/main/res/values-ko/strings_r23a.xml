@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">이 그룹에 거래쌍이 없습니다</string>
+    <string name="watchlist_status_none_traded">거래 중인 거래쌍이 없습니다</string>
+    <string name="watchlist_group_empty_hint">그룹을 길게 눌러 거래쌍을 선택하세요.</string>
+    <string name="watchlist_just_refreshed">방금 업데이트됨</string>
+</resources>

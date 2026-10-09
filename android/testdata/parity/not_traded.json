@@ -1,0 +1,13 @@
+{
+  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts.",
+  "marker": "Wird an der Börse nicht mehr gehandelt",
+  "cases": [
+    {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": 13.9, "isMarker": true, "shown": null},
+    {"lastError": null, "change24h": 13.9, "isMarker": false, "shown": 13.9},
+    {"lastError": "NETWORK_OFFLINE", "change24h": -2, "isMarker": false, "shown": -2},
+    {"lastError": null, "change24h": null, "isMarker": false, "shown": null},
+    {"lastError": "wird an der börse nicht mehr gehandelt", "change24h": 1.5, "isMarker": false, "shown": 1.5},
+    {"lastError": "Wird an der Börse nicht mehr gehandelt ", "change24h": 1.5, "isMarker": false, "shown": 1.5},
+    {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": null, "isMarker": true, "shown": null}
+  ]
+}

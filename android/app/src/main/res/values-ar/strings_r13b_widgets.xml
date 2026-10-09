@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">غير محدَّث</string>
+    <string name="widget_outdated_time">غير محدَّث · %1$s</string>
+
+    <string name="settings_widgets">الأدوات</string>
+    <string name="widgets_sheet_title">إضافة أداة</string>
+    <string name="widget_kind_single">عملة واحدة</string>
+    <string name="widgets_add">إضافة</string>
+    <string name="widgets_add_named">إضافة الأداة %1$s</string>
+    <string name="watch_action_add_widget">إضافة كأداة</string>
+    <string name="widgets_manual_title">أضف الأداة بنفسك</string>
+    <string name="widgets_manual_text">لا تستطيع شاشتك الرئيسية إضافة الأدوات من التطبيق. المس مكانًا فارغًا في الشاشة الرئيسية مع الاستمرار، واختر «الأدوات» وابحث عن «Crypto Checker».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">لا يسمح iOS للتطبيقات بإضافة الأدوات بنفسها. الأمر لا يستغرق سوى لحظة:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">المس مكانًا فارغًا في الشاشة الرئيسية مع الاستمرار حتى تهتز التطبيقات.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">اضغط في الأعلى على «تعديل» › «إضافة أداة» (أو «+» في إصدارات iOS الأقدم).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">ابحث عن «Crypto Checker»، واختر أداة ثم اضغط على «إضافة أداة».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">الأدوات المتاحة</string>
+</resources>

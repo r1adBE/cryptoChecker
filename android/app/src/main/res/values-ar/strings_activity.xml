@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">شيء ما يحدث الآن</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">نشاط غير عادي</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">حركة غير عادية: %1$s خلال ساعة (%2$s× المعتاد)</string>
+    <string name="activity_signal_volume">الحجم %1$s× المعتاد في الساعة الأخيرة</string>
+    <string name="activity_signal_open_interest">الفائدة المفتوحة %1$s خلال %2$d د</string>
+    <string name="activity_signal_open_interest_no_time">الفائدة المفتوحة %1$s</string>
+    <string name="activity_signal_funding_long">التمويل %1$s — كثير من مراكز الشراء بالرافعة</string>
+    <string name="activity_signal_funding_short">التمويل %1$s — كثير من مراكز البيع</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">الإبلاغ عن النشاط غير العادي</string>
+    <string name="settings_activity_alerts_hint">مرة واحدة كحد أقصى في الساعة لكل زوج: حركات سعرية غير عادية وقفزات في الحجم وقيم متطرفة في العقود الآجلة (البيانات من Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">لماذا يتحرك هذا؟</string>
+    <string name="why_title">لماذا يتحرك هذا؟</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">تقييم تلقائي من بيانات السوق، وليس نصيحة استثمارية.</string>
+    <string name="why_data_time">البيانات حتى %1$s</string>
+    <string name="why_no_data">لا توجد بيانات من Binance لهذا الزوج</string>
+    <string name="why_no_data_hint">السعر والحجم والتقلب مصدرها شموع Binance الساعية.</string>
+
+    <string name="why_market_wide_text">هذه العملة: %1$s خلال 24 ساعة — المحرك على الأرجح هو السوق ككل وليس العملة نفسها.</string>
+    <string name="why_coin_only_text">%1$s خلال 24 ساعة بينما السوق هادئ: السبب على الأرجح خاص بهذه العملة.</string>
+    <string name="why_against_market_text">هذه العملة %1$s، وBTC %2$s خلال 24 ساعة — حركة مستقلة بشكل لافت.</string>
+    <string name="why_market_calm_text">هذه العملة: %1$s خلال 24 ساعة. لا السوق ولا العملة يتحركان كثيرًا.</string>
+    <string name="why_market_leader_text">بصفته قائد السوق، يجرّ BTC عادةً بقية السوق معه. ETH: %1$s خلال 24 ساعة.</string>
+    <string name="why_market_leader_text_no_eth">بصفته قائد السوق، يجرّ BTC عادةً بقية السوق معه.</string>
+
+    <string name="why_volume_high_text">تداول أكثر بكثير من المعتاد في الساعة الأخيرة — الحركة مدعومة على نطاق واسع.</string>
+    <string name="why_volume_low_text">الحركة ضعيفة وقد تنعكس بسرعة.</string>
+    <string name="why_volume_normal_text">التداول في الساعة الأخيرة يتماشى مع آخر 24 ساعة.</string>
+
+    <string name="why_leverage_longs_text">مراكز الشراء تدفع لمراكز البيع — خطر أعلى للتصفية إذا انخفض السعر.</string>
+    <string name="why_leverage_shorts_text">مراكز البيع تدفع لمراكز الشراء — قد يؤدي ارتفاع السعر إلى Short Squeeze.</string>
+    <string name="why_leverage_balanced_text">لا تكدّس لمراكز الشراء أو البيع في سوق العقود الآجلة.</string>
+    <string name="why_open_interest_change">الفائدة المفتوحة %1$s منذ آخر فحص.</string>
+
+    <string name="why_volatility_high_text">الساعة الأخيرة: %1$s — مقارنةً بالتذبذب الساعي المعتاد خلال آخر 24 ساعة.</string>
+    <string name="why_volatility_normal_text">الساعة الأخيرة: %1$s — ضمن النطاق المعتاد.</string>
+
+    <string name="why_sentiment_text">مؤشر الخوف والطمع لسوق العملات المشفرة بأكمله، %1$s مقارنةً بالأمس.</string>
+    <string name="why_sentiment_text_no_change">مؤشر الخوف والطمع لسوق العملات المشفرة بأكمله.</string>
+</resources>

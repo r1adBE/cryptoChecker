@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10: Widgets (neues Widget «Was gerade auffällt», kurze «heute»-Anzeige) -->
+    <string name="widget_pulse_description">Ami most kiemelkedik a piacon: címsor, rövid összefoglaló, valamint Bitcoin, Ethereum és Solana.</string>
+    <!-- «heute» allein vor der Prozent-Pille, wenn Betrag und Prozent nicht nebeneinander passen (iOS) -->
+    <string name="widget_portfolio_today_label">ma</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">устарело</string>
+    <string name="widget_outdated_time">устарело · %1$s</string>
+
+    <string name="settings_widgets">Виджеты</string>
+    <string name="widgets_sheet_title">Добавить виджет</string>
+    <string name="widget_kind_single">Одна монета</string>
+    <string name="widgets_add">Добавить</string>
+    <string name="widgets_add_named">Добавить виджет %1$s</string>
+    <string name="watch_action_add_widget">Добавить как виджет</string>
+    <string name="widgets_manual_title">Добавьте виджет вручную</string>
+    <string name="widgets_manual_text">Ваш главный экран не умеет добавлять виджеты из приложения. Нажмите и удерживайте свободное место на главном экране, выберите «Виджеты» и найдите «Crypto Checker».</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS не позволяет приложениям самим добавлять виджеты. Это займёт всего минуту:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Нажмите и удерживайте свободное место на экране «Домой», пока приложения не начнут покачиваться.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Нажмите вверху «Править» › «Добавить виджет» (или «+» в старых версиях iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Найдите «Crypto Checker», выберите виджет и нажмите «Добавить виджет».</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Доступные виджеты</string>
+</resources>

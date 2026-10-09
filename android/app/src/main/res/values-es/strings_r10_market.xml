@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Destacado hoy</string>
+    <string name="unusual_nothing">Hoy nada fuera de lo normal</string>
+    <string name="unusual_fact_stronger">Se mueve mucho más que BTC</string>
+    <string name="unusual_fact_weaker">Se mueve mucho menos que BTC</string>
+    <string name="unusual_fact_against">Va en contra del mercado</string>
+    <string name="unusual_fact_volume">Volumen %1$s× lo habitual</string>
+    <string name="unusual_fact_funding_high">Funding elevado (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativo (%1$s)</string>
+    <string name="unusual_source">Unas 30 monedas más grandes sin stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">¿Por qué se mueve?</string>
+    <string name="unusual_action_add">Buscar par para añadir</string>
+
+    <string name="macro_title">Datos económicos</string>
+    <string name="macro_cpi">inflación de EE. UU. (IPC)</string>
+    <string name="macro_ppi">precios de producción de EE. UU. (IPP)</string>
+    <string name="macro_nfp">informe de empleo de EE. UU.</string>
+    <string name="macro_fomc">decisión de tipos de la Fed</string>
+    <string name="macro_pce">inflación PCE de EE. UU.</string>
+    <string name="macro_hint_today">Hoy %1$s: %2$s – en días así los mercados suelen moverse más.</string>
+    <string name="macro_hint_tomorrow">Mañana %1$s: %2$s – en días así los mercados suelen moverse más.</string>
+    <string name="macro_hint_today_list">Hoy: %1$s – en días así los mercados suelen moverse más.</string>
+    <string name="macro_hint_tomorrow_list">Mañana: %1$s – en días así los mercados suelen moverse más.</string>
+    <string name="macro_hint_list">%1$s – en días así los mercados suelen moverse más.</string>
+    <string name="macro_released_one">Publicado hoy a las %1$s: %2$s.</string>
+    <string name="macro_released_list">Publicado hoy: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Hoy %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Mañana %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Calendario económico</string>
+    <string name="settings_macro_notifications_hint">A las 08:00 los días con datos económicos importantes de EE. UU. (inflación, empleo, decisión de la Fed). El calendario viene de la web de la app y se carga una vez al día.</string>
+    <string name="notification_macro_title">Hoy hay datos económicos</string>
+</resources>

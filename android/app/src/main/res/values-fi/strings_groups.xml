@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Muokkaa ryhmää</string>
+    <string name="group_rename">Nimeä uudelleen</string>
+    <string name="group_delete">Poista ryhmä</string>
+    <string name="group_delete_confirm">Parit pysyvät seurantalistallasi.</string>
+    <string name="group_done">Valmis</string>
+    <string name="group_add">Uusi ryhmä</string>
+    <string name="group_in_other">ryhmässä %1$s</string>
+    <string name="group_target">Ryhmään</string>
+    <string name="group_search_hint">Hae paria</string>
+    <string name="group_next">Seuraava</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">عمومی</string>
+    <string name="settings_group_data_only">داده‌ها</string>
+    <string name="settings_row_currency">ارز</string>
+    <string name="settings_row_updates">به‌روزرسانی</string>
+    <string name="settings_updates_live">مکرر · %1$s</string>
+    <string name="settings_updates_every">هر %1$s</string>
+    <string name="settings_row_watchlist">واچ‌لیست</string>
+    <string name="settings_watchlist_value_sparkline">نمودار کوچک</string>
+    <string name="settings_watchlist_value_price_only">فقط قیمت</string>
+    <string name="settings_row_alarms">هشدارها</string>
+    <string name="settings_portfolio_value_locked">روشن، با قفل</string>
+    <string name="settings_row_dated_futures">فیوچرز سررسیددار</string>
+    <string name="settings_tradfi_futures">سهام، کالاها و ارزها (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">هنگام انتخاب جفت، قراردادهای آتی روی سهام، طلا و دیگر کالاها، ارزها و شرکت‌های پیش از عرضه اولیه را هم نشان می‌دهد. این‌ها قرارداد هستند، نه توکن.</string>
+    <string name="settings_watchlist_activity_card">فعالیت غیرعادی در فهرست</string>
+    <string name="settings_watchlist_activity_card_hint">کارت «همین حالا اتفاقی در جریان است» را بالای جفت‌ها نشان می‌دهد. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند.</string>
+    <string name="settings_row_about">درباره برنامه</string>
+    <string name="price_colors_green_up">سبز صعود / قرمز نزول</string>
+    <string name="price_colors_red_up">قرمز صعود / سبز نزول</string>
+    <string name="price_colors_blue_up">آبی صعود / نارنجی نزول</string>
+    <string name="price_colors_orange_up">نارنجی صعود / آبی نزول</string>
+    <string name="price_colors_red_up_hint">رایج در چین، ژاپن، کره و تایوان</string>
+</resources>

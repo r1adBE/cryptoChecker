@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Εκφωνεί τιμές και ειδοποιήσεις τιμής. Παραμένει σιωπηλό όσο η συσκευή είναι σε αθόρυβη λειτουργία ή δόνηση.</string>
+</resources>

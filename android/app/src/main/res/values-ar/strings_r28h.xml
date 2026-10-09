@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">الثقة: %1$s</string>
+    <string name="why_confidence_high">عالية</string>
+    <string name="why_confidence_medium">متوسطة</string>
+    <string name="why_confidence_low">منخفضة</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="zero">يشير %1$d من أصل %2$d مؤشرات إلى ذلك</item>
+        <item quantity="one">يشير %1$d من أصل %2$d مؤشرات إلى ذلك</item>
+        <item quantity="two">يشير %1$d من أصل %2$d مؤشرات إلى ذلك</item>
+        <item quantity="few">يشير %1$d من أصل %2$d مؤشرات إلى ذلك</item>
+        <item quantity="many">يشير %1$d من أصل %2$d مؤشرات إلى ذلك</item>
+        <item quantity="other">يشير %1$d من أصل %2$d مؤشرات إلى ذلك</item>
+    </plurals>
+    <string name="why_confidence_partial">بيانات غير مكتملة</string>
+</resources>

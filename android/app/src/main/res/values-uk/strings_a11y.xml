@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Кольори цін</string>
+    <string name="settings_price_colors_hint">Синій / помаранчевий добре розрізняються за будь-якого порушення колірного зору (червоно-зеленого та синьо-жовтого). Напрямок до того ж завжди позначено знаками + / −.</string>
+    <string name="settings_watchlist_sparkline">Міні-графік у списку</string>
+    <string name="settings_watchlist_sparkline_hint">Динаміка за 24 години поруч із ціною</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Висока контрастність</string>
+    <string name="settings_high_contrast_hint">Яскравіші кольори цін і темніший другорядний текст. Вмикається також, коли система запитує вищу контрастність.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s на %2$s</string>
+    <string name="a11y_price">ціна %1$s</string>
+    <string name="a11y_change_up">зростання на %1$s</string>
+    <string name="a11y_change_down">падіння на %1$s</string>
+    <string name="a11y_change_flat">без змін</string>
+    <string name="a11y_converted">приблизно %1$s</string>
+    <string name="a11y_note">нотатка: %1$s</string>
+    <string name="a11y_alarm_count">сигнали: %1$d</string>
+    <string name="a11y_stale">застаріло, останнє оновлення %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Графік %1$s: з %2$s до %3$s, %4$s. Максимум %5$s, мінімум %6$s.</string>
+    <string name="a11y_chart_empty">Графік: немає даних</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Цикл %1$s: %2$s з халвінгу, день %3$d.</string>
+    <string name="a11y_cycle_top">Пік %1$s у день %2$d.</string>
+    <string name="a11y_cycle_bottom">Дно %1$s у день %2$d.</string>
+    <string name="a11y_cycle_double_top">Подвійна вершина %1$s у день %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Подвійне дно %1$s у день %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Шкала від %1$s до %2$s: %3$d зі 100</string>
+</resources>

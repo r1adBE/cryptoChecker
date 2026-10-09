@@ -1,0 +1,10 @@
+Nytt i 16.2.2
+• Crypto Pulse: vad som händer just nu
+• Ovanlig aktivitet, ”Varför rör den sig?” med sammanfattning
+• Kom igång med ett tryck: topp 5-mynt, livekurser
+• Svep: ta bort (med Ångra) eller favorit
+• Kurser och larm i din valuta, export per avstämningsdag (CSV)
+• Tillgängligt: blå/orange, kontrast, byt färger, TalkBack
+• Tysta timmar, testa larm, larm som mening, portföljlås och -widget
+• 15 nya börser, gaslarm, candlestick i widget
+• Aktier, guld, valutor (TradFi); % efter tidszon

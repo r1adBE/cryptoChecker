@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">변동 옆에 기간 표시</string>
+    <string name="settings_change_period_hint">관심 목록과 단일 코인 위젯에서 변동 옆에 ‘24h’, ‘오늘’, ‘마지막 업데이트’를 작게 표시합니다. 화면 낭독기는 항상 읽어 줍니다.</string>
+</resources>

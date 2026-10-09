@@ -1,0 +1,10 @@
+Noutăți 16.2.2
+• Crypto Pulse: ce se întâmplă acum
+• Activitate neobișnuită, „De ce se mișcă?” cu rezumat
+• Începe cu o atingere: top 5 live
+• Glisare: ștergere (Anulează) sau favorit
+• Prețuri și alarme în moneda ta; CSV la data de referință
+• Accesibil: albastru/portocaliu, contrast ridicat, culori inversate, TalkBack
+• Ore de liniște, test alarmă, alarmă ca propoziție, blocare/widget portofoliu
+• 15 burse noi, alarmă de gas, lumânări în widget
+• Acțiuni, aur, valute (TradFi); % după fus orar

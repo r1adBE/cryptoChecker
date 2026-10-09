@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">Поиск пары или биржи</string>
+    <string name="watchlist_search_open">Поиск</string>
+    <string name="watchlist_search_close">Закрыть поиск</string>
+    <string name="watchlist_search_empty">Нет результатов для «%1$s»</string>
+</resources>

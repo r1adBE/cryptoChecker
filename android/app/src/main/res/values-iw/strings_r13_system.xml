@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">מקריא מחירים והתראות בקול. שותק כל עוד המכשיר במצב שקט או רטט.</string>
+</resources>

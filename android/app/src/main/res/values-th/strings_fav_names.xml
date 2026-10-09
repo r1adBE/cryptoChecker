@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">รายการโปรด</string>
+    <string name="watchlist_favorites_empty_hint">ยังไม่มีรายการโปรด ปัดคู่ไปทางขวาหรือแตะ “รายการโปรด” ในหน้าคู่เหรียญ</string>
+    <string name="settings_watchlist_names">แสดงชื่อ</string>
+    <string name="settings_watchlist_names_hint">ชื่อใต้คู่ เช่น Bitcoin หรือ NVIDIA มากับรายการโลโก้ โหลดครั้งเดียวสำหรับทุกเหรียญ</string>
+    <string name="settings_watchlist_value_names">ชื่อ</string>
+</resources>

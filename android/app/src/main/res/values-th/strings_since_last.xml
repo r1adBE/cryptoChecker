@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- %-Änderung «Seit letzter Aktualisierung»: letzter gegen vorherigen Kurs des Paars.
+         change_basis_since_last = Auswahl und ausgeschrieben, change_short_since_last = kurz neben
+         Pille und Widgets (wie «24h», «heute»); %1$s in a11y = Veränderung («up 0.12%»);
+         Hinweis: %1$s = change_basis_since_last -->
+    <string name="change_basis_since_last">ตั้งแต่อัปเดตล่าสุด</string>
+    <string name="change_short_since_last">อัปเดตล่าสุด</string>
+    <string name="a11y_change_since_last">%1$s ตั้งแต่อัปเดตล่าสุด</string>
+    <string name="a11y_change_since_last_none">ไม่มีข้อมูลการเปลี่ยนแปลงตั้งแต่อัปเดตล่าสุด</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” เทียบกับราคาของการอัปเดตครั้งก่อน เมื่อใช้ราคาสด ค่าจะอยู่ใกล้ 0%%</string>
+</resources>

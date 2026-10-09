@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Inizia con un tocco</string>
+    <string name="starter_text">Scegli le monete e aggiungile in un colpo solo. Puoi cambiare exchange e coppia in seguito.</string>
+    <string name="starter_custom">Scegli exchange e coppia</string>
+    <string name="settings_quiet_hours">Ore di silenzio</string>
+    <string name="settings_quiet_hours_hint">Tra %1$s e %2$s gli allarmi arrivano in silenzio: niente suono, vibrazione o voce.</string>
+    <string name="settings_quiet_hours_from">Inizio</string>
+    <string name="settings_quiet_hours_to">Fine</string>
+    <string name="channel_alarms_quiet">Allarmi (ore di silenzio)</string>
+    <string name="channel_alarms_quiet_description">Allarmi silenziosi durante le ore di silenzio.</string>
+    <string name="app_lock_unlock">Sblocca</string>
+    <string name="app_lock_unavailable">Su questo dispositivo non è impostato alcun blocco schermo. Impostane prima uno nelle impostazioni di sistema.</string>
+    <string name="widget_portfolio_name">Portafoglio</string>
+    <string name="widget_portfolio_description">Valore totale del tuo portafoglio e variazione di oggi</string>
+    <string name="widget_portfolio_today">oggi %1$s</string>
+    <string name="widget_portfolio_empty">Aggiungi acquisti nella scheda Portafoglio</string>
+    <string name="a11y_portfolio_widget">Portafoglio %1$s, oggi %2$s</string>
+    <string name="explain_funding">Commissione tra posizioni long e short. Fortemente positivo significa che molti scommettono su prezzi in salita.</string>
+    <string name="explain_open_interest">Valore di tutte le posizioni futures aperte. Se sale, più denaro scommette sul movimento.</string>
+    <string name="explain_rsi">Relative Strength Index, 0–100. Sopra 70 spesso surriscaldato, sotto 30 spesso ipervenduto.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Spiegazione</string>
+    <string name="explain_pi_cycle">Confronta la media a 111 giorni con il doppio della media a 350 giorni. Un incrocio ha segnato i massimi dei cicli passati.</string>
+    <string name="alarm_sentence_above">Avvisami quando %1$s sale sopra %2$s.</string>
+    <string name="alarm_sentence_below">Avvisami quando %1$s scende sotto %2$s.</string>
+    <string name="alarm_sentence_up_percent">Avvisami quando %1$s sale del %2$s.</string>
+    <string name="alarm_sentence_down_percent">Avvisami quando %1$s scende del %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Avvisami quando %1$s si muove del %2$s entro %3$d ora.</item>
+        <item quantity="many">Avvisami quando %1$s si muove del %2$s entro %3$d ore.</item>
+        <item quantity="other">Avvisami quando %1$s si muove del %2$s entro %3$d ore.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Avvisami quando il volume di %1$s raggiunge %2$s× il normale.</string>
+    <string name="alarm_sentence_incomplete">Inserisci un valore per vedere l\'allarme come frase.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s non raggiungibile</string>
+    <string name="watchlist_row_outdated">%1$s · non aggiornato</string>
+</resources>

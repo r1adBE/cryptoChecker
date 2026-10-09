@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Αγαπημένα</string>
+    <string name="watchlist_favorites_empty_hint">Δεν υπάρχουν ακόμη αγαπημένα. Σύρετε ένα ζεύγος προς τα δεξιά ή πατήστε «Αγαπημένο» στο φύλλο ζεύγους.</string>
+    <string name="settings_watchlist_names">Εμφάνιση ονομάτων</string>
+    <string name="settings_watchlist_names_hint">Όνομα κάτω από το ζεύγος, π.χ. Bitcoin ή NVIDIA. Έρχεται με τις λίστες λογότυπων και φορτώνεται μία φορά για όλα τα νομίσματα.</string>
+    <string name="settings_watchlist_value_names">Ονόματα</string>
+</resources>

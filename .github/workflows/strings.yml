@@ -1,0 +1,44 @@
+# Checks the translations: Android string resources (31 languages, placeholders,
+# plural forms, references in the code) and the iOS string catalog generated from them.
+name: Strings
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/app/src/main/res/**'
+      - 'android/**/*.kt'
+      - 'ios/tools/**'
+      - 'ios/Shared/Resources/*.xcstrings'
+      - 'ios/**/*.swift'
+      - '.github/scripts/check_strings.py'
+      - '.github/workflows/strings.yml'
+  pull_request:
+    paths:
+      - 'android/app/src/main/res/**'
+      - 'android/**/*.kt'
+      - 'ios/tools/**'
+      - 'ios/Shared/Resources/*.xcstrings'
+      - 'ios/**/*.swift'
+      - '.github/scripts/check_strings.py'
+      - '.github/workflows/strings.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Check strings
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/check_strings.py

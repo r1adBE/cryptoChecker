@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Coin logoları</string>
+    <string name="settings_coin_logos_app">Uygulamada</string>
+    <string name="settings_coin_logos_app_hint">Liste, çift sayfası ve piyasa kartları</string>
+    <string name="settings_coin_logos_portfolio">Portföyde</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozisyonlar, coin ayrıntıları ve analizler</string>
+    <string name="settings_coin_logos_widgets">Widget\'larda</string>
+    <string name="settings_coin_logos_widgets_hint">Liste ve tek coin widget\'ları</string>
+    <string name="settings_coin_logos_footer">Logolar CoinGecko\'dan, CoinGecko\'da olmayanlar için (ör. altın, gümüş, hisseler) Binance\'ten gelir. Uygulama tüm logoları tek seferde indirip bu cihazda saklar; böylece hiçbiri hangi coin\'leri takip ettiğinizi bilmez. Logosu olmayan coin\'lerde baş harfler görünür. Favoriler logoda küçük bir yıldız alır. Bir anahtar kapalıysa orada ne logo ne baş harfler görünür; hepsi kapalıyken hiçbir şey yüklenmez.</string>
+    <string name="settings_coin_logos_value_app">Uygulama</string>
+</resources>

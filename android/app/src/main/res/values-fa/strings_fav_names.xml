@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">علاقه‌مندی‌ها</string>
+    <string name="watchlist_favorites_empty_hint">هنوز علاقه‌مندی‌ای نیست. یک جفت را به راست بکشید یا در برگهٔ جفت «علاقه‌مندی» را بزنید.</string>
+    <string name="settings_watchlist_names">نمایش نام‌ها</string>
+    <string name="settings_watchlist_names_hint">نام زیر جفت، مثلاً Bitcoin یا NVIDIA. همراه فهرست‌های لوگو می‌آید و یک بار برای همه کوین‌ها بارگیری می‌شود.</string>
+    <string name="settings_watchlist_value_names">نام‌ها</string>
+</resources>

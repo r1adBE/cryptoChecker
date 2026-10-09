@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">बँटवारा</string>
+    <string name="portfolio_allocation_other">अन्य</string>
+    <string name="portfolio_movers_title">सबसे बड़े उतार-चढ़ाव</string>
+    <string name="portfolio_hide_amounts">राशियाँ छिपाएँ</string>
+    <string name="portfolio_hide_amounts_hint">पोर्टफ़ोलियो और पोर्टफ़ोलियो विजेट में राशियाँ और मूल्य ••• के रूप में दिखाता है – प्रतिशत दिखते रहते हैं।</string>
+    <string name="a11y_portfolio_show_amounts">राशियाँ दिखाएँ</string>
+    <string name="a11y_amount_hidden">राशि छिपी है</string>
+    <string name="portfolio_alarm_action">अलार्म</string>
+    <string name="portfolio_alarm_title">पोर्टफ़ोलियो मूल्य अलार्म</string>
+    <string name="portfolio_alarm_kind_above">पोर्टफ़ोलियो राशि से ऊपर</string>
+    <string name="portfolio_alarm_kind_below">पोर्टफ़ोलियो राशि से नीचे</string>
+    <string name="portfolio_alarm_kind_up">पोर्टफ़ोलियो बढ़े</string>
+    <string name="portfolio_alarm_kind_down">पोर्टफ़ोलियो गिरे</string>
+    <string name="portfolio_alarm_amount">राशि (%1$s)</string>
+    <string name="portfolio_alarm_hint">हर रीफ़्रेश के बाद जाँचा जाता है। कीमत अलार्म की तरह: सीमा पार होने पर सूचना देता है और दोबारा तभी जब मूल्य लौट आए।</string>
+    <string name="portfolio_alarm_sentence_above">पोर्टफ़ोलियो %1$s से ऊपर</string>
+    <string name="portfolio_alarm_sentence_below">पोर्टफ़ोलियो %1$s से नीचे</string>
+    <string name="portfolio_alarm_sentence_up">पोर्टफ़ोलियो %1$s बढ़ा (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">पोर्टफ़ोलियो %1$s गिरा (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">पोर्टफ़ोलियो मूल्य</string>
+    <string name="notification_portfolio_alarm_text">%1$s – अभी %2$s</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">ملاحظة</string>
+    <string name="note_add">إضافة ملاحظة</string>
+    <string name="note_edit">تعديل الملاحظة</string>
+    <string name="note_hint">مثلًا دخول عند 0.42، الهدف 0.60</string>
+    <string name="note_remove">إزالة</string>
+</resources>

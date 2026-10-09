@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Mostrar período ao lado da variação</string>
+    <string name="settings_change_period_hint">“24h”, “hoje” ou “última atualização” pequeno ao lado da variação na lista e no widget de uma moeda. O leitor de tela sempre fala.</string>
+</resources>

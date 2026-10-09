@@ -1,0 +1,62 @@
+Crypto Checker wyjaśnia, co dzieje się na rynku. Ustawiaj alarmy, zauważaj nietypowe ruchy i w kilka sekund zrozum, dlaczego dana moneta się rusza – bez prognoz.
+
+Zrozum – „Dlaczego to się rusza?” z krótkim podsumowaniem
+Przegląd – Crypto Pulse, Fear & Greed, cykl i portfel
+Obserwuj – kursy prosto z giełdy, w twojej walucie
+Alarmuj – kurs, %, ruchy i wolumen, jako proste zdanie
+
+Czytelne dla wszystkich: kolory kursów zielony/czerwony lub niebieski/pomarańczowy, wysoki kontrast, znak i strzałka zamiast samego koloru, a TalkBack czyta każdy wiersz jako jedno zdanie.
+
+LISTA OBSERWOWANYCH: 41 RYNKÓW NA 32 GIEŁDACH
+• Pusta lista: 5 największych monet dodasz jednym dotknięciem
+• Spot i futures z Binance, Coinbase, Kraken, OKX, Bybit i wielu innych – opcjonalnie też akcje, złoto i waluty (TradFi) we własnej grupie
+• Tokeny DEX przez DexScreener
+• Przesuń: w lewo usuń (z Cofnij), w prawo ulubione; grupy i sortowanie przeciąganiem
+• Notatka do każdej monety, np. twoja cena wejścia
+• Druga linia „≈ wartość” w jednej z 31 walut (EUR, CHF, USD …), domyślnie wg regionu
+• Miniwykres w każdym wierszu; zmiana % w ciągu 24 h lub od 00:00 w twojej strefie czasowej
+• Karta Portfel: kupno, sprzedaż, średnia cena, zysk/strata, wartość łączna w twojej walucie
+• Eksport stanu portfela na dowolny dzień (np. 31.12) jako CSV – bez doradztwa podatkowego
+• Wiersze sygnalizują „nieaktualne” lub „giełda niedostępna”
+
+ALARMY NA TWOICH ZASADACH
+• Kurs powyżej lub poniżej progu, wzrost lub spadek o procent
+• Alarmy w twojej walucie, np. przy 60 000 EUR na parze z USDT
+• Alarm jako zdanie: „Powiadom mnie, gdy BTC spadnie poniżej 60 000 CHF.”
+• Zmiana o x% w oknie czasowym, np. 5% w ciągu 1 godziny
+• Skok wolumenu: obrót nagle znacznie powyżej średniej
+• Jednorazowe lub powtarzane, z dźwiękiem (też własny plik audio), wibracją i opcjonalnym komunikatem głosowym
+• Regulowany czas ciszy zapobiega lawinie alarmów
+• Godziny ciszy: w nocy (np. 23–7) alarmy bez dźwięku, wibracji i głosu
+• „Testuj alarm”: usłysz i poczuj wcześniej, jak dociera alarm
+
+NIETYPOWA AKTYWNOŚĆ I „DLACZEGO TO SIĘ RUSZA?”
+• Nietypowa aktywność wykrywa nietypowe ruchy ceny i wolumenu na twojej liście – z opcjonalnymi powiadomieniami
+• „Dlaczego to się rusza?” wyjaśnia ruch na podstawie wolumenu, całego rynku i futures, z podsumowaniem – bez doradztwa inwestycyjnego
+
+PRZEGLĄD RYNKU
+• Crypto Pulse: co dzieje się teraz – BTC, ETH, SOL, altcoiny wobec BTC, wolumen, Fear & Greed, funding, gas ETH i podsumowanie w jednym zdaniu, bez prognoz
+• Indeks Fear & Greed z historią i opcjonalnymi powiadomieniami
+• Rynek krypto: łączna kapitalizacja i wolumen 24 h w twojej walucie
+• Karta Rynek: faza rynku z oznakami możliwego szczytu lub dołka (bez prognozy), odliczanie do halvingu, dominacja, sezon altcoinów
+• Analiza monety: RSI, trend, Pi Cycle i siła względem Bitcoina
+• Dane kontraktów: stopa finansowania i otwarte pozycje, z krótkimi wyjaśnieniami
+• Opłaty sieciowe dla Ethereum, Base, Arbitrum, Polygon, BNB Chain i Bitcoina, z alarmem gas
+
+WIDŻETY I POWIADOMIENIA
+• Widżety: cała lista, łączna wartość portfela z dzisiejszą zmianą, jedna moneta z wykresem (świece lub linia) i znacznikami maksimum, środka i minimum
+• Ciche powiadomienie o cenie dla każdej pary
+• Częste odświeżanie nawet co 15 sekund, w tle od 15 minut
+
+DODATKOWO
+• Komunikaty głosowe: odczytywanie cen i alarmów
+• Kopia zapasowa i przywracanie do wybranego pliku – także między Androidem a iPhone’em
+• Skróty aplikacji, tryb jasny i ciemny
+• Pięć kolorów akcentu z dopasowaną ikoną aplikacji
+• Blokada portfela: odcisk palca, twarz lub PIN
+• Dostępna w 31 językach
+
+PRYWATNOŚĆ NA PIERWSZYM MIEJSCU
+Bez konta, bez reklam, bez analityki. Kursy pochodzą bezpośrednio z publicznych API giełd. Twoja lista, alarmy i stan posiadania zostają na urządzeniu. Open source (licencja MIT) – kod jest publiczny na GitHubie.
+
+Uwaga: Crypto Checker tylko wyświetla kursy. Nie jest giełdą ani portfelem, nie handluje i nie udziela porad inwestycyjnych.

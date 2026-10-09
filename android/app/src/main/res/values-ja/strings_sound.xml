@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">アラーム音</string>
+    <string name="settings_alarm_sound_default">デフォルトの音</string>
+    <string name="settings_alarm_sound_custom">カスタム音</string>
+    <string name="settings_alarm_sound_system">システムサウンドを選択…</string>
+    <string name="settings_alarm_sound_file">自分の音声ファイル…</string>
+    <string name="settings_alarm_sound_reset">デフォルトの音を使用</string>
+    <string name="settings_alarm_sound_error">この音を使用できませんでした。</string>
+</resources>

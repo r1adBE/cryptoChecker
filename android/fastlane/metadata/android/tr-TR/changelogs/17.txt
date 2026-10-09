@@ -1,0 +1,10 @@
+16.2.2 yenilikleri
+• Crypto Pulse: şu an neler oluyor
+• Olağandışı Etkinlik, “Bu neden hareket ediyor?” özetle
+• Tek dokunuşla başla: en büyük 5 coin
+• Kaydır: sil (Geri al ile) veya favori
+• Kendi para biriminde fiyatlar ve alarmlar, referans tarihli CSV
+• Erişilebilir: mavi/turuncu, kontrast, TalkBack
+• Sessiz saatler, alarm testi, cümle olarak alarm, portföy kilidi ve widget’ı
+• 15 yeni borsa, gas alarmı, widget’ta mum grafik
+• Hisseler, altın, döviz (TradFi); saat dilimine göre %

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Peildatum-export…</string>
+    <string name="portfolio_export_title">Peildatum-export</string>
+    <string name="portfolio_export_date">Peildatum</string>
+    <string name="portfolio_export_currency">Valuta: %1$s</string>
+    <string name="portfolio_export_hint">Bezit aan het einde van de gekozen dag, gewaardeerd tegen de slotkoers van die dag (UTC) in USDT en omgerekend met de ECB-referentiekoers van die dag. Valuta wijzigen via ‘Omrekenen naar’.</string>
+    <string name="portfolio_export_button">CSV exporteren</string>
+    <string name="portfolio_export_running">Historische koersen ophalen…</string>
+    <string name="portfolio_export_done">Export opgeslagen</string>
+    <string name="portfolio_export_failed">Export mislukt</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Peildatum %1$s, valuta %2$s, wisselkoers van %3$s</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_amount">Hoeveelheid</string>
+    <string name="portfolio_export_col_price">Koers USDT</string>
+    <string name="portfolio_export_col_value">Waarde USDT</string>
+    <string name="portfolio_export_col_rate">Koers USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Waarde %1$s</string>
+    <string name="portfolio_export_col_note">Opmerking</string>
+    <string name="portfolio_export_total">Totaal</string>
+    <string name="portfolio_export_no_price">geen koers</string>
+    <string name="portfolio_export_no_fx">geen wisselkoers</string>
+    <string name="portfolio_export_incomplete">onvolledig</string>
+</resources>

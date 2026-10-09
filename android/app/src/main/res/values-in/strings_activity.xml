@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Sesuatu sedang terjadi</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Aktivitas tidak biasa</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Pergerakan tidak biasa: %1$s dalam satu jam (%2$s× normal)</string>
+    <string name="activity_signal_volume">Volume %1$s× normal dalam satu jam terakhir</string>
+    <string name="activity_signal_open_interest">Open interest %1$s dalam %2$d mnt</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — banyak long dengan leverage</string>
+    <string name="activity_signal_funding_short">Funding %1$s — banyak short</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Laporkan aktivitas tidak biasa</string>
+    <string name="settings_activity_alerts_hint">Paling banyak sekali per jam per pasangan: pergerakan harga tidak biasa, lonjakan volume, dan kondisi ekstrem futures (data dari Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Kenapa ini bergerak?</string>
+    <string name="why_title">Kenapa ini bergerak?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Penilaian otomatis dari data pasar, bukan saran investasi.</string>
+    <string name="why_data_time">Data per %1$s</string>
+    <string name="why_no_data">Tidak ada data Binance untuk pasangan ini</string>
+    <string name="why_no_data_hint">Harga, volume, dan volatilitas berasal dari candle per jam Binance.</string>
+
+    <string name="why_market_wide_text">Koin ini: %1$s dalam 24 jam — penggeraknya kemungkinan pasar secara keseluruhan, bukan koin itu sendiri.</string>
+    <string name="why_coin_only_text">%1$s dalam 24 jam saat pasar tenang: penyebabnya kemungkinan khusus pada koin ini.</string>
+    <string name="why_against_market_text">Koin ini %1$s, BTC %2$s dalam 24 jam — pergerakan yang jelas mandiri.</string>
+    <string name="why_market_calm_text">Koin ini: %1$s dalam 24 jam. Baik pasar maupun koin tidak banyak bergerak.</string>
+    <string name="why_market_leader_text">Sebagai pemimpin pasar, BTC biasanya menarik sisa pasar ikut bergerak. ETH: %1$s dalam 24 jam.</string>
+    <string name="why_market_leader_text_no_eth">Sebagai pemimpin pasar, BTC biasanya menarik sisa pasar ikut bergerak.</string>
+
+    <string name="why_volume_high_text">Perdagangan jauh lebih ramai dari biasanya dalam satu jam terakhir — pergerakan ini didukung luas.</string>
+    <string name="why_volume_low_text">Pergerakan ini tipis dan bisa cepat berbalik.</string>
+    <string name="why_volume_normal_text">Perdagangan satu jam terakhir sejalan dengan 24 jam terakhir.</string>
+
+    <string name="why_leverage_longs_text">Long membayar short — risiko likuidasi meningkat jika harga turun.</string>
+    <string name="why_leverage_shorts_text">Short membayar long — harga yang naik dapat memicu short squeeze.</string>
+    <string name="why_leverage_balanced_text">Tidak ada penumpukan posisi long atau short di pasar futures.</string>
+    <string name="why_open_interest_change">Open interest %1$s sejak pemeriksaan terakhir.</string>
+
+    <string name="why_volatility_high_text">Satu jam terakhir: %1$s — diukur terhadap ayunan per jam yang umum dalam 24 jam terakhir.</string>
+    <string name="why_volatility_normal_text">Satu jam terakhir: %1$s — dalam rentang biasa.</string>
+
+    <string name="why_sentiment_text">Indeks Fear &amp; Greed seluruh pasar kripto, %1$s dibanding kemarin.</string>
+    <string name="why_sentiment_text_no_change">Indeks Fear &amp; Greed seluruh pasar kripto.</string>
+</resources>

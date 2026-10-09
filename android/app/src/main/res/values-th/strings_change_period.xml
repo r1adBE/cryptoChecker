@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">แสดงช่วงเวลาข้างการเปลี่ยนแปลง</string>
+    <string name="settings_change_period_hint">“24h” “วันนี้” หรือ “อัปเดตล่าสุด” ตัวเล็กข้างการเปลี่ยนแปลงในรายการติดตามและวิดเจ็ตเหรียญเดียว โปรแกรมอ่านหน้าจอจะอ่านเสมอ</string>
+</resources>

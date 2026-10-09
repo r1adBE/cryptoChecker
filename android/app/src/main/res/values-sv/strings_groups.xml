@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Redigera grupp</string>
+    <string name="group_rename">Byt namn</string>
+    <string name="group_delete">Ta bort grupp</string>
+    <string name="group_delete_confirm">Paren finns kvar i din bevakningslista.</string>
+    <string name="group_done">Klar</string>
+    <string name="group_add">Ny grupp</string>
+    <string name="group_in_other">i %1$s</string>
+    <string name="group_target">I grupp</string>
+    <string name="group_search_hint">Sök par</string>
+    <string name="group_next">Nästa</string>
+</resources>

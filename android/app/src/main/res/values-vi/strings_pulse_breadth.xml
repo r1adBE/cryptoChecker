@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d tăng, %3$d giảm</string>
+    <string name="pulse_breadth_hint">Top %1$d: các coin lớn nhất theo giá trị thị trường, không gồm stablecoin; thay đổi trong 24 giờ (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Biến động rộng: phần lớn coin lớn đang tăng.</string>
+    <string name="pulse_breadth_note_broad_down">Giảm rộng: phần lớn coin lớn đang giảm.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin tăng, nhưng phần lớn các coin lớn khác không tăng theo.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin giảm, nhưng phần lớn các coin lớn khác vẫn trụ vững.</string>
+</resources>

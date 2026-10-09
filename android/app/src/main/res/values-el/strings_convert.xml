@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Μετατροπή τιμών</string>
+    <string name="settings_show_converted_hint">Εμφανίζει τις τιμές της λίστας παρακολούθησης και σε %1$s</string>
+    <string name="settings_conversion_currency">Νόμισμα μετατροπής</string>
+    <string name="alarm_currency_label">Νόμισμα</string>
+</resources>

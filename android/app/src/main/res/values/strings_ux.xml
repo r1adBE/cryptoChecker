@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Start with one tap</string>
+    <string name="starter_text">Choose coins and add them in one go. You can change exchange and pair later.</string>
+    <string name="starter_custom">Choose exchange and pair</string>
+    <string name="settings_quiet_hours">Quiet hours</string>
+    <string name="settings_quiet_hours_hint">Alarms arrive silently between %1$s and %2$s: no sound, vibration or speech.</string>
+    <string name="settings_quiet_hours_from">From</string>
+    <string name="settings_quiet_hours_to">To</string>
+    <string name="channel_alarms_quiet">Alarms (quiet hours)</string>
+    <string name="channel_alarms_quiet_description">Silent alarms during quiet hours.</string>
+    <string name="app_lock_unlock">Unlock</string>
+    <string name="app_lock_unavailable">No screen lock is set up on this device. Set one up in the system settings first.</string>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_description">Total value of your portfolio and today\'s change</string>
+    <string name="widget_portfolio_today">today %1$s</string>
+    <string name="widget_portfolio_empty">Add purchases in the Portfolio tab</string>
+    <string name="a11y_portfolio_widget">Portfolio %1$s, today %2$s</string>
+    <string name="explain_funding">Fee between long and short positions. Strongly positive means many are betting on rising prices.</string>
+    <string name="explain_open_interest">Value of all open futures positions. If it rises, more money is betting on the move.</string>
+    <string name="explain_rsi">Relative Strength Index, 0–100. Above 70 often overheated, below 30 often oversold.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explanation</string>
+    <string name="explain_pi_cycle">Compares the 111-day average with twice the 350-day average. A crossing has marked past cycle tops.</string>
+    <string name="alarm_sentence_above">Tell me when %1$s rises above %2$s.</string>
+    <string name="alarm_sentence_below">Tell me when %1$s falls below %2$s.</string>
+    <string name="alarm_sentence_up_percent">Tell me when %1$s rises by %2$s.</string>
+    <string name="alarm_sentence_down_percent">Tell me when %1$s falls by %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Tell me when %1$s moves by %2$s within %3$d hour.</item>
+        <item quantity="other">Tell me when %1$s moves by %2$s within %3$d hours.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Tell me when %1$s trades %2$s× its normal volume.</string>
+    <string name="alarm_sentence_incomplete">Enter a value to see the alarm as a sentence.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s not reachable</string>
+    <string name="watchlist_row_outdated">%1$s · outdated</string>
+</resources>

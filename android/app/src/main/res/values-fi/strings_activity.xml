@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Nyt tapahtuu jotain</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Epätavallista aktiivisuutta</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Epätavallinen liike: %1$s tunnissa (%2$s× normaali)</string>
+    <string name="activity_signal_volume">Volyymi %1$s× normaali viime tunnin aikana</string>
+    <string name="activity_signal_open_interest">Avoimet positiot %1$s %2$d min aikana</string>
+    <string name="activity_signal_open_interest_no_time">Avoimet positiot %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s – paljon vipuvoimalla otettuja longeja</string>
+    <string name="activity_signal_funding_short">Funding %1$s – paljon shortteja</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Ilmoita epätavallisesta aktiivisuudesta</string>
+    <string name="settings_activity_alerts_hint">Enintään kerran tunnissa paria kohden: epätavalliset hintaliikkeet, volyymipiikit ja futuurien ääriarvot (tiedot Binancesta).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Miksi tämä liikkuu?</string>
+    <string name="why_title">Miksi tämä liikkuu?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Automaattinen arvio markkinadatasta, ei sijoitusneuvontaa.</string>
+    <string name="why_data_time">Tiedot ajalta %1$s</string>
+    <string name="why_no_data">Ei Binance-tietoja tälle parille</string>
+    <string name="why_no_data_hint">Hinta, volyymi ja volatiliteetti tulevat Binancen tuntikynttilöistä.</string>
+
+    <string name="why_market_wide_text">Tämä kolikko: %1$s 24 h – liikkeen taustalla on todennäköisesti koko markkina, ei kolikko itse.</string>
+    <string name="why_coin_only_text">%1$s 24 h markkinan ollessa hiljainen: syy liittyy todennäköisesti juuri tähän kolikkoon.</string>
+    <string name="why_against_market_text">Tämä kolikko %1$s, BTC %2$s 24 h – selvästi itsenäinen liike.</string>
+    <string name="why_market_calm_text">Tämä kolikko: %1$s 24 h. Markkina tai kolikko eivät juuri liiku.</string>
+    <string name="why_market_leader_text">Markkinajohtajana BTC vetää yleensä muun markkinan mukanaan. ETH: %1$s 24 h.</string>
+    <string name="why_market_leader_text_no_eth">Markkinajohtajana BTC vetää yleensä muun markkinan mukanaan.</string>
+
+    <string name="why_volume_high_text">Viime tunnin aikana on käyty kauppaa paljon tavallista enemmän – liikkeellä on laaja tuki.</string>
+    <string name="why_volume_low_text">Liike on ohut ja voi kääntyä nopeasti.</string>
+    <string name="why_volume_normal_text">Viime tunnin kaupankäynti vastaa viimeistä 24 tuntia.</string>
+
+    <string name="why_leverage_longs_text">Longit maksavat shorteille – likvidaatioiden riski kasvaa, jos hinta laskee.</string>
+    <string name="why_leverage_shorts_text">Shortit maksavat longeille – nouseva hinta voi laukaista short squeezen.</string>
+    <string name="why_leverage_balanced_text">Futuurimarkkinoilla ei ole long- tai short-positioiden kasaumaa.</string>
+    <string name="why_open_interest_change">Avoimet positiot %1$s edellisestä tarkistuksesta.</string>
+
+    <string name="why_volatility_high_text">Viime tunti: %1$s – verrattuna viimeisen 24 tunnin tyypilliseen tuntiheilahteluun.</string>
+    <string name="why_volatility_normal_text">Viime tunti: %1$s – tavanomaisissa rajoissa.</string>
+
+    <string name="why_sentiment_text">Koko kryptomarkkinan Fear &amp; Greed -indeksi, %1$s eiliseen verrattuna.</string>
+    <string name="why_sentiment_text_no_change">Koko kryptomarkkinan Fear &amp; Greed -indeksi.</string>
+</resources>

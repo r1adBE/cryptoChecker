@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Пік %1$s</string>
+    <string name="cycle_marker_high_so_far">Максимум на цей час</string>
+    <string name="cycle_marker_bottom">Дно %1$s</string>
+    <string name="cycle_since_halving">%1$s з халвінгу</string>
+    <string name="cycle_from_top">%1$s від піку</string>
+    <string name="cycle_marker_double_top">Подвійна вершина %1$s</string>
+    <string name="cycle_marker_double_bottom">Подвійне дно %1$s</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Allocation</string>
+    <string name="portfolio_allocation_other">Other</string>
+    <string name="portfolio_movers_title">Biggest movers</string>
+    <string name="portfolio_hide_amounts">Hide amounts</string>
+    <string name="portfolio_hide_amounts_hint">Shows amounts and values in the portfolio and the portfolio widget as ••• – percentages stay visible.</string>
+    <string name="a11y_portfolio_show_amounts">Show amounts</string>
+    <string name="a11y_amount_hidden">amount hidden</string>
+    <string name="portfolio_alarm_action">Alarm</string>
+    <string name="portfolio_alarm_title">Portfolio value alarm</string>
+    <string name="portfolio_alarm_kind_above">Portfolio above amount</string>
+    <string name="portfolio_alarm_kind_below">Portfolio below amount</string>
+    <string name="portfolio_alarm_kind_up">Portfolio rises</string>
+    <string name="portfolio_alarm_kind_down">Portfolio falls</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Amount (%1$s)</string>
+    <string name="portfolio_alarm_hint">Checked after every refresh. Like price alarms, it fires when the mark is crossed and only again after the value has moved back.</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfolio above %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfolio below %1$s</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfolio up %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portfolio down %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Portfolio value</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – now %2$s</string>
+</resources>

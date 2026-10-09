@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Güven: %1$s</string>
+    <string name="why_confidence_high">yüksek</string>
+    <string name="why_confidence_medium">orta</string>
+    <string name="why_confidence_low">düşük</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%2$d işaretten %1$d tanesi buna işaret ediyor</item>
+        <item quantity="other">%2$d işaretten %1$d tanesi buna işaret ediyor</item>
+    </plurals>
+    <string name="why_confidence_partial">eksik veri</string>
+</resources>

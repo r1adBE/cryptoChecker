@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Số lượng nắm giữ</string>
+    <string name="portfolio_invalid">Số lượng không hợp lệ</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Nhóm</string>
+    <string name="group_value">Nhóm: %1$s</string>
+    <string name="group_all">Tất cả</string>
+    <string name="group_none">Không có nhóm</string>
+    <string name="group_new">Nhóm mới…</string>
+    <string name="group_name">Tên nhóm</string>
+    <string name="widget_group_hint">Chỉ hiển thị các cặp của nhóm này.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Danh mục</string>
+    <string name="portfolio_setting_hint">Tùy chọn: ghi lại giao dịch mua bán và xem giá trị cùng lãi/lỗ trong một tab riêng.</string>
+    <string name="portfolio_total_value">Tổng giá trị</string>
+    <string name="portfolio_invested">Đã đầu tư</string>
+    <string name="portfolio_unrealized">Lãi/lỗ, chưa bán</string>
+    <string name="portfolio_realized">Lãi/lỗ, đã bán</string>
+    <string name="portfolio_value">Giá trị</string>
+    <string name="portfolio_avg_price">Giá mua trung bình</string>
+    <string name="portfolio_current_price">Giá hiện tại</string>
+    <string name="portfolio_avg_and_now">TB %1$s · hiện %2$s</string>
+    <string name="portfolio_updated">Giá lúc %1$s</string>
+    <string name="portfolio_convert_to">Quy đổi sang</string>
+    <string name="portfolio_convert_to_value">Quy đổi sang: %1$s</string>
+    <string name="portfolio_price_missing">Thiếu giá</string>
+    <string name="portfolio_price_missing_hint">Một số giao dịch mua chưa có giá. Thêm giá mua để xem lãi/lỗ.</string>
+    <string name="portfolio_current_missing">Không có giá hiện tại cho %1$s</string>
+    <string name="portfolio_oversold">Lượng bán vượt quá số đang nắm giữ – hãy kiểm tra giao dịch.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">Vị thế đã đóng (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Giao dịch</string>
+    <string name="portfolio_add_tx">Ghi mua/bán</string>
+    <string name="portfolio_edit_tx">Sửa giao dịch</string>
+    <string name="portfolio_buy">Mua</string>
+    <string name="portfolio_sell">Bán</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_search">Tìm ký hiệu, ví dụ BTC</string>
+    <string name="portfolio_coin_invalid">Nhập ký hiệu coin</string>
+    <string name="portfolio_tx_amount">Số lượng</string>
+    <string name="portfolio_tx_price">Giá mỗi coin</string>
+    <string name="portfolio_tx_price_hint">Bằng USDT. Để trống nếu không rõ.</string>
+    <string name="portfolio_tx_price_invalid">Giá không hợp lệ</string>
+    <string name="portfolio_tx_date">Ngày</string>
+    <string name="portfolio_tx_note">Ghi chú (tùy chọn)</string>
+    <string name="portfolio_tx_total">Tổng: %1$s</string>
+    <string name="portfolio_sell_exceeds">Nhiều hơn số bạn nắm giữ (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Xóa giao dịch?</string>
+    <string name="portfolio_tx_delete_confirm">Giao dịch này sẽ bị xóa khỏi danh mục.</string>
+    <string name="portfolio_empty_title">Chưa có giao dịch</string>
+    <string name="portfolio_empty_text">Ghi lại các giao dịch mua bán. Giá trị và lãi/lỗ được tính theo giá hiện tại bằng USDT.</string>
+    <string name="portfolio_empty_action">Ghi giao dịch mua đầu tiên</string>
+    <string name="portfolio_disclaimer">Chỉ lưu trên thiết bị này. Không phải lời khuyên đầu tư.</string>
+    <string name="portfolio_add_from_watch">Thêm vào danh mục</string>
+</resources>

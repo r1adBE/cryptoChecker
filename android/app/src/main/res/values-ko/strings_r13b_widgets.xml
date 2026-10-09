@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">오래된 데이터</string>
+    <string name="widget_outdated_time">오래된 데이터 · %1$s</string>
+
+    <string name="settings_widgets">위젯</string>
+    <string name="widgets_sheet_title">위젯 추가</string>
+    <string name="widget_kind_single">코인 하나</string>
+    <string name="widgets_add">추가</string>
+    <string name="widgets_add_named">%1$s 위젯 추가</string>
+    <string name="watch_action_add_widget">위젯으로 추가</string>
+    <string name="widgets_manual_title">위젯을 직접 추가하세요</string>
+    <string name="widgets_manual_text">사용 중인 홈 화면은 앱에서 위젯을 추가할 수 없습니다. 홈 화면의 빈 곳을 길게 누르고 ‘위젯’을 선택한 다음 ‘Crypto Checker’를 찾으세요.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS에서는 앱이 직접 위젯을 추가할 수 없습니다. 금방 끝납니다:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">앱이 흔들릴 때까지 홈 화면의 빈 곳을 길게 누르세요.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">상단의 ‘편집’ › ‘위젯 추가’를 탭하세요(이전 iOS 버전에서는 ‘+’).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">‘Crypto Checker’를 검색하고 위젯을 선택한 다음 ‘위젯 추가’를 탭하세요.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">사용 가능한 위젯</string>
+</resources>

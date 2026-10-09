@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Érmelogók</string>
+    <string name="settings_coin_logos_app">Az alkalmazásban</string>
+    <string name="settings_coin_logos_app_hint">Figyelőlista, a pár lapja és piaci kártyák</string>
+    <string name="settings_coin_logos_portfolio">A portfólióban</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozíciók, érmeadatok és elemzések</string>
+    <string name="settings_coin_logos_widgets">A widgetekben</string>
+    <string name="settings_coin_logos_widgets_hint">Figyelőlista- és Egy érme widgetek</string>
+    <string name="settings_coin_logos_footer">A logók a CoinGeckótól származnak, amit a CoinGecko nem tart nyilván (pl. arany, ezüst, részvények), az a Binance-tól. Az alkalmazás egyszerre tölti le az összes logót, és ezen az eszközön tárolja őket, így egyik szolgáltató sem tudja, mely érméket követi. A logó nélküli érméknél a kezdőbetűk látszanak. A kedvencek kis csillagot kapnak a logón. Ahol egy kapcsoló ki van kapcsolva, ott sem logó, sem kezdőbetű nem jelenik meg; ha minden ki van kapcsolva, semmi sem töltődik be.</string>
+    <string name="settings_coin_logos_value_app">Alkalmazás</string>
+</resources>

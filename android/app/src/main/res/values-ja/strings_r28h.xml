@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">確度：%1$s</string>
+    <string name="why_confidence_high">高</string>
+    <string name="why_confidence_medium">中</string>
+    <string name="why_confidence_low">低</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="other">%2$d件中%1$d件の手がかりがこれを示しています</item>
+    </plurals>
+    <string name="why_confidence_partial">データ不完全</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum गैस इससे नीचे (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin शुल्क इससे नीचे (sat/vB)</string>
+    <string name="settings_gas_alert_hint">सामान्य शुल्क सीमा से नीचे जाने पर एक बार सूचित करता है। कीमत अपडेट के समय जाँचा जाता है, ज़्यादा से ज़्यादा हर 10 मिनट में।</string>
+    <string name="notification_gas_eth_title">Ethereum गैस: %1$s gwei</string>
+    <string name="notification_gas_eth_text">आपकी %1$s gwei की सीमा से नीचे · ट्रांसफ़र ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin शुल्क: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">आपकी %1$s sat/vB की सीमा से नीचे · ट्रांसफ़र ≈ %2$s</string>
+    <string name="gas_title">नेटवर्क शुल्क</string>
+    <string name="gas_slow_fast">धीमा %1$s · तेज़ %2$s</string>
+    <string name="gas_alert_active">अलार्म: %1$s</string>
+    <string name="gas_source">सार्वजनिक RPC नोड और mempool.space · एक साधारण ट्रांसफ़र की लागत, L2 पर L1 हिस्से के बिना</string>
+    <string name="gas_transfer_cost">ट्रांसफ़र ≈ %1$s</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: ขึ้น %2$d ลง %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: เหรียญใหญ่ที่สุดตามมูลค่าตลาด ไม่รวมสเตเบิลคอยน์ การเปลี่ยนแปลงใน 24 ชั่วโมง (CoinGecko)</string>
+    <string name="pulse_breadth_note_broad_up">เคลื่อนไหวทั้งตลาด: เหรียญใหญ่ส่วนใหญ่กำลังขึ้น</string>
+    <string name="pulse_breadth_note_broad_down">ร่วงทั้งตลาด: เหรียญใหญ่ส่วนใหญ่กำลังลง</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin กำลังขึ้น แต่เหรียญใหญ่อื่น ๆ ส่วนใหญ่ไม่ขึ้นตาม</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin กำลังลง แต่เหรียญใหญ่อื่น ๆ ส่วนใหญ่ยังทรงตัว</string>
+</resources>

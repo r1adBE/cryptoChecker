@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">قیمت‌ها و هشدارها را با صدای بلند می‌خواند. تا وقتی دستگاه در حالت بی‌صدا یا لرزش است، ساکت می‌ماند.</string>
+</resources>

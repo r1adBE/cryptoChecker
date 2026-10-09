@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Zobrazit období vedle změny</string>
+    <string name="settings_change_period_hint">Malé „24h“, „dnes“ nebo „posl. aktualizace“ vedle změny v seznamu a ve widgetu jedné mince. Čtečka obrazovky ho vždy přečte.</string>
+</resources>

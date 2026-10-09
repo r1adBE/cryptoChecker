@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">ألوان الأسعار</string>
+    <string name="settings_price_colors_hint">يسهل تمييز الأزرق / البرتقالي مع كل أنواع ضعف رؤية الألوان (الأحمر-الأخضر والأزرق-الأصفر). ويُعرض الاتجاه دائمًا أيضًا بالرمز + / −.</string>
+    <string name="settings_watchlist_sparkline">مخطط مصغّر في قائمة المتابعة</string>
+    <string name="settings_watchlist_sparkline_hint">اتجاه 24 ساعة بجانب السعر</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">تباين عالٍ</string>
+    <string name="settings_high_contrast_hint">ألوان أسعار أقوى ونصوص ثانوية أغمق. يعمل أيضًا عندما يطلب النظام تباينًا أعلى.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s في %2$s</string>
+    <string name="a11y_price">السعر %1$s</string>
+    <string name="a11y_change_up">ارتفاع بنسبة %1$s</string>
+    <string name="a11y_change_down">انخفاض بنسبة %1$s</string>
+    <string name="a11y_change_flat">دون تغيير</string>
+    <string name="a11y_converted">حوالي %1$s</string>
+    <string name="a11y_note">ملاحظة: %1$s</string>
+    <string name="a11y_alarm_count">التنبيهات: %1$d</string>
+    <string name="a11y_stale">قديم، آخر تحديث %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">المخطط %1$s: من %2$s إلى %3$s، %4$s. الأعلى %5$s، الأدنى %6$s.</string>
+    <string name="a11y_chart_empty">المخطط: لا توجد بيانات</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">الدورة %1$s: %2$s منذ التنصيف، اليوم %3$d.</string>
+    <string name="a11y_cycle_top">القمة %1$s في اليوم %2$d.</string>
+    <string name="a11y_cycle_bottom">القاع %1$s في اليوم %2$d.</string>
+    <string name="a11y_cycle_double_top">القمة المزدوجة %1$s في اليوم %2$d.</string>
+    <string name="a11y_cycle_double_bottom">القاع المزدوج %1$s في اليوم %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">مقياس من %1$s إلى %2$s: %3$d من 100</string>
+</resources>

@@ -1,0 +1,64 @@
+Crypto Checker selittää, mitä markkinoilla tapahtuu. Aseta hälytyksiä, huomaa poikkeavat liikkeet ja ymmärrä sekunneissa, miksi kolikko liikkuu – ilman ennustetta.
+
+Ymmärrä – ”Miksi tämä liikkuu?” lyhyellä yhteenvedolla
+Yleiskuva – Crypto Pulse, Fear & Greed, sykli ja salkku
+Seuraa – hinnat suoraan pörssistä, valuutassasi
+Hälytä – hinta, %, liikkeet ja volyymi yksinkertaisena lauseena
+
+Luettava kaikille: vihreä/punainen tai sininen/oranssi, suuri kontrasti, etumerkki ja nuoli pelkän värin sijaan, ja TalkBack lukee jokaisen rivin yhtenä lauseena.
+
+SEURANTALISTA: 41 MARKKINAA 32 PÖRSSISSÄ
+• Tyhjä lista: markkina-arvoltaan 5 suurinta kolikkoa live-hintoineen yhdellä napautuksella
+• Spot ja futuurit: Binance, Coinbase, Kraken, OKX, Bybit ja muita – halutessasi myös osakkeet, kulta ja valuutat (TradFi), automaattisesti omaan ryhmään
+• DEX-tokenit DexScreenerin kautta
+• Pyyhkäise vasemmalle: poista (voi kumota), oikealle: suosikki
+• Järjestä parit ryhmiin ja vaihda järjestystä vetämällä
+• Kolikkokohtainen muistiinpano, esim. ostohintasi – hinnan alla
+• Toinen rivi ”≈ arvo” yhdessä 31 valuutasta (EUR, CHF, USD …), oletus alueen mukaan
+• Minikaavio jokaisella rivillä; %-muutos 24 h tai klo 00:00 alkaen aikavyöhykkeelläsi
+• Salkku-välilehti: ostot, myynnit, keskihinta, voitto/tappio ja kokonaisarvo valuutassasi
+• Tilannepäivän vienti: salkun arvo minä tahansa päivänä (esim. 31.12.) CSV:nä – ei veroneuvontaa
+• Rivillä lukee ”vanhentunut” tai ”pörssi ei tavoitettavissa”
+
+HÄLYTYKSET OMILLA EHDOILLASI
+• Hinta yli tai alle rajan, nousu tai lasku prosenttimäärällä
+• Hälytykset valuutassasi, esim. 60 000 EUR USDT-parissa
+• Hälytys lauseena: ”Ilmoita, kun BTC laskee alle 60 000 CHF.”
+• x %:n liike aikaikkunassa, esim. 5 % tunnissa
+• Volyymipiikki: volyymi yhtäkkiä selvästi keskiarvon yläpuolella
+• Kerran tai toistuvasti, äänellä, värinällä ja halutessasi puheella
+• Oma hälytysääni: järjestelmän ääni tai oma äänitiedosto
+• Säädettävä tauko estää hälytystulvan
+• Hiljaiset tunnit: yöllä (esim. 23–7) hälytykset ilman ääntä, värinää tai puhetta
+• ”Testaa hälytys”: kuule ja tunne etukäteen, miten hälytys saapuu
+
+EPÄTAVALLINEN AKTIIVISUUS JA MIKSI TÄMÄ LIIKKUU?
+• Epätavallinen aktiivisuus: poikkeavat hinta- ja volyymiliikkeet listallasi, valinnaisin ilmoituksin
+• ”Miksi tämä liikkuu?” selittää liikkeen volyymin, koko markkinan ja futuuridatan avulla, tiiviisti – ei sijoitusneuvontaa
+
+MARKKINAKATSAUS
+• Crypto Pulse: mitä nyt tapahtuu? BTC, ETH, SOL, altcoinit vs. BTC, volyymi, Fear & Greed, funding, ETH-gas ja yhden rivin yhteenveto – ei ennustetta
+• Fear & Greed -indeksi historiineen ja valinnaisin ilmoituksin
+• Kryptomarkkina: kokonaismarkkina-arvo ja 24 h volyymi valuutassasi
+• Markkinat-välilehti: markkinavaihe ja merkit mahdollisesta huipusta/pohjasta (ei ennuste), lähtölaskenta puolittumiseen, dominanssi, altcoin-kausi
+• Kolikkoanalyysi: RSI, trendi, Pi Cycle ja vahvuus vs. Bitcoin
+• Futuuritiedot: rahoituskorko ja avoimet positiot lyhyin selityksin
+• Verkkomaksut: Ethereum, Base, Arbitrum, Polygon, BNB Chain ja Bitcoin, gas-hälytys
+
+WIDGETIT JA ILMOITUKSET
+• Widgetit: koko lista, salkun kokonaisarvo ja päivän muutos, yksi kolikko kaaviolla (kynttilät tai viiva) sekä ylä/keski/ala
+• Äänetön hintailmoitus pareittain
+• Tiheä päivitys jopa 15 sekunnin välein, taustalla 15 minuutista alkaen
+
+LISÄKSI
+• Hinnat ja hälytykset luetaan ääneen
+• Varmuuskopio ja palautus valitsemaasi tiedostoon – myös Androidin ja iPhonen välillä
+• Sovelluksen pikakuvakkeet, vaalea ja tumma tila
+• Viisi korostusväriä ja sopiva sovelluskuvake
+• Salkun lukitus: sormenjälki, kasvot tai PIN
+• Saatavilla 31 kielellä
+
+YKSITYISYYS ENSIN
+Ei tiliä, ei mainoksia, ei analytiikkaa. Hinnat tulevat suoraan pörssien julkisista rajapinnoista. Lista, hälytykset ja omistukset pysyvät laitteellasi. Avointa lähdekoodia (MIT) – koodi on julkisesti GitHubissa.
+
+Huom.: Crypto Checker vain näyttää hintoja. Se ei ole pörssi eikä lompakko, ei käy kauppaa eikä anna sijoitusneuvontaa.

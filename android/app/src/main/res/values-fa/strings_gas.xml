@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">گس Ethereum زیر (gwei)</string>
+    <string name="settings_gas_btc_below">کارمزد Bitcoin زیر (sat/vB)</string>
+    <string name="settings_gas_alert_hint">وقتی کارمزد عادی به زیر حد برسد، یک بار اعلان می‌دهد. هنگام به‌روزرسانی قیمت‌ها بررسی می‌شود، حداکثر هر 10 دقیقه یک بار.</string>
+    <string name="notification_gas_eth_title">گس Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">زیر حد شما (%1$s gwei) · انتقال ≈ %2$s</string>
+    <string name="notification_gas_btc_title">کارمزد Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">زیر حد شما (%1$s sat/vB) · انتقال ≈ %2$s</string>
+    <string name="gas_title">کارمزدهای شبکه</string>
+    <string name="gas_slow_fast">کند %1$s · سریع %2$s</string>
+    <string name="gas_alert_active">هشدار: %1$s</string>
+    <string name="gas_source">نودهای عمومی RPC و mempool.space · هزینه یک انتقال ساده، بدون سهم L1 در L2ها</string>
+    <string name="gas_transfer_cost">انتقال ≈ %1$s</string>
+</resources>

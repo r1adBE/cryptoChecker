@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">Hledat pár nebo burzu</string>
+    <string name="watchlist_search_open">Hledat</string>
+    <string name="watchlist_search_close">Zavřít hledání</string>
+    <string name="watchlist_search_empty">Žádné výsledky pro „%1$s“</string>
+</resources>

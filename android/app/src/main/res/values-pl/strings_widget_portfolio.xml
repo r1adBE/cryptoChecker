@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Wyświetlanie</string>
+    <string name="widget_portfolio_display_conversion">Tylko przeliczenie</string>
+    <string name="widget_portfolio_display_conversion_usdt">Przeliczenie + USDT</string>
+    <string name="widget_portfolio_display_hint">Wiersz USDT jest ukryty, gdy walutą przeliczenia jest USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d więcej</item>
+        <item quantity="few">+ %1$d więcej</item>
+        <item quantity="many">+ %1$d więcej</item>
+        <item quantity="other">+ %1$d więcej</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48 h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s portfela</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s portfela, dziś %4$s</string>
+    <string name="a11y_portfolio_positions">Największe pozycje: %1$s</string>
+</resources>

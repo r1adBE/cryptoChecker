@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Zirve %1$s</string>
+    <string name="cycle_marker_high_so_far">Şimdiye kadarki en yüksek</string>
+    <string name="cycle_marker_bottom">Dip %1$s</string>
+    <string name="cycle_since_halving">Yarılanmadan bu yana %1$s</string>
+    <string name="cycle_from_top">Zirveden %1$s</string>
+    <string name="cycle_marker_double_top">İkili zirve %1$s</string>
+    <string name="cycle_marker_double_bottom">İkili dip %1$s</string>
+</resources>

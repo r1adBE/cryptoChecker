@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">Lisanslar</string>
+    <string name="licenses_marketdata_title">Fiyat verisi kitaplığı</string>
+    <string name="licenses_marketdata_intro">Borsa bağlantısının bazı bölümleri MIT Lisansı altındaki yazılıma dayanır:</string>
+    <string name="licenses_marketdata_changes">Değişiklikler: %1$s</string>
+    <string name="licenses_font_title">Rubik yazı tipi</string>
+    <string name="licenses_libraries_title">Android kitaplıkları</string>
+    <string name="licenses_libraries_intro">Uygulama bu kitaplıkları Apache License 2.0 kapsamında kullanır:</string>
+</resources>

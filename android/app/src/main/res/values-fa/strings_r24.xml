@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">تغییر %1$s و منطقه زمانی نمودار</string>
+    <string name="change_basis_rolling">۲۴ ساعت گذشته</string>
+    <string name="change_basis_utc_zone">از 00:00 %1$s</string>
+    <string name="change_basis_local">از 00:00 به وقت محلی</string>
+    <string name="settings_change_basis_hint_1">منطقه زمانی انتخاب‌شده تعیین می‌کند تغییر درصدی از چه زمانی حساب شود (واچ‌لیست، خط نبض، برگهٔ جفت، ابزارک‌ها) و ساعت‌های نمودارها در کدام منطقه نمایش داده شوند.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» با قیمت دقیقاً 24 ساعت پیش مقایسه می‌کند. «00:00» با قیمت بازگشایی در نیمه‌شب همین منطقه زمانی مقایسه می‌کند.</string>
+    <string name="settings_change_basis_hint_3">هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
+    <string name="change_basis_device">%1$s، 00:00 (منطقه زمانی دستگاه)</string>
+    <string name="change_short_today">امروز</string>
+    <string name="change_short_today_zone">امروز %1$s</string>
+    <string name="a11y_change_today">%1$s امروز</string>
+    <string name="a11y_change_today_zone">%1$s از نیمه‌شب %2$s</string>
+    <string name="a11y_change_today_none">تغییر امروز در دسترس نیست</string>
+    <string name="a11y_change_today_zone_none">تغییر از نیمه‌شب %1$s در دسترس نیست</string>
+    <string name="sheet_chart_today">امروز</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">وقتی برنامه بسته است، حداکثر یک بار در دقیقه</string>
+    <string name="sheet_more">بیشتر</string>
+    <string name="a11y_expanded">باز</string>
+    <string name="a11y_collapsed">بسته</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d بدون مقدار امروز</item>
+        <item quantity="other">%1$d بدون مقدار امروز</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d جفت بدون مقدار برای امروز</item>
+        <item quantity="other">%1$d جفت بدون مقدار برای امروز</item>
+    </plurals>
+</resources>

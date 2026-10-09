@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">แตะเพื่อดูคำสั่ง · ปัดเพื่อคำสั่งด่วน · กดค้างเพื่อจัดเรียง</string>
+    <string name="watch_action_alarm">สัญญาณเตือน</string>
+    <string name="watch_action_why">ทำไม?</string>
+    <string name="watch_action_favorite">รายการโปรด</string>
+    <string name="add_alarm_action">ตั้งสัญญาณเตือน</string>
+    <string name="welcome_watch_q">เกิดอะไรขึ้น?</string>
+    <string name="welcome_alert_q">ควรทำอะไรเมื่อไร?</string>
+    <string name="welcome_understand_q">ทำไม?</string>
+</resources>

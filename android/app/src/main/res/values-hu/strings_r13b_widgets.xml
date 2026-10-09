@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">elavult</string>
+    <string name="widget_outdated_time">elavult · %1$s</string>
+
+    <string name="settings_widgets">Widgetek</string>
+    <string name="widgets_sheet_title">Widget hozzáadása</string>
+    <string name="widget_kind_single">Egy érme</string>
+    <string name="widgets_add">Hozzáadás</string>
+    <string name="widgets_add_named">%1$s widget hozzáadása</string>
+    <string name="watch_action_add_widget">Hozzáadás widgetként</string>
+    <string name="widgets_manual_title">Adja hozzá saját maga a widgetet</string>
+    <string name="widgets_manual_text">A kezdőképernyője nem tud widgetet hozzáadni az alkalmazásból. Tartsa lenyomva a kezdőképernyő egy üres részét, válassza a „Widgetek” lehetőséget, és keresse meg a „Crypto Checker” elemet.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">Az iOS nem engedi, hogy az alkalmazások maguk adjanak hozzá widgetet. Csak egy pillanat:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Tartsa lenyomva a Főképernyő egy üres részét, amíg az appok remegni nem kezdenek.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Koppintson fent a „Szerkesztés” › „Widget hozzáadása” elemre (régebbi iOS-verziókban a „+” gombra).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Keresse meg a „Crypto Checker” elemet, válasszon widgetet, és koppintson a „Widget hozzáadása” gombra.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Elérhető widgetek</string>
+</resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kopfzeile aller Portfolio-Widget-Layouts: Logo, «Portfolio», rechts die Pille mit der
+     Veränderung über 24 h («▼ 2.31%», Kursfarbe; WidgetUpdater.pill). Ohne Veränderung keine Pille. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:baselineAligned="false">
+
+    <ImageView
+        android:id="@+id/portfolio_logo"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_app_logo_orange_dark"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/portfolio_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/widget_portfolio_name"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:id="@+id/portfolio_pill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/portfolio_pill_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/widget_pill"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/portfolio_pill_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:maxLines="1"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:fontFeatureSettings="tnum" />
+    </FrameLayout>
+</LinearLayout>

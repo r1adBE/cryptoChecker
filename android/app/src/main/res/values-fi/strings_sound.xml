@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Hälytysääni</string>
+    <string name="settings_alarm_sound_default">Oletusääni</string>
+    <string name="settings_alarm_sound_custom">Oma ääni</string>
+    <string name="settings_alarm_sound_system">Valitse järjestelmän ääni…</string>
+    <string name="settings_alarm_sound_file">Oma äänitiedosto…</string>
+    <string name="settings_alarm_sound_reset">Käytä oletusääntä</string>
+    <string name="settings_alarm_sound_error">Ääntä ei voitu käyttää.</string>
+</resources>

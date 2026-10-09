@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Keyakinan: %1$s</string>
+    <string name="why_confidence_high">tinggi</string>
+    <string name="why_confidence_medium">sedang</string>
+    <string name="why_confidence_low">rendah</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="other">%1$d dari %2$d sinyal mendukung ini</item>
+    </plurals>
+    <string name="why_confidence_partial">data tidak lengkap</string>
+</resources>

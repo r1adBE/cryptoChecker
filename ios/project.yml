@@ -1,0 +1,110 @@
+# XcodeGen-Spezifikation (Fallback zu tools/gen_xcodeproj.py): `xcodegen generate`
+name: CryptoChecker
+options:
+  bundleIdPrefix: com.cryptochecker
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  xcodeVersion: "15.3"
+  # knownRegions werden von XcodeGen aus den .xcstrings-Dateien ermittelt
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    MARKETING_VERSION: "16.2.2"
+    CURRENT_PROJECT_VERSION: "17"
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+    GENERATE_INFOPLIST_FILE: NO
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: NO
+    ENABLE_PREVIEWS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOLS: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+targets:
+  CryptoChecker:
+    type: application
+    platform: iOS
+    sources:
+      - path: Shared
+        excludes:
+          - "Resources/InfoPlist.xcstrings"
+      - path: Shared/Resources/InfoPlist.xcstrings
+        buildPhase: resources
+      - path: App
+        excludes:
+          - "Info.plist"
+          - "*.entitlements"
+          - "PrivacyInfo.xcprivacy"
+      - path: App/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app
+        INFOPLIST_FILE: App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: App/CryptoChecker.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "AppIconOrangeLight AppIconRed AppIconRedLight AppIconBlue AppIconBlueLight AppIconGreen AppIconGreenLight AppIconMarrsGreen AppIconMarrsGreenLight"
+    dependencies:
+      - target: CryptoCheckerWidgetsExtension
+        embed: true
+        codeSign: true
+
+  CryptoCheckerWidgetsExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Shared
+        excludes:
+          - "Resources/InfoPlist.xcstrings"
+      - path: Widgets
+        excludes:
+          - "Info.plist"
+          - "*.entitlements"
+      # Datenschutz-Manifest: jedes Bundle braucht eines (Widgets nutzen UserDefaults)
+      - path: App/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app.widgets
+        INFOPLIST_FILE: Widgets/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Widgets/CryptoCheckerWidgets.entitlements
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
+        SKIP_INSTALL: YES
+
+  # Unit-Tests, gehostet von der App (`@testable import CryptoChecker`). Tests/Parity/*.json sind
+  # die gemeinsamen Testfälle aus android/testdata/parity (kopiert von tools/gen_xcodeproj.py).
+  CryptoCheckerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: CryptoChecker
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/CryptoChecker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CryptoChecker"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  CryptoChecker:
+    build:
+      targets:
+        CryptoChecker: all
+        CryptoCheckerWidgetsExtension: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - CryptoCheckerTests
+    archive:
+      config: Release

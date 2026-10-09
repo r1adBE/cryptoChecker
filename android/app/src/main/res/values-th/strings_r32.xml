@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runde 32: «Warum?» Gleichlauf mit Bitcoin, Sats im Aktionsblatt -->
+<resources>
+    <string name="why_btc_tight">ขณะนี้ %1$s เคลื่อนไหวใกล้ชิดกับ Bitcoin</string>
+    <string name="why_btc_independent">ขณะนี้ %1$s เคลื่อนไหวเป็นอิสระจาก Bitcoin</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

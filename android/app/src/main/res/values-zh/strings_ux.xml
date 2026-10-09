@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">一键开始</string>
+    <string name="starter_text">选择币种，一次性全部添加。交易所和交易对稍后可以更改。</string>
+    <string name="starter_custom">自选交易所和交易对</string>
+    <string name="settings_quiet_hours">静音时段</string>
+    <string name="settings_quiet_hours_hint">%1$s 至 %2$s 之间，提醒将静音送达：无声音、无振动、无语音。</string>
+    <string name="settings_quiet_hours_from">开始</string>
+    <string name="settings_quiet_hours_to">结束</string>
+    <string name="channel_alarms_quiet">提醒（静音时段）</string>
+    <string name="channel_alarms_quiet_description">静音时段内的无声提醒。</string>
+    <string name="app_lock_unlock">解锁</string>
+    <string name="app_lock_unavailable">此设备未设置屏幕锁定。请先在系统设置中设置。</string>
+    <string name="widget_portfolio_name">投资组合</string>
+    <string name="widget_portfolio_description">投资组合总价值及今日变化</string>
+    <string name="widget_portfolio_today">今日 %1$s</string>
+    <string name="widget_portfolio_empty">在“投资组合”标签页中添加买入记录</string>
+    <string name="a11y_portfolio_widget">投资组合 %1$s，今日 %2$s</string>
+    <string name="explain_funding">多头与空头之间支付的费用。大幅为正表示许多人押注价格上涨。</string>
+    <string name="explain_open_interest">所有未平仓合约头寸的价值。上升表示有更多资金押注这一走势。</string>
+    <string name="explain_rsi">相对强弱指数，0–100。高于 70 常为过热，低于 30 常为超卖。</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">说明</string>
+    <string name="explain_pi_cycle">比较 111 日均线与 350 日均线的两倍。两线交叉曾标示过往周期顶部。</string>
+    <string name="alarm_sentence_above">当 %1$s 涨破 %2$s 时提醒我。</string>
+    <string name="alarm_sentence_below">当 %1$s 跌破 %2$s 时提醒我。</string>
+    <string name="alarm_sentence_up_percent">当 %1$s 上涨 %2$s 时提醒我。</string>
+    <string name="alarm_sentence_down_percent">当 %1$s 下跌 %2$s 时提醒我。</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">当 %1$s 在 %3$d 小时内波动 %2$s 时提醒我。</item>
+    </plurals>
+    <string name="alarm_sentence_volume">当 %1$s 成交量达到正常水平的 %2$s 倍时提醒我。</string>
+    <string name="alarm_sentence_incomplete">输入数值后，提醒将以句子形式显示。</string>
+    <string name="watchlist_row_unreachable">%1$s · 无法连接 %2$s</string>
+    <string name="watchlist_row_outdated">%1$s · 已过时</string>
+</resources>

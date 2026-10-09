@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Legge ad alta voce prezzi e allarmi. Resta in silenzio finché il dispositivo è in modalità silenziosa o vibrazione.</string>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget, Stufe klein und schmal-hoch (PortfolioWidgetMath.size), dazu Sperre und
+     «leer»: Kopfzeile (Logo, «Portfolio», Pille «▼ 2.31%» rechts), Gesamtwert, Betrag
+     «▼ −1’968.40 CHF · 24h», ≈ USDT, Wertverlauf (nur schmal-hoch), Fusszeile «Stand 15:19 · 24h».
+     Mittel: widget_portfolio_medium.xml, gross: widget_portfolio_large.xml — gleiche Ids.
+     Nur RemoteViews-taugliche Views (kein <View>). -->
+<!-- Runde Ecken auf allen Android-Versionen: Wurzel mit @android:id/background und Umriss (ab 12 clipToOutline), darunter die eingefärbte Fläche -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outline"
+    android:clipToOutline="true"
+    tools:targetApi="31">
+
+    <!-- Fläche mit runden Ecken; Farbe und Deckkraft setzt WidgetUpdater.background -->
+    <ImageView
+        android:id="@+id/portfolio_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_background"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/portfolio_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <include layout="@layout/widget_portfolio_header" />
+
+        <LinearLayout
+            android:id="@+id/portfolio_values"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <include layout="@layout/widget_portfolio_value_block" />
+
+            <!-- Wertverlauf (schmal-hoch); in der kleinen Stufe ausgeblendet, dann füllt der Platzhalter -->
+            <include layout="@layout/widget_portfolio_chart" />
+
+            <!-- Platzhalter: hält die Fusszeile unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
+            <FrameLayout
+                android:id="@+id/portfolio_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/portfolio_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="10sp"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+
+        <!-- Portfolio-Sperre an: Schloss über dem Hinweis (keine Werte, kein Chart, keine Positionen) -->
+        <ImageView
+            android:id="@+id/portfolio_lock_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_lock"
+            android:importantForAccessibility="no"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/portfolio_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="@string/widget_portfolio_empty"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum Gas 低于（gwei）</string>
+    <string name="settings_gas_btc_below">Bitcoin 手续费低于（sat/vB）</string>
+    <string name="settings_gas_alert_hint">普通手续费低于阈值时提醒一次。在行情更新时检查，最多每 10 分钟一次。</string>
+    <string name="notification_gas_eth_title">Ethereum Gas：%1$s gwei</string>
+    <string name="notification_gas_eth_text">低于你设定的 %1$s gwei · 转账 ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin 手续费：%1$s sat/vB</string>
+    <string name="notification_gas_btc_text">低于你设定的 %1$s sat/vB · 转账 ≈ %2$s</string>
+    <string name="gas_title">网络手续费</string>
+    <string name="gas_slow_fast">慢 %1$s · 快 %2$s</string>
+    <string name="gas_alert_active">提醒：%1$s</string>
+    <string name="gas_source">公共 RPC 节点和 mempool.space · 一笔简单转账的费用，L2 不含 L1 部分</string>
+    <string name="gas_transfer_cost">转账 ≈ %1$s</string>
+</resources>

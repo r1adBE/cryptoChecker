@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Fördelning</string>
+    <string name="portfolio_allocation_other">Övriga</string>
+    <string name="portfolio_movers_title">Största rörelser</string>
+    <string name="portfolio_hide_amounts">Dölj belopp</string>
+    <string name="portfolio_hide_amounts_hint">Visar belopp och värden i portföljen och portföljwidgeten som ••• – procent syns fortfarande.</string>
+    <string name="a11y_portfolio_show_amounts">Visa belopp</string>
+    <string name="a11y_amount_hidden">belopp dolt</string>
+    <string name="portfolio_alarm_action">Larm</string>
+    <string name="portfolio_alarm_title">Larm ”portföljvärde”</string>
+    <string name="portfolio_alarm_kind_above">Portfölj över belopp</string>
+    <string name="portfolio_alarm_kind_below">Portfölj under belopp</string>
+    <string name="portfolio_alarm_kind_up">Portfölj stiger</string>
+    <string name="portfolio_alarm_kind_down">Portfölj faller</string>
+    <string name="portfolio_alarm_amount">Belopp (%1$s)</string>
+    <string name="portfolio_alarm_hint">Kontrolleras efter varje uppdatering. Som kurslarm: meddelar när gränsen passeras och först igen när värdet har gått tillbaka.</string>
+    <string name="portfolio_alarm_sentence_above">Portfölj över %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfölj under %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Portfölj stiger %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portfölj faller %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Portföljvärde</string>
+    <string name="notification_portfolio_alarm_text">%1$s – nu %2$s</string>
+</resources>

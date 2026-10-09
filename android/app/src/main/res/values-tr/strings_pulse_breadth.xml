@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">İlk %1$d</string>
+    <string name="pulse_breadth_spoken">İlk %1$d: %2$d yükselişte, %3$d düşüşte</string>
+    <string name="pulse_breadth_hint">İlk %1$d: piyasa değerine göre en büyük coin\'ler, stablecoin\'ler hariç; 24 saatlik değişim (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Geniş hareket: büyük coin\'lerin çoğu yükseliyor.</string>
+    <string name="pulse_breadth_note_broad_down">Geniş düşüş: büyük coin\'lerin çoğu düşüyor.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin yükseliyor, ancak diğer büyük coin\'lerin çoğu eşlik etmiyor.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin düşüyor, ancak diğer büyük coin\'lerin çoğu dayanıyor.</string>
+</resources>

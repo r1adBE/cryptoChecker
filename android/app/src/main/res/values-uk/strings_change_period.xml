@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Показувати період біля зміни</string>
+    <string name="settings_change_period_hint">Дрібно «24г», «сьогодні» або «ост. оновлення» біля зміни у списку та у віджеті однієї монети. Екранний диктор завжди його називає.</string>
+</resources>

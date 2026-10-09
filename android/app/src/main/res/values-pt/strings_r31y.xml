@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">desatualizado · %1$s</string>
+    <string name="why_brief_label">Em resumo:</string>
+    <string name="why_factor_market">Mercado geral</string>
+    <string name="why_factor_futures">Futuros</string>
+    <string name="why_factor_near_high">Perto do máximo</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">mais alto do que o habitual</string>
+    <string name="why_fn_volume_lower">mais baixo do que o habitual</string>
+    <string name="why_fn_volume_usual">como habitualmente</string>
+    <string name="why_fn_market_pulls">A BTC arrasta o mercado</string>
+    <string name="why_fn_market_lags">O mercado mexe-se, esta moeda quase nada</string>
+    <string name="why_fn_market_alone">Mercado calmo – esta moeda move-se sozinha</string>
+    <string name="why_fn_market_against">A moeda vai contra o mercado</string>
+    <string name="why_fn_market_calm">Mercado calmo</string>
+    <string name="why_fn_leader_moves">A Bitcoin dita a direção</string>
+    <string name="why_fn_leader_calm">A Bitcoin está calma</string>
+    <string name="why_fn_volatility_stronger">mais forte do que o habitual</string>
+    <string name="why_fn_volatility_usual">como habitualmente</string>
+    <string name="why_fn_oi_up">Open interest a subir</string>
+    <string name="why_fn_oi_down">Open interest a descer</string>
+    <string name="why_fn_oi_flat">Open interest quase inalterado</string>
+    <string name="why_fn_high_at">no máximo de 30 dias</string>
+    <string name="why_fn_high_below">abaixo do máximo de 30 dias</string>
+    <string name="why_fn_funding_longs">muitos apostam na subida</string>
+    <string name="why_fn_funding_shorts">muitos apostam na descida</string>
+    <string name="why_fn_funding_neutral">neutro</string>
+</resources>

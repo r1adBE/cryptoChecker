@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto Backup bis Android 11 (android:fullBackupContent). Gleicher Umfang wie
+     data_extraction_rules.xml (ab Android 12) — bei Änderungen beide anpassen. -->
+<full-backup-content>
+    <!-- Merkliste, Alarme, Portfolio, Gruppen, Notizen (Room, AppDatabase.DB_NAME).
+         Die WAL-Datei gehört dazu: Ohne Checkpoint stehen die letzten Änderungen nur dort.
+         -shm baut SQLite selbst neu auf; MarketDatabase.db (Altbestand vor der Übernahme) nicht. -->
+    <include domain="database" path="cryptochecker.db" />
+    <include domain="database" path="cryptochecker.db-wal" />
+    <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
+    <include domain="file" path="datastore/settings.preferences_pb" />
+    <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
+         damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
+    <include domain="sharedpref" path="app_language.xml" />
+    <include domain="sharedpref" path="favorites.xml" />
+    <include domain="sharedpref" path="portfolio.xml" />
+    <!-- Nicht gesichert (nur ausdrücklich Eingeschlossenes wird gesichert):
+         Zwischenspeicher und flüchtiger Zustand — activity, refresh_stats, starter_coins,
+         market_zone, macro_notify, gas_alerts; Widget-Zuordnung und -Momentaufnahme
+         (widgets, portfolio_widget: Widget-Ids gelten nur auf diesem Gerät); Zyklus-/Makro-
+         Zwischenspeicher liegen in cacheDir. Die App-Sperre speichert kein Geheimnis
+         (Biometrie/Geräte-Sperre des Systems), nur den Schalter in den Einstellungen. -->
+</full-backup-content>

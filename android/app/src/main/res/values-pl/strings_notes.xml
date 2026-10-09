@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Notatka</string>
+    <string name="note_add">Dodaj notatkę</string>
+    <string name="note_edit">Edytuj notatkę</string>
+    <string name="note_hint">np. wejście po 0,42, cel 0,60</string>
+    <string name="note_remove">Usuń</string>
+</resources>

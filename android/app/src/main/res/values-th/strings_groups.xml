@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">แก้ไขกลุ่ม</string>
+    <string name="group_rename">เปลี่ยนชื่อ</string>
+    <string name="group_delete">ลบกลุ่ม</string>
+    <string name="group_delete_confirm">คู่เทรดจะยังคงอยู่ในรายการติดตาม</string>
+    <string name="group_done">เสร็จสิ้น</string>
+    <string name="group_add">กลุ่มใหม่</string>
+    <string name="group_in_other">ใน %1$s</string>
+    <string name="group_target">ในกลุ่ม</string>
+    <string name="group_search_hint">ค้นหาคู่เทรด</string>
+    <string name="group_next">ถัดไป</string>
+</resources>

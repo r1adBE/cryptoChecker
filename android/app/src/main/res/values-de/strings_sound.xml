@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Alarmton</string>
+    <string name="settings_alarm_sound_default">Standardton</string>
+    <string name="settings_alarm_sound_custom">Eigener Ton</string>
+    <string name="settings_alarm_sound_system">Systemton wählen…</string>
+    <string name="settings_alarm_sound_file">Eigene Audiodatei…</string>
+    <string name="settings_alarm_sound_reset">Standardton verwenden</string>
+    <string name="settings_alarm_sound_error">Der Ton konnte nicht übernommen werden.</string>
+</resources>

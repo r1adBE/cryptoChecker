@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Κατοχή</string>
+    <string name="portfolio_invalid">Μη έγκυρη ποσότητα</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Ομάδα</string>
+    <string name="group_value">Ομάδα: %1$s</string>
+    <string name="group_all">Όλα</string>
+    <string name="group_none">Χωρίς ομάδα</string>
+    <string name="group_new">Νέα ομάδα…</string>
+    <string name="group_name">Όνομα ομάδας</string>
+    <string name="widget_group_hint">Εμφάνιση μόνο των ζευγών αυτής της ομάδας.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Χαρτοφυλάκιο</string>
+    <string name="portfolio_setting_hint">Προαιρετικά: καταγράψτε αγορές και πωλήσεις και δείτε αξία και κέρδος/ζημία σε ξεχωριστή καρτέλα.</string>
+    <string name="portfolio_total_value">Συνολική αξία</string>
+    <string name="portfolio_invested">Επενδεδυμένα</string>
+    <string name="portfolio_unrealized">Κέρδος/ζημία, δεν έχουν πωληθεί</string>
+    <string name="portfolio_realized">Κέρδος/ζημία, έχουν πωληθεί</string>
+    <string name="portfolio_value">Αξία</string>
+    <string name="portfolio_avg_price">Μέση τιμή αγοράς</string>
+    <string name="portfolio_current_price">Τρέχουσα τιμή</string>
+    <string name="portfolio_avg_and_now">Μ.ό. %1$s · τώρα %2$s</string>
+    <string name="portfolio_updated">Τιμές από %1$s</string>
+    <string name="portfolio_convert_to">Μετατροπή σε</string>
+    <string name="portfolio_convert_to_value">Μετατροπή σε: %1$s</string>
+    <string name="portfolio_price_missing">Λείπει τιμή</string>
+    <string name="portfolio_price_missing_hint">Σε ορισμένες αγορές λείπει η τιμή. Προσθέστε την τιμή αγοράς για να δείτε κέρδος/ζημία.</string>
+    <string name="portfolio_current_missing">Δεν υπάρχει τρέχουσα τιμή για %1$s</string>
+    <string name="portfolio_oversold">Οι πωλήσεις υπερβαίνουν τα διαθέσιμα – ελέγξτε τις συναλλαγές.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Κλειστή θέση (%1$d)</item>
+        <item quantity="other">Κλειστές θέσεις (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Συναλλαγές</string>
+    <string name="portfolio_add_tx">Καταγραφή αγοράς/πώλησης</string>
+    <string name="portfolio_edit_tx">Επεξεργασία συναλλαγής</string>
+    <string name="portfolio_buy">Αγορά</string>
+    <string name="portfolio_sell">Πώληση</string>
+    <string name="portfolio_coin">Νόμισμα</string>
+    <string name="portfolio_coin_search">Αναζήτηση συμβόλου, π.χ. BTC</string>
+    <string name="portfolio_coin_invalid">Εισαγάγετε σύμβολο</string>
+    <string name="portfolio_tx_amount">Ποσότητα</string>
+    <string name="portfolio_tx_price">Τιμή ανά νόμισμα</string>
+    <string name="portfolio_tx_price_hint">Σε USDT. Αφήστε κενό αν είναι άγνωστη.</string>
+    <string name="portfolio_tx_price_invalid">Μη έγκυρη τιμή</string>
+    <string name="portfolio_tx_date">Ημερομηνία</string>
+    <string name="portfolio_tx_note">Σημείωση (προαιρετικά)</string>
+    <string name="portfolio_tx_total">Σύνολο: %1$s</string>
+    <string name="portfolio_sell_exceeds">Περισσότερα από όσα έχετε (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Διαγραφή συναλλαγής;</string>
+    <string name="portfolio_tx_delete_confirm">Αυτή η συναλλαγή θα αφαιρεθεί από το χαρτοφυλάκιο.</string>
+    <string name="portfolio_empty_title">Δεν υπάρχουν ακόμη συναλλαγές</string>
+    <string name="portfolio_empty_text">Καταγράψτε αγορές και πωλήσεις. Η αξία και το κέρδος/ζημία υπολογίζονται με τρέχουσες τιμές σε USDT.</string>
+    <string name="portfolio_empty_action">Καταγραφή πρώτης αγοράς</string>
+    <string name="portfolio_disclaimer">Αποθηκεύεται μόνο σε αυτή τη συσκευή. Δεν αποτελεί επενδυτική συμβουλή.</string>
+    <string name="portfolio_add_from_watch">Προσθήκη στο χαρτοφυλάκιο</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Favorite</string>
+    <string name="watchlist_favorites_empty_hint">Încă nu ai favorite. Glisează o pereche spre dreapta sau atinge „Favorit” în fișa perechii.</string>
+    <string name="settings_watchlist_names">Afișează numele</string>
+    <string name="settings_watchlist_names_hint">Numele sub pereche, de ex. Bitcoin sau NVIDIA. Vine cu listele de logouri, încărcat o dată pentru toate monedele.</string>
+    <string name="settings_watchlist_value_names">Nume</string>
+</resources>

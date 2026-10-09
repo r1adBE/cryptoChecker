@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">O bloqueio protege o que aparece na tela. Os dados ficam neste dispositivo e são protegidos pela criptografia do dispositivo. Você pode proteger os backups com uma senha. Os backups do dispositivo inteiro (backup do sistema) ainda incluem esses dados.</string>
+    <string name="backup_protect">Proteger com senha</string>
+    <string name="backup_protect_hint">Criptografa o arquivo (AES-256). Recomendado se ele contiver dados do portfólio.</string>
+    <string name="backup_password">Senha</string>
+    <string name="backup_password_repeat">Repetir senha</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Pelo menos %1$d caracteres</string>
+    <string name="backup_password_mismatch">As senhas não coincidem</string>
+    <string name="backup_password_warning">Sem a senha, o backup não pode ser restaurado.</string>
+    <string name="backup_password_show">Mostrar senha</string>
+    <string name="backup_password_hide">Ocultar senha</string>
+    <string name="backup_password_title">Backup protegido por senha</string>
+    <string name="backup_password_prompt">Digite a senha deste backup.</string>
+    <string name="backup_password_wrong">Senha incorreta ou arquivo danificado. Tente de novo.</string>
+    <string name="backup_password_continue">Continuar</string>
+</resources>

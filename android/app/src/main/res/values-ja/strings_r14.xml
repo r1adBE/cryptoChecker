@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">ライセンス</string>
+    <string name="licenses_marketdata_title">価格データライブラリ</string>
+    <string name="licenses_marketdata_intro">取引所との接続の一部は、MIT ライセンスのソフトウェアに基づいています:</string>
+    <string name="licenses_marketdata_changes">変更: %1$s</string>
+    <string name="licenses_font_title">Rubik フォント</string>
+    <string name="licenses_libraries_title">Android ライブラリ</string>
+    <string name="licenses_libraries_intro">このアプリは次のライブラリを Apache License 2.0 の下で使用しています:</string>
+</resources>

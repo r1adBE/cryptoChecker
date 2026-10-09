@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">لمس برای گزینه‌ها · کشیدن برای اقدامات سریع · نگه‌داشتن برای مرتب‌سازی</string>
+    <string name="watch_action_alarm">هشدار</string>
+    <string name="watch_action_why">چرا؟</string>
+    <string name="watch_action_favorite">علاقه‌مندی</string>
+    <string name="add_alarm_action">تنظیم هشدار</string>
+    <string name="welcome_watch_q">چه خبر است؟</string>
+    <string name="welcome_alert_q">کی اقدام کنم؟</string>
+    <string name="welcome_understand_q">چرا؟</string>
+</resources>

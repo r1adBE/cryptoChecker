@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Afër maksimumit</string>
+    <string name="alarm_condition_near_low">Afër minimumit</string>
+    <string name="alarm_near_field_distance">Distanca</string>
+    <string name="alarm_near_window_label">Periudha</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ditë</item>
+        <item quantity="other">%1$d ditë</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 vit</string>
+    <string name="alarm_near_hint">Njofton edhe kur arrihet një maksimum ose minimum i ri. Bazuar në qirinjtë ditorë, rifreskohet çdo 6 orë.</string>
+    <string name="alarm_near_extreme_high_30">maksimumi 30-ditor</string>
+    <string name="alarm_near_extreme_high_90">maksimumi 90-ditor</string>
+    <string name="alarm_near_extreme_high_365">maksimumi vjetor</string>
+    <string name="alarm_near_extreme_low_30">minimumi 30-ditor</string>
+    <string name="alarm_near_extreme_low_90">minimumi 90-ditor</string>
+    <string name="alarm_near_extreme_low_365">minimumi vjetor</string>
+    <string name="alarm_sentence_near_high">Më njofto kur %1$s të jetë më së shumti %2$s më poshtë se %3$s.</string>
+    <string name="alarm_sentence_near_low">Më njofto kur %1$s të jetë më së shumti %2$s më lart se %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s është %2$s më poshtë se %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s është %2$s më lart se %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: %1$s i ri – %3$s (më parë %4$s)</string>
+    <string name="tts_direction_near_high">është afër maksimumit</string>
+    <string name="tts_direction_near_low">është afër minimumit</string>
+</resources>

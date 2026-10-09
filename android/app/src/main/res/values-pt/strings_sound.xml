@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Som do alarme</string>
+    <string name="settings_alarm_sound_default">Som predefinido</string>
+    <string name="settings_alarm_sound_custom">Som personalizado</string>
+    <string name="settings_alarm_sound_system">Escolher som do sistema…</string>
+    <string name="settings_alarm_sound_file">Ficheiro de áudio próprio…</string>
+    <string name="settings_alarm_sound_reset">Usar som predefinido</string>
+    <string name="settings_alarm_sound_error">Não foi possível usar o som.</string>
+</resources>

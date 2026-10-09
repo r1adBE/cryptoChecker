@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Chung</string>
+    <string name="settings_group_data_only">Dữ liệu</string>
+    <string name="settings_row_currency">Tiền tệ</string>
+    <string name="settings_row_updates">Cập nhật</string>
+    <string name="settings_updates_live">Thường xuyên · %1$s</string>
+    <string name="settings_updates_every">Mỗi %1$s</string>
+    <string name="settings_row_watchlist">Danh sách</string>
+    <string name="settings_watchlist_value_sparkline">Biểu đồ mini</string>
+    <string name="settings_watchlist_value_price_only">Chỉ giá</string>
+    <string name="settings_row_alarms">Cảnh báo</string>
+    <string name="settings_portfolio_value_locked">Bật, có khóa</string>
+    <string name="settings_row_dated_futures">Futures có kỳ hạn</string>
+    <string name="settings_tradfi_futures">Cổ phiếu, hàng hóa và ngoại hối (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Khi chọn cặp, cũng hiển thị hợp đồng tương lai trên cổ phiếu, vàng và hàng hóa khác, tiền tệ và công ty trước IPO. Đây là hợp đồng, không phải token.</string>
+    <string name="settings_watchlist_activity_card">Hoạt động bất thường trong danh sách</string>
+    <string name="settings_watchlist_activity_card_hint">Hiển thị thẻ “Đang có điều gì đó xảy ra” phía trên các cặp. Thông báo được đặt trong Thông báo thị trường.</string>
+    <string name="settings_row_about">Giới thiệu ứng dụng</string>
+    <string name="price_colors_green_up">Xanh lá tăng / đỏ giảm</string>
+    <string name="price_colors_red_up">Đỏ tăng / xanh lá giảm</string>
+    <string name="price_colors_blue_up">Xanh dương tăng / cam giảm</string>
+    <string name="price_colors_orange_up">Cam tăng / xanh dương giảm</string>
+    <string name="price_colors_red_up_hint">Phổ biến ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan</string>
+</resources>

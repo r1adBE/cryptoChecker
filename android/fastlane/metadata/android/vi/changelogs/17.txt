@@ -1,0 +1,10 @@
+Mới trong 16.2.2
+• Crypto Pulse: điều gì đang diễn ra
+• Hoạt động bất thường, “Vì sao nó biến động?” có tóm tắt
+• Bắt đầu chỉ một chạm: top 5 coin, giá trực tiếp
+• Vuốt để xóa (có Hoàn tác) hoặc yêu thích
+• Giá, cảnh báo theo tiền của bạn, xuất theo ngày chốt (CSV)
+• Trợ năng: xanh dương/cam, tương phản cao, đổi màu, TalkBack
+• Giờ yên lặng, thử cảnh báo, cảnh báo dạng câu, khóa, tiện ích danh mục
+• 15 sàn mới, cảnh báo gas, nến ở tiện ích
+• Cổ phiếu, vàng, ngoại hối (TradFi); % theo múi giờ

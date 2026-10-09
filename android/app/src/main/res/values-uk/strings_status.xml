@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Немає з\'єднання</string>
+    <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d з %2$d без ціни</item>
+        <item quantity="few">%1$d з %2$d без ціни</item>
+        <item quantity="many">%1$d з %2$d без ціни</item>
+        <item quantity="other">%1$d з %2$d без ціни</item>
+    </plurals>
+    <string name="watch_not_traded">Більше не торгується на цій біржі</string>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">آنچه اکنون جلب توجه می‌کند</string>
+    <string name="pulse_why_action">چرا؟ →</string>
+    <string name="pulse_section_factors">عوامل</string>
+
+    <string name="pulse_lead_btc_leads">بیت‌کوین بازار را هدایت می‌کند.</string>
+    <string name="pulse_lead_alts_stronger">آلت‌کوین‌ها از بیت‌کوین قوی‌ترند.</string>
+    <string name="pulse_lead_btc_stronger">بیت‌کوین از آلت‌کوین‌ها قوی‌تر است.</string>
+    <string name="pulse_lead_broad_up">بازار به‌طور گسترده بالا می‌رود.</string>
+    <string name="pulse_lead_broad_down">بازار به‌طور گسترده پایین می‌آید.</string>
+    <string name="pulse_lead_drift_up">بازار کمی بالا می‌رود.</string>
+    <string name="pulse_lead_drift_down">بازار کمی پایین می‌آید.</string>
+    <string name="pulse_lead_mixed">کوین‌های بزرگ از هم فاصله می‌گیرند.</string>
+    <string name="pulse_lead_calm">بازار تقریباً حرکتی ندارد.</string>
+
+    <string name="pulse_detail_vol_above">حجم %1$d%% بالاتر از حالت عادی.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">حجم %1$d%% بالاتر از حالت عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_above_fund_high">حجم %1$d%% بالاتر از حالت عادی، فاندینگ بالا.</string>
+    <string name="pulse_detail_vol_above_fund_negative">حجم %1$d%% بالاتر از حالت عادی، فاندینگ منفی.</string>
+    <string name="pulse_detail_vol_below">حجم %1$d%% پایین‌تر از حالت عادی.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">حجم %1$d%% پایین‌تر از حالت عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_below_fund_high">حجم %1$d%% پایین‌تر از حالت عادی، فاندینگ بالا.</string>
+    <string name="pulse_detail_vol_below_fund_negative">حجم %1$d%% پایین‌تر از حالت عادی، فاندینگ منفی.</string>
+    <string name="pulse_detail_vol_normal">حجم عادی.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">حجم عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_normal_fund_high">حجم عادی، فاندینگ بالا.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">حجم عادی، فاندینگ منفی.</string>
+    <string name="pulse_detail_fund_neutral">فاندینگ خنثی.</string>
+    <string name="pulse_detail_fund_high">فاندینگ بالا.</string>
+    <string name="pulse_detail_fund_negative">فاندینگ منفی.</string>
+
+    <string name="factor_volume">حجم</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">فاندینگ</string>
+    <string name="factor_volatility">نوسان (1h)</string>
+    <string name="factor_spoken_volume">%1$s برابر حالت عادی</string>
+    <string name="factor_spoken_volatility">%1$s برابر نوسان معمول</string>
+
+    <string name="why_title_coin">چرا %1$s حرکت می‌کند؟</string>
+    <string name="why_details">نمایش جزئیات</string>
+    <string name="why_details_hide">پنهان کردن جزئیات</string>
+    <string name="why_f_market_wide">کل بازار در حرکت است</string>
+    <string name="why_f_coin_only">فقط همین ارز</string>
+    <string name="why_f_against">خلاف بازار</string>
+    <string name="why_f_market_calm">بازار آرام</string>
+    <string name="why_f_leader">بیت‌کوین جهت را تعیین می‌کند</string>
+    <string name="why_f_leverage_longs">اهرم: لانگ‌های زیاد</string>
+    <string name="why_f_leverage_shorts">اهرم: شورت‌های زیاد</string>
+    <string name="why_f_leverage_balanced">اهرم متعادل</string>
+    <string name="insights_dominance_eth">ETH %1$s از کل بازار</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d ماه از هاوینگ در %2$s گذشته</item>
+        <item quantity="other">%1$d ماه از هاوینگ در %2$s گذشته</item>
+    </plurals>
+</resources>

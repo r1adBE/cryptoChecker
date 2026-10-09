@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Încredere: %1$s</string>
+    <string name="why_confidence_high">ridicată</string>
+    <string name="why_confidence_medium">medie</string>
+    <string name="why_confidence_low">scăzută</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d din %2$d semnale indică acest lucru</item>
+        <item quantity="few">%1$d din %2$d semnale indică acest lucru</item>
+        <item quantity="other">%1$d din %2$d semnale indică acest lucru</item>
+    </plurals>
+    <string name="why_confidence_partial">date incomplete</string>
+</resources>

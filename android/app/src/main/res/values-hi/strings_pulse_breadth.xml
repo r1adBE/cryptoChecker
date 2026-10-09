@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">टॉप %1$d</string>
+    <string name="pulse_breadth_spoken">टॉप %1$d: %2$d ऊपर, %3$d नीचे</string>
+    <string name="pulse_breadth_hint">टॉप %1$d: मार्केट वैल्यू के हिसाब से सबसे बड़े कॉइन, स्टेबलकॉइन के बिना; 24 घंटे में बदलाव (CoinGecko)।</string>
+    <string name="pulse_breadth_note_broad_up">व्यापक बढ़त: ज़्यादातर बड़े कॉइन बढ़ रहे हैं।</string>
+    <string name="pulse_breadth_note_broad_down">व्यापक गिरावट: ज़्यादातर बड़े कॉइन गिर रहे हैं।</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin बढ़ रहा है, लेकिन ज़्यादातर दूसरे बड़े कॉइन साथ नहीं दे रहे।</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin गिर रहा है, लेकिन ज़्यादातर दूसरे बड़े कॉइन टिके हुए हैं।</string>
+</resources>

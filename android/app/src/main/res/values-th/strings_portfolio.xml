@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">ยอดถือครอง</string>
+    <string name="portfolio_invalid">จำนวนไม่ถูกต้อง</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">กลุ่ม</string>
+    <string name="group_value">กลุ่ม: %1$s</string>
+    <string name="group_all">ทั้งหมด</string>
+    <string name="group_none">ไม่มีกลุ่ม</string>
+    <string name="group_new">กลุ่มใหม่…</string>
+    <string name="group_name">ชื่อกลุ่ม</string>
+    <string name="widget_group_hint">แสดงเฉพาะคู่ในกลุ่มนี้</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">พอร์ตโฟลิโอ</string>
+    <string name="portfolio_setting_hint">ไม่บังคับ: บันทึกการซื้อขายและดูมูลค่าและกำไร/ขาดทุนในแท็บแยก</string>
+    <string name="portfolio_total_value">มูลค่ารวม</string>
+    <string name="portfolio_invested">เงินลงทุน</string>
+    <string name="portfolio_unrealized">กำไร/ขาดทุน ยังไม่ได้ขาย</string>
+    <string name="portfolio_realized">กำไร/ขาดทุน ขายแล้ว</string>
+    <string name="portfolio_value">มูลค่า</string>
+    <string name="portfolio_avg_price">ราคาซื้อเฉลี่ย</string>
+    <string name="portfolio_current_price">ราคาปัจจุบัน</string>
+    <string name="portfolio_avg_and_now">เฉลี่ย %1$s · ตอนนี้ %2$s</string>
+    <string name="portfolio_updated">ราคา ณ %1$s</string>
+    <string name="portfolio_convert_to">แปลงเป็น</string>
+    <string name="portfolio_convert_to_value">แปลงเป็น: %1$s</string>
+    <string name="portfolio_price_missing">ไม่มีราคา</string>
+    <string name="portfolio_price_missing_hint">การซื้อบางรายการไม่มีราคา เพิ่มราคาซื้อเพื่อดูกำไร/ขาดทุน</string>
+    <string name="portfolio_current_missing">ไม่มีราคาปัจจุบันสำหรับ %1$s</string>
+    <string name="portfolio_oversold">ยอดขายเกินจำนวนที่ถือ – โปรดตรวจสอบรายการ</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">สถานะที่ปิดแล้ว (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">รายการ</string>
+    <string name="portfolio_add_tx">บันทึกการซื้อ/ขาย</string>
+    <string name="portfolio_edit_tx">แก้ไขรายการ</string>
+    <string name="portfolio_buy">ซื้อ</string>
+    <string name="portfolio_sell">ขาย</string>
+    <string name="portfolio_coin">เหรียญ</string>
+    <string name="portfolio_coin_search">ค้นหาสัญลักษณ์ เช่น BTC</string>
+    <string name="portfolio_coin_invalid">ป้อนสัญลักษณ์เหรียญ</string>
+    <string name="portfolio_tx_amount">จำนวน</string>
+    <string name="portfolio_tx_price">ราคาต่อเหรียญ</string>
+    <string name="portfolio_tx_price_hint">เป็น USDT เว้นว่างหากไม่ทราบ</string>
+    <string name="portfolio_tx_price_invalid">ราคาไม่ถูกต้อง</string>
+    <string name="portfolio_tx_date">วันที่</string>
+    <string name="portfolio_tx_note">หมายเหตุ (ไม่บังคับ)</string>
+    <string name="portfolio_tx_total">รวม: %1$s</string>
+    <string name="portfolio_sell_exceeds">มากกว่าที่คุณถือ (%1$s)</string>
+    <string name="portfolio_tx_delete_title">ลบรายการ?</string>
+    <string name="portfolio_tx_delete_confirm">รายการนี้จะถูกลบออกจากพอร์ตโฟลิโอ</string>
+    <string name="portfolio_empty_title">ยังไม่มีรายการ</string>
+    <string name="portfolio_empty_text">บันทึกการซื้อและขายของคุณ มูลค่าและกำไร/ขาดทุนคำนวณจากราคาปัจจุบันเป็น USDT</string>
+    <string name="portfolio_empty_action">บันทึกการซื้อครั้งแรก</string>
+    <string name="portfolio_disclaimer">เก็บไว้บนอุปกรณ์นี้เท่านั้น ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="portfolio_add_from_watch">เพิ่มในพอร์ตโฟลิโอ</string>
+</resources>

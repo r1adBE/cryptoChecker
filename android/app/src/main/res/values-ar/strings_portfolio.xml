@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">الرصيد</string>
+    <string name="portfolio_invalid">كمية غير صالحة</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">المجموعة</string>
+    <string name="group_value">المجموعة: %1$s</string>
+    <string name="group_all">الكل</string>
+    <string name="group_none">بدون مجموعة</string>
+    <string name="group_new">مجموعة جديدة…</string>
+    <string name="group_name">اسم المجموعة</string>
+    <string name="widget_group_hint">عرض أزواج هذه المجموعة فقط.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">المحفظة</string>
+    <string name="portfolio_setting_hint">اختياري: سجّل عمليات الشراء والبيع وشاهد القيمة والربح/الخسارة في تبويب منفصل.</string>
+    <string name="portfolio_total_value">القيمة الإجمالية</string>
+    <string name="portfolio_invested">المستثمَر</string>
+    <string name="portfolio_unrealized">ربح/خسارة، لم يُبَع بعد</string>
+    <string name="portfolio_realized">ربح/خسارة، تم بيعه</string>
+    <string name="portfolio_value">القيمة</string>
+    <string name="portfolio_avg_price">متوسط سعر الشراء</string>
+    <string name="portfolio_current_price">السعر الحالي</string>
+    <string name="portfolio_avg_and_now">المتوسط %1$s · الآن %2$s</string>
+    <string name="portfolio_updated">الأسعار حتى %1$s</string>
+    <string name="portfolio_convert_to">التحويل إلى</string>
+    <string name="portfolio_convert_to_value">التحويل إلى: %1$s</string>
+    <string name="portfolio_price_missing">السعر غير متوفر</string>
+    <string name="portfolio_price_missing_hint">بعض عمليات الشراء بلا سعر. أضف سعر الشراء لرؤية الربح/الخسارة.</string>
+    <string name="portfolio_current_missing">لا يوجد سعر حالي لـ %1$s</string>
+    <string name="portfolio_oversold">المبيعات تتجاوز الرصيد – يرجى مراجعة العمليات.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="zero">مراكز مغلقة (%1$d)</item>
+        <item quantity="one">مراكز مغلقة (%1$d)</item>
+        <item quantity="two">مراكز مغلقة (%1$d)</item>
+        <item quantity="few">مراكز مغلقة (%1$d)</item>
+        <item quantity="many">مراكز مغلقة (%1$d)</item>
+        <item quantity="other">مراكز مغلقة (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">العمليات</string>
+    <string name="portfolio_add_tx">تسجيل شراء/بيع</string>
+    <string name="portfolio_edit_tx">تعديل العملية</string>
+    <string name="portfolio_buy">شراء</string>
+    <string name="portfolio_sell">بيع</string>
+    <string name="portfolio_coin">العملة</string>
+    <string name="portfolio_coin_search">ابحث عن رمز، مثل BTC</string>
+    <string name="portfolio_coin_invalid">أدخل رمز العملة</string>
+    <string name="portfolio_tx_amount">الكمية</string>
+    <string name="portfolio_tx_price">السعر لكل عملة</string>
+    <string name="portfolio_tx_price_hint">بـ USDT. اتركه فارغًا إن كان غير معروف.</string>
+    <string name="portfolio_tx_price_invalid">سعر غير صالح</string>
+    <string name="portfolio_tx_date">التاريخ</string>
+    <string name="portfolio_tx_note">ملاحظة (اختياري)</string>
+    <string name="portfolio_tx_total">الإجمالي: %1$s</string>
+    <string name="portfolio_sell_exceeds">أكثر من رصيدك (%1$s)</string>
+    <string name="portfolio_tx_delete_title">حذف العملية؟</string>
+    <string name="portfolio_tx_delete_confirm">ستُزال هذه العملية من المحفظة.</string>
+    <string name="portfolio_empty_title">لا توجد عمليات بعد</string>
+    <string name="portfolio_empty_text">سجّل عمليات الشراء والبيع. تُحسب القيمة والربح/الخسارة بالأسعار الحالية بـ USDT.</string>
+    <string name="portfolio_empty_action">تسجيل أول عملية شراء</string>
+    <string name="portfolio_disclaimer">محفوظ على هذا الجهاز فقط. ليس نصيحة استثمارية.</string>
+    <string name="portfolio_add_from_watch">إضافة إلى المحفظة</string>
+</resources>

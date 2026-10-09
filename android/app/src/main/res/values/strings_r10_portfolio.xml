@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Value history</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_1y">1 Y</string>
+    <string name="portfolio_history_period_7d">7 days</string>
+    <string name="portfolio_history_period_30d">30 days</string>
+    <string name="portfolio_history_period_1y">1 year</string>
+    <string name="portfolio_history_range_a11y">Show history for %1$s</string>
+    <string name="portfolio_history_change_a11y">Value over %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Today</string>
+    <string name="portfolio_history_converted">Converted at today\'s rate</string>
+    <string name="portfolio_history_without">Without %1$s (no daily prices)</string>
+    <string name="portfolio_history_includes_trades">Includes buys and sells in this period</string>
+    <string name="portfolio_history_too_short">The history starts after your first full day.</string>
+    <string name="portfolio_history_unavailable">No history available right now.</string>
+    <string name="portfolio_history_loading">Loading value history</string>
+</resources>

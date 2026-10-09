@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">前 %1$d</string>
+    <string name="pulse_breadth_spoken">前 %1$d：上涨 %2$d，下跌 %3$d</string>
+    <string name="pulse_breadth_hint">前 %1$d：按市值排名最大的币种（不含稳定币）；24 小时涨跌（CoinGecko）。</string>
+    <string name="pulse_breadth_note_broad_up">普涨：大多数大型币种在上涨。</string>
+    <string name="pulse_breadth_note_broad_down">普跌：大多数大型币种在下跌。</string>
+    <string name="pulse_breadth_note_narrow_up">比特币在涨，但大多数其他大型币种没有跟涨。</string>
+    <string name="pulse_breadth_note_narrow_down">比特币在跌，但大多数其他大型币种依然坚挺。</string>
+</resources>

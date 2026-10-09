@@ -1,0 +1,35 @@
+Version 16.2.2
+• Crypto Pulse : ce qui se passe sur le marché en ce moment
+• « Pourquoi ça bouge ? » : explication des mouvements de prix fondée sur les données, avec un court résumé
+• Tester l’alerte : son, vibration et voix
+• Prix convertis : ligne « ≈ valeur » dans votre devise (31 devises, p. ex. EUR, CHF, USD, GBP, JPY ; par défaut selon votre région)
+• Alertes dans votre devise, p. ex. à 60 000 EUR sur une paire USDT
+• Export à date de référence : valeur du portefeuille à toute date (p. ex. 31 décembre) dans votre devise, en CSV – utile pour les impôts (sans conseil fiscal)
+• Accessibilité : bleu/orange, lisible avec tout trouble de la vision des couleurs (rouge-vert, bleu-jaune) ; « Inverser les couleurs hausse/baisse » : rouge = hausse, vert = baisse, comme en Chine, au Japon, en Corée et à Taïwan (activé d’office) ; « Contraste élevé » : couleurs, textes secondaires et accent renforcés, suit le réglage système ; VoiceOver : chaque ligne, graphique et widget lu en une phrase
+• Mini-graphique 24 h sur chaque ligne
+• « Démarrer en un geste » : une liste vide propose les 5 plus grandes cryptos par capitalisation (hors stablecoins)
+• La liste de départ affiche le prix en direct et la variation sur 24 h – les cinq sont présélectionnées et s’ajoutent d’un seul bouton
+• Balayez vers la gauche pour supprimer (avec Annuler), vers la droite pour un favori
+• L’onglet Marché s’ouvre instantanément avec les dernières données et se met à jour en arrière-plan
+• Heures calmes : la nuit (p. ex. 23 h–7 h), alertes silencieuses, sans son, vibration ni voix
+• Verrouillage du portefeuille par Face ID, Touch ID ou code
+• Widget Portefeuille (écran d’accueil et verrouillé) : valeur totale dans votre devise et variation du jour
+• Chaque alerte en une phrase : « Me prévenir quand BTC passe sous 60 000 CHF. »
+• Courtes explications : taux de financement, intérêt ouvert, RSI et Pi Cycle
+• Mention « obsolète » ou « injoignable » sur la ligne si le cours n’est pas à jour
+• 15 nouvelles plateformes : WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Frais de réseau pour Ethereum, Base, Arbitrum, Polygon, BNB Chain et Bitcoin dans l’onglet Marché, avec alerte gas
+• Une note pour chaque crypto de votre liste de suivi
+• Choix du son d’alerte
+• Activité inhabituelle : repère les mouvements de prix et de volume anormaux, notifications facultatives
+• Portefeuille dans son propre onglet : achats et ventes, prix moyen, gains/pertes
+• Comparaison des cycles : sommets et creux marqués, y compris doubles sommets et doubles creux
+• Groupes pour votre liste de suivi
+• Nouvelles alertes : mouvement de X % en Y heures et pic de volume
+• Widget d’une crypto : bougies ou ligne, période du graphique 24 h, 7 jours ou 30 jours, repères haut, milieu et bas, cours actuel mis en évidence
+• Onglet Marché : capitalisation totale du marché crypto et volume 24 h dans votre devise
+• Futures : taux de financement et intérêt ouvert
+• Cinq couleurs d’accent avec icônes assorties
+• Actions, or, matières premières et devises en futures (TradFi) chez Binance, Bybit, OKX, MEXC et Bitget – via un interrupteur dans Paramètres › Liste, nouvelles paires automatiquement dans le groupe « TradFi » ; futures à échéance dans « QTLY »
+• Variation en % comme chez Binance : 24 dernières heures, depuis la dernière mise à jour, depuis 00:00 dans le fuseau de l’appareil ou dans un fuseau fixe de UTC+14 à UTC-12
+• Noms plus clairs : « Mettre à jour souvent » et « Cours en direct »

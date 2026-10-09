@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget «Was gerade auffällt» (Crypto Pulse, Stil wie die anderen Widgets): Schlagzeile mit
+     ▲/▼ in der Kursfarbe, Leitsatz (höchstens 2 Zeilen), Fear & Greed (mittel/gross), Coin-Chips
+     BTC/ETH/SOL (nur so viele, wie ganz passen), Stand. Inhalt setzt WidgetUpdater.updatePulse. Nur RemoteViews-taugliche Views.
+     Runde Ecken: Wurzel mit @android:id/background und Umriss (ab 12 clipToOutline), darunter
+     die eingefärbte Fläche. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outline"
+    android:clipToOutline="true"
+    tools:targetApi="31">
+
+    <!-- Fläche mit runden Ecken; Farbe und Deckkraft setzt WidgetUpdater.background -->
+    <ImageView
+        android:id="@+id/pulse_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_background"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/pulse_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:baselineAligned="false">
+
+            <ImageView
+                android:id="@+id/pulse_logo"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_app_logo_orange_dark"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/pulse_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/pulse_now_title"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pulse_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:id="@+id/pulse_glyph"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:maxLines="1"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pulse_headline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pulse_lead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="12sp" />
+
+            <!-- «Fear & Greed 72 · Gier» aus dem Zwischenspeicher (≤ 24 h), nur mit Platz
+                 (PulseWidgetMath.showsFearGreed) -->
+            <TextView
+                android:id="@+id/pulse_fng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="11sp"
+                android:fontFeatureSettings="tnum"
+                android:visibility="gone" />
+
+            <!-- Platzhalter: hält Chips und Stand unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+            <FrameLayout
+                android:id="@+id/pulse_chip_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp">
+
+                <ImageView
+                    android:id="@+id/pulse_chip_1_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/widget_pill"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/pulse_chip_1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:maxLines="1"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/pulse_chip_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp">
+
+                <ImageView
+                    android:id="@+id/pulse_chip_2_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/widget_pill"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/pulse_chip_2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:maxLines="1"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/pulse_chip_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/pulse_chip_3_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/widget_pill"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/pulse_chip_3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:maxLines="1"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFeatureSettings="tnum" />
+            </FrameLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pulse_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:textSize="10sp"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+
+        <!-- Ohne Marktdaten: ein ruhiger Satz statt leerer Felder -->
+        <TextView
+            android:id="@+id/pulse_message"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

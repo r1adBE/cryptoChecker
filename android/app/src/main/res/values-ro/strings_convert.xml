@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Prețuri convertite</string>
+    <string name="settings_show_converted_hint">Afișează prețurile din lista de urmărire și în %1$s</string>
+    <string name="settings_conversion_currency">Moneda de conversie</string>
+    <string name="alarm_currency_label">Monedă</string>
+</resources>

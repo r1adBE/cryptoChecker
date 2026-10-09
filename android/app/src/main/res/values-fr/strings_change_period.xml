@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Afficher la période à côté de la variation</string>
+    <string name="settings_change_period_hint">« 24 h », « aujourd’hui » ou « dern. mise à jour » en petit à côté de la variation dans la liste et le widget d’une crypto. Le lecteur d’écran l’annonce toujours.</string>
+</resources>

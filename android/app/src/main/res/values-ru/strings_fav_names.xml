@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Избранное</string>
+    <string name="watchlist_favorites_empty_hint">Пока нет избранного. Смахните пару вправо или нажмите «Избранное» в карточке пары.</string>
+    <string name="settings_watchlist_names">Показывать названия</string>
+    <string name="settings_watchlist_names_hint">Название под парой, например Bitcoin или NVIDIA. Приходит со списками логотипов, загружается один раз для всех монет.</string>
+    <string name="settings_watchlist_value_names">Названия</string>
+</resources>

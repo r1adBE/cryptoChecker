@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">สีราคา</string>
+    <string name="settings_price_colors_hint">สีน้ำเงิน / ส้มแยกแยะได้ง่ายสำหรับภาวะบกพร่องในการมองเห็นสีทุกแบบ (แดง-เขียว และน้ำเงิน-เหลือง) และจะแสดงทิศทางด้วย + / − เสมอ</string>
+    <string name="settings_watchlist_sparkline">กราฟเล็กในรายการติดตาม</string>
+    <string name="settings_watchlist_sparkline_hint">แนวโน้ม 24 ชั่วโมงข้างราคา</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">คอนทราสต์สูง</string>
+    <string name="settings_high_contrast_hint">สีราคาเข้มขึ้นและข้อความรองเข้มขึ้น เปิดใช้งานด้วยเมื่อระบบขอคอนทราสต์มากขึ้น</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s บน %2$s</string>
+    <string name="a11y_price">ราคา %1$s</string>
+    <string name="a11y_change_up">ขึ้น %1$s</string>
+    <string name="a11y_change_down">ลง %1$s</string>
+    <string name="a11y_change_flat">ไม่เปลี่ยนแปลง</string>
+    <string name="a11y_converted">ประมาณ %1$s</string>
+    <string name="a11y_note">บันทึก: %1$s</string>
+    <string name="a11y_alarm_count">สัญญาณเตือน: %1$d</string>
+    <string name="a11y_stale">ข้อมูลเก่า อัปเดตล่าสุด %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">กราฟ %1$s: จาก %2$s เป็น %3$s, %4$s สูงสุด %5$s, ต่ำสุด %6$s</string>
+    <string name="a11y_chart_empty">กราฟ: ไม่มีข้อมูล</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">วัฏจักร %1$s: %2$s นับจากฮาล์ฟวิ่ง วันที่ %3$d</string>
+    <string name="a11y_cycle_top">จุดสูงสุด %1$s ในวันที่ %2$d</string>
+    <string name="a11y_cycle_bottom">จุดต่ำสุด %1$s ในวันที่ %2$d</string>
+    <string name="a11y_cycle_double_top">จุดสูงสุดคู่ %1$s ในวันที่ %2$d</string>
+    <string name="a11y_cycle_double_bottom">จุดต่ำสุดคู่ %1$s ในวันที่ %2$d</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">สเกลจาก %1$s ถึง %2$s: %3$d จาก 100</string>
+</resources>

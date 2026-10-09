@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">จุดสูงสุด %1$s</string>
+    <string name="cycle_marker_high_so_far">สูงสุดจนถึงตอนนี้</string>
+    <string name="cycle_marker_bottom">จุดต่ำสุด %1$s</string>
+    <string name="cycle_since_halving">%1$s นับจากฮาล์ฟวิ่ง</string>
+    <string name="cycle_from_top">%1$s จากจุดสูงสุด</string>
+    <string name="cycle_marker_double_top">จุดสูงสุดคู่ %1$s</string>
+    <string name="cycle_marker_double_bottom">จุดต่ำสุดคู่ %1$s</string>
+</resources>

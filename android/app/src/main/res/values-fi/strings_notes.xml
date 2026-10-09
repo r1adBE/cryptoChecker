@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Muistiinpano</string>
+    <string name="note_add">Lisää muistiinpano</string>
+    <string name="note_edit">Muokkaa muistiinpanoa</string>
+    <string name="note_hint">esim. sisääntulo 0.42, tavoite 0.60</string>
+    <string name="note_remove">Poista</string>
+</resources>

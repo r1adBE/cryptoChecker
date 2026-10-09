@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">エラー: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">通貨ペアがありません</string>
+    <string name="checker_add_check_currency_empty_warning_summary">選択した取引所の最新ペアを読み込みます。</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">通貨ペアを更新</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">今すぐ同期</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">最終同期: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">なし</string>
+
+    <string name="market_screen_sync">同期</string>
+    <string name="market_screen_base">コイン</string>
+    <string name="market_screen_quote">クオート通貨</string>
+    <string name="market_screen_market">取引所</string>
+    <string name="market_screen_contract_type">契約タイプ</string>
+    <string name="market_screen_spot">現物</string>
+
+    <string name="ticker_high">高値</string>
+    <string name="ticker_low">安値</string>
+    <string name="ticker_bid">買気配</string>
+    <string name="ticker_ask">売気配</string>
+    <string name="ticker_vol_base">出来高（コイン）</string>
+    <string name="ticker_vol_quote">出来高（クオート通貨）</string>
+    <string name="ticker_timestamp">時刻</string>
+
+
+    <string name="try_again">再試行</string>
+    <string name="no_internet_connection">インターネットに接続されていません</string>
+    <string name="something_went_wrong">問題が発生しました</string>
+
+    <string name="bulk_all_pairs">この取引所のすべての %1$s ペア</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">%1$d 件の %2$s ペアが見つかりました</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">この取引所には、選択した契約タイプの %1$s ペアがありません。先に取引所を同期するか、別の契約タイプをお試しください。</string>
+
+    <string name="action_refresh">更新</string>
+    <string name="action_delete">削除</string>
+    <string name="action_edit">編集</string>
+    <string name="action_back">戻る</string>
+    <string name="action_save">保存</string>
+    <string name="action_cancel">キャンセル</string>
+
+    <string name="watchlist_empty_title">ペアがまだありません</string>
+    <string name="watchlist_updated">更新: %1$s</string>
+    <string name="watchlist_notification">通知</string>
+    <string name="watchlist_tts">価格を読み上げ</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">アラーム（%1$d）</item>
+    </plurals>
+
+    <string name="alarms_title">アラーム</string>
+    <string name="alarms_add">新しいアラーム</string>
+    <string name="alarms_edit">アラームを編集</string>
+    <string name="alarms_empty">このペアのアラームはまだありません。</string>
+    <string name="alarm_condition_above">価格が上回る</string>
+    <string name="alarm_condition_below">価格が下回る</string>
+    <string name="alarm_condition_up_percent">上昇率</string>
+    <string name="alarm_condition_down_percent">下落率</string>
+    <string name="alarm_repeating">繰り返し</string>
+    <string name="alarm_once">1回のみ</string>
+    <string name="alarm_last_triggered">前回 %1$s</string>
+    <string name="alarm_field_price">価格</string>
+    <string name="alarm_field_percent">パーセント</string>
+    <string name="alarm_option_repeating">作動後もアラームを残す</string>
+    <string name="alarm_option_sound">サウンド</string>
+    <string name="alarm_option_vibrate">バイブレーション</string>
+    <string name="alarm_option_speak">アラームを読み上げ</string>
+
+    <string name="channel_prices">価格</string>
+    <string name="channel_prices_description">ペアの現在価格を表示するサイレント通知。</string>
+    <string name="channel_alarms">アラーム</string>
+    <string name="channel_alarms_description">価格アラームが作動したときの通知。</string>
+    <string name="channel_service">頻繁な更新</string>
+    <string name="channel_service_description">短い間隔で価格を更新している間の通知。</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s、%2$s から（%3$s前）</string>
+    <string name="notification_price_change_no_age">%1$s、%2$s から</string>
+    <string name="notification_price_first">このペアの最初の通知</string>
+    <string name="notification_alarm_title">アラーム: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — 現在 %2$s</string>
+    <string name="market_phase_title">Bitcoin の市場フェーズ</string>
+    <string name="market_phase_trend_loading">価格データを読み込み中…</string>
+    <string name="market_phase_trend_failed">価格データを取得できません</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">過去の底シグナルが同時に多数点灯 – 歴史的な仕込みゾーン。</string>
+    <string name="zone_hint_bear">下落トレンドまたは底固めの局面。広範な投げ売りはまだ見られません。</string>
+    <string name="zone_hint_neutral">シグナルはまちまちで、方向感なし。</string>
+    <string name="zone_hint_bull">極端な過熱のない上昇トレンド。</string>
+    <string name="zone_hint_extreme_bull">過去の天井シグナルが同時に多数点灯 – 天井リスクが上昇。</string>
+    <string name="market_scores">高値の可能性を示すサイン %1$d/10 · 安値 %2$d/10</string>
+    <string name="market_show_indicators">指標を表示</string>
+    <string name="market_hide_indicators">指標を隠す</string>
+    <string name="market_onchain_missing">オンチェーンデータ（Coin Metrics）は現在利用できません – スコアは価格データのみに基づきます。</string>
+    <string name="market_source">データ: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">価格と200週平均の比較</string>
+    <string name="ind_drawdown">史上最高値からの下落率</string>
+    <string name="ind_hash">マイナーの降伏（ハッシュリボン）</string>
+    <string name="ind_parabolic">放物線的上昇（30日）</string>
+    <string name="ind_halving">半減期からの月数</string>
+    <string name="ind_ath">史上最高値からの月数</string>
+    <string name="ind_points_top">+%1$d 天井</string>
+    <string name="ind_points_bottom">+%1$d 底</string>
+    <string name="market_phase_disclaimer">過去のサイクルと価格トレンドに基づく目安です。予測や投資助言ではありません。</string>
+    <string name="action_retry">再試行</string>
+    <string name="settings_section_language">言語</string>
+    <string name="settings_language_system">システムの言語</string>
+    <string name="settings_language_choose">言語を選択</string>
+    <string name="settings_section_appearance">外観</string>
+    <string name="settings_theme_mode">モード</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="settings_accent">テーマ</string>
+    <string name="accent_orange">オレンジ</string>
+    <string name="accent_red">レッド</string>
+    <string name="accent_blue">ブルー</string>
+    <string name="accent_green">グリーン</string>
+    <string name="settings_rolling_futures">四半期などの期日付き先物を含める</string>
+    <string name="settings_rolling_futures_hint">オフ: 取引所のリストにない期日付き先物は、1件ずつ確認せずに取引終了として扱います。更新のたびに時間を節約できます。</string>
+    <string name="notification_refreshing">価格を更新中…</string>
+    <string name="notification_service_title">Crypto Checker が頻繁に更新中</string>
+    <string name="notification_service_starting">起動中…</string>
+    <plurals name="notification_service_running">
+        <item quantity="other">%1$d ペア · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">ウォッチリストにペアがありません</string>
+    <string name="notification_service_error">更新に失敗しました</string>
+
+    <string name="settings_title">設定</string>
+    <string name="settings_background_updates">バックグラウンド更新</string>
+    <string name="settings_background_updates_hint">アプリを閉じていても、価格・アラーム・ウィジェットが更新されます。</string>
+    <string name="settings_background_interval">間隔</string>
+    <string name="settings_live_service">頻繁に更新</string>
+    <string name="settings_live_service_hint">アプリを閉じていても、短い間隔で価格を確認します。通知が表示され、電池を多く使います。</string>
+    <string name="settings_live_interval">更新間隔</string>
+    <string name="settings_minutes">%1$d 分</string>
+    <string name="settings_seconds">%1$d 秒</string>
+    <string name="settings_price_notifications">価格通知</string>
+    <string name="settings_price_notifications_hint">有効にしたペアの現在価格をステータスバーに表示します。</string>
+    <string name="settings_ongoing_notifications">スワイプで消去不可</string>
+    <string name="settings_ongoing_notifications_hint">価格通知を固定表示します。</string>
+    <string name="settings_notification_change">価格変動時のみ通知</string>
+    <string name="settings_notification_change_always">常に</string>
+    <string name="settings_notification_change_hint">前回の通知から価格がこの幅以上動いたときだけ通知します。データがない間は何も表示しません。アラームには影響しません。</string>
+    <string name="settings_alarm_cooldown">アラーム再作動までの待機時間</string>
+    <string name="settings_tts">音声出力</string>
+    <string name="settings_tts_alarms_only">アラームのみ</string>
+    <string name="settings_tts_alarms_only_hint">オフ: 「価格を読み上げ」を有効にしたペアは更新のたびに読み上げます。</string>
+    <string name="settings_speech_rate">読み上げ速度: %1$.1f×</string>
+    <string name="settings_tts_test">音声をテスト</string>
+    <string name="battery_title">価格を最新に保つ</string>
+    <string name="battery_message">Android は電力節約のためにバックグラウンド処理を遅らせます — その結果、価格やウィジェットが数時間前のままになることがあります。バッテリー使用を「制限なし」にすると最新の状態を保てます。この設定は Android の設定でいつでも変更できます。</string>
+    <string name="battery_later">後で</string>
+    <string name="settings_battery_ok">バッテリー使用: 制限なし</string>
+    <string name="settings_battery_restricted">バッテリー使用: 制限あり</string>
+    <string name="settings_battery_hint">制限ありの場合、Android がバックグラウンド更新を数時間遅らせることがあります。</string>
+
+    <string name="widget_description">ウォッチリストのペアの価格を表示します。</string>
+    <string name="widget_empty">ウォッチリストにまだペアがありません。</string>
+    <string name="widget_opacity">背景の不透明度: %1$d%%</string>
+    <string name="settings_section_about">アプリについて</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">価格は取引所から直接取得します。アカウント不要、トラッキングなし。</string>
+
+    <string name="dex_intro">大手取引所以外のトークンを、分散型取引所（Uniswap、PancakeSwap、Raydium …）から DexScreener 経由で表示します。トークンを検索して取引プールを追加 – 価格は米ドル表示です。</string>
+    <string name="dex_search_hint">トークン名、シンボルまたはアドレス</string>
+    <string name="dex_search">検索</string>
+    <string name="dex_no_results">プールが見つかりません。</string>
+    <string name="dex_added">%1$s をウォッチリストに追加しました。</string>
+    <string name="dex_already">%1$s はすでにウォッチリストにあります。</string>
+    <string name="dex_liquidity">流動性 %1$s</string>
+    <string name="dex_add">追加</string>
+    <string name="action_sort">並べ替え</string>
+    <string name="action_sort_done">完了</string>
+    <string name="sort_move_top">一番上へ</string>
+    <string name="sort_move_up">上へ</string>
+    <string name="sort_move_down">下へ</string>
+    <string name="sort_move_bottom">一番下へ</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">%1$d ペアすべてをウォッチリストに追加</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">%1$d 件を追加、%2$d 件は登録済みです。</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">ウォッチリストに追加</string>
+    <string name="explorer_added_to_watchlist">ウォッチリストに追加しました。</string>
+    <string name="explorer_already_in_watchlist">このペアはすでにウォッチリストにあります。</string>
+    <string name="explorer_no_pair_selected">先にペアを選択してください。</string>
+
+    <string name="tts_price">%1$s、%2$s %3$s、%4$s</string>
+    <string name="tts_alarm">アラーム。%1$s、%2$s %3$s %4$s、現在 %5$s</string>
+    <string name="tts_direction_up">上昇しました</string>
+    <string name="tts_direction_down">下落しました</string>
+    <string name="watchlist_refresh_report">前回の更新</string>
+    <string name="watchlist_refresh_report_empty">内訳はまだありません: このバージョンではまだ完全な更新が完了していません。更新をタップし、読み込み表示が止まるまでお待ちください。</string>
+    <string name="action_close">閉じる</string>
+    <string name="watchlist_clear">ウォッチリストを消去</string>
+    <string name="watchlist_clear_confirm">ウォッチリストからすべてのペアを削除しますか？各ペアのアラームも削除されます。</string>
+    <string name="market_scores_hint">高値 = 過去のサイクル天井と同様のサイン、安値 = 過去のサイクル底と同様のサイン。4ポイント以上で一方が優勢、7以上で極端です。目標価格でも予測でもありません。</string>
+    <string name="market_scores_none">高値・安値のサインはどちらも出ていません：落ち着いた中間局面で、価格トレンドで判断します。</string>
+    <string name="market_scores_info_title">サイクルシグナル</string>
+    <string name="market_scores_info_text">高値の可能性を示すサインは、過去のサイクル天井で見られたシグナルを数えます：強い割高感（MVRV）、非常に高いマイナー収入（Puell）、200日または200週平均を大きく上回る価格、放物線的な上昇、半減期後12〜18か月の期間。\n\n安値の可能性を示すサインは、過去の底のシグナルを数えます：低い MVRV、弱いマイナー収入、史上最高値からの大幅下落、200週平均付近の価格、ハッシュレートの低下、1年以上前の高値。\n\n4ポイント以上リードするとゾーンは Bull または Bear、7以上で極端。どちらもリードしない場合は価格トレンドで判断します。両方0/10は、熱狂も投げ売りもない状態です。\n\n目標価格でも予測でもありません：シグナルは過去のサイクルがどうだったかを示すだけです。</string>
+    <string name="battery_open_settings">バッテリー設定を開く</string>
+    <string name="battery_steps">アプリ情報で「バッテリー」（または「アプリのバッテリー使用量」）をタップし、「制限なし」を選択します。</string>
+    <string name="explorer_select_placeholder">選択してください</string>
+    <string name="explorer_bulk_title">複数ペアをまとめて</string>
+    <string name="watchlist_sort_hint">ペアを長押ししてドラッグするか、ハンドルを使います。お気に入りは常に上に表示されます。</string>
+    <string name="sort_drag_handle">ドラッグして移動</string>
+    <string name="explorer_step_pair">ペアを選択</string>
+    <string name="theme_system">システム</string>
+    <string name="settings_section_developer">開発者</string>
+    <string name="settings_http_log">HTTP ログを表示</string>
+    <string name="settings_http_log_hint">「ペアを追加」画面の下部に取引所へのリクエストを表示します（トラブル対応用）。</string>
+    <string name="language_search">言語を検索</string>
+    <string name="alarm_delete_title">アラームを削除しますか？</string>
+    <string name="alarm_delete_confirm">このアラームは削除されます。</string>
+    <string name="alarms_overview_title">すべてのアラーム</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">有効 %1$d 件</item>
+    </plurals>
+    <string name="alarms_overview_empty">アラームはまだありません。ペアを開いて「アラーム」から追加してください。</string>
+    <string name="action_more">その他のオプション</string>
+    <string name="watchlist_last_run">前回の更新 %1$s</string>
+    <string name="watchlist_pull_to_refresh">下に引いて更新</string>
+    <string name="favorite_add">お気に入りに追加</string>
+    <string name="favorite_remove">お気に入りから削除</string>
+    <string name="action_view">表示</string>
+    <string name="explorer_loading_pairs">取引ペアを読み込み中…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d ペア · 更新 %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">%1$d ペアを追加しますか？</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">%3$s の %2$s ペア %1$d 件をすべてリストに追加します。既にあるものはスキップします。</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">ペアをタップすると上で選択されます。</string>
+    <string name="loading_hint">読み込み中…</string>
+    <string name="explorer_select_market_hint">取引所を選ぶと、取引ペアが自動で読み込まれます。</string>
+    <string name="explorer_precise_title">詳しく選ぶ</string>
+    <string name="explorer_search_hint">コインを検索（例: BTC、ETH USDT）</string>
+    <string name="explorer_search_loading">取引所を検索中… %1$d/%2$d</string>
+    <string name="explorer_search_empty">見つかりません。</string>
+    <string name="action_clear">クリア</string>
+    <string name="explorer_bulk_show_list">リストを表示</string>
+    <string name="explorer_bulk_hide_list">リストを隠す</string>
+    <string name="time_just_now">たった今</string>
+    <string name="welcome_text">あなたの価格。あなたのアラーム。あなたの一覧。\nアカウント不要。広告なし。トラッキングなし。</string>
+    <string name="developer_unlocked">開発者向けオプションを有効にしました</string>
+    <string name="hint_favorites_list">ヒント: ☆ をタップでお気に入り。お気に入りは上に表示されます。</string>
+    <string name="tab_watchlist">リスト</string>
+    <string name="tab_market_phase">マーケット</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%2$d 件中 %1$d 件が古い</item>
+    </plurals>
+    <string name="watchlist_all_fresh">すべて最新 · %1$s</string>
+    <string name="explorer_price_loading">価格を読み込み中…</string>
+    <string name="zone_top_risk">天井リスク</string>
+    <string name="zone_bottom_chance">底固め</string>
+    <string name="timeout_error_message">取引所が現在応答していません。</string>
+    <string name="widget_background">背景</string>
+    <string name="widget_configure_title">ウィジェットの設定</string>
+    <string name="widget_configure_hint">背景と不透明度を選びます。色はアプリに合わせます。ウィジェットはリスト全体を表示し、行をタップするとアプリが開きます。</string>
+    <string name="settings_custom_value">カスタム</string>
+    <string name="insights_halving_title">ビットコイン半減期</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="other">次の半減期まで約 %1$d 日（%2$s）</item>
+    </plurals>
+    <string name="insights_cycle_progress">現在のサイクルの %1$d %%</string>
+    <string name="insights_cycle_chart">半減期からのサイクル</string>
+    <string name="insights_chart_axis">半減期からの年数</string>
+    <string name="insights_chart_hint">半減期当日の価格に対する倍率（対数スケール）。過去のサイクルは傾向であり、予測ではありません。</string>
+    <string name="insights_source_history">出典: Coin Metrics (CC BY-NC 4.0)、Binance</string>
+    <string name="insights_fng_title">恐怖・強欲指数</string>
+    <string name="fng_extreme_fear">極度の恐怖</string>
+    <string name="fng_fear">恐怖</string>
+    <string name="fng_neutral">中立</string>
+    <string name="fng_greed">強欲</string>
+    <string name="fng_extreme_greed">極度の強欲</string>
+    <string name="insights_fng_history">昨日 %1$s · 1週間前 %2$s · 1か月前 %3$s</string>
+    <string name="insights_source_fng">出典: alternative.me</string>
+    <string name="insights_dominance_title">ビットコイン・ドミナンス</string>
+    <string name="insights_altseason_title">アルトコインシーズン</string>
+    <string name="altseason_alt">アルトコインシーズン</string>
+    <string name="altseason_btc">ビットコインシーズン</string>
+    <string name="altseason_mixed">混在</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="other">大型アルト %2$d 銘柄中 %1$d 銘柄が90日でビットコインを上回る</item>
+    </plurals>
+    <string name="insights_source_dominance">出典: CoinGecko、Binance</string>
+    <string name="coin_title">コイン分析</string>
+    <string name="coin_choose">コイン</string>
+    <string name="coin_no_data">このコインの価格データが Binance・Bybit にありません。</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">価格履歴は %1$d 日分のみ – 一部の指標がありません。</item>
+    </plurals>
+    <string name="coin_price_only">価格のみに基づきます – オンチェーンデータ（MVRV、Puell、ハッシュレート）を無料で利用できるのはビットコインのみです。</string>
+    <string name="ind_rsi_weekly">RSI（週）</string>
+    <string name="ind_rsi_daily">RSI（日）</string>
+    <string name="ind_pi_cycle">Pi サイクル（111/350日）</string>
+    <string name="ind_cross">トレンド 50/200日</string>
+    <string name="ind_vs_btc">ビットコイン比の強さ（90日）</string>
+    <string name="ind_missing">データ不足</string>
+    <string name="channel_market">市場フェーズ</string>
+    <string name="channel_market_description">ビットコインの市場フェーズが変わると通知します</string>
+    <string name="notification_zone_title">ビットコイン: %1$s</string>
+    <string name="notification_zone_text">市場フェーズが %1$s から %2$s に変わりました。</string>
+    <string name="settings_zone_alerts">市場フェーズの変化を通知</string>
+    <string name="settings_zone_alerts_hint">1日2回確認し、ビットコインのゾーンが変わると通知します（例: Neutral → Bull）。</string>
+    <string name="alarm_condition_move_percent">変動幅</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">%1$d 時間以内</item>
+    </plurals>
+    <string name="alarm_window_label">時間枠</string>
+    <string name="tts_direction_move">大きく変動</string>
+    <string name="settings_fng_below">Fear &amp; Greed: 下回ったら通知</string>
+    <string name="settings_fng_above">Fear &amp; Greed: 上回ったら通知</string>
+    <string name="option_off">オフ</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">指数が %1$d を下回りました – 市場は恐怖に傾いています。</string>
+    <string name="notification_fng_above">指数が %1$d を上回りました – 市場は強欲に傾いています。</string>
+    <string name="futures_title">先物データ</string>
+    <string name="futures_funding">資金調達率</string>
+    <string name="futures_next_funding">次回まで %1$d 時間 %2$d 分</string>
+    <string name="futures_open_interest">建玉</string>
+    <string name="futures_source">出典: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – 1 コイン</string>
+    <string name="single_widget_description">1つのコインを価格・変動・24時間チャート付きで大きく表示します。</string>
+    <string name="single_widget_choose">ペアを選択</string>
+    <string name="single_widget_title">単体ウィジェットの設定</string>
+    <string name="shortcut_add">ペアを追加</string>
+    <string name="shortcut_alarms">すべてのアラーム</string>
+    <string name="shortcut_cycle">マーケット</string>
+    <string name="backup_title">バックアップと復元</string>
+    <string name="backup_hint">メモとグループを含むリスト、アラーム、お気に入り、ポートフォリオ、設定を自分で保管するファイルに保存します（新しい端末用など）。</string>
+    <string name="backup_export">エクスポート</string>
+    <string name="backup_import">インポート</string>
+    <string name="backup_restore_confirm">インポートすると、リスト（メモとグループを含む）、アラーム、お気に入り、ポートフォリオ、設定がバックアップの内容に置き換わります。</string>
+    <string name="backup_exported">バックアップを保存しました。</string>
+    <string name="backup_failed">失敗しました。Crypto Checker のバックアップですか？</string>
+    <string name="backup_restored">復元しました: %1$s、%2$s。</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">ペア %1$d 件</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">アラーム %1$d 件</item>
+    </plurals>
+</resources>

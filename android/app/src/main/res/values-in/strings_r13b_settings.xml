@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Peringatan pasar</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d aktif</item>
+    </plurals>
+    <string name="settings_summary_on">Aktif</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker kini memantau %1$s untuk Anda. Saat %1$s mencapai batas Anda, Anda mendapat notifikasi begitu aplikasi memeriksa harga. Saat aplikasi ditutup, itu terjadi sesuai interval pembaruan latar belakang – lebih lambat jika optimasi baterai membatasi aplikasi.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker kini memantau %1$s untuk Anda. Anda mendapat notifikasi begitu aplikasi memeriksa harga. Saat aplikasi ditutup, iOS yang menentukan kapan itu terjadi – bisa memakan waktu. Selama aplikasi terbuka, harga diperiksa tepat waktu.</string>
+
+    <string name="about_request_exchange">Usulkan bursa</string>
+    <string name="explorer_exchange_missing">Bursa tidak ada?</string>
+</resources>

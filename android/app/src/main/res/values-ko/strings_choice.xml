@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einheitliche Auswahl-Listen: Suchfeld der Währungsseite und Hinweis unter «Theme» -->
+    <string name="currency_search">통화 검색</string>
+    <string name="settings_accent_hint">앱, 위젯, 앱 아이콘의 색상.</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- %-Änderung «Seit letzter Aktualisierung»: letzter gegen vorherigen Kurs des Paars.
+         change_basis_since_last = Auswahl und ausgeschrieben, change_short_since_last = kurz neben
+         Pille und Widgets (wie «24h», «heute»); %1$s in a11y = Veränderung («up 0.12%»);
+         Hinweis: %1$s = change_basis_since_last -->
+    <string name="change_basis_since_last">Desde a última atualização</string>
+    <string name="change_short_since_last">última atualização</string>
+    <string name="a11y_change_since_last">%1$s desde a última atualização</string>
+    <string name="a11y_change_since_last_none">Variação desde a última atualização indisponível</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» compara com o preço da atualização anterior. Com preços em direto, mantém-se perto de 0%%.</string>
+</resources>

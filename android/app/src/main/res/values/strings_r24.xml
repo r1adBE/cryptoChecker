@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s change &amp; chart time zone</string>
+    <string name="change_basis_rolling">Last 24 hrs</string>
+    <string name="change_basis_utc_zone">Since 00:00 %1$s</string>
+    <string name="change_basis_local">Since 00:00 local time</string>
+    <string name="settings_change_basis_hint_1">The chosen time zone sets from when the percentage change counts (watchlist, pulse line, pair sheet, widgets) and the times shown in the charts.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” compares with the price exactly 24 hours ago. “00:00” compares with the opening price at midnight in that time zone.</string>
+    <string name="settings_change_basis_hint_3">Alarms are not affected.</string>
+    <string name="change_basis_device">%1$s, 00:00 (device time zone)</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">today</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 UTC -->
+    <string name="change_short_today_zone">today %1$s</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s today</string>
+    <string name="a11y_change_today_zone">%1$s since midnight %2$s</string>
+    <string name="a11y_change_today_none">Change today not available</string>
+    <string name="a11y_change_today_zone_none">Change since midnight %1$s not available</string>
+    <!-- Zeitraum-Chip im Aktionsblatt statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Today</string>
+    <!-- Über dem Chart: %1$s Veränderung mit Pfeil («▲ +2.31%»), %2$s change_short_today(_utc) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">When the app is closed, at most once a minute</string>
+    <string name="sheet_more">More</string>
+    <string name="a11y_expanded">Expanded</string>
+    <string name="a11y_collapsed">Collapsed</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d without value today</item>
+        <item quantity="other">%1$d without value today</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pair has no value for today</item>
+        <item quantity="other">%1$d pairs have no value for today</item>
+    </plurals>
+</resources>

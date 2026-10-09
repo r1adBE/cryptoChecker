@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Erreur : %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Aucune paire</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Charge les paires actuelles de la plateforme sélectionnée.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Mettre à jour les paires</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Synchroniser maintenant</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Dernière synchro : %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">jamais</string>
+
+    <string name="market_screen_sync">Synchroniser</string>
+    <string name="market_screen_base">Base</string>
+    <string name="market_screen_quote">Cotation</string>
+    <string name="market_screen_market">Plateforme</string>
+    <string name="market_screen_contract_type">Type de contrat</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Haut</string>
+    <string name="ticker_low">Bas</string>
+    <string name="ticker_bid">Achat</string>
+    <string name="ticker_ask">Vente</string>
+    <string name="ticker_vol_base">Volume (base)</string>
+    <string name="ticker_vol_quote">Volume (cotation)</string>
+    <string name="ticker_timestamp">Heure</string>
+
+
+    <string name="try_again">Réessayer</string>
+    <string name="no_internet_connection">Pas de connexion Internet</string>
+    <string name="something_went_wrong">Une erreur s\'est produite</string>
+
+    <string name="bulk_all_pairs">Toutes les paires %1$s de cette plateforme</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d paire %2$s trouvée</item>
+        <item quantity="many">%1$d paires %2$s trouvées</item>
+        <item quantity="other">%1$d paires %2$s trouvées</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Aucune paire %1$s sur cette plateforme pour le type de contrat sélectionné. Synchronisez d\'abord la plateforme ou essayez un autre type de contrat.</string>
+
+    <!-- Actions -->
+    <string name="action_refresh">Actualiser</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_edit">Modifier</string>
+    <string name="action_back">Retour</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_cancel">Annuler</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Aucune paire pour l\'instant</string>
+    <string name="watchlist_updated">Mis à jour : %1$s</string>
+    <string name="watchlist_notification">Notification</string>
+    <string name="watchlist_tts">Annoncer le prix</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alerte (%1$d)</item>
+        <item quantity="many">Alertes (%1$d)</item>
+        <item quantity="other">Alertes (%1$d)</item>
+    </plurals>
+
+    <!-- Alertes -->
+    <string name="alarms_title">Alertes</string>
+    <string name="alarms_add">Nouvelle alerte</string>
+    <string name="alarms_edit">Modifier l\'alerte</string>
+    <string name="alarms_empty">Aucune alerte pour cette paire.</string>
+    <string name="alarm_condition_above">Prix au-dessus de</string>
+    <string name="alarm_condition_below">Prix en dessous de</string>
+    <string name="alarm_condition_up_percent">Hausse de</string>
+    <string name="alarm_condition_down_percent">Baisse de</string>
+    <string name="alarm_repeating">Répétée</string>
+    <string name="alarm_once">Une fois</string>
+    <string name="alarm_last_triggered">dernière : %1$s</string>
+    <string name="alarm_field_price">Prix</string>
+    <string name="alarm_field_percent">Pourcentage</string>
+    <string name="alarm_option_repeating">Conserver l\'alerte après déclenchement</string>
+    <string name="alarm_option_sound">Son</string>
+    <string name="alarm_option_vibrate">Vibration</string>
+    <string name="alarm_option_speak">Annoncer l\'alerte</string>
+
+    <!-- Notifications -->
+    <string name="channel_prices">Prix</string>
+    <string name="channel_prices_description">Notification silencieuse avec le prix actuel d\'une paire.</string>
+    <string name="channel_alarms">Alertes</string>
+    <string name="channel_alarms_description">Notification lorsqu\'une alerte de prix se déclenche.</string>
+    <string name="channel_service">Mise à jour fréquente</string>
+    <string name="channel_service_description">Indication pendant que les prix sont actualisés à intervalles courts.</string>
+    <string name="notification_price_title">%1$s : %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, depuis %2$s (il y a %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, depuis %2$s</string>
+    <string name="notification_price_first">Première notification pour cette paire</string>
+    <string name="notification_alarm_title">Alerte : %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — maintenant %2$s</string>
+    <string name="market_phase_title">Phase du marché Bitcoin</string>
+    <string name="market_phase_trend_loading">Chargement des données de prix…</string>
+    <string name="market_phase_trend_failed">Données de prix indisponibles</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Nombreux signaux de creux historiques à la fois – zone d\'accumulation historique.</string>
+    <string name="zone_hint_bear">Tendance baissière ou formation d\'un creux, sans capitulation généralisée pour l\'instant.</string>
+    <string name="zone_hint_neutral">Signaux mitigés, pas de direction claire.</string>
+    <string name="zone_hint_bull">Tendance haussière sans surchauffe extrême.</string>
+    <string name="zone_hint_extreme_bull">Nombreux signaux de sommet historiques à la fois – risque de sommet élevé.</string>
+    <string name="market_scores">Signes d\'un possible sommet %1$d/10 · creux %2$d/10</string>
+    <string name="market_show_indicators">Afficher les indicateurs</string>
+    <string name="market_hide_indicators">Masquer les indicateurs</string>
+    <string name="market_onchain_missing">Données on-chain (Coin Metrics) actuellement indisponibles – score basé uniquement sur les prix.</string>
+    <string name="market_source">Données : Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Prix vs moyenne sur 200 semaines</string>
+    <string name="ind_drawdown">Baisse depuis le plus haut historique</string>
+    <string name="ind_hash">Capitulation des mineurs (hash ribbons)</string>
+    <string name="ind_parabolic">Hausse parabolique (30 jours)</string>
+    <string name="ind_halving">Mois depuis le halving</string>
+    <string name="ind_ath">Mois depuis le plus haut historique</string>
+    <string name="ind_points_top">+%1$d sommet</string>
+    <string name="ind_points_bottom">+%1$d creux</string>
+    <string name="market_phase_disclaimer">Basé sur les cycles passés et la tendance du prix. Ni une prévision, ni un conseil en investissement.</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="settings_section_language">Langue</string>
+    <string name="settings_language_system">Langue du système</string>
+    <string name="settings_language_choose">Choisir la langue</string>
+    <string name="settings_section_appearance">Apparence</string>
+    <string name="settings_theme_mode">Mode</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="settings_accent">Thème</string>
+    <string name="accent_orange">Orange</string>
+    <string name="accent_red">Rouge</string>
+    <string name="accent_blue">Bleu</string>
+    <string name="accent_green">Vert</string>
+    <string name="settings_rolling_futures">Incl. futures trimestriels et à échéance</string>
+    <string name="settings_rolling_futures_hint">Désactivé : les futures à échéance absents de la liste de la plateforme sont marqués comme « plus négociés » au lieu d\'être vérifiés un par un. Fait gagner du temps à chaque actualisation.</string>
+    <string name="notification_refreshing">Actualisation des prix…</string>
+    <string name="notification_service_title">Crypto Checker se met à jour souvent</string>
+    <string name="notification_service_starting">Démarrage…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d paire · %2$s</item>
+        <item quantity="many">%1$d paires · %2$s</item>
+        <item quantity="other">%1$d paires · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">Aucune paire dans la liste de suivi</string>
+    <string name="notification_service_error">Échec de l\'actualisation</string>
+
+    <!-- Paramètres -->
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_background_updates">Actualisation en arrière-plan</string>
+    <string name="settings_background_updates_hint">Les prix, alertes et widgets sont actualisés même lorsque l\'app est fermée.</string>
+    <string name="settings_background_interval">Intervalle</string>
+    <string name="settings_live_service">Mettre à jour souvent</string>
+    <string name="settings_live_service_hint">Interroge les cours à intervalles courts, même quand l’app est fermée. Affiche une notification et consomme plus de batterie.</string>
+    <string name="settings_live_interval">Fréquence</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_price_notifications">Notifications de prix</string>
+    <string name="settings_price_notifications_hint">Affiche le prix actuel des paires activées dans la barre d\'état.</string>
+    <string name="settings_ongoing_notifications">Non balayables</string>
+    <string name="settings_ongoing_notifications_hint">Garde les notifications de prix épinglées.</string>
+    <string name="settings_notification_change">Notifier seulement si le prix varie</string>
+    <string name="settings_notification_change_always">Toujours</string>
+    <string name="settings_notification_change_hint">Une notification n\'apparaît que si le prix a varié d\'au moins cette valeur depuis la dernière. Rien n\'est affiché tant que des données manquent. Les alertes ne sont pas concernées.</string>
+    <string name="settings_alarm_cooldown">Délai avant un nouveau déclenchement</string>
+    <string name="settings_tts">Annonce vocale</string>
+    <string name="settings_tts_alarms_only">Alertes uniquement</string>
+    <string name="settings_tts_alarms_only_hint">Désactivé : chaque actualisation d\'une paire avec « Annoncer le prix » est lue.</string>
+    <string name="settings_speech_rate">Débit de parole : %1$.1f×</string>
+    <string name="settings_tts_test">Tester la voix</string>
+    <string name="battery_title">Garder les prix à jour</string>
+    <string name="battery_message">Android retarde les tâches en arrière-plan pour économiser l\'énergie — les prix et widgets peuvent alors dater de plusieurs heures. Une utilisation de la batterie non restreinte les garde à jour. Vous pouvez modifier cela à tout moment dans les paramètres Android.</string>
+    <string name="battery_later">Plus tard</string>
+    <string name="settings_battery_ok">Batterie : non restreinte</string>
+    <string name="settings_battery_restricted">Batterie : restreinte</string>
+    <string name="settings_battery_hint">Restreinte signifie qu\'Android peut retarder les actualisations en arrière-plan de plusieurs heures.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Affiche le prix d\'une paire de votre liste de suivi.</string>
+    <string name="widget_empty">Aucune paire dans la liste de suivi.</string>
+    <string name="widget_opacity">Opacité du fond : %1$d%%</string>
+    <string name="settings_section_about">À propos</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Les prix viennent directement des plateformes ; aucun compte, aucun pistage.</string>
+
+    <!-- Marchés -->
+    <string name="dex_intro">Tokens hors des grandes plateformes, issus de plateformes décentralisées (Uniswap, PancakeSwap, Raydium …) via DexScreener. Recherchez un token et ajoutez son pool d\'échange – prix en dollars américains.</string>
+    <string name="dex_search_hint">Nom, symbole ou adresse du token</string>
+    <string name="dex_search">Rechercher</string>
+    <string name="dex_no_results">Aucun pool trouvé.</string>
+    <string name="dex_added">%1$s ajouté à la liste de suivi.</string>
+    <string name="dex_already">%1$s est déjà dans la liste de suivi.</string>
+    <string name="dex_liquidity">Liquidité %1$s</string>
+    <string name="dex_add">Ajouter</string>
+    <string name="action_sort">Trier</string>
+    <string name="action_sort_done">Terminé</string>
+    <string name="sort_move_top">Tout en haut</string>
+    <string name="sort_move_up">Monter</string>
+    <string name="sort_move_down">Descendre</string>
+    <string name="sort_move_bottom">Tout en bas</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Ajouter la %1$d paire à la liste de suivi</item>
+        <item quantity="many">Ajouter les %1$d paires à la liste de suivi</item>
+        <item quantity="other">Ajouter les %1$d paires à la liste de suivi</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d ajoutée, %2$d déjà dans la liste de suivi.</item>
+        <item quantity="many">%1$d ajoutées, %2$d déjà dans la liste de suivi.</item>
+        <item quantity="other">%1$d ajoutées, %2$d déjà dans la liste de suivi.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Ajouter à la liste de suivi</string>
+    <string name="explorer_added_to_watchlist">Ajoutée à la liste de suivi.</string>
+    <string name="explorer_already_in_watchlist">Cette paire est déjà dans la liste de suivi.</string>
+    <string name="explorer_no_pair_selected">Choisissez d\'abord une paire.</string>
+
+    <!-- Synthèse vocale -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Alerte. %1$s, %2$s %3$s %4$s, maintenant %5$s</string>
+    <string name="tts_direction_up">a augmenté</string>
+    <string name="tts_direction_down">a baissé</string>
+    <string name="watchlist_refresh_report">Dernière actualisation</string>
+    <string name="watchlist_refresh_report_empty">Pas encore de détail : cette version n\'a pas encore effectué d\'actualisation complète. Touchez Actualiser et attendez que l\'indicateur s\'arrête.</string>
+    <string name="action_close">Fermer</string>
+    <string name="watchlist_clear">Vider la liste de suivi</string>
+    <string name="watchlist_clear_confirm">Retirer toutes les paires de la liste de suivi ? Leurs alertes seront aussi supprimées.</string>
+    <string name="market_scores_hint">Sommet = signes comme aux sommets de cycles passés, creux = signes comme aux creux de cycles passés. À partir de 4 points un côté domine, à partir de 7 il est extrême. Ni objectif de prix ni prévision.</string>
+    <string name="market_scores_none">Aucun signe de sommet ni de creux actif : phase intermédiaire calme, la tendance du prix décide.</string>
+    <string name="market_scores_info_title">Signaux de cycle</string>
+    <string name="market_scores_info_text">Les signes d\'un possible sommet comptent les signaux observés aux sommets des cycles passés : forte surévaluation (MVRV), revenus des mineurs très élevés (Puell), prix bien au-dessus de la moyenne 200 jours ou 200 semaines, hausse parabolique et la fenêtre de 12 à 18 mois après le halving.\n\nLes signes d\'un possible creux comptent les signaux des creux passés : MVRV bas, faibles revenus des mineurs, forte baisse depuis le plus haut historique, prix proche de la moyenne 200 semaines, hashrate en baisse et un sommet datant de plus d\'un an.\n\nÀ partir de 4 points d\'avance la zone est Bull ou Bear, à partir de 7 Extrême. Si aucun côté ne mène, la tendance du prix décide. 0/10 des deux côtés signifie : ni euphorie ni capitulation.\n\nNi objectif de prix ni prévision : les signaux décrivent seulement à quoi ressemblaient les cycles passés.</string>
+    <string name="battery_open_settings">Ouvrir les réglages de batterie</string>
+    <string name="battery_steps">Dans les infos de l\'app, touchez Batterie (ou Utilisation de la batterie) et choisissez Non restreinte.</string>
+    <string name="explorer_select_placeholder">Veuillez choisir</string>
+    <string name="explorer_bulk_title">Plusieurs paires à la fois</string>
+    <string name="watchlist_sort_hint">Maintenez et faites glisser une paire, ou utilisez la poignée. Les favoris restent en haut.</string>
+    <string name="sort_drag_handle">Glisser pour déplacer</string>
+    <string name="explorer_step_pair">Choisir la paire</string>
+    <string name="theme_system">Système</string>
+    <string name="settings_section_developer">Développeur</string>
+    <string name="settings_http_log">Afficher le journal HTTP</string>
+    <string name="settings_http_log_hint">Affiche en bas de la page « Ajouter une paire » les requêtes envoyées aux plateformes – pour le dépannage.</string>
+    <string name="language_search">Rechercher une langue</string>
+    <string name="alarm_delete_title">Supprimer l\'alerte ?</string>
+    <string name="alarm_delete_confirm">Cette alerte sera supprimée.</string>
+    <string name="alarms_overview_title">Toutes les alertes</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d active</item>
+        <item quantity="many">%1$d actives</item>
+        <item quantity="other">%1$d actives</item>
+    </plurals>
+    <string name="alarms_overview_empty">Aucune alerte. Ouvrez une paire et ajoutez-en une sous Alertes.</string>
+    <string name="action_more">Plus d\'options</string>
+    <string name="watchlist_last_run">Dernier passage %1$s</string>
+    <string name="watchlist_pull_to_refresh">Tirer vers le bas pour actualiser</string>
+    <string name="favorite_add">Ajouter aux favoris</string>
+    <string name="favorite_remove">Retirer des favoris</string>
+    <string name="action_view">Voir</string>
+    <string name="explorer_loading_pairs">Chargement des paires…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d paire · mis à jour %2$s</item>
+        <item quantity="many">%1$d paires · mis à jour %2$s</item>
+        <item quantity="other">%1$d paires · mis à jour %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Ajouter %1$d paire ?</item>
+        <item quantity="many">Ajouter %1$d paires ?</item>
+        <item quantity="other">Ajouter %1$d paires ?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">La %1$d paire %2$s de %3$s sera ajoutée à la liste si elle n\'y est pas déjà.</item>
+        <item quantity="many">Les %1$d paires %2$s de %3$s seront ajoutées à la liste. Celles déjà présentes sont ignorées.</item>
+        <item quantity="other">Les %1$d paires %2$s de %3$s seront ajoutées à la liste. Celles déjà présentes sont ignorées.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Touchez une paire pour la sélectionner ci-dessus.</string>
+    <string name="loading_hint">Chargement…</string>
+    <string name="explorer_select_market_hint">Choisissez une plateforme – ses paires se chargent automatiquement.</string>
+    <string name="explorer_precise_title">Choisir précisément</string>
+    <string name="explorer_search_hint">Rechercher une crypto, p. ex. BTC ou ETH USDT</string>
+    <string name="explorer_search_loading">Recherche sur les plateformes… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Aucun résultat.</string>
+    <string name="action_clear">Effacer</string>
+    <string name="explorer_bulk_show_list">Afficher la liste</string>
+    <string name="explorer_bulk_hide_list">Masquer la liste</string>
+    <string name="time_just_now">à l\'instant</string>
+    <string name="welcome_text">Vos cours. Vos alertes. Votre aperçu.\nSans compte. Sans pub. Sans pistage.</string>
+    <string name="developer_unlocked">Options développeur activées</string>
+    <string name="hint_favorites_list">Astuce : touchez ☆ pour mettre en favori – les favoris restent en haut.</string>
+    <string name="tab_watchlist">Liste</string>
+    <string name="tab_market_phase">Marché</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d sur %2$d obsolète</item>
+        <item quantity="many">%1$d sur %2$d obsolètes</item>
+        <item quantity="other">%1$d sur %2$d obsolètes</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Tout à jour · %1$s</string>
+    <string name="explorer_price_loading">Chargement du cours…</string>
+    <string name="zone_top_risk">Risque de sommet</string>
+    <string name="zone_bottom_chance">Formation de creux</string>
+    <string name="timeout_error_message">La plateforme ne répond pas pour le moment.</string>
+    <string name="widget_background">Arrière-plan</string>
+    <string name="widget_configure_title">Configurer le widget</string>
+    <string name="widget_configure_hint">Choisissez l\'arrière-plan et l\'opacité. La couleur suit l\'app. Le widget affiche toute la liste ; touchez une ligne pour ouvrir l\'app.</string>
+    <string name="settings_custom_value">Autre</string>
+    <string name="insights_halving_title">Halving du Bitcoin</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">Prochain halving dans environ %1$d jour (%2$s)</item>
+        <item quantity="many">Prochain halving dans environ %1$d jours (%2$s)</item>
+        <item quantity="other">Prochain halving dans environ %1$d jours (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% du cycle en cours</string>
+    <string name="insights_cycle_chart">Cycles depuis le halving</string>
+    <string name="insights_chart_axis">Années depuis le halving</string>
+    <string name="insights_chart_hint">Cours en multiple du cours le jour du halving (échelle log). Les cycles passés sont un schéma, pas une prévision.</string>
+    <string name="insights_source_history">Source : Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="fng_extreme_fear">Peur extrême</string>
+    <string name="fng_fear">Peur</string>
+    <string name="fng_neutral">Neutre</string>
+    <string name="fng_greed">Avidité</string>
+    <string name="fng_extreme_greed">Avidité extrême</string>
+    <string name="insights_fng_history">Hier %1$s · il y a une semaine %2$s · il y a un mois %3$s</string>
+    <string name="insights_source_fng">Source : alternative.me</string>
+    <string name="insights_dominance_title">Dominance du Bitcoin</string>
+    <string name="insights_altseason_title">Saison des altcoins</string>
+    <string name="altseason_alt">Saison des altcoins</string>
+    <string name="altseason_btc">Saison du Bitcoin</string>
+    <string name="altseason_mixed">Mitigé</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d sur %2$d grands altcoins bat le Bitcoin sur 90 jours</item>
+        <item quantity="many">%1$d sur %2$d grands altcoins battent le Bitcoin sur 90 jours</item>
+        <item quantity="other">%1$d sur %2$d grands altcoins battent le Bitcoin sur 90 jours</item>
+    </plurals>
+    <string name="insights_source_dominance">Source : CoinGecko, Binance</string>
+    <string name="coin_title">Analyse d\'une crypto</string>
+    <string name="coin_choose">Crypto</string>
+    <string name="coin_no_data">Aucune donnée de cours pour cette crypto sur Binance ou Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Seulement %1$d jour d\'historique – certains indicateurs manquent.</item>
+        <item quantity="many">Seulement %1$d jours d\'historique – certains indicateurs manquent.</item>
+        <item quantity="other">Seulement %1$d jours d\'historique – certains indicateurs manquent.</item>
+    </plurals>
+    <string name="coin_price_only">Basé uniquement sur le cours – les données on-chain (MVRV, Puell, hashrate) ne sont libres que pour le Bitcoin.</string>
+    <string name="ind_rsi_weekly">RSI (semaine)</string>
+    <string name="ind_rsi_daily">RSI (jour)</string>
+    <string name="ind_pi_cycle">Pi cycle (111/350 jours)</string>
+    <string name="ind_cross">Tendance 50/200 jours</string>
+    <string name="ind_vs_btc">Force face au Bitcoin (90 jours)</string>
+    <string name="ind_missing">données insuffisantes</string>
+    <string name="channel_market">Phase de marché</string>
+    <string name="channel_market_description">Prévient quand la phase de marché du Bitcoin change</string>
+    <string name="notification_zone_title">Bitcoin : %1$s</string>
+    <string name="notification_zone_text">La phase de marché est passée de %1$s à %2$s.</string>
+    <string name="settings_zone_alerts">Prévenir au changement de phase</string>
+    <string name="settings_zone_alerts_hint">Vérifie deux fois par jour et prévient quand le Bitcoin change de zone, p. ex. de Neutre à Bull.</string>
+    <string name="alarm_condition_move_percent">Varie de</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">en %1$d h</item>
+        <item quantity="many">en %1$d h</item>
+        <item quantity="other">en %1$d h</item>
+    </plurals>
+    <string name="alarm_window_label">Fenêtre de temps</string>
+    <string name="tts_direction_move">bouge fortement</string>
+    <string name="settings_fng_below">Fear &amp; Greed : prévenir sous</string>
+    <string name="settings_fng_above">Fear &amp; Greed : prévenir au-dessus</string>
+    <string name="option_off">Non</string>
+    <string name="notification_fng_title">Fear &amp; Greed : %1$d</string>
+    <string name="notification_fng_below">L\'indice est passé sous %1$d – le marché a peur.</string>
+    <string name="notification_fng_above">L\'indice est passé au-dessus de %1$d – le marché est avide.</string>
+    <string name="futures_title">Données futures</string>
+    <string name="futures_funding">Taux de financement</string>
+    <string name="futures_next_funding">prochain dans %1$d h %2$d min</string>
+    <string name="futures_open_interest">Intérêt ouvert</string>
+    <string name="futures_source">Source : %1$s</string>
+    <string name="single_widget_label">Crypto Checker – une crypto</string>
+    <string name="single_widget_description">Affiche une crypto en grand avec cours, variation et graphique 24 h.</string>
+    <string name="single_widget_choose">Choisir une paire</string>
+    <string name="single_widget_title">Configurer le widget unique</string>
+    <string name="shortcut_add">Ajouter une paire</string>
+    <string name="shortcut_alarms">Toutes les alertes</string>
+    <string name="shortcut_cycle">Marché</string>
+    <string name="backup_title">Sauvegarde et restauration</string>
+    <string name="backup_hint">Enregistre liste avec notes et groupes, alertes, favoris, portefeuille et réglages dans un fichier que vous gardez – p. ex. pour un nouveau téléphone.</string>
+    <string name="backup_export">Exporter</string>
+    <string name="backup_import">Importer</string>
+    <string name="backup_restore_confirm">L\'import remplace votre liste (avec notes et groupes), vos alertes, favoris, portefeuille et réglages par la sauvegarde.</string>
+    <string name="backup_exported">Sauvegarde enregistrée.</string>
+    <string name="backup_failed">Échec. Est-ce bien une sauvegarde Crypto Checker ?</string>
+    <string name="backup_restored">Restauré : %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d paire</item>
+        <item quantity="many">%1$d paires</item>
+        <item quantity="other">%1$d paires</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alerte</item>
+        <item quantity="many">%1$d alertes</item>
+        <item quantity="other">%1$d alertes</item>
+    </plurals>
+</resources>

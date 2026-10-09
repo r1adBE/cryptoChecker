@@ -1,0 +1,35 @@
+Verze 16.2.2
+• Crypto Pulse: co se právě děje na trhu
+• „Proč se to hýbe?“: vysvětlení cenových pohybů založené na datech, s krátkým shrnutím
+• Otestovat alarm: vyzkoušejte zvuk, vibrace a hlas
+• Přepočtené ceny: druhý řádek „≈ hodnota“ ve vaší měně přepočtu – 31 měn jako EUR, CHF, USD, GBP nebo JPY, ve výchozím stavu podle regionu zařízení
+• Alarmy ve vaší měně, např. při 60 000 EUR u páru s USDT
+• Export k rozhodnému dni: hodnota vašeho portfolia k libovolnému datu, např. k 31. prosinci, ve vaší měně jako soubor CSV – praktické pro daňové přiznání (nejde o daňové poradenství)
+• Přístupnost: barvy cen modrá/oranžová místo zelené/červené, dobře rozlišitelné při každé poruše barvocitu (červeno-zelené i modro-žluté); „Prohodit barvy růstu/poklesu“: červená pro růst, zelená pro pokles, jak je zvykem v Číně, Japonsku, Koreji a na Tchaj-wanu (tam zapnuto automaticky); „Vysoký kontrast“: výraznější barvy cen, tmavší vedlejší text a barva zvýraznění, řídí se i systémovým nastavením kontrastu; plná podpora VoiceOver: každý řádek seznamu, graf i widget se přečte jako jedna věta
+• Minigraf v každém řádku: 24hodinový vývoj vedle ceny
+• „Začněte jedním klepnutím“: prázdný seznam nabídne 5 největších mincí podle tržní kapitalizace (bez stablecoinů)
+• Úvodní výběr ukazuje aktuální cenu a změnu za 24 h – všech pět je předvybraných a přidáte je jedním tlačítkem
+• Přejetím doleva smažete (s možností Zpět), doprava označíte oblíbené
+• Karta Trh se otevře okamžitě s posledními daty a aktualizuje se na pozadí
+• Noční klid: v noci (např. 23–7 h) přicházejí alarmy potichu – bez zvuku, vibrací a hlasu
+• Zámek portfolia přes Face ID, Touch ID nebo kód zařízení
+• Widget Portfolio pro plochu i zamčenou obrazovku: celková hodnota ve vaší měně a dnešní změna
+• Každý alarm jako věta: „Upozornit, až BTC klesne pod 60 000 CHF.“
+• Krátká vysvětlení k funding rate, open interest, RSI a Pi Cycle
+• Řádky ukazují „zastaralé“ nebo „burza není dostupná“, když ceny nejsou aktuální
+• 15 nových burz: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Síťové poplatky pro Ethereum, Base, Arbitrum, Polygon, BNB Chain a Bitcoin na kartě Trh, s gas alarmem
+• Poznámka ke každé minci v seznamu sledovaných
+• Výběr zvuku alarmu
+• Neobvyklá aktivita: odhalí neobvyklé pohyby ceny a objemu, volitelná oznámení
+• Portfolio na vlastní kartě: nákupy a prodeje, průměrná cena, zisk/ztráta
+• Porovnání cyklů: vyznačené vrcholy a dna vč. dvojitého vrcholu a dvojitého dna
+• Skupiny pro seznam sledovaných
+• Nové alarmy: pohyb o X % za Y hodin a skok objemu
+• Widget jedné mince: svíčky nebo čára, rozsah grafu 24 h, 7 dní nebo 30 dní, značky maxima, středu a minima, zvýrazněná aktuální cena
+• Karta Trh: celková tržní kapitalizace kryptoměn a objem za 24 h ve vaší měně
+• Futures: funding rate a open interest
+• Pět barev zvýraznění s odpovídajícími ikonami aplikace
+• Akcie, zlato, komodity a měny jako futures (TradFi) na Binance, Bybit, OKX, MEXC a Bitget – za přepínačem v Nastavení › Seznam, nové páry jdou do skupiny „TradFi“, termínované futures do „QTLY“
+• Změna v % jako na Binance: posledních 24 h, od poslední aktualizace, od 00:00 v časovém pásmu zařízení nebo v pevném pásmu od UTC+14 do UTC-12
+• Jasné názvy: „Obnovovat často“ a „Živé kurzy“

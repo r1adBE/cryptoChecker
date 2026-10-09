@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">التوزيع</string>
+    <string name="portfolio_allocation_other">أخرى</string>
+    <string name="portfolio_movers_title">أكبر التحركات</string>
+    <string name="portfolio_hide_amounts">إخفاء المبالغ</string>
+    <string name="portfolio_hide_amounts_hint">يعرض المبالغ والقيم في المحفظة وأداة المحفظة على شكل ••• – تبقى النسب المئوية ظاهرة.</string>
+    <string name="a11y_portfolio_show_amounts">إظهار المبالغ</string>
+    <string name="a11y_amount_hidden">المبلغ مخفي</string>
+    <string name="portfolio_alarm_action">تنبيه</string>
+    <string name="portfolio_alarm_title">تنبيه «قيمة المحفظة»</string>
+    <string name="portfolio_alarm_kind_above">المحفظة فوق مبلغ</string>
+    <string name="portfolio_alarm_kind_below">المحفظة تحت مبلغ</string>
+    <string name="portfolio_alarm_kind_up">المحفظة ترتفع</string>
+    <string name="portfolio_alarm_kind_down">المحفظة تنخفض</string>
+    <string name="portfolio_alarm_amount">المبلغ (%1$s)</string>
+    <string name="portfolio_alarm_hint">يُفحص بعد كل تحديث. مثل تنبيهات السعر: ينبّه عند تجاوز الحد، ثم مجددًا فقط بعد عودة القيمة.</string>
+    <string name="portfolio_alarm_sentence_above">المحفظة فوق %1$s</string>
+    <string name="portfolio_alarm_sentence_below">المحفظة تحت %1$s</string>
+    <string name="portfolio_alarm_sentence_up">المحفظة ارتفعت %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">المحفظة انخفضت %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">قيمة المحفظة</string>
+    <string name="notification_portfolio_alarm_text">%1$s – الآن %2$s</string>
+</resources>

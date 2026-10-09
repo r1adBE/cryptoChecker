@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Rimuovi coppie non negoziate (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Rimuovi coppie non negoziate</string>
+    <string name="watchlist_remove_not_traded_action">Rimuovi</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Rimuovere %1$d coppia non più negoziata sul suo exchange? Verranno eliminati anche i suoi allarmi.</item>
+        <item quantity="many">Rimuovere %1$d coppie non più negoziate sul loro exchange? Verranno eliminati anche i loro allarmi.</item>
+        <item quantity="other">Rimuovere %1$d coppie non più negoziate sul loro exchange? Verranno eliminati anche i loro allarmi.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d coppia non negoziata rimossa</item>
+        <item quantity="many">%1$d coppie non negoziate rimosse</item>
+        <item quantity="other">%1$d coppie non negoziate rimosse</item>
+    </plurals>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">มีบางอย่างเกิดขึ้นตอนนี้</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">ความเคลื่อนไหวผิดปกติ</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">เคลื่อนไหวผิดปกติ: %1$s ในหนึ่งชั่วโมง (%2$s× ของปกติ)</string>
+    <string name="activity_signal_volume">ปริมาณ %1$s× ของปกติในชั่วโมงล่าสุด</string>
+    <string name="activity_signal_open_interest">Open interest %1$s ภายใน %2$d นาที</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — มี Long ใช้เลเวอเรจจำนวนมาก</string>
+    <string name="activity_signal_funding_short">Funding %1$s — มี Short จำนวนมาก</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">แจ้งความเคลื่อนไหวผิดปกติ</string>
+    <string name="settings_activity_alerts_hint">สูงสุดชั่วโมงละครั้งต่อคู่: ราคาเคลื่อนไหวผิดปกติ ปริมาณพุ่ง และค่าสุดขั้วในฟิวเจอร์ส (ข้อมูลจาก Binance)</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">ทำไมถึงเคลื่อนไหว?</string>
+    <string name="why_title">ทำไมถึงเคลื่อนไหว?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">การประเมินอัตโนมัติจากข้อมูลตลาด ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="why_data_time">ข้อมูล ณ %1$s</string>
+    <string name="why_no_data">ไม่มีข้อมูลจาก Binance สำหรับคู่นี้</string>
+    <string name="why_no_data_hint">ราคา ปริมาณ และความผันผวนมาจากแท่งเทียนรายชั่วโมงของ Binance</string>
+
+    <string name="why_market_wide_text">เหรียญนี้: %1$s ใน 24 ชม. — แรงขับน่าจะมาจากตลาดโดยรวม ไม่ใช่ตัวเหรียญเอง</string>
+    <string name="why_coin_only_text">%1$s ใน 24 ชม. ขณะที่ตลาดเงียบ: สาเหตุน่าจะมาจากตัวเหรียญเอง</string>
+    <string name="why_against_market_text">เหรียญนี้ %1$s, BTC %2$s ใน 24 ชม. — การเคลื่อนไหวที่เป็นอิสระอย่างเห็นได้ชัด</string>
+    <string name="why_market_calm_text">เหรียญนี้: %1$s ใน 24 ชม. ทั้งตลาดและเหรียญไม่ได้เคลื่อนไหวมาก</string>
+    <string name="why_market_leader_text">ในฐานะผู้นำตลาด BTC มักดึงตลาดส่วนที่เหลือไปด้วย ETH: %1$s ใน 24 ชม.</string>
+    <string name="why_market_leader_text_no_eth">ในฐานะผู้นำตลาด BTC มักดึงตลาดส่วนที่เหลือไปด้วย</string>
+
+    <string name="why_volume_high_text">มีการซื้อขายมากกว่าปกติมากในชั่วโมงล่าสุด — การเคลื่อนไหวได้รับแรงหนุนกว้างขวาง</string>
+    <string name="why_volume_low_text">การเคลื่อนไหวเบาบางและอาจกลับตัวได้เร็ว</string>
+    <string name="why_volume_normal_text">การซื้อขายในชั่วโมงล่าสุดสอดคล้องกับ 24 ชั่วโมงที่ผ่านมา</string>
+
+    <string name="why_leverage_longs_text">Long จ่ายให้ Short — เสี่ยงถูกบังคับปิดสถานะมากขึ้นหากราคาลดลง</string>
+    <string name="why_leverage_shorts_text">Short จ่ายให้ Long — ราคาที่สูงขึ้นอาจทำให้เกิด Short Squeeze</string>
+    <string name="why_leverage_balanced_text">ไม่มีการกระจุกตัวของสถานะ Long หรือ Short ในตลาดฟิวเจอร์ส</string>
+    <string name="why_open_interest_change">Open interest %1$s นับจากการตรวจครั้งล่าสุด</string>
+
+    <string name="why_volatility_high_text">ชั่วโมงล่าสุด: %1$s — เทียบกับการแกว่งรายชั่วโมงตามปกติใน 24 ชั่วโมงที่ผ่านมา</string>
+    <string name="why_volatility_normal_text">ชั่วโมงล่าสุด: %1$s — อยู่ในช่วงปกติ</string>
+
+    <string name="why_sentiment_text">ดัชนีความกลัวและความโลภของตลาดคริปโตทั้งหมด %1$s เทียบกับเมื่อวาน</string>
+    <string name="why_sentiment_text_no_change">ดัชนีความกลัวและความโลภของตลาดคริปโตทั้งหมด</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Export k rozhodnému dni…</string>
+    <string name="portfolio_export_title">Export k rozhodnému dni</string>
+    <string name="portfolio_export_date">Rozhodný den</string>
+    <string name="portfolio_export_currency">Měna: %1$s</string>
+    <string name="portfolio_export_hint">Držba na konci zvoleného dne, oceněná denní uzavírací cenou (UTC) v USDT a přepočtená referenčním kurzem ECB z tohoto dne. Měnu změníte v „Přepočítat na“.</string>
+    <string name="portfolio_export_button">Exportovat CSV</string>
+    <string name="portfolio_export_running">Načítání historických cen…</string>
+    <string name="portfolio_export_done">Export uložen</string>
+    <string name="portfolio_export_failed">Export se nezdařil</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Rozhodný den %1$s, měna %2$s, kurz z %3$s</string>
+    <string name="portfolio_export_col_coin">Mince</string>
+    <string name="portfolio_export_col_amount">Množství</string>
+    <string name="portfolio_export_col_price">Cena USDT</string>
+    <string name="portfolio_export_col_value">Hodnota USDT</string>
+    <string name="portfolio_export_col_rate">Kurz USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Hodnota %1$s</string>
+    <string name="portfolio_export_col_note">Poznámka</string>
+    <string name="portfolio_export_total">Celkem</string>
+    <string name="portfolio_export_no_price">bez ceny</string>
+    <string name="portfolio_export_no_fx">bez kurzu</string>
+    <string name="portfolio_export_incomplete">neúplné</string>
+</resources>

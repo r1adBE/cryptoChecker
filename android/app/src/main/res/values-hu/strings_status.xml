@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Nincs kapcsolat</string>
+    <string name="watchlist_offline_since">Nincs kapcsolat · állapot: %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-ből %1$d ár nélkül</item>
+        <item quantity="other">%2$d-ből %1$d ár nélkül</item>
+    </plurals>
+    <string name="watch_not_traded">A tőzsdén már nem kereskednek vele</string>
+</resources>

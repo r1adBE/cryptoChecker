@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">همه به‌روز شد</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">جفت‌های به‌روزنشده: %1$d</item>
+        <item quantity="other">جفت‌های به‌روزنشده: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s در دسترس نیست</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">صرافی‌های غیرقابل دسترس: %1$d</item>
+        <item quantity="other">صرافی‌های غیرقابل دسترس: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">تازه‌سازی لغو شد</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">جفت‌ها: %1$d</item>
+        <item quantity="other">جفت‌ها: %1$d</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">صرافی‌ها</string>
+    <string name="refresh_sheet_section_steps">جزئیات</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">انتظار تا شروع</string>
+    <string name="refresh_sheet_network">شبکه</string>
+    <string name="refresh_sheet_database">پایگاه داده</string>
+    <string name="refresh_sheet_alarms">هشدارها</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">فعال‌شده: %1$d</item>
+        <item quantity="other">فعال‌شده: %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">اعلان‌ها: %1$d</item>
+        <item quantity="other">اعلان‌ها: %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">ابزارک‌ها</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">جفت‌ها: %2$d از %1$d</item>
+        <item quantity="other">جفت‌ها: %2$d از %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">درخواست گروهی %1$s · قیمت‌ها: %2$d</item>
+        <item quantity="other">درخواست گروهی %1$s · قیمت‌ها: %2$d</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">پایان مهلت</string>
+    <string name="refresh_sheet_reason_offline">اتصال برقرار نیست</string>
+    <string name="refresh_sheet_reason_rate_limit">درخواست‌های بیش از حد</string>
+    <string name="refresh_sheet_reason_server">خطای سرور</string>
+    <string name="refresh_sheet_reason_no_data">داده‌ای نیست</string>
+    <string name="refresh_sheet_reason_unavailable">صرافی در دسترس نیست</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">همه به‌روز شد</string>
+    <string name="refresh_sheet_status_partial">بخشی به‌روز شد</string>
+    <string name="refresh_sheet_status_failed">به‌روز نشد</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s ثانیه</string>
+</resources>

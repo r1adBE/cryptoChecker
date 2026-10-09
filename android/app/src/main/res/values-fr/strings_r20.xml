@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Retirer les paires non négociées (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Retirer les paires non négociées</string>
+    <string name="watchlist_remove_not_traded_action">Retirer</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Retirer %1$d paire qui n\'est plus négociée sur sa plateforme ? Ses alertes seront aussi supprimées.</item>
+        <item quantity="many">Retirer %1$d paires qui ne sont plus négociées sur leur plateforme ? Leurs alertes seront aussi supprimées.</item>
+        <item quantity="other">Retirer %1$d paires qui ne sont plus négociées sur leur plateforme ? Leurs alertes seront aussi supprimées.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d paire non négociée retirée</item>
+        <item quantity="many">%1$d paires non négociées retirées</item>
+        <item quantity="other">%1$d paires non négociées retirées</item>
+    </plurals>
+</resources>

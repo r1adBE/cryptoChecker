@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Harga terkonversi</string>
+    <string name="settings_show_converted_hint">Menampilkan harga di daftar pantau juga dalam %1$s</string>
+    <string name="settings_conversion_currency">Mata uang konversi</string>
+    <string name="alarm_currency_label">Mata uang</string>
+</resources>

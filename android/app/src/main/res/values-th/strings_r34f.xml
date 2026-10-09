@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding สูงกว่า</string>
+    <string name="alarm_condition_funding_below">Funding ต่ำกว่า</string>
+    <string name="alarm_condition_oi_up">Open interest เพิ่มขึ้น</string>
+    <string name="alarm_condition_oi_down">Open interest ลดลง</string>
+    <string name="alarm_sentence_funding_above">แจ้งฉันเมื่อ Funding ของ %1$s ขึ้นเกิน %2$s</string>
+    <string name="alarm_sentence_funding_below">แจ้งฉันเมื่อ Funding ของ %1$s ลงต่ำกว่า %2$s</string>
+    <string name="tts_direction_funding_above">พร้อม Funding สูง</string>
+    <string name="tts_direction_funding_below">พร้อม Funding ต่ำ</string>
+    <string name="tts_direction_oi_up">พร้อม Open interest เพิ่มขึ้น</string>
+    <string name="tts_direction_oi_down">พร้อม Open interest ลดลง</string>
+    <string name="alarm_funding_hint">อัตรา Funding ต่อรอบการชำระ (ปกติทุก 8 ชั่วโมง) ค่าติดลบหมายถึงฝั่ง Short จ่ายให้ฝั่ง Long ปุ่ม ± ใช้สลับเครื่องหมาย</string>
+    <string name="alarm_oi_hint">เปรียบเทียบ Open interest กับค่าที่บันทึกไว้เมื่อจำนวนชั่วโมงเท่านั้นก่อน สัญญาณเตือนใหม่จะทำงานเมื่อแอปเก็บข้อมูลได้นานพอแล้ว ตรวจสอบอย่างมากทุก 5 นาที</string>
+    <string name="alarm_funding_sign_a11y">สลับเครื่องหมาย</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">แจ้งฉันเมื่อ Open interest ของ %1$s เพิ่มขึ้น %2$s ภายใน %3$d ชั่วโมง</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">แจ้งฉันเมื่อ Open interest ของ %1$s ลดลง %2$s ภายใน %3$d ชั่วโมง</item>
+    </plurals>
+</resources>

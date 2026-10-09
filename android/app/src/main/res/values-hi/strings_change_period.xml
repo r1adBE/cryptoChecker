@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">बदलाव के पास अवधि दिखाएँ</string>
+    <string name="settings_change_period_hint">वॉचलिस्ट और एक-कॉइन विजेट में बदलाव के पास छोटा “24h”, “आज” या “पिछला अपडेट”। स्क्रीन रीडर इसे हमेशा बोलता है।</string>
+</resources>

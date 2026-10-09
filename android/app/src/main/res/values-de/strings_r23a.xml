@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Keine Paare in dieser Gruppe</string>
+    <string name="watchlist_status_none_traded">Hier keine gehandelten Paare</string>
+    <string name="watchlist_group_empty_hint">Lange auf eine Gruppe drücken, um ihre Paare zu wählen.</string>
+    <string name="watchlist_just_refreshed">Gerade aktualisiert</string>
+</resources>

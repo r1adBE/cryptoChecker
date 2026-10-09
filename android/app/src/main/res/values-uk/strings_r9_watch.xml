@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">Торкніться для дій · проведіть для швидких дій · утримуйте для сортування</string>
+    <string name="watch_action_alarm">Сигнал</string>
+    <string name="watch_action_why">Чому?</string>
+    <string name="watch_action_favorite">Обране</string>
+    <string name="add_alarm_action">Створити сигнал</string>
+    <string name="welcome_watch_q">Що відбувається?</string>
+    <string name="welcome_alert_q">Коли діяти?</string>
+    <string name="welcome_understand_q">Чому?</string>
+</resources>

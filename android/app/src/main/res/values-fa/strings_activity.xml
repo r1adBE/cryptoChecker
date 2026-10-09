@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">همین حالا اتفاقی در جریان است</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">فعالیت غیرعادی</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">حرکت غیرعادی: %1$s در یک ساعت (%2$s برابر حالت عادی)</string>
+    <string name="activity_signal_volume">حجم %1$s برابر حالت عادی در ساعت گذشته</string>
+    <string name="activity_signal_open_interest">موقعیت‌های باز %1$s در %2$d دقیقه</string>
+    <string name="activity_signal_open_interest_no_time">موقعیت‌های باز %1$s</string>
+    <string name="activity_signal_funding_long">نرخ تأمین مالی %1$s — لانگ‌های اهرمی زیاد</string>
+    <string name="activity_signal_funding_short">نرخ تأمین مالی %1$s — شورت‌های زیاد</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">گزارش فعالیت غیرعادی</string>
+    <string name="settings_activity_alerts_hint">حداکثر یک بار در ساعت برای هر جفت: حرکات غیرعادی قیمت، جهش‌های حجم و مقادیر حدی در فیوچرز (داده‌ها از Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">چرا این حرکت می‌کند؟</string>
+    <string name="why_title">چرا این حرکت می‌کند؟</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">ارزیابی خودکار بر اساس داده‌های بازار، نه توصیه سرمایه‌گذاری.</string>
+    <string name="why_data_time">داده‌ها تا %1$s</string>
+    <string name="why_no_data">داده‌ای از Binance برای این جفت وجود ندارد</string>
+    <string name="why_no_data_hint">قیمت، حجم و نوسان از کندل‌های ساعتی Binance می‌آیند.</string>
+
+    <string name="why_market_wide_text">این ارز: %1$s در ۲۴ ساعت — محرک احتمالاً کل بازار است، نه خود ارز.</string>
+    <string name="why_coin_only_text">%1$s در ۲۴ ساعت در حالی که بازار آرام است: دلیل احتمالاً مختص همین ارز است.</string>
+    <string name="why_against_market_text">این ارز %1$s، BTC %2$s در ۲۴ ساعت — حرکتی به‌طور محسوس مستقل.</string>
+    <string name="why_market_calm_text">این ارز: %1$s در ۲۴ ساعت. نه بازار و نه ارز حرکت زیادی ندارند.</string>
+    <string name="why_market_leader_text">BTC به‌عنوان رهبر بازار معمولاً بقیه بازار را با خود می‌کشد. ETH: %1$s در ۲۴ ساعت.</string>
+    <string name="why_market_leader_text_no_eth">BTC به‌عنوان رهبر بازار معمولاً بقیه بازار را با خود می‌کشد.</string>
+
+    <string name="why_volume_high_text">معاملات در ساعت گذشته بسیار بیشتر از معمول بوده — حرکت پشتوانه گسترده‌ای دارد.</string>
+    <string name="why_volume_low_text">حرکت کم‌عمق است و می‌تواند سریع برگردد.</string>
+    <string name="why_volume_normal_text">معاملات ساعت گذشته با ۲۴ ساعت اخیر همخوانی دارد.</string>
+
+    <string name="why_leverage_longs_text">لانگ‌ها به شورت‌ها پرداخت می‌کنند — در صورت افت قیمت، خطر لیکوئید شدن بیشتر است.</string>
+    <string name="why_leverage_shorts_text">شورت‌ها به لانگ‌ها پرداخت می‌کنند — افزایش قیمت می‌تواند شورت اسکوئیز ایجاد کند.</string>
+    <string name="why_leverage_balanced_text">در بازار فیوچرز تجمعی از موقعیت‌های لانگ یا شورت وجود ندارد.</string>
+    <string name="why_open_interest_change">موقعیت‌های باز %1$s از آخرین بررسی.</string>
+
+    <string name="why_volatility_high_text">ساعت گذشته: %1$s — در مقایسه با نوسان ساعتی معمول در ۲۴ ساعت اخیر.</string>
+    <string name="why_volatility_normal_text">ساعت گذشته: %1$s — در محدوده معمول.</string>
+
+    <string name="why_sentiment_text">شاخص ترس و طمع کل بازار رمزارز، %1$s نسبت به دیروز.</string>
+    <string name="why_sentiment_text_no_change">شاخص ترس و طمع کل بازار رمزارز.</string>
+</resources>

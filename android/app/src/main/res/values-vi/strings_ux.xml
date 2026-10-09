@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Bắt đầu chỉ với một chạm</string>
+    <string name="starter_text">Chọn coin và thêm tất cả cùng lúc. Bạn có thể đổi sàn và cặp sau.</string>
+    <string name="starter_custom">Chọn sàn và cặp</string>
+    <string name="settings_quiet_hours">Giờ yên lặng</string>
+    <string name="settings_quiet_hours_hint">Từ %1$s đến %2$s, cảnh báo đến trong im lặng: không âm thanh, rung hay giọng nói.</string>
+    <string name="settings_quiet_hours_from">Từ</string>
+    <string name="settings_quiet_hours_to">Đến</string>
+    <string name="channel_alarms_quiet">Cảnh báo (giờ yên lặng)</string>
+    <string name="channel_alarms_quiet_description">Cảnh báo im lặng trong giờ yên lặng.</string>
+    <string name="app_lock_unlock">Mở khóa</string>
+    <string name="app_lock_unavailable">Thiết bị này chưa thiết lập khóa màn hình. Hãy thiết lập trong cài đặt hệ thống trước.</string>
+    <string name="widget_portfolio_name">Danh mục</string>
+    <string name="widget_portfolio_description">Tổng giá trị danh mục của bạn và thay đổi hôm nay</string>
+    <string name="widget_portfolio_today">hôm nay %1$s</string>
+    <string name="widget_portfolio_empty">Thêm giao dịch mua trong tab Danh mục</string>
+    <string name="a11y_portfolio_widget">Danh mục %1$s, hôm nay %2$s</string>
+    <string name="explain_funding">Phí giữa vị thế long và short. Dương mạnh nghĩa là nhiều người đang đặt cược giá tăng.</string>
+    <string name="explain_open_interest">Giá trị của tất cả vị thế hợp đồng tương lai đang mở. Nếu tăng, có nhiều tiền hơn đặt cược vào biến động đó.</string>
+    <string name="explain_rsi">Chỉ số sức mạnh tương đối, 0–100. Trên 70 thường quá nóng, dưới 30 thường quá bán.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Giải thích</string>
+    <string name="explain_pi_cycle">So sánh đường trung bình 111 ngày với hai lần đường trung bình 350 ngày. Điểm giao cắt từng đánh dấu các đỉnh chu kỳ trước.</string>
+    <string name="alarm_sentence_above">Báo cho tôi khi %1$s tăng lên trên %2$s.</string>
+    <string name="alarm_sentence_below">Báo cho tôi khi %1$s giảm xuống dưới %2$s.</string>
+    <string name="alarm_sentence_up_percent">Báo cho tôi khi %1$s tăng %2$s.</string>
+    <string name="alarm_sentence_down_percent">Báo cho tôi khi %1$s giảm %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">Báo cho tôi khi %1$s biến động %2$s trong vòng %3$d giờ.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Báo cho tôi khi khối lượng giao dịch của %1$s đạt %2$s× mức bình thường.</string>
+    <string name="alarm_sentence_incomplete">Nhập một giá trị để xem cảnh báo dưới dạng câu.</string>
+    <string name="watchlist_row_unreachable">%1$s · Không kết nối được %2$s</string>
+    <string name="watchlist_row_outdated">%1$s · đã cũ</string>
+</resources>

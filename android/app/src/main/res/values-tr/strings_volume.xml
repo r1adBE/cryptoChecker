@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Volumen-Spike-Alarm -->
+    <string name="alarm_condition_volume_spike">Hacim sıçraması</string>
+    <string name="alarm_volume_factor_label">Son saatin hacmi normale göre</string>
+    <string name="alarm_volume_hint">Hacim verileri Binance\'ten gelir — orada listelenmeyen çiftlerde bu alarm tetiklenmez.</string>
+    <string name="notification_volume_spike_text">Son bir saatte hacim normalin %1$s katı</string>
+    <string name="tts_direction_volume_spike">hacim sıçramasıyla</string>
+
+    <!-- Einzel-Widget: Chart-Zeitraum -->
+    <string name="widget_chart_range">Grafik aralığı</string>
+    <string name="widget_range_24h">24 sa</string>
+    <string name="widget_range_7d">7 gün</string>
+    <string name="widget_range_30d">30 gün</string>
+    <string name="widget_range_short_24h">24sa</string>
+    <string name="widget_range_short_7d">7G</string>
+    <string name="widget_range_short_30d">30G</string>
+</resources>

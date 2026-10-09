@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">कीमतें और अलार्म बोलकर सुनाता है। जब तक डिवाइस साइलेंट या वाइब्रेट मोड में है, चुप रहता है।</string>
+</resources>

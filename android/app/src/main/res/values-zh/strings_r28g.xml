@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">离线</string>
+    <string name="offline_status_since">离线 · 截至 %1$s</string>
+    <string name="error_market_unreachable">交易所暂时无法连接——仍显示最后获取的价格。</string>
+    <string name="error_market_unreachable_short">交易所暂时无法连接</string>
+    <string name="refresh_sheet_paused_until">暂停至 %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">暂停至 %1$s（%2$s）</string>
+    <string name="refresh_sheet_app_start">应用启动</string>
+</resources>

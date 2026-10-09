@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">ใกล้จุดสูงสุด</string>
+    <string name="alarm_condition_near_low">ใกล้จุดต่ำสุด</string>
+    <string name="alarm_near_field_distance">ระยะห่าง</string>
+    <string name="alarm_near_window_label">ช่วงเวลา</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d วัน</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 ปี</string>
+    <string name="alarm_near_hint">แจ้งด้วยเมื่อทำจุดสูงสุดหรือต่ำสุดใหม่ อิงแท่งเทียนรายวัน อัปเดตทุก 6 ชั่วโมง</string>
+    <string name="alarm_near_extreme_high_30">จุดสูงสุด 30 วัน</string>
+    <string name="alarm_near_extreme_high_90">จุดสูงสุด 90 วัน</string>
+    <string name="alarm_near_extreme_high_365">จุดสูงสุด 1 ปี</string>
+    <string name="alarm_near_extreme_low_30">จุดต่ำสุด 30 วัน</string>
+    <string name="alarm_near_extreme_low_90">จุดต่ำสุด 90 วัน</string>
+    <string name="alarm_near_extreme_low_365">จุดต่ำสุด 1 ปี</string>
+    <string name="alarm_sentence_near_high">แจ้งฉันเมื่อ %1$s ต่ำกว่า%3$sไม่เกิน %2$s</string>
+    <string name="alarm_sentence_near_low">แจ้งฉันเมื่อ %1$s สูงกว่า%3$sไม่เกิน %2$s</string>
+    <string name="alarm_near_notification_high">%1$s ต่ำกว่า%3$s %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s สูงกว่า%3$s %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s ทำ%1$sใหม่: %3$s (เดิม %4$s)</string>
+    <string name="tts_direction_near_high">ใกล้จุดสูงสุด</string>
+    <string name="tts_direction_near_low">ใกล้จุดต่ำสุด</string>
+</resources>

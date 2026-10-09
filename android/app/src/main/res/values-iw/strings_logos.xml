@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">לוגואים של מטבעות</string>
+    <string name="settings_coin_logos_app">באפליקציה</string>
+    <string name="settings_coin_logos_app_hint">רשימת מעקב, גיליון הצמד וכרטיסי שוק</string>
+    <string name="settings_coin_logos_portfolio">בתיק ההשקעות</string>
+    <string name="settings_coin_logos_portfolio_hint">פוזיציות, פרטי מטבעות ותובנות</string>
+    <string name="settings_coin_logos_widgets">בווידג׳טים</string>
+    <string name="settings_coin_logos_widgets_hint">ווידג׳טים של רשימת מעקב ושל מטבע אחד</string>
+    <string name="settings_coin_logos_footer">הלוגואים מגיעים מ-CoinGecko, ולמה ש-CoinGecko לא מכיר (למשל זהב, כסף, מניות) – מ-Binance. האפליקציה מורידה בבת אחת את כל הלוגואים ושומרת אותם במכשיר הזה, כך שאף אחד מהם לא יודע אחרי אילו מטבעות אתם עוקבים. למטבעות בלי לוגו מוצגים ראשי התיבות. מועדפים מקבלים כוכב קטן על הלוגו. כשמתג כבוי, לא מוצגים לוגואים וגם לא ראשי תיבות; כשכל האפשרויות כבויות, שום דבר לא נטען.</string>
+    <string name="settings_coin_logos_value_app">אפליקציה</string>
+</resources>

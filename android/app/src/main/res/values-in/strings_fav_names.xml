@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Favorit</string>
+    <string name="watchlist_favorites_empty_hint">Belum ada favorit. Geser pasangan ke kanan atau ketuk “Favorit” di halaman pasangan.</string>
+    <string name="settings_watchlist_names">Tampilkan nama</string>
+    <string name="settings_watchlist_names_hint">Nama di bawah pasangan, mis. Bitcoin atau NVIDIA. Datang bersama daftar logo, dimuat sekali untuk semua koin.</string>
+    <string name="settings_watchlist_value_names">Nama</string>
+</resources>

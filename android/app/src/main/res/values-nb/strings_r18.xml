@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">Til toppen</string>
+    <string name="watchlist_jump_end">Til slutten</string>
+    <string name="settings_activity_sensitivity">Følsomhet</string>
+    <string name="settings_activity_sensitivity_hint">Hvor lett en mynt regnes som uvanlig – likt for kortet i overvåkingslisten og varslene. Med «Færre» viser kortet bare de 3 sterkeste.</string>
+    <string name="activity_sensitivity_less">Færre</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_sensitivity_more">Flere</string>
+    <string name="activity_adjust">Juster</string>
+    <string name="activity_adjust_a11y">Juster følsomhet</string>
+</resources>

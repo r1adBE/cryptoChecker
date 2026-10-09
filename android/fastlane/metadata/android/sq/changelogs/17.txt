@@ -1,0 +1,10 @@
+Të reja në 16.2.2
+• Crypto Pulse: çfarë po ndodh tani
+• Aktivitet i pazakontë, «Pse po lëviz?» me përmbledhje
+• Fillo me një prekje: top 5 monedha, çmime live
+• Rrëshqit për të fshirë (me Zhbëj) ose për të preferuar
+• Çmime dhe alarme në monedhën tënde, eksport në datë (CSV)
+• Aksesueshmëri: blu/portokalli, kontrast, TalkBack
+• Orët e heshtjes, test alarmi, alarm si fjali, kyçje, widget
+• 15 bursa të reja, alarm gas, qirinj në widget
+• Aksione, ar, valuta (TradFi); % sipas zonës kohore

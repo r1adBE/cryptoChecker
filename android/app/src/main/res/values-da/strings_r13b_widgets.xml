@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">forældet</string>
+    <string name="widget_outdated_time">forældet · %1$s</string>
+
+    <string name="settings_widgets">Widgets</string>
+    <string name="widgets_sheet_title">Tilføj en widget</string>
+    <string name="widget_kind_single">Én mønt</string>
+    <string name="widgets_add">Tilføj</string>
+    <string name="widgets_add_named">Tilføj widget %1$s</string>
+    <string name="watch_action_add_widget">Tilføj som widget</string>
+    <string name="widgets_manual_title">Tilføj widgetten selv</string>
+    <string name="widgets_manual_text">Din startskærm kan ikke tilføje widgets fra appen. Hold fingeren på et tomt sted på startskærmen, vælg ”Widgets”, og find ”Crypto Checker”.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS lader ikke apps tilføje widgets selv. Det tager kun et øjeblik:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Hold fingeren på et tomt sted på hjemmeskærmen, indtil apps begynder at vrikke.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tryk på ”Rediger” › ”Tilføj widget” øverst (eller ”+” i ældre iOS-versioner).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Søg efter ”Crypto Checker”, vælg en widget, og tryk på ”Tilføj widget”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tilgængelige widgets</string>
+</resources>

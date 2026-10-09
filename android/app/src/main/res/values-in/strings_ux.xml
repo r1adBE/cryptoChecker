@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Mulai dengan satu ketukan</string>
+    <string name="starter_text">Pilih koin dan tambahkan sekaligus. Bursa dan pasangan bisa Anda ubah nanti.</string>
+    <string name="starter_custom">Pilih bursa dan pasangan</string>
+    <string name="settings_quiet_hours">Jam tenang</string>
+    <string name="settings_quiet_hours_hint">Antara %1$s dan %2$s alarm datang tanpa suara: tanpa bunyi, getar, atau ucapan.</string>
+    <string name="settings_quiet_hours_from">Dari</string>
+    <string name="settings_quiet_hours_to">Sampai</string>
+    <string name="channel_alarms_quiet">Alarm (jam tenang)</string>
+    <string name="channel_alarms_quiet_description">Alarm senyap selama jam tenang.</string>
+    <string name="app_lock_unlock">Buka kunci</string>
+    <string name="app_lock_unavailable">Belum ada kunci layar di perangkat ini. Atur dulu di pengaturan sistem.</string>
+    <string name="widget_portfolio_name">Portofolio</string>
+    <string name="widget_portfolio_description">Nilai total portofolio Anda dan perubahan hari ini</string>
+    <string name="widget_portfolio_today">hari ini %1$s</string>
+    <string name="widget_portfolio_empty">Tambahkan pembelian di tab Portofolio</string>
+    <string name="a11y_portfolio_widget">Portofolio %1$s, hari ini %2$s</string>
+    <string name="explain_funding">Biaya antara posisi long dan short. Sangat positif berarti banyak yang bertaruh harga naik.</string>
+    <string name="explain_open_interest">Nilai semua posisi futures yang terbuka. Jika naik, makin banyak uang yang bertaruh pada pergerakan itu.</string>
+    <string name="explain_rsi">Relative Strength Index, 0–100. Di atas 70 sering terlalu panas, di bawah 30 sering oversold.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Penjelasan</string>
+    <string name="explain_pi_cycle">Membandingkan rata-rata 111 hari dengan dua kali rata-rata 350 hari. Persilangan keduanya menandai puncak siklus sebelumnya.</string>
+    <string name="alarm_sentence_above">Beri tahu saya saat %1$s naik di atas %2$s.</string>
+    <string name="alarm_sentence_below">Beri tahu saya saat %1$s turun di bawah %2$s.</string>
+    <string name="alarm_sentence_up_percent">Beri tahu saya saat %1$s naik %2$s.</string>
+    <string name="alarm_sentence_down_percent">Beri tahu saya saat %1$s turun %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">Beri tahu saya saat %1$s bergerak %2$s dalam %3$d jam.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Beri tahu saya saat volume %1$s mencapai %2$s× dari biasanya.</string>
+    <string name="alarm_sentence_incomplete">Masukkan nilai untuk melihat alarm sebagai kalimat.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s tidak dapat dijangkau</string>
+    <string name="watchlist_row_outdated">%1$s · usang</string>
+</resources>

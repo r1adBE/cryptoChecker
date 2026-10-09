@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s涨跌和图表时区</string>
+    <string name="change_basis_rolling">过去 24 小时</string>
+    <string name="change_basis_utc_zone">自 00:00 %1$s</string>
+    <string name="change_basis_local">自当地时间 00:00</string>
+    <string name="settings_change_basis_hint_1">所选时区决定自选列表、脉搏行、交易对页面和小部件中的百分比涨跌从何时开始计算，以及图表中显示的时间。</string>
+    <string name="settings_change_basis_hint_2">“%1$s”与恰好 24 小时前的价格比较。“00:00”与该时区午夜的开盘价比较。</string>
+    <string name="settings_change_basis_hint_3">不影响提醒。</string>
+    <string name="change_basis_device">%1$s，00:00（设备时区）</string>
+    <string name="change_short_today">今日</string>
+    <string name="change_short_today_zone">今日 %1$s</string>
+    <string name="a11y_change_today">今日%1$s</string>
+    <string name="a11y_change_today_zone">自 %2$s 午夜以来%1$s</string>
+    <string name="a11y_change_today_none">暂无今日涨跌</string>
+    <string name="a11y_change_today_zone_none">暂无自 %1$s 午夜以来的涨跌</string>
+    <string name="sheet_chart_today">今日</string>
+    <string name="sheet_chart_change_since">%2$s %1$s</string>
+    <string name="settings_live_interval_hidden_hint">应用关闭时最多每分钟一次</string>
+    <string name="sheet_more">更多</string>
+    <string name="a11y_expanded">已展开</string>
+    <string name="a11y_collapsed">已收起</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d 个无今日数值</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d 个交易对没有今日数值</item>
+    </plurals>
+</resources>

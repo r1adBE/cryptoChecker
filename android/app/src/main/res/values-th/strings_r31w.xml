@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">ราคาสด</string>
+    <string name="settings_live_websocket_hint">ราคาเปลี่ยนตามกระดานเทรดทันทีขณะที่รายการเปิดอยู่ สำหรับ Binance, Bybit, OKX, Coinbase และ Kraken</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">ราคาสดเปิดอยู่</string>
+    <string name="refresh_report_live">สด: %1$s</string>
+</resources>

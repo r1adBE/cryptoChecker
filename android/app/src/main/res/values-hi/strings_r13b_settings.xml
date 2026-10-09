@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">बाज़ार सूचनाएँ</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d सक्रिय</item>
+        <item quantity="other">%1$d सक्रिय</item>
+    </plurals>
+    <string name="settings_summary_on">चालू</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker अब आपके लिए %1$s पर नज़र रख रहा है। जब %1$s आपकी सीमा तक पहुँचेगा, तो ऐप के कीमत जाँचते ही आपको नोटिफ़िकेशन मिलेगा। ऐप बंद होने पर यह बैकग्राउंड अपडेट के अंतराल पर होता है – अगर बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करता है, तो और देर से।</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker अब आपके लिए %1$s पर नज़र रख रहा है। ऐप के कीमत जाँचते ही आपको नोटिफ़िकेशन मिलेगा। ऐप बंद होने पर iOS तय करता है कि यह कब होगा – इसमें कुछ समय लग सकता है। ऐप खुला रहने पर कीमतें समय पर जाँची जाती हैं।</string>
+
+    <string name="about_request_exchange">एक्सचेंज का अनुरोध करें</string>
+    <string name="explorer_exchange_missing">एक्सचेंज नहीं मिला?</string>
+</resources>

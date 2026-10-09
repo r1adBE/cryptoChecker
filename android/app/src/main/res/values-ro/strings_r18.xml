@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">La început</string>
+    <string name="watchlist_jump_end">La sfârșit</string>
+    <string name="settings_activity_sensitivity">Sensibilitate</string>
+    <string name="settings_activity_sensitivity_hint">Cât de ușor o monedă e considerată neobișnuită – la fel pentru cardul din listă și pentru notificări. Cu „Mai puțin”, cardul arată doar cele mai puternice 3.</string>
+    <string name="activity_sensitivity_less">Mai puțin</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_sensitivity_more">Mai mult</string>
+    <string name="activity_adjust">Ajustează</string>
+    <string name="activity_adjust_a11y">Ajustează sensibilitatea</string>
+</resources>

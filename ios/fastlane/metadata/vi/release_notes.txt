@@ -1,0 +1,35 @@
+Phiên bản 16.2.2
+• Crypto Pulse: điều gì đang diễn ra trên thị trường lúc này
+• “Vì sao nó biến động?”: giải thích biến động giá dựa trên dữ liệu, kèm tóm tắt ngắn
+• Thử cảnh báo: kiểm tra âm thanh, rung và giọng đọc
+• Giá quy đổi: dòng thứ hai “≈ giá trị” bằng tiền tệ quy đổi bạn chọn – 31 loại tiền như EUR, CHF, USD, GBP hoặc JPY, mặc định theo khu vực của thiết bị
+• Cảnh báo bằng đồng tiền của bạn, ví dụ ở mức 60.000 EUR trên cặp USDT
+• Xuất theo ngày chốt: giá trị danh mục của bạn vào bất kỳ ngày nào, ví dụ 31 tháng 12, bằng đồng tiền của bạn dưới dạng tệp CSV – tiện cho việc khai thuế (không phải tư vấn thuế)
+• Trợ năng: màu giá xanh dương/cam thay cho xanh lá/đỏ, dễ phân biệt với mọi dạng rối loạn sắc giác (đỏ-xanh lá và xanh dương-vàng); “Đổi màu tăng/giảm”: đỏ cho tăng, xanh lá cho giảm, như thông lệ ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan (tự động bật ở đó); “Độ tương phản cao”: màu giá đậm hơn, chữ phụ và màu nhấn tối hơn, cũng theo cài đặt tương phản của hệ thống; hỗ trợ đầy đủ VoiceOver: mỗi dòng danh sách, biểu đồ và tiện ích được đọc thành một câu
+• Biểu đồ mini trên mỗi dòng: xu hướng 24 giờ cạnh giá
+• “Bắt đầu chỉ với một chạm”: danh sách trống gợi ý 5 coin vốn hóa lớn nhất (không gồm stablecoin)
+• Danh sách khởi đầu hiển thị giá trực tiếp và biến động 24 giờ của từng coin – cả năm đã được chọn sẵn, thêm bằng một nút
+• Vuốt trái để xóa (có Hoàn tác), vuốt phải để yêu thích
+• Tab Thị trường mở ngay với dữ liệu gần nhất và làm mới trong nền
+• Giờ yên lặng: ban đêm (ví dụ 23–7 giờ) cảnh báo đến im lặng – không âm thanh, rung hay giọng đọc
+• Khóa danh mục bằng Face ID, Touch ID hoặc mật mã thiết bị
+• Tiện ích danh mục cho Màn hình chính và Màn hình khóa: tổng giá trị bằng đồng tiền của bạn và thay đổi hôm nay
+• Mỗi cảnh báo là một câu: “Báo cho tôi khi BTC giảm xuống dưới 60.000 CHF.”
+• Giải thích ngắn về funding rate, open interest, RSI và Pi Cycle
+• Dòng hiển thị “đã cũ” hoặc “không kết nối được sàn” khi giá không còn mới
+• 15 sàn mới: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Phí mạng cho Ethereum, Base, Arbitrum, Polygon, BNB Chain và Bitcoin trong tab Thị trường, kèm cảnh báo gas
+• Ghi chú cho từng coin trong danh sách theo dõi
+• Chọn âm thanh cảnh báo
+• Hoạt động bất thường: phát hiện biến động giá và khối lượng khác thường, thông báo tùy chọn
+• Danh mục là một tab riêng: mua và bán, giá trung bình, lãi/lỗ
+• So sánh chu kỳ: đánh dấu đỉnh và đáy, gồm cả đỉnh đôi và đáy đôi
+• Nhóm cho danh sách theo dõi
+• Cảnh báo mới: biến động X % trong Y giờ và đột biến khối lượng
+• Tiện ích một coin: nến hoặc đường, khoảng biểu đồ 24 giờ, 7 hoặc 30 ngày, mốc cao/giữa/thấp, giá hiện tại được làm nổi bật
+• Tab Thị trường: tổng vốn hóa thị trường crypto và khối lượng 24h bằng đồng tiền của bạn
+• Hợp đồng tương lai: funding rate và open interest
+• Năm màu nhấn với biểu tượng ứng dụng tương ứng
+• Cổ phiếu, vàng, hàng hóa và ngoại hối dưới dạng futures (TradFi) trên Binance, Bybit, OKX, MEXC và Bitget – bật bằng công tắc trong Cài đặt › Danh sách, cặp mới vào nhóm “TradFi”; futures có kỳ hạn vào “QTLY”
+• % thay đổi như Binance: 24 giờ qua, từ lần cập nhật gần nhất, từ 00:00 theo múi giờ của thiết bị hoặc theo một múi giờ cố định từ UTC+14 đến UTC-12
+• Tên rõ ràng hơn: “Cập nhật thường xuyên” và “Giá trực tiếp”

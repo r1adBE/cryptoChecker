@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_watch -->
+    <string name="watch_gesture_hint_short">הקשה לפעולות · החלקה לפעולות מהירות · לחיצה ארוכה למיון</string>
+    <string name="watch_action_alarm">התראה</string>
+    <string name="watch_action_why">למה?</string>
+    <string name="watch_action_favorite">מועדף</string>
+    <string name="add_alarm_action">הגדרת התראה</string>
+    <string name="welcome_watch_q">מה קורה?</string>
+    <string name="welcome_alert_q">מתי לפעול?</string>
+    <string name="welcome_understand_q">למה?</string>
+</resources>

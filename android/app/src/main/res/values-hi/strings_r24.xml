@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">%1$s बदलाव और चार्ट समय क्षेत्र</string>
+    <string name="change_basis_rolling">पिछले 24 घंटे</string>
+    <string name="change_basis_utc_zone">00:00 %1$s से</string>
+    <string name="change_basis_local">00:00 स्थानीय समय से</string>
+    <string name="settings_change_basis_hint_1">चुना गया समय क्षेत्र तय करता है कि प्रतिशत बदलाव कब से गिना जाए (वॉचलिस्ट, पल्स लाइन, पेयर शीट, विजेट) और चार्ट में कौन-सा समय दिखे।</string>
+    <string name="settings_change_basis_hint_2">“%1$s” ठीक 24 घंटे पहले के भाव से तुलना करता है। “00:00” इस समय क्षेत्र में आधी रात के शुरुआती भाव से तुलना करता है।</string>
+    <string name="settings_change_basis_hint_3">अलार्म पर इसका असर नहीं होता।</string>
+    <string name="change_basis_device">%1$s, 00:00 (डिवाइस का समय क्षेत्र)</string>
+    <string name="change_short_today">आज</string>
+    <string name="change_short_today_zone">आज %1$s</string>
+    <string name="a11y_change_today">आज %1$s</string>
+    <string name="a11y_change_today_zone">मध्यरात्रि %2$s से %1$s</string>
+    <string name="a11y_change_today_none">आज का बदलाव उपलब्ध नहीं</string>
+    <string name="a11y_change_today_zone_none">मध्यरात्रि %1$s से बदलाव उपलब्ध नहीं</string>
+    <string name="sheet_chart_today">आज</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">ऐप बंद होने पर ज़्यादा से ज़्यादा हर मिनट</string>
+    <string name="sheet_more">और</string>
+    <string name="a11y_expanded">विस्तारित</string>
+    <string name="a11y_collapsed">संक्षिप्त</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d आज के मान के बिना</item>
+        <item quantity="other">%1$d आज के मान के बिना</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d पेयर का आज का मान नहीं है</item>
+        <item quantity="other">%1$d पेयर का आज का मान नहीं है</item>
+    </plurals>
+</resources>

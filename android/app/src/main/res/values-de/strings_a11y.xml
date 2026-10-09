@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Kursfarben</string>
+    <string name="settings_price_colors_hint">Blau / Orange ist bei jeder Farbsehschwäche (Rot-Grün und Blau-Gelb) gut unterscheidbar. Die Richtung steht zusätzlich immer als + / −.</string>
+    <string name="settings_watchlist_sparkline">Mini-Chart in der Merkliste</string>
+    <string name="settings_watchlist_sparkline_hint">24-Stunden-Verlauf neben dem Kurs</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Hoher Kontrast</string>
+    <string name="settings_high_contrast_hint">Kräftigere Kursfarben und dunklere Nebentexte. Auch aktiv, wenn das System mehr Kontrast verlangt.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s bei %2$s</string>
+    <string name="a11y_price">Kurs %1$s</string>
+    <string name="a11y_change_up">gestiegen um %1$s</string>
+    <string name="a11y_change_down">gefallen um %1$s</string>
+    <string name="a11y_change_flat">unverändert</string>
+    <string name="a11y_converted">ungefähr %1$s</string>
+    <string name="a11y_note">Notiz: %1$s</string>
+    <string name="a11y_alarm_count">Alarme: %1$d</string>
+    <string name="a11y_stale">veraltet, letzte Aktualisierung %1$s</string>
+    <string name="a11y_chart">Chart %1$s: von %2$s auf %3$s, %4$s. Hoch %5$s, Tief %6$s.</string>
+    <string name="a11y_chart_empty">Chart: keine Daten</string>
+    <string name="a11y_cycle">Zyklus %1$s: %2$s seit dem Halving, Tag %3$d.</string>
+    <string name="a11y_cycle_top">Hoch %1$s an Tag %2$d.</string>
+    <string name="a11y_cycle_bottom">Tief %1$s an Tag %2$d.</string>
+    <string name="a11y_cycle_double_top">Doppel-Hoch %1$s an Tag %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Doppel-Tief %1$s an Tag %2$d.</string>
+    <string name="a11y_gauge">Skala von %1$s bis %2$s: %3$d von 100</string>
+</resources>

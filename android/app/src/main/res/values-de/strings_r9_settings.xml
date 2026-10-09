@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 9: Gruppen der Einstellungen -->
+    <string name="settings_group_alerts">Alarme &amp; Benachrichtigungen</string>
+    <!-- Schalter unter der Überschrift «Portfolio» -->
+    <string name="settings_portfolio_tab">Portfolio-Tab anzeigen</string>
+</resources>

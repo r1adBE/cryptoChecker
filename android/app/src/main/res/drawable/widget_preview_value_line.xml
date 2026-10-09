@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vorschau im Widget-Auswahlmenü (widget_preview_portfolio): Wertverlauf wie
+     WidgetChartRenderer.drawPortfolioArea — Linie in der Kursfarbe, Fläche als Verlauf von 25 %
+     bis 0, schwache Linie beim Ausgangswert, Punkt am letzten Wert; feste Beispieldaten (24 h). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="64dp"
+    android:viewportWidth="200"
+    android:viewportHeight="64">
+    <path android:pathData="M4.00,54.06 L12.00,50.67 L20.00,55.76 L28.00,60.00 L36.00,57.45 L44.00,52.36 L52.00,53.21 L60.00,46.42 L68.00,42.18 L76.00,45.58 L84.00,40.48 L92.00,34.55 L100.00,37.09 L108.00,32.00 L116.00,27.76 L124.00,31.15 L132.00,26.06 L140.00,20.97 L148.00,24.36 L156.00,18.42 L164.00,13.33 L172.00,16.73 L180.00,10.79 L188.00,6.55 L196.00,4.00 L196.00,64 L4.00,64 z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="4.00"
+                android:endX="0"
+                android:endY="64"
+                android:startColor="#403DD68C"
+                android:endColor="#003DD68C" />
+        </aapt:attr>
+    </path>
+    <path
+        android:strokeColor="@color/widget_preview_text_secondary"
+        android:strokeAlpha="0.35"
+        android:strokeWidth="0.75"
+        android:pathData="M4.00,54.06 L196.00,54.06" />
+    <path
+        android:strokeColor="@color/widget_preview_up"
+        android:strokeWidth="1.75"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M4.00,54.06 L12.00,50.67 L20.00,55.76 L28.00,60.00 L36.00,57.45 L44.00,52.36 L52.00,53.21 L60.00,46.42 L68.00,42.18 L76.00,45.58 L84.00,40.48 L92.00,34.55 L100.00,37.09 L108.00,32.00 L116.00,27.76 L124.00,31.15 L132.00,26.06 L140.00,20.97 L148.00,24.36 L156.00,18.42 L164.00,13.33 L172.00,16.73 L180.00,10.79 L188.00,6.55 L196.00,4.00" />
+    <path
+        android:fillColor="@color/widget_preview_up"
+        android:pathData="M193.50,4.00 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" />
+</vector>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23b: Begrüssung «Überspringen» statt «Später» (sie kommt nicht wieder); Hinzufügen-Tab: Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Kërkon në të gjitha bursat njëherësh – prek një rezultat për ta shtuar në listën e ndjekjes.</string>
+    <string name="explorer_no_pairs_yet">Për këtë bursë ende nuk janë ngarkuar çifte.</string>
+</resources>

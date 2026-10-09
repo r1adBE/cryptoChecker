@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Alarm sesi</string>
+    <string name="settings_alarm_sound_default">Varsayılan ses</string>
+    <string name="settings_alarm_sound_custom">Özel ses</string>
+    <string name="settings_alarm_sound_system">Sistem sesi seç…</string>
+    <string name="settings_alarm_sound_file">Kendi ses dosyanız…</string>
+    <string name="settings_alarm_sound_reset">Varsayılan sesi kullan</string>
+    <string name="settings_alarm_sound_error">Ses kullanılamadı.</string>
+</resources>

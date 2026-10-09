@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">هشدارهای سریع</string>
+    <string name="alarm_template_volume">حجم ×%1$s</string>
+    <string name="alarm_new_extreme">تازه: %1$s</string>
+    <string name="alarm_template_a11y_up">ساخت هشدار در مثبت %1$s درصد</string>
+    <string name="alarm_template_a11y_down">ساخت هشدار در منفی %1$s درصد</string>
+    <string name="alarm_template_a11y">ساخت هشدار: %1$s</string>
+    <string name="alarm_template_created">هشدار ساخته شد</string>
+    <string name="alarm_sentence_new_extreme">وقتی %1$s %2$s تازه ثبت کرد، به من خبر بده.</string>
+    <string name="alarm_simple_when">وقتی %1$s</string>
+    <string name="alarm_simple_above">بالاتر از</string>
+    <string name="alarm_simple_below">پایین‌تر از</string>
+    <string name="alarm_simple_end">برود</string>
+    <string name="alarm_simple_direction_a11y">جهت: %1$s</string>
+    <string name="alarm_repeat_once">یک بار</string>
+    <string name="alarm_repeat_each">هر بار</string>
+    <string name="alarm_advanced">پیشرفته</string>
+    <string name="alarm_create">ساخت هشدار</string>
+    <string name="alarm_near_new_only">فقط سقف یا کف تازه</string>
+</resources>

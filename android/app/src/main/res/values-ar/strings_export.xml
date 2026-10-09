@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">تصدير بتاريخ مرجعي…</string>
+    <string name="portfolio_export_title">تصدير بتاريخ مرجعي</string>
+    <string name="portfolio_export_date">التاريخ المرجعي</string>
+    <string name="portfolio_export_currency">العملة: %1$s</string>
+    <string name="portfolio_export_hint">الرصيد في نهاية اليوم المختار، مقيّمًا بسعر إغلاق اليوم (UTC) بـ USDT ومحوّلًا بالسعر المرجعي للبنك المركزي الأوروبي في ذلك اليوم. غيّر العملة من «التحويل إلى».</string>
+    <string name="portfolio_export_button">تصدير CSV</string>
+    <string name="portfolio_export_running">جارٍ جلب الأسعار التاريخية…</string>
+    <string name="portfolio_export_done">تم حفظ التصدير</string>
+    <string name="portfolio_export_failed">فشل التصدير</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># التاريخ المرجعي %1$s، العملة %2$s، سعر الصرف بتاريخ %3$s</string>
+    <string name="portfolio_export_col_coin">العملة</string>
+    <string name="portfolio_export_col_amount">الكمية</string>
+    <string name="portfolio_export_col_price">السعر USDT</string>
+    <string name="portfolio_export_col_value">القيمة USDT</string>
+    <string name="portfolio_export_col_rate">سعر USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">القيمة %1$s</string>
+    <string name="portfolio_export_col_note">ملاحظة</string>
+    <string name="portfolio_export_total">الإجمالي</string>
+    <string name="portfolio_export_no_price">لا يوجد سعر</string>
+    <string name="portfolio_export_no_fx">لا يوجد سعر صرف</string>
+    <string name="portfolio_export_incomplete">غير مكتمل</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">変動の横に期間を表示</string>
+    <string name="settings_change_period_hint">ウォッチリストと単一コインのウィジェットで、変動の横に「24h」「今日」「前回更新」を小さく表示します。スクリーンリーダーは常に読み上げます。</string>
+</resources>

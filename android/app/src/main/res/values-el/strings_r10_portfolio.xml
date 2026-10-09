@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Εξέλιξη αξίας</string>
+    <string name="portfolio_history_range_7d">7 Η</string>
+    <string name="portfolio_history_range_30d">30 Η</string>
+    <string name="portfolio_history_range_1y">1 Ε</string>
+    <string name="portfolio_history_period_7d">7 ημέρες</string>
+    <string name="portfolio_history_period_30d">30 ημέρες</string>
+    <string name="portfolio_history_period_1y">1 έτος</string>
+    <string name="portfolio_history_range_a11y">Εμφάνιση εξέλιξης για %1$s</string>
+    <string name="portfolio_history_change_a11y">Αξία σε %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Σήμερα</string>
+    <string name="portfolio_history_converted">Μετατροπή με τη σημερινή ισοτιμία</string>
+    <string name="portfolio_history_without">Χωρίς %1$s (χωρίς ημερήσιες τιμές)</string>
+    <string name="portfolio_history_includes_trades">Περιλαμβάνει αγορές και πωλήσεις αυτής της περιόδου</string>
+    <string name="portfolio_history_too_short">Η εξέλιξη ξεκινά μετά την πρώτη ολόκληρη ημέρα σας.</string>
+    <string name="portfolio_history_unavailable">Δεν υπάρχει διαθέσιμη εξέλιξη αυτή τη στιγμή.</string>
+    <string name="portfolio_history_loading">Φόρτωση εξέλιξης αξίας</string>
+</resources>

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Fout: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Geen valutaparen</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Laadt de actuele paren van de gekozen beurs.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Valutaparen bijwerken</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Nu synchroniseren!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Laatste sync: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">nooit</string>
+
+    <string name="market_screen_sync">Synchroniseren</string>
+    <string name="market_screen_base">Basis</string>
+    <string name="market_screen_quote">Quote</string>
+    <string name="market_screen_market">Markt</string>
+    <string name="market_screen_contract_type">Contracttype</string>
+    <string name="market_screen_spot">Spot</string>
+
+    <string name="ticker_high">Hoog</string>
+    <string name="ticker_low">Laag</string>
+    <string name="ticker_bid">Bied</string>
+    <string name="ticker_ask">Laat</string>
+    <string name="ticker_vol_base">Volume (basis)</string>
+    <string name="ticker_vol_quote">Volume (quote)</string>
+    <string name="ticker_timestamp">Tijd</string>
+
+
+    <string name="try_again">Opnieuw proberen</string>
+    <string name="no_internet_connection">Geen internetverbinding</string>
+    <string name="something_went_wrong">Er ging iets mis</string>
+
+    <string name="bulk_all_pairs">Alle %1$s-paren van deze beurs</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-paar gevonden</item>
+        <item quantity="other">%1$d %2$s-paren gevonden</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Geen %1$s-paren op deze beurs voor het gekozen contracttype. Synchroniseer eerst de beurs of kies een ander contracttype.</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">Vernieuwen</string>
+    <string name="action_delete">Verwijderen</string>
+    <string name="action_edit">Bewerken</string>
+    <string name="action_back">Terug</string>
+    <string name="action_save">Opslaan</string>
+    <string name="action_cancel">Annuleren</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Nog geen paren</string>
+    <string name="watchlist_updated">Bijgewerkt: %1$s</string>
+    <string name="watchlist_notification">Melding</string>
+    <string name="watchlist_tts">Koers voorlezen</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarmen (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">Alarmen</string>
+    <string name="alarms_add">Nieuw alarm</string>
+    <string name="alarms_edit">Alarm bewerken</string>
+    <string name="alarms_empty">Nog geen alarmen voor dit paar.</string>
+    <string name="alarm_condition_above">Koers boven</string>
+    <string name="alarm_condition_below">Koers onder</string>
+    <string name="alarm_condition_up_percent">Stijgt met</string>
+    <string name="alarm_condition_down_percent">Daalt met</string>
+    <string name="alarm_repeating">Herhalend</string>
+    <string name="alarm_once">Eenmalig</string>
+    <string name="alarm_last_triggered">laatst om %1$s</string>
+    <string name="alarm_field_price">Koers</string>
+    <string name="alarm_field_percent">Procent</string>
+    <string name="alarm_option_repeating">Alarm behouden na afgaan</string>
+    <string name="alarm_option_sound">Geluid</string>
+    <string name="alarm_option_vibrate">Trillen</string>
+    <string name="alarm_option_speak">Alarm voorlezen</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">Koersen</string>
+    <string name="channel_prices_description">Stille melding met de actuele koers van een paar.</string>
+    <string name="channel_alarms">Alarmen</string>
+    <string name="channel_alarms_description">Melding wanneer een koersalarm afgaat.</string>
+    <string name="channel_service">Vaak bijwerken</string>
+    <string name="channel_service_description">Melding terwijl koersen met korte intervallen worden bijgewerkt.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, van %2$s (%3$s geleden)</string>
+    <string name="notification_price_change_no_age">%1$s, van %2$s</string>
+    <string name="notification_price_first">Eerste melding voor dit paar</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — nu %2$s</string>
+    <string name="market_phase_title">Bitcoin-marktfase</string>
+    <string name="market_phase_trend_loading">Koersgegevens laden…</string>
+    <string name="market_phase_trend_failed">Koersgegevens niet beschikbaar</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Veel historische bodemsignalen tegelijk – historische accumulatiezone.</string>
+    <string name="zone_hint_bear">Dalende trend of bodemvorming, nog zonder brede capitulatie.</string>
+    <string name="zone_hint_neutral">Gemengde signalen, geen duidelijke richting.</string>
+    <string name="zone_hint_bull">Stijgende trend zonder extreme oververhitting.</string>
+    <string name="zone_hint_extreme_bull">Veel historische topsignalen tegelijk – verhoogd toprisico.</string>
+    <string name="market_scores">Tekenen van een mogelijke top %1$d/10 · bodem %2$d/10</string>
+    <string name="market_show_indicators">Indicatoren tonen</string>
+    <string name="market_hide_indicators">Indicatoren verbergen</string>
+    <string name="market_onchain_missing">On-chaindata (Coin Metrics) momenteel niet beschikbaar – score alleen op basis van koersgegevens.</string>
+    <string name="market_source">Gegevens: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Koers t.o.v. 200-weeksgemiddelde</string>
+    <string name="ind_drawdown">Daling vanaf recordhoogte</string>
+    <string name="ind_hash">Capitulatie van miners (hash ribbons)</string>
+    <string name="ind_parabolic">Parabolische stijging (30 dagen)</string>
+    <string name="ind_halving">Maanden sinds de halving</string>
+    <string name="ind_ath">Maanden sinds recordhoogte</string>
+    <string name="ind_points_top">+%1$d top</string>
+    <string name="ind_points_bottom">+%1$d bodem</string>
+    <string name="market_phase_disclaimer">Gebaseerd op eerdere cycli en de koerstrend. Geen voorspelling en geen beleggingsadvies.</string>
+    <string name="action_retry">Opnieuw</string>
+    <string name="settings_section_language">Taal</string>
+    <string name="settings_language_system">Systeemtaal</string>
+    <string name="settings_language_choose">Taal kiezen</string>
+    <string name="settings_section_appearance">Weergave</string>
+    <string name="settings_theme_mode">Modus</string>
+    <string name="theme_light">Licht</string>
+    <string name="theme_dark">Donker</string>
+    <string name="settings_accent">Thema</string>
+    <string name="accent_orange">Oranje</string>
+    <string name="accent_red">Rood</string>
+    <string name="accent_blue">Blauw</string>
+    <string name="accent_green">Groen</string>
+    <string name="settings_rolling_futures">Incl. kwartaal- &amp; andere futures met vervaldatum</string>
+    <string name="settings_rolling_futures_hint">Uit: futures met vervaldatum die niet meer in de lijst van de beurs staan, worden als niet meer verhandeld gemarkeerd in plaats van één voor één gecontroleerd. Bespaart tijd bij elke vernieuwing.</string>
+    <string name="notification_refreshing">Koersen bijwerken…</string>
+    <string name="notification_service_title">Crypto Checker werkt vaak bij</string>
+    <string name="notification_service_starting">Starten…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d paar · %2$s</item>
+        <item quantity="other">%1$d paren · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">Geen paren in de volglijst</string>
+    <string name="notification_service_error">Bijwerken mislukt</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Instellingen</string>
+    <string name="settings_background_updates">Updates op de achtergrond</string>
+    <string name="settings_background_updates_hint">Koersen, alarmen en widgets worden ook bijgewerkt als de app gesloten is.</string>
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_live_service">Vaak bijwerken</string>
+    <string name="settings_live_service_hint">Haalt koersen op met korte tussenpozen, ook als de app dicht is. Toont een melding en verbruikt meer batterij.</string>
+    <string name="settings_live_interval">Hoe vaak</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_price_notifications">Koersmeldingen</string>
+    <string name="settings_price_notifications_hint">Toon de actuele koers van ingeschakelde paren in de statusbalk.</string>
+    <string name="settings_ongoing_notifications">Niet wegvegen</string>
+    <string name="settings_ongoing_notifications_hint">Houdt koersmeldingen vastgezet.</string>
+    <string name="settings_notification_change">Alleen melden bij koerswijziging</string>
+    <string name="settings_notification_change_always">Altijd</string>
+    <string name="settings_notification_change_hint">Een melding verschijnt pas als de koers sinds de vorige minstens zoveel is bewogen. Zolang gegevens ontbreken, wordt niets getoond. Alarmen worden niet beïnvloed.</string>
+    <string name="settings_alarm_cooldown">Rusttijd voordat een alarm opnieuw afgaat</string>
+    <string name="settings_tts">Gesproken uitvoer</string>
+    <string name="settings_tts_alarms_only">Alleen alarmen</string>
+    <string name="settings_tts_alarms_only_hint">Uit: elke update van een paar met ‘Koers voorlezen’ wordt voorgelezen.</string>
+    <string name="settings_speech_rate">Spreeksnelheid: %1$.1f×</string>
+    <string name="settings_tts_test">Stem testen</string>
+    <string name="battery_title">Koersen actueel houden</string>
+    <string name="battery_message">Android stelt achtergrondwerk uit om energie te besparen — koersen en widgets kunnen dan uren oud zijn. Met onbeperkt batterijgebruik blijven ze actueel. Je kunt dit altijd wijzigen in de Android-instellingen.</string>
+    <string name="battery_later">Later</string>
+    <string name="settings_battery_ok">Batterijgebruik: onbeperkt</string>
+    <string name="settings_battery_restricted">Batterijgebruik: beperkt</string>
+    <string name="settings_battery_hint">Beperkt betekent dat Android updates op de achtergrond uren kan uitstellen.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Toont de koers van een paar uit je volglijst.</string>
+    <string name="widget_empty">Nog geen paren in de volglijst.</string>
+    <string name="widget_opacity">Achtergronddekking: %1$d%%</string>
+    <string name="settings_section_about">Over</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Koersen komen rechtstreeks van de beurzen; geen account en geen tracking.</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">Tokens buiten de grote beurzen, van gedecentraliseerde beurzen (Uniswap, PancakeSwap, Raydium …) via DexScreener. Zoek een token en voeg de handelspool ervan toe – koersen in Amerikaanse dollars.</string>
+    <string name="dex_search_hint">Tokennaam, symbool of adres</string>
+    <string name="dex_search">Zoeken</string>
+    <string name="dex_no_results">Geen pools gevonden.</string>
+    <string name="dex_added">%1$s toegevoegd aan de volglijst.</string>
+    <string name="dex_already">%1$s staat al in de volglijst.</string>
+    <string name="dex_liquidity">Liquiditeit %1$s</string>
+    <string name="dex_add">Toevoegen</string>
+    <string name="action_sort">Sorteren</string>
+    <string name="action_sort_done">Klaar</string>
+    <string name="sort_move_top">Helemaal naar boven</string>
+    <string name="sort_move_up">Omhoog</string>
+    <string name="sort_move_down">Omlaag</string>
+    <string name="sort_move_bottom">Helemaal naar beneden</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d paar aan volglijst toevoegen</item>
+        <item quantity="other">Alle %1$d paren aan volglijst toevoegen</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d toegevoegd, %2$d al in de volglijst.</item>
+        <item quantity="other">%1$d toegevoegd, %2$d al in de volglijst.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Aan volglijst toevoegen</string>
+    <string name="explorer_added_to_watchlist">Aan de volglijst toegevoegd.</string>
+    <string name="explorer_already_in_watchlist">Dit paar staat al in de volglijst.</string>
+    <string name="explorer_no_pair_selected">Kies eerst een paar.</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nu %5$s</string>
+    <string name="tts_direction_up">is gestegen</string>
+    <string name="tts_direction_down">is gedaald</string>
+    <string name="watchlist_refresh_report">Laatste vernieuwing</string>
+    <string name="watchlist_refresh_report_empty">Nog geen overzicht: deze versie heeft nog geen volledige vernieuwing voltooid. Tik op vernieuwen en wacht tot de spinner stopt.</string>
+    <string name="action_close">Sluiten</string>
+    <string name="watchlist_clear">Volglijst wissen</string>
+    <string name="watchlist_clear_confirm">Alle paren uit de volglijst verwijderen? Hun alarmen worden ook verwijderd.</string>
+    <string name="market_scores_hint">Top = tekenen zoals bij eerdere cyclustoppen, bodem = tekenen zoals bij eerdere cyclusbodems. Vanaf 4 punten overheerst een kant, vanaf 7 is het extreem. Geen koersdoel en geen voorspelling.</string>
+    <string name="market_scores_none">Geen tekenen van een top of bodem actief: rustige middenfase, de koerstrend beslist.</string>
+    <string name="market_scores_info_title">Cyclussignalen</string>
+    <string name="market_scores_info_text">Tekenen van een mogelijke top tellen signalen die bij eerdere cyclustoppen optraden: sterke overwaardering (MVRV), zeer hoge minerinkomsten (Puell), koers ver boven het 200-daags of 200-weeks gemiddelde, parabolische stijging en de periode 12–18 maanden na de halving.\n\nTekenen van een mogelijke bodem tellen signalen van eerdere bodems: lage MVRV, zwakke minerinkomsten, sterke daling vanaf de all-time high, koers dicht bij het 200-weeks gemiddelde, dalende hashrate en een top van meer dan een jaar geleden.\n\nVanaf 4 punten voorsprong is de zone Bull of Bear, vanaf 7 Extreem. Leidt geen kant, dan beslist de koerstrend. 0/10 aan beide kanten betekent: geen euforie en geen capitulatie.\n\nGeen koersdoel en geen voorspelling: de signalen beschrijven alleen hoe eerdere cycli eruitzagen.</string>
+    <string name="battery_open_settings">Batterij-instellingen openen</string>
+    <string name="battery_steps">Tik in de app-info op Batterij (of Batterijgebruik van app) en kies Onbeperkt.</string>
+    <string name="explorer_select_placeholder">Kies een optie</string>
+    <string name="explorer_bulk_title">Meerdere paren tegelijk</string>
+    <string name="watchlist_sort_hint">Houd een paar vast en sleep, of gebruik de greep. Favorieten blijven bovenaan.</string>
+    <string name="sort_drag_handle">Slepen om te verplaatsen</string>
+    <string name="explorer_step_pair">Paar kiezen</string>
+    <string name="theme_system">Systeem</string>
+    <string name="settings_section_developer">Ontwikkelaar</string>
+    <string name="settings_http_log">HTTP-log tonen</string>
+    <string name="settings_http_log_hint">Toont onderaan de pagina ‘Paar toevoegen’ de verzoeken aan de beurzen – voor foutopsporing.</string>
+    <string name="language_search">Taal zoeken</string>
+    <string name="alarm_delete_title">Alarm verwijderen?</string>
+    <string name="alarm_delete_confirm">Dit alarm wordt verwijderd.</string>
+    <string name="alarms_overview_title">Alle alarmen</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d actief</item>
+        <item quantity="other">%1$d actief</item>
+    </plurals>
+    <string name="alarms_overview_empty">Nog geen alarmen. Open een paar en voeg er een toe onder Alarmen.</string>
+    <string name="action_more">Meer opties</string>
+    <string name="watchlist_last_run">Laatst uitgevoerd %1$s</string>
+    <string name="watchlist_pull_to_refresh">Trek omlaag om te vernieuwen</string>
+    <string name="favorite_add">Aan favorieten toevoegen</string>
+    <string name="favorite_remove">Uit favorieten verwijderen</string>
+    <string name="action_view">Bekijken</string>
+    <string name="explorer_loading_pairs">Handelsparen laden…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d paar · bijgewerkt %2$s</item>
+        <item quantity="other">%1$d paren · bijgewerkt %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d paar toevoegen?</item>
+        <item quantity="other">%1$d paren toevoegen?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d %2$s-paar van %3$s wordt aan de lijst toegevoegd, tenzij het er al in staat.</item>
+        <item quantity="other">Alle %1$d %2$s-paren van %3$s worden aan de lijst toegevoegd. Paren die er al in staan worden overgeslagen.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Tik op een paar om het hierboven te kiezen.</string>
+    <string name="loading_hint">Laden…</string>
+    <string name="explorer_select_market_hint">Kies een beurs – de handelsparen laden automatisch.</string>
+    <string name="explorer_precise_title">Precies kiezen</string>
+    <string name="explorer_search_hint">Munt zoeken, bijv. BTC of ETH USDT</string>
+    <string name="explorer_search_loading">Beurzen doorzoeken… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Geen resultaten.</string>
+    <string name="action_clear">Wissen</string>
+    <string name="explorer_bulk_show_list">Lijst tonen</string>
+    <string name="explorer_bulk_hide_list">Lijst verbergen</string>
+    <string name="time_just_now">zojuist</string>
+    <string name="welcome_text">Jouw koersen. Jouw alarmen. Jouw overzicht.\nGeen account. Geen advertenties. Geen tracking.</string>
+    <string name="developer_unlocked">Ontwikkelaarsopties ontgrendeld</string>
+    <string name="hint_favorites_list">Tip: tik op ☆ voor een favoriet – favorieten blijven bovenaan.</string>
+    <string name="tab_watchlist">Lijst</string>
+    <string name="tab_market_phase">Markt</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d van %2$d verouderd</item>
+        <item quantity="other">%1$d van %2$d verouderd</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Alles actueel · %1$s</string>
+    <string name="explorer_price_loading">Koers laden…</string>
+    <string name="zone_top_risk">Toprisico</string>
+    <string name="zone_bottom_chance">Bodemvorming</string>
+    <string name="timeout_error_message">De beurs reageert op dit moment niet.</string>
+    <string name="widget_background">Achtergrond</string>
+    <string name="widget_configure_title">Widget instellen</string>
+    <string name="widget_configure_hint">Kies achtergrond en dekking. De kleur volgt de app. De widget toont je hele lijst; tik op een rij om de app te openen.</string>
+    <string name="settings_custom_value">Eigen</string>
+    <string name="insights_halving_title">Bitcoin-halving</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">Volgende halving over ongeveer %1$d dag (%2$s)</item>
+        <item quantity="other">Volgende halving over ongeveer %1$d dagen (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% van de huidige cyclus</string>
+    <string name="insights_cycle_chart">Cycli sinds de halving</string>
+    <string name="insights_chart_axis">Jaren sinds halving</string>
+    <string name="insights_chart_hint">Koers als veelvoud van de koers op de halvingdag (log-schaal). Eerdere cycli zijn een patroon, geen voorspelling.</string>
+    <string name="insights_source_history">Bron: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="fng_extreme_fear">Extreme angst</string>
+    <string name="fng_fear">Angst</string>
+    <string name="fng_neutral">Neutraal</string>
+    <string name="fng_greed">Hebzucht</string>
+    <string name="fng_extreme_greed">Extreme hebzucht</string>
+    <string name="insights_fng_history">Gisteren %1$s · week geleden %2$s · maand geleden %3$s</string>
+    <string name="insights_source_fng">Bron: alternative.me</string>
+    <string name="insights_dominance_title">Bitcoin-dominantie</string>
+    <string name="insights_altseason_title">Altcoinseizoen</string>
+    <string name="altseason_alt">Altcoinseizoen</string>
+    <string name="altseason_btc">Bitcoinseizoen</string>
+    <string name="altseason_mixed">Gemengd</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d van %2$d grote altcoins verslaat Bitcoin over 90 dagen</item>
+        <item quantity="other">%1$d van %2$d grote altcoins verslaan Bitcoin over 90 dagen</item>
+    </plurals>
+    <string name="insights_source_dominance">Bron: CoinGecko, Binance</string>
+    <string name="coin_title">Muntanalyse</string>
+    <string name="coin_choose">Munt</string>
+    <string name="coin_no_data">Geen koersdata voor deze munt op Binance of Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Slechts %1$d dag koersverloop – enkele indicatoren ontbreken.</item>
+        <item quantity="other">Slechts %1$d dagen koersverloop – enkele indicatoren ontbreken.</item>
+    </plurals>
+    <string name="coin_price_only">Alleen op basis van de koers – on-chaindata (MVRV, Puell, hashrate) zijn alleen voor Bitcoin vrij beschikbaar.</string>
+    <string name="ind_rsi_weekly">RSI (week)</string>
+    <string name="ind_rsi_daily">RSI (dag)</string>
+    <string name="ind_pi_cycle">Pi-cyclus (111/350 dagen)</string>
+    <string name="ind_cross">Trend 50/200 dagen</string>
+    <string name="ind_vs_btc">Kracht t.o.v. Bitcoin (90 dagen)</string>
+    <string name="ind_missing">te weinig data</string>
+    <string name="channel_market">Marktfase</string>
+    <string name="channel_market_description">Meldt wanneer de Bitcoin-marktfase verandert</string>
+    <string name="notification_zone_title">Bitcoin: %1$s</string>
+    <string name="notification_zone_text">De marktfase is veranderd van %1$s naar %2$s.</string>
+    <string name="settings_zone_alerts">Melden bij wisseling van marktfase</string>
+    <string name="settings_zone_alerts_hint">Controleert twee keer per dag en meldt wanneer Bitcoin van zone wisselt, bijv. van Neutraal naar Bull.</string>
+    <string name="alarm_condition_move_percent">Beweegt met</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">in %1$d u</item>
+        <item quantity="other">in %1$d u</item>
+    </plurals>
+    <string name="alarm_window_label">Tijdvenster</string>
+    <string name="tts_direction_move">beweegt sterk</string>
+    <string name="settings_fng_below">Fear &amp; Greed: melden onder</string>
+    <string name="settings_fng_above">Fear &amp; Greed: melden boven</string>
+    <string name="option_off">Uit</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">De index is onder %1$d gezakt – de markt is angstig.</string>
+    <string name="notification_fng_above">De index is boven %1$d gestegen – de markt is hebzuchtig.</string>
+    <string name="futures_title">Futuresdata</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_next_funding">volgende over %1$d u %2$d min</string>
+    <string name="futures_open_interest">Open interest</string>
+    <string name="futures_source">Bron: %1$s</string>
+    <string name="single_widget_label">Crypto Checker – één munt</string>
+    <string name="single_widget_description">Toont één munt groot met koers, wijziging en 24-uursgrafiek.</string>
+    <string name="single_widget_choose">Kies een paar</string>
+    <string name="single_widget_title">Enkele widget instellen</string>
+    <string name="shortcut_add">Paar toevoegen</string>
+    <string name="shortcut_alarms">Alle alarmen</string>
+    <string name="shortcut_cycle">Markt</string>
+    <string name="backup_title">Back-up en herstel</string>
+    <string name="backup_hint">Bewaart lijst met notities en groepen, alarmen, favorieten, portfolio en instellingen als bestand dat je zelf bewaart – bijv. voor een nieuwe telefoon.</string>
+    <string name="backup_export">Exporteren</string>
+    <string name="backup_import">Importeren</string>
+    <string name="backup_restore_confirm">Importeren vervangt je lijst (met notities en groepen), alarmen, favorieten, portfolio en instellingen door de back-up.</string>
+    <string name="backup_exported">Back-up opgeslagen.</string>
+    <string name="backup_failed">Dat lukte niet. Is het een Crypto Checker-back-up?</string>
+    <string name="backup_restored">Hersteld: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d paren</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="other">%1$d alarmen</item>
+    </plurals>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Фандинг выше</string>
+    <string name="alarm_condition_funding_below">Фандинг ниже</string>
+    <string name="alarm_condition_oi_up">Открытый интерес растёт</string>
+    <string name="alarm_condition_oi_down">Открытый интерес падает</string>
+    <string name="alarm_sentence_funding_above">Сообщить, когда фандинг %1$s поднимется выше %2$s.</string>
+    <string name="alarm_sentence_funding_below">Сообщить, когда фандинг %1$s опустится ниже %2$s.</string>
+    <string name="tts_direction_funding_above">с высоким фандингом</string>
+    <string name="tts_direction_funding_below">с низким фандингом</string>
+    <string name="tts_direction_oi_up">с ростом открытого интереса</string>
+    <string name="tts_direction_oi_down">с падением открытого интереса</string>
+    <string name="alarm_funding_hint">Ставка фандинга за расчётный период (обычно каждые 8 часов). Отрицательная — шорты платят лонгам. ± меняет знак.</string>
+    <string name="alarm_oi_hint">Сравнивает открытый интерес со значением, сохранённым столько часов назад. Новое оповещение сработает, только когда приложение соберёт данные за это время; проверка не чаще раза в 5 минут.</string>
+    <string name="alarm_funding_sign_a11y">Сменить знак</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Сообщить, когда открытый интерес %1$s вырастет на %2$s за %3$d час.</item>
+        <item quantity="few">Сообщить, когда открытый интерес %1$s вырастет на %2$s за %3$d часа.</item>
+        <item quantity="many">Сообщить, когда открытый интерес %1$s вырастет на %2$s за %3$d часов.</item>
+        <item quantity="other">Сообщить, когда открытый интерес %1$s вырастет на %2$s за %3$d часа.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Сообщить, когда открытый интерес %1$s снизится на %2$s за %3$d час.</item>
+        <item quantity="few">Сообщить, когда открытый интерес %1$s снизится на %2$s за %3$d часа.</item>
+        <item quantity="many">Сообщить, когда открытый интерес %1$s снизится на %2$s за %3$d часов.</item>
+        <item quantity="other">Сообщить, когда открытый интерес %1$s снизится на %2$s за %3$d часа.</item>
+    </plurals>
+</resources>

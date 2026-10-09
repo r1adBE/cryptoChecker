@@ -1,0 +1,35 @@
+Versio 16.2.2
+• Crypto Pulse: mitä markkinoilla tapahtuu juuri nyt
+• ”Miksi tämä liikkuu?”: dataan perustuva selitys hintaliikkeille lyhyellä yhteenvedolla
+• Testaa hälytys: ääni, värinä ja puhe
+• Muunnetut hinnat: toinen rivi ”≈ arvo” valitsemassasi muunnosvaluutassa – 31 valuuttaa, kuten EUR, CHF, USD, GBP tai JPY, oletuksena laitteen alueen mukaan
+• Hälytykset omassa valuutassasi, esim. 60 000 EUR:n kohdalla USDT-parissa
+• Tilannepäivän vienti: salkkusi arvo minä tahansa päivänä, esim. 31. joulukuuta, omassa valuutassasi CSV-tiedostona – kätevä veroilmoitusta varten (ei veroneuvontaa)
+• Saavutettavuus: sininen/oranssi erottuu hyvin kaikissa värinäön poikkeamissa (puna-viher ja sini-kelta); ”Vaihda nousun ja laskun värit”: punainen nousee, vihreä laskee, kuten Kiinassa, Japanissa, Koreassa ja Taiwanissa (siellä automaattisesti); ”Suuri kontrasti”: voimakkaammat hintavärit, tummempi toissijainen teksti ja korostusväri, seuraa myös järjestelmän asetusta; täysi VoiceOver-tuki: jokainen rivi, kaavio ja widget luetaan yhtenä lauseena
+• Minikaavio jokaisella rivillä: 24 tunnin kehitys hinnan vieressä
+• ”Aloita yhdellä napautuksella”: tyhjä lista tarjoaa 5 suurinta kolikkoa markkina-arvon mukaan (ilman vakaakolikoita)
+• Aloituslista näyttää live-hinnan ja 24 h muutoksen – kaikki viisi valmiiksi valittuina, lisäys yhdellä painikkeella
+• Pyyhkäise vasemmalle poistaaksesi (Kumoa-toiminnolla), oikealle merkitäksesi suosikiksi
+• Markkinat-välilehti avautuu heti viimeisimmillä tiedoilla ja päivittyy taustalla
+• Hiljaiset tunnit: yöllä (esim. 23–7) hälytykset tulevat äänettä – ei ääntä, värinää eikä puhetta
+• Salkun lukitus Face ID:llä, Touch ID:llä tai pääsykoodilla
+• Salkku-widget koti- ja lukitusnäytölle: kokonaisarvo omassa valuutassasi ja tämän päivän muutos
+• Jokainen hälytys lauseena: ”Ilmoita, kun BTC laskee alle 60 000 CHF.”
+• Lyhyet selitykset: rahoituskorko, avoimet positiot, RSI ja Pi Cycle
+• Rivillä lukee ”vanhentunut” tai ”pörssi ei tavoitettavissa”, jos hinta ei ole ajan tasalla
+• 15 uutta pörssiä: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Verkkomaksut: Ethereum, Base, Arbitrum, Polygon, BNB Chain ja Bitcoin Markkinat-välilehdellä, gas-hälytyksellä
+• Muistiinpano jokaiselle kolikolle seurantalistalla
+• Valitse hälytysääni
+• Epätavallinen aktiivisuus: havaitsee poikkeavat hinta- ja volyymiliikkeet, valinnaiset ilmoitukset
+• Salkku omana välilehtenään: ostot ja myynnit, keskihinta, voitto/tappio
+• Syklien vertailu: huiput ja pohjat merkitty, myös tuplahuiput ja tuplapohjat
+• Ryhmät seurantalistalle
+• Uudet hälytykset: X %:n liike Y tunnissa ja volyymipiikki
+• Yhden kolikon widget: kynttilät tai viiva, kaavion jakso 24 h, 7 tai 30 päivää, ylä-, keski- ja alamerkit, nykyinen hinta korostettuna
+• Markkinat-välilehti: kryptomarkkinan kokonaismarkkina-arvo ja 24 h volyymi omassa valuutassasi
+• Futuurit: rahoituskorko ja avoimet positiot
+• Viisi korostusväriä ja sopivat appikuvakkeet
+• Osakkeet, kulta, raaka-aineet ja valuutat futuureina (TradFi) Binancessa, Bybitissä, OKX:ssä, MEXC:ssä ja Bitgetissä – kytkin kohdassa Asetukset › Seurantalista; uudet parit menevät ryhmään ”TradFi”, määräaikaiset futuurit ryhmään ”QTLY”
+• %-muutos kuten Binancessa: viimeiset 24 h, edellisestä päivityksestä, klo 00:00 alkaen laitteen aikavyöhykkeellä tai kiinteällä vyöhykkeellä UTC+14:stä UTC-12:een
+• Selkeämmät nimet: ”Päivitä tiheästi” ja ”Live-hinnat”

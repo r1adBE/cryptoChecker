@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">învechit</string>
+    <string name="widget_outdated_time">învechit · %1$s</string>
+
+    <string name="settings_widgets">Widgeturi</string>
+    <string name="widgets_sheet_title">Adaugă un widget</string>
+    <string name="widget_kind_single">O monedă</string>
+    <string name="widgets_add">Adaugă</string>
+    <string name="widgets_add_named">Adaugă widgetul %1$s</string>
+    <string name="watch_action_add_widget">Adaugă ca widget</string>
+    <string name="widgets_manual_title">Adaugă widgetul manual</string>
+    <string name="widgets_manual_text">Ecranul tău principal nu poate adăuga widgeturi din aplicație. Atinge lung un loc liber pe ecranul principal, alege „Widgeturi” și caută „Crypto Checker”.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS nu permite aplicațiilor să adauge singure widgeturi. Durează doar o clipă:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Atinge lung un loc liber pe ecranul principal până când aplicațiile încep să tremure.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Atinge sus „Editați” › „Adăugați widget” (sau „+” în versiunile iOS mai vechi).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Caută „Crypto Checker”, alege un widget și atinge „Adăugați widget”.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widgeturi disponibile</string>
+</resources>

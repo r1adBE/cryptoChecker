@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">Lizenzhinweise</string>
+    <string name="licenses_marketdata_title">Kursdaten-Bibliothek</string>
+    <string name="licenses_marketdata_intro">Teile der Börsen-Anbindung basieren auf Software unter der MIT-Lizenz:</string>
+    <string name="licenses_marketdata_changes">Änderungen: %1$s</string>
+    <string name="licenses_font_title">Schrift Rubik</string>
+    <string name="licenses_libraries_title">Android-Bibliotheken</string>
+    <string name="licenses_libraries_intro">Die App verwendet diese Bibliotheken unter der Apache License 2.0:</string>
+</resources>

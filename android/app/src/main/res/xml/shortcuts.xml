@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Langes Drücken aufs App-Symbol: direkt zu Hinzufügen, Alarmen oder Zyklus -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="add"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_add"
+        android:shortcutShortLabel="@string/shortcut_add">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.cryptochecker.app"
+            android:targetClass="com.cryptochecker.app.ui.MainActivity">
+            <extra android:name="open" android:value="add" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="alarms"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_alarms"
+        android:shortcutShortLabel="@string/shortcut_alarms">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.cryptochecker.app"
+            android:targetClass="com.cryptochecker.app.ui.MainActivity">
+            <extra android:name="open" android:value="alarms" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="cycle"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_cycle"
+        android:shortcutShortLabel="@string/shortcut_cycle">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.cryptochecker.app"
+            android:targetClass="com.cryptochecker.app.ui.MainActivity">
+            <extra android:name="open" android:value="cycle" />
+        </intent>
+    </shortcut>
+</shortcuts>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">通用</string>
+    <string name="settings_group_data_only">数据</string>
+    <string name="settings_row_currency">货币</string>
+    <string name="settings_row_updates">更新</string>
+    <string name="settings_updates_live">频繁 · %1$s</string>
+    <string name="settings_updates_every">每 %1$s</string>
+    <string name="settings_row_watchlist">自选列表</string>
+    <string name="settings_watchlist_value_sparkline">迷你走势图</string>
+    <string name="settings_watchlist_value_price_only">仅价格</string>
+    <string name="settings_row_alarms">提醒</string>
+    <string name="settings_portfolio_value_locked">开启，已加锁</string>
+    <string name="settings_row_dated_futures">交割合约</string>
+    <string name="settings_tradfi_futures">股票、大宗商品和外汇（TradFi）</string>
+    <string name="settings_tradfi_futures_hint">选择交易对时也显示股票、黄金等大宗商品、外汇以及上市前公司的合约。这些是合约，不是代币。</string>
+    <string name="settings_watchlist_activity_card">在列表中显示异常活动</string>
+    <string name="settings_watchlist_activity_card_hint">在交易对上方显示“此刻正有异动”卡片。通知在“市场通知”中设置。</string>
+    <string name="settings_row_about">关于应用</string>
+    <string name="price_colors_green_up">绿涨 / 红跌</string>
+    <string name="price_colors_red_up">红涨 / 绿跌</string>
+    <string name="price_colors_blue_up">蓝涨 / 橙跌</string>
+    <string name="price_colors_orange_up">橙涨 / 蓝跌</string>
+    <string name="price_colors_red_up_hint">中国、日本、韩国和台湾的惯例</string>
+</resources>

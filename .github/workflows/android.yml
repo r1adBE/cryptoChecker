@@ -1,0 +1,113 @@
+# Release gate for the Android app (android/): unit tests, lint, instrumented tests compiled,
+# debug and release (R8, unsigned) builds; on pull requests also a dependency review.
+name: Android
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - '.github/workflows/android.yml'
+  pull_request:
+    paths:
+      - 'android/**'
+      - '.github/workflows/android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@v7
+
+      # The project targets Java 17 (compileOptions); Android Gradle Plugin 9 needs JDK 17+.
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
+      # Android/iOS parity cases in testdata/parity (ParityFixturesTest).
+      - name: Unit tests
+        run: |
+          chmod +x gradlew
+          ./gradlew test --stacktrace
+
+      # Instrumented tests (app/src/androidTest) are only compiled here: running them needs
+      # an emulator (locally: ./gradlew :app:connectedDebugAndroidTest), too slow for CI.
+      - name: Compile instrumented tests
+        run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
+
+      # Lint as a gate (abortOnError = true in app/build.gradle): report uploaded on failure.
+      - name: Lint
+        run: ./gradlew :app:lintDebug --stacktrace
+
+      - name: Build debug APK
+        run: ./gradlew :app:assembleDebug --stacktrace
+
+      # Release build without keystore stays unsigned (app/build.gradle); it runs R8/minify and
+      # resource shrinking, so missing keep rules show up here and not only on a device.
+      - name: Build release (unsigned, R8)
+        run: ./gradlew :app:assembleRelease --stacktrace
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: cryptochecker-debug
+          path: android/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload test and lint reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: |
+            android/**/build/reports/tests/
+            android/app/build/reports/lint-results-*.html
+          if-no-files-found: ignore
+
+  # Dependency graph for GitHub (Dependabot alerts) from the resolved Gradle dependencies.
+  dependency-submission:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Submit Gradle dependency graph
+        uses: gradle/actions/dependency-submission@v5
+        with:
+          build-root-directory: android
+
+  # Pull requests: fail on newly added dependencies with known vulnerabilities (high and above).
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/dependency-review-action@v5
+        with:
+          fail-on-severity: high

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 16: Puls-Zeile der Merkliste – Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») und Screenreader-Satz -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d sans valeur 24 h</item>
+        <item quantity="many">%1$d sans valeur 24 h</item>
+        <item quantity="other">%1$d sans valeur 24 h</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d paire sans valeur sur 24 heures</item>
+        <item quantity="many">%1$d paires sans valeur sur 24 heures</item>
+        <item quantity="other">%1$d paires sans valeur sur 24 heures</item>
+    </plurals>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+</resources>

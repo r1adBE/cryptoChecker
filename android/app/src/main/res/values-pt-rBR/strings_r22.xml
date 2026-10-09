@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Tudo atualizado</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d par não atualizado</item>
+        <item quantity="many">%1$d pares não atualizados</item>
+        <item quantity="other">%1$d pares não atualizados</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s inacessível</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d exchange inacessível</item>
+        <item quantity="many">%1$d exchanges inacessíveis</item>
+        <item quantity="other">%1$d exchanges inacessíveis</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Atualização interrompida</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="many">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Exchanges</string>
+    <string name="refresh_sheet_section_steps">Detalhamento</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Espera até o início</string>
+    <string name="refresh_sheet_network">Rede</string>
+    <string name="refresh_sheet_database">Banco de dados</string>
+    <string name="refresh_sheet_alarms">Alarmes</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d disparado</item>
+        <item quantity="many">%1$d disparados</item>
+        <item quantity="other">%1$d disparados</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d notificação</item>
+        <item quantity="many">%1$d notificações</item>
+        <item quantity="other">%1$d notificações</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widgets</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d de %1$d par</item>
+        <item quantity="many">%2$d de %1$d pares</item>
+        <item quantity="other">%2$d de %1$d pares</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">requisição agrupada %1$s · %2$d preço</item>
+        <item quantity="many">requisição agrupada %1$s · %2$d preços</item>
+        <item quantity="other">requisição agrupada %1$s · %2$d preços</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tempo esgotado</string>
+    <string name="refresh_sheet_reason_offline">sem conexão</string>
+    <string name="refresh_sheet_reason_rate_limit">muitas requisições</string>
+    <string name="refresh_sheet_reason_server">erro do servidor</string>
+    <string name="refresh_sheet_reason_no_data">sem dados</string>
+    <string name="refresh_sheet_reason_unavailable">exchange indisponível</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">tudo atualizado</string>
+    <string name="refresh_sheet_status_partial">atualizado em parte</string>
+    <string name="refresh_sheet_status_failed">não atualizado</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s segundos</string>
+</resources>

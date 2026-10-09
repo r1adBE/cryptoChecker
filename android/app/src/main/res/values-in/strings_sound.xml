@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Suara alarm</string>
+    <string name="settings_alarm_sound_default">Suara default</string>
+    <string name="settings_alarm_sound_custom">Suara kustom</string>
+    <string name="settings_alarm_sound_system">Pilih suara sistem…</string>
+    <string name="settings_alarm_sound_file">File audio sendiri…</string>
+    <string name="settings_alarm_sound_reset">Gunakan suara default</string>
+    <string name="settings_alarm_sound_error">Suara tidak dapat digunakan.</string>
+</resources>

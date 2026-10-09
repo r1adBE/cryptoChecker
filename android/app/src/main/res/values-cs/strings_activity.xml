@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Právě se něco děje</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Neobvyklá aktivita</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Neobvyklý pohyb: %1$s za hodinu (%2$s× obvyklého)</string>
+    <string name="activity_signal_volume">Objem %1$s× obvyklého za poslední hodinu</string>
+    <string name="activity_signal_open_interest">Open interest %1$s během %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s – mnoho pákových longů</string>
+    <string name="activity_signal_funding_short">Funding %1$s – mnoho shortů</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Hlásit neobvyklou aktivitu</string>
+    <string name="settings_activity_alerts_hint">Nejvýše jednou za hodinu pro každý pár: neobvyklé cenové pohyby, skoky objemu a extrémy na futures (data z Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Proč se to hýbe?</string>
+    <string name="why_title">Proč se to hýbe?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Automatické vyhodnocení z tržních dat, nejde o investiční doporučení.</string>
+    <string name="why_data_time">Data k %1$s</string>
+    <string name="why_no_data">Žádná data z Binance pro tento pár</string>
+    <string name="why_no_data_hint">Cena, objem a volatilita pocházejí z hodinových svíček Binance.</string>
+
+    <string name="why_market_wide_text">Tato mince: %1$s za 24h – hnacím motorem je spíš celý trh než mince sama.</string>
+    <string name="why_coin_only_text">%1$s za 24h, zatímco trh je klidný: důvod je nejspíš u mince samotné.</string>
+    <string name="why_against_market_text">Tato mince %1$s, BTC %2$s za 24h – nápadně samostatný pohyb.</string>
+    <string name="why_market_calm_text">Tato mince: %1$s za 24h. Trh ani mince se příliš nehýbou.</string>
+    <string name="why_market_leader_text">Jako lídr trhu BTC obvykle táhne zbytek trhu s sebou. ETH: %1$s za 24h.</string>
+    <string name="why_market_leader_text_no_eth">Jako lídr trhu BTC obvykle táhne zbytek trhu s sebou.</string>
+
+    <string name="why_volume_high_text">Za poslední hodinu se obchodovalo mnohem víc než obvykle – pohyb má širokou podporu.</string>
+    <string name="why_volume_low_text">Pohyb je slabý a může se rychle otočit.</string>
+    <string name="why_volume_normal_text">Obchodování za poslední hodinu odpovídá posledním 24 hodinám.</string>
+
+    <string name="why_leverage_longs_text">Longy platí shortům – vyšší riziko likvidací, pokud cena klesne.</string>
+    <string name="why_leverage_shorts_text">Shorty platí longům – rostoucí cena může spustit short squeeze.</string>
+    <string name="why_leverage_balanced_text">Na trhu futures žádné nahromadění long ani short pozic.</string>
+    <string name="why_open_interest_change">Open interest %1$s od poslední kontroly.</string>
+
+    <string name="why_volatility_high_text">Poslední hodina: %1$s – měřeno vůči typickému hodinovému výkyvu za posledních 24 hodin.</string>
+    <string name="why_volatility_normal_text">Poslední hodina: %1$s – v obvyklém rozmezí.</string>
+
+    <string name="why_sentiment_text">Index Fear &amp; Greed celého kryptotrhu, %1$s oproti včerejšku.</string>
+    <string name="why_sentiment_text_no_change">Index Fear &amp; Greed celého kryptotrhu.</string>
+</resources>

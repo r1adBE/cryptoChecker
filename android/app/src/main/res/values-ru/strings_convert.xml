@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Пересчитанные цены</string>
+    <string name="settings_show_converted_hint">Показывает цены в списке также в %1$s</string>
+    <string name="settings_conversion_currency">Валюта пересчёта</string>
+    <string name="alarm_currency_label">Валюта</string>
+</resources>

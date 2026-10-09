@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Ειδοποιήσεις αγοράς</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ενεργό</item>
+        <item quantity="other">%1$d ενεργά</item>
+    </plurals>
+    <string name="settings_summary_on">Ενεργό</string>
+
+    <string name="alarm_first_text_checked">Το Crypto Checker παρακολουθεί τώρα το %1$s για εσάς. Όταν το %1$s φτάσει το όριό σας, θα λάβετε ειδοποίηση μόλις η εφαρμογή ελέγξει την τιμή. Με κλειστή την εφαρμογή, αυτό γίνεται στο διάστημα ενημέρωσης στο παρασκήνιο – αργότερα, αν η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Το Crypto Checker παρακολουθεί τώρα το %1$s για εσάς. Θα λάβετε ειδοποίηση μόλις η εφαρμογή ελέγξει την τιμή. Με κλειστή την εφαρμογή, το iOS αποφασίζει πότε θα γίνει αυτό – μπορεί να αργήσει. Όσο η εφαρμογή είναι ανοιχτή, οι τιμές ελέγχονται έγκαιρα.</string>
+
+    <string name="about_request_exchange">Αίτημα για ανταλλακτήριο</string>
+    <string name="explorer_exchange_missing">Λείπει ανταλλακτήριο;</string>
+</resources>

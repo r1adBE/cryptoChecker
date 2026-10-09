@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Bloqueo de la cartera</string>
+    <string name="settings_portfolio_lock_hint">Protege solo la cartera: desbloquea con huella, rostro o PIN del dispositivo. Se vuelve a bloquear tras más de un minuto en segundo plano. La lista de seguimiento, las alarmas y los demás widgets siguen accesibles.</string>
+    <string name="portfolio_locked_title">La cartera está bloqueada</string>
+    <string name="portfolio_locked_text">Desbloquéala para ver tus posiciones y valores.</string>
+    <string name="portfolio_lock_reason">Desbloquear cartera</string>
+    <string name="widget_portfolio_locked_hint">Bloqueada – desbloquéala en la app</string>
+    <string name="portfolio_history_range_since_first">Desde 1.ª compra</string>
+    <string name="portfolio_history_period_since_first">desde la primera compra</string>
+    <string name="portfolio_history_range_since_first_a11y">Mostrar evolución desde tu primera compra</string>
+    <string name="portfolio_history_change_since_first_a11y">Valor desde tu primera compra: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Solo muestra los últimos 5 años.</string>
+    <string name="portfolio_history_expand">Mostrar evolución del valor</string>
+    <string name="portfolio_history_collapse">Ocultar evolución del valor</string>
+</resources>

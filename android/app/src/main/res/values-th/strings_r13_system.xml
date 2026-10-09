@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">อ่านราคาและสัญญาณเตือนออกเสียง และจะเงียบขณะที่อุปกรณ์อยู่ในโหมดปิดเสียงหรือโหมดสั่น</string>
+</resources>

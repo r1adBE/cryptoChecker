@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">换算价格</string>
+    <string name="settings_show_converted_hint">在自选列表中同时以 %1$s 显示价格</string>
+    <string name="settings_conversion_currency">换算货币</string>
+    <string name="alarm_currency_label">货币</string>
+</resources>

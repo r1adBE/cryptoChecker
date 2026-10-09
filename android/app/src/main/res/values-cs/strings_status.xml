@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Bez připojení</string>
+    <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d z %2$d bez ceny</item>
+        <item quantity="few">%1$d z %2$d bez ceny</item>
+        <item quantity="many">%1$d z %2$d bez ceny</item>
+        <item quantity="other">%1$d z %2$d bez ceny</item>
+    </plurals>
+    <string name="watch_not_traded">Na této burze se již neobchoduje</string>
+</resources>

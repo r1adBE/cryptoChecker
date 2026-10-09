@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">أكبر %1$d</string>
+    <string name="pulse_breadth_spoken">أكبر %1$d: صاعدة %2$d، هابطة %3$d</string>
+    <string name="pulse_breadth_hint">أكبر %1$d: أكبر العملات حسب القيمة السوقية دون العملات المستقرة؛ التغيّر خلال 24 ساعة (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">حركة واسعة: معظم العملات الكبيرة ترتفع.</string>
+    <string name="pulse_breadth_note_broad_down">تراجع واسع: معظم العملات الكبيرة تنخفض.</string>
+    <string name="pulse_breadth_note_narrow_up">البيتكوين يرتفع، لكن معظم العملات الكبيرة الأخرى لا تواكبه.</string>
+    <string name="pulse_breadth_note_narrow_down">البيتكوين ينخفض، لكن معظم العملات الكبيرة الأخرى تصمد.</string>
+</resources>

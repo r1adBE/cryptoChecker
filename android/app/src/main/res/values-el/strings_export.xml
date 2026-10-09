@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Εξαγωγή ημερομηνίας αναφοράς…</string>
+    <string name="portfolio_export_title">Εξαγωγή ημερομηνίας αναφοράς</string>
+    <string name="portfolio_export_date">Ημερομηνία αναφοράς</string>
+    <string name="portfolio_export_currency">Νόμισμα: %1$s</string>
+    <string name="portfolio_export_hint">Κατοχή στο τέλος της επιλεγμένης ημέρας, αποτιμημένη στην τιμή κλεισίματος της ημέρας (UTC) σε USDT και μετατρεπόμενη με την ισοτιμία αναφοράς της ΕΚΤ εκείνης της ημέρας. Αλλάξτε το νόμισμα από το «Μετατροπή σε».</string>
+    <string name="portfolio_export_button">Εξαγωγή CSV</string>
+    <string name="portfolio_export_running">Λήψη ιστορικών τιμών…</string>
+    <string name="portfolio_export_done">Η εξαγωγή αποθηκεύτηκε</string>
+    <string name="portfolio_export_failed">Η εξαγωγή απέτυχε</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Ημερομηνία αναφοράς %1$s, νόμισμα %2$s, ισοτιμία της %3$s</string>
+    <string name="portfolio_export_col_coin">Νόμισμα</string>
+    <string name="portfolio_export_col_amount">Ποσότητα</string>
+    <string name="portfolio_export_col_price">Τιμή USDT</string>
+    <string name="portfolio_export_col_value">Αξία USDT</string>
+    <string name="portfolio_export_col_rate">Ισοτιμία USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Αξία %1$s</string>
+    <string name="portfolio_export_col_note">Σημείωση</string>
+    <string name="portfolio_export_total">Σύνολο</string>
+    <string name="portfolio_export_no_price">χωρίς τιμή</string>
+    <string name="portfolio_export_no_fx">χωρίς ισοτιμία</string>
+    <string name="portfolio_export_incomplete">ελλιπές</string>
+</resources>

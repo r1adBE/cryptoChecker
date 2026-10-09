@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">אין צמדים בקבוצה הזו</string>
+    <string name="watchlist_status_none_traded">אין כאן צמדים נסחרים</string>
+    <string name="watchlist_group_empty_hint">לחיצה ארוכה על קבוצה כדי לבחור את הצמדים שלה.</string>
+    <string name="watchlist_just_refreshed">עודכן הרגע</string>
+</resources>

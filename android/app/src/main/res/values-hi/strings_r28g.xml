@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">ऑफ़लाइन</string>
+    <string name="offline_status_since">ऑफ़लाइन · %1$s तक</string>
+    <string name="error_market_unreachable">एक्सचेंज अभी उपलब्ध नहीं है – पिछली कीमतें दिखती रहेंगी।</string>
+    <string name="error_market_unreachable_short">एक्सचेंज अभी उपलब्ध नहीं है</string>
+    <string name="refresh_sheet_paused_until">%1$s तक रोका गया</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s तक रोका गया (%2$s)</string>
+    <string name="refresh_sheet_app_start">ऐप शुरू होना</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">換算価格</string>
+    <string name="settings_show_converted_hint">ウォッチリストの価格を%1$sでも表示</string>
+    <string name="settings_conversion_currency">換算通貨</string>
+    <string name="alarm_currency_label">通貨</string>
+</resources>

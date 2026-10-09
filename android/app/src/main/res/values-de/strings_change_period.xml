@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Zeitraum neben der Änderung zeigen</string>
+    <string name="settings_change_period_hint">Klein «24h», «heute» oder «letzter Stand» neben der Änderung in der Merkliste und im Einzel-Widget. Der Screenreader nennt ihn immer.</string>
+</resources>

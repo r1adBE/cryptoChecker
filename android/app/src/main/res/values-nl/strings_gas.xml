@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum-gas onder (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin-kosten onder (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Meldt één keer wanneer de normale kosten onder de grens zakken. Gecontroleerd bij het bijwerken van de koersen, hoogstens elke 10 minuten.</string>
+    <string name="notification_gas_eth_title">Ethereum-gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Onder je grens van %1$s gwei · Overboeking ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-kosten: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Onder je grens van %1$s sat/vB · Overboeking ≈ %2$s</string>
+    <string name="gas_title">Netwerkkosten</string>
+    <string name="gas_slow_fast">Traag %1$s · Snel %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Openbare RPC-nodes en mempool.space · Kosten van een eenvoudige overboeking, bij L2 zonder L1-aandeel</string>
+    <string name="gas_transfer_cost">Overboeking ≈ %1$s</string>
+</resources>

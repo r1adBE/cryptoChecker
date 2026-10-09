@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo für App-Kopfzeile und Widget (dark) «Glocke pur»: weisse volle Glocke mit
+     ausgesparter Kurslinie und Klöppel auf rundem Grund. 72er-Raster. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="72dp" android:height="72dp"
+    android:viewportWidth="72" android:viewportHeight="72">
+    <path android:pathData="M0,36 a36,36 0 1,0 72,0 a36,36 0 1,0 -72,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="0" android:startY="0" android:endX="72" android:endY="72">
+                <item android:offset="0" android:color="#FF6FA3FF"/>
+                <item android:offset="0.5" android:color="#FF3B78F0"/>
+                <item android:offset="1" android:color="#FF1F4CC0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M0,36 a36,36 0 1,0 72,0 a36,36 0 1,0 -72,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="24" android:centerY="20" android:gradientRadius="46">
+                <item android:offset="0" android:color="#24FFFFFF"/>
+                <item android:offset="1" android:color="#00FFFFFF"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <group android:translateX="0.42" android:translateY="-0.2" android:scaleX="0.06949" android:scaleY="0.06949">
+        <path android:fillType="evenOdd" android:fillColor="#FFFFFFFF"
+            android:pathData="M512,190c-150,0 -215,120 -215,270v130l-75,95h580l-75,-95V460c0,-150 -65,-270 -215,-270zM379.8,579.8L452.63,506.97L513.2,552.4A28,28 0 0,0 550.52,549.05L680.52,409.05A28,28 0 0,0 679.05,369.48A28,28 0 0,0 639.48,370.95L526.63,492.48L466.8,447.6A28,28 0 0,0 430.2,450.2L340.2,540.2A28,28 0 0,0 340.2,579.8A28,28 0 0,0 379.8,579.8zM450,790a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z"/>
+    </group>
+</vector>

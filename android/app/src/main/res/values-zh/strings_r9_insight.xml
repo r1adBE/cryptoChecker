@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">当前亮点</string>
+    <string name="pulse_why_action">为什么？ →</string>
+    <string name="pulse_section_factors">因素</string>
+
+    <string name="pulse_lead_btc_leads">比特币正在引领市场。</string>
+    <string name="pulse_lead_alts_stronger">山寨币强于比特币。</string>
+    <string name="pulse_lead_btc_stronger">比特币强于山寨币。</string>
+    <string name="pulse_lead_broad_up">市场普遍上涨。</string>
+    <string name="pulse_lead_broad_down">市场普遍下跌。</string>
+    <string name="pulse_lead_drift_up">市场小幅上涨。</string>
+    <string name="pulse_lead_drift_down">市场小幅下跌。</string>
+    <string name="pulse_lead_mixed">主流币走势分化。</string>
+    <string name="pulse_lead_calm">市场几乎没有波动。</string>
+
+    <string name="pulse_detail_vol_above">成交量高于平常 %1$d%%。</string>
+    <string name="pulse_detail_vol_above_fund_neutral">成交量高于平常 %1$d%%，资金费率中性。</string>
+    <string name="pulse_detail_vol_above_fund_high">成交量高于平常 %1$d%%，资金费率偏高。</string>
+    <string name="pulse_detail_vol_above_fund_negative">成交量高于平常 %1$d%%，资金费率为负。</string>
+    <string name="pulse_detail_vol_below">成交量低于平常 %1$d%%。</string>
+    <string name="pulse_detail_vol_below_fund_neutral">成交量低于平常 %1$d%%，资金费率中性。</string>
+    <string name="pulse_detail_vol_below_fund_high">成交量低于平常 %1$d%%，资金费率偏高。</string>
+    <string name="pulse_detail_vol_below_fund_negative">成交量低于平常 %1$d%%，资金费率为负。</string>
+    <string name="pulse_detail_vol_normal">成交量正常。</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">成交量正常，资金费率中性。</string>
+    <string name="pulse_detail_vol_normal_fund_high">成交量正常，资金费率偏高。</string>
+    <string name="pulse_detail_vol_normal_fund_negative">成交量正常，资金费率为负。</string>
+    <string name="pulse_detail_fund_neutral">资金费率中性。</string>
+    <string name="pulse_detail_fund_high">资金费率偏高。</string>
+    <string name="pulse_detail_fund_negative">资金费率为负。</string>
+
+    <string name="factor_volume">成交量</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">资金费率</string>
+    <string name="factor_volatility">波动（1h）</string>
+    <string name="factor_spoken_volume">平常的 %1$s 倍</string>
+    <string name="factor_spoken_volatility">平常波动的 %1$s 倍</string>
+
+    <string name="why_title_coin">%1$s 为什么在波动？</string>
+    <string name="why_details">显示详情</string>
+    <string name="why_details_hide">隐藏详情</string>
+    <string name="why_f_market_wide">整个市场在波动</string>
+    <string name="why_f_coin_only">仅此币种</string>
+    <string name="why_f_against">与市场反向</string>
+    <string name="why_f_market_calm">市场平静</string>
+    <string name="why_f_leader">比特币引领方向</string>
+    <string name="why_f_leverage_longs">杠杆：多单较多</string>
+    <string name="why_f_leverage_shorts">杠杆：空单较多</string>
+    <string name="why_f_leverage_balanced">杠杆均衡</string>
+    <string name="insights_dominance_eth">ETH 占总市值 %1$s</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="other">距 %2$s 减半已 %1$d 个月</item>
+    </plurals>
+</resources>

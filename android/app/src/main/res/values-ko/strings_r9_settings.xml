@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_alerts">경보 및 알림</string>
+    <string name="settings_portfolio_tab">포트폴리오 탭 표시</string>
+</resources>

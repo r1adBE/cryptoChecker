@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">価格とアラームを読み上げます。端末が消音モードまたはバイブレーションモードの間は読み上げません。</string>
+</resources>

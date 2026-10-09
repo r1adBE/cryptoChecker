@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Affichage</string>
+    <string name="widget_portfolio_display_conversion">Conversion seule</string>
+    <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>
+    <string name="widget_portfolio_display_hint">La ligne USDT est masquée si la devise de conversion est l\'USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d autre</item>
+        <item quantity="many">+ %1$d autres</item>
+        <item quantity="other">+ %1$d autres</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48 h</string>
+    <string name="widget_portfolio_range_short_48h">48 h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s du portefeuille</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s du portefeuille, aujourd\'hui %4$s</string>
+    <string name="a11y_portfolio_positions">Plus grandes positions : %1$s</string>
+</resources>

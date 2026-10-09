@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einheitliche Auswahl-Listen: Suchfeld der Währungsseite und Hinweis unter «Theme» -->
+    <string name="currency_search">Tìm tiền tệ</string>
+    <string name="settings_accent_hint">Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng.</string>
+</resources>

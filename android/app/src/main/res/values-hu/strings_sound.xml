@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Riasztási hang</string>
+    <string name="settings_alarm_sound_default">Alapértelmezett hang</string>
+    <string name="settings_alarm_sound_custom">Egyéni hang</string>
+    <string name="settings_alarm_sound_system">Rendszerhang kiválasztása…</string>
+    <string name="settings_alarm_sound_file">Saját hangfájl…</string>
+    <string name="settings_alarm_sound_reset">Alapértelmezett hang használata</string>
+    <string name="settings_alarm_sound_error">A hang nem használható.</string>
+</resources>

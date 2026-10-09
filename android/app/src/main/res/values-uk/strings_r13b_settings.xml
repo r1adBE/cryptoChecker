@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Ринкові сповіщення</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d активне</item>
+        <item quantity="few">%1$d активні</item>
+        <item quantity="many">%1$d активних</item>
+        <item quantity="other">%1$d активних</item>
+    </plurals>
+    <string name="settings_summary_on">Увімк.</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker тепер стежить за %1$s для вас. Коли %1$s досягне вашої межі, ви отримаєте сповіщення, щойно застосунок перевірить ціну. Коли застосунок закрито, це відбувається з інтервалом фонового оновлення – пізніше, якщо оптимізація батареї обмежує застосунок.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker тепер стежить за %1$s для вас. Ви отримаєте сповіщення, щойно застосунок перевірить ціну. Коли застосунок закрито, iOS вирішує, коли це станеться, – це може тривати якийсь час. Поки застосунок відкрито, ціни перевіряються вчасно.</string>
+
+    <string name="about_request_exchange">Запропонувати біржу</string>
+    <string name="explorer_exchange_missing">Бракує біржі?</string>
+</resources>

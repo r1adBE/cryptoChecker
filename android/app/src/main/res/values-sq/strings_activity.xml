@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Diçka po ndodh tani</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Aktivitet i pazakontë</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Lëvizje e pazakontë: %1$s brenda një ore (%2$s× normales)</string>
+    <string name="activity_signal_volume">Vëllimi %1$s× normales në orën e fundit</string>
+    <string name="activity_signal_open_interest">Open interest %1$s brenda %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s — shumë long me levë</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shumë short</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Njofto aktivitetin e pazakontë</string>
+    <string name="settings_activity_alerts_hint">Më së shumti një herë në orë për çift: lëvizje të pazakonta çmimi, kërcime vëllimi dhe ekstreme në futures (të dhëna nga Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Pse po lëviz?</string>
+    <string name="why_title">Pse po lëviz?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Vlerësim automatik nga të dhënat e tregut, jo këshillë investimi.</string>
+    <string name="why_data_time">Të dhëna të %1$s</string>
+    <string name="why_no_data">Nuk ka të dhëna nga Binance për këtë çift</string>
+    <string name="why_no_data_hint">Çmimi, vëllimi dhe luhatshmëria vijnë nga qirinjtë orarë të Binance.</string>
+
+    <string name="why_market_wide_text">Kjo monedhë: %1$s në 24 orë — shtytësi ka të ngjarë të jetë tregu në tërësi, jo vetë monedha.</string>
+    <string name="why_coin_only_text">%1$s në 24 orë ndërsa tregu është i qetë: arsyeja ka të ngjarë të lidhet me vetë monedhën.</string>
+    <string name="why_against_market_text">Kjo monedhë %1$s, BTC %2$s në 24 orë — një lëvizje dukshëm e pavarur.</string>
+    <string name="why_market_calm_text">Kjo monedhë: %1$s në 24 orë. As tregu, as monedha nuk lëvizin shumë.</string>
+    <string name="why_market_leader_text">Si lider i tregut, BTC zakonisht tërheq pas vetes pjesën tjetër të tregut. ETH: %1$s në 24 orë.</string>
+    <string name="why_market_leader_text_no_eth">Si lider i tregut, BTC zakonisht tërheq pas vetes pjesën tjetër të tregut.</string>
+
+    <string name="why_volume_high_text">Shumë më tepër tregtim se zakonisht në orën e fundit — lëvizja ka mbështetje të gjerë.</string>
+    <string name="why_volume_low_text">Lëvizja është e dobët dhe mund të kthehet shpejt.</string>
+    <string name="why_volume_normal_text">Tregtimi i orës së fundit përputhet me 24 orët e fundit.</string>
+
+    <string name="why_leverage_longs_text">Long-et paguajnë short-et — rrezik më i lartë likuidimesh nëse çmimi bie.</string>
+    <string name="why_leverage_shorts_text">Short-et paguajnë long-et — një çmim në rritje mund të shkaktojë short squeeze.</string>
+    <string name="why_leverage_balanced_text">Asnjë grumbullim pozicionesh long apo short në tregun e futures.</string>
+    <string name="why_open_interest_change">Open interest %1$s që nga kontrolli i fundit.</string>
+
+    <string name="why_volatility_high_text">Ora e fundit: %1$s — krahasuar me luhatjen tipike orare të 24 orëve të fundit.</string>
+    <string name="why_volatility_normal_text">Ora e fundit: %1$s — brenda kufijve të zakonshëm.</string>
+
+    <string name="why_sentiment_text">Indeksi Fear &amp; Greed i gjithë tregut kripto, %1$s krahasuar me dje.</string>
+    <string name="why_sentiment_text_no_change">Indeksi Fear &amp; Greed i gjithë tregut kripto.</string>
+</resources>

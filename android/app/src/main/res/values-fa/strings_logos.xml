@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">لوگوی ارزها</string>
+    <string name="settings_coin_logos_app">در برنامه</string>
+    <string name="settings_coin_logos_app_hint">واچ‌لیست، برگهٔ جفت و کارت‌های بازار</string>
+    <string name="settings_coin_logos_portfolio">در پرتفوی</string>
+    <string name="settings_coin_logos_portfolio_hint">موقعیت‌ها، جزئیات ارز و تحلیل‌ها</string>
+    <string name="settings_coin_logos_widgets">در ابزارک‌ها</string>
+    <string name="settings_coin_logos_widgets_hint">ابزارک‌های واچ‌لیست و تک‌ارز</string>
+    <string name="settings_coin_logos_footer">لوگوها از CoinGecko می‌آیند و برای آنچه CoinGecko ندارد (مثلاً طلا، نقره، سهام) از Binance. برنامه همه لوگوها را یک‌جا بارگیری و روی همین دستگاه نگه می‌دارد، بنابراین هیچ‌کدام نمی‌دانند کدام ارزها را دنبال می‌کنید. ارزهای بدون لوگو حروف اول خود را نشان می‌دهند. موارد دلخواه یک ستاره کوچک روی لوگو می‌گیرند. جایی که کلیدی خاموش است، نه لوگو نمایش داده می‌شود نه حروف اول؛ اگر همه خاموش باشند، چیزی بارگیری نمی‌شود.</string>
+    <string name="settings_coin_logos_value_app">برنامه</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_settings -->
+    <string name="settings_group_alerts">提醒与通知</string>
+    <string name="settings_portfolio_tab">显示“投资组合”标签页</string>
+</resources>

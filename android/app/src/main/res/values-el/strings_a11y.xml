@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Χρώματα τιμών</string>
+    <string name="settings_price_colors_hint">Το μπλε / πορτοκαλί ξεχωρίζει εύκολα σε κάθε μορφή δυσχρωματοψίας (κόκκινου-πράσινου και μπλε-κίτρινου). Η κατεύθυνση εμφανίζεται επίσης πάντα με + / −.</string>
+    <string name="settings_watchlist_sparkline">Μίνι γράφημα στη λίστα</string>
+    <string name="settings_watchlist_sparkline_hint">Τάση 24 ωρών δίπλα στην τιμή</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Υψηλή αντίθεση</string>
+    <string name="settings_high_contrast_hint">Πιο έντονα χρώματα τιμών και πιο σκούρο δευτερεύον κείμενο. Ενεργή και όταν το σύστημα ζητά περισσότερη αντίθεση.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s στο %2$s</string>
+    <string name="a11y_price">τιμή %1$s</string>
+    <string name="a11y_change_up">άνοδος %1$s</string>
+    <string name="a11y_change_down">πτώση %1$s</string>
+    <string name="a11y_change_flat">χωρίς μεταβολή</string>
+    <string name="a11y_converted">περίπου %1$s</string>
+    <string name="a11y_note">σημείωση: %1$s</string>
+    <string name="a11y_alarm_count">ειδοποιήσεις τιμής: %1$d</string>
+    <string name="a11y_stale">μη ενημερωμένα, τελευταία ενημέρωση %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Γράφημα %1$s: από %2$s σε %3$s, %4$s. Υψηλό %5$s, χαμηλό %6$s.</string>
+    <string name="a11y_chart_empty">Γράφημα: δεν υπάρχουν δεδομένα</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Κύκλος %1$s: %2$s από το halving, ημέρα %3$d.</string>
+    <string name="a11y_cycle_top">Κορυφή %1$s την ημέρα %2$d.</string>
+    <string name="a11y_cycle_bottom">Πάτος %1$s την ημέρα %2$d.</string>
+    <string name="a11y_cycle_double_top">Διπλή κορυφή %1$s την ημέρα %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Διπλός πάτος %1$s την ημέρα %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Κλίμακα από %1$s έως %2$s: %3$d από 100</string>
+</resources>

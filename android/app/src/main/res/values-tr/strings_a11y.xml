@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Fiyat renkleri</string>
+    <string name="settings_price_colors_hint">Mavi / turuncu her renk görme bozukluğunda (kırmızı-yeşil ve mavi-sarı) kolayca ayırt edilir. Yön ayrıca her zaman + / − ile gösterilir.</string>
+    <string name="settings_watchlist_sparkline">İzleme listesinde mini grafik</string>
+    <string name="settings_watchlist_sparkline_hint">Fiyatın yanında 24 saatlik eğilim</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Yüksek kontrast</string>
+    <string name="settings_high_contrast_hint">Daha güçlü fiyat renkleri ve daha koyu ikincil metin. Sistem daha fazla kontrast istediğinde de açılır.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, borsa: %2$s</string>
+    <string name="a11y_price">fiyat %1$s</string>
+    <string name="a11y_change_up">%1$s yükseliş</string>
+    <string name="a11y_change_down">%1$s düşüş</string>
+    <string name="a11y_change_flat">değişmedi</string>
+    <string name="a11y_converted">yaklaşık %1$s</string>
+    <string name="a11y_note">not: %1$s</string>
+    <string name="a11y_alarm_count">alarmlar: %1$d</string>
+    <string name="a11y_stale">güncel değil, son güncelleme %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafik %1$s: başlangıç %2$s, bitiş %3$s, %4$s. En yüksek %5$s, en düşük %6$s.</string>
+    <string name="a11y_chart_empty">Grafik: veri yok</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Döngü %1$s: yarılanmadan bu yana %2$s, %3$d. gün.</string>
+    <string name="a11y_cycle_top">%2$d. günde zirve %1$s.</string>
+    <string name="a11y_cycle_bottom">%2$d. günde dip %1$s.</string>
+    <string name="a11y_cycle_double_top">%2$d. günde ikili zirve %1$s.</string>
+    <string name="a11y_cycle_double_bottom">%2$d. günde ikili dip %1$s.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s ile %2$s arası ölçek: 100 üzerinden %3$d</string>
+</resources>

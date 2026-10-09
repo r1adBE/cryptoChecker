@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">今日异动</string>
+    <string name="unusual_nothing">今日无明显异动</string>
+    <string name="unusual_fact_stronger">波动明显强于 BTC</string>
+    <string name="unusual_fact_weaker">波动明显弱于 BTC</string>
+    <string name="unusual_fact_against">与大盘反向</string>
+    <string name="unusual_fact_volume">成交量为平时的 %1$s×</string>
+    <string name="unusual_fact_funding_high">资金费率偏高（%1$s）</string>
+    <string name="unusual_fact_funding_negative">资金费率为负（%1$s）</string>
+    <string name="unusual_source">约 30 个最大币种（不含稳定币）· Binance、CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s，%2$s。%3$s。</string>
+    <string name="unusual_action_why">为什么在波动？</string>
+    <string name="unusual_action_add">查找要添加的交易对</string>
+
+    <string name="macro_title">经济数据</string>
+    <string name="macro_cpi">美国消费者物价指数（CPI）</string>
+    <string name="macro_ppi">美国生产者物价指数（PPI）</string>
+    <string name="macro_nfp">美国非农就业报告</string>
+    <string name="macro_fomc">美联储利率决议</string>
+    <string name="macro_pce">美国 PCE 物价指数</string>
+    <string name="macro_hint_today">今天 %1$s：%2$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_tomorrow">明天 %1$s：%2$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_today_list">今天：%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_tomorrow_list">明天：%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_list">%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_released_one">今天 %1$s 公布：%2$s。</string>
+    <string name="macro_released_list">今天公布：%1$s。</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">今天 %1$s %2$s</string>
+    <string name="macro_item_tomorrow">明天 %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">经济日历</string>
+    <string name="settings_macro_notifications_hint">在有重要美国经济数据（通胀、就业报告、美联储利率决议）的日子 08:00 提醒。日历每天从应用网站加载一次。</string>
+    <string name="notification_macro_title">今日有经济数据</string>
+</resources>

@@ -1,0 +1,35 @@
+Versie 16.2.2
+• Crypto Pulse: wat er nu in de markt gebeurt
+• ‘Waarom beweegt dit?’: een verklaring van koersbewegingen op basis van data, met korte samenvatting
+• Alarm testen: geluid, trillen en spraak
+• Omgerekende koersen: een tweede regel ‘≈ waarde’ in je omrekenvaluta – 31 valuta zoals EUR, CHF, USD, GBP of JPY, standaard passend bij de regio van je toestel
+• Alarmen in je eigen valuta, bijv. bij 60.000 EUR op een USDT-paar
+• Peildatum-export: de waarde van je portfolio op elke gewenste datum, bijv. 31 december, in je eigen valuta als CSV-bestand – handig voor je belastingaangifte (geen belastingadvies)
+• Toegankelijkheid: blauw/oranje, goed te onderscheiden bij elke kleurenzienstoornis (rood-groen en blauw-geel); ‘Kleuren stijging/daling omwisselen’: rood stijgt, groen daalt, zoals gebruikelijk in China, Japan, Korea en Taiwan (daar automatisch aan); ‘Hoog contrast’: krachtigere koerskleuren, donkerdere secundaire tekst en accentkleur, volgt ook de systeeminstelling; volledige VoiceOver-ondersteuning: elke regel, grafiek en widget wordt als één zin voorgelezen
+• Minigrafiek in elke regel: het 24-uursverloop naast de koers
+• ‘Begin met één tik’: een lege volglijst biedt de 5 grootste coins naar marktwaarde aan (zonder stablecoins)
+• De startlijst toont live koers en 24-uursverandering – alle vijf vooraf geselecteerd, toevoegen met één knop
+• Veeg naar links om te verwijderen (met Ongedaan maken), naar rechts voor een favoriet
+• Het tabblad Markt opent direct met de laatste gegevens en ververst op de achtergrond
+• Stille uren: ’s nachts (bijv. 23–7 uur) komen alarmen stil binnen – zonder geluid, trilling of spraak
+• Portfolio-vergrendeling met Face ID, Touch ID of toegangscode
+• Portfolio-widget voor beginscherm en toegangsscherm: totale waarde in je valuta en verandering vandaag
+• Elk alarm als zin: ‘Laat het me weten als BTC onder 60.000 CHF daalt.’
+• Korte uitleg bij funding rate, open interest, RSI en Pi Cycle
+• Regels tonen ‘verouderd’ of ‘beurs niet bereikbaar’ als een koers niet actueel is
+• 15 nieuwe beurzen: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Netwerkkosten voor Ethereum, Base, Arbitrum, Polygon, BNB Chain en Bitcoin op het tabblad Markt, met gasalarm
+• Notitie per munt in je volglijst
+• Kies een alarmgeluid
+• Ongewone activiteit: spot ongebruikelijke koers- en volumebewegingen, optionele meldingen
+• Portfolio als eigen tabblad: aankopen en verkopen, gemiddelde prijs, winst/verlies
+• Vergelijking van cycli: toppen en bodems gemarkeerd, incl. dubbele toppen en dubbele bodems
+• Groepen voor je volglijst
+• Nieuwe alarmen: beweging van X % binnen Y uur en volumepiek
+• Widget voor één munt: candles of lijn, grafiekperiode 24 uur, 7 of 30 dagen, markeringen voor hoog, midden en laag, huidige koers uitgelicht
+• Tabblad Markt: totale marktwaarde van de cryptomarkt en 24-uursvolume in je eigen valuta
+• Futures: funding rate en open interest
+• Vijf accentkleuren met bijpassende appsymbolen
+• Aandelen, goud, grondstoffen en valuta als futures (TradFi) bij Binance, Bybit, OKX, MEXC en Bitget – via een schakelaar onder Instellingen › Volglijst; nieuwe paren komen in de groep ‘TradFi’, futures met looptijd in ‘QTLY’
+• %-verandering zoals bij Binance: laatste 24 uur, sinds de laatste update, sinds 00:00 in de tijdzone van je toestel of in een vaste zone van UTC+14 tot UTC-12
+• Duidelijkere namen: ‘Vaak bijwerken’ en ‘Livekoersen’

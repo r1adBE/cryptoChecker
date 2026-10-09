@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Dağılım</string>
+    <string name="portfolio_allocation_other">Diğer</string>
+    <string name="portfolio_movers_title">En büyük hareketler</string>
+    <string name="portfolio_hide_amounts">Tutarları gizle</string>
+    <string name="portfolio_hide_amounts_hint">Portföydeki ve portföy widget’ındaki tutarları ve değerleri ••• olarak gösterir – yüzdeler görünür kalır.</string>
+    <string name="a11y_portfolio_show_amounts">Tutarları göster</string>
+    <string name="a11y_amount_hidden">tutar gizli</string>
+    <string name="portfolio_alarm_action">Alarm</string>
+    <string name="portfolio_alarm_title">Portföy değeri alarmı</string>
+    <string name="portfolio_alarm_kind_above">Portföy tutarın üstünde</string>
+    <string name="portfolio_alarm_kind_below">Portföy tutarın altında</string>
+    <string name="portfolio_alarm_kind_up">Portföy yükselir</string>
+    <string name="portfolio_alarm_kind_down">Portföy düşer</string>
+    <string name="portfolio_alarm_amount">Tutar (%1$s)</string>
+    <string name="portfolio_alarm_hint">Her yenilemeden sonra kontrol edilir. Fiyat alarmları gibi: eşik aşıldığında tetiklenir, yeniden ancak değer geri döndükten sonra tetiklenir.</string>
+    <string name="portfolio_alarm_sentence_above">Portföy %1$s üstünde</string>
+    <string name="portfolio_alarm_sentence_below">Portföy %1$s altında</string>
+    <string name="portfolio_alarm_sentence_up">Portföy %1$s yükseldi (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portföy %1$s düştü (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Portföy değeri</string>
+    <string name="notification_portfolio_alarm_text">%1$s – şimdi %2$s</string>
+</resources>

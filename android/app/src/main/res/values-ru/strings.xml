@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_error_generic_prefix">Ошибка: %1$s</string>
+
+    <string name="checker_add_check_currency_empty_warning_title">Нет валютных пар</string>
+    <string name="checker_add_check_currency_empty_warning_summary">Загружает актуальные пары выбранной биржи.</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_title">Обновить валютные пары</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_synchronize">Синхронизировать!</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync">Последняя синхронизация: %1$s</string>
+    <string name="checker_add_dynamic_currency_pairs_dialog_last_sync_never">никогда</string>
+
+    <string name="market_screen_sync">Обновить</string>
+    <string name="market_screen_base">Базовая</string>
+    <string name="market_screen_quote">Котируемая</string>
+    <string name="market_screen_market">Рынок</string>
+    <string name="market_screen_contract_type">Тип контракта</string>
+    <string name="market_screen_spot">Спот</string>
+
+    <string name="ticker_high">Макс.</string>
+    <string name="ticker_low">Мин.</string>
+    <string name="ticker_bid">Покупка</string>
+    <string name="ticker_ask">Продажа</string>
+    <string name="ticker_vol_base">Объём (базовая)</string>
+    <string name="ticker_vol_quote">Объём (котируемая)</string>
+    <string name="ticker_timestamp">Время</string>
+
+
+    <string name="try_again">Повторить</string>
+    <string name="no_internet_connection">Нет подключения к интернету</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+
+    <string name="bulk_all_pairs">Все пары %1$s этой биржи</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Найдена %1$d пара %2$s</item>
+        <item quantity="few">Найдено %1$d пары %2$s</item>
+        <item quantity="many">Найдено %1$d пар %2$s</item>
+        <item quantity="other">Найдено %1$d пары %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">На этой бирже нет пар %1$s для выбранного типа контракта. Сначала синхронизируйте биржу или выберите другой тип контракта.</string>
+
+    <!-- Aktionen -->
+    <string name="action_refresh">Обновить</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_edit">Изменить</string>
+    <string name="action_back">Назад</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_cancel">Отмена</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Пар пока нет</string>
+    <string name="watchlist_updated">Обновлено: %1$s</string>
+    <string name="watchlist_notification">Уведомление</string>
+    <string name="watchlist_tts">Озвучивать цену</string>
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Оповещение (%1$d)</item>
+        <item quantity="few">Оповещения (%1$d)</item>
+        <item quantity="many">Оповещения (%1$d)</item>
+        <item quantity="other">Оповещения (%1$d)</item>
+    </plurals>
+
+    <!-- Alarme -->
+    <string name="alarms_title">Оповещения</string>
+    <string name="alarms_add">Новое оповещение</string>
+    <string name="alarms_edit">Изменить оповещение</string>
+    <string name="alarms_empty">Для этой пары пока нет оповещений.</string>
+    <string name="alarm_condition_above">Цена выше</string>
+    <string name="alarm_condition_below">Цена ниже</string>
+    <string name="alarm_condition_up_percent">Рост на</string>
+    <string name="alarm_condition_down_percent">Падение на</string>
+    <string name="alarm_repeating">Повторяющееся</string>
+    <string name="alarm_once">Однократно</string>
+    <string name="alarm_last_triggered">последнее в %1$s</string>
+    <string name="alarm_field_price">Цена</string>
+    <string name="alarm_field_percent">Процент</string>
+    <string name="alarm_option_repeating">Сохранять после срабатывания</string>
+    <string name="alarm_option_sound">Звук</string>
+    <string name="alarm_option_vibrate">Вибрация</string>
+    <string name="alarm_option_speak">Озвучивать оповещение</string>
+
+    <!-- Benachrichtigungen -->
+    <string name="channel_prices">Цены</string>
+    <string name="channel_prices_description">Беззвучное уведомление с текущей ценой пары.</string>
+    <string name="channel_alarms">Оповещения</string>
+    <string name="channel_alarms_description">Уведомление при срабатывании ценового оповещения.</string>
+    <string name="channel_service">Частое обновление</string>
+    <string name="channel_service_description">Уведомление, пока цены обновляются с коротким интервалом.</string>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_price_change">%1$s, с %2$s (%3$s назад)</string>
+    <string name="notification_price_change_no_age">%1$s, с %2$s</string>
+    <string name="notification_price_first">Первое уведомление для этой пары</string>
+    <string name="notification_alarm_title">Оповещение: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — сейчас %2$s</string>
+    <string name="market_phase_title">Фаза рынка биткоина</string>
+    <string name="market_phase_trend_loading">Загрузка данных о ценах…</string>
+    <string name="market_phase_trend_failed">Данные о ценах недоступны</string>
+    <string name="zone_extreme_bear">Extreme Bear</string>
+    <string name="zone_bear">Bear</string>
+    <string name="zone_neutral">Neutral</string>
+    <string name="zone_bull">Bull</string>
+    <string name="zone_extreme_bull">Extreme Bull</string>
+    <string name="zone_hint_extreme_bear">Много исторических сигналов дна одновременно – историческая зона накопления.</string>
+    <string name="zone_hint_bear">Нисходящий тренд или формирование дна, пока без массовой капитуляции.</string>
+    <string name="zone_hint_neutral">Смешанные сигналы, нет чёткого направления.</string>
+    <string name="zone_hint_bull">Восходящий тренд без экстремального перегрева.</string>
+    <string name="zone_hint_extreme_bull">Много исторических сигналов вершины одновременно – повышенный риск вершины.</string>
+    <string name="market_scores">Признаки возможной вершины %1$d/10 · дна %2$d/10</string>
+    <string name="market_show_indicators">Показать индикаторы</string>
+    <string name="market_hide_indicators">Скрыть индикаторы</string>
+    <string name="market_onchain_missing">Ончейн-данные (Coin Metrics) сейчас недоступны – оценка только по ценам.</string>
+    <string name="market_source">Данные: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="ind_ma200w">Цена к 200-недельной средней</string>
+    <string name="ind_drawdown">Падение от исторического максимума</string>
+    <string name="ind_hash">Капитуляция майнеров (hash ribbons)</string>
+    <string name="ind_parabolic">Параболический рост (30 дней)</string>
+    <string name="ind_halving">Месяцев после халвинга</string>
+    <string name="ind_ath">Месяцев после исторического максимума</string>
+    <string name="ind_points_top">+%1$d вершина</string>
+    <string name="ind_points_bottom">+%1$d дно</string>
+    <string name="market_phase_disclaimer">На основе прошлых циклов и ценового тренда. Не прогноз и не инвестиционная рекомендация.</string>
+    <string name="action_retry">Повторить</string>
+    <string name="settings_section_language">Язык</string>
+    <string name="settings_language_system">Язык системы</string>
+    <string name="settings_language_choose">Выбрать язык</string>
+    <string name="settings_section_appearance">Оформление</string>
+    <string name="settings_theme_mode">Режим</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="settings_accent">Тема</string>
+    <string name="accent_orange">Оранжевый</string>
+    <string name="accent_red">Красный</string>
+    <string name="accent_blue">Синий</string>
+    <string name="accent_green">Зелёный</string>
+    <string name="settings_rolling_futures">Вкл. квартальные и другие срочные фьючерсы</string>
+    <string name="settings_rolling_futures_hint">Выкл.: срочные фьючерсы, которых нет в списке биржи, помечаются как неторгуемые, а не проверяются по одному. Экономит время при каждом обновлении.</string>
+    <string name="notification_refreshing">Обновление цен…</string>
+    <string name="notification_service_title">Crypto Checker часто обновляет котировки</string>
+    <string name="notification_service_starting">Запуск…</string>
+    <plurals name="notification_service_running">
+        <item quantity="one">%1$d пара · %2$s</item>
+        <item quantity="few">%1$d пары · %2$s</item>
+        <item quantity="many">%1$d пар · %2$s</item>
+        <item quantity="other">%1$d пары · %2$s</item>
+    </plurals>
+    <string name="notification_service_empty">В списке нет пар</string>
+    <string name="notification_service_error">Ошибка обновления</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_background_updates">Фоновые обновления</string>
+    <string name="settings_background_updates_hint">Цены, оповещения и виджеты обновляются, даже когда приложение закрыто.</string>
+    <string name="settings_background_interval">Интервал</string>
+    <string name="settings_live_service">Обновлять часто</string>
+    <string name="settings_live_service_hint">Запрашивает котировки с короткими интервалами, даже когда приложение закрыто. Показывает уведомление и расходует больше заряда.</string>
+    <string name="settings_live_interval">Как часто</string>
+    <string name="settings_minutes">%1$d мин</string>
+    <string name="settings_seconds">%1$d с</string>
+    <string name="settings_price_notifications">Уведомления о цене</string>
+    <string name="settings_price_notifications_hint">Показывать текущую цену включённых пар в строке состояния.</string>
+    <string name="settings_ongoing_notifications">Нельзя смахнуть</string>
+    <string name="settings_ongoing_notifications_hint">Уведомления о цене остаются закреплёнными.</string>
+    <string name="settings_notification_change">Уведомлять только при изменении цены</string>
+    <string name="settings_notification_change_always">Всегда</string>
+    <string name="settings_notification_change_hint">Уведомление появится, только когда цена изменится хотя бы на эту величину с момента предыдущего. Пока данных нет, ничего не показывается. На оповещения не влияет.</string>
+    <string name="settings_alarm_cooldown">Пауза перед повторным срабатыванием</string>
+    <string name="settings_tts">Озвучивание</string>
+    <string name="settings_tts_alarms_only">Только оповещения</string>
+    <string name="settings_tts_alarms_only_hint">Выкл.: озвучивается каждое обновление пары с отметкой «Озвучивать цену».</string>
+    <string name="settings_speech_rate">Скорость речи: %1$.1f×</string>
+    <string name="settings_tts_test">Проверить голос</string>
+    <string name="battery_title">Актуальные цены</string>
+    <string name="battery_message">Android откладывает фоновую работу ради экономии энергии — тогда цены и виджеты могут отставать на несколько часов. Неограниченный расход батареи сохраняет их актуальными. Это можно изменить в любой момент в настройках Android.</string>
+    <string name="battery_later">Позже</string>
+    <string name="settings_battery_ok">Расход батареи: без ограничений</string>
+    <string name="settings_battery_restricted">Расход батареи: ограничен</string>
+    <string name="settings_battery_hint">При ограничении Android может откладывать фоновые обновления на несколько часов.</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Показывает цену пары из списка.</string>
+    <string name="widget_empty">В списке пока нет пар.</string>
+    <string name="widget_opacity">Непрозрачность фона: %1$d%%</string>
+    <string name="settings_section_about">О приложении</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_license">Цены поступают напрямую с бирж; без аккаунта и без отслеживания.</string>
+
+    <!-- Markets -->
+    <string name="dex_intro">Токены вне крупных бирж, с децентрализованных бирж (Uniswap, PancakeSwap, Raydium …) через DexScreener. Найдите токен и добавьте его торговый пул – цены в долларах США.</string>
+    <string name="dex_search_hint">Название, символ или адрес токена</string>
+    <string name="dex_search">Поиск</string>
+    <string name="dex_no_results">Пулы не найдены.</string>
+    <string name="dex_added">%1$s добавлен в список.</string>
+    <string name="dex_already">%1$s уже в списке.</string>
+    <string name="dex_liquidity">Ликвидность %1$s</string>
+    <string name="dex_add">Добавить</string>
+    <string name="action_sort">Сортировка</string>
+    <string name="action_sort_done">Готово</string>
+    <string name="sort_move_top">В самый верх</string>
+    <string name="sort_move_up">Вверх</string>
+    <string name="sort_move_down">Вниз</string>
+    <string name="sort_move_bottom">В самый низ</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Добавить %1$d пару в список</item>
+        <item quantity="few">Добавить все %1$d пары в список</item>
+        <item quantity="many">Добавить все %1$d пар в список</item>
+        <item quantity="other">Добавить все %1$d пары в список</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">Добавлено: %1$d, уже в списке: %2$d.</item>
+        <item quantity="few">Добавлено: %1$d, уже в списке: %2$d.</item>
+        <item quantity="many">Добавлено: %1$d, уже в списке: %2$d.</item>
+        <item quantity="other">Добавлено: %1$d, уже в списке: %2$d.</item>
+    </plurals>
+    <string name="explorer_add_to_watchlist">Добавить в список</string>
+    <string name="explorer_added_to_watchlist">Добавлено в список.</string>
+    <string name="explorer_already_in_watchlist">Эта пара уже в списке.</string>
+    <string name="explorer_no_pair_selected">Сначала выберите пару.</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+    <string name="tts_alarm">Оповещение. %1$s, %2$s %3$s %4$s, сейчас %5$s</string>
+    <string name="tts_direction_up">вырос</string>
+    <string name="tts_direction_down">упал</string>
+    <string name="watchlist_refresh_report">Последнее обновление</string>
+    <string name="watchlist_refresh_report_empty">Сводки пока нет: эта версия ещё не завершила полное обновление. Нажмите «Обновить» и дождитесь, пока индикатор остановится.</string>
+    <string name="action_close">Закрыть</string>
+    <string name="watchlist_clear">Очистить список</string>
+    <string name="watchlist_clear_confirm">Удалить все пары из списка? Их оповещения тоже будут удалены.</string>
+    <string name="market_scores_hint">Вершина – признаки как на прошлых вершинах цикла, дно – признаки как на прошлых минимумах цикла. От 4 баллов преобладает одна сторона, от 7 – экстремально. Не целевая цена и не прогноз.</string>
+    <string name="market_scores_none">Признаков вершины или дна нет: спокойная средняя фаза, решает ценовой тренд.</string>
+    <string name="market_scores_info_title">Сигналы цикла</string>
+    <string name="market_scores_info_text">Признаки возможной вершины – это сигналы, наблюдавшиеся на вершинах прошлых циклов: сильная переоценка (MVRV), очень высокий доход майнеров (Puell), цена намного выше 200-дневной или 200-недельной средней, параболический рост и окно 12–18 месяцев после халвинга.\n\nПризнаки возможного дна – это сигналы прошлых минимумов цикла: низкий MVRV, слабый доход майнеров, сильное падение от исторического максимума, цена около 200-недельной средней, падающий хешрейт и максимум более года назад.\n\nПри перевесе от 4 баллов зона Bull или Bear, от 7 – Extreme. Если ни одна сторона не лидирует, решает ценовой тренд. 0/10 с обеих сторон означает: ни эйфории, ни капитуляции.\n\nНе целевая цена и не прогноз: сигналы лишь описывают, как выглядели прошлые циклы.</string>
+    <string name="battery_open_settings">Открыть настройки батареи</string>
+    <string name="battery_steps">В сведениях о приложении нажмите «Батарея» (или «Расход заряда батареи») и выберите «Без ограничений».</string>
+    <string name="explorer_select_placeholder">Выберите</string>
+    <string name="explorer_bulk_title">Несколько пар сразу</string>
+    <string name="watchlist_sort_hint">Удерживайте и перетащите пару или используйте ручку. Избранное остаётся вверху.</string>
+    <string name="sort_drag_handle">Перетащите, чтобы переместить</string>
+    <string name="explorer_step_pair">Выбор пары</string>
+    <string name="theme_system">Системная</string>
+    <string name="settings_section_developer">Разработчик</string>
+    <string name="settings_http_log">Показывать журнал HTTP</string>
+    <string name="settings_http_log_hint">Показывает внизу страницы «Добавить пару» запросы к биржам – для диагностики.</string>
+    <string name="language_search">Поиск языка</string>
+    <string name="alarm_delete_title">Удалить оповещение?</string>
+    <string name="alarm_delete_confirm">Это оповещение будет удалено.</string>
+    <string name="alarms_overview_title">Все оповещения</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">Активно: %1$d</item>
+        <item quantity="few">Активно: %1$d</item>
+        <item quantity="many">Активно: %1$d</item>
+        <item quantity="other">Активно: %1$d</item>
+    </plurals>
+    <string name="alarms_overview_empty">Оповещений пока нет. Откройте пару и добавьте его в разделе «Оповещения».</string>
+    <string name="action_more">Другие действия</string>
+    <string name="watchlist_last_run">Последний проход %1$s</string>
+    <string name="watchlist_pull_to_refresh">Потяните вниз, чтобы обновить</string>
+    <string name="favorite_add">Добавить в избранное</string>
+    <string name="favorite_remove">Убрать из избранного</string>
+    <string name="action_view">Открыть</string>
+    <string name="explorer_loading_pairs">Загрузка торговых пар…</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d пара · обновлено %2$s</item>
+        <item quantity="few">%1$d пары · обновлено %2$s</item>
+        <item quantity="many">%1$d пар · обновлено %2$s</item>
+        <item quantity="other">%1$d пары · обновлено %2$s</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Добавить %1$d пару?</item>
+        <item quantity="few">Добавить %1$d пары?</item>
+        <item quantity="many">Добавить %1$d пар?</item>
+        <item quantity="other">Добавить %1$d пары?</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d пара %2$s биржи %3$s будет добавлена в список, если её там ещё нет.</item>
+        <item quantity="few">Все %1$d пары %2$s биржи %3$s будут добавлены в список. Уже добавленные пропускаются.</item>
+        <item quantity="many">Все %1$d пар %2$s биржи %3$s будут добавлены в список. Уже добавленные пропускаются.</item>
+        <item quantity="other">Все %1$d пары %2$s биржи %3$s будут добавлены в список. Уже добавленные пропускаются.</item>
+    </plurals>
+    <string name="explorer_bulk_tap_hint">Коснитесь пары, чтобы выбрать её выше.</string>
+    <string name="loading_hint">Загрузка…</string>
+    <string name="explorer_select_market_hint">Выберите биржу – её пары загрузятся автоматически.</string>
+    <string name="explorer_precise_title">Точный выбор</string>
+    <string name="explorer_search_hint">Поиск монеты, напр. BTC или ETH USDT</string>
+    <string name="explorer_search_loading">Поиск по биржам… %1$d/%2$d</string>
+    <string name="explorer_search_empty">Ничего не найдено.</string>
+    <string name="action_clear">Очистить</string>
+    <string name="explorer_bulk_show_list">Показать список</string>
+    <string name="explorer_bulk_hide_list">Скрыть список</string>
+    <string name="time_just_now">только что</string>
+    <string name="welcome_text">Ваши курсы. Ваши оповещения. Ваш обзор.\nБез аккаунта. Без рекламы. Без отслеживания.</string>
+    <string name="developer_unlocked">Параметры разработчика открыты</string>
+    <string name="hint_favorites_list">Совет: коснитесь ☆, чтобы добавить в избранное – избранное остаётся вверху.</string>
+    <string name="tab_watchlist">Список</string>
+    <string name="tab_market_phase">Рынок</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">Устарело: %1$d из %2$d</item>
+        <item quantity="few">Устарело: %1$d из %2$d</item>
+        <item quantity="many">Устарело: %1$d из %2$d</item>
+        <item quantity="other">Устарело: %1$d из %2$d</item>
+    </plurals>
+    <string name="watchlist_all_fresh">Всё актуально · %1$s</string>
+    <string name="explorer_price_loading">Загрузка курса…</string>
+    <string name="zone_top_risk">Риск вершины</string>
+    <string name="zone_bottom_chance">Формирование дна</string>
+    <string name="timeout_error_message">Биржа сейчас не отвечает.</string>
+    <string name="widget_background">Фон</string>
+    <string name="widget_configure_title">Настройка виджета</string>
+    <string name="widget_configure_hint">Выберите фон и прозрачность. Цвет как в приложении. Виджет показывает весь список; коснитесь строки, чтобы открыть приложение.</string>
+    <string name="settings_custom_value">Своё</string>
+    <string name="insights_halving_title">Халвинг биткоина</string>
+    <plurals name="insights_halving_countdown">
+        <item quantity="one">Следующий халвинг примерно через %1$d день (%2$s)</item>
+        <item quantity="few">Следующий халвинг примерно через %1$d дня (%2$s)</item>
+        <item quantity="many">Следующий халвинг примерно через %1$d дней (%2$s)</item>
+        <item quantity="other">Следующий халвинг примерно через %1$d дня (%2$s)</item>
+    </plurals>
+    <string name="insights_cycle_progress">%1$d %% текущего цикла</string>
+    <string name="insights_cycle_chart">Циклы после халвинга</string>
+    <string name="insights_chart_axis">Лет после халвинга</string>
+    <string name="insights_chart_hint">Цена как кратное цены в день халвинга (лог. шкала). Прошлые циклы — закономерность, не прогноз.</string>
+    <string name="insights_source_history">Источник: Coin Metrics (CC BY-NC 4.0), Binance</string>
+    <string name="insights_fng_title">Индекс страха и жадности</string>
+    <string name="fng_extreme_fear">Крайний страх</string>
+    <string name="fng_fear">Страх</string>
+    <string name="fng_neutral">Нейтрально</string>
+    <string name="fng_greed">Жадность</string>
+    <string name="fng_extreme_greed">Крайняя жадность</string>
+    <string name="insights_fng_history">Вчера %1$s · неделю назад %2$s · месяц назад %3$s</string>
+    <string name="insights_source_fng">Источник: alternative.me</string>
+    <string name="insights_dominance_title">Доминирование биткоина</string>
+    <string name="insights_altseason_title">Сезон альткоинов</string>
+    <string name="altseason_alt">Сезон альткоинов</string>
+    <string name="altseason_btc">Сезон биткоина</string>
+    <string name="altseason_mixed">Смешанно</string>
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d из %2$d крупных альткоинов обогнал биткоин за 90 дней</item>
+        <item quantity="few">%1$d из %2$d крупных альткоинов обогнали биткоин за 90 дней</item>
+        <item quantity="many">%1$d из %2$d крупных альткоинов обогнали биткоин за 90 дней</item>
+        <item quantity="other">%1$d из %2$d крупных альткоинов обогнали биткоин за 90 дней</item>
+    </plurals>
+    <string name="insights_source_dominance">Источник: CoinGecko, Binance</string>
+    <string name="coin_title">Анализ монеты</string>
+    <string name="coin_choose">Монета</string>
+    <string name="coin_no_data">Нет данных о цене этой монеты на Binance или Bybit.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Только %1$d день истории — некоторых индикаторов нет.</item>
+        <item quantity="few">Только %1$d дня истории — некоторых индикаторов нет.</item>
+        <item quantity="many">Только %1$d дней истории — некоторых индикаторов нет.</item>
+        <item quantity="other">Только %1$d дня истории — некоторых индикаторов нет.</item>
+    </plurals>
+    <string name="coin_price_only">Только по цене — ончейн-данные (MVRV, Puell, хешрейт) свободно доступны лишь для биткоина.</string>
+    <string name="ind_rsi_weekly">RSI (неделя)</string>
+    <string name="ind_rsi_daily">RSI (день)</string>
+    <string name="ind_pi_cycle">Pi cycle (111/350 дней)</string>
+    <string name="ind_cross">Тренд 50/200 дней</string>
+    <string name="ind_vs_btc">Сила к биткоину (90 дней)</string>
+    <string name="ind_missing">мало данных</string>
+    <string name="channel_market">Фаза рынка</string>
+    <string name="channel_market_description">Сообщает о смене фазы рынка биткоина</string>
+    <string name="notification_zone_title">Биткоин: %1$s</string>
+    <string name="notification_zone_text">Фаза рынка сменилась: %1$s → %2$s.</string>
+    <string name="settings_zone_alerts">Сообщать о смене фазы</string>
+    <string name="settings_zone_alerts_hint">Проверяет дважды в день и сообщает, когда биткоин меняет зону, например с Neutral на Bull.</string>
+    <string name="alarm_condition_move_percent">Изменится на</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">за %1$d ч</item>
+        <item quantity="few">за %1$d ч</item>
+        <item quantity="many">за %1$d ч</item>
+        <item quantity="other">за %1$d ч</item>
+    </plurals>
+    <string name="alarm_window_label">Окно времени</string>
+    <string name="tts_direction_move">резко движется</string>
+    <string name="settings_fng_below">Fear &amp; Greed: сообщать ниже</string>
+    <string name="settings_fng_above">Fear &amp; Greed: сообщать выше</string>
+    <string name="option_off">Выкл.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_below">Индекс упал ниже %1$d — на рынке страх.</string>
+    <string name="notification_fng_above">Индекс поднялся выше %1$d — на рынке жадность.</string>
+    <string name="futures_title">Данные фьючерсов</string>
+    <string name="futures_funding">Ставка финансирования</string>
+    <string name="futures_next_funding">следующая через %1$d ч %2$d мин</string>
+    <string name="futures_open_interest">Открытый интерес</string>
+    <string name="futures_source">Источник: %1$s</string>
+    <string name="single_widget_label">Crypto Checker — одна монета</string>
+    <string name="single_widget_description">Показывает одну монету крупно: цена, изменение и график за 24 часа.</string>
+    <string name="single_widget_choose">Выберите пару</string>
+    <string name="single_widget_title">Настройка виджета монеты</string>
+    <string name="shortcut_add">Добавить пару</string>
+    <string name="shortcut_alarms">Все оповещения</string>
+    <string name="shortcut_cycle">Рынок</string>
+    <string name="backup_title">Резервная копия</string>
+    <string name="backup_hint">Сохраняет список с заметками и группами, оповещения, избранное, портфель и настройки в файл, который хранится у вас — например, для нового телефона.</string>
+    <string name="backup_export">Экспорт</string>
+    <string name="backup_import">Импорт</string>
+    <string name="backup_restore_confirm">Импорт заменит ваш список (с заметками и группами), оповещения, избранное, портфель и настройки данными из копии.</string>
+    <string name="backup_exported">Копия сохранена.</string>
+    <string name="backup_failed">Не получилось. Это копия Crypto Checker?</string>
+    <string name="backup_restored">Восстановлено: %1$s, %2$s.</string>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d пара</item>
+        <item quantity="few">%1$d пары</item>
+        <item quantity="many">%1$d пар</item>
+        <item quantity="other">%1$d пары</item>
+    </plurals>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d оповещение</item>
+        <item quantity="few">%1$d оповещения</item>
+        <item quantity="many">%1$d оповещений</item>
+        <item quantity="other">%1$d оповещения</item>
+    </plurals>
+</resources>

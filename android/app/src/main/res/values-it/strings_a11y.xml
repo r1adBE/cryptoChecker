@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Colori dei prezzi</string>
+    <string name="settings_price_colors_hint">Blu / arancione si distingue bene con qualsiasi deficit della visione dei colori (rosso-verde e blu-giallo). La direzione è inoltre sempre indicata con + / −.</string>
+    <string name="settings_watchlist_sparkline">Mini grafico nella lista</string>
+    <string name="settings_watchlist_sparkline_hint">Andamento 24 ore accanto al prezzo</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Contrasto elevato</string>
+    <string name="settings_high_contrast_hint">Colori dei prezzi più intensi e testi secondari più scuri. Attivo anche quando il sistema richiede più contrasto.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s su %2$s</string>
+    <string name="a11y_price">prezzo %1$s</string>
+    <string name="a11y_change_up">in rialzo del %1$s</string>
+    <string name="a11y_change_down">in ribasso del %1$s</string>
+    <string name="a11y_change_flat">invariato</string>
+    <string name="a11y_converted">circa %1$s</string>
+    <string name="a11y_note">nota: %1$s</string>
+    <string name="a11y_alarm_count">allarmi: %1$d</string>
+    <string name="a11y_stale">non aggiornato, ultimo aggiornamento %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafico %1$s: da %2$s a %3$s, %4$s. Massimo %5$s, minimo %6$s.</string>
+    <string name="a11y_chart_empty">Grafico: nessun dato</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciclo %1$s: %2$s dall\'halving, giorno %3$d.</string>
+    <string name="a11y_cycle_top">Massimo %1$s al giorno %2$d.</string>
+    <string name="a11y_cycle_bottom">Minimo %1$s al giorno %2$d.</string>
+    <string name="a11y_cycle_double_top">Doppio massimo %1$s al giorno %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Doppio minimo %1$s al giorno %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Scala da %1$s a %2$s: %3$d su 100</string>
+</resources>

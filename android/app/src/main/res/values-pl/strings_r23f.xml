@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">Ogólne</string>
+    <string name="settings_group_data_only">Dane</string>
+    <string name="settings_row_currency">Waluta</string>
+    <string name="settings_row_updates">Aktualizacje</string>
+    <string name="settings_updates_live">Często · %1$s</string>
+    <string name="settings_updates_every">Co %1$s</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_watchlist_value_sparkline">Miniwykres</string>
+    <string name="settings_watchlist_value_price_only">Tylko kurs</string>
+    <string name="settings_row_alarms">Alarmy</string>
+    <string name="settings_portfolio_value_locked">Wł., z blokadą</string>
+    <string name="settings_row_dated_futures">Kontrakty terminowe</string>
+    <string name="settings_tradfi_futures">Akcje, surowce i waluty (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Przy wyborze pary pokazuje też kontrakty futures na akcje, złoto i inne surowce, waluty oraz spółki przed debiutem giełdowym. To kontrakty, nie tokeny.</string>
+    <string name="settings_watchlist_activity_card">Nietypowa aktywność na liście</string>
+    <string name="settings_watchlist_activity_card_hint">Pokazuje kartę „Coś się właśnie dzieje” nad parami. Powiadomienia ustawisz w sekcji „Powiadomienia rynkowe”.</string>
+    <string name="settings_row_about">O aplikacji</string>
+    <string name="price_colors_green_up">Zielony wzrost / czerwony spadek</string>
+    <string name="price_colors_red_up">Czerwony wzrost / zielony spadek</string>
+    <string name="price_colors_blue_up">Niebieski wzrost / pomarańczowy spadek</string>
+    <string name="price_colors_orange_up">Pomarańczowy wzrost / niebieski spadek</string>
+    <string name="price_colors_red_up_hint">Typowe w Chinach, Japonii, Korei i na Tajwanie</string>
+</resources>

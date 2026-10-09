@@ -1,0 +1,56 @@
+# Updates docs/macro/events.json (US economic release dates for the app's
+# "Wirtschaftsdaten" hint) from the official BLS, Federal Reserve and BEA pages.
+# Served by GitHub Pages at https://r1adbe.github.io/cryptoChecker/macro/events.json
+name: Macro calendar
+
+on:
+  schedule:
+    - cron: '17 5 * * 1'   # Mondays 05:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: macro-calendar
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build events.json
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- docs/macro)" ]; then
+            echo "No changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Public commit identity: GitHub noreply address only, never a private email.
+          git config user.name 'r1AD'
+          git config user.email '68864596+r1adBE@users.noreply.github.com'
+          git add docs/macro/events.json
+          git commit -m "Update macro calendar ($(date -u +%Y-%m-%d))"
+          for i in 1 2 3; do
+            if git push; then break; fi
+            git pull --rebase
+            if [ "$i" = 3 ]; then exit 1; fi
+          done
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Request Pages build
+        if: steps.commit.outputs.changed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "Pages build request skipped."

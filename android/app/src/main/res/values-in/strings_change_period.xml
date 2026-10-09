@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Tampilkan periode di samping perubahan</string>
+    <string name="settings_change_period_hint">“24h”, “hari ini”, atau “pembaruan terakhir” kecil di samping perubahan di daftar pantau dan widget satu koin. Pembaca layar selalu menyebutkannya.</string>
+</resources>

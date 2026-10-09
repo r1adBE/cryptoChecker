@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Riasztási jelzés</string>
+    <string name="alarm_signal_system">Rendszer</string>
+    <string name="alarm_signal_sound_vibrate">Hang és rezgés</string>
+    <string name="alarm_signal_sound">Csak hang</string>
+    <string name="alarm_signal_vibrate">Csak rezgés</string>
+    <string name="alarm_signal_silent">Néma (csak értesítés)</string>
+    <string name="settings_alarm_signal_system_hint">A telefon értesítési beállításait követi.</string>
+    <string name="settings_alarm_signal_open_system">Módosítás a rendszerbeállításokban</string>
+    <string name="channel_alarms_sound_vibrate">Riasztások (hang és rezgés)</string>
+    <string name="channel_alarms_sound">Riasztások (csak hang)</string>
+    <string name="channel_alarms_vibrate">Riasztások (csak rezgés)</string>
+    <string name="channel_alarms_silent">Riasztások (néma)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">A rezgés az iPhone beállításait követi (Hangok és haptika).</string>
+</resources>

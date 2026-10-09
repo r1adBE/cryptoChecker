@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">Canlı fiyatlar</string>
+    <string name="settings_live_websocket_hint">Liste açıkken fiyatlar borsayı gecikmeden izler. Binance, Bybit, OKX, Coinbase ve Kraken için.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">Canlı fiyatlar açık</string>
+    <string name="refresh_report_live">Canlı: %1$s</string>
+</resources>

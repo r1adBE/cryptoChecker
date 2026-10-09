@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">نزدیک سقف</string>
+    <string name="alarm_condition_near_low">نزدیک کف</string>
+    <string name="alarm_near_field_distance">فاصله</string>
+    <string name="alarm_near_window_label">بازه</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d روز</item>
+        <item quantity="other">%1$d روز</item>
+    </plurals>
+    <string name="alarm_near_window_year">یک سال</string>
+    <string name="alarm_near_hint">هنگام ثبت سقف یا کف جدید هم خبر می‌دهد. بر اساس کندل‌های روزانه، هر ۶ ساعت به‌روز می‌شود.</string>
+    <string name="alarm_near_extreme_high_30">سقف ۳۰ روزه</string>
+    <string name="alarm_near_extreme_high_90">سقف ۹۰ روزه</string>
+    <string name="alarm_near_extreme_high_365">سقف یک‌ساله</string>
+    <string name="alarm_near_extreme_low_30">کف ۳۰ روزه</string>
+    <string name="alarm_near_extreme_low_90">کف ۹۰ روزه</string>
+    <string name="alarm_near_extreme_low_365">کف یک‌ساله</string>
+    <string name="alarm_sentence_near_high">وقتی %1$s حداکثر %2$s پایین‌تر از %3$s بود، به من خبر بده.</string>
+    <string name="alarm_sentence_near_low">وقتی %1$s حداکثر %2$s بالاتر از %3$s بود، به من خبر بده.</string>
+    <string name="alarm_near_notification_high">%1$s %2$s پایین‌تر از %3$s است (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s %2$s بالاتر از %3$s است (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s %1$s تازه ثبت کرد: %3$s (قبلی %4$s)</string>
+    <string name="tts_direction_near_high">نزدیک سقف است</string>
+    <string name="tts_direction_near_low">نزدیک کف است</string>
+</resources>

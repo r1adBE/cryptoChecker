@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Зачитує ціни й сигнали вголос. Мовчить, поки пристрій у беззвучному режимі або режимі вібрації.</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Säkerhet: %1$s</string>
+    <string name="why_confidence_high">hög</string>
+    <string name="why_confidence_medium">medel</string>
+    <string name="why_confidence_low">låg</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d av %2$d tecken pekar på detta</item>
+        <item quantity="other">%1$d av %2$d tecken pekar på detta</item>
+    </plurals>
+    <string name="why_confidence_partial">ofullständiga data</string>
+</resources>

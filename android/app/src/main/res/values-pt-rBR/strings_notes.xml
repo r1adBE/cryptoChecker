@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">Nota</string>
+    <string name="note_add">Adicionar nota</string>
+    <string name="note_edit">Editar nota</string>
+    <string name="note_hint">ex.: entrada em 0,42, alvo 0,60</string>
+    <string name="note_remove">Remover</string>
+</resources>

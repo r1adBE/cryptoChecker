@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">تنبيهات سريعة</string>
+    <string name="alarm_template_volume">الحجم ×%1$s</string>
+    <string name="alarm_new_extreme">جديد: %1$s</string>
+    <string name="alarm_template_a11y_up">إنشاء تنبيه عند زائد %1$s بالمئة</string>
+    <string name="alarm_template_a11y_down">إنشاء تنبيه عند ناقص %1$s بالمئة</string>
+    <string name="alarm_template_a11y">إنشاء تنبيه: %1$s</string>
+    <string name="alarm_template_created">تم إنشاء التنبيه</string>
+    <string name="alarm_sentence_new_extreme">أبلغني عندما يسجّل %1$s %2$s جديدًا.</string>
+    <string name="alarm_simple_when">عندما %1$s</string>
+    <string name="alarm_simple_above">يرتفع فوق</string>
+    <string name="alarm_simple_below">ينخفض تحت</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_direction_a11y">الاتجاه: %1$s</string>
+    <string name="alarm_repeat_once">مرة واحدة</string>
+    <string name="alarm_repeat_each">في كل مرة</string>
+    <string name="alarm_advanced">متقدم</string>
+    <string name="alarm_create">إنشاء تنبيه</string>
+    <string name="alarm_near_new_only">فقط عند قمة أو قاع جديد</string>
+</resources>

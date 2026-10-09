@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Alarmsignaal</string>
+    <string name="alarm_signal_system">Systeem</string>
+    <string name="alarm_signal_sound_vibrate">Geluid en trillen</string>
+    <string name="alarm_signal_sound">Alleen geluid</string>
+    <string name="alarm_signal_vibrate">Alleen trillen</string>
+    <string name="alarm_signal_silent">Stil (alleen melding)</string>
+    <string name="settings_alarm_signal_system_hint">Volgt de meldingsinstellingen van je telefoon.</string>
+    <string name="settings_alarm_signal_open_system">Aanpassen in systeeminstellingen</string>
+    <string name="channel_alarms_sound_vibrate">Alarmen (geluid en trillen)</string>
+    <string name="channel_alarms_sound">Alarmen (alleen geluid)</string>
+    <string name="channel_alarms_vibrate">Alarmen (alleen trillen)</string>
+    <string name="channel_alarms_silent">Alarmen (stil)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Trillen volgt de iPhone-instellingen (Geluiden en haptiek).</string>
+</resources>

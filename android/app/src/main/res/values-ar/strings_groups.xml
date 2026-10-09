@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">تعديل المجموعة</string>
+    <string name="group_rename">إعادة تسمية</string>
+    <string name="group_delete">حذف المجموعة</string>
+    <string name="group_delete_confirm">تبقى الأزواج في قائمة المتابعة.</string>
+    <string name="group_done">تم</string>
+    <string name="group_add">مجموعة جديدة</string>
+    <string name="group_in_other">في %1$s</string>
+    <string name="group_target">في المجموعة</string>
+    <string name="group_search_hint">البحث عن زوج</string>
+    <string name="group_next">التالي</string>
+</resources>

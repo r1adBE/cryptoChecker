@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">บันทึก</string>
+    <string name="note_add">เพิ่มบันทึก</string>
+    <string name="note_edit">แก้ไขบันทึก</string>
+    <string name="note_hint">เช่น เข้าที่ 0.42 เป้าหมาย 0.60</string>
+    <string name="note_remove">นำออก</string>
+</resources>

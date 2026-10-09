@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">오프라인</string>
+    <string name="offline_status_since">오프라인 · %1$s 기준</string>
+    <string name="error_market_unreachable">지금은 거래소에 연결할 수 없습니다 – 마지막 시세는 계속 표시됩니다.</string>
+    <string name="error_market_unreachable_short">지금은 거래소에 연결할 수 없음</string>
+    <string name="refresh_sheet_paused_until">%1$s까지 일시 중지</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s까지 일시 중지 (%2$s)</string>
+    <string name="refresh_sheet_app_start">앱 시작</string>
+</resources>

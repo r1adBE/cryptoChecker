@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum-Gas unter (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin-Gebühr unter (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Meldet einmal, wenn die normale Gebühr unter die Grenze fällt. Geprüft wird bei der Kursaktualisierung, höchstens alle 10 Minuten.</string>
+    <string name="notification_gas_eth_title">Ethereum-Gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Unter deiner Grenze von %1$s gwei · Überweisung ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-Gebühr: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Unter deiner Grenze von %1$s sat/vB · Überweisung ≈ %2$s</string>
+    <string name="gas_title">Netzwerkgebühren</string>
+    <string name="gas_slow_fast">Langsam %1$s · Schnell %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Öffentliche RPC-Knoten und mempool.space · Kosten einer einfachen Überweisung, bei L2 ohne L1-Anteil</string>
+    <string name="gas_transfer_cost">Überweisung ≈ %1$s</string>
+</resources>

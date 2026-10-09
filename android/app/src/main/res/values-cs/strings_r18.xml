@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">Na začátek</string>
+    <string name="watchlist_jump_end">Na konec</string>
+    <string name="settings_activity_sensitivity">Citlivost</string>
+    <string name="settings_activity_sensitivity_hint">Jak snadno se mince považuje za neobvyklou – stejně pro kartu ve sledovaných i pro oznámení. Při „Méně“ karta ukazuje jen 3 nejsilnější.</string>
+    <string name="activity_sensitivity_less">Méně</string>
+    <string name="activity_sensitivity_normal">Normální</string>
+    <string name="activity_sensitivity_more">Více</string>
+    <string name="activity_adjust">Upravit</string>
+    <string name="activity_adjust_a11y">Upravit citlivost</string>
+</resources>

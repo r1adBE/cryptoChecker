@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Aufteilung</string>
+    <string name="portfolio_allocation_other">Andere</string>
+    <string name="portfolio_movers_title">Grösste Bewegungen</string>
+    <string name="portfolio_hide_amounts">Beträge verbergen</string>
+    <string name="portfolio_hide_amounts_hint">Zeigt Beträge und Werte im Portfolio und im Portfolio-Widget als ••• – Prozente bleiben sichtbar.</string>
+    <string name="a11y_portfolio_show_amounts">Beträge anzeigen</string>
+    <string name="a11y_amount_hidden">Betrag verborgen</string>
+    <string name="portfolio_alarm_action">Alarm</string>
+    <string name="portfolio_alarm_title">Alarm «Portfolio-Wert»</string>
+    <string name="portfolio_alarm_kind_above">Portfolio über Betrag</string>
+    <string name="portfolio_alarm_kind_below">Portfolio unter Betrag</string>
+    <string name="portfolio_alarm_kind_up">Portfolio steigt</string>
+    <string name="portfolio_alarm_kind_down">Portfolio fällt</string>
+    <string name="portfolio_alarm_amount">Betrag (%1$s)</string>
+    <string name="portfolio_alarm_hint">Wird nach jeder Aktualisierung geprüft. Wie bei Kursalarmen: meldet beim Überschreiten der Marke und erst wieder, wenn der Wert zurückgekehrt ist.</string>
+    <string name="portfolio_alarm_sentence_above">Portfolio über %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfolio unter %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Portfolio steigt um %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portfolio fällt um %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Portfolio-Wert</string>
+    <string name="notification_portfolio_alarm_text">%1$s – jetzt %2$s</string>
+</resources>

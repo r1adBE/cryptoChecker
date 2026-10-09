@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Vis periode ved endringen</string>
+    <string name="settings_change_period_hint">Liten «24h», «i dag» eller «siste oppdatering» ved endringen i overvåkingslisten og i widgeten med én mynt. Skjermleseren sier den alltid.</string>
+</resources>

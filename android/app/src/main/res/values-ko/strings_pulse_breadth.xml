@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">상위 %1$d</string>
+    <string name="pulse_breadth_spoken">상위 %1$d: 상승 %2$d, 하락 %3$d</string>
+    <string name="pulse_breadth_hint">상위 %1$d: 시가총액 기준 가장 큰 코인(스테이블코인 제외), 24시간 변동(CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">폭넓은 상승: 대형 코인 대부분이 오르고 있습니다.</string>
+    <string name="pulse_breadth_note_broad_down">폭넓은 하락: 대형 코인 대부분이 내리고 있습니다.</string>
+    <string name="pulse_breadth_note_narrow_up">비트코인은 오르지만 다른 대형 코인 대부분은 따라오지 않습니다.</string>
+    <string name="pulse_breadth_note_narrow_down">비트코인은 내리지만 다른 대형 코인 대부분은 버티고 있습니다.</string>
+</resources>

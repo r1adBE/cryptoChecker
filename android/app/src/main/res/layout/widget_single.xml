@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Einzel-Widget: ein Coin gross, mit Mini-Chart der letzten 24 Stunden -->
+<!-- Runde Ecken auf allen Android-Versionen: Wurzel mit @android:id/background und Umriss (ab 12 clipToOutline), darunter die eingefärbte Fläche -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outline"
+    android:clipToOutline="true"
+    tools:targetApi="31">
+
+    <!-- Fläche mit runden Ecken; Farbe und Deckkraft setzt WidgetUpdater.background -->
+    <ImageView
+        android:id="@+id/single_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_background"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/single_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:baselineAligned="false">
+
+            <ImageView
+                android:id="@+id/single_logo"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_app_logo_orange_dark"
+                android:contentDescription="@null" />
+
+            <!-- Coin-Logo statt App-Logo (Schalter «Coin-Logos in Widgets»; sonst GONE) -->
+            <ImageView
+                android:id="@+id/single_coin_logo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/single_pair"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/single_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/single_market"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/single_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="14sp"
+            android:autoSizeMaxTextSize="28sp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFeatureSettings="tnum" />
+
+        <ImageView
+            android:id="@+id/single_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            android:scaleType="fitXY"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/single_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:textSize="10sp" />
+    </LinearLayout>
+</FrameLayout>

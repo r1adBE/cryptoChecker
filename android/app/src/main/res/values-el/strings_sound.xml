@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Ήχος ειδοποίησης</string>
+    <string name="settings_alarm_sound_default">Προεπιλεγμένος ήχος</string>
+    <string name="settings_alarm_sound_custom">Προσαρμοσμένος ήχος</string>
+    <string name="settings_alarm_sound_system">Επιλογή ήχου συστήματος…</string>
+    <string name="settings_alarm_sound_file">Δικό σας αρχείο ήχου…</string>
+    <string name="settings_alarm_sound_reset">Χρήση προεπιλεγμένου ήχου</string>
+    <string name="settings_alarm_sound_error">Δεν ήταν δυνατή η χρήση του ήχου.</string>
+</resources>

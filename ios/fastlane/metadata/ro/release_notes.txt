@@ -1,0 +1,35 @@
+Versiunea 16.2.2
+• Crypto Pulse: ce se întâmplă acum pe piață
+• „De ce se mișcă?”: o explicație bazată pe date pentru mișcările de preț, cu un scurt rezumat
+• Testează alarma: sunet, vibrație și voce
+• Prețuri convertite: rând „≈ valoare” în moneda ta (31 de monede precum EUR, CHF, USD, GBP, JPY; implicit după regiunea dispozitivului)
+• Alarme în moneda ta, de ex. la 60.000 EUR pe o pereche USDT
+• Export la data de referință: valoarea portofoliului la orice dată (de ex. 31 decembrie) în moneda ta, ca CSV – util pentru declarația fiscală (nu e consultanță fiscală)
+• Accesibilitate: albastru/portocaliu se deosebesc ușor la orice deficiență de vedere a culorilor (roșu-verde și albastru-galben); „Inversează culorile de creștere/scădere”: roșu = creștere, verde = scădere, ca în China, Japonia, Coreea și Taiwan (acolo automat); „Contrast ridicat”: culori mai puternice, text secundar și accent mai închise, urmează și setarea sistemului; suport complet VoiceOver: fiecare rând, grafic și widget citit ca o propoziție
+• Minigrafic 24 h pe fiecare rând
+• „Începe cu o atingere”: lista goală oferă cele mai mari 5 monede după capitalizare (fără stablecoins)
+• Lista de start arată prețul live și variația pe 24 h – toate cinci sunt preselectate și se adaugă cu un singur buton
+• Glisează la stânga pentru ștergere (cu Anulează), la dreapta pentru favorite
+• Fila Piață se deschide imediat cu ultimele date și se actualizează în fundal
+• Ore de liniște: noaptea (de ex. 23–7) alarmele sosesc fără sunet, vibrație sau voce
+• Blocarea portofoliului cu Face ID, Touch ID sau cod
+• Widget Portofoliu pentru ecranul principal și de blocare: valoarea totală în moneda ta și variația de azi
+• Fiecare alarmă ca propoziție: „Anunță-mă când BTC coboară sub 60.000 CHF.”
+• Explicații scurte pentru rata de finanțare, interesul deschis, RSI și Pi Cycle
+• Rândurile arată „învechit” sau „indisponibil” când prețul nu e actual
+• 15 burse noi: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Comisioane de rețea pentru Ethereum, Base, Arbitrum, Polygon, BNB Chain și Bitcoin în fila Piață, cu alarmă de gas
+• Notă pentru fiecare monedă din lista ta
+• Alege un sunet de alarmă
+• Activitate neobișnuită: detectează mișcări de preț și volum ieșite din comun, notificări opționale
+• Portofoliu în filă proprie: cumpărări și vânzări, preț mediu, profit/pierdere
+• Compararea ciclurilor: maxime și minime marcate, inclusiv vârfuri duble și minime duble
+• Grupuri pentru lista ta
+• Alarme noi: mișcare de X % în Y ore și salt de volum
+• Widget pentru o monedă: lumânări sau linie, perioada graficului 24 h, 7 sau 30 de zile, repere de maxim, mijloc și minim, prețul curent evidențiat
+• Fila Piață: capitalizarea totală a pieței cripto și volumul pe 24 h în moneda ta
+• Futures: rata de finanțare și interesul deschis
+• Cinci culori de accent cu pictograme potrivite
+• Acțiuni, aur, mărfuri și valute ca futures (TradFi) pe Binance, Bybit, OKX, MEXC și Bitget – cu un comutator în Setări › Listă; perechile noi intră în grupul „TradFi”, futures cu scadență în „QTLY”
+• Variația % ca pe Binance: ultimele 24 h, de la ultima actualizare, de la 00:00 în fusul orar al dispozitivului sau într-un fus fix de la UTC+14 la UTC-12
+• Nume clare: „Actualizează des” și „Prețuri live”

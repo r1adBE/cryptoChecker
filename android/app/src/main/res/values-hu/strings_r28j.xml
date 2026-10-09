@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Megoszlás</string>
+    <string name="portfolio_allocation_other">Egyéb</string>
+    <string name="portfolio_movers_title">Legnagyobb mozgások</string>
+    <string name="portfolio_hide_amounts">Összegek elrejtése</string>
+    <string name="portfolio_hide_amounts_hint">Az összegeket és értékeket a portfólióban és a portfólió-widgeten •••-ként mutatja – a százalékok láthatók maradnak.</string>
+    <string name="a11y_portfolio_show_amounts">Összegek megjelenítése</string>
+    <string name="a11y_amount_hidden">összeg elrejtve</string>
+    <string name="portfolio_alarm_action">Riasztás</string>
+    <string name="portfolio_alarm_title">Riasztás „portfólióérték”</string>
+    <string name="portfolio_alarm_kind_above">Portfólió összeg felett</string>
+    <string name="portfolio_alarm_kind_below">Portfólió összeg alatt</string>
+    <string name="portfolio_alarm_kind_up">Portfólió emelkedik</string>
+    <string name="portfolio_alarm_kind_down">Portfólió csökken</string>
+    <string name="portfolio_alarm_amount">Összeg (%1$s)</string>
+    <string name="portfolio_alarm_hint">Minden frissítés után ellenőrizzük. Mint az árriasztások: a határ átlépésekor jelez, újra csak akkor, ha az érték visszatért.</string>
+    <string name="portfolio_alarm_sentence_above">Portfólió %1$s felett</string>
+    <string name="portfolio_alarm_sentence_below">Portfólió %1$s alatt</string>
+    <string name="portfolio_alarm_sentence_up">Portfólió emelkedése: %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portfólió csökkenése: %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Portfólióérték</string>
+    <string name="notification_portfolio_alarm_text">%1$s – most %2$s</string>
+</resources>

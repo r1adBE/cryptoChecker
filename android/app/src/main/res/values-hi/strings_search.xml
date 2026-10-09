@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">पेयर या एक्सचेंज खोजें</string>
+    <string name="watchlist_search_open">खोजें</string>
+    <string name="watchlist_search_close">खोज बंद करें</string>
+    <string name="watchlist_search_empty">“%1$s” के लिए कोई परिणाम नहीं</string>
+</resources>

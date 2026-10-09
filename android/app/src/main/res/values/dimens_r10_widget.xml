@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Eckenradius der Startbildschirm-Widgets. Bis Android 11 fest 16 dp; ab Android 12
+     der Radius des Systems (values-v31), damit die Widgets zum Launcher passen. -->
+<resources>
+    <dimen name="widget_background_radius">16dp</dimen>
+</resources>

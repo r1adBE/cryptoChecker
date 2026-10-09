@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">Offline</string>
+    <string name="offline_status_since">Offline · la %1$s</string>
+    <string name="error_market_unreachable">Bursa nu poate fi accesată acum – ultimele prețuri rămân vizibile.</string>
+    <string name="error_market_unreachable_short">Bursa nu poate fi accesată acum</string>
+    <string name="refresh_sheet_paused_until">în pauză până la %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">în pauză până la %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">Pornirea aplicației</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">सब अपडेट हो गया</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d पेयर अपडेट नहीं हुआ</item>
+        <item quantity="other">%1$d पेयर अपडेट नहीं हुए</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s उपलब्ध नहीं</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d एक्सचेंज उपलब्ध नहीं</item>
+        <item quantity="other">%1$d एक्सचेंज उपलब्ध नहीं</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">रीफ़्रेश रद्द हुआ</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d पेयर</item>
+        <item quantity="other">%1$d पेयर</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">एक्सचेंज</string>
+    <string name="refresh_sheet_section_steps">विवरण</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">शुरू होने तक प्रतीक्षा</string>
+    <string name="refresh_sheet_network">नेटवर्क</string>
+    <string name="refresh_sheet_database">डेटाबेस</string>
+    <string name="refresh_sheet_alarms">अलार्म</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ट्रिगर हुआ</item>
+        <item quantity="other">%1$d ट्रिगर हुए</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d नोटिफ़िकेशन</item>
+        <item quantity="other">%1$d नोटिफ़िकेशन</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">विजेट</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$d में से %2$d पेयर</item>
+        <item quantity="other">%1$d में से %2$d पेयर</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">बल्क अनुरोध %1$s · %2$d भाव</item>
+        <item quantity="other">बल्क अनुरोध %1$s · %2$d भाव</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">टाइमआउट</string>
+    <string name="refresh_sheet_reason_offline">कनेक्शन नहीं</string>
+    <string name="refresh_sheet_reason_rate_limit">बहुत ज़्यादा अनुरोध</string>
+    <string name="refresh_sheet_reason_server">सर्वर त्रुटि</string>
+    <string name="refresh_sheet_reason_no_data">कोई डेटा नहीं</string>
+    <string name="refresh_sheet_reason_unavailable">एक्सचेंज उपलब्ध नहीं</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">सब अपडेट</string>
+    <string name="refresh_sheet_status_partial">आंशिक रूप से अपडेट</string>
+    <string name="refresh_sheet_status_failed">अपडेट नहीं हुआ</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s सेकंड</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einheitliche Auswahl-Listen: Suchfeld der Währungsseite und Hinweis unter «Theme» -->
+    <string name="currency_search">חיפוש מטבע</string>
+    <string name="settings_accent_hint">צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה.</string>
+</resources>

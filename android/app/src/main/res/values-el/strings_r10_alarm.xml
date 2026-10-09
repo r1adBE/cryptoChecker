@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Κοντά στο υψηλό</string>
+    <string name="alarm_condition_near_low">Κοντά στο χαμηλό</string>
+    <string name="alarm_near_field_distance">Απόσταση</string>
+    <string name="alarm_near_window_label">Περίοδος</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ημέρα</item>
+        <item quantity="other">%1$d ημέρες</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 έτος</string>
+    <string name="alarm_near_hint">Ειδοποιεί επίσης όταν σημειώνεται νέο υψηλό ή χαμηλό. Με βάση ημερήσια κεριά, ανανεώνεται κάθε 6 ώρες.</string>
+    <string name="alarm_near_extreme_high_30">υψηλό 30 ημερών</string>
+    <string name="alarm_near_extreme_high_90">υψηλό 90 ημερών</string>
+    <string name="alarm_near_extreme_high_365">υψηλό 1 έτους</string>
+    <string name="alarm_near_extreme_low_30">χαμηλό 30 ημερών</string>
+    <string name="alarm_near_extreme_low_90">χαμηλό 90 ημερών</string>
+    <string name="alarm_near_extreme_low_365">χαμηλό 1 έτους</string>
+    <string name="alarm_sentence_near_high">Ειδοποίηση όταν το %1$s είναι το πολύ %2$s κάτω από το %3$s.</string>
+    <string name="alarm_sentence_near_low">Ειδοποίηση όταν το %1$s είναι το πολύ %2$s πάνω από το %3$s.</string>
+    <string name="alarm_near_notification_high">Το %1$s είναι %2$s κάτω από το %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">Το %1$s είναι %2$s πάνω από το %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Νέο %1$s για το %2$s: %3$s (προηγούμενο %4$s)</string>
+    <string name="tts_direction_near_high">είναι κοντά στο υψηλό</string>
+    <string name="tts_direction_near_low">είναι κοντά στο χαμηλό</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Elimină perechile netranzacționate (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Elimină perechile netranzacționate</string>
+    <string name="watchlist_remove_not_traded_action">Elimină</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Elimini %1$d pereche care nu se mai tranzacționează pe bursa sa? Alarmele ei vor fi șterse și ele.</item>
+        <item quantity="few">Elimini %1$d perechi care nu se mai tranzacționează pe bursa lor? Alarmele lor vor fi șterse și ele.</item>
+        <item quantity="other">Elimini %1$d de perechi care nu se mai tranzacționează pe bursa lor? Alarmele lor vor fi șterse și ele.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d pereche netranzacționată eliminată</item>
+        <item quantity="few">%1$d perechi netranzacționate eliminate</item>
+        <item quantity="other">%1$d de perechi netranzacționate eliminate</item>
+    </plurals>
+</resources>

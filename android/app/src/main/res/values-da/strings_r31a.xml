@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">Hurtige alarmer</string>
+    <string name="alarm_template_volume">Volumen ×%1$s</string>
+    <string name="alarm_new_extreme">Ny %1$s</string>
+    <string name="alarm_template_a11y_up">Opret alarm ved plus %1$s procent</string>
+    <string name="alarm_template_a11y_down">Opret alarm ved minus %1$s procent</string>
+    <string name="alarm_template_a11y">Opret alarm: %1$s</string>
+    <string name="alarm_template_created">Alarm oprettet</string>
+    <string name="alarm_sentence_new_extreme">Giv mig besked, når %1$s når en ny %2$s.</string>
+    <string name="alarm_simple_when">Når %1$s</string>
+    <string name="alarm_simple_above">går over</string>
+    <string name="alarm_simple_below">går under</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_direction_a11y">Retning: %1$s</string>
+    <string name="alarm_repeat_once">Én gang</string>
+    <string name="alarm_repeat_each">Hver gang</string>
+    <string name="alarm_advanced">Avanceret</string>
+    <string name="alarm_create">Opret alarm</string>
+    <string name="alarm_near_new_only">Kun ny top eller bund</string>
+</resources>

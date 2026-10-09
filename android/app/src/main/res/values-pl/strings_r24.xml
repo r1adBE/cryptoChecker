@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Zmiana w %1$s i strefa czasowa wykresu</string>
+    <string name="change_basis_rolling">Ostatnie 24 h</string>
+    <string name="change_basis_utc_zone">Od 00:00 %1$s</string>
+    <string name="change_basis_local">Od 00:00 czasu lokalnego</string>
+    <string name="settings_change_basis_hint_1">Wybrana strefa czasowa określa, od kiedy liczy się zmiana procentowa (lista obserwowanych, linia pulsu, arkusz pary, widżety), oraz godziny pokazywane na wykresach.</string>
+    <string name="settings_change_basis_hint_2">„%1$s” porównuje z ceną sprzed dokładnie 24 godzin. „00:00” porównuje z ceną otwarcia o północy w tej strefie czasowej.</string>
+    <string name="settings_change_basis_hint_3">Nie dotyczy alarmów.</string>
+    <string name="change_basis_device">%1$s, 00:00 (strefa czasowa urządzenia)</string>
+    <string name="change_short_today">dziś</string>
+    <string name="change_short_today_zone">dziś %1$s</string>
+    <string name="a11y_change_today">%1$s dziś</string>
+    <string name="a11y_change_today_zone">%1$s od północy %2$s</string>
+    <string name="a11y_change_today_none">Dzisiejsza zmiana niedostępna</string>
+    <string name="a11y_change_today_zone_none">Zmiana od północy %1$s niedostępna</string>
+    <string name="sheet_chart_today">Dziś</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Przy zamkniętej aplikacji najwyżej raz na minutę</string>
+    <string name="sheet_more">Więcej</string>
+    <string name="a11y_expanded">Rozwinięte</string>
+    <string name="a11y_collapsed">Zwinięte</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bez dzisiejszej wartości</item>
+        <item quantity="few">%1$d bez dzisiejszej wartości</item>
+        <item quantity="many">%1$d bez dzisiejszej wartości</item>
+        <item quantity="other">%1$d bez dzisiejszej wartości</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d para bez wartości na dziś</item>
+        <item quantity="few">%1$d pary bez wartości na dziś</item>
+        <item quantity="many">%1$d par bez wartości na dziś</item>
+        <item quantity="other">%1$d pary bez wartości na dziś</item>
+    </plurals>
+</resources>

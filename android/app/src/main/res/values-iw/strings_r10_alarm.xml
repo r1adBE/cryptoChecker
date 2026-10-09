@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">קרוב לשיא</string>
+    <string name="alarm_condition_near_low">קרוב לשפל</string>
+    <string name="alarm_near_field_distance">מרחק</string>
+    <string name="alarm_near_window_label">תקופה</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d יום</item>
+        <item quantity="two">%1$d ימים</item>
+        <item quantity="other">%1$d ימים</item>
+    </plurals>
+    <string name="alarm_near_window_year">שנה</string>
+    <string name="alarm_near_hint">מתריע גם כשנקבע שיא או שפל חדש. מבוסס על נרות יומיים, מתעדכן כל 6 שעות.</string>
+    <string name="alarm_near_extreme_high_30">שיא 30 יום</string>
+    <string name="alarm_near_extreme_high_90">שיא 90 יום</string>
+    <string name="alarm_near_extreme_high_365">שיא שנתי</string>
+    <string name="alarm_near_extreme_low_30">שפל 30 יום</string>
+    <string name="alarm_near_extreme_low_90">שפל 90 יום</string>
+    <string name="alarm_near_extreme_low_365">שפל שנתי</string>
+    <string name="alarm_sentence_near_high">להודיע לי כש־%1$s נמצא לכל היותר %2$s מתחת ל־%3$s.</string>
+    <string name="alarm_sentence_near_low">להודיע לי כש־%1$s נמצא לכל היותר %2$s מעל %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s נמצא %2$s מתחת ל־%3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s נמצא %2$s מעל %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%1$s חדש ל־%2$s: %3$s (קודם %4$s)</string>
+    <string name="tts_direction_near_high">קרוב לשיא</string>
+    <string name="tts_direction_near_low">קרוב לשפל</string>
+</resources>

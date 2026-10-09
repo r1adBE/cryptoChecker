@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Muntlogo\'s</string>
+    <string name="settings_coin_logos_app">In de app</string>
+    <string name="settings_coin_logos_app_hint">Volglijst, paarblad en marktkaarten</string>
+    <string name="settings_coin_logos_portfolio">In het portfolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Posities, muntdetails en inzichten</string>
+    <string name="settings_coin_logos_widgets">In widgets</string>
+    <string name="settings_coin_logos_widgets_hint">Volglijst- en één-muntwidgets</string>
+    <string name="settings_coin_logos_footer">De logo\'s komen van CoinGecko en, voor wat CoinGecko niet kent (bijv. goud, zilver, aandelen), van Binance. De app laadt alle logo\'s in één keer en bewaart ze op dit apparaat, zodat geen van beide weet welke munten je volgt. Munten zonder logo tonen hun initialen. Favorieten krijgen een klein sterretje op het logo. Waar een schakelaar uit staat, verschijnen geen logo\'s of initialen; staat alles uit, dan wordt er niets geladen.</string>
+    <string name="settings_coin_logos_value_app">App</string>
+</resources>

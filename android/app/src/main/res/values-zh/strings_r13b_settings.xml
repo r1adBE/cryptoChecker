@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">市场通知</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">已开启 %1$d 项</item>
+    </plurals>
+    <string name="settings_summary_on">开启</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker 正在为你关注 %1$s。当 %1$s 达到你设定的界限时，应用一检查价格你就会收到通知。应用关闭时，检查按后台更新间隔进行——如果电池优化限制了应用，则会更晚。</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker 正在为你关注 %1$s。应用一检查价格你就会收到通知。应用关闭时，由 iOS 决定何时检查——可能需要一段时间。应用打开期间，价格会按时检查。</string>
+
+    <string name="about_request_exchange">申请添加交易所</string>
+    <string name="explorer_exchange_missing">缺少交易所？</string>
+</resources>

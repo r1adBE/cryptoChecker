@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_market_alerts">Njoftime tregu</string>
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktiv</item>
+        <item quantity="other">%1$d aktive</item>
+    </plurals>
+    <string name="settings_summary_on">Aktiv</string>
+
+    <string name="alarm_first_text_checked">Crypto Checker tani po ndjek %1$s për ty. Kur %1$s të arrijë kufirin tënd, merr një njoftim sapo aplikacioni të kontrollojë çmimin. Me aplikacionin të mbyllur, kjo ndodh sipas intervalit të përditësimit në sfond – më vonë nëse optimizimi i baterisë e kufizon aplikacionin.</string>
+    <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker tani po ndjek %1$s për ty. Merr një njoftim sapo aplikacioni të kontrollojë çmimin. Me aplikacionin të mbyllur, iOS vendos kur ndodh kjo – mund të zgjasë pak. Sa kohë që aplikacioni është i hapur, çmimet kontrollohen në kohë.</string>
+
+    <string name="about_request_exchange">Kërko një bursë</string>
+    <string name="explorer_exchange_missing">Mungon një bursë?</string>
+</resources>

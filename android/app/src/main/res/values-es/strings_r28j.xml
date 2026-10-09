@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Distribución</string>
+    <string name="portfolio_allocation_other">Otros</string>
+    <string name="portfolio_movers_title">Mayores movimientos</string>
+    <string name="portfolio_hide_amounts">Ocultar importes</string>
+    <string name="portfolio_hide_amounts_hint">Muestra los importes y valores de la cartera y del widget de cartera como ••• – los porcentajes siguen visibles.</string>
+    <string name="a11y_portfolio_show_amounts">Mostrar importes</string>
+    <string name="a11y_amount_hidden">importe oculto</string>
+    <string name="portfolio_alarm_action">Alarma</string>
+    <string name="portfolio_alarm_title">Alarma «valor de la cartera»</string>
+    <string name="portfolio_alarm_kind_above">Cartera por encima de un importe</string>
+    <string name="portfolio_alarm_kind_below">Cartera por debajo de un importe</string>
+    <string name="portfolio_alarm_kind_up">Cartera sube</string>
+    <string name="portfolio_alarm_kind_down">Cartera baja</string>
+    <string name="portfolio_alarm_amount">Importe (%1$s)</string>
+    <string name="portfolio_alarm_hint">Se comprueba tras cada actualización. Como las alarmas de precio: avisa al cruzar el umbral y de nuevo solo cuando el valor haya vuelto.</string>
+    <string name="portfolio_alarm_sentence_above">Cartera por encima de %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Cartera por debajo de %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Cartera sube %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Cartera baja %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Valor de la cartera</string>
+    <string name="notification_portfolio_alarm_text">%1$s – ahora %2$s</string>
+</resources>

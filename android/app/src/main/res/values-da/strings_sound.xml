@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Alarmlyd</string>
+    <string name="settings_alarm_sound_default">Standardlyd</string>
+    <string name="settings_alarm_sound_custom">Egen lyd</string>
+    <string name="settings_alarm_sound_system">Vælg systemlyd…</string>
+    <string name="settings_alarm_sound_file">Egen lydfil…</string>
+    <string name="settings_alarm_sound_reset">Brug standardlyd</string>
+    <string name="settings_alarm_sound_error">Lyden kunne ikke bruges.</string>
+</resources>

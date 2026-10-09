@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">在涨跌旁显示时段</string>
+    <string name="settings_change_period_hint">在自选列表和单币小组件中，于涨跌旁以小字显示“24h”“今日”或“上次更新”。屏幕阅读器始终会读出。</string>
+</resources>

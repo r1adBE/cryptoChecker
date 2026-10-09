@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Perto do máximo</string>
+    <string name="alarm_condition_near_low">Perto do mínimo</string>
+    <string name="alarm_near_field_distance">Distância</string>
+    <string name="alarm_near_window_label">Período</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dia</item>
+        <item quantity="many">%1$d dias</item>
+        <item quantity="other">%1$d dias</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 ano</string>
+    <string name="alarm_near_hint">Também avisa quando é atingido um novo máximo ou mínimo. Com base em velas diárias, atualizado a cada 6 horas.</string>
+    <string name="alarm_near_extreme_high_30">máximo de 30 dias</string>
+    <string name="alarm_near_extreme_high_90">máximo de 90 dias</string>
+    <string name="alarm_near_extreme_high_365">máximo de 1 ano</string>
+    <string name="alarm_near_extreme_low_30">mínimo de 30 dias</string>
+    <string name="alarm_near_extreme_low_90">mínimo de 90 dias</string>
+    <string name="alarm_near_extreme_low_365">mínimo de 1 ano</string>
+    <string name="alarm_sentence_near_high">Avisar-me quando %1$s estiver no máximo %2$s abaixo do seu %3$s.</string>
+    <string name="alarm_sentence_near_low">Avisar-me quando %1$s estiver no máximo %2$s acima do seu %3$s.</string>
+    <string name="alarm_near_notification_high">%1$s está %2$s abaixo do seu %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s está %2$s acima do seu %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Novo %1$s para %2$s: %3$s (anterior %4$s)</string>
+    <string name="tts_direction_near_high">está perto do máximo</string>
+    <string name="tts_direction_near_low">está perto do mínimo</string>
+</resources>

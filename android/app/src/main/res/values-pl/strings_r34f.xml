@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">Funding powyżej</string>
+    <string name="alarm_condition_funding_below">Funding poniżej</string>
+    <string name="alarm_condition_oi_up">Otwarte pozycje rosną</string>
+    <string name="alarm_condition_oi_down">Otwarte pozycje spadają</string>
+    <string name="alarm_sentence_funding_above">Powiadom mnie, gdy funding %1$s wzrośnie powyżej %2$s.</string>
+    <string name="alarm_sentence_funding_below">Powiadom mnie, gdy funding %1$s spadnie poniżej %2$s.</string>
+    <string name="tts_direction_funding_above">z wysokim fundingiem</string>
+    <string name="tts_direction_funding_below">z niskim fundingiem</string>
+    <string name="tts_direction_oi_up">z rosnącymi otwartymi pozycjami</string>
+    <string name="tts_direction_oi_down">ze spadającymi otwartymi pozycjami</string>
+    <string name="alarm_funding_hint">Stawka fundingu za okres rozliczeniowy (zwykle co 8 godzin). Ujemna: shorty płacą longom. ± zmienia znak.</string>
+    <string name="alarm_oi_hint">Porównuje otwarte pozycje z wartością zapisaną tyle godzin temu. Nowy alarm zadziała dopiero, gdy aplikacja zbierze dane z tego okresu; sprawdzanie najwyżej co 5 minut.</string>
+    <string name="alarm_funding_sign_a11y">Zmień znak</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Powiadom mnie, gdy otwarte pozycje %1$s wzrosną o %2$s w ciągu %3$d godziny.</item>
+        <item quantity="few">Powiadom mnie, gdy otwarte pozycje %1$s wzrosną o %2$s w ciągu %3$d godzin.</item>
+        <item quantity="many">Powiadom mnie, gdy otwarte pozycje %1$s wzrosną o %2$s w ciągu %3$d godzin.</item>
+        <item quantity="other">Powiadom mnie, gdy otwarte pozycje %1$s wzrosną o %2$s w ciągu %3$d godzin.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Powiadom mnie, gdy otwarte pozycje %1$s spadną o %2$s w ciągu %3$d godziny.</item>
+        <item quantity="few">Powiadom mnie, gdy otwarte pozycje %1$s spadną o %2$s w ciągu %3$d godzin.</item>
+        <item quantity="many">Powiadom mnie, gdy otwarte pozycje %1$s spadną o %2$s w ciągu %3$d godzin.</item>
+        <item quantity="other">Powiadom mnie, gdy otwarte pozycje %1$s spadną o %2$s w ciągu %3$d godzin.</item>
+    </plurals>
+</resources>

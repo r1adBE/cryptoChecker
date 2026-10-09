@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Değişimin yanında süreyi göster</string>
+    <string name="settings_change_period_hint">Listede ve tek coin widget’ında değişimin yanında küçük “24sa”, “bugün” veya “son güncelleme”. Ekran okuyucu her zaman söyler.</string>
+</resources>

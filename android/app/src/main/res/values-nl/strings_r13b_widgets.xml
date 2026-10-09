@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">verouderd</string>
+    <string name="widget_outdated_time">verouderd · %1$s</string>
+
+    <string name="settings_widgets">Widgets</string>
+    <string name="widgets_sheet_title">Widget toevoegen</string>
+    <string name="widget_kind_single">Eén munt</string>
+    <string name="widgets_add">Toevoegen</string>
+    <string name="widgets_add_named">Widget %1$s toevoegen</string>
+    <string name="watch_action_add_widget">Als widget toevoegen</string>
+    <string name="widgets_manual_title">Voeg de widget zelf toe</string>
+    <string name="widgets_manual_text">Je beginscherm kan geen widgets vanuit de app toevoegen. Houd een lege plek op het beginscherm ingedrukt, kies ‘Widgets’ en zoek ‘Crypto Checker’.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS laat apps niet zelf widgets toevoegen. Het is zo gedaan:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Houd een lege plek op het beginscherm ingedrukt tot de apps gaan wiebelen.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tik bovenaan op ‘Wijzig’ › ‘Voeg widget toe’ (of op ‘+’ in oudere iOS-versies).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Zoek naar ‘Crypto Checker’, kies een widget en tik op ‘Voeg widget toe’.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Beschikbare widgets</string>
+</resources>

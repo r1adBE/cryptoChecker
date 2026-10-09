@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">즐겨찾기</string>
+    <string name="watchlist_favorites_empty_hint">아직 즐겨찾기가 없습니다. 페어를 오른쪽으로 밀거나 거래쌍 시트에서 ‘즐겨찾기’를 누르세요.</string>
+    <string name="settings_watchlist_names">이름 표시</string>
+    <string name="settings_watchlist_names_hint">페어 아래에 이름 표시(예: Bitcoin, NVIDIA). 로고 목록과 함께 오며 모든 코인에 대해 한 번만 불러옵니다.</string>
+    <string name="settings_watchlist_value_names">이름</string>
+</resources>

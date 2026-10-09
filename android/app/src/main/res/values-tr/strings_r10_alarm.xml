@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Zirveye yakın</string>
+    <string name="alarm_condition_near_low">Dibe yakın</string>
+    <string name="alarm_near_field_distance">Uzaklık</string>
+    <string name="alarm_near_window_label">Dönem</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 yıl</string>
+    <string name="alarm_near_hint">Yeni bir zirve veya dip oluştuğunda da bildirir. Günlük mumlara dayanır, 6 saatte bir yenilenir.</string>
+    <string name="alarm_near_extreme_high_30">30 günlük zirve</string>
+    <string name="alarm_near_extreme_high_90">90 günlük zirve</string>
+    <string name="alarm_near_extreme_high_365">1 yıllık zirve</string>
+    <string name="alarm_near_extreme_low_30">30 günlük dip</string>
+    <string name="alarm_near_extreme_low_90">90 günlük dip</string>
+    <string name="alarm_near_extreme_low_365">1 yıllık dip</string>
+    <string name="alarm_sentence_near_high">%1$s fiyatı %3$s seviyesinin en fazla %2$s altında olduğunda bana haber ver.</string>
+    <string name="alarm_sentence_near_low">%1$s fiyatı %3$s seviyesinin en fazla %2$s üzerinde olduğunda bana haber ver.</string>
+    <string name="alarm_near_notification_high">%1$s, %3$s seviyesinin %2$s altında (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s, %3$s seviyesinin %2$s üzerinde (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s için yeni %1$s: %3$s (önceki %4$s)</string>
+    <string name="tts_direction_near_high">zirveye yakın</string>
+    <string name="tts_direction_near_low">dibe yakın</string>
+</resources>

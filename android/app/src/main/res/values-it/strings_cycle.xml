@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Massimo %1$s</string>
+    <string name="cycle_marker_high_so_far">Massimo finora</string>
+    <string name="cycle_marker_bottom">Minimo %1$s</string>
+    <string name="cycle_since_halving">%1$s dall\'halving</string>
+    <string name="cycle_from_top">%1$s dal massimo</string>
+    <string name="cycle_marker_double_top">Doppio massimo %1$s</string>
+    <string name="cycle_marker_double_bottom">Doppio minimo %1$s</string>
+</resources>

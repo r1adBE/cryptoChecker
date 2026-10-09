@@ -1,0 +1,62 @@
+Crypto Checker të shpjegon çfarë ndodh në treg. Vendos alarme, dallo lëvizjet e pazakonta dhe kupto brenda pak sekondash pse lëviz një monedhë – pa parashikim.
+
+Kupto – «Pse po lëviz?» me një përmbledhje të shkurtër
+Pasqyrë – Crypto Pulse, Fear & Greed, cikli dhe portofoli
+Ndiq – çmime direkt nga bursa, në monedhën tënde
+Alarmo – çmim, %, lëvizje dhe vëllim, si një fjali e thjeshtë
+
+E lexueshme për të gjithë: jeshile/e kuqe ose blu/portokalli, kontrast i lartë, shenjë dhe shigjetë, jo vetëm ngjyrë, TalkBack: çdo rresht si një fjali.
+
+LISTA E NDJEKJES: 41 TREGJE NË 32 BURSA
+• Listë bosh: 5 monedhat më të mëdha me një prekje
+• Spot dhe futures nga Binance, Coinbase, Kraken, OKX, Bybit dhe shumë të tjera – sipas dëshirës edhe aksione, ar, valuta (TradFi) në grup më vete
+• Tokenë DEX përmes DexScreener
+• Rrëshqit: majtas fshi (me Zhbëj), djathtas i preferuar; grupe, renditje me tërheqje
+• Shënim për çdo monedhë, p.sh. çmimi yt i hyrjes
+• Rresht i dytë «≈ vlera» në një nga 31 monedha (EUR, CHF, USD …), parazgjedhur sipas rajonit
+• Grafik i vogël në çdo rresht; ndryshimi në % për 24 orë ose që nga 00:00 (zona jote kohore)
+• Skeda Portofoli: blerje, shitje, çmimi mesatar, fitimi/humbja, vlera totale në monedhën tënde
+• Eksport i vlerës së portofolit në çdo datë (p.sh. 31.12) si CSV – jo këshillë tatimore
+• Rreshtat tregojnë «i vjetëruar» ose «bursa nuk arrihet»
+
+ALARME SIPAS RREGULLAVE TË TUA
+• Çmim mbi ose nën një nivel, rritje ose rënie me një përqindje
+• Alarme në monedhën tënde, p.sh. te 60 000 EUR në një çift USDT
+• Alarm si fjali: «Më njofto kur BTC të bjerë nën 60 000 CHF.»
+• Lëvizje me x% brenda një dritareje kohore, p.sh. 5% në 1 orë
+• Kërcim vëllimi: vëllimi papritur shumë mbi mesataren
+• Një herë ose e përsëritur, me tingull (edhe skedari yt audio), dridhje dhe njoftim zanor sipas dëshirës
+• Koha e qetë e rregullueshme parandalon vërshimin e alarmeve
+• Orët e heshtjes: natën (p.sh. 23:00–07:00) alarme pa tingull, dridhje apo zë
+• «Testo alarmin»: dëgjoje dhe ndieje paraprakisht
+
+AKTIVITET I PAZAKONTË DHE «PSE PO LËVIZ?»
+• Aktiviteti i pazakontë dallon lëvizje të pazakonta çmimi dhe vëllimi në listën tënde, edhe me njoftim
+• «Pse po lëviz?» shpjegon një lëvizje sipas vëllimit, tregut dhe futures, me përmbledhje – jo këshillë investimi
+
+PASQYRË E TREGUT
+• Crypto Pulse: çfarë po ndodh tani – BTC, ETH, SOL, altcoin-et ndaj BTC, vëllimi, Fear & Greed, funding, gas ETH dhe përmbledhje në një fjali, pa parashikim
+• Indeksi Fear & Greed me historik dhe njoftime
+• Tregu kripto: kapitalizimi total dhe vëllimi 24-orësh në monedhën tënde
+• Skeda Tregu: faza e tregut me shenja të një maje ose fundi të mundshëm (jo parashikim), numërim deri te halving-u, dominanca, sezoni i altcoin-eve
+• Analiza e monedhës: RSI, trendi, Pi Cycle dhe forca ndaj Bitcoin
+• Të dhëna futures: funding rate dhe open interest, me shpjegime
+• Tarifat e rrjetit (Ethereum, Base, Arbitrum, Polygon, BNB Chain, Bitcoin) me alarm gas
+
+WIDGET-E DHE NJOFTIME
+• Widget-e: e gjithë lista, vlera e portofolit me ndryshimin e sotëm, një monedhë me grafik (qirinj ose vijë) dhe shenja për majën, mesin dhe fundin
+• Njoftim i heshtur çmimi për çdo çift
+• Përditësim i shpeshtë deri në çdo 15 sekonda, në sfond nga 15 minuta
+
+GJITHASHTU
+• Dalja zanore: çmimet dhe alarmet lexohen me zë
+• Ruajtje dhe rikthim në një skedar që zgjedh vetë – edhe mes Android dhe iPhone
+• Shkurtore të aplikacionit, modalitet i çelët dhe i errët
+• Pesë ngjyra theksi me ikonë përkatëse të aplikacionit
+• Kyçja e portofolit: gjurmë gishti, fytyrë ose PIN
+• E disponueshme në 31 gjuhë
+
+PRIVATËSIA NË RADHË TË PARË
+Pa llogari, pa reklama, pa analitikë. Çmimet vijnë drejtpërdrejt nga API-të publike të bursave. Lista, alarmet dhe zotërimet e tua mbeten në pajisjen tënde. Me kod të hapur (licenca MIT) – kodi është publik në GitHub.
+
+Shënim: Crypto Checker vetëm shfaq çmime. Nuk është as bursë, as portofol, nuk tregton dhe nuk jep këshilla investimi.

@@ -1,0 +1,64 @@
+Crypto Checker forklarer deg hva som skjer i markedet. Sett alarmer, oppdag uvanlige bevegelser og forstå på sekunder hvorfor en coin beveger seg – uten prognose.
+
+Forstå – «Hvorfor beveger den seg?» med kort oppsummering
+Oversikt – Crypto Pulse, Fear & Greed, syklus og portefølje
+Følg – kurser rett fra børsen, i din valuta
+Varsle – kurs, %, bevegelser og volum, som en enkel setning
+
+Lesbar for alle: grønn/rød eller blå/oransje, høy kontrast, fortegn og pil i stedet for bare farge, og TalkBack leser hver rad som én setning.
+
+LISTE: 41 MARKEDER PÅ 32 BØRSER
+• Tom liste: de 5 største coinene etter markedsverdi med livekurser, lagt til med ett trykk
+• Spot og futures fra Binance, Coinbase, Kraken, OKX, Bybit og flere – om ønskelig også aksjer, gull og valuta (TradFi), automatisk i egen gruppe
+• DEX-tokener via DexScreener
+• Sveip til venstre for å slette (med Angre), til høyre for favoritt
+• Ordne par i grupper og sorter ved å dra
+• Notat for hver mynt, f.eks. inngangskursen din – rett under kursen
+• Ekstra linje «≈ verdi» i én av 31 valutaer (EUR, CHF, USD …), standard etter enhetens region
+• Minigraf på hver rad; %-endring over 24 t eller siden 00:00 i din tidssone
+• Porteføljefane: kjøp, salg, snittpris, gevinst/tap og samlet verdi i din valuta
+• Eksport per skjæringsdato: porteføljens verdi på valgfri dato (f.eks. 31.12.) som CSV – ingen skatterådgivning
+• Rader viser «utdatert» eller «børsen kan ikke nås»
+
+ALARMER PÅ DINE PREMISSER
+• Kurs over eller under et nivå, eller stigning/fall med en prosentsats
+• Alarmer i din valuta, f.eks. ved 60 000 EUR på et USDT-par
+• Alarm som setning: «Gi meg beskjed når BTC faller under 60 000 CHF.»
+• Bevegelse på x % innenfor et tidsvindu, f.eks. 5 % på 1 time
+• Volum-spike: handelsvolumet plutselig langt over snittet
+• Én gang eller gjentakende, med lyd, vibrering og valgfri opplesning
+• Egen alarmlyd: systemlyd eller din egen lydfil
+• Justerbar hviletid hindrer en flom av alarmer
+• Nattro: lydløse alarmer om natten (f.eks. 23–7) – uten lyd, vibrering eller opplesning
+• «Test alarm»: hør og kjenn på forhånd hvordan en alarm kommer
+
+UVANLIG AKTIVITET OG HVORFOR BEVEGER DEN SEG?
+• Uvanlig aktivitet: påfallende kurs- og volumbevegelser i listen din, med valgfrie varsler
+• «Hvorfor beveger den seg?» forklarer en bevegelse ut fra volum, hele markedet og futuresdata, kort oppsummert – ingen investeringsråd
+
+MARKEDSOVERSIKT
+• Crypto Pulse: hva skjer nå? BTC, ETH, SOL, altcoins mot BTC, volum, Fear & Greed, funding, ETH-gass og en oppsummering i én setning – ingen prognose
+• Fear & Greed-indeks med historikk og valgfrie varsler
+• Kryptomarkedet: samlet markedsverdi og 24 t-volum i din valuta
+• Fanen Marked: markedsfase med tegn på mulig topp eller bunn (ingen prognose), nedtelling til halveringen, dominans, altcoin-sesong
+• Mynt-analyse: RSI, trend, Pi Cycle og styrke mot Bitcoin
+• Futures-data: funding rate og open interest, med korte forklaringer
+• Nettverksgebyrer for Ethereum, Base, Arbitrum, Polygon, BNB Chain og Bitcoin, med gass-alarm
+
+WIDGETER OG VARSLER
+• Widgeter: hele listen, porteføljens samlede verdi med dagens endring, én mynt med graf (candlestick eller linje) og høy/midt/lav
+• Lydløst kursvarsel per par
+• Hyppig oppdatering, helt ned til hvert 15. sekund; i bakgrunnen fra 15 minutter
+
+I TILLEGG
+• Opplesning av kurser og alarmer (tekst til tale)
+• Sikkerhetskopi og gjenoppretting til en valgfri fil – også mellom Android og iPhone
+• App-snarveier, lys og mørk modus
+• Fem aksentfarger med matchende appikon
+• Porteføljelås: fingeravtrykk, ansikt eller PIN
+• Tilgjengelig på 31 språk
+
+PERSONVERN FØRST
+Ingen konto, ingen reklame, ingen analyse. Kursene kommer rett fra børsenes åpne API-er. Listen, alarmene og beholdningen din blir på enheten. Åpen kildekode (MIT) – koden er offentlig på GitHub.
+
+Merk: Crypto Checker viser bare kurser. Appen er verken en børs eller en lommebok, handler ikke og gir ikke investeringsråd.

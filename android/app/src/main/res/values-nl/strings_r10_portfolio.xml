@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Wertverlauf (Runde 10) -->
+    <string name="portfolio_history_title">Waardeverloop</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_1y">1 J</string>
+    <string name="portfolio_history_period_7d">7 dagen</string>
+    <string name="portfolio_history_period_30d">30 dagen</string>
+    <string name="portfolio_history_period_1y">1 jaar</string>
+    <string name="portfolio_history_range_a11y">Verloop voor %1$s tonen</string>
+    <string name="portfolio_history_change_a11y">Waarde over %1$s: %2$s, %3$s</string>
+    <string name="portfolio_history_today">Vandaag</string>
+    <string name="portfolio_history_converted">Omgerekend tegen de koers van vandaag</string>
+    <string name="portfolio_history_without">Zonder %1$s (geen dagkoersen)</string>
+    <string name="portfolio_history_includes_trades">Inclusief aankopen en verkopen in deze periode</string>
+    <string name="portfolio_history_too_short">Het verloop begint na je eerste volledige dag.</string>
+    <string name="portfolio_history_unavailable">Momenteel geen verloop beschikbaar.</string>
+    <string name="portfolio_history_loading">Waardeverloop wordt geladen</string>
+</resources>

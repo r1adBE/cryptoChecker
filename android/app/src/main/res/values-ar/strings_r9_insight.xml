@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">ما يلفت الانتباه الآن</string>
+    <string name="pulse_why_action">لماذا؟ →</string>
+    <string name="pulse_section_factors">العوامل</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin يقود السوق.</string>
+    <string name="pulse_lead_alts_stronger">العملات البديلة أقوى من Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin أقوى من العملات البديلة.</string>
+    <string name="pulse_lead_broad_up">السوق يرتفع على نطاق واسع.</string>
+    <string name="pulse_lead_broad_down">السوق يتراجع على نطاق واسع.</string>
+    <string name="pulse_lead_drift_up">السوق يرتفع قليلًا.</string>
+    <string name="pulse_lead_drift_down">السوق يتراجع قليلًا.</string>
+    <string name="pulse_lead_mixed">العملات الكبيرة تتحرك في اتجاهات مختلفة.</string>
+    <string name="pulse_lead_calm">السوق بالكاد يتحرك.</string>
+
+    <string name="pulse_detail_vol_above">الحجم أعلى من المعتاد بنسبة %1$d%%.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">الحجم أعلى من المعتاد بنسبة %1$d%%، التمويل محايد.</string>
+    <string name="pulse_detail_vol_above_fund_high">الحجم أعلى من المعتاد بنسبة %1$d%%، التمويل مرتفع.</string>
+    <string name="pulse_detail_vol_above_fund_negative">الحجم أعلى من المعتاد بنسبة %1$d%%، التمويل سلبي.</string>
+    <string name="pulse_detail_vol_below">الحجم أقل من المعتاد بنسبة %1$d%%.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">الحجم أقل من المعتاد بنسبة %1$d%%، التمويل محايد.</string>
+    <string name="pulse_detail_vol_below_fund_high">الحجم أقل من المعتاد بنسبة %1$d%%، التمويل مرتفع.</string>
+    <string name="pulse_detail_vol_below_fund_negative">الحجم أقل من المعتاد بنسبة %1$d%%، التمويل سلبي.</string>
+    <string name="pulse_detail_vol_normal">الحجم معتاد.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">الحجم معتاد، التمويل محايد.</string>
+    <string name="pulse_detail_vol_normal_fund_high">الحجم معتاد، التمويل مرتفع.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">الحجم معتاد، التمويل سلبي.</string>
+    <string name="pulse_detail_fund_neutral">التمويل محايد.</string>
+    <string name="pulse_detail_fund_high">التمويل مرتفع.</string>
+    <string name="pulse_detail_fund_negative">التمويل سلبي.</string>
+
+    <string name="factor_volume">الحجم</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">التمويل</string>
+    <string name="factor_volatility">التذبذب (1h)</string>
+    <string name="factor_spoken_volume">%1$s أضعاف المعتاد</string>
+    <string name="factor_spoken_volatility">%1$s أضعاف التذبذب المعتاد</string>
+
+    <string name="why_title_coin">لماذا يتحرك %1$s؟</string>
+    <string name="why_details">عرض التفاصيل</string>
+    <string name="why_details_hide">إخفاء التفاصيل</string>
+    <string name="why_f_market_wide">السوق بأكمله يتحرك</string>
+    <string name="why_f_coin_only">هذه العملة وحدها</string>
+    <string name="why_f_against">عكس السوق</string>
+    <string name="why_f_market_calm">سوق هادئ</string>
+    <string name="why_f_leader">Bitcoin يحدد الاتجاه</string>
+    <string name="why_f_leverage_longs">الرافعة: كثير من مراكز الشراء</string>
+    <string name="why_f_leverage_shorts">الرافعة: كثير من مراكز البيع</string>
+    <string name="why_f_leverage_balanced">الرافعة متوازنة</string>
+    <string name="insights_dominance_eth">ETH %1$s من السوق الكلي</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="zero">%1$d شهر منذ التنصيف في %2$s</item>
+        <item quantity="one">%1$d شهر منذ التنصيف في %2$s</item>
+        <item quantity="two">%1$d شهر منذ التنصيف في %2$s</item>
+        <item quantity="few">%1$d أشهر منذ التنصيف في %2$s</item>
+        <item quantity="many">%1$d شهرًا منذ التنصيف في %2$s</item>
+        <item quantity="other">%1$d شهر منذ التنصيف في %2$s</item>
+    </plurals>
+</resources>

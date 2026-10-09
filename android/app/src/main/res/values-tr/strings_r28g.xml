@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">Çevrimdışı</string>
+    <string name="offline_status_since">Çevrimdışı · %1$s itibarıyla</string>
+    <string name="error_market_unreachable">Borsaya şu anda ulaşılamıyor – son fiyatlar görünür kalır.</string>
+    <string name="error_market_unreachable_short">Borsaya şu anda ulaşılamıyor</string>
+    <string name="refresh_sheet_paused_until">%1$s saatine kadar duraklatıldı</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s saatine kadar duraklatıldı (%2$s)</string>
+    <string name="refresh_sheet_app_start">Uygulama başlatma</string>
+</resources>

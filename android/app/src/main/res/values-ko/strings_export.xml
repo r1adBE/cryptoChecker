@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">기준일 내보내기…</string>
+    <string name="portfolio_export_title">기준일 내보내기</string>
+    <string name="portfolio_export_date">기준일</string>
+    <string name="portfolio_export_currency">통화: %1$s</string>
+    <string name="portfolio_export_hint">선택한 날 마감 시점의 보유량으로, USDT 기준 일 종가(UTC)로 평가하고 그날의 ECB 기준 환율로 환산합니다. 통화는 ‘환산 통화’에서 바꾸세요.</string>
+    <string name="portfolio_export_button">CSV 내보내기</string>
+    <string name="portfolio_export_running">과거 시세 불러오는 중…</string>
+    <string name="portfolio_export_done">내보내기 저장됨</string>
+    <string name="portfolio_export_failed">내보내기 실패</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># 기준일 %1$s, 통화 %2$s, %3$s 환율</string>
+    <string name="portfolio_export_col_coin">코인</string>
+    <string name="portfolio_export_col_amount">수량</string>
+    <string name="portfolio_export_col_price">가격 USDT</string>
+    <string name="portfolio_export_col_value">평가액 USDT</string>
+    <string name="portfolio_export_col_rate">환율 USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">평가액 %1$s</string>
+    <string name="portfolio_export_col_note">메모</string>
+    <string name="portfolio_export_total">합계</string>
+    <string name="portfolio_export_no_price">가격 없음</string>
+    <string name="portfolio_export_no_fx">환율 없음</string>
+    <string name="portfolio_export_incomplete">불완전</string>
+</resources>

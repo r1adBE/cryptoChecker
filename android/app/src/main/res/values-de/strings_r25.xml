@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">Die Sperre schützt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen. Sicherungen des ganzen Geräts (Systemsicherung) enthalten diese Daten trotzdem.</string>
+    <string name="backup_protect">Mit Passwort schützen</string>
+    <string name="backup_protect_hint">Verschlüsselt die Datei (AES-256). Empfohlen, wenn sie Portfolio-Daten enthält.</string>
+    <string name="backup_password">Passwort</string>
+    <string name="backup_password_repeat">Passwort wiederholen</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Mindestens %1$d Zeichen</string>
+    <string name="backup_password_mismatch">Die Passwörter stimmen nicht überein</string>
+    <string name="backup_password_warning">Ohne Passwort lässt sich die Sicherung nicht wiederherstellen.</string>
+    <string name="backup_password_show">Passwort anzeigen</string>
+    <string name="backup_password_hide">Passwort verbergen</string>
+    <string name="backup_password_title">Sicherung mit Passwort</string>
+    <string name="backup_password_prompt">Gib das Passwort dieser Sicherung ein.</string>
+    <string name="backup_password_wrong">Falsches Passwort – oder die Datei ist beschädigt. Versuch es noch einmal.</string>
+    <string name="backup_password_continue">Weiter</string>
+</resources>

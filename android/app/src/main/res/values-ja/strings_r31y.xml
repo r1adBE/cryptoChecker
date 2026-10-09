@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">古いデータ · %1$s</string>
+    <string name="why_brief_label">要するに：</string>
+    <string name="why_factor_market">市場全体</string>
+    <string name="why_factor_futures">先物</string>
+    <string name="why_factor_near_high">高値付近</string>
+    <string name="why_factor_funding">資金調達率</string>
+    <string name="why_fn_volume_higher">通常より多い</string>
+    <string name="why_fn_volume_lower">通常より少ない</string>
+    <string name="why_fn_volume_usual">通常どおり</string>
+    <string name="why_fn_market_pulls">BTCが市場を引っ張っている</string>
+    <string name="why_fn_market_lags">市場は動いているが、このコインはほぼ動かない</string>
+    <string name="why_fn_market_alone">市場は落ち着いている – このコインが単独で動いている</string>
+    <string name="why_fn_market_against">このコインが市場と逆行している</string>
+    <string name="why_fn_market_calm">市場は落ち着いている</string>
+    <string name="why_fn_leader_moves">ビットコインが方向を決めている</string>
+    <string name="why_fn_leader_calm">ビットコインは落ち着いている</string>
+    <string name="why_fn_volatility_stronger">通常より大きい</string>
+    <string name="why_fn_volatility_usual">通常どおり</string>
+    <string name="why_fn_oi_up">建玉が増加</string>
+    <string name="why_fn_oi_down">建玉が減少</string>
+    <string name="why_fn_oi_flat">建玉はほぼ横ばい</string>
+    <string name="why_fn_high_at">30日高値にある</string>
+    <string name="why_fn_high_below">30日高値を下回る</string>
+    <string name="why_fn_funding_longs">上昇に賭ける人が多い</string>
+    <string name="why_fn_funding_shorts">下落に賭ける人が多い</string>
+    <string name="why_fn_funding_neutral">中立</string>
+</resources>

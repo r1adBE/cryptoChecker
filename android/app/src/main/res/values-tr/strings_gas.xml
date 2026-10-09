@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum gas: altına inince bildir (gwei)</string>
+    <string name="settings_gas_btc_below">Bitcoin ücreti: altına inince bildir (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Normal ücret sınırın altına düştüğünde bir kez bildirir. Fiyat güncellemesinde, en fazla 10 dakikada bir kontrol edilir.</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">%1$s gwei sınırınızın altında · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin ücreti: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">%1$s sat/vB sınırınızın altında · Transfer ≈ %2$s</string>
+    <string name="gas_title">Ağ ücretleri</string>
+    <string name="gas_slow_fast">Yavaş %1$s · Hızlı %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Herkese açık RPC düğümleri ve mempool.space · Basit bir transferin maliyeti, L2\'lerde L1 payı olmadan</string>
+    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+</resources>

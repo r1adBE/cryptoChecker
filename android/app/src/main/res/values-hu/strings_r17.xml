@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Portfóliózár</string>
+    <string name="settings_portfolio_lock_hint">Csak a portfóliót védi: feloldás ujjlenyomattal, arccal vagy az eszköz PIN-kódjával. Több mint egy perc háttérben töltött idő után újra zárol. A figyelőlista, a riasztások és a többi widget szabadon elérhető marad.</string>
+    <string name="portfolio_locked_title">A portfólió zárolva van</string>
+    <string name="portfolio_locked_text">Oldja fel a pozíciók és értékek megtekintéséhez.</string>
+    <string name="portfolio_lock_reason">Portfólió feloldása</string>
+    <string name="widget_portfolio_locked_hint">Zárolva – oldja fel az alkalmazásban</string>
+    <string name="portfolio_history_range_since_first">Első vétel óta</string>
+    <string name="portfolio_history_period_since_first">az első vétel óta</string>
+    <string name="portfolio_history_range_since_first_a11y">Alakulás megjelenítése az első vétel óta</string>
+    <string name="portfolio_history_change_since_first_a11y">Érték az első vétel óta: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Csak az utolsó 5 évet mutatja.</string>
+    <string name="portfolio_history_expand">Értékalakulás megjelenítése</string>
+    <string name="portfolio_history_collapse">Értékalakulás elrejtése</string>
+</resources>

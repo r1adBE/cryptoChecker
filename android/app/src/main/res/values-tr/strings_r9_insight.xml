@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Şu an öne çıkan</string>
+    <string name="pulse_why_action">Neden? →</string>
+    <string name="pulse_section_factors">Faktörler</string>
+
+    <string name="pulse_lead_btc_leads">Piyasayı Bitcoin sürüklüyor.</string>
+    <string name="pulse_lead_alts_stronger">Altcoin\'ler Bitcoin\'den güçlü.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin altcoin\'lerden güçlü.</string>
+    <string name="pulse_lead_broad_up">Piyasa geniş çapta yükseliyor.</string>
+    <string name="pulse_lead_broad_down">Piyasa geniş çapta düşüyor.</string>
+    <string name="pulse_lead_drift_up">Piyasa hafifçe yükseliyor.</string>
+    <string name="pulse_lead_drift_down">Piyasa hafifçe düşüyor.</string>
+    <string name="pulse_lead_mixed">Büyük coin\'ler farklı yönlere gidiyor.</string>
+    <string name="pulse_lead_calm">Piyasa neredeyse hareketsiz.</string>
+
+    <string name="pulse_detail_vol_above">Hacim normalin %%%1$d üzerinde.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Hacim normalin %%%1$d üzerinde, fonlama nötr.</string>
+    <string name="pulse_detail_vol_above_fund_high">Hacim normalin %%%1$d üzerinde, fonlama yüksek.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Hacim normalin %%%1$d üzerinde, fonlama negatif.</string>
+    <string name="pulse_detail_vol_below">Hacim normalin %%%1$d altında.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Hacim normalin %%%1$d altında, fonlama nötr.</string>
+    <string name="pulse_detail_vol_below_fund_high">Hacim normalin %%%1$d altında, fonlama yüksek.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Hacim normalin %%%1$d altında, fonlama negatif.</string>
+    <string name="pulse_detail_vol_normal">Hacim normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Hacim normal, fonlama nötr.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Hacim normal, fonlama yüksek.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Hacim normal, fonlama negatif.</string>
+    <string name="pulse_detail_fund_neutral">Fonlama nötr.</string>
+    <string name="pulse_detail_fund_high">Fonlama yüksek.</string>
+    <string name="pulse_detail_fund_negative">Fonlama negatif.</string>
+
+    <string name="factor_volume">Hacim</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Fonlama</string>
+    <string name="factor_volatility">Dalgalanma (1sa)</string>
+    <string name="factor_spoken_volume">normalin %1$s katı</string>
+    <string name="factor_spoken_volatility">olağan salınımın %1$s katı</string>
+
+    <string name="why_title_coin">%1$s neden hareket ediyor?</string>
+    <string name="why_details">Ayrıntıları göster</string>
+    <string name="why_details_hide">Ayrıntıları gizle</string>
+    <string name="why_f_market_wide">Tüm piyasa hareket ediyor</string>
+    <string name="why_f_coin_only">Yalnızca bu coin</string>
+    <string name="why_f_against">Piyasanın tersine</string>
+    <string name="why_f_market_calm">Sakin piyasa</string>
+    <string name="why_f_leader">Yönü Bitcoin belirliyor</string>
+    <string name="why_f_leverage_longs">Kaldıraç: çok sayıda long</string>
+    <string name="why_f_leverage_shorts">Kaldıraç: çok sayıda short</string>
+    <string name="why_f_leverage_balanced">Kaldıraç dengeli</string>
+    <string name="insights_dominance_eth">Toplam piyasada ETH %1$s</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%2$s tarihindeki yarılanmadan bu yana %1$d ay geçti</item>
+        <item quantity="other">%2$s tarihindeki yarılanmadan bu yana %1$d ay geçti</item>
+    </plurals>
+</resources>

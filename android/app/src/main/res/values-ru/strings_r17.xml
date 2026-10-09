@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Блокировка портфеля</string>
+    <string name="settings_portfolio_lock_hint">Защищает только портфель: разблокировка отпечатком пальца, лицом или PIN-кодом устройства. Снова блокируется после более чем минуты в фоне. Список наблюдения, оповещения и другие виджеты остаются доступными.</string>
+    <string name="portfolio_locked_title">Портфель заблокирован</string>
+    <string name="portfolio_locked_text">Разблокируйте, чтобы увидеть активы и стоимость.</string>
+    <string name="portfolio_lock_reason">Разблокировать портфель</string>
+    <string name="widget_portfolio_locked_hint">Заблокировано – разблокируйте в приложении</string>
+    <string name="portfolio_history_range_since_first">С 1-й покупки</string>
+    <string name="portfolio_history_period_since_first">с первой покупки</string>
+    <string name="portfolio_history_range_since_first_a11y">Показать динамику с первой покупки</string>
+    <string name="portfolio_history_change_since_first_a11y">Стоимость с первой покупки: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Показаны только последние 5 лет.</string>
+    <string name="portfolio_history_expand">Показать динамику стоимости</string>
+    <string name="portfolio_history_collapse">Скрыть динамику стоимости</string>
+</resources>

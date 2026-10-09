@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10: Widgets (neues Widget «Was gerade auffällt», kurze «heute»-Anzeige) -->
+    <string name="widget_pulse_description">Det, der skiller sig ud i markedet lige nu: overskrift, kort resumé samt Bitcoin, Ethereum og Solana.</string>
+    <!-- «heute» allein vor der Prozent-Pille, wenn Betrag und Prozent nicht nebeneinander passen (iOS) -->
+    <string name="widget_portfolio_today_label">i dag</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">लाइव भाव</string>
+    <string name="settings_live_websocket_hint">सूची खुली रहने तक भाव बिना देरी के एक्सचेंज के साथ चलते हैं। Binance, Bybit, OKX, Coinbase और Kraken के लिए।</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">लाइव भाव चालू</string>
+    <string name="refresh_report_live">लाइव: %1$s</string>
+</resources>

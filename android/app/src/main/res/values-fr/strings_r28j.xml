@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Répartition</string>
+    <string name="portfolio_allocation_other">Autres</string>
+    <string name="portfolio_movers_title">Plus forts mouvements</string>
+    <string name="portfolio_hide_amounts">Masquer les montants</string>
+    <string name="portfolio_hide_amounts_hint">Affiche les montants et valeurs du portefeuille et du widget portefeuille sous la forme ••• – les pourcentages restent visibles.</string>
+    <string name="a11y_portfolio_show_amounts">Afficher les montants</string>
+    <string name="a11y_amount_hidden">montant masqué</string>
+    <string name="portfolio_alarm_action">Alerte</string>
+    <string name="portfolio_alarm_title">Alerte « valeur du portefeuille »</string>
+    <string name="portfolio_alarm_kind_above">Portefeuille au-dessus d’un montant</string>
+    <string name="portfolio_alarm_kind_below">Portefeuille en dessous d’un montant</string>
+    <string name="portfolio_alarm_kind_up">Portefeuille en hausse</string>
+    <string name="portfolio_alarm_kind_down">Portefeuille en baisse</string>
+    <string name="portfolio_alarm_amount">Montant (%1$s)</string>
+    <string name="portfolio_alarm_hint">Vérifiée après chaque actualisation. Comme les alertes de prix : se déclenche au franchissement du seuil, puis seulement après le retour de la valeur.</string>
+    <string name="portfolio_alarm_sentence_above">Portefeuille au-dessus de %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portefeuille en dessous de %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Portefeuille en hausse de %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Portefeuille en baisse de %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Valeur du portefeuille</string>
+    <string name="notification_portfolio_alarm_text">%1$s – actuellement %2$s</string>
+</resources>

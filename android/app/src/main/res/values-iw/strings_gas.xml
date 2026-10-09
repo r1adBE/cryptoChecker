@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">גז Ethereum מתחת ל- (gwei)</string>
+    <string name="settings_gas_btc_below">עמלת Bitcoin מתחת ל- (sat/vB)</string>
+    <string name="settings_gas_alert_hint">מתריע פעם אחת כשהעמלה הרגילה יורדת מתחת לסף. נבדק בעדכון המחירים, לכל היותר כל 10 דקות.</string>
+    <string name="notification_gas_eth_title">גז Ethereum: %1$s gwei</string>
+    <string name="notification_gas_eth_text">מתחת לסף שלך של %1$s gwei · העברה ≈ %2$s</string>
+    <string name="notification_gas_btc_title">עמלת Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">מתחת לסף שלך של %1$s sat/vB · העברה ≈ %2$s</string>
+    <string name="gas_title">עמלות רשת</string>
+    <string name="gas_slow_fast">איטי %1$s · מהיר %2$s</string>
+    <string name="gas_alert_active">התראה: %1$s</string>
+    <string name="gas_source">צמתי RPC ציבוריים ו-mempool.space · עלות העברה פשוטה, ללא חלק ה-L1 ב-L2</string>
+    <string name="gas_transfer_cost">העברה ≈ %1$s</string>
+</resources>

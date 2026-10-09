@@ -1,0 +1,35 @@
+Wersja 16.2.2
+• Crypto Pulse: co dzieje się teraz na rynku
+• „Dlaczego to się rusza?”: wyjaśnienie ruchów ceny oparte na danych, z krótkim podsumowaniem
+• Testuj alarm: sprawdź dźwięk, wibrację i głos
+• Przeliczone ceny: druga linia „≈ wartość” w twojej walucie przeliczenia – 31 walut, np. EUR, CHF, USD, GBP lub JPY, domyślnie zgodnie z regionem urządzenia
+• Alarmy w twojej walucie, np. przy 60 000 EUR na parze z USDT
+• Eksport stanu na dzień: wartość twojego portfela na dowolny dzień, np. 31 grudnia, w twojej walucie jako plik CSV – przydatne przy zeznaniu podatkowym (to nie jest doradztwo podatkowe)
+• Dostępność: niebieski/pomarańczowy łatwo odróżnić przy każdym zaburzeniu widzenia barw (czerwono-zielonym i niebiesko-żółtym); „Zamień kolory wzrostu/spadku”: czerwony to wzrost, zielony to spadek, jak w Chinach, Japonii, Korei i na Tajwanie (tam automatycznie); „Wysoki kontrast”: wyraźniejsze kolory cen, ciemniejszy tekst pomocniczy i akcent, zgodnie też z ustawieniem systemu; pełna obsługa VoiceOver: każdy wiersz, wykres i widżet jako jedno zdanie
+• Miniwykres w każdym wierszu: trend 24-godzinny obok ceny
+• „Zacznij jednym dotknięciem”: pusta lista proponuje 5 największych monet wg kapitalizacji (bez stablecoinów)
+• Lista startowa pokazuje bieżącą cenę i zmianę 24 h – wszystkie pięć jest zaznaczonych, dodajesz je jednym przyciskiem
+• Przesuń w lewo, aby usunąć (z opcją Cofnij), w prawo, aby dodać do ulubionych
+• Karta Rynek otwiera się od razu z ostatnimi danymi i odświeża w tle
+• Godziny ciszy: w nocy (np. 23–7) alarmy przychodzą bez dźwięku, wibracji i głosu
+• Blokada portfela przez Face ID, Touch ID lub kod urządzenia
+• Widżet Portfel na ekran początkowy i ekran blokady: łączna wartość w twojej walucie i dzisiejsza zmiana
+• Każdy alarm jako zdanie: „Powiadom mnie, gdy BTC spadnie poniżej 60 000 CHF.”
+• Krótkie wyjaśnienia: stopa finansowania, otwarte pozycje, RSI i Pi Cycle
+• Wiersze pokazują „nieaktualne” lub „giełda niedostępna”, gdy kursy nie są aktualne
+• 15 nowych giełd: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Opłaty sieciowe dla Ethereum, Base, Arbitrum, Polygon, BNB Chain i Bitcoin na karcie Rynek, z alarmem gas
+• Notatka do każdej monety na liście obserwowanych
+• Wybór dźwięku alarmu
+• Nietypowa aktywność: wykrywa nietypowe ruchy ceny i wolumenu, opcjonalne powiadomienia
+• Portfel w osobnej karcie: kupno i sprzedaż, średnia cena, zysk/strata
+• Porównanie cykli: zaznaczone szczyty i dołki, w tym podwójny szczyt i podwójny dołek
+• Grupy na liście obserwowanych
+• Nowe alarmy: ruch o X% w ciągu Y godzin i skok wolumenu
+• Widżet jednej monety: świece lub linia, zakres wykresu 24 h, 7 lub 30 dni, znaczniki maksimum, środka i minimum, wyróżniona aktualna cena
+• Karta Rynek: łączna kapitalizacja rynku kryptowalut i wolumen 24 h w twojej walucie
+• Futures: funding rate i open interest
+• Pięć kolorów akcentu z pasującymi ikonami aplikacji
+• Akcje, złoto, surowce i waluty jako futures (TradFi) na Binance, Bybit, OKX, MEXC i Bitget – za przełącznikiem w Ustawienia › Lista, nowe pary trafiają do grupy „TradFi”, kontrakty terminowe do „QTLY”
+• Zmiana % jak na Binance: ostatnie 24 h, od ostatniej aktualizacji, od 00:00 w strefie czasowej urządzenia lub w stałej strefie od UTC+14 do UTC-12
+• Jasne nazwy: „Odświeżaj często” i „Kursy na żywo”

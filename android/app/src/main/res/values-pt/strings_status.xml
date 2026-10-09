@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Sem ligação</string>
+    <string name="watchlist_offline_since">Sem ligação · dados de %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d de %2$d sem preço</item>
+        <item quantity="many">%1$d de %2$d sem preço</item>
+        <item quantity="other">%1$d de %2$d sem preço</item>
+    </plurals>
+    <string name="watch_not_traded">Já não é negociado nesta exchange</string>
+</resources>

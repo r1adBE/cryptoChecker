@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 34f: Futures-Alarme «Funding über/unter x %» und «Open Interest steigt/fällt um x % in N Stunden» -->
+    <string name="alarm_condition_funding_above">מימון מעל</string>
+    <string name="alarm_condition_funding_below">מימון מתחת</string>
+    <string name="alarm_condition_oi_up">Open interest עולה</string>
+    <string name="alarm_condition_oi_down">Open interest יורד</string>
+    <string name="alarm_sentence_funding_above">להודיע לי כשהמימון של %1$s עולה מעל %2$s.</string>
+    <string name="alarm_sentence_funding_below">להודיע לי כשהמימון של %1$s יורד מתחת ל־%2$s.</string>
+    <string name="tts_direction_funding_above">עם מימון גבוה</string>
+    <string name="tts_direction_funding_below">עם מימון נמוך</string>
+    <string name="tts_direction_oi_up">עם Open interest עולה</string>
+    <string name="tts_direction_oi_down">עם Open interest יורד</string>
+    <string name="alarm_funding_hint">שיעור המימון לכל תקופת סליקה (בדרך כלל כל 8 שעות). שלילי פירושו שהשורטים משלמים ללונגים. ± מחליף את הסימן.</string>
+    <string name="alarm_oi_hint">משווה את ה־Open interest לערך שנשמר לפני אותו מספר שעות. התראה חדשה מודיעה רק אחרי שהאפליקציה אספה נתונים במשך הזמן הזה; הבדיקה לכל היותר כל 5 דקות.</string>
+    <string name="alarm_funding_sign_a11y">החלפת סימן</string>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">להודיע לי כשה־Open interest של %1$s עולה ב־%2$s תוך %3$d שעה.</item>
+        <item quantity="two">להודיע לי כשה־Open interest של %1$s עולה ב־%2$s תוך %3$d שעות.</item>
+        <item quantity="other">להודיע לי כשה־Open interest של %1$s עולה ב־%2$s תוך %3$d שעות.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">להודיע לי כשה־Open interest של %1$s יורד ב־%2$s תוך %3$d שעה.</item>
+        <item quantity="two">להודיע לי כשה־Open interest של %1$s יורד ב־%2$s תוך %3$d שעות.</item>
+        <item quantity="other">להודיע לי כשה־Open interest של %1$s יורד ב־%2$s תוך %3$d שעות.</item>
+    </plurals>
+</resources>

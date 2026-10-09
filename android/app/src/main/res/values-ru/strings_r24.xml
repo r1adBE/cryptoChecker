@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Изменение в %1$s и часовой пояс графика</string>
+    <string name="change_basis_rolling">Последние 24 ч</string>
+    <string name="change_basis_utc_zone">С 00:00 %1$s</string>
+    <string name="change_basis_local">С 00:00 по местному времени</string>
+    <string name="settings_change_basis_hint_1">Выбранный часовой пояс определяет, с какого момента считается процентное изменение (список наблюдения, строка пульса, карточка пары, виджеты), и время на графиках.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» сравнивает с ценой ровно 24 часа назад. «00:00» сравнивает с ценой открытия в полночь в этом часовом поясе.</string>
+    <string name="settings_change_basis_hint_3">На оповещения это не влияет.</string>
+    <string name="change_basis_device">%1$s, 00:00 (часовой пояс устройства)</string>
+    <string name="change_short_today">сегодня</string>
+    <string name="change_short_today_zone">сегодня %1$s</string>
+    <string name="a11y_change_today">%1$s сегодня</string>
+    <string name="a11y_change_today_zone">%1$s с полуночи %2$s</string>
+    <string name="a11y_change_today_none">Изменение за сегодня недоступно</string>
+    <string name="a11y_change_today_zone_none">Изменение с полуночи %1$s недоступно</string>
+    <string name="sheet_chart_today">Сегодня</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">При закрытом приложении не чаще раза в минуту</string>
+    <string name="sheet_more">Ещё</string>
+    <string name="a11y_expanded">Развёрнуто</string>
+    <string name="a11y_collapsed">Свёрнуто</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d без значения за сегодня</item>
+        <item quantity="few">%1$d без значения за сегодня</item>
+        <item quantity="many">%1$d без значения за сегодня</item>
+        <item quantity="other">%1$d без значения за сегодня</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d пара без значения за сегодня</item>
+        <item quantity="few">%1$d пары без значения за сегодня</item>
+        <item quantity="many">%1$d пар без значения за сегодня</item>
+        <item quantity="other">%1$d пары без значения за сегодня</item>
+    </plurals>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">مجوزها</string>
+    <string name="licenses_marketdata_title">کتابخانهٔ داده‌های قیمت</string>
+    <string name="licenses_marketdata_intro">بخش‌هایی از اتصال به صرافی‌ها بر پایهٔ نرم‌افزاری با مجوز MIT است:</string>
+    <string name="licenses_marketdata_changes">تغییرات: %1$s</string>
+    <string name="licenses_font_title">قلم Rubik</string>
+    <string name="licenses_libraries_title">کتابخانه‌های Android</string>
+    <string name="licenses_libraries_intro">برنامه از این کتابخانه‌ها تحت Apache License 2.0 استفاده می‌کند:</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Όλα ενημερώθηκαν</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d ζεύγος δεν ενημερώθηκε</item>
+        <item quantity="other">%1$d ζεύγη δεν ενημερώθηκαν</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">Το %1$s δεν είναι προσβάσιμο</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d ανταλλακτήριο μη προσβάσιμο</item>
+        <item quantity="other">%1$d ανταλλακτήρια μη προσβάσιμα</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Η ανανέωση διακόπηκε</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d ζεύγος</item>
+        <item quantity="other">%1$d ζεύγη</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Ανταλλακτήρια</string>
+    <string name="refresh_sheet_section_steps">Ανάλυση</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Αναμονή έως την έναρξη</string>
+    <string name="refresh_sheet_network">Δίκτυο</string>
+    <string name="refresh_sheet_database">Βάση δεδομένων</string>
+    <string name="refresh_sheet_alarms">Ειδοποιήσεις τιμής</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ενεργοποιήθηκε</item>
+        <item quantity="other">%1$d ενεργοποιήθηκαν</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d ειδοποίηση</item>
+        <item quantity="other">%1$d ειδοποιήσεις</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widget</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d από %1$d ζεύγος</item>
+        <item quantity="other">%2$d από %1$d ζεύγη</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">μαζικό αίτημα %1$s · %2$d τιμή</item>
+        <item quantity="other">μαζικό αίτημα %1$s · %2$d τιμές</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">λήξη χρόνου</string>
+    <string name="refresh_sheet_reason_offline">χωρίς σύνδεση</string>
+    <string name="refresh_sheet_reason_rate_limit">πάρα πολλά αιτήματα</string>
+    <string name="refresh_sheet_reason_server">σφάλμα διακομιστή</string>
+    <string name="refresh_sheet_reason_no_data">χωρίς δεδομένα</string>
+    <string name="refresh_sheet_reason_unavailable">το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">όλα ενημερώθηκαν</string>
+    <string name="refresh_sheet_status_partial">μερικώς ενημερωμένο</string>
+    <string name="refresh_sheet_status_failed">δεν ενημερώθηκε</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s δευτερόλεπτα</string>
+</resources>

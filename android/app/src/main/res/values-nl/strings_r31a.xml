@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31a: einfacher Alarm-Editor («Wenn BTC über … geht», «Erweitert») und Schnell-Alarme -->
+    <string name="alarm_templates_title">Snelle alarmen</string>
+    <string name="alarm_template_volume">Volume ×%1$s</string>
+    <string name="alarm_new_extreme">Nieuwe %1$s</string>
+    <string name="alarm_template_a11y_up">Alarm bij plus %1$s procent aanmaken</string>
+    <string name="alarm_template_a11y_down">Alarm bij min %1$s procent aanmaken</string>
+    <string name="alarm_template_a11y">Alarm aanmaken: %1$s</string>
+    <string name="alarm_template_created">Alarm aangemaakt</string>
+    <string name="alarm_sentence_new_extreme">Laat het me weten als %1$s een nieuwe %2$s bereikt.</string>
+    <string name="alarm_simple_when">Als %1$s</string>
+    <string name="alarm_simple_above">boven</string>
+    <string name="alarm_simple_below">onder</string>
+    <string name="alarm_simple_end">komt</string>
+    <string name="alarm_simple_direction_a11y">Richting: %1$s</string>
+    <string name="alarm_repeat_once">Eenmalig</string>
+    <string name="alarm_repeat_each">Elke keer</string>
+    <string name="alarm_advanced">Geavanceerd</string>
+    <string name="alarm_create">Alarm aanmaken</string>
+    <string name="alarm_near_new_only">Alleen nieuwe toppen of bodems</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_edit_title">Sửa nhóm</string>
+    <string name="group_rename">Đổi tên</string>
+    <string name="group_delete">Xóa nhóm</string>
+    <string name="group_delete_confirm">Các cặp vẫn còn trong danh sách theo dõi của bạn.</string>
+    <string name="group_done">Xong</string>
+    <string name="group_add">Nhóm mới</string>
+    <string name="group_in_other">trong %1$s</string>
+    <string name="group_target">Vào nhóm</string>
+    <string name="group_search_hint">Tìm cặp</string>
+    <string name="group_next">Tiếp</string>
+</resources>

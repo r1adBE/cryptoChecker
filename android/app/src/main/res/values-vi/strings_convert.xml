@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Giá quy đổi</string>
+    <string name="settings_show_converted_hint">Hiển thị giá trong danh sách theo dõi cả bằng %1$s</string>
+    <string name="settings_conversion_currency">Tiền tệ quy đổi</string>
+    <string name="alarm_currency_label">Tiền tệ</string>
+</resources>

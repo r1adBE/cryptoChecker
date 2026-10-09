@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">General</string>
+    <string name="settings_group_data_only">Data</string>
+    <string name="settings_row_currency">Currency</string>
+    <string name="settings_row_updates">Updates</string>
+    <string name="settings_updates_live">Frequently · %1$s</string>
+    <string name="settings_updates_every">Every %1$s</string>
+    <string name="settings_row_watchlist">Watchlist</string>
+    <string name="settings_watchlist_value_sparkline">Mini chart</string>
+    <string name="settings_watchlist_value_price_only">Price only</string>
+    <string name="settings_row_alarms">Alarms</string>
+    <string name="settings_portfolio_value_locked">On, with lock</string>
+    <string name="settings_row_dated_futures">Dated futures</string>
+    <string name="settings_tradfi_futures">Stocks, commodities and FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Also shows futures on stocks, gold and other commodities, currencies and pre-IPO companies when you pick a pair. These are contracts, not tokens.</string>
+    <string name="settings_watchlist_activity_card">Unusual activity in the list</string>
+    <string name="settings_watchlist_activity_card_hint">Shows the card “Something is happening right now” above the pairs. Alerts are set under Market alerts.</string>
+    <string name="settings_row_about">About the app</string>
+    <string name="price_colors_green_up">Green rises / red falls</string>
+    <string name="price_colors_red_up">Red rises / green falls</string>
+    <string name="price_colors_blue_up">Blue rises / orange falls</string>
+    <string name="price_colors_orange_up">Orange rises / blue falls</string>
+    <string name="price_colors_red_up_hint">Common in China, Japan, Korea and Taiwan</string>
+</resources>

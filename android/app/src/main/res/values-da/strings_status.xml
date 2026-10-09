@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Ingen forbindelse</string>
+    <string name="watchlist_offline_since">Ingen forbindelse · pr. %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d af %2$d uden kurs</item>
+        <item quantity="other">%1$d af %2$d uden kurs</item>
+    </plurals>
+    <string name="watch_not_traded">Handles ikke længere på børsen</string>
+</resources>

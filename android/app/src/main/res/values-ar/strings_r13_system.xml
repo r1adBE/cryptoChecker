@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">يقرأ الأسعار والتنبيهات بصوت عالٍ. يبقى صامتًا ما دام الجهاز في وضع الصامت أو الاهتزاز.</string>
+</resources>

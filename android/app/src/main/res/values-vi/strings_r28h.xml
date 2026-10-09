@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Độ tin cậy: %1$s</string>
+    <string name="why_confidence_high">cao</string>
+    <string name="why_confidence_medium">trung bình</string>
+    <string name="why_confidence_low">thấp</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="other">%1$d trên %2$d dấu hiệu chỉ về điều này</item>
+    </plurals>
+    <string name="why_confidence_partial">dữ liệu chưa đầy đủ</string>
+</resources>

@@ -1,0 +1,166 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'com.google.devtools.ksp'
+    id 'com.google.dagger.hilt.android'
+    id 'androidx.room'
+    // Baseline Profile: generiert von :baselineprofile, sonst gilt src/main/baseline-prof.txt
+    id 'androidx.baselineprofile'
+}
+
+// Signierschlüssel liegt außerhalb der Versionsverwaltung.
+// Vorlage: keystore.properties.example im Projektwurzelverzeichnis.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace 'com.cryptochecker.app'
+    compileSdk = compile_sdk_version
+
+    defaultConfig {
+        applicationId "com.cryptochecker.app"
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
+
+        versionCode 17
+        versionName "16.2.2"
+
+        // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
+        testInstrumentationRunner "com.cryptochecker.app.HiltTestRunner"
+    }
+
+    buildFeatures {
+        compose = true
+        // BuildConfig ist seit AGP 8 nicht mehr automatisch aktiv.
+        buildConfig = true
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // Ohne keystore.properties bleibt der Build unsigniert, statt zu scheitern.
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+
+        debug {
+            // Debug- und Release-App lassen sich so nebeneinander installieren.
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        // Zuweisungs-Syntax: «disable 'X'» ist alte Methoden-DSL, «propName value» in Gradle 10 weg
+        abortOnError = true
+        disable += ['MissingTranslation']
+        enable += ['LogNotTimber']
+    }
+}
+
+// Room schreibt sein Schema hierhin; unter KSP geht das nur über das Room-Plugin.
+room {
+    schemaDirectory "$projectDir/schemas"
+}
+
+// Kotlin ist ab AGP 9 eingebaut; jvmTarget folgt compileOptions (Java 17).
+
+dependencies {
+    implementation project(':marketdata')
+
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    ksp "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Jetpack Compose
+    def composeBom = platform("androidx.compose:compose-bom:$compose_bom_version")
+    implementation composeBom
+    androidTestImplementation composeBom
+
+    implementation "androidx.compose.material3:material3"
+    implementation "androidx.compose.ui:ui-tooling-preview"
+    implementation "androidx.compose.ui:ui-util"
+    debugImplementation "androidx.compose.ui:ui-tooling"
+
+    implementation "androidx.activity:activity-compose:$activity_compose_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
+    implementation "androidx.navigation:navigation-compose:$navigation_version"
+
+    // hiltViewModel() liegt seit androidx.hilt 1.3.0 in einem eigenen Artefakt.
+    implementation "androidx.hilt:hilt-navigation-compose:$androidx_hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel-compose:$androidx_hilt_version"
+
+    implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout_compose_version"
+
+    // Datenbank
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
+
+    // Netzwerk
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // Hintergrund-Aktualisierung (Kurse, Alarme, Widgets)
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation "androidx.hilt:hilt-work:$androidx_hilt_version"
+    ksp "androidx.hilt:hilt-compiler:$androidx_hilt_version"
+
+    // Einstellungen
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
+    // App-Sperre
+    implementation "androidx.biometric:biometric:$biometric_version"
+
+    // Logging
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // Baseline Profile beim Installieren anwenden (auch ohne Play Store) — schnellerer Start
+    implementation "androidx.profileinstaller:profileinstaller:$profileinstaller_version"
+    baselineProfile project(':baselineprofile')
+
+    testImplementation 'junit:junit:4.13.2'
+
+    // Instrumentierte Tests (Kernablauf, CoreFlowTest): nicht Teil der App, nur androidTest
+    androidTestImplementation "androidx.test:runner:$androidx_test_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kspAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    // Gleiche Version in App und androidTest (sonst: «conflicting requirements … from lock file»
+    // bei :app:assembleDebugAndroidTest und in Android Studio «Failed to resolve androidx.concurrent»).
+    constraints {
+        implementation "androidx.concurrent:concurrent-futures:$concurrent_futures_version"
+        implementation "androidx.concurrent:concurrent-futures-ktx:$concurrent_futures_version"
+    }
+}

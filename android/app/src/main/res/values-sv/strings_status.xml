@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Ingen anslutning</string>
+    <string name="watchlist_offline_since">Ingen anslutning · per %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d av %2$d utan kurs</item>
+        <item quantity="other">%1$d av %2$d utan kurs</item>
+    </plurals>
+    <string name="watch_not_traded">Handlas inte längre på börsen</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="widget_outdated">قدیمی</string>
+    <string name="widget_outdated_time">قدیمی · %1$s</string>
+
+    <string name="settings_widgets">ابزارک‌ها</string>
+    <string name="widgets_sheet_title">افزودن ابزارک</string>
+    <string name="widget_kind_single">یک ارز</string>
+    <string name="widgets_add">افزودن</string>
+    <string name="widgets_add_named">افزودن ابزارک %1$s</string>
+    <string name="watch_action_add_widget">افزودن به‌عنوان ابزارک</string>
+    <string name="widgets_manual_title">ابزارک را خودتان اضافه کنید</string>
+    <string name="widgets_manual_text">صفحه اصلی شما نمی‌تواند ابزارک‌ها را از داخل برنامه اضافه کند. انگشت خود را روی یک جای خالی صفحه اصلی نگه دارید، «ابزارک‌ها» را انتخاب کنید و «Crypto Checker» را پیدا کنید.</string>
+
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS اجازه نمی‌دهد برنامه‌ها خودشان ابزارک اضافه کنند. فقط یک لحظه طول می‌کشد:</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">انگشت خود را روی یک جای خالی صفحه اصلی نگه دارید تا برنامه‌ها شروع به لرزیدن کنند.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">در بالا روی «ویرایش» › «افزودن ابزارک» بزنید (یا در نسخه‌های قدیمی‌تر iOS روی «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker» را جستجو کنید، یک ابزارک انتخاب کنید و روی «افزودن ابزارک» بزنید.</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ابزارک‌های موجود</string>
+</resources>

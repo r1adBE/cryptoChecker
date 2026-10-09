@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 14: Lizenzhinweise unter «Über» (Texte der Lizenzen liegen in assets/licenses) -->
+    <string name="about_licenses">Άδειες χρήσης</string>
+    <string name="licenses_marketdata_title">Βιβλιοθήκη δεδομένων τιμών</string>
+    <string name="licenses_marketdata_intro">Μέρη της σύνδεσης με τα ανταλλακτήρια βασίζονται σε λογισμικό με την άδεια MIT:</string>
+    <string name="licenses_marketdata_changes">Αλλαγές: %1$s</string>
+    <string name="licenses_font_title">Γραμματοσειρά Rubik</string>
+    <string name="licenses_libraries_title">Βιβλιοθήκες Android</string>
+    <string name="licenses_libraries_intro">Η εφαρμογή χρησιμοποιεί αυτές τις βιβλιοθήκες με την άδεια Apache 2.0:</string>
+</resources>

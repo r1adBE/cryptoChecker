@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">Εκτός σύνδεσης</string>
+    <string name="offline_status_since">Εκτός σύνδεσης · στις %1$s</string>
+    <string name="error_market_unreachable">Το ανταλλακτήριο δεν είναι διαθέσιμο αυτή τη στιγμή – οι τελευταίες τιμές παραμένουν ορατές.</string>
+    <string name="error_market_unreachable_short">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+    <string name="refresh_sheet_paused_until">σε παύση έως %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">σε παύση έως %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">Εκκίνηση εφαρμογής</string>
+</resources>

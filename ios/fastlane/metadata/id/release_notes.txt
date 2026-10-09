@@ -1,0 +1,35 @@
+Versi 16.2.2
+• Crypto Pulse: apa yang terjadi di pasar saat ini
+• “Kenapa ini bergerak?”: penjelasan berbasis data untuk pergerakan harga, dengan ringkasan singkat
+• Uji alarm: periksa suara, getaran, dan ucapan
+• Harga terkonversi: baris kedua “≈ nilai” dalam mata uang konversi pilihan Anda – 31 mata uang seperti EUR, CHF, USD, GBP, atau JPY, secara default sesuai wilayah perangkat
+• Alarm dalam mata uang Anda, mis. di 60.000 EUR pada pasangan USDT
+• Ekspor tanggal acuan: nilai portofolio Anda pada tanggal apa pun, mis. 31 Desember, dalam mata uang Anda sebagai file CSV – praktis untuk laporan pajak (bukan nasihat pajak)
+• Aksesibilitas: warna harga biru/oranye sebagai pengganti hijau/merah, mudah dibedakan untuk setiap jenis buta warna (merah-hijau dan biru-kuning); “Tukar warna naik/turun”: merah naik, hijau turun, seperti lazim di Tiongkok, Jepang, Korea, dan Taiwan (otomatis aktif di sana); “Kontras tinggi”: warna harga lebih kuat, teks sekunder dan aksen lebih gelap, mengikuti pengaturan sistem; dukungan penuh VoiceOver: setiap baris, grafik, dan widget dibacakan sebagai satu kalimat
+• Grafik mini di setiap baris: tren 24 jam di samping harga
+• “Mulai dengan satu ketukan”: daftar kosong menawarkan 5 koin terbesar menurut kapitalisasi pasar (tanpa stablecoin)
+• Daftar awal menampilkan harga langsung dan perubahan 24 jam – kelimanya sudah terpilih, ditambahkan dengan satu tombol
+• Geser ke kiri untuk menghapus (dengan Urungkan), ke kanan untuk menandai favorit
+• Tab Pasar langsung terbuka dengan data terakhir dan diperbarui di latar belakang
+• Jam tenang: pada malam hari (mis. 23–7) alarm masuk tanpa suara, getaran, atau ucapan
+• Kunci portofolio dengan Face ID, Touch ID, atau kode sandi perangkat
+• Widget portofolio untuk Layar Utama dan Layar Terkunci: nilai total dalam mata uang Anda dan perubahan hari ini
+• Setiap alarm sebagai kalimat: “Beri tahu saya saat BTC turun di bawah 60.000 CHF.”
+• Penjelasan singkat untuk funding rate, open interest, RSI, dan Pi Cycle
+• Baris menampilkan “usang” atau “bursa tidak dapat dijangkau” jika harga tidak terkini
+• 15 bursa baru: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Biaya jaringan untuk Ethereum, Base, Arbitrum, Polygon, BNB Chain, dan Bitcoin di tab Pasar, dengan alarm gas
+• Catatan untuk setiap koin di daftar pantau
+• Pilih suara alarm
+• Aktivitas tidak biasa: mendeteksi pergerakan harga dan volume yang tidak biasa, notifikasi opsional
+• Portofolio di tab sendiri: pembelian dan penjualan, harga rata-rata, untung/rugi
+• Perbandingan siklus: puncak dan dasar ditandai, termasuk puncak ganda dan dasar ganda
+• Grup untuk daftar pantau
+• Alarm baru: pergerakan X % dalam Y jam dan lonjakan volume
+• Widget satu koin: candle atau garis, rentang grafik 24 jam, 7 hari, atau 30 hari, tanda tertinggi, tengah, dan terendah, harga saat ini disorot
+• Tab Pasar: total kapitalisasi pasar kripto dan volume 24 jam dalam mata uang Anda
+• Futures: funding rate dan open interest
+• Lima warna aksen dengan ikon app yang serasi
+• Saham, emas, komoditas, dan valas sebagai futures (TradFi) di Binance, Bybit, OKX, MEXC, dan Bitget – diaktifkan lewat sakelar di Pengaturan › Daftar pantau; pasangan baru masuk ke grup “TradFi”, futures dengan jatuh tempo ke “QTLY”
+• Perubahan % seperti Binance: 24 jam terakhir, sejak pembaruan terakhir, sejak 00:00 di zona waktu perangkat, atau di zona tetap dari UTC+14 hingga UTC-12
+• Nama yang lebih jelas: “Pembaruan sering” dan “Harga live”

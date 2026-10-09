@@ -1,0 +1,10 @@
+Nieuw in 16.2.2
+• Crypto Pulse: wat er nu gebeurt
+• Ongewone activiteit, ‘Waarom beweegt dit?’ met samenvatting
+• Begin met één tik: top 5 coins, live koersen
+• Vegen: verwijderen (met ongedaan maken) of favoriet
+• Koersen en alarmen in je valuta, peildatum-export (CSV)
+• Toegankelijk: blauw/oranje, contrast, TalkBack
+• Stille uren, testalarm, alarm als zin, portfolio-vergrendeling en -widget
+• 15 nieuwe beurzen, gasalarm, candles in widget
+• Aandelen, goud, valuta (TradFi); % per tijdzone

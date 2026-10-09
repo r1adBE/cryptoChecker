@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">elavult · %1$s</string>
+    <string name="why_brief_label">Röviden:</string>
+    <string name="why_factor_market">Teljes piac</string>
+    <string name="why_factor_futures">Határidős</string>
+    <string name="why_factor_near_high">Közel a csúcshoz</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">a szokásosnál magasabb</string>
+    <string name="why_fn_volume_lower">a szokásosnál alacsonyabb</string>
+    <string name="why_fn_volume_usual">a szokásos</string>
+    <string name="why_fn_market_pulls">A BTC magával húzza a piacot</string>
+    <string name="why_fn_market_lags">A piac mozog, ez az érme alig</string>
+    <string name="why_fn_market_alone">Nyugodt piac – ez az érme egyedül mozog</string>
+    <string name="why_fn_market_against">Az érme a piaccal szemben mozog</string>
+    <string name="why_fn_market_calm">Nyugodt piac</string>
+    <string name="why_fn_leader_moves">A Bitcoin adja az irányt</string>
+    <string name="why_fn_leader_calm">A Bitcoin nyugodt</string>
+    <string name="why_fn_volatility_stronger">a szokásosnál erősebb</string>
+    <string name="why_fn_volatility_usual">a szokásos</string>
+    <string name="why_fn_oi_up">Open interest nőtt</string>
+    <string name="why_fn_oi_down">Open interest csökkent</string>
+    <string name="why_fn_oi_flat">Open interest alig változott</string>
+    <string name="why_fn_high_at">a 30 napos csúcson</string>
+    <string name="why_fn_high_below">a 30 napos csúcs alatt</string>
+    <string name="why_fn_funding_longs">sokan emelkedésre fogadnak</string>
+    <string name="why_fn_funding_shorts">sokan esésre fogadnak</string>
+    <string name="why_fn_funding_neutral">semleges</string>
+</resources>

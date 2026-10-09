@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zyklus-Chart: Hoch/Tief-Marken mit Sprechblase -->
+    <string name="cycle_marker_top">Sommet %1$s</string>
+    <string name="cycle_marker_high_so_far">Plus haut à ce jour</string>
+    <string name="cycle_marker_bottom">Creux %1$s</string>
+    <string name="cycle_since_halving">%1$s depuis le halving</string>
+    <string name="cycle_from_top">%1$s depuis le sommet</string>
+    <string name="cycle_marker_double_top">Double sommet %1$s</string>
+    <string name="cycle_marker_double_bottom">Double creux %1$s</string>
+</resources>

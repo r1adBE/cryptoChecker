@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">הצגת התקופה ליד השינוי</string>
+    <string name="settings_change_period_hint">״24h״, ״היום״ או ״עדכון אחרון״ בקטן ליד השינוי ברשימת המעקב ובווידג׳ט של מטבע יחיד. קורא המסך תמיד מקריא אותו.</string>
+</resources>

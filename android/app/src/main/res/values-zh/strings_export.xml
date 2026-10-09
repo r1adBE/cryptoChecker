@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">导出基准日持仓…</string>
+    <string name="portfolio_export_title">基准日导出</string>
+    <string name="portfolio_export_date">基准日</string>
+    <string name="portfolio_export_currency">货币：%1$s</string>
+    <string name="portfolio_export_hint">所选日期结束时的持仓，按 USDT 计的当日收盘价（UTC）估值，并按当日欧洲央行参考汇率换算。可在“换算为”中更改货币。</string>
+    <string name="portfolio_export_button">导出 CSV</string>
+    <string name="portfolio_export_running">正在获取历史价格…</string>
+    <string name="portfolio_export_done">导出已保存</string>
+    <string name="portfolio_export_failed">导出失败</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># 基准日 %1$s，货币 %2$s，汇率日期 %3$s</string>
+    <string name="portfolio_export_col_coin">币种</string>
+    <string name="portfolio_export_col_amount">数量</string>
+    <string name="portfolio_export_col_price">价格 USDT</string>
+    <string name="portfolio_export_col_value">市值 USDT</string>
+    <string name="portfolio_export_col_rate">汇率 USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">市值 %1$s</string>
+    <string name="portfolio_export_col_note">备注</string>
+    <string name="portfolio_export_total">合计</string>
+    <string name="portfolio_export_no_price">无价格</string>
+    <string name="portfolio_export_no_fx">无汇率</string>
+    <string name="portfolio_export_incomplete">不完整</string>
+</resources>

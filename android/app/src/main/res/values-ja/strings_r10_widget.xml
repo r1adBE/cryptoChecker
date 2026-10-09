@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10: Widgets (neues Widget «Was gerade auffällt», kurze «heute»-Anzeige) -->
+    <string name="widget_pulse_description">今の市場で目立つこと：見出し、短い要約、Bitcoin・Ethereum・Solana。</string>
+    <!-- «heute» allein vor der Prozent-Pille, wenn Betrag und Prozent nicht nebeneinander passen (iOS) -->
+    <string name="widget_portfolio_today_label">今日</string>
+</resources>

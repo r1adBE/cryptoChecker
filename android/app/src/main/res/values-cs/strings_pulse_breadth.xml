@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: nahoru %2$d, dolů %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: největší mince podle tržní hodnoty, bez stablecoinů; změna za 24 hodin (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">Široký pohyb: většina velkých mincí roste.</string>
+    <string name="pulse_breadth_note_broad_down">Široký pokles: většina velkých mincí klesá.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin roste, většina ostatních velkých mincí ale nejde s ním.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin klesá, většina ostatních velkých mincí se ale drží.</string>
+</resources>

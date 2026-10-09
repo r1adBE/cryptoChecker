@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Sinal do alarme</string>
+    <string name="alarm_signal_system">Sistema</string>
+    <string name="alarm_signal_sound_vibrate">Som e vibração</string>
+    <string name="alarm_signal_sound">Somente som</string>
+    <string name="alarm_signal_vibrate">Somente vibração</string>
+    <string name="alarm_signal_silent">Silencioso (somente notificação)</string>
+    <string name="settings_alarm_signal_system_hint">Segue as configurações de notificação do celular.</string>
+    <string name="settings_alarm_signal_open_system">Ajustar nas configurações do sistema</string>
+    <string name="channel_alarms_sound_vibrate">Alarmes (som e vibração)</string>
+    <string name="channel_alarms_sound">Alarmes (somente som)</string>
+    <string name="channel_alarms_vibrate">Alarmes (somente vibração)</string>
+    <string name="channel_alarms_silent">Alarmes (silencioso)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">A vibração segue os ajustes do iPhone (Sons e Tátil).</string>
+</resources>

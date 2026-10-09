@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_price_colors">Cores dos preços</string>
+    <string name="settings_price_colors_hint">Azul / laranja é fácil de distinguir com qualquer deficiência na visão das cores (vermelho-verde e azul-amarelo). A direção também é sempre indicada com + / −.</string>
+    <string name="settings_watchlist_sparkline">Minigráfico na lista</string>
+    <string name="settings_watchlist_sparkline_hint">Tendência de 24 horas junto ao preço</string>
+
+
+    <!-- Hoher Kontrast -->
+    <string name="settings_high_contrast">Alto contraste</string>
+    <string name="settings_high_contrast_hint">Cores de preço mais fortes e textos secundários mais escuros. Também ativo quando o sistema pede mais contraste.</string>
+
+    <!-- Screenreader (TalkBack): Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s em %2$s</string>
+    <string name="a11y_price">preço %1$s</string>
+    <string name="a11y_change_up">subiu %1$s</string>
+    <string name="a11y_change_down">caiu %1$s</string>
+    <string name="a11y_change_flat">sem alteração</string>
+    <string name="a11y_converted">cerca de %1$s</string>
+    <string name="a11y_note">nota: %1$s</string>
+    <string name="a11y_alarm_count">alarmes: %1$d</string>
+    <string name="a11y_stale">desatualizado, última atualização %1$s</string>
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Gráfico %1$s: de %2$s para %3$s, %4$s. Máxima %5$s, mínima %6$s.</string>
+    <string name="a11y_chart_empty">Gráfico: sem dados</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciclo %1$s: %2$s desde o halving, dia %3$d.</string>
+    <string name="a11y_cycle_top">Topo %1$s no dia %2$d.</string>
+    <string name="a11y_cycle_bottom">Fundo %1$s no dia %2$d.</string>
+    <string name="a11y_cycle_double_top">Topo duplo %1$s no dia %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Fundo duplo %1$s no dia %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Escala de %1$s a %2$s: %3$d de 100</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">Confiança: %1$s</string>
+    <string name="why_confidence_high">alta</string>
+    <string name="why_confidence_medium">média</string>
+    <string name="why_confidence_low">baixa</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d de %2$d sinais aponta nessa direção</item>
+        <item quantity="many">%1$d de %2$d sinais apontam nessa direção</item>
+        <item quantity="other">%1$d de %2$d sinais apontam nessa direção</item>
+    </plurals>
+    <string name="why_confidence_partial">dados incompletos</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › %-Änderung: Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Shfaq periudhën pranë ndryshimit</string>
+    <string name="settings_change_period_hint">«24h», «sot» ose «përditësimi i fundit» i vogël pranë ndryshimit në listë dhe në widget-in e një monedhe. Lexuesi i ekranit e thotë gjithmonë.</string>
+</resources>

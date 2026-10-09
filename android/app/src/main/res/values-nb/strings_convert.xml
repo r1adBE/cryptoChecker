@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Omregnede kurser</string>
+    <string name="settings_show_converted_hint">Viser kursene i overvåkingslisten også i %1$s</string>
+    <string name="settings_conversion_currency">Omregningsvaluta</string>
+    <string name="alarm_currency_label">Valuta</string>
+</resources>

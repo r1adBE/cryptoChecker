@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
+    <string name="settings_portfolio_lock_footer">O bloqueio protege o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Pode proteger as cópias de segurança com uma palavra-passe. As cópias de segurança do dispositivo inteiro (cópia do sistema) continuam a incluir estes dados.</string>
+    <string name="backup_protect">Proteger com palavra-passe</string>
+    <string name="backup_protect_hint">Encripta o ficheiro (AES-256). Recomendado se contiver dados do portfólio.</string>
+    <string name="backup_password">Palavra-passe</string>
+    <string name="backup_password_repeat">Repetir palavra-passe</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Pelo menos %1$d caracteres</string>
+    <string name="backup_password_mismatch">As palavras-passe não coincidem</string>
+    <string name="backup_password_warning">Sem a palavra-passe, a cópia de segurança não pode ser restaurada.</string>
+    <string name="backup_password_show">Mostrar palavra-passe</string>
+    <string name="backup_password_hide">Ocultar palavra-passe</string>
+    <string name="backup_password_title">Cópia protegida por palavra-passe</string>
+    <string name="backup_password_prompt">Introduza a palavra-passe desta cópia de segurança.</string>
+    <string name="backup_password_wrong">Palavra-passe errada ou ficheiro danificado. Tente novamente.</string>
+    <string name="backup_password_continue">Continuar</string>
+</resources>

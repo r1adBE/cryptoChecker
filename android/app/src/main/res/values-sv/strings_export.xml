@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Stichtag-Export (CSV) -->
+    <string name="portfolio_export_action">Export per avstämningsdag…</string>
+    <string name="portfolio_export_title">Export per avstämningsdag</string>
+    <string name="portfolio_export_date">Avstämningsdag</string>
+    <string name="portfolio_export_currency">Valuta: %1$s</string>
+    <string name="portfolio_export_hint">Innehav vid slutet av vald dag, värderat till dagens stängningskurs (UTC) i USDT och omräknat med ECB:s referenskurs för den dagen. Du byter valuta under ”Räkna om till”.</string>
+    <string name="portfolio_export_button">Exportera CSV</string>
+    <string name="portfolio_export_running">Hämtar historiska kurser…</string>
+    <string name="portfolio_export_done">Export sparad</string>
+    <string name="portfolio_export_failed">Exporten misslyckades</string>
+
+    <!-- CSV-Inhalt -->
+    <string name="portfolio_export_comment"># Avstämningsdag %1$s, valuta %2$s, växelkurs från %3$s</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_amount">Mängd</string>
+    <string name="portfolio_export_col_price">Kurs USDT</string>
+    <string name="portfolio_export_col_value">Värde USDT</string>
+    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_value_cur">Värde %1$s</string>
+    <string name="portfolio_export_col_note">Anmärkning</string>
+    <string name="portfolio_export_total">Totalt</string>
+    <string name="portfolio_export_no_price">ingen kurs</string>
+    <string name="portfolio_export_no_fx">ingen växelkurs</string>
+    <string name="portfolio_export_incomplete">ofullständig</string>
+</resources>

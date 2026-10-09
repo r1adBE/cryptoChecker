@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Csúcs közelében</string>
+    <string name="alarm_condition_near_low">Mélypont közelében</string>
+    <string name="alarm_near_field_distance">Távolság</string>
+    <string name="alarm_near_window_label">Időszak</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d nap</item>
+        <item quantity="other">%1$d nap</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 év</string>
+    <string name="alarm_near_hint">Új csúcsnál vagy mélypontnál is értesít. Napi gyertyák alapján, 6 óránként frissítve.</string>
+    <string name="alarm_near_extreme_high_30">30 napos csúcs</string>
+    <string name="alarm_near_extreme_high_90">90 napos csúcs</string>
+    <string name="alarm_near_extreme_high_365">12 havi csúcs</string>
+    <string name="alarm_near_extreme_low_30">30 napos mélypont</string>
+    <string name="alarm_near_extreme_low_90">90 napos mélypont</string>
+    <string name="alarm_near_extreme_low_365">12 havi mélypont</string>
+    <string name="alarm_sentence_near_high">%1$s – értesítés, ha az ár legfeljebb %2$s értékkel van a %3$s alatt.</string>
+    <string name="alarm_sentence_near_low">%1$s – értesítés, ha az ár legfeljebb %2$s értékkel van a %3$s felett.</string>
+    <string name="alarm_near_notification_high">%1$s: %2$s értékkel a %3$s alatt (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s: %2$s értékkel a %3$s felett (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: új %1$s – %3$s (korábban %4$s)</string>
+    <string name="tts_direction_near_high">a csúcs közelében</string>
+    <string name="tts_direction_near_low">a mélypont közelében</string>
+</resources>

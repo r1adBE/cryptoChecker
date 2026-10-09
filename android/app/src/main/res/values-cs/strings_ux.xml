@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Začněte jedním klepnutím</string>
+    <string name="starter_text">Vyberte mince a přidejte je najednou. Burzu a pár můžete později změnit.</string>
+    <string name="starter_custom">Vybrat burzu a pár</string>
+    <string name="settings_quiet_hours">Noční klid</string>
+    <string name="settings_quiet_hours_hint">Mezi %1$s a %2$s přicházejí alarmy potichu: bez zvuku, vibrací a hlasového hlášení.</string>
+    <string name="settings_quiet_hours_from">Od</string>
+    <string name="settings_quiet_hours_to">Do</string>
+    <string name="channel_alarms_quiet">Alarmy (noční klid)</string>
+    <string name="channel_alarms_quiet_description">Tiché alarmy během nočního klidu.</string>
+    <string name="app_lock_unlock">Odemknout</string>
+    <string name="app_lock_unavailable">V tomto zařízení není nastaven zámek obrazovky. Nejprve ho nastavte v nastavení systému.</string>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_description">Celková hodnota vašeho portfolia a dnešní změna</string>
+    <string name="widget_portfolio_today">dnes %1$s</string>
+    <string name="widget_portfolio_empty">Nákupy zadejte na kartě Portfolio</string>
+    <string name="a11y_portfolio_widget">Portfolio %1$s, dnes %2$s</string>
+    <string name="explain_funding">Poplatek mezi long a short pozicemi. Silně kladný znamená, že mnozí sázejí na růst cen.</string>
+    <string name="explain_open_interest">Hodnota všech otevřených futures pozic. Když roste, na pohyb sází více peněz.</string>
+    <string name="explain_rsi">Index relativní síly, 0–100. Nad 70 často přehřátý, pod 30 často přeprodaný.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Vysvětlení</string>
+    <string name="explain_pi_cycle">Porovnává 111denní průměr s dvojnásobkem 350denního průměru. Jejich křížení označilo dřívější vrcholy cyklů.</string>
+    <string name="alarm_sentence_above">Upozornit, až %1$s stoupne nad %2$s.</string>
+    <string name="alarm_sentence_below">Upozornit, až %1$s klesne pod %2$s.</string>
+    <string name="alarm_sentence_up_percent">Upozornit, až %1$s stoupne o %2$s.</string>
+    <string name="alarm_sentence_down_percent">Upozornit, až %1$s klesne o %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Upozornit, až se %1$s během %3$d h pohne o %2$s.</item>
+        <item quantity="few">Upozornit, až se %1$s během %3$d h pohne o %2$s.</item>
+        <item quantity="many">Upozornit, až se %1$s během %3$d h pohne o %2$s.</item>
+        <item quantity="other">Upozornit, až se %1$s během %3$d h pohne o %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Upozornit, až objem obchodů %1$s dosáhne %2$s× běžné hodnoty.</string>
+    <string name="alarm_sentence_incomplete">Zadejte hodnotu a alarm se tu zobrazí jako věta.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s není dostupná</string>
+    <string name="watchlist_row_outdated">%1$s · zastaralé</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">Remover pares sem negociação (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Remover pares sem negociação</string>
+    <string name="watchlist_remove_not_traded_action">Remover</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Remover %1$d par que não é mais negociado na sua exchange? Os alarmes dele também serão removidos.</item>
+        <item quantity="many">Remover %1$d pares que não são mais negociados na sua exchange? Os alarmes deles também serão removidos.</item>
+        <item quantity="other">Remover %1$d pares que não são mais negociados na sua exchange? Os alarmes deles também serão removidos.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d par sem negociação removido</item>
+        <item quantity="many">%1$d pares sem negociação removidos</item>
+        <item quantity="other">%1$d pares sem negociação removidos</item>
+    </plurals>
+</resources>

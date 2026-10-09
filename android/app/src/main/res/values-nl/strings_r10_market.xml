@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 10 · Markt-Tab: «Heute auffällig» und Hinweis «Wirtschaftsdaten» -->
+    <string name="unusual_title">Opvallend vandaag</string>
+    <string name="unusual_nothing">Vandaag niets opvallends</string>
+    <string name="unusual_fact_stronger">Beweegt veel sterker dan BTC</string>
+    <string name="unusual_fact_weaker">Beweegt veel zwakker dan BTC</string>
+    <string name="unusual_fact_against">Gaat tegen de markt in</string>
+    <string name="unusual_fact_volume">Volume %1$s× normaal</string>
+    <string name="unusual_fact_funding_high">Funding verhoogd (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negatief (%1$s)</string>
+    <string name="unusual_source">De ca. 30 grootste munten zonder stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <string name="unusual_action_why">Waarom beweegt dit?</string>
+    <string name="unusual_action_add">Paar zoeken om toe te voegen</string>
+
+    <string name="macro_title">Economische cijfers</string>
+    <string name="macro_cpi">Amerikaanse inflatie (CPI)</string>
+    <string name="macro_ppi">Amerikaanse producentenprijzen (PPI)</string>
+    <string name="macro_nfp">Amerikaans banenrapport</string>
+    <string name="macro_fomc">rentebesluit van de Fed</string>
+    <string name="macro_pce">Amerikaanse PCE-inflatie</string>
+    <string name="macro_hint_today">Vandaag %1$s: %2$s – op zulke dagen schommelt de markt vaak sterker.</string>
+    <string name="macro_hint_tomorrow">Morgen %1$s: %2$s – op zulke dagen schommelt de markt vaak sterker.</string>
+    <string name="macro_hint_today_list">Vandaag: %1$s – op zulke dagen schommelt de markt vaak sterker.</string>
+    <string name="macro_hint_tomorrow_list">Morgen: %1$s – op zulke dagen schommelt de markt vaak sterker.</string>
+    <string name="macro_hint_list">%1$s – op zulke dagen schommelt de markt vaak sterker.</string>
+    <string name="macro_released_one">Vandaag om %1$s gepubliceerd: %2$s.</string>
+    <string name="macro_released_list">Vandaag gepubliceerd: %1$s.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Vandaag %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Morgen %1$s %2$s</string>
+
+    <string name="settings_macro_notifications">Economische agenda</string>
+    <string name="settings_macro_notifications_hint">Om 08:00 op dagen met belangrijke Amerikaanse economische cijfers (inflatie, banenrapport, rentebesluit). De agenda komt van de website van de app en wordt één keer per dag geladen.</string>
+    <string name="notification_macro_title">Vandaag economische cijfers</string>
+</resources>

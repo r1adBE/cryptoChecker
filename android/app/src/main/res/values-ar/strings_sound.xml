@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">صوت التنبيه</string>
+    <string name="settings_alarm_sound_default">الصوت الافتراضي</string>
+    <string name="settings_alarm_sound_custom">صوت مخصص</string>
+    <string name="settings_alarm_sound_system">اختيار صوت النظام…</string>
+    <string name="settings_alarm_sound_file">ملف صوتي خاص…</string>
+    <string name="settings_alarm_sound_reset">استخدام الصوت الافتراضي</string>
+    <string name="settings_alarm_sound_error">تعذّر استخدام الصوت.</string>
+</resources>

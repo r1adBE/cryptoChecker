@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Ndryshimi në %1$s dhe zona kohore e grafikut</string>
+    <string name="change_basis_rolling">24 orët e fundit</string>
+    <string name="change_basis_utc_zone">Që nga 00:00 %1$s</string>
+    <string name="change_basis_local">Që nga 00:00 ora lokale</string>
+    <string name="settings_change_basis_hint_1">Zona kohore e zgjedhur përcakton që kur llogaritet ndryshimi në përqindje (lista e ndjekjes, rreshti i pulsit, fleta e çiftit, widget-et) dhe orët që shfaqin grafikët.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» krahason me çmimin e saktë 24 orë më parë. «00:00» krahason me çmimin e hapjes në mesnatë në këtë zonë kohore.</string>
+    <string name="settings_change_basis_hint_3">Alarmet nuk preken.</string>
+    <string name="change_basis_device">%1$s, 00:00 (zona kohore e pajisjes)</string>
+    <string name="change_short_today">sot</string>
+    <string name="change_short_today_zone">sot %1$s</string>
+    <string name="a11y_change_today">%1$s sot</string>
+    <string name="a11y_change_today_zone">%1$s që nga mesnata %2$s</string>
+    <string name="a11y_change_today_none">Ndryshimi i sotëm nuk është i disponueshëm</string>
+    <string name="a11y_change_today_zone_none">Ndryshimi që nga mesnata %1$s nuk është i disponueshëm</string>
+    <string name="sheet_chart_today">Sot</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Kur aplikacioni është i mbyllur, më së shumti një herë në minutë</string>
+    <string name="sheet_more">Më shumë</string>
+    <string name="a11y_expanded">Zgjeruar</string>
+    <string name="a11y_collapsed">Palosur</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pa vlerë sot</item>
+        <item quantity="other">%1$d pa vlerë sot</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d çift pa vlerë për sot</item>
+        <item quantity="other">%1$d çifte pa vlerë për sot</item>
+    </plurals>
+</resources>

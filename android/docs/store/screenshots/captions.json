@@ -1,0 +1,694 @@
+{
+  "_comment": "Captions for tools/frame_screenshots.py: caption <= 30 (hard max 40), subline <= 60 characters. Story: Crypto Checker erklärt dir, was im Markt passiert. Keys = fastlane/metadata/android locale folders. iOS folders map via aliases in the script.",
+  "_scenes": {
+    "01": "Merkliste – Den Markt verstehen, ohne Lärm",
+    "02": "«Warum bewegt sich das?»",
+    "03": "Merkliste / Paar hinzufügen – Börsen",
+    "04": "Alarm-Editor mit Satz",
+    "05": "Portfolio mit Sperre"
+  },
+  "locales": {
+    "ar": {
+      "01": {
+        "caption": "افهم السوق بلا ضجيج",
+        "subline": "مباشرةً من المنصة، وبالفرنك السويسري، مع مخطط مصغّر"
+      },
+      "02": {
+        "caption": "لماذا يتحرك هذا؟",
+        "subline": "الحجم والسوق ككل والعقود الآجلة – باختصار"
+      },
+      "03": {
+        "caption": "قائمتك ومنصاتك",
+        "subline": "41 سوقًا على 32 منصة، ومعها رموز DEX"
+      },
+      "04": {
+        "caption": "تنبيهات عندما يهم الأمر",
+        "subline": "«أبلغني عندما ينخفض BTC تحت 90,000 CHF»"
+      },
+      "05": {
+        "caption": "محفظتك – محمية",
+        "subline": "قفل بالبصمة أو الوجه أو رمز PIN – بلا حساب"
+      }
+    },
+    "cs-CZ": {
+      "01": {
+        "caption": "Trh bez zbytečného šumu",
+        "subline": "Přímo z burzy, i v CHF, s minigrafy"
+      },
+      "02": {
+        "caption": "Proč se to hýbe?",
+        "subline": "Objem, celý trh a futures – ve zkratce"
+      },
+      "03": {
+        "caption": "Váš seznam, vaše burzy",
+        "subline": "41 trhů na 32 burzách a k tomu DEX tokeny"
+      },
+      "04": {
+        "caption": "Alarmy, když na tom záleží",
+        "subline": "„Upozornit, až BTC klesne pod 90 000 CHF“"
+      },
+      "05": {
+        "caption": "Vaše portfolio – chráněné",
+        "subline": "Zámek otiskem prstu, obličejem nebo PIN – bez účtu"
+      }
+    },
+    "da-DK": {
+      "01": {
+        "caption": "Forstå markedet uden støj",
+        "subline": "Direkte fra børsen, også i CHF, med minigraf"
+      },
+      "02": {
+        "caption": "Hvorfor bevæger den sig?",
+        "subline": "Volumen, hele markedet og futures – kort fortalt"
+      },
+      "03": {
+        "caption": "Din liste, dine børser",
+        "subline": "41 markeder på 32 børser, plus DEX-tokens"
+      },
+      "04": {
+        "caption": "Alarmer, når det gælder",
+        "subline": "»Giv mig besked, når BTC falder under 90.000 CHF«"
+      },
+      "05": {
+        "caption": "Din portefølje – beskyttet",
+        "subline": "Lås med fingeraftryk, ansigt eller PIN – uden konto"
+      }
+    },
+    "de-DE": {
+      "01": {
+        "caption": "Den Markt verstehen, ohne Lärm",
+        "subline": "Direkt von der Börse, auch in CHF – mit Mini-Chart"
+      },
+      "02": {
+        "caption": "Warum bewegt sich das?",
+        "subline": "Volumen, Gesamtmarkt und Futures – kurz gesagt"
+      },
+      "03": {
+        "caption": "Deine Merkliste, deine Börsen",
+        "subline": "41 Märkte auf 32 Börsen, dazu DEX-Token"
+      },
+      "04": {
+        "caption": "Alarme, wenn es zählt",
+        "subline": "«Sag mir Bescheid, wenn BTC unter 90 000 CHF fällt»"
+      },
+      "05": {
+        "caption": "Dein Portfolio – geschützt",
+        "subline": "Sperre mit Fingerabdruck, Gesicht oder PIN – ohne Konto"
+      }
+    },
+    "el-GR": {
+      "01": {
+        "caption": "Η αγορά, χωρίς θόρυβο",
+        "subline": "Απευθείας από το ανταλλακτήριο, και σε CHF, με μίνι γράφημα"
+      },
+      "02": {
+        "caption": "Γιατί κινείται;",
+        "subline": "Όγκος, συνολική αγορά και futures – με λίγα λόγια"
+      },
+      "03": {
+        "caption": "Η λίστα σου, οι αγορές σου",
+        "subline": "41 αγορές σε 32 ανταλλακτήρια, μαζί με DEX tokens"
+      },
+      "04": {
+        "caption": "Ειδοποιήσεις όταν μετράει",
+        "subline": "«Ειδοποίηση όταν το BTC πέσει κάτω από 90.000 CHF»"
+      },
+      "05": {
+        "caption": "Το χαρτοφυλάκιό σου – ασφαλές",
+        "subline": "Κλείδωμα με αποτύπωμα, πρόσωπο ή PIN – χωρίς λογαριασμό"
+      }
+    },
+    "en-US": {
+      "01": {
+        "caption": "The market, without the noise",
+        "subline": "Straight from the exchange, also in CHF, with mini charts"
+      },
+      "02": {
+        "caption": "Why is this moving?",
+        "subline": "Volume, overall market and futures – in short"
+      },
+      "03": {
+        "caption": "Your watchlist, your exchanges",
+        "subline": "41 markets on 32 exchanges, plus DEX tokens"
+      },
+      "04": {
+        "caption": "Alarms when it matters",
+        "subline": "“Tell me when BTC falls below 90,000 CHF”"
+      },
+      "05": {
+        "caption": "Your portfolio – protected",
+        "subline": "Lock with fingerprint, face or PIN – no account"
+      }
+    },
+    "es-ES": {
+      "01": {
+        "caption": "Entiende el mercado sin ruido",
+        "subline": "Precios del exchange, también en CHF, con minigráfico"
+      },
+      "02": {
+        "caption": "¿Por qué se mueve?",
+        "subline": "Volumen, mercado global y futuros, en resumen"
+      },
+      "03": {
+        "caption": "Tu lista, tus exchanges",
+        "subline": "41 mercados en 32 exchanges, y tokens DEX"
+      },
+      "04": {
+        "caption": "Alarmas cuando importa",
+        "subline": "«Avísame cuando BTC baje de 90.000 CHF»"
+      },
+      "05": {
+        "caption": "Tu cartera, protegida",
+        "subline": "Bloqueo con huella, rostro o PIN, sin cuenta"
+      }
+    },
+    "fa": {
+      "01": {
+        "caption": "بازار را بی‌هیاهو بفهمید",
+        "subline": "مستقیم از صرافی، به CHF هم، با نمودار کوچک"
+      },
+      "02": {
+        "caption": "چرا این حرکت می‌کند؟",
+        "subline": "حجم، کل بازار و فیوچرز – به‌طور خلاصه"
+      },
+      "03": {
+        "caption": "فهرست شما، صرافی‌های شما",
+        "subline": "۴۱ بازار در ۳۲ صرافی، به‌همراه توکن‌های DEX"
+      },
+      "04": {
+        "caption": "هشدار، وقتی مهم است",
+        "subline": "«وقتی BTC از ۹۰٬۰۰۰ CHF پایین‌تر رفت، خبرم کن»"
+      },
+      "05": {
+        "caption": "پرتفوی شما – محافظت‌شده",
+        "subline": "قفل با اثر انگشت، چهره یا PIN – بدون حساب"
+      }
+    },
+    "fi-FI": {
+      "01": {
+        "caption": "Ymmärrä markkinat ilman hälyä",
+        "subline": "Suoraan pörssistä, myös CHF:nä, minikaaviolla"
+      },
+      "02": {
+        "caption": "Miksi tämä liikkuu?",
+        "subline": "Volyymi, koko markkina ja futuurit – lyhyesti"
+      },
+      "03": {
+        "caption": "Sinun listasi, sinun pörssisi",
+        "subline": "41 markkinaa 32 pörssissä sekä DEX-tokenit"
+      },
+      "04": {
+        "caption": "Hälytykset, kun sillä on väliä",
+        "subline": "”Ilmoita, kun BTC laskee alle 90 000 CHF”"
+      },
+      "05": {
+        "caption": "Salkkusi – suojattu",
+        "subline": "Lukitse sormenjäljellä, kasvoilla tai PIN:llä – ei tiliä"
+      }
+    },
+    "fr-FR": {
+      "01": {
+        "caption": "Comprendre le marché au calme",
+        "subline": "En direct des plateformes, aussi en CHF, avec mini-graphique"
+      },
+      "02": {
+        "caption": "Pourquoi ça bouge ?",
+        "subline": "Volume, marché global et futures – en bref"
+      },
+      "03": {
+        "caption": "Votre liste, vos plateformes",
+        "subline": "41 marchés sur 32 plateformes, et les tokens DEX"
+      },
+      "04": {
+        "caption": "Des alertes quand ça compte",
+        "subline": "« Me prévenir quand BTC passe sous 90 000 CHF »"
+      },
+      "05": {
+        "caption": "Votre portefeuille, protégé",
+        "subline": "Verrou par empreinte, visage ou code – sans compte"
+      }
+    },
+    "hi-IN": {
+      "01": {
+        "caption": "बाज़ार को समझें, बिना शोर के",
+        "subline": "सीधे एक्सचेंज से, CHF में भी, मिनी चार्ट के साथ"
+      },
+      "02": {
+        "caption": "इसमें हलचल क्यों है?",
+        "subline": "वॉल्यूम, पूरा बाज़ार और फ़्यूचर्स – संक्षेप में"
+      },
+      "03": {
+        "caption": "आपकी सूची, आपके एक्सचेंज",
+        "subline": "32 एक्सचेंज पर 41 मार्केट, साथ में DEX टोकन"
+      },
+      "04": {
+        "caption": "अलार्म, जब ज़रूरी हो",
+        "subline": "“जब BTC 90,000 CHF से नीचे जाए, तो मुझे बताएँ”"
+      },
+      "05": {
+        "caption": "आपका पोर्टफ़ोलियो – सुरक्षित",
+        "subline": "फ़िंगरप्रिंट, चेहरे या PIN से लॉक – बिना खाते के"
+      }
+    },
+    "hu-HU": {
+      "01": {
+        "caption": "Értsd a piacot, zaj nélkül",
+        "subline": "Közvetlenül a tőzsdéről, CHF-ben is, minigrafikonnal"
+      },
+      "02": {
+        "caption": "Miért mozog?",
+        "subline": "Forgalom, teljes piac és határidős adatok – röviden"
+      },
+      "03": {
+        "caption": "A te listád, a te tőzsdéid",
+        "subline": "41 piac 32 tőzsdén, plusz DEX tokenek"
+      },
+      "04": {
+        "caption": "Riasztás, amikor számít",
+        "subline": "„Szólj, ha a BTC 90 000 CHF alá esik”"
+      },
+      "05": {
+        "caption": "A portfóliód – védve",
+        "subline": "Zárolás ujjlenyomattal, arccal vagy PIN-nel – fiók nélkül"
+      }
+    },
+    "id": {
+      "01": {
+        "caption": "Pahami pasar tanpa kebisingan",
+        "subline": "Langsung dari bursa, juga dalam CHF, dengan grafik mini"
+      },
+      "02": {
+        "caption": "Kenapa ini bergerak?",
+        "subline": "Volume, pasar umum, dan futures – singkatnya"
+      },
+      "03": {
+        "caption": "Daftar Anda, bursa Anda",
+        "subline": "41 pasar di 32 bursa, plus token DEX"
+      },
+      "04": {
+        "caption": "Alarm saat penting",
+        "subline": "“Beri tahu saya saat BTC turun di bawah 90.000 CHF”"
+      },
+      "05": {
+        "caption": "Portofolio Anda – terlindungi",
+        "subline": "Kunci dengan sidik jari, wajah, atau PIN – tanpa akun"
+      }
+    },
+    "it-IT": {
+      "01": {
+        "caption": "Capire il mercato senza rumore",
+        "subline": "Direttamente dall’exchange, anche in CHF, con mini grafico"
+      },
+      "02": {
+        "caption": "Perché si muove?",
+        "subline": "Volume, mercato generale e futures, in breve"
+      },
+      "03": {
+        "caption": "La tua lista, i tuoi exchange",
+        "subline": "41 mercati su 32 exchange, più i token DEX"
+      },
+      "04": {
+        "caption": "Allarmi quando conta",
+        "subline": "«Avvisami quando BTC scende sotto 90.000 CHF»"
+      },
+      "05": {
+        "caption": "Il tuo portafoglio, protetto",
+        "subline": "Blocco con impronta, volto o PIN, senza account"
+      }
+    },
+    "iw-IL": {
+      "01": {
+        "caption": "להבין את השוק, בלי רעש",
+        "subline": "ישירות מהבורסה, גם ב-CHF, עם גרף קטן"
+      },
+      "02": {
+        "caption": "למה זה זז?",
+        "subline": "מחזור מסחר, השוק כולו וחוזים עתידיים – בקצרה"
+      },
+      "03": {
+        "caption": "הרשימה שלך, הבורסות שלך",
+        "subline": "41 שווקים ב-32 בורסות, וגם טוקנים של DEX"
+      },
+      "04": {
+        "caption": "התראות כשזה חשוב",
+        "subline": "״להודיע לי כש-BTC יורד מתחת ל-90,000 CHF״"
+      },
+      "05": {
+        "caption": "תיק ההשקעות שלך – מוגן",
+        "subline": "נעילה בטביעת אצבע, פנים או PIN – בלי חשבון"
+      }
+    },
+    "ja-JP": {
+      "01": {
+        "caption": "ノイズなしで市場を理解",
+        "subline": "取引所から直接、CHF 表示やミニチャートも"
+      },
+      "02": {
+        "caption": "なぜ動いている？",
+        "subline": "出来高・市場全体・先物から短くまとめます"
+      },
+      "03": {
+        "caption": "あなたのリスト、あなたの取引所",
+        "subline": "32 の取引所で 41 の市場、DEX トークンも"
+      },
+      "04": {
+        "caption": "大事なときにアラーム",
+        "subline": "「BTC が 90,000 CHF を下回ったら知らせる」"
+      },
+      "05": {
+        "caption": "ポートフォリオを保護",
+        "subline": "指紋・顔・PIN でロック。アカウント不要"
+      }
+    },
+    "ko-KR": {
+      "01": {
+        "caption": "소음 없이 시장 이해하기",
+        "subline": "거래소에서 바로, CHF 표시와 미니 차트까지"
+      },
+      "02": {
+        "caption": "왜 움직이나요?",
+        "subline": "거래량, 시장 전체, 선물 데이터를 짧게 요약"
+      },
+      "03": {
+        "caption": "나의 목록, 나의 거래소",
+        "subline": "32개 거래소의 41개 시장, DEX 토큰까지"
+      },
+      "04": {
+        "caption": "중요할 때 울리는 경보",
+        "subline": "‘BTC가 90,000 CHF 아래로 내려가면 알려 주세요’"
+      },
+      "05": {
+        "caption": "포트폴리오를 안전하게",
+        "subline": "지문, 얼굴 또는 PIN으로 잠금 – 계정 불필요"
+      }
+    },
+    "nl-NL": {
+      "01": {
+        "caption": "De markt begrijpen zonder ruis",
+        "subline": "Rechtstreeks van de beurs, ook in CHF, met minigrafiek"
+      },
+      "02": {
+        "caption": "Waarom beweegt dit?",
+        "subline": "Volume, totale markt en futures – kort samengevat"
+      },
+      "03": {
+        "caption": "Jouw lijst, jouw beurzen",
+        "subline": "41 markten op 32 beurzen, plus DEX-tokens"
+      },
+      "04": {
+        "caption": "Alarmen als het telt",
+        "subline": "‘Laat het me weten als BTC onder 90.000 CHF daalt’"
+      },
+      "05": {
+        "caption": "Je portfolio – beschermd",
+        "subline": "Slot met vingerafdruk, gezicht of pincode – zonder account"
+      }
+    },
+    "no-NO": {
+      "01": {
+        "caption": "Forstå markedet uten støy",
+        "subline": "Rett fra børsen, også i CHF, med minigraf"
+      },
+      "02": {
+        "caption": "Hvorfor beveger den seg?",
+        "subline": "Volum, hele markedet og futures – kort fortalt"
+      },
+      "03": {
+        "caption": "Din liste, dine børser",
+        "subline": "41 markeder på 32 børser, pluss DEX-tokens"
+      },
+      "04": {
+        "caption": "Alarmer når det gjelder",
+        "subline": "«Gi meg beskjed når BTC faller under 90 000 CHF»"
+      },
+      "05": {
+        "caption": "Porteføljen din – beskyttet",
+        "subline": "Lås med fingeravtrykk, ansikt eller PIN – uten konto"
+      }
+    },
+    "pl-PL": {
+      "01": {
+        "caption": "Zrozum rynek bez szumu",
+        "subline": "Prosto z giełdy, także w CHF, z miniwykresami"
+      },
+      "02": {
+        "caption": "Dlaczego to się rusza?",
+        "subline": "Wolumen, cały rynek i futures – w skrócie"
+      },
+      "03": {
+        "caption": "Twoja lista, twoje giełdy",
+        "subline": "41 rynków na 32 giełdach, do tego tokeny DEX"
+      },
+      "04": {
+        "caption": "Alarmy, gdy to ważne",
+        "subline": "„Powiadom mnie, gdy BTC spadnie poniżej 90 000 CHF”"
+      },
+      "05": {
+        "caption": "Twój portfel – chroniony",
+        "subline": "Blokada odciskiem palca, twarzą lub PIN – bez konta"
+      }
+    },
+    "pt-BR": {
+      "01": {
+        "caption": "Entenda o mercado sem ruído",
+        "subline": "Direto da exchange, também em CHF, com minigráfico"
+      },
+      "02": {
+        "caption": "Por que está se movendo?",
+        "subline": "Volume, mercado geral e futuros, em resumo"
+      },
+      "03": {
+        "caption": "Sua lista, suas exchanges",
+        "subline": "41 mercados em 32 exchanges, além de tokens DEX"
+      },
+      "04": {
+        "caption": "Alarmes quando importa",
+        "subline": "“Me avise quando o BTC cair abaixo de 90.000 CHF”"
+      },
+      "05": {
+        "caption": "Seu portfólio, protegido",
+        "subline": "Bloqueio com digital, rosto ou PIN, sem conta"
+      }
+    },
+    "pt-PT": {
+      "01": {
+        "caption": "Perceber o mercado sem ruído",
+        "subline": "Preços da exchange, também em CHF, com minigráfico"
+      },
+      "02": {
+        "caption": "Porque está a mexer?",
+        "subline": "Volume, mercado global e futuros, em resumo"
+      },
+      "03": {
+        "caption": "A sua lista, as suas exchanges",
+        "subline": "41 mercados em 32 exchanges, e ainda tokens DEX"
+      },
+      "04": {
+        "caption": "Alarmes quando importa",
+        "subline": "«Avisar-me quando BTC descer abaixo de 90 000 CHF»"
+      },
+      "05": {
+        "caption": "O seu portfólio, protegido",
+        "subline": "Bloqueio por impressão digital, rosto ou PIN, sem conta"
+      }
+    },
+    "ro": {
+      "01": {
+        "caption": "Înțelege piața, fără zgomot",
+        "subline": "Direct de la bursă, și în CHF, cu minigrafic"
+      },
+      "02": {
+        "caption": "De ce se mișcă?",
+        "subline": "Volum, piața generală și futures – pe scurt"
+      },
+      "03": {
+        "caption": "Lista ta, bursele tale",
+        "subline": "41 de piețe pe 32 de burse, plus tokenuri DEX"
+      },
+      "04": {
+        "caption": "Alarme când contează",
+        "subline": "„Anunță-mă când BTC coboară sub 90.000 CHF”"
+      },
+      "05": {
+        "caption": "Portofoliul tău – protejat",
+        "subline": "Blocare cu amprentă, față sau PIN – fără cont"
+      }
+    },
+    "ru-RU": {
+      "01": {
+        "caption": "Понимать рынок без шума",
+        "subline": "Напрямую с биржи, в том числе в CHF, с мини-графиком"
+      },
+      "02": {
+        "caption": "Почему это движется?",
+        "subline": "Объём, рынок в целом и фьючерсы – коротко"
+      },
+      "03": {
+        "caption": "Ваш список, ваши биржи",
+        "subline": "41 рынок на 32 биржах, плюс токены DEX"
+      },
+      "04": {
+        "caption": "Оповещения, когда это важно",
+        "subline": "«Сообщить, когда BTC опустится ниже 90 000 CHF»"
+      },
+      "05": {
+        "caption": "Ваш портфель под защитой",
+        "subline": "Блокировка отпечатком, лицом или PIN – без аккаунта"
+      }
+    },
+    "sq": {
+      "01": {
+        "caption": "Kupto tregun pa zhurmë",
+        "subline": "Direkt nga bursa, edhe në CHF, me mini-grafikë"
+      },
+      "02": {
+        "caption": "Pse po lëviz?",
+        "subline": "Vëllimi, tregu i përgjithshëm dhe futures – shkurt"
+      },
+      "03": {
+        "caption": "Lista jote, bursat e tua",
+        "subline": "41 tregje në 32 bursa, plus tokenë DEX"
+      },
+      "04": {
+        "caption": "Alarme kur ka rëndësi",
+        "subline": "«Më njofto kur BTC të bjerë nën 90 000 CHF»"
+      },
+      "05": {
+        "caption": "Portofoli yt – i mbrojtur",
+        "subline": "Kyçje me gjurmë gishti, fytyrë ose PIN – pa llogari"
+      }
+    },
+    "sv-SE": {
+      "01": {
+        "caption": "Förstå marknaden utan brus",
+        "subline": "Direkt från börsen, även i CHF, med minidiagram"
+      },
+      "02": {
+        "caption": "Varför rör den sig?",
+        "subline": "Volym, hela marknaden och terminer – kort sagt"
+      },
+      "03": {
+        "caption": "Din lista, dina börser",
+        "subline": "41 marknader på 32 börser, plus DEX-tokens"
+      },
+      "04": {
+        "caption": "Larm när det gäller",
+        "subline": "”Meddela mig när BTC sjunker under 90 000 CHF”"
+      },
+      "05": {
+        "caption": "Din portfölj – skyddad",
+        "subline": "Lås med fingeravtryck, ansikte eller PIN – utan konto"
+      }
+    },
+    "th": {
+      "01": {
+        "caption": "เข้าใจตลาด ไม่มีเสียงรบกวน",
+        "subline": "ตรงจากกระดานเทรด แสดงเป็น CHF ได้ พร้อมกราฟเล็ก"
+      },
+      "02": {
+        "caption": "ทำไมถึงเคลื่อนไหว?",
+        "subline": "วอลุ่ม ตลาดโดยรวม และฟิวเจอร์ส สรุปสั้น ๆ"
+      },
+      "03": {
+        "caption": "รายการของคุณ กระดานเทรดของคุณ",
+        "subline": "41 ตลาดบน 32 กระดานเทรด รวมโทเค็น DEX"
+      },
+      "04": {
+        "caption": "แจ้งเตือนเมื่อสำคัญ",
+        "subline": "“แจ้งฉันเมื่อ BTC ลงต่ำกว่า 90,000 CHF”"
+      },
+      "05": {
+        "caption": "พอร์ตของคุณ – ปลอดภัย",
+        "subline": "ล็อกด้วยลายนิ้วมือ ใบหน้า หรือ PIN – ไม่ต้องมีบัญชี"
+      }
+    },
+    "tr-TR": {
+      "01": {
+        "caption": "Piyasayı gürültüsüz anla",
+        "subline": "Doğrudan borsadan, CHF olarak da, mini grafikle"
+      },
+      "02": {
+        "caption": "Bu neden hareket ediyor?",
+        "subline": "Hacim, genel piyasa ve vadeli işlemler – kısaca"
+      },
+      "03": {
+        "caption": "Senin listen, senin borsaların",
+        "subline": "32 borsada 41 piyasa, ayrıca DEX tokenleri"
+      },
+      "04": {
+        "caption": "Önemli olduğunda alarm",
+        "subline": "“BTC 90.000 CHF altına düşünce bana haber ver”"
+      },
+      "05": {
+        "caption": "Portföyün güvende",
+        "subline": "Parmak izi, yüz veya PIN ile kilit – hesap yok"
+      }
+    },
+    "uk": {
+      "01": {
+        "caption": "Розуміти ринок без шуму",
+        "subline": "Напряму з біржі, зокрема в CHF, з міні-графіком"
+      },
+      "02": {
+        "caption": "Чому це рухається?",
+        "subline": "Обсяг, ринок загалом і ф’ючерси – коротко"
+      },
+      "03": {
+        "caption": "Ваш список, ваші біржі",
+        "subline": "41 ринок на 32 біржах, а ще токени DEX"
+      },
+      "04": {
+        "caption": "Сигнали, коли це важливо",
+        "subline": "«Повідомити, коли BTC опуститься нижче 90 000 CHF»"
+      },
+      "05": {
+        "caption": "Ваш портфель під захистом",
+        "subline": "Блокування відбитком, обличчям або PIN – без акаунта"
+      }
+    },
+    "vi": {
+      "01": {
+        "caption": "Hiểu thị trường, không ồn ào",
+        "subline": "Trực tiếp từ sàn, cả bằng CHF, kèm biểu đồ mini"
+      },
+      "02": {
+        "caption": "Vì sao nó biến động?",
+        "subline": "Khối lượng, toàn thị trường và futures – ngắn gọn"
+      },
+      "03": {
+        "caption": "Danh sách của bạn, sàn của bạn",
+        "subline": "41 thị trường trên 32 sàn, cùng token DEX"
+      },
+      "04": {
+        "caption": "Cảnh báo khi cần",
+        "subline": "“Báo cho tôi khi BTC giảm dưới 90.000 CHF”"
+      },
+      "05": {
+        "caption": "Danh mục của bạn – được bảo vệ",
+        "subline": "Khóa bằng vân tay, khuôn mặt hoặc PIN – không cần tài khoản"
+      }
+    },
+    "zh-CN": {
+      "01": {
+        "caption": "看懂市场，远离噪音",
+        "subline": "直接来自交易所，也可显示 CHF，附迷你图表"
+      },
+      "02": {
+        "caption": "为什么在波动？",
+        "subline": "成交量、大盘和合约数据，一句话总结"
+      },
+      "03": {
+        "caption": "你的列表，你的交易所",
+        "subline": "32 家交易所的 41 个市场，另含 DEX 代币"
+      },
+      "04": {
+        "caption": "关键时刻才提醒",
+        "subline": "“当 BTC 跌破 90,000 CHF 时提醒我”"
+      },
+      "05": {
+        "caption": "你的投资组合，受保护",
+        "subline": "指纹、面容或 PIN 锁定，无需账户"
+      }
+    }
+  }
+}

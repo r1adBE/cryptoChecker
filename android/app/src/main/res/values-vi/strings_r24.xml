@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 24: Basis der %-Änderung, Aktionsblatt «Mehr», Live-Takt bei geschlossener App -->
+    <string name="settings_change_basis">Thay đổi %1$s &amp; múi giờ biểu đồ</string>
+    <string name="change_basis_rolling">24 giờ qua</string>
+    <string name="change_basis_utc_zone">Từ 00:00 %1$s</string>
+    <string name="change_basis_local">Từ 00:00 giờ địa phương</string>
+    <string name="settings_change_basis_hint_1">Múi giờ đã chọn quyết định thay đổi phần trăm được tính từ lúc nào (danh sách theo dõi, dòng nhịp, trang cặp, tiện ích) và giờ hiển thị trên biểu đồ.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” so với giá đúng 24 giờ trước. “00:00” so với giá mở cửa lúc nửa đêm theo múi giờ đó.</string>
+    <string name="settings_change_basis_hint_3">Không ảnh hưởng đến cảnh báo.</string>
+    <string name="change_basis_device">%1$s, 00:00 (múi giờ của thiết bị)</string>
+    <string name="change_short_today">hôm nay</string>
+    <string name="change_short_today_zone">hôm nay %1$s</string>
+    <string name="a11y_change_today">%1$s hôm nay</string>
+    <string name="a11y_change_today_zone">%1$s từ nửa đêm %2$s</string>
+    <string name="a11y_change_today_none">Không có biến động hôm nay</string>
+    <string name="a11y_change_today_zone_none">Không có biến động từ nửa đêm %1$s</string>
+    <string name="sheet_chart_today">Hôm nay</string>
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="settings_live_interval_hidden_hint">Khi đóng ứng dụng, tối đa mỗi phút một lần</string>
+    <string name="sheet_more">Thêm</string>
+    <string name="a11y_expanded">Đã mở rộng</string>
+    <string name="a11y_collapsed">Đã thu gọn</string>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d không có giá trị hôm nay</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d cặp không có giá trị cho hôm nay</item>
+    </plurals>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Oblíbené</string>
+    <string name="watchlist_favorites_empty_hint">Zatím žádné oblíbené. Přejeďte pár doprava nebo v listu páru klepněte na „Oblíbené“.</string>
+    <string name="settings_watchlist_names">Zobrazit názvy</string>
+    <string name="settings_watchlist_names_hint">Název pod párem, např. Bitcoin nebo NVIDIA. Přichází se seznamy log, načte se jednou pro všechny mince.</string>
+    <string name="settings_watchlist_value_names">Názvy</string>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Çfarë bie në sy</string>
+    <string name="pulse_why_action">Pse? →</string>
+    <string name="pulse_section_factors">Faktorët</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin po udhëheq tregun.</string>
+    <string name="pulse_lead_alts_stronger">Altcoin-et janë më të forta se Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin është më i fortë se altcoin-et.</string>
+    <string name="pulse_lead_broad_up">Tregu po rritet gjerësisht.</string>
+    <string name="pulse_lead_broad_down">Tregu po bie gjerësisht.</string>
+    <string name="pulse_lead_drift_up">Tregu po rritet lehtë.</string>
+    <string name="pulse_lead_drift_down">Tregu po bie lehtë.</string>
+    <string name="pulse_lead_mixed">Monedhat e mëdha po lëvizin në drejtime të ndryshme.</string>
+    <string name="pulse_lead_calm">Tregu mezi lëviz.</string>
+
+    <string name="pulse_detail_vol_above">Vëllimi %1$d%% mbi normalen.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Vëllimi %1$d%% mbi normalen, funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Vëllimi %1$d%% mbi normalen, funding i lartë.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Vëllimi %1$d%% mbi normalen, funding negativ.</string>
+    <string name="pulse_detail_vol_below">Vëllimi %1$d%% nën normalen.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Vëllimi %1$d%% nën normalen, funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Vëllimi %1$d%% nën normalen, funding i lartë.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Vëllimi %1$d%% nën normalen, funding negativ.</string>
+    <string name="pulse_detail_vol_normal">Vëllimi normal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Vëllimi normal, funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Vëllimi normal, funding i lartë.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Vëllimi normal, funding negativ.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_fund_high">Funding i lartë.</string>
+    <string name="pulse_detail_fund_negative">Funding negativ.</string>
+
+    <string name="factor_volume">Vëllimi</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Luhatja (1h)</string>
+    <string name="factor_spoken_volume">%1$s herë më shumë se zakonisht</string>
+    <string name="factor_spoken_volatility">%1$s herë luhatja e zakonshme</string>
+
+    <string name="why_title_coin">Pse po lëviz %1$s?</string>
+    <string name="why_details">Shfaq detajet</string>
+    <string name="why_details_hide">Fshih detajet</string>
+    <string name="why_f_market_wide">Po lëviz i gjithë tregu</string>
+    <string name="why_f_coin_only">Vetëm kjo monedhë</string>
+    <string name="why_f_against">Kundër tregut</string>
+    <string name="why_f_market_calm">Treg i qetë</string>
+    <string name="why_f_leader">Bitcoin përcakton drejtimin</string>
+    <string name="why_f_leverage_longs">Leva: shumë long</string>
+    <string name="why_f_leverage_shorts">Leva: shumë short</string>
+    <string name="why_f_leverage_balanced">Leva e ekuilibruar</string>
+    <string name="insights_dominance_eth">ETH %1$s e tregut total</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d muaj nga halving-u më %2$s</item>
+        <item quantity="other">%1$d muaj nga halving-u më %2$s</item>
+    </plurals>
+</resources>

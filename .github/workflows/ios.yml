@@ -1,0 +1,70 @@
+# Builds the iOS app (ios/) for the iOS Simulator without code signing and runs the
+# unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity).
+# Runs automatically when ios/ changes (pushes to main and pull requests) and by hand
+# (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only changes skip it.
+# Signing, archiving and uploading happen locally in Xcode.
+name: iOS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ios/**'
+      - 'android/testdata/parity/**'
+      - '.github/workflows/ios.yml'
+  pull_request:
+    paths:
+      - 'ios/**'
+      - 'android/testdata/parity/**'
+      - '.github/workflows/ios.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Build for iOS Simulator (no signing)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            | tail -n 200
+
+      # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app).
+      # "iPhone 16" if the installed Xcode has it, otherwise its first available iPhone.
+      - name: Unit tests (iOS Simulator)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          DEVICE="iPhone 16"
+          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          fi
+          echo "Simulator: $DEVICE"
+          xcodebuild test \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            | tail -n 300

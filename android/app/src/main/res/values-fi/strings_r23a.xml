@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23a: Merkliste — leere Ansicht, «Gerade aktualisiert» -->
+    <string name="watchlist_status_group_empty">Tässä ryhmässä ei ole pareja</string>
+    <string name="watchlist_status_none_traded">Ei kaupankäynnissä olevia pareja</string>
+    <string name="watchlist_group_empty_hint">Valitse ryhmän parit painamalla ryhmää pitkään.</string>
+    <string name="watchlist_just_refreshed">Juuri päivitetty</string>
+</resources>

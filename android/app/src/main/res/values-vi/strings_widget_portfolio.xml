@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Hiển thị</string>
+    <string name="widget_portfolio_display_conversion">Chỉ quy đổi</string>
+    <string name="widget_portfolio_display_conversion_usdt">Quy đổi + USDT</string>
+    <string name="widget_portfolio_display_hint">Dòng USDT bị ẩn khi tiền tệ quy đổi là USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ %1$d mục khác</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s danh mục</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s danh mục, hôm nay %4$s</string>
+    <string name="a11y_portfolio_positions">Vị thế lớn nhất: %1$s</string>
+</resources>

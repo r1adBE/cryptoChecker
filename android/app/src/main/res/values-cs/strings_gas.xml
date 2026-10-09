@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_gas_eth_below">Ethereum gas pod (gwei)</string>
+    <string name="settings_gas_btc_below">Poplatek Bitcoin pod (sat/vB)</string>
+    <string name="settings_gas_alert_hint">Upozorní jednou, když běžný poplatek klesne pod limit. Kontroluje se při aktualizaci kurzů, nejvýše každých 10 minut.</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_gas_eth_text">Pod vaším limitem %1$s gwei · Převod ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Poplatek Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_btc_text">Pod vaším limitem %1$s sat/vB · Převod ≈ %2$s</string>
+    <string name="gas_title">Síťové poplatky</string>
+    <string name="gas_slow_fast">Pomalu %1$s · Rychle %2$s</string>
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_source">Veřejné RPC uzly a mempool.space · Cena jednoduchého převodu, u L2 bez podílu L1</string>
+    <string name="gas_transfer_cost">Převod ≈ %1$s</string>
+</resources>

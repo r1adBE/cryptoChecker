@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">पसंदीदा</string>
+    <string name="watchlist_favorites_empty_hint">अभी कोई पसंदीदा नहीं। किसी जोड़ी को दाईं ओर स्वाइप करें या पेयर शीट में “पसंदीदा” टैप करें।</string>
+    <string name="settings_watchlist_names">नाम दिखाएँ</string>
+    <string name="settings_watchlist_names_hint">जोड़ी के नीचे नाम, जैसे Bitcoin या NVIDIA। लोगो सूचियों के साथ आता है, सभी कॉइन के लिए एक बार लोड होता है।</string>
+    <string name="settings_watchlist_value_names">नाम</string>
+</resources>

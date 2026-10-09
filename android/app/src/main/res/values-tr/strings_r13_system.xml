@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Fiyatları ve alarmları sesli okur. Cihaz sessiz veya titreşim modundayken sessiz kalır.</string>
+</resources>

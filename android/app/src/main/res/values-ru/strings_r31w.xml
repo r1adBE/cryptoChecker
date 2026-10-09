@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">Котировки в реальном времени</string>
+    <string name="settings_live_websocket_hint">Котировки следуют за биржей без задержки, пока открыт список. Для Binance, Bybit, OKX, Coinbase и Kraken.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">Котировки в реальном времени включены</string>
+    <string name="refresh_report_live">В реальном времени: %1$s</string>
+</resources>

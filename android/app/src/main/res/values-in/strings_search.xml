@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Suche in der Merkliste -->
+    <string name="watchlist_search_hint">Cari pasangan atau bursa</string>
+    <string name="watchlist_search_open">Cari</string>
+    <string name="watchlist_search_close">Tutup pencarian</string>
+    <string name="watchlist_search_empty">Tidak ada hasil untuk “%1$s”</string>
+</resources>

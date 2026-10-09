@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_alarm_sound">Sunet alarmă</string>
+    <string name="settings_alarm_sound_default">Sunet implicit</string>
+    <string name="settings_alarm_sound_custom">Sunet propriu</string>
+    <string name="settings_alarm_sound_system">Alege sunet de sistem…</string>
+    <string name="settings_alarm_sound_file">Fișier audio propriu…</string>
+    <string name="settings_alarm_sound_reset">Folosește sunetul implicit</string>
+    <string name="settings_alarm_sound_error">Sunetul nu a putut fi folosit.</string>
+</resources>

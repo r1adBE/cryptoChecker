@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 18: Sprungknopf der Merkliste («Zum Anfang» / «Zum Ende») und Empfindlichkeit von «Ungewöhnliche Aktivität» -->
+    <string name="watchlist_jump_start">Aller au début</string>
+    <string name="watchlist_jump_end">Aller à la fin</string>
+    <string name="settings_activity_sensitivity">Sensibilité</string>
+    <string name="settings_activity_sensitivity_hint">Facilité avec laquelle une crypto est jugée inhabituelle – identique pour la carte de la liste et les notifications. Avec « Moins », la carte n’affiche que les 3 plus forts.</string>
+    <string name="activity_sensitivity_less">Moins</string>
+    <string name="activity_sensitivity_normal">Normale</string>
+    <string name="activity_sensitivity_more">Plus</string>
+    <string name="activity_adjust">Ajuster</string>
+    <string name="activity_adjust_a11y">Ajuster la sensibilité</string>
+</resources>

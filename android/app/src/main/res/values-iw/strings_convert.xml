@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">מחירים מומרים</string>
+    <string name="settings_show_converted_hint">מציג את המחירים ברשימת המעקב גם ב-%1$s</string>
+    <string name="settings_conversion_currency">מטבע להמרה</string>
+    <string name="alarm_currency_label">מטבע</string>
+</resources>

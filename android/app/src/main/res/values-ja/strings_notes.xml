@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_title">メモ</string>
+    <string name="note_add">メモを追加</string>
+    <string name="note_edit">メモを編集</string>
+    <string name="note_hint">例: 0.42でエントリー、目標0.60</string>
+    <string name="note_remove">削除</string>
+</resources>

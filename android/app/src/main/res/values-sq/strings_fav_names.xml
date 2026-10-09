@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Të preferuarat</string>
+    <string name="watchlist_favorites_empty_hint">Ende pa të preferuara. Rrëshqit një çift djathtas ose prek «I preferuar» në fletën e çiftit.</string>
+    <string name="settings_watchlist_names">Shfaq emrat</string>
+    <string name="settings_watchlist_names_hint">Emri nën çiftin, p.sh. Bitcoin ose NVIDIA. Vjen me listat e logove, ngarkohet një herë për të gjitha monedhat.</string>
+    <string name="settings_watchlist_value_names">Emrat</string>
+</resources>

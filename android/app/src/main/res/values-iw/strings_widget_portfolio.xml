@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">תצוגה</string>
+    <string name="widget_portfolio_display_conversion">המרה בלבד</string>
+    <string name="widget_portfolio_display_conversion_usdt">המרה + USDT</string>
+    <string name="widget_portfolio_display_hint">שורת USDT מוסתרת כשמטבע ההמרה הוא USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ עוד %1$d</item>
+        <item quantity="two">+ עוד %1$d</item>
+        <item quantity="other">+ עוד %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s מתיק ההשקעות</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s מתיק ההשקעות, היום %4$s</string>
+    <string name="a11y_portfolio_positions">הפוזיציות הגדולות ביותר: %1$s</string>
+</resources>

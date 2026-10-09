@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
+    <string name="settings_live_websocket">Live-hinnat</string>
+    <string name="settings_live_websocket_hint">Hinnat seuraavat pörssiä viiveettä, kun lista on auki. Pörssit: Binance, Bybit, OKX, Coinbase ja Kraken.</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_a11y">Live-hinnat käytössä</string>
+    <string name="refresh_report_live">Live: %1$s</string>
+</resources>

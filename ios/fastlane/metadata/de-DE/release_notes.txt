@@ -1,0 +1,35 @@
+Version 16.2.2
+• Crypto Pulse: Was passiert gerade im Markt?
+• «Warum bewegt sich das?»: datenbasierte Erklärung für Kursbewegungen, mit kurzem Fazit
+• Alarm testen: Ton, Vibration und Ansage prüfen
+• Umgerechnete Kurse: zweite Zeile «≈ Wert» in deiner Umrechnungswährung – 31 Währungen wie EUR, CHF, USD, GBP oder JPY, standardmässig passend zur Region deines Geräts
+• Alarme in deiner Währung, z. B. bei 60 000 EUR auf einem USDT-Paar
+• Stichtag-Export: Wert deines Portfolios an einem beliebigen Tag, z. B. am 31. Dezember, in deiner Währung als CSV-Datei – praktisch für die Steuererklärung (keine Steuerberatung)
+• Barrierefreiheit: Kursfarben Blau/Orange, gut unterscheidbar bei jeder Farbsehschwäche (Rot-Grün und Blau-Gelb); «Farben tauschen»: Rot steigend, Grün fallend, wie in China, Japan, Korea und Taiwan üblich (dort automatisch aktiv); «Hoher Kontrast»: kräftigere Kursfarben, dunklere Nebentexte und Akzentfarbe, folgt auch der Systemeinstellung; volle VoiceOver-Unterstützung: jede Zeile, jeder Chart und jedes Widget wird als ein Satz vorgelesen
+• Mini-Chart in jeder Zeile: 24-Stunden-Verlauf neben dem Kurs
+• «Mit einem Tipp starten»: Die leere Merkliste bietet die fünf grössten Coins nach Marktkapitalisierung an (ohne Stablecoins)
+• Die Startliste zeigt Live-Kurs und 24-Std.-Veränderung – alle fünf vorausgewählt, mit einem Knopf hinzugefügt
+• Wischen in der Merkliste: nach links löschen (mit «Rückgängig»), nach rechts Favorit
+• Der Markt-Tab öffnet sofort mit den letzten Daten und aktualisiert im Hintergrund
+• Nachtruhe: Nachts (z. B. 23–7 Uhr) kommen Alarme still – ohne Ton, Vibration und Ansage
+• Portfolio-Sperre mit Face ID, Touch ID oder Gerätecode
+• Portfolio-Widget für Home- und Sperrbildschirm: Gesamtwert in deiner Währung und Veränderung heute
+• Jeder Alarm als Satz: «Sag mir Bescheid, wenn BTC unter 60 000 CHF fällt.»
+• Kurze Erklärungen zu Funding Rate, Open Interest, RSI und Pi-Cycle
+• Zeilen zeigen «veraltet» oder «Börse nicht erreichbar», wenn ein Kurs nicht aktuell ist
+• 15 neue Börsen: WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Netzwerkgebühren für Ethereum, Base, Arbitrum, Polygon, BNB Chain und Bitcoin im Markt-Tab, mit Gas-Alarm
+• Notiz pro Coin in deiner Merkliste
+• Alarmton zum Auswählen
+• Ungewöhnliche Aktivität: erkennt auffällige Kurs- und Volumenbewegungen, auf Wunsch mit Mitteilung
+• Portfolio als eigener Tab: Käufe und Verkäufe, Durchschnittspreis, Gewinn/Verlust
+• Zyklus-Vergleich: Hochs und Tiefs markiert, inkl. Doppel-Top und Doppel-Bottom
+• Gruppen für deine Merkliste
+• Neue Alarme: Bewegung um X % in Y Stunden und Volumen-Spike
+• Einzel-Widget: Kerzen oder Linie, Chart-Zeitraum 24 Std., 7 Tage oder 30 Tage, Marken für Hoch, Mitte und Tief, aktueller Kurs hervorgehoben
+• Markt-Tab: gesamte Krypto-Marktkapitalisierung und 24-Std.-Volumen in deiner Währung
+• Futures: Funding Rate und Open Interest
+• Fünf Akzentfarben mit passendem App-Icon
+• Aktien, Gold, Rohstoffe und Devisen als Futures (TradFi) bei Binance, Bybit, OKX, MEXC und Bitget – per Schalter unter Einstellungen › Merkliste, neue Paare automatisch in der Gruppe «TradFi»; Laufzeit-Futures in «QTLY»
+• %-Änderung wie bei Binance: letzte 24 Std., seit letzter Aktualisierung, seit 00:00 in der Zeitzone des Geräts oder in einer festen Zone von UTC+14 bis UTC-12
+• Klare Namen: «Häufig aktualisieren» und «Live-Kurse»

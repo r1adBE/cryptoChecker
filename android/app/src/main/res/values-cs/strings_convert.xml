@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_show_converted">Přepočtené ceny</string>
+    <string name="settings_show_converted_hint">Zobrazí ceny ve sledovaných také v %1$s</string>
+    <string name="settings_conversion_currency">Měna přepočtu</string>
+    <string name="alarm_currency_label">Měna</string>
+</resources>

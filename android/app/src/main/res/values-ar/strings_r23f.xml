@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 23f: Einstellungen gruppiert (Zeilen mit Kurzwert, Unterseiten) und «Kursfarben» mit vier Wahlen -->
+    <string name="settings_group_general">عام</string>
+    <string name="settings_group_data_only">البيانات</string>
+    <string name="settings_row_currency">العملة</string>
+    <string name="settings_row_updates">التحديث</string>
+    <string name="settings_updates_live">متكرر · %1$s</string>
+    <string name="settings_updates_every">كل %1$s</string>
+    <string name="settings_row_watchlist">قائمة المتابعة</string>
+    <string name="settings_watchlist_value_sparkline">مخطط مصغّر</string>
+    <string name="settings_watchlist_value_price_only">السعر فقط</string>
+    <string name="settings_row_alarms">التنبيهات</string>
+    <string name="settings_portfolio_value_locked">تشغيل، مع قفل</string>
+    <string name="settings_row_dated_futures">عقود آجلة ذات استحقاق</string>
+    <string name="settings_tradfi_futures">الأسهم والسلع والعملات (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">يعرض عند اختيار الزوج أيضًا العقود الآجلة على الأسهم والذهب وغيره من السلع والعملات والشركات قبل طرحها العام. هذه عقود وليست رموزًا.</string>
+    <string name="settings_watchlist_activity_card">نشاط غير عادي في القائمة</string>
+    <string name="settings_watchlist_activity_card_hint">يعرض بطاقة «شيء ما يحدث الآن» فوق الأزواج. تُضبط التنبيهات في إشعارات السوق.</string>
+    <string name="settings_row_about">حول التطبيق</string>
+    <string name="price_colors_green_up">الأخضر صعود / الأحمر هبوط</string>
+    <string name="price_colors_red_up">الأحمر صعود / الأخضر هبوط</string>
+    <string name="price_colors_blue_up">الأزرق صعود / البرتقالي هبوط</string>
+    <string name="price_colors_orange_up">البرتقالي صعود / الأزرق هبوط</string>
+    <string name="price_colors_red_up_hint">شائع في الصين واليابان وكوريا وتايوان</string>
+</resources>

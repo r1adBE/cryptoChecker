@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_tts_hint_silent">Læser kurser og alarmer højt. Forbliver tavs, mens enheden er på lydløs eller vibration.</string>
+</resources>

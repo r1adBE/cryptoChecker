@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">신뢰도: %1$s</string>
+    <string name="why_confidence_high">높음</string>
+    <string name="why_confidence_medium">보통</string>
+    <string name="why_confidence_low">낮음</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="other">신호 %2$d개 중 %1$d개가 이를 가리킵니다</item>
+    </plurals>
+    <string name="why_confidence_partial">데이터 불완전</string>
+</resources>

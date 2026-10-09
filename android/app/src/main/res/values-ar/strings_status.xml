@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">لا يوجد اتصال</string>
+    <string name="watchlist_offline_since">لا يوجد اتصال · آخر تحديث %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="zero">%1$d من %2$d بدون سعر</item>
+        <item quantity="one">%1$d من %2$d بدون سعر</item>
+        <item quantity="two">%1$d من %2$d بدون سعر</item>
+        <item quantity="few">%1$d من %2$d بدون سعر</item>
+        <item quantity="many">%1$d من %2$d بدون سعر</item>
+        <item quantity="other">%1$d من %2$d بدون سعر</item>
+    </plurals>
+    <string name="watch_not_traded">لم يعد يُتداول في هذه المنصة</string>
+</resources>

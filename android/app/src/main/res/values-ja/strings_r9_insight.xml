@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">いま目立つこと</string>
+    <string name="pulse_why_action">なぜ？ →</string>
+    <string name="pulse_section_factors">要因</string>
+
+    <string name="pulse_lead_btc_leads">ビットコインが市場をけん引しています。</string>
+    <string name="pulse_lead_alts_stronger">アルトコインがビットコインより強い動きです。</string>
+    <string name="pulse_lead_btc_stronger">ビットコインがアルトコインより強い動きです。</string>
+    <string name="pulse_lead_broad_up">市場は幅広く上昇しています。</string>
+    <string name="pulse_lead_broad_down">市場は幅広く下落しています。</string>
+    <string name="pulse_lead_drift_up">市場はやや上昇しています。</string>
+    <string name="pulse_lead_drift_down">市場はやや下落しています。</string>
+    <string name="pulse_lead_mixed">主要コインの動きがばらついています。</string>
+    <string name="pulse_lead_calm">市場はほとんど動いていません。</string>
+
+    <string name="pulse_detail_vol_above">出来高は通常より %1$d%% 多い。</string>
+    <string name="pulse_detail_vol_above_fund_neutral">出来高は通常より %1$d%% 多い、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_above_fund_high">出来高は通常より %1$d%% 多い、資金調達率は高め。</string>
+    <string name="pulse_detail_vol_above_fund_negative">出来高は通常より %1$d%% 多い、資金調達率はマイナス。</string>
+    <string name="pulse_detail_vol_below">出来高は通常より %1$d%% 少ない。</string>
+    <string name="pulse_detail_vol_below_fund_neutral">出来高は通常より %1$d%% 少ない、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_below_fund_high">出来高は通常より %1$d%% 少ない、資金調達率は高め。</string>
+    <string name="pulse_detail_vol_below_fund_negative">出来高は通常より %1$d%% 少ない、資金調達率はマイナス。</string>
+    <string name="pulse_detail_vol_normal">出来高は通常どおり。</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">出来高は通常どおり、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_normal_fund_high">出来高は通常どおり、資金調達率は高め。</string>
+    <string name="pulse_detail_vol_normal_fund_negative">出来高は通常どおり、資金調達率はマイナス。</string>
+    <string name="pulse_detail_fund_neutral">資金調達率は中立。</string>
+    <string name="pulse_detail_fund_high">資金調達率は高め。</string>
+    <string name="pulse_detail_fund_negative">資金調達率はマイナス。</string>
+
+    <string name="factor_volume">出来高</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">資金調達率</string>
+    <string name="factor_volatility">変動幅（1h）</string>
+    <string name="factor_spoken_volume">通常の %1$s 倍</string>
+    <string name="factor_spoken_volatility">通常の値動きの %1$s 倍</string>
+
+    <string name="why_title_coin">%1$s はなぜ動いている？</string>
+    <string name="why_details">詳細を表示</string>
+    <string name="why_details_hide">詳細を隠す</string>
+    <string name="why_f_market_wide">市場全体が動いている</string>
+    <string name="why_f_coin_only">このコインだけ</string>
+    <string name="why_f_against">市場と逆行</string>
+    <string name="why_f_market_calm">落ち着いた市場</string>
+    <string name="why_f_leader">ビットコインが方向を決める</string>
+    <string name="why_f_leverage_longs">レバレッジ：ロングが多い</string>
+    <string name="why_f_leverage_shorts">レバレッジ：ショートが多い</string>
+    <string name="why_f_leverage_balanced">レバレッジは均衡</string>
+    <string name="insights_dominance_eth">市場全体の ETH %1$s</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="other">%2$s の半減期から %1$d か月</item>
+    </plurals>
+</resources>

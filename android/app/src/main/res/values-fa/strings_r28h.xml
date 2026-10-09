@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28 (h): «Warum?» mit ehrlicher Sicherheit -->
+    <string name="why_confidence">اطمینان: %1$s</string>
+    <string name="why_confidence_high">بالا</string>
+    <string name="why_confidence_medium">متوسط</string>
+    <string name="why_confidence_low">پایین</string>
+    <plurals name="why_confidence_hints">
+        <item quantity="one">%1$d از %2$d نشانه به این اشاره دارد</item>
+        <item quantity="other">%1$d از %2$d نشانه به این اشاره دارند</item>
+    </plurals>
+    <string name="why_confidence_partial">داده‌ها ناقص است</string>
+</resources>

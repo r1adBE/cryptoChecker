@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runde 32: «Warum?» Gleichlauf mit Bitcoin, Sats im Aktionsblatt -->
+<resources>
+    <string name="why_btc_tight">%1$s 目前与比特币走势紧密联动。</string>
+    <string name="why_btc_independent">%1$s 目前走势独立于比特币。</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s 聪</string>
+</resources>

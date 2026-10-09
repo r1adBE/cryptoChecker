@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm «Nahe am Hoch / Tief» (Runde 10) -->
+    <string name="alarm_condition_near_high">Dicht bij de top</string>
+    <string name="alarm_condition_near_low">Dicht bij de bodem</string>
+    <string name="alarm_near_field_distance">Afstand</string>
+    <string name="alarm_near_window_label">Periode</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
+    <string name="alarm_near_window_year">1 jaar</string>
+    <string name="alarm_near_hint">Meldt zich ook bij een nieuwe top of bodem. Gebaseerd op dagcandles, elke 6 uur vernieuwd.</string>
+    <string name="alarm_near_extreme_high_30">30-daagse top</string>
+    <string name="alarm_near_extreme_high_90">90-daagse top</string>
+    <string name="alarm_near_extreme_high_365">jaartop</string>
+    <string name="alarm_near_extreme_low_30">30-daagse bodem</string>
+    <string name="alarm_near_extreme_low_90">90-daagse bodem</string>
+    <string name="alarm_near_extreme_low_365">jaarbodem</string>
+    <string name="alarm_sentence_near_high">Laat het me weten als %1$s hooguit %2$s onder de %3$s staat.</string>
+    <string name="alarm_sentence_near_low">Laat het me weten als %1$s hooguit %2$s boven de %3$s staat.</string>
+    <string name="alarm_near_notification_high">%1$s staat %2$s onder de %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s staat %2$s boven de %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Nieuwe %1$s voor %2$s: %3$s (eerder %4$s)</string>
+    <string name="tts_direction_near_high">staat dicht bij de top</string>
+    <string name="tts_direction_near_low">staat dicht bij de bodem</string>
+</resources>

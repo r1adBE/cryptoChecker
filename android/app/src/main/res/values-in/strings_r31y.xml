@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 31 (y): «Warum?» als Faktorliste (Titel, Nebenzeile), «Kurz gesagt:», Zeile «veraltet · vor 4 Min.» -->
+    <string name="watchlist_row_outdated_age">usang · %1$s</string>
+    <string name="why_brief_label">Singkatnya:</string>
+    <string name="why_factor_market">Pasar secara keseluruhan</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_near_high">Dekat titik tertinggi</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_fn_volume_higher">lebih tinggi dari biasanya</string>
+    <string name="why_fn_volume_lower">lebih rendah dari biasanya</string>
+    <string name="why_fn_volume_usual">seperti biasa</string>
+    <string name="why_fn_market_pulls">BTC menarik pasar</string>
+    <string name="why_fn_market_lags">Pasar bergerak, koin ini hampir tidak</string>
+    <string name="why_fn_market_alone">Pasar tenang – koin ini bergerak sendiri</string>
+    <string name="why_fn_market_against">Koin bergerak melawan pasar</string>
+    <string name="why_fn_market_calm">Pasar tenang</string>
+    <string name="why_fn_leader_moves">Bitcoin menentukan arah</string>
+    <string name="why_fn_leader_calm">Bitcoin tenang</string>
+    <string name="why_fn_volatility_stronger">lebih kuat dari biasanya</string>
+    <string name="why_fn_volatility_usual">seperti biasa</string>
+    <string name="why_fn_oi_up">Open interest naik</string>
+    <string name="why_fn_oi_down">Open interest turun</string>
+    <string name="why_fn_oi_flat">Open interest hampir tidak berubah</string>
+    <string name="why_fn_high_at">di titik tertinggi 30 hari</string>
+    <string name="why_fn_high_below">di bawah titik tertinggi 30 hari</string>
+    <string name="why_fn_funding_longs">banyak yang bertaruh harga naik</string>
+    <string name="why_fn_funding_shorts">banyak yang bertaruh harga turun</string>
+    <string name="why_fn_funding_neutral">netral</string>
+</resources>

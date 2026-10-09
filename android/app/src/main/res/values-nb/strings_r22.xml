@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 22: Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <!-- Grosse Statuszeile oben im Blatt «Letzte Aktualisierung» -->
+    <string name="refresh_sheet_all_updated">Alt oppdatert</string>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d par ikke oppdatert</item>
+        <item quantity="other">%1$d par ikke oppdatert</item>
+    </plurals>
+    <string name="refresh_sheet_market_unreachable">%1$s kan ikke nås</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d børs kan ikke nås</item>
+        <item quantity="other">%1$d børser kan ikke nås</item>
+    </plurals>
+    <string name="refresh_sheet_aborted">Oppdatering avbrutt</string>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d par</item>
+    </plurals>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Børser</string>
+    <string name="refresh_sheet_section_steps">Forløp</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Ventetid til start</string>
+    <string name="refresh_sheet_network">Nettverk</string>
+    <string name="refresh_sheet_database">Database</string>
+    <string name="refresh_sheet_alarms">Alarmer</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d utløst</item>
+        <item quantity="other">%1$d utløst</item>
+    </plurals>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d varsel</item>
+        <item quantity="other">%1$d varsler</item>
+    </plurals>
+    <string name="refresh_sheet_widgets">Widgeter</string>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d av %1$d par</item>
+        <item quantity="other">%2$d av %1$d par</item>
+    </plurals>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">samlet forespørsel %1$s · %2$d kurs</item>
+        <item quantity="other">samlet forespørsel %1$s · %2$d kurser</item>
+    </plurals>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tidsavbrudd</string>
+    <string name="refresh_sheet_reason_offline">ingen tilkobling</string>
+    <string name="refresh_sheet_reason_rate_limit">for mange forespørsler</string>
+    <string name="refresh_sheet_reason_server">serverfeil</string>
+    <string name="refresh_sheet_reason_no_data">ingen data</string>
+    <string name="refresh_sheet_reason_unavailable">børsen er ikke tilgjengelig</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">alt oppdatert</string>
+    <string name="refresh_sheet_status_partial">delvis oppdatert</string>
+    <string name="refresh_sheet_status_failed">ikke oppdatert</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekunder</string>
+</resources>

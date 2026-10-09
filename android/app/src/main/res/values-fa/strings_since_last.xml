@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- %-Änderung «Seit letzter Aktualisierung»: letzter gegen vorherigen Kurs des Paars.
+         change_basis_since_last = Auswahl und ausgeschrieben, change_short_since_last = kurz neben
+         Pille und Widgets (wie «24h», «heute»); %1$s in a11y = Veränderung («up 0.12%»);
+         Hinweis: %1$s = change_basis_since_last -->
+    <string name="change_basis_since_last">از آخرین به‌روزرسانی</string>
+    <string name="change_short_since_last">آخرین به‌روزرسانی</string>
+    <string name="a11y_change_since_last">%1$s از آخرین به‌روزرسانی</string>
+    <string name="a11y_change_since_last_none">تغییر از آخرین به‌روزرسانی در دسترس نیست</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» با قیمت به‌روزرسانی قبلی مقایسه می‌کند. با قیمت‌های زنده نزدیک به 0%% می‌ماند.</string>
+</resources>

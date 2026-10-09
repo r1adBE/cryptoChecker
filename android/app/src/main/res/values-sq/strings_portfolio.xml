@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand -->
+    <string name="portfolio_holdings">Zotërimi</string>
+    <string name="portfolio_invalid">Sasi e pavlefshme</string>
+
+    <!-- Gruppen -->
+    <string name="group_title">Grupi</string>
+    <string name="group_value">Grupi: %1$s</string>
+    <string name="group_all">Të gjitha</string>
+    <string name="group_none">Pa grup</string>
+    <string name="group_new">Grup i ri…</string>
+    <string name="group_name">Emri i grupit</string>
+    <string name="widget_group_hint">Shfaq vetëm çiftet e këtij grupi.</string>
+
+    <!-- Portfolio (Tab, Erfassen, Detail) -->
+    <string name="portfolio_title">Portofoli</string>
+    <string name="portfolio_setting_hint">Opsionale: regjistro blerjet dhe shitjet dhe shiko vlerën dhe fitimin/humbjen në një skedë të veçantë.</string>
+    <string name="portfolio_total_value">Vlera totale</string>
+    <string name="portfolio_invested">Investuar</string>
+    <string name="portfolio_unrealized">Fitim/humbje, ende e pashitur</string>
+    <string name="portfolio_realized">Fitim/humbje, e shitur</string>
+    <string name="portfolio_value">Vlera</string>
+    <string name="portfolio_avg_price">Çmimi mesatar i blerjes</string>
+    <string name="portfolio_current_price">Çmimi aktual</string>
+    <string name="portfolio_avg_and_now">Mes. %1$s · tani %2$s</string>
+    <string name="portfolio_updated">Çmimet e %1$s</string>
+    <string name="portfolio_convert_to">Konverto në</string>
+    <string name="portfolio_convert_to_value">Konverto në: %1$s</string>
+    <string name="portfolio_price_missing">Mungon çmimi</string>
+    <string name="portfolio_price_missing_hint">Disa blerje nuk kanë çmim. Shto çmimin e blerjes për të parë fitimin/humbjen.</string>
+    <string name="portfolio_current_missing">Nuk ka çmim aktual për %1$s</string>
+    <string name="portfolio_oversold">Shitjet tejkalojnë zotërimet – kontrollo transaksionet.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Pozicion i mbyllur (%1$d)</item>
+        <item quantity="other">Pozicione të mbyllura (%1$d)</item>
+    </plurals>
+    <string name="portfolio_transactions">Transaksionet</string>
+    <string name="portfolio_add_tx">Regjistro blerje/shitje</string>
+    <string name="portfolio_edit_tx">Ndrysho transaksionin</string>
+    <string name="portfolio_buy">Blerje</string>
+    <string name="portfolio_sell">Shitje</string>
+    <string name="portfolio_coin">Monedha</string>
+    <string name="portfolio_coin_search">Kërko simbolin, p.sh. BTC</string>
+    <string name="portfolio_coin_invalid">Shkruaj një simbol</string>
+    <string name="portfolio_tx_amount">Sasia</string>
+    <string name="portfolio_tx_price">Çmimi për monedhë</string>
+    <string name="portfolio_tx_price_hint">Në USDT. Lëre bosh nëse nuk e di.</string>
+    <string name="portfolio_tx_price_invalid">Çmim i pavlefshëm</string>
+    <string name="portfolio_tx_date">Data</string>
+    <string name="portfolio_tx_note">Shënim (opsional)</string>
+    <string name="portfolio_tx_total">Gjithsej: %1$s</string>
+    <string name="portfolio_sell_exceeds">Më shumë se zotërimet e tua (%1$s)</string>
+    <string name="portfolio_tx_delete_title">Të fshihet transaksioni?</string>
+    <string name="portfolio_tx_delete_confirm">Ky transaksion do të hiqet nga portofoli.</string>
+    <string name="portfolio_empty_title">Ende pa transaksione</string>
+    <string name="portfolio_empty_text">Regjistro blerjet dhe shitjet. Vlera dhe fitimi/humbja llogariten me çmimet aktuale në USDT.</string>
+    <string name="portfolio_empty_action">Regjistro blerjen e parë</string>
+    <string name="portfolio_disclaimer">Ruhet vetëm në këtë pajisje. Nuk është këshillë investimi.</string>
+    <string name="portfolio_add_from_watch">Shto në portofol</string>
+</resources>

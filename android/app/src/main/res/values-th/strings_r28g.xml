@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28g: Offline-Status, verständliche Fehler, Pause je Börse, App-Start im Bericht -->
+    <string name="offline_status">ออฟไลน์</string>
+    <string name="offline_status_since">ออฟไลน์ · ณ %1$s</string>
+    <string name="error_market_unreachable">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้ – ราคาล่าสุดยังแสดงอยู่</string>
+    <string name="error_market_unreachable_short">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
+    <string name="refresh_sheet_paused_until">หยุดชั่วคราวถึง %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">หยุดชั่วคราวถึง %1$s (%2$s)</string>
+    <string name="refresh_sheet_app_start">การเปิดแอป</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 17: Portfolio-Sperre (nur Portfolio: Tab, Unterseiten, Sicherung, Widget) und Wertverlauf «Seit 1. Kauf», auf-/zuklappbar -->
+    <string name="settings_portfolio_lock">Блокування портфеля</string>
+    <string name="settings_portfolio_lock_hint">Захищає лише портфель: розблокування відбитком пальця, обличчям або PIN-кодом пристрою. Знову блокується після понад хвилини у фоні. Список спостереження, сигнали та інші віджети залишаються доступними.</string>
+    <string name="portfolio_locked_title">Портфель заблоковано</string>
+    <string name="portfolio_locked_text">Розблокуйте, щоб побачити активи та вартість.</string>
+    <string name="portfolio_lock_reason">Розблокувати портфель</string>
+    <string name="widget_portfolio_locked_hint">Заблоковано – розблокуйте в застосунку</string>
+    <string name="portfolio_history_range_since_first">З 1-ї купівлі</string>
+    <string name="portfolio_history_period_since_first">з першої купівлі</string>
+    <string name="portfolio_history_range_since_first_a11y">Показати динаміку з першої купівлі</string>
+    <string name="portfolio_history_change_since_first_a11y">Вартість з першої купівлі: %1$s, %2$s</string>
+    <string name="portfolio_history_capped">Показано лише останні 5 років.</string>
+    <string name="portfolio_history_expand">Показати динаміку вартості</string>
+    <string name="portfolio_history_collapse">Сховати динаміку вартості</string>
+</resources>

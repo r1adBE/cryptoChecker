@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">Favorites</string>
+    <string name="watchlist_favorites_empty_hint">No favorites yet. Swipe a pair to the right or tap “Favorite” in the pair sheet.</string>
+    <string name="settings_watchlist_names">Show names</string>
+    <string name="settings_watchlist_names_hint">Name under the pair, e.g. Bitcoin or NVIDIA. Comes with the logo lists, loaded once for all coins.</string>
+    <string name="settings_watchlist_value_names">Names</string>
+</resources>

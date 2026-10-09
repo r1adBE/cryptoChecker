@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_error_offline">Tidak ada koneksi</string>
+    <string name="watchlist_offline_since">Tidak ada koneksi · per %1$s</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d dari %2$d tanpa harga</item>
+    </plurals>
+    <string name="watch_not_traded">Tidak lagi diperdagangkan di bursa ini</string>
+</resources>

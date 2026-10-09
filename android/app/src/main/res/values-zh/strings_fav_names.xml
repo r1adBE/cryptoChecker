@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chip «FAV» der Merkliste (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird
+         vorgelesen) und Namen unter dem Paar (Einstellungen › Merkliste › Namen anzeigen) -->
+    <string name="group_favorites">收藏</string>
+    <string name="watchlist_favorites_empty_hint">还没有收藏。将交易对向右滑动，或在交易对页面中点按“收藏”。</string>
+    <string name="settings_watchlist_names">显示名称</string>
+    <string name="settings_watchlist_names_hint">在交易对下方显示名称，例如 Bitcoin 或 NVIDIA。随徽标列表一起获取，所有币种只加载一次。</string>
+    <string name="settings_watchlist_value_names">名称</string>
+</resources>

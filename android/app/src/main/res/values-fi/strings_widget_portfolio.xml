@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Näkymä</string>
+    <string name="widget_portfolio_display_conversion">Vain muunnos</string>
+    <string name="widget_portfolio_display_conversion_usdt">Muunnos + USDT</string>
+    <string name="widget_portfolio_display_hint">USDT-riviä ei näytetä, kun muunnosvaluutta on USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d muuta</item>
+        <item quantity="other">+ %1$d muuta</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s salkusta</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s salkusta, tänään %4$s</string>
+    <string name="a11y_portfolio_positions">Suurimmat positiot: %1$s</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Aloita yhdellä napautuksella</string>
+    <string name="starter_text">Valitse kolikot ja lisää ne kerralla. Voit vaihtaa pörssin ja parin myöhemmin.</string>
+    <string name="starter_custom">Valitse pörssi ja pari</string>
+    <string name="settings_quiet_hours">Hiljaiset tunnit</string>
+    <string name="settings_quiet_hours_hint">Aikavälillä %1$s–%2$s hälytykset tulevat äänettömästi: ilman ääntä, värinää tai puhetta.</string>
+    <string name="settings_quiet_hours_from">Alkaa</string>
+    <string name="settings_quiet_hours_to">Päättyy</string>
+    <string name="channel_alarms_quiet">Hälytykset (hiljaiset tunnit)</string>
+    <string name="channel_alarms_quiet_description">Äänettömät hälytykset hiljaisina tunteina.</string>
+    <string name="app_lock_unlock">Avaa lukitus</string>
+    <string name="app_lock_unavailable">Tässä laitteessa ei ole näytön lukitusta. Määritä se ensin järjestelmän asetuksissa.</string>
+    <string name="widget_portfolio_name">Salkku</string>
+    <string name="widget_portfolio_description">Salkkusi kokonaisarvo ja tämän päivän muutos</string>
+    <string name="widget_portfolio_today">tänään %1$s</string>
+    <string name="widget_portfolio_empty">Lisää ostot Salkku-välilehdellä</string>
+    <string name="a11y_portfolio_widget">Salkku %1$s, tänään %2$s</string>
+    <string name="explain_funding">Long- ja short-positioiden välinen maksu. Vahvasti positiivinen tarkoittaa, että moni veikkaa hintojen nousua.</string>
+    <string name="explain_open_interest">Kaikkien avoimien futuuripositioiden arvo. Kun se nousee, liikkeen puolesta on enemmän rahaa.</string>
+    <string name="explain_rsi">Suhteellisen voiman indeksi, 0–100. Yli 70 usein ylikuumentunut, alle 30 usein ylimyyty.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Selitys</string>
+    <string name="explain_pi_cycle">Vertaa 111 päivän keskiarvoa 350 päivän keskiarvon kaksinkertaiseen. Risteäminen on osunut aiempiin syklin huippuihin.</string>
+    <string name="alarm_sentence_above">Ilmoita, kun %1$s nousee yli %2$s.</string>
+    <string name="alarm_sentence_below">Ilmoita, kun %1$s laskee alle %2$s.</string>
+    <string name="alarm_sentence_up_percent">Ilmoita, kun %1$s nousee vähintään %2$s.</string>
+    <string name="alarm_sentence_down_percent">Ilmoita, kun %1$s laskee vähintään %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Ilmoita, kun %1$s liikkuu vähintään %2$s %3$d tunnin sisällä.</item>
+        <item quantity="other">Ilmoita, kun %1$s liikkuu vähintään %2$s %3$d tunnin sisällä.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Ilmoita, kun kohteen %1$s kaupankäyntivolyymi on %2$s× tavallinen.</string>
+    <string name="alarm_sentence_incomplete">Syötä arvo, niin hälytys näkyy tässä lauseena.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s ei tavoitettavissa</string>
+    <string name="watchlist_row_outdated">%1$s · vanhentunut</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_title">Kom igång med ett tryck</string>
+    <string name="starter_text">Välj mynt och lägg till dem på en gång. Du kan ändra börs och par senare.</string>
+    <string name="starter_custom">Välj börs och par</string>
+    <string name="settings_quiet_hours">Tysta timmar</string>
+    <string name="settings_quiet_hours_hint">Mellan %1$s och %2$s kommer larm ljudlöst: utan ljud, vibration eller uppläsning.</string>
+    <string name="settings_quiet_hours_from">Från</string>
+    <string name="settings_quiet_hours_to">Till</string>
+    <string name="channel_alarms_quiet">Larm (tysta timmar)</string>
+    <string name="channel_alarms_quiet_description">Ljudlösa larm under tysta timmar.</string>
+    <string name="app_lock_unlock">Lås upp</string>
+    <string name="app_lock_unavailable">Inget skärmlås är konfigurerat på den här enheten. Ställ in ett i systeminställningarna först.</string>
+    <string name="widget_portfolio_name">Portfölj</string>
+    <string name="widget_portfolio_description">Det totala värdet av din portfölj och dagens förändring</string>
+    <string name="widget_portfolio_today">i dag %1$s</string>
+    <string name="widget_portfolio_empty">Lägg till köp på fliken Portfölj</string>
+    <string name="a11y_portfolio_widget">Portfölj %1$s, i dag %2$s</string>
+    <string name="explain_funding">Avgift mellan long- och short-positioner. Starkt positiv betyder att många satsar på stigande kurser.</string>
+    <string name="explain_open_interest">Värdet av alla öppna terminspositioner. Stiger det satsar mer pengar på rörelsen.</string>
+    <string name="explain_rsi">Relative Strength Index, 0–100. Över 70 ofta överhettat, under 30 ofta översålt.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Förklaring</string>
+    <string name="explain_pi_cycle">Jämför 111-dagarssnittet med det dubbla 350-dagarssnittet. En korsning har markerat tidigare cykeltoppar.</string>
+    <string name="alarm_sentence_above">Meddela mig när %1$s stiger över %2$s.</string>
+    <string name="alarm_sentence_below">Meddela mig när %1$s sjunker under %2$s.</string>
+    <string name="alarm_sentence_up_percent">Meddela mig när %1$s stiger med %2$s.</string>
+    <string name="alarm_sentence_down_percent">Meddela mig när %1$s sjunker med %2$s.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Meddela mig när %1$s rör sig %2$s inom %3$d timme.</item>
+        <item quantity="other">Meddela mig när %1$s rör sig %2$s inom %3$d timmar.</item>
+    </plurals>
+    <string name="alarm_sentence_volume">Meddela mig när %1$s handlas med %2$s× den normala volymen.</string>
+    <string name="alarm_sentence_incomplete">Ange ett värde för att se larmet som en mening.</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s kan inte nås</string>
+    <string name="watchlist_row_outdated">%1$s · inaktuellt</string>
+</resources>

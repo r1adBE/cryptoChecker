@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Runde 23e: «Alarm-Signal» (Ton/Vibration der Kursalarme), je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">אות התראה</string>
+    <string name="alarm_signal_system">מערכת</string>
+    <string name="alarm_signal_sound_vibrate">צליל ורטט</string>
+    <string name="alarm_signal_sound">צליל בלבד</string>
+    <string name="alarm_signal_vibrate">רטט בלבד</string>
+    <string name="alarm_signal_silent">שקט (התראה בלבד)</string>
+    <string name="settings_alarm_signal_system_hint">לפי הגדרות ההתראות של הטלפון.</string>
+    <string name="settings_alarm_signal_open_system">שינוי בהגדרות המערכת</string>
+    <string name="channel_alarms_sound_vibrate">התראות מחיר (צליל ורטט)</string>
+    <string name="channel_alarms_sound">התראות מחיר (צליל בלבד)</string>
+    <string name="channel_alarms_vibrate">התראות מחיר (רטט בלבד)</string>
+    <string name="channel_alarms_silent">התראות מחיר (שקט)</string>
+    <!-- Nur iOS: Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">הרטט נקבע לפי הגדרות ה-iPhone (צלילים ומשוב הפטי).</string>
+</resources>

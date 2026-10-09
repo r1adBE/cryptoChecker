@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 28j: Aufteilung, Grösste Bewegungen, Beträge verbergen, Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_allocation_title">Phân bổ</string>
+    <string name="portfolio_allocation_other">Khác</string>
+    <string name="portfolio_movers_title">Biến động lớn nhất</string>
+    <string name="portfolio_hide_amounts">Ẩn số tiền</string>
+    <string name="portfolio_hide_amounts_hint">Hiển thị số tiền và giá trị trong danh mục và tiện ích Danh mục dưới dạng ••• – phần trăm vẫn hiển thị.</string>
+    <string name="a11y_portfolio_show_amounts">Hiện số tiền</string>
+    <string name="a11y_amount_hidden">số tiền bị ẩn</string>
+    <string name="portfolio_alarm_action">Cảnh báo</string>
+    <string name="portfolio_alarm_title">Cảnh báo “giá trị danh mục”</string>
+    <string name="portfolio_alarm_kind_above">Danh mục trên số tiền</string>
+    <string name="portfolio_alarm_kind_below">Danh mục dưới số tiền</string>
+    <string name="portfolio_alarm_kind_up">Danh mục tăng</string>
+    <string name="portfolio_alarm_kind_down">Danh mục giảm</string>
+    <string name="portfolio_alarm_amount">Số tiền (%1$s)</string>
+    <string name="portfolio_alarm_hint">Được kiểm tra sau mỗi lần làm mới. Giống cảnh báo giá: báo khi vượt ngưỡng và chỉ báo lại sau khi giá trị đã quay về.</string>
+    <string name="portfolio_alarm_sentence_above">Danh mục trên %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Danh mục dưới %1$s</string>
+    <string name="portfolio_alarm_sentence_up">Danh mục tăng %1$s (%2$s)</string>
+    <string name="portfolio_alarm_sentence_down">Danh mục giảm %1$s (%2$s)</string>
+    <string name="notification_portfolio_alarm_title">Giá trị danh mục</string>
+    <string name="notification_portfolio_alarm_text">%1$s – hiện %2$s</string>
+</resources>

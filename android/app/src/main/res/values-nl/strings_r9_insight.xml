@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- r9_insight -->
+    <string name="pulse_now_title">Wat opvalt</string>
+    <string name="pulse_why_action">Waarom? →</string>
+    <string name="pulse_section_factors">Factoren</string>
+
+    <string name="pulse_lead_btc_leads">Bitcoin leidt de markt.</string>
+    <string name="pulse_lead_alts_stronger">Altcoins zijn sterker dan Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin is sterker dan de altcoins.</string>
+    <string name="pulse_lead_broad_up">De markt stijgt breed.</string>
+    <string name="pulse_lead_broad_down">De markt daalt breed.</string>
+    <string name="pulse_lead_drift_up">De markt stijgt licht.</string>
+    <string name="pulse_lead_drift_down">De markt daalt licht.</string>
+    <string name="pulse_lead_mixed">De grote munten lopen uiteen.</string>
+    <string name="pulse_lead_calm">De markt beweegt nauwelijks.</string>
+
+    <string name="pulse_detail_vol_above">Volume %1$d%% boven normaal.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$d%% boven normaal, funding neutraal.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$d%% boven normaal, funding verhoogd.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$d%% boven normaal, funding negatief.</string>
+    <string name="pulse_detail_vol_below">Volume %1$d%% onder normaal.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$d%% onder normaal, funding neutraal.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$d%% onder normaal, funding verhoogd.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$d%% onder normaal, funding negatief.</string>
+    <string name="pulse_detail_vol_normal">Volume normaal.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normaal, funding neutraal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normaal, funding verhoogd.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normaal, funding negatief.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutraal.</string>
+    <string name="pulse_detail_fund_high">Funding verhoogd.</string>
+    <string name="pulse_detail_fund_negative">Funding negatief.</string>
+
+    <string name="factor_volume">Volume</string>
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_volatility">Schommeling (1h)</string>
+    <string name="factor_spoken_volume">%1$s keer normaal</string>
+    <string name="factor_spoken_volatility">%1$s keer de gebruikelijke uitslag</string>
+
+    <string name="why_title_coin">Waarom beweegt %1$s?</string>
+    <string name="why_details">Details bekijken</string>
+    <string name="why_details_hide">Details verbergen</string>
+    <string name="why_f_market_wide">Hele markt beweegt</string>
+    <string name="why_f_coin_only">Alleen deze munt</string>
+    <string name="why_f_against">Tegen de markt in</string>
+    <string name="why_f_market_calm">Rustige markt</string>
+    <string name="why_f_leader">Bitcoin bepaalt de richting</string>
+    <string name="why_f_leverage_longs">Hefboom: veel longs</string>
+    <string name="why_f_leverage_shorts">Hefboom: veel shorts</string>
+    <string name="why_f_leverage_balanced">Hefboom in balans</string>
+    <string name="insights_dominance_eth">ETH %1$s van de totale markt</string>
+    <plurals name="market_phase_cycle_since">
+        <item quantity="one">%1$d maand sinds de halving op %2$s</item>
+        <item quantity="other">%1$d maanden sinds de halving op %2$s</item>
+    </plurals>
+</resources>

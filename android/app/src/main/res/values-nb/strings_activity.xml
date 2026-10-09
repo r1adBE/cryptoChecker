@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ungewöhnliche Aktivität: Merkliste -->
+    <string name="activity_card_title">Her skjer det noe akkurat nå</string>
+    <string name="activity_more">+%1$d</string>
+    <string name="activity_indicator">Uvanlig aktivitet</string>
+
+    <!-- Signale (Liste, «Warum»-Blatt, Benachrichtigung) -->
+    <string name="activity_signal_price_move">Uvanlig bevegelse: %1$s på én time (%2$s× normalt)</string>
+    <string name="activity_signal_volume">Volum %1$s× normalt den siste timen</string>
+    <string name="activity_signal_open_interest">Open interest %1$s innen %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_funding_long">Funding %1$s – mange belånte longs</string>
+    <string name="activity_signal_funding_short">Funding %1$s – mange shorts</string>
+    <string name="notification_activity_title">%1$s · %2$s</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_activity_alerts">Meld uvanlig aktivitet</string>
+    <string name="settings_activity_alerts_hint">Høyst én gang i timen per par: uvanlige kursbevegelser, volum-spikes og futures-ekstremer (data fra Binance).</string>
+
+    <!-- «Warum bewegt sich das?» -->
+    <string name="why_action">Hvorfor beveger den seg?</string>
+    <string name="why_title">Hvorfor beveger den seg?</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_disclaimer">Automatisk vurdering basert på markedsdata, ikke investeringsråd.</string>
+    <string name="why_data_time">Data per %1$s</string>
+    <string name="why_no_data">Ingen data fra Binance for dette paret</string>
+    <string name="why_no_data_hint">Kurs, volum og volatilitet kommer fra Binances candlesticks per time.</string>
+
+    <string name="why_market_wide_text">Denne mynten: %1$s på 24 t – drivkraften er trolig markedet som helhet, ikke mynten selv.</string>
+    <string name="why_coin_only_text">%1$s på 24 t mens markedet er rolig: årsaken ligger trolig hos mynten selv.</string>
+    <string name="why_against_market_text">Denne mynten %1$s, BTC %2$s på 24 t – en påfallende selvstendig bevegelse.</string>
+    <string name="why_market_calm_text">Denne mynten: %1$s på 24 t. Verken markedet eller mynten beveger seg mye.</string>
+    <string name="why_market_leader_text">Som markedsleder drar BTC vanligvis resten av markedet med seg. ETH: %1$s på 24 t.</string>
+    <string name="why_market_leader_text_no_eth">Som markedsleder drar BTC vanligvis resten av markedet med seg.</string>
+
+    <string name="why_volume_high_text">Mye mer handel enn vanlig den siste timen – bevegelsen har bred støtte.</string>
+    <string name="why_volume_low_text">Bevegelsen er tynn og kan snu raskt.</string>
+    <string name="why_volume_normal_text">Handelen den siste timen er på linje med de siste 24 timene.</string>
+
+    <string name="why_leverage_longs_text">Longs betaler shorts – økt risiko for likvidasjoner hvis kursen faller.</string>
+    <string name="why_leverage_shorts_text">Shorts betaler longs – en stigende kurs kan utløse en short squeeze.</string>
+    <string name="why_leverage_balanced_text">Ingen opphopning av long- eller short-posisjoner i futures-markedet.</string>
+    <string name="why_open_interest_change">Open interest %1$s siden siste måling.</string>
+
+    <string name="why_volatility_high_text">Siste time: %1$s – målt mot det typiske svinget per time de siste 24 timene.</string>
+    <string name="why_volatility_normal_text">Siste time: %1$s – innenfor det vanlige.</string>
+
+    <string name="why_sentiment_text">Fear &amp; Greed-indeks for hele kryptomarkedet, %1$s mot i går.</string>
+    <string name="why_sentiment_text_no_change">Fear &amp; Greed-indeks for hele kryptomarkedet.</string>
+</resources>

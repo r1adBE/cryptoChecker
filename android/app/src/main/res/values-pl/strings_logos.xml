@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Coin-Logos (Einstellungen › Darstellung › Coin-Logos): Schalter für App, Portfolio und Widgets.
+         «Portfolio»/«Widgets» als Kurzwert = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo monet</string>
+    <string name="settings_coin_logos_app">W aplikacji</string>
+    <string name="settings_coin_logos_app_hint">Lista, arkusz pary i karty rynku</string>
+    <string name="settings_coin_logos_portfolio">W portfelu</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozycje, szczegóły monet i analizy</string>
+    <string name="settings_coin_logos_widgets">W widżetach</string>
+    <string name="settings_coin_logos_widgets_hint">Widżety listy i jednej monety</string>
+    <string name="settings_coin_logos_footer">Logo pochodzą z CoinGecko, a dla aktywów, których CoinGecko nie ma (np. złoto, srebro, akcje), z Binance. Aplikacja pobiera wszystkie logo naraz i przechowuje je na tym urządzeniu, więc żaden z nich nie wie, które monety obserwujesz. Monety bez logo pokazują inicjały. Ulubione mają małą gwiazdkę na logo. Tam, gdzie przełącznik jest wyłączony, nie widać ani logo, ani inicjałów; gdy wszystko jest wyłączone, nic nie jest pobierane.</string>
+    <string name="settings_coin_logos_value_app">Aplikacja</string>
+</resources>

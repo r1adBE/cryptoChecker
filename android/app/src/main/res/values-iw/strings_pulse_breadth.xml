@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Was gerade auffällt»: Marktbreite der grössten Coins (Top 30) und ihr Satz in deutlichen Fällen.
+         «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_spoken">Top %1$d: עולים %2$d, יורדים %3$d</string>
+    <string name="pulse_breadth_hint">Top %1$d: המטבעות הגדולים ביותר לפי שווי שוק, בלי מטבעות יציבים; שינוי ב-24 שעות (CoinGecko).</string>
+    <string name="pulse_breadth_note_broad_up">תנועה רחבה: רוב המטבעות הגדולים עולים.</string>
+    <string name="pulse_breadth_note_broad_down">ירידה רחבה: רוב המטבעות הגדולים יורדים.</string>
+    <string name="pulse_breadth_note_narrow_up">ביטקוין עולה, אבל רוב המטבעות הגדולים האחרים לא מצטרפים.</string>
+    <string name="pulse_breadth_note_narrow_down">ביטקוין יורד, אבל רוב המטבעות הגדולים האחרים מחזיקים מעמד.</string>
+</resources>

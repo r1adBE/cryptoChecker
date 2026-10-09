@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Runde 20: nicht mehr gehandelte Paare entfernen (Überlaufmenü der Merkliste) -->
+    <string name="watchlist_remove_not_traded_menu">حذف جفت‌های بدون معامله (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">حذف جفت‌های بدون معامله</string>
+    <string name="watchlist_remove_not_traded_action">حذف</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">%1$d جفت که دیگر در صرافی خود معامله نمی‌شوند حذف شوند؟ هشدارهایشان نیز حذف می‌شود.</item>
+        <item quantity="other">%1$d جفت که دیگر در صرافی خود معامله نمی‌شوند حذف شوند؟ هشدارهایشان نیز حذف می‌شود.</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d جفت بدون معامله حذف شد</item>
+        <item quantity="other">%1$d جفت بدون معامله حذف شد</item>
+    </plurals>
+</resources>

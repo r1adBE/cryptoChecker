@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget: Anzeige-Option, Positionsliste, Wertverlauf (grosses Widget) -->
+<resources>
+    <string name="widget_portfolio_display">Εμφάνιση</string>
+    <string name="widget_portfolio_display_conversion">Μόνο μετατροπή</string>
+    <string name="widget_portfolio_display_conversion_usdt">Μετατροπή + USDT</string>
+    <string name="widget_portfolio_display_hint">Η γραμμή USDT δεν εμφανίζεται όταν το νόμισμα μετατροπής είναι USD.</string>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d ακόμη</item>
+        <item quantity="other">+ %1$d ακόμη</item>
+    </plurals>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s του χαρτοφυλακίου</string>
+    <string name="a11y_portfolio_position_change">%1$s %2$s, %3$s του χαρτοφυλακίου, σήμερα %4$s</string>
+    <string name="a11y_portfolio_positions">Μεγαλύτερες θέσεις: %1$s</string>
+</resources>
