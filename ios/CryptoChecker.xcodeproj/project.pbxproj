@@ -277,6 +277,7 @@
 		9B86A980C473EA95B11F6935 /* ScaledFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818DF72A05EDB52171C6E96 /* ScaledFont.swift */; };
 		9C358A0CE0D48C6D24392542 /* ZebPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AC86A7DC2870D7CB666C55 /* ZebPay.swift */; };
 		9D2CA8C53DC7BFCAA78B5C35 /* SatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397CE4212733C926A685597 /* SatsTests.swift */; };
+		9D2FF405FDA25F1A76A086A6 /* WatchlistConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CEE1661FA550057441683F /* WatchlistConversion.swift */; };
 		9F5A26C63D83E63A7BCAA336 /* ExchangeBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CFCB8875B0B1453D8B53B /* ExchangeBackoff.swift */; };
 		A1226F1A5DC5453D7BF39B8D /* CandleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016BFF789DF809C867F572C9 /* CandleDataSource.swift */; };
 		A1B66D401B2408B32E9991C4 /* RefreshReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A137C7250B91DC297548F7A /* RefreshReport.swift */; };
@@ -801,6 +802,7 @@
 		F10AC44D17EBF828898756B5 /* Indodax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indodax.swift; sourceTree = "<group>"; };
 		F226CFF93741FF73AD1BB2D1 /* PriceLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLiveActivityWidget.swift; sourceTree = "<group>"; };
 		F23783A7054EE683E295D81C /* WhyFactorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyFactorsTests.swift; sourceTree = "<group>"; };
+		F2CEE1661FA550057441683F /* WatchlistConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistConversion.swift; sourceTree = "<group>"; };
 		F3F3CB8FCFA066191E0B5B98 /* ExplorerPairSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerPairSearch.swift; sourceTree = "<group>"; };
 		F41AC51D4F12830E390B3B3E /* PriceFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormat.swift; sourceTree = "<group>"; };
 		F44B0FDCF3AAC6154BB1191B /* cc_chime.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cc_chime.wav; sourceTree = "<group>"; };
@@ -1184,6 +1186,7 @@
 				1B39D8BAD7215BDF040A2BC0 /* WatchGroupEditSheet.swift */,
 				232E83116FFEEE100C124589 /* WatchlistActivity.swift */,
 				9BB6225A89090AB2CC88537B /* WatchlistBanner.swift */,
+				F2CEE1661FA550057441683F /* WatchlistConversion.swift */,
 				D5BFD348055FF5C692443E75 /* WatchlistDayChangePill.swift */,
 				2CA45ACB96D7B199E25340A5 /* WatchlistEditing.swift */,
 				92D2C34E70473414A5AE392F /* WatchlistGroups.swift */,
@@ -1985,6 +1988,7 @@
 				51BDB453D3D4BA096BC8323A /* WatchGroupEditSheet.swift in Sources */,
 				E79B363324E04F0C6D45C5CC /* WatchlistActivity.swift in Sources */,
 				994B1C33678DEE55E2205190 /* WatchlistBanner.swift in Sources */,
+				9D2FF405FDA25F1A76A086A6 /* WatchlistConversion.swift in Sources */,
 				1AC90B62973F17D0B37EC08B /* WatchlistDayChangePill.swift in Sources */,
 				696BF4E5585423F370C1B89B /* WatchlistEditing.swift in Sources */,
 				C375092DA42A246C1B87B604 /* WatchlistGroups.swift in Sources */,
