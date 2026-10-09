@@ -209,6 +209,12 @@ enum InsightsDataSource {
 
     /// Altcoin-Saison; `provider` = Anbieter des BTC-Verlaufs (Ausweich-Kette).
     static func altSeason() async throws -> Sourced<AltSeason> {
+        // Fertig berechnet aus dem Daten-Spiegel (`DataMirror.altSeason`), sonst selbst
+        if let text = try? await MarketHTTP.call(DataMirror.altSeason.url),
+           let v = DataMirror.parseAltSeason(DataMirror.unwrap(text, now: TimeUtils.nowMillis,
+                                                               maxAgeMillis: DataMirror.altSeason.maxAgeMillis)) {
+            return Sourced(value: AltSeason(outperformers: v.outperformers, total: v.total), provider: v.provider)
+        }
         let btcSourced = try await chainKlinesSourced("BTC", interval: .d1, limit: 91)
         let btc = btcSourced.value.map(\.close)
         guard let btcChange = change90(btc) else { throw JSONError(message: "BTC-Verlauf fehlt") }

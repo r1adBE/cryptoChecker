@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">vyšší než obvykle</string>
     <string name="why_fn_volume_lower">nižší než obvykle</string>
     <string name="why_fn_volume_usual">jako obvykle</string>
-    <string name="why_fn_market_pulls">BTC táhne trh s sebou</string>
+    <string name="why_fn_market_pulls">Trh se pohybuje s BTC</string>
     <string name="why_fn_market_lags">Trh se hýbe, tato mince sotva</string>
     <string name="why_fn_market_alone">Klidný trh – tato mince se hýbe sama</string>
     <string name="why_fn_market_against">Mince jde proti trhu</string>

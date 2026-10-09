@@ -100,15 +100,9 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         }
     }
 
-    private var containerDark: UInt32 {
-        switch self {
-        case .ORANGE: 0x772D11
-        case .RED: 0x870D1F
-        case .BLUE: 0x184194
-        case .GREEN: 0x035633
-        case .MARRS_GREEN: 0x19534F
-        }
-    }
+    /// Dunkel neutral grau für alle Themen (wie Android `DarkSelectedContainer`): die dunklen
+    /// Akzenttöne (#772D11, #870D1F …) wirkten bei Orange und Rot bräunlich/matschig.
+    private var containerDark: UInt32 { 0x333333 }
 
     private var onContainerLight: UInt32 {
         switch self {
@@ -120,7 +114,8 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         }
     }
 
-    private var onContainerDark: UInt32 { containerLight }
+    /// Schrift auf der grauen Auswahlfläche: die Akzentfarbe (≥ 4.5:1 auf #333333).
+    private var onContainerDark: UInt32 { primaryDark }
 
     /// Grundfarbe als Farbe (Vorschau in der Auswahl).
     var seedColor: Color { Color(hex: seed) }
@@ -131,6 +126,18 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
     }
     var container: Color { .dynamic(light: containerLight, dark: containerDark) }
     var onContainer: Color { .dynamic(light: onContainerLight, dark: onContainerDark) }
+
+    /// Leichte Füllung für «ausgewählt» oder «hervorgehoben» (`alpha` 0.08 … 0.35): hell eine
+    /// Spur der Akzentfarbe, dunkel neutral grau — wie Android `AppColors.accentTint`. Dunkel
+    /// wirkt eine schwache Akzentfarbe sonst bräunlich (Orange, Rot) statt farbig.
+    func tint(_ alpha: Double) -> Color {
+        let accent = primaryUI
+        return Color(uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(white: 0xE2 / 255.0, alpha: alpha * 0.8)
+                : accent.resolvedColor(with: traits).withAlphaComponent(alpha)
+        })
+    }
 
     /// Text auf `primary` (Knöpfe).
     var onPrimary: Color { .dynamic(light: 0xFFFFFF, dark: onContainerLight) }

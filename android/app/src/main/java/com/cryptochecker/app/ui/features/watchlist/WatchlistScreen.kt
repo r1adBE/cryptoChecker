@@ -327,6 +327,7 @@ fun WatchlistScreen(
                     WatchlistHeader(
                         groups = groups,
                         selectedGroup = selectedGroup,
+                        hasFavorites = watches.any { it.favorite },
                         onSelectGroup = viewModel::selectGroup,
                         onEditGroup = { group ->
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -403,7 +404,6 @@ fun WatchlistScreen(
                             reorder = reorder,
                             searching = ui.searching,
                             sortMode = ui.sortMode,
-                            onStartSort = { ui.sortMode = true },
                             sparklines = fetchSparklines,
                             cachedSparkline = viewModel::cachedSparkline,
                             loadSparkline = viewModel::sparkline,

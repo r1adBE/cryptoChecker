@@ -61,6 +61,10 @@ class AlarmsOverviewViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    /** Paare der Merkliste (für «Neuer Alarm» in der leeren Übersicht: Paar wählen). */
+    val watches: StateFlow<List<com.cryptochecker.app.data.local.model.WatchEntity>> = watchRepository.observeWatches()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch { watchRepository.setAlarmEnabled(alarmId, enabled) }
     }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">已收藏</string>
+    <string name="explorer_search_choose_manually">自行选择交易所和交易对</string>
+    <string name="portfolio_avg_price_hint">平均买入价：所有买入按数量加权的平均值。卖出按此平均价计算（非先进先出）。</string>
+</resources>

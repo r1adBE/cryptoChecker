@@ -136,10 +136,10 @@
 
     <string name="settings_title">Cilësimet</string>
     <string name="settings_background_updates">Përditësime në sfond</string>
-    <string name="settings_background_updates_hint">Çmimet, alarmet dhe widget-et përditësohen edhe kur aplikacioni është i mbyllur.</string>
+    <string name="settings_background_updates_hint">Edhe kur aplikacioni është i mbyllur: çmimet, alarmet dhe widget-et me intervalin më poshtë.</string>
     <string name="settings_background_interval">Intervali</string>
     <string name="settings_live_service">Përditëso shpesh</string>
-    <string name="settings_live_service_hint">Kontrollon çmimet me intervale të shkurtra, edhe kur aplikacioni është i mbyllur. Shfaq një njoftim dhe harxhon më shumë bateri.</string>
+    <string name="settings_live_service_hint">Edhe kur aplikacioni është i mbyllur: kontrollon çmimet në intervale të shkurtra. Shfaq një njoftim dhe harxhon më shumë bateri.</string>
     <string name="settings_live_interval">Sa shpesh</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -262,7 +262,7 @@
     <string name="time_just_now">tani</string>
     <string name="welcome_text">Çmimet e tua. Alarmet e tua. Pasqyra jote.\nPa llogari. Pa reklama. Pa gjurmim.</string>
     <string name="developer_unlocked">Opsionet e zhvilluesit u zhbllokuan</string>
-    <string name="hint_favorites_list">Këshillë: prek ☆ për të preferuar – të preferuarat mbeten lart.</string>
+    <string name="hint_favorites_list">Këshillë: rrëshqit një rresht djathtas për ta bërë të preferuar – të preferuarat qëndrojnë lart.</string>
     <string name="tab_watchlist">Lista</string>
     <string name="tab_market_phase">Tregu</string>
     <plurals name="watchlist_stale_count">

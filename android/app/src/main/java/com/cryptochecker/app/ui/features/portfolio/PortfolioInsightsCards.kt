@@ -1,6 +1,9 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import androidx.compose.ui.graphics.lerp
+import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -73,18 +76,27 @@ private fun InsightCard(title: String, content: @Composable () -> Unit) {
                 title,
                 style = SectionTitle.style,
                 color = SectionTitle.color,
-                modifier = Modifier.semantics { heading() }
+                modifier = Modifier.semantics { heading() }.sectionTitleMarker()
             )
             content()
         }
     }
 }
 
-/** Farbe eines Teils: Akzentfarbe, je Rang heller; «Andere» grau. */
+/**
+ * Farbe eines Teils: Akzentfarbe, je Rang heller; «Andere» grau. Dunkel zur hellen Schrift hin
+ * gemischt statt durchsichtig — durchsichtiges Orange wirkt auf dunklem Grund braun.
+ */
 @Composable
-private fun sliceColor(index: Int, slice: AllocationSlice): Color =
-    if (slice.isOther) MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.35f)
-    else MaterialTheme.colorScheme.primary.copy(alpha = SLICE_ALPHAS.getOrElse(index) { SLICE_ALPHAS.last() })
+private fun sliceColor(index: Int, slice: AllocationSlice): Color {
+    val strength = SLICE_ALPHAS.getOrElse(index) { SLICE_ALPHAS.last() }
+    val scheme = MaterialTheme.colorScheme
+    return when {
+        slice.isOther -> scheme.onSurfaceVariant.copy(alpha = 0.35f)
+        LocalDarkTheme.current -> lerp(scheme.primary, scheme.onSurface, (1f - strength) * 0.85f)
+        else -> scheme.primary.copy(alpha = strength)
+    }
+}
 
 private val SLICE_ALPHAS = listOf(1f, 0.72f, 0.5f, 0.32f)
 

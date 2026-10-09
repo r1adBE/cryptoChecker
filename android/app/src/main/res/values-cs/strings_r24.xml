@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Změna od půlnoci %1$s není k dispozici</string>
     <string name="sheet_chart_today">Dnes</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Při zavřené aplikaci nejvýše jednou za minutu</string>
+    <string name="settings_live_interval_hidden_hint">Zavřená aplikace: nejvýš jednou za minutu · vypnutá obrazovka: každých 5 minut</string>
     <string name="sheet_more">Více</string>
     <string name="a11y_expanded">Rozbaleno</string>
     <string name="a11y_collapsed">Sbaleno</string>

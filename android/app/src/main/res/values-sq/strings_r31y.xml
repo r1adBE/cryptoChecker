@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">më i lartë se zakonisht</string>
     <string name="why_fn_volume_lower">më i ulët se zakonisht</string>
     <string name="why_fn_volume_usual">si zakonisht</string>
-    <string name="why_fn_market_pulls">BTC e tërheq tregun</string>
+    <string name="why_fn_market_pulls">Tregu lëviz bashkë me BTC</string>
     <string name="why_fn_market_lags">Tregu lëviz, kjo monedhë mezi</string>
     <string name="why_fn_market_alone">Treg i qetë – kjo monedhë lëviz vetë</string>
     <string name="why_fn_market_against">Monedha lëviz kundër tregut</string>

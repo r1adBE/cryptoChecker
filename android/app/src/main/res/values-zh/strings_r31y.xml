@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">高于平常</string>
     <string name="why_fn_volume_lower">低于平常</string>
     <string name="why_fn_volume_usual">与平常一样</string>
-    <string name="why_fn_market_pulls">BTC 带动整个市场</string>
+    <string name="why_fn_market_pulls">市场与 BTC 同步波动</string>
     <string name="why_fn_market_lags">市场在动，此币几乎没动</string>
     <string name="why_fn_market_alone">市场平静——此币独自波动</string>
     <string name="why_fn_market_against">此币与市场反向而行</string>

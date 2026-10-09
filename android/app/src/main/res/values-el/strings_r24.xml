@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Η μεταβολή από τα μεσάνυχτα %1$s δεν είναι διαθέσιμη</string>
     <string name="sheet_chart_today">Σήμερα</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Με την εφαρμογή κλειστή, το πολύ μία φορά το λεπτό</string>
+    <string name="settings_live_interval_hidden_hint">Κλειστή εφαρμογή: το πολύ μία φορά το λεπτό · οθόνη σβηστή: κάθε 5 λεπτά</string>
     <string name="sheet_more">Περισσότερα</string>
     <string name="a11y_expanded">Αναπτυγμένο</string>
     <string name="a11y_collapsed">Συμπτυγμένο</string>

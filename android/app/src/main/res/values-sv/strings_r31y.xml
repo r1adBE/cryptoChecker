@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">högre än vanligt</string>
     <string name="why_fn_volume_lower">lägre än vanligt</string>
     <string name="why_fn_volume_usual">som vanligt</string>
-    <string name="why_fn_market_pulls">BTC drar med sig marknaden</string>
+    <string name="why_fn_market_pulls">Marknaden rör sig med BTC</string>
     <string name="why_fn_market_lags">Marknaden rör sig, den här coinen knappt</string>
     <string name="why_fn_market_alone">Lugn marknad – den här coinen rör sig på egen hand</string>
     <string name="why_fn_market_against">Coinen rör sig mot marknaden</string>

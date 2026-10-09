@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Variazione dalla mezzanotte %1$s non disponibile</string>
     <string name="sheet_chart_today">Oggi</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Con l’app chiusa, al massimo una volta al minuto</string>
+    <string name="settings_live_interval_hidden_hint">App chiusa: al massimo una volta al minuto · schermo spento: ogni 5 minuti</string>
     <string name="sheet_more">Altro</string>
     <string name="a11y_expanded">Espanso</string>
     <string name="a11y_collapsed">Compresso</string>

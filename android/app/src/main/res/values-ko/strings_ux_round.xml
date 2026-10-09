@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">즐겨찾기</string>
+    <string name="explorer_search_choose_manually">거래소와 페어 직접 선택</string>
+    <string name="portfolio_avg_price_hint">평균 매수가: 모든 매수를 수량으로 가중 평균한 값입니다. 매도는 이 평균으로 평가합니다(FIFO 아님).</string>
+</resources>

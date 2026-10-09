@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">お気に入り</string>
+    <string name="explorer_search_choose_manually">取引所とペアを自分で選ぶ</string>
+    <string name="portfolio_avg_price_hint">平均取得価格: すべての購入を数量で加重平均した価格です。売却はこの平均で評価します（FIFO ではありません）。</string>
+</resources>

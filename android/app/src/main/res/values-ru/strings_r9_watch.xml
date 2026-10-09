@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Нажмите для действий · смахните для быстрых действий · удерживайте для сортировки</string>
+    <string name="watch_gesture_hint_short">Нажмите для действий · влево – удалить · вправо – в избранное</string>
     <string name="watch_action_alarm">Оповещение</string>
     <string name="watch_action_why">Почему?</string>
     <string name="watch_action_favorite">Избранное</string>

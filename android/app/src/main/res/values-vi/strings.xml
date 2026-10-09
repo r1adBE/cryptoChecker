@@ -138,10 +138,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Cài đặt</string>
     <string name="settings_background_updates">Cập nhật nền</string>
-    <string name="settings_background_updates_hint">Giá, cảnh báo và tiện ích vẫn được cập nhật ngay cả khi ứng dụng đã đóng.</string>
+    <string name="settings_background_updates_hint">Kể cả khi đóng ứng dụng: giá, cảnh báo và tiện ích theo khoảng thời gian bên dưới.</string>
     <string name="settings_background_interval">Chu kỳ cập nhật</string>
     <string name="settings_live_service">Cập nhật thường xuyên</string>
-    <string name="settings_live_service_hint">Kiểm tra giá theo chu kỳ ngắn, kể cả khi ứng dụng đã đóng. Hiển thị một thông báo và tốn pin hơn.</string>
+    <string name="settings_live_service_hint">Kể cả khi đóng ứng dụng: kiểm tra giá trong khoảng thời gian ngắn. Hiển thị thông báo và tốn pin hơn.</string>
     <string name="settings_live_interval">Bao lâu một lần</string>
     <string name="settings_minutes">%1$d phút</string>
     <string name="settings_seconds">%1$d giây</string>
@@ -261,7 +261,7 @@
     <string name="time_just_now">vừa xong</string>
     <string name="welcome_text">Giá của bạn. Cảnh báo của bạn. Tổng quan của bạn.\nKhông tài khoản. Không quảng cáo. Không theo dõi.</string>
     <string name="developer_unlocked">Đã mở tùy chọn nhà phát triển</string>
-    <string name="hint_favorites_list">Mẹo: chạm ☆ để yêu thích – mục yêu thích luôn ở trên.</string>
+    <string name="hint_favorites_list">Mẹo: vuốt một dòng sang phải để đánh dấu yêu thích – mục yêu thích luôn ở trên cùng.</string>
     <string name="tab_watchlist">Danh sách</string>
     <string name="tab_market_phase">Thị trường</string>
     <plurals name="watchlist_stale_count">

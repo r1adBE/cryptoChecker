@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">التغيّر منذ منتصف الليل %1$s غير متاح</string>
     <string name="sheet_chart_today">اليوم</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">عند إغلاق التطبيق، مرة واحدة في الدقيقة على الأكثر</string>
+    <string name="settings_live_interval_hidden_hint">التطبيق مغلق: مرة في الدقيقة على الأكثر · الشاشة مطفأة: كل 5 دقائق</string>
     <string name="sheet_more">المزيد</string>
     <string name="a11y_expanded">موسّع</string>
     <string name="a11y_collapsed">مطوي</string>

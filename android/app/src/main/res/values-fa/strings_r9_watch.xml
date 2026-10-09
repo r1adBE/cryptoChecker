@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">لمس برای گزینه‌ها · کشیدن برای اقدامات سریع · نگه‌داشتن برای مرتب‌سازی</string>
+    <string name="watch_gesture_hint_short">برای کارها ضربه بزنید · به چپ بکشید برای حذف · به راست برای محبوب</string>
     <string name="watch_action_alarm">هشدار</string>
     <string name="watch_action_why">چرا؟</string>
     <string name="watch_action_favorite">علاقه‌مندی</string>

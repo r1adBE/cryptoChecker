@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarme: Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Notificările sunt dezactivate – alarmele nu vor ajunge la tine.</string>
+    <string name="alarms_notifications_turn_on">Activează</string>
+</resources>

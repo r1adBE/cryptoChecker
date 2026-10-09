@@ -23,7 +23,8 @@ extension WatchlistScreen {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .frame(width: 26, height: 26)
                     .background(AppColors.containerHigh, in: Circle())
-                    .contentShape(Circle())
+                    // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
+                    .contentShape(Circle().inset(by: -9))
             }
             .buttonStyle(.borderless)
             .accessibilityLabel(L("watchlist_search_close"))

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favorito</string>
+    <string name="explorer_search_choose_manually">Elegir exchange y par manualmente</string>
+    <string name="portfolio_avg_price_hint">Precio medio de compra: la media de todas las compras, ponderada por cantidad. Las ventas se valoran a esa media (no FIFO).</string>
+</resources>

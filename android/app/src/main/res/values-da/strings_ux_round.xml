@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favorit</string>
+    <string name="explorer_search_choose_manually">Vælg selv børs og par</string>
+    <string name="portfolio_avg_price_hint">Gns. købspris: gennemsnittet af alle køb, vægtet efter mængde. Salg værdisættes til dette gennemsnit (ikke FIFO).</string>
+</resources>

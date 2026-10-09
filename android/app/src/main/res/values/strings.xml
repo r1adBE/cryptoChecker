@@ -142,10 +142,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Settings</string>
     <string name="settings_background_updates">Background updates</string>
-    <string name="settings_background_updates_hint">Prices, alarms and widgets are updated even when the app is closed.</string>
+    <string name="settings_background_updates_hint">Even when the app is closed: prices, alarms and widgets at the interval below.</string>
     <string name="settings_background_interval">Interval</string>
     <string name="settings_live_service">Update frequently</string>
-    <string name="settings_live_service_hint">Checks prices at short intervals, even when the app is closed. Shows a notification and uses more battery.</string>
+    <string name="settings_live_service_hint">Even when the app is closed: checks prices at short intervals. Shows a notification and uses more battery.</string>
     <string name="settings_live_interval">How often</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -271,7 +271,7 @@
     <string name="time_just_now">just now</string>
     <string name="welcome_text">Your prices. Your alarms. Your overview.\nNo account. No ads. No tracking.</string>
     <string name="developer_unlocked">Developer options unlocked</string>
-    <string name="hint_favorites_list">Tip: tap ☆ to make an entry a favorite – favorites stay at the top.</string>
+    <string name="hint_favorites_list">Tip: swipe a row to the right to make it a favorite – favorites stay at the top.</string>
     <string name="tab_watchlist">Watchlist</string>
     <string name="tab_market_phase">Market</string>
     <plurals name="watchlist_stale_count">

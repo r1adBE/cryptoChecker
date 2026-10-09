@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.features.info
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.heading
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateContentSize
@@ -43,7 +44,7 @@ internal fun InsightCard(title: String, content: @Composable ColumnScope.() -> U
                 text = title,
                 style = SectionTitle.style,
                 color = SectionTitle.color,
-                modifier = Modifier.padding(bottom = 12.dp).semantics { heading() }
+                modifier = Modifier.padding(bottom = 12.dp).semantics { heading() }.sectionTitleMarker()
             )
             content()
         }

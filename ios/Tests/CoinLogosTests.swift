@@ -165,4 +165,67 @@ final class CoinLogosTests: XCTestCase {
         // Uhr zurückgestellt: nicht frisch, neu holen
         XCTAssertFalse(CoinLogos.isFresh(savedAt: now + 1_000, now: now))
     }
+    func testAlphaList() throws {
+        let a = try XCTUnwrap(try S.fixture("coin_logos")["alpha"] as? [String: Any])
+        let entries = S.list(a["entries"]).map {
+            CoinLogos.AlphaEntry(symbol: $0["symbol"] as? String ?? "", name: string($0["name"]),
+                                 icon: string($0["iconUrl"]),
+                                 marketCap: string($0["marketCap"]).flatMap { Double($0) },
+                                 offline: $0["offline"] as? Bool ?? false)
+        }
+        let ranked = CoinLogos.rankAlpha(entries)
+        XCTAssertEqual(ranked.map(\.symbol), try XCTUnwrap(a["expectedOrder"] as? [String]))
+        var map = try XCTUnwrap(a["known"] as? [String: String])
+        var order = Array(map.keys)
+        CoinLogos.pick(ranked.map { (symbol: $0.symbol, image: $0.icon) }, into: &map, order: &order)
+        XCTAssertEqual(map, try XCTUnwrap(a["expected"] as? [String: String]))
+        var names: [String: String] = [:]
+        var nameOrder: [String] = []
+        CoinLogos.pickNames(ranked.map { (symbol: $0.symbol, name: $0.name) }, into: &names, order: &nameOrder)
+        XCTAssertEqual(names, try XCTUnwrap(a["expectedNames"] as? [String: String]))
+    }
+
+    func testPartialList() throws {
+        let p = try XCTUnwrap(try S.fixture("coin_logos")["partial"] as? [String: Any])
+        var map = try XCTUnwrap(p["fresh"] as? [String: String])
+        var order = map.keys.sorted()
+        CoinLogos.withKnown(&map, order: &order, known: try XCTUnwrap(p["known"] as? [String: String]))
+        XCTAssertEqual(map, try XCTUnwrap(p["expected"] as? [String: String]))
+        XCTAssertEqual(Set(order), Set(map.keys))
+        for c in S.list(p["rateLimit"]) {
+            let retry = (c["retryAfter"] as? NSNumber)?.int64Value
+            XCTAssertEqual(CoinLogos.rateLimitWaitMillis(retryAfterSeconds: retry), (c["expected"] as? NSNumber)?.int64Value, "rateLimit: \(c)")
+        }
+        let now: Int64 = 10 * CoinLogos.mapTTLMillis
+        XCTAssertEqual(CoinLogos.savedAt(now: now, complete: true), now)
+        let partial = CoinLogos.savedAt(now: now, complete: false)
+        XCTAssertTrue(CoinLogos.isFresh(savedAt: partial, now: now + CoinLogos.partialTTLMillis - 1))
+        XCTAssertFalse(CoinLogos.isFresh(savedAt: partial, now: now + CoinLogos.partialTTLMillis))
+    }
+    func testGithubIndex() throws {
+        let x = try XCTUnwrap(try S.fixture("coin_logos")["index"] as? [String: Any])
+        let index = try XCTUnwrap(CoinLogos.parseIndex(x["text"] as? String))
+        XCTAssertEqual(index.logos, try XCTUnwrap(x["expectedLogos"] as? [String: String]))
+        XCTAssertEqual(index.names, try XCTUnwrap(x["expectedNames"] as? [String: String]))
+        for text in try XCTUnwrap(x["invalid"] as? [String]) {
+            XCTAssertNil(CoinLogos.parseIndex(text), "invalid: \(text)")
+        }
+        XCTAssertNil(CoinLogos.parseIndex(nil))
+        XCTAssertTrue(CoinLogos.isFromIndex(index.logos))
+        XCTAssertFalse(CoinLogos.isFromIndex(["BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png"]))
+        let c = try XCTUnwrap(x["changed"] as? [String: Any])
+        XCTAssertEqual(CoinLogos.changedKeys(old: try XCTUnwrap(c["old"] as? [String: String]),
+                                             new: try XCTUnwrap(c["new"] as? [String: String])),
+                       Set(try XCTUnwrap(c["expected"] as? [String])))
+    }
+    func testPack() throws {
+        let x = try XCTUnwrap(try S.fixture("coin_logos")["pack"] as? [String: Any])
+        let data = try XCTUnwrap(Data(base64Encoded: try XCTUnwrap(x["base64"] as? String)))
+        let pack = try XCTUnwrap(CoinLogos.parsePack(data))
+        let expected = try XCTUnwrap(x["expected"] as? [String: String]).mapValues { Data(base64Encoded: $0) ?? Data() }
+        XCTAssertEqual(pack, expected)
+        for text in try XCTUnwrap(x["invalidBase64"] as? [String]) {
+            XCTAssertNil(CoinLogos.parsePack(Data(base64Encoded: text) ?? Data()))
+        }
+    }
 }

@@ -21,12 +21,26 @@
   the logo; jump button in long lists.
 * Groups, a note per coin, second line «≈ value» in one of 31 currencies.
 * Header with more room for groups: «All» as soon as there is one pair, no
-  logo; bell and ⋯ menu on the right (logo and app name → About, Refresh,
-  Sort, report). «+» (add pair) next to the search icon.
+  logo; ⋯ menu on the right (logo and app name → About, Refresh, All alarms,
+  Sort, report). The bell next to it appears only while alarms are active and
+  shows no number (a number read like «fired that often»). «+» (add pair) next
+  to the search icon.
+* Calmer look: section titles in text colour with a short accent bar in front
+  instead of accent-coloured text; in dark mode no more brownish fills –
+  selected chips, segments and the jump button are neutral grey with
+  accent-coloured text, light highlights (portfolio total card, initials,
+  drag handle, selected rows) are grey, and the allocation bar blends toward
+  white. Light mode unchanged.
+* Clear symbols in the row: eye = price notification for this pair (the same
+  eye next to its switch in the action sheet and in Settings › Alarms), bell =
+  alarms (no more alarm clock). Starter pairs get the price notification like
+  every other pair; permission is asked only when you add a pair or an alarm.
 * «Something is happening right now» card can be hidden under Settings ›
   Watchlist; market alerts stay as they are.
 * «Outdated» / «exchange not reachable» per row and in all widgets (after
-  2 minutes with «Update frequently»).
+  2 minutes with «Update frequently»). One freshness threshold for everything:
+  status pill, faded row, red time, the word «outdated» and the screen reader
+  now switch together (before, the pill counted from 5 minutes on its own rule).
 * Watchlist widget: rows arrive together with the header (Android 12+), no
   more rows stuck on «Loading…»; updates with every refresh in the app.
 * Start with one tap: the five largest coins with live prices, all preselected.
@@ -83,8 +97,48 @@
 * Watchlist with names: pair/price, name/% pill and exchange/≈ value line up
   row by row; a missing name shows «–»; names equal to the ticker are shown
   («BNB»), so 1000BONK now shows «Bonk».
-* Coin logos and names now also for smaller coins (CoinGecko ranks up to
-  2,500, after the Binance list), e.g. AIN, AGT, AIA and LUNA.
+* All logos and names in one place: a GitHub Action builds our own list once a
+  day from CoinGecko (all coins; a ticker shared by several coins goes to the
+  top-1000 coin, otherwise to the most traded one), the Binance symbol and Alpha
+  lists, OKX, Binance's stock images and the Nasdaq stock names, with every logo
+  as a small WebP on GitHub Pages. The app loads this one list, the first time all
+  logos in one pack (one download), later only the few new ones — instead of
+  hundreds of requests to CoinGecko, Binance and Nasdaq. Small futures tokens like
+  AIA, AGT, AIO, ALPINE or ANIME now get their logo. Changed logos are reloaded.
+  Until the list exists the app uses the old sources (now with the Binance Alpha
+  token list, pauses between the CoinGecko pages and a retry after 6 hours if a
+  source was missing). The weekly check asks GitHub «anything new?» and downloads
+  nothing when the list (or the stock-name list) is unchanged.
+* Watchlist, calmer and easier to hit: the gesture hint names the directions («swipe left to
+  delete · swipe right for favorite»); a long press no longer starts sort mode by accident
+  (sort via ⋯ › Sort, then drag); search, «+», close search and group chips have 48 dp / 44 pt
+  touch areas (the symbols stay small), the ⚡ in a row too; without coin logos a favorite shows
+  a small star and the screen reader says «Favorite».
+* Empty «All alarms» page has a «New alarm» button (pick a pair → its alarms) instead of a dead end.
+* Add pair: with no search results, «Choose exchange and pair yourself» stays right there.
+* Settings › Updates: each mode says when it works – «While the watchlist is open» (live
+  prices) and «Even when the app is closed» (background, update frequently).
+* Android «Update frequently»: with the screen off at most every 5 minutes instead of every
+  minute (the regular background update is unchanged); iOS saves the watchlist off the main
+  thread.
+* Portfolio: the example in the empty portfolio uses USDT like the price field; the coin page
+  explains the average buy price (weighted average, sells at the average, not FIFO). The old
+  tip «tap ☆» now says «swipe right».
+* Alarms: when notifications for the app are turned off, the alarm list and the
+  alarm overview show a red notice «Notifications are off – alarms can’t reach you»
+  with «Turn on» (opens the app's notification settings); checked again on return.
+* «Why?»: «BTC is pulling the market along» now reads «Market is moving with BTC» –
+  a measured co-movement, not a claimed cause.
+* Gold, silver, platinum and palladium contracts (XAU, XAG, XPT, XPD …) get their own
+  drawn icon — a bar on a coin in the metal's colour — and their names.
+* Market data the same for everyone comes from one place too: an hourly GitHub
+  Action mirrors CoinGecko's market cap, dominance and top coins, the Fear & Greed
+  index and Coin Metrics' on-chain values and BTC price history, and computes the
+  altcoin season once (instead of about 21 price requests per phone every 3 hours).
+  The app reads the mirror and asks the providers itself only when it is missing or
+  too old. Live
+  prices, the Crypto Pulse and everything per coin still come straight from the
+  exchanges.
 * LUNA2 (Terra 2.0 futures) shows the LUNA logo and name.
 * Stock perpetuals without a tokenised bStock (e.g. CAT, BYD) get their logo
   from Binance's stock images; loaded for all stock tickers of the stored pair
@@ -169,8 +223,11 @@
   language, currency). Theme as a list with colour dots; currency as a list with search and
   the currency name in the app language (CHF Swiss franc); Android: language on its own page
   with search (iOS keeps the language in the iOS Settings app, as Apple intends).
-* «FAV» chip next to «All» (always there): shows the favorites; a pair stays in its own group
-  and appears under FAV as soon as it is a favorite. Also selectable for the watchlist widget.
+* «Favorites» chip next to «All»: shows the favorites; a pair stays in its own group and
+  appears there as soon as it is a favorite. Also selectable for the watchlist widget. Shown
+  only once there is a favorite, the «+» for groups only once there is a group (the first one
+  is created from a pair's action sheet); with neither, the chip row stays empty. Translated
+  in every language (was a fixed «FAV»).
 * Settings › Watchlist › «Show names» (off by default): name under the pair, e.g. Bitcoin or
   NVIDIA, from the same lists as the logos (no extra request); TradFi pairs never get the name
   of a crypto token with the same ticker.

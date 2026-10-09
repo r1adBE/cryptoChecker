@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">リアルタイム価格</string>
-    <string name="settings_live_websocket_hint">リストを開いている間、価格が取引所と遅れなく連動します。Binance、Bybit、OKX、Coinbase、Kraken に対応。</string>
+    <string name="settings_live_websocket_hint">リストを開いている間: 価格が取引所と遅れなく連動します。Binance、Bybit、OKX、Coinbase、Kraken に対応。</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">ライブ価格がオン</string>
     <string name="refresh_report_live">ライブ: %1$s</string>

@@ -28,7 +28,7 @@ extension WatchlistScreen {
     }
 
     /// Erste Zeile des festen Kopfs: links scrollen die Gruppen-Chips («Alle», Gruppen, «+» für
-    /// eine neue Gruppe), rechts stehen fest die Glocke und das Menü (darin oben Logo und
+    /// eine neue Gruppe), rechts die Glocke (nur mit aktiven Alarmen) und fest das Menü (darin oben Logo und
     /// App-Name). «Paar hinzufügen» steht neben der Lupe (`statusRow`). Tippflächen 44 pt; Knöpfe
     /// mit `.borderless`, sonst löste ein Tipp in der Listenzeile alle Knöpfe zugleich aus.
     private func headerRow(_ watches: [Watch], groups: [String], selectedGroup: String?) -> some View {
@@ -36,6 +36,7 @@ extension WatchlistScreen {
             WatchlistGroupChips(
                 groups: groups,
                 selected: selectedGroup,
+                hasFavorites: watches.contains { $0.favorite },
                 onSelect: { group in
                     withAnimation(.spring(duration: 0.35)) { data.selectWatchlistGroup(group) }
                 },
@@ -78,22 +79,26 @@ extension WatchlistScreen {
                 .buttonStyle(.borderless)
                 .tint(accent.primary)
             } else {
-                // Glocke: alle Alarme, mit Zahl der aktiven
-                Button {
-                    showOverview = true
-                } label: {
-                    bellIcon
-                        .phaseAnimator([1.0, AlarmPulse.scale, 1.0], trigger: bellPulse) { view, scale in
-                            view.scaleEffect(scale)
-                        } animation: { _ in .easeInOut(duration: AlarmPulse.seconds / 2) }
-                        .frame(width: Self.headerHeight, height: Self.headerHeight)
-                        .contentShape(Rectangle())
+                // Glocke nur mit aktiven Alarmen und ohne Zahl (eine Zahl läse sich leicht als
+                // «so oft ausgelöst»); «Alle Alarme» steht immer auch im Menü
+                if hasActiveAlarms {
+                    Button {
+                        showOverview = true
+                    } label: {
+                        Image(systemName: "bell")
+                            .symbolRenderingMode(.hierarchical)
+                            .phaseAnimator([1.0, AlarmPulse.scale, 1.0], trigger: bellPulse) { view, scale in
+                                view.scaleEffect(scale)
+                            } animation: { _ in .easeInOut(duration: AlarmPulse.seconds / 2) }
+                            .frame(width: Self.headerHeight, height: Self.headerHeight)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.borderless)
+                    .tint(accent.primary)
+                    .accessibilityLabel(L("alarms_overview_title"))
                 }
-                .buttonStyle(.borderless)
-                .tint(accent.primary)
-                .accessibilityLabel(L("alarms_overview_title"))
 
-                // Menü: oben Logo und App-Name («Über die App»), dann Aktualisieren, Sortieren,
+                // Menü: oben Logo und App-Name («Über die App»), dann Aktualisieren, Alle Alarme, Sortieren,
                 // Bericht, nicht gehandelte Paare entfernen, Merkliste leeren
                 Menu {
                     // Gleicher Anfang wie Markt und Portfolio: App (→ «Über»), Aktualisieren
@@ -105,6 +110,11 @@ extension WatchlistScreen {
                             Task { await refreshByUser() }
                         }
                     )
+                    Button {
+                        showOverview = true
+                    } label: {
+                        Label(L("alarms_overview_title"), systemImage: "bell")
+                    }
                     if watches.count > 1 {
                         Button {
                             if searching { closeSearch() }
@@ -168,22 +178,8 @@ extension WatchlistScreen {
         .accessibilityLabel(L("shortcut_add"))
     }
 
-    private var bellIcon: some View {
-        let active = data.activeAlarmCounts.values.reduce(0, +)
-        return Image(systemName: active > 0 ? "bell.badge" : "bell")
-            .symbolRenderingMode(.hierarchical)
-            .overlay(alignment: .topTrailing) {
-                if active > 0 {
-                    Text(verbatim: LocaleNumbers.integer(active))
-                        .scaledFont(size: 10, weight: .bold, relativeTo: .caption2, monospacedDigit: true)
-                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                        .foregroundStyle(accent.onPrimary)
-                        .padding(.horizontal, 4)
-                        .frame(minWidth: 16, minHeight: 16)
-                        .background(accent.primary, in: Capsule())
-                        .offset(x: 9, y: -7)
-                }
-            }
+    private var hasActiveAlarms: Bool {
+        data.activeAlarmCounts.values.contains { $0 > 0 }
     }
 }
 

@@ -109,20 +109,16 @@ extension AppData {
         Dictionary(grouping: snapshot.alarms.filter(\.enabled), by: \.watchId).mapValues(\.count)
     }
 
-    /// Ab diesem Alter gilt ein Kurs als veraltet: 2,5 × Intervall, mindestens 5 Minuten.
+    /// Ab diesem Alter gilt ein Kurs als veraltet.
     var staleAfterMillis: Int64 {
-        max(refreshIntervalMillis * 5 / 2, 5 * 60_000)
+        // Eine Frische-Schwelle für Pille, abgeblasste Zeile, rote Zeit, «veraltet» und Screenreader
+        // (wie Android): dieselbe Regel wie `outdatedAfterMillis`
+        outdatedAfterMillis
     }
 
     /// Ab diesem Alter steht in der Zeile «veraltet»: im Live-Modus (App vorne mit Live-Abfrage)
     /// nach 2 Minuten, sonst 3 × Intervall, mindestens 15 Minuten (`OutdatedRule`).
     var outdatedAfterMillis: Int64 {
         OutdatedRule.afterMillis(settings, live: appActive && settings.liveService)
-    }
-
-    /// Eingestelltes Aktualisierungs-Intervall (Live bzw. Hintergrund).
-    private var refreshIntervalMillis: Int64 {
-        settings.liveService ? Int64(settings.liveIntervalSeconds) * 1000
-            : Int64(settings.backgroundIntervalMinutes) * 60_000
     }
 }

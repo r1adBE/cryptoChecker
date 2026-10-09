@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Dotknij: akcje · przesuń: szybkie akcje · przytrzymaj: sortowanie</string>
+    <string name="watch_gesture_hint_short">Dotknij, aby wybrać akcję · przesuń w lewo, aby usunąć · w prawo – ulubione</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Dlaczego?</string>
     <string name="watch_action_favorite">Ulubione</string>

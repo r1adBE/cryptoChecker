@@ -23,7 +23,7 @@
     <string name="sheet_chart_today">Today</string>
     <!-- Über dem Chart: %1$s Veränderung mit Pfeil («▲ +2.31%»), %2$s change_short_today(_utc) -->
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">When the app is closed, at most once a minute</string>
+    <string name="settings_live_interval_hidden_hint">App closed: at most once a minute · screen off: every 5 minutes</string>
     <string name="sheet_more">More</string>
     <string name="a11y_expanded">Expanded</string>
     <string name="a11y_collapsed">Collapsed</string>

@@ -48,7 +48,7 @@ struct SettingsChoiceRow<Leading: View>: View {
             .frame(minHeight: 44)
             .padding(.vertical, Spacing.sm)
             .padding(.horizontal, 12)
-            .background(selected ? accent.primary.opacity(0.16) : .clear,
+            .background(selected ? accent.tint(0.16) : .clear,
                         in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         }

@@ -50,18 +50,26 @@ extension EnvironmentValues {
 // MARK: Abschnitt
 
 /// Abschnitt mit kleiner Überschrift und Inhalt auf abgerundeter Fläche — wie `SectionCard`.
-/// Abschnittsüberschrift überall gleich: klein, fett, in der Themenfarbe — Einstellungen
-/// («Allgemein», «Darstellung» …), Portfolio («Gesamtwert», «Wertverlauf» …) und Markt
-/// («Jetzt», «Einordnung», «Daten» …); wie `SectionTitle` (Android). Die einzige Ausnahme von
-/// «Themenfarbe nur für Bedienbares»: klein und fett, nicht mit Knöpfen zu verwechseln.
+/// Abschnittsüberschrift überall gleich: klein, fett, in Textfarbe, davor ein kurzer Strich in
+/// der Themenfarbe — Einstellungen («Allgemein», «Darstellung» …), Portfolio («Gesamtwert»,
+/// «Wertverlauf» …) und Markt («Jetzt», «Einordnung», «Daten» …); wie `SectionTitle` +
+/// `sectionTitleMarker` (Android). Die Themenfarbe bleibt Bedienbarem vorbehalten.
 struct SectionTitleStyle: ViewModifier {
     @Environment(\.appAccent) private var accent
+    @ScaledMetric(relativeTo: .footnote) private var markerHeight: CGFloat = 13
 
     func body(content: Content) -> some View {
         content
             .font(.footnote.weight(.bold))
-            .foregroundStyle(accent.primary)
+            .foregroundStyle(AppColors.onSurface)
             .textCase(nil)
+            .padding(.leading, 10)
+            .overlay(alignment: .leading) {
+                Capsule()
+                    .fill(accent.primary)
+                    .frame(width: 3, height: markerHeight)
+                    .accessibilityHidden(true)
+            }
     }
 }
 
@@ -129,10 +137,12 @@ struct SwitchRow<Label: View>: View {
 }
 
 extension SwitchRow where Label == SwitchRowText {
+    /// - Parameter icon: SF Symbol vor dem Titel (optional), z. B. das Auge der Kurs-Mitteilung
+    ///   wie in der Zeile der Merkliste.
     init(title: String, subtitle: String? = nil, isOn: Binding<Bool>, enabled: Bool = true,
-         verticalPadding: CGFloat = Spacing.md) {
+         verticalPadding: CGFloat = Spacing.md, icon: String? = nil) {
         self.init(isOn: isOn, enabled: enabled, verticalPadding: verticalPadding) {
-            SwitchRowText(title: title, subtitle: subtitle)
+            SwitchRowText(title: title, subtitle: subtitle, icon: icon)
         }
     }
 }
@@ -141,12 +151,21 @@ extension SwitchRow where Label == SwitchRowText {
 struct SwitchRowText: View {
     let title: String
     let subtitle: String?
+    var icon: String? = nil
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(title).font(.body)
-            if let subtitle, !subtitle.isEmpty {
-                Text(subtitle).font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
+        HStack(spacing: 12) {
+            if let icon {
+                Image(systemName: icon)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .frame(width: 24)
+                    .accessibilityHidden(true)
+            }
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.body)
+                if let subtitle, !subtitle.isEmpty {
+                    Text(subtitle).font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
+                }
             }
         }
     }
@@ -378,7 +397,7 @@ struct CoinBadge: View {
                     .clipShape(Circle())
             } else {
                 let label = CoinLogos.initials(symbol)
-                Circle().fill(accent.primary.opacity(0.14))
+                Circle().fill(accent.tint(0.14))
                 Text(label)
                     .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
                     .foregroundStyle(accent.primary)

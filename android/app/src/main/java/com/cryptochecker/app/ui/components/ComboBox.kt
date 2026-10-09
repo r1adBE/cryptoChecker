@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.components
 
+import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.ui.Alignment
@@ -171,7 +172,7 @@ fun ComboBox(
                                 .height(48.dp)
                                 .let {
                                     if (selectedIndex == index)
-                                        it.background(MaterialTheme.colorScheme.primary.copy(alpha = 0.3f))
+                                        it.background(AppColors.accentTint(0.3f))
                                     else it
                                 }
                                 .semantics {

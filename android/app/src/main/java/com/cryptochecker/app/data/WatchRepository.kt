@@ -58,7 +58,7 @@ class WatchRepository @Inject constructor(
 
     /**
      * Legt ein Paar in der Watchlist an.
-     * @param notificationEnabled Kurs-Benachrichtigung des Paares (Start-Merkliste: aus)
+     * @param notificationEnabled Kurs-Benachrichtigung des Paares (Standard: an, auch für die Start-Merkliste)
      * @return die Id des Eintrags, oder null, wenn er bereits vorhanden war.
      */
     suspend fun addWatch(

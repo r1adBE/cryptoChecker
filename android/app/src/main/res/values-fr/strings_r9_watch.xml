@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Touchez pour les actions · balayez pour les actions rapides · maintenez pour trier</string>
+    <string name="watch_gesture_hint_short">Touchez pour les actions · balayez à gauche pour supprimer · à droite pour favori</string>
     <string name="watch_action_alarm">Alerte</string>
     <string name="watch_action_why">Pourquoi ?</string>
     <string name="watch_action_favorite">Favori</string>

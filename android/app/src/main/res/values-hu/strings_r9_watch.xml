@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Koppintás: műveletek · húzás: gyorsműveletek · nyomva tartás: rendezés</string>
+    <string name="watch_gesture_hint_short">Koppints a műveletekért · húzd balra a törléshez · jobbra a kedvencekhez</string>
     <string name="watch_action_alarm">Riasztás</string>
     <string name="watch_action_why">Miért?</string>
     <string name="watch_action_favorite">Kedvenc</string>

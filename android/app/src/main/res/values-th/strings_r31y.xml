@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">สูงกว่าปกติ</string>
     <string name="why_fn_volume_lower">ต่ำกว่าปกติ</string>
     <string name="why_fn_volume_usual">ตามปกติ</string>
-    <string name="why_fn_market_pulls">BTC ลากทั้งตลาดไปด้วย</string>
+    <string name="why_fn_market_pulls">ตลาดเคลื่อนไหวไปพร้อมกับ BTC</string>
     <string name="why_fn_market_lags">ตลาดเคลื่อนไหว แต่เหรียญนี้แทบไม่ขยับ</string>
     <string name="why_fn_market_alone">ตลาดเงียบ – เหรียญนี้เคลื่อนไหวเอง</string>
     <string name="why_fn_market_against">เหรียญเคลื่อนไหวสวนตลาด</string>

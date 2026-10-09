@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -232,6 +233,8 @@ private fun AddPairButton(onClick: () -> Unit) {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .padding(start = 8.dp)
+            // Tippfläche 48 dp, sichtbar bleibt der kleine Kreis (wie Material-IconButton)
+            .minimumInteractiveComponentSize()
             .size(SearchRowHeight)
             .clip(RoundedCornerShape(50))
             .background(MaterialTheme.colorScheme.primary)

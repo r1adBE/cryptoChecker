@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favoriet</string>
+    <string name="explorer_search_choose_manually">Zelf beurs en paar kiezen</string>
+    <string name="portfolio_avg_price_hint">Gem. aankoopprijs: het gemiddelde van alle aankopen, gewogen naar hoeveelheid. Verkopen worden tegen dit gemiddelde gewaardeerd (geen FIFO).</string>
+</resources>

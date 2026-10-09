@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Giá trực tiếp</string>
-    <string name="settings_live_websocket_hint">Giá theo sát sàn không độ trễ khi danh sách đang mở. Cho Binance, Bybit, OKX, Coinbase và Kraken.</string>
+    <string name="settings_live_websocket_hint">Khi danh sách theo dõi đang mở: giá theo sàn không độ trễ. Cho Binance, Bybit, OKX, Coinbase và Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Giá trực tiếp đang bật</string>
     <string name="refresh_report_live">Live: %1$s</string>

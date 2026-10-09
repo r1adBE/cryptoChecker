@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.util.LruCache
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.logos.CoinLogos
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -38,12 +39,15 @@ import javax.inject.Singleton
 import kotlin.math.max
 
 /**
- * Coin-Logos von CoinGecko (Regeln in [CoinLogos]). Nichts ist mitgeliefert, und nichts wird
+ * Coin-Logos (Regeln in [CoinLogos]). Nichts ist mitgeliefert, und nichts wird
  * einzeln geholt — so erfährt CoinGecko nie, welche Coins in einer Merkliste stehen:
  *
- * 1. Rangliste der grössten 1000 Coins (`/coins/markets`), Lücken (TradFi wie Gold, Silber,
- *    Aktien) aus der Symbolliste der Binance-Website, übrige Lücken aus Rang 1001–2500;
- *    höchstens einmal pro Woche, für alle gleich.
+ * 1. Eigene Logo-Liste auf GitHub Pages ([CoinLogos.INDEX_URL], täglich von einer GitHub Action
+ *    aus CoinGecko, Binance, OKX und Nasdaq gebaut, Krypto und TradFi, Bilder daneben; beim ersten
+ *    Laden alle Bilder in einem Abruf aus [CoinLogos.PACK_URL]). Nur solange es die Liste nie gab: Rangliste von CoinGecko,
+ *    Binance-Liste, Alpha-Liste direkt. Höchstens einmal pro Woche, für alle gleich. Fehlte eine
+ *    Quelle, bleibt Bekanntes erhalten und der Abruf wird nach einigen Stunden wiederholt;
+ *    geänderte Bild-Adressen laden das Bild neu.
  * 2. [startSync] lädt die Logos **aller** Coins dieser Liste (kleine Fassung, auf
  *    [CoinLogos.STORED_PX] begrenzt) und legt sie als PNG im Cache-Ordner ab. Später fehlen nur
  *    neu dazugekommene Coins; ohne Neues geht kein Bild-Abruf ins Netz.
@@ -163,8 +167,36 @@ class CoinLogoRepository @Inject constructor(
         if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_TIME, 0L), now) && !stockNames.isNullOrEmpty()) return@withLock
         if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_ATTEMPT, 0L), now, MAP_RETRY_MILLIS)) return@withLock
         prefs.edit { putLong(KEY_STOCK_NAMES_ATTEMPT, now) }
+        val fromIndex = CoinLogos.isFromIndex(symbolMap())
+        var stocksEtag: String? = null
         val fresh = withContext(Dispatchers.IO) {
             val out = LinkedHashMap<String, String>()
+            if (fromIndex) {
+                // Mit GitHub-Liste: eine Datei mit allen Aktiennamen statt der beiden Nasdaq-Dateien;
+                // mit der Kennung des letzten Stands — «304» = unverändert, nichts geladen
+                val etag = prefs.getString(KEY_STOCKS_ETAG, null)?.takeIf { !stockNames.isNullOrEmpty() }
+                val request = Request.Builder().url(CoinLogos.STOCKS_URL)
+                    .apply { if (etag != null) header("If-None-Match", etag) }
+                    .build()
+                try {
+                    apiClient.newCall(request).execute().use { response ->
+                        when {
+                            response.code == 304 && etag != null -> {
+                                stocksEtag = etag
+                                out.putAll(stockNames.orEmpty())
+                            }
+                            !response.isSuccessful -> error("HTTP ${response.code}")
+                            else -> {
+                                stocksEtag = response.header("ETag")
+                                out.putAll(CoinLogos.decodeNames(response.body.string()))
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Timber.w("Aktiennamen von GitHub nicht verfügbar: %s", e.message)
+                }
+                return@withContext out
+            }
             for (url in listOf(CoinLogos.NASDAQ_LISTED_URL, CoinLogos.OTHER_LISTED_URL)) {
                 try {
                     CoinLogos.parseSymbolDirectory(apiClient.callMarket(url, null), out)
@@ -183,7 +215,10 @@ class CoinLogoRepository @Inject constructor(
                 stockNamesFile.writeText(CoinLogos.encodeNames(fresh))
             }.onFailure { Timber.w(it, "Aktiennamen nicht gespeichert") }
         }
-        prefs.edit { putLong(KEY_STOCK_NAMES_TIME, now) }
+        prefs.edit {
+            putLong(KEY_STOCK_NAMES_TIME, now)
+            if (stocksEtag != null) putString(KEY_STOCKS_ETAG, stocksEtag) else remove(KEY_STOCKS_ETAG)
+        }
         stockNames = fresh
         publishNames()
     }
@@ -247,17 +282,32 @@ class CoinLogoRepository @Inject constructor(
     }
 
     private suspend fun syncAll(): Int {
-        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag in der Liste dazu
-        val wanted = CoinLogos.withStockLogos(symbolMap(), _tradFiBases.value)
+        val current = symbolMap()
+        val fromIndex = CoinLogos.isFromIndex(current)
+        // Ohne GitHub-Liste: Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu (mit Liste sind sie drin)
+        val wanted = if (fromIndex) current else CoinLogos.withStockLogos(current, _tradFiBases.value)
         if (wanted.isEmpty()) return 0
         val now = System.currentTimeMillis()
         val failed = loadFailures(now)
-        val missing = wanted.entries.mapNotNull { (symbol, url) ->
+        var missing = wanted.entries.mapNotNull { (symbol, url) ->
             val name = CoinLogos.fileName(symbol) ?: return@mapNotNull null
             if (name in failed || File(imageDir, name).isFile) null else name to url
         }
         if (missing.isEmpty()) return 0
         val added = AtomicInteger()
+        // Viele fehlen (erstes Laden): alle Logos in einem Abruf aus dem Paket
+        if (fromIndex && missing.size >= CoinLogos.PACK_MIN_MISSING) {
+            val fromPack = withContext(Dispatchers.IO) { fillFromPack(missing) }
+            if (fromPack.isNotEmpty()) {
+                added.addAndGet(fromPack.size)
+                _revision.value++
+                missing = missing.filter { it.first !in fromPack }
+            }
+            if (missing.isEmpty()) {
+                Timber.i("Coin-Logos: %d aus dem Paket", added.get())
+                return added.get()
+            }
+        }
         val newFailures = ConcurrentHashMap<String, Long>()
         coroutineScope {
             missing.map { (name, url) ->
@@ -275,6 +325,36 @@ class CoinLogoRepository @Inject constructor(
         if (added.get() % REVISION_STEP != 0) _revision.value++
         Timber.i("Coin-Logos: %d neu, %d fehlgeschlagen", added.get(), newFailures.size)
         return added.get()
+    }
+
+    /**
+     * Lädt das Paket ([CoinLogos.PACK_URL]) und legt die Bilder für [missing] (Dateiname → Adresse)
+     * ab; gibt die Dateinamen der abgelegten Bilder zurück (leer bei Fehler).
+     */
+    private fun fillFromPack(missing: List<Pair<String, String>>): Set<String> {
+        val pack = try {
+            client.newCall(Request.Builder().url(CoinLogos.PACK_URL).build()).execute().use { response ->
+                if (!response.isSuccessful) error("HTTP ${response.code}")
+                val body = response.body
+                if (body.contentLength() > CoinLogos.PACK_MAX_BYTES) error("too large")
+                val bytes = body.bytes()
+                if (bytes.size > CoinLogos.PACK_MAX_BYTES) error("too large")
+                CoinLogos.parsePack(bytes)
+            }
+        } catch (e: Exception) {
+            Timber.w("Logo-Paket nicht verfügbar: %s", e.message)
+            null
+        } ?: return emptySet()
+        val done = HashSet<String>()
+        for ((name, url) in missing) {
+            if (!url.startsWith(CoinLogos.INDEX_BASE)) continue
+            val bytes = pack[url.removePrefix(CoinLogos.INDEX_BASE)] ?: continue
+            val bitmap = decodeScaled(bytes) ?: continue
+            writePng(File(imageDir, name), bitmap)
+            bitmap.recycle()
+            if (File(imageDir, name).isFile) done += name
+        }
+        return done
     }
 
     /** Erst die kleine Fassung, sonst das Bild aus der Rangliste. */
@@ -298,11 +378,14 @@ class CoinLogoRepository @Inject constructor(
 
     private suspend fun lockedSymbolMap(): Map<String, String> {
         val now = System.currentTimeMillis()
+        // Nach dem Update: bis zum ersten Abruf die Liste der Vorgängerfassung
         val known = map ?: withContext(Dispatchers.IO) {
-            CoinLogos.decode(runCatching { mapFile.readText() }.getOrNull())
+            CoinLogos.decode(readFirst(mapFile, File(context.noBackupFilesDir, OLD_FILES[0])))
         }.also { map = it }
         if (baseNames.isEmpty()) {
-            baseNames = withContext(Dispatchers.IO) { CoinLogos.decodeNames(runCatching { namesFile.readText() }.getOrNull()) }
+            baseNames = withContext(Dispatchers.IO) {
+                CoinLogos.decodeNames(readFirst(namesFile, File(context.noBackupFilesDir, OLD_FILES[1])))
+            }
             publishNames()
         }
         if (CoinLogos.isFresh(prefs.getLong(KEY_MAP_TIME, 0L), now) && known.isNotEmpty()) return known
@@ -310,17 +393,39 @@ class CoinLogoRepository @Inject constructor(
         if (CoinLogos.isFresh(prefs.getLong(KEY_MAP_ATTEMPT, 0L), now, MAP_RETRY_MILLIS)) return known
         prefs.edit { putLong(KEY_MAP_ATTEMPT, now) }
 
-        val names = LinkedHashMap<String, String>()
-        val fresh = withContext(Dispatchers.IO) { fetchMap(names) }
-        if (fresh.isEmpty()) return known
+        val fetchedNames = LinkedHashMap<String, String>()
+        val fetch = withContext(Dispatchers.IO) { fetchMap(fetchedNames, known) }
+        if (fetch.map.isEmpty()) return known
+        // Unvollständig (eine Quelle fehlte): Bekanntes behalten und in einigen Stunden erneut
+        val fresh = if (fetch.complete) fetch.map else CoinLogos.withKnown(fetch.map, known)
+        val names = if (fetch.complete) fetchedNames else CoinLogos.withKnown(fetchedNames, baseNames)
         withContext(Dispatchers.IO) {
             runCatching {
                 mapFile.parentFile?.mkdirs()
                 mapFile.writeText(CoinLogos.encode(fresh))
                 namesFile.writeText(CoinLogos.encodeNames(names))
+                // Listen älterer Fassungen
+                for (old in OLD_FILES) File(context.noBackupFilesDir, old).delete()
             }.onFailure { Timber.w(it, "Logo-Zuordnung nicht gespeichert") }
         }
-        prefs.edit { putLong(KEY_MAP_TIME, now) }
+        prefs.edit {
+            putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, fetch.complete))
+            if (fetch.etag != null) putString(KEY_INDEX_ETAG, fetch.etag) else remove(KEY_INDEX_ETAG)
+        }
+        // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
+        val changed = CoinLogos.changedKeys(known, fresh)
+        if (changed.isNotEmpty()) {
+            withContext(Dispatchers.IO) {
+                for (key in changed) {
+                    val name = CoinLogos.fileName(key) ?: continue
+                    memory.remove(name)
+                    File(imageDir, name).delete()
+                }
+            }
+            prefs.edit { remove(KEY_FAILED) }
+            Timber.i("Coin-Logos: %d geänderte Bilder werden neu geladen", changed.size)
+        }
+        Timber.i("Coin-Logos: Liste mit %d Einträgen (%s)", fresh.size, if (fetch.complete) "vollständig" else "unvollständig")
         map = fresh
         if (names.isNotEmpty()) {
             baseNames = names
@@ -329,31 +434,88 @@ class CoinLogoRepository @Inject constructor(
         return fresh
     }
 
+    private fun readFirst(vararg files: File): String? =
+        files.firstNotNullOfOrNull { f -> runCatching { f.readText() }.getOrNull()?.takeIf { it.isNotBlank() } }
+
+    /** Ergebnis eines Abrufs; [complete] = keine Quelle ist ausgefallen; [etag] der Logo-Liste. */
+    private class Fetch(val map: Map<String, String>, val complete: Boolean, val etag: String? = null)
+
+    /** Logo-Liste: neu ([index]), unverändert seit dem letzten Mal ([unchanged]) oder nicht erreichbar. */
+    private class IndexResult(val index: CoinLogos.Index? = null, val unchanged: Boolean = false, val etag: String? = null)
+
     /**
-     * CoinGecko Seite für Seite (bricht bei einem Fehler ab und behält, was da ist), danach füllt
-     * die Binance-Symbolliste die Lücken (TradFi wie Gold, Silber, Aktien).
+     * CoinGecko Seite für Seite (bricht bei einem Fehler ab und behält, was da ist), danach füllen
+     * die Binance-Symbolliste (TradFi wie Gold, Silber, Aktien) und die Alpha-Liste die Lücken,
+     * zuletzt Rang 1001–2500. [Fetch.complete] = false, sobald eine Quelle fehlte.
      */
-    private suspend fun fetchMap(names: LinkedHashMap<String, String>): Map<String, String> {
+    private suspend fun fetchMap(names: LinkedHashMap<String, String>, known: Map<String, String>): Fetch {
+        // 1. Eigene Logo-Liste auf GitHub: alle Logos und Namen (Krypto und TradFi) in einer Datei
+        val result = fetchIndex(CoinLogos.isFromIndex(known))
+        if (result.unchanged) {
+            // «Nichts geändert» (304): nichts geladen, Bekanntes gilt wieder eine Woche
+            names.putAll(baseNames)
+            return Fetch(LinkedHashMap(known), complete = true, etag = result.etag)
+        }
+        result.index?.let { index ->
+            names.putAll(index.names)
+            return Fetch(LinkedHashMap(index.logos), complete = true, etag = result.etag)
+        }
+        // Schon auf der GitHub-Liste: nicht auf die alten Quellen wechseln (sonst würden alle
+        // Bilder neu geladen) — später erneut versuchen
+        if (CoinLogos.isFromIndex(known)) return Fetch(emptyMap(), false)
+        // 2. Ersatz, solange es die Liste nicht gibt: CoinGecko, Binance, Alpha direkt
         val out = LinkedHashMap<String, String>()
-        fetchCoinGecko(out, names, 1..CoinLogos.PAGES)
+        var complete = fetchCoinGecko(out, names, 1..CoinLogos.PAGES)
         val crypto = out.keys.toSet()
-        fetchBinance(out, crypto, names)
+        complete = fetchBinance(out, crypto, names) && complete
+        complete = fetchAlpha(out, names) && complete
         // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken
-        fetchCoinGecko(out, names, (CoinLogos.PAGES + 1)..(CoinLogos.PAGES + CoinLogos.EXTRA_PAGES),
-            pauseMillis = CoinLogos.EXTRA_PAGE_PAUSE_MILLIS)
-        return out
+        complete = fetchCoinGecko(out, names, (CoinLogos.PAGES + 1)..(CoinLogos.PAGES + CoinLogos.EXTRA_PAGES)) && complete
+        return Fetch(out, complete)
     }
 
+    /**
+     * Logo-Liste von GitHub Pages ([CoinLogos.INDEX_URL]). Mit der Kennung des letzten Stands
+     * («If-None-Match»): ist nichts neu, antwortet GitHub nur «304» ohne Inhalt.
+     */
+    private fun fetchIndex(knownFromIndex: Boolean): IndexResult {
+        val etag = if (knownFromIndex) prefs.getString(KEY_INDEX_ETAG, null) else null
+        val request = Request.Builder().url(CoinLogos.INDEX_URL)
+            .apply { if (etag != null) header("If-None-Match", etag) }
+            .build()
+        return try {
+            apiClient.newCall(request).execute().use { response ->
+                when {
+                    response.code == 304 && etag != null -> IndexResult(unchanged = true, etag = etag)
+                    !response.isSuccessful -> error("HTTP ${response.code}")
+                    else -> IndexResult(CoinLogos.parseIndex(response.body.string()), etag = response.header("ETag"))
+                }
+            }
+        } catch (e: Exception) {
+            Timber.w("Logo-Liste von GitHub nicht verfügbar: %s", e.message)
+            IndexResult()
+        }
+    }
+
+    /** Eine Seite der Rangliste; bei «429» einmal nach der verlangten Pause wiederholen. */
+    private suspend fun marketsPage(page: Int): String = try {
+        apiClient.callMarket(CoinLogos.marketsUrl(page), null)
+    } catch (e: HttpMarketError) {
+        if (e.httpCode != 429) throw e
+        kotlinx.coroutines.delay(CoinLogos.rateLimitWaitMillis(e.retryAfterSeconds))
+        apiClient.callMarket(CoinLogos.marketsUrl(page), null)
+    }
+
+    /** Seiten der Rangliste mit Pause dazwischen; false = eine Seite fehlte (Abbruch). */
     private suspend fun fetchCoinGecko(
         out: LinkedHashMap<String, String>,
         names: LinkedHashMap<String, String>,
         pages: IntRange,
-        pauseMillis: Long = 0L,
-    ) {
+    ): Boolean {
         for (page in pages) {
-            if (pauseMillis > 0) kotlinx.coroutines.delay(pauseMillis)
+            if (page > 1) kotlinx.coroutines.delay(CoinLogos.PAGE_PAUSE_MILLIS)
             try {
-                val array = JSONArray(apiClient.callMarket(CoinLogos.marketsUrl(page), null))
+                val array = JSONArray(marketsPage(page))
                 val ranked = (0 until array.length()).mapNotNull { i ->
                     val o = array.optJSONObject(i) ?: return@mapNotNull null
                     o.optString("symbol") to (if (o.isNull("image")) null else o.optString("image"))
@@ -363,23 +525,29 @@ class CoinLogoRepository @Inject constructor(
                     val o = array.optJSONObject(i) ?: return@mapNotNull null
                     o.optString("symbol") to (if (o.isNull("name")) null else o.optString("name"))
                 }, names)
-                if (array.length() < CoinLogos.PER_PAGE) break
+                if (array.length() < CoinLogos.PER_PAGE) return true
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 Timber.w("Logo-Rangliste Seite %d nicht verfügbar: %s", page, e.message)
-                break
+                return false
             }
         }
+        return true
     }
 
     /**
      * Inoffizielle Liste der Binance-Website: füllt Lücken der Krypto-Logos und liefert die
      * TradFi-Logos ([CoinLogos.pickTradFi]); fehlt sie, bleiben Initialen.
      */
-    private suspend fun fetchBinance(out: LinkedHashMap<String, String>, crypto: Set<String>, names: LinkedHashMap<String, String>) {
+    private suspend fun fetchBinance(
+        out: LinkedHashMap<String, String>,
+        crypto: Set<String>,
+        names: LinkedHashMap<String, String>,
+        tradFiOnly: Boolean = false,
+    ): Boolean {
         try {
-            val array = JSONObject(apiClient.callMarket(CoinLogos.BINANCE_LIST_URL, null)).optJSONArray("data") ?: return
+            val array = JSONObject(apiClient.callMarket(CoinLogos.BINANCE_LIST_URL, null)).optJSONArray("data") ?: return false
             val entries = (0 until array.length()).mapNotNull { i ->
                 val o = array.optJSONObject(i) ?: return@mapNotNull null
                 val logo = if (o.isNull("logo")) null else o.optString("logo")
@@ -392,14 +560,41 @@ class CoinLogoRepository @Inject constructor(
                     fullName = if (o.isNull("fullName")) null else o.optString("fullName"),
                 )
             }
-            CoinLogos.pick(entries.map { it.name to it.logo }, out)
+            if (!tradFiOnly) CoinLogos.pick(entries.map { it.name to it.logo }, out)
             CoinLogos.pickTradFi(entries, crypto, out)
-            CoinLogos.pickNames(entries.map { it.name to it.fullName }, names)
+            if (!tradFiOnly) CoinLogos.pickNames(entries.map { it.name to it.fullName }, names)
             CoinLogos.pickTradFiNames(entries, crypto, names)
+            return true
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             Timber.w("Binance-Symbolliste nicht verfügbar: %s", e.message)
+            return false
+        }
+    }
+
+    /** Token-Liste von Binance Alpha ([CoinLogos.ALPHA_LIST_URL]): Lücken wie AIA, AGT, AIO. */
+    private suspend fun fetchAlpha(out: LinkedHashMap<String, String>, names: LinkedHashMap<String, String>): Boolean {
+        try {
+            val array = JSONObject(apiClient.callMarket(CoinLogos.ALPHA_LIST_URL, null)).optJSONArray("data") ?: return false
+            val entries = CoinLogos.rankAlpha((0 until array.length()).mapNotNull { i ->
+                val o = array.optJSONObject(i) ?: return@mapNotNull null
+                CoinLogos.AlphaEntry(
+                    symbol = o.optString("symbol"),
+                    name = if (o.isNull("name")) null else o.optString("name"),
+                    icon = if (o.isNull("iconUrl")) null else o.optString("iconUrl"),
+                    marketCap = o.optString("marketCap").toDoubleOrNull(),
+                    offline = o.optBoolean("offline", false),
+                )
+            })
+            CoinLogos.pick(entries.map { it.symbol to it.icon }, out)
+            CoinLogos.pickNames(entries.map { it.symbol to it.name }, names)
+            return true
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w("Alpha-Tokenliste nicht verfügbar: %s", e.message)
+            return false
         }
     }
 
@@ -459,17 +654,20 @@ class CoinLogoRepository @Inject constructor(
 
     private companion object {
         const val PREFS = "coin_logos"
-        // «v4»: Zuordnung mit TradFi-Logos und Rang bis 2500; ältere Installationen holen sie einmal neu
-        const val KEY_MAP_TIME = "map_time_v4"
-        const val KEY_MAP_ATTEMPT = "map_attempt_v4"
+        // «v5»: Logo-Liste von GitHub (davor CoinGecko direkt); eine unvollständige v4-Liste galt eine Woche — einmal neu holen
+        const val KEY_MAP_TIME = "map_time_v5"
+        const val KEY_MAP_ATTEMPT = "map_attempt_v5"
         const val KEY_FAILED = "failed"
+        const val KEY_INDEX_ETAG = "index_etag_v5"
+        const val KEY_STOCKS_ETAG = "stocks_etag_v1"
         const val KEY_TRADFI_PAIRS = "tradfi_pairs"
         const val KEY_TRADFI_BASES = "tradfi_bases"
         const val KEY_STOCK_NAMES_TIME = "stock_names_time_v1"
         const val KEY_STOCK_NAMES_ATTEMPT = "stock_names_attempt_v1"
         const val STOCK_NAMES_FILE = "coin_logos/stock_names1.txt"
-        const val MAP_FILE = "coin_logos/map4.txt"
-        const val NAMES_FILE = "coin_logos/names4.txt"
+        const val MAP_FILE = "coin_logos/map5.txt"
+        const val NAMES_FILE = "coin_logos/names5.txt"
+        val OLD_FILES = listOf("coin_logos/map4.txt", "coin_logos/names4.txt")
         const val IMAGE_DIR = "coin_logos"
         const val MEMORY_BYTES = 4 * 1024 * 1024
         const val MAX_PARALLEL_DOWNLOADS = 4

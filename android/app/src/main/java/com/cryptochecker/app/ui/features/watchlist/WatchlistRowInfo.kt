@@ -131,10 +131,11 @@ internal fun RowInfo(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f, fill = false)
             )
-            // Kleine Zeichen: Meldung an, Alarme scharf
+            // Kleine Zeichen: Auge = Kurs-Benachrichtigung an, Glocke = Alarme scharf
+            // (die Glocke steht nur für Alarme, damit nichts verwechselt wird)
             if (watch.notificationEnabled) {
                 Icon(
-                    painterResource(R.drawable.ic_notifications),
+                    painterResource(R.drawable.ic_visibility),
                     contentDescription = stringResource(R.string.watchlist_notification),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = Spacing.xs).size(13.dp)
@@ -142,7 +143,7 @@ internal fun RowInfo(
             }
             if (alarmCount > 0) {
                 Icon(
-                    painterResource(R.drawable.ic_alarm_overview),
+                    painterResource(R.drawable.ic_notifications),
                     contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
                     tint = accent,
                     modifier = Modifier.padding(start = Spacing.xs).size(13.dp)

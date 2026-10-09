@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Зміна з опівночі %1$s недоступна</string>
     <string name="sheet_chart_today">Сьогодні</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Коли застосунок закрито, не частіше разу на хвилину</string>
+    <string name="settings_live_interval_hidden_hint">Застосунок закрито: не частіше разу на хвилину · екран вимкнено: кожні 5 хвилин</string>
     <string name="sheet_more">Більше</string>
     <string name="a11y_expanded">Розгорнуто</string>
     <string name="a11y_collapsed">Згорнуто</string>

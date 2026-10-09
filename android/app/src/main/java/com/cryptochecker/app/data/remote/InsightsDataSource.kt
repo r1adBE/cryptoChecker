@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.market.AltSeason
 import com.cryptochecker.app.domain.market.BitcoinCycle
 import com.cryptochecker.app.domain.market.CoinInputs
@@ -198,7 +199,23 @@ class InsightsDataSource @Inject constructor(
         }.toMap()
 
     /** Altcoin-Saison; [Sourced.provider] = Anbieter des BTC-Verlaufs (Ausweich-Kette). */
-    suspend fun altSeason(): Sourced<AltSeason> = coroutineScope {
+    suspend fun altSeason(): Sourced<AltSeason> = mirroredAltSeason() ?: computedAltSeason()
+
+    /** Fertig berechnete Altcoin-Saison aus dem Daten-Spiegel ([DataMirror.ALT_SEASON]); null = selbst rechnen. */
+    private suspend fun mirroredAltSeason(): Sourced<AltSeason>? {
+        val text = try {
+            httpClient.callMarket(DataMirror.ALT_SEASON.url, null)
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return null
+        }
+        val body = DataMirror.unwrap(text, System.currentTimeMillis(), DataMirror.ALT_SEASON.maxAgeMillis) ?: return null
+        val v = DataMirror.parseAltSeason(body) ?: return null
+        return Sourced(AltSeason(outperformers = v.outperformers, total = v.total), v.provider)
+    }
+
+    private suspend fun computedAltSeason(): Sourced<AltSeason> = coroutineScope {
         val btcSourced = chainKlinesSourced("BTC", CandleInterval.D1, 91)
         val btc = btcSourced.value.map { it.close }
         val btcChange = change90(btc) ?: error("BTC-Verlauf fehlt")

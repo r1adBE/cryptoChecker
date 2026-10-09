@@ -169,7 +169,8 @@ internal fun AlarmEditorSheet(
                     windowHours = draft.windowHours,
                 ),
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                // Ganzer Satz: normale Textfarbe (dunkel wäre onSecondaryContainer die Akzentfarbe)
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = Spacing.md, bottom = Spacing.sm)

@@ -2,13 +2,16 @@ import Combine
 import Foundation
 import UIKit
 
-/// Coin-Logos von CoinGecko (Regeln in `CoinLogos`), gleich wie Android `CoinLogoRepository`.
+/// Coin-Logos (Regeln in `CoinLogos`), gleich wie Android `CoinLogoRepository`.
 /// Nichts ist mitgeliefert, und nichts wird einzeln geholt — so erfährt CoinGecko nie, welche
 /// Coins in einer Merkliste stehen:
 ///
-/// 1. Rangliste der grössten 1000 Coins, Lücken (TradFi wie Gold, Silber, Aktien) aus der
-///    Symbolliste der Binance-Website, übrige Lücken aus Rang 1001–2500; höchstens einmal pro
-///    Woche, für alle Nutzer gleich.
+/// 1. Eigene Logo-Liste auf GitHub Pages (`CoinLogos.indexURL`, täglich von einer GitHub Action aus
+///    CoinGecko, Binance, OKX und Nasdaq gebaut, Krypto und TradFi, Bilder daneben; beim ersten
+///    Laden alle Bilder in einem Abruf aus `CoinLogos.packURL`). Nur solange es die Liste nie gab: Rangliste von CoinGecko,
+///    Binance-Liste, Alpha-Liste direkt. Höchstens einmal pro Woche, für alle Nutzer gleich. Fehlte
+///    eine Quelle, bleibt Bekanntes erhalten (erneut nach einigen Stunden); geänderte Bild-Adressen
+///    laden das Bild neu.
 /// 2. `syncAll` lädt die Logos **aller** Coins dieser Liste (kleine Fassung, auf
 ///    `CoinLogos.storedPixels` begrenzt) in den gemeinsamen Ordner (App Group) — so finden auch
 ///    die Widgets sie ohne Netz. Später fehlen nur neu dazugekommene Coins.
@@ -26,9 +29,9 @@ actor CoinLogoStore {
         return cache
     }()
 
-    // «v4»: Zuordnung mit TradFi-Logos und Rang bis 2500; ältere Installationen holen sie einmal neu
-    private static let mapTimeKey = "coin_logos_map_time_v4"
-    private static let mapAttemptKey = "coin_logos_map_attempt_v4"
+    // «v5»: Logo-Liste von GitHub (davor CoinGecko direkt); ältere Installationen holen sie einmal neu
+    private static let mapTimeKey = "coin_logos_map_time_v5"
+    private static let mapAttemptKey = "coin_logos_map_attempt_v5"
     private static let failedKey = "coin_logos_failed"
     /// Rangliste nicht erreichbar: frühestens nach einer Stunde erneut.
     private static let mapRetryMillis: Int64 = 60 * 60 * 1000
@@ -63,8 +66,10 @@ actor CoinLogoStore {
         return url
     }()
 
-    private static var mapURL: URL { directory.appendingPathComponent("map4.txt") }
-    private static var namesURL: URL { directory.appendingPathComponent("names4.txt") }
+    // «5»: mit Alpha-Liste; eine unvollständige v4-Liste galt eine Woche lang — einmal neu holen
+    private static var mapURL: URL { directory.appendingPathComponent("map5.txt") }
+    private static var namesURL: URL { directory.appendingPathComponent("names5.txt") }
+    private static let oldFiles = ["map4.txt", "names4.txt"]
 
     // MARK: Anzeigen (nie Netz; auch für Widgets)
 
@@ -107,14 +112,16 @@ actor CoinLogoStore {
         syncing = true
         defer { syncing = false }
 
-        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag in der Liste dazu
-        let wanted = CoinLogos.withStockLogos(await symbolMap(), tradFiBases: Self.tradFiBases)
+        let current = await symbolMap()
+        let fromIndex = CoinLogos.isFromIndex(current)
+        // Ohne GitHub-Liste: Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu (mit Liste sind sie drin)
+        let wanted = fromIndex ? current : CoinLogos.withStockLogos(current, tradFiBases: Self.tradFiBases)
         guard images else { return 0 }
         guard !wanted.isEmpty else { return 0 }
         let now = TimeUtils.nowMillis
         var failed = Self.loadFailures(now: now)
         let fm = FileManager.default
-        let missing: [(name: String, url: String)] = wanted.compactMap { symbol, url in
+        var missing: [(name: String, url: String)] = wanted.compactMap { symbol, url in
             guard let name = CoinLogos.fileName(symbol), failed[name] == nil,
                   !fm.fileExists(atPath: Self.directory.appendingPathComponent(name).path)
             else { return nil }
@@ -123,6 +130,16 @@ actor CoinLogoStore {
         guard !missing.isEmpty else { return 0 }
 
         var added = 0
+        // Viele fehlen (erstes Laden): alle Logos in einem Abruf aus dem Paket
+        if fromIndex, missing.count >= CoinLogos.packMinMissing {
+            let fromPack = await Self.fillFromPack(missing)
+            if !fromPack.isEmpty {
+                added += fromPack.count
+                await CoinLogoRevision.bump()
+                missing.removeAll { fromPack.contains($0.name) }
+            }
+            if missing.isEmpty { return added }
+        }
         var pending = missing.makeIterator()
         // Höchstens vier gleichzeitig
         await withTaskGroup(of: (name: String, ok: Bool).self) { group in
@@ -148,6 +165,26 @@ actor CoinLogoStore {
     }
 
     /// Erst die kleine Fassung, sonst das Bild aus der Rangliste.
+    /// Lädt das Paket (`CoinLogos.packURL`) und legt die Bilder für `missing` ab; gibt die Dateinamen
+    /// der abgelegten Bilder zurück (leer bei Fehler).
+    private static func fillFromPack(_ missing: [(name: String, url: String)]) async -> Set<String> {
+        guard let u = URL(string: CoinLogos.packURL),
+              let loaded = try? await session.data(from: u),
+              let http = loaded.1 as? HTTPURLResponse, (200..<300).contains(http.statusCode),
+              loaded.0.count <= CoinLogos.packMaxBytes,
+              let pack = CoinLogos.parsePack(loaded.0)
+        else { return [] }
+        var done = Set<String>()
+        for item in missing where item.url.hasPrefix(CoinLogos.indexBase) {
+            guard let bytes = pack[String(item.url.dropFirst(CoinLogos.indexBase.count))],
+                  let image = scaled(bytes), let png = image.pngData() else { continue }
+            if (try? png.write(to: directory.appendingPathComponent(item.name), options: [.atomic])) != nil {
+                done.insert(item.name)
+            }
+        }
+        return done
+    }
+
     private static func download(name: String, url: String) async -> Bool {
         var candidates = [CoinLogos.smallURL(url)]
         if candidates[0] != url { candidates.append(url) }
@@ -169,6 +206,7 @@ actor CoinLogoStore {
     // MARK: Aktiennamen (Nasdaq-Symbolliste)
 
     private static let stockNamesTimeKey = "coin_logos_stock_names_time_v1"
+    private static let stocksETagKey = "coin_logos_stocks_etag_v1"
     private static let stockNamesAttemptKey = "coin_logos_stock_names_attempt_v1"
     fileprivate static var stockNamesURL: URL { directory.appendingPathComponent("stock_names1.txt") }
 
@@ -186,14 +224,37 @@ actor CoinLogoStore {
                              ttl: Self.mapRetryMillis) { return false }
         defaults.set(Double(now), forKey: Self.stockNamesAttemptKey)
         var fresh: [String: String] = [:]
-        for url in [CoinLogos.nasdaqListedURL, CoinLogos.otherListedURL] {
-            guard let text = try? await MarketHTTP.call(url) else { continue }
-            CoinLogos.parseSymbolDirectory(text, into: &fresh)
+        var stocksETag: String?
+        if CoinLogos.isFromIndex(await symbolMap()) {
+            // Mit GitHub-Liste: eine Datei mit allen Aktiennamen statt der beiden Nasdaq-Dateien;
+            // mit der Kennung des letzten Stands — «304» = unverändert, nichts geladen
+            let etag = known.isEmpty ? nil : defaults.string(forKey: Self.stocksETagKey)
+            if let url = URL(string: CoinLogos.stocksURL) {
+                var request = URLRequest(url: url)
+                request.cachePolicy = .reloadIgnoringLocalCacheData
+                if let etag { request.setValue(etag, forHTTPHeaderField: "If-None-Match") }
+                if let loaded = try? await MarketHTTP.session.data(for: request),
+                   let http = loaded.1 as? HTTPURLResponse {
+                    if http.statusCode == 304, let etag {
+                        stocksETag = etag
+                        fresh = known
+                    } else if (200..<300).contains(http.statusCode) {
+                        stocksETag = http.value(forHTTPHeaderField: "ETag")
+                        fresh = CoinLogos.decodeNames(String(data: loaded.0, encoding: .utf8))
+                    }
+                }
+            }
+        } else {
+            for url in [CoinLogos.nasdaqListedURL, CoinLogos.otherListedURL] {
+                guard let text = try? await MarketHTTP.call(url) else { continue }
+                CoinLogos.parseSymbolDirectory(text, into: &fresh)
+            }
         }
         guard !fresh.isEmpty else { return false }
         try? CoinLogos.encodeNames(fresh, order: fresh.keys.sorted())
             .write(to: Self.stockNamesURL, atomically: true, encoding: .utf8)
         defaults.set(Double(now), forKey: Self.stockNamesTimeKey)
+        if let stocksETag { defaults.set(stocksETag, forKey: Self.stocksETagKey) } else { defaults.removeObject(forKey: Self.stocksETagKey) }
         Self.stockNamesBox.store(fresh)
         await CoinLogoRevision.bump()
         return true
@@ -203,7 +264,8 @@ actor CoinLogoStore {
     private func symbolMap() async -> [String: String] {
         let defaults = SharedStorage.defaults
         let now = TimeUtils.nowMillis
-        let known = map ?? CoinLogos.decode(try? String(contentsOf: Self.mapURL, encoding: .utf8))
+        // Nach dem Update: bis zum ersten Abruf die Liste der Vorgängerfassung
+        let known = map ?? CoinLogos.decode(Self.readFirst([Self.mapURL, Self.directory.appendingPathComponent(Self.oldFiles[0])]))
         map = known
         let savedAt = Int64(defaults.double(forKey: Self.mapTimeKey))
         if CoinLogos.isFresh(savedAt: savedAt, now: now), !known.isEmpty { return known }
@@ -215,57 +277,169 @@ actor CoinLogoStore {
         var order: [String] = []
         var names: [String: String] = [:]
         var nameOrder: [String] = []
-        for page in 1...CoinLogos.pages {
-            guard let text = try? await MarketHTTP.call(CoinLogos.marketsURL(page: page)),
-                  let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
-            else { break }
-            let ranked = array.map { (symbol: $0["symbol"] as? String ?? "", image: $0["image"] as? String) }
-            CoinLogos.pick(ranked, into: &fresh, order: &order)
-            CoinLogos.pickNames(array.map { (symbol: $0["symbol"] as? String ?? "", name: $0["name"] as? String) },
-                                into: &names, order: &nameOrder)
-            if array.count < CoinLogos.perPage { break }
+        var complete: Bool
+        var etag: String?
+        let result = await Self.fetchIndex(knownFromIndex: CoinLogos.isFromIndex(known))
+        if result.unchanged {
+            // «Nichts geändert» (304): nichts geladen, Bekanntes gilt wieder eine Woche
+            defaults.set(Double(now), forKey: Self.mapTimeKey)
+            return known
         }
-        // Lücken der Krypto-Logos und die TradFi-Logos (Aktien, Gold, Silber) aus der
-        // Symbolliste der Binance-Website
-        let crypto = Set(fresh.keys)
-        if let text = try? await MarketHTTP.call(CoinLogos.binanceListURL),
-           let object = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [String: Any],
-           let array = object["data"] as? [[String: Any]] {
-            let entries = array.map { entry -> CoinLogos.BinanceEntry in
-                let name = entry["name"] as? String ?? ""
-                return CoinLogos.BinanceEntry(name: name.isEmpty ? (entry["baseAsset"] as? String ?? "") : name,
-                                              logo: entry["logo"] as? String,
-                                              tags: entry["tags"] as? [String] ?? [],
-                                              onlyFutures: entry["onlyFutures"] as? Bool ?? false,
-                                              fullName: entry["fullName"] as? String)
+        if let index = result.index {
+            etag = result.etag
+            // 1. Eigene Logo-Liste auf GitHub: alle Logos und Namen (Krypto und TradFi) in einer Datei
+            fresh = index.logos
+            order = index.logos.keys.sorted()
+            names = index.names
+            nameOrder = index.names.keys.sorted()
+            complete = true
+        } else if CoinLogos.isFromIndex(known) {
+            // Schon auf der GitHub-Liste: nicht auf die alten Quellen wechseln — später erneut
+            return known
+        } else {
+            // 2. Ersatz, solange es die Liste nie gab: CoinGecko, Binance, Alpha direkt
+            complete = await Self.fetchCoinGecko(pages: 1...CoinLogos.pages, into: &fresh, order: &order,
+                                                 names: &names, nameOrder: &nameOrder)
+            let crypto = Set(fresh.keys)
+            if !(await Self.fetchBinance(into: &fresh, order: &order, names: &names, nameOrder: &nameOrder,
+                                         crypto: crypto, tradFiOnly: false)) {
+                complete = false
             }
-            CoinLogos.pick(entries.map { (symbol: $0.name, image: $0.logo) }, into: &fresh, order: &order)
-            CoinLogos.pickTradFi(entries, crypto: crypto, into: &fresh, order: &order)
-            CoinLogos.pickNames(entries.map { (symbol: $0.name, name: $0.fullName) }, into: &names, order: &nameOrder)
-            CoinLogos.pickTradFiNames(entries, crypto: crypto, into: &names, order: &nameOrder)
-        }
-        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken, mit Pause zwischen den Seiten
-        for page in (CoinLogos.pages + 1)...(CoinLogos.pages + CoinLogos.extraPages) {
-            try? await Task.sleep(nanoseconds: CoinLogos.extraPagePauseNanos)
-            guard let text = try? await MarketHTTP.call(CoinLogos.marketsURL(page: page)),
-                  let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
-            else { break }
-            CoinLogos.pick(array.map { (symbol: $0["symbol"] as? String ?? "", image: $0["image"] as? String) },
-                           into: &fresh, order: &order)
-            CoinLogos.pickNames(array.map { (symbol: $0["symbol"] as? String ?? "", name: $0["name"] as? String) },
-                                into: &names, order: &nameOrder)
-            if array.count < CoinLogos.perPage { break }
+            if !(await Self.fetchAlpha(into: &fresh, order: &order, names: &names, nameOrder: &nameOrder)) {
+                complete = false
+            }
+            // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken
+            let extra = (CoinLogos.pages + 1)...(CoinLogos.pages + CoinLogos.extraPages)
+            if !(await Self.fetchCoinGecko(pages: extra, into: &fresh, order: &order,
+                                           names: &names, nameOrder: &nameOrder)) {
+                complete = false
+            }
         }
         guard !fresh.isEmpty else { return known }
+        // Unvollständig (eine Quelle fehlte): Bekanntes behalten und in einigen Stunden erneut
+        if !complete {
+            CoinLogos.withKnown(&fresh, order: &order, known: known)
+            CoinLogos.withKnown(&names, order: &nameOrder, known: Self.names)
+        }
         try? CoinLogos.encode(fresh, order: order).write(to: Self.mapURL, atomically: true, encoding: .utf8)
+        for old in Self.oldFiles { try? FileManager.default.removeItem(at: Self.directory.appendingPathComponent(old)) }
         if !names.isEmpty {
             try? CoinLogos.encodeNames(names, order: nameOrder).write(to: Self.namesURL, atomically: true, encoding: .utf8)
             Self.namesBox.store(names)
             await CoinLogoRevision.bump()
         }
-        defaults.set(Double(now), forKey: Self.mapTimeKey)
+        defaults.set(Double(CoinLogos.savedAt(now: now, complete: complete)), forKey: Self.mapTimeKey)
+        if let etag { defaults.set(etag, forKey: Self.indexETagKey) } else { defaults.removeObject(forKey: Self.indexETagKey) }
+        // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
+        let changed = CoinLogos.changedKeys(old: known, new: fresh)
+        if !changed.isEmpty {
+            for key in changed {
+                guard let name = CoinLogos.fileName(key) else { continue }
+                Self.memory.removeObject(forKey: name as NSString)
+                try? FileManager.default.removeItem(at: Self.directory.appendingPathComponent(name))
+            }
+            defaults.removeObject(forKey: Self.failedKey)
+        }
         map = fresh
         return fresh
+    }
+
+    private static let indexETagKey = "coin_logos_index_etag_v5"
+
+    /// Logo-Liste von GitHub Pages (`CoinLogos.indexURL`). Mit der Kennung des letzten Stands
+    /// («If-None-Match»): ist nichts neu, antwortet GitHub nur «304» ohne Inhalt.
+    private static func fetchIndex(knownFromIndex: Bool) async
+        -> (index: CoinLogos.Index?, unchanged: Bool, etag: String?) {
+        guard let url = URL(string: CoinLogos.indexURL) else { return (nil, false, nil) }
+        let etag = knownFromIndex ? SharedStorage.defaults.string(forKey: indexETagKey) : nil
+        var request = URLRequest(url: url)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        if let etag { request.setValue(etag, forHTTPHeaderField: "If-None-Match") }
+        guard let loaded = try? await MarketHTTP.session.data(for: request),
+              let http = loaded.1 as? HTTPURLResponse else { return (nil, false, nil) }
+        let data = loaded.0
+        if http.statusCode == 304, etag != nil { return (nil, true, etag) }
+        guard (200..<300).contains(http.statusCode) else { return (nil, false, nil) }
+        return (CoinLogos.parseIndex(String(data: data, encoding: .utf8)), false,
+                http.value(forHTTPHeaderField: "ETag"))
+    }
+
+    /// Symbolliste der Binance-Website: TradFi-Logos und -Namen (Aktien, Gold, Silber), ohne
+    /// `tradFiOnly` auch Lücken der Krypto-Logos. false = nicht erreichbar.
+    private static func fetchBinance(into fresh: inout [String: String], order: inout [String],
+                                     names: inout [String: String], nameOrder: inout [String],
+                                     crypto: Set<String>, tradFiOnly: Bool) async -> Bool {
+        guard let text = try? await MarketHTTP.call(CoinLogos.binanceListURL),
+              let object = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [String: Any],
+              let array = object["data"] as? [[String: Any]]
+        else { return false }
+        let entries = array.map { entry -> CoinLogos.BinanceEntry in
+            let name = entry["name"] as? String ?? ""
+            return CoinLogos.BinanceEntry(name: name.isEmpty ? (entry["baseAsset"] as? String ?? "") : name,
+                                          logo: entry["logo"] as? String,
+                                          tags: entry["tags"] as? [String] ?? [],
+                                          onlyFutures: entry["onlyFutures"] as? Bool ?? false,
+                                          fullName: entry["fullName"] as? String)
+        }
+        if !tradFiOnly {
+            CoinLogos.pick(entries.map { (symbol: $0.name, image: $0.logo) }, into: &fresh, order: &order)
+        }
+        CoinLogos.pickTradFi(entries, crypto: crypto, into: &fresh, order: &order)
+        if !tradFiOnly {
+            CoinLogos.pickNames(entries.map { (symbol: $0.name, name: $0.fullName) }, into: &names, order: &nameOrder)
+        }
+        CoinLogos.pickTradFiNames(entries, crypto: crypto, into: &names, order: &nameOrder)
+        return true
+    }
+
+    /// Token-Liste von Binance Alpha (`CoinLogos.alphaListURL`): Lücken wie AIA, AGT, AIO.
+    private static func fetchAlpha(into fresh: inout [String: String], order: inout [String],
+                                   names: inout [String: String], nameOrder: inout [String]) async -> Bool {
+        guard let text = try? await MarketHTTP.call(CoinLogos.alphaListURL),
+              let object = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [String: Any],
+              let array = object["data"] as? [[String: Any]]
+        else { return false }
+        let entries = CoinLogos.rankAlpha(array.map { entry in
+            CoinLogos.AlphaEntry(symbol: entry["symbol"] as? String ?? "",
+                                 name: entry["name"] as? String,
+                                 icon: entry["iconUrl"] as? String,
+                                 marketCap: (entry["marketCap"] as? String).flatMap { Double($0) }
+                                     ?? (entry["marketCap"] as? NSNumber)?.doubleValue,
+                                 offline: entry["offline"] as? Bool ?? false)
+        })
+        CoinLogos.pick(entries.map { (symbol: $0.symbol, image: $0.icon) }, into: &fresh, order: &order)
+        CoinLogos.pickNames(entries.map { (symbol: $0.symbol, name: $0.name) }, into: &names, order: &nameOrder)
+        return true
+    }
+
+    /// Seiten der Rangliste mit Pause dazwischen (bei «429» einmal nach der verlangten Pause
+    /// wiederholt); false = eine Seite fehlte (Abbruch).
+    private static func fetchCoinGecko(pages: ClosedRange<Int>,
+                                       into fresh: inout [String: String], order: inout [String],
+                                       names: inout [String: String], nameOrder: inout [String]) async -> Bool {
+        for page in pages {
+            if page > 1 { try? await Task.sleep(nanoseconds: UInt64(CoinLogos.pagePauseMillis) * 1_000_000) }
+            let url = CoinLogos.marketsURL(page: page)
+            var text: String?
+            do {
+                text = try await MarketHTTP.call(url)
+            } catch let error as HttpMarketError where error.httpCode == 429 {
+                let wait = CoinLogos.rateLimitWaitMillis(retryAfterSeconds: error.retryAfterSeconds)
+                try? await Task.sleep(nanoseconds: UInt64(wait) * 1_000_000)
+                text = try? await MarketHTTP.call(url)
+            } catch {
+                text = nil
+            }
+            guard let text,
+                  let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
+            else { return false }
+            CoinLogos.pick(array.map { (symbol: $0["symbol"] as? String ?? "", image: $0["image"] as? String) },
+                           into: &fresh, order: &order)
+            CoinLogos.pickNames(array.map { (symbol: $0["symbol"] as? String ?? "", name: $0["name"] as? String) },
+                                into: &names, order: &nameOrder)
+            if array.count < CoinLogos.perPage { return true }
+        }
+        return true
     }
 
     // MARK: Fehlschläge (Name → Zeitpunkt), einen Tag lang nicht wiederholen
@@ -322,7 +496,16 @@ extension CoinLogoStore {
 
     /// Namen der Coins und TradFi-Paare (Schlüssel `CoinLogos.nameKey`); leer, bis die Liste da ist.
     static var names: [String: String] {
-        namesBox.read { CoinLogos.decodeNames(try? String(contentsOf: namesURL, encoding: .utf8)) }
+        namesBox.read { CoinLogos.decodeNames(readFirst([namesURL, directory.appendingPathComponent(oldFiles[1])])) }
+    }
+
+    /// Inhalt der ersten vorhandenen, nicht leeren Datei.
+    fileprivate static func readFirst(_ urls: [URL]) -> String? {
+        for url in urls {
+            if let text = try? String(contentsOf: url, encoding: .utf8),
+               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return text }
+        }
+        return nil
     }
 
     /// Name für ein Paar der Merkliste (TradFi beachtet); nil bei DEX-Pools und unbekannten Coins.

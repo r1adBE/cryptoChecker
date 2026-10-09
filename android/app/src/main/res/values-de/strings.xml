@@ -136,10 +136,10 @@
 
     <string name="settings_title">Einstellungen</string>
     <string name="settings_background_updates">Im Hintergrund aktualisieren</string>
-    <string name="settings_background_updates_hint">Kurse, Alarme und Widgets werden auch bei geschlossener App aktualisiert.</string>
+    <string name="settings_background_updates_hint">Auch bei geschlossener App: Kurse, Alarme und Widgets im Abstand unten.</string>
     <string name="settings_background_interval">Intervall</string>
     <string name="settings_live_service">Häufig aktualisieren</string>
-    <string name="settings_live_service_hint">Fragt die Kurse in kurzen Abständen ab, auch bei geschlossener App. Zeigt dafür eine Mitteilung und braucht mehr Akku.</string>
+    <string name="settings_live_service_hint">Auch bei geschlossener App: fragt die Kurse in kurzen Abständen ab. Zeigt dafür eine Mitteilung und braucht mehr Akku.</string>
     <string name="settings_live_interval">Wie oft</string>
     <string name="settings_minutes">%1$d Min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -262,7 +262,7 @@
     <string name="time_just_now">gerade eben</string>
     <string name="welcome_text">Deine Kurse. Deine Alarme. Deine Übersicht.\nOhne Konto. Ohne Werbung. Ohne Tracking.</string>
     <string name="developer_unlocked">Entwickleroptionen freigeschaltet</string>
-    <string name="hint_favorites_list">Tipp: ☆ antippen = Favorit – Favoriten stehen oben.</string>
+    <string name="hint_favorites_list">Tipp: Zeile nach rechts wischen = Favorit – Favoriten stehen oben.</string>
     <string name="tab_watchlist">Merkliste</string>
     <string name="tab_market_phase">Markt</string>
     <plurals name="watchlist_stale_count">

@@ -5,15 +5,16 @@ import SwiftUI
 
 // MARK: Gruppen-Chips
 
-/// Gruppen-Auswahl oben: «Alle · FAV · Gruppe 1 · Gruppe 2 … · +», waagrecht scrollbar.
-/// «FAV» zeigt die Favoriten (`WatchFilter.favorites`), immer da.
+/// Gruppen-Auswahl oben: «Alle · Favoriten · Gruppe 1 · Gruppe 2 … · +», waagrecht scrollbar.
 /// Tippen filtert, lange drücken öffnet «Gruppe bearbeiten», «+» legt eine an.
-/// Ohne Gruppen steht nur «+» da.
+/// Nur was es gibt (wie Android): «Favoriten» erst mit einem Favoriten, «+» erst mit einer Gruppe
+/// (die erste entsteht über das Aktionsblatt eines Paars); gibt es weder noch, bleibt die Zeile leer.
 @MainActor
 struct WatchlistGroupChips: View {
     let groups: [String]
     /// nil = «Alle».
     let selected: String?
+    var hasFavorites: Bool = false
     let onSelect: (String?) -> Void
     /// Lange drücken auf eine Gruppe (nicht «Alle»).
     var onEdit: ((String) -> Void)? = nil
@@ -25,31 +26,41 @@ struct WatchlistGroupChips: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                // «Alle» steht immer da, sobald die Merkliste ein Paar hat (die Kopfzeile gibt es erst dann)
+              if Self.showsChips(groups: groups, selected: selected, hasFavorites: hasFavorites) {
                 chip(L("group_all"), isSelected: selected == nil, action: { onSelect(nil) })
-                chip(WatchFilter.favoritesLabel, isSelected: WatchFilter.isFavorites(selected),
-                     action: { onSelect(WatchFilter.favorites) }, spoken: L("group_favorites"))
+                // Auch ohne Favoriten sichtbar, solange die Ansicht gewählt ist (sonst kein Weg zurück)
+                if hasFavorites || WatchFilter.isFavorites(selected) {
+                    chip(L("group_favorites"), isSelected: WatchFilter.isFavorites(selected),
+                         action: { onSelect(WatchFilter.favorites) })
+                }
                 ForEach(groups, id: \.self) { group in
                     chip(group, isSelected: selected == group, action: { onSelect(group) },
                          longPress: onEdit.map { edit -> () -> Void in { edit(group) } })
                 }
-                if let onAdd {
+                if let onAdd, !groups.isEmpty {
                     Button(action: onAdd) {
                         Image(systemName: "plus")
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(AppColors.onSurfaceVariant)
                             .frame(width: 34, height: 32)
                             .background(AppColors.containerHigh, in: Capsule())
-                            .contentShape(Capsule())
+                            // Tippfläche 44 pt hoch, sichtbar bleibt das kleine Feld
+                            .contentShape(Capsule().inset(by: -6))
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(L("group_add"))
                 }
+              }
             }
             .padding(.vertical, 2)
         }
         .scrollClipDisabled()
         .sensoryFeedback(.selection, trigger: selected)
+    }
+
+    /// Chips zeigen? Nur wenn es neben «Alle» etwas zu wählen gibt (oder eine Auswahl aktiv ist).
+    static func showsChips(groups: [String], selected: String?, hasFavorites: Bool) -> Bool {
+        !groups.isEmpty || hasFavorites || selected != nil
     }
 
     private func chip(_ title: String, isSelected: Bool, action: @escaping () -> Void,
@@ -62,7 +73,8 @@ struct WatchlistGroupChips: View {
             .foregroundStyle(isSelected ? accent.onContainer : AppColors.onSurface)
             .background(isSelected ? accent.container : AppColors.containerHigh, in: Capsule())
             .overlay(Capsule().strokeBorder(isSelected ? accent.primary.opacity(0.6) : .clear, lineWidth: 1))
-            .contentShape(Capsule())
+            // Tippfläche höher als der Chip (44 pt), ohne die Zeile höher zu machen
+            .contentShape(Rectangle().inset(by: -6))
             // Tippen und langes Drücken getrennt (ein Button kennt kein langes Drücken)
             .onTapGesture(perform: action)
             .onLongPressGesture(minimumDuration: 0.45) {

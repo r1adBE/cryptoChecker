@@ -141,10 +141,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Instellingen</string>
     <string name="settings_background_updates">Updates op de achtergrond</string>
-    <string name="settings_background_updates_hint">Koersen, alarmen en widgets worden ook bijgewerkt als de app gesloten is.</string>
+    <string name="settings_background_updates_hint">Ook als de app gesloten is: koersen, alarmen en widgets met het interval hieronder.</string>
     <string name="settings_background_interval">Interval</string>
     <string name="settings_live_service">Vaak bijwerken</string>
-    <string name="settings_live_service_hint">Haalt koersen op met korte tussenpozen, ook als de app dicht is. Toont een melding en verbruikt meer batterij.</string>
+    <string name="settings_live_service_hint">Ook als de app gesloten is: vraagt koersen op met korte tussenpozen. Toont een melding en gebruikt meer batterij.</string>
     <string name="settings_live_interval">Hoe vaak</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -270,7 +270,7 @@
     <string name="time_just_now">zojuist</string>
     <string name="welcome_text">Jouw koersen. Jouw alarmen. Jouw overzicht.\nGeen account. Geen advertenties. Geen tracking.</string>
     <string name="developer_unlocked">Ontwikkelaarsopties ontgrendeld</string>
-    <string name="hint_favorites_list">Tip: tik op ☆ voor een favoriet – favorieten blijven bovenaan.</string>
+    <string name="hint_favorites_list">Tip: veeg een rij naar rechts om er een favoriet van te maken – favorieten staan bovenaan.</string>
     <string name="tab_watchlist">Lijst</string>
     <string name="tab_market_phase">Markt</string>
     <plurals name="watchlist_stale_count">

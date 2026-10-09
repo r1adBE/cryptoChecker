@@ -59,12 +59,23 @@ extension ExplorerScreen {
             }
 
             if vm.searchHits.isEmpty && vm.searchProgress == nil {
-                HStack(spacing: Spacing.sm) {
-                    Image(systemName: "magnifyingglass")
-                    Text(L("explorer_search_empty"))
+                VStack(spacing: Spacing.sm) {
+                    HStack(spacing: Spacing.sm) {
+                        Image(systemName: "magnifyingglass")
+                        Text(L("explorer_search_empty"))
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    // Der manuelle Weg bleibt erreichbar, ohne erst das Suchfeld zu leeren (wie Android)
+                    Button(L("explorer_search_choose_manually")) {
+                        vm.setSearchQuery("")
+                        searchFocused = false
+                        ExplorerSectionMemory.precise = true
+                        withAnimation(.snappy(duration: 0.3)) { showPrecise = true }
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(accent.primary)
                 }
-                .font(.subheadline)
-                .foregroundStyle(AppColors.onSurfaceVariant)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, Spacing.xxl)
             }

@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">השינוי מאז חצות %1$s אינו זמין</string>
     <string name="sheet_chart_today">היום</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">כשהאפליקציה סגורה, לכל היותר פעם בדקה</string>
+    <string name="settings_live_interval_hidden_hint">אפליקציה סגורה: לכל היותר פעם בדקה · מסך כבוי: כל 5 דקות</string>
     <string name="sheet_more">עוד</string>
     <string name="a11y_expanded">מורחב</string>
     <string name="a11y_collapsed">מכווץ</string>

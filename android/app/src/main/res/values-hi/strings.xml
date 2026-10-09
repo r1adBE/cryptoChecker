@@ -141,10 +141,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">सेटिंग्स</string>
     <string name="settings_background_updates">बैकग्राउंड अपडेट</string>
-    <string name="settings_background_updates_hint">ऐप बंद होने पर भी कीमतें, अलार्म और विजेट अपडेट होते हैं।</string>
+    <string name="settings_background_updates_hint">ऐप बंद होने पर भी: कीमतें, अलार्म और विजेट नीचे दिए अंतराल पर।</string>
     <string name="settings_background_interval">अंतराल</string>
     <string name="settings_live_service">बार-बार अपडेट करें</string>
-    <string name="settings_live_service_hint">ऐप बंद होने पर भी कम अंतराल पर भाव जाँचता है। एक सूचना दिखाता है और ज़्यादा बैटरी खर्च करता है।</string>
+    <string name="settings_live_service_hint">ऐप बंद होने पर भी: कम अंतराल पर कीमतें जाँचता है। एक सूचना दिखाता है और ज़्यादा बैटरी लेता है।</string>
     <string name="settings_live_interval">कितनी बार</string>
     <string name="settings_minutes">%1$d मिनट</string>
     <string name="settings_seconds">%1$d सेकंड</string>
@@ -270,7 +270,7 @@
     <string name="time_just_now">अभी-अभी</string>
     <string name="welcome_text">आपके भाव। आपके अलार्म। आपका ओवरव्यू।\nकोई खाता नहीं। कोई विज्ञापन नहीं। कोई ट्रैकिंग नहीं।</string>
     <string name="developer_unlocked">डेवलपर विकल्प खुल गए</string>
-    <string name="hint_favorites_list">सुझाव: पसंदीदा के लिए ☆ पर टैप करें – पसंदीदा ऊपर रहते हैं।</string>
+    <string name="hint_favorites_list">सुझाव: किसी पंक्ति को दाईं ओर स्वाइप करें ताकि वह पसंदीदा बने – पसंदीदा ऊपर रहते हैं।</string>
     <string name="tab_watchlist">सूची</string>
     <string name="tab_market_phase">बाज़ार</string>
     <plurals name="watchlist_stale_count">

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.components
 
+import com.cryptochecker.app.ui.theme.AppColors
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -154,7 +155,7 @@ private fun InitialsCircle(coin: String, size: Dp) {
         modifier = Modifier
             .fillMaxSize()
             .clip(CircleShape)
-            .background(accent.copy(alpha = 0.14f))
+            .background(AppColors.accentTint(0.14f))
     ) {
         Text(
             text = initials,

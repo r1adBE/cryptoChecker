@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">탭하여 작업 · 스와이프하여 빠른 작업 · 길게 눌러 정렬</string>
+    <string name="watch_gesture_hint_short">탭하여 작업 · 왼쪽으로 밀어 삭제 · 오른쪽으로 밀어 즐겨찾기</string>
     <string name="watch_action_alarm">경보</string>
     <string name="watch_action_why">왜?</string>
     <string name="watch_action_favorite">즐겨찾기</string>

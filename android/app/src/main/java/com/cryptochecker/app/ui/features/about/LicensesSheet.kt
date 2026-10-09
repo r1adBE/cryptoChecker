@@ -3,6 +3,7 @@
 package com.cryptochecker.app.ui.features.about
 
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -129,6 +130,7 @@ private fun SectionTitle(text: String) {
         modifier = Modifier
             .padding(top = 16.dp, bottom = 4.dp)
             .semantics { heading() }
+            .sectionTitleMarker()
     )
 }
 

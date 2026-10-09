@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">أعلى من المعتاد</string>
     <string name="why_fn_volume_lower">أقل من المعتاد</string>
     <string name="why_fn_volume_usual">كالمعتاد</string>
-    <string name="why_fn_market_pulls">BTC يجرّ السوق معه</string>
+    <string name="why_fn_market_pulls">السوق يتحرك مع BTC</string>
     <string name="why_fn_market_lags">السوق يتحرك، وهذه العملة بالكاد</string>
     <string name="why_fn_market_alone">السوق هادئ – هذه العملة تتحرك وحدها</string>
     <string name="why_fn_market_against">العملة تتحرك عكس السوق</string>

@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Cotações ao vivo</string>
-    <string name="settings_live_websocket_hint">As cotações acompanham a exchange sem atraso enquanto a lista estiver aberta. Para Binance, Bybit, OKX, Coinbase e Kraken.</string>
+    <string name="settings_live_websocket_hint">Enquanto a lista estiver aberta: os preços acompanham a corretora sem atraso. Para Binance, Bybit, OKX, Coinbase e Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Cotações ao vivo ativas</string>
     <string name="refresh_report_live">Ao vivo: %1$s</string>

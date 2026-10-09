@@ -133,10 +133,10 @@
 
     <string name="settings_title">설정</string>
     <string name="settings_background_updates">백그라운드 업데이트</string>
-    <string name="settings_background_updates_hint">앱이 닫혀 있어도 가격, 경보, 위젯이 업데이트됩니다.</string>
+    <string name="settings_background_updates_hint">앱이 닫혀 있어도: 아래 간격으로 시세, 알람, 위젯을 업데이트합니다.</string>
     <string name="settings_background_interval">간격</string>
     <string name="settings_live_service">자주 업데이트</string>
-    <string name="settings_live_service_hint">앱이 닫혀 있어도 짧은 간격으로 시세를 확인합니다. 알림이 표시되고 배터리를 더 사용합니다.</string>
+    <string name="settings_live_service_hint">앱이 닫혀 있어도: 짧은 간격으로 시세를 확인합니다. 알림이 표시되며 배터리를 더 사용합니다.</string>
     <string name="settings_live_interval">업데이트 간격</string>
     <string name="settings_minutes">%1$d분</string>
     <string name="settings_seconds">%1$d초</string>
@@ -253,7 +253,7 @@
     <string name="time_just_now">방금</string>
     <string name="welcome_text">내 시세. 내 경보. 내 개요.\n계정 없음. 광고 없음. 추적 없음.</string>
     <string name="developer_unlocked">개발자 옵션이 열렸습니다</string>
-    <string name="hint_favorites_list">팁: ☆를 탭하면 즐겨찾기 – 즐겨찾기는 위에 표시됩니다.</string>
+    <string name="hint_favorites_list">팁: 행을 오른쪽으로 밀면 즐겨찾기가 됩니다 – 즐겨찾기는 위에 표시됩니다.</string>
     <string name="tab_watchlist">목록</string>
     <string name="tab_market_phase">시장</string>
     <plurals name="watchlist_stale_count">

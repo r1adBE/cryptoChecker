@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favori</string>
+    <string name="explorer_search_choose_manually">Borsayı ve pariteyi kendin seç</string>
+    <string name="portfolio_avg_price_hint">Ort. alış fiyatı: tüm alımların miktara göre ağırlıklı ortalaması. Satışlar bu ortalamayla değerlenir (FIFO değil).</string>
+</resources>

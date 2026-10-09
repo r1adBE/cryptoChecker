@@ -6,6 +6,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -163,7 +164,7 @@ fun PortfolioDetailScreen(
                                 stringResource(R.string.portfolio_transactions),
                                 style = SectionTitle.style,
                                 color = SectionTitle.color,
-                                modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp)
+                                modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp).sectionTitleMarker()
                             )
                         }
                         items(own, key = { it.id }) { tx ->
@@ -260,6 +261,8 @@ private fun PositionCard(p: CoinPosition) {
                     )
                 }
             }
+            // Wie «Ø Kaufpreis» gerechnet wird (Durchschnitt, nicht FIFO)
+            PortfolioHint(stringResource(R.string.portfolio_avg_price_hint))
             if (p.priceMissing) {
                 PortfolioHint(stringResource(R.string.portfolio_price_missing_hint))
             }

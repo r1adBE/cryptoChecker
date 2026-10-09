@@ -148,10 +148,10 @@
 
     <string name="settings_title">الإعدادات</string>
     <string name="settings_background_updates">التحديث في الخلفية</string>
-    <string name="settings_background_updates_hint">تُحدَّث الأسعار والتنبيهات والأدوات حتى عند إغلاق التطبيق.</string>
+    <string name="settings_background_updates_hint">حتى عندما يكون التطبيق مغلقًا: الأسعار والتنبيهات والأدوات وفق الفاصل أدناه.</string>
     <string name="settings_background_interval">الفاصل الزمني</string>
     <string name="settings_live_service">التحديث المتكرر</string>
-    <string name="settings_live_service_hint">يفحص الأسعار على فترات قصيرة، حتى عندما يكون التطبيق مغلقًا. يعرض إشعارًا ويستهلك بطارية أكثر.</string>
+    <string name="settings_live_service_hint">حتى عندما يكون التطبيق مغلقًا: يفحص الأسعار على فترات قصيرة. يعرض إشعارًا ويستهلك بطارية أكثر.</string>
     <string name="settings_live_interval">كم مرة</string>
     <string name="settings_minutes">%1$d د</string>
     <string name="settings_seconds">%1$d ث</string>
@@ -298,7 +298,7 @@
     <string name="time_just_now">الآن</string>
     <string name="welcome_text">أسعارك. تنبيهاتك. نظرتك العامة.\nبلا حساب. بلا إعلانات. بلا تتبع.</string>
     <string name="developer_unlocked">تم فتح خيارات المطوّر</string>
-    <string name="hint_favorites_list">نصيحة: اضغط على ☆ للإضافة إلى المفضلة – تبقى المفضلة في الأعلى.</string>
+    <string name="hint_favorites_list">نصيحة: اسحب الصف إلى اليمين لجعله مفضلًا – المفضلة تبقى في الأعلى.</string>
     <string name="tab_watchlist">القائمة</string>
     <string name="tab_market_phase">السوق</string>
     <plurals name="watchlist_stale_count">

@@ -33,12 +33,22 @@ struct PortfolioAllocationCard: View {
     let slices: [AllocationSlice]
     @Environment(\.hidePortfolioAmounts) private var hidden
     @Environment(\.appAccent) private var accent
+    @Environment(\.colorScheme) private var colorScheme
 
     private static let alphas: [Double] = [1, 0.72, 0.5, 0.32]
 
+    /// Dunkel zur hellen Schrift hin gemischt statt durchsichtig (wie Android `sliceColor`):
+    /// durchsichtiges Orange wirkt auf dunklem Grund braun.
     private func color(_ index: Int, _ slice: AllocationSlice) -> Color {
         if slice.isOther { return AppColors.onSurfaceVariant.opacity(0.35) }
-        return accent.primary.opacity(Self.alphas[min(index, Self.alphas.count - 1)])
+        let strength = Self.alphas[min(index, Self.alphas.count - 1)]
+        guard colorScheme == .dark else { return accent.primary.opacity(strength) }
+        let t = CGFloat((1 - strength) * 0.85)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        accent.primaryUI.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
+            .getRed(&r, green: &g, blue: &b, alpha: &a)
+        let light: CGFloat = 0xE2 / 255.0
+        return Color(red: r + (light - r) * t, green: g + (light - g) * t, blue: b + (light - b) * t)
     }
 
     var body: some View {

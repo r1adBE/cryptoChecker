@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">højere end normalt</string>
     <string name="why_fn_volume_lower">lavere end normalt</string>
     <string name="why_fn_volume_usual">som normalt</string>
-    <string name="why_fn_market_pulls">BTC trækker markedet med</string>
+    <string name="why_fn_market_pulls">Markedet bevæger sig med BTC</string>
     <string name="why_fn_market_lags">Markedet bevæger sig, denne coin knap</string>
     <string name="why_fn_market_alone">Roligt marked – denne coin bevæger sig alene</string>
     <string name="why_fn_market_against">Coinen bevæger sig mod markedet</string>

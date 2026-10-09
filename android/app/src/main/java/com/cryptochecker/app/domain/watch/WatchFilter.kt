@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 /**
- * Ansichten der Merkliste über den Gruppen-Chips: «Alle» (null), «FAV» ([FAVORITES]) und die
+ * Ansichten der Merkliste über den Gruppen-Chips: «Alle» (null), «Favoriten» ([FAVORITES]) und die
  * eigenen Gruppen. FAV ist keine Gruppe, sondern ein Filter auf das Favoriten-Kennzeichen: Ein
  * Paar bleibt in seiner Gruppe und steht als Favorit zusätzlich unter FAV — Favorit an, gleich
  * drin; aus, gleich draussen. Gilt auch für Listen-Widgets. Wie `WatchFilter.swift` (iOS).
@@ -9,9 +9,6 @@ package com.cryptochecker.app.domain.watch
 object WatchFilter {
     /** Gespeicherter Wert für «FAV» (Steuerzeichen, kann kein Gruppenname sein). */
     const val FAVORITES = "\u0001FAV"
-
-    /** Beschriftung des Chips, in allen Sprachen gleich (Kurzform von «Favoriten»). */
-    const val FAVORITES_LABEL = "FAV"
 
     fun isFavorites(selection: String?): Boolean = selection == FAVORITES
 

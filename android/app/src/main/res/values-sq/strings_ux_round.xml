@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">E preferuar</string>
+    <string name="explorer_search_choose_manually">Zgjidh vetë bursën dhe çiftin</string>
+    <string name="portfolio_avg_price_hint">Çmimi mesatar i blerjes: mesatarja e të gjitha blerjeve, e peshuar sipas sasisë. Shitjet vlerësohen me këtë mesatare (jo FIFO).</string>
+</resources>

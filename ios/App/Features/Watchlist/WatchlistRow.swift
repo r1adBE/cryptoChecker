@@ -67,6 +67,7 @@ struct WatchlistRow: View {
     /// Lange drücken: Sortiermodus an (nil = nicht möglich, z. B. während der Suche).
     var onLongPress: (() -> Void)? = nil
 
+    @Environment(\.coinLogosEnabled) private var coinLogosEnabled
     @Environment(\.appAccent) private var accent
     @Environment(\.priceColorScheme) private var priceColors
     @Environment(\.priceHighContrast) private var highContrast
@@ -123,7 +124,13 @@ struct WatchlistRow: View {
     var body: some View {
         HStack(spacing: Spacing.sm) {
             // Coin-Logo (bzw. Initialen), Favorit als kleiner Stern daran. Logos aus: keine Plakette,
-            // Favoriten zeigt dann nur der Akzent-Rand — kein eigener Stern, der dem Paar Breite nimmt.
+            // Favorit dann als eigener kleiner Stern (nicht nur der Akzent-Rand) — wie Android.
+            if !coinLogosEnabled && watch.favorite && !sorting {
+                Image(systemName: "star.fill")
+                    .scaledFont(size: 13, weight: .semibold, relativeTo: .headline)
+                    .foregroundStyle(accent.primary)
+                    .accessibilityHidden(true)
+            }
             CoinBadge(symbol: watch.baseAsset, size: 38, logo: CoinLogos.allowed(forMarket: watch.marketKey),
                       pair: watch.logoPairKey,
                       favorite: watch.favorite && !sorting)
@@ -296,7 +303,8 @@ struct WatchlistRow: View {
             converted: converted,
             chart: chart,
             alarmCount: alarmCount,
-            extra: [watch.notificationEnabled ? L("watchlist_notification") : nil],
+            extra: [watch.favorite ? L("a11y_favorite") : nil,
+                    watch.notificationEnabled ? L("watchlist_notification") : nil],
             stale: staleText,
             changeView: changeView
         )
@@ -329,7 +337,7 @@ struct WatchlistRow: View {
                         .foregroundStyle(accent.primary)
                         .padding(.horizontal, Spacing.xs)
                         .padding(.vertical, 2)
-                        .background(accent.primary.opacity(0.12), in: Capsule())
+                        .background(accent.tint(0.12), in: Capsule())
                         .lineLimit(1)
                         .fixedSize()
                         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
@@ -364,16 +372,17 @@ struct WatchlistRow: View {
                     .lineLimit(line.warning || typeSize.isAccessibilitySize ? 2 : 1)
                     .layoutPriority(-1)
 
-                // Kleine Zeichen: Mitteilung an, Alarme scharf
+                // Kleine Zeichen: Auge = Kurs-Mitteilung an, Glocke = Alarme scharf
+                // (die Glocke steht nur für Alarme, damit nichts verwechselt wird)
                 if watch.notificationEnabled {
-                    Image(systemName: "bell.fill")
+                    Image(systemName: "eye.fill")
                         .scaledFont(size: 10, relativeTo: .caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .accessibilityLabel(L("watchlist_notification"))
                 }
                 if alarmCount > 0 {
                     HStack(spacing: 2) {
-                        Image(systemName: "alarm.fill").scaledFont(size: 10, relativeTo: .caption2)
+                        Image(systemName: "bell.fill").scaledFont(size: 10, relativeTo: .caption2)
                         Text(verbatim: LocaleNumbers.integer(alarmCount)).font(.caption2.weight(.semibold).monospacedDigit())
                     }
                     .foregroundStyle(accent.primary)
@@ -470,7 +479,7 @@ struct WatchlistRow: View {
                 // Favoriten mit feinem Akzent-Schimmer am linken Rand
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(LinearGradient(
-                        colors: [accent.primary.opacity(watch.favorite ? 0.12 : 0), .clear],
+                        colors: [watch.favorite ? accent.tint(0.12) : .clear, .clear],
                         startPoint: .leading, endPoint: .center))
             )
             .shadow(color: AppColors.shadow.opacity(highlighted ? 0.18 : 0), radius: 12, y: 4)

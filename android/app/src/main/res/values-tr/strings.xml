@@ -141,10 +141,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Ayarlar</string>
     <string name="settings_background_updates">Arka plan güncellemeleri</string>
-    <string name="settings_background_updates_hint">Fiyatlar, alarmlar ve widget\'lar uygulama kapalıyken de güncellenir.</string>
+    <string name="settings_background_updates_hint">Uygulama kapalıyken bile: fiyatlar, alarmlar ve widget\'lar aşağıdaki aralıkta.</string>
     <string name="settings_background_interval">Aralık</string>
     <string name="settings_live_service">Sık güncelle</string>
-    <string name="settings_live_service_hint">Fiyatları kısa aralıklarla kontrol eder, uygulama kapalıyken bile. Bir bildirim gösterir ve daha fazla pil kullanır.</string>
+    <string name="settings_live_service_hint">Uygulama kapalıyken bile: fiyatları kısa aralıklarla kontrol eder. Bir bildirim gösterir ve daha fazla pil kullanır.</string>
     <string name="settings_live_interval">Ne sıklıkla</string>
     <string name="settings_minutes">%1$d dk</string>
     <string name="settings_seconds">%1$d sn</string>
@@ -270,7 +270,7 @@
     <string name="time_just_now">az önce</string>
     <string name="welcome_text">Fiyatlarınız. Alarmlarınız. Genel bakışınız.\nHesap yok. Reklam yok. Takip yok.</string>
     <string name="developer_unlocked">Geliştirici seçenekleri açıldı</string>
-    <string name="hint_favorites_list">İpucu: favori için ☆ simgesine dokunun – favoriler üstte kalır.</string>
+    <string name="hint_favorites_list">İpucu: bir satırı sağa kaydırarak favori yap – favoriler üstte kalır.</string>
     <string name="tab_watchlist">Liste</string>
     <string name="tab_market_phase">Piyasa</string>
     <plurals name="watchlist_stale_count">

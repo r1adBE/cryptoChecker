@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.info
 
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -385,6 +386,7 @@ internal fun MarketSectionHeader(
             style = SectionTitle.style,
             color = SectionTitle.color,
             maxLines = 1,
+            modifier = Modifier.sectionTitleMarker(),
         )
         Text(
             // Offen: keine Zusammenfassung (die Zeilen stehen darunter)

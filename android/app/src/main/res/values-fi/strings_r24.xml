@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Muutos keskiyöstä %1$s ei saatavilla</string>
     <string name="sheet_chart_today">Tänään</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Kun sovellus on suljettu, enintään kerran minuutissa</string>
+    <string name="settings_live_interval_hidden_hint">Sovellus suljettu: enintään kerran minuutissa · näyttö pois: 5 minuutin välein</string>
     <string name="sheet_more">Lisää</string>
     <string name="a11y_expanded">Laajennettu</string>
     <string name="a11y_collapsed">Tiivistetty</string>

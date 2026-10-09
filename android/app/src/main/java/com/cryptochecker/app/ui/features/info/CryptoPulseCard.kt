@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.info
 
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -246,7 +247,7 @@ private fun PulseOverline(modifier: Modifier = Modifier) {
         stringResource(R.string.pulse_now_title),
         style = SectionTitle.style,
         color = SectionTitle.color,
-        modifier = modifier
+        modifier = modifier.sectionTitleMarker()
     )
 }
 
@@ -523,7 +524,7 @@ private fun PulseSectionTitle(text: String) {
         text,
         style = SectionTitle.style,
         color = SectionTitle.color,
-        modifier = Modifier.padding(top = 12.dp, bottom = 4.dp).semantics { heading() }
+        modifier = Modifier.padding(top = 12.dp, bottom = 4.dp).semantics { heading() }.sectionTitleMarker()
     )
 }
 

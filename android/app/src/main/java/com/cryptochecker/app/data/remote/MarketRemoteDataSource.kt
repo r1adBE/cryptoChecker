@@ -10,6 +10,9 @@ import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.exceptions.*
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.mirror.DataMirror
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withTimeout
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -214,9 +217,26 @@ suspend fun OkHttpClient.callMarket(url: String, postRequestInfo: PostRequestInf
     // Schutz gegen eine hängende OkHttp-Anfrage. Knapp über dem callTimeout,
     // damit ein Ausfall nicht doppelt so lange blockiert wie nötig.
     val guardMillis = if (callTimeoutMillis > 0) callTimeoutMillis + 5_000L else 35_000L
+    // Für alle gleiche Marktdaten zuerst vom Spiegel auf GitHub (DataMirror), sonst beim Anbieter
+    if (postRequestInfo == null) {
+        DataMirror.entryFor(url)?.let { entry -> mirrored(entry, guardMillis)?.let { return it } }
+    }
     return withTimeout(guardMillis) {
         callMarketInternal(url, postRequestInfo)
     }
+}
+
+/** Antwort aus dem Spiegel, wenn erreichbar und frisch genug; sonst null (dann direkt beim Anbieter). */
+private suspend fun OkHttpClient.mirrored(entry: DataMirror.Entry, guardMillis: Long): String? = try {
+    val text = withTimeout(guardMillis) { callMarketInternal(entry.url, null) }
+    DataMirror.unwrap(text, System.currentTimeMillis(), entry.maxAgeMillis)
+} catch (e: TimeoutCancellationException) {
+    null
+} catch (e: CancellationException) {
+    throw e
+} catch (e: Exception) {
+    Timber.d("Spiegel %s nicht verfügbar: %s", entry.file, e.message)
+    null
 }
 
 private suspend fun OkHttpClient.callMarketInternal(url: String, postRequestInfo: PostRequestInfo?): String {

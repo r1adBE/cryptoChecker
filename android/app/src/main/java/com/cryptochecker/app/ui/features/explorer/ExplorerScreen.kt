@@ -259,7 +259,10 @@ private fun MarketScreenMain(
 
             // Während der Suche nur die Treffer, sonst der Auswahl-Ablauf
             if (search.query.isNotBlank()) {
-                SearchResults(search, groupTarget)
+                SearchResults(search, groupTarget, onChooseManually = {
+                    search.onQueryChange("")
+                    ExplorerSections.precise = true
+                })
             } else {
                 // Die Suche ist der Hauptweg; das genaue Auswählen ist eingeklappt.
                 StepHint(stringResource(R.string.explorer_search_intro), Modifier.padding(start = 4.dp, end = 4.dp))

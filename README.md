@@ -95,6 +95,41 @@ once a day and sends no personal data; it also ships a built-in copy.
 > «Wirtschaftsdaten» in der App, wöchentlich automatisch aus den offiziellen
 > Kalendern von BLS, Fed und BEA aktualisiert.
 
+## Coin logos
+
+`docs/logos/index.json` (ticker → logo and name, crypto and stocks), the logos
+as small WebP files in `docs/logos/img/` and all US stock names in
+`docs/logos/stocks.txt` are served at <https://r1adbe.github.io/cryptoChecker/logos/>;
+all logos in one file are attached to the release
+[`logos`](https://github.com/r1adBE/cryptoChecker/releases/tag/logos) as `logos.pack`.
+The workflow [`.github/workflows/coin-logos.yml`](.github/workflows/coin-logos.yml)
+rebuilds them once a day (and on demand) with
+[`.github/scripts/build_logos.py`](.github/scripts/build_logos.py) from public data of
+CoinGecko (optional free demo key in the repository secret `COINGECKO_API_KEY`),
+Binance, OKX and Nasdaq. If CoinGecko does not deliver every page, nothing is
+published and the apps keep the last list. The apps load this one list and all
+logos in it (the first time as one pack) — never a single coin — so nobody
+learns what is on a watchlist. Logos are trademarks of their projects.
+
+> **Deutsch:** Alle Coin- und Aktien-Logos und Namen für die App an einem Ort,
+> täglich automatisch aus öffentlichen Daten gebaut; die App lädt nur diese eine
+> Liste und beim ersten Mal alle Logos in einem Paket.
+
+## Market data mirror
+
+Values that are the same for every user — CoinGecko's market cap, dominance and top
+coins, the Fear & Greed index (alternative.me), Coin Metrics' on-chain values and
+BTC price history, and the altcoin season computed from Binance daily candles — are
+fetched once an hour by
+[`.github/workflows/market-data.yml`](.github/workflows/market-data.yml)
+([`.github/scripts/mirror_data.py`](.github/scripts/mirror_data.py)) and attached to the
+release [`data`](https://github.com/r1adBE/cryptoChecker/releases/tag/data). The apps read
+these files first and ask the providers themselves only when a file is missing or too
+old. Nothing is committed; live prices still come straight from the exchanges.
+
+> **Deutsch:** Marktdaten, die für alle gleich sind, holt eine GitHub Action stündlich an
+> einen Ort; die App fragt die Anbieter nur noch, wenn der Spiegel fehlt oder zu alt ist.
+
 ## Privacy policy
 
 <https://r1adbe.github.io/cryptoChecker/privacy/> (German and English)

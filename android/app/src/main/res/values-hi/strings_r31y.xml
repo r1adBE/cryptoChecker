@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">सामान्य से अधिक</string>
     <string name="why_fn_volume_lower">सामान्य से कम</string>
     <string name="why_fn_volume_usual">सामान्य</string>
-    <string name="why_fn_market_pulls">BTC बाज़ार को साथ खींच रहा है</string>
+    <string name="why_fn_market_pulls">बाज़ार BTC के साथ चल रहा है</string>
     <string name="why_fn_market_lags">बाज़ार चल रहा है, यह कॉइन मुश्किल से</string>
     <string name="why_fn_market_alone">बाज़ार शांत – यह कॉइन अकेले चल रहा है</string>
     <string name="why_fn_market_against">कॉइन बाज़ार के उलट चल रहा है</string>

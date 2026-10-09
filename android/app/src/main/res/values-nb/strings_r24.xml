@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Endring siden midnatt %1$s ikke tilgjengelig</string>
     <string name="sheet_chart_today">I dag</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Når appen er lukket, høyst én gang i minuttet</string>
+    <string name="settings_live_interval_hidden_hint">App lukket: høyst én gang i minuttet · skjerm av: hvert 5. minutt</string>
     <string name="sheet_more">Mer</string>
     <string name="a11y_expanded">Utvidet</string>
     <string name="a11y_collapsed">Skjult</string>

@@ -144,10 +144,10 @@
     <!-- Paramètres -->
     <string name="settings_title">Paramètres</string>
     <string name="settings_background_updates">Actualisation en arrière-plan</string>
-    <string name="settings_background_updates_hint">Les prix, alertes et widgets sont actualisés même lorsque l\'app est fermée.</string>
+    <string name="settings_background_updates_hint">Même app fermée : cours, alertes et widgets à l’intervalle ci-dessous.</string>
     <string name="settings_background_interval">Intervalle</string>
     <string name="settings_live_service">Mettre à jour souvent</string>
-    <string name="settings_live_service_hint">Interroge les cours à intervalles courts, même quand l’app est fermée. Affiche une notification et consomme plus de batterie.</string>
+    <string name="settings_live_service_hint">Même app fermée : interroge les cours à intervalles courts. Affiche une notification et consomme plus de batterie.</string>
     <string name="settings_live_interval">Fréquence</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -279,7 +279,7 @@
     <string name="time_just_now">à l\'instant</string>
     <string name="welcome_text">Vos cours. Vos alertes. Votre aperçu.\nSans compte. Sans pub. Sans pistage.</string>
     <string name="developer_unlocked">Options développeur activées</string>
-    <string name="hint_favorites_list">Astuce : touchez ☆ pour mettre en favori – les favoris restent en haut.</string>
+    <string name="hint_favorites_list">Astuce : balayez une ligne vers la droite pour la mettre en favori – les favoris restent en haut.</string>
     <string name="tab_watchlist">Liste</string>
     <string name="tab_market_phase">Marché</string>
     <plurals name="watchlist_stale_count">

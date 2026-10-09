@@ -2,7 +2,9 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -49,24 +51,25 @@ internal fun TotalCard(
     fxRate: Double?,
     todayPercent: Double?,
 ) {
-    val accent = MaterialTheme.colorScheme.primary
     Card(
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-        border = BorderStroke(1.dp, accent.copy(alpha = 0.25f)),
+        // Dunkel neutral: ein schwacher Akzent wirkt dort bräunlich (AppColors.accentTint)
+        border = BorderStroke(1.dp, AppColors.accentTint(0.25f)),
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 // Von oben links nach unten rechts, wie LinearGradient(.topLeading → .bottomTrailing)
-                .background(Brush.linearGradient(listOf(accent.copy(alpha = 0.16f), accent.copy(alpha = 0.04f))))
+                .background(Brush.linearGradient(listOf(AppColors.accentTint(0.16f), AppColors.accentTint(0.04f))))
                 .padding(Spacing.lg)
         ) {
             Text(
                 stringResource(R.string.portfolio_total_value),
                 style = SectionTitle.style,
-                color = SectionTitle.color
+                color = SectionTitle.color,
+                modifier = Modifier.sectionTitleMarker()
             )
             FittedTotal(
                 text = maskAmount(PortfolioFormat.usdt(summary.totalValue)),

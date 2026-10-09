@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">انقر للإجراءات · اسحب للإجراءات السريعة · اضغط مطولًا للترتيب</string>
+    <string name="watch_gesture_hint_short">انقر للإجراءات · اسحب لليسار للحذف · اسحب لليمين للمفضلة</string>
     <string name="watch_action_alarm">تنبيه</string>
     <string name="watch_action_why">لماذا؟</string>
     <string name="watch_action_favorite">المفضلة</string>

@@ -139,10 +139,10 @@
 
     <string name="settings_title">Setări</string>
     <string name="settings_background_updates">Actualizări în fundal</string>
-    <string name="settings_background_updates_hint">Prețurile, alarmele și widgeturile se actualizează chiar și cu aplicația închisă.</string>
+    <string name="settings_background_updates_hint">Chiar și cu aplicația închisă: prețuri, alarme și widgeturi la intervalul de mai jos.</string>
     <string name="settings_background_interval">Interval</string>
     <string name="settings_live_service">Actualizează des</string>
-    <string name="settings_live_service_hint">Verifică prețurile la intervale scurte, chiar și cu aplicația închisă. Afișează o notificare și consumă mai multă baterie.</string>
+    <string name="settings_live_service_hint">Chiar și cu aplicația închisă: verifică prețurile la intervale scurte. Afișează o notificare și consumă mai multă baterie.</string>
     <string name="settings_live_interval">Cât de des</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -271,7 +271,7 @@
     <string name="time_just_now">chiar acum</string>
     <string name="welcome_text">Prețurile tale. Alarmele tale. Privirea ta de ansamblu.\nFără cont. Fără reclame. Fără urmărire.</string>
     <string name="developer_unlocked">Opțiunile pentru dezvoltatori au fost deblocate</string>
-    <string name="hint_favorites_list">Sfat: atinge ☆ pentru favorit – favoritele rămân sus.</string>
+    <string name="hint_favorites_list">Sfat: glisează un rând spre dreapta pentru a-l face favorit – favoritele rămân sus.</string>
     <string name="tab_watchlist">Listă</string>
     <string name="tab_market_phase">Piață</string>
     <plurals name="watchlist_stale_count">

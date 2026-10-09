@@ -39,6 +39,12 @@ enum MarketHTTP {
 
     /// GET (oder POST, wenn `post` gesetzt) — liefert den Text der Antwort.
     static func call(_ url: String, post: PostRequestInfo? = nil, session: URLSession = MarketHTTP.session) async throws -> String {
+        // Für alle gleiche Marktdaten zuerst vom Spiegel auf GitHub (`DataMirror`), sonst beim Anbieter
+        if post == nil, let entry = DataMirror.entry(for: url),
+           let text = try? await call(entry.url, session: session),
+           let body = DataMirror.unwrap(text, now: TimeUtils.nowMillis, maxAgeMillis: entry.maxAgeMillis) {
+            return body
+        }
         guard let u = URL(string: url) else { throw UserFriendlyMarketError(message: L("something_went_wrong")) }
         var request = URLRequest(url: u)
         if let post {

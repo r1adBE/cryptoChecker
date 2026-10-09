@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.ui.theme.AppColors
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
@@ -171,7 +172,7 @@ private fun SingleWidgetConfigureContent(
                             .fillMaxWidth()
                             .clip(MaterialTheme.shapes.small)
                             .background(
-                                if (selected == watch.id) MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
+                                if (selected == watch.id) AppColors.accentTint(0.12f)
                                 else MaterialTheme.colorScheme.surface
                             )
                             .clickable { selected = watch.id }

@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Perubahan sejak tengah malam %1$s tidak tersedia</string>
     <string name="sheet_chart_today">Hari ini</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Saat aplikasi ditutup, paling sering sekali per menit</string>
+    <string name="settings_live_interval_hidden_hint">Aplikasi ditutup: paling sering sekali per menit · layar mati: setiap 5 menit</string>
     <string name="sheet_more">Lainnya</string>
     <string name="a11y_expanded">Diperluas</string>
     <string name="a11y_collapsed">Diciutkan</string>

@@ -133,10 +133,10 @@
 
     <string name="settings_title">設定</string>
     <string name="settings_background_updates">バックグラウンド更新</string>
-    <string name="settings_background_updates_hint">アプリを閉じていても、価格・アラーム・ウィジェットが更新されます。</string>
+    <string name="settings_background_updates_hint">アプリを閉じていても: 価格・アラーム・ウィジェットを下の間隔で更新します。</string>
     <string name="settings_background_interval">間隔</string>
     <string name="settings_live_service">頻繁に更新</string>
-    <string name="settings_live_service_hint">アプリを閉じていても、短い間隔で価格を確認します。通知が表示され、電池を多く使います。</string>
+    <string name="settings_live_service_hint">アプリを閉じていても: 短い間隔で価格を確認します。通知が表示され、電池を多く使います。</string>
     <string name="settings_live_interval">更新間隔</string>
     <string name="settings_minutes">%1$d 分</string>
     <string name="settings_seconds">%1$d 秒</string>
@@ -253,7 +253,7 @@
     <string name="time_just_now">たった今</string>
     <string name="welcome_text">あなたの価格。あなたのアラーム。あなたの一覧。\nアカウント不要。広告なし。トラッキングなし。</string>
     <string name="developer_unlocked">開発者向けオプションを有効にしました</string>
-    <string name="hint_favorites_list">ヒント: ☆ をタップでお気に入り。お気に入りは上に表示されます。</string>
+    <string name="hint_favorites_list">ヒント: 行を右にスワイプでお気に入り。お気に入りは上に表示されます。</string>
     <string name="tab_watchlist">リスト</string>
     <string name="tab_market_phase">マーケット</string>
     <plurals name="watchlist_stale_count">

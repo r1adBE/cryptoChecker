@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Variação desde a meia-noite %1$s indisponível</string>
     <string name="sheet_chart_today">Hoje</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Com a app fechada, no máximo uma vez por minuto</string>
+    <string name="settings_live_interval_hidden_hint">App fechada: no máximo uma vez por minuto · ecrã desligado: a cada 5 minutos</string>
     <string name="sheet_more">Mais</string>
     <string name="a11y_expanded">Expandido</string>
     <string name="a11y_collapsed">Recolhido</string>

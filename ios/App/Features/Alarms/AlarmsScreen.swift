@@ -37,6 +37,10 @@ struct AlarmsScreen: View {
                 }
             } else {
                 List {
+                    NotificationsOffBanner()
+                        .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 5, trailing: 16))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                     ForEach(alarms) { alarm in
                         AlarmCard(
                             alarm: alarm,
@@ -191,7 +195,7 @@ private struct AlarmCard: View {
                 .foregroundStyle(alarm.enabled ? accent.primary : AppColors.outline)
                 .frame(width: 40, height: 40)
                 .background(
-                    (alarm.enabled ? accent.primary.opacity(0.14) : AppColors.containerHigh),
+                    (alarm.enabled ? accent.tint(0.14) : AppColors.containerHigh),
                     in: RoundedRectangle(cornerRadius: 12, style: .continuous)
                 )
 
@@ -230,7 +234,7 @@ private struct AlarmCard: View {
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(alarm.enabled ? accent.primary.opacity(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
+                .strokeBorder(alarm.enabled ? accent.tint(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
         )
         .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         // Ganze Karte antippen = bearbeiten

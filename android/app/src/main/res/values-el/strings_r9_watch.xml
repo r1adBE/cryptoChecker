@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Πάτημα για ενέργειες · σύρσιμο για γρήγορες ενέργειες · παρατεταμένο πάτημα για ταξινόμηση</string>
+    <string name="watch_gesture_hint_short">Πατήστε για ενέργειες · σύρετε αριστερά για διαγραφή · δεξιά για αγαπημένο</string>
     <string name="watch_action_alarm">Ειδοποίηση</string>
     <string name="watch_action_why">Γιατί;</string>
     <string name="watch_action_favorite">Αγαπημένο</string>

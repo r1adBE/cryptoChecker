@@ -17,7 +17,7 @@ struct ExplorerStepCard<Content: View>: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .strokeBorder(
-                        highlighted ? accent.primary.opacity(0.35) : AppColors.outlineVariant.opacity(0.35),
+                        highlighted ? accent.tint(0.35) : AppColors.outlineVariant.opacity(0.35),
                         lineWidth: highlighted ? 1 : 0.5
                     )
             )

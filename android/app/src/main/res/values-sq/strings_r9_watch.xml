@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Prek për veprime · rrëshqit për veprime të shpejta · mbaj shtypur për renditje</string>
+    <string name="watch_gesture_hint_short">Prek për veprime · rrëshqit majtas për ta fshirë · djathtas për të preferuar</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Pse?</string>
     <string name="watch_action_favorite">I preferuar</string>

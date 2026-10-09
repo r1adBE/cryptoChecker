@@ -6,6 +6,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.DropdownMenu
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.text.format.DateUtils
 import androidx.annotation.StringRes
 import androidx.compose.animation.EnterTransition
@@ -496,6 +497,7 @@ private fun SectionHeader(@StringRes textRes: Int) {
         modifier = Modifier
             .padding(start = 4.dp, top = 8.dp, bottom = 8.dp)
             .semantics { heading() }
+            .sectionTitleMarker()
     )
 }
 

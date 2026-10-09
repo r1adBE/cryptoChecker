@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Ndryshimi që nga mesnata %1$s nuk është i disponueshëm</string>
     <string name="sheet_chart_today">Sot</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Kur aplikacioni është i mbyllur, më së shumti një herë në minutë</string>
+    <string name="settings_live_interval_hidden_hint">Aplikacioni i mbyllur: më së shumti një herë në minutë · ekrani i fikur: çdo 5 minuta</string>
     <string name="sheet_more">Më shumë</string>
     <string name="a11y_expanded">Zgjeruar</string>
     <string name="a11y_collapsed">Palosur</string>

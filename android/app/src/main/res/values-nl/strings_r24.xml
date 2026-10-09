@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Verandering sinds middernacht %1$s niet beschikbaar</string>
     <string name="sheet_chart_today">Vandaag</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Met de app gesloten hoogstens eens per minuut</string>
+    <string name="settings_live_interval_hidden_hint">App gesloten: hoogstens eens per minuut · scherm uit: elke 5 minuten</string>
     <string name="sheet_more">Meer</string>
     <string name="a11y_expanded">Uitgevouwen</string>
     <string name="a11y_collapsed">Samengevouwen</string>

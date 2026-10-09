@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Ulubione</string>
+    <string name="explorer_search_choose_manually">Wybierz giełdę i parę samodzielnie</string>
+    <string name="portfolio_avg_price_hint">Śr. cena zakupu: średnia wszystkich zakupów ważona ilością. Sprzedaże są wyceniane po tej średniej (nie FIFO).</string>
+</resources>

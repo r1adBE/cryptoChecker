@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarme: Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">नोटिफ़िकेशन बंद हैं – अलार्म आप तक नहीं पहुँचेंगे।</string>
+    <string name="alarms_notifications_turn_on">चालू करें</string>
+</resources>

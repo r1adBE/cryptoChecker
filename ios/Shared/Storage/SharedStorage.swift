@@ -46,6 +46,8 @@ enum SharedStorage {
     }
 
     static func loadSnapshot() -> Snapshot {
+        // Noch nicht geschriebene Stände der App zuerst auf die Platte (`saveSnapshotInBackground`)
+        flushSnapshotWrites()
         guard let data = try? Data(contentsOf: watchlistURL),
               let snap = try? JSONDecoder().decode(Snapshot.self, from: data)
         else { return Snapshot() }
@@ -55,6 +57,24 @@ enum SharedStorage {
     static func saveSnapshot(_ snapshot: Snapshot) {
         guard let data = try? JSONEncoder().encode(snapshot) else { return }
         try? data.write(to: watchlistURL, options: [.atomic])
+    }
+
+    /// Schreibt der Reihe nach, nicht auf dem Haupt-Thread (JSON der ganzen Merkliste, bei Live-Kursen
+    /// alle 10 Sekunden) — wie Android den IO-Dispatcher nutzt.
+    private static let snapshotWriter = DispatchQueue(label: "com.cryptochecker.snapshot-writer", qos: .utility)
+
+    /// Speichert im Hintergrund (Reihenfolge bleibt); [done] danach auf dem Haupt-Thread (z. B. Widgets neu laden).
+    static func saveSnapshotInBackground(_ snapshot: Snapshot, done: (() -> Void)? = nil) {
+        snapshotWriter.async {
+            saveSnapshot(snapshot)
+            if let done { DispatchQueue.main.async(execute: done) }
+        }
+    }
+
+    /// Wartet, bis alle Hintergrund-Schreibvorgänge auf der Platte sind (vor dem Lesen, beim Wechsel
+    /// in den Hintergrund). Nie vom Schreib-Thread selbst aufrufen.
+    static func flushSnapshotWrites() {
+        snapshotWriter.sync {}
     }
 
     // MARK: Einstellungen

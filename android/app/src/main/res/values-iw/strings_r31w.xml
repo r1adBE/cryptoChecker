@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">מחירים חיים</string>
-    <string name="settings_live_websocket_hint">המחירים עוקבים אחרי הבורסה בלי השהיה, כל עוד הרשימה פתוחה. עבור Binance, Bybit, OKX, Coinbase ו-Kraken.</string>
+    <string name="settings_live_websocket_hint">כל עוד רשימת המעקב פתוחה: המחירים עוקבים אחרי הבורסה ללא עיכוב. עבור Binance, Bybit, OKX, Coinbase ו-Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">מחירים חיים פעילים</string>
     <string name="refresh_report_live">חי: %1$s</string>

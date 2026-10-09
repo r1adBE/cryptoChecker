@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Round 9: watchlist (gesture hint, actions sheet, alarm hint after add) and welcome -->
-    <string name="watch_gesture_hint_short">Tap for actions · swipe for quick actions · hold to sort</string>
+    <string name="watch_gesture_hint_short">Tap for actions · swipe left to delete · swipe right for favorite</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Why?</string>
     <string name="watch_action_favorite">Favorite</string>

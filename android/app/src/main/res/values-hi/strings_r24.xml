@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">मध्यरात्रि %1$s से बदलाव उपलब्ध नहीं</string>
     <string name="sheet_chart_today">आज</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">ऐप बंद होने पर ज़्यादा से ज़्यादा हर मिनट</string>
+    <string name="settings_live_interval_hidden_hint">ऐप बंद: अधिकतम हर मिनट एक बार · स्क्रीन बंद: हर 5 मिनट</string>
     <string name="sheet_more">और</string>
     <string name="a11y_expanded">विस्तारित</string>
     <string name="a11y_collapsed">संक्षिप्त</string>

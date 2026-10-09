@@ -22,16 +22,35 @@ r1AD — riad.work@outlook.com
 
 ### Zuletzt dazugekommen
 
-* **Coin-Logos** — echte Logos von CoinGecko in Merkliste, Aktionsblatt, Portfolio,
-  Markt-Karten und in den Widgets Merkliste und Einzel-Coin; alle Logos der rund 1000
-  grössten Coins, Lücken (Gold, Silber, bStocks) aus der Binance-Symbolliste, danach Rang
-  1001–2500; Aktien-Logos von Binance (`static/stock/…png`) für alle TradFi-Kürzel der
+* **Feinschliff vor dem Store-Test** — eine Frische-Schwelle für Pille, Zeile und Screenreader
+  (`OutdatedRule`); «Häufig aktualisieren» bei dunklem Bildschirm höchstens alle 5 Minuten
+  (`LiveInterval`, Hintergrund-15-Min.-Takt unverändert); «Favoriten»-Chip und Gruppen-«+» nur
+  bei Bedarf; kein Sortieren per langem Drücken (⋯ › Sortieren); Gesten-Hinweis mit Richtung;
+  48-dp-Tippflächen; Favorit-Stern ohne Logos; leere Alarm-Übersicht mit «Neuer Alarm»; Suche
+  ohne Treffer mit «Börse und Paar selbst wählen»; Hinweis «Mitteilungen sind aus» bei den Alarmen;
+  Überschriften mit Strich statt Orange-Schrift, keine bräunlichen Flächen im Dunkelmodus;
+  klare Zeichen: Auge = Kurs-Benachrichtigung (auch am Schalter im Aktionsblatt und in den
+  Einstellungen), Glocke = Alarme; Glocke oben nur mit aktiven Alarmen und ohne Zahl («Alle Alarme»
+  immer im ⋯-Menü); Start-Paare mit Kurs-Benachrichtigung wie jedes Paar.
+
+* **Coin-Logos** — echte Logos in Merkliste, Aktionsblatt, Portfolio,
+  Markt-Karten und in den Widgets Merkliste und Einzel-Coin; zuerst aus der eigenen
+  Logo-Liste auf GitHub Pages (`docs/logos`, täglich von `coin-logos.yml` aus CoinGecko, Binance,
+  OKX und Nasdaq gebaut, Krypto und TradFi, Bilder als WebP; beim ersten Laden alle in einem Abruf
+  aus `logos.pack`; wöchentlicher Abgleich mit «304», wenn nichts neu ist); nur ohne diese Liste wie früher: alle Logos der rund 1000
+  grössten Coins, Lücken (Gold, Silber, bStocks) aus der Binance-Symbolliste und der
+  Binance-Alpha-Tokenliste (AIA, AGT, AIO …), danach Rang 1001–2500 (6 s Pause je Seite;
+  unvollständige Liste nach 6 h erneut); Aktien-Logos von Binance (`static/stock/…png`) für alle TradFi-Kürzel der
   gespeicherten Paarlisten — alles auf einmal geladen (nie einzeln, niemand sieht eine Merkliste) und
   auf dem Gerät gespeichert, sonst Initialen-Kreis (DEX-Pools immer).
   Schalter «In der App» und «Im Portfolio» (ab Werk an) und «In Widgets» (ab Werk aus) unter
   Einstellungen › Darstellung › Coin-Logos
   (`domain/logos/CoinLogos.kt`, `data/CoinLogoRepository.kt`, `ui/components/CoinBadge.kt`,
   `data/CoinLogoSync.kt`, `widget/WidgetCoinLogos.kt`).
+* **Daten-Spiegel** — Marktdaten, die für alle gleich sind (CoinGecko `/global` und Top-Coins,
+  Fear & Greed, Coin-Metrics-On-Chain, BTC-Kursverlauf, fertig berechnete Altcoin-Saison), stündlich von `market-data.yml`
+  als Anhänge der Release «data»; `callMarket` fragt für genau diese Adressen zuerst den Spiegel,
+  sonst den Anbieter (`domain/mirror/DataMirror.kt`).
 * **Live-Kurse per WebSocket** — solange die Merkliste offen ist, kommen die Kurse
   von Binance, Bybit, OKX, Coinbase und Kraken live (REST bleibt Rückfall); «LIVE»
   in der Status-Pille, Schalter unter Einstellungen › Aktualisierung
@@ -82,8 +101,13 @@ r1AD — riad.work@outlook.com
   «Aktualisieren», dann die Einträge des Tabs (`ui/components/AppMenuItems.kt`).
 * **App zurücksetzen** (Einstellungen › Daten, mit Rückfrage): löscht alle Daten wie
   «Speicher löschen» (`clearApplicationUserData`), danach startet die App wie neu installiert.
-* **Überschriften einheitlich** klein, fett, in der Themenfarbe (`SectionTitle` in
-  `ui/components/Sections.kt`): Einstellungen, Portfolio, Markt, Bericht, Lizenzen.
+* **Überschriften einheitlich** klein, fett, in Textfarbe mit kurzem Strich in der Themenfarbe davor
+  (`SectionTitle` + `sectionTitleMarker()` in `ui/components/Sections.kt`): Einstellungen, Portfolio,
+  Markt, Bericht, Lizenzen.
+* **Keine bräunlichen Flächen im Dunkelmodus** — Auswahl (Chips, Segmente, Sprung-Knopf) neutral grau
+  mit Schrift in der Themenfarbe (`withCleanContainers` in `AppColorSchemes.kt`), schwache
+  Akzent-Füllungen dunkel grau statt orange (`AppColors.accentTint`), Aufteilungs-Balken zur hellen
+  Schrift hin gemischt; hell unverändert.
 * **Zurück** aus «Alarme» oder «Warum?» öffnet wieder das Aktionsblatt des Paars.
 * **Namen in der Merkliste** («Namen anzeigen»): Paar/Kurs, Name/%-Pille und Börse/≈ Umrechnung
   je auf einer Linie, ohne Namen «–». Aktien ohne bStock bekommen ihren Namen aus der
@@ -343,7 +367,8 @@ Eröffnung der Stundenkerzen vor 24 h — dieselben Kerzen wie der Mini-Chart
 (`SparklineRepository`, je Paar in seiner Quote; USD-artige teilen die USDT-Reihe,
 Fiat-Quotes ohne eigene Kerzen nehmen den Verlauf der USDT-Reihe). Ohne Kerzen
 zeigt die Pille grau «—» (`domain/watch/DayChange.kt`). Tippen öffnet die Aktionen (Alarm, Warum?,
-Favorit oben), wischen: links löschen, rechts Favorit, halten zum Sortieren.
+Favorit oben), wischen: links löschen, rechts Favorit; sortieren über ⋯ › Sortieren (ziehen am
+Griff oder lange drücken, nur im Sortiermodus).
 
 **Benachrichtigungen** — je Paar eine lautlose Dauerbenachrichtigung mit Kurs,
 Veränderung in Prozent und Uhrzeit. Wahlweise wegwischbar oder fest.

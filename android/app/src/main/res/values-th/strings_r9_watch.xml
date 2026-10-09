@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">แตะเพื่อดูคำสั่ง · ปัดเพื่อคำสั่งด่วน · กดค้างเพื่อจัดเรียง</string>
+    <string name="watch_gesture_hint_short">แตะเพื่อดูการทำงาน · ปัดซ้ายเพื่อลบ · ปัดขวาเพื่อเป็นรายการโปรด</string>
     <string name="watch_action_alarm">สัญญาณเตือน</string>
     <string name="watch_action_why">ทำไม?</string>
     <string name="watch_action_favorite">รายการโปรด</string>

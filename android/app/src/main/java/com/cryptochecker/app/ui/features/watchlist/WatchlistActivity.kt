@@ -45,7 +45,12 @@ import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
-/** Kleines ⚡ in der Zeile eines Paars mit aktiven Signalen; Tipp öffnet «Warum». */
+/**
+ * Kleines ⚡ in der Zeile eines Paars mit aktiven Signalen; Tipp öffnet «Warum». Sichtbar 24 dp;
+ * die Tippfläche erweitert Compose für klickbare Elemente unter 48 dp selbst auf die
+ * Mindestgrösse (ViewConfiguration.minimumTouchTargetSize, «near hit»), ohne die Zeile höher zu
+ * machen — ein knapper Tipp neben das ⚡ trifft also noch «Warum», nicht das Aktionsblatt.
+ */
 @Composable
 internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Box(

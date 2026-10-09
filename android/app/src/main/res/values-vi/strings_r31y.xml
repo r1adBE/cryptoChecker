@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">cao hơn bình thường</string>
     <string name="why_fn_volume_lower">thấp hơn bình thường</string>
     <string name="why_fn_volume_usual">như bình thường</string>
-    <string name="why_fn_market_pulls">BTC kéo cả thị trường</string>
+    <string name="why_fn_market_pulls">Thị trường đang biến động cùng BTC</string>
     <string name="why_fn_market_lags">Thị trường biến động, coin này hầu như không</string>
     <string name="why_fn_market_alone">Thị trường yên – coin này tự biến động</string>
     <string name="why_fn_market_against">Coin đi ngược thị trường</string>

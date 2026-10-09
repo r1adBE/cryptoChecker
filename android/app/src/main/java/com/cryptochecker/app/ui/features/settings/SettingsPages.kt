@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -99,7 +100,7 @@ internal fun RadioRow(
             .padding(vertical = 1.dp)
             .heightIn(min = 52.dp)
             .clip(shape)
-            .background(if (selected) MaterialTheme.colorScheme.primary.copy(alpha = SELECTED_ALPHA) else Color.Transparent)
+            .background(if (selected) AppColors.accentTint(SELECTED_ALPHA) else Color.Transparent)
             .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
             .padding(horizontal = 12.dp, vertical = Spacing.sm)
     ) {

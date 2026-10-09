@@ -154,14 +154,15 @@ final class AppData: ObservableObject {
         quietPriceSave = quiet
         snapshot = s
         quietPriceSave = false
-        SharedStorage.saveSnapshot(s)
         dropMissingWatchlistGroup()
-        guard reloadWidgets else { return }
-        if let widgetKinds {
-            widgetKinds.forEach { WidgetCenter.shared.reloadTimelines(ofKind: $0) }
-        } else {
-            WidgetCenter.shared.reloadAllTimelines()
-        }
+        // Speichern im Hintergrund; die Widgets erst danach neu laden (sie lesen die Datei)
+        SharedStorage.saveSnapshotInBackground(s, done: reloadWidgets ? {
+            if let widgetKinds {
+                widgetKinds.forEach { WidgetCenter.shared.reloadTimelines(ofKind: $0) }
+            } else {
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+        } : nil)
     }
 
     /// Stand von der Platte neu laden (z. B. nachdem das Widget aktualisiert hat).
@@ -228,9 +229,8 @@ final class AppData: ObservableObject {
     }
 
     /// Fügt die Startpaare hinzu wie der Hinzufügen-Tab (vorhandene Paare werden
-    /// übersprungen), aber mit ausgeschalteter Kurs-Mitteilung je Paar — keine
-    /// Mitteilung bei jeder Aktualisierung und keine Rückfrage nach der Erlaubnis
-    /// beim ersten Tippen. Holt gleich die Kurse.
+    /// übersprungen), mit Kurs-Mitteilung wie jedes Paar. Nach der Erlaubnis wird hier
+    /// nicht gefragt, erst beim ersten Hinzufügen eines Paares oder Alarms. Holt gleich die Kurse.
     /// - Returns: Anzahl neu hinzugefügter Paare.
     @discardableResult
     func addStarterCoins(_ coins: [String]) -> Int {
@@ -239,9 +239,7 @@ final class AppData: ObservableObject {
             for coin in coins {
                 let starter = Self.starterPair(coin)
                 guard let market = MarketsConfig.market(starter.marketKey),
-                      let id = Self.insert(&s, market: market, pair: starter.pair),
-                      let i = s.watches.firstIndex(where: { $0.id == id }) else { continue }
-                s.watches[i].notificationEnabled = false
+                      let id = Self.insert(&s, market: market, pair: starter.pair) else { continue }
                 ids.append(id)
             }
         }

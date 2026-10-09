@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">вищий, ніж зазвичай</string>
     <string name="why_fn_volume_lower">нижчий, ніж зазвичай</string>
     <string name="why_fn_volume_usual">як зазвичай</string>
-    <string name="why_fn_market_pulls">BTC тягне ринок за собою</string>
+    <string name="why_fn_market_pulls">Ринок рухається разом із BTC</string>
     <string name="why_fn_market_lags">Ринок рухається, а ця монета – майже ні</string>
     <string name="why_fn_market_alone">Ринок спокійний – монета рухається сама</string>
     <string name="why_fn_market_against">Монета рухається проти ринку</string>

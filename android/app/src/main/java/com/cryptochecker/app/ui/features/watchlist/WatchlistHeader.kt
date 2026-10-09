@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -38,11 +36,10 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.AlarmPulse
 import com.cryptochecker.app.ui.components.AppMenuHead
-import com.cryptochecker.app.util.LocaleNumbers
 
 /**
  * Kopfzeile der Merkliste: links die Gruppen-Chips («Alle» und Gruppen, scrollbar, mit «+» für
- * eine neue Gruppe), rechts fest die Glocke und das Überlaufmenü. Die LazyRow der Chips schneidet
+ * eine neue Gruppe), rechts die Glocke (nur mit aktiven Alarmen) und fest das Überlaufmenü. Die LazyRow der Chips schneidet
  * in Laufrichtung ab, sie läuft also nicht unter die Knöpfe. Im Sortiermodus statt der Knöpfe
  * «Fertig». «Paar hinzufügen» steht rechts neben der Lupe ([WatchlistStatusRow]).
  */
@@ -50,6 +47,7 @@ import com.cryptochecker.app.util.LocaleNumbers
 internal fun WatchlistHeader(
     groups: List<String>,
     selectedGroup: String?,
+    hasFavorites: Boolean,
     onSelectGroup: (String?) -> Unit,
     onEditGroup: (String) -> Unit,
     onAddGroup: () -> Unit,
@@ -78,6 +76,7 @@ internal fun WatchlistHeader(
             GroupChips(
                 groups = groups,
                 selected = selectedGroup,
+                hasFavorites = hasFavorites,
                 onSelect = onSelectGroup,
                 onEdit = onEditGroup,
                 onAdd = onAddGroup
@@ -100,9 +99,14 @@ internal fun WatchlistHeader(
                     )
                 }
             } else {
-                AlarmBell(activeAlarms = activeAlarms, scale = bellScale, onClick = onOpenAllAlarms)
+                // Glocke nur mit aktiven Alarmen und ohne Zahl (eine Zahl läse sich leicht als
+                // «so oft ausgelöst»); «Alle Alarme» steht immer auch im Menü
+                if (activeAlarms > 0) {
+                    AlarmBell(scale = bellScale, onClick = onOpenAllAlarms)
+                }
                 WatchlistMenu(
                     onOpenAbout = onOpenAbout,
+                    onOpenAllAlarms = onOpenAllAlarms,
                     refreshing = refreshing,
                     onRefresh = onRefresh,
                     canSort = canSort,
@@ -118,36 +122,29 @@ internal fun WatchlistHeader(
     }
 }
 
-/** Glocke: alle Alarme, mit Zahl der aktiven; pulsiert bei einem neuen Alarm ([scale]). */
+/** Glocke: öffnet alle Alarme; pulsiert bei einem ausgelösten Alarm ([scale]). */
 @Composable
-private fun AlarmBell(activeAlarms: Int, scale: () -> Float, onClick: () -> Unit) {
+private fun AlarmBell(scale: () -> Float, onClick: () -> Unit) {
     IconButton(onClick = onClick) {
-        BadgedBox(
-            badge = {
-                if (activeAlarms > 0) {
-                    Badge { Text(LocaleNumbers.integer(activeAlarms)) }
-                }
+        Icon(
+            painterResource(R.drawable.ic_notifications),
+            contentDescription = stringResource(R.string.alarms_overview_title),
+            modifier = Modifier.graphicsLayer {
+                scaleX = scale()
+                scaleY = scale()
             }
-        ) {
-            Icon(
-                painterResource(R.drawable.ic_notifications),
-                contentDescription = stringResource(R.string.alarms_overview_title),
-                modifier = Modifier.graphicsLayer {
-                    scaleX = scale()
-                    scaleY = scale()
-                }
-            )
-        }
+        )
     }
 }
 
 /**
- * Überlaufmenü: oben App-Logo und Name (öffnet «Über die App»), dann Aktualisieren, Sortieren,
- * Bericht und — getrennt — nicht gehandelte Paare entfernen und Merkliste leeren.
+ * Überlaufmenü: oben App-Logo und Name (öffnet «Über die App»), dann Aktualisieren, Alle Alarme,
+ * Sortieren, Bericht und — getrennt — nicht gehandelte Paare entfernen und Merkliste leeren.
  */
 @Composable
 private fun WatchlistMenu(
     onOpenAbout: () -> Unit,
+    onOpenAllAlarms: () -> Unit,
     refreshing: Boolean,
     onRefresh: () -> Unit,
     canSort: Boolean,
@@ -173,6 +170,11 @@ private fun WatchlistMenu(
                 onClose = { menuOpen = false },
                 onOpenAbout = onOpenAbout,
                 onRefresh = onRefresh
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.alarms_overview_title)) },
+                leadingIcon = { Icon(painterResource(R.drawable.ic_notifications), null) },
+                onClick = { menuOpen = false; onOpenAllAlarms() }
             )
             if (canSort) {
                 DropdownMenuItem(

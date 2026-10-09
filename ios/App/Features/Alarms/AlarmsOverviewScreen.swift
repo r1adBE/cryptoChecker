@@ -8,6 +8,9 @@ struct AlarmsOverviewScreen: View {
     @ObservedObject private var lock = AppLock.shared
     /// Portfolio-Alarm, der gelöscht werden soll (Rückfrage).
     @State private var deletePortfolio: PortfolioAlarm?
+    /// Leere Übersicht: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite (keine Sackgasse).
+    @State private var pickPair = false
+    @State private var openWatchId: Int64?
 
     /// Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie niemand).
     private var portfolioAlarms: [PortfolioAlarm] {
@@ -49,12 +52,33 @@ struct AlarmsOverviewScreen: View {
         Group {
             if groups.isEmpty && portfolio.isEmpty {
                 ScrollView {
-                    EmptyStateView(systemImage: "bell.slash", title: L("alarms_overview_empty"))
-                        .containerRelativeFrame(.vertical, alignment: .center)
+                    let watches = data.watches
+                    EmptyStateView(
+                        systemImage: "bell.slash",
+                        title: L("alarms_overview_empty"),
+                        actionTitle: watches.isEmpty ? nil : L("alarms_add"),
+                        action: watches.isEmpty ? nil : {
+                            if watches.count == 1 { openWatchId = watches[0].id } else { pickPair = true }
+                        }
+                    )
+                    .containerRelativeFrame(.vertical, alignment: .center)
+                }
+                .confirmationDialog(L("alarms_add"), isPresented: $pickPair, titleVisibility: .visible) {
+                    ForEach(data.watches) { watch in
+                        Button("\(watch.displayName) · \(watch.marketName)") { openWatchId = watch.id }
+                    }
+                    Button(L("action_cancel"), role: .cancel) {}
+                }
+                .navigationDestination(isPresented: Binding(
+                    get: { openWatchId != nil },
+                    set: { if !$0 { openWatchId = nil } }
+                )) {
+                    if let id = openWatchId { AlarmsScreen(watchId: id) }
                 }
             } else {
                 ScrollView {
                     LazyVStack(spacing: 12) {
+                        NotificationsOffBanner()
                         // Alarme «Portfolio-Wert» zuerst, als eigene Karte
                         if !portfolio.isEmpty {
                             portfolioCard(portfolio)
@@ -177,7 +201,7 @@ struct AlarmsOverviewScreen: View {
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(anyActive ? accent.primary.opacity(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
+                .strokeBorder(anyActive ? accent.tint(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
         )
     }
 
@@ -190,7 +214,7 @@ struct AlarmsOverviewScreen: View {
                     .scaledFont(size: 17, weight: .semibold, relativeTo: .headline)
                     .foregroundStyle(accent.primary)
                     .frame(width: 38, height: 38)
-                    .background(accent.primary.opacity(0.14), in: Circle())
+                    .background(accent.tint(0.14), in: Circle())
                     .accessibilityHidden(true)
                 Text(L("portfolio_title"))
                     .font(.headline)
@@ -237,7 +261,7 @@ struct AlarmsOverviewScreen: View {
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(anyActive ? accent.primary.opacity(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
+                .strokeBorder(anyActive ? accent.tint(0.35) : AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
         )
     }
 }

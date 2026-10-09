@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">lebih tinggi dari biasanya</string>
     <string name="why_fn_volume_lower">lebih rendah dari biasanya</string>
     <string name="why_fn_volume_usual">seperti biasa</string>
-    <string name="why_fn_market_pulls">BTC menarik pasar</string>
+    <string name="why_fn_market_pulls">Pasar bergerak bersama BTC</string>
     <string name="why_fn_market_lags">Pasar bergerak, koin ini hampir tidak</string>
     <string name="why_fn_market_alone">Pasar tenang – koin ini bergerak sendiri</string>
     <string name="why_fn_market_against">Koin bergerak melawan pasar</string>

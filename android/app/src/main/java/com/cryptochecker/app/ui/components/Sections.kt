@@ -12,27 +12,59 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.res.painterResource
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.Spacing
 
 /**
- * Abschnittsüberschrift überall gleich: klein, fett, in der Themenfarbe — Einstellungen
- * («Allgemein», «Darstellung» …), Portfolio («Gesamtwert», «Wertverlauf» …) und Markt
- * («Jetzt», «Einordnung», «Daten» …). Die einzige Ausnahme von «Themenfarbe nur für
- * Bedienbares»: klein und fett, deshalb nicht mit Knöpfen zu verwechseln.
+ * Abschnittsüberschrift überall gleich: klein, fett, in Textfarbe, davor ein kurzer Strich in
+ * der Themenfarbe ([sectionTitleMarker]) — Einstellungen («Allgemein», «Darstellung» …),
+ * Portfolio («Gesamtwert», «Wertverlauf» …) und Markt («Jetzt», «Einordnung», «Daten» …).
+ * Die Themenfarbe bleibt so Bedienbarem vorbehalten; der Strich gliedert, ohne zu färben.
  */
 object SectionTitle {
     val style: TextStyle
         @Composable get() = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.2.sp)
     val color: Color
-        @Composable get() = MaterialTheme.colorScheme.primary
+        @Composable get() = MaterialTheme.colorScheme.onSurface
+}
+
+/**
+ * Kurzer senkrechter Strich in der Themenfarbe vor einer Abschnittsüberschrift (3 dp breit,
+ * so hoch wie die Schrift, in Rechts-nach-links-Sprachen rechts). Als letztes Glied der
+ * Modifier-Kette setzen, damit er sich an der Schrift ausrichtet und nicht am Aussenabstand.
+ */
+@Composable
+fun Modifier.sectionTitleMarker(): Modifier {
+    val color = MaterialTheme.colorScheme.primary
+    return this
+        .drawBehind {
+            val w = 3.dp.toPx()
+            val h = minOf(size.height, 14.sp.toPx())
+            val x = if (layoutDirection == LayoutDirection.Ltr) 0f else size.width - w
+            drawRoundRect(
+                color = color,
+                topLeft = Offset(x, (size.height - h) / 2f),
+                size = Size(w, h),
+                cornerRadius = CornerRadius(w / 2f)
+            )
+        }
+        .padding(start = 10.dp)
 }
 
 /**
@@ -47,12 +79,12 @@ fun SectionCard(
 ) {
     Column(modifier = modifier.fillMaxWidth().padding(bottom = Spacing.lg)) {
         if (!title.isNullOrEmpty()) {
-            // Überschrift wie überall: klein, fett, Themenfarbe (keine Grossbuchstaben)
+            // Überschrift wie überall: klein, fett, Strich in der Themenfarbe (keine Grossbuchstaben)
             Text(
                 text = title,
                 style = SectionTitle.style,
                 color = SectionTitle.color,
-                modifier = Modifier.padding(start = 4.dp, bottom = 8.dp)
+                modifier = Modifier.padding(start = 4.dp, bottom = 8.dp).sectionTitleMarker()
             )
         }
         Card(
@@ -65,7 +97,10 @@ fun SectionCard(
     }
 }
 
-/** Schalterzeile: die ganze Zeile ist antippbar, nicht nur der Schalter. */
+/**
+ * Schalterzeile: die ganze Zeile ist antippbar, nicht nur der Schalter. [icon] (optional)
+ * zeigt dasselbe Zeichen wie anderswo, z. B. das Auge der Kurs-Benachrichtigung in der Zeile.
+ */
 @Composable
 fun SwitchRow(
     title: String,
@@ -73,6 +108,7 @@ fun SwitchRow(
     onCheckedChange: (Boolean) -> Unit,
     subtitle: String? = null,
     enabled: Boolean = true,
+    @DrawableRes icon: Int? = null,
 ) {
     Row(
         modifier = Modifier
@@ -86,6 +122,14 @@ fun SwitchRow(
             .padding(vertical = Spacing.md),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if (icon != null) {
+            Icon(
+                painterResource(icon),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(end = 12.dp).size(20.dp)
+            )
+        }
         Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
             Text(title, style = MaterialTheme.typography.bodyLarge)
             if (!subtitle.isNullOrEmpty()) {

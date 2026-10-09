@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">a szokásosnál magasabb</string>
     <string name="why_fn_volume_lower">a szokásosnál alacsonyabb</string>
     <string name="why_fn_volume_usual">a szokásos</string>
-    <string name="why_fn_market_pulls">A BTC magával húzza a piacot</string>
+    <string name="why_fn_market_pulls">A piac a BTC-vel együtt mozog</string>
     <string name="why_fn_market_lags">A piac mozog, ez az érme alig</string>
     <string name="why_fn_market_alone">Nyugodt piac – ez az érme egyedül mozog</string>
     <string name="why_fn_market_against">Az érme a piaccal szemben mozog</string>

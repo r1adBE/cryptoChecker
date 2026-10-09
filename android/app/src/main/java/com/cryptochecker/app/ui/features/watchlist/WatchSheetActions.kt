@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -104,7 +105,7 @@ internal fun PrimarySheetAction(
             .fillMaxHeight()
             .heightIn(min = 72.dp)
             .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.primary.copy(alpha = if (checked == true) 0.16f else 0.08f))
+            .background(AppColors.accentTint(if (checked == true) 0.16f else 0.08f))
             .then(action)
             .padding(horizontal = Spacing.xs, vertical = Spacing.md)
     ) {

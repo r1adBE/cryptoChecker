@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Élő árfolyamok</string>
-    <string name="settings_live_websocket_hint">Az árfolyamok késés nélkül követik a tőzsdét, amíg a lista nyitva van. Tőzsdék: Binance, Bybit, OKX, Coinbase és Kraken.</string>
+    <string name="settings_live_websocket_hint">Amíg a figyelőlista nyitva van: az árfolyamok késés nélkül követik a tőzsdét. Binance, Bybit, OKX, Coinbase és Kraken esetén.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Élő árfolyamok bekapcsolva</string>
     <string name="refresh_report_live">Élő: %1$s</string>

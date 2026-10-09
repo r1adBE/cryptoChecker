@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Торкніться для дій · проведіть для швидких дій · утримуйте для сортування</string>
+    <string name="watch_gesture_hint_short">Торкніться для дій · вліво – видалити · вправо – в обране</string>
     <string name="watch_action_alarm">Сигнал</string>
     <string name="watch_action_why">Чому?</string>
     <string name="watch_action_favorite">Обране</string>

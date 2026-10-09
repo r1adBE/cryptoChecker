@@ -118,6 +118,8 @@ struct CryptoCheckerApp: App {
                 MacroNotifications.refresh(settings: data.settings)
             case .background:
                 data.setAppActive(false)
+                // Letzten Stand sicher auf die Platte, bevor iOS die App anhält
+                SharedStorage.flushSnapshotWrites()
                 BackgroundRefresh.schedule(settings: data.settings)
             default:
                 break

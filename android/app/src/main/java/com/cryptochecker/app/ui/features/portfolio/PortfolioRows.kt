@@ -235,11 +235,12 @@ internal fun EmptyPortfolio(modifier: Modifier, currency: String, onAdd: () -> U
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 8.dp)
             )
-            // Beispiel mit Kaufkurs in der gewählten Umrechnungswährung
+            // Beispiel mit Kaufkurs in USDT — wie das Preisfeld beim Erfassen (sonst landet
+            // «58 000» in CHF gedacht als USDT im Portfolio)
             Text(
                 stringResource(
                     R.string.portfolio_empty_example,
-                    PriceFormat.priceWithCurrency(EXAMPLE_BUY_PRICE, currency)
+                    PriceFormat.priceWithCurrency(EXAMPLE_BUY_PRICE, PortfolioFormat.USDT)
                 ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

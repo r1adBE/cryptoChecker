@@ -144,10 +144,10 @@
     <!-- Definições -->
     <string name="settings_title">Definições</string>
     <string name="settings_background_updates">Atualização em segundo plano</string>
-    <string name="settings_background_updates_hint">Preços, alarmes e widgets são atualizados mesmo com a app fechada.</string>
+    <string name="settings_background_updates_hint">Mesmo com a app fechada: preços, alarmes e widgets no intervalo abaixo.</string>
     <string name="settings_background_interval">Intervalo</string>
     <string name="settings_live_service">Atualizar com frequência</string>
-    <string name="settings_live_service_hint">Consulta as cotações em intervalos curtos, mesmo com a app fechada. Mostra uma notificação e gasta mais bateria.</string>
+    <string name="settings_live_service_hint">Mesmo com a app fechada: consulta os preços em intervalos curtos. Mostra uma notificação e gasta mais bateria.</string>
     <string name="settings_live_interval">Frequência</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -279,7 +279,7 @@
     <string name="time_just_now">agora mesmo</string>
     <string name="welcome_text">Os seus preços. Os seus alarmes. A sua visão geral.\nSem conta. Sem anúncios. Sem rastreio.</string>
     <string name="developer_unlocked">Opções de programador desbloqueadas</string>
-    <string name="hint_favorites_list">Dica: toque em ☆ para marcar como favorito – os favoritos ficam no topo.</string>
+    <string name="hint_favorites_list">Dica: deslize uma linha para a direita para a tornar favorita – os favoritos ficam no topo.</string>
     <string name="tab_watchlist">Lista</string>
     <string name="tab_market_phase">Mercado</string>
     <plurals name="watchlist_stale_count">

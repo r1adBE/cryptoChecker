@@ -94,7 +94,8 @@ extension WatchlistScreen {
                         .foregroundStyle(AppColors.onSurface)
                         .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
                         .background(AppColors.containerHighest, in: Circle())
-                        .contentShape(Circle())
+                        // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
+                        .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
                 }
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L("watchlist_search_open"))
@@ -107,7 +108,8 @@ extension WatchlistScreen {
                         .foregroundStyle(accent.onPrimary)
                         .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
                         .background(accent.primary, in: Circle())
-                        .contentShape(Circle())
+                        // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
+                        .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
                 }
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L("shortcut_add"))

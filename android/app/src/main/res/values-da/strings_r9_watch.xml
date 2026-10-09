@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Tryk for handlinger · stryg for hurtige handlinger · hold for at sortere</string>
+    <string name="watch_gesture_hint_short">Tryk for handlinger · stryg til venstre for at slette · til højre for favorit</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Hvorfor?</string>
     <string name="watch_action_favorite">Favorit</string>

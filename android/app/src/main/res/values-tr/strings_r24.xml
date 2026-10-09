@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">%1$s gece yarısından beri değişim mevcut değil</string>
     <string name="sheet_chart_today">Bugün</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Uygulama kapalıyken en fazla dakikada bir</string>
+    <string name="settings_live_interval_hidden_hint">Uygulama kapalı: en fazla dakikada bir · ekran kapalı: 5 dakikada bir</string>
     <string name="sheet_more">Daha fazla</string>
     <string name="a11y_expanded">Genişletildi</string>
     <string name="a11y_collapsed">Daraltıldı</string>

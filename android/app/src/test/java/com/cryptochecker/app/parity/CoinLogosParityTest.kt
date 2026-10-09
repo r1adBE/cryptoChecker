@@ -170,4 +170,63 @@ class CoinLogosParityTest {
         // Uhr zurückgestellt: nicht frisch, neu holen
         assertFalse(CoinLogos.isFresh(now + 1_000, now))
     }
+    @Test
+    fun alphaList() {
+        val a = data["alpha"].obj()
+        val entries = a["entries"].list().map { it.obj() }.map {
+            CoinLogos.AlphaEntry(
+                symbol = it["symbol"] as String,
+                name = it["name"] as String?,
+                icon = it["iconUrl"] as String?,
+                marketCap = (it["marketCap"] as String?)?.toDoubleOrNull(),
+                offline = it["offline"] as Boolean,
+            )
+        }
+        val ranked = CoinLogos.rankAlpha(entries)
+        assertEquals(a["expectedOrder"].list().map { it as String }, ranked.map { it.symbol })
+        val map = LinkedHashMap(a["known"].obj().mapValues { it.value as String })
+        CoinLogos.pick(ranked.map { it.symbol to it.icon }, map)
+        assertEquals(a["expected"].obj().mapValues { it.value as String }, map)
+        assertEquals(a["expectedNames"].obj().mapValues { it.value as String }, CoinLogos.pickNames(ranked.map { it.symbol to it.name }))
+    }
+
+    @Test
+    fun partialList() {
+        val p = data["partial"].obj()
+        val merged = CoinLogos.withKnown(p["fresh"].obj().mapValues { it.value as String }, p["known"].obj().mapValues { it.value as String })
+        assertEquals(p["expected"].obj().mapValues { it.value as String }, merged)
+        p["rateLimit"].list().map { it.obj() }.forEach { c ->
+            assertEquals("rateLimit: $c", (c["expected"] as Number).toLong(), CoinLogos.rateLimitWaitMillis((c["retryAfter"] as Number?)?.toLong()))
+        }
+        val now = 10L * CoinLogos.MAP_TTL_MILLIS
+        assertEquals(now, CoinLogos.savedAtFor(now, complete = true))
+        val partial = CoinLogos.savedAtFor(now, complete = false)
+        assertTrue(CoinLogos.isFresh(partial, now + CoinLogos.PARTIAL_TTL_MILLIS - 1))
+        assertFalse(CoinLogos.isFresh(partial, now + CoinLogos.PARTIAL_TTL_MILLIS))
+    }
+    @Test
+    fun githubIndex() {
+        val x = data["index"].obj()
+        val index = CoinLogos.parseIndex(x["text"] as String)!!
+        assertEquals(x["expectedLogos"].obj().mapValues { it.value as String }, index.logos)
+        assertEquals(x["expectedNames"].obj().mapValues { it.value as String }, index.names)
+        x["invalid"].list().forEach { assertEquals("invalid: $it", null, CoinLogos.parseIndex(it as String)) }
+        assertEquals(null, CoinLogos.parseIndex(null))
+        assertTrue(CoinLogos.isFromIndex(index.logos))
+        assertFalse(CoinLogos.isFromIndex(mapOf("BTC" to "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png")))
+        val c = x["changed"].obj()
+        assertEquals(
+            c["expected"].list().map { it as String }.toSet(),
+            CoinLogos.changedKeys(c["old"].obj().mapValues { it.value as String }, c["new"].obj().mapValues { it.value as String }),
+        )
+    }
+    @Test
+    fun pack() {
+        val x = data["pack"].obj()
+        val b64 = java.util.Base64.getDecoder()
+        val pack = CoinLogos.parsePack(b64.decode(x["base64"] as String))!!
+        val expected = x["expected"].obj().mapValues { b64.decode(it.value as String).toList() }
+        assertEquals(expected, pack.mapValues { it.value.toList() })
+        x["invalidBase64"].list().forEach { assertEquals(null, CoinLogos.parsePack(b64.decode(it as String))) }
+    }
 }

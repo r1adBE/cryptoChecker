@@ -15,7 +15,7 @@ struct ExplorerScreen: View {
     @State var picker: ExplorerPickerKind?
     @State var showSyncSheet = false
     // Auf-/Zugeklappt merkt sich die Sitzung (ExplorerSectionMemory), nicht nur dieser Bildschirm
-    @State private var showPrecise: Bool
+    @State var showPrecise: Bool
     @State var showBulk: Bool
     @State var showBulkList = false
     @State var confirmBulk = false

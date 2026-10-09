@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -195,7 +196,7 @@ private fun HistoryHeader(
             color = SectionTitle.color,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f).sectionTitleMarker()
         )
         if (!expanded) {
             if (history == null) {

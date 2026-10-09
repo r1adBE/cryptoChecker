@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -73,7 +74,7 @@ private fun GestureHint(onDismiss: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.08f))
+            .background(AppColors.accentTint(0.08f))
             .padding(start = Spacing.md, top = 4.dp, bottom = 4.dp)
     ) {
         Text(
@@ -196,8 +197,6 @@ internal fun LazyItemScope.WatchlistItem(
     reorder: ReorderState,
     searching: Boolean,
     sortMode: Boolean,
-    /** Lange drücken: Sortiermodus an. */
-    onStartSort: () -> Unit,
     /** Mini-Charts laden (Einstellung an, genug Breite). */
     sparklines: Boolean,
     cachedSparkline: (String) -> List<Double>?,
@@ -226,13 +225,13 @@ internal fun LazyItemScope.WatchlistItem(
     val lift by animateFloatAsState(if (dragging) 1.03f else 1f, label = "lift")
     val elevation by animateDpAsState(if (dragging) 12.dp else 0.dp, label = "elevation")
 
-    // Lange drücken = Sortiermodus an und Karte direkt ziehen.
-    // Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
-    val dragModifier = if (searching) Modifier else Modifier.pointerInput(watch.id) {
+    // Sortieren nur im Sortiermodus (⋯ › Sortieren): dann lange drücken und ziehen oder am Griff.
+    // Ausserhalb startet langes Drücken nichts mehr — ein zögerliches Wischen landete sonst im
+    // Sortiermodus. Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
+    val dragModifier = if (searching || !sortMode) Modifier else Modifier.pointerInput(watch.id) {
         detectDragGesturesAfterLongPress(
             onDragStart = {
                 haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                onStartSort()
                 reorder.start(watch.id)
             },
             onDrag = { change, amount ->

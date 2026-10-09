@@ -141,10 +141,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Ρυθμίσεις</string>
     <string name="settings_background_updates">Ενημερώσεις στο παρασκήνιο</string>
-    <string name="settings_background_updates_hint">Τιμές, ειδοποιήσεις τιμής και widget ενημερώνονται ακόμα και όταν η εφαρμογή είναι κλειστή.</string>
+    <string name="settings_background_updates_hint">Ακόμη και με κλειστή την εφαρμογή: τιμές, συναγερμοί και widget στο παρακάτω διάστημα.</string>
     <string name="settings_background_interval">Διάστημα</string>
     <string name="settings_live_service">Συχνή ενημέρωση</string>
-    <string name="settings_live_service_hint">Ελέγχει τις τιμές σε μικρά διαστήματα, ακόμα και με την εφαρμογή κλειστή. Δείχνει μια ειδοποίηση και καταναλώνει περισσότερη μπαταρία.</string>
+    <string name="settings_live_service_hint">Ακόμη και με κλειστή την εφαρμογή: ελέγχει τις τιμές ανά μικρά διαστήματα. Εμφανίζει ειδοποίηση και καταναλώνει περισσότερη μπαταρία.</string>
     <string name="settings_live_interval">Πόσο συχνά</string>
     <string name="settings_minutes">%1$d λεπ.</string>
     <string name="settings_seconds">%1$d δευτ.</string>
@@ -270,7 +270,7 @@
     <string name="time_just_now">μόλις τώρα</string>
     <string name="welcome_text">Οι τιμές σας. Οι ειδοποιήσεις σας. Η επισκόπησή σας.\nΧωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.</string>
     <string name="developer_unlocked">Οι επιλογές προγραμματιστή ξεκλειδώθηκαν</string>
-    <string name="hint_favorites_list">Συμβουλή: πατήστε ☆ για αγαπημένο – τα αγαπημένα μένουν πάνω.</string>
+    <string name="hint_favorites_list">Συμβουλή: σύρετε μια γραμμή προς τα δεξιά για αγαπημένο – τα αγαπημένα μένουν πάνω.</string>
     <string name="tab_watchlist">Λίστα</string>
     <string name="tab_market_phase">Αγορά</string>
     <plurals name="watchlist_stale_count">

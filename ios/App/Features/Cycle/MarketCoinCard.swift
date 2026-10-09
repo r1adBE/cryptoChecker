@@ -324,7 +324,7 @@ struct CycleCoinPickerSheet: View {
         .accessibilityAction(named: Text(L(isFavorite ? "favorite_remove" : "favorite_add"))) {
             viewModel.toggleFavoriteCoin(coin)
         }
-        .listRowBackground(isSelected ? accent.primary.opacity(0.3) : Color.clear)
+        .listRowBackground(isSelected ? accent.tint(0.3) : Color.clear)
         .id(coin)
     }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favoritt</string>
+    <string name="explorer_search_choose_manually">Velg børs og par selv</string>
+    <string name="portfolio_avg_price_hint">Gj.sn. kjøpspris: gjennomsnittet av alle kjøp, vektet etter mengde. Salg verdsettes til dette gjennomsnittet (ikke FIFO).</string>
+</resources>

@@ -4585,6 +4585,197 @@
         }
       }
     },
+    "a11y_favorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مفضل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oblíbené"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorit"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorit"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αγαπημένο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorite"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorito"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محبوب"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suosikki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favori"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מועדף"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पसंदीदा"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kedvenc"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferito"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お気に入り"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "즐겨찾기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoriet"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ulubione"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorito"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorito"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Избранное"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E preferuar"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorit"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รายการโปรด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favori"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обране"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yêu thích"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已收藏"
+          }
+        }
+      }
+    },
     "a11y_gauge" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -39361,6 +39552,388 @@
         }
       }
     },
+    "alarms_notifications_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإشعارات متوقفة – لن تصلك التنبيهات."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oznámení jsou vypnutá – upozornění k vám nedorazí."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifikationer er slået fra – alarmer kan ikke nå dig."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitteilungen sind aus – Alarme kommen nicht an."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις είναι απενεργοποιημένες – οι συναγερμοί δεν θα σας φτάσουν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications are off – alarms can’t reach you."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las notificaciones están desactivadas: las alarmas no te llegarán."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعلان‌ها خاموش است – هشدارها به شما نمی‌رسند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilmoitukset ovat pois päältä – hälytykset eivät tavoita sinua."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les notifications sont désactivées : les alertes ne vous parviendront pas."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ההתראות כבויות – ההתראות על מחירים לא יגיעו אליך."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नोटिफ़िकेशन बंद हैं – अलार्म आप तक नहीं पहुँचेंगे।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az értesítések ki vannak kapcsolva – a riasztások nem érnek el."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifikasi nonaktif – alarm tidak akan sampai kepada Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le notifiche sono disattivate: gli avvisi non ti raggiungeranno."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知がオフです – アラームは届きません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림이 꺼져 있어 알람을 받을 수 없습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varsler er slått av – alarmer når ikke frem til deg."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meldingen staan uit – alarmen komen niet aan."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadomienia są wyłączone – alarmy do Ciebie nie dotrą."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notificações estão desativadas – os alarmes não lhe vão chegar."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notificações estão desativadas – os alarmes não vão chegar até você."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificările sunt dezactivate – alarmele nu vor ajunge la tine."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомления выключены – оповещения до вас не дойдут."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Njoftimet janë të fikura – alarmet nuk do të të arrijnë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aviseringar är avstängda – larm når inte fram till dig."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแจ้งเตือนปิดอยู่ – สัญญาณเตือนจะไม่ถึงคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildirimler kapalı – alarmlar sana ulaşamaz."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення вимкнено – оповіщення до вас не дійдуть."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thông báo đang tắt – cảnh báo sẽ không đến được bạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知已关闭——提醒无法送达。"
+          }
+        }
+      }
+    },
+    "alarms_notifications_turn_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تشغيل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapnout"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slå til"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einschalten"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ενεργοποίηση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روشن کردن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ota käyttöön"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הפעלה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "चालू करें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bekapcsolás"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktifkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attiva"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オンにする"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "켜기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slå på"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inschakelen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Włącz"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activează"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Включить"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivizo"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slå på"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปิด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увімкнути"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bật"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启"
+          }
+        }
+      }
+    },
     "alarms_overview_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -67460,6 +68033,197 @@
         }
       }
     },
+    "explorer_search_choose_manually" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر المنصة والزوج بنفسك"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vybrat burzu a pár ručně"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vælg selv børs og par"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Börse und Paar selbst wählen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επιλέξτε μόνοι σας ανταλλακτήριο και ζεύγος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose exchange and pair yourself"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir exchange y par manualmente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صرافی و جفت را خودتان انتخاب کنید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valitse pörssi ja pari itse"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir soi-même la plateforme et la paire"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בחירה ידנית של בורסה וצמד"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एक्सचेंज और जोड़ी खुद चुनें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tőzsde és pár kiválasztása kézzel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih bursa dan pasangan sendiri"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli tu exchange e coppia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取引所とペアを自分で選ぶ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "거래소와 페어 직접 선택"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velg børs og par selv"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zelf beurs en paar kiezen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz giełdę i parę samodzielnie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolher bolsa e par manualmente"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolher corretora e par manualmente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alege singur bursa și perechea"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать биржу и пару вручную"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zgjidh vetë bursën dhe çiftin"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välj börs och par själv"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เลือกกระดานเทรดและคู่เองด้วยตนเอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borsayı ve pariteyi kendin seç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вибрати біржу й пару вручну"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tự chọn sàn và cặp"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自行选择交易所和交易对"
+          }
+        }
+      }
+    },
     "explorer_search_empty" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -76825,187 +77589,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نصيحة: اضغط على ☆ للإضافة إلى المفضلة – تبقى المفضلة في الأعلى."
+            "value" : "نصيحة: اسحب الصف إلى اليمين لجعله مفضلًا – المفضلة تبقى في الأعلى."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tip: klepnutím na ☆ přidáte do oblíbených – oblíbené jsou nahoře."
+            "value" : "Tip: přejetím řádku doprava ho přidáte do oblíbených – oblíbené zůstávají nahoře."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tip: tryk på ☆ for favorit – favoritter står øverst."
+            "value" : "Tip: stryg en række til højre for at gøre den til favorit – favoritter står øverst."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipp: ☆ antippen = Favorit – Favoriten stehen oben."
+            "value" : "Tipp: Zeile nach rechts wischen = Favorit – Favoriten stehen oben."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Συμβουλή: πατήστε ☆ για αγαπημένο – τα αγαπημένα μένουν πάνω."
+            "value" : "Συμβουλή: σύρετε μια γραμμή προς τα δεξιά για αγαπημένο – τα αγαπημένα μένουν πάνω."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tip: tap ☆ to make an entry a favorite – favorites stay at the top."
+            "value" : "Tip: swipe a row to the right to make it a favorite – favorites stay at the top."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Consejo: toca ☆ para marcar como favorito; los favoritos quedan arriba."
+            "value" : "Consejo: desliza una fila hacia la derecha para marcarla como favorita; los favoritos quedan arriba."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نکته: برای علاقه‌مندی روی ☆ بزنید – علاقه‌مندی‌ها بالا می‌مانند."
+            "value" : "نکته: یک ردیف را به راست بکشید تا محبوب شود – محبوب‌ها بالا می‌مانند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vinkki: napauta ☆ lisätäksesi suosikin – suosikit pysyvät ylhäällä."
+            "value" : "Vinkki: pyyhkäise riviä oikealle, niin siitä tulee suosikki – suosikit pysyvät ylhäällä."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Astuce : touchez ☆ pour mettre en favori – les favoris restent en haut."
+            "value" : "Astuce : balayez une ligne vers la droite pour la mettre en favori – les favoris restent en haut."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "טיפ: הקישו על ☆ למועדף – המועדפים נשארים למעלה."
+            "value" : "טיפ: החלקה של שורה ימינה הופכת אותה למועדפת – המועדפים נשארים למעלה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सुझाव: पसंदीदा के लिए ☆ पर टैप करें – पसंदीदा ऊपर रहते हैं।"
+            "value" : "सुझाव: किसी पंक्ति को दाईं ओर स्वाइप करें ताकि वह पसंदीदा बने – पसंदीदा ऊपर रहते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipp: koppintson a ☆-ra a kedvencekhez – a kedvencek felül maradnak."
+            "value" : "Tipp: húzd jobbra a sort, és kedvenc lesz – a kedvencek felül maradnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tips: ketuk ☆ untuk favorit – favorit tetap di atas."
+            "value" : "Tips: geser baris ke kanan untuk menjadikannya favorit – favorit tetap di atas."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suggerimento: tocca ☆ per un preferito – i preferiti restano in alto."
+            "value" : "Suggerimento: scorri una riga verso destra per renderla preferita – i preferiti restano in alto."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ヒント: ☆ をタップでお気に入り。お気に入りは上に表示されます。"
+            "value" : "ヒント: 行を右にスワイプでお気に入り。お気に入りは上に表示されます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "팁: ☆를 탭하면 즐겨찾기 – 즐겨찾기는 위에 표시됩니다."
+            "value" : "팁: 행을 오른쪽으로 밀면 즐겨찾기가 됩니다 – 즐겨찾기는 위에 표시됩니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tips: trykk på ☆ for favoritt – favoritter står øverst."
+            "value" : "Tips: sveip en rad mot høyre for å gjøre den til favoritt – favoritter står øverst."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tip: tik op ☆ voor een favoriet – favorieten blijven bovenaan."
+            "value" : "Tip: veeg een rij naar rechts om er een favoriet van te maken – favorieten staan bovenaan."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wskazówka: dotknij ☆, by dodać do ulubionych – ulubione są na górze."
+            "value" : "Wskazówka: przesuń wiersz w prawo, aby dodać go do ulubionych – ulubione są na górze."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dica: toque em ☆ para marcar como favorito – os favoritos ficam no topo."
+            "value" : "Dica: deslize uma linha para a direita para a tornar favorita – os favoritos ficam no topo."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dica: toque em ☆ para favoritar – os favoritos ficam no topo."
+            "value" : "Dica: deslize uma linha para a direita para favoritá-la – os favoritos ficam no topo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sfat: atinge ☆ pentru favorit – favoritele rămân sus."
+            "value" : "Sfat: glisează un rând spre dreapta pentru a-l face favorit – favoritele rămân sus."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Совет: коснитесь ☆, чтобы добавить в избранное – избранное остаётся вверху."
+            "value" : "Совет: проведите строку вправо, чтобы добавить в избранное – избранное остаётся наверху."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Këshillë: prek ☆ për të preferuar – të preferuarat mbeten lart."
+            "value" : "Këshillë: rrëshqit një rresht djathtas për ta bërë të preferuar – të preferuarat qëndrojnë lart."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tips: tryck på ☆ för favorit – favoriter ligger överst."
+            "value" : "Tips: svep en rad åt höger för att göra den till favorit – favoriter hamnar överst."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เคล็ดลับ: แตะ ☆ เพื่อเป็นรายการโปรด รายการโปรดอยู่ด้านบน"
+            "value" : "เคล็ดลับ: ปัดแถวไปทางขวาเพื่อเป็นรายการโปรด – รายการโปรดจะอยู่ด้านบน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İpucu: favori için ☆ simgesine dokunun – favoriler üstte kalır."
+            "value" : "İpucu: bir satırı sağa kaydırarak favori yap – favoriler üstte kalır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Порада: торкніться ☆, щоб додати в обране – обране вгорі."
+            "value" : "Порада: проведіть рядок праворуч, щоб додати до обраного – обране залишається вгорі."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mẹo: chạm ☆ để yêu thích – mục yêu thích luôn ở trên."
+            "value" : "Mẹo: vuốt một dòng sang phải để đánh dấu yêu thích – mục yêu thích luôn ở trên cùng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "提示：点按 ☆ 设为收藏，收藏始终在最上方。"
+            "value" : "提示：将一行向右滑动即可设为收藏——收藏会保持在顶部。"
           }
         }
       }
@@ -111247,6 +112011,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "平均买入价"
+          }
+        }
+      }
+    },
+    "portfolio_avg_price_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متوسط سعر الشراء: متوسط جميع عمليات الشراء مرجحًا بالكمية. تُقيَّم عمليات البيع بهذا المتوسط (وليس FIFO)."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prům. nákupní cena: průměr všech nákupů vážený množstvím. Prodeje se oceňují tímto průměrem (ne FIFO)."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gns. købspris: gennemsnittet af alle køb, vægtet efter mængde. Salg værdisættes til dette gennemsnit (ikke FIFO)."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe werden zu diesem Durchschnitt bewertet (nicht FIFO)."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μέση τιμή αγοράς: ο μέσος όρος όλων των αγορών, σταθμισμένος με την ποσότητα. Οι πωλήσεις αποτιμώνται σε αυτόν τον μέσο όρο (όχι FIFO)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avg. buy price: the average of all buys, weighted by amount. Sells are valued at this average (not FIFO)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precio medio de compra: la media de todas las compras, ponderada por cantidad. Las ventas se valoran a esa media (no FIFO)."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "میانگین قیمت خرید: میانگین همه خریدها، وزن‌دهی‌شده با مقدار. فروش‌ها با همین میانگین ارزش‌گذاری می‌شوند (نه FIFO)."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keskim. ostohinta: kaikkien ostojen keskiarvo määrillä painotettuna. Myynnit arvostetaan tähän keskiarvoon (ei FIFO)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prix d’achat moyen : moyenne de tous les achats, pondérée par la quantité. Les ventes sont évaluées à cette moyenne (pas FIFO)."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחיר קנייה ממוצע: ממוצע כל הקניות, משוקלל לפי כמות. מכירות מוערכות לפי ממוצע זה (לא FIFO)."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "औसत खरीद मूल्य: सभी खरीदों का मात्रा-भारित औसत। बिक्री का मूल्यांकन इसी औसत पर होता है (FIFO नहीं)।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Átl. vételár: az összes vétel mennyiséggel súlyozott átlaga. Az eladásokat ezen az átlagon értékeljük (nem FIFO)."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga beli rata-rata: rata-rata semua pembelian, ditimbang menurut jumlah. Penjualan dinilai dengan rata-rata ini (bukan FIFO)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzo medio di acquisto: media di tutti gli acquisti, ponderata per quantità. Le vendite sono valutate a questa media (non FIFO)."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平均取得価格: すべての購入を数量で加重平均した価格です。売却はこの平均で評価します（FIFO ではありません）。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "평균 매수가: 모든 매수를 수량으로 가중 평균한 값입니다. 매도는 이 평균으로 평가합니다(FIFO 아님)."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gj.sn. kjøpspris: gjennomsnittet av alle kjøp, vektet etter mengde. Salg verdsettes til dette gjennomsnittet (ikke FIFO)."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gem. aankoopprijs: het gemiddelde van alle aankopen, gewogen naar hoeveelheid. Verkopen worden tegen dit gemiddelde gewaardeerd (geen FIFO)."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Śr. cena zakupu: średnia wszystkich zakupów ważona ilością. Sprzedaże są wyceniane po tej średniej (nie FIFO)."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço médio de compra: a média de todas as compras, ponderada pela quantidade. As vendas são avaliadas por essa média (não FIFO)."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço médio de compra: a média de todas as compras, ponderada pela quantidade. As vendas são avaliadas por essa média (não FIFO)."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preț mediu de cumpărare: media tuturor cumpărărilor, ponderată cu cantitatea. Vânzările sunt evaluate la această medie (nu FIFO)."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Средняя цена покупки: среднее по всем покупкам, взвешенное по количеству. Продажи оцениваются по этому среднему (не FIFO)."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çmimi mesatar i blerjes: mesatarja e të gjitha blerjeve, e peshuar sipas sasisë. Shitjet vlerësohen me këtë mesatare (jo FIFO)."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snittköpkurs: genomsnittet av alla köp, viktat efter mängd. Försäljningar värderas till detta genomsnitt (inte FIFO)."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคาซื้อเฉลี่ย: ค่าเฉลี่ยของการซื้อทั้งหมด ถ่วงน้ำหนักตามจำนวน การขายคิดมูลค่าที่ค่าเฉลี่ยนี้ (ไม่ใช่ FIFO)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort. alış fiyatı: tüm alımların miktara göre ağırlıklı ortalaması. Satışlar bu ortalamayla değerlenir (FIFO değil)."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Середня ціна купівлі: середнє за всіма купівлями, зважене за кількістю. Продажі оцінюються за цим середнім (не FIFO)."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá mua trung bình: trung bình của mọi lần mua, theo trọng số khối lượng. Lệnh bán được tính theo mức trung bình này (không phải FIFO)."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平均买入价：所有买入按数量加权的平均值。卖出按此平均价计算（非先进先出）。"
           }
         }
       }
@@ -157251,187 +158206,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تُحدَّث الأسعار والتنبيهات والأدوات حتى عند إغلاق التطبيق."
+            "value" : "حتى عندما يكون التطبيق مغلقًا: الأسعار والتنبيهات والأدوات وفق الفاصل أدناه."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ceny, alarmy a widgety se aktualizují i při zavřené aplikaci."
+            "value" : "I při zavřené aplikaci: ceny, upozornění a widgety v intervalu níže."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser, alarmer og widgets opdateres, også når appen er lukket."
+            "value" : "Også når appen er lukket: kurser, alarmer og widgets med intervallet nedenfor."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurse, Alarme und Widgets werden auch bei geschlossener App aktualisiert."
+            "value" : "Auch bei geschlossener App: Kurse, Alarme und Widgets im Abstand unten."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Τιμές, ειδοποιήσεις τιμής και widget ενημερώνονται ακόμα και όταν η εφαρμογή είναι κλειστή."
+            "value" : "Ακόμη και με κλειστή την εφαρμογή: τιμές, συναγερμοί και widget στο παρακάτω διάστημα."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prices, alarms and widgets are updated even when the app is closed."
+            "value" : "Even when the app is closed: prices, alarms and widgets at the interval below."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Precios, alarmas y widgets se actualizan aunque la app esté cerrada."
+            "value" : "Incluso con la app cerrada: precios, alarmas y widgets con el intervalo de abajo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قیمت‌ها، هشدارها و ابزارک‌ها حتی وقتی برنامه بسته است به‌روز می‌شوند."
+            "value" : "حتی وقتی برنامه بسته است: قیمت‌ها، هشدارها و ویجت‌ها با فاصله زیر."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hinnat, hälytykset ja widgetit päivittyvät myös sovelluksen ollessa suljettuna."
+            "value" : "Myös sovelluksen ollessa suljettuna: hinnat, hälytykset ja widgetit alla olevalla välillä."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les prix, alertes et widgets sont actualisés même lorsque l'app est fermée."
+            "value" : "Même app fermée : cours, alertes et widgets à l’intervalle ci-dessous."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מחירים, התראות מחיר ווידג׳טים מתעדכנים גם כשהאפליקציה סגורה."
+            "value" : "גם כשהאפליקציה סגורה: מחירים, התראות ווידג׳טים במרווח שלמטה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर भी कीमतें, अलार्म और विजेट अपडेट होते हैं।"
+            "value" : "ऐप बंद होने पर भी: कीमतें, अलार्म और विजेट नीचे दिए अंतराल पर।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az árak, riasztások és widgetek bezárt alkalmazás mellett is frissülnek."
+            "value" : "Bezárt alkalmazásnál is: árfolyamok, riasztások és widgetek az alábbi időközönként."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Harga, alarm, dan widget tetap diperbarui meskipun aplikasi ditutup."
+            "value" : "Bahkan saat aplikasi ditutup: harga, alarm, dan widget sesuai interval di bawah."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prezzi, allarmi e widget vengono aggiornati anche ad app chiusa."
+            "value" : "Anche con l’app chiusa: prezzi, avvisi e widget all’intervallo qui sotto."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリを閉じていても、価格・アラーム・ウィジェットが更新されます。"
+            "value" : "アプリを閉じていても: 価格・アラーム・ウィジェットを下の間隔で更新します。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱이 닫혀 있어도 가격, 경보, 위젯이 업데이트됩니다."
+            "value" : "앱이 닫혀 있어도: 아래 간격으로 시세, 알람, 위젯을 업데이트합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser, alarmer og widgeter oppdateres også når appen er lukket."
+            "value" : "Også når appen er lukket: kurser, alarmer og widgeter med intervallet nedenfor."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koersen, alarmen en widgets worden ook bijgewerkt als de app gesloten is."
+            "value" : "Ook als de app gesloten is: koersen, alarmen en widgets met het interval hieronder."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ceny, alarmy i widżety są aktualizowane nawet przy zamkniętej aplikacji."
+            "value" : "Także przy zamkniętej aplikacji: kursy, alarmy i widżety w odstępie poniżej."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Preços, alarmes e widgets são atualizados mesmo com a app fechada."
+            "value" : "Mesmo com a app fechada: preços, alarmes e widgets no intervalo abaixo."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Preços, alarmes e widgets são atualizados mesmo com o app fechado."
+            "value" : "Mesmo com o app fechado: preços, alarmes e widgets no intervalo abaixo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prețurile, alarmele și widgeturile se actualizează chiar și cu aplicația închisă."
+            "value" : "Chiar și cu aplicația închisă: prețuri, alarme și widgeturi la intervalul de mai jos."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Цены, оповещения и виджеты обновляются, даже когда приложение закрыто."
+            "value" : "Даже при закрытом приложении: курсы, оповещения и виджеты с интервалом ниже."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çmimet, alarmet dhe widget-et përditësohen edhe kur aplikacioni është i mbyllur."
+            "value" : "Edhe kur aplikacioni është i mbyllur: çmimet, alarmet dhe widget-et me intervalin më poshtë."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser, larm och widgetar uppdateras även när appen är stängd."
+            "value" : "Även när appen är stängd: kurser, larm och widgetar med intervallet nedan."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ราคา สัญญาณเตือน และวิดเจ็ตจะอัปเดตแม้ปิดแอปอยู่"
+            "value" : "แม้ปิดแอป: ราคา สัญญาณเตือน และวิดเจ็ตตามช่วงเวลาด้านล่าง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fiyatlar, alarmlar ve widget'lar uygulama kapalıyken de güncellenir."
+            "value" : "Uygulama kapalıyken bile: fiyatlar, alarmlar ve widget'lar aşağıdaki aralıkta."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ціни, сигнали й віджети оновлюються, навіть коли застосунок закрито."
+            "value" : "Навіть коли застосунок закрито: курси, оповіщення й віджети з інтервалом нижче."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giá, cảnh báo và tiện ích vẫn được cập nhật ngay cả khi ứng dụng đã đóng."
+            "value" : "Kể cả khi đóng ứng dụng: giá, cảnh báo và tiện ích theo khoảng thời gian bên dưới."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "即使应用已关闭，价格、提醒和小部件也会更新。"
+            "value" : "即使应用已关闭：按下方间隔更新价格、提醒和小组件。"
           }
         }
       }
@@ -164700,187 +165655,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عند إغلاق التطبيق، مرة واحدة في الدقيقة على الأكثر"
+            "value" : "التطبيق مغلق: مرة في الدقيقة على الأكثر · الشاشة مطفأة: كل 5 دقائق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Při zavřené aplikaci nejvýše jednou za minutu"
+            "value" : "Zavřená aplikace: nejvýš jednou za minutu · vypnutá obrazovka: každých 5 minut"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, højst én gang i minuttet"
+            "value" : "App lukket: højst én gang i minuttet · skærm slukket: hvert 5. minut"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bei geschlossener App höchstens jede Minute"
+            "value" : "App geschlossen: höchstens jede Minute · Bildschirm aus: alle 5 Minuten"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Με την εφαρμογή κλειστή, το πολύ μία φορά το λεπτό"
+            "value" : "Κλειστή εφαρμογή: το πολύ μία φορά το λεπτό · οθόνη σβηστή: κάθε 5 λεπτά"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "When the app is closed, at most once a minute"
+            "value" : "App closed: at most once a minute · screen off: every 5 minutes"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con la app cerrada, como mucho una vez por minuto"
+            "value" : "App cerrada: como mucho una vez por minuto · pantalla apagada: cada 5 minutos"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی برنامه بسته است، حداکثر یک بار در دقیقه"
+            "value" : "برنامه بسته: حداکثر هر دقیقه یک بار · صفحه خاموش: هر ۵ دقیقه"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kun sovellus on suljettu, enintään kerran minuutissa"
+            "value" : "Sovellus suljettu: enintään kerran minuutissa · näyttö pois: 5 minuutin välein"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App fermée : au plus une fois par minute"
+            "value" : "App fermée : au plus une fois par minute · écran éteint : toutes les 5 minutes"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כשהאפליקציה סגורה, לכל היותר פעם בדקה"
+            "value" : "אפליקציה סגורה: לכל היותר פעם בדקה · מסך כבוי: כל 5 דקות"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर ज़्यादा से ज़्यादा हर मिनट"
+            "value" : "ऐप बंद: अधिकतम हर मिनट एक बार · स्क्रीन बंद: हर 5 मिनट"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bezárt alkalmazásnál legfeljebb percenként egyszer"
+            "value" : "Bezárt alkalmazás: legfeljebb percenként · kikapcsolt képernyő: 5 percenként"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saat aplikasi ditutup, paling sering sekali per menit"
+            "value" : "Aplikasi ditutup: paling sering sekali per menit · layar mati: setiap 5 menit"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con l’app chiusa, al massimo una volta al minuto"
+            "value" : "App chiusa: al massimo una volta al minuto · schermo spento: ogni 5 minuti"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリを閉じている間は最短1分ごと"
+            "value" : "アプリを閉じている間は最短1分ごと · 画面オフ中は5分ごと"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱이 닫혀 있으면 최대 1분에 한 번"
+            "value" : "앱이 닫힘: 최대 1분에 한 번 · 화면 꺼짐: 5분마다"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, høyst én gang i minuttet"
+            "value" : "App lukket: høyst én gang i minuttet · skjerm av: hvert 5. minutt"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Met de app gesloten hoogstens eens per minuut"
+            "value" : "App gesloten: hoogstens eens per minuut · scherm uit: elke 5 minuten"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przy zamkniętej aplikacji najwyżej raz na minutę"
+            "value" : "Aplikacja zamknięta: najwyżej raz na minutę · ekran wyłączony: co 5 minut"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com a app fechada, no máximo uma vez por minuto"
+            "value" : "App fechada: no máximo uma vez por minuto · ecrã desligado: a cada 5 minutos"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com o app fechado, no máximo uma vez por minuto"
+            "value" : "App fechado: no máximo uma vez por minuto · tela apagada: a cada 5 minutos"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cu aplicația închisă, cel mult o dată pe minut"
+            "value" : "Aplicație închisă: cel mult o dată pe minut · ecran stins: la fiecare 5 minute"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "При закрытом приложении не чаще раза в минуту"
+            "value" : "Приложение закрыто: не чаще раза в минуту · экран выключен: каждые 5 минут"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kur aplikacioni është i mbyllur, më së shumti një herë në minutë"
+            "value" : "Aplikacioni i mbyllur: më së shumti një herë në minutë · ekrani i fikur: çdo 5 minuta"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "När appen är stängd högst en gång i minuten"
+            "value" : "Appen stängd: högst en gång i minuten · skärmen av: var 5:e minut"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เมื่อปิดแอป อย่างมากนาทีละครั้ง"
+            "value" : "ปิดแอป: สูงสุดนาทีละครั้ง · ปิดหน้าจอ: ทุก 5 นาที"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama kapalıyken en fazla dakikada bir"
+            "value" : "Uygulama kapalı: en fazla dakikada bir · ekran kapalı: 5 dakikada bir"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Коли застосунок закрито, не частіше разу на хвилину"
+            "value" : "Застосунок закрито: не частіше разу на хвилину · екран вимкнено: кожні 5 хвилин"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khi đóng ứng dụng, tối đa mỗi phút một lần"
+            "value" : "Đóng ứng dụng: tối đa mỗi phút một lần · tắt màn hình: mỗi 5 phút"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用关闭时最多每分钟一次"
+            "value" : "应用关闭时：最多每分钟一次 · 屏幕关闭时：每 5 分钟"
           }
         }
       }
@@ -165082,187 +166037,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يفحص الأسعار على فترات قصيرة، حتى عندما يكون التطبيق مغلقًا. يعرض إشعارًا ويستهلك بطارية أكثر."
+            "value" : "حتى عندما يكون التطبيق مغلقًا: يفحص الأسعار على فترات قصيرة. يعرض إشعارًا ويستهلك بطارية أكثر."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Načítá kurzy v krátkých intervalech, i když je aplikace zavřená. Zobrazuje oznámení a spotřebuje víc baterie."
+            "value" : "I při zavřené aplikaci: kontroluje ceny v krátkých intervalech. Zobrazuje oznámení a spotřebuje víc baterie."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Henter kurser med korte mellemrum, også når appen er lukket. Viser en notifikation og bruger mere strøm."
+            "value" : "Også når appen er lukket: tjekker kurser med korte mellemrum. Viser en notifikation og bruger mere batteri."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fragt die Kurse in kurzen Abständen ab, auch bei geschlossener App. Zeigt dafür eine Mitteilung und braucht mehr Akku."
+            "value" : "Auch bei geschlossener App: fragt die Kurse in kurzen Abständen ab. Zeigt dafür eine Mitteilung und braucht mehr Akku."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ελέγχει τις τιμές σε μικρά διαστήματα, ακόμα και με την εφαρμογή κλειστή. Δείχνει μια ειδοποίηση και καταναλώνει περισσότερη μπαταρία."
+            "value" : "Ακόμη και με κλειστή την εφαρμογή: ελέγχει τις τιμές ανά μικρά διαστήματα. Εμφανίζει ειδοποίηση και καταναλώνει περισσότερη μπαταρία."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Checks prices at short intervals, even when the app is closed. Shows a notification and uses more battery."
+            "value" : "Even when the app is closed: checks prices at short intervals. Shows a notification and uses more battery."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Consulta los precios en intervalos cortos, incluso con la app cerrada. Muestra una notificación y gasta más batería."
+            "value" : "Incluso con la app cerrada: consulta los precios a intervalos cortos. Muestra una notificación y gasta más batería."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قیمت‌ها را در فاصله‌های کوتاه بررسی می‌کند، حتی وقتی برنامه بسته است. یک اعلان نشان می‌دهد و باتری بیشتری مصرف می‌کند."
+            "value" : "حتی وقتی برنامه بسته است: قیمت‌ها را در فواصل کوتاه بررسی می‌کند. یک اعلان نشان می‌دهد و باتری بیشتری مصرف می‌کند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hakee hinnat lyhyin väliajoin, myös kun sovellus on suljettu. Näyttää ilmoituksen ja kuluttaa enemmän akkua."
+            "value" : "Myös sovelluksen ollessa suljettuna: tarkistaa hinnat lyhyin välein. Näyttää ilmoituksen ja kuluttaa enemmän akkua."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Interroge les cours à intervalles courts, même quand l’app est fermée. Affiche une notification et consomme plus de batterie."
+            "value" : "Même app fermée : interroge les cours à intervalles courts. Affiche une notification et consomme plus de batterie."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בודק מחירים במרווחים קצרים, גם כשהאפליקציה סגורה. מציג התראה וצורך יותר סוללה."
+            "value" : "גם כשהאפליקציה סגורה: בודקת מחירים במרווחים קצרים. מציגה התראה וצורכת יותר סוללה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर भी कम अंतराल पर भाव जाँचता है। एक सूचना दिखाता है और ज़्यादा बैटरी खर्च करता है।"
+            "value" : "ऐप बंद होने पर भी: कम अंतराल पर कीमतें जाँचता है। एक सूचना दिखाता है और ज़्यादा बैटरी लेता है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rövid időközönként lekéri az árfolyamokat, bezárt alkalmazásnál is. Értesítést jelenít meg, és több akkumulátort fogyaszt."
+            "value" : "Bezárt alkalmazásnál is: rövid időközönként lekérdezi az árfolyamokat. Értesítést mutat, és több akkumulátort használ."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Memeriksa harga dalam interval pendek, bahkan saat aplikasi ditutup. Menampilkan notifikasi dan memakai lebih banyak baterai."
+            "value" : "Bahkan saat aplikasi ditutup: memeriksa harga dengan interval singkat. Menampilkan notifikasi dan memakai lebih banyak baterai."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Controlla i prezzi a intervalli brevi, anche ad app chiusa. Mostra una notifica e consuma più batteria."
+            "value" : "Anche con l’app chiusa: controlla i prezzi a brevi intervalli. Mostra una notifica e consuma più batteria."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリを閉じていても、短い間隔で価格を確認します。通知が表示され、電池を多く使います。"
+            "value" : "アプリを閉じていても: 短い間隔で価格を確認します。通知が表示され、電池を多く使います。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱이 닫혀 있어도 짧은 간격으로 시세를 확인합니다. 알림이 표시되고 배터리를 더 사용합니다."
+            "value" : "앱이 닫혀 있어도: 짧은 간격으로 시세를 확인합니다. 알림이 표시되며 배터리를 더 사용합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Henter kurser med korte mellomrom, også når appen er lukket. Viser et varsel og bruker mer strøm."
+            "value" : "Også når appen er lukket: sjekker kurser med korte mellomrom. Viser et varsel og bruker mer batteri."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Haalt koersen op met korte tussenpozen, ook als de app dicht is. Toont een melding en verbruikt meer batterij."
+            "value" : "Ook als de app gesloten is: vraagt koersen op met korte tussenpozen. Toont een melding en gebruikt meer batterij."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pobiera kursy w krótkich odstępach, także gdy aplikacja jest zamknięta. Pokazuje powiadomienie i zużywa więcej baterii."
+            "value" : "Także przy zamkniętej aplikacji: sprawdza kursy w krótkich odstępach. Pokazuje powiadomienie i zużywa więcej baterii."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Consulta as cotações em intervalos curtos, mesmo com a app fechada. Mostra uma notificação e gasta mais bateria."
+            "value" : "Mesmo com a app fechada: consulta os preços em intervalos curtos. Mostra uma notificação e gasta mais bateria."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Consulta as cotações em intervalos curtos, mesmo com o app fechado. Mostra uma notificação e gasta mais bateria."
+            "value" : "Mesmo com o app fechado: consulta os preços em intervalos curtos. Mostra uma notificação e gasta mais bateria."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verifică prețurile la intervale scurte, chiar și cu aplicația închisă. Afișează o notificare și consumă mai multă baterie."
+            "value" : "Chiar și cu aplicația închisă: verifică prețurile la intervale scurte. Afișează o notificare și consumă mai multă baterie."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Запрашивает котировки с короткими интервалами, даже когда приложение закрыто. Показывает уведомление и расходует больше заряда."
+            "value" : "Даже при закрытом приложении: часто запрашивает курсы. Показывает уведомление и расходует больше заряда."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kontrollon çmimet me intervale të shkurtra, edhe kur aplikacioni është i mbyllur. Shfaq një njoftim dhe harxhon më shumë bateri."
+            "value" : "Edhe kur aplikacioni është i mbyllur: kontrollon çmimet në intervale të shkurtra. Shfaq një njoftim dhe harxhon më shumë bateri."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hämtar kurser med korta mellanrum, även när appen är stängd. Visar en avisering och drar mer batteri."
+            "value" : "Även när appen är stängd: hämtar kurser med korta mellanrum. Visar en avisering och drar mer batteri."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ตรวจราคาเป็นช่วงสั้น ๆ แม้ปิดแอปอยู่ จะแสดงการแจ้งเตือนและใช้แบตเตอรี่มากขึ้น"
+            "value" : "แม้ปิดแอป: ตรวจราคาเป็นช่วงสั้นๆ แสดงการแจ้งเตือนและใช้แบตเตอรี่มากขึ้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fiyatları kısa aralıklarla kontrol eder, uygulama kapalıyken bile. Bir bildirim gösterir ve daha fazla pil kullanır."
+            "value" : "Uygulama kapalıyken bile: fiyatları kısa aralıklarla kontrol eder. Bir bildirim gösterir ve daha fazla pil kullanır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Запитує курси з короткими інтервалами, навіть коли застосунок закрито. Показує сповіщення і витрачає більше заряду."
+            "value" : "Навіть коли застосунок закрито: часто перевіряє курси. Показує сповіщення й витрачає більше заряду."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kiểm tra giá theo chu kỳ ngắn, kể cả khi ứng dụng đã đóng. Hiển thị một thông báo và tốn pin hơn."
+            "value" : "Kể cả khi đóng ứng dụng: kiểm tra giá trong khoảng thời gian ngắn. Hiển thị thông báo và tốn pin hơn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "即使应用已关闭，也会以短间隔查询价格。会显示一条通知，并更耗电。"
+            "value" : "即使应用已关闭：以较短间隔查询价格。会显示一条通知，耗电更多。"
           }
         }
       }
@@ -165464,187 +166419,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تتبع الأسعار المنصة دون تأخير ما دامت القائمة مفتوحة. لـ Binance وBybit وOKX وCoinbase وKraken."
+            "value" : "طالما قائمة المتابعة مفتوحة: تتبع الأسعار المنصة بلا تأخير. لـ Binance وBybit وOKX وCoinbase وKraken."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurzy sledují burzu bez zpoždění, dokud je seznam otevřený. Pro Binance, Bybit, OKX, Coinbase a Kraken."
+            "value" : "Dokud je seznam sledovaných otevřený: ceny sledují burzu bez zpoždění. Pro Binance, Bybit, OKX, Coinbase a Kraken."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurserne følger børsen uden forsinkelse, så længe listen er åben. For Binance, Bybit, OKX, Coinbase og Kraken."
+            "value" : "Mens overvågningslisten er åben: kurserne følger børsen uden forsinkelse. For Binance, Bybit, OKX, Coinbase og Kraken."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Kurse laufen ohne Verzögerung mit, solange die Merkliste offen ist. Für Binance, Bybit, OKX, Coinbase und Kraken."
+            "value" : "Solange die Merkliste offen ist: Die Kurse laufen ohne Verzögerung mit. Für Binance, Bybit, OKX, Coinbase und Kraken."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Οι τιμές ακολουθούν το ανταλλακτήριο χωρίς καθυστέρηση, όσο η λίστα είναι ανοιχτή. Για Binance, Bybit, OKX, Coinbase και Kraken."
+            "value" : "Όσο η λίστα παρακολούθησης είναι ανοιχτή: οι τιμές ακολουθούν το ανταλλακτήριο χωρίς καθυστέρηση. Για Binance, Bybit, OKX, Coinbase και Kraken."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prices follow the exchange without delay while the watchlist is open. For Binance, Bybit, OKX, Coinbase and Kraken."
+            "value" : "While the watchlist is open: prices follow the exchange without delay. For Binance, Bybit, OKX, Coinbase and Kraken."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Los precios siguen al exchange sin retraso mientras la lista está abierta. Para Binance, Bybit, OKX, Coinbase y Kraken."
+            "value" : "Mientras la lista está abierta: los precios siguen al exchange sin retraso. Para Binance, Bybit, OKX, Coinbase y Kraken."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تا وقتی فهرست باز است، قیمت‌ها بدون تأخیر همراه صرافی تغییر می‌کنند. برای Binance، Bybit، OKX، Coinbase و Kraken."
+            "value" : "تا وقتی فهرست پیگیری باز است: قیمت‌ها بدون تأخیر صرافی را دنبال می‌کنند. برای Binance، Bybit، OKX، Coinbase و Kraken."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hinnat seuraavat pörssiä viiveettä, kun lista on auki. Pörssit: Binance, Bybit, OKX, Coinbase ja Kraken."
+            "value" : "Kun seurantalista on auki: hinnat seuraavat pörssiä viiveettä. Binance, Bybit, OKX, Coinbase ja Kraken."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les cours suivent la plateforme sans délai tant que la liste est ouverte. Pour Binance, Bybit, OKX, Coinbase et Kraken."
+            "value" : "Tant que la liste est ouverte : les cours suivent la plateforme sans délai. Pour Binance, Bybit, OKX, Coinbase et Kraken."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "המחירים עוקבים אחרי הבורסה בלי השהיה, כל עוד הרשימה פתוחה. עבור Binance, Bybit, OKX, Coinbase ו-Kraken."
+            "value" : "כל עוד רשימת המעקב פתוחה: המחירים עוקבים אחרי הבורסה ללא עיכוב. עבור Binance, Bybit, OKX, Coinbase ו-Kraken."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सूची खुली रहने तक भाव बिना देरी के एक्सचेंज के साथ चलते हैं। Binance, Bybit, OKX, Coinbase और Kraken के लिए।"
+            "value" : "जब तक वॉचलिस्ट खुली है: कीमतें बिना देरी के एक्सचेंज के साथ चलती हैं। Binance, Bybit, OKX, Coinbase और Kraken के लिए।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az árfolyamok késés nélkül követik a tőzsdét, amíg a lista nyitva van. Tőzsdék: Binance, Bybit, OKX, Coinbase és Kraken."
+            "value" : "Amíg a figyelőlista nyitva van: az árfolyamok késés nélkül követik a tőzsdét. Binance, Bybit, OKX, Coinbase és Kraken esetén."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Harga mengikuti bursa tanpa jeda selama daftar terbuka. Untuk Binance, Bybit, OKX, Coinbase, dan Kraken."
+            "value" : "Selama daftar pantauan terbuka: harga mengikuti bursa tanpa jeda. Untuk Binance, Bybit, OKX, Coinbase, dan Kraken."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I prezzi seguono l'exchange senza ritardo finché la lista è aperta. Per Binance, Bybit, OKX, Coinbase e Kraken."
+            "value" : "Finché la lista è aperta: i prezzi seguono l’exchange senza ritardo. Per Binance, Bybit, OKX, Coinbase e Kraken."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "リストを開いている間、価格が取引所と遅れなく連動します。Binance、Bybit、OKX、Coinbase、Kraken に対応。"
+            "value" : "リストを開いている間: 価格が取引所と遅れなく連動します。Binance、Bybit、OKX、Coinbase、Kraken に対応。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "목록이 열려 있는 동안 시세가 거래소를 지연 없이 따라갑니다. Binance, Bybit, OKX, Coinbase, Kraken 지원."
+            "value" : "관심 목록이 열려 있는 동안: 시세가 거래소를 지연 없이 따라갑니다. Binance, Bybit, OKX, Coinbase, Kraken 지원."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursene følger børsen uten forsinkelse så lenge listen er åpen. For Binance, Bybit, OKX, Coinbase og Kraken."
+            "value" : "Så lenge overvåkingslisten er åpen: kursene følger børsen uten forsinkelse. For Binance, Bybit, OKX, Coinbase og Kraken."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koersen volgen de beurs zonder vertraging zolang de lijst open is. Voor Binance, Bybit, OKX, Coinbase en Kraken."
+            "value" : "Zolang de volglijst open is: koersen volgen de beurs zonder vertraging. Voor Binance, Bybit, OKX, Coinbase en Kraken."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursy podążają za giełdą bez opóźnienia, dopóki lista jest otwarta. Dla Binance, Bybit, OKX, Coinbase i Kraken."
+            "value" : "Dopóki lista obserwowanych jest otwarta: kursy podążają za giełdą bez opóźnień. Dla Binance, Bybit, OKX, Coinbase i Kraken."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As cotações acompanham a exchange sem atraso enquanto a lista estiver aberta. Para Binance, Bybit, OKX, Coinbase e Kraken."
+            "value" : "Enquanto a lista estiver aberta: os preços acompanham a bolsa sem atraso. Para Binance, Bybit, OKX, Coinbase e Kraken."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As cotações acompanham a exchange sem atraso enquanto a lista estiver aberta. Para Binance, Bybit, OKX, Coinbase e Kraken."
+            "value" : "Enquanto a lista estiver aberta: os preços acompanham a corretora sem atraso. Para Binance, Bybit, OKX, Coinbase e Kraken."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prețurile urmăresc bursa fără întârziere cât timp lista este deschisă. Pentru Binance, Bybit, OKX, Coinbase și Kraken."
+            "value" : "Cât timp lista este deschisă: prețurile urmează bursa fără întârziere. Pentru Binance, Bybit, OKX, Coinbase și Kraken."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Котировки следуют за биржей без задержки, пока открыт список. Для Binance, Bybit, OKX, Coinbase и Kraken."
+            "value" : "Пока список открыт: курсы идут за биржей без задержки. Для Binance, Bybit, OKX, Coinbase и Kraken."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çmimet ndjekin bursën pa vonesë, sa kohë që lista është e hapur. Për Binance, Bybit, OKX, Coinbase dhe Kraken."
+            "value" : "Për sa kohë lista është e hapur: çmimet ndjekin bursën pa vonesë. Për Binance, Bybit, OKX, Coinbase dhe Kraken."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurserna följer börsen utan fördröjning så länge listan är öppen. För Binance, Bybit, OKX, Coinbase och Kraken."
+            "value" : "Så länge bevakningslistan är öppen: kurserna följer börsen utan fördröjning. För Binance, Bybit, OKX, Coinbase och Kraken."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ราคาเปลี่ยนตามกระดานเทรดทันทีขณะที่รายการเปิดอยู่ สำหรับ Binance, Bybit, OKX, Coinbase และ Kraken"
+            "value" : "ขณะเปิดรายการเฝ้าดู: ราคาเคลื่อนตามกระดานเทรดแบบไม่หน่วง สำหรับ Binance, Bybit, OKX, Coinbase และ Kraken"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liste açıkken fiyatlar borsayı gecikmeden izler. Binance, Bybit, OKX, Coinbase ve Kraken için."
+            "value" : "İzleme listesi açıkken: fiyatlar borsayı gecikmesiz takip eder. Binance, Bybit, OKX, Coinbase ve Kraken için."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курси йдуть за біржею без затримки, поки відкритий список. Для Binance, Bybit, OKX, Coinbase і Kraken."
+            "value" : "Поки список відкрито: курси йдуть за біржею без затримки. Для Binance, Bybit, OKX, Coinbase і Kraken."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giá theo sát sàn không độ trễ khi danh sách đang mở. Cho Binance, Bybit, OKX, Coinbase và Kraken."
+            "value" : "Khi danh sách theo dõi đang mở: giá theo sàn không độ trễ. Cho Binance, Bybit, OKX, Coinbase và Kraken."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "列表打开时，价格无延迟地跟随交易所。支持 Binance、Bybit、OKX、Coinbase 和 Kraken。"
+            "value" : "关注列表打开时：价格与交易所同步，无延迟。适用于 Binance、Bybit、OKX、Coinbase 和 Kraken。"
           }
         }
       }
@@ -192845,187 +193800,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "انقر للإجراءات · اسحب للإجراءات السريعة · اضغط مطولًا للترتيب"
+            "value" : "انقر للإجراءات · اسحب لليسار للحذف · اسحب لليمين للمفضلة"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klepnutím akce · přejetím rychlé akce · podržením řazení"
+            "value" : "Klepnutím akce · přejetím doleva smazat · doprava oblíbené"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryk for handlinger · stryg for hurtige handlinger · hold for at sortere"
+            "value" : "Tryk for handlinger · stryg til venstre for at slette · til højre for favorit"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tippen für Aktionen · wischen für Schnellaktionen · halten zum Sortieren"
+            "value" : "Tippen für Aktionen · links wischen löscht · rechts wischen = Favorit"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Πάτημα για ενέργειες · σύρσιμο για γρήγορες ενέργειες · παρατεταμένο πάτημα για ταξινόμηση"
+            "value" : "Πατήστε για ενέργειες · σύρετε αριστερά για διαγραφή · δεξιά για αγαπημένο"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap for actions · swipe for quick actions · hold to sort"
+            "value" : "Tap for actions · swipe left to delete · swipe right for favorite"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca para acciones · desliza para acciones rápidas · mantén pulsado para ordenar"
+            "value" : "Toca para acciones · desliza a la izquierda para borrar · a la derecha para favorito"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لمس برای گزینه‌ها · کشیدن برای اقدامات سریع · نگه‌داشتن برای مرتب‌سازی"
+            "value" : "برای کارها ضربه بزنید · به چپ بکشید برای حذف · به راست برای محبوب"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Napauta: toiminnot · pyyhkäise: pikatoiminnot · pidä painettuna: järjestä"
+            "value" : "Napauta toimintoja varten · pyyhkäise vasemmalle poistaaksesi · oikealle suosikiksi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Touchez pour les actions · balayez pour les actions rapides · maintenez pour trier"
+            "value" : "Touchez pour les actions · balayez à gauche pour supprimer · à droite pour favori"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקשה לפעולות · החלקה לפעולות מהירות · לחיצה ארוכה למיון"
+            "value" : "הקשה לפעולות · החלקה שמאלה למחיקה · ימינה למועדף"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "कार्रवाइयों के लिए टैप · त्वरित कार्रवाइयों के लिए स्वाइप · क्रमबद्ध करने के लिए दबाकर रखें"
+            "value" : "कार्यों के लिए टैप करें · हटाने के लिए बाईं ओर स्वाइप करें · पसंदीदा के लिए दाईं ओर"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koppintás: műveletek · húzás: gyorsműveletek · nyomva tartás: rendezés"
+            "value" : "Koppints a műveletekért · húzd balra a törléshez · jobbra a kedvencekhez"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketuk untuk aksi · geser untuk aksi cepat · tahan untuk mengurutkan"
+            "value" : "Ketuk untuk tindakan · geser ke kiri untuk hapus · ke kanan untuk favorit"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tocca per le azioni · scorri per le azioni rapide · tieni premuto per ordinare"
+            "value" : "Tocca per le azioni · scorri a sinistra per eliminare · a destra per preferito"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "タップで操作 · スワイプでクイック操作 · 長押しで並べ替え"
+            "value" : "タップで操作 · 左スワイプで削除 · 右スワイプでお気に入り"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "탭하여 작업 · 스와이프하여 빠른 작업 · 길게 눌러 정렬"
+            "value" : "탭하여 작업 · 왼쪽으로 밀어 삭제 · 오른쪽으로 밀어 즐겨찾기"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trykk for handlinger · sveip for hurtighandlinger · hold for å sortere"
+            "value" : "Trykk for handlinger · sveip til venstre for å slette · til høyre for favoritt"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tik voor acties · veeg voor snelle acties · houd vast om te sorteren"
+            "value" : "Tik voor acties · veeg naar links om te verwijderen · naar rechts voor favoriet"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dotknij: akcje · przesuń: szybkie akcje · przytrzymaj: sortowanie"
+            "value" : "Dotknij, aby wybrać akcję · przesuń w lewo, aby usunąć · w prawo – ulubione"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque para ações · deslize para ações rápidas · mantenha premido para ordenar"
+            "value" : "Toque para ações · deslize para a esquerda para eliminar · para a direita para favorito"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque para ações · deslize para ações rápidas · segure para ordenar"
+            "value" : "Toque para ações · deslize para a esquerda para excluir · para a direita para favoritar"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atinge pentru acțiuni · glisează pentru acțiuni rapide · ține apăsat pentru sortare"
+            "value" : "Atinge pentru acțiuni · glisează la stânga pentru ștergere · la dreapta pentru favorit"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нажмите для действий · смахните для быстрых действий · удерживайте для сортировки"
+            "value" : "Нажмите для действий · влево – удалить · вправо – в избранное"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prek për veprime · rrëshqit për veprime të shpejta · mbaj shtypur për renditje"
+            "value" : "Prek për veprime · rrëshqit majtas për ta fshirë · djathtas për të preferuar"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck för åtgärder · svep för snabbåtgärder · håll för att sortera"
+            "value" : "Tryck för åtgärder · svep åt vänster för att ta bort · åt höger för favorit"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แตะเพื่อดูคำสั่ง · ปัดเพื่อคำสั่งด่วน · กดค้างเพื่อจัดเรียง"
+            "value" : "แตะเพื่อดูการทำงาน · ปัดซ้ายเพื่อลบ · ปัดขวาเพื่อเป็นรายการโปรด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İşlemler için dokunun · hızlı işlemler için kaydırın · sıralamak için basılı tutun"
+            "value" : "İşlemler için dokun · silmek için sola kaydır · favori için sağa kaydır"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Торкніться для дій · проведіть для швидких дій · утримуйте для сортування"
+            "value" : "Торкніться для дій · вліво – видалити · вправо – в обране"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chạm để xem thao tác · vuốt để thao tác nhanh · giữ để sắp xếp"
+            "value" : "Chạm để xem thao tác · vuốt trái để xóa · vuốt phải để yêu thích"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "点按查看操作 · 滑动快捷操作 · 长按排序"
+            "value" : "轻点查看操作 · 左滑删除 · 右滑收藏"
           }
         }
       }
@@ -216611,187 +217566,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC يجرّ السوق معه"
+            "value" : "السوق يتحرك مع BTC"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC táhne trh s sebou"
+            "value" : "Trh se pohybuje s BTC"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC trækker markedet med"
+            "value" : "Markedet bevæger sig med BTC"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC zieht den Markt mit"
+            "value" : "Markt bewegt sich mit BTC"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το BTC παρασύρει την αγορά"
+            "value" : "Η αγορά κινείται μαζί με το BTC"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC is pulling the market along"
+            "value" : "Market is moving with BTC"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC arrastra al mercado"
+            "value" : "El mercado se mueve con el BTC"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC بازار را با خود می‌کشد"
+            "value" : "بازار همراه با BTC حرکت می‌کند"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC vetää markkinaa mukanaan"
+            "value" : "Markkina liikkuu BTC:n mukana"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le BTC entraîne le marché"
+            "value" : "Le marché évolue avec le BTC"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC מושך את השוק איתו"
+            "value" : "השוק נע יחד עם BTC"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC बाज़ार को साथ खींच रहा है"
+            "value" : "बाज़ार BTC के साथ चल रहा है"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A BTC magával húzza a piacot"
+            "value" : "A piac a BTC-vel együtt mozog"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC menarik pasar"
+            "value" : "Pasar bergerak bersama BTC"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC trascina il mercato"
+            "value" : "Il mercato si muove con il BTC"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTCが市場を引っ張っている"
+            "value" : "市場はBTCと連動しています"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC가 시장을 끌고 가는 중"
+            "value" : "시장이 BTC와 함께 움직입니다"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC drar markedet med seg"
+            "value" : "Markedet beveger seg med BTC"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC trekt de markt mee"
+            "value" : "Markt beweegt mee met BTC"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC ciągnie rynek"
+            "value" : "Rynek porusza się razem z BTC"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A BTC arrasta o mercado"
+            "value" : "O mercado move-se com o BTC"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O BTC puxa o mercado"
+            "value" : "O mercado se move junto com o BTC"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC trage piața după el"
+            "value" : "Piața se mișcă odată cu BTC"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC тянет рынок за собой"
+            "value" : "Рынок движется вместе с BTC"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC e tërheq tregun"
+            "value" : "Tregu lëviz bashkë me BTC"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC drar med sig marknaden"
+            "value" : "Marknaden rör sig med BTC"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC ลากทั้งตลาดไปด้วย"
+            "value" : "ตลาดเคลื่อนไหวไปพร้อมกับ BTC"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC piyasayı peşinden sürüklüyor"
+            "value" : "Piyasa BTC ile birlikte hareket ediyor"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC тягне ринок за собою"
+            "value" : "Ринок рухається разом із BTC"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC kéo cả thị trường"
+            "value" : "Thị trường đang biến động cùng BTC"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BTC 带动整个市场"
+            "value" : "市场与 BTC 同步波动"
           }
         }
       }

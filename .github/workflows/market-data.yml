@@ -1,0 +1,53 @@
+# Mirrors public market data that is the same for every user (CoinGecko /global and top
+# coins, Fear & Greed, Coin Metrics on-chain values and BTC price history, plus the altcoin
+# season computed from Binance daily candles) once an hour as
+# assets of the release «data», so the apps ask one place instead of every phone asking
+# each provider: https://github.com/r1adBE/cryptoChecker/releases/download/data/<file>
+# Nothing is committed. The apps fall back to the providers when a file is too old.
+name: Market data
+
+on:
+  schedule:
+    - cron: '7 * * * *'    # hourly at :07 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-data
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Self-test
+        run: python3 .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data" --selftest
+
+      - name: Fetch
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+        run: python3 .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data"
+
+      - name: Upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view data >/dev/null 2>&1; then
+            gh release create data --prerelease --title 'Market data' \
+              --notes 'Hourly mirror of public market data for the apps (CoinGecko, alternative.me, Coin Metrics). Updated by the Market data workflow.'
+          fi
+          gh release upload data "$RUNNER_TEMP"/data/* --clobber
+          {
+            echo '### Market data'
+            echo '```'
+            cat "$RUNNER_TEMP/data/status.json"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

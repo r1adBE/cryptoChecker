@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Veränderung seit 0 Uhr %1$s nicht verfügbar</string>
     <string name="sheet_chart_today">Heute</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Bei geschlossener App höchstens jede Minute</string>
+    <string name="settings_live_interval_hidden_hint">App geschlossen: höchstens jede Minute · Bildschirm aus: alle 5 Minuten</string>
     <string name="sheet_more">Mehr</string>
     <string name="a11y_expanded">Aufgeklappt</string>
     <string name="a11y_collapsed">Zugeklappt</string>

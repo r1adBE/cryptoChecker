@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Livekurser</string>
-    <string name="settings_live_websocket_hint">Kurserna följer börsen utan fördröjning så länge listan är öppen. För Binance, Bybit, OKX, Coinbase och Kraken.</string>
+    <string name="settings_live_websocket_hint">Så länge bevakningslistan är öppen: kurserna följer börsen utan fördröjning. För Binance, Bybit, OKX, Coinbase och Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Livekurser är på</string>
     <string name="refresh_report_live">Live: %1$s</string>

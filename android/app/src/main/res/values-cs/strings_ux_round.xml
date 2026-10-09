@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Oblíbené</string>
+    <string name="explorer_search_choose_manually">Vybrat burzu a pár ručně</string>
+    <string name="portfolio_avg_price_hint">Prům. nákupní cena: průměr všech nákupů vážený množstvím. Prodeje se oceňují tímto průměrem (ne FIFO).</string>
+</resources>

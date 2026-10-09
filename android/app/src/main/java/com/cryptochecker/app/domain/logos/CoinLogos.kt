@@ -33,19 +33,172 @@ object CoinLogos {
     const val PAGES = 4
 
     /**
-     * Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken — kleinere Coins wie AIN, AGT,
-     * AIA oder LUNA (Terra 2.0). Erst nach der Binance-Liste, damit deren Logos bei gleichem Kürzel
-     * vorgehen; mit Pause zwischen den Seiten (Abfragegrenze von CoinGecko).
+     * Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken — kleinere Coins wie AIN
+     * oder LUNA (Terra 2.0). Erst nach der Binance- und der Alpha-Liste, damit deren Logos bei
+     * gleichem Kürzel vorgehen.
      */
     const val EXTRA_PAGES = 6
-    const val EXTRA_PAGE_PAUSE_MILLIS = 2_000L
     const val PER_PAGE = 250
+
+    /**
+     * Pause vor jeder weiteren Seite der Rangliste. Ohne Schlüssel erlaubt CoinGecko nur wenige
+     * Abrufe pro Minute (und die App fragt dort auch für Puls und Einordnung) — Seiten ohne Pause
+     * scheiterten mit «429», die Liste blieb unvollständig.
+     */
+    const val PAGE_PAUSE_MILLIS = 6_000L
+
+    /** «Zu viele Anfragen» ohne Angabe: so lange warten, dann die Seite einmal wiederholen. */
+    const val RATE_LIMIT_WAIT_MILLIS = 30_000L
+    const val RATE_LIMIT_WAIT_MAX_MILLIS = 60_000L
+
+    /** Wartezeit nach «429» (Angabe «Retry-After» in Sekunden), begrenzt auf 1–60 s. */
+    fun rateLimitWaitMillis(retryAfterSeconds: Long?): Long =
+        (retryAfterSeconds?.times(1000) ?: RATE_LIMIT_WAIT_MILLIS).coerceIn(1_000L, RATE_LIMIT_WAIT_MAX_MILLIS)
+
+    /** Unvollständige Liste (eine Quelle fehlte): nach so langer Zeit neu versuchen statt nach einer Woche. */
+    const val PARTIAL_TTL_MILLIS = 6L * 60 * 60 * 1000
+
+    /**
+     * Gespeicherter Zeitpunkt der Liste: vollständig → jetzt (eine Woche gültig), sonst so, dass sie
+     * nach [PARTIAL_TTL_MILLIS] abläuft.
+     */
+    fun savedAtFor(now: Long, complete: Boolean): Long =
+        if (complete) now else now - MAP_TTL_MILLIS + PARTIAL_TTL_MILLIS
+
+    /**
+     * Neue Liste, ergänzt um bisher bekannte Einträge, die diesmal fehlen (eine Quelle war nicht
+     * erreichbar) — ein Teil-Abruf nimmt so nie vorhandene Logos oder Namen weg.
+     */
+    fun withKnown(fresh: Map<String, String>, known: Map<String, String>): Map<String, String> {
+        val out = LinkedHashMap(fresh)
+        for ((k, v) in known) if (k !in out) out[k] = v
+        return out
+    }
 
     /** Kantenlänge der gespeicherten Bilder in Pixeln (scharf bis etwa 44 dp/pt bei 3×). */
     const val STORED_PX = 128
 
     /** Symbolliste der Binance-Website (inoffiziell, ohne Schlüssel), je Eintrag `name` und `logo`. */
     const val BINANCE_LIST_URL = "https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list"
+
+    // ---- Eigene Logo-Liste auf GitHub Pages (erste Quelle)
+
+    /**
+     * Logo-Liste, die eine GitHub Action täglich baut (`.github/scripts/build_logos.py`): alle
+     * Coins aus CoinGecko (gleiche Kürzel sauber aufgelöst) und OKX, Bilder als WebP ≤ 128 px
+     * daneben. Eine Datei für alle — die App fragt CoinGecko & Co. dann gar nicht mehr.
+     */
+    const val INDEX_BASE = "https://r1adbe.github.io/cryptoChecker/logos/"
+    const val INDEX_URL = INDEX_BASE + "index.json"
+    const val INDEX_IMAGE_BASE = INDEX_BASE + "img/"
+    private val INDEX_FILE = Regex("""img/[0-9a-f]{16}\.webp""")
+
+    /** Inhalt der Logo-Liste: Kürzel → Bild-Adresse und Kürzel → Name (Schlüssel wie [normalize]). */
+    data class Index(val logos: Map<String, String>, val names: Map<String, String>)
+
+    /**
+     * `index.json` lesen (`{"version":1,"coins":{"BTC":{"f":"img/….webp","n":"Bitcoin"}}}`).
+     * Ungültige Kürzel und Dateinamen fallen weg; null, wenn die Datei unbrauchbar oder leer ist.
+     */
+    fun parseIndex(text: String?): Index? {
+        if (text.isNullOrBlank()) return null
+        val root = try {
+            com.cryptochecker.app.domain.macro.MiniJson.parse(text) as? Map<*, *>
+        } catch (e: IllegalArgumentException) {
+            null
+        } ?: return null
+        val version = (root["version"] as? Double)?.toInt() ?: return null
+        if (version < 1) return null
+        val coins = root["coins"] as? Map<*, *> ?: return null
+        val logos = LinkedHashMap<String, String>()
+        val names = LinkedHashMap<String, String>()
+        for ((k, v) in coins) {
+            val key = (k as? String)?.trim()?.uppercase() ?: continue
+            // Krypto wie [normalize] (kein Hebel-Präfix), TradFi als «TRADFI:NVDA»
+            if (fileName(key) == null || (!key.startsWith(TRADFI_PREFIX) && normalize(key) != key)) continue
+            val o = v as? Map<*, *> ?: continue
+            (o["f"] as? String)?.trim()?.takeIf { INDEX_FILE.matches(it) }?.let { logos[key] = INDEX_BASE + it }
+            cleanName(o["n"] as? String)?.let { names[key] = it }
+        }
+        if (logos.isEmpty() && names.isEmpty()) return null
+        return Index(logos, names)
+    }
+
+    /** Alle Logos in einer Datei (Anhang der Release «logos»): beim ersten Laden ein Abruf statt Tausender. */
+    const val PACK_URL = "https://github.com/r1adBE/cryptoChecker/releases/download/logos/logos.pack"
+
+    /** Ab so vielen fehlenden Bildern lieber das ganze Paket. */
+    const val PACK_MIN_MISSING = 40
+
+    /** Grösstes erlaubtes Paket. */
+    const val PACK_MAX_BYTES = 40L * 1024 * 1024
+
+    /** Aktiennamen aller US-Aktien («CAT\tCaterpillar, Inc.» je Zeile, wie [encodeNames]). */
+    const val STOCKS_URL = INDEX_BASE + "stocks.txt"
+
+    private val PACK_MAGIC = "CCLP1\n".toByteArray(Charsets.US_ASCII)
+
+    /**
+     * Paket lesen: «CCLP1\n», dann je Bild «img/<hash>.webp\t<Länge>\n» und die Bytes. Pfad → Bytes;
+     * nur gültige Pfade ([INDEX_FILE]); bei kaputtem Rest bleibt, was bis dahin vollständig war.
+     * null, wenn es kein Paket ist.
+     */
+    fun parsePack(data: ByteArray): Map<String, ByteArray>? {
+        if (data.size < PACK_MAGIC.size || !data.copyOfRange(0, PACK_MAGIC.size).contentEquals(PACK_MAGIC)) return null
+        val out = LinkedHashMap<String, ByteArray>()
+        var i = PACK_MAGIC.size
+        while (i < data.size) {
+            var nl = i
+            while (nl < data.size && data[nl] != '\n'.code.toByte() && nl - i < 200) nl++
+            if (nl >= data.size || data[nl] != '\n'.code.toByte()) break
+            val head = String(data, i, nl - i, Charsets.US_ASCII)
+            val path = head.substringBefore('\t')
+            val size = head.substringAfter('\t', "").toIntOrNull() ?: break
+            val start = nl + 1
+            if (size < 0 || size > data.size - start) break
+            if (INDEX_FILE.matches(path)) out[path] = data.copyOfRange(start, start + size)
+            i = start + size
+        }
+        return out
+    }
+
+    /** Liste aus der eigenen Logo-Liste? (Dann nie auf CoinGecko & Co. zurückfallen.) */
+    fun isFromIndex(map: Map<String, String>): Boolean = map.values.any { it.startsWith(INDEX_IMAGE_BASE) }
+
+    /**
+     * Kürzel, deren Bild-Adresse sich geändert hat (in beiden Listen, verschiedene Adresse): ihr
+     * gespeichertes Bild wird gelöscht und neu geladen.
+     */
+    fun changedKeys(old: Map<String, String>, new: Map<String, String>): Set<String> =
+        new.keys.filterTo(LinkedHashSet()) { k -> old[k] != null && old[k] != new[k] }
+
+    /**
+     * Offizielle Token-Liste von Binance Alpha (ganze Liste, ohne Schlüssel; Felder `symbol`, `name`,
+     * `iconUrl`): kleinere Token, die Binance als Futures führt (AIA, AGT, AIO …), oft ohne
+     * Marktkapitalisierung bei CoinGecko und daher nicht in deren Rangliste.
+     */
+    const val ALPHA_LIST_URL = "https://www.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list"
+
+    /** Eintrag der Alpha-Liste. */
+    data class AlphaEntry(
+        val symbol: String,
+        val name: String?,
+        val icon: String?,
+        val marketCap: Double? = null,
+        val offline: Boolean = false,
+    )
+
+    /**
+     * Reihenfolge für [pick]/[pickNames]: handelbare vor abgemeldeten, dann grösste
+     * Marktkapitalisierung (unbekannt zuletzt); sonst Reihenfolge der Liste. Bei gleichem Kürzel
+     * gewinnt so der bekanntere Token.
+     */
+    fun rankAlpha(entries: List<AlphaEntry>): List<AlphaEntry> =
+        entries.withIndex().sortedWith(
+            compareBy<IndexedValue<AlphaEntry>> { if (it.value.offline) 1 else 0 }
+                .thenByDescending { it.value.marketCap?.takeIf { c -> c.isFinite() && c >= 0 } ?: -1.0 }
+                .thenBy { it.index },
+        ).map { it.value }
 
     fun marketsUrl(page: Int): String =
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc" +
@@ -89,9 +242,13 @@ object CoinLogos {
      */
     fun allowedFor(marketKey: String?): Boolean = marketKey != DEX_MARKET_KEY
 
-    /** Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`). */
+    /**
+     * Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.), Binance (`bin.bnbstatic.com`)
+     * und aus der eigenen Logo-Liste auf GitHub Pages ([INDEX_IMAGE_BASE]).
+     */
     fun isAllowedUrl(url: String?): Boolean {
         if (url == null) return false
+        if (url.startsWith(INDEX_IMAGE_BASE)) return INDEX_FILE.matches(url.removePrefix(INDEX_BASE))
         if (!url.startsWith("https://")) return false
         val host = url.removePrefix("https://").substringBefore('/').substringBefore('?').lowercase()
         if (host.isEmpty() || host.contains('@') || host.contains(':')) return false

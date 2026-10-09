@@ -136,10 +136,10 @@
 
     <string name="settings_title">Beállítások</string>
     <string name="settings_background_updates">Háttérfrissítés</string>
-    <string name="settings_background_updates_hint">Az árak, riasztások és widgetek bezárt alkalmazás mellett is frissülnek.</string>
+    <string name="settings_background_updates_hint">Bezárt alkalmazásnál is: árfolyamok, riasztások és widgetek az alábbi időközönként.</string>
     <string name="settings_background_interval">Időköz</string>
     <string name="settings_live_service">Gyakori frissítés</string>
-    <string name="settings_live_service_hint">Rövid időközönként lekéri az árfolyamokat, bezárt alkalmazásnál is. Értesítést jelenít meg, és több akkumulátort fogyaszt.</string>
+    <string name="settings_live_service_hint">Bezárt alkalmazásnál is: rövid időközönként lekérdezi az árfolyamokat. Értesítést mutat, és több akkumulátort használ.</string>
     <string name="settings_live_interval">Milyen gyakran</string>
     <string name="settings_minutes">%1$d perc</string>
     <string name="settings_seconds">%1$d mp</string>
@@ -262,7 +262,7 @@
     <string name="time_just_now">az imént</string>
     <string name="welcome_text">Az Ön árfolyamai. Az Ön riasztásai. Az Ön áttekintése.\nFiók nélkül. Reklám nélkül. Követés nélkül.</string>
     <string name="developer_unlocked">Fejlesztői beállítások feloldva</string>
-    <string name="hint_favorites_list">Tipp: koppintson a ☆-ra a kedvencekhez – a kedvencek felül maradnak.</string>
+    <string name="hint_favorites_list">Tipp: húzd jobbra a sort, és kedvenc lesz – a kedvencek felül maradnak.</string>
     <string name="tab_watchlist">Lista</string>
     <string name="tab_market_phase">Piac</string>
     <plurals name="watchlist_stale_count">

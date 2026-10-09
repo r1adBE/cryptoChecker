@@ -138,10 +138,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Pengaturan</string>
     <string name="settings_background_updates">Pembaruan latar belakang</string>
-    <string name="settings_background_updates_hint">Harga, alarm, dan widget tetap diperbarui meskipun aplikasi ditutup.</string>
+    <string name="settings_background_updates_hint">Bahkan saat aplikasi ditutup: harga, alarm, dan widget sesuai interval di bawah.</string>
     <string name="settings_background_interval">Interval</string>
     <string name="settings_live_service">Pembaruan sering</string>
-    <string name="settings_live_service_hint">Memeriksa harga dalam interval pendek, bahkan saat aplikasi ditutup. Menampilkan notifikasi dan memakai lebih banyak baterai.</string>
+    <string name="settings_live_service_hint">Bahkan saat aplikasi ditutup: memeriksa harga dengan interval singkat. Menampilkan notifikasi dan memakai lebih banyak baterai.</string>
     <string name="settings_live_interval">Seberapa sering</string>
     <string name="settings_minutes">%1$d mnt</string>
     <string name="settings_seconds">%1$d dtk</string>
@@ -261,7 +261,7 @@
     <string name="time_just_now">baru saja</string>
     <string name="welcome_text">Harga Anda. Alarm Anda. Ringkasan Anda.\nTanpa akun. Tanpa iklan. Tanpa pelacakan.</string>
     <string name="developer_unlocked">Opsi pengembang terbuka</string>
-    <string name="hint_favorites_list">Tips: ketuk ☆ untuk favorit – favorit tetap di atas.</string>
+    <string name="hint_favorites_list">Tips: geser baris ke kanan untuk menjadikannya favorit – favorit tetap di atas.</string>
     <string name="tab_watchlist">Daftar</string>
     <string name="tab_market_phase">Pasar</string>
     <plurals name="watchlist_stale_count">

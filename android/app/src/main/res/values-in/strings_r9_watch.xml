@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Ketuk untuk aksi · geser untuk aksi cepat · tahan untuk mengurutkan</string>
+    <string name="watch_gesture_hint_short">Ketuk untuk tindakan · geser ke kiri untuk hapus · ke kanan untuk favorit</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Kenapa?</string>
     <string name="watch_action_favorite">Favorit</string>

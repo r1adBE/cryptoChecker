@@ -147,10 +147,10 @@
     <!-- Einstellungen -->
     <string name="settings_title">Настройки</string>
     <string name="settings_background_updates">Фоновые обновления</string>
-    <string name="settings_background_updates_hint">Цены, оповещения и виджеты обновляются, даже когда приложение закрыто.</string>
+    <string name="settings_background_updates_hint">Даже при закрытом приложении: курсы, оповещения и виджеты с интервалом ниже.</string>
     <string name="settings_background_interval">Интервал</string>
     <string name="settings_live_service">Обновлять часто</string>
-    <string name="settings_live_service_hint">Запрашивает котировки с короткими интервалами, даже когда приложение закрыто. Показывает уведомление и расходует больше заряда.</string>
+    <string name="settings_live_service_hint">Даже при закрытом приложении: часто запрашивает курсы. Показывает уведомление и расходует больше заряда.</string>
     <string name="settings_live_interval">Как часто</string>
     <string name="settings_minutes">%1$d мин</string>
     <string name="settings_seconds">%1$d с</string>
@@ -288,7 +288,7 @@
     <string name="time_just_now">только что</string>
     <string name="welcome_text">Ваши курсы. Ваши оповещения. Ваш обзор.\nБез аккаунта. Без рекламы. Без отслеживания.</string>
     <string name="developer_unlocked">Параметры разработчика открыты</string>
-    <string name="hint_favorites_list">Совет: коснитесь ☆, чтобы добавить в избранное – избранное остаётся вверху.</string>
+    <string name="hint_favorites_list">Совет: проведите строку вправо, чтобы добавить в избранное – избранное остаётся наверху.</string>
     <string name="tab_watchlist">Список</string>
     <string name="tab_market_phase">Рынок</string>
     <plurals name="watchlist_stale_count">

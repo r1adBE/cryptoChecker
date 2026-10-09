@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">暂无自 %1$s 午夜以来的涨跌</string>
     <string name="sheet_chart_today">今日</string>
     <string name="sheet_chart_change_since">%2$s %1$s</string>
-    <string name="settings_live_interval_hidden_hint">应用关闭时最多每分钟一次</string>
+    <string name="settings_live_interval_hidden_hint">应用关闭时：最多每分钟一次 · 屏幕关闭时：每 5 分钟</string>
     <string name="sheet_more">更多</string>
     <string name="a11y_expanded">已展开</string>
     <string name="a11y_collapsed">已收起</string>

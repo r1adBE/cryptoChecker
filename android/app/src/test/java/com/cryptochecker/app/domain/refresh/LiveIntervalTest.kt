@@ -29,4 +29,15 @@ class LiveIntervalTest {
         // Uhr zurückgestellt: höchstens ein Intervall
         assertEquals(15_000L, LiveInterval.waitMillis(last, last - 50_000, 15, appVisible = true))
     }
+
+    @Test
+    fun `screen off slows down to at most every five minutes`() {
+        assertEquals(300_000L, LiveInterval.intervalMillis(15, appVisible = false, screenOn = false))
+        assertEquals(300_000L, LiveInterval.intervalMillis(60, appVisible = true, screenOn = false))
+        assertEquals(600_000L, LiveInterval.intervalMillis(600, appVisible = false, screenOn = false))
+        val last = 1_000_000L
+        // Bildschirm wieder an nach 2 Minuten: Minuten-Takt ist um → sofort
+        assertEquals(0L, LiveInterval.waitMillis(last, last + 120_000, 15, appVisible = false, screenOn = true))
+        assertEquals(180_000L, LiveInterval.waitMillis(last, last + 120_000, 15, appVisible = false, screenOn = false))
+    }
 }

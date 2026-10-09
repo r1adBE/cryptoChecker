@@ -21,7 +21,26 @@ fun appColorScheme(accent: AccentColor, dark: Boolean): ColorScheme = when (acce
     AccentColor.BLUE -> if (dark) blueDark else blueLight
     AccentColor.GREEN -> if (dark) greenDark else greenLight
     AccentColor.MARRS_GREEN -> if (dark) marrsGreenDark else marrsGreenLight
-}
+}.let { if (dark) it.withCleanContainers() else it }
+
+/** Neutrale Fläche für «ausgewählt» im Dunkelmodus (Chips, Tab-Markierung, Segmente). */
+internal val DarkSelectedContainer = Color(0xFF333333)
+
+/**
+ * Dunkel sind die Tonstufen-Container der Akzentfarbe sehr dunkle Akzenttöne — bei Orange
+ * und Rot bräunlich/matschig (z. B. #772D11, #603F34). Stattdessen: ausgewählt = neutral grau
+ * mit Schrift in der Akzentfarbe, Hauptcontainer = die Akzentfarbe selbst, keine Einfärbung
+ * erhöhter Flächen. Hell bleiben die zarten Akzent-Container.
+ */
+private fun ColorScheme.withCleanContainers(): ColorScheme = copy(
+    primaryContainer = primary,
+    onPrimaryContainer = onPrimary,
+    secondaryContainer = DarkSelectedContainer,
+    onSecondaryContainer = primary,
+    tertiaryContainer = DarkSelectedContainer,
+    onTertiaryContainer = onSurface,
+    surfaceTint = onSurface,
+)
 
 private val orangeLight = lightColorScheme(
     primary = Color(0xFFB14D29),

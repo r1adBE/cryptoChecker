@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarme: Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Thông báo đang tắt – cảnh báo sẽ không đến được bạn.</string>
+    <string name="alarms_notifications_turn_on">Bật</string>
+</resources>

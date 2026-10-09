@@ -183,7 +183,6 @@ extension WatchlistScreen {
         let rowRefreshing = data.refreshingWatchIds.contains(watch.id)
         let allRefreshing = data.refreshing
         let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded
-        let canSort = !searching && data.visibleWatches.count >= 2
         let target = convertTarget
         let rates = convertRates
         return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay) { shown in
@@ -204,8 +203,9 @@ extension WatchlistScreen {
                 onTap: { actionsFor = WatchlistSheetTarget(id: watch.id) },
                 onToggleFavorite: { toggleFavorite(watch) },
                 onActivity: { if !sorting { whyFor = WatchlistSheetTarget(id: watch.id) } },
-                // Wie «Sortieren» im Menü; nicht während der Suche und erst ab zwei Paaren
-                onLongPress: canSort ? { withAnimation { editMode = .active } } : nil
+                // Sortieren nur über ⋯ › Sortieren (dann am Griff ziehen): langes Drücken startet
+                // nichts mehr — ein zögerliches Wischen landete sonst im Sortiermodus (wie Android)
+                onLongPress: nil
             )
         }
         // VoiceOver: verschieben wie per Ziehen (gleiche Abteilung, Reihenfolge gespeichert);
@@ -278,10 +278,10 @@ extension WatchlistScreen {
         .padding(.leading, Spacing.md)
         .padding(.trailing, Spacing.sm)
         .padding(.vertical, Spacing.md)
-        .background(accent.primary.opacity(0.08), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(accent.tint(0.08), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(accent.primary.opacity(0.2), lineWidth: 1)
+                .strokeBorder(accent.tint(0.2), lineWidth: 1)
         )
     }
 

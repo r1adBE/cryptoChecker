@@ -428,12 +428,52 @@ background only when it is older than its TTL. The TTLs live in one place per pl
 | Cycle comparison (halving curves) | 12 h | daily candles since 2016 |
 | Economic calendar | 24 h | one small JSON file |
 
-**Coin logos** (`CoinLogos.kt` / `CoinLogos.swift`, parity cases `coin_logos.json`): the
+**Data mirror** (`DataMirror.kt` / `DataMirror.swift`, parity cases `data_mirror.json`): data that
+is the same for every user is fetched once an hour by `.github/workflows/market-data.yml`
+(`.github/scripts/mirror_data.py`) and uploaded as assets of the release «data»
+(`https://github.com/r1adBE/cryptoChecker/releases/download/data/<file>`, first line
+`CCDM1 <fetched ms>`, then the provider's body unchanged; nothing is committed). `callMarket`
+(Android) and `MarketHTTP.call` (iOS) ask the mirror first for exactly these GET URLs and the
+provider otherwise: CoinGecko `/global` (`global.txt`, max age 2 h), Fear & Greed (`fng.txt`, 4 h),
+CoinGecko top 30/40 for the starter coins (`coins30.txt`/`coins40.txt`, 12 h), Coin Metrics
+on-chain values (`onchain.txt`, any `start_time`, 36 h) and BTC price since 2016 (`btcprice.txt`,
+36 h). `altseason.txt` (6 h) is not a copy but the altcoin season already computed by the script
+(same 20 alts and 90-day rule; `{"outperformers":12,"total":20,"provider":"Binance"}`, read with
+`DataMirror.parseAltSeason`); without it the app computes it from ~21 candle requests as before. Live data (tickers, Crypto Pulse, gas, per-coin analysis) stays direct. A new mirrored URL
+needs the same entry in `mirror_data.py`, both `DataMirror` files and `data_mirror.json`.
+
+**Coin logos** (`CoinLogos.kt` / `CoinLogos.swift`, parity cases `coin_logos.json`): first
+source is our own list `https://r1adbe.github.io/cryptoChecker/logos/index.json`, built daily by
+`.github/workflows/coin-logos.yml` (`.github/scripts/build_logos.py`, `--selftest`): all CoinGecko
+`/coins/markets` pages (optional demo key in the repository secret `COINGECKO_API_KEY`); per
+ticker the same order as the apps: CoinGecko top 1000 → Binance symbol list → Binance Alpha token
+list → rest of CoinGecko (highest 24 h volume; top 1500 or ≥ 100k USD) → OKX instruments +
+`static.okx.com` icons. TradFi keys (`TRADFI:NVDA`) from the Binance list (`pickTradFi` rules) and
+Binance stock images (`static/stock`, probed for all Nasdaq stocks); gold (`XAU`, `GOLD`, `XAUT`),
+silver (`XAG`, `SILVER`), platinum (`XPT`) and palladium (`XPD`) get our own drawn icons (`metal_icon`, bump `OWN_ICON_VERSION` after changing
+the drawing); names from the Nasdaq symbol
+directory, all stock names in `docs/logos/stocks.txt`. Optional sources keep their previous entries
+when unreachable (Binance and OKX block some regions — check the run log). Images as 128 px WebP
+named by content hash in `docs/logos/img/`, all of them also in one file `logos.pack` (release
+«logos»; `CCLP1\n` then `path\tlength\n` + bytes per image). The apps read the list with
+`parseIndex` (only `img/<16 hex>.webp`), load all images from the pack when 40+ are missing
+(`parsePack`), else one by one, take stock names from `stocks.txt`, delete stored images whose
+URL changed (`changedKeys`) and never fall back once they use the list (`isFromIndex`). The
+index only holds `f` (file) and `n` (name); source URLs and stock misses are in `state.json`,
+the last successful run and the reachable sources in `status.json`. The apps send the last
+`ETag` as `If-None-Match` (index and `stocks.txt`); «304» means unchanged and nothing is downloaded.
+`setup-github-public.ps1` keeps `docs/logos` from GitHub. Without the list (fallback), the
 symbol → image map comes from CoinGecko `/coins/markets` (top 1000 first, first occurrence by
 market cap wins), gaps filled from the Binance website list `bapi/composite/v1/public/marketing/symbol/list`
 (`name` → `logo` on `*.bnbstatic.com`, unofficial; only symbols CoinGecko lacks, e.g. XAU, XAG,
-stocks), then CoinGecko ranks 1001–2500 for the remaining gaps (e.g. AIN, AGT, AIA, LUNA; 2 s
-pause between those pages), and is kept for **7 days**. Stock perps without a Binance bStock get
+stocks), then the official Binance Alpha token list
+`bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list` (`symbol` → `iconUrl`,
+tradable first, largest `marketCap` first; futures tokens without a CoinGecko market cap such as
+AIA, AGT, AIO), then CoinGecko ranks 1001–2500 for the remaining gaps (e.g. AIN, LUNA), and is
+kept for **7 days**. Every CoinGecko page after the first waits 6 s (the keyless limit otherwise
+answers 429); a 429 is retried once after `Retry-After` (1–60 s). If any source fails, the known
+entries are kept (`withKnown`) and the list expires after **6 h** (`savedAtFor`) instead of a week
+(cache v5). Stock perps without a Binance bStock get
 their logo from `bin.bnbstatic.com/static/stock/TICKER.png` (all TradFi tickers of the stored pair
 lists) and, with «Show names», their name from the official Nasdaq symbol directory
 (`nasdaqlisted.txt` + `otherlisted.txt`, weekly, `cleanStockName` strips «Common Stock» etc.) (retry after 1 h on failure). For privacy the
@@ -457,6 +497,14 @@ on-chain values, cycle comparison) reload by hand at most every **5 minutes**
 (`CycleCachePolicy.manualMinInterval` / `MANUAL_MIN_INTERVAL_MILLIS`); within that window
 the stored value stays. The altcoin season details show «As of 14:05» from the stored
 timestamp; its «Refresh» stays disabled until 5 minutes have passed.
+
+**Freshness of watchlist prices.** One threshold for the status pill, the faded row, the red
+time, the word «outdated» and the screen-reader sentence: `OutdatedRule.afterMillis` (live mode:
+2 min, otherwise 3 × the interval, at least 15 min) — Android `WatchlistViewModel.staleAfterMillis`
+= `outdatedAfterMillis`, iOS `AppData.staleAfterMillis` = `outdatedAfterMillis`, widgets the same
+(`WidgetOutdated`). The Android live service («Update frequently») polls at the chosen interval
+with the app visible, at least every 60 s when hidden and at least every 5 min with the screen
+off (`LiveInterval`, `SCREEN_OFF_MIN_SECONDS`).
 
 **Source and age.** Every row under «Context» and «Data» (except the calendar-based halving)
 ends its secondary line with the provider that actually delivered the value and its age, e.g.

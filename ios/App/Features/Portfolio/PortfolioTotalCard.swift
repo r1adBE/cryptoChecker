@@ -82,12 +82,12 @@ struct PortfolioTotalCard: View {
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(LinearGradient(
-                    colors: [accent.primary.opacity(0.16), accent.primary.opacity(0.04)],
+                    colors: [accent.tint(0.16), accent.tint(0.04)],
                     startPoint: .topLeading, endPoint: .bottomTrailing))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(accent.primary.opacity(0.25), lineWidth: 1)
+                .strokeBorder(accent.tint(0.25), lineWidth: 1)
         )
         // Weniger Bewegung: Ziffern wechseln ohne Rollen
         .animation(reduceMotion ? nil : .snappy, value: summary.totalValue)

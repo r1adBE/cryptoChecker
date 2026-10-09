@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">محبوب</string>
+    <string name="explorer_search_choose_manually">صرافی و جفت را خودتان انتخاب کنید</string>
+    <string name="portfolio_avg_price_hint">میانگین قیمت خرید: میانگین همه خریدها، وزن‌دهی‌شده با مقدار. فروش‌ها با همین میانگین ارزش‌گذاری می‌شوند (نه FIFO).</string>
+</resources>

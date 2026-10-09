@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">גבוה מהרגיל</string>
     <string name="why_fn_volume_lower">נמוך מהרגיל</string>
     <string name="why_fn_volume_usual">כרגיל</string>
-    <string name="why_fn_market_pulls">BTC מושך את השוק איתו</string>
+    <string name="why_fn_market_pulls">השוק נע יחד עם BTC</string>
     <string name="why_fn_market_lags">השוק זז, המטבע הזה כמעט לא</string>
     <string name="why_fn_market_alone">השוק רגוע – המטבע הזה זז לבד</string>
     <string name="why_fn_market_against">המטבע נע נגד השוק</string>

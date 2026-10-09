@@ -67,9 +67,9 @@ extension PortfolioScreen {
                     actionTitle: L("portfolio_empty_action"),
                     action: { sheet = PortfolioTxDraft() }
                 )
-                // Beispiel mit 58 000 in der Umrechnungswährung
+                // Beispiel mit 58 000 USDT — wie das Preisfeld beim Erfassen (wie Android)
                 Text(L("portfolio_empty_example",
-                       PriceFormat.priceWithCurrency(58_000, data.settings.portfolioCurrency)))
+                       PriceFormat.priceWithCurrency(58_000, "USDT")))
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .multilineTextAlignment(.center)

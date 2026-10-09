@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Variația de la miezul nopții %1$s nu este disponibilă</string>
     <string name="sheet_chart_today">Azi</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Cu aplicația închisă, cel mult o dată pe minut</string>
+    <string name="settings_live_interval_hidden_hint">Aplicație închisă: cel mult o dată pe minut · ecran stins: la fiecare 5 minute</string>
     <string name="sheet_more">Mai mult</string>
     <string name="a11y_expanded">Extins</string>
     <string name="a11y_collapsed">Restrâns</string>

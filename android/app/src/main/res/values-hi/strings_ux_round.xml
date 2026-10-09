@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">पसंदीदा</string>
+    <string name="explorer_search_choose_manually">एक्सचेंज और जोड़ी खुद चुनें</string>
+    <string name="portfolio_avg_price_hint">औसत खरीद मूल्य: सभी खरीदों का मात्रा-भारित औसत। बिक्री का मूल्यांकन इसी औसत पर होता है (FIFO नहीं)।</string>
+</resources>

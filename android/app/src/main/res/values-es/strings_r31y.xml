@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">más alto de lo habitual</string>
     <string name="why_fn_volume_lower">más bajo de lo habitual</string>
     <string name="why_fn_volume_usual">como de costumbre</string>
-    <string name="why_fn_market_pulls">BTC arrastra al mercado</string>
+    <string name="why_fn_market_pulls">El mercado se mueve con el BTC</string>
     <string name="why_fn_market_lags">El mercado se mueve, esta moneda apenas</string>
     <string name="why_fn_market_alone">Mercado tranquilo: esta moneda se mueve sola</string>
     <string name="why_fn_market_against">La moneda va contra el mercado</string>

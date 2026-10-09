@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favorit</string>
+    <string name="explorer_search_choose_manually">Börse und Paar selbst wählen</string>
+    <string name="portfolio_avg_price_hint">Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe werden zu diesem Durchschnitt bewertet (nicht FIFO).</string>
+</resources>

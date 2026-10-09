@@ -315,24 +315,13 @@ class WatchlistViewModel @Inject constructor(
     }
 
     /**
-     * Ab diesem Alter gilt ein Kurs als veraltet (abgeblasst): gut das
-     * Doppelte des eingestellten Intervalls, mindestens fünf Minuten.
+     * Eine Frische-Schwelle für alles, was «veraltet» zeigt: Status-Pille (Zählung), abgeblasste
+     * Zeile, rote Zeit, das Wort «veraltet» und der vorgelesene Satz ([OutdatedRule], wie die
+     * Widgets): im Live-Modus nach 2 Minuten, sonst dreimal das eingestellte Intervall, mindestens
+     * 15 Minuten. Früher zählte die Pille nach einer eigenen Regel — Sehende bekamen dann in der
+     * Lücke nur Farbe.
      */
     val staleAfterMillis: StateFlow<Long> = settingsRepository.settings
-        .map { s ->
-            val intervalMs = if (s.liveService) s.liveIntervalSeconds * 1_000L
-            else s.backgroundIntervalMinutes * 60_000L
-            maxOf(intervalMs * 5 / 2, 5 * 60_000L)
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 40 * 60_000L)
-
-    /**
-     * Ab diesem Alter steht in der Zeile «veraltet» (ohne Fehler beim letzten Abruf):
-     * im Live-Modus nach 2 Minuten (die Merkliste ist sichtbar, die App also vorne — mit
-     * Live-Dienst ist das der Live-Modus), sonst dreimal das eingestellte Intervall, mindestens
-     * 15 Minuten. Das Abblassen ([staleAfterMillis]) bleibt wie bisher.
-     */
-    val outdatedAfterMillis: StateFlow<Long> = settingsRepository.settings
         .map { s ->
             com.cryptochecker.app.domain.refresh.OutdatedRule.afterMillis(
                 s.liveService, s.liveIntervalSeconds, s.backgroundIntervalMinutes, live = s.liveService
@@ -340,6 +329,9 @@ class WatchlistViewModel @Inject constructor(
         }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 45 * 60_000L)
+
+    /** Gleiche Schwelle wie [staleAfterMillis] (eine Regel für Pille, Zeile und Screenreader). */
+    val outdatedAfterMillis: StateFlow<Long> get() = staleAfterMillis
 
     /**
      * Start-Merkliste: Paare der gewählten Coins anlegen (Binance …/USDT, in den USA
@@ -380,8 +372,8 @@ class WatchlistViewModel @Inject constructor(
             val id = watchRepository.addWatch(
                 MarketInfo(key = pair.marketKey, name = pair.marketName),
                 CurrencyPairInfo(pair.base, pair.quote, pair.pairId),
-                // Ohne Kurs-Benachrichtigung: keine Dauer-Meldung, keine Berechtigungsabfrage
-                notificationEnabled = false,
+                // Mit Kurs-Benachrichtigung wie jedes Paar. Nach der Erlaubnis wird hier nicht
+                // gefragt, erst beim ersten Hinzufügen eines Paares oder Alarms.
             )
             if (id != null) added++
         }

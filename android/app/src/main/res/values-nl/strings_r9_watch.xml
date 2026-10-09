@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Tik voor acties · veeg voor snelle acties · houd vast om te sorteren</string>
+    <string name="watch_gesture_hint_short">Tik voor acties · veeg naar links om te verwijderen · naar rechts voor favoriet</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Waarom?</string>
     <string name="watch_action_favorite">Favoriet</string>

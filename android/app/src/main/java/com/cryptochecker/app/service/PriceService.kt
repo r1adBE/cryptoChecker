@@ -1,7 +1,12 @@
 package com.cryptochecker.app.service
 
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.PowerManager
+import androidx.core.content.ContextCompat
 import android.content.pm.ServiceInfo
 import android.os.IBinder
 import androidx.core.app.ServiceCompat
@@ -21,7 +26,10 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -29,7 +37,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Hält die Kurse in kurzen Abständen aktuell, solange der Live-Modus an ist.
+ * Hält die Kurse in kurzen Abständen aktuell, solange der Live-Modus an ist; bei ausgeschaltetem
+ * Bildschirm höchstens alle 5 Minuten ([LiveInterval.SCREEN_OFF_MIN_SECONDS]).
  * WorkManager kann frühestens alle 15 Minuten laufen – für eine dauerhafte
  * Kursanzeige in der Statusleiste ist das zu träge.
  */
@@ -121,13 +130,43 @@ class PriceService : Service() {
     private suspend fun awaitNextRun(lastRunAt: Long, chosenSeconds: Int) {
         while (true) {
             val visible = AppVisibility.visible
+            val screenOn = screenOn.value
             val wait = LiveInterval.waitMillis(
-                lastRunAt, System.currentTimeMillis(), chosenSeconds, visible, AppSettings.MIN_LIVE_INTERVAL_SECONDS
+                lastRunAt, System.currentTimeMillis(), chosenSeconds, visible, AppSettings.MIN_LIVE_INTERVAL_SECONDS,
+                screenOn = screenOn,
             )
             if (wait <= 0L) return
-            // Abgelaufen (null): Zeit für den nächsten Durchlauf; sonst Sichtbarkeit gewechselt
-            withTimeoutOrNull(wait) { AppVisibility.flow.first { it != visible } } ?: return
+            // Abgelaufen (null): Zeit für den nächsten Durchlauf; sonst Sichtbarkeit oder Bildschirm gewechselt
+            withTimeoutOrNull(wait) {
+                kotlinx.coroutines.flow.merge(
+                    AppVisibility.flow.filter { it != visible }.map { },
+                    this@PriceService.screenOn.filter { it != screenOn }.map { },
+                ).first()
+            } ?: return
         }
+    }
+
+    /** Bildschirm an? (Ausgeschaltet: höchstens alle 5 Minuten, siehe [LiveInterval].) */
+    private val screenOn = MutableStateFlow(true)
+
+    private val screenReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.action) {
+                Intent.ACTION_SCREEN_ON -> screenOn.value = true
+                Intent.ACTION_SCREEN_OFF -> screenOn.value = false
+            }
+        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        screenOn.value = getSystemService(PowerManager::class.java)?.isInteractive ?: true
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_SCREEN_OFF)
+        }
+        // System-Broadcasts: ohne Export-Flag erlaubt, aber ab Android 14 muss eines angegeben sein
+        ContextCompat.registerReceiver(this, screenReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
     }
 
     /**
@@ -176,6 +215,7 @@ class PriceService : Service() {
     }
 
     override fun onDestroy() {
+        runCatching { unregisterReceiver(screenReceiver) }
         LiveServiceGate.stopped()
         loopJob = null
         scope.cancel()

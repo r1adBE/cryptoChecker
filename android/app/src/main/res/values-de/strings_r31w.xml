@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Live-Kurse</string>
-    <string name="settings_live_websocket_hint">Die Kurse laufen ohne Verzögerung mit, solange die Merkliste offen ist. Für Binance, Bybit, OKX, Coinbase und Kraken.</string>
+    <string name="settings_live_websocket_hint">Solange die Merkliste offen ist: Die Kurse laufen ohne Verzögerung mit. Für Binance, Bybit, OKX, Coinbase und Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Live-Kurse aktiv</string>
     <string name="refresh_report_live">Live: %1$s</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Chạm để xem thao tác · vuốt để thao tác nhanh · giữ để sắp xếp</string>
+    <string name="watch_gesture_hint_short">Chạm để xem thao tác · vuốt trái để xóa · vuốt phải để yêu thích</string>
     <string name="watch_action_alarm">Cảnh báo</string>
     <string name="watch_action_why">Vì sao?</string>
     <string name="watch_action_favorite">Yêu thích</string>

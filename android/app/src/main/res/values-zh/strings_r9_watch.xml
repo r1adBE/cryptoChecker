@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">点按查看操作 · 滑动快捷操作 · 长按排序</string>
+    <string name="watch_gesture_hint_short">轻点查看操作 · 左滑删除 · 右滑收藏</string>
     <string name="watch_action_alarm">提醒</string>
     <string name="watch_action_why">为什么？</string>
     <string name="watch_action_favorite">收藏</string>

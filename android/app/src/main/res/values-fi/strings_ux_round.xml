@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Suosikki</string>
+    <string name="explorer_search_choose_manually">Valitse pörssi ja pari itse</string>
+    <string name="portfolio_avg_price_hint">Keskim. ostohinta: kaikkien ostojen keskiarvo määrillä painotettuna. Myynnit arvostetaan tähän keskiarvoon (ei FIFO).</string>
+</resources>

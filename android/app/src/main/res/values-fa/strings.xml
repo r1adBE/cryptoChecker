@@ -136,10 +136,10 @@
 
     <string name="settings_title">تنظیمات</string>
     <string name="settings_background_updates">به‌روزرسانی در پس‌زمینه</string>
-    <string name="settings_background_updates_hint">قیمت‌ها، هشدارها و ابزارک‌ها حتی وقتی برنامه بسته است به‌روز می‌شوند.</string>
+    <string name="settings_background_updates_hint">حتی وقتی برنامه بسته است: قیمت‌ها، هشدارها و ویجت‌ها با فاصله زیر.</string>
     <string name="settings_background_interval">فاصله زمانی</string>
     <string name="settings_live_service">به‌روزرسانی مکرر</string>
-    <string name="settings_live_service_hint">قیمت‌ها را در فاصله‌های کوتاه بررسی می‌کند، حتی وقتی برنامه بسته است. یک اعلان نشان می‌دهد و باتری بیشتری مصرف می‌کند.</string>
+    <string name="settings_live_service_hint">حتی وقتی برنامه بسته است: قیمت‌ها را در فواصل کوتاه بررسی می‌کند. یک اعلان نشان می‌دهد و باتری بیشتری مصرف می‌کند.</string>
     <string name="settings_live_interval">هر چند وقت</string>
     <string name="settings_minutes">%1$d دقیقه</string>
     <string name="settings_seconds">%1$d ثانیه</string>
@@ -262,7 +262,7 @@
     <string name="time_just_now">همین حالا</string>
     <string name="welcome_text">قیمت‌های شما. هشدارهای شما. نمای کلی شما.\nبدون حساب. بدون تبلیغات. بدون ردیابی.</string>
     <string name="developer_unlocked">گزینه‌های توسعه‌دهنده باز شد</string>
-    <string name="hint_favorites_list">نکته: برای علاقه‌مندی روی ☆ بزنید – علاقه‌مندی‌ها بالا می‌مانند.</string>
+    <string name="hint_favorites_list">نکته: یک ردیف را به راست بکشید تا محبوب شود – محبوب‌ها بالا می‌مانند.</string>
     <string name="tab_watchlist">فهرست</string>
     <string name="tab_market_phase">بازار</string>
     <plurals name="watchlist_stale_count">

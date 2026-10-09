@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">평소보다 많음</string>
     <string name="why_fn_volume_lower">평소보다 적음</string>
     <string name="why_fn_volume_usual">평소 수준</string>
-    <string name="why_fn_market_pulls">BTC가 시장을 끌고 가는 중</string>
+    <string name="why_fn_market_pulls">시장이 BTC와 함께 움직입니다</string>
     <string name="why_fn_market_lags">시장은 움직이지만 이 코인은 거의 그대로</string>
     <string name="why_fn_market_alone">시장은 잠잠 – 이 코인만 따로 움직임</string>
     <string name="why_fn_market_against">이 코인이 시장과 반대로 움직임</string>

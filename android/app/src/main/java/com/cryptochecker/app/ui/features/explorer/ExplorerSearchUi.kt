@@ -72,7 +72,13 @@ internal fun SearchField(search: SearchUi, modifier: Modifier = Modifier) {
 
 /** Treffer als eigene Liste, die den Bildschirm füllt. */
 @Composable
-internal fun SearchResults(search: SearchUi, groupTarget: GroupTargetUi, modifier: Modifier = Modifier) {
+internal fun SearchResults(
+    search: SearchUi,
+    groupTarget: GroupTargetUi,
+    modifier: Modifier = Modifier,
+    /** Kein Treffer: Suche leeren und «Genau auswählen» aufklappen (Börse und Paar selbst wählen). */
+    onChooseManually: (() -> Unit)? = null,
+) {
     // Höchstens 50 Treffer — als normale Spalte, damit alles mit der Seite scrollt.
     Column(
         modifier = modifier.fillMaxWidth().padding(bottom = 24.dp),
@@ -100,8 +106,14 @@ internal fun SearchResults(search: SearchUi, groupTarget: GroupTargetUi, modifie
                     text = stringResource(R.string.explorer_search_empty),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(vertical = 16.dp)
+                    modifier = Modifier.padding(top = 16.dp, bottom = if (onChooseManually != null) 0.dp else 16.dp)
                 )
+                // Der manuelle Weg bleibt erreichbar, ohne erst das Suchfeld zu leeren
+                if (onChooseManually != null) {
+                    androidx.compose.material3.TextButton(onClick = onChooseManually) {
+                        Text(stringResource(R.string.explorer_search_choose_manually))
+                    }
+                }
             }
         }
         // Ziel-Gruppe gilt für jeden angetippten Treffer

@@ -139,10 +139,10 @@
 
     <string name="settings_title">הגדרות</string>
     <string name="settings_background_updates">עדכונים ברקע</string>
-    <string name="settings_background_updates_hint">מחירים, התראות מחיר ווידג׳טים מתעדכנים גם כשהאפליקציה סגורה.</string>
+    <string name="settings_background_updates_hint">גם כשהאפליקציה סגורה: מחירים, התראות ווידג׳טים במרווח שלמטה.</string>
     <string name="settings_background_interval">מרווח</string>
     <string name="settings_live_service">עדכון תכוף</string>
-    <string name="settings_live_service_hint">בודק מחירים במרווחים קצרים, גם כשהאפליקציה סגורה. מציג התראה וצורך יותר סוללה.</string>
+    <string name="settings_live_service_hint">גם כשהאפליקציה סגורה: בודקת מחירים במרווחים קצרים. מציגה התראה וצורכת יותר סוללה.</string>
     <string name="settings_live_interval">באיזו תדירות</string>
     <string name="settings_minutes">%1$d דק׳</string>
     <string name="settings_seconds">%1$d שנ׳</string>
@@ -271,7 +271,7 @@
     <string name="time_just_now">הרגע</string>
     <string name="welcome_text">המחירים שלכם. ההתראות שלכם. הסקירה שלכם.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
     <string name="developer_unlocked">אפשרויות המפתחים נפתחו</string>
-    <string name="hint_favorites_list">טיפ: הקישו על ☆ למועדף – המועדפים נשארים למעלה.</string>
+    <string name="hint_favorites_list">טיפ: החלקה של שורה ימינה הופכת אותה למועדפת – המועדפים נשארים למעלה.</string>
     <string name="tab_watchlist">רשימה</string>
     <string name="tab_market_phase">שוק</string>
     <plurals name="watchlist_stale_count">

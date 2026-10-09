@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 9: Merkliste (Gesten-Hinweis, Aktionsblatt, Alarm-Hinweis nach dem Hinzufügen) und Begrüssung -->
-    <string name="watch_gesture_hint_short">Tippen für Aktionen · wischen für Schnellaktionen · halten zum Sortieren</string>
+    <string name="watch_gesture_hint_short">Tippen für Aktionen · links wischen löscht · rechts wischen = Favorit</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Warum?</string>
     <string name="watch_action_favorite">Favorit</string>

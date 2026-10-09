@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">הקשה לפעולות · החלקה לפעולות מהירות · לחיצה ארוכה למיון</string>
+    <string name="watch_gesture_hint_short">הקשה לפעולות · החלקה שמאלה למחיקה · ימינה למועדף</string>
     <string name="watch_action_alarm">התראה</string>
     <string name="watch_action_why">למה?</string>
     <string name="watch_action_favorite">מועדף</string>

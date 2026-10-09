@@ -136,10 +136,10 @@
 
     <string name="settings_title">Innstillinger</string>
     <string name="settings_background_updates">Oppdater i bakgrunnen</string>
-    <string name="settings_background_updates_hint">Kurser, alarmer og widgeter oppdateres også når appen er lukket.</string>
+    <string name="settings_background_updates_hint">Også når appen er lukket: kurser, alarmer og widgeter med intervallet nedenfor.</string>
     <string name="settings_background_interval">Intervall</string>
     <string name="settings_live_service">Oppdater ofte</string>
-    <string name="settings_live_service_hint">Henter kurser med korte mellomrom, også når appen er lukket. Viser et varsel og bruker mer strøm.</string>
+    <string name="settings_live_service_hint">Også når appen er lukket: sjekker kurser med korte mellomrom. Viser et varsel og bruker mer batteri.</string>
     <string name="settings_live_interval">Hvor ofte</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -262,7 +262,7 @@
     <string name="time_just_now">nå nettopp</string>
     <string name="welcome_text">Dine kurser. Dine alarmer. Din oversikt.\nIngen konto. Ingen reklame. Ingen sporing.</string>
     <string name="developer_unlocked">Utvikleralternativer låst opp</string>
-    <string name="hint_favorites_list">Tips: trykk på ☆ for favoritt – favoritter står øverst.</string>
+    <string name="hint_favorites_list">Tips: sveip en rad mot høyre for å gjøre den til favoritt – favoritter står øverst.</string>
     <string name="tab_watchlist">Liste</string>
     <string name="tab_market_phase">Marked</string>
     <plurals name="watchlist_stale_count">

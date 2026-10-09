@@ -142,10 +142,10 @@
 
     <string name="settings_title">Налаштування</string>
     <string name="settings_background_updates">Фонові оновлення</string>
-    <string name="settings_background_updates_hint">Ціни, сигнали й віджети оновлюються, навіть коли застосунок закрито.</string>
+    <string name="settings_background_updates_hint">Навіть коли застосунок закрито: курси, оповіщення й віджети з інтервалом нижче.</string>
     <string name="settings_background_interval">Інтервал</string>
     <string name="settings_live_service">Оновлювати часто</string>
-    <string name="settings_live_service_hint">Запитує курси з короткими інтервалами, навіть коли застосунок закрито. Показує сповіщення і витрачає більше заряду.</string>
+    <string name="settings_live_service_hint">Навіть коли застосунок закрито: часто перевіряє курси. Показує сповіщення й витрачає більше заряду.</string>
     <string name="settings_live_interval">Як часто</string>
     <string name="settings_minutes">%1$d хв</string>
     <string name="settings_seconds">%1$d с</string>
@@ -280,7 +280,7 @@
     <string name="time_just_now">щойно</string>
     <string name="welcome_text">Ваші курси. Ваші сигнали. Ваш огляд.\nБез акаунта. Без реклами. Без стеження.</string>
     <string name="developer_unlocked">Параметри розробника відкрито</string>
-    <string name="hint_favorites_list">Порада: торкніться ☆, щоб додати в обране – обране вгорі.</string>
+    <string name="hint_favorites_list">Порада: проведіть рядок праворуч, щоб додати до обраного – обране залишається вгорі.</string>
     <string name="tab_watchlist">Список</string>
     <string name="tab_market_phase">Ринок</string>
     <plurals name="watchlist_stale_count">

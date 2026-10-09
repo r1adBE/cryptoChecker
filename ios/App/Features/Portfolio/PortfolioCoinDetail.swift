@@ -185,6 +185,8 @@ private struct PortfolioPositionCard: View {
                 }
             }
             .padding(.top, 12)
+            // Wie «Ø Kaufpreis» gerechnet wird (Durchschnitt, nicht FIFO) — wie Android
+            PortfolioHint(text: L("portfolio_avg_price_hint")).padding(.top, 8)
             if p.priceMissing {
                 PortfolioHint(text: L("portfolio_price_missing_hint")).padding(.top, 8)
             }

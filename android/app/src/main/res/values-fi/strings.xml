@@ -136,10 +136,10 @@
 
     <string name="settings_title">Asetukset</string>
     <string name="settings_background_updates">Taustapäivitykset</string>
-    <string name="settings_background_updates_hint">Hinnat, hälytykset ja widgetit päivittyvät myös sovelluksen ollessa suljettuna.</string>
+    <string name="settings_background_updates_hint">Myös sovelluksen ollessa suljettuna: hinnat, hälytykset ja widgetit alla olevalla välillä.</string>
     <string name="settings_background_interval">Aikaväli</string>
     <string name="settings_live_service">Päivitä tiheästi</string>
-    <string name="settings_live_service_hint">Hakee hinnat lyhyin väliajoin, myös kun sovellus on suljettu. Näyttää ilmoituksen ja kuluttaa enemmän akkua.</string>
+    <string name="settings_live_service_hint">Myös sovelluksen ollessa suljettuna: tarkistaa hinnat lyhyin välein. Näyttää ilmoituksen ja kuluttaa enemmän akkua.</string>
     <string name="settings_live_interval">Kuinka usein</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_seconds">%1$d s</string>
@@ -262,7 +262,7 @@
     <string name="time_just_now">juuri nyt</string>
     <string name="welcome_text">Sinun hintasi. Sinun hälytyksesi. Sinun yleiskuvasi.\nEi tiliä. Ei mainoksia. Ei seurantaa.</string>
     <string name="developer_unlocked">Kehittäjäasetukset avattu</string>
-    <string name="hint_favorites_list">Vinkki: napauta ☆ lisätäksesi suosikin – suosikit pysyvät ylhäällä.</string>
+    <string name="hint_favorites_list">Vinkki: pyyhkäise riviä oikealle, niin siitä tulee suosikki – suosikit pysyvät ylhäällä.</string>
     <string name="tab_watchlist">Lista</string>
     <string name="tab_market_phase">Markkinat</string>
     <plurals name="watchlist_stale_count">

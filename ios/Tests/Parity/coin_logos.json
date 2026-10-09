@@ -136,6 +136,30 @@
     {
       "url": null,
       "expected": false
+    },
+    {
+      "url": "https://r1adbe.github.io/cryptoChecker/logos/img/0123456789abcdef.webp",
+      "expected": true
+    },
+    {
+      "url": "https://r1adbe.github.io/cryptoChecker/logos/img/0123456789ABCDEF.webp",
+      "expected": false
+    },
+    {
+      "url": "https://r1adbe.github.io/cryptoChecker/logos/img/../index.json",
+      "expected": false
+    },
+    {
+      "url": "https://r1adbe.github.io/cryptoChecker/logos/index.json",
+      "expected": false
+    },
+    {
+      "url": "https://r1adbe.github.io/other/img/0123456789abcdef.webp",
+      "expected": false
+    },
+    {
+      "url": "https://r1adbe.github.io/cryptoChecker/logos/img/0123456789abcdef.webp?x=1",
+      "expected": false
     }
   ],
   "smallUrl": [
@@ -608,5 +632,170 @@
       "TRADFI:BYD": "Boyd Gaming Corporation",
       "TRADFI:CAT": "Caterpillar, Inc."
     }
+  },
+  "alpha": {
+    "description": "Binance-Alpha-Liste: handelbare vor abgemeldeten, grösste Marktkapitalisierung zuerst (unbekannt zuletzt), sonst Listenreihenfolge; danach pick/pickNames (Vorhandenes bleibt).",
+    "known": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png"
+    },
+    "entries": [
+      {
+        "symbol": "AIA",
+        "name": "DeAgentAI old",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia-old.png",
+        "marketCap": "900000",
+        "offline": true
+      },
+      {
+        "symbol": "AIA",
+        "name": "DeAgentAI",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia.png",
+        "marketCap": "50000000",
+        "offline": false
+      },
+      {
+        "symbol": "aia",
+        "name": "AIA Copy",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia-copy.png",
+        "marketCap": "1000",
+        "offline": false
+      },
+      {
+        "symbol": "AGT",
+        "name": "Alaya AI",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/agt.png",
+        "marketCap": null,
+        "offline": false
+      },
+      {
+        "symbol": "gorilla",
+        "name": "gorilla",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/gorilla.png",
+        "marketCap": "805950.03",
+        "offline": false
+      },
+      {
+        "symbol": "BTC",
+        "name": "Fake BTC",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/fake.png",
+        "marketCap": "99999999999",
+        "offline": false
+      },
+      {
+        "symbol": "BAD",
+        "name": "Bad",
+        "iconUrl": "http://example.com/bad.png",
+        "marketCap": "5",
+        "offline": false
+      }
+    ],
+    "expectedOrder": [
+      "BTC",
+      "AIA",
+      "gorilla",
+      "aia",
+      "BAD",
+      "AGT",
+      "AIA"
+    ],
+    "expected": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "AIA": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia.png",
+      "GORILLA": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/gorilla.png",
+      "AGT": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/agt.png"
+    },
+    "expectedNames": {
+      "BTC": "Fake BTC",
+      "AIA": "DeAgentAI",
+      "GORILLA": "gorilla",
+      "BAD": "Bad",
+      "AGT": "Alaya AI"
+    }
+  },
+  "partial": {
+    "description": "Unvollständige Liste: Bekanntes ergänzt (Neues gewinnt), Ablauf nach 6 h statt 7 Tagen; Wartezeit nach 429 = Retry-After, 1–60 s, ohne Angabe 30 s.",
+    "fresh": {
+      "BTC": "https://new/btc.png",
+      "ETH": "https://new/eth.png"
+    },
+    "known": {
+      "BTC": "https://old/btc.png",
+      "ALPINE": "https://old/alpine.png"
+    },
+    "expected": {
+      "BTC": "https://new/btc.png",
+      "ETH": "https://new/eth.png",
+      "ALPINE": "https://old/alpine.png"
+    },
+    "rateLimit": [
+      {
+        "retryAfter": null,
+        "expected": 30000
+      },
+      {
+        "retryAfter": 5,
+        "expected": 5000
+      },
+      {
+        "retryAfter": 0,
+        "expected": 1000
+      },
+      {
+        "retryAfter": 600,
+        "expected": 60000
+      }
+    ]
+  },
+  "index": {
+    "description": "Eigene Logo-Liste (GitHub Pages): nur «img/<16 Hex klein>.webp», Krypto-Kürzel wie normalize (kein Hebel-Präfix, nur A–Z/0–9), TradFi als «TRADFI:NVDA»; Namen über cleanName; unbrauchbar → null.",
+    "text": "{\"version\": 1, \"generated\": \"2026-10-09T03:41:00Z\", \"coins\": {\"BTC\": {\"f\": \"img/0123456789abcdef.webp\", \"n\": \"Bitcoin\", \"u\": \"https://x\", \"s\": \"cg\"}, \"aia\": {\"f\": \"img/fedcba9876543210.webp\", \"n\": \"DeAgentAI\"}, \"ZZZ\": {\"n\": \"  No   Logo  \"}, \"BAD1\": {\"f\": \"img/../../evil.webp\", \"n\": \"Evil\"}, \"BAD2\": {\"f\": \"img/0123456789ABCDEF.webp\"}, \"1000PEPE\": {\"f\": \"img/1111111111111111.webp\", \"n\": \"Pepe x1000\"}, \"TRADFI:NVDA\": {\"f\": \"img/2222222222222222.webp\", \"n\": \"NVIDIA\"}, \"A-B\": {\"f\": \"img/3333333333333333.webp\", \"n\": \"Dash\"}, \"OKX1\": {\"f\": \"img/4444444444444444.webp\"}}}",
+    "expectedLogos": {
+      "BTC": "https://r1adbe.github.io/cryptoChecker/logos/img/0123456789abcdef.webp",
+      "AIA": "https://r1adbe.github.io/cryptoChecker/logos/img/fedcba9876543210.webp",
+      "OKX1": "https://r1adbe.github.io/cryptoChecker/logos/img/4444444444444444.webp",
+      "TRADFI:NVDA": "https://r1adbe.github.io/cryptoChecker/logos/img/2222222222222222.webp"
+    },
+    "expectedNames": {
+      "BTC": "Bitcoin",
+      "AIA": "DeAgentAI",
+      "ZZZ": "No Logo",
+      "BAD1": "Evil",
+      "TRADFI:NVDA": "NVIDIA"
+    },
+    "invalid": [
+      "",
+      "not json",
+      "{\"version\":0,\"coins\":{\"BTC\":{\"n\":\"Bitcoin\"}}}",
+      "{\"version\":1,\"coins\":{}}",
+      "{\"version\":1}"
+    ],
+    "changed": {
+      "old": {
+        "BTC": "https://a/btc.png",
+        "ETH": "https://a/eth.png",
+        "XRP": "https://a/xrp.png"
+      },
+      "new": {
+        "BTC": "https://r1adbe.github.io/cryptoChecker/logos/img/0123456789abcdef.webp",
+        "ETH": "https://a/eth.png",
+        "SOL": "https://a/sol.png"
+      },
+      "expected": [
+        "BTC"
+      ]
+    }
+  },
+  "pack": {
+    "description": "Paket aller Logos: «CCLP1\\n», je Bild «Pfad<Tab>Länge\\n» + Bytes; ungültige Pfade übersprungen, abgeschnittener Rest weg; ohne Kennung null.",
+    "base64": "Q0NMUDEKaW1nLzAxMjM0NTY3ODlhYmNkZWYud2VicAk4ClJJRkYtb25laW1nLy4uL2V2aWwud2VicAkzCmJhZGltZy9mZWRjYmE5ODc2NTQzMjEwLndlYnAJMAppbWcvMTExMTExMTExMTExMTExMS53ZWJwCTExCnR3bwpsaW5lcwkhaW1nLzIyMjIyMjIyMjIyMjIyMjIud2VicAk5OTkKc2hvcnQ=",
+    "expected": {
+      "img/0123456789abcdef.webp": "UklGRi1vbmU=",
+      "img/fedcba9876543210.webp": "",
+      "img/1111111111111111.webp": "dHdvCmxpbmVzCSE="
+    },
+    "invalidBase64": [
+      "",
+      "UEsDBHppcA=="
+    ]
   }
 }

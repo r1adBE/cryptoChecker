@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">mai mare decât de obicei</string>
     <string name="why_fn_volume_lower">mai mic decât de obicei</string>
     <string name="why_fn_volume_usual">ca de obicei</string>
-    <string name="why_fn_market_pulls">BTC trage piața după el</string>
+    <string name="why_fn_market_pulls">Piața se mișcă odată cu BTC</string>
     <string name="why_fn_market_lags">Piața se mișcă, această monedă abia</string>
     <string name="why_fn_market_alone">Piață calmă – această monedă se mișcă singură</string>
     <string name="why_fn_market_against">Moneda merge împotriva pieței</string>

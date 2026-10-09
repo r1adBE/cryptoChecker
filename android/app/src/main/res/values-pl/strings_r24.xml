@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">Zmiana od północy %1$s niedostępna</string>
     <string name="sheet_chart_today">Dziś</string>
     <string name="sheet_chart_change_since">%1$s %2$s</string>
-    <string name="settings_live_interval_hidden_hint">Przy zamkniętej aplikacji najwyżej raz na minutę</string>
+    <string name="settings_live_interval_hidden_hint">Aplikacja zamknięta: najwyżej raz na minutę · ekran wyłączony: co 5 minut</string>
     <string name="sheet_more">Więcej</string>
     <string name="a11y_expanded">Rozwinięte</string>
     <string name="a11y_collapsed">Zwinięte</string>

@@ -8,7 +8,7 @@ extension WatchActionsSheet {
     func primaryActions(_ watch: Watch, alarmCount: Int) -> some View {
         HStack(spacing: 8) {
             WatchActionTile(
-                systemImage: alarmCount > 0 ? "alarm.fill" : "alarm",
+                systemImage: alarmCount > 0 ? "bell.fill" : "bell",
                 title: alarmCount > 0 ? L("watchlist_alarms_count", count: alarmCount) : L("watch_action_alarm")
             ) {
                 WatchlistHaptics.selection()

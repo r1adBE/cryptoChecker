@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -120,6 +121,8 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
+                // Tippfläche 48 dp, sichtbar bleibt der kleine Kreis
+                .minimumInteractiveComponentSize()
                 .size(SearchRowHeight)
                 .clip(RoundedCornerShape(50))
                 .clickable(onClick = onClose)
@@ -141,6 +144,8 @@ internal fun SearchButton(onClick: () -> Unit) {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .padding(start = 8.dp)
+            // Tippfläche 48 dp, sichtbar bleibt der kleine Kreis
+            .minimumInteractiveComponentSize()
             .size(SearchRowHeight)
             .clip(RoundedCornerShape(50))
             // Gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe)

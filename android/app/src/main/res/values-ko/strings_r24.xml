@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">%1$s 자정 이후 변동 정보 없음</string>
     <string name="sheet_chart_today">오늘</string>
     <string name="sheet_chart_change_since">%2$s %1$s</string>
-    <string name="settings_live_interval_hidden_hint">앱이 닫혀 있으면 최대 1분에 한 번</string>
+    <string name="settings_live_interval_hidden_hint">앱이 닫힘: 최대 1분에 한 번 · 화면 꺼짐: 5분마다</string>
     <string name="sheet_more">더보기</string>
     <string name="a11y_expanded">펼침</string>
     <string name="a11y_collapsed">접힘</string>

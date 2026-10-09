@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">normalden yüksek</string>
     <string name="why_fn_volume_lower">normalden düşük</string>
     <string name="why_fn_volume_usual">normal</string>
-    <string name="why_fn_market_pulls">BTC piyasayı peşinden sürüklüyor</string>
+    <string name="why_fn_market_pulls">Piyasa BTC ile birlikte hareket ediyor</string>
     <string name="why_fn_market_lags">Piyasa hareketli, bu coin pek değil</string>
     <string name="why_fn_market_alone">Piyasa sakin – bu coin tek başına hareket ediyor</string>
     <string name="why_fn_market_against">Coin piyasanın tersine hareket ediyor</string>

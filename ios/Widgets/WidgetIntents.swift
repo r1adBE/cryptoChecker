@@ -143,7 +143,7 @@ struct WidgetGroupEntity: AppEntity {
     static var defaultQuery = WidgetGroupQuery()
 
     var displayRepresentation: DisplayRepresentation {
-        DisplayRepresentation(title: "\(isAll ? L("group_all") : (id == Self.favoritesId ? WatchFilter.favoritesLabel : id))")
+        DisplayRepresentation(title: "\(isAll ? L("group_all") : (id == Self.favoritesId ? L("group_favorites") : id))")
     }
 
     var isAll: Bool { id == Self.allId }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">รายการโปรด</string>
+    <string name="explorer_search_choose_manually">เลือกกระดานเทรดและคู่เองด้วยตนเอง</string>
+    <string name="portfolio_avg_price_hint">ราคาซื้อเฉลี่ย: ค่าเฉลี่ยของการซื้อทั้งหมด ถ่วงน้ำหนักตามจำนวน การขายคิดมูลค่าที่ค่าเฉลี่ยนี้ (ไม่ใช่ FIFO)</string>
+</resources>

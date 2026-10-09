@@ -1,0 +1,89 @@
+# Builds docs/logos/ (index.json, WebP logos, stocks.txt) for the apps' coin and stock
+# logos and names, served by GitHub Pages at https://r1adbe.github.io/cryptoChecker/logos/,
+# plus the release asset «logos.pack» (all logos in one file for the apps' first download):
+# https://github.com/r1adBE/cryptoChecker/releases/download/logos/logos.pack
+# Sources: CoinGecko (all pages; optional free demo key in the repository secret
+# COINGECKO_API_KEY), Binance symbol/Alpha lists and stock images, OKX, Nasdaq.
+name: Coin logos
+
+on:
+  schedule:
+    - cron: '41 3 * * *'   # daily 03:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: coin-logos
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Pillow
+        run: python3 -m pip install --quiet --user pillow
+
+      - name: Self-test
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/build_logos.py --selftest
+
+      - name: Build docs/logos
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+        run: |
+          python3 .github/scripts/build_logos.py --output docs/logos --pack "$RUNNER_TEMP/logos.pack"
+          { echo '### Coin logos'; echo '```'; cat docs/logos/status.json; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- docs/logos)" ]; then
+            echo "No changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Public commit identity: GitHub noreply address only, never a private email.
+          git config user.name 'r1AD'
+          git config user.email '68864596+r1adBE@users.noreply.github.com'
+          # the pack only changes together with index.json (it carries the pack's hash)
+          if [ -n "$(git status --porcelain -- docs/logos/index.json)" ]; then
+            echo "index=true" >> "$GITHUB_OUTPUT"
+          fi
+          git add -A docs/logos
+          git commit -q -m "Update coin logos ($(date -u +%Y-%m-%d))"
+          for i in 1 2 3; do
+            if git push -q; then break; fi
+            git pull -q --rebase
+            if [ "$i" = 3 ]; then exit 1; fi
+          done
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Upload logos.pack
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view logos >/dev/null 2>&1; then
+            gh release create logos --prerelease --title 'Coin logos' \
+              --notes 'All coin and stock logos of docs/logos in one file for the apps (rebuilt daily by the Coin logos workflow). Logos are trademarks of their projects.'
+          fi
+          has_pack=$(gh release view logos --json assets -q '.assets[].name' | grep -cx 'logos.pack' || true)
+          if [ "${{ steps.commit.outputs.index }}" = 'true' ] || [ "$has_pack" = '0' ]; then
+            gh release upload logos "$RUNNER_TEMP/logos.pack" --clobber
+          else
+            echo "logos.pack unchanged."
+          fi
+
+      - name: Request Pages build
+        if: steps.commit.outputs.changed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "Pages build request skipped."

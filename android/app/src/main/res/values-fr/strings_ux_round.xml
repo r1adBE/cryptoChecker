@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Favori</string>
+    <string name="explorer_search_choose_manually">Choisir soi-même la plateforme et la paire</string>
+    <string name="portfolio_avg_price_hint">Prix d’achat moyen : moyenne de tous les achats, pondérée par la quantité. Les ventes sont évaluées à cette moyenne (pas FIFO).</string>
+</resources>

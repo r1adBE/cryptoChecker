@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">İşlemler için dokunun · hızlı işlemler için kaydırın · sıralamak için basılı tutun</string>
+    <string name="watch_gesture_hint_short">İşlemler için dokun · silmek için sola kaydır · favori için sağa kaydır</string>
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_why">Neden?</string>
     <string name="watch_action_favorite">Favori</string>

@@ -110,6 +110,9 @@ fun CryptoCheckerTheme(
     val colorScheme = if (highContrast) {
         baseScheme.copy(
             primary = withContrast(baseScheme.primary, baseScheme.surfaceContainerHighest, dark),
+            // Dunkel steht die Akzentfarbe als Schrift auf der grauen Auswahlfläche
+            onSecondaryContainer = if (dark) withContrast(baseScheme.primary, DarkSelectedContainer, true)
+            else baseScheme.onSecondaryContainer,
             onSurfaceVariant = baseScheme.onSurface,
             outline = baseScheme.onSurface,
             outlineVariant = baseScheme.onSurface.copy(alpha = 0.6f),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Toca para acciones · desliza para acciones rápidas · mantén pulsado para ordenar</string>
+    <string name="watch_gesture_hint_short">Toca para acciones · desliza a la izquierda para borrar · a la derecha para favorito</string>
     <string name="watch_action_alarm">Alarma</string>
     <string name="watch_action_why">¿Por qué?</string>
     <string name="watch_action_favorite">Favorito</string>

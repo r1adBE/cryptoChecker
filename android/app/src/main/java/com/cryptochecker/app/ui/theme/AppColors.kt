@@ -33,6 +33,16 @@ object AppColors {
     val outline: Color
         @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.outline
 
+    /**
+     * Leichte Füllung für «ausgewählt» oder «hervorgehoben» ([alpha] 0.08 … 0.3): hell eine
+     * Spur der Akzentfarbe, dunkel neutral grau. Dunkel wirkt eine schwache Akzentfarbe sonst
+     * bräunlich (Orange, Rot) statt farbig.
+     */
+    @Composable @ReadOnlyComposable
+    fun accentTint(alpha: Float): Color =
+        if (LocalDarkTheme.current) MaterialTheme.colorScheme.onSurface.copy(alpha = alpha * 0.8f)
+        else MaterialTheme.colorScheme.primary.copy(alpha = alpha)
+
     /** Bernstein für Symbole und Punkte (⚡, Status «Achtung»). */
     val warning: Color
         @Composable @ReadOnlyComposable get() = if (LocalDarkTheme.current) WarningDark else WarningLight

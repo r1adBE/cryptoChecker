@@ -148,7 +148,7 @@ struct WatchActionsSheet: View {
                         set: { enabled in
                             if let w = data.watch(watchId) { data.setTtsEnabled(w, enabled) }
                         }
-                    ))
+                    ), icon: "speaker.wave.2")
                     RowDivider()
                     SwitchRow(title: L("watchlist_notification"), isOn: Binding(
                         get: { data.watch(watchId)?.notificationEnabled ?? false },
@@ -156,7 +156,7 @@ struct WatchActionsSheet: View {
                             if enabled { Task { _ = await Notifier.requestPermission() } }
                             if let w = data.watch(watchId) { data.setNotificationEnabled(w, enabled) }
                         }
-                    ))
+                    ), icon: "eye")  // dasselbe Auge wie in der Zeile der Merkliste
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
@@ -312,12 +312,12 @@ struct WatchActionsSheet: View {
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(LinearGradient(
-                    colors: [accent.primary.opacity(0.16), accent.primary.opacity(0.04)],
+                    colors: [accent.tint(0.16), accent.tint(0.04)],
                     startPoint: .topLeading, endPoint: .bottomTrailing))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(accent.primary.opacity(0.25), lineWidth: 1)
+                .strokeBorder(accent.tint(0.25), lineWidth: 1)
         )
         .animation(.snappy, value: watch.lastPrice)
     }

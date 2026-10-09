@@ -260,7 +260,7 @@ private fun WidgetConfigureContent(
                     FilterChip(
                         selected = WatchFilter.isFavorites(group),
                         onClick = { group = WatchFilter.FAVORITES },
-                        label = { Text(WatchFilter.FAVORITES_LABEL) },
+                        label = { Text(androidx.compose.ui.res.stringResource(com.cryptochecker.app.R.string.group_favorites)) },
                         modifier = Modifier.semantics { contentDescription = favoritesLabel }
                     )
                     groups.forEach { name ->

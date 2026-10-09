@@ -17,7 +17,7 @@
     <string name="a11y_change_today_zone_none">%1$s 午前0時からの変動はありません</string>
     <string name="sheet_chart_today">今日</string>
     <string name="sheet_chart_change_since">%2$s %1$s</string>
-    <string name="settings_live_interval_hidden_hint">アプリを閉じている間は最短1分ごと</string>
+    <string name="settings_live_interval_hidden_hint">アプリを閉じている間は最短1分ごと · 画面オフ中は5分ごと</string>
     <string name="sheet_more">その他</string>
     <string name="a11y_expanded">展開済み</string>
     <string name="a11y_collapsed">折りたたみ済み</string>

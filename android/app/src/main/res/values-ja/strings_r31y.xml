@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">通常より多い</string>
     <string name="why_fn_volume_lower">通常より少ない</string>
     <string name="why_fn_volume_usual">通常どおり</string>
-    <string name="why_fn_market_pulls">BTCが市場を引っ張っている</string>
+    <string name="why_fn_market_pulls">市場はBTCと連動しています</string>
     <string name="why_fn_market_lags">市場は動いているが、このコインはほぼ動かない</string>
     <string name="why_fn_market_alone">市場は落ち着いている – このコインが単独で動いている</string>
     <string name="why_fn_market_against">このコインが市場と逆行している</string>

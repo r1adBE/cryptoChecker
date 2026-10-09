@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Τιμές live</string>
-    <string name="settings_live_websocket_hint">Οι τιμές ακολουθούν το ανταλλακτήριο χωρίς καθυστέρηση, όσο η λίστα είναι ανοιχτή. Για Binance, Bybit, OKX, Coinbase και Kraken.</string>
+    <string name="settings_live_websocket_hint">Όσο η λίστα παρακολούθησης είναι ανοιχτή: οι τιμές ακολουθούν το ανταλλακτήριο χωρίς καθυστέρηση. Για Binance, Bybit, OKX, Coinbase και Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Τιμές live ενεργές</string>
     <string name="refresh_report_live">Live: %1$s</string>

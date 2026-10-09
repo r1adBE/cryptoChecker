@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.lock
 
+import com.cryptochecker.app.ui.theme.AppColors
 import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -112,7 +113,7 @@ fun PortfolioLockedState(onUnlock: () -> Unit, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(72.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f))
+                .background(AppColors.accentTint(0.12f))
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_lock),

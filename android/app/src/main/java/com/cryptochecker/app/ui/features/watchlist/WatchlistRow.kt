@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable
@@ -60,6 +61,7 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.components.RollingNumberText
 import com.cryptochecker.app.ui.theme.PriceColors
@@ -143,6 +145,7 @@ internal fun WatchRow(
             converted?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
             sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
             watch.note?.let { stringResource(R.string.a11y_note, it) },
+            if (watch.favorite) stringResource(R.string.a11y_favorite) else null,
             if (alarmCount > 0) stringResource(R.string.a11y_alarm_count, alarmCount) else null,
             if (watch.notificationEnabled) stringResource(R.string.watchlist_notification) else null,
             status.warning,
@@ -200,7 +203,18 @@ internal fun WatchRow(
                 )
             }
             // Coin-Logo (bzw. Initialen) vor dem Paar, Favorit als kleiner Stern daran; feste Grösse,
-            // nimmt nur dem Paar-Text Platz. Logos aus: keine Plakette, Favorit nur am Akzent-Rand.
+            // nimmt nur dem Paar-Text Platz. Logos aus: keine Plakette, Favorit als eigener kleiner Stern.
+            if (LocalCoinLogoSource.current == null && watch.favorite && !sortMode) {
+                Icon(
+                    painterResource(R.drawable.ic_star),
+                    contentDescription = null,
+                    tint = accent,
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 4.dp, end = 6.dp)
+                        .size(16.dp)
+                )
+            }
             CoinBadge(
                 watch.baseAsset,
                 size = ROW_BADGE_SIZE,
@@ -275,7 +289,7 @@ private fun RowLeading(
                 .padding(start = Spacing.xs, end = Spacing.xs)
                 .size(40.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(accent.copy(alpha = 0.12f))
+                .background(AppColors.accentTint(0.12f))
         ) {
             Icon(
                 painterResource(R.drawable.ic_drag_handle),

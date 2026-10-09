@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -47,15 +48,17 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 
 /**
- * Gruppen-Auswahl oben: «Alle · FAV · Gruppe 1 · Gruppe 2 … · +».
+ * Gruppen-Auswahl oben: «Alle · Favoriten · Gruppe 1 · Gruppe 2 … · +».
  * Tippen filtert, lange drücken öffnet «Gruppe bearbeiten», «+» legt eine an.
- * «FAV» zeigt die Favoriten ([WatchFilter.FAVORITES]), immer da. Ohne Gruppen stehen
- * «Alle», «FAV» und «+» da.
+ * Nur was es gibt: «Favoriten» erst mit mindestens einem Favoriten, «+» erst mit einer Gruppe (die
+ * erste legt man über das Aktionsblatt eines Paars an). Gibt es weder noch, bleibt die Zeile leer —
+ * ein einzelnes «Alle» wäre nur ein weiterer Knopf ([showsGroupChips]).
  */
 @Composable
 internal fun GroupChips(
     groups: List<String>,
     selected: String?,
+    hasFavorites: Boolean,
     onSelect: (String?) -> Unit,
     onEdit: (String) -> Unit,
     onAdd: () -> Unit,
@@ -64,7 +67,7 @@ internal fun GroupChips(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // «Alle» steht immer da, sobald die Merkliste ein Paar hat (die Kopfzeile gibt es erst dann)
+        if (!showsGroupChips(groups, selected, hasFavorites)) return@LazyRow
         item(key = "all") {
             GroupChip(
                 text = stringResource(R.string.group_all),
@@ -72,13 +75,15 @@ internal fun GroupChips(
                 onClick = { onSelect(null) }
             )
         }
-        item(key = "favorites") {
-            GroupChip(
-                text = WatchFilter.FAVORITES_LABEL,
-                description = stringResource(R.string.group_favorites),
-                selected = WatchFilter.isFavorites(selected),
-                onClick = { onSelect(WatchFilter.FAVORITES) }
-            )
+        // Auch ohne Favoriten sichtbar, solange die Ansicht gewählt ist (sonst gäbe es keinen Weg zurück)
+        if (hasFavorites || WatchFilter.isFavorites(selected)) {
+            item(key = "favorites") {
+                GroupChip(
+                    text = stringResource(R.string.group_favorites),
+                    selected = WatchFilter.isFavorites(selected),
+                    onClick = { onSelect(WatchFilter.FAVORITES) }
+                )
+            }
         }
         items(groups, key = { "group:$it" }) { group ->
             GroupChip(
@@ -88,10 +93,12 @@ internal fun GroupChips(
                 onLongClick = { onEdit(group) }
             )
         }
-        item(key = "add") {
+        if (groups.isNotEmpty()) item(key = "add") {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
+                    // Tippfläche 48 dp, sichtbar bleibt das kleine Feld
+                    .minimumInteractiveComponentSize()
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(8.dp))
@@ -107,6 +114,10 @@ internal fun GroupChips(
         }
     }
 }
+
+/** Gruppen-Chips zeigen? Nur wenn es neben «Alle» etwas zu wählen gibt (oder eine Auswahl aktiv ist). */
+internal fun showsGroupChips(groups: List<String>, selected: String?, hasFavorites: Boolean): Boolean =
+    groups.isNotEmpty() || hasFavorites || selected != null
 
 /**
  * Chip im Stil des Material-FilterChips, aber mit langem Drücken
@@ -125,6 +136,8 @@ private fun GroupChip(
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
+            // Tippfläche 48 dp hoch, sichtbar bleibt der 32-dp-Chip
+            .minimumInteractiveComponentSize()
             .height(32.dp)
             .clip(shape)
             .then(

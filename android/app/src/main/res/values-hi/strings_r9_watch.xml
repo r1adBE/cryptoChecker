@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">कार्रवाइयों के लिए टैप · त्वरित कार्रवाइयों के लिए स्वाइप · क्रमबद्ध करने के लिए दबाकर रखें</string>
+    <string name="watch_gesture_hint_short">कार्यों के लिए टैप करें · हटाने के लिए बाईं ओर स्वाइप करें · पसंदीदा के लिए दाईं ओर</string>
     <string name="watch_action_alarm">अलार्म</string>
     <string name="watch_action_why">क्यों?</string>
     <string name="watch_action_favorite">पसंदीदा</string>

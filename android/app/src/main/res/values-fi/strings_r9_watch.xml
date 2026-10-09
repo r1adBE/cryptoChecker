@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- r9_watch -->
-    <string name="watch_gesture_hint_short">Napauta: toiminnot · pyyhkäise: pikatoiminnot · pidä painettuna: järjestä</string>
+    <string name="watch_gesture_hint_short">Napauta toimintoja varten · pyyhkäise vasemmalle poistaaksesi · oikealle suosikiksi</string>
     <string name="watch_action_alarm">Hälytys</string>
     <string name="watch_action_why">Miksi?</string>
     <string name="watch_action_favorite">Suosikki</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste, Suche, Portfolio: Feinschliff vor dem Store-Test -->
+    <string name="a11y_favorite">Αγαπημένο</string>
+    <string name="explorer_search_choose_manually">Επιλέξτε μόνοι σας ανταλλακτήριο και ζεύγος</string>
+    <string name="portfolio_avg_price_hint">Μέση τιμή αγοράς: ο μέσος όρος όλων των αγορών, σταθμισμένος με την ποσότητα. Οι πωλήσεις αποτιμώνται σε αυτόν τον μέσο όρο (όχι FIFO).</string>
+</resources>

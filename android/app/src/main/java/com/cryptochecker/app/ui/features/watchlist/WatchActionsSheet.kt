@@ -349,12 +349,15 @@ internal fun WatchActionsSheet(
             SwitchRow(
                 title = stringResource(R.string.watchlist_tts),
                 checked = watch.ttsEnabled,
-                onCheckedChange = onTtsChange
+                onCheckedChange = onTtsChange,
+                icon = R.drawable.ic_volume_up
             )
             SwitchRow(
                 title = stringResource(R.string.watchlist_notification),
                 checked = watch.notificationEnabled,
-                onCheckedChange = onNotificationChange
+                onCheckedChange = onNotificationChange,
+                // Dasselbe Auge wie in der Zeile der Merkliste
+                icon = R.drawable.ic_visibility
             )
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
             SheetAction(

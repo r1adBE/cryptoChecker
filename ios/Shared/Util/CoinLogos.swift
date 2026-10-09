@@ -3,6 +3,8 @@ import Foundation
 /// Regeln für die Coin-Logos (gleich in Android `CoinLogos.kt`, gemeinsame Testfälle
 /// `testdata/parity/coin_logos.json`):
 ///
+/// - Erste Quelle: die eigene Logo-Liste auf GitHub Pages (`indexURL`), täglich von einer GitHub
+///   Action gebaut; die folgenden Quellen gelten nur, solange es sie nie gab (TradFi weiter Binance).
 /// - Zuordnung Symbol → Bild-Adresse aus der öffentlichen CoinGecko-Rangliste (`/coins/markets`,
 ///   Feld `image`), nach Marktkapitalisierung sortiert. Teilen sich Coins ein Symbol, gewinnt der
 ///   grösste (der erste in der Rangliste).
@@ -14,6 +16,9 @@ import Foundation
 ///   Feld `logo`) — vor allem TradFi (Gold, Silber, Aktien), die CoinGecko nicht führt. Sie füllt
 ///   nur Symbole, die CoinGecko nicht kennt (`pick` lässt Vorhandenes stehen). Inoffizielle
 ///   Schnittstelle: Fällt sie weg, bleiben dort Initialen.
+/// - Dritte Quelle: die offizielle Token-Liste von Binance Alpha (`alphaListURL`) für kleinere
+///   Futures-Token ohne CoinGecko-Rang (AIA, AGT, AIO …).
+/// - Fehlt eine Quelle, bleibt Bekanntes erhalten und die Liste wird nach einigen Stunden neu geholt.
 /// - TradFi-Paare (Aktien, Rohstoffe, Devisen; Kennzeichen der Paarliste) nie aus CoinGecko: Dort
 ///   heisst oft ein fremder Token gleich («CAT», «NVDA»). Ihr Logo kommt nur aus der Binance-Liste
 ///   (`pickTradFi`, Schlüssel `tradFiKey`); ohne Treffer Initialen.
@@ -26,16 +31,162 @@ enum CoinLogos {
     static let failureTTLMillis: Int64 = 24 * 60 * 60 * 1000
     /// Seiten à 250 Coins: die grössten 1000 zuerst (vor der Binance-Liste).
     static let pages = 4
-    /// Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken (AIN, AGT, AIA, LUNA …), erst
-    /// nach der Binance-Liste und mit Pause zwischen den Seiten — wie `EXTRA_PAGES` (Android).
+    /// Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken (AIN, LUNA …), erst nach der
+    /// Binance- und der Alpha-Liste — wie `EXTRA_PAGES` (Android).
     static let extraPages = 6
-    static let extraPagePauseNanos: UInt64 = 2_000_000_000
     static let perPage = 250
+
+    /// Pause vor jeder weiteren Seite der Rangliste: Ohne Schlüssel erlaubt CoinGecko nur wenige
+    /// Abrufe pro Minute; ohne Pause scheiterten Seiten mit «429» und die Liste blieb unvollständig.
+    static let pagePauseMillis: Int64 = 6_000
+    /// «Zu viele Anfragen» ohne Angabe: so lange warten, dann die Seite einmal wiederholen.
+    static let defaultRateLimitWaitMillis: Int64 = 30_000
+    static let rateLimitWaitMaxMillis: Int64 = 60_000
+
+    /// Wartezeit nach «429» («Retry-After» in Sekunden), begrenzt auf 1–60 s.
+    static func rateLimitWaitMillis(retryAfterSeconds: Int64?) -> Int64 {
+        min(max(retryAfterSeconds.map { $0 * 1000 } ?? defaultRateLimitWaitMillis, 1_000), rateLimitWaitMaxMillis)
+    }
+
+    /// Unvollständige Liste (eine Quelle fehlte): nach so langer Zeit neu versuchen statt nach einer Woche.
+    static let partialTTLMillis: Int64 = 6 * 60 * 60 * 1000
+
+    /// Gespeicherter Zeitpunkt der Liste: vollständig → jetzt, sonst Ablauf nach `partialTTLMillis`.
+    static func savedAt(now: Int64, complete: Bool) -> Int64 {
+        complete ? now : now - mapTTLMillis + partialTTLMillis
+    }
+
+    /// Neue Liste, ergänzt um bisher bekannte Einträge, die diesmal fehlen (eine Quelle war nicht
+    /// erreichbar) — ein Teil-Abruf nimmt nie vorhandene Logos oder Namen weg.
+    static func withKnown(_ map: inout [String: String], order: inout [String], known: [String: String]) {
+        for key in known.keys.sorted() where map[key] == nil {
+            map[key] = known[key]
+            order.append(key)
+        }
+    }
     /// Kantenlänge der gespeicherten Bilder in Pixeln.
     static let storedPixels = 128
 
     /// Symbolliste der Binance-Website (inoffiziell, ohne Schlüssel), je Eintrag `name` und `logo`.
     static let binanceListURL = "https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list"
+
+    // MARK: Eigene Logo-Liste auf GitHub Pages (erste Quelle)
+
+    /// Logo-Liste, die eine GitHub Action täglich baut (`.github/scripts/build_logos.py`): alle Coins
+    /// aus CoinGecko (gleiche Kürzel sauber aufgelöst) und OKX, Bilder als WebP ≤ 128 px daneben —
+    /// wie `INDEX_URL` (Android).
+    static let indexBase = "https://r1adbe.github.io/cryptoChecker/logos/"
+    static let indexURL = indexBase + "index.json"
+    static let indexImageBase = indexBase + "img/"
+
+    /// «img/» + 16 Kleinbuchstaben-Hex + «.webp».
+    static func isIndexFile(_ path: String) -> Bool {
+        guard path.hasPrefix("img/"), path.hasSuffix(".webp") else { return false }
+        let hex = path.dropFirst(4).dropLast(5)
+        return hex.count == 16 && hex.allSatisfy { ("0"..."9").contains($0) || ("a"..."f").contains($0) }
+    }
+
+    /// Inhalt der Logo-Liste: Kürzel → Bild-Adresse und Kürzel → Name (Schlüssel wie `normalize`).
+    struct Index: Equatable {
+        var logos: [String: String]
+        var names: [String: String]
+    }
+
+    /// `index.json` lesen (`{"version":1,"coins":{"BTC":{"f":"img/….webp","n":"Bitcoin"}}}`).
+    /// Ungültige Kürzel und Dateinamen fallen weg; nil, wenn unbrauchbar oder leer.
+    static func parseIndex(_ text: String?) -> Index? {
+        guard let text, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              let root = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [String: Any],
+              let version = (root["version"] as? NSNumber)?.intValue, version >= 1,
+              let coins = root["coins"] as? [String: Any]
+        else { return nil }
+        var index = Index(logos: [:], names: [:])
+        for (k, v) in coins {
+            let key = k.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            // Krypto wie `normalize` (kein Hebel-Präfix), TradFi als «TRADFI:NVDA»
+            guard fileName(key) != nil, key.hasPrefix(tradFiPrefix) || normalize(key) == key,
+                  let o = v as? [String: Any] else { continue }
+            if let f = (o["f"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines), isIndexFile(f) {
+                index.logos[key] = indexBase + f
+            }
+            if let name = cleanName(o["n"] as? String) { index.names[key] = name }
+        }
+        return index.logos.isEmpty && index.names.isEmpty ? nil : index
+    }
+
+    /// Alle Logos in einer Datei (Anhang der Release «logos»): beim ersten Laden ein Abruf statt Tausender.
+    static let packURL = "https://github.com/r1adBE/cryptoChecker/releases/download/logos/logos.pack"
+    /// Ab so vielen fehlenden Bildern lieber das ganze Paket.
+    static let packMinMissing = 40
+    /// Grösstes erlaubtes Paket.
+    static let packMaxBytes = 40 * 1024 * 1024
+    /// Aktiennamen aller US-Aktien («CAT<Tab>Caterpillar, Inc.» je Zeile, wie `encodeNames`).
+    static let stocksURL = indexBase + "stocks.txt"
+
+    /// Paket lesen: «CCLP1\n», dann je Bild «img/<hash>.webp<Tab><Länge>\n» und die Bytes. Pfad → Bytes;
+    /// nur gültige Pfade (`isIndexFile`); bei kaputtem Rest bleibt, was bis dahin vollständig war.
+    /// nil, wenn es kein Paket ist — wie Android `parsePack`.
+    static func parsePack(_ data: Data) -> [String: Data]? {
+        let bytes = [UInt8](data)
+        let magic = Array("CCLP1\n".utf8)
+        guard bytes.count >= magic.count, Array(bytes[0..<magic.count]) == magic else { return nil }
+        var out: [String: Data] = [:]
+        var i = magic.count
+        while i < bytes.count {
+            var nl = i
+            while nl < bytes.count, bytes[nl] != 0x0A, nl - i < 200 { nl += 1 }
+            guard nl < bytes.count, bytes[nl] == 0x0A,
+                  let head = String(bytes: bytes[i..<nl], encoding: .ascii) else { break }
+            let parts = head.split(separator: "\t", maxSplits: 1, omittingEmptySubsequences: false)
+            guard parts.count == 2, let size = Int(parts[1]) else { break }
+            let start = nl + 1
+            guard size >= 0, size <= bytes.count - start else { break }
+            let path = String(parts[0])
+            if isIndexFile(path) { out[path] = Data(bytes[start..<(start + size)]) }
+            i = start + size
+        }
+        return out
+    }
+
+    /// Liste aus der eigenen Logo-Liste? (Dann nie auf CoinGecko & Co. zurückfallen.)
+    static func isFromIndex(_ map: [String: String]) -> Bool {
+        map.values.contains { $0.hasPrefix(indexImageBase) }
+    }
+
+    /// Kürzel, deren Bild-Adresse sich geändert hat (in beiden Listen, verschiedene Adresse).
+    static func changedKeys(old: [String: String], new: [String: String]) -> Set<String> {
+        Set(new.keys.filter { old[$0] != nil && old[$0] != new[$0] })
+    }
+
+    /// Offizielle Token-Liste von Binance Alpha (ganze Liste, ohne Schlüssel; `symbol`, `name`,
+    /// `iconUrl`): kleinere Token, die Binance als Futures führt (AIA, AGT, AIO …), oft ohne
+    /// Marktkapitalisierung bei CoinGecko und daher nicht in deren Rangliste.
+    static let alphaListURL = "https://www.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list"
+
+    /// Eintrag der Alpha-Liste.
+    struct AlphaEntry: Equatable {
+        var symbol: String
+        var name: String?
+        var icon: String?
+        var marketCap: Double? = nil
+        var offline: Bool = false
+    }
+
+    /// Reihenfolge für `pick`/`pickNames`: handelbare vor abgemeldeten, dann grösste
+    /// Marktkapitalisierung (unbekannt zuletzt); sonst Reihenfolge der Liste — wie Android.
+    static func rankAlpha(_ entries: [AlphaEntry]) -> [AlphaEntry] {
+        func cap(_ e: AlphaEntry) -> Double {
+            guard let c = e.marketCap, c.isFinite, c >= 0 else { return -1 }
+            return c
+        }
+        return entries.enumerated().sorted { a, b in
+            let oa = a.element.offline ? 1 : 0, ob = b.element.offline ? 1 : 0
+            if oa != ob { return oa < ob }
+            let ca = cap(a.element), cb = cap(b.element)
+            if ca != cb { return ca > cb }
+            return a.offset < b.offset
+        }.map(\.element)
+    }
 
     static func marketsURL(page: Int) -> String {
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
@@ -75,7 +226,10 @@ enum CoinLogos {
 
     /// Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
     static func isAllowedURL(_ url: String?) -> Bool {
-        guard let url, url.hasPrefix("https://") else { return false }
+        guard let url else { return false }
+        // Eigene Logo-Liste auf GitHub Pages: nur «img/<16 Hex>.webp»
+        if url.hasPrefix(indexImageBase) { return isIndexFile(String(url.dropFirst(indexBase.count))) }
+        guard url.hasPrefix("https://") else { return false }
         let rest = url.dropFirst("https://".count)
         let host = String(rest.prefix { $0 != "/" && $0 != "?" }).lowercased()
         if host.isEmpty || host.contains("@") || host.contains(":") { return false }

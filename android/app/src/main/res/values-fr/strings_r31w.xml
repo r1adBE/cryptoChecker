@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 31: Live-Kurse per WebSocket (Einstellungen › Aktualisierung, Status-Pille, Bericht) -->
     <string name="settings_live_websocket">Cours en direct</string>
-    <string name="settings_live_websocket_hint">Les cours suivent la plateforme sans délai tant que la liste est ouverte. Pour Binance, Bybit, OKX, Coinbase et Kraken.</string>
+    <string name="settings_live_websocket_hint">Tant que la liste est ouverte : les cours suivent la plateforme sans délai. Pour Binance, Bybit, OKX, Coinbase et Kraken.</string>
     <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_live_a11y">Cours en direct actifs</string>
     <string name="refresh_report_live">En direct : %1$s</string>

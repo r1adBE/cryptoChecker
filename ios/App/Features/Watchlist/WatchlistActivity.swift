@@ -46,7 +46,9 @@ struct WatchlistActivityBolt: View {
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 .foregroundStyle(AppColors.warning)
                 .frame(width: 24, height: 24)
-                .contentShape(Circle())
+                // Tippfläche 44 pt (sichtbar bleibt das kleine ⚡): ragt über den Rahmen hinaus,
+                // ohne die Zeile höher zu machen — sonst öffnete ein knapper Tipp das Aktionsblatt
+                .contentShape(Circle().inset(by: -10))
         }
         .buttonStyle(.borderless)
         .accessibilityLabel(L("activity_indicator"))

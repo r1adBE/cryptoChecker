@@ -3,6 +3,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import com.cryptochecker.app.ui.components.SectionTitle
+import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -60,6 +61,7 @@ internal fun SettingsSectionHeader(title: String, first: Boolean = false) {
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp)
             .semantics { heading() }
+            .sectionTitleMarker()
     )
 }
 

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -176,7 +177,7 @@ private fun BulkPairRow(pair: CurrencyPairInfo, selected: Boolean, onClick: () -
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
             .background(
-                if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
+                if (selected) AppColors.accentTint(0.12f)
                 else Color.Transparent
             )
             .clickable(onClick = onClick)

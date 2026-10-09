@@ -10,7 +10,7 @@
     <string name="why_fn_volume_higher">tavallista suurempi</string>
     <string name="why_fn_volume_lower">tavallista pienempi</string>
     <string name="why_fn_volume_usual">tavanomainen</string>
-    <string name="why_fn_market_pulls">BTC vetää markkinaa mukanaan</string>
+    <string name="why_fn_market_pulls">Markkina liikkuu BTC:n mukana</string>
     <string name="why_fn_market_lags">Markkina liikkuu, tämä kolikko tuskin</string>
     <string name="why_fn_market_alone">Markkina rauhallinen – tämä kolikko liikkuu yksin</string>
     <string name="why_fn_market_against">Kolikko liikkuu markkinaa vastaan</string>

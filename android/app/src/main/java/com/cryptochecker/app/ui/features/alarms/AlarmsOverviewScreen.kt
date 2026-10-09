@@ -90,6 +90,7 @@ fun AlarmsOverviewScreen(
         )
     }
 
+    val notificationsEnabled = com.cryptochecker.app.ui.components.rememberNotificationsEnabled()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -114,14 +115,63 @@ fun AlarmsOverviewScreen(
         }
     ) { padding ->
         if (groups.isEmpty() && portfolioAlarms.isEmpty()) {
+            // Keine Sackgasse: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite
+            val watches by viewModel.watches.collectAsStateWithLifecycle()
+            var pickPair by remember { mutableStateOf(false) }
             Box(
                 modifier = Modifier.fillMaxSize().padding(padding).padding(32.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    stringResource(R.string.alarms_overview_empty),
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(
+                        painterResource(R.drawable.ic_notifications),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+                    Text(
+                        stringResource(R.string.alarms_overview_empty),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+                    if (watches.isNotEmpty()) {
+                        androidx.compose.material3.Button(
+                            onClick = { if (watches.size == 1) onOpenWatch(watches.first().id) else pickPair = true },
+                            modifier = Modifier.padding(top = Spacing.lg)
+                        ) {
+                            Text(stringResource(R.string.alarms_add))
+                        }
+                    }
+                }
+            }
+            if (pickPair) {
+                AlertDialog(
+                    onDismissRequest = { pickPair = false },
+                    title = { Text(stringResource(R.string.alarms_add)) },
+                    text = {
+                        androidx.compose.foundation.lazy.LazyColumn {
+                            items(watches, key = { it.id }) { watch ->
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable { pickPair = false; onOpenWatch(watch.id) }
+                                        .padding(vertical = 12.dp)
+                                ) {
+                                    Text(watch.displayName, style = MaterialTheme.typography.bodyLarge)
+                                    Text(
+                                        watch.marketName,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        }
+                    },
+                    confirmButton = {},
+                    dismissButton = {
+                        TextButton(onClick = { pickPair = false }) { Text(stringResource(R.string.action_cancel)) }
+                    }
                 )
             }
             return@Scaffold
@@ -134,6 +184,9 @@ fun AlarmsOverviewScreen(
                 contentPadding = PaddingValues(start = 16.dp + inset, top = 16.dp, end = 16.dp + inset, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+                if (!notificationsEnabled) {
+                    item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
+                }
                 // Alarme «Portfolio-Wert» zuerst, als eigene Karte
                 if (portfolioAlarms.isNotEmpty()) {
                     item(key = "portfolio") {

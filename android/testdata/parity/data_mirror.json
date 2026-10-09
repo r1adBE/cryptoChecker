@@ -1,0 +1,181 @@
+{
+  "description": "Spiegel öffentlicher Marktdaten (DataMirror): Adresse → Spiegel-Datei und Höchstalter; Datei «CCDM1 <ms>\\n» + Antwort, nur frisch genug gültig.",
+  "base": "https://github.com/r1adBE/cryptoChecker/releases/download/data/",
+  "entries": [
+    {
+      "url": "https://api.coingecko.com/api/v3/global",
+      "file": "global.txt",
+      "maxAgeMillis": 7200000
+    },
+    {
+      "url": "https://api.alternative.me/fng/?limit=31",
+      "file": "fng.txt",
+      "maxAgeMillis": 14400000
+    },
+    {
+      "url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1",
+      "file": "coins30.txt",
+      "maxAgeMillis": 43200000
+    },
+    {
+      "url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=1",
+      "file": "coins40.txt",
+      "maxAgeMillis": 43200000
+    },
+    {
+      "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=PriceUSD&frequency=1d&start_time=2016-06-01&page_size=10000",
+      "file": "btcprice.txt",
+      "maxAgeMillis": 129600000
+    },
+    {
+      "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=CapMVRVCur,IssTotUSD,HashRate&frequency=1d&start_time=2025-08-05&page_size=1000",
+      "file": "onchain.txt",
+      "maxAgeMillis": 129600000
+    },
+    {
+      "url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false",
+      "file": null
+    },
+    {
+      "url": "https://api.coingecko.com/api/v3/global?x=1",
+      "file": null
+    },
+    {
+      "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=CapMVRVCur,IssTotUSD,HashRate&frequency=1d&start_time=2025-08-05&page_size=50",
+      "file": null
+    },
+    {
+      "url": "https://data-api.binance.vision/api/v3/ticker/24hr",
+      "file": null
+    }
+  ],
+  "now": 1760000000000,
+  "unwrap": [
+    {
+      "text": "CCDM1 1759999000000\n{\"data\":1}",
+      "maxAgeMillis": 7200000,
+      "expected": "{\"data\":1}"
+    },
+    {
+      "text": "CCDM1 1759999000000\n[1,\n2]\n",
+      "maxAgeMillis": 7200000,
+      "expected": "[1,\n2]\n"
+    },
+    {
+      "text": "CCDM1 1752800000000\n{}",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "CCDM1 1760000200000\n{}",
+      "maxAgeMillis": 7200000,
+      "expected": "{}"
+    },
+    {
+      "text": "CCDM1 1760001000000\n{}",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "CCDM1 1759999000000\n  ",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "CCDM2 1759999000000\n{}",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "CCDM1 abc\n{}",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "CCDM1 0\n{}",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "{\"data\":1}",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": "",
+      "maxAgeMillis": 7200000,
+      "expected": null
+    },
+    {
+      "text": null,
+      "maxAgeMillis": 7200000,
+      "expected": null
+    }
+  ],
+  "altSeasonEntry": {
+    "file": "altseason.txt",
+    "maxAgeMillis": 21600000
+  },
+  "altSeason": [
+    {
+      "body": "{\"outperformers\":12,\"total\":20,\"provider\":\"Binance\"}",
+      "expected": {
+        "outperformers": 12,
+        "total": 20,
+        "provider": "Binance"
+      }
+    },
+    {
+      "body": "{\"outperformers\":0,\"total\":18,\"provider\":\"Coinbase\"}",
+      "expected": {
+        "outperformers": 0,
+        "total": 18,
+        "provider": "Coinbase"
+      }
+    },
+    {
+      "body": "{\"outperformers\":5,\"total\":20,\"provider\":\"Evil\"}",
+      "expected": {
+        "outperformers": 5,
+        "total": 20,
+        "provider": null
+      }
+    },
+    {
+      "body": "{\"outperformers\":5,\"total\":20}",
+      "expected": {
+        "outperformers": 5,
+        "total": 20,
+        "provider": null
+      }
+    },
+    {
+      "body": "{\"outperformers\":21,\"total\":20}",
+      "expected": null
+    },
+    {
+      "body": "{\"outperformers\":3,\"total\":5}",
+      "expected": null
+    },
+    {
+      "body": "{\"outperformers\":2.5,\"total\":20}",
+      "expected": null
+    },
+    {
+      "body": "{\"total\":20}",
+      "expected": null
+    },
+    {
+      "body": "[1,2]",
+      "expected": null
+    },
+    {
+      "body": "nope",
+      "expected": null
+    },
+    {
+      "body": null,
+      "expected": null
+    }
+  ]
+}
