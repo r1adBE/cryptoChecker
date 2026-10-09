@@ -10,9 +10,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,10 +19,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -43,6 +43,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
@@ -86,7 +88,6 @@ internal fun WhySheet(
     load: suspend (WatchEntity) -> WhyReport?,
     onDismiss: () -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var attempt by remember { mutableIntStateOf(0) }
     val state by produceState<WhyState>(initialValue = WhyState.Loading, watch.id, attempt) {
         value = WhyState.Loading
@@ -99,14 +100,32 @@ internal fun WhySheet(
     val fade = tween<Float>(durationMillis = if (motion) SWAP_MILLIS else 0)
     val resize = if (motion) Modifier.animateContentSize(tween(SWAP_MILLIS)) else Modifier
 
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+    // Als eigene Seite mit Zurück-Pfeil wie «Alarme» (kein Blatt mehr): Zurück (Pfeil oder
+    // Geste) schliesst sie, aus dem Aktionsblatt geöffnet erscheint danach wieder das Blatt
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(usePlatformDefaultWidth = false)
+    ) {
+      Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.watch_action_why), fontWeight = FontWeight.SemiBold) },
+                navigationIcon = {
+                    IconButton(onClick = onDismiss) {
+                        Icon(
+                            painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = stringResource(R.string.action_back)
+                        )
+                    }
+                }
+            )
+        }
+      ) { padding ->
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                // Gleich in voller Höhe: wächst der Inhalt (Laden, «Details»), springt das Blatt nicht
-                .fillMaxHeight()
+                .fillMaxSize()
+                .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .navigationBarsPadding()
                 .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
         ) {
             // Kopf: Frage, Paar, Kurs, 1h/24h
@@ -220,6 +239,7 @@ internal fun WhySheet(
                 )
             }
         }
+    }
     }
 }
 

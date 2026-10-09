@@ -200,15 +200,11 @@ struct CycleScreen: View {
             AboutSettingsPage()
         }
         .onAppear { viewModel.onAppear() }
-        // «Warum bewegt sich das?» wie in der Merkliste — gleich in voller Höhe, springt nicht
-        .sheet(item: $whyFor) { target in
+        // «Warum bewegt sich das?» wie in der Merkliste als eigene Seite mit Zurück
+        .navigationDestination(item: $whyFor) { target in
             WatchlistWhySheet(watchId: target.id)
                 .environmentObject(data)
                 .environment(\.appAccent, accent)
-                .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(28)
-                .presentationBackground(AppColors.background)
         }
     }
 

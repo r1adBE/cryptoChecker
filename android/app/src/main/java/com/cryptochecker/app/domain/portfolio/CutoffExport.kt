@@ -53,7 +53,7 @@ object CutoffExport {
     val STABLES = setOf("USDT", "USDC", "BUSD", "FDUSD", "TUSD", "USDP", "DAI", "USD")
 
     const val SEPARATOR = ";"
-    private const val BOM = "﻿"
+    private const val BOM = "\uFEFF"
     private const val EOL = "\r\n"
 
     fun isStable(coin: String): Boolean = PortfolioCalculator.normalizeCoin(coin) in STABLES

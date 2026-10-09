@@ -89,7 +89,7 @@ struct MarketRow: View {
                 .accessibilityElement(children: state == .shown ? .combine : .contain)
                 .accessibilityAddTraits(.isButton)
                 .accessibilityValue(L(isExpanded ? "a11y_expanded" : "a11y_collapsed"))
-                .accessibilityAction(perform: toggle)
+                .accessibilityAction { toggle() }
         } else {
             content
         }

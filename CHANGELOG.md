@@ -78,8 +78,8 @@
   (About), then Refresh, then the tab's own items; the Market tab gets a ⋯ menu.
 * Settings › Data › «Reset app»: deletes everything, like a fresh install
   (with confirmation).
-* Back from Alarms or «Why?» returns to the pair's action sheet; back again
-  shows the watchlist.
+* «Why?» opens as a page with a back arrow, like «Alarms». Back from either returns
+  to the pair's action sheet; back again shows the watchlist.
 * Watchlist with names: pair/price, name/% pill and exchange/≈ value line up
   row by row; a missing name shows «–»; names equal to the ticker are shown
   («BNB»), so 1000BONK now shows «Bonk».

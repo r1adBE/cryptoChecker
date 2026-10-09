@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import androidx.compose.ui.platform.LocalResources
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
@@ -102,7 +103,7 @@ object ChangeBasisText {
     fun summary(basis: ChangeBasis): String {
         LocalConfiguration.current
         val context = LocalContext.current
-        return if (basis.kind == ChangeBasis.Kind.ROLLING_24H) context.getString(R.string.change_basis_rolling)
+        return if (basis.kind == ChangeBasis.Kind.ROLLING_24H) LocalResources.current.getString(R.string.change_basis_rolling)
         else longLabel(context, basis)
     }
 

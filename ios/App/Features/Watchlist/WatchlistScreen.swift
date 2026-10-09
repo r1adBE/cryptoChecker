@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Ziel des Aktionsblatts (Paar-Id).
-struct WatchlistSheetTarget: Identifiable, Equatable {
+struct WatchlistSheetTarget: Identifiable, Hashable {
     let id: Int64
 }
 

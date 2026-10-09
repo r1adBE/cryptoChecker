@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import androidx.compose.ui.platform.LocalConfiguration
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -197,7 +198,8 @@ internal fun AlarmEditorSheet(
 @Composable
 private fun TemplateChips(templates: List<AlarmTemplates.Template>, onTemplate: (AlarmTemplates.Template) -> Unit) {
     val context = LocalContext.current
-    val locale = context.resources.configuration.locales[0] ?: java.util.Locale.getDefault()
+    // Sprache der Konfiguration (beobachtbar); Locale.ROOT nur als Notnagel
+    val locale = LocalConfiguration.current.locales[0] ?: java.util.Locale.ROOT
     Text(
         stringResource(R.string.alarm_templates_title),
         style = MaterialTheme.typography.bodyMedium,

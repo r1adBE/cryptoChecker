@@ -45,7 +45,8 @@ import com.cryptochecker.app.util.BatteryOptimization
 internal fun CurrencyPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val selected = settings.portfolioCurrency
-    val locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
+    // Sprache der Konfiguration (beobachtbar); Locale.ROOT nur als Notnagel
+    val locale = LocalConfiguration.current.locales[0] ?: Locale.ROOT
     var query by rememberSaveable { mutableStateOf("") }
     // Eine früher gesetzte, nicht mehr gelistete Währung trotzdem anzeigen
     val codes = remember(selected) {

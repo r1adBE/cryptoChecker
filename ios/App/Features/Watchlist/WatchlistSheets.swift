@@ -28,16 +28,16 @@ extension WatchlistScreen {
                 .presentationCornerRadius(28)
                 .presentationBackground(AppColors.background)
             }
-            // «Warum bewegt sich das?» — gleich in voller Höhe: Laden und «Details» lassen
-            // nur den Inhalt im ScrollView wachsen, das Blatt springt nicht
-            .sheet(item: $whyFor, onDismiss: reopenActions) { target in
+            // «Warum bewegt sich das?» als eigene Seite mit Zurück wie «Alarme» (kein Blatt mehr);
+            // Zurück öffnet wieder das Aktionsblatt, falls von dort gekommen
+            .navigationDestination(item: $whyFor) { target in
                 WatchlistWhySheet(watchId: target.id)
                     .environmentObject(data)
                     .environment(\.appAccent, accent)
-                    .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
-                    .presentationCornerRadius(28)
-                    .presentationBackground(AppColors.background)
+                    .toolbar(.visible, for: .navigationBar)
+            }
+            .onChange(of: whyFor) { _, target in
+                if target == nil { reopenActions() }
             }
             // Wieder gesperrt (Hintergrund-Limit), während das Erfassen-Blatt offen ist: schliessen
             .onChange(of: lock.locked) { _, locked in

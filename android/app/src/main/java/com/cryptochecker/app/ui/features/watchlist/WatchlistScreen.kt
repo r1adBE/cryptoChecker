@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.ui.platform.LocalResources
 import com.cryptochecker.app.domain.watch.WatchFilter
 import android.os.Build
 import android.view.HapticFeedbackConstants
@@ -191,7 +192,8 @@ fun WatchlistScreen(
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val haptics = LocalHapticFeedback.current
-    val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     val reduceMotion = rememberReduceMotion()
     val banner = rememberWatchlistBanner(scope)
     // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
@@ -209,12 +211,12 @@ fun WatchlistScreen(
     // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
     val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
         viewModel.deleteWithUndo(watch)
-        banner.show(context.getString(R.string.watchlist_removed, watch.displayName)) { viewModel.undoDelete(watch.id) }
+        banner.show(resources.getString(R.string.watchlist_removed, watch.displayName)) { viewModel.undoDelete(watch.id) }
     }
     // Nach rechts wischen: Favorit an/aus mit kurzem Banner
     val favoriteWithBanner: (WatchEntity) -> Unit = { watch ->
         viewModel.toggleFavorite(watch)
-        val text = context.getString(
+        val text = resources.getString(
             if (watch.favorite) R.string.favorite_removed else R.string.favorite_added,
             watch.displayName,
         )
@@ -457,7 +459,8 @@ private fun rememberAddMoment(
 ): AddMoment? {
     val pendingMoment by viewModel.addMoment.collectAsStateWithLifecycle()
     val view = LocalView.current
-    val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     var shownMoment by remember { mutableStateOf<AddMoment?>(null) }
     val readyMoment = pendingMoment?.takeIf { m ->
         loaded && watches.any { w -> m.indexOf(w.marketKey, w.baseAsset, w.quoteAsset) != null }
@@ -476,7 +479,7 @@ private fun rememberAddMoment(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) HapticFeedbackConstants.CONFIRM
             else HapticFeedbackConstants.VIRTUAL_KEY
         )
-        val text = context.getString(R.string.pair_added_watching, AddMoment.subject(m.pairs))
+        val text = resources.getString(R.string.pair_added_watching, AddMoment.subject(m.pairs))
         val added = watches.filter { w -> m.indexOf(w.marketKey, w.baseAsset, w.quoteAsset) != null }
         val first = m.pairs.firstOrNull()?.let { p ->
             added.firstOrNull { p.matches(it.marketKey, it.baseAsset, it.quoteAsset) }

@@ -14,7 +14,7 @@ private enum WatchlistWhyState: Equatable {
 /// neutrale abgeblendet), «Kurz gesagt: …» als ein Satz, dann «Details anzeigen» (die Gründe
 /// mit Erklärung) und die Fusszeile. Nur Marktdaten: Markt vs. Coin, Volumen, Volatilität,
 /// Futures (Open Interest, Funding), Nähe zum 30-Tage-Hoch, Stimmung.
-/// Kein `NavigationStack` nötig. Wie `WhySheet` in `WatchWhySheet.kt`.
+/// Als Seite im `NavigationStack` des Tabs geöffnet (wie «Alarme»). Wie `WhySheet` in `WatchWhySheet.kt`.
 struct WatchlistWhySheet: View {
     let watchId: Int64
 
@@ -28,6 +28,10 @@ struct WatchlistWhySheet: View {
     var body: some View {
         if let watch = data.watch(watchId), !watch.isNotTraded {
             content(watch)
+                // Eigene Seite (Merkliste, Markt): Titel oben, Zurück schliesst sie
+                .navigationTitle(L("watch_action_why"))
+                .navigationBarTitleDisplayMode(.inline)
+                .background(AppColors.background.ignoresSafeArea())
         } else {
             // Paar wurde inzwischen gelöscht — oder wird nicht mehr gehandelt (kein Urteil auf alten Daten)
             Color.clear.onAppear { dismiss() }

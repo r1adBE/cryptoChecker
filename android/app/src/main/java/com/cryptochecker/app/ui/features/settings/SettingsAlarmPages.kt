@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import androidx.compose.ui.platform.LocalResources
 import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
@@ -26,12 +27,14 @@ import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 internal fun AlarmsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     val requestNotifications = rememberNotificationPermissionRequest()
     val testAlarm = rememberAlarmTest(viewModel::testAlarm)
     val soundError by viewModel.soundError.collectAsStateWithLifecycle()
     LaunchedEffect(soundError) {
         if (soundError) {
-            Toast.makeText(context, context.getString(R.string.settings_alarm_sound_error), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, resources.getString(R.string.settings_alarm_sound_error), Toast.LENGTH_LONG).show()
             viewModel.clearSoundError()
         }
     }

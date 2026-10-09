@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -24,7 +25,8 @@ internal fun ExplorerFeedback(
     onAddToWatchlistMessageShown: () -> Unit,
     onBulkAddMessageShown: () -> Unit,
 ) {
-    val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest()
     val viewLabel = stringResource(R.string.action_view)
     val addedText = stringResource(R.string.explorer_added_to_watchlist)
@@ -80,7 +82,7 @@ internal fun ExplorerFeedback(
         if (state.added > 0) requestNotifications()
         try {
             val result = snackbar.showSnackbar(
-                message = context.resources.getQuantityString(R.plurals.explorer_bulk_added, state.added, state.added, state.skipped),
+                message = resources.getQuantityString(R.plurals.explorer_bulk_added, state.added, state.added, state.skipped),
                 actionLabel = viewLabel,
                 duration = SnackbarDuration.Long
             )

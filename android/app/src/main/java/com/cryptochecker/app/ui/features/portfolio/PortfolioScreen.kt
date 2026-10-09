@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -105,7 +106,8 @@ fun PortfolioScreen(
     var alarmOpen by rememberSaveable { mutableStateOf(false) }
     // «Portfolio leeren» — Rückfrage
     var askClear by remember { mutableStateOf(false) }
-    val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     val scope = rememberCoroutineScope()
     val banner = rememberWatchlistBanner(scope)
     val reduceMotion = rememberReduceMotion()
@@ -161,7 +163,7 @@ fun PortfolioScreen(
     // Wischen auf einem Coin: alle Transaktionen weg, «Rückgängig» im Banner
     fun deleteCoin(coin: String) {
         viewModel.deleteCoin(coin) { removed ->
-            banner.show(context.getString(R.string.watchlist_removed, coin)) { viewModel.restore(removed) }
+            banner.show(resources.getString(R.string.watchlist_removed, coin)) { viewModel.restore(removed) }
         }
     }
 

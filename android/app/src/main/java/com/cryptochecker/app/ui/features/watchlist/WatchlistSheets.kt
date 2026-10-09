@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -50,6 +51,8 @@ internal fun WatchlistSheets(
     onDelete: (WatchEntity) -> Unit,
 ) {
     val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     val lastReport by viewModel.lastRefreshReport.collectAsStateWithLifecycle()
     val appStartMillis by viewModel.appStartMillis.collectAsStateWithLifecycle()
     val portfolioEnabled by viewModel.portfolioEnabled.collectAsStateWithLifecycle()
@@ -86,7 +89,7 @@ internal fun WatchlistSheets(
                 viewModel.deleteNotTradedWithUndo { count ->
                     if (count > 0) {
                         banner.show(
-                            context.resources.getQuantityString(R.plurals.watchlist_removed_not_traded, count, count)
+                            resources.getQuantityString(R.plurals.watchlist_removed_not_traded, count, count)
                         ) { viewModel.undoDelete(NOT_TRADED_UNDO_KEY) }
                     }
                 }

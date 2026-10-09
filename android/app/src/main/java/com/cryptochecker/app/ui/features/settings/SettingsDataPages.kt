@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import androidx.compose.ui.platform.LocalResources
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,6 +35,8 @@ import com.cryptochecker.app.ui.theme.Spacing
 @Composable
 internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val context = LocalContext.current
+    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
+    val resources = LocalResources.current
     val reason = stringResource(R.string.portfolio_lock_reason)
     val backupMessage by viewModel.backupMessage.collectAsStateWithLifecycle()
     val restoreStep by viewModel.restoreStep.collectAsStateWithLifecycle()
@@ -120,8 +123,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             BackupMessage.Exported -> exportedText
             BackupMessage.Failed -> failedText
             is BackupMessage.Restored -> restoredFormat.format(
-                context.resources.getQuantityString(R.plurals.backup_restored_pairs, m.watches, m.watches),
-                context.resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms)
+                resources.getQuantityString(R.plurals.backup_restored_pairs, m.watches, m.watches),
+                resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms)
             )
             null -> return@LaunchedEffect
         }

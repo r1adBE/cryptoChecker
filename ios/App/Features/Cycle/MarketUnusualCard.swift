@@ -163,6 +163,6 @@ struct CycleMacroHintRow: View {
 }
 
 /// Ziel des «Warum»-Blatts aus «Heute auffällig».
-struct CycleWhyTarget: Identifiable, Equatable {
+struct CycleWhyTarget: Identifiable, Hashable {
     let id: Int64
 }
