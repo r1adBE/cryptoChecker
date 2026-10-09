@@ -1,0 +1,14 @@
+{
+ "lastSuccess": "2026-10-09T22:31:54Z",
+ "listGenerated": "2026-10-09T22:31:54Z",
+ "entries": 7937,
+ "crypto": 2854,
+ "logos": 7153,
+ "sources": {
+  "coingecko": "ok",
+  "binance": "ok",
+  "binanceAlpha": "ok",
+  "okx": "ok",
+  "nasdaq": "ok"
+ }
+}
