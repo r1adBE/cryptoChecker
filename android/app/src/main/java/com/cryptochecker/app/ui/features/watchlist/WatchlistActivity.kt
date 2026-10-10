@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.LocalRowHighlight
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -36,8 +37,9 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
         Icon(
             painterResource(R.drawable.ic_bolt),
             contentDescription = stringResource(R.string.activity_indicator),
-            // In der Themenfarbe (der ⚡-Chip im Kopf ist neutral, gewählt ebenfalls in der Themenfarbe)
-            tint = MaterialTheme.colorScheme.primary,
+            // Weiss (Textfarbe); in der Themenfarbe nur, solange der ⚡-Chip gewählt ist
+            tint = if (LocalRowHighlight.current.activity) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.size(16.dp)
         )
     }

@@ -169,7 +169,7 @@ private fun InitialsCircle(coin: String, size: Dp) {
     }
 }
 
-/** Favorit: kleiner Stern in der Themenfarbe, mit Ring in der Farbe der Fläche darunter. */
+/** Favorit: kleiner Stern, weiss (Textfarbe) bzw. in der Themenfarbe, solange der ★-Chip gewählt ist ([LocalRowHighlight]); Ring in der Farbe der Fläche darunter. */
 @Composable
 private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
     val starSize = maxOf(12.dp, badgeSize * 0.45f)
@@ -185,7 +185,8 @@ private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
         Icon(
             painterResource(R.drawable.ic_star),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = if (LocalRowHighlight.current.favorites) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.fillMaxSize()
         )
     }

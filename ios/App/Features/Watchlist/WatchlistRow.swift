@@ -75,6 +75,7 @@ struct WatchlistRow: View {
 
     @Environment(\.coinLogosEnabled) private var coinLogosEnabled
     @Environment(\.appAccent) private var accent
+    @Environment(\.rowHighlight) private var highlight
     @Environment(\.priceColorScheme) private var priceColors
     @Environment(\.priceHighContrast) private var highContrast
     @Environment(\.priceColorsInverted) private var inverted
@@ -143,7 +144,7 @@ struct WatchlistRow: View {
             if !coinLogosEnabled && watch.favorite && !sorting {
                 Image(systemName: "star.fill")
                     .scaledFont(size: 13, weight: .semibold, relativeTo: .headline)
-                    .foregroundStyle(accent.primary)  // Themenfarbe wie der Stern am Logo
+                    .foregroundStyle(highlight.favorites ? accent.primary : AppColors.onSurface)  // wie der Stern am Logo
                     .accessibilityHidden(true)
             }
             CoinBadge(symbol: watch.baseAsset, size: ListSegment.logo, logo: CoinLogos.allowed(forMarket: watch.marketKey),

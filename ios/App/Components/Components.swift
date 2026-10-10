@@ -173,15 +173,15 @@ struct SwitchRowText: View {
     }
 }
 
-/// Hinweistext, in dem «⚡» als Symbol in der Themenfarbe steht (wie der ⚡ in der Merkliste) statt
-/// als farbiges Emoji. Ohne «⚡» ein normaler Text. Wie `BoltHintText` (Android).
+/// Hinweistext, in dem «⚡» als weisses Symbol (Textfarbe, wie der ⚡ in der Merkliste) statt als
+/// gelbes Emoji steht. Ohne «⚡» ein normaler Text. Wie `BoltHintText` (Android).
 enum BoltHint {
     static func text(_ string: String, accent: Color) -> Text {
         let parts = string.components(separatedBy: "⚡")
         guard parts.count > 1 else { return Text(verbatim: string) }
         var result = Text(verbatim: parts[0])
         for part in parts.dropFirst() {
-            result = result + Text(Image(systemName: "bolt.fill")).foregroundColor(accent) + Text(verbatim: part)
+            result = result + Text(Image(systemName: "bolt.fill")).foregroundColor(AppColors.onSurface) + Text(verbatim: part)
         }
         return result
     }
@@ -358,6 +358,7 @@ struct CoinBadge: View {
     var ringColor: Color = AppColors.container
     @Environment(\.coinLogosEnabled) private var appEnabled
     @Environment(\.appAccent) private var starAccent
+    @Environment(\.rowHighlight) private var highlight
     @Environment(\.portfolioCoinLogosEnabled) private var portfolioEnabled
     @Environment(\.appAccent) private var accent
     @Environment(\.colorScheme) private var colorScheme
@@ -427,12 +428,13 @@ struct CoinBadge: View {
         .clipShape(Circle())
     }
 
-    /// Favorit: kleiner Stern in der Themenfarbe mit Ring in der Farbe der Fläche darunter.
+    /// Favorit: kleiner Stern, weiss (Textfarbe) bzw. in der Themenfarbe, solange der ★-Chip gewählt
+    /// ist (`rowHighlight`); Ring in der Farbe der Fläche darunter.
     private var star: some View {
         let starSize = max(12, size * 0.45)
         return Image(systemName: "star.fill")
             .font(.system(size: starSize * 0.62, weight: .bold))
-            .foregroundStyle(starAccent.primary)
+            .foregroundStyle(highlight.favorites ? starAccent.primary : AppColors.onSurface)
             .frame(width: starSize, height: starSize)
             .background(Circle().fill(ringColor))
             .offset(x: 3, y: 3)

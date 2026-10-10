@@ -69,8 +69,8 @@
 * Watchlist: long-press a row to start selecting (that row already ticked).
 * Group chips: all neutral; the selected one gets an accent outline and accent
   text/icon (★ and ⚡ white until selected). In the rows the ⚡ and the favorite
-  star are accent-coloured, and the ⚡ in settings hints is an accent symbol instead
-  of a yellow emoji.
+  star are white and turn accent-coloured only while the matching chip (⚡ / ★) is
+  selected; the ⚡ in settings hints is a white symbol instead of a yellow emoji.
 * Price colours as three styles with a candle preview: «Fresh» (green/red),
   «Traditional» (olive/magenta, new) and «Color vision deficiency» (blue/orange);
   switches for swapping rise/fall and high contrast below the cards.

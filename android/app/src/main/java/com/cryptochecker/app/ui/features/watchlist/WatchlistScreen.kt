@@ -33,6 +33,8 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import com.cryptochecker.app.ui.components.RowHighlight
+import com.cryptochecker.app.ui.components.LocalRowHighlight
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -301,7 +303,12 @@ fun WatchlistScreen(
             change = { it.shownChange(changeView) },
         )
     }
-    CompositionLocalProvider(LocalChangeView provides changeView) {
+    // ★/⚡ in den Zeilen nur farbig, solange der passende Chip gewählt ist
+    val rowHighlight = RowHighlight(
+        favorites = ui.quickView == null && WatchFilter.isFavorites(selectedGroup),
+        activity = ui.quickView == QuickView.ACTIVITY,
+    )
+    CompositionLocalProvider(LocalChangeView provides changeView, LocalRowHighlight provides rowHighlight) {
     Scaffold(
         modifier = Modifier.semantics {
             paneTitle = screenTitle

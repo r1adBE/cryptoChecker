@@ -260,8 +260,14 @@ struct WatchlistScreen: View {
 
     private func liveEvents(_ content: some View, visible: [Watch], changeView: ChangeView) -> some View {
         let pairs = visible.map { $0.livePair }
+        // ★/⚡ in den Zeilen nur farbig, solange der passende Chip gewählt ist
+        let highlight = RowHighlight(
+            favorites: quickView == nil && WatchFilter.isFavorites(data.selectedWatchlistGroup),
+            activity: quickView == .activity
+        )
         return content
             .environment(\.changeView, changeView)
+            .environment(\.rowHighlight, highlight)
             .sensoryFeedback(.impact(weight: .medium), trigger: reorderTick)
             // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
             // (auch in der ⚡-Ansicht über alle Gruppen)

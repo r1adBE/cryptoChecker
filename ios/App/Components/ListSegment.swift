@@ -23,3 +23,22 @@ enum ListSegment {
                                       bottomTrailingRadius: bottom, topTrailingRadius: top, style: .continuous)
     }
 }
+
+/// Welche kleinen Zeichen in den Zeilen gerade in der Themenfarbe stehen: Stern (★) und Blitz (⚡)
+/// sind sonst weiss (Textfarbe) und werden nur farbig, solange der passende Gruppen-Chip gewählt ist
+/// (★ = Favoriten, ⚡ = «Hier passiert gerade etwas»). Wie `LocalRowHighlight` (Android).
+struct RowHighlight: Equatable {
+    var favorites = false
+    var activity = false
+}
+
+private struct RowHighlightKey: EnvironmentKey {
+    static let defaultValue = RowHighlight()
+}
+
+extension EnvironmentValues {
+    var rowHighlight: RowHighlight {
+        get { self[RowHighlightKey.self] }
+        set { self[RowHighlightKey.self] = newValue }
+    }
+}

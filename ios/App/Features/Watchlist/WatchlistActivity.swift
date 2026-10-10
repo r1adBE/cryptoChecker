@@ -39,14 +39,15 @@ enum WatchlistActivity {
 struct WatchlistActivityBolt: View {
     let action: () -> Void
     @Environment(\.appAccent) private var accent
+    @Environment(\.rowHighlight) private var highlight
 
     var body: some View {
         Button(action: action) {
             Image(systemName: "bolt.fill")
                 .scaledFont(size: 12, weight: .bold, relativeTo: .caption)
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                // In der Themenfarbe (der ⚡-Chip im Kopf ist neutral, gewählt ebenfalls in der Themenfarbe)
-                .foregroundStyle(accent.primary)
+                // Weiss (Textfarbe); in der Themenfarbe nur, solange der ⚡-Chip gewählt ist
+                .foregroundStyle(highlight.activity ? accent.primary : AppColors.onSurface)
                 .frame(width: 24, height: 24)
                 // Tippfläche 44 pt (sichtbar bleibt das kleine ⚡): ragt über den Rahmen hinaus,
                 // ohne die Zeile höher zu machen — sonst öffnete ein knapper Tipp das Aktionsblatt

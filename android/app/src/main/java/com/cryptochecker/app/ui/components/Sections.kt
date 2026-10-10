@@ -153,8 +153,8 @@ fun SwitchRow(
 }
 
 /**
- * Hinweistext, in dem «⚡» als Symbol in der Themenfarbe steht (wie der ⚡ in der Merkliste) statt
- * als farbiges Emoji. Ohne «⚡» ein normaler Text. Wie `SettingsHint` mit Blitz (iOS).
+ * Hinweistext, in dem «⚡» als weisses Symbol (Textfarbe, wie der ⚡ in der Merkliste) statt als
+ * gelbes Emoji steht. Ohne «⚡» ein normaler Text. Wie `SettingsHint` mit Blitz (iOS).
  */
 @Composable
 fun BoltHintText(text: String, style: TextStyle, color: Color, modifier: Modifier = Modifier) {
@@ -175,7 +175,7 @@ fun BoltHintText(text: String, style: TextStyle, color: Color, modifier: Modifie
             Icon(
                 painterResource(com.cryptochecker.app.R.drawable.ic_bolt),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxSize()
             )
         }

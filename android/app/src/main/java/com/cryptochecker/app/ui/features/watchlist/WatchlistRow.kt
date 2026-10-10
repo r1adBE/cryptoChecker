@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.components.ListSegment
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.foundation.border
@@ -243,8 +244,9 @@ internal fun WatchRow(
                 Icon(
                     painterResource(R.drawable.ic_star),
                     contentDescription = null,
-                    // Themenfarbe wie der Stern am Logo
-                    tint = MaterialTheme.colorScheme.primary,
+                    // Wie der Stern am Logo: weiss, in der Themenfarbe nur mit gewähltem ★-Chip
+                    tint = if (LocalRowHighlight.current.favorites) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 4.dp, end = 6.dp)
