@@ -128,7 +128,7 @@ struct WatchlistScreen: View {
         case .stale: visible = groupVisible.filter { WatchlistTime.isStale($0, now: now, staleAfter: staleAfter) }
         case nil: visible = groupVisible
         }
-        return ScrollViewReader { proxy in
+        let content = ScrollViewReader { proxy in
             Group {
                 if watches.isEmpty {
                     emptyState
@@ -181,6 +181,15 @@ struct WatchlistScreen: View {
         .task(id: sortRatesKey) {
             await refreshSortRates()
         }
+        return events(content, visible: visible, activityChip: activityChip, changeView: changeView)
+    }
+
+    /// Zweiter Teil der Modifikatoren von `screen` (aufgeteilt, damit der Swift-Compiler den
+    /// Ausdruck in vernünftiger Zeit prüfen kann): Uhr-Anstösse, Sprünge aus Mitteilungen,
+    /// Ende der vorübergehenden Ansichten, Live-Kurse und App-Start-Messung.
+    private func events(_ content: some View, visible: [Watch], activityChip: Bool,
+                        changeView: ChangeView) -> some View {
+        content
         .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
         .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }
         // Erster Stand gilt als gesehen; nur spätere Auslösungen lassen die Glocke pulsieren

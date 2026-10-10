@@ -278,7 +278,7 @@ enum WatchPreview {
     /// Kurs und rollende 24-h-Veränderung — eine Ticker-Abfrage wie beim Aktualisieren eines Paars,
     /// aber ohne Speichern, Alarme oder Mitteilungen. Fehler stehen in `lastError`.
     static func fetchQuote(_ watch: Watch) async -> Watch {
-        let fetched = await PriceFetcher.fetchSingle(watch)
+        let fetched = await PriceRefresher.fetchSingle(watch)
         var shown = watch
         if let ticker = fetched.ticker, ticker.last.isFinite, ticker.last > 0 {
             shown.lastPrice = ticker.last

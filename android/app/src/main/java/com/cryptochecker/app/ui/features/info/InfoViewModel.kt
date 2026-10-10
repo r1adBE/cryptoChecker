@@ -239,7 +239,7 @@ class InfoViewModel @Inject constructor(
         return if (last != null) {
             watch.copy(
                 lastPrice = last,
-                change24h = result.ticker?.change24hPercent?.takeIf { it.isFinite() },
+                change24h = result.ticker.change24hPercent?.takeIf { it.isFinite() },
                 lastUpdate = System.currentTimeMillis(),
                 lastError = null,
             )
