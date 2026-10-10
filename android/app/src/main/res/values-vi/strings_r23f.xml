@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Hoạt động bất thường trong danh sách</string>
     <string name="settings_watchlist_activity_card_hint">Hiển thị chip ⚡ cạnh các nhóm: chạm vào để chỉ xem các cặp đang có điều gì đó xảy ra. Thông báo được đặt trong Thông báo thị trường.</string>
     <string name="settings_row_about">Giới thiệu ứng dụng</string>
-    <string name="price_colors_green_up">Xanh lá tăng / đỏ giảm</string>
-    <string name="price_colors_red_up">Đỏ tăng / xanh lá giảm</string>
-    <string name="price_colors_blue_up">Xanh dương tăng / cam giảm</string>
-    <string name="price_colors_orange_up">Cam tăng / xanh dương giảm</string>
     <string name="price_colors_red_up_hint">Phổ biến ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan</string>
 </resources>

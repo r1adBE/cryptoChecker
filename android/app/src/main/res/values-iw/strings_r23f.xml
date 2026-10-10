@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">פעילות חריגה ברשימה</string>
     <string name="settings_watchlist_activity_card_hint">מציג את השבב ⚡ ליד הקבוצות: הקישו עליו כדי לראות רק את הצמדים שבהם משהו קורה עכשיו. התראות מוגדרות בהתראות שוק.</string>
     <string name="settings_row_about">אודות האפליקציה</string>
-    <string name="price_colors_green_up">ירוק עולה / אדום יורד</string>
-    <string name="price_colors_red_up">אדום עולה / ירוק יורד</string>
-    <string name="price_colors_blue_up">כחול עולה / כתום יורד</string>
-    <string name="price_colors_orange_up">כתום עולה / כחול יורד</string>
     <string name="price_colors_red_up_hint">מקובל בסין, ביפן, בקוריאה ובטייוואן</string>
 </resources>

@@ -13,16 +13,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.DropdownMenu
 import android.text.format.DateUtils
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -43,7 +37,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,6 +49,14 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.semantics.paneTitle
+import com.cryptochecker.app.ui.components.RegisterTabs
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -66,12 +67,10 @@ import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.market.CycleSource
-import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
 import com.cryptochecker.app.domain.market.MarketSection
 import com.cryptochecker.app.domain.market.MarketSections
-import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.rememberReduceMotion
@@ -82,8 +81,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
@@ -94,8 +91,11 @@ import com.cryptochecker.marketdata.model.FuturesContractType
  * Die Karten erscheinen beim ersten Öffnen ruhig von oben nach unten ([MarketReveal]):
  * noch nicht gezeigte Karten sind gar nicht da (darunter kann nichts verschoben werden),
  * nur eine kleine Ladezeile unter der letzten. Einmal gezeigt, bleibt alles stehen.
+ *
+ * «Jetzt», «Einordnung» und «Daten» stehen als Register nebeneinander ([RegisterTabs]), immer
+ * eines sichtbar; Tippen oder waagrecht Wischen wechselt ([MarketRegister], gilt für die Sitzung).
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MarketPhaseScreen(
     viewModel: InfoViewModel = hiltViewModel(),
@@ -148,21 +148,47 @@ fun MarketPhaseScreen(
     val instantThrough = maxOf(reveal.instant, revealedOnEntry)
     val motion = !rememberReduceMotion()
 
-    // «Einordnung» und «Daten»: immer zugeklappt (mit Zusammenfassung), bis der Nutzer aufklappt;
-    // in dieser App-Sitzung Gewähltes gilt weiter ([MarketSections])
-    val sectionChoice by viewModel.sectionChoice.collectAsStateWithLifecycle()
-    val contextExpanded = MarketSections.expanded(MarketSection.CONTEXT, sectionChoice[MarketSection.CONTEXT])
-    val dataExpanded = MarketSections.expanded(MarketSection.DATA, sectionChoice[MarketSection.DATA])
-    // Beim Aufklappen schon erschienene Zeilen klappen nur auf (kein zweites Einblenden von unten)
-    var contextInstant by remember { mutableIntStateOf(0) }
-    var dataInstant by remember { mutableIntStateOf(0) }
-    val toggleContext = {
-        if (!contextExpanded) contextInstant = viewModel.reveal.value.count
-        viewModel.setSectionExpanded(MarketSection.CONTEXT, !contextExpanded)
+    // Register «Jetzt» | «Einordnung» | «Daten»: immer genau eines sichtbar; das gewählte gilt für
+    // die App-Sitzung ([MarketRegister])
+    val register = MarketRegister.selected
+    val selectRegister: (MarketSection) -> Unit = { MarketRegister.selected = it }
+    val registerLabels = listOf(
+        stringResource(R.string.market_section_now),
+        stringResource(R.string.market_section_context),
+        stringResource(R.string.market_section_data),
+    )
+    // Beim Wechsel schon erschienene Teile stehen sofort da (kein zweites Einblenden von unten)
+    val registerInstant = remember(register) { viewModel.reveal.value.count }
+    val registerThrough = maxOf(instantThrough, registerInstant)
+    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val scrollState = rememberScrollState()
+    // Nach einem Wechsel oben beginnen (Status und Register sichtbar); nicht beim Betreten des Tabs
+    var scrolledFor by remember { mutableStateOf(register) }
+    LaunchedEffect(register) {
+        if (scrolledFor != register) {
+            scrolledFor = register
+            scrollState.scrollTo(0)
+        }
     }
-    val toggleData = {
-        if (!dataExpanded) dataInstant = viewModel.reveal.value.count
-        viewModel.setSectionExpanded(MarketSection.DATA, !dataExpanded)
+    // Sprung von aussen (Mitteilung «Wirtschaftstermine»): Register mit dem Hinweis wählen und
+    // hinscrollen, sobald er erschienen ist
+    val jump = MarketRegister.jump
+    val macroRequester = remember { BringIntoViewRequester() }
+    val jumpTarget = remember(jump, macroEvents) { if (jump == MarketJump.MACRO) macroRegister(macroEvents) else null }
+    LaunchedEffect(jumpTarget) {
+        if (jumpTarget != null) MarketRegister.selected = jumpTarget
+    }
+    LaunchedEffect(jumpTarget, register, reveal.count) {
+        if (jumpTarget == null || register != jumpTarget) return@LaunchedEffect
+        if (jumpTarget == MarketSection.NOW) {
+            scrollState.scrollTo(0)
+            MarketRegister.jump = null
+        } else if (reveal.count > MarketRevealSlot.COIN.ordinal) {
+            // Erst nach dem Layout des Registers
+            withFrameNanos { }
+            macroRequester.bringIntoView()
+            MarketRegister.jump = null
+        }
     }
 
 
@@ -208,7 +234,9 @@ fun MarketPhaseScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    // Waagrecht wischen wechselt das Register (auch auf leerer Fläche)
+                    .registerSwipe(register, rtl, selectRegister)
+                    .verticalScroll(scrollState)
                     // Tablet/Querformat: Inhalt höchstens 640 dp breit, mittig
                     .readableWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -221,127 +249,123 @@ fun MarketPhaseScreen(
                     updatedAt = (pulse as? LoadState.Loaded)?.value?.time,
                     animate = motion
                 )
-                // 1. Jetzt: «Was passiert gerade?», «Heute auffällig» — als Karten. Beim Laden
-                //    form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
-                Reveal(MarketRevealSlot.PULSE, reveal, instantThrough, motion) {
-                    // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
-                    MacroHintRow(macroEvents, atTop = true)
-                    CryptoPulseCard(pulse, onRetry = { viewModel.loadPulse(force = true) })
-                }
-                // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
-                // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
-                // führt Binance das Paar nicht, wie bisher die Suche im Hinzufügen-Tab
-                Reveal(MarketRevealSlot.UNUSUAL, reveal, instantThrough, motion) {
-                    UnusualCard(
-                        state = unusual,
-                        onOpen = { row ->
-                            val watch = watchFor(watches, row.symbol)
-                            if (watch != null) {
-                                coinSheets.openStored(watch.id)
-                            } else {
-                                scope.launch {
-                                    val preview = viewModel.previewWatch(row.symbol)
-                                    if (preview != null) coinSheets.openPreview(preview) else onOpenExplorer(row.symbol)
-                                }
+                // Register wie auf der Seite «Paar hinzufügen»; der Zustand darüber gilt für alle
+                RegisterTabs(
+                    labels = registerLabels,
+                    selected = register.ordinal,
+                    onSelect = { selectRegister(MarketSection.entries[it]) }
+                )
+                // Inhalt des gewählten Registers; der Screenreader sagt den Wechsel an (Titel des Bereichs)
+                val registerTitle = registerLabels[register.ordinal]
+                Column(modifier = Modifier.fillMaxWidth().semantics { paneTitle = registerTitle }) {
+                    when (register) {
+                        // 1. Jetzt: «Was passiert gerade?», «Heute auffällig» — als Karten. Beim Laden
+                        //    form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
+                        MarketSection.NOW -> {
+                            Reveal(MarketRevealSlot.PULSE, reveal, registerThrough, motion) {
+                                // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
+                                MacroHintRow(macroEvents, atTop = true)
+                                CryptoPulseCard(pulse, onRetry = { viewModel.loadPulse(force = true) })
                             }
-                        },
-                        onRetry = { viewModel.loadUnusual(force = true) }
-                    )
+                            // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
+                            // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
+                            // führt Binance das Paar nicht, wie bisher die Suche im Hinzufügen-Tab
+                            Reveal(MarketRevealSlot.UNUSUAL, reveal, registerThrough, motion) {
+                                UnusualCard(
+                                    state = unusual,
+                                    onOpen = { row ->
+                                        val watch = watchFor(watches, row.symbol)
+                                        if (watch != null) {
+                                            coinSheets.openStored(watch.id)
+                                        } else {
+                                            scope.launch {
+                                                val preview = viewModel.previewWatch(row.symbol)
+                                                if (preview != null) coinSheets.openPreview(preview) else onOpenExplorer(row.symbol)
+                                            }
+                                        }
+                                    },
+                                    onRetry = { viewModel.loadUnusual(force = true) }
+                                )
+                            }
+                        }
+                        // 2. Einordnung — Zeilen ohne Karte: Fear & Greed, Marktphase, Dominanz,
+                        //    Altcoin-Saison, Zyklus/Halving. Tippen klappt die Details einer Zeile auf.
+                        //    Die Zeilen anderer Register werden nicht aufgebaut, ihre Daten laden aber weiter.
+                        MarketSection.CONTEXT -> {
+                            Reveal(MarketRevealSlot.FEAR_GREED, reveal, registerThrough, motion) {
+                                FearGreedRow(
+                                    fearGreed,
+                                    onRetry = viewModel::refreshAll,
+                                    divider = false,
+                                    stamp = stamps[CycleSource.FEAR_GREED]
+                                )
+                            }
+                            Reveal(MarketRevealSlot.PHASE, reveal, registerThrough, motion) {
+                                MarketPhaseRow(
+                                    cycle = viewModel.cycle,
+                                    state = market,
+                                    onRetry = { viewModel.loadMarket(force = true) },
+                                    stamp = stamps[CycleSource.MARKET]
+                                )
+                            }
+                            Reveal(MarketRevealSlot.DOMINANCE, reveal, registerThrough, motion) {
+                                DominanceRows(
+                                    dominance,
+                                    altSeason,
+                                    onRetry = viewModel::refreshAll,
+                                    altSeasonAsOf = altSeasonAsOf,
+                                    altSeasonRefreshing = altSeasonRefreshing,
+                                    onRefreshAltSeason = viewModel::refreshAltSeason,
+                                    dominanceStamp = stamps[CycleSource.GLOBAL],
+                                    altSeasonStamp = stamps[CycleSource.ALT_SEASON]
+                                )
+                            }
+                            Reveal(MarketRevealSlot.HALVING, reveal, registerThrough, motion) {
+                                HalvingRow(viewModel.cycle, history, onRetry = viewModel::refreshAll)
+                            }
+                        }
+                        // 3. Daten — Zeilen: Krypto-Markt (Marktkapitalisierung, Volumen), Gas,
+                        //    Wirtschaftsdaten, Coin
+                        MarketSection.DATA -> {
+                            Reveal(MarketRevealSlot.MARKET_TOTALS, reveal, registerThrough, motion) {
+                                MarketTotalsRow(
+                                    marketTotals,
+                                    currency = settings.portfolioCurrency,
+                                    onRetry = viewModel::refreshAll,
+                                    divider = false,
+                                    stamp = stamps[CycleSource.GLOBAL]
+                                )
+                            }
+                            Reveal(MarketRevealSlot.GAS, reveal, registerThrough, motion) {
+                                GasSummaryRow(
+                                    state = gas,
+                                    ethAlertGwei = settings.gasAlertEthTenths / 10.0,
+                                    btcAlertSat = settings.gasAlertBtc,
+                                    onRetry = { viewModel.loadGas(force = true) },
+                                    stamp = stamps[CycleSource.GAS]
+                                )
+                            }
+                            Reveal(MarketRevealSlot.COIN, reveal, registerThrough, motion) {
+                                // Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine»
+                                Column(modifier = Modifier.fillMaxWidth().bringIntoViewRequester(macroRequester)) {
+                                    MacroHintRow(macroEvents, atTop = false)
+                                }
+                                CoinRow(
+                                    coins = coins,
+                                    selected = selectedCoin,
+                                    favorites = favoriteCoins,
+                                    onSelect = viewModel::selectCoin,
+                                    onToggleFavorite = viewModel::toggleFavoriteCoin,
+                                    state = coin,
+                                    onRetry = { viewModel.loadCoin(force = true) },
+                                    stamp = stamps[CycleSource.COIN]
+                                )
+                            }
+                        }
+                    }
                 }
-                // 2. Einordnung — Zeilen ohne Karte: Fear & Greed, Marktphase, Dominanz,
-                //    Altcoin-Saison, Zyklus/Halving. Tippen klappt die Details einer Zeile auf.
-                //    Zugeklappt: Überschrift mit Zusammenfassung; die Zeilen werden dann gar nicht
-                //    aufgebaut, ihre Daten laden aber weiter (bleiben frisch fürs Aufklappen).
-                Reveal(MarketRevealSlot.HEADER_CONTEXT, reveal, instantThrough, motion) {
-                    MarketSectionHeader(
-                        title = stringResource(R.string.market_section_context),
-                        summary = contextSummary(fearGreed, market),
-                        expanded = contextExpanded,
-                        onToggle = toggleContext,
-                        modifier = Modifier.padding(top = Spacing.md)
-                    )
-                }
-                CollapsibleSection(contextExpanded, motion) {
-                    val contextThrough = maxOf(instantThrough, contextInstant)
-                    Reveal(MarketRevealSlot.FEAR_GREED, reveal, contextThrough, motion) {
-                        FearGreedRow(
-                            fearGreed,
-                            onRetry = viewModel::refreshAll,
-                            divider = false,
-                            stamp = stamps[CycleSource.FEAR_GREED]
-                        )
-                    }
-                    Reveal(MarketRevealSlot.PHASE, reveal, contextThrough, motion) {
-                        MarketPhaseRow(
-                            cycle = viewModel.cycle,
-                            state = market,
-                            onRetry = { viewModel.loadMarket(force = true) },
-                            stamp = stamps[CycleSource.MARKET]
-                        )
-                    }
-                    Reveal(MarketRevealSlot.DOMINANCE, reveal, contextThrough, motion) {
-                        DominanceRows(
-                            dominance,
-                            altSeason,
-                            onRetry = viewModel::refreshAll,
-                            altSeasonAsOf = altSeasonAsOf,
-                            altSeasonRefreshing = altSeasonRefreshing,
-                            onRefreshAltSeason = viewModel::refreshAltSeason,
-                            dominanceStamp = stamps[CycleSource.GLOBAL],
-                            altSeasonStamp = stamps[CycleSource.ALT_SEASON]
-                        )
-                    }
-                    Reveal(MarketRevealSlot.HALVING, reveal, contextThrough, motion) {
-                        HalvingRow(viewModel.cycle, history, onRetry = viewModel::refreshAll)
-                    }
-                }
-                // 3. Daten — Zeilen: Krypto-Markt (Marktkapitalisierung, Volumen), Gas,
-                //    Wirtschaftsdaten, Coin
-                Reveal(MarketRevealSlot.HEADER_DATA, reveal, instantThrough, motion) {
-                    MarketSectionHeader(
-                        title = stringResource(R.string.market_section_data),
-                        summary = dataSummary(marketTotals),
-                        expanded = dataExpanded,
-                        onToggle = toggleData,
-                        modifier = Modifier.padding(top = Spacing.md)
-                    )
-                }
-                CollapsibleSection(dataExpanded, motion) {
-                    val dataThrough = maxOf(instantThrough, dataInstant)
-                    Reveal(MarketRevealSlot.MARKET_TOTALS, reveal, dataThrough, motion) {
-                        MarketTotalsRow(
-                            marketTotals,
-                            currency = settings.portfolioCurrency,
-                            onRetry = viewModel::refreshAll,
-                            divider = false,
-                            stamp = stamps[CycleSource.GLOBAL]
-                        )
-                    }
-                    Reveal(MarketRevealSlot.GAS, reveal, dataThrough, motion) {
-                        GasSummaryRow(
-                            state = gas,
-                            ethAlertGwei = settings.gasAlertEthTenths / 10.0,
-                            btcAlertSat = settings.gasAlertBtc,
-                            onRetry = { viewModel.loadGas(force = true) },
-                            stamp = stamps[CycleSource.GAS]
-                        )
-                    }
-                    Reveal(MarketRevealSlot.COIN, reveal, dataThrough, motion) {
-                        MacroHintRow(macroEvents, atTop = false)
-                        CoinRow(
-                            coins = coins,
-                            selected = selectedCoin,
-                            favorites = favoriteCoins,
-                            onSelect = viewModel::selectCoin,
-                            onToggleFavorite = viewModel::toggleFavoriteCoin,
-                            state = coin,
-                            onRetry = { viewModel.loadCoin(force = true) },
-                            stamp = stamps[CycleSource.COIN]
-                        )
-                    }
-                }
-                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis alle stehen
-                if (reveal.count < MarketReveal.COUNT) RevealLoadingRow()
+                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte des Registers, bis alle stehen
+                if (MarketSections.loading(register, reveal.count)) RevealLoadingRow()
                 Spacer(modifier = Modifier.height(24.dp))
             }
         }
@@ -395,56 +419,6 @@ private fun Reveal(
     if (reveal.count > slot.ordinal) {
         RevealItem(animate = motion && slot.ordinal >= instantThrough, content = content)
     }
-}
-
-/**
- * Inhalt eines zuklappbaren Abschnitts: offen aufgebaut, zu gar nicht (weder gezeichnet noch
- * im Bedienungshilfen-Baum). Auf-/Zuklappen innerhalb des Scrollinhalts so lang wie das
- * Überblenden einer Zeile; ohne Animation bei reduzierter Bewegung.
- */
-@Composable
-private fun CollapsibleSection(expanded: Boolean, motion: Boolean, content: @Composable () -> Unit) {
-    // Ausdrücklich die Funktion ohne Empfänger (nicht ColumnScope.AnimatedVisibility)
-    androidx.compose.animation.AnimatedVisibility(
-        visible = expanded,
-        modifier = Modifier.fillMaxWidth(),
-        enter = if (motion) {
-            expandVertically(tween(MarketReveal.SWAP_MILLIS)) + fadeIn(tween(MarketReveal.SWAP_MILLIS))
-        } else EnterTransition.None,
-        exit = if (motion) {
-            shrinkVertically(tween(MarketReveal.SWAP_MILLIS)) + fadeOut(tween(MarketReveal.SWAP_MILLIS))
-        } else ExitTransition.None,
-    ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            content()
-        }
-    }
-}
-
-/** Zusammenfassung von «Einordnung» im zugeklappten Zustand: «Gier 72 · Neutral». */
-@Composable
-private fun contextSummary(fearGreed: LoadState<FearGreed>, market: MarketState): String {
-    val fg = (fearGreed as? LoadState.Loaded)?.value
-    val report = (market as? MarketState.Loaded)?.report
-    return MarketSections.summary(
-        listOf(
-            fg?.let { "${fearGreedLabel(it.value)} ${LocaleNumbers.integer(it.value)}" },
-            report?.let { stringResource(zoneLabel(it.zone)) },
-        )
-    )
-}
-
-/** Zusammenfassung von «Daten» im zugeklappten Zustand: «Marktkapitalisierung +1.20%». */
-@Composable
-private fun dataSummary(marketTotals: LoadState<MarketTotals>): String {
-    val change = (marketTotals as? LoadState.Loaded)?.value?.changePercent24h
-    return MarketSections.summary(
-        listOf(
-            change?.let {
-                stringResource(R.string.market_cap_label) + " " + (PriceFormat.changePercent(it) ?: PriceFormat.zeroPercent())
-            },
-        )
-    )
 }
 
 @Composable

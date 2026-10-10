@@ -74,9 +74,10 @@ final class CycleViewModel: ObservableObject {
     /// Wie viele Teile des Tabs (von oben, `CycleRevealSlot`) sichtbar sind — einmal je
     /// App-Sitzung schrittweise (`CycleReveal`), danach bleibt alles stehen.
     @Published private(set) var revealed = 0
-    /// In dieser App-Sitzung gewählter Zustand je Abschnitt («Einordnung», «Daten»); fehlt = nie
-    /// getippt (`MarketSections`). Lebt hier, damit er Tab-Wechsel übersteht.
-    @Published var sectionChoice: [MarketSection: Bool] = [:]
+    /// Gewähltes Register («Jetzt» | «Einordnung» | «Daten»), gilt für die App-Sitzung (nicht
+    /// gespeichert, beim Start «Jetzt»; `MarketSections`). Lebt hier, damit es Tab-Wechsel übersteht.
+    /// Wie Android `MarketRegister.selected`.
+    @Published var register: MarketSection = MarketSections.defaultSection
     /// Die ersten so vielen Teile erscheinen ohne Animation (beim Öffnen schon bereit).
     private(set) var revealInstant = 0
     private var revealStart: Int64?

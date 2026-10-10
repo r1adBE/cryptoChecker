@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Ovanlig aktivitet i listan</string>
     <string name="settings_watchlist_activity_card_hint">Visar chippet ⚡ vid grupperna: tryck för att bara se paren där något händer just nu. Aviseringar ställs in under Marknadsaviseringar.</string>
     <string name="settings_row_about">Om appen</string>
-    <string name="price_colors_green_up">Grönt stiger / rött faller</string>
-    <string name="price_colors_red_up">Rött stiger / grönt faller</string>
-    <string name="price_colors_blue_up">Blått stiger / orange faller</string>
-    <string name="price_colors_orange_up">Orange stiger / blått faller</string>
     <string name="price_colors_red_up_hint">Vanligt i Kina, Japan, Korea och Taiwan</string>
 </resources>

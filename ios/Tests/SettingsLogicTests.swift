@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Wie `AlarmSignalTest.kt` (soweit iOS die Werte kennt), `PriceColorChoiceTest.kt` und
+/// Wie `AlarmSignalTest.kt` (soweit iOS die Werte kennt), `PriceColorSchemeTest.kt` und
 /// `ActivitySensitivityTest.kt`.
 final class AlarmSignalTests: XCTestCase {
 
@@ -30,40 +30,95 @@ final class AlarmSignalTests: XCTestCase {
     }
 }
 
-final class PriceColorChoiceTests: XCTestCase {
+/// Wie `PriceColorSchemeTest.kt`: Werte, Reihenfolge, Tausch und WCAG-Kontrast — normal ≥ 4.5:1
+/// (AA), hoher Kontrast ≥ 7:1 (AAA) auf allen hellen/dunklen Flächen und in der 14 %-Pille.
+final class PriceColorSchemeTests: XCTestCase {
 
-    func testRoundTripForEveryChoice() {
-        for choice in PriceColorChoice.allCases {
-            XCTAssertEqual(PriceColorChoice.of(scheme: choice.scheme, inverted: choice.inverted), choice)
-        }
+    private let lightSurfaces: [UInt32] = [0xFFFFFF, 0xF9F9F9, 0xEEEEEE, 0xE4E4E4]
+    private let darkSurfaces: [UInt32] = [0x121212, 0x131313, 0x1F1F1F]
+
+    private func channel(_ c: UInt32) -> Double {
+        let s = Double(c) / 255
+        return s <= 0.04045 ? s / 12.92 : pow((s + 0.055) / 1.055, 2.4)
     }
 
-    func testEveryStoredCombinationHasOneChoice() {
-        var seen = Set<PriceColorChoice>()
+    private func luminance(_ rgb: UInt32) -> Double {
+        let r = 0.2126 * channel((rgb >> 16) & 0xFF)
+        let g = 0.7152 * channel((rgb >> 8) & 0xFF)
+        let b = 0.0722 * channel(rgb & 0xFF)
+        return r + g + b
+    }
+
+    private func contrast(_ a: UInt32, _ b: UInt32) -> Double {
+        let la = luminance(a)
+        let lb = luminance(b)
+        return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+    }
+
+    /// Pille: Kursfarbe mit 14 % Deckkraft über der Karte (wie ChangePill).
+    private func pill(_ color: UInt32, card: UInt32) -> UInt32 {
+        var result: UInt32 = 0
+        for shift: UInt32 in [16, 8, 0] {
+            let f = Double((color >> shift) & 0xFF)
+            let b = Double((card >> shift) & 0xFF)
+            result |= UInt32((0.14 * f + 0.86 * b).rounded()) << shift
+        }
+        return result
+    }
+
+    func testValuesAsSpecified() {
+        XCTAssertEqual(PriceColorScheme.GREEN_RED.upHex(dark: false), 0x0A6D3E)
+        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.downHex(dark: false), 0x9F4300)
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.upHex(dark: false), 0x4A6410)
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.upHex(dark: true), 0x8FB532)
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.downHex(dark: false), 0xAA1850)
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.downHex(dark: true), 0xFF6A96)
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.upHex(dark: false, highContrast: true), 0x334509)
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.downHex(dark: true, highContrast: true), 0xFFB8CE)
+    }
+
+    func testOrderAndDefault() {
+        XCTAssertEqual(PriceColorScheme.allCases, [.GREEN_RED, .TRADITIONAL, .BLUE_ORANGE])
+        XCTAssertEqual(PriceColorScheme.default, .GREEN_RED)
+        XCTAssertEqual(PriceColorScheme(rawValue: "TRADITIONAL"), .TRADITIONAL)
+        XCTAssertNil(PriceColorScheme(rawValue: "BLUE_YELLOW"))
+    }
+
+    func testLabelKeys() {
+        XCTAssertEqual(PriceColorScheme.GREEN_RED.labelKey, "price_style_fresh")
+        XCTAssertEqual(PriceColorScheme.TRADITIONAL.labelKey, "price_style_traditional")
+        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.labelKey, "price_style_color_vision")
+    }
+
+    func testSwapOnlySwapsTheColors() {
         for scheme in PriceColorScheme.allCases {
-            for inverted in [false, true] { seen.insert(PriceColorChoice.of(scheme: scheme, inverted: inverted)) }
+            for dark in [false, true] {
+                for hc in [false, true] {
+                    XCTAssertEqual(scheme.upHex(dark: dark, highContrast: hc, inverted: true), scheme.downHex(dark: dark, highContrast: hc))
+                    XCTAssertEqual(scheme.downHex(dark: dark, highContrast: hc, inverted: true), scheme.upHex(dark: dark, highContrast: hc))
+                    XCTAssertNotEqual(scheme.upHex(dark: dark, highContrast: hc), scheme.downHex(dark: dark, highContrast: hc))
+                }
+            }
         }
-        XCTAssertEqual(PriceColorScheme.allCases.count * 2, PriceColorChoice.allCases.count)
-        XCTAssertEqual(seen.count, PriceColorChoice.allCases.count)
     }
 
-    func testDefaultIsGreenUp() {
-        XCTAssertEqual(PriceColorChoice.of(scheme: .default, inverted: false), .GREEN_UP)
-        XCTAssertFalse(PriceColorChoice.GREEN_UP.inverted)
-    }
-
-    func testRedUpSwapsTheColorsOfGreenRed() {
-        let c = PriceColorChoice.RED_UP
-        XCTAssertEqual(c.scheme, .GREEN_RED)
-        // Steigend bekommt die Fallend-Farbe des Schemas
-        XCTAssertEqual(PriceColorScheme.GREEN_RED.downHex(dark: false), c.scheme.upHex(dark: false, inverted: c.inverted))
-        XCTAssertNotEqual(PriceColorChoice.GREEN_UP.scheme.upHex(dark: true), c.scheme.upHex(dark: true, inverted: c.inverted))
-    }
-
-    func testBlueAndOrangeUseTheColorBlindScheme() {
-        XCTAssertEqual(PriceColorChoice.BLUE_UP.scheme, .BLUE_ORANGE)
-        XCTAssertEqual(PriceColorChoice.ORANGE_UP.scheme, .BLUE_ORANGE)
-        XCTAssertTrue(PriceColorChoice.ORANGE_UP.inverted)
+    func testContrastOnAllSurfacesAndInThePill() {
+        for scheme in PriceColorScheme.allCases {
+            for hc in [false, true] {
+                for dark in [false, true] {
+                    let required = hc ? 7.0 : 4.5
+                    let card: UInt32 = dark ? 0x1F1F1F : 0xEEEEEE
+                    for color in [scheme.upHex(dark: dark, highContrast: hc), scheme.downHex(dark: dark, highContrast: hc)] {
+                        let backgrounds = (dark ? darkSurfaces : lightSurfaces) + [pill(color, card: card)]
+                        for bg in backgrounds {
+                            let ratio = contrast(color, bg)
+                            XCTAssertGreaterThanOrEqual(ratio, required,
+                                                        "\(scheme.rawValue) hc=\(hc) dark=\(dark) \(String(color, radix: 16)) on \(String(bg, radix: 16))")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

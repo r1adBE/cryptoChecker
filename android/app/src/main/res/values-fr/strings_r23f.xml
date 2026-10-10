@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Activité inhabituelle dans la liste</string>
     <string name="settings_watchlist_activity_card_hint">Affiche la puce ⚡ à côté des groupes : touchez-la pour ne voir que les paires où il se passe quelque chose en ce moment. Les alertes se règlent sous Notifications de marché.</string>
     <string name="settings_row_about">À propos de l’app</string>
-    <string name="price_colors_green_up">Hausse en vert / baisse en rouge</string>
-    <string name="price_colors_red_up">Hausse en rouge / baisse en vert</string>
-    <string name="price_colors_blue_up">Hausse en bleu / baisse en orange</string>
-    <string name="price_colors_orange_up">Hausse en orange / baisse en bleu</string>
     <string name="price_colors_red_up_hint">Courant en Chine, au Japon, en Corée et à Taïwan</string>
 </resources>

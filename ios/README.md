@@ -17,6 +17,7 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 
 Zuletzt dazugekommen:
 
+- **Kursfarben, Portfolio-Vergleich, Markt-Register**: drei Stile mit Kerzen-Vorschau (neu `.TRADITIONAL`), Wertverlauf «CHF | USDT | Vergleich» (`Shared/Portfolio/PortfolioCompare.swift`), Markt mit Registern «Jetzt | Einordnung | Daten» (`RegisterTabs` in `ExplorerComponents.swift`).
 - **Befunde der technischen Prüfung behoben**: Alarme wie Android (gleitendes Fenster, Hoch/Tief-Marke), Marktphase/
   Fear & Greed laufen wieder (`BackgroundRefresh.swift`), `watchlist.json` mit `NSFileCoordinator` und tolerantem Lesen
   (nie leer überschrieben), Portfolio-Alarme in `portfolio_alarms.json`, keine Abstürze bei NaN/∞ (`JSON.swift`),

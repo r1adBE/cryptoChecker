@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Aktivitas tidak biasa di daftar</string>
     <string name="settings_watchlist_activity_card_hint">Menampilkan chip ⚡ di samping grup: ketuk untuk melihat hanya pasangan yang sedang mengalami sesuatu. Notifikasi diatur di Peringatan pasar.</string>
     <string name="settings_row_about">Tentang aplikasi</string>
-    <string name="price_colors_green_up">Hijau naik / merah turun</string>
-    <string name="price_colors_red_up">Merah naik / hijau turun</string>
-    <string name="price_colors_blue_up">Biru naik / oranye turun</string>
-    <string name="price_colors_orange_up">Oranye naik / biru turun</string>
     <string name="price_colors_red_up_hint">Umum di Tiongkok, Jepang, Korea, dan Taiwan</string>
 </resources>

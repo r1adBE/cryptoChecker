@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Listede olağandışı etkinlik</string>
     <string name="settings_watchlist_activity_card_hint">Grupların yanında ⚡ çipini gösterir: dokunarak yalnızca şu anda bir şeyler olan çiftleri görün. Bildirimler Piyasa bildirimleri bölümünden ayarlanır.</string>
     <string name="settings_row_about">Uygulama hakkında</string>
-    <string name="price_colors_green_up">Yeşil yükselir / kırmızı düşer</string>
-    <string name="price_colors_red_up">Kırmızı yükselir / yeşil düşer</string>
-    <string name="price_colors_blue_up">Mavi yükselir / turuncu düşer</string>
-    <string name="price_colors_orange_up">Turuncu yükselir / mavi düşer</string>
     <string name="price_colors_red_up_hint">Çin, Japonya, Kore ve Tayvan’da yaygın</string>
 </resources>

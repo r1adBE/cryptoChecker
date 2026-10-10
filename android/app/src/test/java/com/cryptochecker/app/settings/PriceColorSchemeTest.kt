@@ -51,6 +51,13 @@ class PriceColorSchemeTest {
         assertEquals(0xFF7CF2B8.toInt(), PriceColorScheme.GREEN_RED.up(dark = true, highContrast = true))
         assertEquals(0xFFFFB0B0.toInt(), PriceColorScheme.GREEN_RED.down(dark = true, highContrast = true))
         assertEquals(0xFF6C2E00.toInt(), PriceColorScheme.BLUE_ORANGE.down(dark = false, highContrast = true))
+        // Traditionell: Olivgrün / Himbeer
+        assertEquals(0xFF4A6410.toInt(), PriceColorScheme.TRADITIONAL.up(dark = false))
+        assertEquals(0xFF8FB532.toInt(), PriceColorScheme.TRADITIONAL.up(dark = true))
+        assertEquals(0xFFAA1850.toInt(), PriceColorScheme.TRADITIONAL.down(dark = false))
+        assertEquals(0xFFFF6A96.toInt(), PriceColorScheme.TRADITIONAL.down(dark = true))
+        assertEquals(0xFF334509.toInt(), PriceColorScheme.TRADITIONAL.up(dark = false, highContrast = true))
+        assertEquals(0xFFFFB8CE.toInt(), PriceColorScheme.TRADITIONAL.down(dark = true, highContrast = true))
         // Ohne Angabe: normale Werte, nicht getauscht
         assertEquals(PriceColorScheme.GREEN_RED.up(true, false, false), PriceColorScheme.GREEN_RED.up(true))
     }
@@ -86,9 +93,29 @@ class PriceColorSchemeTest {
         return (0xFF shl 24) or (mix(16) shl 16) or (mix(8) shl 8) or mix(0)
     }
 
+    /** Reihenfolge der Karten: Frisch, Traditionell, Farbsehschwäche; Standard bleibt Frisch. */
+    @Test
+    fun `Reihenfolge und Standard`() {
+        assertEquals(
+            listOf(PriceColorScheme.GREEN_RED, PriceColorScheme.TRADITIONAL, PriceColorScheme.BLUE_ORANGE),
+            PriceColorScheme.entries.toList()
+        )
+        assertEquals(PriceColorScheme.GREEN_RED, PriceColorScheme.DEFAULT)
+    }
+
+    /** Steigend und fallend klar verschieden, in jedem Stil und jeder Fassung. */
+    @Test
+    fun `Steigend und fallend verschieden`() {
+        for (scheme in PriceColorScheme.entries) for (dark in listOf(false, true)) for (hc in listOf(false, true)) {
+            assertTrue("${scheme.name}/$dark/$hc", scheme.up(dark, hc) != scheme.down(dark, hc))
+        }
+    }
+
     @Test
     fun `fromName faellt auf den Standard zurueck`() {
         assertEquals(PriceColorScheme.BLUE_ORANGE, PriceColorScheme.fromName("BLUE_ORANGE"))
+        assertEquals(PriceColorScheme.TRADITIONAL, PriceColorScheme.fromName("TRADITIONAL"))
+        assertEquals(PriceColorScheme.GREEN_RED, PriceColorScheme.fromName("GREEN_RED"))
         assertEquals(PriceColorScheme.DEFAULT, PriceColorScheme.fromName(null))
         assertEquals(PriceColorScheme.DEFAULT, PriceColorScheme.fromName("BLUE_YELLOW"))
     }

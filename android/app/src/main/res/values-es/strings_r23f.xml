@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Actividad inusual en la lista</string>
     <string name="settings_watchlist_activity_card_hint">Muestra el chip ⚡ junto a los grupos: tócalo para ver solo los pares en los que está pasando algo ahora mismo. Los avisos se ajustan en Avisos del mercado.</string>
     <string name="settings_row_about">Acerca de la app</string>
-    <string name="price_colors_green_up">Sube en verde / baja en rojo</string>
-    <string name="price_colors_red_up">Sube en rojo / baja en verde</string>
-    <string name="price_colors_blue_up">Sube en azul / baja en naranja</string>
-    <string name="price_colors_orange_up">Sube en naranja / baja en azul</string>
     <string name="price_colors_red_up_hint">Habitual en China, Japón, Corea y Taiwán</string>
 </resources>

@@ -147,7 +147,9 @@ enum SettingsSearchCatalog {
         add("page.theme", L("settings_accent"), appearance, .page(.theme, anchor: nil),
             AccentColor.allCases.map { L($0.labelKey) })
         add("page.price_colors", L("settings_price_colors"), appearance, .page(.priceColors, anchor: nil),
-            [L("settings_price_colors_hint")] + PriceColorChoice.allCases.map { L($0.labelKey) })
+            [L("settings_price_colors_hint")] + PriceColorScheme.allCases.map { L($0.labelKey) })
+        add("price_colors.swap", L("price_colors_swap"), L("settings_price_colors"), .page(.priceColors, anchor: "price_colors.swap"),
+            [L("price_colors_red_up_hint")])
         add("page.change_basis", L("settings_change_basis", "%"), appearance, .page(.changeBasis, anchor: nil),
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_since_last"), L("change_basis_device", "UTC"),
              // Alle Zonen in einem Text: «UTC+8» findet die Seite einmal, nicht 27 fast gleiche Treffer

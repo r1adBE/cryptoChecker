@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">Fräsch</string>
+    <string name="price_style_traditional">Traditionell</string>
+    <string name="price_style_color_vision">Nedsatt färgseende</string>
+    <string name="price_colors_swap">Byt färger (stiger ↔ faller)</string>
+</resources>

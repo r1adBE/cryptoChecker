@@ -22,6 +22,7 @@ r1AD — riad.work@outlook.com
 
 ### Zuletzt dazugekommen
 
+* **Kursfarben, Portfolio-Vergleich, Markt-Register** — drei Stile mit Kerzen-Vorschau (`ui/features/settings/PriceStyleCards.kt`, neu `TRADITIONAL`), Wertverlauf «CHF | USDT | Vergleich» (`domain/portfolio/PortfolioCompare.kt`), Markt mit Registern «Jetzt | Einordnung | Daten» (`ui/components/RegisterTabs.kt`, `ui/features/info/MarketRegister.kt`).
 * **Befunde der technischen Prüfung behoben** — Alarme (gleitendes Fenster `domain/alarm/MoveWindow.kt`,
   speichern vor melden, Hoch/Tief-Marke, ohne Mitteilungs-Erlaubnis nicht verbraucht), Wiederherstellung prüft
   zuerst (`data/WatchlistRestoreCleanup.kt`), DataStore übersteht beschädigte Datei, Zahlen-Eingabe im Portfolio

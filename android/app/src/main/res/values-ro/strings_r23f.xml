@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Activitate neobișnuită în listă</string>
     <string name="settings_watchlist_activity_card_hint">Afișează cipul ⚡ lângă grupuri: atinge-l ca să vezi doar perechile la care se întâmplă ceva chiar acum. Notificările se setează la Alerte de piață.</string>
     <string name="settings_row_about">Despre aplicație</string>
-    <string name="price_colors_green_up">Verde crește / roșu scade</string>
-    <string name="price_colors_red_up">Roșu crește / verde scade</string>
-    <string name="price_colors_blue_up">Albastru crește / portocaliu scade</string>
-    <string name="price_colors_orange_up">Portocaliu crește / albastru scade</string>
     <string name="price_colors_red_up_hint">Uzual în China, Japonia, Coreea și Taiwan</string>
 </resources>

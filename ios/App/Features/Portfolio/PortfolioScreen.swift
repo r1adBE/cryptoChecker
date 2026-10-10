@@ -152,7 +152,8 @@ struct PortfolioScreen: View {
 
             // Wertverlauf über den Positionen
             PortfolioHistoryCard(history: model.history, range: $model.historyRange,
-                                 expanded: $data.settings.portfolioHistoryExpanded)
+                                 expanded: $data.settings.portfolioHistoryExpanded,
+                                 view: $data.settings.portfolioHistoryView)
                 .portfolioListRow(top: 0, bottom: 8)
 
             // Aufteilung (vier grösste Coins + «Andere»), erst ab zwei Teilen

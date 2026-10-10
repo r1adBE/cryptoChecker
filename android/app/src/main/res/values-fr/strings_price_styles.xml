@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">Frais</string>
+    <string name="price_style_traditional">Traditionnel</string>
+    <string name="price_style_color_vision">Déficience de la vision des couleurs</string>
+    <string name="price_colors_swap">Inverser les couleurs (hausse ↔ baisse)</string>
+</resources>

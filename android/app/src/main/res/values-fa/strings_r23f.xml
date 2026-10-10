@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">فعالیت غیرعادی در فهرست</string>
     <string name="settings_watchlist_activity_card_hint">تراشه ⚡ را کنار گروه‌ها نشان می‌دهد: با لمس آن فقط جفت‌هایی را می‌بینید که همین حالا در آن‌ها اتفاقی در جریان است. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند.</string>
     <string name="settings_row_about">درباره برنامه</string>
-    <string name="price_colors_green_up">سبز صعود / قرمز نزول</string>
-    <string name="price_colors_red_up">قرمز صعود / سبز نزول</string>
-    <string name="price_colors_blue_up">آبی صعود / نارنجی نزول</string>
-    <string name="price_colors_orange_up">نارنجی صعود / آبی نزول</string>
     <string name="price_colors_red_up_hint">رایج در چین، ژاپن، کره و تایوان</string>
 </resources>

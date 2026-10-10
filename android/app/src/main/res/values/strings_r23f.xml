@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Unusual activity in the list</string>
     <string name="settings_watchlist_activity_card_hint">Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Alerts are set under Market alerts.</string>
     <string name="settings_row_about">About the app</string>
-    <string name="price_colors_green_up">Green rises / red falls</string>
-    <string name="price_colors_red_up">Red rises / green falls</string>
-    <string name="price_colors_blue_up">Blue rises / orange falls</string>
-    <string name="price_colors_orange_up">Orange rises / blue falls</string>
     <string name="price_colors_red_up_hint">Common in China, Japan, Korea and Taiwan</string>
 </resources>

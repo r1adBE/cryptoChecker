@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">목록에 이상 움직임 표시</string>
     <string name="settings_watchlist_activity_card_hint">그룹 옆에 ⚡ 칩을 표시합니다. 누르면 지금 무언가 일어나고 있는 거래쌍만 보여 줍니다. 알림은 ‘시장 알림’에서 설정합니다.</string>
     <string name="settings_row_about">앱 정보</string>
-    <string name="price_colors_green_up">초록 상승 / 빨강 하락</string>
-    <string name="price_colors_red_up">빨강 상승 / 초록 하락</string>
-    <string name="price_colors_blue_up">파랑 상승 / 주황 하락</string>
-    <string name="price_colors_orange_up">주황 상승 / 파랑 하락</string>
     <string name="price_colors_red_up_hint">중국, 일본, 한국, 대만에서 일반적</string>
 </resources>

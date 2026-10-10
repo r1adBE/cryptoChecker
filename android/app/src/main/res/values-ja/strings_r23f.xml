@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">リストに異常な動きを表示</string>
     <string name="settings_watchlist_activity_card_hint">グループの横に ⚡ チップを表示します。タップすると、今まさに動きがあるペアだけを表示します。通知は「相場のお知らせ」で設定します。</string>
     <string name="settings_row_about">アプリについて</string>
-    <string name="price_colors_green_up">緑が上昇 / 赤が下落</string>
-    <string name="price_colors_red_up">赤が上昇 / 緑が下落</string>
-    <string name="price_colors_blue_up">青が上昇 / オレンジが下落</string>
-    <string name="price_colors_orange_up">オレンジが上昇 / 青が下落</string>
     <string name="price_colors_red_up_hint">中国・日本・韓国・台湾で一般的</string>
 </resources>

@@ -97,7 +97,8 @@ enum MacroNotifications {
             content.body = MacroCalendar.todayText(todays)
             content.sound = .default
             content.threadIdentifier = "market"
-            content.userInfo = ["open": "cycle"]
+            // Tippen: Markt-Tab beim Wirtschaftsdaten-Hinweis (wie Android)
+            content.userInfo = ["open": "cycle/macro"]
             Notifier.applyQuietHours(content, settings, date: notifyAt)
             let parts = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notifyAt)
             let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)

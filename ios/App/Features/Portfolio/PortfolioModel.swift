@@ -170,19 +170,29 @@ final class PortfolioModel: ObservableObject {
         let closes = loaded.closes
         historyTask?.cancel()
         historyTask = Task { [weak self] in
-            let result = await Task.detached(priority: .userInitiated) { () -> PortfolioHistoryConverted in
+            let ui = await Task.detached(priority: .userInitiated) { () -> PortfolioHistoryUi in
                 let today = LocalDay.today().epochDay
                 let series = PortfolioHistory.build(trades: txs, closes: closes, livePrices: live, range: range,
                                                     todayEpochDay: today,
                                                     dayEndMillis: { PortfolioHistory.dayEndMillis($0) })
-                guard converted else { return PortfolioHistoryConverted(series: series, approximate: false) }
+                guard converted else {
+                    return PortfolioHistoryUi(range: range, series: series, unit: unit, converted: false)
+                }
                 // Je Punkt der Kurs seines Tags, heute der aktuelle (`PortfolioHistoryFx`)
-                return PortfolioHistoryFx.convert(series, dailyRates: dailyRates, currentRate: fxFactor,
-                                                  todayEpochDay: today)
+                let result = PortfolioHistoryFx.convert(series, dailyRates: dailyRates, currentRate: fxFactor,
+                                                        todayEpochDay: today)
+                // Vergleich mit USDT nur mit Tageskursen — mit dem heutigen Kurs wäre er bedeutungslos
+                guard !result.approximate else {
+                    return PortfolioHistoryUi(range: range, series: result.series, unit: unit, converted: true,
+                                              approximateFx: true)
+                }
+                return PortfolioHistoryUi(range: range, series: result.series, unit: unit, converted: true,
+                                          approximateFx: false, usdtSeries: series,
+                                          compare: PortfolioCompare.build(currency: result.series.points,
+                                                                          usdt: series.points))
             }.value
             guard !Task.isCancelled else { return }
-            self?.history = PortfolioHistoryUi(range: range, series: result.series, unit: unit,
-                                               converted: converted, approximateFx: result.approximate)
+            self?.history = ui
         }
     }
 
@@ -238,13 +248,24 @@ struct PortfolioHistoryRequest: Equatable {
 /// Wertverlauf für die Karte über den Positionen: `series` in `unit` (`converted` = aus USDT
 /// umgerechnet, je Tag mit dem Devisenkurs dieses Tags, siehe `PortfolioHistoryFx`;
 /// `approximateFx` = Tageskurse fehlten, alles mit dem heutigen Kurs — die Karte sagt das unter
-/// dem Chart) — wie `PortfolioHistoryUi` (Android).
-struct PortfolioHistoryUi: Equatable {
+/// dem Chart). Mit Tageskursen umgerechnet zusätzlich `usdtSeries` (derselbe Verlauf unumgerechnet,
+/// für «USDT») und `compare` (beide in Prozent, für «Vergleich»; nil ohne Ausgangswert, siehe
+/// `PortfolioCompare`) — sonst beide nil und kein Umschalter. Wie `PortfolioHistoryUi` (Android).
+struct PortfolioHistoryUi: Equatable, Sendable {
     let range: PortfolioHistoryRange
     let series: PortfolioHistorySeries
     let unit: String
     let converted: Bool
     var approximateFx: Bool = false
+    var usdtSeries: PortfolioHistorySeries?
+    var compare: PortfolioCompareSeries?
+
+    /// In USDT: derselbe Verlauf unumgerechnet (Umschalter, Vergleich und Hinweise bleiben).
+    func forView(_ view: PortfolioHistoryView) -> PortfolioHistoryUi {
+        guard view == .usdt, let usdtSeries else { return self }
+        return PortfolioHistoryUi(range: range, series: usdtSeries, unit: PortfolioFormat.usdt, converted: converted,
+                                  approximateFx: approximateFx, usdtSeries: usdtSeries, compare: compare)
+    }
 }
 
 /// Eingabe des Erfassen-Blatts; `txId` 0 = neue Transaktion — wie `TxDraft`.

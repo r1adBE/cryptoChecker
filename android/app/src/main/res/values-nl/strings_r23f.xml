@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Ongewone activiteit in de lijst</string>
     <string name="settings_watchlist_activity_card_hint">Toont de chip ⚡ bij de groepen: tik erop om alleen de paren te zien waar nu iets gebeurt. Meldingen stel je in bij Marktmeldingen.</string>
     <string name="settings_row_about">Over de app</string>
-    <string name="price_colors_green_up">Groen stijgt / rood daalt</string>
-    <string name="price_colors_red_up">Rood stijgt / groen daalt</string>
-    <string name="price_colors_blue_up">Blauw stijgt / oranje daalt</string>
-    <string name="price_colors_orange_up">Oranje stijgt / blauw daalt</string>
     <string name="price_colors_red_up_hint">Gebruikelijk in China, Japan, Korea en Taiwan</string>
 </resources>

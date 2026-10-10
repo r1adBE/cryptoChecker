@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">نشاط غير عادي في القائمة</string>
     <string name="settings_watchlist_activity_card_hint">يعرض الشريحة ⚡ بجانب المجموعات: انقر عليها لعرض الأزواج التي يحدث فيها شيء الآن فقط. تُضبط التنبيهات في إشعارات السوق.</string>
     <string name="settings_row_about">حول التطبيق</string>
-    <string name="price_colors_green_up">الأخضر صعود / الأحمر هبوط</string>
-    <string name="price_colors_red_up">الأحمر صعود / الأخضر هبوط</string>
-    <string name="price_colors_blue_up">الأزرق صعود / البرتقالي هبوط</string>
-    <string name="price_colors_orange_up">البرتقالي صعود / الأزرق هبوط</string>
     <string name="price_colors_red_up_hint">شائع في الصين واليابان وكوريا وتايوان</string>
 </resources>

@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Незвичайна активність у списку</string>
     <string name="settings_watchlist_activity_card_hint">Показує чип ⚡ поруч із групами: торкніться, щоб побачити лише пари, де просто зараз щось відбувається. Сповіщення налаштовуються в розділі «Ринкові сповіщення».</string>
     <string name="settings_row_about">Про застосунок</string>
-    <string name="price_colors_green_up">Зелений — зростання / червоний — падіння</string>
-    <string name="price_colors_red_up">Червоний — зростання / зелений — падіння</string>
-    <string name="price_colors_blue_up">Синій — зростання / помаранчевий — падіння</string>
-    <string name="price_colors_orange_up">Помаранчевий — зростання / синій — падіння</string>
     <string name="price_colors_red_up_hint">Прийнято в Китаї, Японії, Кореї та на Тайвані</string>
 </resources>

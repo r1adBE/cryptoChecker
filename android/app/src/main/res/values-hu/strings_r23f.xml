@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Szokatlan aktivitás a listában</string>
     <string name="settings_watchlist_activity_card_hint">Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látja, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatja be.</string>
     <string name="settings_row_about">Az alkalmazásról</string>
-    <string name="price_colors_green_up">Zöld emelkedik / piros esik</string>
-    <string name="price_colors_red_up">Piros emelkedik / zöld esik</string>
-    <string name="price_colors_blue_up">Kék emelkedik / narancs esik</string>
-    <string name="price_colors_orange_up">Narancs emelkedik / kék esik</string>
     <string name="price_colors_red_up_hint">Szokásos Kínában, Japánban, Koreában és Tajvanon</string>
 </resources>

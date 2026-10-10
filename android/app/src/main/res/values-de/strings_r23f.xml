@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Ungewöhnliche Aktivität in der Liste</string>
     <string name="settings_watchlist_activity_card_hint">Zeigt den Chip ⚡ bei den Gruppen: Antippen zeigt nur die Paare, bei denen gerade etwas passiert. Mitteilungen dazu stellst du unter Markt-Meldungen ein.</string>
     <string name="settings_row_about">Über die App</string>
-    <string name="price_colors_green_up">Grün steigt / Rot fällt</string>
-    <string name="price_colors_red_up">Rot steigt / Grün fällt</string>
-    <string name="price_colors_blue_up">Blau steigt / Orange fällt</string>
-    <string name="price_colors_orange_up">Orange steigt / Blau fällt</string>
     <string name="price_colors_red_up_hint">Üblich in China, Japan, Korea und Taiwan</string>
 </resources>

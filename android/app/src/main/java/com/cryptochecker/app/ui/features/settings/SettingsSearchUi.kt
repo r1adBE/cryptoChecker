@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.PriceColorChoice
+import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.settings.SettingsSearch
 import com.cryptochecker.app.settings.SettingsSearchEntry
 import com.cryptochecker.app.domain.watch.ChangeBasis
@@ -203,7 +203,10 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("page.price_colors", stringResource(R.string.settings_price_colors), appearance,
         SettingsSearchTarget.Page(SettingsPage.PRICE_COLORS),
         stringResource(R.string.settings_price_colors_hint),
-        *PriceColorChoice.entries.map { stringResource(priceColorChoiceLabel(it)) }.toTypedArray())
+        *PriceColorScheme.entries.map { stringResource(priceColorSchemeLabel(it)) }.toTypedArray())
+    add("price_colors.swap", stringResource(R.string.price_colors_swap), stringResource(R.string.settings_price_colors),
+        SettingsSearchTarget.Page(SettingsPage.PRICE_COLORS, "price_colors.swap"),
+        stringResource(R.string.price_colors_red_up_hint))
     add("page.change_basis", stringResource(R.string.settings_change_basis, "%"), appearance,
         SettingsSearchTarget.Page(SettingsPage.CHANGE_BASIS),
         stringResource(R.string.settings_change_basis_hint_1),

@@ -115,7 +115,6 @@ struct SettingsScreen: View {
 
     private var appearanceSection: some View {
         let accentName = L(settings.accentColor.labelKey)
-        let choice = PriceColorChoice.of(scheme: settings.priceColorScheme, inverted: settings.priceColorsInverted)
         return Section {
             SettingsNavRow(title: L("settings_theme_mode"), value: SettingsSummary.displayModeText(settings)) {
                 DisplayModeSettingsPage()
@@ -128,8 +127,8 @@ struct SettingsScreen: View {
             } destination: {
                 ThemeSettingsPage()
             }
-            SettingsNavRow(title: L("settings_price_colors"), valueDescription: L(choice.labelKey)) {
-                PriceArrowsView(choice: choice)
+            SettingsNavRow(title: L("settings_price_colors"), valueDescription: SettingsSummary.priceColorsText(settings)) {
+                PriceArrowsView(scheme: settings.priceColorScheme, inverted: settings.priceColorsInverted)
             } destination: {
                 PriceColorsSettingsPage()
             }

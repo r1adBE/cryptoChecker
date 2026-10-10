@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Aktivitet i pazakontë në listë</string>
     <string name="settings_watchlist_activity_card_hint">Shfaq çipin ⚡ pranë grupeve: prekeni për të parë vetëm çiftet ku po ndodh diçka tani. Njoftimet caktohen te Njoftime tregu.</string>
     <string name="settings_row_about">Rreth aplikacionit</string>
-    <string name="price_colors_green_up">E gjelbër rritet / e kuqe bie</string>
-    <string name="price_colors_red_up">E kuqe rritet / e gjelbër bie</string>
-    <string name="price_colors_blue_up">Blu rritet / portokalli bie</string>
-    <string name="price_colors_orange_up">Portokalli rritet / blu bie</string>
     <string name="price_colors_red_up_hint">E zakonshme në Kinë, Japoni, Kore dhe Tajvan</string>
 </resources>

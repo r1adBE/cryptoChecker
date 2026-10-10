@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Ασυνήθιστη δραστηριότητα στη λίστα</string>
     <string name="settings_watchlist_activity_card_hint">Εμφανίζει το ⚡ δίπλα στις ομάδες: πατήστε το για να δείτε μόνο τα ζεύγη όπου κάτι συμβαίνει τώρα. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς».</string>
     <string name="settings_row_about">Σχετικά με την εφαρμογή</string>
-    <string name="price_colors_green_up">Πράσινο ανεβαίνει / κόκκινο πέφτει</string>
-    <string name="price_colors_red_up">Κόκκινο ανεβαίνει / πράσινο πέφτει</string>
-    <string name="price_colors_blue_up">Μπλε ανεβαίνει / πορτοκαλί πέφτει</string>
-    <string name="price_colors_orange_up">Πορτοκαλί ανεβαίνει / μπλε πέφτει</string>
     <string name="price_colors_red_up_hint">Σύνηθες σε Κίνα, Ιαπωνία, Κορέα και Ταϊβάν</string>
 </resources>

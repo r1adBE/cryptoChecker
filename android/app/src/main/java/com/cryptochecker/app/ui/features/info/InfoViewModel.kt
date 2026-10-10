@@ -51,8 +51,6 @@ import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
-import com.cryptochecker.app.domain.market.MarketSection
-import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.app.domain.market.BitcoinCycle
@@ -459,17 +457,7 @@ class InfoViewModel @Inject constructor(
     /** Bereiche, deren Zwischenspeicher schon gelesen ist (gezeigt oder Ladezustand). */
     private val cacheChecked = MutableStateFlow<Set<CycleSource>>(emptySet())
 
-    // ---- Abschnitte «Einordnung» und «Daten» auf-/zugeklappt ([MarketSections])
-    private val _sectionChoice = MutableStateFlow<Map<MarketSection, Boolean>>(emptyMap())
-
-    /** In dieser App-Sitzung gewählter Zustand je Abschnitt (fehlt = nie getippt). */
-    val sectionChoice: StateFlow<Map<MarketSection, Boolean>> = _sectionChoice.asStateFlow()
-
-    /** Abschnitt auf- oder zugeklappt; gilt für den Rest der App-Sitzung. */
-    fun setSectionExpanded(section: MarketSection, expanded: Boolean) {
-        if (!section.collapsible) return
-        _sectionChoice.update { it + (section to expanded) }
-    }
+    // Gewähltes Register des Tabs: [MarketRegister] (gilt für die App-Sitzung)
 
     private val _reveal = MutableStateFlow(MarketReveal.State())
 

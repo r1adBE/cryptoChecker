@@ -28,6 +28,9 @@ final class AppRouter: ObservableObject {
     @Published var explorerSearch: String?
     /// «Warum?» aus einer Alarm-Mitteilung: «Warum bewegt sich das?» dieses Paars öffnen.
     @Published var openWhyWatchId: Int64?
+    /// Sprung an eine Stelle des Markt-Tabs (Mitteilung «Wirtschaftstermine»); `CycleScreen`
+    /// wählt das Register, scrollt hin und löscht ihn.
+    @Published var marketJump: MarketJump?
 
     /// Seite «Paar hinzufügen» über der Merkliste öffnen; zurück führt zur Merkliste.
     func openExplorer() {
@@ -35,11 +38,16 @@ final class AppRouter: ObservableObject {
         showExplorer = true
     }
 
-    /// Ziel aus einem Shortcut oder Link: "add", "alarms", "cycle", "portfolio", "watch/<id>", "why/<id>".
+    /// Ziel aus einem Shortcut oder Link: "add", "alarms", "cycle", "cycle/macro", "portfolio",
+    /// "watch/<id>", "why/<id>".
     func open(_ target: String) {
         switch target {
         case "add": openExplorer()
         case "cycle": tab = .cycle
+        case "cycle/macro":
+            // Mitteilung «Wirtschaftstermine»: Markt-Tab, Register mit dem Hinweis (dort gescrollt)
+            marketJump = .macro
+            tab = .cycle
         case "portfolio":
             // Portfolio-Widget: zum Portfolio-Tab, sofern eingeschaltet
             tab = AppData.shared.settings.portfolioEnabled ? .portfolio : .watchlist

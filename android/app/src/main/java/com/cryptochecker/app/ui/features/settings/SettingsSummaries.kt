@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.PriceColorChoice
+import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.settings.SettingsSummary
 
 /** «Ein» / «Aus» als Kurzwert. */
@@ -85,11 +85,17 @@ internal fun portfolioSummary(settings: AppSettings): String =
         SettingsSummary.Portfolio.LOCKED -> stringResource(R.string.settings_portfolio_value_locked)
     }
 
-/** Name einer Wahl auf der Seite «Kursfarben». */
+/** Name eines Stils auf der Seite «Kursfarben» — wie iOS `PriceColorScheme.labelKey`. */
 @androidx.annotation.StringRes
-internal fun priceColorChoiceLabel(choice: PriceColorChoice): Int = when (choice) {
-    PriceColorChoice.GREEN_UP -> R.string.price_colors_green_up
-    PriceColorChoice.RED_UP -> R.string.price_colors_red_up
-    PriceColorChoice.BLUE_UP -> R.string.price_colors_blue_up
-    PriceColorChoice.ORANGE_UP -> R.string.price_colors_orange_up
+internal fun priceColorSchemeLabel(scheme: PriceColorScheme): Int = when (scheme) {
+    PriceColorScheme.GREEN_RED -> R.string.price_style_fresh
+    PriceColorScheme.TRADITIONAL -> R.string.price_style_traditional
+    PriceColorScheme.BLUE_ORANGE -> R.string.price_style_color_vision
+}
+
+/** Wert der Zeile «Kursfarben»: Stil, getauscht mit «· Farben tauschen» (Screenreader). */
+@Composable
+internal fun priceColorsSummary(settings: AppSettings): String {
+    val name = stringResource(priceColorSchemeLabel(settings.priceColorScheme))
+    return if (settings.priceColorsInverted) name + " · " + stringResource(R.string.price_colors_swap) else name
 }

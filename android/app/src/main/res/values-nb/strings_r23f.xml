@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">Uvanlig aktivitet i listen</string>
     <string name="settings_watchlist_activity_card_hint">Viser brikken ⚡ ved gruppene: trykk for å se bare parene der det skjer noe akkurat nå. Varsler stilles inn under Markedsvarsler.</string>
     <string name="settings_row_about">Om appen</string>
-    <string name="price_colors_green_up">Grønn stiger / rød faller</string>
-    <string name="price_colors_red_up">Rød stiger / grønn faller</string>
-    <string name="price_colors_blue_up">Blå stiger / oransje faller</string>
-    <string name="price_colors_orange_up">Oransje stiger / blå faller</string>
     <string name="price_colors_red_up_hint">Vanlig i Kina, Japan, Korea og Taiwan</string>
 </resources>

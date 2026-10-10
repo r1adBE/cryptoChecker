@@ -71,6 +71,15 @@
   text/icon (★ and ⚡ white until selected). In the rows the ⚡ and the favorite
   star are accent-coloured, and the ⚡ in settings hints is an accent symbol instead
   of a yellow emoji.
+* Price colours as three styles with a candle preview: «Fresh» (green/red),
+  «Traditional» (olive/magenta, new) and «Color vision deficiency» (blue/orange);
+  switches for swapping rise/fall and high contrast below the cards.
+* Portfolio value history: «CHF | USDT | Compare» – compare shows both curves in
+  % from the start of the range and the currency effect («Currency effect:
+  −5.10%»), only when a non-USD currency is chosen and the daily rates loaded.
+* Market tab: registers «Now | Context | Data» at the top instead of fold-out
+  sections (swipe to switch); a macro event within ±2 h appears at the top of
+  «Now»; the macro notification opens the Market tab at the economic data.
 * Alarms: «x % in y hours» now uses a sliding window and also fires with rare
   background runs; no more duplicate «new 30-day high» on the same day; a one-time
   alarm is not used up while notifications are blocked; edits made during a

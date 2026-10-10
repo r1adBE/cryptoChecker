@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">Свежий</string>
+    <string name="price_style_traditional">Традиционный</string>
+    <string name="price_style_color_vision">Нарушение цветовосприятия</string>
+    <string name="price_colors_swap">Поменять цвета (рост ↔ падение)</string>
+</resources>

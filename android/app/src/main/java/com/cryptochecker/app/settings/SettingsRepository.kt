@@ -16,6 +16,7 @@ import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -108,6 +109,7 @@ class SettingsRepository @Inject constructor(
         val sheetChartLine = booleanPreferencesKey("sheet_chart_line")
         val portfolioHistoryExpanded = booleanPreferencesKey("portfolio_history_expanded")
         val portfolioHistoryRange = stringPreferencesKey("portfolio_history_range")
+        val portfolioHistoryView = stringPreferencesKey("portfolio_history_view")
         val marketTabSeen = booleanPreferencesKey("market_tab_seen")
     }
 
@@ -190,6 +192,7 @@ class SettingsRepository @Inject constructor(
             sheetChartLine = prefs[Keys.sheetChartLine] ?: defaults.sheetChartLine,
             portfolioHistoryExpanded = prefs[Keys.portfolioHistoryExpanded] ?: defaults.portfolioHistoryExpanded,
             portfolioHistoryRange = PortfolioHistoryRange.fromName(prefs[Keys.portfolioHistoryRange]),
+            portfolioHistoryView = PortfolioHistoryView.fromName(prefs[Keys.portfolioHistoryView]),
             marketTabSeen = prefs[Keys.marketTabSeen] ?: defaults.marketTabSeen,
         ).also { cached = it }
     }
@@ -396,6 +399,9 @@ class SettingsRepository @Inject constructor(
 
     /** Zeitraum des Wertverlaufs (nicht in der Sicherung). */
     suspend fun setPortfolioHistoryRange(range: PortfolioHistoryRange) = edit { it[Keys.portfolioHistoryRange] = range.name }
+
+    /** Darstellung des Wertverlaufs: Währung, USDT oder Vergleich (nicht in der Sicherung). */
+    suspend fun setPortfolioHistoryView(view: PortfolioHistoryView) = edit { it[Keys.portfolioHistoryView] = view.name }
 
     /** Markt-Tab einmal gesehen — «Einordnung» und «Daten» beginnen danach zugeklappt (nicht in der Sicherung). */
     suspend fun setMarketTabSeen(seen: Boolean) = edit { it[Keys.marketTabSeen] = seen }

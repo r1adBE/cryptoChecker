@@ -326,24 +326,28 @@ enum AssetColors {
 /// steigend wie in China, Japan, Korea, Taiwan). Nur die Farben tauschen — Vorzeichen,
 /// Pfeile und VoiceOver-Wörter bleiben.
 enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
-    case GREEN_RED, BLUE_ORANGE
+    /// Reihenfolge = Reihenfolge der Karten in «Kursfarben» (Frisch, Traditionell,
+    /// Farbsehschwäche); gespeichert wird der Name, nie die Position.
+    case GREEN_RED, TRADITIONAL, BLUE_ORANGE
 
     static let `default`: PriceColorScheme = .GREEN_RED
 
     var id: String { rawValue }
 
-    /// Grün bzw. Blau (ohne Tausch). Im Dunkeln hellere, im Hellen dunklere Fassungen.
+    /// Grün, Olivgrün bzw. Blau (ohne Tausch). Im Dunkeln hellere, im Hellen dunklere Fassungen.
     private func riseHex(dark: Bool, highContrast: Bool) -> UInt32 {
         switch self {
         case .GREEN_RED: highContrast ? (dark ? 0x7CF2B8 : 0x004A27) : (dark ? 0x3DD68C : 0x0A6D3E)
+        case .TRADITIONAL: highContrast ? (dark ? 0xB9DA6A : 0x334509) : (dark ? 0x8FB532 : 0x4A6410)
         case .BLUE_ORANGE: highContrast ? (dark ? 0xA6D4FF : 0x093D83) : (dark ? 0x64B5F6 : 0x1460AB)
         }
     }
 
-    /// Rot bzw. Orange (ohne Tausch).
+    /// Rot, Himbeer bzw. Orange (ohne Tausch).
     private func fallHex(dark: Bool, highContrast: Bool) -> UInt32 {
         switch self {
         case .GREEN_RED: highContrast ? (dark ? 0xFFB0B0 : 0x800B0B) : (dark ? 0xFF6B6B : 0xB22727)
+        case .TRADITIONAL: highContrast ? (dark ? 0xFFB8CE : 0x7A0F38) : (dark ? 0xFF6A96 : 0xAA1850)
         case .BLUE_ORANGE: highContrast ? (dark ? 0xFFC685 : 0x6C2E00) : (dark ? 0xFFA040 : 0x9F4300)
         }
     }

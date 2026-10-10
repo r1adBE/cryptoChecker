@@ -1,38 +1,58 @@
 package com.cryptochecker.app.domain.market
 
+import kotlin.math.abs
+
 /**
- * Die drei Abschnitte des Markt-Tabs. «Jetzt» ([NOW]) bleibt immer offen; «Einordnung»
- * ([CONTEXT]) und «Daten» ([DATA]) lassen sich zuklappen. Wie `MarketSection` (iOS).
+ * Die drei Register des Markt-Tabs: «Jetzt» ([NOW]), «Einordnung» ([CONTEXT]), «Daten» ([DATA]).
+ * Immer ist genau eines sichtbar (nichts mehr zum Auf-/Zuklappen). Wie `MarketSection` (iOS).
  */
 enum class MarketSection {
     NOW,
     CONTEXT,
-    DATA;
-
-    /** Lässt sich zuklappen (alles ausser «Jetzt»). */
-    val collapsible: Boolean get() = this != NOW
+    DATA,
 }
 
 /**
- * Auf- und Zuklappen der Abschnitte im Markt-Tab (reines Kotlin, testbar):
- * «Einordnung» und «Daten» beginnen immer zugeklappt, auch beim allerersten Besuch — oben
- * steht nur «Jetzt», darunter je eine Überschrift mit kurzer Zusammenfassung. Fachbegriffe
- * erscheinen erst, wenn der Nutzer aufklappt. Was er in dieser App-Sitzung gewählt hat, gilt
- * beim erneuten Öffnen weiter. Wie `MarketSections` (iOS).
+ * Register im Markt-Tab (reines Kotlin, testbar): welcher Teil ([MarketRevealSlot]) in welchem
+ * Register steht, wann unter einem Register noch die Ladezeile steht, wohin Wischen führt und in
+ * welchem Register der Wirtschaftsdaten-Hinweis liegt. Das gewählte Register gilt für die
+ * App-Sitzung (wie früher das Auf-/Zuklappen; nicht gespeichert, beim Start immer «Jetzt»).
+ * Wie `MarketSections` (iOS).
  */
 object MarketSections {
-    /** Trenner zwischen den Teilen einer Zusammenfassung («Gier 72 · Neutral»). */
-    const val SUMMARY_SEPARATOR = " · "
+    /** Beim Start der App: «Jetzt». */
+    val DEFAULT: MarketSection = MarketSection.NOW
+
+    /** Register, in dem ein Teil steht (die früheren Überschriften-Teile zählen zu ihrem Register). */
+    fun of(slot: MarketRevealSlot): MarketSection = when (slot) {
+        MarketRevealSlot.PULSE, MarketRevealSlot.UNUSUAL -> MarketSection.NOW
+        MarketRevealSlot.HEADER_CONTEXT, MarketRevealSlot.FEAR_GREED, MarketRevealSlot.PHASE,
+        MarketRevealSlot.DOMINANCE, MarketRevealSlot.HALVING -> MarketSection.CONTEXT
+        MarketRevealSlot.HEADER_DATA, MarketRevealSlot.MARKET_TOTALS, MarketRevealSlot.GAS,
+        MarketRevealSlot.COIN -> MarketSection.DATA
+    }
+
+    /** Letzter Teil eines Registers (Reihenfolge [MarketRevealSlot]). */
+    fun lastSlot(section: MarketSection): MarketRevealSlot =
+        MarketRevealSlot.entries.last { of(it) == section }
+
+    /** Ob unter dem Register noch die Ladezeile steht: sein letzter Teil ist noch nicht erschienen. */
+    fun loading(section: MarketSection, revealed: Int): Boolean = revealed <= lastSlot(section).ordinal
+
+    /** Nachbar-Register; am Rand null (kein Umlauf). */
+    fun neighbor(section: MarketSection, forward: Boolean): MarketSection? =
+        MarketSection.entries.getOrNull(section.ordinal + if (forward) 1 else -1)
 
     /**
-     * Ob ein Abschnitt offen ist.
-     *
-     * @param sessionChoice zuletzt in dieser App-Sitzung gewählter Zustand; null = nie getippt (zu)
+     * Ziel beim waagrechten Wischen über [dx] (Pixel, nach rechts positiv): nach links wischen
+     * führt zum nächsten Register, nach rechts zum vorigen — bei Rechts-nach-links ([rtl])
+     * umgekehrt (die Register stehen dann gespiegelt). Kürzer als [threshold] oder am Rand: null.
      */
-    fun expanded(section: MarketSection, sessionChoice: Boolean?): Boolean =
-        !section.collapsible || (sessionChoice ?: false)
+    fun swipeTarget(section: MarketSection, dx: Float, threshold: Float, rtl: Boolean): MarketSection? {
+        if (abs(dx) < threshold) return null
+        return neighbor(section, forward = (dx < 0f) != rtl)
+    }
 
-    /** Zusammenfassung für eine zugeklappte Überschrift: vorhandene, nicht leere Teile mit « · ». */
-    fun summary(parts: List<String?>): String =
-        parts.filterNotNull().map { it.trim() }.filter { it.isNotEmpty() }.joinToString(SUMMARY_SEPARATOR)
+    /** Register mit dem Wirtschaftsdaten-Hinweis: «Jetzt» bei einem Termin in ±2 h, sonst «Daten». */
+    fun macroSection(imminent: Boolean): MarketSection = if (imminent) MarketSection.NOW else MarketSection.DATA
 }

@@ -124,6 +124,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     var portfolioHistoryExpanded: Bool = false
     /// Zuletzt gewählter Zeitraum des Wertverlaufs, wie Android; nicht in der Sicherung.
     var portfolioHistoryRange: PortfolioHistoryRange = .month
+    /// Darstellung des Wertverlaufs bei einer Umrechnungswährung («CHF | USDT | Vergleich», Standard
+    /// in der Währung), wie Android; nicht in der Sicherung.
+    var portfolioHistoryView: PortfolioHistoryView = .currency
     /// Der Markt-Tab wurde schon einmal gesehen (mindestens 3 s sichtbar): «Einordnung» und
     /// «Daten» beginnen danach zugeklappt. Gleicher Schlüssel wie Android; nicht in der Sicherung.
     var marketTabSeen: Bool = false
@@ -216,6 +219,9 @@ struct AppSettings: Codable, Equatable, Sendable {
         // Unbekannter Zeitraum (neuere Version): Standard 30 Tage
         portfolioHistoryRange = (try? c.decodeIfPresent(PortfolioHistoryRange.self, forKey: .portfolioHistoryRange))
             ?? d.portfolioHistoryRange
+        // Unbekannte Darstellung (neuere Version): in der Währung
+        portfolioHistoryView = (try? c.decodeIfPresent(PortfolioHistoryView.self, forKey: .portfolioHistoryView))
+            ?? d.portfolioHistoryView
         marketTabSeen = (try? c.decodeIfPresent(Bool.self, forKey: .marketTabSeen)) ?? d.marketTabSeen
     }
 }

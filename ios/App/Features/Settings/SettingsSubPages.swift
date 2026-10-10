@@ -116,6 +116,12 @@ enum SettingsSummary {
         return parts.isEmpty ? L("option_off") : parts.joined(separator: " · ")
     }
 
+    /// Wert der Zeile «Kursfarben»: Stil, getauscht mit «· Farben tauschen» — wie Android `priceColorsSummary`.
+    static func priceColorsText(_ s: AppSettings) -> String {
+        let name = L(s.priceColorScheme.labelKey)
+        return s.priceColorsInverted ? name + " · " + L("price_colors_swap") : name
+    }
+
     /// «System», «Hell» oder «Dunkel», bei hohem Kontrast mit Zusatz.
     static func displayModeText(_ s: AppSettings) -> String {
         let mode = L(themeModeKey(s.darkMode))
@@ -142,47 +148,30 @@ enum SettingsSummary {
     static func onOff(_ on: Bool) -> String { L(on ? "settings_summary_on" : "option_off") }
 }
 
-/// Runde 23f: die vier Wahlmöglichkeiten der Seite «Kursfarben» — wie `PriceColorChoice.kt`
-/// (mit Unit-Tests). Gespeichert bleiben Schema + «getauscht»; Pfeile und Vorzeichen bleiben
-/// richtungsgebunden (▲ = steigend), nur die Farben wechseln.
-enum PriceColorChoice: CaseIterable, Identifiable {
-    case GREEN_UP, RED_UP, BLUE_UP, ORANGE_UP
-
-    var id: Self { self }
-
-    var scheme: PriceColorScheme {
-        switch self {
-        case .GREEN_UP, .RED_UP: return .GREEN_RED
-        case .BLUE_UP, .ORANGE_UP: return .BLUE_ORANGE
-        }
-    }
-
-    var inverted: Bool { self == .RED_UP || self == .ORANGE_UP }
-
-    static func of(scheme: PriceColorScheme, inverted: Bool) -> PriceColorChoice {
-        allCases.first { $0.scheme == scheme && $0.inverted == inverted } ?? .GREEN_UP
-    }
-
+/// Name eines Stils auf der Seite «Kursfarben» («Frisch», «Traditionell», «Farbsehschwäche») —
+/// wie Android `priceColorSchemeLabel`.
+extension PriceColorScheme {
     var labelKey: String {
         switch self {
-        case .GREEN_UP: return "price_colors_green_up"
-        case .RED_UP: return "price_colors_red_up"
-        case .BLUE_UP: return "price_colors_blue_up"
-        case .ORANGE_UP: return "price_colors_orange_up"
+        case .GREEN_RED: return "price_style_fresh"
+        case .TRADITIONAL: return "price_style_traditional"
+        case .BLUE_ORANGE: return "price_style_color_vision"
         }
     }
 }
 
-/// «▲▼» in den Farben einer Wahl; für VoiceOver verborgen (den Namen trägt die Zeile).
+/// «▲▼» in den Farben eines Stils (getauscht: `inverted`); für VoiceOver verborgen (den Namen
+/// trägt die Zeile). Pfeile bleiben richtungsgebunden (▲ = steigend), nur die Farben wechseln.
 @MainActor
 struct PriceArrowsView: View {
-    let choice: PriceColorChoice
+    let scheme: PriceColorScheme
+    let inverted: Bool
     @Environment(\.priceHighContrast) private var highContrast
 
     var body: some View {
         HStack(spacing: 0) {
-            Text("▲").foregroundStyle(choice.scheme.up(highContrast: highContrast, inverted: choice.inverted))
-            Text("▼").foregroundStyle(choice.scheme.down(highContrast: highContrast, inverted: choice.inverted))
+            Text("▲").foregroundStyle(scheme.up(highContrast: highContrast, inverted: inverted))
+            Text("▼").foregroundStyle(scheme.down(highContrast: highContrast, inverted: inverted))
         }
         .font(.body.weight(.bold))
         .accessibilityHidden(true)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">프레시</string>
+    <string name="price_style_traditional">전통</string>
+    <string name="price_style_color_vision">색각 이상</string>
+    <string name="price_colors_swap">색상 바꾸기 (상승 ↔ 하락)</string>
+</resources>

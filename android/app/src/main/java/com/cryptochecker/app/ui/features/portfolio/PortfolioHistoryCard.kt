@@ -3,9 +3,11 @@ package com.cryptochecker.app.ui.features.portfolio
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,17 +18,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
@@ -42,8 +54,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.portfolio.PortfolioCompare
+import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
@@ -92,6 +107,12 @@ private fun signedValue(value: Double, unit: String): String {
     return sign + PriceFormat.valueWithCurrency(abs(value), unit)
 }
 
+/** In USDT: derselbe Verlauf unumgerechnet (Umschalter, Vergleich und Hinweise bleiben). */
+private fun PortfolioHistoryUi.forView(view: PortfolioHistoryView): PortfolioHistoryUi {
+    val usdt = usdtSeries
+    return if (view == PortfolioHistoryView.USDT && usdt != null) copy(series = usdt, unit = PortfolioFormat.USDT) else this
+}
+
 /** Mittag des Tags (lokal) in ms — für die Datumsbeschriftung. */
 internal fun dayMillis(epochDay: Long): Long =
     LocalDate.ofEpochDay(epochDay).atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
@@ -102,7 +123,9 @@ internal fun dayMillis(epochDay: Long): Long =
  * solange geladen wird). Tipp auf die Zeile klappt auf: Zeitraum-Chips (7 T / 30 T / 1 J / Seit 1.
  * Kauf), Änderung als Betrag und Prozent, Linie mit Fläche und Hinweise (umgerechnet, Coins ohne
  * Tageskurse, Käufe/Verkäufe im Zeitraum, auf 5 Jahre begrenzt). [history] null = lädt.
- * Ohne Bewegung gezeichnet (kein Aufdecken).
+ * Bei einer Umrechnungswährung mit Devisen-Tageskursen zusätzlich der Umschalter
+ * «CHF | USDT | Vergleich» ([view], gespeichert über [onView]); «Vergleich» zeigt beide Kurven in
+ * Prozent und den Währungseffekt. Ohne Bewegung gezeichnet (kein Aufdecken).
  */
 @Composable
 internal fun PortfolioHistoryCard(
@@ -111,9 +134,16 @@ internal fun PortfolioHistoryCard(
     onRange: (PortfolioHistoryRange) -> Unit,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
+    view: PortfolioHistoryView = PortfolioHistoryView.CURRENCY,
+    onView: (PortfolioHistoryView) -> Unit = {},
 ) {
+    // Darstellung, die für diesen Verlauf gilt: USDT und Vergleich nur mit Devisen-Tageskursen
+    // (Vergleich zusätzlich mit Ausgangswert), sonst in der Währung wie bisher
+    val shownView = history?.let { PortfolioCompare.effectiveView(view, it.usdtSeries != null, it.compare != null) }
+        ?: PortfolioHistoryView.CURRENCY
+    val shown = history?.forView(shownView)
     // Ein Verlauf eines anderen Zeitraums (gerade gewechselt) zählt wie «lädt»
-    val current = history?.takeIf { it.range == range }
+    val current = shown?.takeIf { it.range == range }
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
@@ -144,8 +174,17 @@ internal fun PortfolioHistoryCard(
                     }
                 }
 
+                // «CHF | USDT | Vergleich» nur bei einer Umrechnungswährung mit Tageskursen
+                if (history?.usdtSeries != null) {
+                    HistoryViewSwitch(
+                        currency = history.unit,
+                        selected = shownView,
+                        compareAvailable = history.compare != null,
+                        onView = onView
+                    )
+                }
                 // Beim Wechsel des Zeitraums bleibt der bisherige Verlauf stehen, bis der neue gerechnet ist
-                if (history == null) HistorySkeleton() else HistoryContent(history)
+                if (shown == null) HistorySkeleton() else HistoryContent(shown, shownView)
                 Spacer(Modifier.height(8.dp))
             }
         }
@@ -264,9 +303,8 @@ private fun changeSentence(history: PortfolioHistoryUi): String? {
 }
 
 @Composable
-private fun HistoryContent(history: PortfolioHistoryUi) {
+private fun HistoryContent(history: PortfolioHistoryUi, view: PortfolioHistoryView) {
     val series = history.series
-    val context = LocalContext.current
     val period = stringResource(history.range.longRes)
     if (series.hasChart) {
         val change = series.change ?: 0.0
@@ -298,43 +336,11 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
             }
         }
 
-        val values = series.points.map { it.value }
-        val hiddenSpoken = spokenAmount(PortfolioInsights.HIDDEN)
-        val hidden = LocalHidePortfolioAmounts.current
-        val chartSentence = A11yText.chart(context, period, values) {
-            if (hidden) hiddenSpoken else PriceFormat.valueWithCurrency(it, history.unit)
-        }
-        HistoryChart(
-            points = series.points,
-            unit = history.unit,
-            change = change,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(140.dp)
-                .padding(top = Spacing.sm)
-                .clearAndSetSemantics { contentDescription = chartSentence }
-        )
-        // Beginn und Ende der Achse (für Screenreader im Chart-Satz enthalten).
-        // Wie der Chart darüber: Beginn links, «heute» rechts — auch bei Rechts-nach-links-Sprachen
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 4.dp)
-                    .clearAndSetSemantics { }
-            ) {
-                Text(
-                    PortfolioFormat.date(dayMillis(series.points.first().epochDay)),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.weight(1f))
-                Text(
-                    stringResource(R.string.portfolio_history_today),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
+        val compare = history.compare
+        if (view == PortfolioHistoryView.COMPARE && compare != null) {
+            CompareChart(history, compare, period)
+        } else {
+            SingleChart(history, change, period)
         }
     } else {
         PortfolioHint(
@@ -358,6 +364,182 @@ private fun HistoryContent(history: PortfolioHistoryUi) {
     }
     if (series.capped) {
         HistoryCaption(stringResource(R.string.portfolio_history_capped))
+    }
+}
+
+/** Eine Linie in [PortfolioHistoryUi.unit] mit Achse darunter (Währung oder USDT). */
+@Composable
+private fun SingleChart(history: PortfolioHistoryUi, change: Double, period: String) {
+    val series = history.series
+    val context = LocalContext.current
+    val values = series.points.map { it.value }
+    val hiddenSpoken = spokenAmount(PortfolioInsights.HIDDEN)
+    val hidden = LocalHidePortfolioAmounts.current
+    val chartSentence = A11yText.chart(context, period, values) {
+        if (hidden) hiddenSpoken else PriceFormat.valueWithCurrency(it, history.unit)
+    }
+    HistoryChart(
+        points = series.points,
+        unit = history.unit,
+        change = change,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(140.dp)
+            .padding(top = Spacing.sm)
+            .clearAndSetSemantics { contentDescription = chartSentence }
+    )
+    // Beginn und Ende der Achse (für Screenreader im Chart-Satz enthalten).
+    // Wie der Chart darüber: Beginn links, «heute» rechts — auch bei Rechts-nach-links-Sprachen
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
+                .clearAndSetSemantics { }
+        ) {
+            Text(
+                PortfolioFormat.date(dayMillis(series.points.first().epochDay)),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(Modifier.weight(1f))
+            Text(
+                stringResource(R.string.portfolio_history_today),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+/**
+ * Umschalter «CHF | USDT | Vergleich» ([compareAvailable] false: ohne «Vergleich»).
+ * Screenreader: Optionsfelder mit Auswahl-Zustand («Wert in CHF», «Vergleich CHF und USDT in Prozent»).
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun HistoryViewSwitch(
+    currency: String,
+    selected: PortfolioHistoryView,
+    compareAvailable: Boolean,
+    onView: (PortfolioHistoryView) -> Unit,
+) {
+    val options = if (compareAvailable) {
+        PortfolioHistoryView.entries
+    } else {
+        listOf(PortfolioHistoryView.CURRENCY, PortfolioHistoryView.USDT)
+    }
+    SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)) {
+        options.forEachIndexed { index, option ->
+            val label = when (option) {
+                PortfolioHistoryView.CURRENCY -> currency
+                PortfolioHistoryView.USDT -> PortfolioFormat.USDT
+                PortfolioHistoryView.COMPARE -> stringResource(R.string.portfolio_compare)
+            }
+            val spoken = when (option) {
+                PortfolioHistoryView.CURRENCY -> stringResource(R.string.portfolio_history_in_a11y, currency)
+                PortfolioHistoryView.USDT -> stringResource(R.string.portfolio_history_in_a11y, PortfolioFormat.USDT)
+                PortfolioHistoryView.COMPARE -> stringResource(R.string.portfolio_compare_a11y, currency)
+            }
+            SegmentedButton(
+                selected = option == selected,
+                onClick = { onView(option) },
+                shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                icon = {}
+            ) {
+                Text(
+                    label,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.semantics { contentDescription = spoken }
+                )
+            }
+        }
+    }
+}
+
+/**
+ * «Vergleich»: Legende, beide Kurven in Prozent seit dem Ausgangspunkt, Achse und darunter
+ * «Währungseffekt: −5.10%» — am letzten Tag bzw. am gezogenen Tag (dann mit beiden Werten).
+ * Screenreader: ein Chart-Satz mit beiden Prozenten und dem Währungseffekt.
+ */
+@Composable
+private fun CompareChart(history: PortfolioHistoryUi, compare: PortfolioCompareSeries, period: String) {
+    val context = LocalContext.current
+    val currency = history.unit
+    var scrub by remember(compare) { mutableStateOf<Int?>(null) }
+    val color = plColor(compare.currency.last())
+    val grey = MaterialTheme.colorScheme.onSurfaceVariant
+    val effectText = stringResource(R.string.portfolio_currency_effect, PortfolioFormat.signedPercent(compare.effect))
+    val chartSentence = stringResource(
+        R.string.portfolio_compare_chart_a11y,
+        period,
+        currency,
+        A11yText.change(context, compare.currency.last()),
+        A11yText.change(context, compare.usdt.last()),
+    ) + ". " + effectText
+
+    CompareLegend(currency, color, grey)
+    HistoryCompareChart(
+        compare = compare,
+        currency = currency,
+        color = color,
+        scrub = scrub,
+        onScrub = { scrub = it },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(140.dp)
+            .padding(top = Spacing.xs)
+            .clearAndSetSemantics { contentDescription = chartSentence }
+    )
+    // Beginn (Ausgangspunkt) und Ende der Achse; wie der Chart immer von links nach rechts
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
+                .clearAndSetSemantics { }
+        ) {
+            Text(
+                PortfolioFormat.date(dayMillis(compare.epochDays.first())),
+                style = MaterialTheme.typography.labelSmall,
+                color = grey
+            )
+            Spacer(Modifier.weight(1f))
+            Text(
+                stringResource(R.string.portfolio_history_today),
+                style = MaterialTheme.typography.labelSmall,
+                color = grey
+            )
+        }
+    }
+    // Währungseffekt am letzten bzw. gezogenen Tag (Prozent in der Währung minus Prozent in USDT)
+    val index = scrub?.takeIf { it in 0..compare.lastIndex } ?: compare.lastIndex
+    val effect = compare.effectAt(index) ?: compare.effect
+    Text(
+        stringResource(R.string.portfolio_currency_effect, PortfolioFormat.signedPercent(effect)),
+        style = MaterialTheme.typography.labelLarge.amountNumbers(),
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onSurface,
+        modifier = Modifier.padding(top = Spacing.xs)
+    )
+}
+
+/** Legende «▬ CHF  ▬ USDT» (Strichstärke wie im Chart); für Screenreader im Chart-Satz enthalten. */
+@Composable
+private fun CompareLegend(currency: String, color: Color, grey: Color) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier
+            .padding(top = Spacing.sm)
+            .clearAndSetSemantics { }
+    ) {
+        Box(Modifier.size(width = 14.dp, height = 3.dp).background(color, CircleShape))
+        Text(currency, style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, color = grey)
+        Spacer(Modifier.width(6.dp))
+        Box(Modifier.size(width = 14.dp, height = 1.5.dp).background(grey, CircleShape))
+        Text(PortfolioFormat.USDT, style = MaterialTheme.typography.labelSmall, color = grey)
     }
 }
 

@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">在列表中显示异常活动</string>
     <string name="settings_watchlist_activity_card_hint">在分组旁显示 ⚡ 标签：点按即可只查看此刻正有异动的交易对。通知在“市场通知”中设置。</string>
     <string name="settings_row_about">关于应用</string>
-    <string name="price_colors_green_up">绿涨 / 红跌</string>
-    <string name="price_colors_red_up">红涨 / 绿跌</string>
-    <string name="price_colors_blue_up">蓝涨 / 橙跌</string>
-    <string name="price_colors_orange_up">橙涨 / 蓝跌</string>
     <string name="price_colors_red_up_hint">中国、日本、韩国和台湾的惯例</string>
 </resources>

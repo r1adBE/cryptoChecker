@@ -389,7 +389,7 @@ class AppNotifier @Inject constructor(
     // ---------------- Gas ----------------
 
     /** Netzwerkgebühr ist unter die eingestellte Grenze gefallen (#167). */
-    fun showGas(id: Int, title: String, text: String) {
+    fun showGas(id: Int, title: String, text: String, openTarget: String? = null) {
         val quiet = isQuietNow()
         val notification = NotificationCompat.Builder(context, marketOrQuietChannel(quiet))
             .setSmallIcon(R.drawable.ic_stat_alarm)
@@ -400,7 +400,8 @@ class AppNotifier @Inject constructor(
             .setAutoCancel(true)
             .appBadge()
             .setSilent(quiet)
-            .setContentIntent(openAppIntent(null))
+            // Mit Ziel (z. B. «Wirtschaftstermine» → Markt-Tab), sonst einfach die App
+            .setContentIntent(openTarget?.let { openTargetIntent(it, TARGET_REQUEST_BASE + id) } ?: openAppIntent(null))
             .build()
         notify(id, notification)
     }
@@ -521,6 +522,9 @@ class AppNotifier @Inject constructor(
         /** Ziel des Portfolio-Alarms (wie das Portfolio-Widget). */
         private const val OPEN_PORTFOLIO = "portfolio"
         private const val PORTFOLIO_REQUEST_CODE = 400_000
+
+        /** Request-Code für [showGas] mit Ziel: Basis plus Mitteilungs-Nummer. */
+        private const val TARGET_REQUEST_BASE = 410_000
         private const val WHY_REQUEST_BASE = 500_000L
 
         fun portfolioAlarmNotificationId(alarmId: Long): Int = (400_000 + alarmId).toInt()

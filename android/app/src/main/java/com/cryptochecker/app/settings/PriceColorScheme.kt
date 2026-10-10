@@ -12,6 +12,9 @@ package com.cryptochecker.app.settings
  * allen hellen/dunklen Flächen und in der getönten Pille. Siehe PriceColorSchemeTest.
  *
  * `inverted` tauscht nur die Farben (Ostasien: Rot = steigend), nie Vorzeichen oder Wörter.
+ *
+ * Die Reihenfolge der Einträge ist die Reihenfolge der Karten in «Kursfarben»
+ * (Frisch, Traditionell, Farbsehschwäche); gespeichert wird der Name, nie die Position.
  */
 enum class PriceColorScheme(
     private val upLight: Int,
@@ -23,13 +26,19 @@ enum class PriceColorScheme(
     private val downLightHc: Int,
     private val downDarkHc: Int,
 ) {
-    /** Standard: Grün steigend, Rot fallend. */
+    /** Standard «Frisch»: Mintgrün steigend, Korallrot fallend. */
     GREEN_RED(
         0xFF0A6D3E.toInt(), 0xFF3DD68C.toInt(), 0xFFB22727.toInt(), 0xFFFF6B6B.toInt(),
         0xFF004A27.toInt(), 0xFF7CF2B8.toInt(), 0xFF800B0B.toInt(), 0xFFFFB0B0.toInt(),
     ),
 
-    /** Blau steigend, Orange fallend. */
+    /** «Traditionell»: Olivgrün steigend, Himbeer/Magenta fallend. */
+    TRADITIONAL(
+        0xFF4A6410.toInt(), 0xFF8FB532.toInt(), 0xFFAA1850.toInt(), 0xFFFF6A96.toInt(),
+        0xFF334509.toInt(), 0xFFB9DA6A.toInt(), 0xFF7A0F38.toInt(), 0xFFFFB8CE.toInt(),
+    ),
+
+    /** «Farbsehschwäche»: Blau steigend, Orange fallend. */
     BLUE_ORANGE(
         0xFF1460AB.toInt(), 0xFF64B5F6.toInt(), 0xFF9F4300.toInt(), 0xFFFFA040.toInt(),
         0xFF093D83.toInt(), 0xFFA6D4FF.toInt(), 0xFF6C2E00.toInt(), 0xFFFFC685.toInt(),

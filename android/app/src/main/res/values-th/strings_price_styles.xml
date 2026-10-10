@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">สดใส</string>
+    <string name="price_style_traditional">ดั้งเดิม</string>
+    <string name="price_style_color_vision">ภาวะบกพร่องในการมองเห็นสี</string>
+    <string name="price_colors_swap">สลับสี (ขึ้น ↔ ลง)</string>
+</resources>

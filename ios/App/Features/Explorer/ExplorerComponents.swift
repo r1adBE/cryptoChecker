@@ -505,28 +505,47 @@ struct ExplorerLogBox: View {
 
 /// Zwei Register über der Paar-Auswahl: «Paar wählen» | «Mehrere Paare auf einmal». Beide gleich
 /// breit und gleich hoch (der längere Text darf umbrechen, das andere Register wächst mit).
-/// Gewählt: graue Fläche mit Schrift in der Themenfarbe, wie die Gruppen-Chips.
-/// Wie `ExplorerModeTabs` (Android).
+/// Gewählt: graue Fläche mit Schrift in der Themenfarbe, wie die Gruppen-Chips — gemeinsam mit dem
+/// Markt-Tab (`RegisterTabs`). Wie `ExplorerModeTabs` (Android).
 struct ExplorerModeTabs: View {
     let bulk: Bool
     let onSelect: (Bool) -> Void
+
+    var body: some View {
+        RegisterTabs(titles: [L("explorer_step_pair"), L("explorer_bulk_title")],
+                     selected: bulk ? 1 : 0) { index in
+            onSelect(index == 1)
+        }
+    }
+}
+
+/// Register nebeneinander (`titles`, gewählt: `selected`): alle gleich breit und gleich hoch (ein
+/// längerer Text darf umbrechen, die anderen wachsen mit). Gewählt: graue Fläche mit Schrift in der
+/// Themenfarbe, wie die Gruppen-Chips. Für VoiceOver Tasten mit Zustand «ausgewählt».
+/// Genutzt von «Paar hinzufügen» und vom Markt-Tab («Jetzt» | «Einordnung» | «Daten»).
+/// Wie `RegisterTabs` (Android).
+struct RegisterTabs: View {
+    let titles: [String]
+    let selected: Int
+    let onSelect: (Int) -> Void
     @Environment(\.appAccent) private var accent
 
     var body: some View {
         HStack(spacing: 4) {
-            tab(L("explorer_step_pair"), isBulk: false)
-            tab(L("explorer_bulk_title"), isBulk: true)
+            ForEach(Array(titles.enumerated()), id: \.offset) { item in
+                tab(item.element, index: item.offset)
+            }
         }
-        // Gleich hoch: beide füllen die Höhe des höheren Registers
+        // Gleich hoch: alle füllen die Höhe des höchsten Registers
         .fixedSize(horizontal: false, vertical: true)
         .padding(4)
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         .padding(.bottom, 12)
     }
 
-    private func tab(_ title: String, isBulk: Bool) -> some View {
-        let selected = bulk == isBulk
-        return Button { onSelect(isBulk) } label: {
+    private func tab(_ title: String, index: Int) -> some View {
+        let selected = index == self.selected
+        return Button { onSelect(index) } label: {
             Text(title)
                 .font(.subheadline.weight(selected ? .semibold : .regular))
                 .multilineTextAlignment(.center)

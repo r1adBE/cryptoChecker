@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wertverlauf im Portfolio: Umschalter Währung | USDT | Vergleich, Währungseffekt -->
+    <string name="portfolio_compare">Porovnání</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Měnový efekt: %1$s</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Hodnota v %1$s</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Porovnat %1$s a USDT v procentech</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Porovnání v procentech, %1$s: %2$s %3$s, USDT %4$s</string>
+</resources>

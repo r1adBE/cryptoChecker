@@ -4,7 +4,8 @@ import SwiftUI
 /// Eigener Tab für die Marktphase. Jetzt (Karten): Crypto Pulse, «Heute auffällig»;
 /// Einordnung (Zeilen): Fear & Greed, Marktphase, Dominanz mit Altcoin-Saison, Halving;
 /// Daten (Zeilen): Krypto-Markt, Gas, Wirtschaftsdaten (ausser kurz vor/nach einem Termin,
-/// dann oben), Coin-Analyse.
+/// dann oben), Coin-Analyse. Die drei stehen als Register nebeneinander (`RegisterTabs`), immer
+/// eines sichtbar; Tippen oder waagrecht Wischen wechselt (gilt für die App-Sitzung).
 /// Nach unten ziehen lädt die Daten neu. Wie `MarketPhaseScreen.kt`.
 ///
 /// Enthält keinen `NavigationStack` — der Aufrufer bettet den Tab ein.
@@ -21,164 +22,33 @@ struct CycleScreen: View {
     @State private var showAbout = false
     /// Was beim ersten Anzeigen schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel).
     @State private var revealedOnEntry: Int
-    /// Beim Aufklappen schon erschienene Zeilen klappen nur auf (kein zweites Einblenden von unten).
-    @State private var contextInstant = 0
-    @State private var dataInstant = 0
+    /// Beim Wechsel des Registers schon erschienene Teile stehen sofort da (kein zweites Einblenden).
+    @State private var registerInstant: Int
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Ziele für `ScrollViewProxy.scrollTo`: oben (Status) bzw. Wirtschaftsdaten-Hinweis unter «Daten».
+    private static let topId = "market_top"
+    private static let macroId = "market_macro"
+    /// Mindestweg für einen Wechsel des Registers durch Wischen (wie Android 56 dp).
+    private static let swipeThreshold: Double = 56
 
     init(viewModel: CycleViewModel) {
         self.viewModel = viewModel
         _revealedOnEntry = State(initialValue: viewModel.revealed)
+        _registerInstant = State(initialValue: viewModel.revealed)
     }
 
     var body: some View {
-        let revealed = viewModel.revealed
-        ScrollView {
-            // Ohne Abstand zwischen den Teilen: die Zeilen von «Einordnung» und «Daten» stossen
-            // aneinander (Trennlinien); die Karten von «Jetzt» bringen ihren Abstand selbst mit.
-            VStack(spacing: 0) {
-                // Statt der Überschrift «Jetzt» der Zustand wie in der Merkliste: «Alles aktuell ·
-                // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».
-                // Der Platz bleibt immer reserviert — darunter springt nichts.
-                statusPill(refreshingSince: viewModel.refreshingSince, updatedAt: viewModel.pulse.value?.time)
-                // 1. Jetzt: «Crypto Pulse», «Heute auffällig» — als Karten.
-                //    Beim Laden form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
-                revealSlot(.pulse) {
-                    VStack(spacing: 12) {
-                        // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
-                        CycleMacroHintRow(events: viewModel.macroEvents, atTop: true)
-                        CryptoPulseCard(
-                            market: viewModel.pulse,
-                            fearGreed: viewModel.fearGreed.value,
-                            gas: viewModel.gas.value,
-                            onRetry: { viewModel.loadPulse(force: true) }
-                        )
-                    }
-                    .padding(.top, 4)
-                }
-                // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
-                // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
-                // führt Binance das Paar nicht, wie bisher die Suche auf der Seite «Paar hinzufügen»
-                revealSlot(.unusual) {
-                    CycleUnusualCard(
-                        state: viewModel.unusual,
-                        onOpen: { row in
-                            if let id = watchId(for: row.symbol) {
-                                coinTarget = .stored(id)
-                            } else {
-                                Task { @MainActor in
-                                    if let preview = await WatchPreview.watch(symbol: row.symbol) {
-                                        coinTarget = .preview(preview)
-                                    } else {
-                                        router.explorerSearch = row.symbol
-                                        router.openExplorer()
-                                    }
-                                }
-                            }
-                        },
-                        onRetry: { viewModel.loadUnusual(force: true) }
-                    )
-                    .padding(.top, 12)
-                }
-                // 2. Einordnung — Zeilen ohne Karte: Fear & Greed, Marktphase, Dominanz,
-                //    Altcoin-Saison, Zyklus/Halving. Tippen klappt die Details einer Zeile auf.
-                //    Zugeklappt: Überschrift mit Zusammenfassung; die Zeilen werden dann gar nicht
-                //    aufgebaut, ihre Daten laden aber weiter (bleiben frisch fürs Aufklappen).
-                revealSlot(.headerContext) {
-                    MarketSectionHeader(
-                        title: L("market_section_context"),
-                        summary: contextSummary,
-                        expanded: contextExpanded,
-                        onToggle: { toggle(.context) }
-                    )
-                    .padding(.top, Spacing.md)
-                }
-                if contextExpanded {
-                    VStack(spacing: 0) {
-                        revealSlot(.fearGreed, instantFrom: contextInstant) {
-                            CycleFearGreedRow(state: viewModel.fearGreed, onRetry: refreshAll, divider: false,
-                                              stamp: viewModel.fearGreedStamp)
-                        }
-                        revealSlot(.phase, instantFrom: contextInstant) {
-                            MarketPhaseRow(
-                                cycle: viewModel.cycle,
-                                state: viewModel.market,
-                                onRetry: { viewModel.loadMarket() },
-                                stamp: viewModel.marketStamp
-                            )
-                        }
-                        revealSlot(.dominance, instantFrom: contextInstant) {
-                            CycleDominanceRows(
-                                dominance: viewModel.dominance,
-                                altSeason: viewModel.altSeason,
-                                onRetry: refreshAll,
-                                altSeasonAsOf: viewModel.altSeasonAsOf,
-                                altSeasonRefreshing: viewModel.altSeasonRefreshing,
-                                onRefreshAltSeason: { viewModel.refreshAltSeason() },
-                                dominanceStamp: viewModel.globalStamp,
-                                altSeasonStamp: viewModel.altSeasonStamp
-                            )
-                        }
-                        revealSlot(.halving, instantFrom: contextInstant) {
-                            CycleHalvingRow(cycle: viewModel.cycle, history: viewModel.history, onRetry: refreshAll)
-                        }
-                    }
-                    .transition(sectionTransition)
-                }
-                // 3. Daten — Zeilen: Krypto-Markt (Marktkapitalisierung, Volumen), Gas,
-                //    Wirtschaftsdaten, Coin
-                revealSlot(.headerData) {
-                    MarketSectionHeader(
-                        title: L("market_section_data"),
-                        summary: dataSummary,
-                        expanded: dataExpanded,
-                        onToggle: { toggle(.data) }
-                    )
-                    .padding(.top, Spacing.md)
-                }
-                if dataExpanded {
-                    VStack(spacing: 0) {
-                        revealSlot(.marketTotals, instantFrom: dataInstant) {
-                            CycleMarketCapRow(
-                                state: viewModel.globalMarket,
-                                currency: data.settings.portfolioCurrency,
-                                onRetry: refreshAll,
-                                divider: false,
-                                stamp: viewModel.globalStamp
-                            )
-                        }
-                        revealSlot(.gas, instantFrom: dataInstant) {
-                            CycleGasRow(
-                                state: viewModel.gas,
-                                ethAlertGwei: Double(data.settings.gasAlertEthTenths) / 10,
-                                btcAlertSat: data.settings.gasAlertBtc,
-                                onRetry: { viewModel.loadGas(force: true) },
-                                stamp: viewModel.gasStamp
-                            )
-                        }
-                        revealSlot(.coin, instantFrom: dataInstant) {
-                            VStack(spacing: 0) {
-                                CycleMacroHintRow(events: viewModel.macroEvents, atTop: false)
-                                CycleCoinRow(viewModel: viewModel)
-                            }
-                        }
-                    }
-                    .transition(sectionTransition)
-                }
-                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis alle stehen
-                if revealed < CycleReveal.count {
-                    revealLoadingRow
-                        .padding(.top, 12)
-                }
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-            .padding(.bottom, 24)
-            // iPad/Querformat: Inhalt höchstens 640 pt breit, mittig
-            .readableContentWidth()
-            // Nur wenn eine sichtbare Karte die Art wechselt (Platzhalter → Inhalt, weil Daten
-            // spät kommen): überblenden, die Karte ändert ihre Höhe, die darunter folgen ihr.
-            // Neue Werte derselben Art (Ziehen nach unten) und das Erscheinen lösen das nicht aus.
-            .animation(reduceMotion ? nil : .easeInOut(duration: CycleReveal.swapSeconds), value: swapKey)
+        ScrollViewReader { proxy in
+            scrollContent
+                // Waagrecht wischen wechselt das Register; senkrechtes Scrollen bleibt unberührt
+                .simultaneousGesture(swipeGesture)
+                // Nach einem Wechsel oben beginnen (Status und Register sichtbar)
+                .onChange(of: viewModel.register) { _, _ in proxy.scrollTo(Self.topId, anchor: .top) }
+                // Sprung aus der Mitteilung «Wirtschaftstermine»
+                .onChange(of: router.marketJump) { _, _ in handleJump(proxy) }
+                .onChange(of: viewModel.revealed) { _, _ in handleJump(proxy) }
+                .onAppear { handleJump(proxy) }
         }
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await viewModel.refreshAll() }
@@ -208,6 +78,165 @@ struct CycleScreen: View {
         .onAppear { viewModel.onAppear() }
         // Aktionsblatt wie in der Merkliste; «Warum?» und «Alarme» als eigene Seiten mit Zurück
         .modifier(CycleCoinSheets(target: $coinTarget))
+    }
+
+    // MARK: - Register («Jetzt» | «Einordnung» | «Daten»)
+
+    private var scrollContent: some View {
+        ScrollView {
+            // Ohne Abstand zwischen den Teilen: die Zeilen von «Einordnung» und «Daten» stossen
+            // aneinander (Trennlinien); die Karten von «Jetzt» bringen ihren Abstand selbst mit.
+            VStack(spacing: 0) {
+                // Statt der Überschrift «Jetzt» der Zustand wie in der Merkliste: «Alles aktuell ·
+                // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».
+                // Der Platz bleibt immer reserviert — darunter springt nichts. Gilt für alle Register.
+                statusPill(refreshingSince: viewModel.refreshingSince, updatedAt: viewModel.pulse.value?.time)
+                    .id(Self.topId)
+                // Register wie auf der Seite «Paar hinzufügen»
+                RegisterTabs(titles: MarketSection.allCases.map { L($0.titleKey) },
+                             selected: viewModel.register.rawValue) { index in
+                    select(MarketSection(rawValue: index) ?? MarketSections.defaultSection)
+                }
+                .padding(.top, Spacing.xs)
+                registerContent
+                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte des Registers, bis alle stehen
+                if MarketSections.loading(viewModel.register, revealed: viewModel.revealed) {
+                    revealLoadingRow
+                        .padding(.top, 12)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            .padding(.bottom, 24)
+            // iPad/Querformat: Inhalt höchstens 640 pt breit, mittig
+            .readableContentWidth()
+            // Nur wenn eine sichtbare Karte die Art wechselt (Platzhalter → Inhalt, weil Daten
+            // spät kommen): überblenden, die Karte ändert ihre Höhe, die darunter folgen ihr.
+            // Neue Werte derselben Art (Ziehen nach unten) und das Erscheinen lösen das nicht aus.
+            .animation(reduceMotion ? nil : .easeInOut(duration: CycleReveal.swapSeconds), value: swapKey)
+        }
+    }
+
+    /// Inhalt des gewählten Registers; die anderen werden nicht aufgebaut (ihre Daten laden weiter).
+    @ViewBuilder
+    private var registerContent: some View {
+        switch viewModel.register {
+        case .now: nowRegister
+        case .context: contextRegister
+        case .data: dataRegister
+        }
+    }
+
+    /// 1. Jetzt: «Crypto Pulse», «Heute auffällig» — als Karten.
+    ///    Beim Laden form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
+    @ViewBuilder
+    private var nowRegister: some View {
+        revealSlot(.pulse) {
+            VStack(spacing: 12) {
+                // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
+                CycleMacroHintRow(events: viewModel.macroEvents, atTop: true)
+                CryptoPulseCard(
+                    market: viewModel.pulse,
+                    fearGreed: viewModel.fearGreed.value,
+                    gas: viewModel.gas.value,
+                    onRetry: { viewModel.loadPulse(force: true) }
+                )
+            }
+            .padding(.top, 4)
+        }
+        // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
+        // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
+        // führt Binance das Paar nicht, wie bisher die Suche auf der Seite «Paar hinzufügen»
+        revealSlot(.unusual) {
+            CycleUnusualCard(
+                state: viewModel.unusual,
+                onOpen: openUnusual,
+                onRetry: { viewModel.loadUnusual(force: true) }
+            )
+            .padding(.top, 12)
+        }
+    }
+
+    /// Tipp auf eine Zeile von «Heute auffällig».
+    private func openUnusual(_ row: UnusualRow) {
+        if let id = watchId(for: row.symbol) {
+            coinTarget = .stored(id)
+        } else {
+            Task { @MainActor in
+                if let preview = await WatchPreview.watch(symbol: row.symbol) {
+                    coinTarget = .preview(preview)
+                } else {
+                    router.explorerSearch = row.symbol
+                    router.openExplorer()
+                }
+            }
+        }
+    }
+
+    /// 2. Einordnung — Zeilen ohne Karte: Fear & Greed, Marktphase, Dominanz, Altcoin-Saison,
+    ///    Zyklus/Halving. Tippen klappt die Details einer Zeile auf.
+    private var contextRegister: some View {
+        VStack(spacing: 0) {
+            revealSlot(.fearGreed) {
+                CycleFearGreedRow(state: viewModel.fearGreed, onRetry: refreshAll, divider: false,
+                                  stamp: viewModel.fearGreedStamp)
+            }
+            revealSlot(.phase) {
+                MarketPhaseRow(
+                    cycle: viewModel.cycle,
+                    state: viewModel.market,
+                    onRetry: { viewModel.loadMarket() },
+                    stamp: viewModel.marketStamp
+                )
+            }
+            revealSlot(.dominance) {
+                CycleDominanceRows(
+                    dominance: viewModel.dominance,
+                    altSeason: viewModel.altSeason,
+                    onRetry: refreshAll,
+                    altSeasonAsOf: viewModel.altSeasonAsOf,
+                    altSeasonRefreshing: viewModel.altSeasonRefreshing,
+                    onRefreshAltSeason: { viewModel.refreshAltSeason() },
+                    dominanceStamp: viewModel.globalStamp,
+                    altSeasonStamp: viewModel.altSeasonStamp
+                )
+            }
+            revealSlot(.halving) {
+                CycleHalvingRow(cycle: viewModel.cycle, history: viewModel.history, onRetry: refreshAll)
+            }
+        }
+    }
+
+    /// 3. Daten — Zeilen: Krypto-Markt (Marktkapitalisierung, Volumen), Gas, Wirtschaftsdaten, Coin.
+    private var dataRegister: some View {
+        VStack(spacing: 0) {
+            revealSlot(.marketTotals) {
+                CycleMarketCapRow(
+                    state: viewModel.globalMarket,
+                    currency: data.settings.portfolioCurrency,
+                    onRetry: refreshAll,
+                    divider: false,
+                    stamp: viewModel.globalStamp
+                )
+            }
+            revealSlot(.gas) {
+                CycleGasRow(
+                    state: viewModel.gas,
+                    ethAlertGwei: Double(data.settings.gasAlertEthTenths) / 10,
+                    btcAlertSat: data.settings.gasAlertBtc,
+                    onRetry: { viewModel.loadGas(force: true) },
+                    stamp: viewModel.gasStamp
+                )
+            }
+            revealSlot(.coin) {
+                VStack(spacing: 0) {
+                    // Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine»
+                    CycleMacroHintRow(events: viewModel.macroEvents, atTop: false)
+                        .id(Self.macroId)
+                    CycleCoinRow(viewModel: viewModel)
+                }
+            }
+        }
     }
 
     /// Paar der Merkliste zu einem Coin: Spot zuerst (wie die Karte, USDT/USD vor anderen
@@ -245,64 +274,67 @@ struct CycleScreen: View {
     }
 
     /// Ein Teil des Tabs: erst da, wenn `CycleReveal` ihn freigibt — vorher weder gezeichnet
-    /// noch für VoiceOver vorhanden. Was beim Betreten schon stand bzw. beim Öffnen schon
-    /// bereit war, erscheint ohne Animation.
-    /// `instantFrom`: beim Aufklappen eines Abschnitts schon erschienene Teile (ohne Einblenden).
+    /// noch für VoiceOver vorhanden. Was beim Betreten schon stand, beim Öffnen schon bereit war
+    /// bzw. beim Wechsel des Registers schon erschienen war, erscheint ohne Animation.
     @ViewBuilder
     private func revealSlot<Content: View>(
         _ slot: CycleRevealSlot,
-        instantFrom: Int = 0,
         @ViewBuilder content: () -> Content
     ) -> some View {
         if viewModel.revealed > slot.rawValue {
-            let instantThrough = max(viewModel.revealInstant, revealedOnEntry, instantFrom)
+            let instantThrough = max(viewModel.revealInstant, revealedOnEntry, registerInstant)
             CycleRevealItem(animated: slot.rawValue >= instantThrough, content: content())
         }
     }
 
-    // MARK: - Zuklappbare Abschnitte («Einordnung», «Daten»)
-
-    /// Immer zugeklappt, bis der Nutzer aufklappt; in dieser App-Sitzung Gewähltes gilt weiter.
-    private var contextExpanded: Bool {
-        MarketSections.expanded(.context, sessionChoice: viewModel.sectionChoice[.context])
+    /// Register wählen (gilt für die App-Sitzung); VoiceOver sagt den neuen Inhalt an.
+    private func select(_ section: MarketSection) {
+        guard section != viewModel.register else { return }
+        registerInstant = viewModel.revealed
+        viewModel.register = section
+        AccessibilityNotification.Announcement(L(section.titleKey)).post()
     }
 
-    private var dataExpanded: Bool {
-        MarketSections.expanded(.data, sessionChoice: viewModel.sectionChoice[.data])
+    /// Waagrecht wischen (deutlich mehr waagrecht als senkrecht): nach links das nächste Register,
+    /// nach rechts das vorige (Rechts-nach-links umgekehrt). Globale Koordinaten, damit die
+    /// Richtung nicht von der gespiegelten Darstellung abhängt. Die Karten im Tab reagieren nur auf
+    /// Tippen — keine Wischgesten darin, die sich in die Quere kämen.
+    private var swipeGesture: some Gesture {
+        DragGesture(minimumDistance: 24, coordinateSpace: .global)
+            .onEnded { value in
+                let dx = Double(value.translation.width)
+                let dy = Double(value.translation.height)
+                guard abs(dx) > abs(dy) * 1.5 else { return }
+                let rtl = layoutDirection == .rightToLeft
+                if let target = MarketSections.swipeTarget(viewModel.register, dx: dx,
+                                                           threshold: Self.swipeThreshold, rtl: rtl) {
+                    select(target)
+                }
+            }
     }
 
-    /// Auf-/Zuklappen innerhalb des Scrollinhalts: Einblenden, die Teile darunter rücken nach.
-    private var sectionTransition: AnyTransition {
-        reduceMotion ? .identity : .opacity
-    }
-
-    /// Abschnitt auf- oder zuklappen (gilt für die Sitzung); ohne Animation bei reduzierter Bewegung.
-    private func toggle(_ section: MarketSection) {
-        let expanded = section == .context ? contextExpanded : dataExpanded
-        if !expanded {
-            if section == .context { contextInstant = viewModel.revealed } else { dataInstant = viewModel.revealed }
+    /// Sprung aus der Mitteilung «Wirtschaftstermine»: Register mit dem Hinweis wählen («Jetzt» bei
+    /// einem Termin in ±2 h, sonst «Daten») und hinscrollen, sobald er erschienen ist.
+    private func handleJump(_ proxy: ScrollViewProxy) {
+        guard router.marketJump == .macro else { return }
+        let now = TimeUtils.nowMillis
+        let imminent = MacroCalendar.hint(viewModel.macroEvents, now: now)
+            .map { MacroCalendar.isImminent($0, now: now) } ?? false
+        let target = MarketSections.macroSection(imminent: imminent)
+        select(target)
+        if target == .now {
+            proxy.scrollTo(Self.topId, anchor: .top)
+            router.marketJump = nil
+        } else if viewModel.revealed > CycleRevealSlot.coin.rawValue {
+            router.marketJump = nil
+            Task { @MainActor in
+                // Erst nach dem Aufbau des Registers (und nach dem Sprung nach oben beim Wechsel)
+                try? await Task.sleep(nanoseconds: 150_000_000)
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.3)) {
+                    proxy.scrollTo(Self.macroId, anchor: .center)
+                }
+            }
         }
-        withAnimation(reduceMotion ? nil : .easeInOut(duration: CycleReveal.swapSeconds)) {
-            viewModel.sectionChoice[section] = !expanded
-        }
-    }
-
-    /// Zugeklappt in der Überschrift von «Einordnung»: «Gier 72 · Neutral».
-    private var contextSummary: String {
-        MarketSections.summary([
-            viewModel.fearGreed.value.map { fg in
-                "\(L(CycleFearGreedStyle.labelKey(fg.value))) \(LocaleNumbers.integer(fg.value))"
-            },
-            viewModel.market.value.map { L($0.zone.labelKey) },
-        ])
-    }
-
-    /// Zugeklappt in der Überschrift von «Daten»: «Marktkapitalisierung +1.20%».
-    private var dataSummary: String {
-        let change: Double? = viewModel.globalMarket.value.flatMap { $0.change24hPercent }
-        return MarketSections.summary([
-            change.map { "\(L("market_cap_label")) \(PriceFormat.changePercent($0) ?? PriceFormat.zeroPercent())" },
-        ])
     }
 
     /// Kleine Ladezeile fester Höhe unter der letzten sichtbaren Karte.

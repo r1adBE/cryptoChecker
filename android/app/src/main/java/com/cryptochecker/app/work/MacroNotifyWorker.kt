@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.MacroTexts
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.ui.MainActivity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.time.LocalDate
@@ -52,7 +53,9 @@ class MacroNotifyWorker @AssistedInject constructor(
                 notifier.showGas(
                     MACRO_NOTIFICATION_ID,
                     applicationContext.getString(R.string.notification_macro_title),
-                    MacroTexts.todayText(applicationContext, events)
+                    MacroTexts.todayText(applicationContext, events),
+                    // Tippen: Markt-Tab beim Wirtschaftsdaten-Hinweis (wie iOS)
+                    openTarget = MainActivity.OPEN_MARKET_MACRO
                 )
             }
             prefs.edit { putLong(KEY_LAST_DAY, today) }

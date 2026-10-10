@@ -154,6 +154,12 @@ fun AppNavHost(
                     navigation.openExplorer()
                 }
                 "cycle" -> navigation.navigateToTab(ScreenRoute.MarketPhase)
+                // Mitteilung «Wirtschaftstermine»: Markt-Tab, Register mit dem Hinweis (dort gescrollt)
+                com.cryptochecker.app.ui.MainActivity.OPEN_MARKET_MACRO -> {
+                    com.cryptochecker.app.ui.features.info.MarketRegister.jump =
+                        com.cryptochecker.app.ui.features.info.MarketJump.MACRO
+                    navigation.navigateToTab(ScreenRoute.MarketPhase)
+                }
                 "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview) { launchSingleTop = true }
                 // Portfolio-Widget: nur wenn der Tab eingeschaltet ist, sonst bleibt die Merkliste
                 "portfolio" -> if (portfolioEnabled) navigation.navigateToTab(ScreenRoute.Portfolio) else Unit

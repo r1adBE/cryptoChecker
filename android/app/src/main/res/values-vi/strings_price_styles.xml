@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">Tươi mới</string>
+    <string name="price_style_traditional">Truyền thống</string>
+    <string name="price_style_color_vision">Suy giảm thị lực màu</string>
+    <string name="price_colors_swap">Đổi màu (tăng ↔ giảm)</string>
+</resources>

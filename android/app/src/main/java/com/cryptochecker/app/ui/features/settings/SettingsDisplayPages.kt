@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +21,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.settings.PriceColorChoice
+import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.ChangeBasisText
@@ -77,29 +78,41 @@ internal fun ThemePage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltVi
 }
 
 /**
- * Kursfarben: Grün steigt / Rot fällt (Standard), Rot steigt / Grün fällt (Ostasien) und
- * die Fassungen für Farbsehschwäche (Blau/Orange). Gespeichert als Schema + «getauscht».
+ * Kursfarben: drei Stile als Karten — «Frisch» (Standard, Grün/Rot), «Traditionell»
+ * (Olivgrün/Himbeer) und «Farbsehschwäche» (Blau/Orange); darunter «Farben tauschen»
+ * (Ostasien: Rot = steigend) und hoher Kontrast. Gespeichert als Schema + «getauscht».
  */
 @Composable
 internal fun PriceColorsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
-    val current = PriceColorChoice.of(settings.priceColorScheme, settings.priceColorsInverted)
     SettingsSubPage(title = stringResource(R.string.settings_price_colors), onBack = onBack) {
-        GroupCard {
-            Column(Modifier.selectableGroup()) {
-                PriceColorChoice.entries.forEach { choice ->
-                    RadioRow(
-                        selected = choice == current,
-                        onClick = {
-                            if (choice.scheme != settings.priceColorScheme) viewModel.setPriceColorScheme(choice.scheme)
-                            if (choice.inverted != settings.priceColorsInverted) viewModel.setPriceColorsInverted(choice.inverted)
-                        },
-                        title = stringResource(priceColorChoiceLabel(choice)),
-                        subtitle = if (choice == PriceColorChoice.RED_UP) stringResource(R.string.price_colors_red_up_hint) else null,
-                        leading = { PriceArrows(choice) }
-                    )
-                }
+        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            PriceColorScheme.entries.forEach { scheme ->
+                PriceStyleCard(
+                    scheme = scheme,
+                    selected = scheme == settings.priceColorScheme,
+                    inverted = settings.priceColorsInverted,
+                    onClick = { if (scheme != settings.priceColorScheme) viewModel.setPriceColorScheme(scheme) }
+                )
             }
+        }
+        Spacer(Modifier.height(12.dp))
+        GroupCard {
+            SettingsAnchor("price_colors.swap") {
+                SwitchRow(
+                    title = stringResource(R.string.price_colors_swap),
+                    subtitle = stringResource(R.string.price_colors_red_up_hint),
+                    checked = settings.priceColorsInverted,
+                    onCheckedChange = viewModel::setPriceColorsInverted
+                )
+            }
+            RowDivider()
+            SwitchRow(
+                title = stringResource(R.string.settings_high_contrast),
+                subtitle = stringResource(R.string.settings_high_contrast_hint),
+                checked = settings.highContrast,
+                onCheckedChange = viewModel::setHighContrast
+            )
         }
         Text(
             text = stringResource(R.string.settings_price_colors_hint),

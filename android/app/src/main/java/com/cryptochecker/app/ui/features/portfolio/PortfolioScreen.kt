@@ -87,6 +87,7 @@ fun PortfolioScreen(
     val history by viewModel.history.collectAsStateWithLifecycle()
     val historyRange by viewModel.historyRange.collectAsStateWithLifecycle()
     val historyExpanded by viewModel.historyExpanded.collectAsStateWithLifecycle()
+    val historyView by viewModel.historyView.collectAsStateWithLifecycle()
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
     val coinChanges by viewModel.coinChanges.collectAsStateWithLifecycle()
     val changeBasis by viewModel.changeBasis.collectAsStateWithLifecycle()
@@ -293,7 +294,9 @@ fun PortfolioScreen(
                                     range = historyRange,
                                     onRange = viewModel::setHistoryRange,
                                     expanded = historyExpanded,
-                                    onExpandedChange = viewModel::setHistoryExpanded
+                                    onExpandedChange = viewModel::setHistoryExpanded,
+                                    view = historyView,
+                                    onView = viewModel::setHistoryView
                                 )
                             }
                         }

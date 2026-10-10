@@ -12,10 +12,13 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioCompare
+import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.watch.ChangeBasis
@@ -65,7 +68,9 @@ fun PortfolioTxEntity.toDraft() = TxDraft(
  * Wertverlauf für die Karte über den Positionen: [series] in [unit]
  * ([converted] = aus USDT umgerechnet, je Tag mit dem Devisenkurs dieses Tags, siehe
  * [PortfolioHistoryFx]; [approximateFx] = Tageskurse fehlten, alles mit dem heutigen Kurs —
- * die Karte sagt das unter dem Chart).
+ * die Karte sagt das unter dem Chart). Mit Tageskursen umgerechnet zusätzlich [usdtSeries] (derselbe
+ * Verlauf unumgerechnet, für «USDT») und [compare] (beide in Prozent, für «Vergleich»; null ohne
+ * Ausgangswert, siehe [PortfolioCompare]) — sonst beide null und kein Umschalter.
  */
 data class PortfolioHistoryUi(
     val range: PortfolioHistoryRange,
@@ -73,6 +78,8 @@ data class PortfolioHistoryUi(
     val unit: String,
     val converted: Boolean,
     val approximateFx: Boolean = false,
+    val usdtSeries: PortfolioHistorySeries? = null,
+    val compare: PortfolioCompareSeries? = null,
 )
 
 /** Tageskurse USD → [currency] ab [from] (bis heute); [rates] null = nicht zu haben. */
@@ -194,6 +201,12 @@ class PortfolioViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.portfolioHistoryExpanded)
 
+    /** Darstellung des Wertverlaufs: Währung, USDT oder Vergleich (zuletzt gewählt, nur auf diesem Gerät). */
+    val historyView: StateFlow<PortfolioHistoryView> = settingsRepository.settings
+        .map { it.portfolioHistoryView }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.portfolioHistoryView)
+
     private val _closes = MutableStateFlow<HistoryCloses?>(null)
 
     /** Tageskurse USD → Umrechnungswährung für den Verlauf; null = noch nicht geladen. */
@@ -232,7 +245,17 @@ class PortfolioViewModel @Inject constructor(
         )
         if (!converted) return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false)
         val result = PortfolioHistoryFx.convert(series, fxSeries?.rates, fx, today)
-        PortfolioHistoryUi(range, result.series, code, true, result.approximate)
+        // Vergleich mit USDT nur mit Tageskursen — mit dem heutigen Kurs wäre er bedeutungslos
+        if (result.approximate) return@combine PortfolioHistoryUi(range, result.series, code, true, true)
+        PortfolioHistoryUi(
+            range = range,
+            series = result.series,
+            unit = code,
+            converted = true,
+            approximateFx = false,
+            usdtSeries = series,
+            compare = PortfolioCompare.build(result.series.points, series.points),
+        )
     }
         .flowOn(Dispatchers.Default)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -344,6 +367,10 @@ class PortfolioViewModel @Inject constructor(
 
     fun setHistoryExpanded(expanded: Boolean) {
         viewModelScope.launch { settingsRepository.setPortfolioHistoryExpanded(expanded) }
+    }
+
+    fun setHistoryView(view: PortfolioHistoryView) {
+        viewModelScope.launch { settingsRepository.setPortfolioHistoryView(view) }
     }
 
     fun loadCoins() {

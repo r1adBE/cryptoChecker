@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursfarben: Stile «Frisch», «Traditionell», «Farbsehschwäche» und «Farben tauschen» -->
+    <string name="price_style_fresh">Raikas</string>
+    <string name="price_style_traditional">Perinteinen</string>
+    <string name="price_style_color_vision">Värinäön poikkeama</string>
+    <string name="price_colors_swap">Vaihda värit (nousu ↔ lasku)</string>
+</resources>

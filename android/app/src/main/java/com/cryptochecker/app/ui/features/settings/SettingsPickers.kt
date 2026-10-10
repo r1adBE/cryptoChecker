@@ -52,7 +52,7 @@ import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.util.DecimalText
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages
-import com.cryptochecker.app.settings.PriceColorChoice
+import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.ui.components.ComboBox
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.LocalHighContrast
@@ -60,11 +60,11 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /**
- * «▲▼» in den Farben einer Wahl — Pfeile bleiben richtungsgebunden (▲ = steigend),
- * nur die Farben wechseln. Für den Screenreader nur dekorativ; den Namen trägt die Zeile.
+ * «▲▼» in den Farben eines Stils (getauscht: [inverted]) — Pfeile bleiben richtungsgebunden
+ * (▲ = steigend), nur die Farben wechseln. Für den Screenreader nur dekorativ; den Namen trägt die Zeile.
  */
 @Composable
-internal fun PriceArrows(choice: PriceColorChoice, modifier: Modifier = Modifier) {
+internal fun PriceArrows(scheme: PriceColorScheme, inverted: Boolean, modifier: Modifier = Modifier) {
     val dark = LocalDarkTheme.current
     val highContrast = LocalHighContrast.current
     Row(modifier = modifier.clearAndSetSemantics { }) {
@@ -72,13 +72,13 @@ internal fun PriceArrows(choice: PriceColorChoice, modifier: Modifier = Modifier
             "▲",
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
-            color = Color(choice.scheme.up(dark, highContrast, choice.inverted))
+            color = Color(scheme.up(dark, highContrast, inverted))
         )
         Text(
             "▼",
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
-            color = Color(choice.scheme.down(dark, highContrast, choice.inverted))
+            color = Color(scheme.down(dark, highContrast, inverted))
         )
     }
 }

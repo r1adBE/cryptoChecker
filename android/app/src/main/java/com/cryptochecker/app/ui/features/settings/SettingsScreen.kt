@@ -38,7 +38,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
-import com.cryptochecker.app.settings.PriceColorChoice
 import com.cryptochecker.app.ui.components.AddWidgetsSheet
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
@@ -174,12 +173,10 @@ fun SettingsScreen(
                         },
                         onClick = { onOpenPage(SettingsPage.THEME) }
                     )
-                    val priceChoice = PriceColorChoice.of(settings.priceColorScheme, settings.priceColorsInverted)
-                    val priceChoiceLabel = stringResource(priceColorChoiceLabel(priceChoice))
                     SettingsNavRow(
                         title = stringResource(R.string.settings_price_colors),
-                        valueDescription = priceChoiceLabel,
-                        valueContent = { PriceArrows(priceChoice) },
+                        valueDescription = priceColorsSummary(settings),
+                        valueContent = { PriceArrows(settings.priceColorScheme, settings.priceColorsInverted) },
                         onClick = { onOpenPage(SettingsPage.PRICE_COLORS) }
                     )
                     // Basis der %-Änderung (Pille, Puls, Widgets): «Letzte 24 Std.», «Seit 00:00 UTC» …

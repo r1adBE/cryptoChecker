@@ -152,6 +152,12 @@ class MainActivity : AppCompatActivity() {
         /** Von den App-Verknüpfungen gesetzt (res/xml/shortcuts.xml). */
         const val EXTRA_OPEN = "open"
 
+        /**
+         * Ziel der Mitteilung «Wirtschaftstermine»: Markt-Tab, Register mit dem Hinweis («Jetzt» bei
+         * einem Termin in ±2 h, sonst «Daten»). Wie iOS `cycle/macro`.
+         */
+        const val OPEN_MARKET_MACRO = "cycle/macro"
+
         /** Ziel «Warum?» aus einem Alarm: Merkliste mit «Warum bewegt sich das?» des Paars. */
         private const val WHY_PREFIX = "why/"
 

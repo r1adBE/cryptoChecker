@@ -18,9 +18,5 @@
     <string name="settings_watchlist_activity_card">ความเคลื่อนไหวผิดปกติในรายการ</string>
     <string name="settings_watchlist_activity_card_hint">แสดงชิป ⚡ ข้างกลุ่ม แตะเพื่อดูเฉพาะคู่เหรียญที่มีบางอย่างเกิดขึ้นตอนนี้ ตั้งค่าการแจ้งเตือนได้ที่ “การแจ้งเตือนตลาด”</string>
     <string name="settings_row_about">เกี่ยวกับแอป</string>
-    <string name="price_colors_green_up">เขียวขึ้น / แดงลง</string>
-    <string name="price_colors_red_up">แดงขึ้น / เขียวลง</string>
-    <string name="price_colors_blue_up">น้ำเงินขึ้น / ส้มลง</string>
-    <string name="price_colors_orange_up">ส้มขึ้น / น้ำเงินลง</string>
     <string name="price_colors_red_up_hint">นิยมในจีน ญี่ปุ่น เกาหลี และไต้หวัน</string>
 </resources>

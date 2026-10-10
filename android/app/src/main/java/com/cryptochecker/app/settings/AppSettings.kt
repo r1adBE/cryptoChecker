@@ -266,6 +266,13 @@ data class AppSettings(
     /** Zuletzt gewählter Zeitraum des Wertverlaufs. Nur auf diesem Gerät, nicht in der Sicherung. */
     val portfolioHistoryRange: com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange =
         com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange.MONTH,
+
+    /**
+     * Darstellung des Wertverlaufs bei einer Umrechnungswährung («CHF | USDT | Vergleich»,
+     * Standard in der Währung). Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val portfolioHistoryView: com.cryptochecker.app.domain.portfolio.PortfolioHistoryView =
+        com.cryptochecker.app.domain.portfolio.PortfolioHistoryView.CURRENCY,
 ) {
     companion object {
         const val MIN_BACKGROUND_INTERVAL_MINUTES = 15
