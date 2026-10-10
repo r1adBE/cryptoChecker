@@ -267,7 +267,11 @@ enum SharedStorage {
     /// Schreibt nur bei geändertem Inhalt (die Merkliste wird mit Live-Kursen alle paar Sekunden
     /// gespeichert) und setzt danach das Backup-Merkmal neu (das atomare Schreiben verliert es).
     private static func writePortfolioAlarms(_ file: PortfolioAlarmsFile, to url: URL, includeInBackup: Bool) -> Bool {
-        guard let data = try? JSONEncoder().encode(file) else { return false }
+        // Feste Schlüssel-Reihenfolge: sonst kann derselbe Inhalt jedes Mal anders aussehen und der
+        // Vergleich unten schreibt unnötig
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        guard let data = try? encoder.encode(file) else { return false }
         if let existing = try? Data(contentsOf: url), existing == data { return true }
         do {
             try data.write(to: url, options: [.atomic])

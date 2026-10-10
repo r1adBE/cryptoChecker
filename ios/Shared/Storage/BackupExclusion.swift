@@ -25,6 +25,8 @@ enum BackupExclusion {
 
     /// Aktueller Zustand (frisch gelesen, ohne zwischengespeicherte Werte der URL).
     static func isExcluded(_ url: URL) -> Bool? {
+        // Fehlende Datei: kein Zustand (das System liefert sonst «false»)
+        guard FileManager.default.fileExists(atPath: url.path) else { return nil }
         var fresh = URL(fileURLWithPath: url.path)
         fresh.removeAllCachedResourceValues()
         return (try? fresh.resourceValues(forKeys: [.isExcludedFromBackupKey]))?.isExcludedFromBackup
