@@ -36,8 +36,8 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
         Icon(
             painterResource(R.drawable.ic_bolt),
             contentDescription = stringResource(R.string.activity_indicator),
-            // Neutral in der Textfarbe (nicht mehr Bernstein) — wie der ⚡-Chip im Kopf
-            tint = MaterialTheme.colorScheme.onSurface,
+            // In der Themenfarbe (der ⚡-Chip im Kopf ist neutral, gewählt ebenfalls in der Themenfarbe)
+            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(16.dp)
         )
     }

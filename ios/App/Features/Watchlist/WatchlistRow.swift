@@ -143,7 +143,7 @@ struct WatchlistRow: View {
             if !coinLogosEnabled && watch.favorite && !sorting {
                 Image(systemName: "star.fill")
                     .scaledFont(size: 13, weight: .semibold, relativeTo: .headline)
-                    .foregroundStyle(AppColors.onSurface)  // Textfarbe; Themenfarbe nur für Bedienbares
+                    .foregroundStyle(accent.primary)  // Themenfarbe wie der Stern am Logo
                     .accessibilityHidden(true)
             }
             CoinBadge(symbol: watch.baseAsset, size: ListSegment.logo, logo: CoinLogos.allowed(forMarket: watch.marketKey),

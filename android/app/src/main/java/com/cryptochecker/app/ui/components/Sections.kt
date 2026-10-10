@@ -30,6 +30,13 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.Spacing
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.unit.em
 
 /**
  * Abschnittsüberschrift überall gleich: klein, fett, in Textfarbe, davor ein kurzer Strich in
@@ -133,7 +140,7 @@ fun SwitchRow(
         Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
             Text(title, style = MaterialTheme.typography.bodyLarge)
             if (!subtitle.isNullOrEmpty()) {
-                Text(
+                BoltHintText(
                     subtitle,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -144,3 +151,37 @@ fun SwitchRow(
         Switch(checked = checked, onCheckedChange = null, enabled = enabled)
     }
 }
+
+/**
+ * Hinweistext, in dem «⚡» als Symbol in der Themenfarbe steht (wie der ⚡ in der Merkliste) statt
+ * als farbiges Emoji. Ohne «⚡» ein normaler Text. Wie `SettingsHint` mit Blitz (iOS).
+ */
+@Composable
+fun BoltHintText(text: String, style: TextStyle, color: Color, modifier: Modifier = Modifier) {
+    if (!text.contains(BOLT)) {
+        Text(text, style = style, color = color, modifier = modifier)
+        return
+    }
+    val annotated = buildAnnotatedString {
+        text.split(BOLT).forEachIndexed { i, part ->
+            if (i > 0) appendInlineContent(BOLT_ID, BOLT)
+            append(part)
+        }
+    }
+    val inline = mapOf(
+        BOLT_ID to InlineTextContent(
+            Placeholder(width = 1.em, height = 1.em, placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter)
+        ) {
+            Icon(
+                painterResource(com.cryptochecker.app.R.drawable.ic_bolt),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+    )
+    Text(annotated, style = style, color = color, inlineContent = inline, modifier = modifier)
+}
+
+private const val BOLT = "⚡"
+private const val BOLT_ID = "bolt"

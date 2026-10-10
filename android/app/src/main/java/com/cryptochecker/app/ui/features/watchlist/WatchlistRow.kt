@@ -243,8 +243,8 @@ internal fun WatchRow(
                 Icon(
                     painterResource(R.drawable.ic_star),
                     contentDescription = null,
-                    // Textfarbe wie der Stern am Logo; die Themenfarbe bleibt Bedienbarem
-                    tint = MaterialTheme.colorScheme.onSurface,
+                    // Themenfarbe wie der Stern am Logo
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 4.dp, end = 6.dp)

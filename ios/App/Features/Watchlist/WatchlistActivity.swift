@@ -38,14 +38,15 @@ enum WatchlistActivity {
 /// Kleines ⚡ neben dem Paar; Tipp öffnet «Warum».
 struct WatchlistActivityBolt: View {
     let action: () -> Void
+    @Environment(\.appAccent) private var accent
 
     var body: some View {
         Button(action: action) {
             Image(systemName: "bolt.fill")
                 .scaledFont(size: 12, weight: .bold, relativeTo: .caption)
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                // Neutral in der Textfarbe (nicht mehr Bernstein) — wie der ⚡-Chip im Kopf
-                .foregroundStyle(AppColors.onSurface)
+                // In der Themenfarbe (der ⚡-Chip im Kopf ist neutral, gewählt ebenfalls in der Themenfarbe)
+                .foregroundStyle(accent.primary)
                 .frame(width: 24, height: 24)
                 // Tippfläche 44 pt (sichtbar bleibt das kleine ⚡): ragt über den Rahmen hinaus,
                 // ohne die Zeile höher zu machen — sonst öffnete ein knapper Tipp das Aktionsblatt

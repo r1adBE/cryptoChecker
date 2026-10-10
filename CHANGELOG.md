@@ -68,7 +68,9 @@
   Binance) with «Add to watchlist».
 * Watchlist: long-press a row to start selecting (that row already ticked).
 * Group chips: all neutral; the selected one gets an accent outline and accent
-  text/icon (★ and ⚡ white until selected). The ⚡ in rows is white.
+  text/icon (★ and ⚡ white until selected). In the rows the ⚡ and the favorite
+  star are accent-coloured, and the ⚡ in settings hints is an accent symbol instead
+  of a yellow emoji.
 * Alarms: «x % in y hours» now uses a sliding window and also fires with rare
   background runs; no more duplicate «new 30-day high» on the same day; a one-time
   alarm is not used up while notifications are blocked; edits made during a

@@ -152,6 +152,7 @@ struct SwitchRowText: View {
     let title: String
     let subtitle: String?
     var icon: String? = nil
+    @Environment(\.appAccent) private var accent
 
     var body: some View {
         HStack(spacing: 12) {
@@ -164,10 +165,25 @@ struct SwitchRowText: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title).font(.body)
                 if let subtitle, !subtitle.isEmpty {
-                    Text(subtitle).font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
+                    BoltHint.text(subtitle, accent: accent.primary)
+                        .font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
                 }
             }
         }
+    }
+}
+
+/// Hinweistext, in dem «⚡» als Symbol in der Themenfarbe steht (wie der ⚡ in der Merkliste) statt
+/// als farbiges Emoji. Ohne «⚡» ein normaler Text. Wie `BoltHintText` (Android).
+enum BoltHint {
+    static func text(_ string: String, accent: Color) -> Text {
+        let parts = string.components(separatedBy: "⚡")
+        guard parts.count > 1 else { return Text(verbatim: string) }
+        var result = Text(verbatim: parts[0])
+        for part in parts.dropFirst() {
+            result = result + Text(Image(systemName: "bolt.fill")).foregroundColor(accent) + Text(verbatim: part)
+        }
+        return result
     }
 }
 
@@ -341,6 +357,7 @@ struct CoinBadge: View {
     var favorite: Bool = false
     var ringColor: Color = AppColors.container
     @Environment(\.coinLogosEnabled) private var appEnabled
+    @Environment(\.appAccent) private var starAccent
     @Environment(\.portfolioCoinLogosEnabled) private var portfolioEnabled
     @Environment(\.appAccent) private var accent
     @Environment(\.colorScheme) private var colorScheme
@@ -410,13 +427,12 @@ struct CoinBadge: View {
         .clipShape(Circle())
     }
 
-    /// Favorit: kleiner Stern in der Schriftfarbe (hell/dunkel, nicht die Akzentfarbe — ruhig und
-    /// einheitlich) mit Ring in der Farbe der Fläche darunter.
+    /// Favorit: kleiner Stern in der Themenfarbe mit Ring in der Farbe der Fläche darunter.
     private var star: some View {
         let starSize = max(12, size * 0.45)
         return Image(systemName: "star.fill")
             .font(.system(size: starSize * 0.62, weight: .bold))
-            .foregroundStyle(AppColors.onSurface)
+            .foregroundStyle(starAccent.primary)
             .frame(width: starSize, height: starSize)
             .background(Circle().fill(ringColor))
             .offset(x: 3, y: 3)
