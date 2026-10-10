@@ -31,7 +31,9 @@ final class BinanceFutures: Market {
         let msg = json.optString("msg")
         if !msg.isEmpty { throw JSONError(message: msg) }
 
-        ticker.vol = try json.double("volume")
+        // COIN-M: «volume» zählt Kontrakte, «baseVolume» ist die Menge in der Basiswährung;
+        // USD-M hat kein baseVolume, dort ist «volume» bereits die Basiswährung
+        ticker.vol = try json.has("baseVolume") ? json.double("baseVolume") : json.double("volume")
         ticker.high = try json.double("highPrice")
         ticker.low = try json.double("lowPrice")
         ticker.last = try json.double("lastPrice")

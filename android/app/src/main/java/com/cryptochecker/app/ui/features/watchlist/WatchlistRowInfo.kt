@@ -118,7 +118,9 @@ internal fun RowInfo(
             Text(
                 text = when {
                     warning != null -> warning
-                    watch.lastUpdate > 0 -> "${BidiText.isolate(watch.marketName)} · ${ago(watch.lastUpdate, now)}"
+                    // Zeit nur, wenn das Paar nicht aktuell ist — sonst steht sie oben im Status
+                    // («Alle Kurse aktuell · vor 2 Min.») und wäre in jeder Zeile doppelt
+                    stale && watch.lastUpdate > 0 -> "${BidiText.isolate(watch.marketName)} · ${ago(watch.lastUpdate, now)}"
                     else -> watch.marketName
                 },
                 style = MaterialTheme.typography.bodySmall,
@@ -131,19 +133,17 @@ internal fun RowInfo(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f, fill = false)
             )
-            // Kleine Zeichen: Auge = Kurs-Benachrichtigung an, Glocke = Alarme scharf
-            // (die Glocke steht nur für Alarme, damit nichts verwechselt wird)
-            if (watch.notificationEnabled) {
-                Icon(
-                    painterResource(R.drawable.ic_visibility),
-                    contentDescription = stringResource(R.string.watchlist_notification),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = Spacing.xs).size(13.dp)
-                )
-            }
+            // Kleine Zeichen: schlichte Glocke = Kurs-Benachrichtigung an, durchgestrichen = aus,
+            // Glocke mit Wellen = Alarme scharf (verschiedene Glocken, damit nichts verwechselt wird)
+            Icon(
+                painterResource(if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = if (watch.notificationEnabled) 1f else 0.6f),
+                modifier = Modifier.padding(start = Spacing.xs).size(13.dp)
+            )
             if (alarmCount > 0) {
                 Icon(
-                    painterResource(R.drawable.ic_notifications),
+                    painterResource(R.drawable.ic_notifications_active),
                     contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
                     tint = accent,
                     modifier = Modifier.padding(start = Spacing.xs).size(13.dp)

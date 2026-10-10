@@ -150,12 +150,18 @@ interface WatchDao {
     @Query("UPDATE alarms SET enabled = :enabled WHERE id = :id")
     suspend fun setAlarmEnabled(id: Long, enabled: Boolean)
 
+    /**
+     * Ausgelösten Alarm speichern — nur, wenn er seit dem Lesen unverändert ist (eingeschaltet,
+     * gleiche Bedingung, Schwelle, Fenster und Wiederholung); sonst bleibt die Änderung des
+     * Nutzers. Rückgabe: geänderte Zeilen (0 = nicht gespeichert, nicht melden).
+     */
     @Query(
         """
         UPDATE alarms
         SET lastTriggeredAt = :time, lastTriggeredPrice = :price,
             referencePrice = :referencePrice, referenceAt = :referenceAt, enabled = :enabled
-        WHERE id = :id
+        WHERE id = :id AND enabled = 1 AND `condition` = :condition AND threshold = :threshold
+            AND windowHours = :windowHours AND repeating = :repeating
         """
     )
     suspend fun markAlarmTriggered(
@@ -165,23 +171,40 @@ interface WatchDao {
         referencePrice: Double?,
         referenceAt: Long,
         enabled: Boolean,
-    )
+        condition: String,
+        threshold: Double,
+        windowHours: Int,
+        repeating: Boolean,
+    ): Int
 
-    /** Neues Zeitfenster: Bezugskurs und Beginn setzen. */
-    @Query("UPDATE alarms SET referencePrice = :price, referenceAt = :time WHERE id = :id")
-    suspend fun setAlarmReference(id: Long, price: Double, time: Long)
+    /** Neuer Bezug (Bewegungs-/Prozentalarm): Kurs und Beginn setzen — nur bei unverändertem Alarm. */
+    @Query(
+        "UPDATE alarms SET referencePrice = :price, referenceAt = :time WHERE id = :id AND enabled = 1 " +
+            "AND `condition` = :condition AND threshold = :threshold AND windowHours = :windowHours"
+    )
+    suspend fun setAlarmReferenceIfUnchanged(id: Long, price: Double, time: Long, condition: String, threshold: Double, windowHours: Int): Int
 
     /**
      * «Nahe am Hoch/Tief», Kursmarken (PRICE_ABOVE/PRICE_BELOW), Funding und Open Interest: wieder
-     * scharf stellen (keine gemeldete Marke mehr; die übrigen haben ohnehin keinen Bezugskurs);
-     * andere Alarme bleiben unberührt.
+     * scharf stellen (`referenceAt` = 0). Die gemeldete Marke von «Nahe am Hoch/Tief» in
+     * `referencePrice` bleibt (NearExtreme.reportedMark: kein zweites «neues Hoch» am selben Tag);
+     * die übrigen haben ohnehin keinen Bezugskurs. Andere Alarme bleiben unberührt.
      */
     @Query(
-        "UPDATE alarms SET referencePrice = NULL, referenceAt = 0 " +
+        "UPDATE alarms SET referenceAt = 0 " +
             "WHERE id = :id AND `condition` IN ('NEAR_HIGH', 'NEAR_LOW', 'PRICE_ABOVE', 'PRICE_BELOW', " +
             "'FUNDING_ABOVE', 'FUNDING_BELOW', 'OI_UP', 'OI_DOWN')"
     )
     suspend fun rearmAlarm(id: Long)
+
+    /** Wie [rearmAlarm], aber nur bei unverändertem, eingeschaltetem Alarm (Aktualisierung). */
+    @Query(
+        "UPDATE alarms SET referenceAt = 0 " +
+            "WHERE id = :id AND enabled = 1 AND `condition` = :condition AND threshold = :threshold " +
+            "AND windowHours = :windowHours AND `condition` IN ('NEAR_HIGH', 'NEAR_LOW', 'PRICE_ABOVE', 'PRICE_BELOW', " +
+            "'FUNDING_ABOVE', 'FUNDING_BELOW', 'OI_UP', 'OI_DOWN')"
+    )
+    suspend fun rearmAlarmIfUnchanged(id: Long, condition: String, threshold: Double, windowHours: Int): Int
 
     @Query("SELECT * FROM alarms ORDER BY id ASC")
     suspend fun getAllAlarms(): List<AlarmEntity>

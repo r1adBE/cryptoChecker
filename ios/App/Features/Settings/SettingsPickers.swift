@@ -157,13 +157,20 @@ enum SettingsPercentOption: Hashable {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
-    /// Wie Android: Komma oder Punkt, 0 – 100; arabische/persische Ziffern gelten
-    /// (`ThresholdParser.latinDigits`, auch für den vorbefüllten Wert aus `format`).
+    /// Wie Android (`parsePercent`): Komma oder Punkt, 0 – 100, «%»/«٪» (auch «5 %») erlaubt;
+    /// arabische/persische Ziffern gelten (`ThresholdParser.latinDigits`, auch für den
+    /// vorbefüllten Wert aus `format`); Exponent oder Suffix («1e2», «nan») ungültig.
     static func parse(_ text: String) -> Double? {
-        let cleaned = ThresholdParser.latinDigits(text).trimmingCharacters(in: .whitespaces)
+        let cleaned = ThresholdParser.latinDigits(text)
             .replacingOccurrences(of: "%", with: "")
+            .replacingOccurrences(of: "\u{066A}", with: "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
             .replacingOccurrences(of: ",", with: ".")
-        guard let v = Double(cleaned), v >= 0, v <= 100 else { return nil }
+        // Ziffern mit höchstens einem Dezimalpunkt, mindestens eine Ziffer
+        let digits = cleaned.filter { $0 != "." }
+        guard !digits.isEmpty, digits.allSatisfy({ $0.isASCII && $0.isNumber }),
+              cleaned.filter({ $0 == "." }).count <= 1,
+              let v = Double(cleaned), v >= 0, v <= 100 else { return nil }
         return v
     }
 }

@@ -22047,193 +22047,193 @@
         }
       }
     },
-    "alarm_first_text_checked" : {
+    "alarm_first_text_android" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يراقب Crypto Checker الآن %1$@ من أجلك. عندما يصل %1$@ إلى حدّك، ستتلقى إشعارًا بمجرد أن يتحقق التطبيق من السعر. عندما يكون التطبيق مغلقًا، يحدث ذلك وفق فاصل التحديث في الخلفية – وقد يتأخر إذا قيّد تحسين البطارية التطبيق."
+            "value" : "يراقب Crypto Checker الآن %1$@ من أجلك. عندما يصل %1$@ إلى حدّك، ستصلك إشعار فور تحقق التطبيق من السعر. عندما يكون التطبيق مغلقًا، يتحقق Android وفق فاصل التحديث في الخلفية – كل 15 دقيقة على الأكثر، وأحيانًا أبطأ إذا قيّد تحسين البطارية التطبيق. لتنبيهات أسرع: الإعدادات › التحديث › التحديث المتكرر."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker teď za vás sleduje %1$@. Když %1$@ dosáhne vašeho limitu, dostanete oznámení, jakmile aplikace ověří cenu. Při zavřené aplikaci se to děje v intervalu aktualizace na pozadí – později, pokud aplikaci omezuje optimalizace baterie."
+            "value" : "Crypto Checker teď za tebe sleduje %1$@. Když %1$@ dosáhne tvé hranice, dostaneš oznámení, jakmile aplikace zkontroluje cenu. Při zavřené aplikaci kontroluje Android v intervalu aktualizace na pozadí – nejčastěji každých 15 minut, později, pokud aplikaci omezuje optimalizace baterie. Pro rychlejší alarmy: Nastavení › Aktualizace › Obnovovat často."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker holder nu øje med %1$@ for dig. Når %1$@ når din grænse, får du en notifikation, så snart appen tjekker kursen. Når appen er lukket, sker det med intervallet for opdatering i baggrunden – senere, hvis batterioptimering begrænser appen."
+            "value" : "Crypto Checker holder nu øje med %1$@ for dig. Når %1$@ når din grænse, får du en notifikation, så snart appen tjekker kursen. Når appen er lukket, tjekker Android med baggrundsintervallet – højst hvert 15. minut, senere hvis batterioptimering begrænser appen. For hurtigere alarmer: Indstillinger › Opdatering › Opdater hyppigt."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker beobachtet jetzt %1$@ für dich. Erreicht %1$@ deine Grenze, bekommst du eine Mitteilung, sobald die App den Kurs prüft. Bei geschlossener App geschieht das im Intervall der Hintergrund-Aktualisierung – später, wenn die Akku-Optimierung die App einschränkt."
+            "value" : "Crypto Checker beobachtet jetzt %1$@ für dich. Erreicht %1$@ deine Grenze, bekommst du eine Mitteilung, sobald die App den Kurs prüft. Bei geschlossener App prüft Android im Hintergrund-Intervall – höchstens alle 15 Minuten, später, wenn die Akku-Optimierung die App einschränkt. Für schnellere Alarme: Einstellungen › Aktualisierung › Häufig aktualisieren."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το Crypto Checker παρακολουθεί τώρα το %1$@ για εσάς. Όταν το %1$@ φτάσει το όριό σας, θα λάβετε ειδοποίηση μόλις η εφαρμογή ελέγξει την τιμή. Με κλειστή την εφαρμογή, αυτό γίνεται στο διάστημα ενημέρωσης στο παρασκήνιο – αργότερα, αν η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή."
+            "value" : "Το Crypto Checker παρακολουθεί τώρα το %1$@ για εσένα. Όταν το %1$@ φτάσει στο όριό σου, λαμβάνεις ειδοποίηση μόλις η εφαρμογή ελέγξει την τιμή. Με την εφαρμογή κλειστή, το Android ελέγχει στο διάστημα ενημέρωσης στο παρασκήνιο – το πολύ κάθε 15 λεπτά, αργότερα αν η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή. Για ταχύτερους συναγερμούς: Ρυθμίσεις › Ενημέρωση › Συχνή ενημέρωση."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker is now watching %1$@ for you. When %1$@ reaches your limit, you get a notification as soon as the app checks the price. With the app closed, that happens at the background update interval – later if battery optimization restricts the app."
+            "value" : "Crypto Checker is now watching %1$@ for you. When %1$@ reaches your limit, you get a notification as soon as the app checks the price. With the app closed, Android checks at the background interval – at most every 15 minutes, later if battery optimization restricts the app. For faster alarms: Settings › Updates › Update frequently."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker ya vigila %1$@ por ti. Cuando %1$@ alcance tu límite, recibirás una notificación en cuanto la app compruebe el precio. Con la app cerrada, eso ocurre en el intervalo de actualización en segundo plano – más tarde si la optimización de batería restringe la app."
+            "value" : "Crypto Checker vigila ahora %1$@ por ti. Cuando %1$@ alcance tu límite, recibirás una notificación en cuanto la app compruebe el precio. Con la app cerrada, Android comprueba según el intervalo en segundo plano: como mucho cada 15 minutos, más tarde si la optimización de batería limita la app. Para alarmas más rápidas: Ajustes › Actualización › Actualizar a menudo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker اکنون %1$@ را برای شما زیر نظر دارد. وقتی %1$@ به حد شما برسد، به‌محض اینکه برنامه قیمت را بررسی کند اعلان دریافت می‌کنید. وقتی برنامه بسته است، این کار در بازه به‌روزرسانی پس‌زمینه انجام می‌شود – و اگر بهینه‌سازی باتری برنامه را محدود کند، دیرتر."
+            "value" : "Crypto Checker اکنون %1$@ را برای شما زیر نظر دارد. وقتی %1$@ به حد شما برسد، به محض اینکه برنامه قیمت را بررسی کند، اعلان دریافت می‌کنید. وقتی برنامه بسته است، Android در فاصلهٔ به‌روزرسانی پس‌زمینه بررسی می‌کند – حداکثر هر ۱۵ دقیقه، و اگر بهینه‌سازی باتری برنامه را محدود کند دیرتر. برای هشدارهای سریع‌تر: تنظیمات › به‌روزرسانی › به‌روزرسانی مکرر."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker seuraa nyt puolestasi kohdetta %1$@. Kun %1$@ saavuttaa rajasi, saat ilmoituksen heti, kun sovellus tarkistaa hinnan. Kun sovellus on suljettu, se tapahtuu taustapäivityksen välein – myöhemmin, jos akun optimointi rajoittaa sovellusta."
+            "value" : "Crypto Checker seuraa nyt %1$@ puolestasi. Kun %1$@ saavuttaa rajasi, saat ilmoituksen heti kun sovellus tarkistaa kurssin. Kun sovellus on suljettu, Android tarkistaa taustapäivityksen välein – enintään 15 minuutin välein, myöhemmin jos akun optimointi rajoittaa sovellusta. Nopeampiin hälytyksiin: Asetukset › Päivitys › Päivitä tiheästi."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker surveille désormais %1$@ pour vous. Quand %1$@ atteint votre seuil, vous recevez une notification dès que l'app vérifie le prix. App fermée, cela se fait à l'intervalle d'actualisation en arrière-plan – plus tard si l'optimisation de la batterie restreint l'app."
+            "value" : "Crypto Checker surveille maintenant %1$@ pour toi. Quand %1$@ atteint ta limite, tu reçois une notification dès que l’app vérifie le cours. App fermée, Android vérifie selon l’intervalle en arrière-plan – au plus toutes les 15 minutes, plus tard si l’optimisation de la batterie limite l’app. Pour des alarmes plus rapides : Paramètres › Actualisation › Mettre à jour souvent."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker עוקב עכשיו בשבילכם אחרי %1$@. כש-%1$@ יגיע לגבול שלכם, תקבלו התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, זה קורה במרווח של העדכון ברקע – מאוחר יותר אם מיטוב הסוללה מגביל את האפליקציה."
+            "value" : "Crypto Checker עוקב עכשיו אחרי %1$@ בשבילך. כש־%1$@ יגיע לגבול שלך, תקבל התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, Android בודק לפי מרווח העדכון ברקע – לכל היותר כל 15 דקות, ומאוחר יותר אם מיטוב הסוללה מגביל את האפליקציה. להתראות מהירות יותר: הגדרות › עדכון › עדכון תכוף."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker अब आपके लिए %1$@ पर नज़र रख रहा है। जब %1$@ आपकी सीमा तक पहुँचेगा, तो ऐप के कीमत जाँचते ही आपको नोटिफ़िकेशन मिलेगा। ऐप बंद होने पर यह बैकग्राउंड अपडेट के अंतराल पर होता है – अगर बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करता है, तो और देर से।"
+            "value" : "Crypto Checker अब आपके लिए %1$@ पर नज़र रख रहा है। जब %1$@ आपकी सीमा तक पहुँचेगा, ऐप के कीमत जाँचते ही आपको सूचना मिलेगी। ऐप बंद होने पर Android बैकग्राउंड अंतराल पर जाँच करता है – अधिकतम हर 15 मिनट में, और बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करे तो बाद में। तेज़ अलार्म के लिए: सेटिंग्स › अपडेट › बार-बार अपडेट करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A Crypto Checker most figyeli Önnek ezt: %1$@. Ha a(z) %1$@ eléri a határértékét, értesítést kap, amint az alkalmazás ellenőrzi az árat. Bezárt alkalmazásnál ez a háttérfrissítés időközében történik – később, ha az akkumulátor-optimalizálás korlátozza az alkalmazást."
+            "value" : "A Crypto Checker most figyeli neked a(z) %1$@ árfolyamát. Ha a(z) %1$@ eléri a határt, értesítést kapsz, amint az app ellenőrzi az árfolyamot. Bezárt appnál az Android a háttérfrissítés időközében ellenőriz – legfeljebb 15 percenként, később, ha az akkumulátor-optimalizálás korlátozza az appot. Gyorsabb riasztásokhoz: Beállítások › Frissítés › Gyakori frissítés."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker kini memantau %1$@ untuk Anda. Saat %1$@ mencapai batas Anda, Anda mendapat notifikasi begitu aplikasi memeriksa harga. Saat aplikasi ditutup, itu terjadi sesuai interval pembaruan latar belakang – lebih lambat jika optimasi baterai membatasi aplikasi."
+            "value" : "Crypto Checker sekarang memantau %1$@ untukmu. Saat %1$@ mencapai batasmu, kamu mendapat notifikasi begitu aplikasi memeriksa harga. Saat aplikasi ditutup, Android memeriksa sesuai interval latar belakang – paling sering setiap 15 menit, lebih lambat jika pengoptimalan baterai membatasi aplikasi. Untuk alarm lebih cepat: Pengaturan › Pembaruan › Pembaruan sering."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker ora osserva %1$@ per te. Quando %1$@ raggiunge il tuo limite, ricevi una notifica non appena l'app controlla il prezzo. Ad app chiusa, ciò avviene all'intervallo dell'aggiornamento in background – più tardi se l'ottimizzazione della batteria limita l'app."
+            "value" : "Crypto Checker ora tiene d’occhio %1$@ per te. Quando %1$@ raggiunge il tuo limite, ricevi una notifica appena l’app controlla il prezzo. Ad app chiusa, Android controlla secondo l’intervallo in background – al massimo ogni 15 minuti, più tardi se l’ottimizzazione della batteria limita l’app. Per allarmi più rapidi: Impostazioni › Aggiornamento › Aggiorna spesso."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker が %1$@ を見守っています。%1$@ が設定した値に達すると、アプリが価格を確認した時点で通知が届きます。アプリを閉じているときは、バックグラウンド更新の間隔で確認します。電池の最適化でアプリが制限されている場合は、さらに遅れます。"
+            "value" : "Crypto Checker が %1$@ を見守っています。%1$@ が設定した値に達すると、アプリが価格を確認した時点で通知します。アプリを閉じている間は、Android がバックグラウンドの間隔で確認します（最短 15 分ごと。電池の最適化で制限されるとさらに遅くなります）。より速いアラーム：設定 › 更新 › 頻繁に更新。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker가 이제 %1$@을(를) 지켜봅니다. %1$@이(가) 설정한 한도에 도달하면 앱이 가격을 확인하는 즉시 알림을 받습니다. 앱이 닫혀 있으면 백그라운드 업데이트 간격에 맞춰 확인하며, 배터리 최적화가 앱을 제한하면 더 늦어집니다."
+            "value" : "Crypto Checker가 이제 %1$@을(를) 지켜봅니다. %1$@이(가) 설정한 한도에 도달하면 앱이 가격을 확인하는 즉시 알림을 받습니다. 앱이 닫혀 있으면 Android가 백그라운드 간격으로 확인합니다 – 최대 15분마다, 배터리 최적화가 앱을 제한하면 더 늦어집니다. 더 빠른 알람: 설정 › 업데이트 › 자주 업데이트."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker følger nå med på %1$@ for deg. Når %1$@ når grensen din, får du et varsel så snart appen sjekker kursen. Når appen er lukket, skjer det med intervallet for oppdatering i bakgrunnen – senere hvis batterioptimalisering begrenser appen."
+            "value" : "Crypto Checker følger nå med på %1$@ for deg. Når %1$@ når grensen din, får du et varsel så snart appen sjekker kursen. Når appen er lukket, sjekker Android med bakgrunnsintervallet – høyst hvert 15. minutt, senere hvis batterioptimalisering begrenser appen. For raskere alarmer: Innstillinger › Oppdatering › Oppdater ofte."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker houdt nu %1$@ voor je in de gaten. Bereikt %1$@ je grens, dan krijg je een melding zodra de app de koers controleert. Als de app gesloten is, gebeurt dat met het interval van updates op de achtergrond – later als batterijoptimalisatie de app beperkt."
+            "value" : "Crypto Checker houdt %1$@ nu voor je in de gaten. Bereikt %1$@ je grens, dan krijg je een melding zodra de app de koers controleert. Met de app gesloten controleert Android volgens het achtergrondinterval – hoogstens elke 15 minuten, later als batterijoptimalisatie de app beperkt. Voor snellere alarmen: Instellingen › Bijwerken › Vaak bijwerken."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker obserwuje teraz dla Ciebie %1$@. Gdy %1$@ osiągnie Twój limit, otrzymasz powiadomienie, gdy tylko aplikacja sprawdzi cenę. Przy zamkniętej aplikacji dzieje się to w odstępie aktualizacji w tle – później, jeśli optymalizacja baterii ogranicza aplikację."
+            "value" : "Crypto Checker obserwuje teraz %1$@ za ciebie. Gdy %1$@ osiągnie twój próg, dostaniesz powiadomienie, gdy tylko aplikacja sprawdzi kurs. Przy zamkniętej aplikacji Android sprawdza w interwale aktualizacji w tle – najczęściej co 15 minut, później, jeśli optymalizacja baterii ogranicza aplikację. Szybsze alarmy: Ustawienia › Aktualizacje › Odświeżaj często."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Crypto Checker está agora a vigiar %1$@ por si. Quando %1$@ atingir o seu limite, recebe uma notificação assim que a app verificar o preço. Com a app fechada, isso acontece no intervalo da atualização em segundo plano – mais tarde se a otimização da bateria restringir a app."
+            "value" : "O Crypto Checker está agora a acompanhar %1$@ por si. Quando %1$@ atingir o seu limite, recebe uma notificação assim que a app verificar a cotação. Com a app fechada, o Android verifica no intervalo em segundo plano – no máximo a cada 15 minutos, mais tarde se a otimização da bateria restringir a app. Para alarmes mais rápidos: Definições › Atualização › Atualizar com frequência."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Crypto Checker agora está monitorando %1$@ para você. Quando %1$@ atingir seu limite, você recebe uma notificação assim que o app verificar o preço. Com o app fechado, isso acontece no intervalo da atualização em segundo plano – mais tarde se a otimização de bateria restringir o app."
+            "value" : "O Crypto Checker agora acompanha %1$@ para você. Quando %1$@ atingir seu limite, você recebe uma notificação assim que o app verificar a cotação. Com o app fechado, o Android verifica no intervalo em segundo plano – no máximo a cada 15 minutos, mais tarde se a otimização de bateria restringir o app. Para alarmes mais rápidos: Configurações › Atualização › Atualizar com frequência."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker urmărește acum %1$@ pentru tine. Când %1$@ atinge limita ta, primești o notificare imediat ce aplicația verifică prețul. Cu aplicația închisă, asta se întâmplă la intervalul actualizării în fundal – mai târziu dacă optimizarea bateriei restricționează aplicația."
+            "value" : "Crypto Checker urmărește acum %1$@ pentru tine. Când %1$@ atinge limita ta, primești o notificare imediat ce aplicația verifică prețul. Cu aplicația închisă, Android verifică la intervalul din fundal – cel mult la 15 minute, mai târziu dacă optimizarea bateriei restricționează aplicația. Pentru alarme mai rapide: Setări › Actualizare › Actualizează des."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker теперь следит за %1$@ для вас. Когда %1$@ достигнет вашего порога, вы получите уведомление, как только приложение проверит цену. Когда приложение закрыто, это происходит с интервалом фонового обновления – позже, если оптимизация батареи ограничивает приложение."
+            "value" : "Crypto Checker теперь следит за %1$@. Когда %1$@ достигнет вашей границы, вы получите уведомление, как только приложение проверит курс. При закрытом приложении Android проверяет с интервалом фонового обновления – не чаще чем раз в 15 минут, позже, если оптимизация батареи ограничивает приложение. Для более быстрых сигналов: Настройки › Обновление › Обновлять часто."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker tani po ndjek %1$@ për ty. Kur %1$@ të arrijë kufirin tënd, merr një njoftim sapo aplikacioni të kontrollojë çmimin. Me aplikacionin të mbyllur, kjo ndodh sipas intervalit të përditësimit në sfond – më vonë nëse optimizimi i baterisë e kufizon aplikacionin."
+            "value" : "Crypto Checker tani po ndjek %1$@ për ty. Kur %1$@ arrin kufirin tënd, merr një njoftim sapo aplikacioni të kontrollojë çmimin. Me aplikacionin të mbyllur, Android kontrollon sipas intervalit në sfond – më shpesh çdo 15 minuta, më vonë nëse optimizimi i baterisë e kufizon aplikacionin. Për alarme më të shpejta: Cilësimet › Përditësimi › Përditëso shpesh."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker bevakar nu %1$@ åt dig. När %1$@ når din gräns får du en avisering så fort appen kontrollerar kursen. När appen är stängd sker det med intervallet för uppdatering i bakgrunden – senare om batterioptimering begränsar appen."
+            "value" : "Crypto Checker bevakar nu %1$@ åt dig. När %1$@ når din gräns får du en avisering så snart appen kontrollerar kursen. När appen är stängd kontrollerar Android enligt bakgrundsintervallet – högst var 15:e minut, senare om batterioptimering begränsar appen. För snabbare larm: Inställningar › Uppdatering › Uppdatera ofta."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ตอนนี้ Crypto Checker กำลังเฝ้าดู %1$@ ให้คุณ เมื่อ %1$@ ถึงขีดจำกัดของคุณ คุณจะได้รับการแจ้งเตือนทันทีที่แอปตรวจสอบราคา เมื่อปิดแอปอยู่ การตรวจสอบจะเกิดขึ้นตามช่วงเวลาอัปเดตเบื้องหลัง – และอาจช้ากว่านั้นหากการเพิ่มประสิทธิภาพแบตเตอรี่จำกัดแอป"
+            "value" : "ตอนนี้ Crypto Checker กำลังติดตาม %1$@ ให้คุณ เมื่อ %1$@ ถึงขีดจำกัดของคุณ คุณจะได้รับการแจ้งเตือนทันทีที่แอปตรวจสอบราคา เมื่อปิดแอป Android จะตรวจสอบตามช่วงเวลาเบื้องหลัง – บ่อยสุดทุก 15 นาที และช้ากว่านั้นหากการเพิ่มประสิทธิภาพแบตเตอรี่จำกัดแอป สำหรับการแจ้งเตือนที่เร็วขึ้น: ตั้งค่า › การอัปเดต › อัปเดตบ่อย"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker artık sizin için %1$@'i izliyor. %1$@ sınırınıza ulaştığında, uygulama fiyatı kontrol eder etmez bir bildirim alırsınız. Uygulama kapalıyken bu, arka plan güncelleme aralığında olur – pil optimizasyonu uygulamayı kısıtlıyorsa daha geç."
+            "value" : "Crypto Checker artık %1$@ için takipte. %1$@ sınırına ulaştığında, uygulama fiyatı kontrol eder etmez bildirim alırsın. Uygulama kapalıyken Android arka plan aralığında kontrol eder – en sık 15 dakikada bir, pil optimizasyonu uygulamayı kısıtlarsa daha geç. Daha hızlı alarmlar için: Ayarlar › Güncelleme › Sık güncelle."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker тепер стежить за %1$@ для вас. Коли %1$@ досягне вашої межі, ви отримаєте сповіщення, щойно застосунок перевірить ціну. Коли застосунок закрито, це відбувається з інтервалом фонового оновлення – пізніше, якщо оптимізація батареї обмежує застосунок."
+            "value" : "Crypto Checker тепер стежить за %1$@. Коли %1$@ досягне вашої межі, ви отримаєте сповіщення, щойно застосунок перевірить курс. Коли застосунок закрито, Android перевіряє з інтервалом фонового оновлення – не частіше ніж раз на 15 хвилин, пізніше, якщо оптимізація батареї обмежує застосунок. Для швидших сигналів: Налаштування › Оновлення › Оновлювати часто."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker giờ đang theo dõi %1$@ cho bạn. Khi %1$@ chạm ngưỡng của bạn, bạn sẽ nhận được thông báo ngay khi ứng dụng kiểm tra giá. Khi ứng dụng đóng, việc này diễn ra theo chu kỳ cập nhật nền – muộn hơn nếu chế độ tối ưu pin hạn chế ứng dụng."
+            "value" : "Crypto Checker hiện đang theo dõi %1$@ cho bạn. Khi %1$@ chạm ngưỡng của bạn, bạn sẽ nhận thông báo ngay khi ứng dụng kiểm tra giá. Khi ứng dụng đóng, Android kiểm tra theo khoảng thời gian chạy nền – nhiều nhất mỗi 15 phút, chậm hơn nếu tối ưu hóa pin hạn chế ứng dụng. Để báo động nhanh hơn: Cài đặt › Cập nhật › Cập nhật thường xuyên."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crypto Checker 正在为你关注 %1$@。当 %1$@ 达到你设定的界限时，应用一检查价格你就会收到通知。应用关闭时，检查按后台更新间隔进行——如果电池优化限制了应用，则会更晚。"
+            "value" : "Crypto Checker 正在为你关注 %1$@。当 %1$@ 达到你设定的界限时，应用检查价格后会立即通知你。应用关闭时，Android 按后台间隔检查——最快每 15 分钟一次，若电池优化限制了应用则会更晚。想要更快的提醒：设置 › 更新 › 频繁更新。"
           }
         }
       }
@@ -50647,6 +50647,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自 00:00 %1$@"
+          }
+        }
+      }
+    },
+    "change_candle_source" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التغيّر من شموع %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Změna podle svíček %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ændring ud fra %1$@-candlesticks"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veränderung aus %1$@-Kerzen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μεταβολή από κεριά %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change from %1$@ candles"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variación según velas de %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغییر بر اساس شمع‌های %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muutos %1$@-kynttilöistä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variation selon les bougies %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שינוי לפי נרות %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ कैंडल से बदलाव"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Változás %1$@-gyertyák alapján"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perubahan dari candle %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variazione dalle candele %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@のローソク足から算出"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 캔들 기준 변동"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endring fra %1$@-candlesticks"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wijziging op basis van %1$@-candles"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmiana według świec %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variação com base nas velas da %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variação com base nos candles da %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variație după lumânările %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изменение по свечам %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ndryshimi sipas qirinjve të %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Förändring enligt %1$@-candlesticks"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การเปลี่ยนแปลงจากแท่งเทียน %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ mumlarına göre değişim"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зміна за свічками %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biến động theo nến %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据 %1$@ K线计算的涨跌"
           }
         }
       }
@@ -142267,187 +142458,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لماذا؟ →"
+            "value" : "لماذا؟"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Proč? →"
+            "value" : "Proč?"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hvorfor? →"
+            "value" : "Hvorfor?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Warum? →"
+            "value" : "Warum?"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Γιατί; →"
+            "value" : "Γιατί;"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Why? →"
+            "value" : "Why?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "¿Por qué? →"
+            "value" : "¿Por qué?"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "چرا؟ →"
+            "value" : "چرا؟"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Miksi? →"
+            "value" : "Miksi?"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pourquoi ? →"
+            "value" : "Pourquoi ?"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "למה? →"
+            "value" : "למה?"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "क्यों? →"
+            "value" : "क्यों?"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Miért? →"
+            "value" : "Miért?"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kenapa? →"
+            "value" : "Kenapa?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Perché? →"
+            "value" : "Perché?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "なぜ？ →"
+            "value" : "なぜ？"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "왜? →"
+            "value" : "왜?"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hvorfor? →"
+            "value" : "Hvorfor?"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Waarom? →"
+            "value" : "Waarom?"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dlaczego? →"
+            "value" : "Dlaczego?"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porquê? →"
+            "value" : "Porquê?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Por quê? →"
+            "value" : "Por quê?"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De ce? →"
+            "value" : "De ce?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Почему? →"
+            "value" : "Почему?"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pse? →"
+            "value" : "Pse?"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Varför? →"
+            "value" : "Varför?"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ทำไม? →"
+            "value" : "ทำไม?"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neden? →"
+            "value" : "Neden?"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Чому? →"
+            "value" : "Чому?"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vì sao? →"
+            "value" : "Vì sao?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为什么？ →"
+            "value" : "为什么？"
           }
         }
       }
@@ -169161,187 +169352,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "القفل يحمي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور. النسخ الاحتياطية للجهاز بالكامل (نسخ النظام) تتضمن هذه البيانات مع ذلك."
+            "value" : "القفل يحمي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zámek chrání zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžete chránit heslem. Zálohy celého zařízení (systémová záloha) tato data přesto obsahují."
+            "value" : "Zámek chrání zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžete chránit heslem."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Låsen beskytter visningen. Dataene ligger på denne enhed og er beskyttet af enhedens kryptering. Du kan beskytte sikkerhedskopier med en adgangskode. Sikkerhedskopier af hele enheden (systembackup) indeholder stadig disse data."
+            "value" : "Låsen beskytter visningen. Dataene ligger på denne enhed og er beskyttet af enhedens kryptering. Du kan beskytte sikkerhedskopier med en adgangskode."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Sperre schützt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen. Sicherungen des ganzen Geräts (Systemsicherung) enthalten diese Daten trotzdem."
+            "value" : "Die Sperre schützt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το κλείδωμα προστατεύει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείτε να προστατεύσετε τα αντίγραφα ασφαλείας με κωδικό. Τα αντίγραφα ασφαλείας ολόκληρης της συσκευής (αντίγραφο συστήματος) εξακολουθούν να περιέχουν αυτά τα δεδομένα."
+            "value" : "Το κλείδωμα προστατεύει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείτε να προστατεύσετε τα αντίγραφα ασφαλείας με κωδικό."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The lock protects what’s shown on screen. Your data is stored on this device and is protected by the device encryption. You can protect backups with a password. Backups of the whole device (system backup) still include this data."
+            "value" : "The lock protects what’s shown on screen. Your data is stored on this device and is protected by the device encryption. You can protect backups with a password."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El bloqueo protege lo que se muestra. Los datos se guardan en este dispositivo y están protegidos por el cifrado del dispositivo. Puedes proteger las copias de seguridad con una contraseña. Las copias de seguridad de todo el dispositivo (copia del sistema) siguen incluyendo estos datos."
+            "value" : "El bloqueo protege lo que se muestra. Los datos se guardan en este dispositivo y están protegidos por el cifrado del dispositivo. Puedes proteger las copias de seguridad con una contraseña."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قفل از آنچه نمایش داده می‌شود محافظت می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانید از نسخه‌های پشتیبان با گذرواژه محافظت کنید. پشتیبان‌گیری از کل دستگاه (پشتیبان سیستم) همچنان این داده‌ها را دربر می‌گیرد."
+            "value" : "قفل از آنچه نمایش داده می‌شود محافظت می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانید از نسخه‌های پشتیبان با گذرواژه محافظت کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lukitus suojaa näkymän. Tiedot ovat tällä laitteella, ja laitteen salaus suojaa ne. Voit suojata varmuuskopiot salasanalla. Koko laitteen varmuuskopiot (järjestelmän varmuuskopio) sisältävät silti nämä tiedot."
+            "value" : "Lukitus suojaa näkymän. Tiedot ovat tällä laitteella, ja laitteen salaus suojaa ne. Voit suojata varmuuskopiot salasanalla."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le verrouillage protège l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Vous pouvez protéger les sauvegardes par un mot de passe. Les sauvegardes de l’appareil entier (sauvegarde système) contiennent toutefois ces données."
+            "value" : "Le verrouillage protège l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Vous pouvez protéger les sauvegardes par un mot de passe."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הנעילה מגינה על מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה. גיבויים של המכשיר כולו (גיבוי מערכת) עדיין כוללים את הנתונים האלה."
+            "value" : "הנעילה מגינה על מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "यह लॉक, स्क्रीन पर दिखने वाली जानकारी की सुरक्षा करता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं। पूरे डिवाइस के बैकअप (सिस्टम बैकअप) में यह डेटा फिर भी शामिल रहता है।"
+            "value" : "यह लॉक, स्क्रीन पर दिखने वाली जानकारी की सुरक्षा करता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A zár a megjelenítést védi. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheti. A teljes eszköz biztonsági mentései (rendszermentés) azonban tartalmazzák ezeket az adatokat."
+            "value" : "A zár a megjelenítést védi. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheti."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kunci melindungi tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Anda bisa melindungi cadangan dengan kata sandi. Cadangan seluruh perangkat (cadangan sistem) tetap berisi data ini."
+            "value" : "Kunci melindungi tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Anda bisa melindungi cadangan dengan kata sandi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il blocco protegge ciò che è visualizzato. I dati si trovano su questo dispositivo e sono protetti dalla crittografia del dispositivo. Puoi proteggere i backup con una password. I backup dell’intero dispositivo (backup di sistema) contengono comunque questi dati."
+            "value" : "Il blocco protegge ciò che è visualizzato. I dati si trovano su questo dispositivo e sono protetti dalla crittografia del dispositivo. Puoi proteggere i backup con una password."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ロックは画面の表示を保護します。データはこの端末に保存され、端末の暗号化で保護されています。バックアップはパスワードで保護できます。端末全体のバックアップ（システムバックアップ）には、このデータも含まれます。"
+            "value" : "ロックは画面の表示を保護します。データはこの端末に保存され、端末の暗号化で保護されています。バックアップはパスワードで保護できます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "잠금은 화면에 표시되는 내용을 보호합니다. 데이터는 이 기기에 저장되며 기기 암호화로 보호됩니다. 백업은 비밀번호로 보호할 수 있습니다. 기기 전체 백업(시스템 백업)에는 이 데이터도 포함됩니다."
+            "value" : "잠금은 화면에 표시되는 내용을 보호합니다. 데이터는 이 기기에 저장되며 기기 암호화로 보호됩니다. 백업은 비밀번호로 보호할 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Låsen beskytter visningen. Dataene ligger på denne enheten og er beskyttet av enhetens kryptering. Du kan beskytte sikkerhetskopier med et passord. Sikkerhetskopier av hele enheten (systemsikkerhetskopi) inneholder likevel disse dataene."
+            "value" : "Låsen beskytter visningen. Dataene ligger på denne enheten og er beskyttet av enhetens kryptering. Du kan beskytte sikkerhetskopier med et passord."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De vergrendeling beschermt wat er wordt weergegeven. De gegevens staan op dit apparaat en worden beschermd door de apparaatversleuteling. Back-ups kun je met een wachtwoord beveiligen. Back-ups van het hele apparaat (systeemback-up) bevatten deze gegevens toch."
+            "value" : "De vergrendeling beschermt wat er wordt weergegeven. De gegevens staan op dit apparaat en worden beschermd door de apparaatversleuteling. Back-ups kun je met een wachtwoord beveiligen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Blokada chroni to, co widać na ekranie. Dane są przechowywane na tym urządzeniu i chronione przez szyfrowanie urządzenia. Kopie zapasowe możesz zabezpieczyć hasłem. Kopie zapasowe całego urządzenia (kopia systemowa) nadal zawierają te dane."
+            "value" : "Blokada chroni to, co widać na ekranie. Dane są przechowywane na tym urządzeniu i chronione przez szyfrowanie urządzenia. Kopie zapasowe możesz zabezpieczyć hasłem."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O bloqueio protege o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Pode proteger as cópias de segurança com uma palavra-passe. As cópias de segurança do dispositivo inteiro (cópia do sistema) continuam a incluir estes dados."
+            "value" : "O bloqueio protege o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Pode proteger as cópias de segurança com uma palavra-passe."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O bloqueio protege o que aparece na tela. Os dados ficam neste dispositivo e são protegidos pela criptografia do dispositivo. Você pode proteger os backups com uma senha. Os backups do dispositivo inteiro (backup do sistema) ainda incluem esses dados."
+            "value" : "O bloqueio protege o que aparece na tela. Os dados ficam neste dispositivo e são protegidos pela criptografia do dispositivo. Você pode proteger os backups com uma senha."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Blocarea protejează afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă. Copiile de rezervă ale întregului dispozitiv (copia de sistem) includ totuși aceste date."
+            "value" : "Blocarea protejează afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Блокировка защищает то, что видно на экране. Данные хранятся на этом устройстве и защищены шифрованием устройства. Резервные копии можно защитить паролем. Резервные копии всего устройства (системная копия) всё равно содержат эти данные."
+            "value" : "Блокировка защищает то, что видно на экране. Данные хранятся на этом устройстве и защищены шифрованием устройства. Резервные копии можно защитить паролем."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kyçja mbron atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim. Kopjet rezervë të gjithë pajisjes (kopja e sistemit) i përmbajnë megjithatë këto të dhëna."
+            "value" : "Kyçja mbron atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Låset skyddar det som visas. Data finns på den här enheten och skyddas av enhetens kryptering. Du kan skydda säkerhetskopior med ett lösenord. Säkerhetskopior av hela enheten (systemsäkerhetskopia) innehåller ändå dessa data."
+            "value" : "Låset skyddar det som visas. Data finns på den här enheten och skyddas av enhetens kryptering. Du kan skydda säkerhetskopior med ett lösenord."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "การล็อกช่วยปกป้องสิ่งที่แสดงบนหน้าจอ ข้อมูลอยู่ในอุปกรณ์นี้และได้รับการปกป้องด้วยการเข้ารหัสของอุปกรณ์ คุณป้องกันไฟล์สำรองด้วยรหัสผ่านได้ การสำรองข้อมูลทั้งอุปกรณ์ (การสำรองของระบบ) ยังคงรวมข้อมูลนี้ไว้"
+            "value" : "การล็อกช่วยปกป้องสิ่งที่แสดงบนหน้าจอ ข้อมูลอยู่ในอุปกรณ์นี้และได้รับการปกป้องด้วยการเข้ารหัสของอุปกรณ์ คุณป้องกันไฟล์สำรองด้วยรหัสผ่านได้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kilit, görüntülenen bilgileri korur. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsiniz. Cihazın tamamının yedekleri (sistem yedeği) bu verileri yine de içerir."
+            "value" : "Kilit, görüntülenen bilgileri korur. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsiniz."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Блокування захищає те, що видно на екрані. Дані зберігаються на цьому пристрої й захищені шифруванням пристрою. Резервні копії можна захистити паролем. Резервні копії всього пристрою (системна копія) все одно містять ці дані."
+            "value" : "Блокування захищає те, що видно на екрані. Дані зберігаються на цьому пристрої й захищені шифруванням пристрою. Резервні копії можна захистити паролем."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khóa bảo vệ nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu. Bản sao lưu toàn bộ thiết bị (sao lưu hệ thống) vẫn chứa dữ liệu này."
+            "value" : "Khóa bảo vệ nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "锁定只保护屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。你可以用密码保护备份。整机备份（系统备份）仍会包含这些数据。"
+            "value" : "锁定只保护屏幕上的显示内容。数据存储在此设备上，并受设备加密保护。你可以用密码保护备份。"
           }
         }
       }
@@ -169533,6 +169724,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "仅保护投资组合：使用指纹、面容或设备 PIN 解锁。在后台超过一分钟后会再次锁定。自选列表、提醒和其他小部件不受影响。"
+          }
+        }
+      }
+    },
+    "settings_portfolio_system_backup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المحفظة في نسخ النظام الاحتياطي"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio v systémové záloze"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefølje i systembackup"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio in Systemsicherung"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χαρτοφυλάκιο στο αντίγραφο συστήματος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio in system backup"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cartera en la copia del sistema"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پرتفوی در پشتیبان سیستم"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkku järjestelmän varmuuskopioon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuille dans la sauvegarde système"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תיק השקעות בגיבוי המערכת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सिस्टम बैकअप में पोर्टफ़ोलियो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió a rendszermentésben"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofolio di cadangan sistem"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portafoglio nel backup di sistema"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオをシステムバックアップに含める"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시스템 백업에 포트폴리오 포함"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefølje i systemsikkerhetskopi"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio in systeemback-up"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfel w kopii systemowej"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólio na cópia do sistema"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólio no backup do sistema"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoliu în copia de sistem"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель в системной копии"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoli në kopjen e sistemit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfölj i systemsäkerhetskopia"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รวมพอร์ตโฟลิโอในการสำรองของระบบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy sistem yedeğinde"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель у системній копії"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danh mục trong sao lưu hệ thống"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将投资组合纳入系统备份"
+          }
+        }
+      }
+    },
+    "settings_portfolio_system_backup_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عند الإيقاف: لا تُضمَّن معاملاتك في نسخ النظام الاحتياطي للجهاز ولا في النقل من هاتف إلى هاتف. لنقلها إلى هاتف جديد، استخدم النسخة الاحتياطية الخاصة بالتطبيق مع كلمة مرور."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vypnuto: transakce nebudou v systémové záloze zařízení ani při přenosu do nového telefonu. Pro přesun do nového telefonu použijte zálohu aplikace s heslem."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fra: Dine transaktioner kommer ikke med i enhedens systembackup eller ved overførsel til en ny telefon. Brug appens egen sikkerhedskopi med adgangskode til at flytte dem."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus: Deine Transaktionen kommen nicht in die Systemsicherung des Geräts und nicht in die Übertragung auf ein neues Gerät. Zum Umziehen die eigene Sicherung der App mit Passwort verwenden."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ανενεργό: οι συναλλαγές σας δεν περιλαμβάνονται στο αντίγραφο ασφαλείας συστήματος της συσκευής ούτε στη μεταφορά σε νέο τηλέφωνο. Για μεταφορά, χρησιμοποιήστε το αντίγραφο ασφαλείας της εφαρμογής με κωδικό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off: your transactions stay out of the device’s system backup and phone-to-phone transfers. To move them to a new phone, use the app’s own backup with a password."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desactivado: tus transacciones no se incluyen en la copia del sistema del dispositivo ni en la transferencia a un teléfono nuevo. Para trasladarlas, usa la copia de seguridad de la app con contraseña."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خاموش: تراکنش‌های شما در پشتیبان سیستم دستگاه و انتقال به گوشی جدید قرار نمی‌گیرند. برای انتقال، از پشتیبان خود برنامه با گذرواژه استفاده کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pois: tapahtumasi eivät tule laitteen järjestelmän varmuuskopioon eivätkä siirtoon uuteen puhelimeen. Siirrä ne sovelluksen omalla salasanalla suojatulla varmuuskopiolla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactivé : vos transactions ne figurent ni dans la sauvegarde système de l’appareil ni dans le transfert vers un nouveau téléphone. Pour les déplacer, utilisez la sauvegarde de l’app protégée par mot de passe."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כבוי: העסקאות שלך לא נכללות בגיבוי המערכת של המכשיר ולא בהעברה לטלפון חדש. כדי להעביר אותן, השתמש בגיבוי של האפליקציה עם סיסמה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बंद: आपके लेन-देन डिवाइस के सिस्टम बैकअप और नए फ़ोन में ट्रांसफ़र में शामिल नहीं होते। उन्हें नए फ़ोन पर ले जाने के लिए ऐप का अपना पासवर्ड वाला बैकअप इस्तेमाल करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ki: a tranzakciók nem kerülnek bele az eszköz rendszermentésébe és az új telefonra való átvitelbe. Átköltöztetéshez használja az alkalmazás saját, jelszóval védett mentését."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nonaktif: transaksi Anda tidak disertakan dalam cadangan sistem perangkat maupun transfer ke ponsel baru. Untuk memindahkannya, gunakan cadangan aplikasi dengan kata sandi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disattivato: le tue transazioni non sono incluse nel backup di sistema del dispositivo né nel trasferimento a un nuovo telefono. Per spostarle, usa il backup dell’app con password."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフ：取引は端末のシステムバックアップや新しい端末への移行に含まれません。移行するには、パスワード付きのアプリのバックアップを使ってください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "끔: 거래 내역이 기기의 시스템 백업과 새 휴대폰으로의 이전에 포함되지 않습니다. 옮기려면 비밀번호를 설정한 앱 자체 백업을 사용하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Av: Transaksjonene dine tas ikke med i enhetens systemsikkerhetskopi eller ved overføring til en ny telefon. Bruk appens egen sikkerhetskopi med passord for å flytte dem."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uit: je transacties zitten niet in de systeemback-up van het apparaat en niet in de overdracht naar een nieuwe telefoon. Gebruik de eigen back-up van de app met wachtwoord om ze te verhuizen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyłączone: transakcje nie trafiają do kopii systemowej urządzenia ani do przenoszenia na nowy telefon. Aby je przenieść, użyj kopii zapasowej aplikacji z hasłem."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desligado: as suas transações não são incluídas na cópia do sistema do dispositivo nem na transferência para um novo telemóvel. Para as mudar, use a cópia de segurança da app com palavra-passe."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desligado: suas transações não entram no backup do sistema do dispositivo nem na transferência para um novo celular. Para levá-las, use o backup do próprio app com senha."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dezactivat: tranzacțiile tale nu sunt incluse în copia de sistem a dispozitivului și nici în transferul pe un telefon nou. Pentru a le muta, folosește copia de rezervă a aplicației cu parolă."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выкл.: ваши сделки не попадают в системную резервную копию устройства и при переносе на новый телефон. Чтобы перенести их, используйте резервную копию приложения с паролем."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joaktiv: transaksionet e tua nuk përfshihen në kopjen e sistemit të pajisjes as në transferimin në një telefon të ri. Për t’i zhvendosur, përdor kopjen rezervë të aplikacionit me fjalëkalim."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Av: Dina transaktioner ingår inte i enhetens systemsäkerhetskopia eller vid överföring till en ny telefon. Använd appens egen säkerhetskopia med lösenord för att flytta dem."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ปิด: รายการซื้อขายของคุณจะไม่อยู่ในการสำรองของระบบและการย้ายไปยังโทรศัพท์เครื่องใหม่ หากต้องการย้าย ให้ใช้ไฟล์สำรองของแอปที่ตั้งรหัสผ่าน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalı: işlemleriniz cihazın sistem yedeğine ve yeni telefona aktarıma dahil edilmez. Taşımak için uygulamanın parolalı kendi yedeğini kullanın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вимк.: ваші угоди не потрапляють до системної резервної копії пристрою та під час перенесення на новий телефон. Щоб перенести їх, використовуйте резервну копію застосунку з паролем."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tắt: giao dịch của bạn không nằm trong bản sao lưu hệ thống của thiết bị và khi chuyển sang điện thoại mới. Để chuyển, hãy dùng bản sao lưu của ứng dụng có mật khẩu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭：你的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。"
           }
         }
       }
@@ -177947,187 +178520,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يعرض بطاقة «شيء ما يحدث الآن» فوق الأزواج. تُضبط التنبيهات في إشعارات السوق."
+            "value" : "يعرض الشريحة ⚡ بجانب المجموعات: انقر عليها لعرض الأزواج التي يحدث فيها شيء الآن فقط. تُضبط التنبيهات في إشعارات السوق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zobrazí kartu „Právě se něco děje“ nad páry. Upozornění nastavíte v sekci „Tržní upozornění“."
+            "value" : "Zobrazí čip ⚡ u skupin: klepnutím uvidíte jen páry, u kterých se právě něco děje. Upozornění nastavíte v sekci „Tržní upozornění“."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Viser kortet ”Her sker der noget lige nu” over parrene. Meddelelser indstilles under Markedsmeddelelser."
+            "value" : "Viser chippen ⚡ ved grupperne: tryk for kun at se de par, hvor der sker noget lige nu. Meddelelser indstilles under Markedsmeddelelser."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zeigt die Karte «Hier passiert gerade etwas» über den Paaren. Mitteilungen dazu stellst du unter Markt-Meldungen ein."
+            "value" : "Zeigt den Chip ⚡ bei den Gruppen: Antippen zeigt nur die Paare, bei denen gerade etwas passiert. Mitteilungen dazu stellst du unter Markt-Meldungen ein."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Εμφανίζει την κάρτα «Κάτι συμβαίνει αυτή τη στιγμή» πάνω από τα ζεύγη. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς»."
+            "value" : "Εμφανίζει το ⚡ δίπλα στις ομάδες: πατήστε το για να δείτε μόνο τα ζεύγη όπου κάτι συμβαίνει τώρα. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς»."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shows the card “Something is happening right now” above the pairs. Alerts are set under Market alerts."
+            "value" : "Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Alerts are set under Market alerts."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Muestra la tarjeta «Algo está pasando ahora mismo» encima de los pares. Los avisos se ajustan en Avisos del mercado."
+            "value" : "Muestra el chip ⚡ junto a los grupos: tócalo para ver solo los pares en los que está pasando algo ahora mismo. Los avisos se ajustan en Avisos del mercado."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "کارت «همین حالا اتفاقی در جریان است» را بالای جفت‌ها نشان می‌دهد. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند."
+            "value" : "تراشه ⚡ را کنار گروه‌ها نشان می‌دهد: با لمس آن فقط جفت‌هایی را می‌بینید که همین حالا در آن‌ها اتفاقی در جریان است. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Näyttää kortin ”Nyt tapahtuu jotain” parien yläpuolella. Ilmoitukset asetetaan kohdassa Markkinailmoitukset."
+            "value" : "Näyttää ⚡-sirun ryhmien vieressä: napauta nähdäksesi vain parit, joissa tapahtuu juuri nyt jotain. Ilmoitukset asetetaan kohdassa Markkinailmoitukset."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Affiche la carte « Il se passe quelque chose en ce moment » au-dessus des paires. Les alertes se règlent sous Notifications de marché."
+            "value" : "Affiche la puce ⚡ à côté des groupes : touchez-la pour ne voir que les paires où il se passe quelque chose en ce moment. Les alertes se règlent sous Notifications de marché."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מציג את הכרטיס ״משהו קורה עכשיו״ מעל הצמדים. התראות מוגדרות בהתראות שוק."
+            "value" : "מציג את השבב ⚡ ליד הקבוצות: הקישו עליו כדי לראות רק את הצמדים שבהם משהו קורה עכשיו. התראות מוגדרות בהתראות שוק."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "पेयर के ऊपर “अभी कुछ हो रहा है” कार्ड दिखाता है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।"
+            "value" : "समूहों के पास ⚡ चिप दिखाता है: टैप करें और केवल वे पेयर देखें जिनमें अभी कुछ हो रहा है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A párok felett mutatja a „Most éppen történik valami” kártyát. Az értesítéseket a Piaci értesítések alatt állíthatja be."
+            "value" : "Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látja, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatja be."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Menampilkan kartu “Sesuatu sedang terjadi” di atas pasangan. Notifikasi diatur di Peringatan pasar."
+            "value" : "Menampilkan chip ⚡ di samping grup: ketuk untuk melihat hanya pasangan yang sedang mengalami sesuatu. Notifikasi diatur di Peringatan pasar."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mostra la scheda «Sta succedendo qualcosa» sopra le coppie. Le notifiche si impostano in Avvisi di mercato."
+            "value" : "Mostra il chip ⚡ accanto ai gruppi: toccalo per vedere solo le coppie in cui sta succedendo qualcosa. Le notifiche si impostano in Avvisi di mercato."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ペアの上に「今まさに動きがあります」カードを表示します。通知は「相場のお知らせ」で設定します。"
+            "value" : "グループの横に ⚡ チップを表示します。タップすると、今まさに動きがあるペアだけを表示します。通知は「相場のお知らせ」で設定します。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래쌍 위에 ‘지금 무언가 일어나고 있습니다’ 카드를 표시합니다. 알림은 ‘시장 알림’에서 설정합니다."
+            "value" : "그룹 옆에 ⚡ 칩을 표시합니다. 누르면 지금 무언가 일어나고 있는 거래쌍만 보여 줍니다. 알림은 ‘시장 알림’에서 설정합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Viser kortet «Her skjer det noe akkurat nå» over parene. Varsler stilles inn under Markedsvarsler."
+            "value" : "Viser brikken ⚡ ved gruppene: trykk for å se bare parene der det skjer noe akkurat nå. Varsler stilles inn under Markedsvarsler."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toont de kaart ‘Er gebeurt nu iets’ boven de paren. Meldingen stel je in bij Marktmeldingen."
+            "value" : "Toont de chip ⚡ bij de groepen: tik erop om alleen de paren te zien waar nu iets gebeurt. Meldingen stel je in bij Marktmeldingen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pokazuje kartę „Coś się właśnie dzieje” nad parami. Powiadomienia ustawisz w sekcji „Powiadomienia rynkowe”."
+            "value" : "Pokazuje chip ⚡ przy grupach: dotknij go, aby zobaczyć tylko pary, w których właśnie coś się dzieje. Powiadomienia ustawisz w sekcji „Powiadomienia rynkowe”."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mostra o cartão «Algo está a acontecer agora» acima dos pares. Os alertas definem-se em Avisos de mercado."
+            "value" : "Mostra o chip ⚡ junto aos grupos: toque para ver só os pares em que algo está a acontecer agora. Os alertas definem-se em Avisos de mercado."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mostra o cartão “Algo está acontecendo agora” acima dos pares. Os alertas são definidos em Alertas de mercado."
+            "value" : "Mostra o chip ⚡ junto aos grupos: toque para ver só os pares em que algo está acontecendo agora. Os alertas são definidos em Alertas de mercado."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Afișează cardul „Se întâmplă ceva chiar acum” deasupra perechilor. Notificările se setează la Alerte de piață."
+            "value" : "Afișează cipul ⚡ lângă grupuri: atinge-l ca să vezi doar perechile la care se întâmplă ceva chiar acum. Notificările se setează la Alerte de piață."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Показывает карточку «Прямо сейчас что-то происходит» над парами. Уведомления настраиваются в разделе «Рыночные уведомления»."
+            "value" : "Показывает чип ⚡ рядом с группами: нажмите, чтобы увидеть только пары, где прямо сейчас что-то происходит. Уведомления настраиваются в разделе «Рыночные уведомления»."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shfaq kartën «Diçka po ndodh tani» mbi çiftet. Njoftimet caktohen te Njoftime tregu."
+            "value" : "Shfaq çipin ⚡ pranë grupeve: prekeni për të parë vetëm çiftet ku po ndodh diçka tani. Njoftimet caktohen te Njoftime tregu."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Visar kortet ”Något händer just nu” ovanför paren. Aviseringar ställs in under Marknadsaviseringar."
+            "value" : "Visar chippet ⚡ vid grupperna: tryck för att bara se paren där något händer just nu. Aviseringar ställs in under Marknadsaviseringar."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แสดงการ์ด “มีบางอย่างเกิดขึ้นตอนนี้” เหนือคู่เหรียญ ตั้งค่าการแจ้งเตือนได้ที่ “การแจ้งเตือนตลาด”"
+            "value" : "แสดงชิป ⚡ ข้างกลุ่ม แตะเพื่อดูเฉพาะคู่เหรียญที่มีบางอย่างเกิดขึ้นตอนนี้ ตั้งค่าการแจ้งเตือนได้ที่ “การแจ้งเตือนตลาด”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çiftlerin üstünde “Şu anda bir şeyler oluyor” kartını gösterir. Bildirimler Piyasa bildirimleri bölümünden ayarlanır."
+            "value" : "Grupların yanında ⚡ çipini gösterir: dokunarak yalnızca şu anda bir şeyler olan çiftleri görün. Bildirimler Piyasa bildirimleri bölümünden ayarlanır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Показує картку «Просто зараз щось відбувається» над парами. Сповіщення налаштовуються в розділі «Ринкові сповіщення»."
+            "value" : "Показує чип ⚡ поруч із групами: торкніться, щоб побачити лише пари, де просто зараз щось відбувається. Сповіщення налаштовуються в розділі «Ринкові сповіщення»."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiển thị thẻ “Đang có điều gì đó xảy ra” phía trên các cặp. Thông báo được đặt trong Thông báo thị trường."
+            "value" : "Hiển thị chip ⚡ cạnh các nhóm: chạm vào để chỉ xem các cặp đang có điều gì đó xảy ra. Thông báo được đặt trong Thông báo thị trường."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在交易对上方显示“此刻正有异动”卡片。通知在“市场通知”中设置。"
+            "value" : "在分组旁显示 ⚡ 标签：点按即可只查看此刻正有异动的交易对。通知在“市场通知”中设置。"
           }
         }
       }
@@ -190356,384 +190929,193 @@
         }
       }
     },
-    "unusual_action_add" : {
+    "unusual_action_open" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ابحث عن زوج لإضافته"
+            "value" : "عرض السعر والإجراءات"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najít pár k přidání"
+            "value" : "Zobrazit cenu a akce"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Find par at tilføje"
+            "value" : "Vis kurs og handlinger"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Paar zum Hinzufügen suchen"
+            "value" : "Kurs und Aktionen zeigen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Εύρεση ζεύγους για προσθήκη"
+            "value" : "Εμφάνιση τιμής και ενεργειών"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Find pair to add"
+            "value" : "Show price and actions"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buscar par para añadir"
+            "value" : "Mostrar precio y acciones"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "یافتن جفت برای افزودن"
+            "value" : "نمایش قیمت و اقدامات"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Etsi lisättävä pari"
+            "value" : "Näytä hinta ja toiminnot"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trouver une paire à ajouter"
+            "value" : "Afficher le cours et les actions"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "חיפוש צמד להוספה"
+            "value" : "הצג מחיר ופעולות"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जोड़ने के लिए पेयर ढूँढें"
+            "value" : "कीमत और कार्रवाइयाँ दिखाएँ"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hozzáadandó pár keresése"
+            "value" : "Árfolyam és műveletek megjelenítése"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cari pasangan untuk ditambahkan"
+            "value" : "Tampilkan harga dan tindakan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trova coppia da aggiungere"
+            "value" : "Mostra prezzo e azioni"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "追加するペアを探す"
+            "value" : "価格と操作を表示"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "추가할 거래쌍 찾기"
+            "value" : "가격 및 작업 보기"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finn par å legge til"
+            "value" : "Vis kurs og handlinger"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Paar zoeken om toe te voegen"
+            "value" : "Koers en acties tonen"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Znajdź parę do dodania"
+            "value" : "Pokaż kurs i akcje"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procurar par para adicionar"
+            "value" : "Mostrar preço e ações"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buscar par para adicionar"
+            "value" : "Mostrar preço e ações"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Caută pereche de adăugat"
+            "value" : "Afișează prețul și acțiunile"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Найти пару для добавления"
+            "value" : "Показать цену и действия"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gjej çift për ta shtuar"
+            "value" : "Shfaq çmimin dhe veprimet"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hitta par att lägga till"
+            "value" : "Visa kurs och åtgärder"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "หาคู่เพื่อเพิ่ม"
+            "value" : "แสดงราคาและการดำเนินการ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eklenecek çifti bul"
+            "value" : "Fiyatı ve işlemleri göster"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Знайти пару для додавання"
+            "value" : "Показати ціну та дії"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tìm cặp để thêm"
+            "value" : "Hiện giá và thao tác"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "查找要添加的交易对"
-          }
-        }
-      }
-    },
-    "unusual_action_why" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لماذا يتحرك هذا؟"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Proč se to hýbe?"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hvorfor bevæger den sig?"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warum bewegt es sich?"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Γιατί κινείται;"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Why is it moving?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¿Por qué se mueve?"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "چرا این حرکت می‌کند؟"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Miksi tämä liikkuu?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pourquoi ça bouge ?"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "למה זה זז?"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "इसमें हलचल क्यों है?"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Miért mozog?"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kenapa ini bergerak?"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Perché si muove?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "なぜ動いている？"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "왜 움직이나요?"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hvorfor beveger den seg?"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Waarom beweegt dit?"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dlaczego to się rusza?"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Porque está a mexer?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Por que está se movendo?"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "De ce se mișcă?"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Почему это движется?"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pse po lëviz?"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Varför rör den sig?"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ทำไมถึงเคลื่อนไหว?"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bu neden hareket ediyor?"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Чому це рухається?"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vì sao nó biến động?"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "为什么在波动？"
+            "value" : "显示价格和操作"
           }
         }
       }
@@ -194172,6 +194554,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "该交易所已不再交易"
+          }
+        }
+      }
+    },
+    "watch_preview_not_watched" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ليست في قائمة المتابعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Není ve sledovaných"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke på overvågningslisten"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht in der Merkliste"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν είναι στη λίστα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not in watchlist"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No está en la lista de seguimiento"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در واچ‌لیست نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei seurantalistalla"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas dans la liste de suivi"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ברשימת המעקב"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉचलिस्ट में नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs a figyelőlistán"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada di daftar pantau"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non nella lista di osservazione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチリストにありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "관심 목록에 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke i overvåkingslisten"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet in de volglijst"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie ma na liście obserwowanych"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não está na lista de acompanhamento"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não está na lista de acompanhamento"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu este în lista de urmărire"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет в списке"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk është në listën e ndjekjes"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte i bevakningslistan"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่อยู่ในรายการติดตาม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzleme listesinde değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немає в списку"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có trong danh sách"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在自选中"
           }
         }
       }
@@ -203175,6 +203748,647 @@
         }
       }
     },
+    "watchlist_removed_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "تمت إزالة الأزواج: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "تمت إزالة الأزواج: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "تمت إزالة الأزواج: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "تمت إزالة الأزواج: %1$lld"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "تمت إزالة الأزواج: %1$lld"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "تمت إزالة الأزواج: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odebráno párů: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odebráno párů: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odebráno párů: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odebráno párů: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par fjernet"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par fjernet"
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld Paar entfernt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld Paare entfernt"
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρέθηκε %1$lld ζεύγος"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρέθηκαν %1$lld ζεύγη"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pair removed"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pairs removed"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares eliminados"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par eliminado"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares eliminados"
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld جفت حذف شد"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld جفت حذف شد"
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pari poistettu"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paria poistettu"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paires supprimées"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paire supprimée"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paires supprimées"
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "הוסרו צמדים: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "הוסרו צמדים: %1$lld"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "הוסרו צמדים: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld पेयर हटाए गए"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld पेयर हटाए गए"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pár eltávolítva"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pár eltávolítva"
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pasangan dihapus"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld coppie rimosse"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld coppia rimossa"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld coppie rimosse"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld 件のペアを削除しました"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "거래쌍 %1$lld개를 삭제했습니다"
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par fjernet"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par fjernet"
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paar verwijderd"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paren verwijderd"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto par: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto par: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto par: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto par: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares removidos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par removido"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares removidos"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares removidos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par removido"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares removidos"
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Perechi eliminate: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Perechi eliminate: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Perechi eliminate: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалено пар: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалено пар: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалено пар: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалено пар: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "U hoq %1$lld çift"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "U hoqën %1$lld çifte"
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par borttaget"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par borttagna"
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ลบ %1$lld คู่แล้ว"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld çift kaldırıldı"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld çift kaldırıldı"
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено пар: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено пар: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено пар: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено пар: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Đã xóa %1$lld cặp"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "已移除 %1$lld 个交易对"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "watchlist_removed_not_traded" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -205153,6 +206367,1793 @@
         }
       }
     },
+    "watchlist_select" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحديد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vybrat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vælg"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auswählen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επιλογή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valitse"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בחירה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "चुनें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kijelölés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleziona"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "선택"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velg"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecteren"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaznacz"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zgjidh"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välj"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เลือก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вибрати"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择"
+          }
+        }
+      }
+    },
+    "watchlist_select_all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحديد الكل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vybrat vše"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vælg alle"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle auswählen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επιλογή όλων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar todo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب همه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valitse kaikki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout sélectionner"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בחירת הכול"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी चुनें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összes kijelölése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih semua"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleziona tutto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 선택"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velg alle"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles selecteren"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaznacz wszystko"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar tudo"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar tudo"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează tot"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать все"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zgjidh të gjitha"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välj alla"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เลือกทั้งหมด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü seç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вибрати все"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn tất cả"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全选"
+          }
+        }
+      }
+    },
+    "watchlist_selected_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المحدد: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المحدد: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المحدد: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المحدد: %1$lld"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المحدد: %1$lld"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المحدد: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Vybráno: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Vybráno: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Vybráno: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Vybráno: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valgt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valgt"
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld ausgewählt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld ausgewählt"
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Επιλεγμένα: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Επιλεγμένα: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selected"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selected"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld seleccionados"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld seleccionado"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld seleccionados"
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld انتخاب‌شده"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld انتخاب‌شده"
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valittu"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valittu"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld sélectionnés"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld sélectionné"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld sélectionnés"
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "נבחרו: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "נבחרו: %1$lld"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "נבחרו: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld चुने गए"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld चुने गए"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld kijelölve"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld kijelölve"
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld dipilih"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selezionati"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selezionato"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selezionati"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld 件選択"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld개 선택됨"
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valgt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valgt"
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld geselecteerd"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld geselecteerd"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Zaznaczono: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Zaznaczono: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Zaznaczono: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Zaznaczono: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selecionados"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selecionado"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selecionados"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selecionados"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selecionado"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld selecionados"
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Selectate: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Selectate: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Selectate: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Выбрано: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Выбрано: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Выбрано: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Выбрано: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld e zgjedhur"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld të zgjedhura"
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld vald"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld valda"
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "เลือกแล้ว %1$lld รายการ"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld seçildi"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld seçildi"
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Вибрано: %1$lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Вибрано: %1$lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Вибрано: %1$lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Вибрано: %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Đã chọn %1$lld"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "已选择 %1$lld 个"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "watchlist_show_all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض الكل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit vše"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis alle"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle zeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση όλων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایش همه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä kaikki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout afficher"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג הכול"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी दिखाएँ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összes mutatása"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan semua"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra tutti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis alle"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles tonen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż wszystkie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arată tot"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать все"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq të gjitha"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa alla"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงทั้งหมด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати всі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện tất cả"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示全部"
+          }
+        }
+      }
+    },
+    "watchlist_show_only_stale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض القديمة فقط"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit jen zastaralé"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis kun forældede"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur veraltete zeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση μόνο των παρωχημένων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show only outdated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar solo los desactualizados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فقط قدیمی‌ها را نشان بده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä vain vanhentuneet"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher seulement les obsolètes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג רק לא עדכניים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "केवल पुराने दिखाएँ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Csak az elavultak mutatása"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan yang usang saja"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra solo i non aggiornati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "古いものだけ表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오래된 항목만 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis bare utdaterte"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alleen verouderde tonen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż tylko nieaktualne"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar só os desatualizados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar só os desatualizados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arată doar cele învechite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать только устаревшие"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq vetëm të vjetruarat"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa bara inaktuella"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงเฉพาะที่เก่าแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca güncel olmayanları göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати лише застарілі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ hiện mục đã cũ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只显示已过时的"
+          }
+        }
+      }
+    },
+    "watchlist_sort_ascending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تصاعدي"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vzestupně"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "stigende"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aufsteigend"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "αύξουσα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ascending"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ascendente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صعودی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nouseva"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "croissant"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בסדר עולה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बढ़ते क्रम में"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "növekvő"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "menaik"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "crescente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昇順"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오름차순"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "stigende"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oplopend"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "rosnąco"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "crescente"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "crescente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "crescător"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "по возрастанию"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "rritës"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "stigande"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จากน้อยไปมาก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "artan"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "за зростанням"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tăng dần"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "升序"
+          }
+        }
+      }
+    },
+    "watchlist_sort_descending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنازلي"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sestupně"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "faldende"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "absteigend"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "φθίνουσα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "descending"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "descendente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نزولی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "laskeva"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "décroissant"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בסדר יורד"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घटते क्रम में"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "csökkenő"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "menurun"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decrescente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "降順"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내림차순"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "synkende"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aflopend"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "malejąco"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decrescente"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decrescente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "descrescător"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "по убыванию"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zbritës"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fallande"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จากมากไปน้อย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "azalan"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "за спаданням"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "giảm dần"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "降序"
+          }
+        }
+      }
+    },
     "watchlist_sort_hint" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -205340,6 +208341,579 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "按住并拖动交易对，或使用拖动柄。收藏始终在最上方。"
+          }
+        }
+      }
+    },
+    "watchlist_sort_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاسم"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Název"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navn"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όνομα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nimi"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שם"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नाम"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Név"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nama"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navn"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naam"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nume"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Название"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emri"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namn"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ชื่อ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назва"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称"
+          }
+        }
+      }
+    },
+    "watchlist_sort_own" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ترتيبك الخاص"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlastní pořadí"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen rækkefølge"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigene Reihenfolge"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δική σας σειρά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Own order"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orden propio"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ترتیب خودتان"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oma järjestys"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordre personnel"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סדר משלך"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपना क्रम"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saját sorrend"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urutan sendiri"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordine personale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自分の並び順"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내 순서"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen rekkefølge"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen volgorde"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własna kolejność"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordem própria"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordem própria"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordine proprie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свой порядок"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renditja juaj"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen ordning"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ลำดับของคุณเอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi sıranız"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний порядок"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thứ tự riêng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义顺序"
+          }
+        }
+      }
+    },
+    "watchlist_sort_price" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "السعر"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τιμή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precio"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחיר"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कीमत"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Árfolyam"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preț"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цена"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çmimi"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiyat"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ціна"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格"
           }
         }
       }

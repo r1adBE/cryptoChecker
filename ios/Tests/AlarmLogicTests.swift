@@ -96,9 +96,144 @@ final class AlarmLogicTests: XCTestCase {
         let move = alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100, windowHours: 4, referenceAt: now - 3_600_000)
         XCTAssertTrue(AlarmEvaluator.shouldTrigger(alarm: move, price: 95, previousPrice: 100, now: now, cooldownMinutes: 0))
         XCTAssertFalse(AlarmEvaluator.shouldTrigger(alarm: move, price: 103, previousPrice: 100, now: now, cooldownMinutes: 0))
+        // Bezug 2 h alt, Fenster 1 h (Spielraum bis 1,5 h): kein Vergleich, aber auch kein Neubeginn
         let expired = alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100, windowHours: 1, referenceAt: now - 7_200_000)
-        XCTAssertTrue(AlarmEvaluator.needsWindowReset(alarm: expired, now: now))
+        XCTAssertFalse(AlarmEvaluator.needsWindowReset(alarm: expired, now: now))
         XCTAssertFalse(AlarmEvaluator.shouldTrigger(alarm: expired, price: 120, previousPrice: 100, now: now, cooldownMinutes: 0))
+    }
+
+    /// Wie `AlarmEvaluatorTest.move window checks the old reference after the window ran out`.
+    func testMoveWindowChecksTheOldReferenceAfterTheWindowRanOut() {
+        let a = alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100, windowHours: 1, referenceAt: now - 61 * 60_000)
+        XCTAssertFalse(AlarmEvaluator.needsReference(alarm: a, now: now))
+        XCTAssertTrue(AlarmEvaluator.shouldTrigger(alarm: a, price: 106, previousPrice: 100, now: now, cooldownMinutes: 0))
+        XCTAssertFalse(AlarmEvaluator.shouldTrigger(alarm: a, price: 104, previousPrice: 100, now: now, cooldownMinutes: 0))
+    }
+
+    /// Wie `AlarmEvaluatorTest.move window slides over the price history`.
+    func testMoveWindowSlidesOverThePriceHistory() {
+        let minute: Int64 = 60_000
+        let a = alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100, windowHours: 1, referenceAt: now - 200 * minute)
+        let history = [
+            MoveWindow.PricePoint(price: 100, time: now - 200 * minute),
+            MoveWindow.PricePoint(price: 100, time: now - 50 * minute),
+            MoveWindow.PricePoint(price: 101, time: now - 20 * minute),
+            MoveWindow.PricePoint(price: 103, time: now - 10 * minute),
+        ]
+        XCTAssertTrue(AlarmEvaluator.shouldTrigger(alarm: a, price: 105.5, previousPrice: nil, now: now, cooldownMinutes: 0,
+                                                   moveHistory: history))
+        XCTAssertFalse(AlarmEvaluator.shouldTrigger(alarm: a, price: 104.5, previousPrice: nil, now: now, cooldownMinutes: 0,
+                                                    moveHistory: history))
+        // Punkte vor referenceAt (letzte Meldung) zählen nicht
+        var reported = a
+        reported.referencePrice = 103
+        reported.referenceAt = now - 10 * minute
+        XCTAssertFalse(AlarmEvaluator.shouldTrigger(alarm: reported, price: 105.5, previousPrice: nil, now: now,
+                                                    cooldownMinutes: 0, moveHistory: history))
+    }
+
+    /// Wie `MoveWindowTest.hourlyBackgroundRunsReportTheMove`.
+    func testMoveWindowHourlyBackgroundRunsReportTheMove() {
+        var a = alarm(.MOVE_PERCENT_WINDOW, 5, repeating: false)
+        var history: [MoveWindow.PricePoint] = []
+        var fired = 0
+        let times: [Int64] = [0, 55, 118, 175].map { now + $0 * 60_000 }
+        let prices: [Double] = [100, 101, 104, 109.5]
+        for (t, p) in zip(times, prices) {
+            if AlarmEvaluator.needsReference(alarm: a, now: t) {
+                a.referencePrice = p
+                a.referenceAt = t
+            } else if AlarmEvaluator.shouldTrigger(alarm: a, price: p, previousPrice: nil, now: t, cooldownMinutes: 0,
+                                                   moveHistory: history) {
+                fired += 1
+                a = AlarmEvaluator.triggered(a, price: p, time: t)
+            }
+            history = MoveWindow.append(history, MoveWindow.PricePoint(price: p, time: t), now: t)
+        }
+        XCTAssertEqual(fired, 1)
+        XCTAssertFalse(a.enabled)
+    }
+
+    /// Wie `MoveWindowTest.historyOverADayStaysSmall`.
+    func testMoveWindowHistoryOverADayStaysSmall() {
+        var history: [MoveWindow.PricePoint] = []
+        var time = now
+        var price = 1_000.0
+        for _ in 0..<(30 * 60) {
+            history = MoveWindow.append(history, MoveWindow.PricePoint(price: price, time: time), now: time)
+            price += 0.1
+            time += 60_000
+        }
+        let last = time - 60_000
+        XCTAssertLessThan(history.count, 200)
+        for hours in [1, 4, 12, 24] {
+            let change = MoveWindow.changePercent(history: history, reference: nil, price: price, hours: hours, since: 0, now: last)
+            XCTAssertGreaterThan(change ?? 0, 0, "window \(hours)")
+        }
+        XCTAssertTrue(MoveWindow.prune(history, now: last + MoveWindow.retentionMillis + 60_000 * 3).isEmpty)
+        XCTAssertEqual(MoveWindow.maxAgeMillis(1), 5_400_000)
+        XCTAssertEqual(MoveWindow.maxAgeMillis(24), 30 * 3_600_000)
+    }
+
+    /// Wie `AlarmEvaluatorTest.missing or future reference needs a new one`.
+    func testMissingOrFutureReferenceNeedsANewOne() {
+        let move = alarm(.MOVE_PERCENT_WINDOW, 5)
+        XCTAssertTrue(AlarmEvaluator.needsReference(alarm: move, now: now))
+        XCTAssertTrue(AlarmEvaluator.needsReference(alarm: alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100), now: now))
+        XCTAssertTrue(AlarmEvaluator.needsReference(
+            alarm: alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100, referenceAt: now + 600_000), now: now))
+        XCTAssertFalse(AlarmEvaluator.needsReference(
+            alarm: alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100, referenceAt: now - 1), now: now))
+        XCTAssertTrue(AlarmEvaluator.needsReference(alarm: alarm(.CHANGE_PERCENT_UP, 5), now: now))
+        XCTAssertTrue(AlarmEvaluator.needsReference(alarm: alarm(.CHANGE_PERCENT_DOWN, 5, referencePrice: 0), now: now))
+        XCTAssertFalse(AlarmEvaluator.needsReference(alarm: alarm(.CHANGE_PERCENT_DOWN, 5, referencePrice: 90), now: now))
+        XCTAssertFalse(AlarmEvaluator.needsReference(alarm: alarm(.PRICE_ABOVE, 5), now: now))
+    }
+
+    /// Wie `AlarmEvaluatorTest.fields after triggering`.
+    func testFieldsAfterTriggering() {
+        let percent = AlarmEvaluator.triggered(alarm(.CHANGE_PERCENT_UP, 5, repeating: false, referencePrice: 100, referenceAt: 7),
+                                               price: 105, time: now)
+        XCTAssertEqual(percent.referencePrice, 105)
+        XCTAssertEqual(percent.referenceAt, 7)
+        XCTAssertFalse(percent.enabled)
+        XCTAssertEqual(percent.lastTriggeredAt, now)
+        let move = AlarmEvaluator.triggered(alarm(.MOVE_PERCENT_WINDOW, 5, referencePrice: 100), price: 106, time: now)
+        XCTAssertEqual(move.referencePrice, 106)
+        XCTAssertEqual(move.referenceAt, now)
+        XCTAssertTrue(move.enabled)
+        let volume = AlarmEvaluator.triggered(alarm(.VOLUME_SPIKE, 3), price: 50, time: now, candleOpenTime: 123)
+        XCTAssertEqual(volume.referenceAt, 123)
+        XCTAssertNil(volume.referencePrice)
+        let near = AlarmEvaluator.triggered(alarm(.NEAR_HIGH, 0), price: 101, time: now, nearLevel: 101)
+        XCTAssertEqual(near.referencePrice, 101)
+        XCTAssertEqual(near.referenceAt, now)
+        let level = AlarmEvaluator.triggered(alarm(.PRICE_ABOVE, 100), price: 101, time: now)
+        XCTAssertNil(level.referencePrice)
+        XCTAssertEqual(level.referenceAt, now)
+    }
+
+    /// Wie `NearExtremeTest.newHighDoesNotRepeatTheSameDayAfterRearming`.
+    func testNewHighDoesNotRepeatTheSameDayAfterRearming() {
+        let range = NearExtreme.Range(high: 100, low: 50)
+        let reportedAt = now - 2 * 3_600_000
+        func decide(_ side: NearExtreme.Side = .high, _ price: Double, armed: Bool, lastLevel: Double?) -> NearExtreme.Decision {
+            NearExtreme.decide(side: side, price: price, range: range, thresholdPercent: 0, armed: armed, lastLevel: lastLevel,
+                               inCooldown: false, lastTriggeredAt: reportedAt, now: now)
+        }
+        XCTAssertEqual(decide(.high, 99.4, armed: false, lastLevel: 101), .rearm)
+        let mark = NearExtreme.reportedMark(lastLevel: 101, lastTriggeredAt: reportedAt, windowDays: 30, now: now)
+        XCTAssertEqual(mark, 101)
+        XCTAssertEqual(decide(.high, 100.1, armed: true, lastLevel: mark), .idle)
+        if case .fire = decide(.high, 101.2, armed: true, lastLevel: mark) {} else { XCTFail("101.2 ist ein neues Hoch") }
+        XCTAssertEqual(decide(.low, 49.9, armed: true, lastLevel: 49), .idle)
+        if case .fire = decide(.low, 48.9, armed: true, lastLevel: 49) {} else { XCTFail("48.9 ist ein neues Tief") }
+        // Marke verfällt mit dem Zeitraum
+        let day: Int64 = 24 * 3_600_000
+        XCTAssertEqual(NearExtreme.reportedMark(lastLevel: 101, lastTriggeredAt: now - 29 * day, windowDays: 30, now: now), 101)
+        XCTAssertNil(NearExtreme.reportedMark(lastLevel: 101, lastTriggeredAt: now - 30 * day, windowDays: 30, now: now))
+        XCTAssertNil(NearExtreme.reportedMark(lastLevel: 101, lastTriggeredAt: 0, windowDays: 30, now: now))
+        XCTAssertNil(NearExtreme.reportedMark(lastLevel: nil, lastTriggeredAt: now - 3_600_000, windowDays: 30, now: now))
     }
 
     func testVolumeSpikeOncePerCandle() {

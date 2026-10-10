@@ -6,7 +6,6 @@
     </plurals>
     <string name="settings_summary_on">켬</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker가 이제 %1$s을(를) 지켜봅니다. %1$s이(가) 설정한 한도에 도달하면 앱이 가격을 확인하는 즉시 알림을 받습니다. 앱이 닫혀 있으면 백그라운드 업데이트 간격에 맞춰 확인하며, 배터리 최적화가 앱을 제한하면 더 늦어집니다.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker가 이제 %1$s을(를) 지켜봅니다. 앱이 가격을 확인하는 즉시 알림을 받습니다. 앱이 닫혀 있으면 언제 확인할지 iOS가 결정하므로 시간이 걸릴 수 있습니다. 앱이 열려 있는 동안에는 제때 가격을 확인합니다.</string>
 
     <string name="about_request_exchange">거래소 요청</string>

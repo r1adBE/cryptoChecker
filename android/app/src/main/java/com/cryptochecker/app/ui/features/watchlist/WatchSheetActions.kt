@@ -9,6 +9,9 @@ import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,6 +20,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -124,6 +128,55 @@ internal fun PrimarySheetAction(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = Spacing.xs)
         )
+    }
+}
+
+/**
+ * Vorschau im Aktionsblatt (Paar nicht in der Merkliste): gross «Zur Merkliste hinzufügen» in der
+ * Themenfarbe, daneben «Warum?» ([showWhy]) als Kachel wie sonst. [adding]: Knopf gesperrt,
+ * «Zur Merkliste hinzugefügt.» bis das Blatt zum gespeicherten Eintrag wechselt.
+ */
+@Composable
+internal fun PreviewSheetActions(
+    showWhy: Boolean,
+    adding: Boolean,
+    onAdd: () -> Unit,
+    onWhy: () -> Unit,
+) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        // Gleich hoch, auch wenn ein Text umbricht
+        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 12.dp)
+    ) {
+        Button(
+            onClick = onAdd,
+            enabled = !adding,
+            shape = MaterialTheme.shapes.medium,
+            contentPadding = PaddingValues(horizontal = Spacing.md, vertical = Spacing.md),
+            modifier = Modifier.weight(2f).fillMaxHeight().heightIn(min = 72.dp)
+        ) {
+            Icon(
+                painterResource(if (adding) R.drawable.ic_check else R.drawable.ic_add),
+                contentDescription = null,
+                modifier = Modifier.size(22.dp)
+            )
+            Text(
+                text = stringResource(if (adding) R.string.explorer_added_to_watchlist else R.string.explorer_add_to_watchlist),
+                style = MaterialTheme.typography.labelLarge,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = Spacing.sm)
+            )
+        }
+        if (showWhy) {
+            PrimarySheetAction(
+                icon = R.drawable.ic_lightbulb,
+                text = stringResource(R.string.watch_action_why),
+                onClick = onWhy,
+                modifier = Modifier.weight(1f)
+            )
+        }
     }
 }
 

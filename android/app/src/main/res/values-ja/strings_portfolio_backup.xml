@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">ポートフォリオをシステムバックアップに含める</string>
+    <string name="settings_portfolio_system_backup_hint">オフ：取引は端末のシステムバックアップや新しい端末への移行に含まれません。移行するには、パスワード付きのアプリのバックアップを使ってください。</string>
+</resources>

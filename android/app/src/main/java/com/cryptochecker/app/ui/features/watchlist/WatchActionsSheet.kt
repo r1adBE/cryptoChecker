@@ -82,6 +82,12 @@ private object SheetMoreState {
  * Gruppe, Notiz, Portfolio, Aktualisieren, Widget, Vorlesen, Meldung und zuletzt Löschen — im
  * aufklappbaren Abschnitt «Mehr» (zu; Zustand für die Sitzung gemerkt). Das Blatt steht immer
  * in voller Höhe, Aufklappen ändert nur den Inhalt der Liste.
+ *
+ * [preview]: Paar steht (noch) nicht in der Merkliste (Coin aus «Heute auffällig», nur im Speicher):
+ * Kopf, Kurs, Chart und «Warum?» wie sonst, dazu gross «Zur Merkliste hinzufügen»
+ * ([onAddToWatchlist]). Alles, was einen gespeicherten Eintrag braucht — Paar bearbeiten, Alarm,
+ * Favorit, Notiz und der ganze Abschnitt «Mehr» (Gruppe, Portfolio, Widget, Vorlesen, Meldung,
+ * Löschen) —, fehlt. Nach dem Hinzufügen zeigt der Aufrufer dasselbe Blatt für den neuen Eintrag.
  */
 @Composable
 internal fun WatchActionsSheet(
@@ -108,6 +114,14 @@ internal fun WatchActionsSheet(
     loadChart: suspend (WatchEntity, SheetChartRange) -> SheetChartResult = { _, _ -> SheetChartResult.Unsupported },
     /** Bitcoin-Paare: Umrechnungswährung und Faktor Quote → sie für «1 CHF = … Sats». */
     satsRate: suspend (String) -> Pair<String, Double>? = { null },
+    /** Pille aus den Kerzen einer anderen Börse (z. B. «Binance» bei einem Kraken-Paar); null = nicht. */
+    candleSource: String? = null,
+    /** Vorschau eines Paars, das nicht in der Merkliste steht (siehe oben). */
+    preview: Boolean = false,
+    /** Vorschau: «Zur Merkliste hinzufügen». */
+    onAddToWatchlist: () -> Unit = {},
+    /** Vorschau: wird gerade hinzugefügt (Knopf gesperrt, «Zur Merkliste hinzugefügt.»). */
+    adding: Boolean = false,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val sheetContext = LocalContext.current
@@ -118,7 +132,7 @@ internal fun WatchActionsSheet(
     var editNote by remember { mutableStateOf(false) }
     // «Paar bearbeiten» (Stift neben dem Paar): Börse, Paar, Kontrakt desselben Eintrags
     var editPair by rememberSaveable(watch.id) { mutableStateOf(false) }
-    if (editPair) {
+    if (editPair && !preview) {
         WatchEditSheet(watch = watch, alarmCount = alarmCount, onDismiss = { editPair = false })
     }
     if (editNote) {
@@ -168,20 +182,26 @@ internal fun WatchActionsSheet(
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        watch.marketName,
+                        // Vorschau: «Binance · Nicht in der Merkliste»
+                        if (preview) "${watch.marketName} · ${stringResource(R.string.watch_preview_not_watched)}"
+                        else watch.marketName,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                // IconButton: 48 dp Tippfläche
-                IconButton(onClick = { editPair = true }) {
-                    Icon(
-                        painterResource(R.drawable.ic_edit),
-                        contentDescription = stringResource(R.string.watch_edit_title),
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                // IconButton: 48 dp Tippfläche; Vorschau: nichts zu bearbeiten
+                if (!preview) {
+                    IconButton(onClick = { editPair = true }) {
+                        Icon(
+                            painterResource(R.drawable.ic_edit),
+                            contentDescription = stringResource(R.string.watch_edit_title),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
             }
+            val candleNote = candleSource?.takeIf { watch.lastPrice != null }
+                ?.let { stringResource(R.string.change_candle_source, it) }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = 12.dp)
@@ -192,8 +212,17 @@ internal fun WatchActionsSheet(
                     fontWeight = FontWeight.SemiBold
                 )
                 Box(modifier = Modifier.padding(start = 12.dp)) {
-                    if (watch.lastPrice != null) DayChangePill(change = watch.shownChange(LocalChangeView.current))
+                    if (watch.lastPrice != null) DayChangePill(change = watch.shownChange(LocalChangeView.current), note = candleNote)
                 }
+            }
+            // Pille aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
+            if (candleNote != null) {
+                Text(
+                    candleNote,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
             }
             // Bitcoin: «1 CHF = 1’234 Sats» in der Umrechnungswährung (Kurs mit dem bestehenden Faktor)
             val bitcoin = Sats.isBitcoin(watch.baseAsset) && !watch.isNotTraded
@@ -233,7 +262,9 @@ internal fun WatchActionsSheet(
             } else {
                 Text(
                     text = watch.lastError?.let { friendlyError(it) }
-                        ?: stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate)),
+                        // Vorschau: Kurs wird noch geholt
+                        ?: if (preview && watch.lastUpdate <= 0) stringResource(R.string.loading_hint)
+                        else stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate)),
                     style = MaterialTheme.typography.bodySmall,
                     color = if (watch.lastError != null && !isNotTraded(watch.lastError)) MaterialTheme.colorScheme.error
                     else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -251,6 +282,16 @@ internal fun WatchActionsSheet(
                 modifier = Modifier.padding(bottom = 12.dp)
             )
 
+            // Vorschau: gross «Zur Merkliste hinzufügen», daneben nur «Warum?» (Alarm und Favorit
+            // brauchen einen gespeicherten Eintrag)
+            if (preview) {
+                PreviewSheetActions(
+                    showWhy = !watch.isNotTraded,
+                    adding = adding,
+                    onAdd = onAddToWatchlist,
+                    onWhy = onWhy,
+                )
+            } else
             // Die drei häufigsten Aktionen zuerst und gleich gross: Alarm, Warum?, Favorit
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -258,7 +299,7 @@ internal fun WatchActionsSheet(
                 modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 12.dp)
             ) {
                 PrimarySheetAction(
-                    icon = R.drawable.ic_notifications,
+                    icon = R.drawable.ic_notifications_active,
                     text = if (alarmCount > 0) pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount)
                     else stringResource(R.string.watch_action_alarm),
                     onClick = onOpenAlarms,
@@ -282,7 +323,7 @@ internal fun WatchActionsSheet(
                 )
             }
 
-            watch.note?.let { note ->
+            watch.note?.takeIf { !preview }?.let { note ->
                 Text(
                     text = note,
                     style = MaterialTheme.typography.bodyMedium,
@@ -301,6 +342,8 @@ internal fun WatchActionsSheet(
                 futures?.let { FuturesSection(it) }
             }
 
+            // Vorschau: kein «Mehr» (alles darin braucht einen gespeicherten Eintrag)
+            if (!preview) {
             // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt); weich auf- und zuklappen
             var moreExpanded by remember { mutableStateOf(SheetMoreState.expanded) }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
@@ -356,8 +399,9 @@ internal fun WatchActionsSheet(
                 title = stringResource(R.string.watchlist_notification),
                 checked = watch.notificationEnabled,
                 onCheckedChange = onNotificationChange,
-                // Dasselbe Auge wie in der Zeile der Merkliste
-                icon = R.drawable.ic_visibility
+                // Dieselbe schlichte Glocke wie in der Zeile der Merkliste (Alarme: Glocke mit Wellen);
+                // aus = durchgestrichen
+                icon = if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off
             )
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
             SheetAction(
@@ -366,6 +410,7 @@ internal fun WatchActionsSheet(
                 danger = true,
                 onClick = onDelete
             )
+            }
             }
             }
         }

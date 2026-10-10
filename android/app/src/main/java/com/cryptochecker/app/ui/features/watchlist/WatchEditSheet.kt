@@ -203,7 +203,7 @@ internal fun WatchEditSheet(
                     modifier = Modifier.padding(top = gap)
                 ) {
                     Icon(
-                        painterResource(R.drawable.ic_notifications),
+                        painterResource(R.drawable.ic_notifications_active),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.tertiary,
                         modifier = Modifier.padding(end = 8.dp).size(18.dp)

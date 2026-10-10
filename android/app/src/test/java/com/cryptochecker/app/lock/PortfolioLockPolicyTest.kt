@@ -51,6 +51,9 @@ class PortfolioLockPolicyTest {
     fun settingsAndQuickAddGates() {
         assertTrue(PortfolioLockPolicy.disableNeedsUnlock(locked = true))
         assertFalse(PortfolioLockPolicy.disableNeedsUnlock(locked = false))
+        assertTrue(PortfolioLockPolicy.systemBackupNeedsUnlock(locked = true, enabling = true))
+        assertFalse(PortfolioLockPolicy.systemBackupNeedsUnlock(locked = true, enabling = false))
+        assertFalse(PortfolioLockPolicy.systemBackupNeedsUnlock(locked = false, enabling = true))
         assertTrue(PortfolioLockPolicy.quickAddNeedsUnlock(locked = true))
         assertFalse(PortfolioLockPolicy.quickAddNeedsUnlock(locked = false))
         assertTrue(PortfolioLockPolicy.showSetting(portfolioEnabled = true))

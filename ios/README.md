@@ -17,13 +17,28 @@ Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 
 Zuletzt dazugekommen:
 
+- **Befunde der technischen Prüfung behoben**: Alarme wie Android (gleitendes Fenster, Hoch/Tief-Marke), Marktphase/
+  Fear & Greed laufen wieder (`BackgroundRefresh.swift`), `watchlist.json` mit `NSFileCoordinator` und tolerantem Lesen
+  (nie leer überschrieben), Portfolio-Alarme in `portfolio_alarms.json`, keine Abstürze bei NaN/∞ (`JSON.swift`),
+  Live-Kurs 1 nicht mehr verworfen. «Heute auffällig» öffnet das Aktionsblatt (Vorschau), langes Drücken = Auswählen,
+  Gruppen-Chips mit Rand in der Themenfarbe.
+- **Portfolio-Zahlen und Sicherung**: eine Stablecoin-Regel (`Shared/Portfolio/PortfolioStables.swift`), Wertverlauf
+  mit EZB-Tageskursen (`PortfolioHistoryFx.swift`), 25-%-Sperre (`PricePlausibility.swift`), Hinweis «Veränderung aus
+  …-Kerzen»; `portfolio.json` standardmässig vom Geräte-Backup ausgenommen (`Shared/Storage/BackupExclusion.swift`,
+  Schalter «Portfolio in Systemsicherung»); Börsen-Vertragstests (`Tests/ExchangeContractTests.swift`, Daten aus
+  `android/testdata/exchanges`, von `gen_xcodeproj.py` nach `Tests/Exchanges` kopiert).
+- **Listen einheitlich**: Merkliste, Start-Auswahl, «Heute auffällig» und Portfolio mit gleichem Logo (36 pt) und
+  gleicher Schrift; jede Zeile eine eigene Karte mit 2 pt Fuge, aussen 16 pt, innen 4 pt gerundet
+  (`App/Components/ListSegment.swift`). Markt: Status-Pille «Alles aktuell · vor …» statt Titel «Jetzt».
 - **Feinschliff vor dem Store-Test**: eine Frische-Schwelle für Pille, Zeile und VoiceOver; Merkliste speichert im
   Hintergrund (`SharedStorage.saveSnapshotInBackground`); «Favoriten»-Chip und Gruppen-«+» nur bei Bedarf; kein
   Sortieren per langem Drücken (⋯ › Sortieren); Gesten-Hinweis mit Richtung; 44-pt-Tippflächen; Favorit-Stern ohne
   Logos; leere Alarm-Übersicht mit «Neuer Alarm»; Suche ohne Treffer mit «Börse und Paar selbst wählen»; Hinweis
   «Mitteilungen sind aus» bei den Alarmen; Überschriften mit Strich statt Orange-Schrift, keine bräunlichen Flächen
-  im Dunkelmodus; klare Zeichen: Auge = Kurs-Mitteilung (auch am Schalter im Aktionsblatt
-  und in den Einstellungen), Glocke = Alarme; Glocke oben nur mit aktiven Alarmen und ohne Zahl («Alle Alarme» immer
+  im Dunkelmodus; ★- und ⚡-Chip bei den Gruppen statt Aktivitätskarte (`QuickView.swift`), Tipp auf «veraltet»
+  zeigt nur diese, Mehrfachauswahl (⋯ › Auswählen: Favorit · Gruppe · Löschen, `WatchlistSelection.swift`), Zeit
+  in der Zeile nur wenn nicht aktuell, «Aktualisieren» grau statt «Gerade aktualisiert»; zwei Glocken: schlicht = Kurs-Mitteilung (auch am Schalter im Aktionsblatt),
+  mit Wellen = Alarme (`bell.and.waves.left.and.right`); Glocke oben nur mit aktiven Alarmen und ohne Zahl («Alle Alarme» immer
   im ⋯-Menü); Start-Paare mit Kurs-Mitteilung wie jedes Paar.
 
 - **Coin-Logos** statt nur Initialen (Merkliste, Aktionsblatt, Portfolio, Markt,
@@ -109,7 +124,7 @@ Frühere Runden:
   Einstellungen «Erweitert». Hinweis unter dem Intervall: iOS plant den Hintergrund selbst.
 - **Crypto Pulse «Was gerade auffällt»** (erste Karte im Markt-Tab): Schlagzeile mit Leitsatz und
   einem Satz zu Volumen/Funding, BTC/ETH/SOL, Funding-Chip (nur wenn erhöht/negativ), Marktbreite
-  «Top 30 ▲ · ▼» und Krypto-Markt gesamt (Satz zur Marktbreite nur in deutlichen Fällen); «Warum? →»
+  «Top 30 ▲ · ▼» und Krypto-Markt gesamt (Satz zur Marktbreite nur in deutlichen Fällen); «Warum? ⌄»
   klappt «Markt heute» (nur Altcoins vs. Bitcoin) und die Faktor-Checkliste auf — nur Funding (! / –); Volumen, Fear & Greed
   und Gas stehen nicht doppelt, sie haben eigene Karten im Tab
   (`App/Features/Cycle/CryptoPulseCard.swift`, `Shared/Insights/CryptoPulse.swift`).
@@ -146,7 +161,7 @@ Frühere Runden:
   «Löschen» im Aktionsblatt wirkt wie Wischen (sofort, mit «Rückgängig», ohne Rückfrage).
   Nicht im Sortiermodus und nicht mit VoiceOver (dort Aktionen)
   (`App/Features/Watchlist/WatchlistEditing.swift`).
-- **Markt-Tab in drei Abschnitten**: «Jetzt» (Crypto Pulse, «Heute auffällig», Fear & Greed), «Einordnung»
+- **Markt-Tab in drei Abschnitten**: oben ohne Titel mit Status-Pille (Crypto Pulse, «Heute auffällig», Fear & Greed), «Einordnung»
   (Marktphase, Dominanz mit Altcoin-Saison, Halving), «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin); Überschriften für VoiceOver.
 - **Markt-Tab sofort da**: zeigt die zuletzt gespeicherten Daten («Stand … · wird
   aktualisiert …») und lädt im Hintergrund neu (`App/Features/Cycle/CycleScreen.swift`).

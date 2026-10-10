@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Акции, сырьё и валюты (TradFi)</string>
     <string name="settings_tradfi_futures_hint">При выборе пары показывает также фьючерсы на акции, золото и другое сырьё, валюты и компании до IPO. Это контракты, а не токены.</string>
     <string name="settings_watchlist_activity_card">Необычная активность в списке</string>
-    <string name="settings_watchlist_activity_card_hint">Показывает карточку «Прямо сейчас что-то происходит» над парами. Уведомления настраиваются в разделе «Рыночные уведомления».</string>
+    <string name="settings_watchlist_activity_card_hint">Показывает чип ⚡ рядом с группами: нажмите, чтобы увидеть только пары, где прямо сейчас что-то происходит. Уведомления настраиваются в разделе «Рыночные уведомления».</string>
     <string name="settings_row_about">О приложении</string>
     <string name="price_colors_green_up">Зелёный — рост / красный — падение</string>
     <string name="price_colors_red_up">Красный — рост / зелёный — падение</string>

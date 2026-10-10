@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
+import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -364,6 +365,12 @@ class WatchRepository @Inject constructor(
         if (enabled) watchDao.rearmAlarm(id)
     }
 
+    /**
+     * Ausgelösten Alarm speichern ([AlarmEvaluator.triggered]) — nur, wenn er seit dem Lesen
+     * unverändert ist (eingeschaltet, gleiche Bedingung, Schwelle, Fenster, Wiederholung).
+     * Sonst hat der Nutzer ihn während der Aktualisierung bearbeitet oder abgeschaltet: Dann
+     * bleibt seine Änderung und es wird nicht gemeldet (Rückgabe false).
+     */
     suspend fun markAlarmTriggered(
         alarm: AlarmEntity,
         price: Double,
@@ -372,33 +379,32 @@ class WatchRepository @Inject constructor(
         candleOpenTime: Long? = null,
         /** «Nahe am Hoch/Tief»: gemeldete Marke (Hoch/Tief bzw. Kurs beim neuen Hoch/Tief). */
         nearLevel: Double? = null,
-    ) = watchDao.markAlarmTriggered(
-        id = alarm.id,
-        time = time,
-        price = price,
-        referencePrice = when {
-            alarm.condition.isNearExtreme -> nearLevel ?: price
-            alarm.condition.isPercent -> price
-            else -> alarm.referencePrice
-        },
-        referenceAt = when (alarm.condition) {
-            // Bewegungs-Alarm: nach dem Auslösen beginnt ein neues Zeitfenster
-            AlarmCondition.MOVE_PERCENT_WINDOW -> time
-            // Volumen-Spike: dieselbe Kerze nicht nochmals melden
-            AlarmCondition.VOLUME_SPIKE -> candleOpenTime ?: alarm.referenceAt
-            // Nahe am Hoch/Tief, Kursmarke, Funding und Open Interest: gemeldet (> 0) bis zur Wiederscharfstellung
-            AlarmCondition.NEAR_HIGH, AlarmCondition.NEAR_LOW,
-            AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW,
-            AlarmCondition.FUNDING_ABOVE, AlarmCondition.FUNDING_BELOW,
-            AlarmCondition.OI_UP, AlarmCondition.OI_DOWN -> time
-            else -> alarm.referenceAt
-        },
-        enabled = alarm.repeating,
-    )
+    ): Boolean {
+        val after = AlarmEvaluator.triggered(alarm, price, time, candleOpenTime, nearLevel)
+        return watchDao.markAlarmTriggered(
+            id = alarm.id,
+            time = time,
+            price = price,
+            referencePrice = after.referencePrice,
+            referenceAt = after.referenceAt,
+            enabled = after.enabled,
+            condition = alarm.condition.name,
+            threshold = alarm.threshold,
+            windowHours = alarm.windowHours,
+            repeating = alarm.repeating,
+        ) > 0
+    }
 
-    suspend fun setAlarmReference(id: Long, price: Double, time: Long) =
-        watchDao.setAlarmReference(id, price, time)
+    /** Neuer Bezug (Bewegungs-/Prozentalarm) — nur, wenn der Alarm seit dem Lesen unverändert ist. */
+    suspend fun setAlarmReferenceIfUnchanged(alarm: AlarmEntity, price: Double, time: Long) {
+        watchDao.setAlarmReferenceIfUnchanged(alarm.id, price, time, alarm.condition.name, alarm.threshold, alarm.windowHours)
+    }
 
     /** «Nahe am Hoch/Tief», Kursmarke (PRICE_ABOVE/PRICE_BELOW), Funding bzw. Open Interest wieder scharf stellen. */
     suspend fun rearmAlarm(id: Long) = watchDao.rearmAlarm(id)
+
+    /** Wie [rearmAlarm], aber nur, wenn der Alarm seit dem Lesen unverändert ist (Aktualisierung). */
+    suspend fun rearmAlarmIfUnchanged(alarm: AlarmEntity) {
+        watchDao.rearmAlarmIfUnchanged(alarm.id, alarm.condition.name, alarm.threshold, alarm.windowHours)
+    }
 }

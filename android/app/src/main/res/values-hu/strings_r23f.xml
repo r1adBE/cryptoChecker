@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Részvények, nyersanyagok és devizák (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Párválasztáskor részvényekre, aranyra és más nyersanyagokra, devizákra és tőzsdére lépés előtti cégekre szóló határidős ügyleteket is mutat. Ezek szerződések, nem tokenek.</string>
     <string name="settings_watchlist_activity_card">Szokatlan aktivitás a listában</string>
-    <string name="settings_watchlist_activity_card_hint">A párok felett mutatja a „Most éppen történik valami” kártyát. Az értesítéseket a Piaci értesítések alatt állíthatja be.</string>
+    <string name="settings_watchlist_activity_card_hint">Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látja, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatja be.</string>
     <string name="settings_row_about">Az alkalmazásról</string>
     <string name="price_colors_green_up">Zöld emelkedik / piros esik</string>
     <string name="price_colors_red_up">Piros emelkedik / zöld esik</string>

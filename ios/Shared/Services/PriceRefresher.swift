@@ -16,12 +16,58 @@ enum PriceRefresher {
         var change24h: Double? = nil
     }
 
+    /// Änderung eines Alarms durch die Auswertung. Übernommen wird sie nur, wenn der Alarm noch so
+    /// ist wie ausgewertet (`matches`) — sonst bleibt die Bearbeitung des Nutzers.
     struct AlarmUpdate: Sendable {
-        var enabled: Bool
+        /// nil = nicht anfassen (Wiederscharfstellen, neuer Bezug).
+        var enabled: Bool?
         var referencePrice: Double?
         var referenceAt: Int64
         var lastTriggeredAt: Int64
         var lastTriggeredPrice: Double?
+        /// Ausgewerteter Stand: Bedingung, Schwelle, Fenster, Wiederholung.
+        var condition: AlarmCondition
+        var threshold: Double
+        var windowHours: Int
+        var repeating: Bool
+
+        /// `evaluated` = Alarm wie ausgewertet, `result` = Zustand danach; `setsEnabled` nur beim Auslösen.
+        init(evaluated: Alarm, result: Alarm, setsEnabled: Bool) {
+            enabled = setsEnabled ? result.enabled : nil
+            referencePrice = result.referencePrice
+            referenceAt = result.referenceAt
+            lastTriggeredAt = result.lastTriggeredAt
+            lastTriggeredPrice = result.lastTriggeredPrice
+            condition = evaluated.condition
+            threshold = evaluated.threshold
+            windowHours = evaluated.windowHours
+            repeating = evaluated.repeating
+        }
+
+        /// Alarm unverändert (eingeschaltet, gleiche Bedingung, Schwelle, Fenster; beim Auslösen
+        /// auch gleiche Wiederholung)? Wie die bedingten UPDATEs in Android (`WatchDao`).
+        func matches(_ alarm: Alarm) -> Bool {
+            alarm.enabled && alarm.condition == condition && alarm.threshold == threshold
+                && alarm.windowHours == windowHours && (enabled == nil || alarm.repeating == repeating)
+        }
+    }
+
+    /// Alarme, deren Änderung `Outcome.apply(to:)` verworfen hat (inzwischen bearbeitet,
+    /// abgeschaltet oder gelöscht): ihre Mitteilung entfällt. Referenztyp, weil `apply` den
+    /// Outcome nicht ändern kann (wird in Schliessungen aufgerufen).
+    final class SkippedAlarms: @unchecked Sendable {
+        private let lock = NSLock()
+        private var ids = Set<Int64>()
+
+        func insert(_ id: Int64) {
+            lock.lock(); defer { lock.unlock() }
+            ids.insert(id)
+        }
+
+        func contains(_ id: Int64) -> Bool {
+            lock.lock(); defer { lock.unlock() }
+            return ids.contains(id)
+        }
     }
 
     /// Ausgelöster Alarm, dessen Mitteilung erst NACH dem Speichern gezeigt wird
@@ -38,6 +84,8 @@ enum PriceRefresher {
     struct Outcome: Sendable {
         var prices: [Int64: PriceUpdate] = [:]
         var alarms: [Int64: AlarmUpdate] = [:]
+        /// Von `apply(to:)` verworfene Alarm-Änderungen (siehe `SkippedAlarms`).
+        let skippedAlarms = SkippedAlarms()
         /// Mitteilungen der ausgelösten Alarme — erst nach dem Speichern zeigen.
         var pendingAlarms: [PendingAlarm] = []
         /// Lease der Alarm-Auswertung (nil = keine Alarme ausgewertet); freigegeben
@@ -74,7 +122,7 @@ enum PriceRefresher {
         /// NACH `apply(to:)` und dem Speichern aufrufen: zeigt die Alarm-Mitteilungen und
         /// gibt die Lease frei, damit der nächste Prozess den gespeicherten Stand sieht.
         func deliverAlarms() {
-            for item in pendingAlarms {
+            for item in pendingAlarms where !skippedAlarms.contains(item.alarm.id) {
                 Notifier.showAlarm(item.watch, item.alarm, price: item.price, volumeRatio: item.volumeRatio, text: item.text)
             }
             alarmLease?.release()
@@ -110,15 +158,18 @@ enum PriceRefresher {
                     snapshot.watches[i].notifiedAt = at
                 }
             }
+            // Nur auf unveränderte Alarme: eine Bearbeitung während der Abfrage bleibt
+            var applied = Set<Int64>()
             for i in snapshot.alarms.indices {
-                if let u = alarms[snapshot.alarms[i].id] {
-                    snapshot.alarms[i].enabled = u.enabled
-                    snapshot.alarms[i].referencePrice = u.referencePrice
-                    snapshot.alarms[i].referenceAt = u.referenceAt
-                    snapshot.alarms[i].lastTriggeredAt = u.lastTriggeredAt
-                    snapshot.alarms[i].lastTriggeredPrice = u.lastTriggeredPrice
-                }
+                guard let u = alarms[snapshot.alarms[i].id], u.matches(snapshot.alarms[i]) else { continue }
+                applied.insert(snapshot.alarms[i].id)
+                if let enabled = u.enabled { snapshot.alarms[i].enabled = enabled }
+                snapshot.alarms[i].referencePrice = u.referencePrice
+                snapshot.alarms[i].referenceAt = u.referenceAt
+                snapshot.alarms[i].lastTriggeredAt = u.lastTriggeredAt
+                snapshot.alarms[i].lastTriggeredPrice = u.lastTriggeredPrice
             }
+            for id in alarms.keys where !applied.contains(id) { skippedAlarms.insert(id) }
         }
     }
 
@@ -274,7 +325,8 @@ enum PriceRefresher {
         for watch in watches {
             outcome.checked += 1
             let result = fetched[watch.id]
-            guard let ticker = result?.ticker, result?.error == nil, ticker.last > 0 else {
+            // NaN/∞ nie als Kurs übernehmen — wie PriceRefresher.kt
+            guard let ticker = result?.ticker, result?.error == nil, ticker.last.isFinite, ticker.last > 0 else {
                 outcome.failed += 1
                 outcome.prices[watch.id] = PriceUpdate(price: nil, time: now, error: result?.error)
                 cancelIds.append(watch.id)
@@ -282,8 +334,14 @@ enum PriceRefresher {
             }
             let price = ticker.last
             let time = ticker.timestamp > 0 ? ticker.timestamp : now
-            let dayChange = liveQuotes != nil ? ticker.change24hPercent
-                : change24h(watch, price: price, ticker: ticker, basis: basis, references: dayReferences)
+            let dayChange: Double?
+            if liveQuotes != nil {
+                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis
+                candlePills.set(watch.id, fromCandles: false)
+                dayChange = ticker.change24hPercent
+            } else {
+                dayChange = change24h(watch, price: price, ticker: ticker, basis: basis, references: dayReferences)
+            }
             outcome.prices[watch.id] = PriceUpdate(price: price, time: time, error: nil, change24h: dayChange)
             if dayChange == nil && dayStart != nil && liveQuotes == nil { outcome.missingDayChange[watch.id] = (price, time) }
 

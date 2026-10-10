@@ -213,6 +213,8 @@ enum SettingsSearchCatalog {
             [L("settings_portfolio_lock_hint")])
         add("portfolio.hide", L("portfolio_hide_amounts"), portfolio, .page(.portfolio, anchor: "portfolio.hide"),
             [L("portfolio_hide_amounts_hint")])
+        add("portfolio.system_backup", L("settings_portfolio_system_backup"), portfolio,
+            .page(.portfolio, anchor: "portfolio.system_backup"), [L("settings_portfolio_system_backup_hint")])
 
         // 5 Daten
         let dataGroup = L("settings_group_data_only")

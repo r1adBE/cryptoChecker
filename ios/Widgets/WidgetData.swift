@@ -132,10 +132,10 @@ enum WidgetRefresh {
         let snapshot = SharedStorage.loadSnapshot()
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, evaluateAlarms: false)
 
-        // Frisch laden: In der App könnte sich inzwischen etwas geändert haben.
-        var current = SharedStorage.loadSnapshot()
-        outcome.apply(to: &current)
-        SharedStorage.saveSnapshot(current)
+        // Frisch lesen und nur die Kurse je Id übertragen — als ein abgestimmter Schritt mit der App
+        // (sonst ginge ein dort gerade hinzugefügtes Paar oder ein Alarm-Zustand verloren). Unlesbare
+        // oder nicht zugreifbare Datei: nichts schreiben (`SharedStorage.updateSnapshot`).
+        guard SharedStorage.updateSnapshot({ outcome.apply(to: &$0) }) != nil else { return true }
         if outcome.failed < outcome.checked {
             SharedStorage.lastRefreshAt = TimeUtils.nowMillis
             SharedStorage.lastRefreshDuration = outcome.durationMillis

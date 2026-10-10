@@ -147,14 +147,18 @@ internal fun PairStepCard(
     onRetryTicker: () -> Unit,
     onSync: () -> Unit,
     onAdd: () -> Unit,
+    /** Kopf «2 Paar wählen» zeigen; nein unter den Registern (dort steht der Titel schon). */
+    showHeader: Boolean = true,
 ) {
     StepCard {
-        StepHeader(
-            number = 2,
-            title = stringResource(R.string.explorer_step_pair),
-            active = hasPairs,
-            done = pairSelected
-        )
+        if (showHeader) {
+            StepHeader(
+                number = 2,
+                title = stringResource(R.string.explorer_step_pair),
+                active = hasPairs,
+                done = pairSelected
+            )
+        }
 
         if (hasPairs) {
             // Untereinander statt gequetscht nebeneinander

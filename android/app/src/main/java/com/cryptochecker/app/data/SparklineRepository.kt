@@ -61,7 +61,13 @@ class SparklineRepository @Inject constructor(
      * Stundenkerzen eines Paars: Schlusskurse (Mini-Chart, die jüngsten 24), 24-h-Bezug (Pille)
      * und die Eröffnung je Kerze (Startzeit → Eröffnung) für die Tages-Basen.
      */
-    private class Series(val closes: List<Double>, val day: DayReference?, val opens: Map<Long, Double>)
+    private class Series(
+        val closes: List<Double>,
+        val day: DayReference?,
+        val opens: Map<Long, Double>,
+        /** Anbieter der Kerzen ([CandleDataSource.candlesSourced]). */
+        val provider: String? = null,
+    )
 
     private class Entry(val time: Long, val series: Series?)
 
@@ -69,7 +75,7 @@ class SparklineRepository @Inject constructor(
      * Zuletzt erfolgreich geladener 24-h-Bezug mit Abrufzeit (auch aus der Datei); [opens]
      * Eröffnungen der Stundenkerzen (aus der Datei nur die der Tagesbeginne).
      */
-    private class TimedDay(val time: Long, val day: DayReference, val opens: Map<Long, Double>)
+    private class TimedDay(val time: Long, val day: DayReference, val opens: Map<Long, Double>, val provider: String? = null)
 
     private val cache = ConcurrentHashMap<String, Entry>()
     private val days = ConcurrentHashMap<String, TimedDay>()
@@ -120,6 +126,13 @@ class SparklineRepository @Inject constructor(
     fun cachedDayReference(base: String, quote: String): DayReference? =
         days[key(base, quote)]?.takeIf { DayReferenceCache.usable(it.time, System.currentTimeMillis()) }?.day
 
+    /**
+     * Anbieter der Kerzen hinter dem gemerkten Bezug ([cachedDayReference]) für [base] gegen [quote]
+     * — «Binance», «Binance.US», «Coinbase»; null, wenn unbekannt oder zu alt.
+     */
+    fun cachedProvider(base: String, quote: String): String? =
+        days[key(base, quote)]?.takeIf { DayReferenceCache.usable(it.time, System.currentTimeMillis()) }?.provider
+
     /** Wartet, bis die gespeicherten 24-h-Bezüge gelesen sind (einmal nach dem Start, sonst sofort). */
     suspend fun awaitRestored() = restored.await()
 
@@ -160,7 +173,10 @@ class SparklineRepository @Inject constructor(
             fresh(k, ttl, needsHour)?.let { return@withLock it.series }
             val series = try {
                 permits.withPermit {
-                    candleDataSource.candles(base.trim().uppercase(), quote.trim().uppercase(), CandleInterval.H1, ChangeBasisMath.CANDLES)
+                    val sourced = candleDataSource.candlesSourced(
+                        base.trim().uppercase(), quote.trim().uppercase(), CandleInterval.H1, ChangeBasisMath.CANDLES,
+                    )
+                    sourced?.value
                         ?.filter { it.close.isFinite() && it.close > 0.0 }
                         ?.takeIf { it.size >= 2 }
                         ?.let { candles ->
@@ -170,6 +186,7 @@ class SparklineRepository @Inject constructor(
                                 closes = recent.map { it.close },
                                 day = DayReference.of(recent.first().open, recent.last().close),
                                 opens = candles.associate { it.openTime to it.open },
+                                provider = sourced.provider,
                             )
                         }
                 }
@@ -183,7 +200,7 @@ class SparklineRepository @Inject constructor(
             // Fehlschlag: der zuletzt erfolgreiche Bezug bleibt (begrenzt durch MAX_AGE_MILLIS)
             series?.let { s ->
                 s.day?.let {
-                    days[k] = TimedDay(now, it, s.opens)
+                    days[k] = TimedDay(now, it, s.opens, s.provider)
                     scheduleSave()
                 }
             }
@@ -238,12 +255,13 @@ class SparklineRepository @Inject constructor(
                     open = o.optDouble("o", Double.NaN),
                     lastClose = o.optDouble("c", Double.NaN),
                     starts = starts,
+                    provider = o.optString("p").takeIf { it.isNotEmpty() },
                 )
             }
             DayReferenceCache.restore(version, entries, System.currentTimeMillis()).forEach { (k, stored) ->
                 val day = DayReference.of(stored.open, stored.lastClose) ?: return@forEach
                 // Nie einen frischeren Wert aus dem Netz überschreiben
-                days.merge(k, TimedDay(stored.time, day, stored.starts)) { current, disk -> if (current.time >= disk.time) current else disk }
+                days.merge(k, TimedDay(stored.time, day, stored.starts, stored.provider)) { current, disk -> if (current.time >= disk.time) current else disk }
             }
         } catch (e: Exception) {
             Timber.d(e, "24-h-Bezüge: Zwischenspeicher unlesbar, wird ignoriert")
@@ -266,11 +284,14 @@ class SparklineRepository @Inject constructor(
             // Nur die Kerzen der heutigen Tagesbeginne (UTC, Ortszeit, gewählte Zone) mitschreiben
             val dayStarts = ChangeBasisMath.keptDayStarts(settingsRepository.cached.changeBasis, now)
             val stored = days.map { (k, v) ->
-                DayReferenceCache.Stored(k, v.time, v.day.open, v.day.lastClose, DayReferenceCache.keepStarts(v.opens, dayStarts))
+                DayReferenceCache.Stored(
+                    k, v.time, v.day.open, v.day.lastClose, DayReferenceCache.keepStarts(v.opens, dayStarts), v.provider,
+                )
             }
             val list = JSONArray()
             DayReferenceCache.toSave(stored, now).forEach {
                 val o = JSONObject().put("k", it.key).put("t", it.time).put("o", it.open).put("c", it.lastClose)
+                it.provider?.let { provider -> o.put("p", provider) }
                 if (it.starts.isNotEmpty()) {
                     o.put("s", JSONArray().apply {
                         it.starts.forEach { (t, open) -> put(JSONObject().put("t", t).put("o", open)) }

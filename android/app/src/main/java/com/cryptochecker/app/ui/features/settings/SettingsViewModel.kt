@@ -442,6 +442,15 @@ class SettingsViewModel @Inject constructor(
         portfolioSnapshotUpdater.redrawWidgets()
     }
 
+    /**
+     * «Portfolio in Systemsicherung»; die Kopie folgt sofort (PortfolioBackupMirror). Einschalten verlangt
+     * Entsperren, solange das Portfolio gesperrt ist (PortfolioLockPolicy.systemBackupNeedsUnlock).
+     */
+    fun setPortfolioSystemBackup(activity: androidx.fragment.app.FragmentActivity?, reason: String, allowed: Boolean) =
+        gate(activity, reason, { locked -> PortfolioLockPolicy.systemBackupNeedsUnlock(locked, allowed) }) {
+            update { settingsRepository.setPortfolioSystemBackup(allowed) }
+        }
+
     /** Ausschalten (nach [disableAppLock]); das Portfolio-Widget zeigt danach wieder Werte. */
     fun setAppLock(enabled: Boolean) = update {
         settingsRepository.setAppLock(enabled)

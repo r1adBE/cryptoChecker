@@ -33,7 +33,6 @@ internal fun AboutPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltVi
             Column(modifier = Modifier.padding(vertical = 8.dp)) {
                 AboutContent(
                     showHeading = false,
-                    showLinks = false,
                     onVersionTap = {
                         if (!settings.developerUnlocked) {
                             versionTaps++

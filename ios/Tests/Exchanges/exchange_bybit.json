@@ -1,0 +1,213 @@
+{
+  "exchange": "Bybit / Bybit Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.bybit.com/v5/market/tickers?category=spot|linear&symbol=BTCUSDT",
+    "bulk": "GET https://api.bybit.com/v5/market/tickers?category=spot|linear",
+    "ws": "wss://stream.bybit.com/v5/public/spot|linear  tickers.<symbol>"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot ticker BTCUSDT",
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\", \"bid1Size\":\"0.512\",\"ask1Price\":\"62000.1\",\"ask1Size\":\"0.204\",\"lastPrice\":\"62000.1\",\"prevPrice24h\":\"60500.5\", \"price24hPcnt\":\"0.0248\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"turnover24h\":\"744460123.4567\", \"volume24h\":\"12100.523\",\"usdIndexPrice\":\"62010.12\"}]},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.523,
+        "volQuote": 744460123.4567,
+        "change24hPercent": 2.48,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "linear ticker BTCUSDT (negative fraction)",
+      "market": "BybitFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"linear\",\"list\":[{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"61990.20\", \"indexPrice\":\"62010.12\",\"markPrice\":\"61995.00\",\"prevPrice24h\":\"60510.00\",\"price24hPcnt\":\"-0.0056\", \"highPrice24h\":\"62480.00\",\"lowPrice24h\":\"59980.10\",\"prevPrice1h\":\"61900.00\",\"openInterest\":\"55123.456\", \"openInterestValue\":\"3417000000.12\",\"turnover24h\":\"13248901234.5612\",\"volume24h\":\"215432.123\", \"fundingRate\":\"0.0001\",\"nextFundingTime\":\"1728547200000\",\"predictedDeliveryPrice\":\"\",\"basisRate\":\"\", \"deliveryFeeRate\":\"\",\"deliveryTime\":\"0\",\"ask1Size\":\"1.234\",\"bid1Price\":\"61990.10\",\"ask1Price\":\"61990.20\", \"bid1Size\":\"2.345\",\"basis\":\"\"}]},\"retExtInfo\":{},\"time\":1728540000456}",
+      "expect": {
+        "last": 61990.2,
+        "bid": 61990.1,
+        "ask": 61990.2,
+        "high": 62480.0,
+        "low": 59980.1,
+        "vol": 215432.123,
+        "volQuote": 13248901234.5612,
+        "change24hPercent": -0.56,
+        "timestamp": 1728540000456
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: not supported symbols",
+      "market": "Bybit",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "error": true,
+        "message": "Not supported symbols"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty list with retCode 0: 'No data', not the retMsg 'OK'",
+      "market": "Bybit",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[]},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "No data"
+      },
+      "note": "retCode 0 = success: retMsg 'OK' is no error text"
+    },
+    {
+      "kind": "single",
+      "name": "time as huge JSON number: clamped, no crash",
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"62000.1\"}]},\"time\":1e300}",
+      "expect": {
+        "last": 62000.1
+      },
+      "note": "optLong of 1e300: Android (long) cast clamps; iOS Int64(Double) used to trap"
+    },
+    {
+      "kind": "single",
+      "name": "optional fields missing (only lastPrice)",
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"62000.1\"}]},\"time\":1728540000123}",
+      "expect": {
+        "last": 62000.1,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk spot: entry with empty lastPrice is skipped",
+      "market": "Bybit",
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[ {\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\",\"ask1Price\":\"62000.1\",\"lastPrice\":\"62000.1\",\"price24hPcnt\":\"0.0248\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"turnover24h\":\"744460123.4567\",\"volume24h\":\"12100.523\"}, {\"symbol\":\"NEWUSDT\",\"bid1Price\":\"\",\"ask1Price\":\"\",\"lastPrice\":\"\",\"price24hPcnt\":\"\",\"highPrice24h\":\"\",\"lowPrice24h\":\"\",\"turnover24h\":\"0\",\"volume24h\":\"0\"}, {\"symbol\":\"PEPEUSDT\",\"bid1Price\":\"0.00000911\",\"ask1Price\":\"0.00000912\",\"lastPrice\":\"0.00000912\",\"price24hPcnt\":\"-0.0329\",\"highPrice24h\":\"0.00000951\",\"lowPrice24h\":\"0.00000899\",\"turnover24h\":\"41656000.12\",\"volume24h\":\"4567890123456\"} ]},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "NEWUSDT"
+        ],
+        "tickers": {
+          "BTCUSDT": {
+            "last": 62000.1,
+            "change24hPercent": 2.48,
+            "timestamp": 1728540000123
+          },
+          "PEPEUSDT": {
+            "last": 9.12e-06,
+            "bid": 9.11e-06,
+            "change24hPercent": -3.29,
+            "timestamp": 1728540000123
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk linear",
+      "market": "BybitFutures",
+      "requestId": 0,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"linear\",\"list\":[{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"61990.20\", \"indexPrice\":\"62010.12\",\"markPrice\":\"61995.00\",\"prevPrice24h\":\"60510.00\",\"price24hPcnt\":\"-0.0056\", \"highPrice24h\":\"62480.00\",\"lowPrice24h\":\"59980.10\",\"prevPrice1h\":\"61900.00\",\"openInterest\":\"55123.456\", \"openInterestValue\":\"3417000000.12\",\"turnover24h\":\"13248901234.5612\",\"volume24h\":\"215432.123\", \"fundingRate\":\"0.0001\",\"nextFundingTime\":\"1728547200000\",\"predictedDeliveryPrice\":\"\",\"basisRate\":\"\", \"deliveryFeeRate\":\"\",\"deliveryTime\":\"0\",\"ask1Size\":\"1.234\",\"bid1Price\":\"61990.10\",\"ask1Price\":\"61990.20\", \"bid1Size\":\"2.345\",\"basis\":\"\"}]},\"retExtInfo\":{},\"time\":1728540000456}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTCUSDT": {
+            "last": 61990.2,
+            "change24hPercent": -0.56,
+            "timestamp": 1728540000456
+          }
+        }
+      }
+    },
+    {
+      "kind": "live",
+      "name": "ws spot snapshot",
+      "exchange": "BYBIT",
+      "message": "{\"topic\":\"tickers.BTCUSDT\",\"ts\":1728540000123,\"type\":\"snapshot\",\"cs\":2588407389,\"data\":{\"symbol\":\"BTCUSDT\", \"lastPrice\":\"62000.1\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"prevPrice24h\":\"60500.5\",\"volume24h\":\"12100.523\", \"turnover24h\":\"744460123.4567\",\"price24hPcnt\":\"0.0248\",\"usdIndexPrice\":\"62010.12\"}}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": 62000.1,
+          "change24h": 2.48,
+          "time": 1728540000123
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws linear delta without lastPrice/price24hPcnt",
+      "exchange": "BYBIT_FUTURES",
+      "message": "{\"topic\":\"tickers.BTCUSDT\",\"type\":\"delta\",\"data\":{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"61990.10\",\"bid1Size\":\"2.345\", \"ask1Price\":\"61990.20\",\"ask1Size\":\"1.234\",\"markPrice\":\"61995.00\"},\"cs\":24987956059,\"ts\":1728540000456}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": null,
+          "change24h": null,
+          "time": 1728540000456
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws pong",
+      "exchange": "BYBIT",
+      "message": "{\"success\":true,\"ret_msg\":\"pong\",\"conn_id\":\"abc\",\"op\":\"ping\"}",
+      "ticks": []
+    }
+  ]
+}

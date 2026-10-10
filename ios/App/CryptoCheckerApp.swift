@@ -116,6 +116,8 @@ struct CryptoCheckerApp: App {
                 data.startCoinLogoSync()
                 // Morgen-Mitteilungen «Wirtschaftstermine» an Kalender und Einstellung anpassen
                 MacroNotifications.refresh(settings: data.settings)
+                // Marktphase / Fear & Greed: nachholen, wenn die letzte Prüfung ≥ 12 h her ist
+                BackgroundRefresh.runZoneCheckIfDue(settings: data.settings)
             case .background:
                 data.setAppActive(false)
                 // Letzten Stand sicher auf die Platte, bevor iOS die App anhält
@@ -190,7 +192,7 @@ enum QuickActions {
             UIApplicationShortcutItem(type: "add", localizedTitle: L("shortcut_add"), localizedSubtitle: nil,
                                       icon: UIApplicationShortcutIcon(systemImageName: "plus.circle"), userInfo: nil),
             UIApplicationShortcutItem(type: "alarms", localizedTitle: L("shortcut_alarms"), localizedSubtitle: nil,
-                                      icon: UIApplicationShortcutIcon(systemImageName: "bell"), userInfo: nil),
+                                      icon: UIApplicationShortcutIcon(systemImageName: "bell.and.waves.left.and.right"), userInfo: nil),
             UIApplicationShortcutItem(type: "cycle", localizedTitle: L("shortcut_cycle"), localizedSubtitle: nil,
                                       icon: UIApplicationShortcutIcon(systemImageName: "chart.line.uptrend.xyaxis"), userInfo: nil),
         ]

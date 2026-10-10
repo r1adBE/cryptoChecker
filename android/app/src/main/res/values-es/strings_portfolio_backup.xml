@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Cartera en la copia del sistema</string>
+    <string name="settings_portfolio_system_backup_hint">Desactivado: tus transacciones no se incluyen en la copia del sistema del dispositivo ni en la transferencia a un teléfono nuevo. Para trasladarlas, usa la copia de seguridad de la app con contraseña.</string>
+</resources>

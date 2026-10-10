@@ -77,7 +77,8 @@ data class PortfolioSummary(
  *    Realisiert += (Verkaufspreis − Ø) × Menge, wenn der Verkaufspreis bekannt ist und
  *    der ganze Bestand einen Kaufpreis hat.
  *  - Gewinn/Verlust nur, wenn der ganze Restbestand einen Kaufpreis hat.
- *  - USDT selbst hat immer den Kurs 1.
+ *  - Aktueller Kurs nach der Stablecoin-Regel ([PortfolioStables]): USDT immer 1, andere
+ *    Stablecoins ihr Marktkurs, ohne Kurs 1.
  */
 object PortfolioCalculator {
 
@@ -86,8 +87,6 @@ object PortfolioCalculator {
 
     /** Relative Toleranz, damit «alles verkaufen» bei Rundung nicht als Überverkauf gilt. */
     private const val SELL_TOLERANCE = 1e-9
-
-    private val ONE_DOLLAR = setOf("USDT")
 
     fun normalizeCoin(coin: String): String = coin.trim().uppercase()
 
@@ -136,8 +135,8 @@ object PortfolioCalculator {
         }
 
         val holdings = (priced + unpriced).let { if (it <= EPS) 0.0 else it }
-        val price = currentPrice?.takeIf { it > 0.0 && !it.isInfinite() }
-            ?: if (symbol in ONE_DOLLAR) 1.0 else null
+        // Stablecoin-Regel: USDT = 1, andere Stablecoins Marktkurs, sonst 1 ([PortfolioStables])
+        val price = PortfolioStables.price(symbol, currentPrice)
         val priceMissing = holdings > 0.0 && unpriced > EPS
         val avgCost = if (priced > EPS) avg else null
         val costBasis = if (holdings > 0.0 && !priceMissing) priced * avg else null

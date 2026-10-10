@@ -102,9 +102,31 @@ extension PriceRefresher {
     /// nie die Veränderung seit der letzten Abfrage.
     static func change24h(_ watch: Watch, price: Double, ticker: Ticker, basis: ChangeBasis,
                                   references: [String: DayReference]) -> Double? {
-        ChangeBasisMath.choose(basis, tickerChange: ticker.change24hPercent) {
+        let value = ChangeBasisMath.choose(basis, tickerChange: ticker.change24hPercent) {
             candleChange(watch, price: price, references: references)
         }
+        // Merken, ob die Pille aus Kerzen kam (Hinweis «Veränderung aus …-Kerzen» im Aktionsblatt)
+        candlePills.set(watch.id, fromCandles: value != nil
+            && ChangeBasisMath.needsCandles(basis, tickerChange: ticker.change24hPercent))
+        return value
+    }
+
+    /// Watch-Ids, deren Pille zuletzt aus Kerzen kam — nur im Speicher (nach dem Start bis zur
+    /// ersten Aktualisierung leer), wie `DayReferences.pillSources` (Android).
+    static let candlePills = CandlePills()
+
+    /// Kam die Pille von `watch` aus den Kerzen einer anderen Börse (z. B. Kraken-Paar,
+    /// Binance-Kerzen)? Dann deren Anbieter für den Hinweis in Aktionsblatt und «Warum?»; sonst nil.
+    /// Reihe wie `DayChange.select`: eigene, sonst (Fiat-Quote) die USDT-Reihe.
+    static func foreignCandleSource(_ watch: Watch) async -> String? {
+        guard candlePills.contains(watch.id) else { return nil }
+        let base = watch.baseAsset.trimmingCharacters(in: .whitespaces).uppercased()
+        let quote = DayChange.candleQuote(watch.quoteAsset)
+        var provider = await DayReferenceStore.shared.cachedProvider(base: base, quote: quote)
+        if provider == nil && quote != DayChange.usdtQuote && DayChange.isFiat(watch.quoteAsset) {
+            provider = await DayReferenceStore.shared.cachedProvider(base: base, quote: DayChange.usdtQuote)
+        }
+        return DayChange.foreignCandleSource(markets: [watch.marketKey, watch.marketName], provider: provider)
     }
 
     /// Veränderung aus den Bezügen der Kerzen (Paar, bei Fiat-Quotes ersatzweise die USDT-Reihe).
@@ -127,6 +149,24 @@ final class CandleNeeds: @unchecked Sendable {
     var ids: Set<Int64> {
         get { lock.lock(); defer { lock.unlock() }; return stored }
         set { lock.lock(); stored = newValue; lock.unlock() }
+    }
+}
+
+/// Watch-Ids mit einer Pille aus Kerzen (threadsicher).
+final class CandlePills: @unchecked Sendable {
+    private let lock = NSLock()
+    private var ids = Set<Int64>()
+
+    func set(_ id: Int64, fromCandles: Bool) {
+        lock.lock()
+        if fromCandles { ids.insert(id) } else { ids.remove(id) }
+        lock.unlock()
+    }
+
+    func contains(_ id: Int64) -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return ids.contains(id)
     }
 }
 

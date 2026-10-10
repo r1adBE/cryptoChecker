@@ -8,7 +8,6 @@
     </plurals>
     <string name="settings_summary_on">Sí</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker ya vigila %1$s por ti. Cuando %1$s alcance tu límite, recibirás una notificación en cuanto la app compruebe el precio. Con la app cerrada, eso ocurre en el intervalo de actualización en segundo plano – más tarde si la optimización de batería restringe la app.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker ya vigila %1$s por ti. Recibirás una notificación en cuanto la app compruebe el precio. Con la app cerrada, iOS decide cuándo ocurre – puede tardar un rato. Mientras la app está abierta, los precios se comprueban a tiempo.</string>
 
     <string name="about_request_exchange">Solicitar un exchange</string>

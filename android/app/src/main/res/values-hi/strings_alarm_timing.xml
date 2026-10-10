@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker अब आपके लिए %1$s पर नज़र रख रहा है। जब %1$s आपकी सीमा तक पहुँचेगा, ऐप के कीमत जाँचते ही आपको सूचना मिलेगी। ऐप बंद होने पर Android बैकग्राउंड अंतराल पर जाँच करता है – अधिकतम हर 15 मिनट में, और बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करे तो बाद में। तेज़ अलार्म के लिए: सेटिंग्स › अपडेट › बार-बार अपडेट करें।</string>
+</resources>

@@ -42,8 +42,16 @@ class BybitBase: SimpleMarket {
     }
 
     override func parseTicker(requestId: Int, json: JObject, ticker: inout Ticker, info: CheckerInfo) throws {
-        try readTicker(json.object("result").array("list").object(0), &ticker)
+        let list = try json.object("result").array("list")
+        if list.count < 1 { throw JSONError(message: "No data") }
+        try readTicker(list.object(0), &ticker)
         ticker.timestamp = json.optLong("time")
+    }
+
+    /// retCode 0 = Erfolg: retMsg ist dann «OK», kein Fehlertext – es bleibt beim Fehler des Parsers.
+    override func parseError(requestId: Int, json: JObject, info: CheckerInfo) throws -> String? {
+        if json.optInt("retCode", -1) == 0 { throw JSONError(message: "No error text") }
+        return try super.parseError(requestId: requestId, json: json, info: info)
     }
 
     private func readTicker(_ json: JObject, _ ticker: inout Ticker) throws {

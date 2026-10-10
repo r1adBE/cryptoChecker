@@ -55,7 +55,10 @@ data class PortfolioHistorySeries(
  *    Fehlt an einem Tag die Kerze, gilt der letzte bekannte Schluss davor; vor der ersten
  *    Kerze zählt der Coin nicht.
  *  - Heute: Bestand nach allen Transaktionen × aktueller Kurs (sonst letzter Schluss).
- *  - Stablecoins = 1 ohne Kerzen. Coins ganz ohne Kerzen fehlen und stehen in [PortfolioHistorySeries.skipped].
+ *  - Stablecoins nach [PortfolioStables]: USDT = 1, andere Stablecoins ihr Tagesschluss (sonst 1).
+ *    Andere Coins ganz ohne Kerzen fehlen und stehen in [PortfolioHistorySeries.skipped] — ebenso,
+ *    wenn der jüngste Schluss mehr als 25 % vom aktuellen Kurs abweicht ([PricePlausibility]).
+ *  - [fxRate] gilt für alle Punkte gleich; Tageskurse je Punkt siehe [PortfolioHistoryFx].
  *  - Beginn = erster Transaktionstag oder Beginn des Zeitraums, je nachdem, was später ist
  *    ([startDay]); «Seit 1. Kauf» höchstens [SINCE_FIRST_MAX_DAYS] Tage zurück ([isCapped]).
  *  - Tageskerzen: mindestens [MAX_DAYS] je Coin, für «Seit 1. Kauf» so viele wie nötig
@@ -74,7 +77,7 @@ object PortfolioHistory {
 
     private const val DAY_MILLIS = 86_400_000L
 
-    fun isStable(coin: String): Boolean = CutoffExport.isStable(coin)
+    fun isStable(coin: String): Boolean = PortfolioStables.isStable(coin)
 
     /** UTC-Tag einer Kerzen-Eröffnungszeit (ms). */
     fun epochDayOfUtcMillis(millis: Long): Long = Math.floorDiv(millis, DAY_MILLIS)
@@ -144,16 +147,21 @@ object PortfolioHistory {
         // Coins, die im Zeitraum etwas hielten
         val startMillis = dayEndMillis(start - 1) + 1
         val held = coins.filter { coin -> heldWithin(timelines.getValue(coin), startMillis) }
-        val skipped = held.filter { !isStable(it) && closes[it].isNullOrEmpty() }
+
+        // Je Coin die Kerzen aufsteigend, für «letzter bekannter Schluss» (USDT braucht keine).
+        // Plausibilität wie bei der Pille: passt der jüngste Schluss nicht zum aktuellen Kurs
+        // (> 25 %), gehört die Reihe wohl zu einem anderen Token und zählt nicht.
+        val sortedCloses = held.filter { PortfolioStables.needsQuote(it) }.associateWith { coin ->
+            closes[coin].orEmpty().entries.filter { it.value > 0.0 && it.value.isFinite() }
+                .sortedBy { it.key }.map { it.key to it.value }
+                .takeIf { PricePlausibility.closesMatchLive(it, livePrices[coin]) }
+                .orEmpty()
+        }
+        // Stablecoins fehlen nie (ohne Kurs 1), andere Coins ohne (passende) Kerzen schon
+        val skipped = held.filter { !isStable(it) && sortedCloses[it].isNullOrEmpty() }
         val included = held.filter { it !in skipped }
         if (included.isEmpty()) {
             return PortfolioHistorySeries(emptyList(), skipped, null, null, false, capped)
-        }
-
-        // Je Coin die Kerzen aufsteigend, für «letzter bekannter Schluss»
-        val sortedCloses = included.filter { !isStable(it) }.associateWith { coin ->
-            closes.getValue(coin).entries.filter { it.value > 0.0 && it.value.isFinite() }
-                .sortedBy { it.key }.map { it.key to it.value }
         }
 
         val points = ArrayList<PortfolioHistoryPoint>((todayEpochDay - start + 1).toInt().coerceAtLeast(1))
@@ -165,12 +173,13 @@ object PortfolioHistory {
                 val timeline = timelines.getValue(coin)
                 val amount = if (isToday) timeline.lastOrNull()?.second ?: 0.0 else holdingsAt(timeline, end)
                 if (amount <= 0.0) continue
-                val price = when {
-                    isStable(coin) -> 1.0
-                    isToday -> livePrices[coin]?.takeIf { it > 0.0 && it.isFinite() }
-                        ?: closeOnOrBefore(sortedCloses.getValue(coin), day)
-                    else -> closeOnOrBefore(sortedCloses.getValue(coin), day)
-                } ?: continue
+                val series = sortedCloses[coin].orEmpty()
+                val market = when {
+                    isToday -> livePrices[coin]?.takeIf { it > 0.0 && it.isFinite() } ?: closeOnOrBefore(series, day)
+                    else -> closeOnOrBefore(series, day)
+                }
+                // Stablecoin-Regel: USDT 1, andere Stablecoins Kurs des Tags, sonst 1
+                val price = PortfolioStables.price(coin, market) ?: continue
                 total += amount * price
             }
             points += PortfolioHistoryPoint(day, total * rate)

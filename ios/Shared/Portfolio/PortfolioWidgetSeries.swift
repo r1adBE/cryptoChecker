@@ -114,7 +114,8 @@ enum PortfolioWidgetSeries {
 
     /// Stündlicher Wertverlauf des heutigen Bestands (Anzeigewährung): Stunden jetzt − 24 h …
     /// jetzt − 1 h (nur mit Abdeckung ≥ 80 %) und als letzter Punkt der aktuelle Wert.
-    /// `stables` gelten als abgedeckt (flach ist richtig).
+    /// `stables` (`PortfolioStables.coins`) gelten als abgedeckt und flach zum aktuellen Kurs
+    /// (nach `PortfolioStables`: USDT 1, andere Marktkurs, sonst 1).
     static func hourly(holdings: [String: Double], current: [String: Double],
                        prices: [String: [PortfolioTimedPrice]], now: Int64, factor: Double,
                        stables: Set<String>) -> [PortfolioWidgetPoint] {

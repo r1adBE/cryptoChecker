@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.settings.AppLanguages
@@ -12,6 +13,7 @@ import com.cryptochecker.app.settings.AppearanceApplier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -34,7 +36,16 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    @Inject lateinit var portfolioBackupMirror: PortfolioBackupMirror
+
+    /**
+     * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
+     * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden.
+     */
+    private val scope = CoroutineScope(
+        SupervisorJob() + Dispatchers.Default +
+            CoroutineExceptionHandler { _, e -> Timber.w(e, "Hintergrundaufgabe beim Start fehlgeschlagen") }
+    )
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
@@ -69,6 +80,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         scope.launch { portfolioRepository.migrateHoldingsOnce() }
+
+        // «Portfolio in Systemsicherung»: Kopie schreiben (an) bzw. löschen (aus), solange der Prozess läuft
+        scope.launch { portfolioBackupMirror.run() }
 
         Timber.i("Crypto Checker gestartet")
     }

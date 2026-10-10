@@ -7,7 +7,6 @@
     </plurals>
     <string name="settings_summary_on">Açık</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker artık sizin için %1$s\'i izliyor. %1$s sınırınıza ulaştığında, uygulama fiyatı kontrol eder etmez bir bildirim alırsınız. Uygulama kapalıyken bu, arka plan güncelleme aralığında olur – pil optimizasyonu uygulamayı kısıtlıyorsa daha geç.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker artık sizin için %1$s\'i izliyor. Uygulama fiyatı kontrol eder etmez bir bildirim alırsınız. Uygulama kapalıyken bunun ne zaman olacağına iOS karar verir – biraz sürebilir. Uygulama açıkken fiyatlar zamanında kontrol edilir.</string>
 
     <string name="about_request_exchange">Borsa talep et</string>

@@ -17,6 +17,9 @@ private enum WatchlistWhyState: Equatable {
 /// Als Seite im `NavigationStack` des Tabs geöffnet (wie «Alarme»). Wie `WhySheet` in `WatchWhySheet.kt`.
 struct WatchlistWhySheet: View {
     let watchId: Int64
+    /// Vorschau-Paar (nicht in der Merkliste, aus «Heute auffällig»), falls `watchId` keinen
+    /// gespeicherten Eintrag meint; ohne Signale (das Paar wird nicht überwacht).
+    var preview: Watch? = nil
 
     @EnvironmentObject private var data: AppData
     @Environment(\.appAccent) private var accent
@@ -24,9 +27,11 @@ struct WatchlistWhySheet: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var state: WatchlistWhyState = .loading
     @State private var attempt = 0
+    /// 24-h-Wert (= Pille, rollend) aus den Kerzen einer anderen Börse; nil = nicht.
+    @State private var candleSource: String? = nil
 
     var body: some View {
-        if let watch = data.watch(watchId), !watch.isNotTraded {
+        if let watch = data.watch(watchId) ?? preview, !watch.isNotTraded {
             content(watch)
                 // Eigene Seite (Merkliste, Markt): Titel oben, Zurück schliesst sie
                 .navigationTitle(L("watch_action_why"))
@@ -55,6 +60,10 @@ struct WatchlistWhySheet: View {
         }()
         let signals = WatchlistActivity.active(data.activityReports[watch.id], now: TimeUtils.nowMillis,
                                                sensitivity: data.settings.activitySensitivity)
+        // «Warum?» zeigt bei rollender Basis die Pille selbst; bei «seit 00:00» rechnet es eigene Kerzen
+        let candleNote: String? = candleSource.flatMap { source in
+            report?.change24h != nil && !data.settings.changeBasis.isDay ? L("change_candle_source", source) : nil
+        }
 
         return ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -89,10 +98,18 @@ struct WatchlistWhySheet: View {
                         .minimumScaleFactor(0.6)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     WatchlistWhyChangeBadge(label: L("why_change_1h"), change: report?.change1h)
-                    WatchlistWhyChangeBadge(label: L("why_change_24h"), change: report?.change24h)
+                    WatchlistWhyChangeBadge(label: L("why_change_24h"), change: report?.change24h, note: candleNote)
                 }
                 .padding(.top, 12)
-                .padding(.bottom, 16)
+                .padding(.bottom, candleNote == nil ? 16 : 2)
+                // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
+                if let candleNote {
+                    Text(candleNote)
+                        .font(.caption2)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding(.bottom, 16)
+                }
 
                 // Was gerade auffällt (die Signale hinter dem ⚡)
                 if !signals.isEmpty {
@@ -178,6 +195,10 @@ struct WatchlistWhySheet: View {
                 state = .failed
             }
         }
+        // Woher die Pille kommt (fremde Kerzen, z. B. Kraken-Paar → Binance)
+        .task(id: "\(watch.id)|\(watch.lastUpdate)") {
+            candleSource = await PriceRefresher.foreignCandleSource(watch)
+        }
     }
 }
 
@@ -185,6 +206,8 @@ struct WatchlistWhySheet: View {
 private struct WatchlistWhyChangeBadge: View {
     let label: String
     let change: Double?
+    /// Hinweis für VoiceOver nach dem Wert, z. B. «Veränderung aus Binance-Kerzen».
+    var note: String? = nil
 
     var body: some View {
         HStack(spacing: Spacing.xs) {
@@ -198,7 +221,7 @@ private struct WatchlistWhyChangeBadge: View {
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
         // «1h, gestiegen um 2.31%»
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.join([label, A11y.change(change) ?? "—"]))
+        .accessibilityLabel(A11y.join([label, A11y.change(change) ?? "—", note]))
     }
 }
 
@@ -221,11 +244,7 @@ private struct WatchlistWhyDetails: View {
                     showDetails.toggle()
                 }
             } label: {
-                Text(L(showDetails ? "why_details_hide" : "why_details"))
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(accent.primary)
-                    .padding(.vertical, Spacing.sm)
-                    .contentShape(Rectangle())
+                ExpandToggleLabel(title: L(showDetails ? "why_details_hide" : "why_details"), expanded: showDetails)
             }
             .buttonStyle(.plain)
             if showDetails {

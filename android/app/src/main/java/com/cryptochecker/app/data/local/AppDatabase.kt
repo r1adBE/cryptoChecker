@@ -9,10 +9,7 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.MarketEntity
 import com.cryptochecker.app.data.local.model.MarketPairEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
-import com.cryptochecker.app.data.portfolio.PortfolioDao
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.data.portfolio.PortfolioLegacyImport
 
 @Database(
     entities = [
@@ -20,8 +17,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
         MarketPairEntity::class,
         WatchEntity::class,
         AlarmEntity::class,
-        PortfolioTxEntity::class,
-        PortfolioAlarmEntity::class,
+        // Portfolio (portfolio_tx, portfolio_alarms) seit v13 in PortfolioDatabase (eigene Datei)
     ],
     version = VERSION,
     exportSchema = true,
@@ -29,11 +25,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getMarketDao(): MarketDao
     abstract fun getWatchDao(): WatchDao
-    abstract fun getPortfolioDao(): PortfolioDao
-    abstract fun getPortfolioAlarmDao(): PortfolioAlarmDao
 
     companion object {
-        const val VERSION = 12
+        const val VERSION = 13
         const val DB_NAME = "cryptochecker.db"
 
         /** Datenbank des Vorgängerprojekts; wird beim ersten Start entfernt. */
@@ -151,6 +145,27 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Portfolio zieht in eine eigene Datenbankdatei (PortfolioDatabase), damit die Systemsicherung
+         * es nur mit Erlaubnis enthält. Hier wird nichts gelöscht, nur umbenannt: Room prüft nur die
+         * Tabellen seiner Entities, `legacy_*` stört nicht. PortfolioLegacyImport kopiert die Zeilen
+         * beim ersten Öffnen der Portfolio-Datenbank, prüft die Anzahl und löscht erst dann die
+         * `legacy_*`-Tabellen. Schlägt das fehl, bleibt der Altbestand für den nächsten Start liegen.
+         */
+        val MIGRATION_12_13 = object : Migration(12, 13) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                listOf(
+                    "portfolio_tx" to PortfolioLegacyImport.LEGACY_TX,
+                    "portfolio_alarms" to PortfolioLegacyImport.LEGACY_ALARMS,
+                ).forEach { (table, legacy) ->
+                    val exists = db.query(
+                        "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?", arrayOf<Any?>(table)
+                    ).use { it.moveToFirst() }
+                    if (exists) db.execSQL("ALTER TABLE `$table` RENAME TO `$legacy`")
+                }
+            }
+        }
+
         /** Fügt den Zeitpunkt der letzten Meldung hinzu. */
         val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -178,6 +193,7 @@ abstract class AppDatabase : RoomDatabase() {
             get() = arrayOf(
                 MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7,
                 MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12,
+                MIGRATION_12_13,
             )
     }
 }

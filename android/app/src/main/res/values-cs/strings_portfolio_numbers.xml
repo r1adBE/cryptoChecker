@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Změna podle svíček %1$s</string>
+</resources>

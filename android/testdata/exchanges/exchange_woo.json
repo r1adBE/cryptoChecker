@@ -1,0 +1,121 @@
+{
+  "exchange": "WOO X / WOO X Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=24 | /v3/public/futures?symbol=PERP_BTC_USDT",
+    "bulk": "GET https://api.woox.io/v3/public/futures"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot: 24 hourly candles (newest first) -> rolling 24 h ticker",
+      "market": "Woo",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "SPOT_BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61880.0,\"close\":61935.0,\"high\":61953.0,\"low\":61862.0,\"volume\":523.0,\"amount\":31903000.0,\"type\":\"1h\",\"startTimestamp\":1728536400000,\"endTimestamp\":1728540000000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61820.0,\"close\":61875.0,\"high\":61894.0,\"low\":61803.0,\"volume\":522.0,\"amount\":31842000.0,\"type\":\"1h\",\"startTimestamp\":1728532800000,\"endTimestamp\":1728536400000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61760.0,\"close\":61815.0,\"high\":61835.0,\"low\":61744.0,\"volume\":521.0,\"amount\":31781000.0,\"type\":\"1h\",\"startTimestamp\":1728529200000,\"endTimestamp\":1728532800000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61700.0,\"close\":61755.0,\"high\":61773.0,\"low\":61685.0,\"volume\":520.0,\"amount\":31720000.0,\"type\":\"1h\",\"startTimestamp\":1728525600000,\"endTimestamp\":1728529200000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61640.0,\"close\":61695.0,\"high\":61714.0,\"low\":61622.0,\"volume\":519.0,\"amount\":31659000.0,\"type\":\"1h\",\"startTimestamp\":1728522000000,\"endTimestamp\":1728525600000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61580.0,\"close\":61635.0,\"high\":61655.0,\"low\":61563.0,\"volume\":518.0,\"amount\":31598000.0,\"type\":\"1h\",\"startTimestamp\":1728518400000,\"endTimestamp\":1728522000000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61520.0,\"close\":61575.0,\"high\":61593.0,\"low\":61504.0,\"volume\":517.0,\"amount\":31537000.0,\"type\":\"1h\",\"startTimestamp\":1728514800000,\"endTimestamp\":1728518400000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61460.0,\"close\":61515.0,\"high\":61534.0,\"low\":61445.0,\"volume\":516.0,\"amount\":31476000.0,\"type\":\"1h\",\"startTimestamp\":1728511200000,\"endTimestamp\":1728514800000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61400.0,\"close\":61455.0,\"high\":61475.0,\"low\":61382.0,\"volume\":515.0,\"amount\":31415000.0,\"type\":\"1h\",\"startTimestamp\":1728507600000,\"endTimestamp\":1728511200000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61340.0,\"close\":61395.0,\"high\":61413.0,\"low\":61323.0,\"volume\":514.0,\"amount\":31354000.0,\"type\":\"1h\",\"startTimestamp\":1728504000000,\"endTimestamp\":1728507600000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61280.0,\"close\":61335.0,\"high\":61354.0,\"low\":61264.0,\"volume\":513.0,\"amount\":31293000.0,\"type\":\"1h\",\"startTimestamp\":1728500400000,\"endTimestamp\":1728504000000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61220.0,\"close\":61275.0,\"high\":61295.0,\"low\":61205.0,\"volume\":512.0,\"amount\":31232000.0,\"type\":\"1h\",\"startTimestamp\":1728496800000,\"endTimestamp\":1728500400000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61160.0,\"close\":61215.0,\"high\":61233.0,\"low\":61142.0,\"volume\":511.0,\"amount\":31171000.0,\"type\":\"1h\",\"startTimestamp\":1728493200000,\"endTimestamp\":1728496800000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61100.0,\"close\":61155.0,\"high\":61174.0,\"low\":61083.0,\"volume\":510.0,\"amount\":31110000.0,\"type\":\"1h\",\"startTimestamp\":1728489600000,\"endTimestamp\":1728493200000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61040.0,\"close\":61095.0,\"high\":61115.0,\"low\":61024.0,\"volume\":509.0,\"amount\":31049000.0,\"type\":\"1h\",\"startTimestamp\":1728486000000,\"endTimestamp\":1728489600000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60980.0,\"close\":61035.0,\"high\":61053.0,\"low\":60965.0,\"volume\":508.0,\"amount\":30988000.0,\"type\":\"1h\",\"startTimestamp\":1728482400000,\"endTimestamp\":1728486000000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60920.0,\"close\":60975.0,\"high\":60994.0,\"low\":60902.0,\"volume\":507.0,\"amount\":30927000.0,\"type\":\"1h\",\"startTimestamp\":1728478800000,\"endTimestamp\":1728482400000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60860.0,\"close\":60915.0,\"high\":60935.0,\"low\":60843.0,\"volume\":506.0,\"amount\":30866000.0,\"type\":\"1h\",\"startTimestamp\":1728475200000,\"endTimestamp\":1728478800000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60800.0,\"close\":60855.0,\"high\":60873.0,\"low\":60784.0,\"volume\":505.0,\"amount\":30805000.0,\"type\":\"1h\",\"startTimestamp\":1728471600000,\"endTimestamp\":1728475200000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60740.0,\"close\":60795.0,\"high\":60814.0,\"low\":60725.0,\"volume\":504.0,\"amount\":30744000.0,\"type\":\"1h\",\"startTimestamp\":1728468000000,\"endTimestamp\":1728471600000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60680.0,\"close\":60735.0,\"high\":60755.0,\"low\":60662.0,\"volume\":503.0,\"amount\":30683000.0,\"type\":\"1h\",\"startTimestamp\":1728464400000,\"endTimestamp\":1728468000000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60620.0,\"close\":60675.0,\"high\":60693.0,\"low\":60603.0,\"volume\":502.0,\"amount\":30622000.0,\"type\":\"1h\",\"startTimestamp\":1728460800000,\"endTimestamp\":1728464400000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60560.0,\"close\":60615.0,\"high\":60634.0,\"low\":60544.0,\"volume\":501.0,\"amount\":30561000.0,\"type\":\"1h\",\"startTimestamp\":1728457200000,\"endTimestamp\":1728460800000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":60500.0,\"close\":60555.0,\"high\":60575.0,\"low\":60485.0,\"volume\":500.0,\"amount\":30500000.0,\"type\":\"1h\",\"startTimestamp\":1728453600000,\"endTimestamp\":1728457200000}]},\"timestamp\":1728540000123}",
+      "expect": {
+        "last": 61935.0,
+        "high": 61953.0,
+        "low": 60485.0,
+        "vol": 12276.0,
+        "volQuote": 748836000.0,
+        "change24hPercent": 2.371900826446281,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot: fewer than 24 candles -> no change",
+      "market": "Woo",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "SPOT_BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61880.0,\"close\":61935.0,\"high\":61953.0,\"low\":61862.0,\"volume\":523.0,\"amount\":31903000.0,\"type\":\"1h\",\"startTimestamp\":1728536400000,\"endTimestamp\":1728540000000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61820.0,\"close\":61875.0,\"high\":61894.0,\"low\":61803.0,\"volume\":522.0,\"amount\":31842000.0,\"type\":\"1h\",\"startTimestamp\":1728532800000,\"endTimestamp\":1728536400000},{\"symbol\":\"SPOT_BTC_USDT\",\"open\":61760.0,\"close\":61815.0,\"high\":61835.0,\"low\":61744.0,\"volume\":521.0,\"amount\":31781000.0,\"type\":\"1h\",\"startTimestamp\":1728529200000,\"endTimestamp\":1728532800000}]},\"timestamp\":1728540000123}",
+      "expect": {
+        "last": 61935.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot: no candles",
+      "market": "Woo",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "SPOT_FOO_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"data\":{\"rows\":[]},\"timestamp\":1728540000123}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "futures ticker (24hOpen)",
+      "market": "WooFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "PERP_BTC_USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_BTC_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\", \"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hClose\":\"62000.1\",\"24hHigh\":\"62500\", \"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"}]},\"timestamp\":1728540000123}",
+      "expect": {
+        "last": 62000.1,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.5,
+        "volQuote": 744460123.45,
+        "change24hPercent": 2.4795041322314026,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "futures error payload",
+      "market": "WooFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "PERP_FOO_USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"code\":-1000,\"message\":\"symbol not exist\"}",
+      "expect": {
+        "error": true,
+        "message": "symbol not exist"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk futures",
+      "market": "WooFutures",
+      "requestId": 0,
+      "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_BTC_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\", \"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hClose\":\"62000.1\",\"24hHigh\":\"62500\", \"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"}]},\"timestamp\":1728540000999}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "PERP_BTC_USDT": {
+            "last": 62000.1,
+            "timestamp": 1728540000999
+          }
+        }
+      }
+    }
+  ]
+}

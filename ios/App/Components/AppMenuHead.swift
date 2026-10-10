@@ -8,6 +8,8 @@ struct AppMenuHead: View {
     let refreshing: Bool
     let onOpenAbout: () -> Void
     let onRefresh: () -> Void
+    /// Zusätzlich gesperrt (z. B. eben erst aktualisiert): grau statt einer Meldung.
+    var refreshEnabled = true
     @Environment(\.appAccent) var accent
     @Environment(\.colorScheme) var colorScheme
 
@@ -25,6 +27,6 @@ struct AppMenuHead: View {
         Button(action: onRefresh) {
             Label(L("action_refresh"), systemImage: "arrow.clockwise")
         }
-        .disabled(refreshing)
+        .disabled(refreshing || !refreshEnabled)
     }
 }

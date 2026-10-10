@@ -82,6 +82,19 @@ object ThresholdParser {
     }
 
     /**
+     * Wie [parse], aber auch 0 gilt («0», «0,00», «.0», «0’000») — für Menge und Kurs einer
+     * Transaktion (Kurs 0 = geschenkt). Leer bleibt ungültig (null); negativ, Exponent oder
+     * Buchstaben («1.5f», «2d») ebenso.
+     */
+    fun parseAllowingZero(text: String, decimalSeparator: Char, priceHint: Double? = null): Double? {
+        parse(text, decimalSeparator, priceHint)?.let { return it }
+        val cleaned = latinDigits(text).trim().filterNot { it in GROUPING }
+        val zero = cleaned.any { it == '0' } && cleaned.all { it == '0' || it == '.' || it == ',' } &&
+            cleaned.count { it == '.' || it == ',' } <= 1
+        return if (zero) 0.0 else null
+    }
+
+    /**
      * Eingabe in lateinische Ziffern: arabisch-indische (٠–٩), persische (۰–۹) und andere
      * Unicode-Ziffern → 0–9, arabisches Dezimalzeichen «٫» → «.», arabische Tausendertrennung
      * «٬» → «’»; Richtungszeichen (z. B. LRM aus eingefügtem Text) fallen weg.

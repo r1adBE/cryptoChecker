@@ -2,6 +2,7 @@ package com.cryptochecker.marketdata.util
 
 import com.cryptochecker.marketdata.model.Ticker
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 
 
@@ -34,6 +35,19 @@ fun JSONObject.forEachName(function: (name: String, item: JSONObject) -> Unit) {
 }
 
 fun JSONObject.optDoubleNoData(name: String): Double = this.optDouble(name, Ticker.NO_DATA.toDouble())
+
+/**
+ * Text eines Felds; fehlt es oder ist es JSON null: leer. `optString` liefert für null den Text
+ * «null» – als Fehlertext sinnlos und anders als iOS (`JObject.optString`).
+ */
+fun JSONObject.optText(name: String): String = if (isNull(name)) "" else optString(name)
+
+/** Wie `getString`, wirft aber auch bei JSON null (statt «null» zu liefern) – wie iOS `JObject.string`. */
+@Throws(JSONException::class)
+fun JSONObject.getText(name: String): String {
+    if (isNull(name)) throw JSONException("No value for $name")
+    return getString(name)
+}
 
 /** Texte eines Felds mit Liste («["TradFi", "Pre-IPO"]»); fehlt es oder ist es keine Liste: leer. */
 fun JSONObject.optStrings(name: String): List<String> {

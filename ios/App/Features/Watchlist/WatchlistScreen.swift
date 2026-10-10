@@ -81,6 +81,17 @@ struct WatchlistScreen: View {
     @State var jumpHideTask: Task<Void, Never>?
     /// iOS 18: Liste wird gerade gescrollt (Scrollphase nicht «idle»).
     @State var scrollActive = false
+    /// ⚡ bzw. «nur veraltete» (`QuickView`); nil = Gruppen-Auswahl gilt. Nicht gespeichert.
+    @State var quickView: QuickView?
+    /// Mehrfachauswahl (⋯ › Auswählen): Häkchen an den Zeilen, unten Favorit · Gruppe · Löschen.
+    @State var selecting = false
+    @State var selectedIds: Set<Int64> = []
+    /// Gruppe für die ausgewählten Paare wählen.
+    @State var askGroupForSelection = false
+    /// Sortieren nach Spalte (`ColumnSort.encoded`); leer = eigene Reihenfolge. Bleibt gespeichert.
+    @AppStorage("watchlist_column_sort") var columnSortRaw = ""
+    /// Faktor je Quote-Währung in CHF — nur fürs Sortieren nach Kurs, auch ohne «≈ Umrechnung».
+    @State var sortRates: [String: Double] = [:]
 
     init() {}
 
@@ -97,14 +108,33 @@ struct WatchlistScreen: View {
     /// den Sprüngen aus Mitteilungen; Blätter und Rückfragen legt `withSheets` darüber.
     private func screen(changeView: ChangeView) -> some View {
         let watches = data.watches
-        // Sichtbar: alle Paare oder nur die der gewählten Gruppe
-        let visible = data.visibleWatches
+        // Ansicht der Gruppen-Chips: alle Paare, die Favoriten (★) oder nur die der gewählten Gruppe
+        let groupVisible = data.visibleWatches
+        // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst — nach der
+        // gewählten Empfindlichkeit (gleiche Schwellen wie die Mitteilungen); nicht mehr gehandelte
+        // Paare: kein ⚡ (auch bevor die Auswertung aufräumt)
+        let sensitivity = data.settings.activitySensitivity
+        let reports = NotTraded.withoutIds(data.activityReports, NotTraded.ids(watches))
+        let signals = WatchlistActivity.activeSignals(reports, now: now, sensitivity: sensitivity)
+        // ⚡-Chip: Paare mit Signalen über alle Gruppen; «Weniger»: nur die der stärksten Coins
+        let hot = ActivityView.pick(WatchlistActivity.hot(watches, signals: signals),
+                                    baseAsset: { $0.baseAsset }, limit: sensitivity.maxCardCoins)
+        let activityChip = data.settings.watchlistActivityCard && !hot.isEmpty
+        // Gezeigt: die Gruppen-Ansicht oder vorübergehend ⚡ bzw. «nur veraltete»
+        let staleAfter = data.staleAfterMillis
+        let visible: [Watch]
+        switch quickView {
+        case .activity: visible = hot
+        case .stale: visible = groupVisible.filter { WatchlistTime.isStale($0, now: now, staleAfter: staleAfter) }
+        case nil: visible = groupVisible
+        }
         return ScrollViewReader { proxy in
             Group {
                 if watches.isEmpty {
                     emptyState
                 } else {
-                    list(visible, proxy: proxy)
+                    list(visible, statusWatches: quickView == .stale ? groupVisible : visible,
+                         signals: signals, activityChip: activityChip, proxy: proxy)
                 }
             }
             .onChange(of: router.focusWatchId, initial: true) { _, id in
@@ -147,6 +177,10 @@ struct WatchlistScreen: View {
         .task(id: conversionKey) {
             await refreshConversion()
         }
+        // Sortieren nach Kurs: im Hintergrund in CHF umrechnen (nur solange danach sortiert wird)
+        .task(id: sortRatesKey) {
+            await refreshSortRates()
+        }
         .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
         .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }
         // Erster Stand gilt als gesehen; nur spätere Auslösungen lassen die Glocke pulsieren
@@ -179,10 +213,22 @@ struct WatchlistScreen: View {
         .onChange(of: visible.count) { _, count in
             if count < 2 { editMode = .inactive }
         }
+        // Vorübergehende Ansicht endet von selbst, wenn nichts mehr hineinpasst
+        .onChange(of: activityChip) { _, shown in
+            if !shown && quickView == .activity { quickView = nil }
+        }
+        .onChange(of: visible.isEmpty) { _, empty in
+            if empty && quickView == .stale { quickView = nil }
+        }
+        // Mehrfachauswahl: nur Paare, die es noch gibt und die zu sehen sind
+        .onChange(of: visible.map(\.id)) { _, ids in
+            selectedIds.formIntersection(ids)
+        }
         .environment(\.changeView, changeView)
         .sensoryFeedback(.impact(weight: .medium), trigger: reorderTick)
         // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
-        .onChange(of: data.visibleWatches.map(\.livePair), initial: true) { _, pairs in
+        // (auch in der ⚡-Ansicht über alle Gruppen)
+        .onChange(of: visible.map(\.livePair), initial: true) { _, pairs in
             Task { await LivePriceStream.shared.setPairs(pairs) }
         }
         .onAppear { Task { await LivePriceStream.shared.setScreenVisible(true) } }

@@ -6,10 +6,10 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmChecker
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.portfolio.TimedPrice
@@ -127,7 +127,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
             val now = System.currentTimeMillis()
             val history = store.history()
             val holdings = summary.open.associate { it.coin to it.holdings }
-            // Aktuelle Kurse der offenen Coins (USDT = 1 setzt der Rechner selbst)
+            // Aktuelle Kurse der offenen Coins (Stablecoin-Regel setzt der Rechner: USDT 1, andere Marktkurs, sonst 1)
             val current = summary.open.mapNotNull { p -> p.currentPrice?.let { p.coin to it } }.toMap()
 
             // Stundenkurse für den 24-h-Wertverlauf: gemerkte, dazu was ohnehin schon geladen
@@ -147,7 +147,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 fxRate = rate,
                 currency = code,
                 hourlyPrices = hourlyPrices,
-                stables = CurrencyConversion.USD_STABLES,
+                stables = PortfolioStables.COINS,
                 // %-Basis: rollend oder seit Tagesbeginn (UTC/Ortszeit)
                 stamp = ChangeBasisMath.stamp(basis, now),
             )
@@ -187,7 +187,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
             fresh = cachedHourlyPrices(open.toSet(), emptyList(), emptyMap(), now),
             now = now,
         )
-        val due = PortfolioWidgetSeries.candleCoins(open, known, candleAttempts, now, CurrencyConversion.USD_STABLES)
+        val due = PortfolioWidgetSeries.candleCoins(open, known, candleAttempts, now, PortfolioStables.COINS)
         if (due.isEmpty()) return
         due.forEach { candleAttempts[it] = now }
         withTimeoutOrNull(CANDLE_LOAD_TIMEOUT_MILLIS) {
@@ -220,7 +220,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
     ): Map<String, List<TimedPrice>> {
         val out = HashMap<String, List<TimedPrice>>()
         for (coin in coins) {
-            if (coin.uppercase() in CurrencyConversion.USD_STABLES) continue
+            if (coin.uppercase() in PortfolioStables.COINS) continue
             val fromSparkline = sparklineRepository.cachedWithTime(coin)
                 ?.let { (time, closes) -> PortfolioWidgetSeries.fromHourlyCloses(closes, time) }
                 .orEmpty()

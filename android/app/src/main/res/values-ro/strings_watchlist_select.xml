@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Selectează</string>
+    <string name="watchlist_select_all">Selectează tot</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Selectate: %1$d</item>
+        <item quantity="few">Selectate: %1$d</item>
+        <item quantity="other">Selectate: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Perechi eliminate: %1$d</item>
+        <item quantity="few">Perechi eliminate: %1$d</item>
+        <item quantity="other">Perechi eliminate: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Arată doar cele învechite</string>
+    <string name="watchlist_show_all">Arată tot</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Nume</string>
+    <string name="watchlist_sort_price">Preț</string>
+    <string name="watchlist_sort_descending">descrescător</string>
+    <string name="watchlist_sort_ascending">crescător</string>
+    <string name="watchlist_sort_own">Ordine proprie</string>
+</resources>

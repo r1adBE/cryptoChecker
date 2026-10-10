@@ -101,12 +101,15 @@ extension ExplorerScreen {
 
     var pairStep: some View {
         ExplorerStepCard(highlighted: vm.hasPairs && !vm.pairSelected) {
-            ExplorerStepHeader(
-                number: 2,
-                title: L("explorer_step_pair"),
-                active: vm.hasPairs,
-                done: vm.pairSelected
-            )
+            // Unter den Registern steht der Titel schon im Register
+            if !bulkTabbed {
+                ExplorerStepHeader(
+                    number: 2,
+                    title: L("explorer_step_pair"),
+                    active: vm.hasPairs,
+                    done: vm.pairSelected
+                )
+            }
 
             if vm.hasPairs {
                 VStack(spacing: Spacing.sm) {

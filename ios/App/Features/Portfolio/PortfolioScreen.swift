@@ -159,7 +159,7 @@ struct PortfolioScreen: View {
             let slices = PortfolioInsights.allocation(summary.open)
             if slices.count >= 2 {
                 PortfolioAllocationCard(slices: slices)
-                    .portfolioListRow(top: 0, bottom: 8)
+                    .portfolioListRow(top: 0, bottom: ListSegment.spacing)
             }
 
             // Kursänderung je Coin über die %-Basis steht klein in der Zeile
@@ -167,6 +167,7 @@ struct PortfolioScreen: View {
             // Anzahl Transaktionen je Coin (kleine Zahl neben der Menge)
             let txCounts = Dictionary(grouping: data.portfolio, by: { PortfolioCalculator.normalizeCoin($0.coin) })
                 .mapValues(\.count)
+            let openIndex = Dictionary(summary.open.enumerated().map { ($1.coin, $0) }, uniquingKeysWith: { first, _ in first })
             ForEach(summary.open) { position in
                 Button {
                     openCoin = position.coin
@@ -175,7 +176,8 @@ struct PortfolioScreen: View {
                         position: position,
                         dayChange: model.coinChanges[position.coin] ?? model.coinChanges[position.coin.uppercased()],
                         basis: basis,
-                        txCount: txCounts[position.coin] ?? 0
+                        txCount: txCounts[position.coin] ?? 0,
+                        shape: ListSegment.shape(openIndex[position.coin] ?? 0, summary.open.count)
                     )
                 }
                 .buttonStyle(.plain)
@@ -193,12 +195,12 @@ struct PortfolioScreen: View {
                         .tint(AppColors.destructive)
                     }
                 }
-                .portfolioListRow(top: 4, bottom: 4)
+                .portfolioListRow(top: ListSegment.gap / 2, bottom: ListSegment.gap / 2)
             }
 
             if !summary.closed.isEmpty {
                 closedSection(summary.closed)
-                    .portfolioListRow(top: 4, bottom: 4)
+                    .portfolioListRow(top: ListSegment.spacing, bottom: 4)
             }
 
             PortfolioDisclaimer()
@@ -265,7 +267,7 @@ struct PortfolioScreen: View {
                     Button {
                         alarmOpen = true
                     } label: {
-                        Label(L("portfolio_alarm_action"), systemImage: "bell")
+                        Label(L("portfolio_alarm_action"), systemImage: "bell.and.waves.left.and.right")
                     }
                     Divider()
                     // Wie «Merkliste leeren»: zuunterst, rot, mit Rückfrage

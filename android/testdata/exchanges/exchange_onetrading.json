@@ -1,0 +1,65 @@
+{
+  "exchange": "One Trading",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). NOTE: bid/ask field names follow the adapter (highest_bid/lowest_ask); the older Bitpanda Pro API used best_bid/best_ask - verify against a live response.",
+  "endpoints": {
+    "single": "GET https://api.onetrading.com/fast/v1/market-ticker/BTC_EUR",
+    "bulk": "GET https://api.onetrading.com/fast/v1/market-ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "market-ticker BTC_EUR",
+      "market": "OneTrading",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"state\":\"ACTIVE\",\"is_frozen\":0, \"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\", \"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}",
+      "expect": {
+        "last": 58000.1,
+        "bid": 58000.0,
+        "ask": 58000.2,
+        "high": 58500.0,
+        "low": 56500.0,
+        "vol": 210.5,
+        "volQuote": 12345678.9,
+        "change24hPercent": 2.11
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "OneTrading",
+      "pair": {
+        "base": "FOO",
+        "quote": "EUR",
+        "id": "FOO_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":\"INSTRUMENT_NOT_FOUND\"}",
+      "expect": {
+        "error": true,
+        "message": "INSTRUMENT_NOT_FOUND"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk market-ticker",
+      "market": "OneTrading",
+      "requestId": 0,
+      "body": "[{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"state\":\"ACTIVE\",\"is_frozen\":0, \"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\", \"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTC_EUR": {
+            "last": 58000.1
+          }
+        }
+      }
+    }
+  ]
+}

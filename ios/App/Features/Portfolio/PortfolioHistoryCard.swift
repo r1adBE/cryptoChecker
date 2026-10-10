@@ -228,7 +228,8 @@ struct PortfolioHistoryCard: View {
                 .padding(.top, Spacing.sm)
         }
 
-        if series.hasChart && history.converted {
+        // Nur wenn die Devisen-Tageskurse fehlten und alles mit dem heutigen Kurs umgerechnet ist
+        if series.hasChart && history.converted && history.approximateFx {
             caption(L("portfolio_history_converted"))
         }
         if !series.skipped.isEmpty {

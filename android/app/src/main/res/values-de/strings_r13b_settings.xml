@@ -9,7 +9,6 @@
     <string name="settings_summary_on">Ein</string>
 
     <!-- Runde 13b: ehrliche Bestätigung nach dem ersten Alarm (ersetzt alarm_first_text) -->
-    <string name="alarm_first_text_checked">Crypto Checker beobachtet jetzt %1$s für dich. Erreicht %1$s deine Grenze, bekommst du eine Mitteilung, sobald die App den Kurs prüft. Bei geschlossener App geschieht das im Intervall der Hintergrund-Aktualisierung – später, wenn die Akku-Optimierung die App einschränkt.</string>
     <!-- Nur iOS -->
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker beobachtet jetzt %1$s für dich. Du bekommst eine Mitteilung, sobald die App den Kurs prüft. Bei geschlossener App entscheidet iOS, wann das passiert – das kann dauern. Bei geöffneter App wird pünktlich geprüft.</string>
 

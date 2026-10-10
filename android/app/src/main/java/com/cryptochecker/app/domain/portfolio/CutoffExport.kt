@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
 
+import com.cryptochecker.app.util.DecimalText
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.Locale
 
 /** Bestand eines Coins am Stichtag. */
 data class CutoffHolding(val coin: String, val amount: Double)
@@ -49,14 +49,14 @@ data class CutoffCsvTexts(
  */
 object CutoffExport {
 
-    /** Gelten als 1 USD (ohne Abfrage). */
-    val STABLES = setOf("USDT", "USDC", "BUSD", "FDUSD", "TUSD", "USDP", "DAI", "USD")
+    /** Stablecoins: die eine Liste aus [PortfolioStables] (Tagesschluss, sonst 1; USDT immer 1). */
+    val STABLES: Set<String> get() = PortfolioStables.COINS
 
     const val SEPARATOR = ";"
     private const val BOM = "\uFEFF"
     private const val EOL = "\r\n"
 
-    fun isStable(coin: String): Boolean = PortfolioCalculator.normalizeCoin(coin) in STABLES
+    fun isStable(coin: String): Boolean = PortfolioStables.isStable(coin)
 
     /** Letzte Millisekunde des Tags [date] in der Zeitzone [zone]. */
     fun endOfDayMillis(date: LocalDate, zone: ZoneId): Long =
@@ -84,14 +84,14 @@ object CutoffExport {
     }
 
     /**
-     * Zeilen aus Bestand, Kursen ([prices]: Coin → USDT; Stablecoins = 1, auch wenn
-     * sie fehlen) und dem Devisenkurs [fxRate] (null = unbekannt).
+     * Zeilen aus Bestand, Kursen ([prices]: Coin → Tagesschluss in USDT) und dem Devisenkurs
+     * [fxRate] (null = unbekannt). Stablecoins nach [PortfolioStables.price]: USDT = 1, die
+     * übrigen ihr Tagesschluss, fehlt er, 1.
      */
     fun rows(holdings: List<CutoffHolding>, prices: Map<String, Double>, fxRate: Double?): List<CutoffRow> {
         val rate = fxRate?.takeIf { it > 0.0 && it.isFinite() }
         return holdings.map { h ->
-            val price = prices[h.coin]?.takeIf { it > 0.0 && it.isFinite() }
-                ?: if (isStable(h.coin)) 1.0 else null
+            val price = PortfolioStables.price(h.coin, prices[h.coin])
             val value = price?.let { h.amount * it }
             CutoffRow(
                 coin = h.coin,
@@ -181,27 +181,21 @@ object CutoffExport {
         } else field
 
     // ---------------- Zahlen (Dezimalpunkt, ohne Tausendertrennung) ----------------
+    // Gerundet wird kaufmännisch (HALF_UP) ab der kürzesten Dezimaldarstellung ([DecimalText]),
+    // gleich wie iOS (`PortfolioCutoffExport`): 1.005 → «1.01». Nicht endlich → leeres Feld.
 
-    /** Menge: bis 10 Nachkommastellen, ohne Nullen am Ende. */
-    internal fun amount(v: Double): String = trimmed(v, 10)
+    /** Menge: bis 10 Nachkommastellen, unter 1 bis 10 gültige Stellen (3e-11 → «0.00000000003»), ohne Nullen am Ende. */
+    internal fun amount(v: Double): String = significant(v)
 
-    /** Kurs: bis 10 Nachkommastellen (auch für sehr kleine Kurse), ohne Nullen am Ende. */
-    internal fun price(v: Double): String = trimmed(v, 10)
+    /** Kurs: wie [amount] — auch Kleinstkurse (3e-11) bleiben lesbar statt «0». */
+    internal fun price(v: Double): String = significant(v)
 
     /** Devisenkurs: bis 6 Nachkommastellen. */
-    internal fun rate(v: Double): String = trimmed(v, 6)
+    internal fun rate(v: Double): String = DecimalText.plain(v, 6)
 
-    /** Geldbetrag: genau 2 Nachkommastellen. */
-    internal fun money(v: Double): String = fixed(v, 2)
+    /** Geldbetrag: genau 2 Nachkommastellen; «-0.00» → «0.00». */
+    internal fun money(v: Double): String = DecimalText.fixed(v, 2)
 
-    private fun fixed(v: Double, decimals: Int): String {
-        val s = String.format(Locale.ROOT, "%.${decimals}f", v)
-        // «-0.00» vermeiden
-        return if (s.trimStart('-').all { it == '0' || it == '.' }) s.trimStart('-') else s
-    }
-
-    private fun trimmed(v: Double, decimals: Int): String {
-        val s = fixed(v, decimals)
-        return if ('.' in s) s.trimEnd('0').trimEnd('.') else s
-    }
+    private fun significant(v: Double): String =
+        DecimalText.plain(v, DecimalText.significantScale(v, minDecimals = 10, significant = 10))
 }

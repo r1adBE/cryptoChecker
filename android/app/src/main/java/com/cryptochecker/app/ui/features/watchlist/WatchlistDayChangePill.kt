@@ -19,14 +19,15 @@ import com.cryptochecker.app.util.ChangeBasisText
  * daneben klein der Zeitraum «24h», «letzter Stand», «heute» oder «heute UTC». Ohne Bezug eine
  * graue Pille «—» ohne Pfeil; die Veränderung seit der letzten Abfrage nur bei der Basis
  * «Seit letzter Aktualisierung».
- * Screenreader: «up 2.30% in 24 hours» / «… today».
+ * Screenreader: «up 2.30% in 24 hours» / «… today»; mit [note] danach der Hinweis.
  */
 @Composable
-internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier) {
+internal fun DayChangePill(change: Double?, modifier: Modifier = Modifier, note: String? = null) {
     val value = change?.takeIf { it.isFinite() }
     val view = LocalChangeView.current
     val basis = view.basis
-    val spoken = ChangeBasisText.spoken(LocalContext.current, basis, value)
+    // [note]: z. B. «Veränderung aus Binance-Kerzen» — der Screenreader nennt ihn mit
+    val spoken = ChangeBasisText.spoken(LocalContext.current, basis, value).let { if (note != null) "$it, $note" else it }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier

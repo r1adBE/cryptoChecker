@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
     <string name="unusual_source">Cele mai mari circa 30 de monede, fără stablecoins · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">De ce se mișcă?</string>
-    <string name="unusual_action_add">Caută pereche de adăugat</string>
 
     <string name="macro_title">Date economice</string>
     <string name="macro_cpi">inflația din SUA (CPI)</string>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Salkku järjestelmän varmuuskopioon</string>
+    <string name="settings_portfolio_system_backup_hint">Pois: tapahtumasi eivät tule laitteen järjestelmän varmuuskopioon eivätkä siirtoon uuteen puhelimeen. Siirrä ne sovelluksen omalla salasanalla suojatulla varmuuskopiolla.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Портфель у системній копії</string>
+    <string name="settings_portfolio_system_backup_hint">Вимк.: ваші угоди не потрапляють до системної резервної копії пристрою та під час перенесення на новий телефон. Щоб перенести їх, використовуйте резервну копію застосунку з паролем.</string>
+</resources>

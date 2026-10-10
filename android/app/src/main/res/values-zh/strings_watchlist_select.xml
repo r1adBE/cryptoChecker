@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">选择</string>
+    <string name="watchlist_select_all">全选</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">已选择 %1$d 个</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">已移除 %1$d 个交易对</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">只显示已过时的</string>
+    <string name="watchlist_show_all">显示全部</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">名称</string>
+    <string name="watchlist_sort_price">价格</string>
+    <string name="watchlist_sort_descending">降序</string>
+    <string name="watchlist_sort_ascending">升序</string>
+    <string name="watchlist_sort_own">自定义顺序</string>
+</resources>

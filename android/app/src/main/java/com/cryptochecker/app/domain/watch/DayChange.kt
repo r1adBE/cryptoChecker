@@ -80,6 +80,23 @@ object DayChange {
     }
 
     /**
+     * Anbieter der Kerzen, wenn er NICHT die Börse des Paars ist — z. B. Kraken-Paar ohne 24-h-Wert
+     * im Ticker, Pille aus Binance-Kerzen. Dann sagt das Aktionsblatt «Veränderung aus
+     * Binance-Kerzen». Gleich gilt die Börse selbst oder ihr Futures-Markt («Binance Futures»);
+     * Vergleich ohne Gross-/Kleinschreibung, Leer- und Satzzeichen («Binance.US» = «BinanceUS»).
+     * @param markets Schlüssel und Name der Börse des Paars
+     * @param provider Anbieter der Kerzen («Binance», «Binance.US», «Coinbase»); null = keine Kerzen
+     * @return [provider], wenn fremd; sonst null
+     */
+    fun foreignCandleSource(markets: Collection<String>, provider: String?): String? {
+        val p = provider?.trim()?.takeIf { it.isNotEmpty() } ?: return null
+        fun norm(s: String) = s.lowercase().filter { it.isLetterOrDigit() }
+        val n = norm(p)
+        val own = markets.map { norm(it) }.any { it == n || it == n + "futures" }
+        return if (own) null else p
+    }
+
+    /**
      * Auswahl in fester Reihenfolge (siehe Klassenbeschreibung).
      * @param pairReference Kerzen des Paars in seiner Quote (bzw. USDT bei USD-artigen Quotes)
      * @param usdtReference USDT-Reihe des Basis-Assets (Mini-Chart), nur für Fiat-Quotes

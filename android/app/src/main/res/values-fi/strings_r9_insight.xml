@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Mikä erottuu nyt</string>
-    <string name="pulse_why_action">Miksi? →</string>
+    <string name="pulse_why_action">Miksi?</string>
     <string name="pulse_section_factors">Tekijät</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin johtaa markkinaa.</string>

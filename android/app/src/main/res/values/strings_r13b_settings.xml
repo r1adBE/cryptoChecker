@@ -11,7 +11,6 @@
     <string name="settings_summary_on">On</string>
 
     <!-- Runde 13b: ehrliche Bestätigung nach dem ersten Alarm (ersetzt alarm_first_text) -->
-    <string name="alarm_first_text_checked">Crypto Checker is now watching %1$s for you. When %1$s reaches your limit, you get a notification as soon as the app checks the price. With the app closed, that happens at the background update interval – later if battery optimization restricts the app.</string>
     <!-- Nur iOS (ersetzt dort alarm_first_text + settings_ios_background_hint) -->
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker is now watching %1$s for you. You get a notification as soon as the app checks the price. With the app closed, iOS decides when that happens – it can take a while. While the app is open, prices are checked on time.</string>
 

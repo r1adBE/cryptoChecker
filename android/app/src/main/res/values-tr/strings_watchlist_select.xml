@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Seç</string>
+    <string name="watchlist_select_all">Tümünü seç</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d seçildi</item>
+        <item quantity="other">%1$d seçildi</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d çift kaldırıldı</item>
+        <item quantity="other">%1$d çift kaldırıldı</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Yalnızca güncel olmayanları göster</string>
+    <string name="watchlist_show_all">Tümünü göster</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Ad</string>
+    <string name="watchlist_sort_price">Fiyat</string>
+    <string name="watchlist_sort_descending">azalan</string>
+    <string name="watchlist_sort_ascending">artan</string>
+    <string name="watchlist_sort_own">Kendi sıranız</string>
+</resources>

@@ -126,8 +126,8 @@ object PortfolioWidgetSeries {
     /**
      * Stündlicher Wertverlauf des heutigen Bestands in der Anzeigewährung: Stunden
      * [now] − 24 h … [now] − 1 h (nur Stunden mit Abdeckung ≥ [MIN_COVERAGE]) und als
-     * letzter Punkt der aktuelle Wert. [stables] (USD-Stablecoins) gelten als abgedeckt
-     * (Kurs ≈ 1, flach ist richtig). Ohne offenen Bestand mit Kurs: leer.
+     * letzter Punkt der aktuelle Wert. [stables] ([PortfolioStables.COINS]) gelten als abgedeckt
+     * und flach zum aktuellen Kurs (nach [PortfolioStables]: USDT 1, andere Marktkurs, sonst 1). Ohne offenen Bestand mit Kurs: leer.
      * @param holdings Menge je Coin
      * @param current aktueller USDT-Kurs je Coin
      * @param prices gemerkte Kurse je Coin ([merge])

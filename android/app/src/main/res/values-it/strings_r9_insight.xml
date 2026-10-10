@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Cosa spicca</string>
-    <string name="pulse_why_action">Perché? →</string>
+    <string name="pulse_why_action">Perché?</string>
     <string name="pulse_section_factors">Fattori</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin guida il mercato.</string>

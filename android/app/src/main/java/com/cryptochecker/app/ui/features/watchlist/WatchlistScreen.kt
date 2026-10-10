@@ -7,6 +7,10 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.ui.platform.LocalResources
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.watch.ActivityView
+import com.cryptochecker.app.domain.watch.QuickView
+import com.cryptochecker.app.domain.watch.ColumnSort
+import com.cryptochecker.app.domain.convert.CurrencyConversion
 import android.os.Build
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.BackHandler
@@ -39,6 +43,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalConfiguration
@@ -57,7 +62,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
-import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.NotTraded
@@ -83,7 +87,7 @@ fun WatchlistScreen(
     onAddClick: () -> Unit,
     onOpenAlarms: (Long) -> Unit,
     onOpenAllAlarms: () -> Unit = {},
-    /** «Anpassen» in der Aktivitätskarte: Einstellungen → Markt-Meldungen (Empfindlichkeit). */
+    /** Einstellungen → Markt-Meldungen (Empfindlichkeit); früher «Anpassen» in der Aktivitätskarte. */
     onOpenActivitySettings: () -> Unit = {},
     /** Logo mit App-Namen im Überlaufmenü: «Über die App». */
     onOpenAbout: () -> Unit = {},
@@ -99,8 +103,8 @@ fun WatchlistScreen(
     val loaded = watchesOrNull != null && groupFilter != null
     val groups = groupFilter?.groups.orEmpty()
     val selectedGroup = groupFilter?.selected
-    // Sichtbar: alle Paare, die Favoriten («FAV») oder nur die der gewählten Gruppe
-    val visible = remember(watches, selectedGroup) {
+    // Ansicht der Gruppen-Chips: alle Paare, die Favoriten (★) oder nur die der gewählten Gruppe
+    val groupVisible = remember(watches, selectedGroup) {
         if (selectedGroup == null) watches
         else watches.filter { WatchFilter.matches(selectedGroup, it.groupName, it.favorite) }
     }
@@ -135,8 +139,6 @@ fun WatchlistScreen(
     // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
     // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
     val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
-    val livePairs = remember(visible) { visible.map { it.toLivePair() } }
-    LaunchedEffect(livePairs) { viewModel.setLivePairs(livePairs) }
     LifecycleStartEffect(Unit) {
         viewModel.setLiveVisible(true)
         onStopOrDispose { viewModel.setLiveVisible(false) }
@@ -162,10 +164,15 @@ fun WatchlistScreen(
             .mapValues { ActivityAnalyzer.applySensitivity(it.value.active(now), sensitivity) }
             .filterValues { it.isNotEmpty() }
     }
-    // Paare der aktuellen Ansicht mit Signalen, starke zuerst, sonst Listenreihenfolge
-    val hot = remember(visible, activeSignals) {
-        visible.filter { it.id in activeSignals }
-            .sortedByDescending { activeSignals[it.id]?.firstOrNull()?.severity?.ordinal ?: 0 }
+    // ⚡-Chip: Paare mit Signalen (alle Gruppen), starke zuerst, sonst Listenreihenfolge; mit
+    // Empfindlichkeit «Weniger» nur die Paare der stärksten Coins
+    val hot = remember(watches, activeSignals, sensitivity) {
+        ActivityView.pick(
+            watches.filter { it.id in activeSignals }
+                .sortedByDescending { activeSignals[it.id]?.firstOrNull()?.severity?.ordinal ?: 0 },
+            { it.baseAsset },
+            sensitivity.maxCardCoins,
+        )
     }
 
     // Leere Merkliste: Start-Auswahl der grössten Coins
@@ -173,8 +180,35 @@ fun WatchlistScreen(
     val starterDeselected by viewModel.starterDeselected.collectAsStateWithLifecycle()
     val starterPrices by viewModel.starterPrices.collectAsStateWithLifecycle()
     val starterAdding by viewModel.starterAdding.collectAsStateWithLifecycle()
+    val starterLogosReady by viewModel.starterLogosReady.collectAsStateWithLifecycle()
 
     val ui = rememberWatchlistUiState()
+    // ⚡ nur mit Paaren, bei denen gerade etwas passiert (abschaltbar unter Einstellungen › Merkliste)
+    val activityChip = activityCardEnabled && hot.isNotEmpty()
+    // Gezeigt: die Gruppen-Ansicht oder vorübergehend ⚡ bzw. «nur veraltete» ([QuickView])
+    val visible = remember(groupVisible, hot, ui.quickView, now, staleAfter) {
+        when (ui.quickView) {
+            QuickView.ACTIVITY -> hot
+            QuickView.STALE -> groupVisible.filter { WatchlistStatus.isStale(it, now, staleAfter) }
+            null -> groupVisible
+        }
+    }
+    // Vorübergehende Ansicht endet von selbst, wenn nichts mehr hineinpasst
+    LaunchedEffect(ui.quickView, activityChip, visible.isEmpty()) {
+        when (ui.quickView) {
+            QuickView.ACTIVITY -> if (!activityChip) ui.quickView = null
+            QuickView.STALE -> if (visible.isEmpty()) ui.quickView = null
+            null -> Unit
+        }
+    }
+    // Mehrfachauswahl: nur Paare, die es noch gibt und die zu sehen sind
+    val selectedIds = remember(ui.selectedIds, visible) {
+        val ids = visible.mapTo(HashSet()) { it.id }
+        ui.selectedIds.filterTo(HashSet()) { it in ids }
+    }
+    // Live-Kurse für die gezeigten Paare (auch in der ⚡-Ansicht über alle Gruppen)
+    val livePairs = remember(visible) { visible.map { it.toLivePair() } }
+    LaunchedEffect(livePairs) { viewModel.setLivePairs(livePairs) }
     // Zurück aus «Alarme» (eigene Seite): Die Merkliste kommt wieder ins Bild — war das
     // Aktionsblatt der Ausgangspunkt, öffnet es sich wieder
     LaunchedEffect(Unit) { if (ui.whyFor == null) ui.reopenActions() }
@@ -188,6 +222,8 @@ fun WatchlistScreen(
     BackHandler(enabled = ui.searching) { ui.closeSearch() }
     // … bzw. beendet den Sortiermodus (wie «Fertig»)
     BackHandler(enabled = ui.sortMode && !ui.searching) { ui.sortMode = false }
+    // … bzw. die Mehrfachauswahl
+    BackHandler(enabled = ui.selecting) { ui.endSelection() }
 
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
@@ -201,12 +237,9 @@ fun WatchlistScreen(
     // Erst-Moment (Start-Merkliste, allererstes Paar), siehe [rememberAddMoment]
     val moment = rememberAddMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms)
 
-    // Alles aktualisieren (nach unten ziehen, Knopf oben). Eben erst aktualisiert (unter 15 s):
-    // kein neuer Durchlauf, nur kurz «Gerade aktualisiert» — keine Fehlermeldung.
-    val justRefreshedText = stringResource(R.string.watchlist_just_refreshed)
-    val requestRefresh: () -> Unit = {
-        if (viewModel.refreshAllByUser() == RefreshDebounce.Decision.RECENT) banner.show(justRefreshedText)
-    }
+    // Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein
+    // neuer Durchlauf und keine Meldung — der Menüpunkt ist dann grau ([WatchlistViewModel.canRefreshNow]).
+    val requestRefresh: () -> Unit = { viewModel.refreshAllByUser() }
     // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
     // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
     val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
@@ -231,7 +264,8 @@ fun WatchlistScreen(
     val shown = remember(ordered, trimmedQuery, filtering) {
         if (filtering) ordered.filter { it.matchesSearch(trimmedQuery) } else ordered
     }
-    val jump = rememberWatchlistJump(listState, shown.size, ui.sortMode, reduceMotion, scope)
+    // Kein Sprungknopf in der Mehrfachauswahl: unten steht dann die Leiste
+    val jump = rememberWatchlistJump(listState, shown.size, ui.sortMode || ui.selecting, reduceMotion, scope)
 
     // Keine Kopfzeile mit Logo und App-Namen mehr (kostete eine ganze Zeile): ihre Knöpfe
     // stehen rechts in der Gruppen-Zeile oben in der Liste. Den Bildschirmtitel bekommt der
@@ -244,6 +278,28 @@ fun WatchlistScreen(
     val showChangePeriod by viewModel.showChangePeriod.collectAsStateWithLifecycle()
     val changeView = remember(changeBasis, changeStamp, now, showChangePeriod) {
         ChangeView.of(changeStamp, changeBasis, now, showPeriod = showChangePeriod)
+    }
+    // Sortieren nach Spalte (nicht im Sortiermodus): Favoriten oben, unter sich sortiert; Kurse
+    // über CHF verglichen (im Hintergrund umgerechnet, auch ohne «≈ Umrechnung»)
+    val columnSort by viewModel.columnSort.collectAsStateWithLifecycle()
+    val sortRates by viewModel.sortRates.collectAsStateWithLifecycle()
+    val listed = remember(shown, columnSort, sortRates, changeView, ui.sortMode) {
+        if (ui.sortMode) shown
+        else ColumnSort.apply(
+            shown,
+            columnSort,
+            favorite = { it.favorite },
+            name = { it.displayName },
+            value = { w ->
+                val price = w.lastPrice?.takeIf { it > 0.0 }
+                when {
+                    price == null -> null
+                    CurrencyConversion.sameCurrency(w.quoteAsset, SORT_CURRENCY) -> price
+                    else -> CurrencyConversion.convert(price, sortRates[CurrencyConversion.normalize(w.quoteAsset)])
+                }
+            },
+            change = { it.shownChange(changeView) },
+        )
     }
     CompositionLocalProvider(LocalChangeView provides changeView) {
     Scaffold(
@@ -285,6 +341,7 @@ fun WatchlistScreen(
                 prices = starterPrices,
                 quote = viewModel.starterQuote,
                 adding = starterAdding,
+                logosReady = starterLogosReady,
                 onLoad = viewModel::loadStarterCoins,
                 onToggle = viewModel::toggleStarter,
                 onToggleAll = viewModel::toggleAllStarters,
@@ -328,7 +385,21 @@ fun WatchlistScreen(
                         groups = groups,
                         selectedGroup = selectedGroup,
                         hasFavorites = watches.any { it.favorite },
-                        onSelectGroup = viewModel::selectGroup,
+                        onSelectGroup = { group ->
+                            ui.quickView = null
+                            viewModel.selectGroup(group)
+                        },
+                        hasActivity = activityChip && !ui.sortMode,
+                        quickView = ui.quickView,
+                        onToggleActivity = { ui.toggleQuickView(QuickView.ACTIVITY) },
+                        canRefresh = viewModel::canRefreshNow,
+                        selecting = ui.selecting,
+                        selectedCount = selectedIds.size,
+                        allSelected = shown.isNotEmpty() && selectedIds.size == shown.size,
+                        onSelectAll = { ui.selectedIds = shown.mapTo(HashSet()) { it.id } },
+                        onSelectionDone = ui::endSelection,
+                        canSelect = visible.isNotEmpty(),
+                        onStartSelection = ui::startSelection,
                         onEditGroup = { group ->
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
                             ui.startEditingGroup(group)
@@ -343,7 +414,11 @@ fun WatchlistScreen(
                         refreshing = refreshing,
                         onRefresh = requestRefresh,
                         canSort = visible.size > 1,
-                        onSort = ui::startSort,
+                        // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
+                        onSort = {
+                            viewModel.clearColumnSort()
+                            ui.startSort()
+                        },
                         onShowReport = { ui.showReport = true },
                         canClear = watches.isNotEmpty(),
                         notTradedCount = notTradedIds.size,
@@ -351,7 +426,8 @@ fun WatchlistScreen(
                         onClearAll = { ui.askClearAll = true },
                     )
                     WatchlistStatusRow(
-                        visible = visible,
+                        // «Nur veraltete»: der Status zählt weiter über die ganze Gruppe («10 von 30»)
+                        visible = if (ui.quickView == QuickView.STALE) groupVisible else visible,
                         now = now,
                         staleAfter = staleAfter,
                         online = online,
@@ -363,8 +439,10 @@ fun WatchlistScreen(
                         onOpenSearch = { ui.searching = true },
                         onCloseSearch = ui::closeSearch,
                         onAddPair = onAddClick,
-                        // Lupe und «+»: in der Sortieransicht ausgeblendet
-                        searchAvailable = !ui.sortMode,
+                        // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
+                        searchAvailable = !ui.sortMode && !ui.selecting,
+                        staleOnly = ui.quickView == QuickView.STALE,
+                        onToggleStale = { ui.toggleQuickView(QuickView.STALE) },
                     )
                 }
                 // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
@@ -381,15 +459,12 @@ fun WatchlistScreen(
                     WatchlistList(
                         listState = listState,
                         inset = inset,
-                        roomForJump = jump.eligible,
+                        // Platz unten für den Sprungknopf bzw. die Leiste der Mehrfachauswahl
+                        roomForJump = jump.eligible || ui.selecting,
                         pulse = pulse,
-                        // «⚡ Hier passiert gerade etwas» — nur mit Signalen in der aktuellen Ansicht,
-                        // beim Suchen ausgeblendet; abschaltbar in den Einstellungen (Merkliste),
-                        // die Mitteilungen dazu bleiben davon unberührt
-                        hot = if (activityCardEnabled && !ui.sortMode && !ui.searching) hot else emptyList(),
-                        hotLimit = sensitivity.maxCardCoins,
-                        onOpenWhy = { ui.whyFor = it.id },
-                        onAdjustActivity = onOpenActivitySettings,
+                        sortBar = if (!ui.sortMode && listed.size > 1) {
+                            { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
+                        } else null,
                         sortMode = ui.sortMode,
                         showGestureHint = showGestureHint,
                         onDismissGestureHint = viewModel::dismissGestureHint,
@@ -397,13 +472,17 @@ fun WatchlistScreen(
                         query = trimmedQuery,
                         groupEmpty = visible.isEmpty() && !filtering,
                         favoritesEmpty = visible.isEmpty() && !filtering && WatchFilter.isFavorites(selectedGroup),
-                        shown = shown,
-                    ) { watch ->
+                        shown = listed,
+                    ) { watch, shape ->
                         WatchlistItem(
                             watch = watch,
+                            shape = shape,
                             reorder = reorder,
                             searching = ui.searching,
                             sortMode = ui.sortMode,
+                            selecting = ui.selecting,
+                            selected = watch.id in selectedIds,
+                            onToggleSelected = { ui.toggleSelected(watch.id) },
                             sparklines = fetchSparklines,
                             cachedSparkline = viewModel::cachedSparkline,
                             loadSparkline = viewModel::sparkline,
@@ -423,6 +502,7 @@ fun WatchlistScreen(
                             onMove = { viewModel.move(watch, it) },
                             onDelete = { deleteWithUndo(watch) },
                             onFavoriteWithBanner = { favoriteWithBanner(watch) },
+                            onStartSelection = { ui.startSelectionWith(watch.id) },
                         )
                     }
                     // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
@@ -433,6 +513,46 @@ fun WatchlistScreen(
                         reduceMotion = reduceMotion,
                         endInset = inset,
                     )
+                    // Mehrfachauswahl: Favorit · Gruppe · Löschen für die angehakten Paare
+                    if (ui.selecting) {
+                        val chosen = watches.filter { it.id in selectedIds }
+                        SelectionBar(
+                            count = selectedIds.size,
+                            allFavorites = chosen.isNotEmpty() && chosen.all { it.favorite },
+                            onFavorite = {
+                                viewModel.setFavorite(selectedIds, !chosen.all { it.favorite })
+                                ui.endSelection()
+                            },
+                            onGroup = { ui.askGroupForSelection = true },
+                            onDelete = {
+                                val ids = selectedIds.toList()
+                                ui.endSelection()
+                                viewModel.deleteSelectedWithUndo(ids) { count ->
+                                    if (count > 0) {
+                                        banner.show(
+                                            resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
+                                        ) { viewModel.undoDelete(SELECTION_UNDO_KEY) }
+                                    }
+                                }
+                            },
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(start = 16.dp + inset, end = 16.dp + inset, bottom = 12.dp)
+                        )
+                    }
+                    if (ui.askGroupForSelection) {
+                        val chosen = watches.filter { it.id in selectedIds }
+                        GroupDialog(
+                            // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
+                            current = chosen.map { it.groupName }.distinct().singleOrNull(),
+                            groups = groups,
+                            onSelect = { group ->
+                                viewModel.setGroup(selectedIds, group)
+                                ui.endSelection()
+                            },
+                            onDismiss = { ui.askGroupForSelection = false },
+                        )
+                    }
                 }
             }
         }

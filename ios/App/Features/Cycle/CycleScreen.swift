@@ -1,3 +1,4 @@
+import Accessibility
 import SwiftUI
 
 /// Eigener Tab für die Marktphase. Jetzt (Karten): Crypto Pulse, «Heute auffällig»;
@@ -14,14 +15,12 @@ struct CycleScreen: View {
     @EnvironmentObject private var router: AppRouter
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.appAccent) private var accent
-    /// «Warum?»-Blatt für einen beobachteten Coin aus «Heute auffällig».
-    @State private var whyFor: CycleWhyTarget?
+    /// Aktionsblatt (bzw. Vorschau) für einen Coin aus «Heute auffällig».
+    @State private var coinTarget: CycleCoinTarget?
     /// ⋯ › App-Logo und Name: «Über».
     @State private var showAbout = false
     /// Was beim ersten Anzeigen schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel).
     @State private var revealedOnEntry: Int
-    /// Letzter gezeigter «Stand …»-Text, damit die Zeile beim Ausblenden nicht leer springt.
-    @State private var lastAsOfText = " "
     /// Beim Aufklappen schon erschienene Zeilen klappen nur auf (kein zweites Einblenden von unten).
     @State private var contextInstant = 0
     @State private var dataInstant = 0
@@ -37,14 +36,14 @@ struct CycleScreen: View {
             // Ohne Abstand zwischen den Teilen: die Zeilen von «Einordnung» und «Daten» stossen
             // aneinander (Trennlinien); die Karten von «Jetzt» bringen ihren Abstand selbst mit.
             VStack(spacing: 0) {
-                // Gespeicherter Stand wird gezeigt, während still neu geladen wird.
+                // Statt der Überschrift «Jetzt» der Zustand wie in der Merkliste: «Alles aktuell ·
+                // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».
                 // Der Platz bleibt immer reserviert — darunter springt nichts.
-                asOfLine(viewModel.refreshingSince)
+                statusPill(refreshingSince: viewModel.refreshingSince, updatedAt: viewModel.pulse.value?.time)
                 // 1. Jetzt: «Crypto Pulse», «Heute auffällig» — als Karten.
                 //    Beim Laden form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
                 revealSlot(.pulse) {
                     VStack(spacing: 12) {
-                        sectionHeader("market_section_now")
                         // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
                         CycleMacroHintRow(events: viewModel.macroEvents, atTop: true)
                         CryptoPulseCard(
@@ -54,19 +53,26 @@ struct CycleScreen: View {
                             onRetry: { viewModel.loadPulse(force: true) }
                         )
                     }
-                    .padding(.top, 12)
+                    .padding(.top, 4)
                 }
-                // «Heute auffällig»: Tippen öffnet «Warum?» (Coin in der Merkliste) oder die Suche
+                // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
+                // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
+                // führt Binance das Paar nicht, wie bisher die Suche auf der Seite «Paar hinzufügen»
                 revealSlot(.unusual) {
                     CycleUnusualCard(
                         state: viewModel.unusual,
-                        isWatched: { watchId(for: $0) != nil },
                         onOpen: { row in
                             if let id = watchId(for: row.symbol) {
-                                whyFor = CycleWhyTarget(id: id)
+                                coinTarget = .stored(id)
                             } else {
-                                router.explorerSearch = row.symbol
-                                router.openExplorer()
+                                Task { @MainActor in
+                                    if let preview = await WatchPreview.watch(symbol: row.symbol) {
+                                        coinTarget = .preview(preview)
+                                    } else {
+                                        router.explorerSearch = row.symbol
+                                        router.openExplorer()
+                                    }
+                                }
                             }
                         },
                         onRetry: { viewModel.loadUnusual(force: true) }
@@ -200,17 +206,13 @@ struct CycleScreen: View {
             AboutSettingsPage()
         }
         .onAppear { viewModel.onAppear() }
-        // «Warum bewegt sich das?» wie in der Merkliste als eigene Seite mit Zurück
-        .navigationDestination(item: $whyFor) { target in
-            WatchlistWhySheet(watchId: target.id)
-                .environmentObject(data)
-                .environment(\.appAccent, accent)
-        }
+        // Aktionsblatt wie in der Merkliste; «Warum?» und «Alarme» als eigene Seiten mit Zurück
+        .modifier(CycleCoinSheets(target: $coinTarget))
     }
 
     /// Paar der Merkliste zu einem Coin: Spot zuerst (wie die Karte, USDT/USD vor anderen
-    /// Quotes), sonst das Perpetual; nil = nicht beobachtet. Das Blatt rechnet dann mit den
-    /// Daten genau dieses Paars (Futures-Paar: Futures-Kerzen).
+    /// Quotes), sonst das Perpetual; nil = nicht beobachtet. Das Aktionsblatt zeigt dann genau
+    /// dieses Paar (Futures-Paar: Futures-Kerzen).
     private func watchId(for symbol: String) -> Int64? {
         CandleSeries.pickWatch(
             // Nicht mehr gehandelte Paare zählen nicht als beobachtet (kein «Warum?» auf alten Daten)
@@ -313,42 +315,36 @@ struct CycleScreen: View {
             .accessibilityLabel(L("loading_hint"))
     }
 
-    /// Kleine Abschnittsüberschrift über einer Karten- bzw. Zeilengruppe; für VoiceOver eine
-    /// Überschrift. Über «Einordnung» und «Daten» mehr Luft (`top`), da dort keine Karte trennt;
-    /// die erste Zeile darunter bringt ihren Innenabstand mit.
-    private func sectionHeader(_ key: String, top: CGFloat = 8) -> some View {
-        Text(L(key))
-            .sectionTitleStyle()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 4)
-            .padding(.top, top)
-            .padding(.bottom, top > 8 ? 0 : -4)
-            .accessibilityAddTraits(.isHeader)
-    }
-
-    /// «Stand 14:05 · wird aktualisiert …» — ältester gezeigter Stand. Immer eine Zeile hoch,
-    /// auch ohne Stand: nur Inhalt und Deckkraft wechseln (der letzte Stand bleibt beim
-    /// Ausblenden stehen, bis er unsichtbar ist).
-    private func asOfLine(_ since: Int64?) -> some View {
-        HStack(spacing: Spacing.xs) {
-            ProgressView()
-                .controlSize(.mini)
-                .accessibilityHidden(true)
-            Text(since.map { L("cycle_data_as_of", Self.stampText($0)) } ?? lastAsOfText)
-                .font(.caption.monospacedDigit())
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .lineLimit(1)
-                .truncationMode(.tail)
+    /// Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Punkt und
+    /// Satz in einer Pille — grün «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»),
+    /// während still neu geladen wird neutral «Stand 14:05 · wird aktualisiert…». Immer gleich hoch,
+    /// auch ohne Stand — darunter springt nichts. Wie Android `MarketStatusPill`.
+    private func statusPill(refreshingSince: Int64?, updatedAt: Int64?) -> some View {
+        TimelineView(.periodic(from: .now, by: 30)) { context in
+            let now = Int64(context.date.timeIntervalSince1970 * 1000)
+            let text: String? = {
+                if let since = refreshingSince { return L("cycle_data_as_of", Self.stampText(since)) }
+                if let updatedAt, updatedAt > 0 { return L("watchlist_all_fresh", WatchlistTime.ago(updatedAt, now: now)) }
+                return nil
+            }()
+            let tone = refreshingSince != nil || text == nil ? AppColors.onSurfaceVariant : PriceColors.ok
+            HStack(spacing: 8) {
+                Circle().fill(tone).frame(width: 8, height: 8)
+                Text(text ?? " ")
+                    .font(.caption.weight(.medium).monospacedDigit())
+                    .foregroundStyle(AppColors.onSurface)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, Spacing.sm)
+            .background(tone.opacity(0.12), in: Capsule())
+            .opacity(text == nil ? 0 : 1)
+            .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
+            .accessibilityElement(children: .combine)
+            .accessibilityHidden(text == nil)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 4)
-        .opacity(since == nil ? 0 : 1)
-        .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: since == nil)
-        .onChange(of: since, initial: true) { _, newValue in
-            if let newValue { lastAsOfText = L("cycle_data_as_of", Self.stampText(newValue)) }
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityHidden(since == nil)
     }
 
     /// Heute nur die Uhrzeit («14:05»), sonst Datum und Uhrzeit.
@@ -361,5 +357,161 @@ struct CycleScreen: View {
     /// Wie Android: «Erneut versuchen» in den Zusatzkarten lädt alles neu.
     private func refreshAll() {
         Task { await viewModel.refreshAll() }
+    }
+}
+
+// MARK: - Aktionsblatt aus «Heute auffällig»
+
+/// Aktionsblatt und was danach kommt für «Heute auffällig» — dasselbe Blatt wie ein Tipp auf die
+/// Zeile in der Merkliste (`WatchActionsSheet`), auch die Abläufe danach wie dort
+/// (`WatchlistScreen.withSheets`): «Warum?» und «Alarme» als eigene Seiten, zurück öffnet das
+/// Blatt wieder; Löschen sofort mit «Rückgängig» im Banner; Portfolio erst nach dem Entsperren.
+/// Vorschau (Coin nicht in der Merkliste): Kurs aus einer Ticker-Abfrage ohne Speichern,
+/// «Zur Merkliste hinzufügen» legt das Paar wie der Hinzufügen-Tab an. Wie Android `MarketCoinSheets`.
+@MainActor
+struct CycleCoinSheets: ViewModifier {
+    @Binding var target: CycleCoinTarget?
+
+    @EnvironmentObject private var data: AppData
+    @Environment(\.appAccent) private var accent
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ObservedObject private var lock = AppLock.shared
+    /// Was nach dem Schliessen des Blatts passieren soll (wie in der Merkliste).
+    @State private var pendingWhy: Int64?
+    @State private var pendingWhyPreview: Watch?
+    @State private var pendingAlarms: Int64?
+    @State private var pendingDelete: Watch?
+    @State private var pendingPortfolio: Int64?
+    /// Aus dem Blatt zu «Alarme» bzw. «Warum?» gewechselt: Zurück öffnet es wieder.
+    @State private var returnTo: CycleCoinTarget?
+    @State private var whyFor: CycleWhyTarget?
+    @State private var whyPreview: Watch?
+    @State private var alarmsFor: Int64?
+    @State private var portfolioDraft: PortfolioTxDraft?
+    /// «… entfernt» mit «Rückgängig» nach «Löschen».
+    @State private var banner: WatchlistBannerMessage?
+
+    func body(content: Content) -> some View {
+        content
+            .sheet(item: $target, onDismiss: afterSheet) { target in
+                sheet(for: target)
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+                    .environment(\.changeView, data.changeView())
+                    // Eine feste Höhe wie in der Merkliste: Chart und Kennzahlen laden nach
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
+                    .presentationCornerRadius(28)
+                    .presentationBackground(AppColors.background)
+            }
+            .navigationDestination(item: $whyFor) { target in
+                WatchlistWhySheet(watchId: target.id)
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+            }
+            .navigationDestination(item: $whyPreview) { watch in
+                WatchlistWhySheet(watchId: WatchPreview.watchId, preview: watch)
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+            }
+            .navigationDestination(item: $alarmsFor) { id in
+                AlarmsScreen(watchId: id)
+            }
+            // Zurück aus «Warum?» bzw. «Alarme»: Blatt wieder öffnen, falls von dort gekommen
+            .onChange(of: whyFor) { _, value in if value == nil { reopen() } }
+            .onChange(of: whyPreview) { _, value in if value == nil { reopen() } }
+            .onChange(of: alarmsFor) { _, value in if value == nil { reopen() } }
+            // Wieder gesperrt (Hintergrund-Limit), während das Erfassen-Blatt offen ist: schliessen
+            .onChange(of: lock.locked) { _, locked in
+                if locked { portfolioDraft = nil }
+            }
+            .sheet(item: $portfolioDraft) { draft in
+                PortfolioTxSheet(initial: draft)
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
+                    .presentationCornerRadius(28)
+                    .presentationBackground(AppColors.background)
+            }
+            .overlay(alignment: .bottom) {
+                WatchlistBanner(message: $banner) { deleted in
+                    withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(deleted) }
+                }
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
+            }
+    }
+
+    private func sheet(for target: CycleCoinTarget) -> some View {
+        let storedId: Int64? = { if case .stored(let id) = target { return id } else { return nil } }()
+        let preview: Watch? = { if case .preview(let watch) = target { return watch } else { return nil } }()
+        let id = storedId ?? WatchPreview.watchId
+        return WatchActionsSheet(
+            watchId: id,
+            // Wie in der Merkliste: ⚡ an «Warum?», wenn das Paar gerade Signale hat
+            hasActivity: data.watch(id)?.isNotTraded == false &&
+                !WatchlistActivity.active(data.activityReports[id], now: TimeUtils.nowMillis,
+                                          sensitivity: data.settings.activitySensitivity).isEmpty,
+            onOpenAlarms: { pendingAlarms = $0 },
+            onDelete: { pendingDelete = $0 },
+            onWhy: { pendingWhy = $0 },
+            onAddToPortfolio: { pendingPortfolio = $0 },
+            preview: preview,
+            onWhyPreview: { pendingWhyPreview = $0 }
+        )
+    }
+
+    /// Nach dem Schliessen des Blatts: «Warum», Alarme, Löschen oder Portfolio — wie in der Merkliste.
+    private func afterSheet() {
+        if let id = pendingWhy {
+            pendingWhy = nil
+            returnTo = .stored(id)
+            whyFor = CycleWhyTarget(id: id)
+        }
+        if let watch = pendingWhyPreview {
+            pendingWhyPreview = nil
+            returnTo = .preview(watch)
+            whyPreview = watch
+        }
+        if let id = pendingAlarms {
+            pendingAlarms = nil
+            returnTo = .stored(id)
+            alarmsFor = id
+        }
+        if let watch = pendingDelete {
+            pendingDelete = nil
+            delete(watch)
+        }
+        if let id = pendingPortfolio {
+            pendingPortfolio = nil
+            // Portfolio-Sperre: Das Erfassen-Blatt zeigt Bestände — erst nach dem Entsperren
+            Task { @MainActor in
+                let open = await lock.requireUnlock(PortfolioLockPolicy.quickAddNeedsUnlock(locked:))
+                guard open, let watch = data.watch(id) else { return }
+                portfolioDraft = WatchlistScreen.makePortfolioDraft(for: watch)
+            }
+        }
+    }
+
+    /// Zurück aus «Alarme» bzw. «Warum?»: Blatt wieder öffnen (gelöschtes Paar: nicht).
+    private func reopen() {
+        guard let back = returnTo else { return }
+        returnTo = nil
+        if case .stored(let id) = back, data.watch(id) == nil { return }
+        target = back
+    }
+
+    /// Wie nach links wischen in der Merkliste: sofort löschen, «Rückgängig» im Banner, Ansage.
+    private func delete(_ watch: Watch) {
+        var result: DeletedWatch?
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
+        guard let deleted = result else { return }
+        let text = L("watchlist_removed", deleted.watch.displayPair)
+        banner = WatchlistBannerMessage(text: text, icon: "trash", undo: deleted)
+        Task { @MainActor in
+            // Nach dem Fokuswechsel ansagen, sonst geht es unter
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            AccessibilityNotification.Announcement(text).post()
+        }
     }
 }

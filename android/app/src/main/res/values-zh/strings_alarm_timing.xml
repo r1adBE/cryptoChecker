@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker 正在为你关注 %1$s。当 %1$s 达到你设定的界限时，应用检查价格后会立即通知你。应用关闭时，Android 按后台间隔检查——最快每 15 分钟一次，若电池优化限制了应用则会更晚。想要更快的提醒：设置 › 更新 › 频繁更新。</string>
+</resources>

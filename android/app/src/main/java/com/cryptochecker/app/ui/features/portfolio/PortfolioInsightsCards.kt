@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.compose.ui.graphics.lerp
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import com.cryptochecker.app.settings.inputDecimalSeparator
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.BorderStroke
@@ -32,6 +33,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -60,7 +62,6 @@ import com.cryptochecker.app.notification.PortfolioAlarmTexts
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.ChangeBasisText
-import java.text.DecimalFormatSymbols
 
 /** Karte im Stil des Wertverlaufs: gleiche Fläche, Rand und Ecken, ruhiger Titel. */
 @Composable
@@ -182,7 +183,8 @@ internal fun PortfolioAlarmDialog(
     var kind by rememberSaveable { mutableStateOf(PortfolioAlarmKind.CHANGE_DOWN) }
     var text by rememberSaveable { mutableStateOf("") }
     var repeating by rememberSaveable { mutableStateOf(true) }
-    val separator = DecimalFormatSymbols.getInstance().decimalSeparator
+    // Sprache der App, Region des Geräts — wie iOS (`ThresholdParser.localeDecimalSeparator`)
+    val separator = remember { inputDecimalSeparator() }
     val threshold = ThresholdParser.parse(text, separator)
     val valid = PortfolioAlarmLogic.isValidThreshold(kind, threshold)
 

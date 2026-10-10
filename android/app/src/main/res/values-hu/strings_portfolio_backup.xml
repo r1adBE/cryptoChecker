@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfólió a rendszermentésben</string>
+    <string name="settings_portfolio_system_backup_hint">Ki: a tranzakciók nem kerülnek bele az eszköz rendszermentésébe és az új telefonra való átvitelbe. Átköltöztetéshez használja az alkalmazás saját, jelszóval védett mentését.</string>
+</resources>

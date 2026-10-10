@@ -124,7 +124,7 @@ fun AlarmsOverviewScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painterResource(R.drawable.ic_notifications),
+                        painterResource(R.drawable.ic_notifications_active),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 12.dp)

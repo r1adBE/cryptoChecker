@@ -35,8 +35,9 @@ final class Okex: SimpleMarket {
 
     /// Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur.
     private func readTicker(_ json: JObject, _ ticker: inout Ticker) throws {
-        ticker.bid = try json.double("bidPx")
-        ticker.ask = try json.double("askPx")
+        // Ohne Orders im Buch sendet OKX "" für bidPx/askPx: dann kein Geld-/Briefkurs statt Fehler
+        ticker.bid = json.optDoubleNoData("bidPx")
+        ticker.ask = json.optDoubleNoData("askPx")
 
         ticker.vol = try json.double("vol24h")
         ticker.volQuote = try json.double("volCcy24h")
@@ -62,8 +63,9 @@ final class Okex: SimpleMarket {
             let instId = entry.optString("instId")
             if instId.isEmpty { continue }
 
+            // Ein unlesbarer Eintrag lässt nur dieses Paar aus, nicht die ganze Abfrage
             var ticker = Ticker()
-            try readTicker(entry, &ticker)
+            do { try readTicker(entry, &ticker) } catch { continue }
             tickers[instId] = ticker
         }
         return tickers

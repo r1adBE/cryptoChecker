@@ -5,6 +5,10 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.lazy.itemsIndexed
+import com.cryptochecker.app.ui.components.ListSegment
+import androidx.compose.ui.graphics.Shape
 import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -95,8 +99,9 @@ private fun GestureHint(onDismiss: () -> Unit) {
 }
 
 /**
- * Die scrollende Liste unter dem festen Kopf: Puls, Aktivitätskarte, Hinweise, leere
- * Zustände und die Paare ([row] je Paar). Kein schwebender Plus-Knopf: Hinzufügen läuft über
+ * Die scrollende Liste unter dem festen Kopf: Puls, Hinweise, leere Zustände und die Paare
+ * ([row] je Paar). «Hier passiert gerade etwas» ist keine Karte mehr, sondern der ⚡-Chip bei
+ * den Gruppen ([GroupChips]). Kein schwebender Plus-Knopf: Hinzufügen läuft über
  * «+» in der Kopfzeile. Mit Sprungknopf ([roomForJump]) unten mehr Platz, damit er die letzte
  * Zeile nicht verdeckt.
  */
@@ -106,11 +111,8 @@ internal fun WatchlistList(
     inset: Dp,
     roomForJump: Boolean,
     pulse: WatchPulse?,
-    /** Paare mit Signalen für die Karte «⚡ Hier passiert gerade etwas»; leer = keine Karte. */
-    hot: List<WatchEntity>,
-    hotLimit: Int?,
-    onOpenWhy: (WatchEntity) -> Unit,
-    onAdjustActivity: () -> Unit,
+    /** Sortieren nach Spalte («Name ⇅ · Kurs ⇅ · 24h ⇅»); null = keine Zeile (Sortiermodus, < 2 Paare). */
+    sortBar: (@Composable () -> Unit)? = null,
     sortMode: Boolean,
     showGestureHint: Boolean,
     onDismissGestureHint: () -> Unit,
@@ -122,7 +124,8 @@ internal fun WatchlistList(
     /** «FAV» ohne Favoriten: Hinweis, wie man einen setzt (statt des Gruppen-Hinweises). */
     favoritesEmpty: Boolean = false,
     shown: List<WatchEntity>,
-    row: @Composable LazyItemScope.(WatchEntity) -> Unit,
+    /** Zeile je Paar mit ihrer Form ([ListSegment.shape]: die Paare wirken wie eine Einheit). */
+    row: @Composable LazyItemScope.(WatchEntity, Shape) -> Unit,
 ) {
     LazyColumn(
         state = listState,
@@ -133,32 +136,28 @@ internal fun WatchlistList(
             end = 16.dp + inset,
             bottom = if (roomForJump) 24.dp + JumpButtonSize + JumpButtonMargin else 24.dp,
         ),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        // Paare nur mit feiner Fuge ([ListSegment.Gap]); alles darüber bringt den übrigen Abstand mit
+        verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)
     ) {
         // Puls als erste Zeile unter der festen Kopfzeile (scrollt mit), Abstände per spacedBy
         if (pulse != null) {
             item(key = "pulse") {
-                WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem())
+                WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem().padding(bottom = ListSegment.Spacing))
             }
         }
-        if (hot.isNotEmpty()) {
-            item(key = "activity") {
-                ActivityCard(
-                    hot = hot,
-                    limit = hotLimit,
-                    onOpen = onOpenWhy,
-                    onAdjust = onAdjustActivity,
-                )
-            }
+        if (sortBar != null) {
+            item(key = "sort_bar") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { sortBar() } }
         }
         if (sortMode) {
             item(key = "sort_hint") {
-                HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                Box(Modifier.padding(bottom = ListSegment.Spacing)) {
+                    HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                }
             }
         } else if (showGestureHint) {
             // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
             item(key = "gesture_hint") {
-                GestureHint(onDismiss = onDismissGestureHint)
+                Box(Modifier.padding(bottom = ListSegment.Spacing)) { GestureHint(onDismiss = onDismissGestureHint) }
             }
         }
         if (noSearchMatch) {
@@ -171,7 +170,7 @@ internal fun WatchlistList(
                 ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
             }
         }
-        items(shown, key = { it.id }) { watch -> row(watch) }
+        itemsIndexed(shown, key = { _, it -> it.id }) { index, watch -> row(watch, ListSegment.shape(index, shown.size)) }
     }
 }
 
@@ -197,6 +196,12 @@ internal fun LazyItemScope.WatchlistItem(
     reorder: ReorderState,
     searching: Boolean,
     sortMode: Boolean,
+    /** Form je nach Platz in der Liste ([ListSegment.shape]). */
+    shape: Shape = MaterialTheme.shapes.medium,
+    /** Mehrfachauswahl an: Tipp hakt an/ab, kein Wischen. */
+    selecting: Boolean = false,
+    selected: Boolean = false,
+    onToggleSelected: () -> Unit = {},
     /** Mini-Charts laden (Einstellung an, genug Breite). */
     sparklines: Boolean,
     cachedSparkline: (String) -> List<Double>?,
@@ -219,6 +224,8 @@ internal fun LazyItemScope.WatchlistItem(
     onDelete: () -> Unit,
     /** Favorit an/aus mit Banner (Wischen, Screenreader-Aktion). */
     onFavoriteWithBanner: () -> Unit,
+    /** Lange drücken bzw. Screenreader-Aktion «Auswählen»: Mehrfachauswahl mit dieser Zeile starten. */
+    onStartSelection: () -> Unit = {},
 ) {
     val haptics = LocalHapticFeedback.current
     val dragging = reorder.draggingId == watch.id
@@ -272,11 +279,12 @@ internal fun LazyItemScope.WatchlistItem(
     val celebrateIndex = moment?.indexOf(watch.marketKey, watch.baseAsset, watch.quoteAsset)
 
     SwipeActionsRow(
-        enabled = !sortMode,
+        enabled = !sortMode && !selecting,
         favorite = watch.favorite,
         onDelete = onDelete,
         onToggleFavorite = onFavoriteWithBanner,
         reduceMotion = reduceMotion,
+        shape = shape,
         modifier = (
             if (dragging) Modifier
                 .zIndex(1f)
@@ -302,12 +310,33 @@ internal fun LazyItemScope.WatchlistItem(
                 celebrateIndex = celebrateIndex,
                 reduceMotion = reduceMotion,
                 hasActivity = hasActivity,
-                onActivityClick = { if (!sortMode) onOpenWhy() },
+                onActivityClick = {
+                    when {
+                        selecting -> onToggleSelected()
+                        !sortMode -> onOpenWhy()
+                    }
+                },
                 elevation = elevation,
-                highlighted = dragging,
+                highlighted = dragging || selected,
+                shape = shape,
                 sortMode = sortMode,
-                onClick = { if (!sortMode) onOpenActions() },
+                selecting = selecting,
+                selected = selected,
+                onClick = {
+                    when {
+                        selecting -> onToggleSelected()
+                        !sortMode -> onOpenActions()
+                    }
+                },
                 onMove = onMove,
+                // Lange drücken: Mehrfachauswahl mit dieser Zeile (wie ⋯ › «Auswählen»), mit Haptik.
+                // Im Sortier- und Auswahlmodus nicht (die Zeile behandelt das selbst).
+                onLongClick = if (sortMode || selecting) null else {
+                    {
+                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onStartSelection()
+                    }
+                },
                 // Screenreader: «Löschen» und «Favorit» wie Wischen
                 onDeleteAction = onDelete,
                 onFavoriteAction = onFavoriteWithBanner,

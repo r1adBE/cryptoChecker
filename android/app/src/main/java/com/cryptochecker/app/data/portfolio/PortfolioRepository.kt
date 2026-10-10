@@ -3,7 +3,6 @@ package com.cryptochecker.app.data.portfolio
 import androidx.core.content.edit
 import android.content.Context
 import androidx.room.withTransaction
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
@@ -19,7 +18,8 @@ import javax.inject.Singleton
 @Singleton
 class PortfolioRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    private val database: AppDatabase,
+    /** Eigene Portfolio-Datenbank; die Merkliste ([watchDao]) liegt in der Hauptdatenbank. */
+    private val database: PortfolioDatabase,
     private val portfolioDao: PortfolioDao,
     private val watchDao: WatchDao,
 ) {
@@ -76,14 +76,19 @@ class PortfolioRepository @Inject constructor(
      * Einmalige Übernahme des alten Bestands je Paar (watches.holdings) ins
      * Portfolio: je Coin ein Kauf ohne Preis (Mengen gleicher Coins addiert),
      * danach wird der Bestand in der Merkliste geleert. Läuft nur einmal
-     * (Merker in den SharedPreferences), in einer Transaktion.
+     * (Merker in den SharedPreferences).
+     *
+     * Wiederholbar ohne Doppel: Die Käufe und der Merker [HOLDINGS_MARKER] in `portfolio_meta`
+     * entstehen in derselben Portfolio-Transaktion. Bricht die App danach ab (Bestand noch nicht
+     * geleert, SharedPreferences-Merker fehlt), legt der nächste Start keine Käufe mehr an, sondern
+     * leert nur noch den Bestand.
      */
     suspend fun migrateHoldingsOnce() {
         if (prefs.getBoolean(KEY_MIGRATED, false)) return
         migrationMutex.withLock {
             if (prefs.getBoolean(KEY_MIGRATED, false)) return
             runCatching {
-                val count = database.withTransaction { importHoldings(onlyNewCoins = false) }
+                val count = importHoldings(onlyNewCoins = false, onceMarker = HOLDINGS_MARKER)
                 if (count > 0) Timber.i("Portfolio: %d Bestände aus der Merkliste übernommen", count)
                 prefs.edit { putBoolean(KEY_MIGRATED, true) }
             }.onFailure { Timber.w(it, "Portfolio: Übernahme des Bestands fehlgeschlagen") }
@@ -94,10 +99,15 @@ class PortfolioRepository @Inject constructor(
      * Wandelt Bestände der Merkliste in Käufe ohne Preis um und leert sie.
      * Mit [onlyNewCoins] nur für Coins, die noch keine Transaktion haben
      * (Wiederherstellen einer alten Sicherung — sonst doppelt).
-     * Muss innerhalb einer Datenbank-Transaktion aufgerufen werden.
+     * Merkliste (Hauptdatenbank) und Portfolio (eigene Datenbank) sind getrennte Dateien, also
+     * keine gemeinsame Transaktion: erst die Käufe in einer Portfolio-Transaktion anlegen, dann den
+     * Bestand leeren. Bricht die App dazwischen ab, bleibt der Bestand stehen (nichts geht verloren).
+     * Nicht innerhalb einer Transaktion der Hauptdatenbank aufrufen.
+     * @param onceMarker Merker in `portfolio_meta`: ist er schon gesetzt, werden keine Käufe mehr
+     *   angelegt (nur der Bestand geleert); sonst wird er mit den Käufen in derselben Transaktion gesetzt.
      * @return Anzahl angelegter Käufe.
      */
-    suspend fun importHoldings(onlyNewCoins: Boolean): Int {
+    suspend fun importHoldings(onlyNewCoins: Boolean, onceMarker: String? = null): Int {
         val amounts = watchDao.getWatches()
             .mapNotNull { w ->
                 val amount = w.holdings?.takeIf { it > 0.0 && !it.isInfinite() } ?: return@mapNotNull null
@@ -107,30 +117,57 @@ class PortfolioRepository @Inject constructor(
             .mapValues { (_, list) -> list.sum() }
         if (amounts.isEmpty()) return 0
 
-        val existing = if (onlyNewCoins) {
-            portfolioDao.getCoins().map { PortfolioCalculator.normalizeCoin(it) }.toSet()
-        } else emptySet()
-        val now = System.currentTimeMillis()
-        var created = 0
-        amounts.forEach { (coin, amount) ->
-            if (coin in existing) return@forEach
-            portfolioDao.insert(
-                PortfolioTxEntity(
-                    coin = coin,
-                    type = PortfolioTxType.BUY,
-                    amount = amount,
-                    priceUsdt = null,
-                    time = now,
+        val created = database.withTransaction {
+            if (onceMarker != null && !markOnce(onceMarker)) return@withTransaction 0
+            val existing = if (onlyNewCoins) {
+                portfolioDao.getCoins().map { PortfolioCalculator.normalizeCoin(it) }.toSet()
+            } else emptySet()
+            val now = System.currentTimeMillis()
+            var count = 0
+            amounts.forEach { (coin, amount) ->
+                if (coin in existing) return@forEach
+                portfolioDao.insert(
+                    PortfolioTxEntity(
+                        coin = coin,
+                        type = PortfolioTxType.BUY,
+                        amount = amount,
+                        priceUsdt = null,
+                        time = now,
+                    )
                 )
-            )
-            created++
+                count++
+            }
+            count
         }
         watchDao.clearAllHoldings()
         return created
     }
 
+    /**
+     * Setzt [key] in `portfolio_meta` (nur innerhalb einer Portfolio-Transaktion aufrufen).
+     * @return false, wenn der Merker schon gesetzt war.
+     */
+    private fun markOnce(key: String): Boolean {
+        val db = database.openHelper.writableDatabase
+        // Tabelle legt sonst PortfolioLegacyImport beim Öffnen an; hier sicherheitshalber auch
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `${PortfolioLegacyImport.META_TABLE}` " +
+                "(`key` TEXT NOT NULL PRIMARY KEY, `value` TEXT NOT NULL)"
+        )
+        val done = db.query("SELECT 1 FROM `${PortfolioLegacyImport.META_TABLE}` WHERE `key` = ?", arrayOf<Any?>(key))
+            .use { it.moveToFirst() }
+        if (done) return false
+        db.execSQL(
+            "INSERT INTO `${PortfolioLegacyImport.META_TABLE}` (`key`, `value`) VALUES (?, ?)",
+            arrayOf<Any?>(key, System.currentTimeMillis().toString()),
+        )
+        return true
+    }
+
     private companion object {
         const val PREFS = "portfolio"
         const val KEY_MIGRATED = "holdings_migrated"
+        /** Merker in `portfolio_meta`: Käufe aus dem alten Bestand sind angelegt. */
+        const val HOLDINGS_MARKER = "holdings_import_done"
     }
 }

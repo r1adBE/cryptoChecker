@@ -28,7 +28,9 @@ object DayReferenceCache {
 
     /**
      * Ein gespeicherter Bezug; [key] wie «BTC|USDT». [starts]: Kerzen-Startzeit (volle Stunde)
-     * → Eröffnung, nur für die Tagesbeginne ([keepStarts]).
+     * → Eröffnung, nur für die Tagesbeginne ([keepStarts]). [provider]: Anbieter der Kerzen
+     * («Binance», «Binance.US», «Coinbase»; für den Hinweis «Veränderung aus …-Kerzen») —
+     * ältere Dateien ohne ihn bleiben gültig (null).
      */
     data class Stored(
         val key: String,
@@ -36,6 +38,7 @@ object DayReferenceCache {
         val open: Double,
         val lastClose: Double,
         val starts: Map<Long, Double> = emptyMap(),
+        val provider: String? = null,
     )
 
     /** Abrufzeit [time] liegt höchstens [MAX_AGE_MILLIS] zurück (und nicht in der Zukunft). */

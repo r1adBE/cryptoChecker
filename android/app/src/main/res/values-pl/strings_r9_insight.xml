@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Co się wyróżnia</string>
-    <string name="pulse_why_action">Dlaczego? →</string>
+    <string name="pulse_why_action">Dlaczego?</string>
     <string name="pulse_section_factors">Czynniki</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin prowadzi rynek.</string>

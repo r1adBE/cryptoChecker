@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfolio v systémové záloze</string>
+    <string name="settings_portfolio_system_backup_hint">Vypnuto: transakce nebudou v systémové záloze zařízení ani při přenosu do nového telefonu. Pro přesun do nového telefonu použijte zálohu aplikace s heslem.</string>
+</resources>

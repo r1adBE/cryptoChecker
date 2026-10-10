@@ -118,6 +118,10 @@ class CutoffExportTest {
         assertEquals("0.00", CutoffExport.money(-0.001))
         assertEquals("1234567.89", CutoffExport.money(1234567.891))
         assertEquals("12", CutoffExport.amount(12.0))
+        // Kleinstkurse mit gültigen Stellen statt «0», kaufmännisch gerundet wie iOS
+        assertEquals("0.00000000003", CutoffExport.price(3e-11))
+        assertEquals("1.01", CutoffExport.money(1.005))
+        assertEquals("", CutoffExport.money(Double.NaN))
         assertEquals("\"a;b\"", CutoffExport.escape("a;b"))
         assertEquals("\"x\"\"y\"", CutoffExport.escape("x\"y"))
     }

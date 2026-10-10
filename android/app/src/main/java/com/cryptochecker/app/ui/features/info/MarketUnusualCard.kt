@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui.features.info
 
+import androidx.compose.ui.graphics.Shape
+import com.cryptochecker.app.ui.components.ListSegment
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -60,14 +62,13 @@ import java.util.Locale
  * «Heute auffällig»: bis zu fünf Coins (aus den rund 30 grössten), die sich heute
  * ungewöhnlich verhalten — je Zeile Plakette, Symbol, 24-h-Pille und die auffälligste
  * Tatsache in einem kurzen Satz ([com.cryptochecker.app.domain.market.MarketUnusual]).
- * Nichts auffällig: eine ruhige Zeile. Tippen auf eine Zeile ([onOpen]): «Warum?» für
- * beobachtete Coins, sonst die Suche im Hinzufügen-Tab (siehe MarketPhaseScreen).
+ * Nichts auffällig: eine ruhige Zeile. Tippen auf eine Zeile ([onOpen]): dasselbe wie in der
+ * Merkliste — das Aktionsblatt des Paars, sonst seine Vorschau (siehe MarketPhaseScreen).
  * Screenreader: je Zeile ein Element mit Aktion. Keine Prognose, keine Empfehlung.
  */
 @Composable
 internal fun UnusualCard(
     state: LoadState<UnusualReport>,
-    isWatched: (String) -> Boolean,
     onOpen: (UnusualRow) -> Unit,
     onRetry: () -> Unit,
 ) {
@@ -85,9 +86,14 @@ internal fun UnusualCard(
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     } else {
-                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                            rows.forEach { row ->
-                                UnusualRowItem(row, watched = isWatched(row.symbol), onTap = { onOpen(row) })
+                        // Wie die Merkliste: jede Zeile eine eigene Fläche mit feiner Fuge ([ListSegment])
+                        Column(verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)) {
+                            rows.forEachIndexed { index, row ->
+                                UnusualRowItem(
+                                    row,
+                                    shape = ListSegment.shape(index, rows.size),
+                                    onTap = { onOpen(row) }
+                                )
                             }
                         }
                     }
@@ -105,7 +111,7 @@ internal fun UnusualCard(
 
 /** Eine Zeile; für den Screenreader ein Element: «Solana, gestiegen um 5.2%. Läuft gegen den Markt.» */
 @Composable
-private fun UnusualRowItem(row: UnusualRow, watched: Boolean, onTap: () -> Unit) {
+private fun UnusualRowItem(row: UnusualRow, shape: Shape, onTap: () -> Unit) {
     val context = LocalContext.current
     val factText = unusualFactText(context, row.fact)
     val spoken = stringResource(
@@ -114,13 +120,15 @@ private fun UnusualRowItem(row: UnusualRow, watched: Boolean, onTap: () -> Unit)
         A11yText.change(context, row.change24h),
         factText.trimEnd('.')
     )
-    val actionLabel = stringResource(if (watched) R.string.unusual_action_why else R.string.unusual_action_add)
+    // Ein Ziel für alle Zeilen: Kurs und Aktionen (wie ein Tipp in der Merkliste)
+    val actionLabel = stringResource(R.string.unusual_action_open)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(shape)
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .clickable(onClickLabel = actionLabel, role = Role.Button, onClick = onTap)
             .clearAndSetSemantics {
                 contentDescription = spoken
@@ -130,9 +138,10 @@ private fun UnusualRowItem(row: UnusualRow, watched: Boolean, onTap: () -> Unit)
                     true
                 }
             }
-            .padding(vertical = Spacing.sm)
+            // Gleicher Innenabstand und gleich grosses Logo wie in der Merkliste
+            .padding(horizontal = Spacing.md, vertical = Spacing.md)
     ) {
-        CoinBadge(row.symbol, size = 36.dp, modifier = Modifier.padding(end = 12.dp))
+        CoinBadge(row.symbol, size = ListSegment.Logo, modifier = Modifier.padding(end = 8.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -140,7 +149,7 @@ private fun UnusualRowItem(row: UnusualRow, watched: Boolean, onTap: () -> Unit)
         ) {
             Text(
                 row.symbol,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Điều nổi bật</string>
-    <string name="pulse_why_action">Vì sao? →</string>
+    <string name="pulse_why_action">Vì sao?</string>
     <string name="pulse_section_factors">Yếu tố</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin đang dẫn dắt thị trường.</string>

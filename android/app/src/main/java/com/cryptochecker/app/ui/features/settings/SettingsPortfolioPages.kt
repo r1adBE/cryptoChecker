@@ -71,6 +71,19 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     )
                 }
             }
+            RowDivider()
+            // Immer sichtbar: Die Daten bleiben auch bei ausgeblendetem Portfolio gespeichert
+            val backupReason = stringResource(R.string.portfolio_lock_reason)
+            SettingsAnchor("portfolio.system_backup") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_portfolio_system_backup),
+                    subtitle = stringResource(R.string.settings_portfolio_system_backup_hint),
+                    checked = settings.portfolioSystemBackup,
+                    onCheckedChange = { on ->
+                        viewModel.setPortfolioSystemBackup(context.findFragmentActivity(), backupReason, on)
+                    }
+                )
+            }
         }
         // Ehrlich: Die Sperre schützt die Anzeige; die Daten schützt die Geräteverschlüsselung
         if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled)) {

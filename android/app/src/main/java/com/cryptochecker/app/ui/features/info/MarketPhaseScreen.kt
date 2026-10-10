@@ -1,14 +1,18 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.theme.tabularNumbers
+import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.runtime.mutableLongStateOf
 import com.cryptochecker.app.ui.components.AppMenuHead
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.DropdownMenu
-import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.text.format.DateUtils
-import androidx.annotation.StringRes
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Animatable
@@ -42,7 +46,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,7 +54,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
@@ -73,7 +75,12 @@ import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.rememberReduceMotion
-import com.cryptochecker.app.ui.features.watchlist.WhySheet
+import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
+import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
+import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
@@ -92,8 +99,19 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 @Composable
 fun MarketPhaseScreen(
     viewModel: InfoViewModel = hiltViewModel(),
-    /** «Heute auffällig» → Coin nicht in der Merkliste: Hinzufügen-Tab mit dieser Suche. */
+    /**
+     * Aktionen der Merkliste für das Aktionsblatt aus «Heute auffällig» — dieselbe Instanz wie die
+     * Merkliste (AppNavHost), damit Tippen dort und hier genau dasselbe tut.
+     */
+    watchlistViewModel: WatchlistViewModel = hiltViewModel(),
+    lockViewModel: PortfolioLockViewModel = hiltViewModel(),
+    /**
+     * «Heute auffällig» → Coin nicht in der Merkliste und von Binance (COIN/USDT) nicht geführt:
+     * Hinzufügen-Tab mit dieser Suche (sonst die Vorschau im Aktionsblatt).
+     */
     onOpenExplorer: (String) -> Unit = {},
+    /** Aktionsblatt › Alarm: Seite «Alarme» des Paars (zurück öffnet das Blatt wieder). */
+    onOpenAlarms: (Long) -> Unit = {},
     /** ⋯ › App-Logo und Name: Einstellungen › «Über». */
     onOpenAbout: () -> Unit = {},
 ) {
@@ -120,8 +138,11 @@ fun MarketPhaseScreen(
     val macroEvents by viewModel.macroEvents.collectAsStateWithLifecycle()
     val watches by viewModel.watches.collectAsStateWithLifecycle()
     val activity by viewModel.activity.collectAsStateWithLifecycle()
-    // «Warum?»-Blatt für einen beobachteten Coin aus «Heute auffällig»
-    var whyFor by rememberSaveable { mutableStateOf<Long?>(null) }
+    // Aktionsblatt (bzw. Vorschau) und «Warum?» für einen Coin aus «Heute auffällig»
+    val coinSheets = rememberMarketCoinState()
+    val scope = rememberCoroutineScope()
+    // «… entfernt» mit «Rückgängig» nach «Löschen» im Aktionsblatt (wie in der Merkliste)
+    val banner = rememberWatchlistBanner(scope)
     // Was beim Betreten des Tabs schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel)
     val revealedOnEntry = remember { viewModel.reveal.value.count }
     val instantThrough = maxOf(reveal.instant, revealedOnEntry)
@@ -152,6 +173,7 @@ fun MarketPhaseScreen(
     }
 
     Scaffold(
+        snackbarHost = { SnackbarHost(banner.host) },
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.tab_market_phase)) },
@@ -191,25 +213,37 @@ fun MarketPhaseScreen(
                     .readableWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
-                // Während im Hintergrund aktualisiert wird: von wann die gezeigten Daten sind.
+                // Statt der Überschrift «Jetzt» der Zustand wie in der Merkliste: «Alles aktuell ·
+                // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».
                 // Der Platz bleibt immer reserviert — darunter springt nichts.
-                AsOfLine(dataAsOf, animate = motion)
+                MarketStatusPill(
+                    refreshingSince = dataAsOf,
+                    updatedAt = (pulse as? LoadState.Loaded)?.value?.time,
+                    animate = motion
+                )
                 // 1. Jetzt: «Was passiert gerade?», «Heute auffällig» — als Karten. Beim Laden
                 //    form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
                 Reveal(MarketRevealSlot.PULSE, reveal, instantThrough, motion) {
-                    SectionHeader(R.string.market_section_now)
                     // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
                     MacroHintRow(macroEvents, atTop = true)
                     CryptoPulseCard(pulse, onRetry = { viewModel.loadPulse(force = true) })
                 }
-                // «Heute auffällig»: Tippen öffnet «Warum?» (in der Merkliste) oder die Suche
+                // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
+                // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
+                // führt Binance das Paar nicht, wie bisher die Suche im Hinzufügen-Tab
                 Reveal(MarketRevealSlot.UNUSUAL, reveal, instantThrough, motion) {
                     UnusualCard(
                         state = unusual,
-                        isWatched = { symbol -> watchFor(watches, symbol) != null },
                         onOpen = { row ->
                             val watch = watchFor(watches, row.symbol)
-                            if (watch != null) whyFor = watch.id else onOpenExplorer(row.symbol)
+                            if (watch != null) {
+                                coinSheets.openStored(watch.id)
+                            } else {
+                                scope.launch {
+                                    val preview = viewModel.previewWatch(row.symbol)
+                                    if (preview != null) coinSheets.openPreview(preview) else onOpenExplorer(row.symbol)
+                                }
+                            }
                         },
                         onRetry = { viewModel.loadUnusual(force = true) }
                     )
@@ -313,24 +347,23 @@ fun MarketPhaseScreen(
         }
     }
 
-    whyFor?.let { id -> watches.firstOrNull { it.id == id && !it.isNotTraded } }?.let { watch ->
-        WhySheet(
-            watch = watch,
-            // Wie in der Merkliste nach der gewählten Empfindlichkeit
-            signals = com.cryptochecker.app.domain.activity.ActivityAnalyzer.applySensitivity(
-                activity[watch.id]?.active(System.currentTimeMillis()).orEmpty(),
-                settings.activitySensitivity,
-            ),
-            load = viewModel::explain,
-            onDismiss = { whyFor = null }
-        )
-    }
+    MarketCoinSheets(
+        state = coinSheets,
+        viewModel = viewModel,
+        watchlist = watchlistViewModel,
+        lockViewModel = lockViewModel,
+        watches = watches,
+        activity = activity,
+        sensitivity = settings.activitySensitivity,
+        banner = banner,
+        onOpenAlarms = onOpenAlarms,
+    )
 }
 
 /**
  * Paar der Merkliste zu einem Coin: Spot zuerst (wie die Karte, USDT/USD vor anderen
- * Quotes), sonst das Perpetual; null = nicht beobachtet. Das Blatt rechnet dann mit
- * den Daten genau dieses Paars (Futures-Paar: Futures-Kerzen).
+ * Quotes), sonst das Perpetual; null = nicht beobachtet. Das Aktionsblatt zeigt dann genau
+ * dieses Paar (Futures-Paar: Futures-Kerzen).
  */
 private fun watchFor(watches: List<WatchEntity>, symbol: String): WatchEntity? =
     CandleSeries.pickWatch(
@@ -454,51 +487,63 @@ private fun RevealLoadingRow() {
 }
 
 /**
- * «Stand … · wird aktualisiert …»: immer eine Zeile hoch, auch ohne Text — nur Inhalt und
- * Deckkraft wechseln (beim Ausblenden bleibt der letzte Stand stehen, bis er unsichtbar ist).
+ * Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Punkt und Satz
+ * in einer Pille — grün «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»), während
+ * still neu geladen wird neutral «Stand 14:05 · wird aktualisiert…» (ältester gezeigter Stand).
+ * Immer gleich hoch, auch ohne Stand — darunter springt nichts. Wie iOS `statusPill`.
  */
 @Composable
-private fun AsOfLine(at: Long?, animate: Boolean) {
-    val last = remember { arrayOfNulls<Long>(1) }
-    if (at != null) last[0] = at
-    val shownAt = at ?: last[0]
+private fun MarketStatusPill(refreshingSince: Long?, updatedAt: Long?, animate: Boolean) {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            kotlinx.coroutines.delay(30_000)
+            now = System.currentTimeMillis()
+        }
+    }
+    val refreshing = refreshingSince != null
+    val text = when {
+        refreshingSince != null -> stringResource(R.string.cycle_data_as_of, dataTime(refreshingSince))
+        updatedAt != null && updatedAt > 0 ->
+            stringResource(R.string.watchlist_all_fresh, com.cryptochecker.app.ui.features.watchlist.ago(updatedAt, now))
+        else -> null
+    }
+    val tone = if (refreshing || text == null) MaterialTheme.colorScheme.onSurfaceVariant
+    else com.cryptochecker.app.ui.theme.PriceColors.ok
     val visibility by animateFloatAsState(
-        targetValue = if (at != null) 1f else 0f,
+        targetValue = if (text != null) 1f else 0f,
         animationSpec = tween(if (animate) 200 else 0),
-        label = "as_of"
+        label = "market_status"
     )
-    Text(
-        text = if (shownAt != null) stringResource(R.string.cycle_data_as_of, dataTime(shownAt)) else " ",
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
+    Box(
+        contentAlignment = Alignment.CenterStart,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 4.dp, bottom = Spacing.xs)
+            .heightIn(min = 40.dp)
+            .padding(bottom = Spacing.xs)
             .graphicsLayer { alpha = visibility }
-            .then(
-                if (at != null) Modifier.semantics { liveRegion = LiveRegionMode.Polite }
-                else Modifier.clearAndSetSemantics { }
-            )
-    )
-}
-
-/**
- * Kleine Abschnittsüberschrift über «Jetzt» (nicht zuklappbar); für Screenreader eine
- * Überschrift. «Einordnung» und «Daten» haben [MarketSectionHeader].
- */
-@Composable
-private fun SectionHeader(@StringRes textRes: Int) {
-    Text(
-        text = stringResource(textRes),
-        style = SectionTitle.style,
-        color = SectionTitle.color,
-        modifier = Modifier
-            .padding(start = 4.dp, top = 8.dp, bottom = 8.dp)
-            .semantics { heading() }
-            .sectionTitleMarker()
-    )
+    ) {
+        if (text != null) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(50))
+                    .background(tone.copy(alpha = 0.12f))
+                    .padding(horizontal = 12.dp, vertical = Spacing.sm)
+                    .then(if (refreshing) Modifier.semantics { liveRegion = LiveRegionMode.Polite } else Modifier)
+            ) {
+                Box(Modifier.size(8.dp).clip(RoundedCornerShape(50)).background(tone))
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.labelMedium.tabularNumbers(),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+        }
+    }
 }
 
 /** Uhrzeit, bei älteren Daten (nicht von heute) mit Datum. */

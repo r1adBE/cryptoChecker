@@ -9,25 +9,26 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioDao
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
-import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.lock.AppLockAuth
-import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,6 +44,7 @@ data class RestoreResult(val watches: Int, val alarms: Int)
 class BackupManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val database: AppDatabase,
+    private val portfolioDatabase: PortfolioDatabase,
     private val watchDao: WatchDao,
     private val favoritesRepository: FavoritesRepository,
     private val settingsRepository: SettingsRepository,
@@ -50,6 +52,7 @@ class BackupManager @Inject constructor(
     private val portfolioDao: PortfolioDao,
     private val portfolioRepository: PortfolioRepository,
     private val portfolioAlarmRepository: PortfolioAlarmRepository,
+    private val portfolioAlarmDao: PortfolioAlarmDao,
 ) {
     /**
      * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
@@ -68,8 +71,8 @@ class BackupManager @Inject constructor(
                 }
             })
             .put("settings", settingsToJson())
-            .put("portfolio", JSONArray().apply { portfolioDao.getAll().forEach { put(txToJson(it)) } })
-            .put("portfolioAlarms", JSONArray().apply { portfolioAlarmRepository.getAll().forEach { put(portfolioAlarmToJson(it)) } })
+            .put("portfolio", JSONArray().apply { portfolioDao.getAll().forEach { put(PortfolioJson.txToJson(it)) } })
+            .put("portfolioAlarms", JSONArray().apply { portfolioAlarmRepository.getAll().forEach { put(PortfolioJson.alarmToJson(it)) } })
 
         val plain = root.toString(2).toByteArray(Charsets.UTF_8)
         val bytes = if (password == null) plain
@@ -96,47 +99,131 @@ class BackupManager @Inject constructor(
     /**
      * Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung.
      * [password] nur für verschlüsselte Sicherungen; ältere, lesbare Sicherungen brauchen keines.
+     *
+     * Alles oder nichts, so weit es geht: Erst wird die ganze Datei gelesen und bereinigt
+     * ([WatchlistRestoreCleanup]), dann geschrieben — Merkliste zuerst (da kann am ehesten etwas
+     * scheitern), dann Portfolio, Favoriten, Einstellungen. Merkliste und Portfolio liegen in getrennten
+     * Datenbankdateien (keine gemeinsame Transaktion); scheitert ein späterer Schritt, wird der vorher
+     * gemerkte Stand von Merkliste, Portfolio, Favoriten und Einstellungen zurückgeschrieben.
      */
     suspend fun restore(uri: Uri, password: String?): RestoreResult = withContext(Dispatchers.IO) {
         val root = JSONObject(plainText(read(uri), password))
         // Klartext muss die eigentliche Sicherung sein (eine verschachtelte Hülle hat ein anderes «format»)
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
 
-        val watches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty()
-        val alarms = root.optJSONArray("alarms")?.let { a -> (0 until a.length()).map { jsonToAlarm(a.getJSONObject(it)) } }.orEmpty()
-        val watchIds = watches.map { it.id }.toSet()
+        // ── 1. Alles lesen und prüfen, bevor etwas geschrieben wird ──
+        val parsedWatches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty()
+        val parsedAlarms = root.optJSONArray("alarms")?.let { a -> (0 until a.length()).map { jsonToAlarm(a.getJSONObject(it)) } }.orEmpty()
+        val (watches, alarms) = WatchlistRestoreCleanup.clean(
+            watches = parsedWatches,
+            alarms = parsedAlarms,
+            watchId = { it.id },
+            pairKey = { listOf(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name) },
+            alarmId = { it.id },
+            alarmWatchId = { it.watchId },
+            withWatchId = { a, id -> a.copy(watchId = id) },
+        )
         // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
         val portfolio = root.optJSONArray("portfolio")?.let { a ->
-            (0 until a.length()).mapNotNull { jsonToTx(a.getJSONObject(it)) }
+            (0 until a.length()).mapNotNull { i -> a.optJSONObject(i)?.let { PortfolioJson.jsonToTx(it) } }
         }
         // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
         val portfolioAlarms = root.optJSONArray("portfolioAlarms")?.let { a ->
-            (0 until a.length()).mapNotNull { i -> a.optJSONObject(i)?.let { jsonToPortfolioAlarm(it) } }
+            (0 until a.length()).mapNotNull { i -> a.optJSONObject(i)?.let { PortfolioJson.jsonToAlarm(it) } }
+        }
+        // Nur Texte übernehmen (wie iOS); fehlt eine Art, bleibt sie stehen
+        val favorites = root.optJSONObject("favorites")?.let { fav ->
+            FavoriteKind.entries.mapNotNull { kind ->
+                fav.optJSONArray(kind.name)?.let { arr -> kind to (0 until arr.length()).mapNotNull { arr.opt(it) as? String }.toSet() }
+            }.toMap()
+        }.orEmpty()
+        val settings = root.optJSONObject("settings")
+
+        // ── 2. Bisherigen Stand merken (für das Zurückrollen) ──
+        val previous = PreviousState(
+            watches = watchDao.getWatches(),
+            alarms = watchDao.getAllAlarms(),
+            portfolio = portfolioDao.getAll(),
+            portfolioAlarms = portfolioAlarmDao.getAll(),
+            favorites = FavoriteKind.entries.associateWith { favoritesRepository.favorites(it).value.toSet() },
+            settings = settingsToJson(),
+        )
+
+        // ── 3. Schreiben ──
+        val touched = mutableSetOf<Step>()
+        try {
+            writeWatchlist(watches, alarms)
+            touched += Step.WATCHLIST
+            portfolioDatabase.withTransaction {
+                if (portfolio != null) portfolioRepository.replaceAll(portfolio)
+                if (portfolioAlarms != null) portfolioAlarmRepository.replaceAll(portfolioAlarms)
+            }
+            touched += Step.PORTFOLIO
+            // Bestand aus alten Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion)
+            portfolioRepository.importHoldings(onlyNewCoins = true)
+            touched += Step.FAVORITES
+            favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
+            touched += Step.SETTINGS
+            settings?.let { restoreSettings(it) }
+        } catch (e: Throwable) {
+            withContext(NonCancellable) { rollBack(previous, touched, e) }
+            throw e
         }
 
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren (Ids können sich decken).
         activityRepository.retain(emptySet())
 
+        RestoreResult(watches.size, alarms.size)
+    }
+
+    /** Was vor dem Wiederherstellen da war. */
+    private class PreviousState(
+        val watches: List<WatchEntity>,
+        val alarms: List<AlarmEntity>,
+        val portfolio: List<PortfolioTxEntity>,
+        val portfolioAlarms: List<PortfolioAlarmEntity>,
+        val favorites: Map<FavoriteKind, Set<String>>,
+        val settings: JSONObject,
+    )
+
+    /** Schritte, die schon (ganz oder teilweise) geschrieben wurden. */
+    private enum class Step { WATCHLIST, PORTFOLIO, FAVORITES, SETTINGS }
+
+    /** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
+    private suspend fun writeWatchlist(watches: List<WatchEntity>, alarms: List<AlarmEntity>) {
         database.withTransaction {
             watchDao.deleteAllWatches()          // Alarme fallen per Fremdschlüssel mit weg
-            watches.forEach { watchDao.insertWatch(it) }
-            alarms.filter { it.watchId in watchIds }.forEach { watchDao.insertAlarm(it) }
-            if (portfolio != null) portfolioRepository.replaceAll(portfolio)
-            if (portfolioAlarms != null) portfolioAlarmRepository.replaceAll(portfolioAlarms)
-            // Bestand aus alten Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion)
-            portfolioRepository.importHoldings(onlyNewCoins = true)
+            watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
+            alarms.forEach { watchDao.insertAlarm(it) }
         }
+    }
 
-        root.optJSONObject("favorites")?.let { fav ->
-            FavoriteKind.entries.forEach { kind ->
-                fav.optJSONArray(kind.name)?.let { arr ->
-                    favoritesRepository.setAll(kind, (0 until arr.length()).map { arr.getString(it) }.toSet())
-                }
+    /**
+     * Schreibt den gemerkten Stand der schon berührten Teile zurück (bestmöglich; Fehler dabei werden
+     * an [cause] angehängt). Portfolio-Zeilen und Alarme kommen unverändert zurück (samt Alarm-Zustand).
+     */
+    private suspend fun rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable) {
+        suspend fun attempt(what: String, block: suspend () -> Unit) {
+            runCatching { block() }.onFailure {
+                Timber.w(it, "Wiederherstellen: %s nicht zurückgesetzt", what)
+                if (it !== cause) cause.addSuppressed(it)
             }
         }
-        root.optJSONObject("settings")?.let { restoreSettings(it) }
-
-        RestoreResult(watches.size, alarms.count { it.watchId in watchIds })
+        if (Step.SETTINGS in touched) attempt("Einstellungen") { restoreSettings(previous.settings) }
+        if (Step.FAVORITES in touched) attempt("Favoriten") {
+            previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
+        }
+        if (Step.PORTFOLIO in touched) attempt("Portfolio") {
+            portfolioDatabase.withTransaction {
+                portfolioDao.deleteAll()
+                previous.portfolio.forEach { portfolioDao.insert(it) }
+                portfolioAlarmDao.deleteAll()
+                previous.portfolioAlarms.forEach { portfolioAlarmDao.insert(it) }
+            }
+        }
+        // Auch nach dem Portfolio-Schritt: importHoldings leert den Bestand der Merkliste
+        if (Step.WATCHLIST in touched) attempt("Merkliste") { writeWatchlist(previous.watches, previous.alarms) }
+        Timber.w(cause, "Wiederherstellen fehlgeschlagen, bisheriger Stand zurückgeschrieben")
     }
 
     // ---------------- Datei ----------------
@@ -220,60 +307,7 @@ class BackupManager @Inject constructor(
         else o.optString("note").trim().take(NOTE_MAX).takeIf { it.isNotEmpty() },
     )
 
-    // ---------------- Portfolio ----------------
-
-    private fun txToJson(t: PortfolioTxEntity) = JSONObject()
-        .put("id", t.id)
-        .put("coin", t.coin)
-        .put("type", t.type.name)
-        .put("amount", t.amount)
-        .put("priceUsdt", t.priceUsdt ?: JSONObject.NULL)
-        .put("time", t.time)
-        .put("note", t.note ?: JSONObject.NULL)
-
-    /** Unvollständige oder ungültige Einträge werden übersprungen. */
-    private fun jsonToTx(o: JSONObject): PortfolioTxEntity? {
-        val coin = PortfolioCalculator.normalizeCoin(o.optString("coin"))
-        val type = PortfolioTxType.entries.firstOrNull { it.name == o.optString("type") } ?: return null
-        val amount = o.optDouble("amount").takeIf { !it.isNaN() && !it.isInfinite() && it > 0.0 } ?: return null
-        if (coin.isEmpty()) return null
-        return PortfolioTxEntity(
-            id = o.optLong("id", 0L).coerceAtLeast(0L),
-            coin = coin,
-            type = type,
-            amount = amount,
-            priceUsdt = if (o.isNull("priceUsdt")) null
-            else o.optDouble("priceUsdt").takeIf { !it.isNaN() && !it.isInfinite() && it >= 0.0 },
-            time = o.optLong("time", System.currentTimeMillis()),
-            note = if (o.isNull("note")) null else o.optString("note").trim().takeIf { it.isNotEmpty() },
-        )
-    }
-
-    /** Portfolio-Alarm (gleiches Format wie iOS); Zustand (gemeldet, zuletzt) wird nicht gesichert. */
-    private fun portfolioAlarmToJson(a: PortfolioAlarmEntity) = JSONObject()
-        .put("id", a.id)
-        .put("kind", a.kind.name)
-        .put("threshold", a.threshold)
-        .put("currency", a.currency ?: JSONObject.NULL)
-        .put("enabled", a.enabled)
-        .put("repeating", a.repeating)
-
-    /** Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. */
-    private fun jsonToPortfolioAlarm(o: JSONObject): PortfolioAlarmEntity? {
-        val kind = PortfolioAlarmKind.fromName(o.optString("kind")) ?: return null
-        val threshold = o.optDouble("threshold").takeIf { PortfolioAlarmLogic.isValidThreshold(kind, it) } ?: return null
-        val currency = if (o.isNull("currency")) null else o.optString("currency").trim().uppercase()
-            .takeIf { code -> code.length == 3 && code.all { it in 'A'..'Z' } }
-        if (kind.isValue && currency == null) return null
-        return PortfolioAlarmEntity(
-            id = o.optLong("id", 0L).coerceAtLeast(0L),
-            kind = kind,
-            threshold = threshold,
-            currency = currency.takeIf { kind.isValue },
-            enabled = o.optBoolean("enabled", true),
-            repeating = o.optBoolean("repeating", false),
-        )
-    }
+    // Portfolio: Format in PortfolioJson (auch für die Kopie der Systemsicherung)
 
     private fun alarmToJson(a: AlarmEntity) = JSONObject()
         .put("id", a.id)
@@ -357,52 +391,54 @@ class BackupManager @Inject constructor(
             .put("quietHoursEnd", s.quietHoursEnd)
             .put("appLock", s.appLock)
             .put("hidePortfolioAmounts", s.hidePortfolioAmounts)
+            .put("portfolioSystemBackup", s.portfolioSystemBackup)
     }
 
     private suspend fun restoreSettings(o: JSONObject) = with(settingsRepository) {
-        if (o.has("backgroundUpdates")) setBackgroundUpdates(o.getBoolean("backgroundUpdates"))
-        if (o.has("backgroundIntervalMinutes")) setBackgroundInterval(o.getInt("backgroundIntervalMinutes"))
-        if (o.has("liveService")) setLiveService(o.getBoolean("liveService"))
-        if (o.has("liveIntervalSeconds")) setLiveInterval(o.getInt("liveIntervalSeconds"))
-        if (o.has("liveWebSocket")) setLiveWebSocket(o.optBoolean("liveWebSocket", true))
-        if (o.has("priceNotifications")) setPriceNotifications(o.getBoolean("priceNotifications"))
-        if (o.has("ongoingNotifications")) setOngoingNotifications(o.getBoolean("ongoingNotifications"))
-        if (o.has("notificationChangePercent")) setNotificationChangePercent(o.getDouble("notificationChangePercent"))
-        if (o.has("ttsEnabled")) setTtsEnabled(o.getBoolean("ttsEnabled"))
-        if (o.has("ttsAlarmsOnly")) setTtsAlarmsOnly(o.getBoolean("ttsAlarmsOnly"))
-        if (o.has("ttsSpeechRate")) setTtsSpeechRate(o.getDouble("ttsSpeechRate").toFloat())
-        if (o.has("alarmCooldownMinutes")) setAlarmCooldown(o.getInt("alarmCooldownMinutes"))
-        if (o.has("includeRollingFutures")) setIncludeRollingFutures(o.getBoolean("includeRollingFutures"))
-        if (o.has("includeTradFiFutures")) setIncludeTradFiFutures(o.getBoolean("includeTradFiFutures"))
-        if (o.has("accentColor")) setAccentColor(AccentColor.fromName(o.getString("accentColor")))
-        if (o.has("darkMode")) setDarkMode(if (o.isNull("darkMode")) null else o.getBoolean("darkMode"))
-        if (o.has("zoneAlerts")) setZoneAlerts(o.getBoolean("zoneAlerts"))
-        if (o.has("fearGreedBelow")) setFearGreedBelow(o.getInt("fearGreedBelow"))
-        if (o.has("fearGreedAbove")) setFearGreedAbove(o.getInt("fearGreedAbove"))
-        if (o.has("gasAlertEthTenths")) setGasAlertEth(o.getInt("gasAlertEthTenths"))
-        if (o.has("gasAlertBtc")) setGasAlertBtc(o.getInt("gasAlertBtc"))
-        if (o.has("activityAlerts")) setActivityAlerts(o.getBoolean("activityAlerts"))
+        o.bool("backgroundUpdates")?.let { setBackgroundUpdates(it) }
+        o.int("backgroundIntervalMinutes")?.let { setBackgroundInterval(it) }
+        o.bool("liveService")?.let { setLiveService(it) }
+        o.int("liveIntervalSeconds")?.let { setLiveInterval(it) }
+        o.bool("liveWebSocket")?.let { setLiveWebSocket(it) }
+        o.bool("priceNotifications")?.let { setPriceNotifications(it) }
+        o.bool("ongoingNotifications")?.let { setOngoingNotifications(it) }
+        o.double("notificationChangePercent")?.let { setNotificationChangePercent(it) }
+        o.bool("ttsEnabled")?.let { setTtsEnabled(it) }
+        o.bool("ttsAlarmsOnly")?.let { setTtsAlarmsOnly(it) }
+        o.double("ttsSpeechRate")?.let { setTtsSpeechRate(it.toFloat()) }
+        o.int("alarmCooldownMinutes")?.let { setAlarmCooldown(it) }
+        o.bool("includeRollingFutures")?.let { setIncludeRollingFutures(it) }
+        o.bool("includeTradFiFutures")?.let { setIncludeTradFiFutures(it) }
+        if (o.has("accentColor")) setAccentColor(AccentColor.fromName(o.string("accentColor")))
+        // Ungültiger Wert: «Wie das System» (wie iOS)
+        if (o.has("darkMode")) setDarkMode(if (o.isNull("darkMode")) null else o.bool("darkMode"))
+        o.bool("zoneAlerts")?.let { setZoneAlerts(it) }
+        o.int("fearGreedBelow")?.let { setFearGreedBelow(it) }
+        o.int("fearGreedAbove")?.let { setFearGreedAbove(it) }
+        o.int("gasAlertEthTenths")?.let { setGasAlertEth(it) }
+        o.int("gasAlertBtc")?.let { setGasAlertBtc(it) }
+        o.bool("activityAlerts")?.let { setActivityAlerts(it) }
         // Fehlt der Schlüssel (ältere Sicherung) oder ist er unbekannt: «Normal»
         setActivitySensitivity(
             com.cryptochecker.app.domain.activity.ActivitySensitivity.fromName(
                 if (o.isNull("activitySensitivity")) null else o.optString("activitySensitivity")
             )
         )
-        if (o.has("macroNotifications")) setMacroNotifications(o.optBoolean("macroNotifications", false))
-        if (o.has("portfolioEnabled")) setPortfolioEnabled(o.getBoolean("portfolioEnabled"))
-        if (o.has("portfolioCurrency") && !o.isNull("portfolioCurrency")) setPortfolioCurrency(o.getString("portfolioCurrency"))
-        if (o.has("showConverted")) setShowConverted(o.optBoolean("showConverted", false))
+        o.bool("macroNotifications")?.let { setMacroNotifications(it) }
+        o.bool("portfolioEnabled")?.let { setPortfolioEnabled(it) }
+        o.string("portfolioCurrency")?.let { setPortfolioCurrency(it) }
+        o.bool("showConverted")?.let { setShowConverted(it) }
         if (o.has("priceColorScheme") && !o.isNull("priceColorScheme")) {
             setPriceColorScheme(com.cryptochecker.app.settings.PriceColorScheme.fromName(o.optString("priceColorScheme")))
         }
-        if (o.has("watchlistSparkline")) setWatchlistSparkline(o.optBoolean("watchlistSparkline", true))
-        if (o.has("watchlistNames")) setWatchlistNames(o.optBoolean("watchlistNames", false))
-        if (o.has("showChangePeriod")) setShowChangePeriod(o.optBoolean("showChangePeriod", false))
-        if (o.has("appIconBadge")) setAppIconBadge(o.optBoolean("appIconBadge", true))
-        if (o.has("watchlistActivityCard")) setWatchlistActivityCard(o.optBoolean("watchlistActivityCard", true))
-        if (o.has("coinLogos")) setCoinLogos(o.optBoolean("coinLogos", false))
-        if (o.has("widgetCoinLogos")) setWidgetCoinLogos(o.optBoolean("widgetCoinLogos", false))
-        if (o.has("portfolioCoinLogos")) setPortfolioCoinLogos(o.optBoolean("portfolioCoinLogos", true))
+        o.bool("watchlistSparkline")?.let { setWatchlistSparkline(it) }
+        o.bool("watchlistNames")?.let { setWatchlistNames(it) }
+        o.bool("showChangePeriod")?.let { setShowChangePeriod(it) }
+        o.bool("appIconBadge")?.let { setAppIconBadge(it) }
+        o.bool("watchlistActivityCard")?.let { setWatchlistActivityCard(it) }
+        o.bool("coinLogos")?.let { setCoinLogos(it) }
+        o.bool("widgetCoinLogos")?.let { setWidgetCoinLogos(it) }
+        o.bool("portfolioCoinLogos")?.let { setPortfolioCoinLogos(it) }
         // %-Basis: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen; unbekannt → «Letzte 24 Std.»
         if (o.has("changeBasis")) {
             setChangeBasis(
@@ -412,8 +448,8 @@ class BackupManager @Inject constructor(
             )
         }
         // Ältere Sicherungen ohne den Schlüssel lassen die aktuelle Einstellung stehen.
-        if (o.has("highContrast")) setHighContrast(o.optBoolean("highContrast", false))
-        if (o.has("priceColorsInverted")) setPriceColorsInverted(o.optBoolean("priceColorsInverted", false))
+        o.bool("highContrast")?.let { setHighContrast(it) }
+        o.bool("priceColorsInverted")?.let { setPriceColorsInverted(it) }
         // Alarm-Signal: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen;
         // unbekannter Wert (neuere Version) → «System»
         if (o.has("alarmSignal")) {
@@ -424,16 +460,45 @@ class BackupManager @Inject constructor(
             )
         }
         // Nachtruhe: nur übernehmen, was vorhanden und gültig ist (Minuten 0..1439)
-        if (o.has("quietHoursEnabled")) setQuietHoursEnabled(o.optBoolean("quietHoursEnabled", false))
+        o.bool("quietHoursEnabled")?.let { setQuietHoursEnabled(it) }
         o.optMinute("quietHoursStart")?.let { setQuietHoursStart(it) }
         o.optMinute("quietHoursEnd")?.let { setQuietHoursEnd(it) }
-        if (o.has("hidePortfolioAmounts")) setHidePortfolioAmounts(o.optBoolean("hidePortfolioAmounts", false))
+        o.bool("hidePortfolioAmounts")?.let { setHidePortfolioAmounts(it) }
+        // «Portfolio in Systemsicherung»: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen
+        o.bool("portfolioSystemBackup")?.let { setPortfolioSystemBackup(it) }
         // Portfolio-Sperre nur, wenn dieses Gerät entsperren kann — sonst sperrte sie das Portfolio aus
-        if (o.has("appLock")) {
-            val wanted = o.optBoolean("appLock", false)
+        o.bool("appLock")?.let { wanted ->
             if (!wanted || AppLockAuth.canAuthenticate(this@BackupManager.context)) setAppLock(wanted)
         }
         Unit
+    }
+
+    // Tolerantes Lesen wie iOS (BackupManager.swift: bool/int/double/string): falscher Typ → null,
+    // der Schlüssel wird dann übergangen statt das Wiederherstellen mittendrin abzubrechen.
+
+    private fun JSONObject.bool(key: String): Boolean? = when (val v = opt(key)) {
+        is Boolean -> v
+        is Number -> v.toDouble() != 0.0
+        is String -> when (v.lowercase()) { "true" -> true; "false" -> false; else -> null }
+        else -> null
+    }
+
+    private fun JSONObject.int(key: String): Int? = when (val v = opt(key)) {
+        is Number -> v.toDouble().takeIf { it.isFinite() }?.toLong()?.toInt()
+        is String -> v.toLongOrNull()?.toInt() ?: v.toDoubleOrNull()?.takeIf { it.isFinite() }?.toLong()?.toInt()
+        else -> null
+    }
+
+    private fun JSONObject.double(key: String): Double? = when (val v = opt(key)) {
+        is Number -> v.toDouble().takeIf { it.isFinite() }
+        is String -> v.toDoubleOrNull()?.takeIf { it.isFinite() }
+        else -> null
+    }
+
+    private fun JSONObject.string(key: String): String? = when (val v = opt(key)) {
+        is String -> v
+        is Number -> v.toString()
+        else -> null
     }
 
     /** Minute des Tages (0..1439) oder null, wenn fehlend oder ungültig. */

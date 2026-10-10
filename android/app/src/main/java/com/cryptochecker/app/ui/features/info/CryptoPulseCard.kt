@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.content.Context
@@ -194,9 +195,12 @@ private fun PulseContent(report: PulseReport, expanded: Boolean, onToggle: () ->
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f)
         )
-        TextButton(onClick = onToggle) {
-            Text(stringResource(if (expanded) R.string.pulse_less else R.string.pulse_why_action))
-        }
+        // Klappt nur auf (kein Seitenwechsel): Pfeil nach unten bzw. oben wie bei «Einordnung»
+        ExpandToggleButton(
+            text = stringResource(if (expanded) R.string.pulse_less else R.string.pulse_why_action),
+            expanded = expanded,
+            onClick = onToggle,
+        )
     }
 
     if (expanded) {

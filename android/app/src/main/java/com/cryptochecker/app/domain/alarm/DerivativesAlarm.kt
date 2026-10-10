@@ -16,7 +16,8 @@ import kotlin.math.abs
  *
  * Open Interest: Verlauf in Coins (USD-Wert / Kurs, damit eine reine Kursbewegung nicht
  * zählt) je Paar, [OI_RETENTION_MILLIS] lang; verglichen wird mit der jüngsten Messung, die
- * mindestens N Stunden alt ist (höchstens [oiMaxAgeMillis]). Fehlt sie, meldet der Alarm nicht.
+ * mindestens N Stunden alt ist (höchstens [oiMaxAgeMillis]), sonst mit der ältesten der letzten
+ * N Stunden ([oiChangePercent]). Ohne Vergleichsmessung meldet der Alarm nicht.
  */
 object DerivativesAlarm {
 
@@ -167,16 +168,22 @@ object DerivativesAlarm {
 
     /**
      * Veränderung des Open Interest in % gegenüber der jüngsten Messung, die mindestens
-     * [hours] Stunden alt ist (und höchstens [oiMaxAgeMillis]); null ohne solche Messung
+     * [hours] Stunden alt ist (und höchstens [oiMaxAgeMillis]). Fehlt sie, zählt die älteste
+     * Messung innerhalb der letzten [hours] Stunden (eine Veränderung in kürzerer Zeit ist auch
+     * «in N Stunden») — sonst meldete ein 1-Stunden-Alarm bei einer Hintergrund-Aktualisierung
+     * im Stundentakt nie (Messungen mal 50, mal 100 Minuten alt). null ohne Vergleichsmessung
      * oder ohne gültigen aktuellen Wert.
      */
     fun oiChangePercent(history: List<OiPoint>, currentUnits: Double?, hours: Int, now: Long): Double? {
         val current = currentUnits?.takeIf { it.isFinite() && it > 0.0 } ?: return null
         val window = hours.coerceAtLeast(1) * HOUR_MILLIS
         val maxAge = oiMaxAgeMillis(hours)
-        val past = history
-            .filter { it.units.isFinite() && it.units > 0.0 && now - it.time >= window && now - it.time <= maxAge }
-            .maxByOrNull { it.time } ?: return null
+        val valid = history.filter { it.units.isFinite() && it.units > 0.0 }
+        val past = valid
+            .filter { now - it.time >= window && now - it.time <= maxAge }
+            .maxByOrNull { it.time }
+            ?: valid.filter { now - it.time in 1 until window }.minByOrNull { it.time }
+            ?: return null
         return (current / past.units - 1.0) * 100.0
     }
 

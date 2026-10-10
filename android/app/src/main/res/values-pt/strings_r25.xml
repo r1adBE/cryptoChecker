@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">O bloqueio protege o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Pode proteger as cópias de segurança com uma palavra-passe. As cópias de segurança do dispositivo inteiro (cópia do sistema) continuam a incluir estes dados.</string>
+    <string name="settings_portfolio_lock_footer">O bloqueio protege o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Pode proteger as cópias de segurança com uma palavra-passe.</string>
     <string name="backup_protect">Proteger com palavra-passe</string>
     <string name="backup_protect_hint">Encripta o ficheiro (AES-256). Recomendado se contiver dados do portfólio.</string>
     <string name="backup_password">Palavra-passe</string>

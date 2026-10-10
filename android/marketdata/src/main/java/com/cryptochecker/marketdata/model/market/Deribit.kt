@@ -10,6 +10,7 @@ import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.getText
 
 /**
  * Deribit — nur Perpetuals: BTC-PERPETUAL/ETH-PERPETUAL (gegen USD, in Coins
@@ -59,7 +60,7 @@ class Deribit : Market("Deribit", "Deribit") {
     }
 
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? =
-        jsonObject.getJSONObject("error").getString("message")
+        jsonObject.getJSONObject("error").getText("message")
 
     // Sammelabfrage je Abrechnungswährung
     override val bulkTickersNumOfRequests: Int get() = CURRENCIES.size

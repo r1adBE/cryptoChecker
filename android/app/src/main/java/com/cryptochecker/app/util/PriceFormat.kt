@@ -22,21 +22,25 @@ object PriceFormat {
     fun valueWithCurrency(value: Double, quoteAsset: String): String =
         "${DecimalFormat("#,##0.00").format(value)} $quoteAsset"
 
-    /** Menge für ein Eingabefeld: ohne Tausendertrennung, Punkt als Dezimalzeichen. */
-    fun amountForInput(value: Double?): String =
-        value?.let { java.math.BigDecimal.valueOf(it).stripTrailingZeros().toPlainString() }.orEmpty()
+    /**
+     * Menge oder Kurs für ein Eingabefeld: ohne Exponent und Tausendertrennung, mit dem
+     * Dezimalzeichen der Region (liest [parseAmount] so eindeutig zurück). 0 → «0», nur
+     * null (oder nicht endlich) → leer. Wie `PriceFormat.amountForInput` (iOS).
+     */
+    fun amountForInput(value: Double?, decimalSeparator: Char = '.'): String =
+        value?.let { DecimalText.plain(it) }.orEmpty()
+            .replace('.', ThresholdParser.normalized(decimalSeparator))
 
     /**
-     * Freie Eingabe einer Menge: Komma oder Punkt, Leerzeichen und
-     * Tausenderstriche werden ignoriert, arabische/persische Ziffern gelten
-     * ([ThresholdParser.latinDigits]). Leer = 0 (kein Bestand),
-     * ungültig oder negativ = null.
+     * Freie Eingabe einer Menge oder eines Kurses — nach den Regeln von [ThresholdParser]:
+     * Tausendertrennung (auch geschützte/schmale Leerzeichen), Dezimalzeichen der Region,
+     * arabische/persische Ziffern; mehrdeutig («60.000») entscheidet [priceHint] (aktueller
+     * Kurs), ohne Kurs das Dezimalzeichen. Leer = 0 (kein Bestand), 0 gilt;
+     * ungültig, negativ, mit Exponent oder Buchstaben («1.5f») = null.
      */
-    fun parseAmount(text: String): Double? {
-        val cleaned = ThresholdParser.latinDigits(text).trim()
-            .replace(" ", "").replace("'", "").replace("’", "").replace(',', '.')
-        if (cleaned.isEmpty()) return 0.0
-        return cleaned.toDoubleOrNull()?.takeIf { it >= 0.0 && !it.isInfinite() }
+    fun parseAmount(text: String, decimalSeparator: Char, priceHint: Double? = null): Double? {
+        if (text.isBlank()) return 0.0
+        return ThresholdParser.parseAllowingZero(text, decimalSeparator, priceHint)
     }
 
     /**
@@ -52,8 +56,9 @@ object PriceFormat {
     fun changePercent(value: Double?): String? {
         if (value == null || abs(value) < 0.005) return null
         val sign = if (value > 0) "+" else "−"
+        // Vorher kaufmännisch runden ([DecimalText]): 1.005 → «1.01» wie unter iOS
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl («1.20%+»)
-        return BidiText.ltr("$sign%.2f%%".format(abs(value)))
+        return BidiText.ltr("$sign%.2f%%".format(DecimalText.rounded(abs(value), 2)))
     }
 
     /**
@@ -75,7 +80,7 @@ object PriceFormat {
     /** Prozentwert für Benachrichtigungen: mit Vorzeichen, drei Nachkommastellen. */
     fun changePercentDetailed(value: Double): String {
         val sign = if (value >= 0) "+" else "-"
-        return BidiText.ltr("$sign%.3f%%".format(abs(value)))
+        return BidiText.ltr("$sign%.3f%%".format(DecimalText.rounded(abs(value), 3)))
     }
 
     /**

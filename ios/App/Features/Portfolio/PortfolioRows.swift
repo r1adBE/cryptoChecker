@@ -96,6 +96,8 @@ struct PortfolioCoinRow: View {
     var basis: ChangeBasis?
     /// Anzahl Transaktionen: nur die Zahl, klein neben der Menge — wie `TxCountBadge` (Android).
     var txCount = 0
+    /// Form in der Liste (oben/unten stark gerundet, dazwischen leicht) — wie `ListSegment`.
+    var shape: UnevenRoundedRectangle = ListSegment.shape(0, 1)
     @Environment(\.hidePortfolioAmounts) var hideAmounts
     @Environment(\.priceColorScheme) var priceColors
     @Environment(\.priceHighContrast) var highContrast
@@ -103,7 +105,7 @@ struct PortfolioCoinRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            CoinBadge(symbol: position.coin, size: 40, portfolio: true)
+            CoinBadge(symbol: position.coin, size: ListSegment.logo, portfolio: true)
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: Spacing.xs) {
                     Text(position.coin)
@@ -175,11 +177,8 @@ struct PortfolioCoinRow: View {
         .padding(.horizontal, Spacing.md)
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(AppColors.outlineVariant.opacity(0.45), lineWidth: 1)
-        )
-        .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .background(AppColors.container, in: shape)
+        .overlay(shape.strokeBorder(AppColors.outlineVariant.opacity(0.45), lineWidth: 1))
+        .contentShape(shape)
     }
 }

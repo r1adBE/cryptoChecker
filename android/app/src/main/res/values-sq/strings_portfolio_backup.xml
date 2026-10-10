@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portofoli në kopjen e sistemit</string>
+    <string name="settings_portfolio_system_backup_hint">Joaktiv: transaksionet e tua nuk përfshihen në kopjen e sistemit të pajisjes as në transferimin në një telefon të ri. Për t’i zhvendosur, përdor kopjen rezervë të aplikacionit me fjalëkalim.</string>
+</resources>

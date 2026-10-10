@@ -11,6 +11,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.time.format.DateTimeFormatter
 import java.util.*
+import com.cryptochecker.marketdata.util.optText
 
 class BinanceFutures : Market(NAME, TTS_NAME, null) {
     companion object {
@@ -36,12 +37,14 @@ class BinanceFutures : Market(NAME, TTS_NAME, null) {
         private fun parseTicker(jsonObject: JSONObject, ticker: Ticker) {
             // Bei unbekanntem Symbol antwortet Binance mit {"code":..,"msg":..}.
             // Ohne diese Abfrage endet das in "No value for volume".
-            jsonObject.optString("msg").takeIf { it.isNotEmpty() }?.let {
+            jsonObject.optText("msg").takeIf { it.isNotEmpty() }?.let {
                 throw MarketParseException(it)
             }
 
             jsonObject.apply {
-                ticker.vol = getDouble("volume")
+                // COIN-M: «volume» zählt Kontrakte, «baseVolume» ist die Menge in der Basiswährung;
+                // USD-M hat kein baseVolume, dort ist «volume» bereits die Basiswährung
+                ticker.vol = if (!isNull("baseVolume")) getDouble("baseVolume") else getDouble("volume")
                 ticker.high = getDouble("highPrice")
                 ticker.low = getDouble("lowPrice")
                 ticker.last = getDouble("lastPrice")

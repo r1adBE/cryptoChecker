@@ -1,0 +1,141 @@
+{
+  "exchange": "HTX / HTX Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.huobi.pro/market/detail/merged?symbol=btcusdt | https://api.hbdm.com/linear-swap-ex/market/detail/merged?contract_code=BTC-USDT",
+    "bulk": "GET https://api.huobi.pro/market/tickers | https://api.hbdm.com/linear-swap-ex/market/detail/batch_merged?business_type=swap"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot detail/merged: 'open' (calendar day) not used",
+      "market": "Htx",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "btcusdt",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ch\":\"market.btcusdt.detail.merged\",\"status\":\"ok\",\"ts\":1728540000123,\"tick\":{\"id\":352345678901, \"version\":352345678901,\"open\":60500.0,\"close\":62000.1,\"low\":60000.0,\"high\":62500.0,\"amount\":12100.523456, \"vol\":744460123.4567,\"count\":1234567,\"bid\":[62000.0,0.5123],\"ask\":[62000.2,0.8012]}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.2,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.523456,
+        "volQuote": 744460123.4567,
+        "change24hPercent": null,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot error payload",
+      "market": "Htx",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "foousdt",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"err-code\":\"invalid-parameter\",\"err-msg\":\"invalid symbol\",\"ts\":1728540000123}",
+      "expect": {
+        "error": true,
+        "message": "invalid symbol"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "swap detail/merged (string numbers, trade_turnover)",
+      "market": "HtxFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"ch\":\"market.BTC-USDT.detail.merged\",\"status\":\"ok\",\"tick\":{\"amount\":\"215432.123\",\"ask\":[61990.3,120], \"bid\":[61990.2,80],\"close\":\"61990.2\",\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\", \"ts\":1728540000400,\"vol\":\"215432123\",\"trade_turnover\":\"13248901234.56\"},\"ts\":1728540000456}",
+      "expect": {
+        "last": 61990.2,
+        "bid": 61990.2,
+        "ask": 61990.3,
+        "high": 62480.0,
+        "low": 59980.1,
+        "vol": 215432.123,
+        "volQuote": 13248901234.56,
+        "change24hPercent": null,
+        "timestamp": 1728540000456
+      }
+    },
+    {
+      "kind": "single",
+      "name": "swap error payload",
+      "market": "HtxFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"err_code\":1332,\"err_msg\":\"The contract doesn't exist.\",\"ts\":1728540000456}",
+      "expect": {
+        "error": true,
+        "message": "The contract doesn't exist."
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk spot market/tickers (bid/ask as numbers)",
+      "market": "Htx",
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"ts\":1728540000999,\"data\":[ {\"symbol\":\"btcusdt\",\"open\":60500.0,\"high\":62500.0,\"low\":60000.0,\"close\":62000.1,\"amount\":12100.523456,\"vol\":744460123.4567,\"count\":1234567,\"bid\":62000.0,\"bidSize\":0.5123,\"ask\":62000.2,\"askSize\":0.8012}, {\"symbol\":\"shibusdt\",\"open\":1.79E-5,\"high\":1.812E-5,\"low\":1.755E-5,\"close\":1.768E-5,\"amount\":98765432101.2,\"vol\":1746172.5,\"count\":4567,\"bid\":1.767E-5,\"bidSize\":1000000,\"ask\":1.769E-5,\"askSize\":2000000}, {\"symbol\":\"newusdt\",\"open\":null,\"high\":null,\"low\":null,\"close\":null,\"amount\":0,\"vol\":0,\"count\":0,\"bid\":null,\"bidSize\":null,\"ask\":null,\"askSize\":null} ]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "newusdt"
+        ],
+        "tickers": {
+          "btcusdt": {
+            "last": 62000.1,
+            "bid": 62000.0,
+            "ask": 62000.2,
+            "vol": 12100.523456,
+            "volQuote": 744460123.4567,
+            "change24hPercent": null,
+            "timestamp": 1728540000999
+          },
+          "shibusdt": {
+            "last": 1.768e-05,
+            "bid": 1.767e-05,
+            "ask": 1.769e-05,
+            "high": 1.812e-05,
+            "low": 1.755e-05
+          }
+        }
+      },
+      "note": "HTX sends scientific notation for small numbers"
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk swap batch_merged",
+      "market": "HtxFutures",
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"ticks\":[{\"contract_code\":\"BTC-USDT\",\"amount\":\"215432.123\",\"ask\":[61990.3,120],\"bid\":[61990.2,80], \"close\":\"61990.2\",\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\",\"ts\":1728540000400, \"vol\":\"215432123\",\"trade_turnover\":\"13248901234.56\",\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\", \"trade_partition\":\"USDT\",\"number_of\":\"123456\"}],\"ts\":1728540000456}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTC-USDT": {
+            "last": 61990.2,
+            "volQuote": 13248901234.56,
+            "timestamp": 1728540000400
+          }
+        }
+      }
+    }
+  ]
+}

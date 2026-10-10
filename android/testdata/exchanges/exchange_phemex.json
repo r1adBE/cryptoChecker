@@ -1,0 +1,184 @@
+{
+  "exchange": "Phemex / Phemex Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT | /md/v2/ticker/24hr?symbol=BTCUSDT",
+    "bulk": "GET https://api.phemex.com/md/spot/ticker/24hr/all | /md/v2/ticker/24hr/all"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot 24hr: scaled integers (Ep/Ev = 1e8), timestamp in ns",
+      "market": "Phemex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "sBTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":null,\"id\":0,\"result\":{\"askEp\":6200020000000,\"bidEp\":6200010000000,\"highEp\":6250000000000,\"indexEp\":6201010000000,\"lastEp\":6200010000000, \"lowEp\":6000000000000,\"openEp\":6050000000000,\"symbol\":\"sBTCUSDT\",\"timestamp\":1728540000123456789, \"turnoverEv\":74446012345678900,\"volumeEv\":1210050000000}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.1,
+        "ask": 62000.2,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.5,
+        "volQuote": 744460123.456789,
+        "change24hPercent": 2.4795041322314026,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "futures v2 24hr: decimal strings (Rp/Rq/Rv), no bid/ask",
+      "market": "PhemexFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"error\":null,\"id\":0,\"result\":{\"closeRp\":\"62000.1\",\"fundingRateRr\":\"0.0001\",\"highRp\":\"62500\",\"indexPriceRp\":\"62010.1\",\"lowRp\":\"60000\", \"markPriceRp\":\"62005.5\",\"openInterestRv\":\"1234.5\",\"openRp\":\"60500\",\"predFundingRateRr\":\"0.0001\",\"symbol\":\"BTCUSDT\", \"timestamp\":1728540000123456789,\"turnoverRv\":\"744460123.45\",\"volumeRq\":\"12100.5\"}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.5,
+        "volQuote": 744460123.45,
+        "change24hPercent": 2.4795041322314026,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error object",
+      "market": "Phemex",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "sFOOUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":{\"code\":6001,\"message\":\"invalid argument\"},\"id\":0,\"result\":null}",
+      "expect": {
+        "error": true,
+        "message": "invalid argument"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "code/msg error",
+      "market": "PhemexFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":6001,\"msg\":\"invalid argument\",\"data\":null}",
+      "expect": {
+        "error": true,
+        "message": "invalid argument"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk spot /all",
+      "market": "Phemex",
+      "requestId": 0,
+      "body": "{\"error\":null,\"id\":0,\"result\":[{\"askEp\":6200020000000,\"bidEp\":6200010000000,\"highEp\":6250000000000,\"indexEp\":6201010000000,\"lastEp\":6200010000000, \"lowEp\":6000000000000,\"openEp\":6050000000000,\"symbol\":\"sBTCUSDT\",\"timestamp\":1728540000123456789, \"turnoverEv\":74446012345678900,\"volumeEv\":1210050000000},{\"askEp\":6200020000000,\"bidEp\":6200010000000,\"highEp\":6250000000000,\"indexEp\":6201010000000,\"lastEp\":245012000000, \"lowEp\":6000000000000,\"openEp\":246246000000,\"symbol\":\"sETHUSDT\",\"timestamp\":1728540000123456789, \"turnoverEv\":74446012345678900,\"volumeEv\":1210050000000}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "sBTCUSDT": {
+            "last": 62000.1,
+            "timestamp": 1728540000123
+          },
+          "sETHUSDT": {
+            "last": 2450.12,
+            "change24hPercent": -0.5011248913687997
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk futures v2 /all",
+      "market": "PhemexFutures",
+      "requestId": 0,
+      "body": "{\"error\":null,\"id\":0,\"result\":[{\"closeRp\":\"62000.1\",\"fundingRateRr\":\"0.0001\",\"highRp\":\"62500\",\"indexPriceRp\":\"62010.1\",\"lowRp\":\"60000\", \"markPriceRp\":\"62005.5\",\"openInterestRv\":\"1234.5\",\"openRp\":\"60500\",\"predFundingRateRr\":\"0.0001\",\"symbol\":\"BTCUSDT\", \"timestamp\":1728540000123456789,\"turnoverRv\":\"744460123.45\",\"volumeRq\":\"12100.5\"}]}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTCUSDT": {
+            "last": 62000.1,
+            "volQuote": 744460123.45,
+            "timestamp": 1728540000123
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk with code/msg error instead of result: request fails",
+      "market": "Phemex",
+      "requestId": 0,
+      "body": "{\"code\":6001,\"msg\":\"invalid argument\",\"data\":null}",
+      "expect": {
+        "error": true
+      },
+      "note": "both platforms throw with the exchange text instead of returning an empty batch"
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk with error object and result null: request fails",
+      "market": "PhemexFutures",
+      "requestId": 0,
+      "body": "{\"error\":{\"code\":6001,\"message\":\"invalid argument\"},\"id\":0,\"result\":null}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "code/msg error with msg null: no error text (not \"null\")",
+      "market": "PhemexFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":6001,\"msg\":null,\"data\":null}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "timestamp \"NaN\" / huge: no crash",
+      "market": "PhemexFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"error\":null,\"id\":0,\"result\":{\"closeRp\":\"62000.1\",\"fundingRateRr\":\"0.0001\",\"highRp\":\"62500\",\"indexPriceRp\":\"62010.1\",\"lowRp\":\"60000\", \"markPriceRp\":\"62005.5\",\"openInterestRv\":\"1234.5\",\"openRp\":\"60500\",\"predFundingRateRr\":\"0.0001\",\"symbol\":\"BTCUSDT\", \"timestamp\":\"1e40\",\"turnoverRv\":\"744460123.45\",\"volumeRq\":\"12100.5\"}}",
+      "expect": {
+        "last": 62000.1
+      },
+      "note": "ns -> ms is clamped on both platforms (iOS Int64(Double) used to trap)"
+    }
+  ]
+}

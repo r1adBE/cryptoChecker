@@ -9,7 +9,6 @@
     </plurals>
     <string name="settings_summary_on">Wł.</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker obserwuje teraz dla Ciebie %1$s. Gdy %1$s osiągnie Twój limit, otrzymasz powiadomienie, gdy tylko aplikacja sprawdzi cenę. Przy zamkniętej aplikacji dzieje się to w odstępie aktualizacji w tle – później, jeśli optymalizacja baterii ogranicza aplikację.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker obserwuje teraz dla Ciebie %1$s. Otrzymasz powiadomienie, gdy tylko aplikacja sprawdzi cenę. Przy zamkniętej aplikacji to iOS decyduje, kiedy to nastąpi – może to chwilę potrwać. Gdy aplikacja jest otwarta, ceny są sprawdzane na czas.</string>
 
     <string name="about_request_exchange">Zaproponuj giełdę</string>

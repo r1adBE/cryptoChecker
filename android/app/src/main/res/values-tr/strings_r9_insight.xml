@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Şu an öne çıkan</string>
-    <string name="pulse_why_action">Neden? →</string>
+    <string name="pulse_why_action">Neden?</string>
     <string name="pulse_section_factors">Faktörler</string>
 
     <string name="pulse_lead_btc_leads">Piyasayı Bitcoin sürüklüyor.</string>

@@ -367,6 +367,15 @@ selection. Both platforms read the same files:
 Change a rule → change the JSON once, then run both test suites. Numbers JSON cannot hold
 are written as `"NaN"`, `"Infinity"`, `"-Infinity"`; `null` means «no value».
 
+**Exchange contract tests.** `android/testdata/exchanges/exchange_*.json` hold raw response
+bodies per exchange (single ticker, batch, WebSocket message) with the expected parsed values;
+fields that must not be used as a rolling 24 h value are expected as `null`, cases with a known
+parser issue carry `knownIssue`. Android: `ExchangeContractTest` (needs the real `org.json` from
+`testImplementation 'com.vaadin.external.google:android-json'`); iOS: `ExchangeContractTests`,
+files copied to `ios/Tests/Exchanges/` by `gen_xcodeproj.py`. When an exchange changes its API,
+update the body and expected values, then run both suites. Adding an exchange → add a fixture
+file, otherwise «every registered market has a fixture» fails.
+
 **iOS unit tests** (target `CryptoCheckerTests`, hosted by the app, `@testable import
 CryptoChecker`):
 

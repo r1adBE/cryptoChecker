@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">เลือก</string>
+    <string name="watchlist_select_all">เลือกทั้งหมด</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">เลือกแล้ว %1$d รายการ</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">ลบ %1$d คู่แล้ว</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">แสดงเฉพาะที่เก่าแล้ว</string>
+    <string name="watchlist_show_all">แสดงทั้งหมด</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">ชื่อ</string>
+    <string name="watchlist_sort_price">ราคา</string>
+    <string name="watchlist_sort_descending">จากมากไปน้อย</string>
+    <string name="watchlist_sort_ascending">จากน้อยไปมาก</string>
+    <string name="watchlist_sort_own">ลำดับของคุณเอง</string>
+</resources>

@@ -18,6 +18,8 @@ class AlarmEvaluator @Inject constructor() {
         previousPrice: Double?,
         now: Long,
         cooldownMinutes: Int,
+        /** Kursverlauf des Paars für MOVE_PERCENT_WINDOW (gleitendes Fenster, siehe [MoveWindow]). */
+        moveHistory: List<MoveWindow.PricePoint> = emptyList(),
     ): Boolean {
         if (!alarm.enabled) return false
         if (price <= 0.0) return false
@@ -41,11 +43,18 @@ class AlarmEvaluator @Inject constructor() {
                 change <= -alarm.threshold
             }
             AlarmCondition.MOVE_PERCENT_WINDOW -> {
-                // Nur innerhalb des laufenden Fensters; sonst setzt der Aufrufer neu an.
+                // Ohne gültigen Bezug setzt der Aufrufer erst einen ([needsReference]).
                 if (needsWindowReset(alarm, now)) return false
-                val reference = alarm.referencePrice ?: return false
-                if (reference <= 0.0) return false
-                kotlin.math.abs((price - reference) / reference * 100.0) >= alarm.threshold
+                // Gleitendes Fenster: grösste Bewegung gegenüber Verlauf und Bezug seit referenceAt
+                val change = MoveWindow.changePercent(
+                    history = moveHistory,
+                    reference = MoveWindow.PricePoint(alarm.referencePrice ?: return false, alarm.referenceAt),
+                    price = price,
+                    hours = alarm.windowHours,
+                    since = alarm.referenceAt,
+                    now = now,
+                ) ?: return false
+                kotlin.math.abs(change) >= alarm.threshold
             }
             // Braucht Volumendaten, siehe [shouldTriggerVolumeSpike].
             AlarmCondition.VOLUME_SPIKE -> false
@@ -110,14 +119,32 @@ class AlarmEvaluator @Inject constructor() {
     }
 
     /**
-     * Bewegungs-Alarm ohne gültiges Fenster (noch kein Bezugskurs oder das
-     * Fenster ist abgelaufen): Der Aufrufer setzt den aktuellen Kurs als
-     * neuen Bezug und beginnt ein neues Fenster.
+     * Bewegungs-Alarm ohne gültigen Bezug (noch keiner, oder der Bezug liegt in der Zukunft —
+     * z. B. nach einer Zeitumstellung des Geräts): Der Aufrufer setzt den aktuellen Kurs als Bezug.
+     * Ein ALTER Bezug braucht keinen Neubeginn mehr — das Fenster gleitet ([MoveWindow]); vorher
+     * setzte der Ablauf des Fensters den Bezug zurück, ohne die Bewegung zu prüfen (meldete im
+     * Hintergrund-Takt nie).
      */
     fun needsWindowReset(alarm: AlarmEntity, now: Long): Boolean {
         if (alarm.condition != AlarmCondition.MOVE_PERCENT_WINDOW) return false
-        if (alarm.referencePrice == null || alarm.referenceAt <= 0) return true
-        return now - alarm.referenceAt > alarm.windowHours.coerceAtLeast(1) * 3_600_000L
+        val reference = alarm.referencePrice
+        if (reference == null || !reference.isFinite() || reference <= 0.0 || alarm.referenceAt <= 0) return true
+        return alarm.referenceAt - now > 60_000L
+    }
+
+    /**
+     * Braucht der Alarm zuerst einen Bezugskurs? Bewegungs-Alarm siehe [needsWindowReset];
+     * Prozentalarm (CHANGE_PERCENT_*) ohne Bezug — etwa angelegt, bevor das Paar einen Kurs hatte:
+     * der Aufrufer setzt den aktuellen Kurs als Bezug (und meldet diesmal nicht), sonst verglich
+     * der Alarm nur aufeinanderfolgende Kurse.
+     */
+    fun needsReference(alarm: AlarmEntity, now: Long): Boolean = when (alarm.condition) {
+        AlarmCondition.MOVE_PERCENT_WINDOW -> needsWindowReset(alarm, now)
+        AlarmCondition.CHANGE_PERCENT_UP, AlarmCondition.CHANGE_PERCENT_DOWN -> {
+            val reference = alarm.referencePrice
+            reference == null || !reference.isFinite() || reference <= 0.0
+        }
+        else -> false
     }
 
     /**
@@ -133,5 +160,36 @@ class AlarmEvaluator @Inject constructor() {
     companion object {
         /** Hysterese der Kursalarme: 0,2 % der Marke (Spiegel: AlarmLogic.swift). */
         const val LEVEL_HYSTERESIS = 0.002
+
+        /**
+         * Zustand nach dem Auslösen (Spiegel: `AlarmEvaluator.triggered` in AlarmLogic.swift):
+         * letzte Meldung merken; Prozentalarme messen ab [price] weiter; «Nahe am Hoch/Tief» merkt die
+         * gemeldete Marke ([nearLevel]); Bewegungs-Alarm: neues Fenster ab jetzt; Volumen-Spike: die
+         * gemeldete Kerze ([candleOpenTime]); Kursmarken, «Nahe am Hoch/Tief», Funding und Open
+         * Interest: gemeldet (`referenceAt` > 0) bis zur Wiederscharfstellung; einmalige Alarme aus.
+         */
+        fun triggered(
+            alarm: AlarmEntity,
+            price: Double,
+            time: Long,
+            /** Volumen-Spike: Startzeit der gemeldeten Stundenkerze. */
+            candleOpenTime: Long? = null,
+            /** «Nahe am Hoch/Tief»: gemeldete Marke (Hoch/Tief bzw. Kurs beim neuen Hoch/Tief). */
+            nearLevel: Double? = null,
+        ): AlarmEntity = alarm.copy(
+            lastTriggeredAt = time,
+            lastTriggeredPrice = price,
+            referencePrice = when {
+                alarm.condition.isNearExtreme -> nearLevel ?: price
+                alarm.condition.isPercent -> price
+                else -> alarm.referencePrice
+            },
+            referenceAt = when (alarm.condition) {
+                AlarmCondition.VOLUME_SPIKE -> candleOpenTime ?: alarm.referenceAt
+                AlarmCondition.CHANGE_PERCENT_UP, AlarmCondition.CHANGE_PERCENT_DOWN -> alarm.referenceAt
+                else -> time
+            },
+            enabled = alarm.repeating,
+        )
     }
 }

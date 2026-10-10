@@ -62,4 +62,12 @@ final class ExplorerPairSearchTests: XCTestCase {
         XCTAssertEqual(ExplorerPairSearch.deliveryCode(CurrencyPairInfo("BTC", "USDT", "BTCUSDT_261225", .quarterly)), "261225")
         XCTAssertNil(ExplorerPairSearch.deliveryCode(CurrencyPairInfo("BTC", "USDT", "BTCUSDT", .perpetual)))
     }
+
+    /// Wie `arabicDigitsCountAsDate` (PairSearchTest.kt).
+    func testArabicDigitsCountAsDate() {
+        XCTAssertEqual(ExplorerPairSearch.parse("BTCUSDT \u{0661}\u{0662}\u{0662}\u{0665}")?.date, "1225")
+        XCTAssertEqual(ExplorerPairSearch.parse("BTCUSDT \u{06F2}\u{06F6}\u{06F1}\u{06F2}\u{06F2}\u{06F5}")?.date, "261225")
+        let code = ExplorerPairSearch.deliveryCode(CurrencyPairInfo("BTC", "USDT", "BTCUSDT", .quarterly))
+        XCTAssertTrue(code.map { $0.allSatisfy { $0.isASCII && $0.isNumber } } ?? true)
+    }
 }

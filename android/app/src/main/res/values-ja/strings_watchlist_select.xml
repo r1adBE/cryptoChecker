@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">選択</string>
+    <string name="watchlist_select_all">すべて選択</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">%1$d 件選択</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">%1$d 件のペアを削除しました</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">古いものだけ表示</string>
+    <string name="watchlist_show_all">すべて表示</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">名前</string>
+    <string name="watchlist_sort_price">価格</string>
+    <string name="watchlist_sort_descending">降順</string>
+    <string name="watchlist_sort_ascending">昇順</string>
+    <string name="watchlist_sort_own">自分の並び順</string>
+</resources>

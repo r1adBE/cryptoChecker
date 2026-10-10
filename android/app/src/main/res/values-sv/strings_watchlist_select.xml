@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Välj</string>
+    <string name="watchlist_select_all">Välj alla</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d vald</item>
+        <item quantity="other">%1$d valda</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d par borttaget</item>
+        <item quantity="other">%1$d par borttagna</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Visa bara inaktuella</string>
+    <string name="watchlist_show_all">Visa alla</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Namn</string>
+    <string name="watchlist_sort_price">Kurs</string>
+    <string name="watchlist_sort_descending">fallande</string>
+    <string name="watchlist_sort_ascending">stigande</string>
+    <string name="watchlist_sort_own">Egen ordning</string>
+</resources>

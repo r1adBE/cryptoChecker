@@ -246,6 +246,30 @@ class CoinLogoRepository @Inject constructor(
     }
 
     /**
+     * Erster Start: die Logos der Start-Coins ([symbols]) vor dem übrigen Abgleich holen, damit die
+     * Start-Auswahl nicht erst Initialen zeigt und nach ein paar Sekunden umspringt. Die Start-Coins
+     * sind für alle gleich (die grössten Coins) — die Abrufe verraten also nichts über eine
+     * Merkliste; einzelne Coins einer Merkliste werden weiterhin nie einzeln geholt.
+     * @return true, wenn danach alle Logos da sind (fehlt eines, zeigt die Zeile Initialen)
+     */
+    suspend fun ensureStarterLogos(symbols: Collection<String>): Boolean {
+        val current = runCatching { symbolMap() }.getOrElse { if (it is CancellationException) throw it; emptyMap() }
+        var added = 0
+        val complete = withContext(Dispatchers.IO) {
+            symbols.map { symbol ->
+                val name = CoinLogos.fileName(symbol) ?: return@map true
+                if (File(imageDir, name).isFile) return@map true
+                val url = current[symbol.uppercase()] ?: return@map false
+                downloadTo(name, url).also { if (it) added++ }
+            }.all { it }
+        }
+        // Gleich in den Speicher, damit die Zeilen das Bild ohne Dateizugriff zeigen
+        symbols.forEach { logo(it) }
+        if (added > 0) _revision.value++
+        return complete
+    }
+
+    /**
      * Lädt im Hintergrund die Logos aller Coins der Rangliste, die noch fehlen. Läuft nur einmal
      * gleichzeitig; danach [onDone] mit der Zahl neuer Logos (z. B. um Widgets neu zu zeichnen).
      * [images] = false (nur «Namen anzeigen»): nur die Liste mit den Namen, keine Bilder.

@@ -174,6 +174,24 @@ final class DerivativesAlarmTests: XCTestCase {
         XCTAssertTrue(DerivativesAlarm.pruneOi(history, now: later).isEmpty)
     }
 
+    /// Wie `DerivativesAlarmTest.newAlarmComparesWithinTheWindow` und `hourlyBackgroundRunsStillCompare`.
+    func testOpenInterestComparesWithinTheWindow() {
+        let start: Int64 = 1_700_000_000_000
+        let minute: Int64 = 60_000
+        let first = DerivativesAlarm.appendOi([], DerivativesAlarm.OiPoint(units: 100, time: start), now: start)
+        // Nur die aktuelle Messung → kein Vergleich; eine Veränderung in kürzerer Zeit zählt
+        XCTAssertNil(DerivativesAlarm.oiChangePercent(history: first, currentUnits: 150, hours: 1, now: start))
+        XCTAssertEqual(DerivativesAlarm.oiChangePercent(history: first, currentUnits: 150, hours: 1, now: start + 30 * minute) ?? 0,
+                       50, accuracy: 1e-9)
+        XCTAssertEqual(DerivativesAlarm.oiChangePercent(history: first, currentUnits: 150, hours: 4, now: start + 60 * minute) ?? 0,
+                       50, accuracy: 1e-9)
+        // Hintergrund im Stundentakt mit Schwankung: Messungen 50 bzw. 100 Min. alt
+        let history = DerivativesAlarm.appendOi(first, DerivativesAlarm.OiPoint(units: 104, time: start + 50 * minute),
+                                                now: start + 50 * minute)
+        let change = DerivativesAlarm.oiChangePercent(history: history, currentUnits: 115, hours: 1, now: start + 100 * minute)
+        XCTAssertEqual(change ?? 0, 115.0 / 104.0 * 100 - 100, accuracy: 1e-9)
+    }
+
     /// Editor: Funding-Eingabe mit Vorzeichen, Bedingungswechsel setzt passende Vorschläge.
     func testDraft() {
         var draft = AlarmDraft(condition: .PRICE_ABOVE, thresholdText: "60000")

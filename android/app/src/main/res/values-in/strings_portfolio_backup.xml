@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portofolio di cadangan sistem</string>
+    <string name="settings_portfolio_system_backup_hint">Nonaktif: transaksi Anda tidak disertakan dalam cadangan sistem perangkat maupun transfer ke ponsel baru. Untuk memindahkannya, gunakan cadangan aplikasi dengan kata sandi.</string>
+</resources>

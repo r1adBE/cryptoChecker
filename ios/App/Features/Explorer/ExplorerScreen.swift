@@ -60,9 +60,18 @@ struct ExplorerScreen: View {
                             }
 
                             if vm.currentMarket != nil && !vm.isDex {
-                                pairStep
-                                    .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
-                                if vm.hasPairs && !vm.bulkQuotes.isEmpty {
+                                // Mit «mehrere Paare auf einmal» zwei Register statt zwei Karten untereinander
+                                if bulkTabbed {
+                                    ExplorerModeTabs(bulk: showBulk) { bulk in
+                                        ExplorerSectionMemory.bulk = bulk
+                                        withAnimation(.snappy(duration: 0.25)) { showBulk = bulk }
+                                    }
+                                }
+                                if !bulkTabbed || !showBulk {
+                                    pairStep
+                                        .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
+                                }
+                                if bulkTabbed && showBulk {
                                     bulkSection
                                         .transition(.opacity)
                                 }
@@ -74,9 +83,17 @@ struct ExplorerScreen: View {
                             HStack(spacing: Spacing.xs) {
                                 Text(L("explorer_exchange_missing"))
                                     .foregroundStyle(AppColors.onSurfaceVariant)
-                                Link(L("about_request_exchange"), destination: url)
-                                    .fontWeight(.semibold)
-                                    .tint(accent.primary)
+                                // Verweis nach aussen überall gleich: Themenfarbe mit ↗ (wie die Einstellungen)
+                                Link(destination: url) {
+                                    HStack(spacing: 3) {
+                                        Text(L("about_request_exchange"))
+                                        Image(systemName: "arrow.up.forward")
+                                            .imageScale(.small)
+                                    }
+                                }
+                                .fontWeight(.semibold)
+                                .tint(accent.primary)
+                                .accessibilityHint(L("a11y_external_link"))
                             }
                             .font(.footnote)
                             .frame(maxWidth: .infinity)

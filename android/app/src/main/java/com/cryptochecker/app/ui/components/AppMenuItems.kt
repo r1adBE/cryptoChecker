@@ -29,6 +29,8 @@ fun AppMenuHead(
     onClose: () -> Unit,
     onOpenAbout: () -> Unit,
     onRefresh: () -> Unit,
+    /** Zusätzlich gesperrt (z. B. eben erst aktualisiert); grau statt einer Meldung. */
+    refreshEnabled: Boolean = true,
 ) {
     DropdownMenuItem(
         text = {
@@ -57,7 +59,7 @@ fun AppMenuHead(
                 Icon(painterResource(R.drawable.ic_refresh), null)
             }
         },
-        enabled = !refreshing,
+        enabled = !refreshing && refreshEnabled,
         onClick = { onClose(); onRefresh() }
     )
 }

@@ -60,6 +60,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.settings.inputDecimalSeparator
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
@@ -91,8 +92,12 @@ fun PortfolioTxSheet(
     val isEdit = initial.id != 0L
     var type by rememberSaveable { mutableStateOf(initial.type) }
     var coinQuery by rememberSaveable { mutableStateOf(initial.coin) }
-    var amountText by rememberSaveable { mutableStateOf(PriceFormat.amountForInput(initial.amount)) }
-    var priceText by rememberSaveable { mutableStateOf(PriceFormat.amountForInput(initial.priceUsdt)) }
+    // Dezimalzeichen der Region (Sprache der App, Region des Geräts) — wie bei den Alarmen
+    val decimalSeparator = remember { inputDecimalSeparator() }
+    var amountText by rememberSaveable { mutableStateOf(PriceFormat.amountForInput(initial.amount, decimalSeparator)) }
+    var priceText by rememberSaveable { mutableStateOf(PriceFormat.amountForInput(initial.priceUsdt, decimalSeparator)) }
+    // Kurs, an dem ein mehrdeutiger Preis («60.000») gemessen wird: gespeicherter bzw. aktueller Kurs
+    var priceHint by rememberSaveable { mutableStateOf(initial.priceUsdt?.takeIf { it.isFinite() && it > 0.0 }) }
     // Vorbelegter Preis darf bei einem Coin-Wechsel ersetzt werden, ein getippter nicht
     var priceAuto by rememberSaveable { mutableStateOf(!isEdit && initial.priceUsdt != null) }
     var pricedCoin by rememberSaveable { mutableStateOf(if (initial.priceUsdt != null || isEdit) initial.coin else "") }
@@ -104,21 +109,23 @@ fun PortfolioTxSheet(
 
     val coin = PortfolioCalculator.normalizeCoin(coinQuery)
     val coinValid = coin.length in 1..15 && coin.all { it.isLetterOrDigit() }
-    val amount = PriceFormat.parseAmount(amountText)?.takeIf { it > 0.0 }
-    val price: Double? = if (priceText.isBlank()) null else PriceFormat.parseAmount(priceText)
+    // Menge ohne Kurs-Hinweis (mehrdeutig → Dezimalzeichen der Region), Preis am Kurs gemessen
+    val amount = PriceFormat.parseAmount(amountText, decimalSeparator)?.takeIf { it > 0.0 }
+    val price: Double? = if (priceText.isBlank()) null else PriceFormat.parseAmount(priceText, decimalSeparator, priceHint)
     val priceValid = priceText.isBlank() || price != null
     val valid = coinValid && amount != null && priceValid
 
-    // Kurs vorbelegen, sobald ein (anderer) Coin feststeht
+    // Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt,
+    // der Kurs dient dann nur als Hinweis für eine mehrdeutige Eingabe
     LaunchedEffect(coin, coinValid) {
         if (isEdit || !coinValid || coin == pricedCoin) return@LaunchedEffect
-        if (priceText.isNotBlank() && !priceAuto) return@LaunchedEffect
         // Erst nach kurzer Tipp-Pause, nicht bei jedem Buchstaben
         kotlinx.coroutines.delay(400)
-        val current = viewModel.currentPrice(coin)
+        val current = viewModel.currentPrice(coin)?.takeIf { it.isFinite() && it > 0.0 }
         pricedCoin = coin
+        priceHint = current
         if (priceText.isBlank() || priceAuto) {
-            priceText = current?.let { PriceFormat.amountForInput(it) }.orEmpty()
+            priceText = current?.let { PriceFormat.amountForInput(it, decimalSeparator) }.orEmpty()
             priceAuto = current != null
         }
     }

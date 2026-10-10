@@ -9,6 +9,8 @@ import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.optText
+import com.cryptochecker.marketdata.util.getText
 
 /**
  * NonKYC.io. API v2 (https://api.nonkyc.io/api/v2). Die Marktliste nennt die
@@ -48,8 +50,8 @@ class NonKyc : SimpleMarket(
     }
 
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? {
-        jsonObject.optJSONObject("error")?.let { return it.getString("message") }
-        return jsonObject.optString("error").ifEmpty { jsonObject.getString("message") }
+        jsonObject.optJSONObject("error")?.let { return it.getText("message") }
+        return jsonObject.optText("error").ifEmpty { jsonObject.getText("message") }
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

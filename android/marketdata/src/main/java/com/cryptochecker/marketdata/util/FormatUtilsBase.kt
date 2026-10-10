@@ -5,36 +5,50 @@ import android.text.format.DateFormat
 import android.text.format.DateUtils
 import com.cryptochecker.marketdata.model.CurrencySubunit
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 
 object FormatUtilsBase {
 
-    // Call when application changes locale
+    /** Formate sofort neu anlegen (z. B. nach einem Sprachwechsel); sonst geschieht das beim nächsten Aufruf. */
     fun updateLocale() {
-        // Recreate formatter
-        decimalFormatStore = DecimalFormatStore()
+        decimalFormatStore = DecimalFormatStore(Locale.getDefault(Locale.Category.FORMAT))
     }
 
     // ========================================
     // Double formatting (using default locale)
     // ========================================
-    private class DecimalFormatStore {
-        val formatNoDecimal = DecimalFormat("#,###")
-        val formatTwoDecimal = DecimalFormat("#,###.00")
-        val formatFourSignificantAtMost = DecimalFormat("@###")
-        val formatEightSignificantAtMost = DecimalFormat("@#######")
+    private class DecimalFormatStore(val locale: Locale) {
+        private val symbols = DecimalFormatSymbols.getInstance(locale)
+        val formatNoDecimal = DecimalFormat("#,###", symbols)
+        val formatTwoDecimal = DecimalFormat("#,###.00", symbols)
+        val formatFourSignificantAtMost = DecimalFormat("@###", symbols)
+        val formatEightSignificantAtMost = DecimalFormat("@#######", symbols)
     }
 
-    private var decimalFormatStore = DecimalFormatStore()
+    @Volatile
+    private var decimalFormatStore = DecimalFormatStore(Locale.getDefault(Locale.Category.FORMAT))
+
+    /**
+     * Formate zur aktuellen Sprache: Nach einem Sprachwechsel in der App (`Locale.setDefault`)
+     * werden sie beim nächsten Aufruf neu angelegt — ohne Neustart, auch ohne [updateLocale].
+     */
+    private val store: DecimalFormatStore
+        get() {
+            val locale = Locale.getDefault(Locale.Category.FORMAT)
+            val current = decimalFormatStore
+            if (current.locale == locale) return current
+            return DecimalFormatStore(locale).also { decimalFormatStore = it }
+        }
 
     // ====================
     // Format methods
     // ====================
     fun formatDouble(value: Double/*, isPrice: Boolean*/): String {
         val decimalFormat: DecimalFormat = when {
-            value < 10 -> decimalFormatStore.formatFourSignificantAtMost
-            value < 10000 -> decimalFormatStore.formatTwoDecimal
-            else -> decimalFormatStore.formatNoDecimal
+            value < 10 -> store.formatFourSignificantAtMost
+            value < 10000 -> store.formatTwoDecimal
+            else -> store.formatNoDecimal
         }
 
         return formatDouble(decimalFormat, value)
@@ -42,12 +56,12 @@ object FormatUtilsBase {
 
     @Suppress("unused")
     fun formatDoubleWithEightMax(value: Double): String {
-        return formatDouble(decimalFormatStore.formatEightSignificantAtMost, value)
+        return formatDouble(store.formatEightSignificantAtMost, value)
     }
 
     @Suppress("unused")
     fun formatDoubleWithFourMax(value: Double): String {
-        return formatDouble(decimalFormatStore.formatFourSignificantAtMost, value)
+        return formatDouble(store.formatFourSignificantAtMost, value)
     }
 
     private fun formatDouble(decimalFormat: DecimalFormat, value: Double): String {

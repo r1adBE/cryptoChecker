@@ -59,7 +59,8 @@ struct PortfolioSummary: Sendable, Equatable {
 ///    Realisiert += (Verkaufspreis − Ø) × Menge, wenn der Verkaufspreis bekannt ist und
 ///    der ganze Bestand einen Kaufpreis hat.
 ///  - Gewinn/Verlust nur, wenn der ganze Restbestand einen Kaufpreis hat.
-///  - USDT selbst hat immer den Kurs 1.
+///  - Aktueller Kurs nach der Stablecoin-Regel (`PortfolioStables`): USDT immer 1, andere
+///    Stablecoins ihr Marktkurs, ohne Kurs 1.
 enum PortfolioCalculator {
     /// Darunter gilt eine Menge als null.
     static let eps = 1e-12
@@ -67,7 +68,6 @@ enum PortfolioCalculator {
     /// Relative Toleranz, damit «alles verkaufen» bei Rundung nicht als Überverkauf gilt.
     private static let sellTolerance = 1e-9
 
-    private static let oneDollar: Set<String> = ["USDT"]
 
     static func normalizeCoin(_ coin: String) -> String {
         coin.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -117,12 +117,8 @@ enum PortfolioCalculator {
 
         let total = priced + unpriced
         let holdings = total <= eps ? 0 : total
-        let price: Double?
-        if let p = currentPrice, p > 0, !p.isInfinite {
-            price = p
-        } else {
-            price = oneDollar.contains(symbol) ? 1 : nil
-        }
+        // Stablecoin-Regel: USDT = 1, andere Stablecoins Marktkurs, sonst 1 (`PortfolioStables`)
+        let price = PortfolioStables.price(symbol, market: currentPrice)
         let priceMissing = holdings > 0 && unpriced > eps
         let avgCost: Double? = priced > eps ? avg : nil
         let costBasis: Double? = holdings > 0 && !priceMissing ? priced * avg : nil

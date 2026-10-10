@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">القفل يحمي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور. النسخ الاحتياطية للجهاز بالكامل (نسخ النظام) تتضمن هذه البيانات مع ذلك.</string>
+    <string name="settings_portfolio_lock_footer">القفل يحمي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور.</string>
     <string name="backup_protect">الحماية بكلمة مرور</string>
     <string name="backup_protect_hint">يشفّر الملف (AES-256). يُنصح به إذا كان يحتوي على بيانات المحفظة.</string>
     <string name="backup_password">كلمة المرور</string>

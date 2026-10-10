@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Det här sticker ut</string>
-    <string name="pulse_why_action">Varför? →</string>
+    <string name="pulse_why_action">Varför?</string>
     <string name="pulse_section_factors">Faktorer</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin leder marknaden.</string>

@@ -27,7 +27,8 @@ struct PortfolioPrices: Sendable, Equatable {
 ///
 /// Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für
 /// fehlende Coins einzeln der letzte Schlusskurs der 1-h-Kerzen aus der
-/// `CandleDataSource`-Kette. USDT = 1. Zwischenspeicher 60 s.
+/// `CandleDataSource`-Kette. USDT = 1; andere Stablecoins (USDC, DAI …) werden wie jeder Coin
+/// geholt — fehlt ihr Kurs, setzt der Rechner 1 (`PortfolioStables`). Zwischenspeicher 60 s.
 ///
 /// Coin-Liste für die Suche: Binance-Spot-Paare gegen USDT (exchangeInfo), sonst
 /// der Paar-Zwischenspeicher der Börse «Binance» (vom Aufrufer geliefert, da er
@@ -97,8 +98,10 @@ enum PortfolioPriceSource {
     /// Ein einzelner Kurs, z. B. zum Vorbelegen im Erfassen-Blatt.
     static func price(_ coin: String) async -> Double? {
         let symbol = PortfolioCalculator.normalizeCoin(coin)
-        if symbol == stable { return 1 }
-        return await prices([symbol]).prices[symbol]
+        if !PortfolioStables.needsQuote(symbol) { return 1 }
+        // Stablecoin ohne Marktkurs: 1 (gleiche Regel wie Kopf, Verlauf und Widget)
+        let market = await prices([symbol]).prices[symbol]
+        return PortfolioStables.price(symbol, market: market)
     }
 
     private static func normalized(_ coins: [String]) -> [String] {

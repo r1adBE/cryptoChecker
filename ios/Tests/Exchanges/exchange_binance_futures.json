@@ -1,0 +1,152 @@
+{
+  "exchange": "Binance Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT | https://dapi.binance.com/dapi/v1/ticker/24hr?symbol=BTCUSD_PERP",
+    "bulk": "GET fapi /fapi/v1/ticker/24hr (requestId 0), dapi /dapi/v1/ticker/24hr (requestId 1)",
+    "ws": "wss://fstream.binance.com/ws  <symbol>@ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "USD-M 24hr BTCUSDT (no bid/ask in futures 24hr ticker)",
+      "market": "BinanceFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1480.20\",\"priceChangePercent\":\"2.446\",\"weightedAvgPrice\":\"61498.12\", \"lastPrice\":\"61990.20\",\"lastQty\":\"0.005\",\"openPrice\":\"60510.00\",\"highPrice\":\"62480.00\",\"lowPrice\":\"59980.10\", \"volume\":\"215432.123\",\"quoteVolume\":\"13248901234.56\",\"openTime\":1728453600000,\"closeTime\":1728540000456, \"firstId\":5012345678,\"lastId\":5013456789,\"count\":1111112}",
+      "expect": {
+        "last": 61990.2,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 62480.0,
+        "low": 59980.1,
+        "vol": 215432.123,
+        "volQuote": 13248901234.56,
+        "change24hPercent": 2.446,
+        "timestamp": 1728540000456
+      }
+    },
+    {
+      "kind": "single",
+      "name": "COIN-M 24hr (array with one entry, pair id prefixed 2:)",
+      "market": "BinanceFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "2:BTCUSD_PERP",
+        "contract": "INVERSE_PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"priceChange\":\"1490.1\",\"priceChangePercent\":\"2.462\", \"weightedAvgPrice\":\"61502.3\",\"lastPrice\":\"62000.1\",\"lastQty\":\"3\",\"openPrice\":\"60510.0\",\"highPrice\":\"62490.0\", \"lowPrice\":\"59990.0\",\"volume\":\"6236012\",\"baseVolume\":\"10139.12345678\",\"openTime\":1728453600000, \"closeTime\":1728540000321,\"firstId\":901,\"lastId\":902,\"count\":2}]",
+      "expect": {
+        "last": 62000.1,
+        "high": 62490.0,
+        "low": 59990.0,
+        "vol": 10139.12345678,
+        "volQuote": -1.0,
+        "change24hPercent": 2.462,
+        "timestamp": 1728540000321
+      },
+      "note": "COIN-M 'volume' is a contract count; vol is baseVolume (coin amount). No quote volume in COIN-M (not estimated)"
+    },
+    {
+      "kind": "single",
+      "name": "error payload: invalid symbol (message comes from the thrown exception)",
+      "market": "BinanceFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "Invalid symbol."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "quoteVolume missing is optional",
+      "market": "BinanceFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1480.20\",\"priceChangePercent\":\"2.446\",\"weightedAvgPrice\":\"61498.12\", \"lastPrice\":\"61990.20\",\"lastQty\":\"0.005\",\"openPrice\":\"60510.00\",\"highPrice\":\"62480.00\",\"lowPrice\":\"59980.10\", \"volume\":\"215432.123\",\"openTime\":1728453600000,\"closeTime\":1728540000456, \"firstId\":5012345678,\"lastId\":5013456789,\"count\":1111112}",
+      "expect": {
+        "last": 61990.2,
+        "volQuote": -1.0,
+        "change24hPercent": 2.446
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk USD-M (requestId 0)",
+      "market": "BinanceFutures",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1480.20\",\"priceChangePercent\":\"2.446\",\"weightedAvgPrice\":\"61498.12\", \"lastPrice\":\"61990.20\",\"lastQty\":\"0.005\",\"openPrice\":\"60510.00\",\"highPrice\":\"62480.00\",\"lowPrice\":\"59980.10\", \"volume\":\"215432.123\",\"quoteVolume\":\"13248901234.56\",\"openTime\":1728453600000,\"closeTime\":1728540000456, \"firstId\":5012345678,\"lastId\":5013456789,\"count\":1111112},{\"symbol\":\"ETHUSDT\",\"priceChange\":\"-12.34\",\"priceChangePercent\":\"-0.501\",\"weightedAvgPrice\":\"2455.10\", \"lastPrice\":\"2450.12\",\"lastQty\":\"0.100\",\"openPrice\":\"2462.46\",\"highPrice\":\"2490.00\",\"lowPrice\":\"2430.00\", \"volume\":\"3456789.012\",\"quoteVolume\":\"8487654321.09\",\"openTime\":1728453600000,\"closeTime\":1728540000789, \"firstId\":1,\"lastId\":2,\"count\":2}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTCUSDT": {
+            "last": 61990.2,
+            "change24hPercent": 2.446,
+            "timestamp": 1728540000456
+          },
+          "ETHUSDT": {
+            "last": 2450.12,
+            "high": 2490.0,
+            "low": 2430.0,
+            "vol": 3456789.012,
+            "volQuote": 8487654321.09,
+            "change24hPercent": -0.501,
+            "timestamp": 1728540000789
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk COIN-M (requestId 1): keys get the 2: prefix",
+      "market": "BinanceFutures",
+      "requestId": 1,
+      "body": "[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"priceChange\":\"1490.1\",\"priceChangePercent\":\"2.462\", \"weightedAvgPrice\":\"61502.3\",\"lastPrice\":\"62000.1\",\"lastQty\":\"3\",\"openPrice\":\"60510.0\",\"highPrice\":\"62490.0\", \"lowPrice\":\"59990.0\",\"volume\":\"6236012\",\"baseVolume\":\"10139.12345678\",\"openTime\":1728453600000, \"closeTime\":1728540000321,\"firstId\":901,\"lastId\":902,\"count\":2}]",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "2:BTCUSD_PERP": {
+            "last": 62000.1,
+            "vol": 10139.12345678,
+            "volQuote": -1.0,
+            "change24hPercent": 2.462
+          }
+        }
+      }
+    },
+    {
+      "kind": "live",
+      "name": "ws futures 24hrTicker (no bid/ask fields)",
+      "exchange": "BINANCE_FUTURES",
+      "message": "{\"e\":\"24hrTicker\",\"E\":1728540000456,\"s\":\"BTCUSDT\",\"p\":\"1480.20\",\"P\":\"2.446\",\"w\":\"61498.12\",\"c\":\"61990.20\", \"Q\":\"0.005\",\"o\":\"60510.00\",\"h\":\"62480.00\",\"l\":\"59980.10\",\"v\":\"215432.123\",\"q\":\"13248901234.56\",\"O\":1728453600000, \"C\":1728540000456,\"F\":5012345678,\"L\":5013456789,\"n\":1111112}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": 61990.2,
+          "change24h": 2.446,
+          "time": 1728540000456
+        }
+      ]
+    }
+  ]
+}

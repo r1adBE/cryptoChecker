@@ -288,10 +288,18 @@ fun AppNavHost(
                 }
             }
 
-            composable(ScreenRoute.MarketPhase) {
+            composable(ScreenRoute.MarketPhase) { entry ->
+                // Aktionsblatt aus «Heute auffällig»: dieselbe Instanz wie die Merkliste (ihr Eintrag
+                // ist als Startziel immer im Stapel); zur Not eine eigene für diesen Tab
+                val watchlistOwner = androidx.compose.runtime.remember(entry) {
+                    runCatching { navigation.getBackStackEntry(ScreenRoute.Watchlist) }.getOrNull() ?: entry
+                }
                 // Erst beim ersten Öffnen erzeugt, danach bis zum Ende der Activity behalten
                 MarketPhaseScreen(
                     viewModel = hiltViewModel(viewModelStoreOwner = activityOwner),
+                    watchlistViewModel = hiltViewModel(viewModelStoreOwner = watchlistOwner),
+                    lockViewModel = lockViewModel,
+                    onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.alarms(watchId)) },
                     // Wie «+»: Seite «Paar hinzufügen» über der Merkliste (gleich wie iOS)
                     onOpenExplorer = { query ->
                         explorerSearch = query

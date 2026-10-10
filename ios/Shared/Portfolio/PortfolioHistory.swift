@@ -55,7 +55,10 @@ struct PortfolioHistorySeries: Equatable, Sendable {
 ///    Fehlt an einem Tag die Kerze, gilt der letzte bekannte Schluss davor; vor der ersten
 ///    Kerze zählt der Coin nicht.
 ///  - Heute: Bestand nach allen Transaktionen × aktueller Kurs (sonst letzter Schluss).
-///  - Stablecoins = 1 ohne Kerzen. Coins ganz ohne Kerzen fehlen und stehen in `skipped`.
+///  - Stablecoins nach `PortfolioStables`: USDT = 1, andere Stablecoins ihr Tagesschluss (sonst 1).
+///    Andere Coins ganz ohne Kerzen fehlen und stehen in `skipped` — ebenso, wenn der jüngste
+///    Schluss mehr als 25 % vom aktuellen Kurs abweicht (`PricePlausibility`).
+///  - `fxRate` gilt für alle Punkte gleich; Tageskurse je Punkt siehe `PortfolioHistoryFx`.
 ///  - Beginn = erster Transaktionstag oder Beginn des Zeitraums, je nachdem, was später ist
 ///    (`startDay`); «Seit 1. Kauf» höchstens `sinceFirstMaxDays` Tage zurück (`isCapped`).
 ///  - Tageskerzen: mindestens `maxDays` je Coin, für «Seit 1. Kauf» so viele wie nötig
@@ -70,10 +73,10 @@ enum PortfolioHistory {
 
     private static let dayMillis: Int64 = 86_400_000
 
-    /// Stablecoins mit Kurs 1 — gleiche Liste wie `PortfolioCutoff` / `CutoffExport.STABLES`.
-    static let stables: Set<String> = ["USDT", "USDC", "BUSD", "FDUSD", "TUSD", "USDP", "DAI", "USD"]
+    /// Stablecoins: die eine Liste aus `PortfolioStables` (Tagesschluss, sonst 1; USDT immer 1).
+    static var stables: Set<String> { PortfolioStables.coins }
 
-    static func isStable(_ coin: String) -> Bool { stables.contains(PortfolioCalculator.normalizeCoin(coin)) }
+    static func isStable(_ coin: String) -> Bool { PortfolioStables.isStable(coin) }
 
     /// UTC-Tag einer Kerzen-Eröffnungszeit (ms), auch vor 1970 korrekt abgerundet.
     static func epochDay(utcMillis millis: Int64) -> Int {
@@ -145,19 +148,23 @@ enum PortfolioHistory {
 
         let startMillis = dayEndMillis(start - 1) + 1
         let held = coins.filter { heldWithin(timelines[$0] ?? [], from: startMillis) }
-        let skipped = held.filter { !isStable($0) && (closes[$0]?.isEmpty ?? true) }
+
+        // Je Coin die Kerzen aufsteigend (USDT braucht keine). Plausibilität wie bei der Pille:
+        // passt der jüngste Schluss nicht zum aktuellen Kurs (> 25 %), zählt die Reihe nicht.
+        var sortedCloses: [String: [(day: Int, close: Double)]] = [:]
+        for coin in held where PortfolioStables.needsQuote(coin) {
+            let series = (closes[coin] ?? [:])
+                .filter { $0.value > 0 && $0.value.isFinite }
+                .sorted { $0.key < $1.key }
+                .map { (day: $0.key, close: $0.value) }
+            sortedCloses[coin] = PricePlausibility.closesMatchLive(series, live: livePrices[coin]) ? series : []
+        }
+        // Stablecoins fehlen nie (ohne Kurs 1), andere Coins ohne (passende) Kerzen schon
+        let skipped = held.filter { !isStable($0) && (sortedCloses[$0]?.isEmpty ?? true) }
         let included = held.filter { !skipped.contains($0) }
         guard !included.isEmpty else {
             return PortfolioHistorySeries(points: [], skipped: skipped, change: nil, changePercent: nil,
                                           tradesInRange: false, capped: capped)
-        }
-
-        var sortedCloses: [String: [(day: Int, close: Double)]] = [:]
-        for coin in included where !isStable(coin) {
-            sortedCloses[coin] = (closes[coin] ?? [:])
-                .filter { $0.value > 0 && $0.value.isFinite }
-                .sorted { $0.key < $1.key }
-                .map { (day: $0.key, close: $0.value) }
         }
 
         var points: [PortfolioHistoryPoint] = []
@@ -170,15 +177,14 @@ enum PortfolioHistory {
                 let timeline = timelines[coin] ?? []
                 let amount = isToday ? (timeline.last?.holdings ?? 0) : holdingsAt(timeline, end)
                 guard amount > 0 else { continue }
-                let price: Double?
-                if isStable(coin) {
-                    price = 1
-                } else if isToday, let live = livePrices[coin], live > 0, live.isFinite {
-                    price = live
+                let market: Double?
+                if isToday, let live = livePrices[coin], live > 0, live.isFinite {
+                    market = live
                 } else {
-                    price = closeOnOrBefore(sortedCloses[coin] ?? [], day: day)
+                    market = closeOnOrBefore(sortedCloses[coin] ?? [], day: day)
                 }
-                guard let price else { continue }
+                // Stablecoin-Regel: USDT 1, andere Stablecoins Kurs des Tags, sonst 1
+                guard let price = PortfolioStables.price(coin, market: market) else { continue }
                 total += amount * price
             }
             points.append(PortfolioHistoryPoint(epochDay: day, value: total * rate))

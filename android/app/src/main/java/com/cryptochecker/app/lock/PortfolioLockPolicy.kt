@@ -60,6 +60,12 @@ object PortfolioLockPolicy {
     /** Ausschalten der Sperre verlangt Entsperren, solange gesperrt (sonst wäre sie über die Optionen zu umgehen). */
     fun disableNeedsUnlock(locked: Boolean): Boolean = locked
 
+    /**
+     * «Portfolio in Systemsicherung» einschalten verlangt Entsperren, solange gesperrt (sonst gelangten
+     * die Trades über die Systemsicherung an der Sperre vorbei). Ausschalten schützt und geht immer.
+     */
+    fun systemBackupNeedsUnlock(locked: Boolean, enabling: Boolean): Boolean = locked && enabling
+
     /** «Zum Portfolio hinzufügen» aus der Merkliste (Blatt zeigt Bestände) verlangt Entsperren, solange gesperrt. */
     fun quickAddNeedsUnlock(locked: Boolean): Boolean = locked
 

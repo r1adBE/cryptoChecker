@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -39,7 +40,8 @@ private data class CoinCloses(val closes: Map<Long, Double>, val span: Int)
  * dem Gerät ([CycleCacheStore], Eintrag «phist_<COIN>», samt abgefragter Spanne) und im
  * Speicher; ein Eintrag mit kürzerer Spanne als verlangt wird neu geholt. Ein Coin, den
  * Binance nicht führt (HTTP 400), wird als «ohne Verlauf» ebenfalls 12 h gemerkt.
- * Stablecoins brauchen keine Abfrage (Kurs 1, siehe [PortfolioHistory]).
+ * Nur USDT braucht keine Abfrage; andere Stablecoins (z. B. USDCUSDT) werden wie jeder Coin
+ * geholt — fehlt ihr Kurs, gilt 1 ([PortfolioStables], [PortfolioHistory]).
  */
 @Singleton
 class PortfolioHistorySource @Inject constructor(
@@ -59,7 +61,7 @@ class PortfolioHistorySource @Inject constructor(
     ): Map<String, Map<Long, Double>> =
         withContext(Dispatchers.IO) {
             val symbols = coins.map { PortfolioCalculator.normalizeCoin(it) }
-                .filter { isAsset(it) && !PortfolioHistory.isStable(it) }
+                .filter { isAsset(it) && PortfolioStables.needsQuote(it) }
                 .distinct()
             val span = days.coerceAtLeast(PortfolioHistory.MAX_DAYS)
             val limiter = Semaphore(PARALLEL)

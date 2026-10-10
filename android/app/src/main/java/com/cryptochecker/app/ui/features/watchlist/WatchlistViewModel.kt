@@ -1,6 +1,8 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.watch.ColumnSort
+import com.cryptochecker.app.domain.watch.SortKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.RefreshStats
@@ -74,7 +76,19 @@ class WatchlistViewModel @Inject constructor(
     private val addMoments: com.cryptochecker.app.data.AddMoments,
     private val sheetChartRepository: com.cryptochecker.app.data.SheetChartRepository,
     private val livePriceStream: com.cryptochecker.app.data.live.LivePriceStream,
+    private val coinLogoRepository: com.cryptochecker.app.data.CoinLogoRepository,
+    private val dayReferences: com.cryptochecker.app.domain.refresh.DayReferences,
 ) : ViewModel() {
+
+    /**
+     * Kam die Pille von [watch] aus den Kerzen einer anderen Börse (z. B. Kraken-Paar, Binance-Kerzen)?
+     * Dann deren Name für den Hinweis im Aktionsblatt und in «Warum?»; sonst null.
+     */
+    fun foreignCandleSource(watch: WatchEntity): String? =
+        com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(
+            listOf(watch.marketKey, watch.marketName),
+            dayReferences.pillCandleSource(watch.id),
+        )
 
     /**
      * EINE Datenbank-Beobachtung der Merkliste für alle Ableitungen unten (bisher vier):
@@ -121,17 +135,39 @@ class WatchlistViewModel @Inject constructor(
     private var starterJob: kotlinx.coroutines.Job? = null
     private var starterAddJob: kotlinx.coroutines.Job? = null
 
+    /**
+     * Logos der Start-Coins geladen (oder Logos aus bzw. nach [STARTER_LOGO_WAIT_MILLIS] aufgegeben)?
+     * Bis dahin zeigt die Start-Auswahl statt der Logos einen ruhigen Platzhalter — kein Umspringen
+     * von Initialen auf Logos ein paar Sekunden nach dem Installieren.
+     */
+    private val _starterLogosReady = MutableStateFlow(!settingsRepository.cached.coinLogos)
+    val starterLogosReady: StateFlow<Boolean> = _starterLogosReady.asStateFlow()
+
+    private suspend fun ensureStarterLogos(coins: List<StarterPairs.Coin>) {
+        if (!settingsRepository.cached.coinLogos) {
+            _starterLogosReady.value = true
+            return
+        }
+        kotlinx.coroutines.withTimeoutOrNull(STARTER_LOGO_WAIT_MILLIS) {
+            coinLogoRepository.ensureStarterLogos(coins.map { it.symbol })
+        }
+        _starterLogosReady.value = true
+    }
+
     /** Nur wenn die leere Merkliste gezeigt wird; höchstens ein Abruf gleichzeitig. */
     fun loadStarterCoins() {
         if (starterJob?.isActive == true) return
         starterJob = viewModelScope.launch {
-            // Kurse gleich für die sofort gezeigte Liste (parallel zur frischeren Liste)
+            // Kurse und Logos gleich für die sofort gezeigte Liste (parallel zur frischeren Liste)
             val pricesJob = launch { loadStarterPrices(_starterCoins.value) }
+            val logosJob = launch { ensureStarterLogos(_starterCoins.value) }
             starterCoinsRepository.fresh(deviceRegionLocale().country)?.let { fresh ->
                 val changed = fresh.map { it.symbol } != _starterCoins.value.map { it.symbol }
                 _starterCoins.value = fresh
                 if (changed) {
                     pricesJob.cancel()
+                    // Neue Coins: deren Logos noch dazu (die Liste bleibt dabei sichtbar)
+                    launch { logosJob.join(); ensureStarterLogos(fresh) }
                     loadStarterPrices(fresh)
                 }
             }
@@ -200,6 +236,55 @@ class WatchlistViewModel @Inject constructor(
      * Wird nur für sichtbare Zeilen angefragt, siehe WatchlistScreen.
      */
     suspend fun sparkline(baseAsset: String): List<Double>? = sparklineRepository.closes(baseAsset)
+
+    /** Sortieren nach Spalte («Name ⇅ · Kurs ⇅ · 24h ⇅»); null = eigene Reihenfolge. */
+    val columnSort: StateFlow<ColumnSort?> = settingsRepository.settings
+        .map { ColumnSort.decode(it.watchlistColumnSort) }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, ColumnSort.decode(settingsRepository.cached.watchlistColumnSort))
+
+    /** Tipp auf eine Spalte: absteigend/aufsteigend/eigene Reihenfolge ([ColumnSort.next]). */
+    fun tapColumn(key: SortKey) {
+        val next = ColumnSort.next(columnSort.value, key)
+        viewModelScope.launch { settingsRepository.setWatchlistColumnSort(next?.encode()) }
+    }
+
+    /** Sortieren nach Spalte aus (z. B. beim manuellen Sortieren, das die eigene Reihenfolge zeigt). */
+    fun clearColumnSort() {
+        if (columnSort.value != null) viewModelScope.launch { settingsRepository.setWatchlistColumnSort(null) }
+    }
+
+    /**
+     * Faktor je Quote-Währung in CHF, nur fürs Sortieren nach Kurs — im Hintergrund, auch ohne
+     * eingeschaltete «≈ Umrechnung». Geholt nur, solange nach Kurs sortiert wird (sonst keine
+     * Abfrage); danach höchstens alle 60 s neu.
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val sortRates: StateFlow<Map<String, Double>> = combine(
+        columnSort.map { it?.key == SortKey.PRICE }.distinctUntilChanged(),
+        watchList
+            .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
+            .distinctUntilChanged(),
+    ) { byPrice, quotes -> byPrice to quotes }
+        .transformLatest { (byPrice, quotes) ->
+            val wanted = quotes.filterNot { CurrencyConversion.sameCurrency(it, SORT_CURRENCY) }
+            if (!byPrice || wanted.isEmpty()) {
+                emit(emptyMap())
+                return@transformLatest
+            }
+            var known = currencyConverter.cachedRates(wanted, SORT_CURRENCY)
+            emit(known)
+            while (true) {
+                val fresh = runCatching { currencyConverter.rates(wanted, SORT_CURRENCY) }
+                    .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+                    .getOrDefault(emptyMap())
+                known = known + fresh
+                emit(known)
+                delay(CONVERT_REFRESH_MILLIS)
+            }
+        }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
     /** «≈ Umrechnung» eingeschaltet und Zielwährung — ändert sich nur mit den Einstellungen. */
     private val conversionSetting = settingsRepository.settings
@@ -536,6 +621,16 @@ class WatchlistViewModel @Inject constructor(
     fun refreshAllByUser(): RefreshDebounce.Decision =
         manualRefresh.request(otherRunning = refreshing.value)
 
+    /**
+     * Würde «Aktualisieren» jetzt etwas tun? Nein, solange eine läuft oder die letzte erst
+     * [RefreshDebounce.WINDOW_MILLIS] her ist — dann ist der Menüpunkt grau (statt einer Meldung).
+     */
+    fun canRefreshNow(): Boolean = RefreshDebounce.decide(
+        running = refreshing.value,
+        lastFinishedAt = refreshStats.lastRefresh(),
+        now = System.currentTimeMillis(),
+    ) == RefreshDebounce.Decision.START
+
     /** Ohne 15-s-Sperre, z. B. gleich nach dem Hinzufügen neuer Paare. */
     private fun refreshAll() {
         if (refreshing.value) return
@@ -544,6 +639,36 @@ class WatchlistViewModel @Inject constructor(
 
     fun refreshOne(watchId: Long) {
         viewModelScope.launch { priceRefresher.refreshOne(watchId) }
+    }
+
+    /**
+     * Vorschau-Paar (Aktionsblatt aus «Heute auffällig», nur im Speicher) in die Merkliste: wie
+     * «Hinzufügen» im Hinzufügen-Tab — Dublettenprüfung in [WatchRepository.addWatch] (gleiche
+     * Standardwerte, Kurs-Benachrichtigung an, Gruppe nach [com.cryptochecker.app.domain.watch.AutoGroup]),
+     * Erst-Moment beim allerersten Paar ([com.cryptochecker.app.data.AddMoments.afterExplorerAdd]),
+     * danach gleich den Kurs holen (nach [onDone]). [onDone]: Id des neuen Eintrags, bzw. des schon vorhandenen
+     * (stand das Paar inzwischen schon in der Merkliste); null, wenn nichts zu finden ist.
+     * Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»).
+     */
+    fun addPreview(watch: WatchEntity, onDone: (id: Long?, added: Boolean) -> Unit) {
+        viewModelScope.launch {
+            val id = watchRepository.addWatch(
+                MarketInfo(key = watch.marketKey, name = watch.marketName),
+                CurrencyPairInfo(watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType),
+            )
+            if (id != null) {
+                addMoments.afterExplorerAdd(id)
+                onDone(id, true)
+                priceRefresher.refreshOne(id)
+            } else {
+                val existing = watchRepository.getWatches().firstOrNull {
+                    it.marketKey == watch.marketKey && it.contractType == watch.contractType &&
+                        it.baseAsset.equals(watch.baseAsset, ignoreCase = true) &&
+                        it.quoteAsset.equals(watch.quoteAsset, ignoreCase = true)
+                }
+                onDone(existing?.id, false)
+            }
+        }
     }
 
     /**
@@ -611,9 +736,51 @@ class WatchlistViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Mehrfachauswahl › «Löschen»: alle [ids] samt Alarmen löschen — festgehalten wie
+     * [deleteNotTradedWithUndo], «Rückgängig» ([undoDelete] mit [SELECTION_UNDO_KEY]) holt alle
+     * zurück. [onDone] bekommt die Zahl der gelöschten Paare.
+     */
+    fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) {
+        viewModelScope.launch {
+            val count = undoMutex.withLock {
+                val snapshots = ids.mapNotNull { watchRepository.snapshot(it) }
+                if (snapshots.isEmpty()) return@withLock 0
+                undo.put(SELECTION_UNDO_KEY, snapshots)
+                snapshots.forEach {
+                    notifier.cancelPrice(it.watch.id)
+                    notifier.cancelActivity(it.watch.id)
+                }
+                watchRepository.deleteWatches(snapshots.map { it.watch.id })
+                widgetUpdater.updateAll()
+                snapshots.size
+            }
+            onDone(count)
+        }
+    }
+
+    /** Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. */
+    fun setFavorite(ids: Collection<Long>, favorite: Boolean) {
+        viewModelScope.launch {
+            ids.forEach { watchRepository.setFavorite(it, favorite) }
+            widgetUpdater.updateAll()
+        }
+    }
+
+    /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
+    fun setGroup(ids: Collection<Long>, group: String?) {
+        viewModelScope.launch {
+            ids.forEach { watchRepository.setGroup(it, group) }
+            widgetUpdater.updateAll()
+        }
+    }
+
     private val undoMutex = Mutex()
 
-    /** Zuletzt Gelöschtes: ein Paar (Schlüssel = seine Id) oder alle nicht gehandelten ([NOT_TRADED_UNDO_KEY]). */
+    /**
+     * Zuletzt Gelöschtes: ein Paar (Schlüssel = seine Id), alle nicht gehandelten
+     * ([NOT_TRADED_UNDO_KEY]) oder die Mehrfachauswahl ([SELECTION_UNDO_KEY]).
+     */
     private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
     fun deleteAll() {
@@ -683,8 +850,17 @@ data class StarterPricesState(val loading: Boolean, val prices: Map<String, Star
 /** Gruppen der Merkliste und die aktuelle Auswahl (null = «Alle»). */
 data class GroupFilter(val groups: List<String>, val selected: String?)
 
+/** So lange wartet die Start-Auswahl höchstens auf die Logos der Start-Coins, dann Initialen. */
+private const val STARTER_LOGO_WAIT_MILLIS = 4_000L
+
+/** Gemeinsame Währung fürs Sortieren nach Kurs (nur intern, nie angezeigt). */
+internal const val SORT_CURRENCY = "CHF"
+
 /** Umrechnungsfaktoren der Merkliste höchstens so oft neu holen. */
 private const val CONVERT_REFRESH_MILLIS = 60_000L
 
 /** «Rückgängig»-Schlüssel für «Nicht gehandelte Paare entfernen» (Watch-Ids sind immer positiv). */
 internal const val NOT_TRADED_UNDO_KEY = -1L
+
+/** «Rückgängig»-Schlüssel für «Löschen» in der Mehrfachauswahl. */
+internal const val SELECTION_UNDO_KEY = -2L

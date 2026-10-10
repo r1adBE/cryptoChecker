@@ -102,4 +102,24 @@ class ThresholdParserTest {
         assertEquals("abc", ThresholdParser.latinDigits("abc"))
         assertNull(p("\u0660"))
     }
+
+    @Test
+    fun `zero is allowed for amounts, everything else like parse`() {
+        assertEquals(0.0, ThresholdParser.parseAllowingZero("0", '.'))
+        assertEquals(0.0, ThresholdParser.parseAllowingZero("0,00", ','))
+        assertEquals(0.0, ThresholdParser.parseAllowingZero(".0", '.'))
+        assertEquals(0.0, ThresholdParser.parseAllowingZero("\u0660", '.'))
+        // Mehrdeutig: Region bzw. Kurs entscheidet wie bei den Schwellwerten
+        assertEquals(60_000.0, ThresholdParser.parseAllowingZero("60.000", ','))
+        assertEquals(60.0, ThresholdParser.parseAllowingZero("60.000", '.'))
+        assertEquals(60.0, ThresholdParser.parseAllowingZero("60.000", ',', priceHint = 58.0))
+        assertEquals(1_234.0, ThresholdParser.parseAllowingZero("1,234", '.'))
+        assertEquals(1_234.56, ThresholdParser.parseAllowingZero("1.234,56", '.'))
+        assertEquals(1_234.5, ThresholdParser.parseAllowingZero("1\u00a0234,5", ','))
+        assertEquals(1_234.5, ThresholdParser.parseAllowingZero("1\u202f234.5", '.'))
+        // Kotlin-Zahlensuffixe, Exponent, Vorzeichen, leer: ung\u00fcltig
+        for (bad in listOf("1.5f", "2d", "1e3", "-5", "NaN", "Infinity", "", " ", "0,0,0")) {
+            assertNull(bad, ThresholdParser.parseAllowingZero(bad, '.'))
+        }
+    }
 }

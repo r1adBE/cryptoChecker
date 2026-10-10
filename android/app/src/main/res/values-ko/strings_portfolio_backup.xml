@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">시스템 백업에 포트폴리오 포함</string>
+    <string name="settings_portfolio_system_backup_hint">끔: 거래 내역이 기기의 시스템 백업과 새 휴대폰으로의 이전에 포함되지 않습니다. 옮기려면 비밀번호를 설정한 앱 자체 백업을 사용하세요.</string>
+</resources>

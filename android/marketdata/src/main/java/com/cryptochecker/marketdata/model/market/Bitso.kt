@@ -11,6 +11,7 @@ import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
 import java.util.Locale
+import com.cryptochecker.marketdata.util.getText
 
 /** Bitso (Lateinamerika). API v3: https://docs.bitso.com */
 class Bitso : SimpleMarket(
@@ -46,7 +47,7 @@ class Bitso : SimpleMarket(
     }
 
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? =
-        jsonObject.getJSONObject("error").getString("message")
+        jsonObject.getJSONObject("error").getText("message")
 
     // Ohne „book“ liefert der Endpunkt alle Bücher.
     override val bulkTickersNumOfRequests: Int get() = 1

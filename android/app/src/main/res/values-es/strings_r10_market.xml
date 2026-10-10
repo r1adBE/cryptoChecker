@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Funding negativo (%1$s)</string>
     <string name="unusual_source">Unas 30 monedas más grandes sin stablecoins · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">¿Por qué se mueve?</string>
-    <string name="unusual_action_add">Buscar par para añadir</string>
 
     <string name="macro_title">Datos económicos</string>
     <string name="macro_cpi">inflación de EE. UU. (IPC)</string>

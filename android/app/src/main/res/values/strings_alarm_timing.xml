@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker is now watching %1$s for you. When %1$s reaches your limit, you get a notification as soon as the app checks the price. With the app closed, Android checks at the background interval – at most every 15 minutes, later if battery optimization restricts the app. For faster alarms: Settings › Updates › Update frequently.</string>
+</resources>

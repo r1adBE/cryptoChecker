@@ -8,7 +8,6 @@
     </plurals>
     <string name="settings_summary_on">Pornit</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker urmărește acum %1$s pentru tine. Când %1$s atinge limita ta, primești o notificare imediat ce aplicația verifică prețul. Cu aplicația închisă, asta se întâmplă la intervalul actualizării în fundal – mai târziu dacă optimizarea bateriei restricționează aplicația.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker urmărește acum %1$s pentru tine. Primești o notificare imediat ce aplicația verifică prețul. Cu aplicația închisă, iOS decide când se întâmplă asta – poate dura ceva timp. Cât timp aplicația este deschisă, prețurile sunt verificate la timp.</string>
 
     <string name="about_request_exchange">Cere o bursă</string>

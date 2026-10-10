@@ -1,0 +1,128 @@
+{
+  "exchange": "Bitget / Bitget Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.bitget.com/api/v2/spot/market/tickers?symbol=BTCUSDT | /api/v2/mix/market/ticker?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "bulk": "GET https://api.bitget.com/api/v2/spot/market/tickers | /api/v2/mix/market/tickers?productType=USDT-FUTURES"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot ticker: change24h (fraction) used, changeUtc24h ignored",
+      "market": "Bitget",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"}]}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.2,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.52,
+        "volQuote": 744460123.45,
+        "change24hPercent": 2.481,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot ticker with only changeUtc24h: no rolling change",
+      "market": "Bitget",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\"}]}",
+      "expect": {
+        "last": 62000.1,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "futures ticker (mix v2)",
+      "market": "BitgetFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"bidSz\":\"1.2\",\"askSz\":\"2.3\", \"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\", \"quoteVolume\":\"13248901234.56\",\"usdtVolume\":\"13248901234.56\",\"openUtc\":\"61500\",\"changeUtc24h\":\"0.00797\", \"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"deliveryStartTime\":null,\"deliveryTime\":null, \"deliveryStatus\":\"\",\"open24h\":\"62340.1\",\"markPrice\":\"61995\"}]}",
+      "expect": {
+        "last": 61990.2,
+        "bid": 61990.2,
+        "ask": 61990.3,
+        "high": 62480.0,
+        "low": 59980.1,
+        "vol": 215432.12,
+        "volQuote": 13248901234.56,
+        "change24hPercent": -0.56,
+        "timestamp": 1728540000456
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Bitget",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"40034\",\"msg\":\"Parameter does not exist\",\"requestTime\":1728540000200,\"data\":null}",
+      "expect": {
+        "error": true,
+        "message": "Parameter does not exist"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk spot: entry without lastPr skipped",
+      "market": "Bitget",
+      "requestId": 0,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"},{\"symbol\":\"NEWUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "NEWUSDT"
+        ],
+        "tickers": {
+          "BTCUSDT": {
+            "last": 62000.1,
+            "change24hPercent": 2.481
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk futures",
+      "market": "BitgetFutures",
+      "requestId": 0,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"bidSz\":\"1.2\",\"askSz\":\"2.3\", \"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\", \"quoteVolume\":\"13248901234.56\",\"usdtVolume\":\"13248901234.56\",\"openUtc\":\"61500\",\"changeUtc24h\":\"0.00797\", \"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"deliveryStartTime\":null,\"deliveryTime\":null, \"deliveryStatus\":\"\",\"open24h\":\"62340.1\",\"markPrice\":\"61995\"}]}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTCUSDT": {
+            "last": 61990.2,
+            "change24hPercent": -0.56,
+            "timestamp": 1728540000456
+          }
+        }
+      }
+    }
+  ]
+}

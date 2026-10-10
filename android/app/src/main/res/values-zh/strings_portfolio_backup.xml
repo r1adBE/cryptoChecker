@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">将投资组合纳入系统备份</string>
+    <string name="settings_portfolio_system_backup_hint">关闭：你的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。</string>
+</resources>

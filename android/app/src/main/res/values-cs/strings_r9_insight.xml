@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Co je teď nápadné</string>
-    <string name="pulse_why_action">Proč? →</string>
+    <string name="pulse_why_action">Proč?</string>
     <string name="pulse_section_factors">Faktory</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin vede trh.</string>

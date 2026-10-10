@@ -95,7 +95,7 @@ fun AlarmsScreen(
         AlertDialog(
             onDismissRequest = viewModel::dismissFirstAlarm,
             title = { Text(stringResource(R.string.alarm_first_title)) },
-            text = { Text(stringResource(R.string.alarm_first_text_checked, symbol)) },
+            text = { Text(stringResource(R.string.alarm_first_text_android, symbol)) },
             confirmButton = {
                 TextButton(onClick = viewModel::dismissFirstAlarm) { Text(stringResource(android.R.string.ok)) }
             },
@@ -165,7 +165,7 @@ fun AlarmsScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painterResource(R.drawable.ic_notifications),
+                        painterResource(R.drawable.ic_notifications_active),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 12.dp)

@@ -3,6 +3,7 @@ package com.cryptochecker.marketdata.model.market.generic
 import com.cryptochecker.marketdata.model.CheckerInfo
 import com.cryptochecker.marketdata.model.Market
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.getText
 
 abstract class SimpleMarket(
         name: String,
@@ -30,7 +31,8 @@ abstract class SimpleMarket(
         checkerInfo: CheckerInfo
     ): String? {
         errorPropertyName?.also {
-            return@parseErrorFromJsonObject jsonObject.getString(it)
+            // JSON null ist kein Fehlertext (getString lieferte «null») – wie iOS
+            return@parseErrorFromJsonObject jsonObject.getText(it)
         }
 
         return super.parseErrorFromJsonObject(requestId, jsonObject, checkerInfo)

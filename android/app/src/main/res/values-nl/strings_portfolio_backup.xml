@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfolio in systeemback-up</string>
+    <string name="settings_portfolio_system_backup_hint">Uit: je transacties zitten niet in de systeemback-up van het apparaat en niet in de overdracht naar een nieuwe telefoon. Gebruik de eigen back-up van de app met wachtwoord om ze te verhuizen.</string>
+</resources>

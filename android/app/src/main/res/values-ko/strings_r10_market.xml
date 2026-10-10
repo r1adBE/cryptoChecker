@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">펀딩비 마이너스 (%1$s)</string>
     <string name="unusual_source">스테이블코인 제외 상위 약 30개 코인 · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">왜 움직이나요?</string>
-    <string name="unusual_action_add">추가할 거래쌍 찾기</string>
 
     <string name="macro_title">경제 지표</string>
     <string name="macro_cpi">미국 소비자물가지수(CPI)</string>

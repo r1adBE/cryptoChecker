@@ -107,6 +107,10 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// im Portfolio-Widget (liest die Einstellung aus der App Group) und in Portfolio-Alarmen.
     /// Gleicher Schlüssel wie Android («hidePortfolioAmounts»), auch in der Sicherung.
     var hidePortfolioAmounts: Bool = false
+    /// «Portfolio in Systemsicherung»: an = `portfolio.json` kommt in iCloud-/Geräte-Backups, aus
+    /// (Standard) = mit `isExcludedFromBackup` ausgenommen (`PortfolioStore.applyBackupPolicy`). Gleicher
+    /// Schlüssel wie Android («portfolioSystemBackup»), auch in der Sicherung.
+    var portfolioSystemBackup: Bool = false
     /// Bestätigung nach dem ersten gespeicherten Alarm schon gezeigt (oder es gab
     /// schon Alarme). Gleicher Schlüssel wie Android; nicht in der Sicherung.
     var firstAlarmShown: Bool = false
@@ -143,29 +147,31 @@ struct AppSettings: Codable, Equatable, Sendable {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         let d = AppSettings()
-        backgroundUpdates = try c.decodeIfPresent(Bool.self, forKey: .backgroundUpdates) ?? d.backgroundUpdates
-        backgroundIntervalMinutes = try c.decodeIfPresent(Int.self, forKey: .backgroundIntervalMinutes) ?? d.backgroundIntervalMinutes
-        liveService = try c.decodeIfPresent(Bool.self, forKey: .liveService) ?? d.liveService
-        liveIntervalSeconds = try c.decodeIfPresent(Int.self, forKey: .liveIntervalSeconds) ?? d.liveIntervalSeconds
+        // Alle Felder tolerant (`try?`): Ein unbekannter Wert (z. B. eine Akzentfarbe aus einer
+        // neueren Version nach einem Downgrade) setzt nur dieses Feld zurück, nicht alle Einstellungen.
+        backgroundUpdates = (try? c.decodeIfPresent(Bool.self, forKey: .backgroundUpdates)) ?? d.backgroundUpdates
+        backgroundIntervalMinutes = (try? c.decodeIfPresent(Int.self, forKey: .backgroundIntervalMinutes)) ?? d.backgroundIntervalMinutes
+        liveService = (try? c.decodeIfPresent(Bool.self, forKey: .liveService)) ?? d.liveService
+        liveIntervalSeconds = (try? c.decodeIfPresent(Int.self, forKey: .liveIntervalSeconds)) ?? d.liveIntervalSeconds
         liveWebSocket = (try? c.decodeIfPresent(Bool.self, forKey: .liveWebSocket)) ?? d.liveWebSocket
-        priceNotifications = try c.decodeIfPresent(Bool.self, forKey: .priceNotifications) ?? d.priceNotifications
-        ongoingNotifications = try c.decodeIfPresent(Bool.self, forKey: .ongoingNotifications) ?? d.ongoingNotifications
-        notificationChangePercent = try c.decodeIfPresent(Double.self, forKey: .notificationChangePercent) ?? d.notificationChangePercent
-        ttsEnabled = try c.decodeIfPresent(Bool.self, forKey: .ttsEnabled) ?? d.ttsEnabled
-        ttsAlarmsOnly = try c.decodeIfPresent(Bool.self, forKey: .ttsAlarmsOnly) ?? d.ttsAlarmsOnly
-        ttsSpeechRate = try c.decodeIfPresent(Double.self, forKey: .ttsSpeechRate) ?? d.ttsSpeechRate
-        alarmCooldownMinutes = try c.decodeIfPresent(Int.self, forKey: .alarmCooldownMinutes) ?? d.alarmCooldownMinutes
-        includeRollingFutures = try c.decodeIfPresent(Bool.self, forKey: .includeRollingFutures) ?? d.includeRollingFutures
-        includeTradFiFutures = try c.decodeIfPresent(Bool.self, forKey: .includeTradFiFutures) ?? d.includeTradFiFutures
-        accentColor = try c.decodeIfPresent(AccentColor.self, forKey: .accentColor) ?? d.accentColor
-        darkMode = try c.decodeIfPresent(Bool.self, forKey: .darkMode)
-        showHttpLog = try c.decodeIfPresent(Bool.self, forKey: .showHttpLog) ?? d.showHttpLog
-        developerUnlocked = try c.decodeIfPresent(Bool.self, forKey: .developerUnlocked) ?? d.developerUnlocked
-        zoneAlerts = try c.decodeIfPresent(Bool.self, forKey: .zoneAlerts) ?? d.zoneAlerts
-        fearGreedBelow = try c.decodeIfPresent(Int.self, forKey: .fearGreedBelow) ?? d.fearGreedBelow
-        fearGreedAbove = try c.decodeIfPresent(Int.self, forKey: .fearGreedAbove) ?? d.fearGreedAbove
-        gestureHintSeen = try c.decodeIfPresent(Bool.self, forKey: .gestureHintSeen) ?? d.gestureHintSeen
-        aboutSeen = try c.decodeIfPresent(Bool.self, forKey: .aboutSeen) ?? d.aboutSeen
+        priceNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .priceNotifications)) ?? d.priceNotifications
+        ongoingNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .ongoingNotifications)) ?? d.ongoingNotifications
+        notificationChangePercent = (try? c.decodeIfPresent(Double.self, forKey: .notificationChangePercent)) ?? d.notificationChangePercent
+        ttsEnabled = (try? c.decodeIfPresent(Bool.self, forKey: .ttsEnabled)) ?? d.ttsEnabled
+        ttsAlarmsOnly = (try? c.decodeIfPresent(Bool.self, forKey: .ttsAlarmsOnly)) ?? d.ttsAlarmsOnly
+        ttsSpeechRate = (try? c.decodeIfPresent(Double.self, forKey: .ttsSpeechRate)) ?? d.ttsSpeechRate
+        alarmCooldownMinutes = (try? c.decodeIfPresent(Int.self, forKey: .alarmCooldownMinutes)) ?? d.alarmCooldownMinutes
+        includeRollingFutures = (try? c.decodeIfPresent(Bool.self, forKey: .includeRollingFutures)) ?? d.includeRollingFutures
+        includeTradFiFutures = (try? c.decodeIfPresent(Bool.self, forKey: .includeTradFiFutures)) ?? d.includeTradFiFutures
+        accentColor = (try? c.decodeIfPresent(AccentColor.self, forKey: .accentColor)) ?? d.accentColor
+        darkMode = try? c.decodeIfPresent(Bool.self, forKey: .darkMode)
+        showHttpLog = (try? c.decodeIfPresent(Bool.self, forKey: .showHttpLog)) ?? d.showHttpLog
+        developerUnlocked = (try? c.decodeIfPresent(Bool.self, forKey: .developerUnlocked)) ?? d.developerUnlocked
+        zoneAlerts = (try? c.decodeIfPresent(Bool.self, forKey: .zoneAlerts)) ?? d.zoneAlerts
+        fearGreedBelow = (try? c.decodeIfPresent(Int.self, forKey: .fearGreedBelow)) ?? d.fearGreedBelow
+        fearGreedAbove = (try? c.decodeIfPresent(Int.self, forKey: .fearGreedAbove)) ?? d.fearGreedAbove
+        gestureHintSeen = (try? c.decodeIfPresent(Bool.self, forKey: .gestureHintSeen)) ?? d.gestureHintSeen
+        aboutSeen = (try? c.decodeIfPresent(Bool.self, forKey: .aboutSeen)) ?? d.aboutSeen
         watchlistGroup = try? c.decodeIfPresent(String.self, forKey: .watchlistGroup)
         activityAlerts = (try? c.decodeIfPresent(Bool.self, forKey: .activityAlerts)) ?? d.activityAlerts
         // Fehlt (ältere Einstellungen) oder unbekannt: «Normal»
@@ -201,6 +207,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         quietHoursEnd = end.flatMap { QuietHours.isValidMinute($0) ? $0 : nil } ?? d.quietHoursEnd
         appLock = (try? c.decodeIfPresent(Bool.self, forKey: .appLock)) ?? d.appLock
         hidePortfolioAmounts = (try? c.decodeIfPresent(Bool.self, forKey: .hidePortfolioAmounts)) ?? d.hidePortfolioAmounts
+        portfolioSystemBackup = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioSystemBackup)) ?? d.portfolioSystemBackup
         firstAlarmShown = (try? c.decodeIfPresent(Bool.self, forKey: .firstAlarmShown)) ?? d.firstAlarmShown
         firstPairAdded = (try? c.decodeIfPresent(Bool.self, forKey: .firstPairAdded)) ?? d.firstPairAdded
         sheetChartLine = (try? c.decodeIfPresent(Bool.self, forKey: .sheetChartLine)) ?? d.sheetChartLine

@@ -65,4 +65,20 @@ class LocaleNumbersTest {
         assertEquals("٢٣", GasFees.formatGwei(23.2, arabic))
         assertEquals("\$0.63", GasFees.formatUsd(0.63, Locale.ROOT))
     }
+
+    @Test
+    fun inputSeparatorUsesDeviceRegionLikeIos() {
+        // App-Sprache «de» ohne Region, Gerät in der Schweiz: Punkt (de_CH) — wie Locale.current unter iOS
+        assertEquals(Locale("de", "CH"), LocaleNumbers.inputLocale(Locale("de"), "CH"))
+        assertEquals('.', LocaleNumbers.inputDecimalSeparator(Locale("de"), "CH"))
+        assertEquals(',', LocaleNumbers.inputDecimalSeparator(Locale("de"), "DE"))
+        assertEquals(',', LocaleNumbers.inputDecimalSeparator(Locale("de"), ""))
+        assertEquals(',', LocaleNumbers.inputDecimalSeparator(Locale("en"), "DE"))
+        assertEquals('.', LocaleNumbers.inputDecimalSeparator(Locale("en", "US"), "US"))
+        // Ungültige Region: App-Sprache bleibt
+        assertEquals(Locale("de"), LocaleNumbers.inputLocale(Locale("de"), "not a region"))
+        // «10.000» ohne Kurs: Schweiz 10, Deutschland 10000
+        assertEquals(10.0, ThresholdParser.parse("10.000", LocaleNumbers.inputDecimalSeparator(Locale("de"), "CH")))
+        assertEquals(10_000.0, ThresholdParser.parse("10.000", LocaleNumbers.inputDecimalSeparator(Locale("de"), "DE")))
+    }
 }

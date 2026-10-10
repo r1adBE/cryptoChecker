@@ -14,7 +14,8 @@ enum CurrencyConversion {
         case invalid
     }
 
-    /// USD-Stablecoins, die als 1 USD gerechnet werden.
+    /// Die eine Stablecoin-Liste der App. Die «≈ Umrechnung» der Merkliste rechnet sie als 1 USD;
+    /// das Portfolio bewertet sie nach `PortfolioStables` (USDT 1, andere ihr Marktkurs, sonst 1).
     static let usdStables: Set<String> = [
         "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
         "RLUSD", "PYUSD", "USDP", "GUSD",

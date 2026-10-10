@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Що зараз вирізняється</string>
-    <string name="pulse_why_action">Чому? →</string>
+    <string name="pulse_why_action">Чому?</string>
     <string name="pulse_section_factors">Фактори</string>
 
     <string name="pulse_lead_btc_leads">Біткоїн веде ринок.</string>

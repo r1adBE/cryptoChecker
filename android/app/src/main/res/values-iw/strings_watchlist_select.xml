@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">בחירה</string>
+    <string name="watchlist_select_all">בחירת הכול</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">נבחרו: %1$d</item>
+        <item quantity="two">נבחרו: %1$d</item>
+        <item quantity="other">נבחרו: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">הוסרו צמדים: %1$d</item>
+        <item quantity="two">הוסרו צמדים: %1$d</item>
+        <item quantity="other">הוסרו צמדים: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">הצג רק לא עדכניים</string>
+    <string name="watchlist_show_all">הצג הכול</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">שם</string>
+    <string name="watchlist_sort_price">מחיר</string>
+    <string name="watchlist_sort_descending">בסדר יורד</string>
+    <string name="watchlist_sort_ascending">בסדר עולה</string>
+    <string name="watchlist_sort_own">סדר משלך</string>
+</resources>

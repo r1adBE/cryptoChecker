@@ -184,6 +184,73 @@ class InfoViewModel @Inject constructor(
             .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
             .getOrNull()
 
+    /**
+     * «Heute auffällig» → Coin nicht in der Merkliste: Vorschau-Paar «COIN/USDT» auf Binance Spot
+     * — nur im Speicher ([PREVIEW_WATCH_ID]), nichts wird gespeichert, bis der Nutzer es hinzufügt.
+     * null, wenn es Binance nicht (mehr) gibt oder die gespeicherte Paarliste das Spot-Paar nicht
+     * führt; dann wie bisher die Suche im Hinzufügen-Tab. (Die Zeilen kommen ohnehin aus den
+     * Binance-Tickern «…USDT», die Prüfung ist nur die Absicherung.) Wie iOS `CycleViewModel.previewWatch`.
+     */
+    suspend fun previewWatch(symbol: String): WatchEntity? {
+        val base = symbol.trim().uppercase().takeIf { it.isNotEmpty() } ?: return null
+        val key = com.cryptochecker.app.domain.starter.StarterPairs.BINANCE_KEY
+        val name = com.cryptochecker.marketdata.config.MarketsConfig.MARKETS[key]?.name ?: return null
+        val market = com.cryptochecker.app.domain.model.MarketInfo(key, name)
+        val pairs = runCatching { marketRepository.getMarketCurrencyPairsInfo(market).pairs }
+            .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+            .getOrDefault(emptyList())
+        var pairId = base + PREVIEW_QUOTE
+        // Leere Liste (noch nie geladen): den Ticker selbst entscheiden lassen
+        if (pairs.isNotEmpty()) {
+            val listed = pairs.firstOrNull {
+                it.contractType == FuturesContractType.NONE &&
+                    it.currencyBase.equals(base, ignoreCase = true) &&
+                    it.currencyCounter.equals(PREVIEW_QUOTE, ignoreCase = true)
+            } ?: return null
+            listed.currencyPairId?.let { pairId = it }
+        }
+        return WatchEntity(
+            id = PREVIEW_WATCH_ID,
+            marketKey = key,
+            marketName = name,
+            baseAsset = base,
+            quoteAsset = PREVIEW_QUOTE,
+            pairId = pairId,
+        )
+    }
+
+    /**
+     * Kurs und rollende 24-h-Veränderung für das Vorschau-Paar — eine Ticker-Abfrage wie beim
+     * Aktualisieren eines Paars, aber ohne Speichern, Alarme oder Meldungen. Fehler stehen in
+     * [WatchEntity.lastError] (die Oberfläche übersetzt sie wie in der Merkliste).
+     */
+    suspend fun previewQuote(watch: WatchEntity): WatchEntity {
+        val result = runCatching {
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                marketRepository.getMarketTicker(
+                    com.cryptochecker.app.domain.model.MarketInfo(watch.marketKey, watch.marketName),
+                    com.cryptochecker.marketdata.model.CurrencyPairInfo(
+                        watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType
+                    ),
+                )
+            }
+        }.onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }.getOrNull()
+        val last = result?.ticker?.last?.takeIf { it.isFinite() && it > 0.0 }
+        return if (last != null) {
+            watch.copy(
+                lastPrice = last,
+                change24h = result?.ticker?.change24hPercent?.takeIf { it.isFinite() },
+                lastUpdate = System.currentTimeMillis(),
+                lastError = null,
+            )
+        } else {
+            watch.copy(
+                lastError = result?.error
+                    ?: com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError.NO_TICKER_DATA,
+            )
+        }
+    }
+
     // ---- Wirtschaftsdaten (Hinweis oben im Abschnitt «Jetzt»)
     private val _macroEvents = MutableStateFlow<List<MacroEvent>>(emptyList())
 
@@ -612,6 +679,15 @@ class InfoViewModel @Inject constructor(
         null
     }
 }
+
+/**
+ * Id des Vorschau-Paars aus «Heute auffällig» (nie gespeichert): negativ, damit es mit keinem
+ * Eintrag der Merkliste, keinem Alarm und keinen Signalen zusammenfällt.
+ */
+internal const val PREVIEW_WATCH_ID = -1L
+
+/** Quote des Vorschau-Paars (Binance Spot «COIN/USDT», wie die Start-Merkliste). */
+private const val PREVIEW_QUOTE = "USDT"
 
 /** Bereiche, deren Zwischenspeicher vor dem ersten Erscheinen gelesen sein soll. */
 private val REVEAL_SOURCES = setOf(

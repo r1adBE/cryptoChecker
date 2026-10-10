@@ -64,17 +64,6 @@ enum PriceFormat {
         $0.maximumFractionDigits = 8
     }
 
-    /// Eingabefeld: ohne Tausendertrennung, Punkt als Dezimalzeichen.
-    private static let inputFormatter: NumberFormatter = {
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.usesGroupingSeparator = false
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = 12
-        return f
-    }()
-
     /// Gehaltene Menge: Tausendertrennung, bis acht Nachkommastellen, ohne Nullen am Ende.
     static func amount(_ value: Double) -> String {
         amountFormatter.string(from: NSNumber(value: value)) ?? String(value)
@@ -85,31 +74,31 @@ enum PriceFormat {
         "\(twoDecimals.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)) \(quote)"
     }
 
-    /// Menge für ein Eingabefeld; leer ohne Bestand.
-    static func amountForInput(_ value: Double?) -> String {
-        guard let value, value.isFinite, value > 0 else { return "" }
-        return inputFormatter.string(from: NSNumber(value: value)) ?? String(value)
+    /// Menge oder Kurs für ein Eingabefeld: ohne Exponent und Tausendertrennung, mit dem
+    /// Dezimalzeichen der Region (liest `parseAmount` so eindeutig zurück). 0 → «0», nur
+    /// nil (oder nicht endlich) → leer. Wie `PriceFormat.amountForInput` (Android).
+    static func amountForInput(_ value: Double?, decimalSeparator: Character = ".") -> String {
+        guard let value else { return "" }
+        return DecimalText.plain(value)
+            .replacingOccurrences(of: ".", with: String(ThresholdParser.normalized(decimalSeparator)))
     }
 
-    /// Freie Eingabe einer Menge: Komma oder Punkt, Leerzeichen und Tausenderstriche
-    /// werden ignoriert, arabische/persische Ziffern gelten (`ThresholdParser.latinDigits`).
-    /// Leer = 0 (kein Bestand), ungültig oder negativ = nil.
-    static func parseAmount(_ text: String) -> Double? {
-        var cleaned = ThresholdParser.latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines)
-        for junk in [" ", "\u{00A0}", "\u{202F}", "'", "’"] {
-            cleaned = cleaned.replacingOccurrences(of: junk, with: "")
-        }
-        cleaned = cleaned.replacingOccurrences(of: ",", with: ".")
-        if cleaned.isEmpty { return 0 }
-        guard let value = Double(cleaned), value.isFinite, value >= 0 else { return nil }
-        return value
+    /// Freie Eingabe einer Menge oder eines Kurses — nach den Regeln von `ThresholdParser`:
+    /// Tausendertrennung (auch geschützte/schmale Leerzeichen), Dezimalzeichen der Region,
+    /// arabische/persische Ziffern; mehrdeutig («60.000») entscheidet `priceHint` (aktueller
+    /// Kurs), ohne Kurs das Dezimalzeichen. Leer = 0 (kein Bestand), 0 gilt;
+    /// ungültig, negativ, mit Exponent oder Buchstaben («1.5f») = nil.
+    static func parseAmount(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Double? {
+        if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return 0 }
+        return ThresholdParser.parseAllowingZero(text, decimalSeparator: decimalSeparator, priceHint: priceHint)
     }
 
     static func changePercent(_ value: Double?) -> String? {
         guard let value, abs(value) >= 0.005 else { return nil }
         let sign = value > 0 ? "+" : "−"
+        // Vorher kaufmännisch runden (`DecimalText`): 1.005 → «1.01» wie in Android
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl («1.20%+»)
-        return BidiText.ltr(sign + String(format: "%.2f%%", locale: Locale.current, abs(value)))
+        return BidiText.ltr(sign + String(format: "%.2f%%", locale: Locale.current, DecimalText.rounded(abs(value), 2)))
     }
 
     /// Pfeil zur Änderung: «▲» steigend, «▼» fallend, leer bei praktisch 0 — folgt immer dem
@@ -128,7 +117,7 @@ enum PriceFormat {
     /// Mit Vorzeichen und drei Nachkommastellen (Mitteilungen).
     static func changePercentDetailed(_ value: Double) -> String {
         let sign = value >= 0 ? "+" : "-"
-        return BidiText.ltr(sign + String(format: "%.3f%%", locale: Locale.current, abs(value)))
+        return BidiText.ltr(sign + String(format: "%.3f%%", locale: Locale.current, DecimalText.rounded(abs(value), 3)))
     }
 
     private static let timeFormatter: DateFormatter = {
@@ -192,6 +181,116 @@ enum PriceFormat {
         let v = value / div
         let digits = suffix.isEmpty ? 0 : (abs(v) >= 100 ? 0 : 1)
         return String(format: "%.\(digits)f", locale: Locale.current, v) + suffix
+    }
+}
+
+/// Zahlen als Dezimaltext ohne Exponent und Tausendertrennung, mit Punkt — für Export,
+/// vorbefüllte Eingabefelder und Rundung vor einem `"%.nf"`. Spiegel von `DecimalText.kt`.
+///
+/// Gerechnet wird mit der kürzesten Dezimaldarstellung des Double (`"\(value)"`, wie
+/// `BigDecimal.valueOf` in Android), nicht mit dem exakten Binärwert: 1.005 ist «1.005» und
+/// rundet kaufmännisch (bei der Hälfte weg von 0, `HALF_UP`) auf «1.01» — auf beiden
+/// Plattformen gleich (`String(format: "%.2f")` ergäbe «1.00»).
+///
+/// Nicht endliche Werte (NaN, ±∞) ergeben einen leeren Text.
+enum DecimalText {
+
+    /// Ziffern ohne führende und abschliessende Nullen: Wert = 0.d₁d₂d₃… × 10^point.
+    private struct Digits {
+        var negative: Bool
+        var digits: [Int]
+        var point: Int
+        var isZero: Bool { digits.isEmpty }
+    }
+
+    private static func digits(_ value: Double) -> Digits? {
+        guard value.isFinite else { return nil }
+        var text = "\(value)"  // kürzeste Darstellung: «60000.0», «1.2345e-10», «1e+16»
+        let negative = text.hasPrefix("-")
+        if negative { text.removeFirst() }
+        var exponent = 0
+        if let e = text.firstIndex(where: { $0 == "e" || $0 == "E" }) {
+            exponent = Int(text[text.index(after: e)...]) ?? 0
+            text = String(text[..<e])
+        }
+        let parts = text.split(separator: ".", omittingEmptySubsequences: false)
+        let intPart = parts.first.map { String($0) } ?? ""
+        let fracPart = parts.count > 1 ? String(parts[1]) : ""
+        var list = (intPart + fracPart).compactMap { $0.wholeNumberValue }
+        var point = intPart.count + exponent
+        while list.first == 0 { list.removeFirst(); point -= 1 }
+        while list.last == 0 { list.removeLast() }
+        if list.isEmpty { return Digits(negative: false, digits: [], point: 0) }
+        return Digits(negative: negative, digits: list, point: point)
+    }
+
+    /// Kaufmännisch auf `scale` Nachkommastellen runden (bei der Hälfte weg von 0).
+    private static func roundHalfUp(_ d: Digits, _ scale: Int) -> Digits {
+        let keep = d.point + scale
+        guard d.digits.count > keep else { return d }
+        if keep < 0 { return Digits(negative: false, digits: [], point: 0) }
+        var list = Array(d.digits.prefix(keep))
+        var point = d.point
+        if d.digits[keep] >= 5 {
+            var i = list.count - 1
+            while i >= 0 && list[i] == 9 { list[i] = 0; i -= 1 }
+            if i >= 0 { list[i] += 1 } else { list.insert(1, at: 0); point += 1 }
+        }
+        while list.last == 0 { list.removeLast() }
+        if list.isEmpty { return Digits(negative: false, digits: [], point: 0) }
+        return Digits(negative: d.negative, digits: list, point: point)
+    }
+
+    /// Text mit mindestens `minDecimals` Nachkommastellen (mit Nullen aufgefüllt).
+    private static func text(_ d: Digits, minDecimals: Int) -> String {
+        let chars = d.digits.map { Character(String($0)) }
+        var intText: String
+        var fracText: String
+        if d.point <= 0 {
+            intText = "0"
+            fracText = String(repeating: "0", count: -d.point) + String(chars)
+        } else if chars.count <= d.point {
+            intText = String(chars) + String(repeating: "0", count: d.point - chars.count)
+            fracText = ""
+        } else {
+            intText = String(chars[..<d.point])
+            fracText = String(chars[d.point...])
+        }
+        if fracText.count < minDecimals { fracText += String(repeating: "0", count: minDecimals - fracText.count) }
+        if d.isZero { intText = "0" }
+        let sign = d.negative && !d.isZero ? "-" : ""
+        return sign + intText + (fracText.isEmpty ? "" : "." + fracText)
+    }
+
+    /// Ohne Nullen am Ende; mit `scale` vorher auf so viele Nachkommastellen gerundet. «-0» → «0».
+    static func plain(_ value: Double, scale: Int? = nil) -> String {
+        guard var d = digits(value) else { return "" }
+        if let scale { d = roundHalfUp(d, scale) }
+        return text(d, minDecimals: 0)
+    }
+
+    /// Genau `scale` Nachkommastellen, kaufmännisch gerundet; «-0.00» → «0.00».
+    static func fixed(_ value: Double, scale: Int) -> String {
+        guard let d = digits(value) else { return "" }
+        return text(roundHalfUp(d, scale), minDecimals: scale)
+    }
+
+    /// Kaufmännisch auf `scale` Nachkommastellen gerundet (für ein folgendes `"%.nf"`).
+    static func rounded(_ value: Double, _ scale: Int) -> Double {
+        guard value.isFinite else { return value }
+        return Double(plain(value, scale: scale)) ?? value
+    }
+
+    /// Stellen vor dem Komma (ohne führende Nullen): 123.4 → 3, 0.5 → 0, 0.000123 → −3; 0 → 0.
+    static func integerDigits(_ value: Double) -> Int {
+        guard let d = digits(value), !d.isZero else { return 0 }
+        return d.point
+    }
+
+    /// Nachkommastellen für mindestens `minDecimals` Stellen und mindestens `significant`
+    /// gültige Stellen: 123.456 → 10, 3e-11 → 20 (bei 10/10) — kleinste Kurse bleiben so lesbar.
+    static func significantScale(_ value: Double, minDecimals: Int, significant: Int) -> Int {
+        max(minDecimals, significant - integerDigits(value))
     }
 }
 

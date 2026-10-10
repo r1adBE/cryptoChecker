@@ -1,6 +1,8 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -294,7 +296,12 @@ private fun MarketScreenMain(
                     }
 
                     if (currentMarket != null && !isDex) {
-                        PairStepCard(
+                        // Mit «mehrere Paare auf einmal» zwei Register statt zwei Karten untereinander
+                        val tabs = hasPairs && bulkQuotes.isNotEmpty()
+                        if (tabs) {
+                            ExplorerModeTabs(bulk = ExplorerSections.bulk, onSelect = { ExplorerSections.bulk = it })
+                        }
+                        if (!tabs || !ExplorerSections.bulk) PairStepCard(
                             hasPairs = hasPairs,
                             pairSelected = pairSelected,
                             syncing = syncing,
@@ -314,10 +321,11 @@ private fun MarketScreenMain(
                             onRetryTicker = { currentMarket?.also { onTestMarketButtonClick(it) } },
                             onSync = onSyncCurrencyPairsClick,
                             onAdd = onAddToWatchlistClick,
+                            showHeader = !tabs,
                         )
 
-                        // ── Mehrere Paare auf einmal ─────────────────────────────
-                        if (hasPairs && bulkQuotes.isNotEmpty()) {
+                        // ── Mehrere Paare auf einmal (Register) ──────────────────
+                        if (tabs && ExplorerSections.bulk) {
                             BulkPairsCard(
                                 quotes = bulkQuotes,
                                 quote = bulkQuote,
@@ -336,6 +344,7 @@ private fun MarketScreenMain(
                                 onAddAll = { confirmBulk = true },
                                 showBulkList = showBulkList,
                                 onToggleList = { showBulkList = !showBulkList },
+                                asTab = true,
                             )
                         }
                     }
@@ -368,12 +377,22 @@ private fun ExchangeMissingRow() {
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        TextButton(onClick = {
-            runCatching {
-                uriHandler.openUri(com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL)
-            }
-        }) {
+        // Verweis nach aussen überall gleich: Text in der Themenfarbe mit ↗ (wie die Zeilen der Einstellungen)
+        val linkLabel = stringResource(R.string.a11y_external_link)
+        TextButton(
+            onClick = {
+                runCatching {
+                    uriHandler.openUri(com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL)
+                }
+            },
+            modifier = Modifier.semantics { stateDescription = linkLabel }
+        ) {
             Text(stringResource(R.string.about_request_exchange))
+            Icon(
+                painterResource(R.drawable.ic_open_external),
+                contentDescription = null,
+                modifier = Modifier.padding(start = 4.dp).size(14.dp)
+            )
         }
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">انتخاب</string>
+    <string name="watchlist_select_all">انتخاب همه</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d انتخاب‌شده</item>
+        <item quantity="other">%1$d انتخاب‌شده</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d جفت حذف شد</item>
+        <item quantity="other">%1$d جفت حذف شد</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">فقط قدیمی‌ها را نشان بده</string>
+    <string name="watchlist_show_all">نمایش همه</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">نام</string>
+    <string name="watchlist_sort_price">قیمت</string>
+    <string name="watchlist_sort_descending">نزولی</string>
+    <string name="watchlist_sort_ascending">صعودی</string>
+    <string name="watchlist_sort_own">ترتیب خودتان</string>
+</resources>

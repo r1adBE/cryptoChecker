@@ -103,6 +103,14 @@ final class AppData: ObservableObject {
         snapshot = SharedStorage.loadSnapshot()
         settings = SharedStorage.loadSettings()
         portfolioFile = PortfolioStore.load()
+        // Einmalig: Portfolio-Alarme aus `watchlist.json` in die eigene Datei (Backup-Merkmal wie
+        // `portfolio.json`); wiederholbar, ohne Verlust (siehe `SharedStorage.writeFiles`)
+        if snapshot.portfolioAlarms != nil
+            && !FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path) {
+            SharedStorage.updateSnapshot { _ in }
+        }
+        // «Portfolio in Systemsicherung»: auch für eine schon vorhandene Datei (Update, Wiederherstellung)
+        PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup)
         // didSet läuft im init nicht — Kursfarben hier setzen
         PriceColors.scheme = settings.priceColorScheme
         HighContrast.setting = settings.highContrast
@@ -167,7 +175,9 @@ final class AppData: ObservableObject {
 
     /// Stand von der Platte neu laden (z. B. nachdem das Widget aktualisiert hat).
     func reloadFromDisk() {
-        snapshot = SharedStorage.loadSnapshot()
+        // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
+        // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da)
+        if let fresh = SharedStorage.readSnapshot().snapshot { snapshot = fresh }
         lastRefreshMillis = SharedStorage.lastRefreshDuration
         lastRefreshReport = SharedStorage.lastRefreshReport
         changeStamp = SharedStorage.changeStamp
@@ -191,12 +201,13 @@ final class AppData: ObservableObject {
     }
 
     /// Erstes Paar über den Hinzufügen-Tab: Moment für die Merkliste vormerken
-    /// (Banner, Haptik und Ansage macht der Tab).
+    /// (Banner, Haptik und Ansage macht der Tab). `announceInWatchlist`: Banner und Ansage macht
+    /// die Merkliste (Vorschau aus «Heute auffällig» im Markt-Tab, wie Android `afterExplorerAdd`).
     /// - Returns: Text der Rückmeldung, z. B. «BTC/USDT wird jetzt überwacht».
     @discardableResult
-    func celebrateFirstAdd(_ watchId: Int64) -> String {
+    func celebrateFirstAdd(_ watchId: Int64, announceInWatchlist: Bool = false) -> String {
         let message = Self.watchingMessage(ids: [watchId], in: snapshot.watches)
-        addCelebration = AddCelebration(watchIds: [watchId], message: message, announceInWatchlist: false)
+        addCelebration = AddCelebration(watchIds: [watchId], message: message, announceInWatchlist: announceInWatchlist)
         return message
     }
 
@@ -402,7 +413,14 @@ final class AppData: ObservableObject {
     /// EINEM Vorgang löschen (wie `deleteForUndo` festgehalten); `restore(_:)` mit der Liste holt
     /// sie zurück. Leer, wenn es keine gibt.
     func deleteNotTradedForUndo() -> [DeletedWatch] {
-        let targets = snapshot.watches.filter(\.isNotTraded)
+        deleteForUndo(ids: Set(snapshot.watches.filter(\.isNotTraded).map(\.id)))
+    }
+
+    /// Mehrfachauswahl › «Löschen»: die Paare `ids` samt Alarmen in EINEM Vorgang löschen, wie
+    /// `deleteForUndo` festgehalten; `restore(_:)` mit der Liste holt sie zurück — wie Android
+    /// `deleteSelectedWithUndo`. Leer, wenn keines davon (mehr) da ist.
+    func deleteForUndo(ids wanted: Set<Int64>) -> [DeletedWatch] {
+        let targets = snapshot.watches.filter { wanted.contains($0.id) }
         guard !targets.isEmpty else { return [] }
         let ids = Set(targets.map(\.id))
         let group = settings.watchlistGroup
@@ -551,7 +569,12 @@ final class AppData: ObservableObject {
     /// `PortfolioRepository.migrateHoldingsOnce`. Merker «holdings_migrated».
     func migrateHoldingsOnce() {
         guard !PortfolioStore.holdingsMigrated else { return }
-        importHoldings(onlyNewCoins: false)
+        if portfolioFile.holdingsImportDone {
+            // Käufe stehen schon im Portfolio (Abbruch nach dem Speichern): nur noch leeren
+            clearWatchHoldings()
+        } else {
+            importHoldings(onlyNewCoins: false, markDone: true)
+        }
         PortfolioStore.holdingsMigrated = true
     }
 
@@ -560,7 +583,8 @@ final class AppData: ObservableObject {
     /// Bestand alter Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion).
     func restorePortfolio(_ transactions: [PortfolioTx]?) {
         if let transactions {
-            var file = PortfolioFile(transactions: [], nextId: portfolioFile.nextId)
+            var file = PortfolioFile(transactions: [], nextId: portfolioFile.nextId,
+                                     holdingsImportDone: portfolioFile.holdingsImportDone)
             for tx in transactions {
                 var item = tx
                 item.coin = PortfolioCalculator.normalizeCoin(tx.coin)
@@ -573,12 +597,20 @@ final class AppData: ObservableObject {
 
     /// Bestände der Merkliste in Käufe umwandeln und leeren. Erst das Portfolio
     /// speichern, dann die Merkliste — so geht bei einem Abbruch nichts verloren.
-    private func importHoldings(onlyNewCoins: Bool) {
+    /// `markDone`: Merker «übernommen» in derselben Portfolio-Datei setzen (einmalige Übernahme),
+    /// damit ein Abbruch vor dem Leeren der Merkliste keine doppelten Käufe ergibt.
+    private func importHoldings(onlyNewCoins: Bool, markDone: Bool = false) {
         var watches = snapshot.watches
         var file = portfolioFile
         PortfolioStore.importHoldings(watches: &watches, into: &file, onlyNewCoins: onlyNewCoins, now: TimeUtils.nowMillis)
         guard watches != snapshot.watches else { return }
+        if markDone { file.holdingsImportDone = true }
         setPortfolioFile(file)
+        clearWatchHoldings()
+    }
+
+    private func clearWatchHoldings() {
+        guard snapshot.watches.contains(where: { $0.holdings != nil }) else { return }
         mutate({ s in
             for i in s.watches.indices { s.watches[i].holdings = nil }
         }, reloadWidgets: false)
@@ -587,7 +619,7 @@ final class AppData: ObservableObject {
     private func setPortfolioFile(_ file: PortfolioFile) {
         portfolioFile = file
         portfolio = PortfolioStore.newestFirst(file.transactions)
-        PortfolioStore.save(file)
+        PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup)
         // Portfolio-Widget mit den bekannten Kursen nachführen
         PortfolioWidgetStore.updateFromCache(transactions: file.transactions, currency: settings.portfolioCurrency)
     }
@@ -662,6 +694,13 @@ final class AppData: ObservableObject {
     /// letzte vollständige keine 15 s her ist (`RefreshDebounce`). Dann kein neuer Durchlauf —
     /// die Merkliste zeigt kurz «Gerade aktualisiert». Live-Takt und neue Paare laufen ohne Sperre.
     @discardableResult
+    /// Würde «Aktualisieren» jetzt etwas tun? Nein, solange eine läuft oder die letzte erst 15 s
+    /// her ist — dann ist der Menüpunkt grau statt einer Meldung (wie Android `canRefreshNow`).
+    var canRefreshNow: Bool {
+        RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
+                               now: TimeUtils.nowMillis) == .start
+    }
+
     func refreshAllByUser() async -> RefreshDebounce.Decision {
         let decision = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
                                               now: TimeUtils.nowMillis)
@@ -966,6 +1005,11 @@ final class AppData: ObservableObject {
         if old.hidePortfolioAmounts != settings.hidePortfolioAmounts {
             // Portfolio-Widget: Beträge zeigen bzw. als «•••»
             WidgetCenter.shared.reloadTimelines(ofKind: PortfolioWidgetStore.kind)
+        }
+        if old.portfolioSystemBackup != settings.portfolioSystemBackup {
+            // Portfolio-Dateien (Transaktionen, Portfolio-Alarme) in iCloud-/Geräte-Backups
+            // aufnehmen bzw. ausnehmen
+            PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup)
         }
         if old.appLock != settings.appLock {
             if !settings.appLock { AppLock.shared.disabled() }

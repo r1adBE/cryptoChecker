@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">यह लॉक, स्क्रीन पर दिखने वाली जानकारी की सुरक्षा करता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं। पूरे डिवाइस के बैकअप (सिस्टम बैकअप) में यह डेटा फिर भी शामिल रहता है।</string>
+    <string name="settings_portfolio_lock_footer">यह लॉक, स्क्रीन पर दिखने वाली जानकारी की सुरक्षा करता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं।</string>
     <string name="backup_protect">पासवर्ड से सुरक्षित करें</string>
     <string name="backup_protect_hint">फ़ाइल को एन्क्रिप्ट करता है (AES-256)। पोर्टफ़ोलियो डेटा होने पर सुझाया जाता है।</string>
     <string name="backup_password">पासवर्ड</string>

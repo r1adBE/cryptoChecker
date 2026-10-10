@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -42,8 +43,9 @@ data class PortfolioPrices(
  *
  * Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für
  * fehlende Coins einzeln der letzte Schlusskurs der 1-h-Kerzen aus der
- * [CandleDataSource]-Kette (Binance → Binance.US → Coinbase). USDT = 1.
- * Zwischenspeicher 60 s.
+ * [CandleDataSource]-Kette (Binance → Binance.US → Coinbase). USDT = 1; andere Stablecoins
+ * (USDC, DAI …) werden wie jeder Coin geholt — fehlt ihr Kurs, setzt der Rechner 1
+ * ([PortfolioStables]). Zwischenspeicher 60 s.
  *
  * Coin-Liste für die Suche: Binance-Spot-Paare gegen USDT (exchangeInfo), sonst
  * der Paar-Zwischenspeicher der Börse «Binance», sonst Coinbase-USD-Produkte.
@@ -108,8 +110,9 @@ class PortfolioPriceSource @Inject constructor(
     /** Ein einzelner Kurs, z. B. zum Vorbelegen im Erfassen-Blatt. */
     suspend fun price(coin: String): Double? {
         val symbol = PortfolioCalculator.normalizeCoin(coin)
-        if (symbol == STABLE) return 1.0
-        return prices(listOf(symbol)).prices[symbol]
+        if (!PortfolioStables.needsQuote(symbol)) return 1.0
+        // Stablecoin ohne Marktkurs: 1 (gleiche Regel wie Kopf, Verlauf und Widget)
+        return PortfolioStables.price(symbol, prices(listOf(symbol)).prices[symbol])
     }
 
     private fun normalized(coins: Collection<String>): List<String> =

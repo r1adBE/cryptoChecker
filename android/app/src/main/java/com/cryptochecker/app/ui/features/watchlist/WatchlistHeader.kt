@@ -35,6 +35,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.AlarmPulse
+import com.cryptochecker.app.domain.watch.QuickView
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.ui.components.AppMenuHead
 
 /**
@@ -67,20 +72,47 @@ internal fun WatchlistHeader(
     notTradedCount: Int,
     onRemoveNotTraded: () -> Unit,
     onClearAll: () -> Unit,
+    /** ⚡-Chip zeigen (Paare, bei denen gerade etwas passiert). */
+    hasActivity: Boolean = false,
+    quickView: QuickView? = null,
+    onToggleActivity: () -> Unit = {},
+    /** «Aktualisieren» im Menü möglich? Beim Öffnen gefragt (läuft schon / eben erst fertig = grau). */
+    canRefresh: () -> Boolean = { !refreshing },
+    /** Mehrfachauswahl: statt der Chips «n ausgewählt», rechts «Alle auswählen» und «Fertig». */
+    selecting: Boolean = false,
+    selectedCount: Int = 0,
+    allSelected: Boolean = false,
+    onSelectAll: () -> Unit = {},
+    onSelectionDone: () -> Unit = {},
+    canSelect: Boolean = false,
+    onStartSelection: () -> Unit = {},
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
         Box(Modifier.weight(1f)) {
-            GroupChips(
-                groups = groups,
-                selected = selectedGroup,
-                hasFavorites = hasFavorites,
-                onSelect = onSelectGroup,
-                onEdit = onEditGroup,
-                onAdd = onAddGroup
-            )
+            if (selecting) {
+                Text(
+                    pluralStringResource(R.plurals.watchlist_selected_count, selectedCount, selectedCount),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }
+                )
+            } else {
+                GroupChips(
+                    groups = groups,
+                    selected = selectedGroup,
+                    hasFavorites = hasFavorites,
+                    onSelect = onSelectGroup,
+                    onEdit = onEditGroup,
+                    onAdd = onAddGroup,
+                    hasActivity = hasActivity,
+                    quickView = quickView,
+                    onToggleActivity = onToggleActivity,
+                )
+            }
         }
         // Tippflächen 48 dp; um 12 dp nach aussen versetzt, damit die Symbole
         // bündig mit dem Kartenrand stehen (Fläche ragt in den Seitenrand)
@@ -88,7 +120,21 @@ internal fun WatchlistHeader(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.offset(x = 12.dp)
         ) {
-            if (sortMode) {
+            if (selecting) {
+                if (!allSelected) {
+                    TextButton(onClick = onSelectAll) {
+                        Text(stringResource(R.string.watchlist_select_all), style = MaterialTheme.typography.labelLarge, maxLines = 1)
+                    }
+                }
+                TextButton(onClick = onSelectionDone) {
+                    Text(
+                        stringResource(R.string.action_sort_done),
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        maxLines = 1
+                    )
+                }
+            } else if (sortMode) {
                 // «Fertig» als Wort: der einzige Ausweg aus dem Sortiermodus, gut sichtbar
                 TextButton(onClick = onSortDone) {
                     Text(
@@ -108,9 +154,12 @@ internal fun WatchlistHeader(
                     onOpenAbout = onOpenAbout,
                     onOpenAllAlarms = onOpenAllAlarms,
                     refreshing = refreshing,
+                    canRefresh = canRefresh,
                     onRefresh = onRefresh,
                     canSort = canSort,
                     onSort = onSort,
+                    canSelect = canSelect,
+                    onStartSelection = onStartSelection,
                     onShowReport = onShowReport,
                     canClear = canClear,
                     notTradedCount = notTradedCount,
@@ -127,7 +176,7 @@ internal fun WatchlistHeader(
 private fun AlarmBell(scale: () -> Float, onClick: () -> Unit) {
     IconButton(onClick = onClick) {
         Icon(
-            painterResource(R.drawable.ic_notifications),
+            painterResource(R.drawable.ic_notifications_active),
             contentDescription = stringResource(R.string.alarms_overview_title),
             modifier = Modifier.graphicsLayer {
                 scaleX = scale()
@@ -146,9 +195,12 @@ private fun WatchlistMenu(
     onOpenAbout: () -> Unit,
     onOpenAllAlarms: () -> Unit,
     refreshing: Boolean,
+    canRefresh: () -> Boolean,
     onRefresh: () -> Unit,
     canSort: Boolean,
     onSort: () -> Unit,
+    canSelect: Boolean,
+    onStartSelection: () -> Unit,
     onShowReport: () -> Unit,
     canClear: Boolean,
     notTradedCount: Int,
@@ -169,11 +221,13 @@ private fun WatchlistMenu(
                 refreshing = refreshing,
                 onClose = { menuOpen = false },
                 onOpenAbout = onOpenAbout,
-                onRefresh = onRefresh
+                onRefresh = onRefresh,
+                // Eben erst aktualisiert: grau statt Meldung «Gerade aktualisiert»
+                refreshEnabled = remember(menuOpen, refreshing) { canRefresh() }
             )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.alarms_overview_title)) },
-                leadingIcon = { Icon(painterResource(R.drawable.ic_notifications), null) },
+                leadingIcon = { Icon(painterResource(R.drawable.ic_notifications_active), null) },
                 onClick = { menuOpen = false; onOpenAllAlarms() }
             )
             if (canSort) {
@@ -181,6 +235,14 @@ private fun WatchlistMenu(
                     text = { Text(stringResource(R.string.action_sort)) },
                     leadingIcon = { Icon(painterResource(R.drawable.ic_sort), null) },
                     onClick = { menuOpen = false; onSort() }
+                )
+            }
+            // Mehrfachauswahl: Favorit, Gruppe oder Löschen für mehrere Paare auf einmal
+            if (canSelect) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.watchlist_select)) },
+                    leadingIcon = { Icon(painterResource(R.drawable.ic_check), null) },
+                    onClick = { menuOpen = false; onStartSelection() }
                 )
             }
             DropdownMenuItem(

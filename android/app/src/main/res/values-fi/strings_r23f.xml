@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Osakkeet, raaka-aineet ja valuutat (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Näyttää parin valinnassa myös futuurit osakkeisiin, kultaan ja muihin raaka-aineisiin, valuuttoihin ja yhtiöihin ennen listautumista. Nämä ovat sopimuksia, eivät tokeneita.</string>
     <string name="settings_watchlist_activity_card">Epätavallinen aktiivisuus listassa</string>
-    <string name="settings_watchlist_activity_card_hint">Näyttää kortin ”Nyt tapahtuu jotain” parien yläpuolella. Ilmoitukset asetetaan kohdassa Markkinailmoitukset.</string>
+    <string name="settings_watchlist_activity_card_hint">Näyttää ⚡-sirun ryhmien vieressä: napauta nähdäksesi vain parit, joissa tapahtuu juuri nyt jotain. Ilmoitukset asetetaan kohdassa Markkinailmoitukset.</string>
     <string name="settings_row_about">Tietoja sovelluksesta</string>
     <string name="price_colors_green_up">Vihreä nousee / punainen laskee</string>
     <string name="price_colors_red_up">Punainen nousee / vihreä laskee</string>

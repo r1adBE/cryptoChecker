@@ -1,0 +1,65 @@
+{
+  "exchange": "Bitso",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://bitso.com/api/v3/ticker?book=btc_mxn",
+    "bulk": "GET https://bitso.com/api/v3/ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker btc_mxn (change_24 absolute)",
+      "market": "Bitso",
+      "pair": {
+        "base": "BTC",
+        "quote": "MXN",
+        "id": "btc_mxn",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"payload\":{\"high\":\"1250000.00\",\"last\":\"1230000.00\",\"created_at\":\"2024-10-10T06:00:00+00:00\",\"book\":\"btc_mxn\", \"volume\":\"123.45678901\",\"vwap\":\"1225000.12\",\"low\":\"1200000.00\",\"ask\":\"1230500.00\",\"bid\":\"1229500.00\",\"change_24\":\"15000.00\", \"rolling_average_change\":{\"6\":\"0.1234\"}}}",
+      "expect": {
+        "last": 1230000.0,
+        "bid": 1229500.0,
+        "ask": 1230500.0,
+        "high": 1250000.0,
+        "low": 1200000.0,
+        "vol": 123.45678901,
+        "change24hPercent": 1.2345679012345678,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Bitso",
+      "pair": {
+        "base": "FOO",
+        "quote": "MXN",
+        "id": "foo_mxn",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"error\":{\"code\":\"0301\",\"message\":\"Unknown OrderBook foo_mxn\"}}",
+      "expect": {
+        "error": true,
+        "message": "Unknown OrderBook foo_mxn"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk ticker",
+      "market": "Bitso",
+      "requestId": 0,
+      "body": "{\"success\":true,\"payload\":[{\"high\":\"1250000.00\",\"last\":\"1230000.00\",\"created_at\":\"2024-10-10T06:00:00+00:00\",\"book\":\"btc_mxn\", \"volume\":\"123.45678901\",\"vwap\":\"1225000.12\",\"low\":\"1200000.00\",\"ask\":\"1230500.00\",\"bid\":\"1229500.00\",\"change_24\":\"15000.00\", \"rolling_average_change\":{\"6\":\"0.1234\"}}]}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "btc_mxn": {
+            "last": 1230000.0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -191,13 +191,11 @@ class AppNotifier @Inject constructor(
             )
         }
 
-        val settings = settingsRepository.cached
         // Nachtruhe: ausgelöst wird wie sonst, nur lautlos über den eigenen Kanal.
         // Sonst der Kanal des «Alarm-Signals»; die Schalter Ton/Vibration des Alarms
         // nehmen davon höchstens etwas weg (Android 8+ beachtet nur den Kanal).
         val quiet = isQuietNow()
-        val channelId = if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
-        else alarmChannel(AlarmSignal.effective(settings.alarmSignal, alarm.sound, alarm.vibrate))
+        val channelId = pairAlarmChannel(alarm, quiet)
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_stat_alarm)
             .setColor(settingsRepository.cached.accentColor.seed)
@@ -219,6 +217,25 @@ class AppNotifier @Inject constructor(
         if (quiet) builder.setSilent(true)
 
         notify(alarmNotificationId(alarm.id), builder.build())
+    }
+
+    /** Kanal eines Paar-Alarms: in der Nachtruhe der lautlose, sonst der des «Alarm-Signals». */
+    private fun pairAlarmChannel(alarm: AlarmEntity, quiet: Boolean): String =
+        if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
+        else alarmChannel(AlarmSignal.effective(settingsRepository.cached.alarmSignal, alarm.sound, alarm.vibrate))
+
+    /**
+     * Käme die Meldung dieses Alarms jetzt an? Erlaubnis (Android 13+), App-Benachrichtigungen an
+     * und der Kanal, über den [showAlarm] meldet, nicht stummgeschaltet. Ohne: einmalige Alarme
+     * bleiben scharf (RefreshEffects), statt sich unbemerkt abzuschalten.
+     */
+    fun canShowAlarm(alarm: AlarmEntity): Boolean {
+        if (!hasPermission() || !manager.areNotificationsEnabled()) return false
+        return runCatching {
+            val channel = context.getSystemService(android.app.NotificationManager::class.java)
+                ?.getNotificationChannel(pairAlarmChannel(alarm, isQuietNow()))
+            channel == null || channel.importance != android.app.NotificationManager.IMPORTANCE_NONE
+        }.getOrDefault(true)
     }
 
     /**

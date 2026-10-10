@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Выбрать</string>
+    <string name="watchlist_select_all">Выбрать все</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Выбрано: %1$d</item>
+        <item quantity="few">Выбрано: %1$d</item>
+        <item quantity="many">Выбрано: %1$d</item>
+        <item quantity="other">Выбрано: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Удалено пар: %1$d</item>
+        <item quantity="few">Удалено пар: %1$d</item>
+        <item quantity="many">Удалено пар: %1$d</item>
+        <item quantity="other">Удалено пар: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Показать только устаревшие</string>
+    <string name="watchlist_show_all">Показать все</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Название</string>
+    <string name="watchlist_sort_price">Цена</string>
+    <string name="watchlist_sort_descending">по убыванию</string>
+    <string name="watchlist_sort_ascending">по возрастанию</string>
+    <string name="watchlist_sort_own">Свой порядок</string>
+</resources>

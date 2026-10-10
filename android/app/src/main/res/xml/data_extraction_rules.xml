@@ -3,13 +3,17 @@
      (bis Android 11) — bei Änderungen beide anpassen. -->
 <data-extraction-rules>
     <cloud-backup>
-        <!-- Merkliste, Alarme, Portfolio, Gruppen, Notizen (Room, AppDatabase.DB_NAME).
+        <!-- Merkliste, Alarme, Gruppen, Notizen (Room, AppDatabase.DB_NAME).
              Die WAL-Datei gehört dazu: Ohne Checkpoint stehen die letzten Änderungen nur dort.
              -shm baut SQLite selbst neu auf; MarketDatabase.db (Altbestand vor der Übernahme) nicht. -->
         <include domain="database" path="cryptochecker.db" />
         <include domain="database" path="cryptochecker.db-wal" />
         <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
         <include domain="file" path="datastore/settings.preferences_pb" />
+        <!-- Portfolio: Die eigene Datenbank (PortfolioDatabase.DB_NAME, cryptochecker_portfolio.db)
+             steht bewusst NICHT hier. Nur mit dem Schalter «Portfolio in Systemsicherung» gibt es
+             diese Kopie (PortfolioBackupMirror.FILE_NAME); aus = Datei gelöscht = nicht gesichert. -->
+        <include domain="file" path="portfolio_system_backup.json" />
         <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
              damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
         <include domain="sharedpref" path="app_language.xml" />
@@ -23,13 +27,17 @@
              (Biometrie/Geräte-Sperre des Systems), nur den Schalter in den Einstellungen. -->
     </cloud-backup>
     <device-transfer>
-        <!-- Merkliste, Alarme, Portfolio, Gruppen, Notizen (Room, AppDatabase.DB_NAME).
+        <!-- Merkliste, Alarme, Gruppen, Notizen (Room, AppDatabase.DB_NAME).
              Die WAL-Datei gehört dazu: Ohne Checkpoint stehen die letzten Änderungen nur dort.
              -shm baut SQLite selbst neu auf; MarketDatabase.db (Altbestand vor der Übernahme) nicht. -->
         <include domain="database" path="cryptochecker.db" />
         <include domain="database" path="cryptochecker.db-wal" />
         <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
         <include domain="file" path="datastore/settings.preferences_pb" />
+        <!-- Portfolio: Die eigene Datenbank (PortfolioDatabase.DB_NAME, cryptochecker_portfolio.db)
+             steht bewusst NICHT hier. Nur mit dem Schalter «Portfolio in Systemsicherung» gibt es
+             diese Kopie (PortfolioBackupMirror.FILE_NAME); aus = Datei gelöscht = nicht gesichert. -->
+        <include domain="file" path="portfolio_system_backup.json" />
         <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
              damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
         <include domain="sharedpref" path="app_language.xml" />

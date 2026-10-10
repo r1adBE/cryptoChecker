@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">चुनें</string>
+    <string name="watchlist_select_all">सभी चुनें</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d चुने गए</item>
+        <item quantity="other">%1$d चुने गए</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d पेयर हटाए गए</item>
+        <item quantity="other">%1$d पेयर हटाए गए</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">केवल पुराने दिखाएँ</string>
+    <string name="watchlist_show_all">सभी दिखाएँ</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">नाम</string>
+    <string name="watchlist_sort_price">कीमत</string>
+    <string name="watchlist_sort_descending">घटते क्रम में</string>
+    <string name="watchlist_sort_ascending">बढ़ते क्रम में</string>
+    <string name="watchlist_sort_own">अपना क्रम</string>
+</resources>

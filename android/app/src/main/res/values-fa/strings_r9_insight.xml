@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">آنچه اکنون جلب توجه می‌کند</string>
-    <string name="pulse_why_action">چرا؟ →</string>
+    <string name="pulse_why_action">چرا؟</string>
     <string name="pulse_section_factors">عوامل</string>
 
     <string name="pulse_lead_btc_leads">بیت‌کوین بازار را هدایت می‌کند.</string>

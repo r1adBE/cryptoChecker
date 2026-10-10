@@ -2,6 +2,8 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import androidx.compose.foundation.lazy.itemsIndexed
+import com.cryptochecker.app.ui.components.ListSegment
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -213,7 +215,7 @@ fun PortfolioScreen(
                                 // Alarm «Portfolio-Wert» (erscheint in der Alarm-Übersicht)
                                 DropdownMenuItem(
                                     text = { Text(stringResource(R.string.portfolio_alarm_action)) },
-                                    leadingIcon = { Icon(painterResource(R.drawable.ic_notifications), null) },
+                                    leadingIcon = { Icon(painterResource(R.drawable.ic_notifications_active), null) },
                                     onClick = { menuOpen = false; alarmOpen = true }
                                 )
                                 HorizontalDivider()
@@ -270,43 +272,50 @@ fun PortfolioScreen(
                         modifier = Modifier.fillMaxSize(),
                         // Unten Platz für den «+»-Knopf
                         contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        // Positionen nur mit feiner Fuge ([ListSegment.Gap]); die Karten darüber
+                        // bringen den übrigen Abstand mit
+                        verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)
                     ) {
                         item(key = "total") {
-                            TotalCard(
+                            Box(Modifier.padding(bottom = ListSegment.Spacing)) { TotalCard(
                                 summary = current,
                                 updatedAt = prices.updatedAt,
                                 currency = currency,
                                 fxRate = fxRate,
                                 todayPercent = todayPercent
-                            )
+                            ) }
                         }
                         // Wertverlauf über den Positionen
                         item(key = "history") {
-                            PortfolioHistoryCard(
-                                history = history,
-                                range = historyRange,
-                                onRange = viewModel::setHistoryRange,
-                                expanded = historyExpanded,
-                                onExpandedChange = viewModel::setHistoryExpanded
-                            )
+                            Box(Modifier.padding(bottom = ListSegment.Spacing)) {
+                                PortfolioHistoryCard(
+                                    history = history,
+                                    range = historyRange,
+                                    onRange = viewModel::setHistoryRange,
+                                    expanded = historyExpanded,
+                                    onExpandedChange = viewModel::setHistoryExpanded
+                                )
+                            }
                         }
                         // Aufteilung (vier grösste Coins + «Andere»), erst ab zwei Teilen
                         val slices = PortfolioInsights.allocation(current.open)
                         if (slices.size >= 2) {
-                            item(key = "allocation") { AllocationCard(slices) }
+                            item(key = "allocation") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { AllocationCard(slices) } }
                         }
                         // Nach links wischen = Coin löschen (Rückgängig im Banner); kein Favorit
-                        items(current.open, key = { "open:${it.coin}" }) { position ->
+                        itemsIndexed(current.open, key = { _, it -> "open:${it.coin}" }) { index, position ->
+                            val shape = ListSegment.shape(index, current.open.size)
                             SwipeActionsRow(
                                 enabled = true,
                                 favorite = false,
                                 onDelete = { deleteCoin(position.coin) },
                                 onToggleFavorite = null,
                                 reduceMotion = reduceMotion,
+                                shape = shape,
                                 modifier = Modifier.animateItem()
                             ) {
                                 CoinRow(
+                                    shape = shape,
                                     position = position,
                                     onClick = { onOpenCoin(position.coin) },
                                     dayChange = coinChanges[position.coin] ?: coinChanges[position.coin.uppercase()],

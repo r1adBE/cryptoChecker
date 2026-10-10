@@ -28,7 +28,7 @@ struct AlarmsScreen: View {
             if alarms.isEmpty {
                 ScrollView {
                     EmptyStateView(
-                        systemImage: "bell.badge",
+                        systemImage: "bell.and.waves.left.and.right",
                         title: L("alarms_empty"),
                         actionTitle: watch == nil ? nil : L("alarms_add"),
                         action: watch == nil ? nil : { draft = AlarmDraft.newFor(lastPrice: watch?.lastPrice) }
@@ -132,7 +132,7 @@ struct AlarmsScreen: View {
                     if created.firstAlarm { firstAlarmPending = true }
                     let id = created.id
                     banner = WatchlistBannerMessage(
-                        text: L("alarm_template_created"), icon: "bell.badge.fill",
+                        text: L("alarm_template_created"), icon: "bell.and.waves.left.and.right.fill",
                         action: WatchlistBannerAction(title: L("action_undo")) {
                             withAnimation { data.deleteAlarm(id) }
                         }

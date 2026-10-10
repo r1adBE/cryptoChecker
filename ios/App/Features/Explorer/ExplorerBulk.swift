@@ -5,9 +5,13 @@ import UIKit
 extension ExplorerScreen {
     // MARK: Mehrere Paare
 
+    /// «Paar wählen» und «Mehrere Paare auf einmal» als zwei Register (`ExplorerModeTabs`).
+    var bulkTabbed: Bool { vm.hasPairs && !vm.bulkQuotes.isEmpty }
+
     var bulkSection: some View {
         ExplorerStepCard {
-            // Expertenfunktion: eingeklappt, bis man sie öffnet
+            // Ohne Register: aufklappbar mit eigenem Kopf (unter den Registern immer offen)
+            if !bulkTabbed {
             Button {
                 let expanded = !showBulk
                 ExplorerSectionMemory.bulk = expanded
@@ -28,11 +32,12 @@ extension ExplorerScreen {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+            }
 
-            if showBulk {
+            if showBulk || bulkTabbed {
                 VStack(alignment: .leading, spacing: 0) {
                     bulkQuoteChips
-                        .padding(.top, Spacing.md)
+                        .padding(.top, bulkTabbed ? 0 : Spacing.md)
 
                     Button {
                         vm.applyAllPairs()
@@ -115,11 +120,12 @@ extension ExplorerScreen {
                 Text(L("bulk_all_pairs_applied", count: vm.bulkPairs.count, vm.bulkPairs.count, vm.bulkQuote ?? ""))
                     .font(.subheadline.weight(.semibold))
                 Spacer()
-                Button(L(showBulkList ? "explorer_bulk_hide_list" : "explorer_bulk_show_list")) {
+                Button {
                     withAnimation(.snappy(duration: 0.3)) { showBulkList.toggle() }
+                } label: {
+                    ExpandToggleLabel(title: L(showBulkList ? "explorer_bulk_hide_list" : "explorer_bulk_show_list"),
+                                      expanded: showBulkList)
                 }
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(accent.primary)
                 .buttonStyle(.borderless)
             }
             .padding(.top, Spacing.md)

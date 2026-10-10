@@ -1,0 +1,103 @@
+{
+  "exchange": "Upbit / Bithumb",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.upbit.com/v1/ticker?markets=KRW-BTC (Bithumb: api.bithumb.com/v1)",
+    "bulk": "GET https://api.upbit.com/v1/ticker?markets=A,B | /v1/ticker/all?quote_currencies=KRW,BTC,USDT"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker KRW-BTC: signed_change_rate (vs. KST previous close) not used",
+      "market": "Upbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "KRW-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123}]",
+      "expect": {
+        "last": 86000000.0,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 2750.34,
+        "volQuote": 234567890123.4,
+        "change24hPercent": null,
+        "timestamp": 1728540000123
+      },
+      "note": "high_price/low_price are day values (since the exchange's day start), not rolling 24 h: not used, like signed_change_rate"
+    },
+    {
+      "kind": "single",
+      "name": "error object",
+      "market": "Upbit",
+      "pair": {
+        "base": "FOO",
+        "quote": "KRW",
+        "id": "KRW-FOO",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":{\"name\":404,\"message\":\"Code not found\"}}",
+      "expect": {
+        "error": true,
+        "message": "Code not found"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "Bithumb ticker (same format)",
+      "market": "Bithumb",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "KRW-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123}]",
+      "expect": {
+        "last": 86000000.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk ticker?markets=...",
+      "market": "Upbit",
+      "requestId": 0,
+      "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123},{\"market\":\"BTC-ETH\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":0.0396, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "KRW-BTC": {
+            "last": 86000000.0
+          },
+          "BTC-ETH": {
+            "last": 0.0396
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "Bithumb bulk ticker?markets=...",
+      "market": "Bithumb",
+      "requestId": 0,
+      "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123}]",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "KRW-BTC": {
+            "last": 86000000.0,
+            "change24hPercent": null
+          }
+        }
+      }
+    }
+  ]
+}

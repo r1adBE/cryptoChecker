@@ -22,7 +22,11 @@ object CurrencyConversion {
         INVALID,
     }
 
-    /** USD-Stablecoins, die als 1 USD gerechnet werden. */
+    /**
+     * Die eine Stablecoin-Liste der App. Die «≈ Umrechnung» der Merkliste rechnet sie als 1 USD;
+     * das Portfolio bewertet sie nach [com.cryptochecker.app.domain.portfolio.PortfolioStables]
+     * (USDT 1, andere ihr Marktkurs, sonst 1).
+     */
     val USD_STABLES: Set<String> = setOf(
         "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
         "RLUSD", "PYUSD", "USDP", "GUSD",

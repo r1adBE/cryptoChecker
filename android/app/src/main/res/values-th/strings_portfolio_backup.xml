@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">รวมพอร์ตโฟลิโอในการสำรองของระบบ</string>
+    <string name="settings_portfolio_system_backup_hint">ปิด: รายการซื้อขายของคุณจะไม่อยู่ในการสำรองของระบบและการย้ายไปยังโทรศัพท์เครื่องใหม่ หากต้องการย้าย ให้ใช้ไฟล์สำรองของแอปที่ตั้งรหัสผ่าน</string>
+</resources>

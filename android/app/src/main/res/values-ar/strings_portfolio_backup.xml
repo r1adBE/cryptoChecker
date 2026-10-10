@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">المحفظة في نسخ النظام الاحتياطي</string>
+    <string name="settings_portfolio_system_backup_hint">عند الإيقاف: لا تُضمَّن معاملاتك في نسخ النظام الاحتياطي للجهاز ولا في النقل من هاتف إلى هاتف. لنقلها إلى هاتف جديد، استخدم النسخة الاحتياطية الخاصة بالتطبيق مع كلمة مرور.</string>
+</resources>

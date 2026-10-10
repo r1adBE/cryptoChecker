@@ -56,6 +56,22 @@ object LocaleNumbers {
     fun dates(formatter: DateTimeFormatter, locale: Locale = Locale.getDefault()): DateTimeFormatter =
         formatter.withLocale(locale).withDecimalStyle(DecimalStyle.of(locale))
 
+    /**
+     * Locale für Zahleneingaben: Sprache der App ([app]), Region des Geräts ([region], z. B. «CH»)
+     * — wie `Locale.current` unter iOS. Ist in der App eine Sprache gewählt, hat
+     * `Locale.getDefault()` keine Region («de»); ohne Region gälte das deutsche Komma, in der
+     * Schweiz (de_CH) ist aber der Punkt das Dezimalzeichen.
+     */
+    fun inputLocale(app: Locale, region: String): Locale =
+        if (region.isEmpty() || region == app.country) app
+        else runCatching { Locale.Builder().setLocale(app).setRegion(region).build() }.getOrDefault(app)
+
+    /** Dezimalzeichen für Eingaben ([inputLocale]), auf Punkt oder Komma abgebildet (`ThresholdParser`). */
+    fun inputDecimalSeparator(app: Locale, region: String): Char =
+        com.cryptochecker.app.domain.alarm.ThresholdParser.normalized(
+            DecimalFormatSymbols.getInstance(inputLocale(app, region)).decimalSeparator
+        )
+
     /** Null-Ziffer der Sprache: '0', '٠' (Arabisch) oder '۰' (Persisch). */
     fun zeroDigit(locale: Locale = Locale.getDefault()): Char = DecimalFormatSymbols.getInstance(locale).zeroDigit
 

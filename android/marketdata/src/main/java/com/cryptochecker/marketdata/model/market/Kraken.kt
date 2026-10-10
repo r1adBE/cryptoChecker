@@ -58,14 +58,16 @@ class Kraken : SimpleMarket(
     /** Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur. */
     @Throws(Exception::class)
     private fun readTicker(json: JSONObject, ticker: Ticker) {
-        ticker.bid = getDoubleFromJsonArrayObject(json, "b")
-        ticker.ask = getDoubleFromJsonArrayObject(json, "a")
+        // a/b/c: [Preis, …] – Index 0 ist der Kurs
+        ticker.bid = getDoubleFromJsonArrayObject(json, "b", 0)
+        ticker.ask = getDoubleFromJsonArrayObject(json, "a", 0)
 
-        ticker.high = getDoubleFromJsonArrayObject(json, "h")
-        ticker.low = getDoubleFromJsonArrayObject(json, "l")
+        // h/l/v: [heute seit 00:00 UTC, gleitende 24 h] – die App zeigt 24-h-Werte, also Index 1
+        ticker.high = getDoubleFromJsonArrayObject(json, "h", 1)
+        ticker.low = getDoubleFromJsonArrayObject(json, "l", 1)
 
-        ticker.vol = getDoubleFromJsonArrayObject(json, "v")
-        ticker.last = getDoubleFromJsonArrayObject(json, "c")
+        ticker.vol = getDoubleFromJsonArrayObject(json, "v", 1)
+        ticker.last = getDoubleFromJsonArrayObject(json, "c", 0)
         // Kein 24-h-Wert: „o“ ist die Eröffnung des UTC-Tages, nicht der Kurs vor 24 h.
     }
 
@@ -103,6 +105,8 @@ class Kraken : SimpleMarket(
         result.forEachName { pairId, pairJson ->
             val ticker = SimpleTicker()
             readTicker(pairJson, ticker)
+            // Ohne letzten Kurs (leeres «c») kein Eintrag – der Einzelabruf meldet dann den Fehler
+            if (ticker.last <= Ticker.NO_DATA) return@forEachName
             tickers[pairId] = ticker
         }
     }
@@ -127,12 +131,10 @@ class Kraken : SimpleMarket(
             return if (VirtualCurrency.DOGE == currency) VirtualCurrency.XDG else currency
         }
 
-        private fun getDoubleFromJsonArrayObject(jsonObject: JSONObject, arrayKey: String): Double {
-            return jsonObject
-                .getJSONArray(arrayKey)
-                .let {
-                    if (it.length() > 0) it.getDouble(0) else 0.0
-                }
+        /** Wert an [index] der Liste [arrayKey]; fehlt die Liste oder ist sie zu kurz: kein Wert (nicht 0). */
+        private fun getDoubleFromJsonArrayObject(jsonObject: JSONObject, arrayKey: String, index: Int): Double {
+            val array = jsonObject.optJSONArray(arrayKey) ?: return Ticker.NO_DATA.toDouble()
+            return if (array.length() > index) array.getDouble(index) else Ticker.NO_DATA.toDouble()
         }
 
         private fun parseCurrency(currency: String): String = KrakenAssetCodes.normalize(currency)

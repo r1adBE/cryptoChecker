@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Lo que destaca</string>
-    <string name="pulse_why_action">¿Por qué? →</string>
+    <string name="pulse_why_action">¿Por qué?</string>
     <string name="pulse_section_factors">Factores</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin lidera el mercado.</string>

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -59,11 +60,13 @@ internal fun BulkPairsCard(
     /** Liste der Paare zeigen (bleibt, auch wenn die Karte kurz verschwindet). */
     showBulkList: Boolean,
     onToggleList: () -> Unit,
+    /** Unter den Registern: ohne eigenen aufklappbaren Kopf, immer offen. */
+    asTab: Boolean = false,
 ) {
-    val showBulk = ExplorerSections.bulk
+    val showBulk = asTab || ExplorerSections.bulk
     val gap = 12.dp
     StepCard {
-        Row(
+        if (!asTab) Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
@@ -84,7 +87,7 @@ internal fun BulkPairsCard(
             )
         }
         if (showBulk) {
-            Spacer(modifier = Modifier.size(gap))
+            if (!asTab) Spacer(modifier = Modifier.size(gap))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 ComboBox(
                     modifier = Modifier.weight(1f),
@@ -120,14 +123,13 @@ internal fun BulkPairsCard(
                         style = MaterialTheme.typography.titleSmall,
                         modifier = Modifier.weight(1f)
                     )
-                    TextButton(onClick = onToggleList) {
-                        Text(
-                            stringResource(
-                                if (showBulkList) R.string.explorer_bulk_hide_list
-                                else R.string.explorer_bulk_show_list
-                            )
-                        )
-                    }
+                    ExpandToggleButton(
+                        text = stringResource(
+                            if (showBulkList) R.string.explorer_bulk_hide_list else R.string.explorer_bulk_show_list
+                        ),
+                        expanded = showBulkList,
+                        onClick = onToggleList,
+                    )
                 }
 
                 GroupTargetSelector(groupTarget, modifier = Modifier.padding(top = 4.dp))

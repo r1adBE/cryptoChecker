@@ -1,0 +1,133 @@
+{
+  "exchange": "Coinbase",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.exchange.coinbase.com/products/BTC-USD/stats",
+    "ws": "wss://ws-feed.exchange.coinbase.com  channel ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "stats BTC-USD (open = price 24 h ago)",
+      "market": "Coinbase",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTC-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"open\":\"60500.00\",\"high\":\"62500.00\",\"low\":\"60000.00\",\"last\":\"62000.10\",\"volume\":\"12345.67890123\", \"volume_30day\":\"350000.12345678\",\"rfq_volume_24hour\":\"12.345\",\"conversions_volume_24hour\":\"0\"}",
+      "expect": {
+        "last": 62000.1,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12345.67890123,
+        "change24hPercent": 2.4795041322314026
+      }
+    },
+    {
+      "kind": "single",
+      "name": "very small price (SHIB-USD)",
+      "market": "Coinbase",
+      "pair": {
+        "base": "SHIB",
+        "quote": "USD",
+        "id": "SHIB-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"open\":\"0.00001790\",\"high\":\"0.00001812\",\"low\":\"0.00001755\",\"last\":\"0.00001768\",\"volume\":\"987654321012.5\",\"volume_30day\":\"1\"}",
+      "expect": {
+        "last": 1.768e-05,
+        "high": 1.812e-05,
+        "low": 1.755e-05,
+        "vol": 987654321012.5,
+        "change24hPercent": -1.2290502793296159
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown product: {message}",
+      "market": "Coinbase",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "FOO-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"message\":\"NotFound\"}",
+      "expect": {
+        "error": true,
+        "message": "NotFound",
+        "thrown": "NotFound"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "no trading volume is rejected",
+      "market": "Coinbase",
+      "pair": {
+        "base": "OLD",
+        "quote": "USD",
+        "id": "OLD-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"open\":\"1.00\",\"high\":\"1.00\",\"low\":\"1.00\",\"last\":\"1.00\",\"volume\":\"0\",\"volume_30day\":\"0\"}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "No trading volume"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "open missing -> no change",
+      "market": "Coinbase",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTC-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"high\":\"62500.00\",\"low\":\"60000.00\",\"last\":\"62000.10\",\"volume\":\"12345.67890123\", \"volume_30day\":\"350000.12345678\",\"rfq_volume_24hour\":\"12.345\",\"conversions_volume_24hour\":\"0\"}",
+      "expect": {
+        "last": 62000.1,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "live",
+      "name": "ws ticker",
+      "exchange": "COINBASE",
+      "message": "{\"type\":\"ticker\",\"sequence\":90763402417,\"product_id\":\"BTC-USD\",\"price\":\"62000.10\",\"open_24h\":\"60500.00\", \"volume_24h\":\"12345.67890123\",\"low_24h\":\"60000.00\",\"high_24h\":\"62500.00\",\"volume_30d\":\"350000.12345678\", \"best_bid\":\"62000.09\",\"best_bid_size\":\"0.10000000\",\"best_ask\":\"62000.10\",\"best_ask_size\":\"0.04000000\",\"side\":\"buy\", \"time\":\"2024-10-10T06:00:00.123456Z\",\"trade_id\":712345678,\"last_size\":\"0.00123\"}",
+      "ticks": [
+        {
+          "symbol": "BTC-USD",
+          "price": 62000.1,
+          "change24h": 2.4795041322314026,
+          "time": null
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws subscriptions ack",
+      "exchange": "COINBASE",
+      "message": "{\"type\":\"subscriptions\",\"channels\":[{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}",
+      "ticks": []
+    },
+    {
+      "kind": "live",
+      "name": "ws error",
+      "exchange": "COINBASE",
+      "message": "{\"type\":\"error\",\"message\":\"Failed to subscribe\",\"reason\":\"FOO-USD is not a valid product\"}",
+      "ticks": []
+    }
+  ]
+}

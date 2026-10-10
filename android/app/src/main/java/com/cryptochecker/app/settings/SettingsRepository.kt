@@ -2,10 +2,12 @@ package com.cryptochecker.app.settings
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -17,12 +19,25 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+/**
+ * Beschädigte Datei (z. B. halb geschrieben oder aus einer Systemsicherung wiederhergestellt):
+ * durch leere Einstellungen ersetzen (= Standardwerte) statt bei jedem Start abzustürzen.
+ */
+private val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "settings",
+    corruptionHandler = ReplaceFileCorruptionHandler { e ->
+        Timber.w(e, "Einstellungen beschädigt – Standardwerte")
+        emptyPreferences()
+    },
+)
 
 @Singleton
 class SettingsRepository @Inject constructor(
@@ -57,6 +72,7 @@ class SettingsRepository @Inject constructor(
         val aboutSeen = booleanPreferencesKey("about_seen")
         val batteryPromptSeen = booleanPreferencesKey("battery_prompt_seen")
         val watchlistGroup = stringPreferencesKey("watchlist_group")
+        val watchlistColumnSort = stringPreferencesKey("watchlist_column_sort")
         val activityAlerts = booleanPreferencesKey("activity_alerts")
         val activitySensitivity = stringPreferencesKey("activity_sensitivity")
         val macroNotifications = booleanPreferencesKey("macro_notifications")
@@ -86,6 +102,7 @@ class SettingsRepository @Inject constructor(
         val quietHoursEnd = intPreferencesKey("quiet_hours_end")
         val appLock = booleanPreferencesKey("app_lock")
         val hidePortfolioAmounts = booleanPreferencesKey("hide_portfolio_amounts")
+        val portfolioSystemBackup = booleanPreferencesKey("portfolio_system_backup")
         val firstAlarmShown = booleanPreferencesKey("first_alarm_shown")
         val firstPairAdded = booleanPreferencesKey("first_pair_added")
         val sheetChartLine = booleanPreferencesKey("sheet_chart_line")
@@ -94,7 +111,14 @@ class SettingsRepository @Inject constructor(
         val marketTabSeen = booleanPreferencesKey("market_tab_seen")
     }
 
-    val settings: Flow<AppSettings> = context.settingsDataStore.data.map { prefs ->
+    val settings: Flow<AppSettings> = context.settingsDataStore.data
+        // Lesefehler (I/O): mit Standardwerten weiter statt Absturz; andere Fehler weiterreichen
+        .catch { e ->
+            if (e !is IOException) throw e
+            Timber.w(e, "Einstellungen nicht lesbar – Standardwerte")
+            emit(emptyPreferences())
+        }
+        .map { prefs ->
         val defaults = AppSettings()
         AppSettings(
             backgroundUpdates = prefs[Keys.backgroundUpdates] ?: defaults.backgroundUpdates,
@@ -127,6 +151,7 @@ class SettingsRepository @Inject constructor(
             aboutSeen = prefs[Keys.aboutSeen] ?: defaults.aboutSeen,
             batteryPromptSeen = prefs[Keys.batteryPromptSeen] ?: defaults.batteryPromptSeen,
             watchlistGroup = prefs[Keys.watchlistGroup],
+            watchlistColumnSort = prefs[Keys.watchlistColumnSort],
             activityAlerts = prefs[Keys.activityAlerts] ?: defaults.activityAlerts,
             activitySensitivity = ActivitySensitivity.fromName(prefs[Keys.activitySensitivity]),
             macroNotifications = prefs[Keys.macroNotifications] ?: defaults.macroNotifications,
@@ -159,6 +184,7 @@ class SettingsRepository @Inject constructor(
                 ?: defaults.quietHoursEnd,
             appLock = prefs[Keys.appLock] ?: defaults.appLock,
             hidePortfolioAmounts = prefs[Keys.hidePortfolioAmounts] ?: defaults.hidePortfolioAmounts,
+            portfolioSystemBackup = prefs[Keys.portfolioSystemBackup] ?: defaults.portfolioSystemBackup,
             firstAlarmShown = prefs[Keys.firstAlarmShown] ?: defaults.firstAlarmShown,
             firstPairAdded = prefs[Keys.firstPairAdded] ?: defaults.firstPairAdded,
             sheetChartLine = prefs[Keys.sheetChartLine] ?: defaults.sheetChartLine,
@@ -320,6 +346,11 @@ class SettingsRepository @Inject constructor(
 
     suspend fun setBatteryPromptSeen(seen: Boolean) = edit { it[Keys.batteryPromptSeen] = seen }
 
+    /** Sortieren nach Spalte (gespeicherte Form); null = eigene Reihenfolge. */
+    suspend fun setWatchlistColumnSort(value: String?) = edit {
+        if (value == null) it.remove(Keys.watchlistColumnSort) else it[Keys.watchlistColumnSort] = value
+    }
+
     /** null = «Alle». */
     suspend fun setWatchlistGroup(group: String?) = edit {
         if (group == null) {
@@ -347,6 +378,9 @@ class SettingsRepository @Inject constructor(
 
     /** «Beträge verbergen» im Portfolio und im Portfolio-Widget. */
     suspend fun setHidePortfolioAmounts(hidden: Boolean) = edit { it[Keys.hidePortfolioAmounts] = hidden }
+
+    /** «Portfolio in Systemsicherung» (PortfolioBackupMirror schreibt bzw. löscht die Kopie). */
+    suspend fun setPortfolioSystemBackup(allowed: Boolean) = edit { it[Keys.portfolioSystemBackup] = allowed }
 
     /** Bestätigung nach dem ersten Alarm erledigt (nicht in der Sicherung). */
     suspend fun setFirstAlarmShown(shown: Boolean) = edit { it[Keys.firstAlarmShown] = shown }

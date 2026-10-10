@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Wat opvalt</string>
-    <string name="pulse_why_action">Waarom? →</string>
+    <string name="pulse_why_action">Waarom?</string>
     <string name="pulse_section_factors">Factoren</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin leidt de markt.</string>

@@ -71,6 +71,8 @@ internal fun SwipeActionsRow(
     onToggleFavorite: (() -> Unit)?,
     modifier: Modifier = Modifier,
     reduceMotion: Boolean = false,
+    /** Form der Zeile (bei Listen als Einheit je nach Platz, [com.cryptochecker.app.ui.components.ListSegment]). */
+    shape: androidx.compose.ui.graphics.Shape? = null,
     content: @Composable () -> Unit,
 ) {
     val view = LocalView.current
@@ -140,6 +142,7 @@ internal fun SwipeActionsRow(
                 delete = isDelete(offset),
                 favorite = favorite,
                 active = beyond(offset),
+                shape = shape ?: MaterialTheme.shapes.medium,
                 modifier = Modifier.matchParentSize()
             )
         }
@@ -155,7 +158,13 @@ internal fun SwipeActionsRow(
 
 /** Hintergrund unter der gewischten Zeile: rot mit Papierkorb bzw. Akzent mit Stern. */
 @Composable
-private fun SwipeBackground(delete: Boolean, favorite: Boolean, active: Boolean, modifier: Modifier) {
+private fun SwipeBackground(
+    delete: Boolean,
+    favorite: Boolean,
+    active: Boolean,
+    shape: androidx.compose.ui.graphics.Shape,
+    modifier: Modifier,
+) {
     val container = if (delete) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
     val onContainer = if (delete) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
     val icon = when {
@@ -173,7 +182,7 @@ private fun SwipeBackground(delete: Boolean, favorite: Boolean, active: Boolean,
     Box(
         contentAlignment = if (delete) Alignment.CenterEnd else Alignment.CenterStart,
         modifier = modifier
-            .clip(MaterialTheme.shapes.medium)
+            .clip(shape)
             .background(container.copy(alpha = if (active) 1f else 0.7f))
             .clearAndSetSemantics { }
     ) {

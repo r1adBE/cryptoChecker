@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.CheckerInfo
 import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -43,8 +44,16 @@ open class BybitBase(
     }
 
     override fun parseTickerFromJsonObject(requestId: Int, jsonObject: JSONObject, ticker: Ticker, checkerInfo: CheckerInfo) {
-        readTicker(jsonObject.getJSONObject("result").getJSONArray("list").getJSONObject(0), ticker)
+        val list = jsonObject.getJSONObject("result").getJSONArray("list")
+        if (list.length() < 1) throw MarketParseException("No data")
+        readTicker(list.getJSONObject(0), ticker)
         ticker.timestamp = jsonObject.optLong("time")
+    }
+
+    /** retCode 0 = Erfolg: retMsg ist dann «OK», kein Fehlertext – es bleibt beim Fehler des Parsers. */
+    override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? {
+        if (jsonObject.optInt("retCode", -1) == 0) throw MarketParseException("No error text")
+        return super.parseErrorFromJsonObject(requestId, jsonObject, checkerInfo)
     }
 
     private fun readTicker(json: JSONObject, ticker: Ticker) {

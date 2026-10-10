@@ -10,6 +10,8 @@ import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import org.json.JSONArray
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.optText
+import com.cryptochecker.marketdata.util.getText
 
 // API Reference: https://docs.cloud.coinbase.com/exchange/reference/
 class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
@@ -69,7 +71,7 @@ class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
         // Unbekannte oder stillgelegte Produkte liefern statt der Kursdaten
         // ein Objekt mit "message". Ohne diese Abfrage stolpert der Parser
         // darüber und meldet nur "No value for volume".
-        jsonObject.optString("message").takeIf { it.isNotEmpty() }?.let {
+        jsonObject.optText("message").takeIf { it.isNotEmpty() }?.let {
             throw MarketParseException(it)
         }
 
@@ -108,6 +110,6 @@ class Coinbase : Market(NAME, TTS_NAME, CURRENCY_PAIRS) {
         jsonObject: JSONObject,
         checkerInfo: CheckerInfo
     ): String? {
-        return jsonObject.getString("message")
+        return jsonObject.getText("message")
     }
 }

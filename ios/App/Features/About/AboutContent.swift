@@ -92,8 +92,10 @@ struct AboutContent: View {
         let label = AppLinks.feedbackLabel
         var text = AttributedString(L("about_why", label))
         if let range = text.range(of: label) {
-            // Farbe des Links über `.tint` (Akzentfarbe)
+            // Farbe des Links über `.tint` (Akzentfarbe), unterstrichen wie Android: Verweise im
+            // Fliesstext sind überall Themenfarbe + unterstrichen
             text[range].link = URL(string: AppLinks.feedback)
+            text[range].underlineStyle = .single
         }
         return text
     }

@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Ce iese în evidență</string>
-    <string name="pulse_why_action">De ce? →</string>
+    <string name="pulse_why_action">De ce?</string>
     <string name="pulse_section_factors">Factori</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin conduce piața.</string>

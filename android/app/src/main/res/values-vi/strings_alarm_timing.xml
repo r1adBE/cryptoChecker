@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker hiện đang theo dõi %1$s cho bạn. Khi %1$s chạm ngưỡng của bạn, bạn sẽ nhận thông báo ngay khi ứng dụng kiểm tra giá. Khi ứng dụng đóng, Android kiểm tra theo khoảng thời gian chạy nền – nhiều nhất mỗi 15 phút, chậm hơn nếu tối ưu hóa pin hạn chế ứng dụng. Để báo động nhanh hơn: Cài đặt › Cập nhật › Cập nhật thường xuyên.</string>
+</resources>

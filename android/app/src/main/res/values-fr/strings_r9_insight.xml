@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Ce qui ressort</string>
-    <string name="pulse_why_action">Pourquoi ? →</string>
+    <string name="pulse_why_action">Pourquoi ?</string>
     <string name="pulse_section_factors">Facteurs</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin mène le marché.</string>

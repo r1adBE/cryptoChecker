@@ -8,6 +8,8 @@ struct WatchlistDayChangePill: View {
     /// Das Paar; die Pille wählt selbst den Wert gemäss %-Basis (`ChangeView.shown(_: Watch)`).
     let watch: Watch
     var large = false
+    /// Hinweis für VoiceOver nach dem Wert, z. B. «Veränderung aus Binance-Kerzen».
+    var note: String? = nil
     @Environment(\.changeView) private var changeView
 
     var body: some View {
@@ -25,6 +27,6 @@ struct WatchlistDayChangePill: View {
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
         // Vorgelesen mit Richtungswort und Zeitraum statt «+»/«−»
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.change(value, basis: changeView.basis))
+        .accessibilityLabel(A11y.join([A11y.change(value, basis: changeView.basis), note]))
     }
 }

@@ -1,0 +1,280 @@
+{
+  "exchange": "Binance / Binance.US",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT (Binance.US: api.binance.us)",
+    "bulk": "GET https://api.binance.com/api/v3/ticker/24hr[?symbols=[...]]",
+    "ws": "wss://stream.binance.com:9443/ws  <symbol>@ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot 24hr BTCUSDT",
+      "market": "Binance",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.5,
+        "volQuote": 744460123.456789,
+        "change24hPercent": 2.479,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "very small price (PEPEUSDT, 8 decimals)",
+      "market": "Binance",
+      "pair": {
+        "base": "PEPE",
+        "quote": "USDT",
+        "id": "PEPEUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"PEPEUSDT\",\"priceChange\":\"-0.00000031\",\"priceChangePercent\":\"-3.287\",\"weightedAvgPrice\":\"0.00000925\", \"prevClosePrice\":\"0.00000943\",\"lastPrice\":\"0.00000912\",\"lastQty\":\"1234567.00\",\"bidPrice\":\"0.00000911\",\"bidQty\":\"98765432.00\", \"askPrice\":\"0.00000912\",\"askQty\":\"12345678.00\",\"openPrice\":\"0.00000943\",\"highPrice\":\"0.00000951\",\"lowPrice\":\"0.00000899\", \"volume\":\"4567890123456.00\",\"quoteVolume\":\"41656000.12000000\",\"openTime\":1728453600000,\"closeTime\":1728540000000, \"firstId\":1,\"lastId\":2,\"count\":2}",
+      "expect": {
+        "last": 9.12e-06,
+        "bid": 9.11e-06,
+        "ask": 9.12e-06,
+        "high": 9.51e-06,
+        "low": 8.99e-06,
+        "vol": 4567890123456.0,
+        "volQuote": 41656000.12,
+        "change24hPercent": -3.287,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "scientific notation in strings",
+      "market": "Binance",
+      "pair": {
+        "base": "XYZ",
+        "quote": "USDT",
+        "id": "XYZUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"XYZUSDT\",\"priceChangePercent\":\"1.5e0\",\"lastPrice\":\"1.2e-7\",\"bidPrice\":\"1.1E-7\",\"askPrice\":\"1.3e-07\", \"highPrice\":\"1.4e-7\",\"lowPrice\":\"1.0e-7\",\"volume\":\"5e12\",\"quoteVolume\":\"6.0E5\",\"openTime\":1728453600000,\"closeTime\":1728540000000}",
+      "expect": {
+        "last": 1.2e-07,
+        "bid": 1.1e-07,
+        "ask": 1.3e-07,
+        "high": 1.4e-07,
+        "low": 1e-07,
+        "vol": 5000000000000.0,
+        "volQuote": 600000.0,
+        "change24hPercent": 1.5
+      },
+      "note": "synthetic: Binance sends fixed-point strings; checks that both platforms parse exponents"
+    },
+    {
+      "kind": "single",
+      "name": "error payload: invalid symbol",
+      "market": "Binance",
+      "pair": {
+        "base": "FOO",
+        "quote": "BAR",
+        "id": "FOOBAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "renamed field (bidPrice -> bestBid) fails instead of showing a wrong price",
+      "market": "Binance",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bestBid\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "priceChangePercent missing -> no rolling change, price still valid",
+      "market": "Binance",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}",
+      "expect": {
+        "last": 62000.1,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "Binance.US 24hr (same format)",
+      "market": "BinanceUs",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSD\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "vol": 12100.5,
+        "change24hPercent": 2.479,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "Binance.US error: illegal characters",
+      "market": "BinanceUs",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "btc-usd!",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-1100,\"msg\":\"Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'.\"}",
+      "expect": {
+        "error": true,
+        "message": "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk 24hr (symbols=[...]) incl. entry without symbol",
+      "market": "Binance",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\", \"prevClosePrice\":\"0.03972000\",\"lastPrice\":\"0.03960000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\", \"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\", \"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200, \"firstId\":512345678,\"lastId\":512399999,\"count\":54322},{\"symbol\":\"\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\", \"prevClosePrice\":\"0.03972000\",\"lastPrice\":\"0.03960000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\", \"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\", \"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200, \"firstId\":512345678,\"lastId\":512399999,\"count\":54322}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTCUSDT": {
+            "last": 62000.1,
+            "bid": 62000.0,
+            "ask": 62000.1,
+            "change24hPercent": 2.479,
+            "timestamp": 1728540000123
+          },
+          "ETHBTC": {
+            "last": 0.0396,
+            "bid": 0.03959,
+            "ask": 0.0396,
+            "high": 0.0401,
+            "low": 0.0393,
+            "vol": 23456.789,
+            "volQuote": 929.12345678,
+            "change24hPercent": -0.302,
+            "timestamp": 1728540000200
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: error object instead of array",
+      "market": "Binance",
+      "requestId": 0,
+      "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "Binance.US bulk 24hr",
+      "market": "BinanceUs",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSD\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}]",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTCUSD": {
+            "last": 62000.1,
+            "change24hPercent": 2.479
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: one malformed entry fails the whole batch (strict, falls back to single requests)",
+      "market": "Binance",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\", \"prevClosePrice\":\"0.03972000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\", \"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\", \"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200, \"firstId\":512345678,\"lastId\":512399999,\"count\":54322}]",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "live",
+      "name": "ws spot 24hrTicker (raw stream)",
+      "exchange": "BINANCE",
+      "message": "{\"e\":\"24hrTicker\",\"E\":1728540000123,\"s\":\"BTCUSDT\",\"p\":\"1500.10000000\",\"P\":\"2.479\",\"w\":\"61523.45678901\", \"x\":\"60500.00000000\",\"c\":\"62000.10000000\",\"Q\":\"0.00100000\",\"b\":\"62000.00000000\",\"B\":\"1.23400000\",\"a\":\"62000.10000000\", \"A\":\"0.56700000\",\"o\":\"60500.00000000\",\"h\":\"62500.00000000\",\"l\":\"60000.00000000\",\"v\":\"12100.50000000\", \"q\":\"744460123.45678900\",\"O\":1728453600123,\"C\":1728540000123,\"F\":3801234567,\"L\":3802345678,\"n\":1111112}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": 62000.1,
+          "change24h": 2.479,
+          "time": 1728540000123
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws combined stream wrapper",
+      "exchange": "BINANCE",
+      "message": "{\"stream\":\"pepeusdt@ticker\",\"data\":{\"e\":\"24hrTicker\",\"E\":1728540000000,\"s\":\"PEPEUSDT\",\"p\":\"-0.00000031\", \"P\":\"-3.287\",\"c\":\"0.00000912\",\"o\":\"0.00000943\",\"h\":\"0.00000951\",\"l\":\"0.00000899\",\"v\":\"4567890123456.00\",\"q\":\"41656000.12\"}}",
+      "ticks": [
+        {
+          "symbol": "PEPEUSDT",
+          "price": 9.12e-06,
+          "change24h": -3.287,
+          "time": 1728540000000
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws subscribe ack",
+      "exchange": "BINANCE",
+      "message": "{\"result\":null,\"id\":1}",
+      "ticks": []
+    },
+    {
+      "kind": "live",
+      "name": "ws error frame",
+      "exchange": "BINANCE",
+      "message": "{\"error\":{\"code\":2,\"msg\":\"Invalid request: unknown variant\"},\"id\":1}",
+      "ticks": []
+    }
+  ]
+}

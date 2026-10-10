@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker houdt %1$s nu voor je in de gaten. Bereikt %1$s je grens, dan krijg je een melding zodra de app de koers controleert. Met de app gesloten controleert Android volgens het achtergrondinterval – hoogstens elke 15 minuten, later als batterijoptimalisatie de app beperkt. Voor snellere alarmen: Instellingen › Bijwerken › Vaak bijwerken.</string>
+</resources>

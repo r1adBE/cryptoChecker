@@ -221,11 +221,8 @@ struct CryptoPulseCard: View {
                     WatchlistHaptics.selection()
                     expanded.toggle()
                 } label: {
-                    Text(L(expanded ? "pulse_less" : "pulse_why_action"))
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(accent.primary)
-                        .padding(.vertical, Spacing.sm)
-                        .contentShape(Rectangle())
+                    // Klappt nur auf (kein Seitenwechsel): Pfeil nach unten bzw. oben wie bei «Einordnung»
+                    ExpandToggleLabel(title: L(expanded ? "pulse_less" : "pulse_why_action"), expanded: expanded)
                 }
                 .buttonStyle(.plain)
             }

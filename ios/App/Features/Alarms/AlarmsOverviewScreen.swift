@@ -54,7 +54,7 @@ struct AlarmsOverviewScreen: View {
                 ScrollView {
                     let watches = data.watches
                     EmptyStateView(
-                        systemImage: "bell.slash",
+                        systemImage: "bell.and.waves.left.and.right",
                         title: L("alarms_overview_empty"),
                         actionTitle: watches.isEmpty ? nil : L("alarms_add"),
                         action: watches.isEmpty ? nil : {

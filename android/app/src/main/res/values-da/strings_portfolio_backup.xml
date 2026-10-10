@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portefølje i systembackup</string>
+    <string name="settings_portfolio_system_backup_hint">Fra: Dine transaktioner kommer ikke med i enhedens systembackup eller ved overførsel til en ny telefon. Brug appens egen sikkerhedskopi med adgangskode til at flytte dem.</string>
+</resources>

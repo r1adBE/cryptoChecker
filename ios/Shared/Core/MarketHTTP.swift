@@ -189,7 +189,8 @@ enum MarketService {
         do {
             var t = ticker
             try market.parseTickerMain(requestId: requestId, response: response, ticker: &t, info: info)
-            if t.last <= Ticker.noData { throw JSONError(message: "Parsed ticker has no data") }
+            // NaN/∞ nie als Kurs übernehmen (∞ löste sonst «über» aus) — wie PriceRefresher.kt
+            if !t.last.isFinite || t.last <= Ticker.noData { throw JSONError(message: "Parsed ticker has no data") }
             ticker = t
         } catch let original {
             // Fehlertext der Börse auslesen, sonst den ursprünglichen Fehler weitergeben.

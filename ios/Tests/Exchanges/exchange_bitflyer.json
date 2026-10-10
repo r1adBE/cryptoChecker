@@ -1,0 +1,49 @@
+{
+  "exchange": "bitFlyer",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.bitflyer.com/v1/ticker?product_code=BTC_JPY"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker BTC_JPY",
+      "market": "BitFlyer",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "BTC_JPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"product_code\":\"BTC_JPY\",\"state\":\"RUNNING\",\"timestamp\":\"2024-10-10T06:00:00.123\",\"tick_id\":12345678, \"best_bid\":9200000.0,\"best_ask\":9201000.0,\"best_bid_size\":0.1,\"best_ask_size\":0.2,\"total_bid_depth\":1234.5, \"total_ask_depth\":2345.6,\"market_bid_size\":0.0,\"market_ask_size\":0.0,\"ltp\":9200500.0,\"volume\":123456.7, \"volume_by_product\":2345.67}",
+      "expect": {
+        "last": 9200500.0,
+        "bid": 9200000.0,
+        "ask": 9201000.0,
+        "vol": 2345.67,
+        "high": -1.0,
+        "low": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "BitFlyer",
+      "pair": {
+        "base": "FOO",
+        "quote": "JPY",
+        "id": "FOO_JPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":-120,\"error_message\":\"Invalid product\",\"data\":null}",
+      "expect": {
+        "error": true,
+        "message": "Invalid product"
+      }
+    }
+  ]
+}

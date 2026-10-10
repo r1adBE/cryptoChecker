@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Det falder i øjnene</string>
-    <string name="pulse_why_action">Hvorfor? →</string>
+    <string name="pulse_why_action">Hvorfor?</string>
     <string name="pulse_section_factors">Faktorer</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin fører an på markedet.</string>

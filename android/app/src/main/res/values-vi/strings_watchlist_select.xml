@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Chọn</string>
+    <string name="watchlist_select_all">Chọn tất cả</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">Đã chọn %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">Đã xóa %1$d cặp</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Chỉ hiện mục đã cũ</string>
+    <string name="watchlist_show_all">Hiện tất cả</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Tên</string>
+    <string name="watchlist_sort_price">Giá</string>
+    <string name="watchlist_sort_descending">giảm dần</string>
+    <string name="watchlist_sort_ascending">tăng dần</string>
+    <string name="watchlist_sort_own">Thứ tự riêng</string>
+</resources>

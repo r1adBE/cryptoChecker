@@ -89,11 +89,24 @@ class DerivativesAlarmTest {
     }
 
     @Test
-    fun newAlarmWaitsForHistory() {
-        // Erste Messung jetzt: eine Stunde lang kein Vergleich, danach schon
+    fun newAlarmComparesWithinTheWindow() {
+        // Erste Messung jetzt: nur die aktuelle Messung → kein Vergleich
         val history = DerivativesAlarm.appendOi(emptyList(), DerivativesAlarm.OiPoint(100.0, start), start)
-        assertNull(DerivativesAlarm.oiChangePercent(history, 150.0, 1, start + 30 * minute))
+        assertNull(DerivativesAlarm.oiChangePercent(history, 150.0, 1, start))
+        // Eine Veränderung in kürzerer Zeit zählt auch als «in N Stunden»
+        assertEquals(50.0, DerivativesAlarm.oiChangePercent(history, 150.0, 1, start + 30 * minute)!!, 1e-9)
         assertEquals(50.0, DerivativesAlarm.oiChangePercent(history, 150.0, 1, start + 60 * minute)!!, 1e-9)
-        assertNull(DerivativesAlarm.oiChangePercent(history, 150.0, 4, start + 60 * minute))
+        assertEquals(50.0, DerivativesAlarm.oiChangePercent(history, 150.0, 4, start + 60 * minute)!!, 1e-9)
+    }
+
+    @Test
+    fun hourlyBackgroundRunsStillCompare() {
+        // Hintergrund im Stundentakt mit Schwankung: Messungen 50 bzw. 100 Min. auseinander
+        var history = emptyList<DerivativesAlarm.OiPoint>()
+        history = DerivativesAlarm.appendOi(history, DerivativesAlarm.OiPoint(100.0, start), start)
+        history = DerivativesAlarm.appendOi(history, DerivativesAlarm.OiPoint(104.0, start + 50 * minute), start + 50 * minute)
+        // Nach weiteren 50 Min.: die Messung von vor 100 Min. ist zu alt (> 90), die von vor 50 Min. zählt
+        val change = DerivativesAlarm.oiChangePercent(history, 115.0, 1, start + 100 * minute)
+        assertEquals(115.0 / 104.0 * 100.0 - 100.0, change!!, 1e-9)
     }
 }

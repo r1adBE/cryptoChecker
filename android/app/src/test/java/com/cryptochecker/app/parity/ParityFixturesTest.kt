@@ -3,7 +3,10 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
+import com.cryptochecker.app.domain.alarm.MoveWindow
+import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.ThresholdParser
+import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
@@ -11,6 +14,8 @@ import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.app.util.DecimalText
+import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.util.Change24h
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -93,25 +98,107 @@ class ParityFixturesTest {
             val c = raw.obj()
             var a = alarm(c["alarm"].obj())
             var fired = 0
+            var history = emptyList<MoveWindow.PricePoint>()
             val step = c["stepMillis"].num()!!.toLong()
             val cooldown = c["cooldownMinutes"].num()!!.toInt()
             c["prices"].list().forEachIndexed { i, p ->
                 val price = p.num()!!
                 val t = now + i * step
-                if (!a.enabled) return@forEachIndexed
-                if (evaluator.shouldRearmLevel(a, price)) {
-                    a = a.copy(referenceAt = 0)
-                    return@forEachIndexed
+                if (a.enabled) {
+                    if (evaluator.needsReference(a, t)) {
+                        a = a.copy(referencePrice = price, referenceAt = t)
+                    } else if (evaluator.shouldRearmLevel(a, price)) {
+                        a = a.copy(referenceAt = 0)
+                    } else if (evaluator.shouldTrigger(a, price, previousPrice = null, now = t, cooldownMinutes = cooldown, moveHistory = history)) {
+                        fired++
+                        a = AlarmEvaluator.triggered(a, price, t)
+                    }
                 }
-                if (evaluator.shouldTrigger(a, price, previousPrice = null, now = t, cooldownMinutes = cooldown)) {
-                    fired++
-                    a = a.copy(lastTriggeredAt = t, lastTriggeredPrice = price, referenceAt = t, enabled = a.repeating)
-                }
+                history = MoveWindow.append(history, MoveWindow.PricePoint(price, t), t)
             }
             assertEquals("sequence: ${c["name"]}", c["expectedFires"].num()!!.toInt(), fired)
             count++
         }
-        assertTrue("alarm cases read", count >= 40)
+        data["reference"].list().forEach { raw ->
+            val c = raw.obj()
+            assertEquals("reference: ${c["name"]}", c["expected"], evaluator.needsReference(alarm(c["alarm"].obj()), now))
+            count++
+        }
+        data["triggered"].obj()["cases"].list().forEach { raw ->
+            val c = raw.obj()
+            val name = "triggered: ${c["name"]}"
+            val after = AlarmEvaluator.triggered(
+                alarm(c["alarm"].obj()), c["price"].num()!!, now,
+                candleOpenTime = c["candleOpenTime"].num()?.toLong(), nearLevel = c["nearLevel"].num(),
+            )
+            val e = c["expected"].obj()
+            assertNumber(e["referencePrice"].num(), after.referencePrice, 1e-9, "$name referencePrice")
+            assertEquals("$name referenceAt", e["referenceAt"].num()!!.toLong(), after.referenceAt)
+            assertEquals("$name enabled", e["enabled"], after.enabled)
+            assertEquals("$name lastTriggeredAt", e["lastTriggeredAt"].num()!!.toLong(), after.lastTriggeredAt)
+            assertNumber(e["lastTriggeredPrice"].num(), after.lastTriggeredPrice, 1e-9, "$name lastTriggeredPrice")
+            count++
+        }
+        val minute = 60_000L
+        fun point(raw: Any?): MoveWindow.PricePoint {
+            val pair = raw.list()
+            return MoveWindow.PricePoint(price = pair[1].num()!!, time = now - (pair[0].num()!! * minute).toLong())
+        }
+        data["moveChange"].obj()["cases"].list().forEach { raw ->
+            val c = raw.obj()
+            val result = MoveWindow.changePercent(
+                history = c["history"].list().map { point(it) },
+                reference = c["reference"]?.let { point(it) },
+                price = c["price"].num()!!,
+                hours = c["hours"].num()!!.toInt(),
+                since = now - (c["sinceMinutesAgo"].num()!! * minute).toLong(),
+                now = now,
+            )
+            assertNumber(c["expected"].num(), result, 1e-9, "moveChange: ${c["name"]}")
+            count++
+        }
+        data["nearExtremeSequences"].obj()["cases"].list().forEach { raw ->
+            val c = raw.obj()
+            val range = c["range"].obj().let { NearExtreme.Range(high = it["high"].num()!!, low = it["low"].num()!!) }
+            var a = AlarmEntity(
+                id = 1, watchId = 1,
+                condition = AlarmCondition.valueOf(c["condition"] as String),
+                threshold = c["threshold"].num()!!,
+                repeating = c["repeating"] as Boolean,
+                windowHours = c["windowDays"].num()!!.toInt(),
+            )
+            val step = c["stepMillis"].num()!!.toLong()
+            val cooldown = c["cooldownMinutes"].num()!!.toInt()
+            val decisions = c["prices"].list().mapIndexed { i, p ->
+                val price = p.num()!!
+                val t = now + i * step
+                if (!a.enabled) return@mapIndexed "skip"
+                when (val d = NearExtreme.decide(
+                    side = if (a.condition == AlarmCondition.NEAR_HIGH) NearExtreme.Side.HIGH else NearExtreme.Side.LOW,
+                    price = price,
+                    range = range,
+                    thresholdPercent = a.threshold,
+                    armed = a.referenceAt <= 0L,
+                    lastLevel = NearExtreme.reportedMark(a.referencePrice, a.lastTriggeredAt, a.windowHours, t),
+                    inCooldown = NearExtreme.inCooldown(a.lastTriggeredAt, t, cooldown),
+                    lastTriggeredAt = a.lastTriggeredAt,
+                    now = t,
+                )) {
+                    NearExtreme.Decision.None -> "none"
+                    NearExtreme.Decision.Rearm -> {
+                        a = a.copy(referenceAt = 0)
+                        "rearm"
+                    }
+                    is NearExtreme.Decision.Fire -> {
+                        a = AlarmEvaluator.triggered(a, price, t, nearLevel = d.level)
+                        "fire"
+                    }
+                }
+            }
+            assertEquals("nearExtremeSequences: ${c["name"]}", c["expected"].list(), decisions)
+            count++
+        }
+        assertTrue("alarm cases read", count >= 90)
     }
 
     // ---------------- Schwellwert-Eingabe
@@ -128,6 +215,55 @@ class ParityFixturesTest {
             assertNumber(expected, actual, abs(expected ?: 0.0) * 1e-12, "threshold '$text' ($decimal, ${c["hint"]})")
         }
         assertTrue(cases.size >= 40)
+    }
+
+    // ---------------- Menge/Kurs im Bestand und Dezimaltext (threshold.json)
+
+    @Test
+    fun amountInput() {
+        val data = ParityJson.load("threshold.json")
+        val cases = data["amount"].list()
+        cases.forEach { raw ->
+            val c = raw.obj()
+            val text = c["text"] as String
+            val decimal = (c["decimal"] as String).single()
+            val actual = PriceFormat.parseAmount(text, decimal, c["hint"].num())
+            val expected = c["expected"].num()
+            assertNumber(expected, actual, abs(expected ?: 0.0) * 1e-12, "amount '$text' ($decimal, ${c["hint"]})")
+        }
+        assertTrue(cases.size >= 20)
+        data["amountForInput"].list().forEach { raw ->
+            val c = raw.obj()
+            val value = (c["value"] as String?)?.toDouble()
+            val actual = PriceFormat.amountForInput(value, (c["decimal"] as String).single())
+            assertEquals("amountForInput ${c["value"]}", c["expected"], actual)
+        }
+    }
+
+    @Test
+    fun decimalText() {
+        val data = ParityJson.load("threshold.json")
+        data["plain"].list().forEach { raw ->
+            val c = raw.obj()
+            val value = (c["value"] as String).toDouble()
+            val actual = DecimalText.plain(value, c["scale"].num()?.toInt())
+            assertEquals("plain ${c["value"]} ${c["scale"]}", c["expected"], actual)
+        }
+        data["fixed"].list().forEach { raw ->
+            val c = raw.obj()
+            val value = (c["value"] as String).toDouble()
+            assertEquals("fixed ${c["value"]}", c["expected"], DecimalText.fixed(value, c["scale"].num()!!.toInt()))
+        }
+        val export = data["export"].list()
+        export.forEach { raw ->
+            val c = raw.obj()
+            val value = (c["value"] as String).toDouble()
+            assertEquals("export amount ${c["value"]}", c["amount"], CutoffExport.amount(value))
+            assertEquals("export price ${c["value"]}", c["amount"], CutoffExport.price(value))
+            assertEquals("export rate ${c["value"]}", c["rate"], CutoffExport.rate(value))
+            assertEquals("export money ${c["value"]}", c["money"], CutoffExport.money(value))
+        }
+        assertTrue(export.size >= 5)
     }
 
     // ---------------- Basis der %-Änderung

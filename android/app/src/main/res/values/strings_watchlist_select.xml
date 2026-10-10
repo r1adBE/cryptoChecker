@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Select</string>
+    <string name="watchlist_select_all">Select all</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pair removed</item>
+        <item quantity="other">%1$d pairs removed</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Show only outdated</string>
+    <string name="watchlist_show_all">Show all</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Name</string>
+    <string name="watchlist_sort_price">Price</string>
+    <string name="watchlist_sort_descending">descending</string>
+    <string name="watchlist_sort_ascending">ascending</string>
+    <string name="watchlist_sort_own">Own order</string>
+</resources>

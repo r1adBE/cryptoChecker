@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">सिस्टम बैकअप में पोर्टफ़ोलियो</string>
+    <string name="settings_portfolio_system_backup_hint">बंद: आपके लेन-देन डिवाइस के सिस्टम बैकअप और नए फ़ोन में ट्रांसफ़र में शामिल नहीं होते। उन्हें नए फ़ोन पर ले जाने के लिए ऐप का अपना पासवर्ड वाला बैकअप इस्तेमाल करें।</string>
+</resources>

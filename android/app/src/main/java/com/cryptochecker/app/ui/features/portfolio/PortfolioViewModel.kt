@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
@@ -12,6 +13,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
@@ -61,14 +63,27 @@ fun PortfolioTxEntity.toDraft() = TxDraft(
 
 /**
  * Wertverlauf für die Karte über den Positionen: [series] in [unit]
- * ([converted] = mit dem heutigen Devisenkurs aus USDT umgerechnet).
+ * ([converted] = aus USDT umgerechnet, je Tag mit dem Devisenkurs dieses Tags, siehe
+ * [PortfolioHistoryFx]; [approximateFx] = Tageskurse fehlten, alles mit dem heutigen Kurs —
+ * die Karte sagt das unter dem Chart).
  */
 data class PortfolioHistoryUi(
     val range: PortfolioHistoryRange,
     val series: PortfolioHistorySeries,
     val unit: String,
     val converted: Boolean,
+    val approximateFx: Boolean = false,
 )
+
+/** Tageskurse USD → [currency] ab [from] (bis heute); [rates] null = nicht zu haben. */
+private data class FxSeriesLoad(val currency: String, val from: LocalDate, val rates: Map<Long, Double>?)
+
+/** Beginn der Devisenkurs-Abfrage für den Verlauf [range] (siehe [PortfolioHistoryFx.requestRange]). */
+private fun fxSeriesFrom(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): LocalDate {
+    val today = LocalDate.now(ZoneId.systemDefault())
+    val days = if (range == PortfolioHistoryRange.SINCE_FIRST) historyRequest(txs, range).days else range.days
+    return PortfolioHistoryFx.requestRange(days, today).first
+}
 
 /** Welche Tagesschlusskurse der gewählte Zeitraum braucht: Coins und Tage bis heute. */
 private data class HistoryRequest(val coins: Set<String>, val days: Int)
@@ -115,6 +130,7 @@ class PortfolioViewModel @Inject constructor(
     private val snapshotUpdater: PortfolioSnapshotUpdater,
     private val historySource: PortfolioHistorySource,
     private val alarmRepository: PortfolioAlarmRepository,
+    private val historicSource: HistoricPriceSource,
 ) : ViewModel() {
 
     /** null, bis die Datenbank geantwortet hat. Neueste zuerst. */
@@ -180,32 +196,43 @@ class PortfolioViewModel @Inject constructor(
 
     private val _closes = MutableStateFlow<HistoryCloses?>(null)
 
+    /** Tageskurse USD → Umrechnungswährung für den Verlauf; null = noch nicht geladen. */
+    private val _fxSeries = MutableStateFlow<FxSeriesLoad?>(null)
+
     /**
-     * Wertverlauf des gewählten Zeitraums; null, solange dessen Tageskurse noch laden
-     * (Platzhalter). Auch zugeklappt gerechnet — die Zeile zeigt die Änderung —, aber nur
-     * für den gewählten Zeitraum. Gerechnet abseits des Hauptthreads.
+     * Wertverlauf des gewählten Zeitraums; null, solange dessen Tageskurse (und bei einer
+     * Umrechnungswährung die Devisen-Tageskurse) noch laden (Platzhalter). Auch zugeklappt
+     * gerechnet — die Zeile zeigt die Änderung —, aber nur für den gewählten Zeitraum.
+     * Umgerechnet wird je Punkt mit dem Kurs seines Tags ([PortfolioHistoryFx]), heute mit dem
+     * aktuellen. Gerechnet abseits des Hauptthreads.
      */
     val history: StateFlow<PortfolioHistoryUi?> = combine(
         transactions,
         _closes,
         _prices,
         historyRange,
-        combine(currency, _fxRate) { code, fx -> code to fx },
-    ) { txs, loaded, p, range, (code, fx) ->
+        combine(currency, _fxRate, _fxSeries) { code, fx, series -> Triple(code, fx, series) },
+    ) { txs, loaded, p, range, (code, fx, fxSeries) ->
         if (txs == null || loaded == null) return@combine null
         if (!loaded.covers(historyRequest(txs, range))) return@combine null
         val converted = code != "USD" && fx != null
+        // Devisen-Tageskurse dieses Zeitraums noch nicht da: Platzhalter statt still falscher Kurve
+        if (converted && (fxSeries == null || fxSeries.currency != code || fxSeries.from.isAfter(fxSeriesFrom(txs, range)))) {
+            return@combine null
+        }
         val zone = ZoneId.systemDefault()
+        val today = LocalDate.now(zone).toEpochDay()
         val series = PortfolioHistory.build(
             trades = txs.map { it.toTrade() },
             closes = loaded.closes,
             livePrices = p.prices,
             range = range,
-            todayEpochDay = LocalDate.now(zone).toEpochDay(),
+            todayEpochDay = today,
             dayEndMillis = dayEndIn(zone),
-            fxRate = fx?.takeIf { converted } ?: 1.0,
         )
-        PortfolioHistoryUi(range, series, if (converted) code else PortfolioFormat.USDT, converted)
+        if (!converted || fx == null) return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false)
+        val result = PortfolioHistoryFx.convert(series, fxSeries?.rates, fx, today)
+        PortfolioHistoryUi(range, result.series, code, true, result.approximate)
     }
         .flowOn(Dispatchers.Default)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -263,6 +290,21 @@ class PortfolioViewModel @Inject constructor(
                 _fxRate.value = safe { fxSource.usdTo(code) }
             }
         }
+        // Devisen-Tageskurse für den Verlauf: eine Abfrage je Währung und Zeitraum (6 h zwischengespeichert)
+        viewModelScope.launch {
+            combine(currency, transactions.filterNotNull(), historyRange) { code, txs, range ->
+                code to fxSeriesFrom(txs, range)
+            }
+                .distinctUntilChanged()
+                .collectLatest { (code, from) -> loadFxSeries(code, from) }
+        }
+    }
+
+    private suspend fun loadFxSeries(code: String, from: LocalDate) {
+        if (code == "USD") return
+        val rates = safe { historicSource.usdToSeries(code, from, LocalDate.now(ZoneId.systemDefault())) }
+            ?.takeIf { it.isNotEmpty() }
+        _fxSeries.value = FxSeriesLoad(code, from, rates)
     }
 
     /** Beim Öffnen (60 s Zwischenspeicher) bzw. per Ziehen ([force]). */
@@ -276,6 +318,8 @@ class PortfolioViewModel @Inject constructor(
                 // Fehlgeschlagene Coins erneut versuchen (der Rest kommt aus dem Zwischenspeicher)
                 loadCloses(historyRequest(txs, historyRange.value))
                 _fxRate.value = safe { fxSource.usdTo(currency.value) } ?: _fxRate.value
+                // Fehlten die Devisen-Tageskurse, erneut versuchen
+                if (_fxSeries.value?.rates == null) loadFxSeries(currency.value, fxSeriesFrom(txs, historyRange.value))
             } finally {
                 _refreshing.value = false
             }

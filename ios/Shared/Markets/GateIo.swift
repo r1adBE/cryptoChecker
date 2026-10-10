@@ -37,8 +37,9 @@ final class GateIo: SimpleMarket {
 
     /// Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur.
     private func readTicker(_ json: JObject, _ ticker: inout Ticker) throws {
-        ticker.bid = try json.double("highest_bid")
-        ticker.ask = try json.double("lowest_ask")
+        // Ohne Orderbuch sendet Gate "" für highest_bid/lowest_ask: dann kein Geld-/Briefkurs statt Fehler
+        ticker.bid = json.optDoubleNoData("highest_bid")
+        ticker.ask = json.optDoubleNoData("lowest_ask")
 
         ticker.vol = try json.double("base_volume")
         ticker.volQuote = try json.double("quote_volume")
@@ -62,8 +63,9 @@ final class GateIo: SimpleMarket {
             let pairId = entry.optString("currency_pair")
             if pairId.isEmpty { continue }
 
+            // Ein unlesbarer Eintrag lässt nur dieses Paar aus, nicht die ganze Abfrage
             var ticker = Ticker()
-            try readTicker(entry, &ticker)
+            do { try readTicker(entry, &ticker) } catch { continue }
             tickers[pairId] = ticker
         }
         return tickers

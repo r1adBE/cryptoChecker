@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">अभी क्या ख़ास है</string>
-    <string name="pulse_why_action">क्यों? →</string>
+    <string name="pulse_why_action">क्यों?</string>
     <string name="pulse_section_factors">कारक</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin मार्केट की अगुवाई कर रहा है।</string>

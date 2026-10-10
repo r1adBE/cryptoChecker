@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.CheckerInfo
 import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -11,6 +12,7 @@ import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.optText
 
 /**
  * Phemex Spot. Symbole mit „s“ davor (sBTCUSDT). Kurse sind ganze Zahlen,
@@ -107,15 +109,20 @@ abstract class PhemexBase(
 
     /** Phemex meldet Fehler als {"error":{…}} oder {"code":…,"msg":"…"}. */
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? {
-        jsonObject.optJSONObject("error")?.let { return it.optString("message").ifEmpty { it.toString() } }
-        return jsonObject.optString("msg").ifEmpty { throw Exception("Kein Fehlertext") }
+        jsonObject.optJSONObject("error")?.let { return it.optText("message").ifEmpty { it.toString() } }
+        return jsonObject.optText("msg").ifEmpty { throw Exception("Kein Fehlertext") }
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1
 
     override fun parseBulkTickers(requestId: Int, responseString: String, tickers: MutableMap<String, Ticker>) {
-        val result = JSONObject(responseString).get("result")
-        val list = result as? JSONArray ?: return
+        val json = JSONObject(responseString)
+        // Fehlerantwort ({"code":…,"msg":…} oder {"error":{…}}) statt Liste: Abfrage scheitert mit dem
+        // Text der Börse – nicht stillschweigend leer. Wie iOS.
+        val list = json.optJSONArray("result") ?: throw MarketParseException(
+            json.optJSONObject("error")?.optText("message")?.ifEmpty { null }
+                ?: json.optText("msg").ifEmpty { "No result" }
+        )
         list.forEachJSONObject { item ->
             val symbol = item.optString("symbol").ifEmpty { return@forEachJSONObject }
             val ticker = SimpleTicker()
@@ -124,9 +131,20 @@ abstract class PhemexBase(
         }
     }
 
+    private companion object {
+        val LONG_MAX: java.math.BigDecimal = java.math.BigDecimal.valueOf(Long.MAX_VALUE)
+        val LONG_MIN: java.math.BigDecimal = java.math.BigDecimal.valueOf(Long.MIN_VALUE)
+    }
+
     protected fun nanosToMillis(json: JSONObject): Long {
         // Zeitstempel in Nanosekunden (teils als String)
         val raw = json.optString("timestamp")
-        return raw.toBigDecimalOrNull()?.movePointLeft(6)?.toLong() ?: 0L
+        val millis = raw.toBigDecimalOrNull()?.movePointLeft(6) ?: return 0L
+        // BigDecimal.toLong() schnitte riesige Werte ab (Überlauf) – stattdessen begrenzen, wie iOS
+        return when {
+            millis > LONG_MAX -> Long.MAX_VALUE
+            millis < LONG_MIN -> Long.MIN_VALUE
+            else -> millis.toLong()
+        }
     }
 }

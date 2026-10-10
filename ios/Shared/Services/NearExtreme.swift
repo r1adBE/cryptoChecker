@@ -7,7 +7,7 @@ import Foundation
 ///  - `threshold` = Abstand in Prozent (Standard 2 %)
 ///  - `windowHours` = Zeitraum in TAGEN (30, 90, 365; alles andere gilt als 30)
 ///  - `referenceAt` = 0 → scharf; > 0 → schon gemeldet, wartet auf Wiederscharfstellung
-///  - `referencePrice` = zuletzt gemeldete Marke
+///  - `referencePrice` = zuletzt gemeldete Marke; bleibt beim Wiederscharfstellen erhalten (`reportedMark`)
 ///
 /// Wer gemeldet hat, meldet erst wieder, wenn sich der Kurs deutlich aus der Zone
 /// entfernt hat (`rearmDistance`) — oder bei einem weiteren, deutlich höheren Hoch
@@ -66,7 +66,7 @@ enum NearExtreme {
     /// Ergebnis der Prüfung.
     enum Decision: Equatable, Sendable {
         case idle
-        /// Wieder scharf stellen (referenceAt = 0, referencePrice = nil).
+        /// Wieder scharf stellen (referenceAt = 0; die gemeldete Marke in referencePrice bleibt).
         case rearm
         /// Melden: `newExtreme` = neues Hoch/Tief, `distancePercent` ≥ 0,
         /// `extreme` = Hoch bzw. Tief des Zeitraums, `level` = neu zu merkende Marke.
@@ -86,6 +86,16 @@ enum NearExtreme {
         thresholdPercent + max(thresholdPercent * 0.5, 0.5)
     }
 
+    /// Gemeldete Marke, die noch zählt: `lastLevel` (referencePrice), solange die letzte Meldung
+    /// jünger als der Zeitraum (`windowDays`) ist — sonst nil. Hoch/Tief kommen nur aus
+    /// ABGESCHLOSSENEN Tageskerzen (6 h zwischengespeichert): Ohne die Marke meldete ein wieder
+    /// scharfer «Neues Hoch»-Alarm denselben Tag nochmals — wie `NearExtreme.reportedMark` (Android).
+    static func reportedMark(lastLevel: Double?, lastTriggeredAt: Int64, windowDays: Int, now: Int64) -> Double? {
+        guard let level = lastLevel, level.isFinite, level > 0, lastTriggeredAt > 0 else { return nil }
+        return now - lastTriggeredAt < Int64(NearExtreme.windowDays(windowDays)) * dayMillis ? level : nil
+    }
+
+    /// - Parameter lastLevel: gemeldete Marke, die noch zählt (`reportedMark`), nil = keine
     static func decide(side: Side, price: Double, range: Range, thresholdPercent: Double,
                        armed: Bool, lastLevel: Double?, inCooldown: Bool,
                        lastTriggeredAt: Int64, now: Int64) -> Decision {
@@ -98,9 +108,17 @@ enum NearExtreme {
         let distance = abs(price - extreme) / extreme * 100
 
         if beyond {
-            // Scharf — oder deutlich weiter als die gemeldete Marke UND frühestens 1 h nach der letzten Meldung
+            // Scharf (und jenseits der gemeldeten Marke: «neu» heisst über max(Hoch des Zeitraums,
+            // gemeldete Marke)) — oder deutlich weiter als die gemeldete Marke UND frühestens 1 h
+            // nach der letzten Meldung
             let further: Bool
-            if armed { further = true }
+            if armed {
+                if let lastLevel, lastLevel > 0 {
+                    further = side == .high ? price > lastLevel : price < lastLevel
+                } else {
+                    further = true
+                }
+            }
             else if let lastLevel, lastLevel > 0 {
                 let elapsed = now - lastTriggeredAt
                 if lastTriggeredAt > 0 && elapsed >= 0 && elapsed < furtherExtremeMinMillis {

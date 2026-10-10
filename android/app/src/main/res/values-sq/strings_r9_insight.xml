@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Çfarë bie në sy</string>
-    <string name="pulse_why_action">Pse? →</string>
+    <string name="pulse_why_action">Pse?</string>
     <string name="pulse_section_factors">Faktorët</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin po udhëheq tregun.</string>

@@ -67,12 +67,12 @@ struct JObject {
 
     func long(_ key: String) throws -> Int64 {
         guard let v = raw[key], let d = JSONValue.double(v) else { throw JSONError(message: "\(key) ist keine Zahl") }
-        return Int64(d)
+        return JSONValue.int64(d)
     }
 
     func optLong(_ key: String, _ fallback: Int64 = 0) -> Int64 {
         guard let v = raw[key], let d = JSONValue.double(v) else { return fallback }
-        return Int64(d)
+        return JSONValue.int64(d)
     }
 
     func int(_ key: String) throws -> Int { Int(try long(key)) }
@@ -80,9 +80,13 @@ struct JObject {
 
     func bool(_ key: String) throws -> Bool {
         guard let v = raw[key] else { throw JSONError(message: "\(key) fehlt") }
-        if let b = v as? Bool { return b }
-        if let s = v as? String { return s.lowercased() == "true" }
-        if let n = v as? NSNumber { return n.boolValue }
+        // Wie org.json: nur echte Wahrheitswerte oder der Text "true"/"false". `v as? Bool` taugt
+        // nicht – auf Apple-Plattformen wird auch die Zahl 1/0 von JSONSerialization zu Bool.
+        if let n = v as? NSNumber, CFGetTypeID(n) == CFBooleanGetTypeID() { return n.boolValue }
+        if let s = v as? String {
+            if s.lowercased() == "true" { return true }
+            if s.lowercased() == "false" { return false }
+        }
         throw JSONError(message: "\(key) ist kein Wahrheitswert")
     }
 
@@ -142,7 +146,7 @@ struct JArray {
         return d
     }
 
-    func long(_ i: Int) throws -> Int64 { Int64(try double(i)) }
+    func long(_ i: Int) throws -> Int64 { JSONValue.int64(try double(i)) }
 
     var objects: [JObject] { raw.compactMap { ($0 as? [String: Any]).map(JObject.init) } }
     var arrays: [JArray] { raw.compactMap { ($0 as? [Any]).map(JArray.init) } }
@@ -169,7 +173,27 @@ enum JSONValue {
             if CFGetTypeID(n) == CFBooleanGetTypeID() { return nil }
             return n.doubleValue
         }
-        if let s = v as? String { return Double(s.trimmingCharacters(in: .whitespaces)) }
+        if let s = v as? String {
+            let text = s.trimmingCharacters(in: .whitespaces)
+            guard let d = Double(text) else { return nil }
+            // Swift liest auch «nan», «inf», «infinity» (beliebige Schreibweise); Java/org.json nur
+            // «NaN» und «Infinity» – andere Schreibweisen gelten wie dort als keine Zahl.
+            if !d.isFinite {
+                let core = text.hasPrefix("+") || text.hasPrefix("-") ? String(text.dropFirst()) : text
+                if ["nan", "inf", "infinity"].contains(core.lowercased()) && core != "NaN" && core != "Infinity" { return nil }
+            }
+            return d
+        }
         return nil
+    }
+
+    /// Ganzzahl wie Javas `(long) d` (org.json `getLong`/`optLong` auf Android): NaN → 0,
+    /// zu groß/klein oder ±∞ → Int64.max/.min. `Int64(d)` würde in diesen Fällen abstürzen.
+    static func int64(_ d: Double) -> Int64 {
+        if d.isNaN { return 0 }
+        // 2^63 ist als Double exakt darstellbar; alles ab dort passt nicht mehr in Int64
+        if d >= 9_223_372_036_854_775_808.0 { return .max }
+        if d <= -9_223_372_036_854_775_808.0 { return .min }
+        return Int64(d)
     }
 }

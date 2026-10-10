@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker עוקב עכשיו אחרי %1$s בשבילך. כש־%1$s יגיע לגבול שלך, תקבל התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, Android בודק לפי מרווח העדכון ברקע – לכל היותר כל 15 דקות, ומאוחר יותר אם מיטוב הסוללה מגביל את האפליקציה. להתראות מהירות יותר: הגדרות › עדכון › עדכון תכוף.</string>
+</resources>

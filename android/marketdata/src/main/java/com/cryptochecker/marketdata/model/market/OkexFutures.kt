@@ -10,7 +10,9 @@ import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
+import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.optText
 
 class OkexFutures : SimpleMarket(
     "OKX Futures",
@@ -45,7 +47,7 @@ class OkexFutures : SimpleMarket(
     @Throws(Exception::class)
     override fun parseTickerFromJsonObject(requestId: Int, jsonObject: JSONObject, ticker: Ticker, checkerInfo: CheckerInfo) {
         // OKX verpackt Fehler in code/msg statt in "data".
-        jsonObject.optString("msg").takeIf { it.isNotEmpty() }?.let {
+        jsonObject.optText("msg").takeIf { it.isNotEmpty() }?.let {
             throw MarketParseException(it)
         }
 
@@ -55,11 +57,14 @@ class OkexFutures : SimpleMarket(
     /** Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur. */
     @Throws(Exception::class)
     private fun readTicker(json: JSONObject, ticker: Ticker) {
-        ticker.bid = json.getDouble("bidPx")
-        ticker.ask = json.getDouble("askPx")
+        // Ohne Orders im Buch sendet OKX "" für bidPx/askPx: dann kein Geld-/Briefkurs statt Fehler
+        ticker.bid = json.optDoubleNoData("bidPx")
+        ticker.ask = json.optDoubleNoData("askPx")
 
-        ticker.vol = json.getDouble("vol24h")
-        ticker.volQuote = json.getDouble("volCcy24h")
+        // Bei SWAP zählt vol24h Kontrakte, volCcy24h ist die Menge in der Basiswährung.
+        // Ein Volumen in der Kotierungswährung liefert OKX für Swaps nicht – es wird nicht geschätzt.
+        ticker.vol = json.getDouble("volCcy24h")
+        ticker.volQuote = Ticker.NO_DATA.toDouble()
 
         ticker.high = json.getDouble("high24h")
         ticker.low = json.getDouble("low24h")
@@ -88,8 +93,9 @@ class OkexFutures : SimpleMarket(
             .forEachJSONObject { entry ->
                 val instId = entry.optString("instId").ifEmpty { return@forEachJSONObject }
 
+                // Ein unlesbarer Eintrag lässt nur dieses Paar aus, nicht die ganze Abfrage
                 val ticker = SimpleTicker()
-                readTicker(entry, ticker)
+                runCatching { readTicker(entry, ticker) }.onFailure { return@forEachJSONObject }
                 tickers[instId] = ticker
             }
     }

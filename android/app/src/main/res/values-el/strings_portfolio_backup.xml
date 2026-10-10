@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Χαρτοφυλάκιο στο αντίγραφο συστήματος</string>
+    <string name="settings_portfolio_system_backup_hint">Ανενεργό: οι συναλλαγές σας δεν περιλαμβάνονται στο αντίγραφο ασφαλείας συστήματος της συσκευής ούτε στη μεταφορά σε νέο τηλέφωνο. Για μεταφορά, χρησιμοποιήστε το αντίγραφο ασφαλείας της εφαρμογής με κωδικό.</string>
+</resources>

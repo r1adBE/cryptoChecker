@@ -49,8 +49,7 @@ internal fun AlarmsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                     onCheckedChange = {
                         if (it) requestNotifications()
                         viewModel.setPriceNotifications(it)
-                    },
-                    icon = R.drawable.ic_visibility
+                    }
                 )
             }
             if (settings.priceNotifications) {

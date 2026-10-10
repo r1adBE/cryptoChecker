@@ -89,6 +89,17 @@ enum ThresholdParser {
         return value
     }
 
+    /// Wie `parse`, aber auch 0 gilt («0», «0,00», «.0», «0’000») — für Menge und Kurs einer
+    /// Transaktion (Kurs 0 = geschenkt). Leer bleibt ungültig (nil); negativ, Exponent oder
+    /// Buchstaben («1.5f», «2d») ebenso. Wie `ThresholdParser.parseAllowingZero` (Android).
+    static func parseAllowingZero(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Double? {
+        if let value = parse(text, decimalSeparator: decimalSeparator, priceHint: priceHint) { return value }
+        let cleaned = latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines).filter { !grouping.contains($0) }
+        let zero = cleaned.contains("0") && cleaned.allSatisfy { $0 == "0" || $0 == "." || $0 == "," }
+            && cleaned.filter { $0 == "." || $0 == "," }.count <= 1
+        return zero ? 0 : nil
+    }
+
     private static func isAsciiDigit(_ c: Character) -> Bool { c >= "0" && c <= "9" }
 
     /// Eingabe in lateinische Ziffern: arabisch-indische (٠–٩), persische (۰–۹) und andere

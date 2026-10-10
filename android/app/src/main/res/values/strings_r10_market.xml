@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Funding negative (%1$s)</string>
     <string name="unusual_source">About 30 largest coins without stablecoins · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">Why is it moving?</string>
-    <string name="unusual_action_add">Find pair to add</string>
 
     <string name="macro_title">Economic data</string>
     <string name="macro_cpi">US inflation data (CPI)</string>

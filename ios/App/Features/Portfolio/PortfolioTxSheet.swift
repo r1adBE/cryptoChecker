@@ -20,6 +20,8 @@ struct PortfolioTxSheet: View {
     @State private var priceAuto: Bool
     /// Coin, für den der Preis zuletzt vorbelegt wurde.
     @State private var pricedCoin: String
+    /// Kurs, an dem ein mehrdeutiger Preis («60.000») gemessen wird: gespeicherter bzw. aktueller Kurs.
+    @State private var priceHint: Double?
     @State private var date: Date
     @State private var note: String
     @State private var tried = false
@@ -33,8 +35,11 @@ struct PortfolioTxSheet: View {
         let isEdit = initial.isEdit
         _type = State(initialValue: initial.type)
         _coinQuery = State(initialValue: initial.coin)
-        _amountText = State(initialValue: PriceFormat.amountForInput(initial.amount))
-        _priceText = State(initialValue: PriceFormat.amountForInput(initial.priceUsdt))
+        // Dezimalzeichen der Region — wie bei den Alarmen (`ThresholdParser.localeDecimalSeparator`)
+        let separator = ThresholdParser.localeDecimalSeparator
+        _amountText = State(initialValue: PriceFormat.amountForInput(initial.amount, decimalSeparator: separator))
+        _priceText = State(initialValue: PriceFormat.amountForInput(initial.priceUsdt, decimalSeparator: separator))
+        _priceHint = State(initialValue: initial.priceUsdt.flatMap { $0.isFinite && $0 > 0 ? $0 : nil })
         _priceAuto = State(initialValue: !isEdit && initial.priceUsdt != nil)
         _pricedCoin = State(initialValue: (initial.priceUsdt != nil || isEdit) ? initial.coin : "")
         _date = State(initialValue: min(Date(millis: initial.time), Date()))
@@ -46,9 +51,17 @@ struct PortfolioTxSheet: View {
     private var isEdit: Bool { initial.isEdit }
     private var coin: String { PortfolioCalculator.normalizeCoin(coinQuery) }
     private var coinValid: Bool { PortfolioPriceSource.isSymbol(coin) }
-    private var amount: Double? { PriceFormat.parseAmount(amountText).flatMap { $0 > 0 ? $0 : nil } }
+    // Menge ohne Kurs-Hinweis (mehrdeutig → Dezimalzeichen der Region), Preis am Kurs gemessen
+    private var amount: Double? {
+        PriceFormat.parseAmount(amountText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+            .flatMap { $0 > 0 ? $0 : nil }
+    }
     private var priceBlank: Bool { priceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-    private var price: Double? { priceBlank ? nil : PriceFormat.parseAmount(priceText) }
+    private var price: Double? {
+        priceBlank ? nil
+            : PriceFormat.parseAmount(priceText, decimalSeparator: ThresholdParser.localeDecimalSeparator,
+                                      priceHint: priceHint)
+    }
     private var priceValid: Bool { priceBlank || price != nil }
     private var valid: Bool { coinValid && amount != nil && priceValid }
 
@@ -308,21 +321,24 @@ struct PortfolioTxSheet: View {
     // MARK: Abläufe
 
     /// Wie der `LaunchedEffect(coin, coinValid)` in Android: nur bei neuen Einträgen,
-    /// nur für einen anderen Coin und nur, solange kein Preis getippt wurde.
+    /// nur für einen anderen Coin; ein getippter Preis bleibt, der Kurs dient dann nur als
+    /// Hinweis für eine mehrdeutige Eingabe (`priceHint`).
     private func prefillPrice() async {
         let target = coin
         guard !isEdit, coinValid, target != pricedCoin else { return }
-        if !priceBlank && !priceAuto { return }
         do {
             try await Task.sleep(nanoseconds: 400_000_000)
         } catch {
             return
         }
-        let current = await model.currentPrice(target)
+        let current = await model.currentPrice(target).flatMap { $0.isFinite && $0 > 0 ? $0 : nil }
         guard !Task.isCancelled else { return }
         pricedCoin = target
+        priceHint = current
         if priceBlank || priceAuto {
-            priceText = current.map { PriceFormat.amountForInput($0) } ?? ""
+            priceText = current.map {
+                PriceFormat.amountForInput($0, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+            } ?? ""
             priceAuto = current != nil
         }
     }

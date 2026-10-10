@@ -39,6 +39,8 @@ final class PortfolioModel: ObservableObject {
     /// Geladene Tagesschlusskurse und für welche Anfrage.
     private var historyCloses: (request: PortfolioHistoryRequest, closes: [String: [Int: Double]])?
     private var historyTask: Task<Void, Never>?
+    /// Devisen-Tageskurse USD → `currency` ab `from` (bis heute); `rates` nil = nicht zu haben.
+    private var fxSeries: (currency: String, from: LocalDay, rates: [Int: Double]?)?
 
     private var activeRefreshes = 0
     private var loadingCoins = false
@@ -96,6 +98,26 @@ final class PortfolioModel: ObservableObject {
         let rate = await FxRateSource.usdTo(currency)
         if fxCurrency == currency { fxRate = rate ?? fxRate }
         recomputeHistory()
+        await loadFxSeries()
+    }
+
+    /// Beginn der Devisenkurs-Abfrage für den gewählten Zeitraum (`PortfolioHistoryFx.requestRange`).
+    private func fxSeriesFrom() -> LocalDay {
+        let days = historyRange == .sinceFirst ? historyRequest().days : historyRange.days
+        return PortfolioHistoryFx.requestRange(days: days, today: LocalDay.today()).from
+    }
+
+    /// Devisen-Tageskurse für den Verlauf: eine Abfrage je Währung und Zeitraum (6 h zwischengespeichert);
+    /// schon geladen (gleiche Währung, Zeitraum abgedeckt) → nichts zu tun.
+    func loadFxSeries() async {
+        let currency = data.settings.portfolioCurrency
+        guard currency != "USD" else { return }
+        let from = fxSeriesFrom()
+        if let known = fxSeries, known.currency == currency, known.from <= from, known.rates != nil { return }
+        let rates = await HistoricPriceSource.usdToSeries(currency, from: from, to: LocalDay.today())
+        guard data.settings.portfolioCurrency == currency, from <= fxSeriesFrom() else { return }
+        fxSeries = (currency: currency, from: from, rates: rates.flatMap { $0.isEmpty ? nil : $0 })
+        recomputeHistory()
     }
 
     // MARK: Wertverlauf
@@ -108,6 +130,8 @@ final class PortfolioModel: ObservableObject {
     /// Tageskurse der aktuellen Coins für den gewählten Zeitraum laden; ein überholter Abruf
     /// (Coins oder Zeitraum inzwischen geändert) ersetzt den neueren nicht.
     func loadHistory() async {
+        // Devisen-Tageskurse parallel (bei einer Umrechnungswährung)
+        Task { await loadFxSeries() }
         let request = historyRequest()
         let closes = await PortfolioHistorySource.dailyCloses(Array(request.coins), days: request.days)
         guard request.covers(historyRequest()) else { return }
@@ -127,21 +151,38 @@ final class PortfolioModel: ObservableObject {
         let currency = data.settings.portfolioCurrency
         let fx = rate(for: currency)
         let converted = currency != "USD" && fx != nil
-        let fxFactor: Double = converted ? (fx ?? 1) : 1
+        // Devisen-Tageskurse dieses Zeitraums noch nicht da: Platzhalter statt still falscher Kurve
+        let dailyRates: [Int: Double]?
+        if converted {
+            guard let known = fxSeries, known.currency == currency, known.from <= fxSeriesFrom() else {
+                historyTask?.cancel()
+                history = nil
+                return
+            }
+            dailyRates = known.rates
+        } else {
+            dailyRates = nil
+        }
+        let fxFactor: Double = fx ?? 1
         let unit = converted ? currency : PortfolioFormat.usdt
         let range = historyRange
         let live = prices.prices
         let closes = loaded.closes
         historyTask?.cancel()
         historyTask = Task { [weak self] in
-            let series = await Task.detached(priority: .userInitiated) {
-                PortfolioHistory.build(trades: txs, closes: closes, livePrices: live, range: range,
-                                       todayEpochDay: LocalDay.today().epochDay,
-                                       dayEndMillis: { PortfolioHistory.dayEndMillis($0) },
-                                       fxRate: fxFactor)
+            let result = await Task.detached(priority: .userInitiated) { () -> PortfolioHistoryConverted in
+                let today = LocalDay.today().epochDay
+                let series = PortfolioHistory.build(trades: txs, closes: closes, livePrices: live, range: range,
+                                                    todayEpochDay: today,
+                                                    dayEndMillis: { PortfolioHistory.dayEndMillis($0) })
+                guard converted else { return PortfolioHistoryConverted(series: series, approximate: false) }
+                // Je Punkt der Kurs seines Tags, heute der aktuelle (`PortfolioHistoryFx`)
+                return PortfolioHistoryFx.convert(series, dailyRates: dailyRates, currentRate: fxFactor,
+                                                  todayEpochDay: today)
             }.value
             guard !Task.isCancelled else { return }
-            self?.history = PortfolioHistoryUi(range: range, series: series, unit: unit, converted: converted)
+            self?.history = PortfolioHistoryUi(range: range, series: result.series, unit: unit,
+                                               converted: converted, approximateFx: result.approximate)
         }
     }
 
@@ -194,13 +235,16 @@ struct PortfolioHistoryRequest: Equatable {
     }
 }
 
-/// Wertverlauf für die Karte über den Positionen: `series` in `unit`
-/// (`converted` = mit dem heutigen Devisenkurs aus USDT umgerechnet) — wie `PortfolioHistoryUi` (Android).
+/// Wertverlauf für die Karte über den Positionen: `series` in `unit` (`converted` = aus USDT
+/// umgerechnet, je Tag mit dem Devisenkurs dieses Tags, siehe `PortfolioHistoryFx`;
+/// `approximateFx` = Tageskurse fehlten, alles mit dem heutigen Kurs — die Karte sagt das unter
+/// dem Chart) — wie `PortfolioHistoryUi` (Android).
 struct PortfolioHistoryUi: Equatable {
     let range: PortfolioHistoryRange
     let series: PortfolioHistorySeries
     let unit: String
     let converted: Bool
+    var approximateFx: Bool = false
 }
 
 /// Eingabe des Erfassen-Blatts; `txId` 0 = neue Transaktion — wie `TxDraft`.

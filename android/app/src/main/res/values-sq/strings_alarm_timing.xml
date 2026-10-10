@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker tani po ndjek %1$s për ty. Kur %1$s arrin kufirin tënd, merr një njoftim sapo aplikacioni të kontrollojë çmimin. Me aplikacionin të mbyllur, Android kontrollon sipas intervalit në sfond – më shpesh çdo 15 minuta, më vonë nëse optimizimi i baterisë e kufizon aplikacionin. Për alarme më të shpejta: Cilësimet › Përditësimi › Përditëso shpesh.</string>
+</resources>

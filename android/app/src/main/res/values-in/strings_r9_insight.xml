@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Yang menonjol</string>
-    <string name="pulse_why_action">Kenapa? →</string>
+    <string name="pulse_why_action">Kenapa?</string>
     <string name="pulse_section_factors">Faktor</string>
 
     <string name="pulse_lead_btc_leads">Bitcoin memimpin pasar.</string>

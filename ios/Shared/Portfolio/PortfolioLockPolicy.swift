@@ -50,6 +50,10 @@ enum PortfolioLockPolicy {
     /// Ausschalten der Sperre verlangt Entsperren, solange gesperrt.
     static func disableNeedsUnlock(locked: Bool) -> Bool { locked }
 
+    /// «Portfolio in Systemsicherung» einschalten verlangt Entsperren, solange gesperrt (sonst gelangten
+    /// die Trades über das Geräte-Backup an der Sperre vorbei). Ausschalten schützt und geht immer.
+    static func systemBackupNeedsUnlock(locked: Bool, enabling: Bool) -> Bool { locked && enabling }
+
     /// «Zum Portfolio hinzufügen» aus der Merkliste (Blatt zeigt Bestände) verlangt Entsperren, solange gesperrt.
     static func quickAddNeedsUnlock(locked: Bool) -> Bool { locked }
 

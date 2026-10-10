@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker اکنون %1$s را برای شما زیر نظر دارد. وقتی %1$s به حد شما برسد، به محض اینکه برنامه قیمت را بررسی کند، اعلان دریافت می‌کنید. وقتی برنامه بسته است، Android در فاصلهٔ به‌روزرسانی پس‌زمینه بررسی می‌کند – حداکثر هر ۱۵ دقیقه، و اگر بهینه‌سازی باتری برنامه را محدود کند دیرتر. برای هشدارهای سریع‌تر: تنظیمات › به‌روزرسانی › به‌روزرسانی مکرر.</string>
+</resources>

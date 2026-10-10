@@ -25,15 +25,95 @@
   Sort, report). The bell next to it appears only while alarms are active and
   shows no number (a number read like «fired that often»). «+» (add pair) next
   to the search icon.
+* The «+» (add pair) on the starter screen is the same filled accent circle as next to the
+  search icon.
+* First start: the starter selection waits briefly (max. 4 s) for the logos of the five
+  suggested coins and shows a quiet placeholder meanwhile – no jump from initials to logos.
+* Buttons that only fold something open («Why?», «Show details», «Show indicators»,
+  «Show list») have a down/up chevron like «Context»/«Data» instead of «→».
+* Links look the same everywhere: links to websites are accent-coloured with ↗
+  (settings rows, «Request exchange» on Add pair), links inside running text are
+  accent-coloured and underlined on both platforms. Settings rows have no
+  leading icons.
+* Sort the watchlist like an exchange: «Name ⇅ · Price ⇅ · 24h ⇅» above the
+  pairs – first tap A–Z / highest first, second tap reverse, third tap back to
+  your own order (which stays saved). Favorites stay on top, sorted among
+  themselves; prices are compared in CHF in the background (also without
+  «≈ conversion»). The choice is remembered.
+* All coin lists look the same (Watchlist, starter selection, Market › Unusual
+  today, Portfolio): logo 36, same text sizes, each row its own card with only a
+  thin gap – strongly rounded at the top and bottom of the list, slightly rounded
+  in between, so the list reads as one unit.
+* Market: the «Now» title is gone; instead a status pill like on the watchlist
+  («All current · 2 min ago», «Updating…» while loading).
+* Portfolio numbers made consistent: one stablecoin rule everywhere (USDT is
+  always 1; USDC, DAI & co. use their market price, 1 only when none is known) in
+  header, value history, cut-off CSV, widget and portfolio alarms.
+* Value history in CHF/EUR/… converts every day with that day's ECB rate, so
+  franc moves show up; if the rates can't be loaded, «Converted at today's rate»
+  appears under the chart.
+* Implausible historic prices (more than 25 % away from the current price) are no
+  longer used in the value history and the cut-off export.
+* When a pair's % change comes from another exchange's candles (e.g. Kraken →
+  Binance), the action sheet and «Why?» say so («Change from Binance candles»).
+* Android: the first-alarm message says honestly when prices are checked with the
+  app closed (background interval, at most every 15 minutes) and points to
+  «Update frequently».
+* Portfolio no longer in the Android system backup / iOS device backup by default;
+  new switch Settings › Portfolio › «Portfolio in system backup». On Android the
+  portfolio lives in its own database file. Use the password-protected backup to
+  move it to another device.
+* Market › Unusual today: tapping a coin opens the same action sheet as in the
+  watchlist; coins not on the watchlist open it as a preview (COIN/USDT on
+  Binance) with «Add to watchlist».
+* Watchlist: long-press a row to start selecting (that row already ticked).
+* Group chips: all neutral; the selected one gets an accent outline and accent
+  text/icon (★ and ⚡ white until selected). The ⚡ in rows is white.
+* Alarms: «x % in y hours» now uses a sliding window and also fires with rare
+  background runs; no more duplicate «new 30-day high» on the same day; a one-time
+  alarm is not used up while notifications are blocked; edits made during a
+  refresh are no longer overwritten; percent alarms created before the first price
+  get a proper reference. Android: alarm saved before it is shown (no duplicates),
+  one failing pair no longer stops the others. iOS: market phase / Fear & Greed
+  checks run again (no reschedule on every app switch, catch-up on opening).
+* Number input: portfolio amounts and prices read like alarm thresholds
+  («60.000» = 60000 in German), same decimal separator rules on both platforms,
+  price 0 kept when editing (iOS), tiny values no longer cut to 0 (cut-off CSV,
+  DEX, alarm editor), «5%» accepted in settings, NaN/∞ prices rejected.
+* Exchanges: OKX/Gate no longer fail a whole batch when one pair has no bid/ask;
+  Kraken high/low/volume over the rolling 24 h; Upbit/Bithumb day-only high/low
+  hidden; correct volume units for Binance COIN-M and OKX swaps; iOS live price of
+  exactly 1 no longer dropped.
+* Robustness: damaged settings file no longer crashes Android at start; failed
+  background tasks are logged instead of ending the app; restore validates first
+  and rolls back on failure; iOS never overwrites an unreadable watchlist (copy kept
+  as watchlist.unreadable.json), reads unknown entries leniently, coordinates
+  widget/app writes, reports expired background tasks in time; iOS portfolio
+  alarms and portfolio widget data follow the system-backup switch too.
+* Add pair › Select precisely: «Choose pair» and «Several pairs at once» as two
+  tabs of equal height instead of a step card plus a fold-out card.
+* Group row: favorites as a ★ chip, and a ⚡ chip (no number) that shows only
+  the pairs where something is happening right now – replaces the card
+  «Something is happening right now» above the list.
+* Tap «10 of 30 outdated» to see only the outdated pairs; tap again (✕) for all.
+  Ends by itself once everything is current.
+* Multi-select (⋯ › Select): tick pairs, then Favorite · Group · Delete for all
+  at once (Delete with Undo).
+* Rows show the time only when a pair is not current («Binance · 13 min ago»);
+  otherwise just the exchange – the status line already says «All current · …».
+* «Refresh» in the menu is greyed out while a refresh runs or right after one,
+  instead of the message «Just refreshed».
+* Favorite star without coin logos in text colour instead of the accent colour.
 * Calmer look: section titles in text colour with a short accent bar in front
   instead of accent-coloured text; in dark mode no more brownish fills –
   selected chips, segments and the jump button are neutral grey with
   accent-coloured text, light highlights (portfolio total card, initials,
   drag handle, selected rows) are grey, and the allocation bar blends toward
   white. Light mode unchanged.
-* Clear symbols in the row: eye = price notification for this pair (the same
-  eye next to its switch in the action sheet and in Settings › Alarms), bell =
-  alarms (no more alarm clock). Starter pairs get the price notification like
+* Two different bells: a plain bell = price notification for this pair (the
+  same bell next to its switch in the action sheet; crossed out when off, in the row too), a ringing bell (with waves)
+  = alarms everywhere – row, action sheet, header, menus, alarm pages, app
+  shortcut (no more alarm clock). Starter pairs get the price notification like
   every other pair; permission is asked only when you add a pair or an alarm.
 * «Something is happening right now» card can be hidden under Settings ›
   Watchlist; market alerts stay as they are.

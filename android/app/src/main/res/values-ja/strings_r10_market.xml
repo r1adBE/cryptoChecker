@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">資金調達率 マイナス（%1$s）</string>
     <string name="unusual_source">ステーブルコインを除く時価総額上位 約30銘柄 · Binance、CoinGecko</string>
     <string name="unusual_a11y_row">%1$s、%2$s。%3$s。</string>
-    <string name="unusual_action_why">なぜ動いている？</string>
-    <string name="unusual_action_add">追加するペアを探す</string>
 
     <string name="macro_title">経済指標</string>
     <string name="macro_cpi">米消費者物価指数（CPI）</string>

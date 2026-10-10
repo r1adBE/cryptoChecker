@@ -29,7 +29,7 @@ struct AlarmDraft: Identifiable, Equatable {
 
     /// Faktor als Text ohne «.0»: 3 → "3".
     static func formatFactor(_ value: Double) -> String {
-        plain.string(from: NSNumber(value: value)) ?? String(value)
+        plain(value)
     }
 
     /// Bedingung wechseln. Beim Volumen-Spike ist der Wert ein Faktor (×2…×10),
@@ -141,15 +141,13 @@ struct AlarmDraft: Identifiable, Equatable {
         return f
     }()
 
-    private static let plain: NumberFormatter = {
-        let f = NumberFormatter()
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.numberStyle = .decimal
-        f.decimalSeparator = String(ThresholdParser.localeDecimalSeparator)
-        f.usesGroupingSeparator = false
-        f.maximumFractionDigits = 10
-        return f
-    }()
+    /// Gespeicherter Schwellwert fürs Eingabefeld: ohne Exponent, Tausendertrennung und
+    /// Stellenbegrenzung (1.2345e-10 bleibt «0.00000000012345»), Dezimalzeichen der Region —
+    /// wie `AlarmsViewModel.formatThreshold` (Android, `toPlainString`).
+    private static func plain(_ value: Double) -> String {
+        DecimalText.plain(value)
+            .replacingOccurrences(of: ".", with: String(ThresholdParser.localeDecimalSeparator))
+    }
 
     /// Neuer Alarm im einfachen Modus: «Wenn BTC über [Kurs] geht», Betrag = aktueller Kurs
     /// auf drei gültige Stellen (`AlarmTemplates.suggestedThresholdText`).
@@ -165,7 +163,7 @@ struct AlarmDraft: Identifiable, Equatable {
         return AlarmDraft(
             id: alarm.id,
             condition: alarm.condition,
-            thresholdText: plain.string(from: NSNumber(value: shown)) ?? String(shown),
+            thresholdText: plain(shown),
             repeating: alarm.repeating,
             sound: alarm.sound,
             vibrate: alarm.vibrate,

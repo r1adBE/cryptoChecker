@@ -19,7 +19,7 @@ struct PortfolioWidgetPoint: Codable, Equatable, Sendable {
 /// Stand des Portfolio-Widgets: Gesamtwert und Veränderung heute in der
 /// Umrechnungswährung (`portfolioCurrency`). Die App berechnet ihn, wenn sie die
 /// Portfolio-Werte berechnet, und in der Hintergrund-Aktualisierung; das Widget
-/// liest ihn aus der App Group (`SharedStorage.defaults`).
+/// liest ihn aus der App Group (Datei `portfolio_widget.json`, `PortfolioWidgetStore.snapshotURL`).
 ///
 /// `totalUsdt`, `positions`, `otherPositions` und `history` kamen später dazu (grosses
 /// Widget). Sie sind optional: Ein gespeicherter Stand ohne sie lädt weiter (dann nil),
@@ -129,8 +129,16 @@ enum PortfolioWidgetStore {
 
     // MARK: Lesen & Schreiben
 
+    /// Momentaufnahme (Beträge) als Datei in der App Group statt in den App-Group-Einstellungen: nur
+    /// eine Datei lässt sich aus den Geräte-Backups nehmen. Wie Android (`portfolio_widget` nicht in
+    /// den Backup-Regeln) nie im Backup — sie gilt nur auf diesem Gerät und entsteht neu.
+    static var snapshotURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_widget.json") }
+
     static func load() -> PortfolioWidgetSnapshot? {
-        guard let data = SharedStorage.defaults.data(forKey: snapshotKey) else { return nil }
+        // Ein Eintrag unter `snapshotKey` ist neuer als die Datei: alter Stand vor der Umstellung
+        // (`migrateSnapshotToFile`) oder Ausweichweg, als die Datei nicht schreibbar war.
+        guard let data = SharedStorage.defaults.data(forKey: snapshotKey) ?? (try? Data(contentsOf: snapshotURL))
+        else { return nil }
         return try? JSONDecoder().decode(PortfolioWidgetSnapshot.self, from: data)
     }
 
@@ -138,8 +146,32 @@ enum PortfolioWidgetStore {
     @discardableResult
     static func save(_ snapshot: PortfolioWidgetSnapshot) -> Bool {
         guard load() != snapshot, let data = try? JSONEncoder().encode(snapshot) else { return false }
-        SharedStorage.defaults.set(data, forKey: snapshotKey)
+        if !writeSnapshotFile(data) {
+            // Datei nicht schreibbar: wie bisher in den Einstellungen, damit das Widget aktuell bleibt
+            SharedStorage.defaults.set(data, forKey: snapshotKey)
+        }
         return true
+    }
+
+    /// Schreibt die Datei, setzt das Backup-Merkmal neu (das atomare Schreiben verliert es) und
+    /// entfernt den alten Eintrag aus den Einstellungen.
+    private static func writeSnapshotFile(_ data: Data) -> Bool {
+        do {
+            try data.write(to: snapshotURL, options: [.atomic])
+        } catch {
+            return false
+        }
+        BackupExclusion.set(excluded: true, for: snapshotURL)
+        SharedStorage.defaults.removeObject(forKey: snapshotKey)
+        return true
+    }
+
+    /// Beim Start (`PortfolioStore.applyBackupPolicy`): Stand aus den Einstellungen in die Datei
+    /// übernehmen (der Eintrag ist immer der neuere, siehe `load`). Wiederholbar; schlägt das
+    /// Schreiben fehl, bleibt der Eintrag stehen.
+    static func migrateSnapshotToFile() {
+        guard let pending = SharedStorage.defaults.data(forKey: snapshotKey) else { return }
+        _ = writeSnapshotFile(pending)
     }
 
     static func loadHistory() -> [PricePoint] {
@@ -336,7 +368,9 @@ enum PortfolioWidgetStore {
             saveHistory(history)
         }
 
-        // USD = USDT (wie die Umrechnungszeile im Portfolio); ohne Devisenkurs in USD (wie Android)
+        // USD = USDT (wie die Umrechnungszeile im Portfolio); ohne Devisenkurs in USD (wie Android).
+        // Der aktuelle Kurs gilt auch für die Punkte des Verlaufs: er reicht nur 24 h zurück,
+        // EZB-Tageskurse (`PortfolioHistoryFx`) brächten dort nur einen künstlichen Sprung.
         let factor: Double
         let label: String
         if let rate, rate > 0, rate.isFinite {
@@ -358,7 +392,7 @@ enum PortfolioWidgetStore {
 
         // Stundenkurse: gemerkte, dazu was ohnehin schon geladen ist — keine eigene Abfrage
         var fresh: [String: [PortfolioTimedPrice]] = [:]
-        for coin in holdings.keys where !CurrencyConversion.usdStables.contains(coin.uppercased()) {
+        for coin in holdings.keys where !PortfolioStables.isStable(coin) {
             var list = extraHourly[coin] ?? []
             list += widgetSparkPrices(coin, now: stamp)
             for sample in past where stamp - sample.at <= PortfolioWidgetSeries.keepMillis {
@@ -379,7 +413,7 @@ enum PortfolioWidgetStore {
             // Seit Tagesbeginn: Verlauf ab 00:00, Veränderung gegen den Wert zum Tagesbeginn
             hourly = PortfolioWidgetSeries.hourlySince(holdings: holdings, current: current, prices: hourlyPrices,
                                                        dayStart: dayStart, now: stamp, factor: factor,
-                                                       stables: CurrencyConversion.usdStables)
+                                                       stables: PortfolioStables.coins)
             hourlyChange = PortfolioWidgetSeries.changeSince(hourly, dayStart: dayStart)
             for (coin, change) in PortfolioWidgetSeries.coinChangesSince(current: current, prices: hourlyPrices,
                                                                          dayStart: dayStart) {
@@ -389,7 +423,7 @@ enum PortfolioWidgetStore {
         } else {
             hourly = PortfolioWidgetSeries.hourly(holdings: holdings, current: current, prices: hourlyPrices,
                                                   now: stamp, factor: factor,
-                                                  stables: CurrencyConversion.usdStables)
+                                                  stables: PortfolioStables.coins)
             hourlyChange = PortfolioWidgetSeries.drawable(hourly) ? PortfolioWidgetSeries.change(hourly) : nil
             // Stundenkurse vor der Vergleichsbasis (sie messen genau 24 h)
             for (coin, change) in PortfolioWidgetSeries.coinChanges(current: current, prices: hourlyPrices, now: stamp) {
@@ -477,7 +511,7 @@ enum PortfolioWidgetStore {
         var attempts = (SharedStorage.defaults.dictionary(forKey: candleAttemptsKey) as? [String: Double]) ?? [:]
         let due = PortfolioWidgetSeries.candleCoins(open, prices: merged,
                                                     lastAttempt: attempts.mapValues { Int64($0) }, now: now,
-                                                    stables: CurrencyConversion.usdStables)
+                                                    stables: PortfolioStables.coins)
         guard !due.isEmpty else { return [:] }
         for coin in due { attempts[coin] = Double(now) }
         // Alte Einträge nicht ewig mitschleppen

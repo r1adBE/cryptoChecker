@@ -2,9 +2,9 @@ package com.cryptochecker.app.domain.refresh
 
 /**
  * Sperre für die vom Nutzer erzwungene Gesamt-Aktualisierung (nach unten ziehen,
- * Knopf oben): Läuft schon eine, oder ist die letzte vollständige erst [WINDOW_MILLIS]
+ * Menü): Läuft schon eine, oder ist die letzte vollständige erst [WINDOW_MILLIS]
  * her, startet keine neue — die Anzeige zeigt dann einfach den bestehenden Stand
- * («Alles aktuell · vor 8 s») bzw. kurz «Gerade aktualisiert», ohne Fehlermeldung.
+ * («Alles aktuell · vor 8 s»), «Aktualisieren» im Menü ist so lange grau; keine Meldung.
  * Ein einzelnes Paar (Aktionsblatt) ist davon ausgenommen.
  *
  * Reine Logik ohne Android (getestet in RefreshDebounceTest, Swift-Spiegel RefreshDebounce.swift).
@@ -21,7 +21,7 @@ object RefreshDebounce {
         /** Läuft schon — nichts tun, der Kreisel dreht bereits. */
         RUNNING,
 
-        /** Eben erst fertig — kurzer Hinweis «Gerade aktualisiert», kein neuer Durchlauf. */
+        /** Eben erst fertig — kein neuer Durchlauf (Menüpunkt grau, keine Meldung). */
         RECENT,
     }
 

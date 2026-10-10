@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Фандинг від’ємний (%1$s)</string>
     <string name="unusual_source">Близько 30 найбільших монет без стейблкоїнів · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">Чому це рухається?</string>
-    <string name="unusual_action_add">Знайти пару для додавання</string>
 
     <string name="macro_title">Економічні дані</string>
     <string name="macro_cpi">інфляція в США (CPI)</string>

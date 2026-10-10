@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Danh mục trong sao lưu hệ thống</string>
+    <string name="settings_portfolio_system_backup_hint">Tắt: giao dịch của bạn không nằm trong bản sao lưu hệ thống của thiết bị và khi chuyển sang điện thoại mới. Để chuyển, hãy dùng bản sao lưu của ứng dụng có mật khẩu.</string>
+</resources>

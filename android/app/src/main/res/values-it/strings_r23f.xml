@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Azioni, materie prime e valute (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Mostra anche, nella scelta della coppia, i futures su azioni, oro e altre materie prime, valute e società prima della quotazione. Sono contratti, non token.</string>
     <string name="settings_watchlist_activity_card">Attività insolita nella lista</string>
-    <string name="settings_watchlist_activity_card_hint">Mostra la scheda «Sta succedendo qualcosa» sopra le coppie. Le notifiche si impostano in Avvisi di mercato.</string>
+    <string name="settings_watchlist_activity_card_hint">Mostra il chip ⚡ accanto ai gruppi: toccalo per vedere solo le coppie in cui sta succedendo qualcosa. Le notifiche si impostano in Avvisi di mercato.</string>
     <string name="settings_row_about">Informazioni sull’app</string>
     <string name="price_colors_green_up">Rialzo verde / ribasso rosso</string>
     <string name="price_colors_red_up">Rialzo rosso / ribasso verde</string>

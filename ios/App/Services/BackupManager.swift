@@ -162,11 +162,12 @@ enum BackupManager {
                 return copy
             }
         } ?? old.portfolioAlarms
-        let maxPortfolioId = (snapshot.portfolioAlarms ?? []).map(\.id).max() ?? 0
-        snapshot.nextPortfolioAlarmId = max(old.nextPortfolioAlarmId ?? 1, maxPortfolioId + 1)
         // Ids nie wiederverwenden: über dem bisherigen Zähler und über allen neuen ids
-        snapshot.nextWatchId = max(old.nextWatchId, (watches.map(\.id).max() ?? 0) + 1)
-        snapshot.nextAlarmId = max(old.nextAlarmId, (alarms.map(\.id).max() ?? 0) + 1)
+        // (`nextId` ohne Überlauf — eine id Int64.max aus der Datei brach mit «max + 1» ab)
+        snapshot.nextPortfolioAlarmId = SharedStorage.nextId(stored: old.nextPortfolioAlarmId ?? 1,
+                                                             used: (snapshot.portfolioAlarms ?? []).map(\.id))
+        snapshot.nextWatchId = SharedStorage.nextId(stored: old.nextWatchId, used: watches.map(\.id))
+        snapshot.nextAlarmId = SharedStorage.nextId(stored: old.nextAlarmId, used: alarms.map(\.id))
 
         // Kurs-Mitteilungen der bisherigen Paare entfernen
         old.watches.forEach { Notifier.cancelPrice($0.id) }
@@ -380,6 +381,7 @@ enum BackupManager {
             "quietHoursEnd": s.quietHoursEnd,
             "appLock": s.appLock,
             "hidePortfolioAmounts": s.hidePortfolioAmounts,
+            "portfolioSystemBackup": s.portfolioSystemBackup,
         ]
     }
 
@@ -446,6 +448,8 @@ enum BackupManager {
         if let v = minute(o, "quietHoursStart") { s.quietHoursStart = v }
         if let v = minute(o, "quietHoursEnd") { s.quietHoursEnd = v }
         if let v = bool(o, "hidePortfolioAmounts") { s.hidePortfolioAmounts = v }
+        // «Portfolio in Systemsicherung»: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen
+        if let v = bool(o, "portfolioSystemBackup") { s.portfolioSystemBackup = v }
         // Portfolio-Sperre nur, wenn das Gerät entsperren kann (sonst bliebe das Portfolio gesperrt)
         if let v = bool(o, "appLock"), !v || AppLock.canAuthenticate() { s.appLock = v }
         return s
@@ -456,8 +460,9 @@ enum BackupManager {
     /// Minute des Tages (0…1439) oder nil, wenn fehlend, gebrochen oder ausserhalb — wie `optMinute`.
     private static func minute(_ o: [String: Any], _ key: String) -> Int? {
         guard !isNull(o, key), let value = double(o, key), value.isFinite,
-              value.truncatingRemainder(dividingBy: 1) == 0 else { return nil }
-        let m = Int(value)
+              value.truncatingRemainder(dividingBy: 1) == 0,
+              // `exactly:` statt `Int(value)`: ein riesiger Wert aus der Datei (z. B. 1e300) brach sonst ab
+              let m = Int(exactly: value) else { return nil }
         return QuietHours.isValidMinute(m) ? m : nil
     }
 
@@ -473,8 +478,15 @@ enum BackupManager {
 
     private static func int64(_ o: [String: Any], _ key: String) -> Int64? {
         if let n = o[key] as? NSNumber { return n.int64Value }
-        if let s = o[key] as? String { return Int64(s) ?? Double(s).map { Int64($0) } }
+        if let s = o[key] as? String { return Int64(s) ?? Double(s).flatMap(int64Truncating) }
         return nil
+    }
+
+    /// Ganzzahl aus einer Kommazahl der Sicherung, nach Null hin abgeschnitten (wie bisher
+    /// `Int64(d)`); nil bei NaN, ±Unendlich oder ausserhalb von Int64 — `Int64(d)` brach dort ab.
+    static func int64Truncating(_ value: Double) -> Int64? {
+        guard value.isFinite else { return nil }
+        return Int64(exactly: value.rounded(.towardZero))
     }
 
     private static func int(_ o: [String: Any], _ key: String) -> Int? {

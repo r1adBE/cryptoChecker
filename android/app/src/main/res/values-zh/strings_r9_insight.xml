@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">当前亮点</string>
-    <string name="pulse_why_action">为什么？ →</string>
+    <string name="pulse_why_action">为什么？</string>
     <string name="pulse_section_factors">因素</string>
 
     <string name="pulse_lead_btc_leads">比特币正在引领市场。</string>

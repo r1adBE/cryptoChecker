@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.foundation.layout.Arrangement
+import com.cryptochecker.app.ui.components.ListSegment
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -19,9 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -73,6 +73,8 @@ internal fun StarterPicker(
     prices: StarterPricesState,
     quote: String,
     adding: Boolean,
+    /** Logos der Start-Coins geladen (bzw. aufgegeben): bis dahin Platzhalter statt Initialen. */
+    logosReady: Boolean = true,
     onLoad: () -> Unit,
     onToggle: (String) -> Unit,
     onToggleAll: () -> Unit,
@@ -113,27 +115,28 @@ internal fun StarterPicker(
                 modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
             )
 
-            Card(
-                shape = MaterialTheme.shapes.large,
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+            // Wie die Merkliste: jede Zeile eine eigene Karte, nur mit feiner Fuge ([ListSegment])
+            Column(
+                verticalArrangement = Arrangement.spacedBy(ListSegment.Gap),
                 modifier = Modifier.padding(top = Spacing.lg).fillMaxWidth()
             ) {
                 coins.forEachIndexed { index, coin ->
-                    if (index > 0) {
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                            modifier = Modifier.padding(start = 66.dp)
-                        )
-                    }
+                    Card(
+                        shape = ListSegment.shape(index, coins.size),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
                     StarterRow(
                         coin = coin,
                         selected = StarterSelection.isSelected(coin.symbol, deselected),
                         price = prices.prices[coin.symbol],
                         loading = prices.loading,
+                        logosReady = logosReady,
                         quote = quote,
                         onToggle = { onToggle(coin.symbol) },
                     )
+                    }
                 }
             }
 
@@ -153,15 +156,11 @@ internal fun StarterPicker(
                 Text(stringResource(R.string.starter_custom), textAlign = TextAlign.Center)
             }
         }
-        IconButton(
+        // Gleicher «+»-Knopf wie neben der Lupe in der Merkliste
+        AddPairButton(
             onClick = onAddClick,
-            modifier = Modifier.align(Alignment.TopEnd).padding(top = Spacing.xs, end = Spacing.xs)
-        ) {
-            Icon(
-                painterResource(R.drawable.ic_add),
-                contentDescription = stringResource(R.string.shortcut_add)
-            )
-        }
+            modifier = Modifier.align(Alignment.TopEnd).padding(top = Spacing.sm, end = Spacing.md)
+        )
     }
 }
 
@@ -175,6 +174,7 @@ private fun StarterRow(
     selected: Boolean,
     price: StarterPrice?,
     loading: Boolean,
+    logosReady: Boolean,
     quote: String,
     onToggle: () -> Unit,
 ) {
@@ -200,8 +200,15 @@ private fun StarterRow(
             .padding(start = Spacing.md, end = Spacing.xs, top = Spacing.md, bottom = Spacing.md)
     ) {
         Box(Modifier.clearAndSetSemantics { }) {
-            // Abstand an der Plakette: Logos aus → keine Plakette, kein Einzug
-            CoinBadge(coin.symbol, size = 40.dp, modifier = Modifier.padding(end = 12.dp))
+            // Abstand an der Plakette: Logos aus → keine Plakette, kein Einzug. Erster Start: ruhiger
+            // Platzhalter, bis die Logos da sind (kein Umspringen von Initialen auf Logos)
+            if (logosReady) {
+                CoinBadge(coin.symbol, size = ListSegment.Logo, modifier = Modifier.padding(end = 8.dp))
+            } else {
+                SkeletonPulse(modifier = Modifier.padding(end = 8.dp)) {
+                    SkeletonBlock(Modifier.size(ListSegment.Logo))
+                }
+            }
         }
         Column(
             modifier = Modifier
@@ -210,7 +217,7 @@ private fun StarterRow(
         ) {
             Text(
                 text = coin.name,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

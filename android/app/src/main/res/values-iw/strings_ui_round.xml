@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Heute auffällig»: Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">הצג מחיר ופעולות</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">לא ברשימת המעקב</string>
+</resources>

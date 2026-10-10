@@ -126,7 +126,9 @@ object PortfolioSnapshotMath {
      * @param totalUsd Gesamtwert in USDT (Coins ohne Kurs zählen nicht mit)
      * @param current aktuelle USDT-Kurse
      * @param history bisherige Kursaufnahmen (ohne die aktuelle)
-     * @param fxRate USD → [currency]
+     * @param fxRate USD → [currency] — auch für die Punkte des Verlaufs: er reicht nur 24 h
+     *   zurück, EZB-Tageskurse ([PortfolioHistoryFx]) brächten dort nur einen künstlichen Sprung
+     *   beim Tageswechsel
      * @param hourlyPrices gemerkte Stundenkurse je Coin ([PortfolioWidgetSeries.merge])
      * @param stables USD-Stablecoins (im Stundenverlauf flach und abgedeckt)
      * Dazu: Gesamtwert in USDT, die grössten Positionen (Anteil, Veränderung je Coin) und der

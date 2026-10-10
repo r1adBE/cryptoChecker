@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker sekarang memantau %1$s untukmu. Saat %1$s mencapai batasmu, kamu mendapat notifikasi begitu aplikasi memeriksa harga. Saat aplikasi ditutup, Android memeriksa sesuai interval latar belakang – paling sering setiap 15 menit, lebih lambat jika pengoptimalan baterai membatasi aplikasi. Untuk alarm lebih cepat: Pengaturan › Pembaruan › Pembaruan sering.</string>
+</resources>

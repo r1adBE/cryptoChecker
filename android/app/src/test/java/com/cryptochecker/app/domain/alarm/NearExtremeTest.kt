@@ -214,4 +214,36 @@ class NearExtremeTest {
         // Negativer Abstand bleibt ungültig
         assertEquals(Decision.None, decide(price = 120.0, threshold = -1.0))
     }
+
+    @Test
+    fun newHighDoesNotRepeatTheSameDayAfterRearming() {
+        // Wiederholend, Abstand 0, altes Hoch 100 (abgeschlossene Tageskerzen, 6 h zwischengespeichert)
+        val reportedAt = now - 2 * hour
+        // 101 → gemeldet (Marke 101); 99,4 → wieder scharf, die Marke bleibt
+        val fire = decide(price = 101.0, threshold = 0.0) as Decision.Fire
+        assertEquals(101.0, fire.level, 1e-9)
+        assertEquals(Decision.Rearm, decide(price = 99.4, threshold = 0.0, armed = false, lastLevel = 101.0, lastTriggeredAt = reportedAt))
+        val mark = NearExtreme.reportedMark(101.0, reportedAt, 30, now)
+        assertEquals(101.0, mark!!, 1e-9)
+        // 100,1 liegt über dem alten Hoch, aber nicht über der gemeldeten Marke → kein zweites «neues Hoch»
+        assertEquals(Decision.None, decide(price = 100.1, threshold = 0.0, armed = true, lastLevel = mark, lastTriggeredAt = reportedAt))
+        // Erst über der Marke wieder neu
+        assertTrue(decide(price = 101.2, threshold = 0.0, armed = true, lastLevel = mark, lastTriggeredAt = reportedAt) is Decision.Fire)
+        // Tief spiegelbildlich
+        assertEquals(Decision.None, decide(side = Side.LOW, price = 49.9, threshold = 0.0, armed = true, lastLevel = 49.0, lastTriggeredAt = reportedAt))
+        assertTrue(decide(side = Side.LOW, price = 48.9, threshold = 0.0, armed = true, lastLevel = 49.0, lastTriggeredAt = reportedAt) is Decision.Fire)
+    }
+
+    @Test
+    fun reportedMarkExpiresWithTheWindow() {
+        val day = 24 * hour
+        assertEquals(101.0, NearExtreme.reportedMark(101.0, now - 29 * day, 30, now)!!, 1e-9)
+        assertNull(NearExtreme.reportedMark(101.0, now - 30 * day, 30, now))
+        assertEquals(101.0, NearExtreme.reportedMark(101.0, now - 89 * day, 90, now)!!, 1e-9)
+        // Unbekannter Zeitraum gilt als 30 Tage; ohne Meldung oder ohne Marke keine Marke
+        assertNull(NearExtreme.reportedMark(101.0, now - 31 * day, 1, now))
+        assertNull(NearExtreme.reportedMark(101.0, 0L, 30, now))
+        assertNull(NearExtreme.reportedMark(null, now - hour, 30, now))
+        assertNull(NearExtreme.reportedMark(0.0, now - hour, 30, now))
+    }
 }

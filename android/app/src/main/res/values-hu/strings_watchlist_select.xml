@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Kijelölés</string>
+    <string name="watchlist_select_all">Összes kijelölése</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d kijelölve</item>
+        <item quantity="other">%1$d kijelölve</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pár eltávolítva</item>
+        <item quantity="other">%1$d pár eltávolítva</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Csak az elavultak mutatása</string>
+    <string name="watchlist_show_all">Összes mutatása</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Név</string>
+    <string name="watchlist_sort_price">Árfolyam</string>
+    <string name="watchlist_sort_descending">csökkenő</string>
+    <string name="watchlist_sort_ascending">növekvő</string>
+    <string name="watchlist_sort_own">Saját sorrend</string>
+</resources>

@@ -18,6 +18,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -81,11 +82,15 @@ internal data class WatchlistStatus(
     val warn: Boolean get() = stale > 0 || offline || failed > 0
 
     companion object {
+        /** Gehandeltes Paar ohne frischen Kurs (gleiche Regel wie Zeile und Status). */
+        fun isStale(watch: WatchEntity, now: Long, staleAfter: Long): Boolean =
+            !isNotTraded(watch.lastError) && (watch.lastUpdate <= 0 || now - watch.lastUpdate > staleAfter)
+
         fun of(visible: List<WatchEntity>, now: Long, staleAfter: Long, online: Boolean): WatchlistStatus {
             val traded = visible.filterNot { isNotTraded(it.lastError) }
             return WatchlistStatus(
                 traded = traded.size,
-                stale = traded.count { it.lastUpdate <= 0 || now - it.lastUpdate > staleAfter },
+                stale = traded.count { isStale(it, now, staleAfter) },
                 failed = traded.count { it.lastError != null },
                 newest = traded.maxOfOrNull { it.lastUpdate } ?: 0L,
                 offline = traded.isNotEmpty() && traded.all { isConnectionError(it.lastError) },
@@ -117,6 +122,10 @@ internal fun WatchlistStatusRow(
     onAddPair: () -> Unit,
     /** Lupe und «+» (nicht im Sortiermodus). */
     searchAvailable: Boolean,
+    /** Ansicht «nur veraltete» ist an: Status mit ✕, Tipp zeigt wieder alle. */
+    staleOnly: Boolean = false,
+    /** Tipp auf den Status (nur mit veralteten Paaren bzw. in der Ansicht «nur veraltete»). */
+    onToggleStale: () -> Unit = {},
 ) {
     val status = WatchlistStatus.of(visible, now, staleAfter, online)
     // Kein gehandeltes Paar: neutral statt grün — es gibt nichts, das «aktuell» sein könnte
@@ -159,6 +168,8 @@ internal fun WatchlistStatusRow(
                     tone = shownTone,
                     live = live,
                     reduceMotion = reduceMotion,
+                    staleOnly = staleOnly,
+                    onClick = if (staleOnly || status.stale > 0) onToggleStale else null,
                     modifier = Modifier.weight(1f, fill = false)
                 )
                 if (searchAvailable) {
@@ -182,12 +193,21 @@ private fun WatchlistStatusPill(
     tone: Color,
     live: Boolean,
     reduceMotion: Boolean,
+    /** «Nur veraltete» an: ✕ am Ende. */
+    staleOnly: Boolean = false,
+    /** Tipp: nur veraltete zeigen bzw. wieder alle; null = nicht antippbar. */
+    onClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
+    val clickLabel = stringResource(if (staleOnly) R.string.watchlist_show_all else R.string.watchlist_show_only_stale)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clip(RoundedCornerShape(50))
+            .then(
+                if (onClick != null) Modifier.clickable(onClickLabel = clickLabel, role = Role.Button, onClick = onClick)
+                else Modifier
+            )
             .background(tone.copy(alpha = 0.12f))
             .animateContentSize(if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS))
             .padding(horizontal = 12.dp, vertical = Spacing.sm)
@@ -223,16 +243,26 @@ private fun WatchlistStatusPill(
         }
         // Kurse kommen per WebSocket (Runde 31)
         if (live) LiveBadge(tone, reduceMotion)
+        if (staleOnly) {
+            Icon(
+                painterResource(R.drawable.ic_close),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = 6.dp).size(14.dp)
+            )
+        }
     }
 }
 
-/** «+» rechts neben der Lupe: Seite «Paar hinzufügen». */
+/**
+ * «+»: Seite «Paar hinzufügen» — überall derselbe gefüllte Kreis in der Themenfarbe (rechts neben
+ * der Lupe und oben rechts in der Start-Auswahl), wie iOS `addPairButton`.
+ */
 @Composable
-private fun AddPairButton(onClick: () -> Unit) {
+internal fun AddPairButton(onClick: () -> Unit, modifier: Modifier = Modifier.padding(start = 8.dp)) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .padding(start = 8.dp)
+        modifier = modifier
             // Tippfläche 48 dp, sichtbar bleibt der kleine Kreis (wie Material-IconButton)
             .minimumInteractiveComponentSize()
             .size(SearchRowHeight)

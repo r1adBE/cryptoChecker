@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Låsen beskytter visningen. Dataene ligger på denne enhed og er beskyttet af enhedens kryptering. Du kan beskytte sikkerhedskopier med en adgangskode. Sikkerhedskopier af hele enheden (systembackup) indeholder stadig disse data.</string>
+    <string name="settings_portfolio_lock_footer">Låsen beskytter visningen. Dataene ligger på denne enhed og er beskyttet af enhedens kryptering. Du kan beskytte sikkerhedskopier med en adgangskode.</string>
     <string name="backup_protect">Beskyt med adgangskode</string>
     <string name="backup_protect_hint">Krypterer filen (AES-256). Anbefales, når den indeholder porteføljedata.</string>
     <string name="backup_password">Adgangskode</string>

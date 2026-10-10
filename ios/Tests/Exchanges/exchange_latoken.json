@@ -1,0 +1,66 @@
+{
+  "exchange": "LATOKEN",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.latoken.com/v2/ticker/<baseId>/<quoteId>",
+    "bulk": "GET https://api.latoken.com/v2/ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker (amount24h = coin volume, volume24h = quote volume)",
+      "market": "Latoken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTC/USDT\",\"baseCurrency\":\"92151d82-df98-4d88-9a4d-284fa9eca49f\",\"quoteCurrency\":\"0c3a106d-bde3-4c13-a26e-3fd2394529e5\", \"volume24h\":\"744460123.45\",\"volume7d\":\"5123456789.1\",\"change24h\":\"2.48\",\"change7d\":\"5.1\",\"amount24h\":\"12100.5\",\"amount7d\":\"83000.2\", \"lastPrice\":\"62000.1\",\"lastQuantity\":\"0.01\",\"bestBid\":\"62000\",\"bestBidQuantity\":\"0.5\",\"bestAsk\":\"62000.2\",\"bestAskQuantity\":\"0.8\", \"updateTimestamp\":1728540000123}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.2,
+        "vol": 12100.5,
+        "volQuote": 744460123.45,
+        "high": -1.0,
+        "low": -1.0,
+        "change24hPercent": 2.48,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Latoken",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "x/y",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"message\":\"pair not found\",\"error\":\"NOT_FOUND\",\"status\":\"FAILURE\"}",
+      "expect": {
+        "error": true,
+        "message": "pair not found"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk ticker keyed <baseId>/<quoteId>",
+      "market": "Latoken",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTC/USDT\",\"baseCurrency\":\"92151d82-df98-4d88-9a4d-284fa9eca49f\",\"quoteCurrency\":\"0c3a106d-bde3-4c13-a26e-3fd2394529e5\", \"volume24h\":\"744460123.45\",\"volume7d\":\"5123456789.1\",\"change24h\":\"2.48\",\"change7d\":\"5.1\",\"amount24h\":\"12100.5\",\"amount7d\":\"83000.2\", \"lastPrice\":\"62000.1\",\"lastQuantity\":\"0.01\",\"bestBid\":\"62000\",\"bestBidQuantity\":\"0.5\",\"bestAsk\":\"62000.2\",\"bestAskQuantity\":\"0.8\", \"updateTimestamp\":1728540000123}]",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5": {
+            "last": 62000.1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">지금 눈에 띄는 점</string>
-    <string name="pulse_why_action">왜? →</string>
+    <string name="pulse_why_action">왜?</string>
     <string name="pulse_section_factors">요인</string>
 
     <string name="pulse_lead_btc_leads">비트코인이 시장을 이끌고 있습니다.</string>

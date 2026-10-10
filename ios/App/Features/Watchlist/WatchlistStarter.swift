@@ -23,6 +23,10 @@ struct WatchlistStarterPicker: View {
     /// Schutz gegen doppeltes Tippen.
     @State private var adding = false
     @State private var selectionTick = 0
+    /// Logos der Start-Coins geladen (bzw. nach 4 s aufgegeben): bis dahin ruhiger Platzhalter statt
+    /// Initialen — kein Umspringen ein paar Sekunden nach dem Installieren (wie Android).
+    @State private var logosReady = false
+    @Environment(\.coinLogosEnabled) private var coinLogosEnabled
 
     private var quote: String { us ? "USD" : "USDT" }
 
@@ -71,28 +75,38 @@ struct WatchlistStarterPicker: View {
         .sensoryFeedback(.selection, trigger: selectionTick)
         // Kurse: einmal für alle fünf, neu bei einer anderen Liste
         .task(id: coins.map(\.symbol)) { await loadPrices() }
+        // Logos der Start-Coins zuerst (höchstens 4 s warten, danach Initialen)
+        .task(id: coins.map(\.symbol)) { await loadStarterLogos() }
+    }
+
+    private func loadStarterLogos() async {
+        guard coinLogosEnabled else {
+            logosReady = true
+            return
+        }
+        let symbols = coins.map(\.symbol)
+        await withTaskGroup(of: Void.self) { group in
+            group.addTask { _ = await CoinLogoStore.shared.ensureStarterLogos(symbols) }
+            group.addTask { try? await Task.sleep(nanoseconds: 4_000_000_000) }
+            await group.next()
+            group.cancelAll()
+        }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) { logosReady = true }
     }
 
     // MARK: Karte
 
+    /// Wie die Merkliste: jede Zeile eine eigene Karte, nur mit feiner Fuge (`ListSegment`).
     private var card: some View {
-        VStack(spacing: 0) {
-            ForEach(coins) { coin in
-                if coin.id != coins.first?.id {
-                    Divider()
-                        .overlay(AppColors.outlineVariant.opacity(0.5))
-                        .padding(.leading, 62)
-                }
+        VStack(spacing: ListSegment.gap) {
+            ForEach(Array(coins.enumerated()), id: \.element.id) { index, coin in
+                let shape = ListSegment.shape(index, coins.count)
                 row(coin)
+                    .frame(maxWidth: .infinity)
+                    .background(AppColors.container, in: shape)
+                    .overlay(shape.strokeBorder(AppColors.outlineVariant.opacity(0.6), lineWidth: 1))
             }
         }
-        .padding(.vertical, 4)
-        .frame(maxWidth: .infinity)
-        .background(AppColors.container, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(AppColors.outlineVariant.opacity(0.6), lineWidth: 1)
-        )
     }
 
     private func row(_ coin: StarterCoin) -> some View {
@@ -102,7 +116,14 @@ struct WatchlistStarterPicker: View {
             toggle(coin)
         } label: {
             HStack(spacing: 12) {
-                CoinBadge(symbol: coin.symbol, size: 36)
+                if logosReady || !coinLogosEnabled {
+                    CoinBadge(symbol: coin.symbol, size: ListSegment.logo)
+                } else {
+                    Circle()
+                        .fill(AppColors.containerHighest)
+                        .frame(width: ListSegment.logo, height: ListSegment.logo)
+                        .accessibilityHidden(true)
+                }
                 VStack(alignment: .leading, spacing: 1) {
                     Text(verbatim: coin.name)
                         .font(.headline)
@@ -312,7 +333,8 @@ extension WatchlistScreen {
         // «+» oben rechts (der Hinweis verweist darauf); in der Merkliste steht es neben der Lupe
         .overlay(alignment: .topTrailing) {
             addPairButton
-                .padding(.trailing, Spacing.xs)
+                .padding(.trailing, Spacing.md)
+                .padding(.top, Spacing.sm)
         }
         .task { await refreshStarterCoins() }
     }

@@ -52,6 +52,11 @@ struct WatchlistRow: View {
     let loading: Bool
     var highlighted = false
     var sorting = false
+    /// Form je nach Platz in der Liste (`ListSegment.shape`); die Liste wirkt wie eine Einheit.
+    var shape: UnevenRoundedRectangle = ListSegment.shape(0, 1)
+    /// Mehrfachauswahl: Häkchen-Kreis links, Tipp hakt an/ab (macht die Liste über `onTap`).
+    var selecting = false
+    var selected = false
     /// ⚡ Ungewöhnliche Aktivität — Tipp öffnet «Warum bewegt sich das?».
     var hasActivity = false
     /// Kurs in der Umrechnungswährung, z. B. «≈ 61’234 CHF»; nil = nichts zeigen.
@@ -64,7 +69,8 @@ struct WatchlistRow: View {
     let onTap: () -> Void
     let onToggleFavorite: () -> Void
     var onActivity: () -> Void = {}
-    /// Lange drücken: Sortiermodus an (nil = nicht möglich, z. B. während der Suche).
+    /// Lange drücken: Mehrfachauswahl mit dieser Zeile starten bzw. in der Auswahl an-/abhaken
+    /// (nil = nichts, z. B. im Sortiermodus).
     var onLongPress: (() -> Void)? = nil
 
     @Environment(\.coinLogosEnabled) private var coinLogosEnabled
@@ -104,7 +110,8 @@ struct WatchlistRow: View {
 
     private var stale: Bool { WatchlistTime.isStale(watch, now: now, staleAfter: staleAfter) }
 
-    /// Zeitzeile: normal «Binance · vor 2 Min.»; letzte Abfrage gescheitert
+    /// Zeitzeile: aktuell nur «Binance» (die Zeit steht oben im Status), nicht aktuell
+    /// «Binance · vor 13 Min.» (wie Android); letzte Abfrage gescheitert
     /// «vor 41 Min. · Binance nicht erreichbar»; ohne Fehler, aber zu alt
     /// «Binance · veraltet · vor 4 Min.». `warning` = Warnfarbe mit Symbol.
     private var timeLine: (text: String, warning: Bool, spoken: String?) {
@@ -118,20 +125,28 @@ struct WatchlistRow: View {
             let text = L("watchlist_row_outdated_age", ago)
             return ("\(BidiText.isolate(watch.marketName)) · \(text)", true, text)
         }
+        guard stale else { return (watch.marketName, false, nil) }
         return ("\(BidiText.isolate(watch.marketName)) · \(ago)", false, nil)
     }
 
     var body: some View {
         HStack(spacing: Spacing.sm) {
+            if selecting {
+                // Gefüllt in der Themenfarbe = ausgewählt, sonst nur Rand (VoiceOver: «ausgewählt»)
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .scaledFont(size: 20, weight: .regular, relativeTo: .headline)
+                    .foregroundStyle(selected ? accent.primary : AppColors.outline)
+                    .accessibilityHidden(true)
+            }
             // Coin-Logo (bzw. Initialen), Favorit als kleiner Stern daran. Logos aus: keine Plakette,
             // Favorit dann als eigener kleiner Stern (nicht nur der Akzent-Rand) — wie Android.
             if !coinLogosEnabled && watch.favorite && !sorting {
                 Image(systemName: "star.fill")
                     .scaledFont(size: 13, weight: .semibold, relativeTo: .headline)
-                    .foregroundStyle(accent.primary)
+                    .foregroundStyle(AppColors.onSurface)  // Textfarbe; Themenfarbe nur für Bedienbares
                     .accessibilityHidden(true)
             }
-            CoinBadge(symbol: watch.baseAsset, size: 38, logo: CoinLogos.allowed(forMarket: watch.marketKey),
+            CoinBadge(symbol: watch.baseAsset, size: ListSegment.logo, logo: CoinLogos.allowed(forMarket: watch.marketKey),
                       pair: watch.logoPairKey,
                       favorite: watch.favorite && !sorting)
 
@@ -161,20 +176,20 @@ struct WatchlistRow: View {
         .padding(.vertical, Spacing.md)
         .background(cardBackground)
         .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            shape
                 .strokeBorder(borderColor, lineWidth: highlighted ? 1.5 : 1)
         )
         // «Erst-Hinzufügen»: Einblenden mit leichtem Hochgleiten (weniger Bewegung: nur erscheinen)
         .opacity(entryHidden ? 0 : 1)
         .offset(y: entryHidden && !reduceMotion ? 12 : 0)
-        .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .contentShape(shape)
         // Nur einfacher Tipp: Ein Doppeltippen liesse jeden Tipp ~0,3 s warten.
         // Favorit über Wischen nach rechts, Aktionsblatt oder VoiceOver-Aktion.
         .onTapGesture {
             guard !sorting else { return }
             onTap()
         }
-        // Lange drücken schaltet nur den Sortiermodus ein (dann ziehen am Griff);
+        // Lange drücken startet die Mehrfachauswahl (bzw. hakt in ihr an/ab), mit Haptik;
         // Tippen öffnet weiter das Blatt, Wischen bleibt unberührt.
         .onLongPressGesture(minimumDuration: 0.45) {
             guard !sorting, let onLongPress else { return }
@@ -224,12 +239,12 @@ struct WatchlistRow: View {
         // VoiceOver: die ganze Zeile als ein Satz; Tippen, Favorit und «Warum?» als Aktionen
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityText)
-        .accessibilityAddTraits(.isButton)
+        .accessibilityAddTraits(selecting && selected ? [.isButton, .isSelected] : .isButton)
         .accessibilityAction { if !sorting { onTap() } }
         .accessibilityAction(named: Text(L(watch.favorite ? "favorite_remove" : "favorite_add")), onToggleFavorite)
         // «Warum?» nur, wenn der ⚡ sichtbar ist (sonst öffnete die Aktion ein leeres Blatt)
         .accessibilityActions {
-            if hasActivity && !sorting {
+            if hasActivity && !sorting && !selecting {
                 Button(L("why_action"), action: onActivity)
             }
         }
@@ -304,7 +319,9 @@ struct WatchlistRow: View {
             chart: chart,
             alarmCount: alarmCount,
             extra: [watch.favorite ? L("a11y_favorite") : nil,
-                    watch.notificationEnabled ? L("watchlist_notification") : nil],
+                    // Benachrichtigung an bzw. «Benachrichtigung Aus» (durchgestrichene Glocke) — wie Android
+                    watch.notificationEnabled ? L("watchlist_notification")
+                        : L("watchlist_notification") + " " + L("option_off")],
             stale: staleText,
             changeView: changeView
         )
@@ -372,17 +389,16 @@ struct WatchlistRow: View {
                     .lineLimit(line.warning || typeSize.isAccessibilitySize ? 2 : 1)
                     .layoutPriority(-1)
 
-                // Kleine Zeichen: Auge = Kurs-Mitteilung an, Glocke = Alarme scharf
-                // (die Glocke steht nur für Alarme, damit nichts verwechselt wird)
-                if watch.notificationEnabled {
-                    Image(systemName: "eye.fill")
-                        .scaledFont(size: 10, relativeTo: .caption2)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .accessibilityLabel(L("watchlist_notification"))
-                }
+                // Kleine Zeichen: schlichte Glocke = Kurs-Mitteilung an, durchgestrichen = aus, Glocke mit
+                // Wellen = Alarme scharf (verschiedene Glocken, damit nichts verwechselt wird) — wie Android
+                // Aus = durchgestrichene Glocke (etwas blasser)
+                Image(systemName: watch.notificationEnabled ? "bell.fill" : "bell.slash.fill")
+                    .scaledFont(size: 10, relativeTo: .caption2)
+                    .foregroundStyle(AppColors.onSurfaceVariant.opacity(watch.notificationEnabled ? 1 : 0.6))
+                    .accessibilityHidden(true)
                 if alarmCount > 0 {
                     HStack(spacing: 2) {
-                        Image(systemName: "bell.fill").scaledFont(size: 10, relativeTo: .caption2)
+                        Image(systemName: "bell.and.waves.left.and.right.fill").scaledFont(size: 10, relativeTo: .caption2)
                         Text(verbatim: LocaleNumbers.integer(alarmCount)).font(.caption2.weight(.semibold).monospacedDigit())
                     }
                     .foregroundStyle(accent.primary)
@@ -473,11 +489,11 @@ struct WatchlistRow: View {
     }
 
     private var cardBackground: some View {
-        RoundedRectangle(cornerRadius: 18, style: .continuous)
+        shape
             .fill(AppColors.container)
             .overlay(
                 // Favoriten mit feinem Akzent-Schimmer am linken Rand
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                shape
                     .fill(LinearGradient(
                         colors: [watch.favorite ? accent.tint(0.12) : .clear, .clear],
                         startPoint: .leading, endPoint: .center))

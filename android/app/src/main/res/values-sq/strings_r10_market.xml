@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
     <string name="unusual_source">Rreth 30 monedhat më të mëdha pa stablecoin · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">Pse po lëviz?</string>
-    <string name="unusual_action_add">Gjej çift për ta shtuar</string>
 
     <string name="macro_title">Të dhëna ekonomike</string>
     <string name="macro_cpi">inflacioni në SHBA (CPI)</string>

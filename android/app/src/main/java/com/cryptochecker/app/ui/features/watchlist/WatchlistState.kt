@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.QuickView
 
 /**
  * Was der Merkliste-Bildschirm sich merkt: Sortiermodus, Suche, offene Blätter und Rückfragen.
@@ -59,6 +60,16 @@ internal class WatchlistUiState(
     var searching by mutableStateOf(false)
     var query by mutableStateOf("")
 
+    /** ⚡ bzw. «nur veraltete» ([QuickView]); null = Gruppen-Auswahl gilt. Nicht gespeichert. */
+    var quickView by mutableStateOf<QuickView?>(null)
+
+    /** Mehrfachauswahl (⋯ › Auswählen): Häkchen an den Zeilen, unten Favorit · Gruppe · Löschen. */
+    var selecting by mutableStateOf(false)
+    var selectedIds by mutableStateOf(emptySet<Long>())
+
+    /** Gruppe für die ausgewählten Paare wählen (Leiste der Mehrfachauswahl). */
+    var askGroupForSelection by mutableStateOf(false)
+
     /** Rückfragen und Blätter aus Kopf und Menü. */
     var askClearAll by mutableStateOf(false)
     var askRemoveNotTraded by mutableStateOf(false)
@@ -70,10 +81,41 @@ internal class WatchlistUiState(
         query = ""
     }
 
-    /** «Sortieren» im Menü: Suche zu, Sortiermodus an. */
+    /** «Sortieren» im Menü: Suche zu, Sortiermodus an (für die ganze Ansicht, ohne ⚡/veraltet). */
     fun startSort() {
         closeSearch()
+        endSelection()
+        quickView = null
         sortMode = true
+    }
+
+    /** «Auswählen» im Menü: Suche und Sortieren zu, nichts ausgewählt. */
+    fun startSelection() {
+        closeSearch()
+        sortMode = false
+        selectedIds = emptySet()
+        selecting = true
+    }
+
+    /** Lange drücken auf eine Zeile: wie «Auswählen», aber diese Zeile gleich angehakt. */
+    fun startSelectionWith(id: Long) {
+        startSelection()
+        selectedIds = setOf(id)
+    }
+
+    fun endSelection() {
+        selecting = false
+        selectedIds = emptySet()
+        askGroupForSelection = false
+    }
+
+    fun toggleSelected(id: Long) {
+        selectedIds = if (id in selectedIds) selectedIds - id else selectedIds + id
+    }
+
+    /** Tipp auf ⚡ bzw. den Status: Ansicht an, nochmals = aus. */
+    fun toggleQuickView(view: QuickView) {
+        quickView = if (quickView == view) null else view
     }
 
     /** Bestehende Gruppe bearbeiten (lange auf den Chip drücken). */

@@ -1,0 +1,74 @@
+{
+  "exchange": "Gemini",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.gemini.com/v1/pubticker/btcusd",
+    "bulk": "GET https://api.gemini.com/v1/pricefeed"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "pubticker btcusd (volume object keyed by currency)",
+      "market": "Gemini",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "btcusd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"bid\":\"62000.00\",\"ask\":\"62000.10\",\"volume\":{\"BTC\":\"1234.5678\",\"USD\":\"76543210.12\",\"timestamp\":1728540000000},\"last\":\"62000.05\"}",
+      "expect": {
+        "last": 62000.05,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "vol": 1234.5678,
+        "volQuote": 76543210.12,
+        "high": -1.0,
+        "low": -1.0,
+        "change24hPercent": null,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Gemini",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "foousd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"error\",\"reason\":\"InvalidSymbol\",\"message\":\"Supplied value 'foousd' is not a valid symbol\"}",
+      "expect": {
+        "error": true,
+        "message": "Supplied value 'foousd' is not a valid symbol"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "pricefeed: only price; percentChange24h ignored (unit unclear)",
+      "market": "Gemini",
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTCUSD\",\"price\":\"62000.05\",\"percentChange24h\":\"0.0146\"},{\"pair\":\"ETHUSD\",\"price\":\"2450.12\",\"percentChange24h\":\"-0.0050\"},{\"pair\":\"NEWUSD\",\"price\":null,\"percentChange24h\":\"0\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "newusd"
+        ],
+        "tickers": {
+          "btcusd": {
+            "last": 62000.05,
+            "change24hPercent": null,
+            "bid": -1.0
+          },
+          "ethusd": {
+            "last": 2450.12
+          }
+        }
+      }
+    }
+  ]
+}

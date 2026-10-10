@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.ThresholdParser
+import com.cryptochecker.app.util.DecimalText
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.PriceColorChoice
@@ -134,11 +135,22 @@ internal fun LanguageRow(selectedTag: String, onClick: () -> Unit) {
     )
 }
 
-private fun parsePercent(text: String): Double? =
-    ThresholdParser.latinDigits(text).trim().replace(',', '.').toDoubleOrNull()?.takeIf { it in 0.0..100.0 }
+/**
+ * Prozentwert 0 – 100: Komma oder Punkt, «%»/«٪» (auch «5 %») erlaubt, arabische/persische
+ * Ziffern gelten; Exponent oder Suffix («1e2», «5f») ungültig — gleich wie iOS
+ * (`SettingsPickers.parse`).
+ */
+private fun parsePercent(text: String): Double? {
+    val cleaned = ThresholdParser.latinDigits(text).replace("%", "").replace("٪", "").trim().replace(',', '.')
+    if (!PERCENT_TEXT.matches(cleaned)) return null
+    return cleaned.toDoubleOrNull()?.takeIf { it in 0.0..100.0 }
+}
 
-private fun formatPercent(value: Double): String =
-    if (value % 1.0 == 0.0) value.toLong().toString() else value.toString()
+/** Ziffern mit höchstens einem Dezimalpunkt, mindestens eine Ziffer. */
+private val PERCENT_TEXT = Regex("""^(\d+\.?\d*|\.\d+)$""")
+
+/** «5» statt «5.0», nie mit Exponent («1.0E-4» liesse sich nicht zurücklesen). */
+private fun formatPercent(value: Double): String = DecimalText.plain(value)
 
 /** Akzentfarben als Liste: Farbpunkt und Name, die gewählte hinterlegt mit Häkchen ([RadioRow]). */
 @Composable

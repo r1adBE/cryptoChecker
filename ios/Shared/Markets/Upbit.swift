@@ -47,8 +47,8 @@ class UpbitStyleMarket: SimpleMarket {
 
     private func read(_ json: JObject, _ ticker: inout Ticker) throws {
         ticker.last = try json.double("trade_price")
-        ticker.high = json.optDoubleNoData("high_price")
-        ticker.low = json.optDoubleNoData("low_price")
+        // high_price/low_price sind Tageswerte (seit Tagesbeginn der Börse), keine gleitenden 24 h –
+        // wie beim 24-h-Wechsel nicht übernehmen statt als 24-h-Hoch/-Tief anzuzeigen.
         ticker.vol = json.optDoubleNoData("acc_trade_volume_24h")
         ticker.volQuote = json.optDoubleNoData("acc_trade_price_24h")
         ticker.timestamp = json.optLong("timestamp")

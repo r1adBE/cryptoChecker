@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfolio in Systemsicherung</string>
+    <string name="settings_portfolio_system_backup_hint">Aus: Deine Transaktionen kommen nicht in die Systemsicherung des Geräts und nicht in die Übertragung auf ein neues Gerät. Zum Umziehen die eigene Sicherung der App mit Passwort verwenden.</string>
+</resources>

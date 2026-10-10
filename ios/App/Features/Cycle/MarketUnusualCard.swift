@@ -2,11 +2,11 @@ import SwiftUI
 
 /// «Heute auffällig» — wie `UnusualCard` (`MarketUnusualCard.kt`): bis zu fünf Coins aus den rund
 /// 30 grössten, die sich heute ungewöhnlich verhalten — je Zeile Plakette, Symbol, 24-h-Pille und
-/// die auffälligste Tatsache in einem Satz. Nichts auffällig: eine ruhige Zeile. Tippen: «Warum?»
-/// für beobachtete Coins, sonst die Suche auf der Seite «Paar hinzufügen». VoiceOver: je Zeile ein Element.
+/// die auffälligste Tatsache in einem Satz. Nichts auffällig: eine ruhige Zeile. Tippen: dasselbe
+/// wie in der Merkliste — das Aktionsblatt des Paars, sonst seine Vorschau (siehe `CycleScreen`).
+/// VoiceOver: je Zeile ein Element.
 struct CycleUnusualCard: View {
     let state: CycleLoad<UnusualReport>
-    let isWatched: (String) -> Bool
     let onOpen: (UnusualRow) -> Void
     let onRetry: () -> Void
 
@@ -30,9 +30,12 @@ struct CycleUnusualCard: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 } else {
-                    VStack(spacing: 2) {
-                        ForEach(report.rows) { row in
-                            CycleUnusualRowView(row: row, watched: isWatched(row.symbol), onTap: { onOpen(row) })
+                    // Wie die Merkliste: jede Zeile eine eigene Fläche mit feiner Fuge (`ListSegment`)
+                    VStack(spacing: ListSegment.gap) {
+                        ForEach(Array(report.rows.enumerated()), id: \.element.id) { index, row in
+                            CycleUnusualRowView(row: row,
+                                                shape: ListSegment.shape(index, report.rows.count),
+                                                onTap: { onOpen(row) })
                         }
                     }
                 }
@@ -81,7 +84,7 @@ struct CycleUnusualCard: View {
 /// Eine Zeile; für VoiceOver ein Element «Solana, gestiegen um 5.20%. Läuft gegen den Markt.» mit Aktion.
 private struct CycleUnusualRowView: View {
     let row: UnusualRow
-    let watched: Bool
+    var shape: UnevenRoundedRectangle = ListSegment.shape(0, 1)
     let onTap: () -> Void
 
     var body: some View {
@@ -90,10 +93,10 @@ private struct CycleUnusualRowView: View {
         let spoken = L("unusual_a11y_row", name, A11y.change(row.change24h) ?? "", fact)
         Button(action: onTap) {
             HStack(spacing: 12) {
-                CoinBadge(symbol: row.symbol, size: 36)
+                CoinBadge(symbol: row.symbol, size: ListSegment.logo)
                 VStack(alignment: .leading, spacing: 1) {
                     Text(row.symbol)
-                        .font(.subheadline.weight(.semibold))
+                        .font(.headline)
                         .foregroundStyle(AppColors.onSurface)
                         .lineLimit(1)
                     Text(fact)
@@ -105,14 +108,19 @@ private struct CycleUnusualRowView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 PortfolioPlPill(percent: row.change24h)
             }
+            // Gleicher Innenabstand wie die Merkliste
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.md)
             .frame(minHeight: 56)
-            .contentShape(Rectangle())
+            .background(AppColors.containerHigh, in: shape)
+            .contentShape(shape)
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(spoken)
         .accessibilityAddTraits(.isButton)
-        .accessibilityHint(L(watched ? "unusual_action_why" : "unusual_action_add"))
+        // Ein Ziel für alle Zeilen: Kurs und Aktionen (wie ein Tipp in der Merkliste)
+        .accessibilityHint(L("unusual_action_open"))
     }
 }
 
@@ -165,4 +173,18 @@ struct CycleMacroHintRow: View {
 /// Ziel des «Warum»-Blatts aus «Heute auffällig».
 struct CycleWhyTarget: Identifiable, Hashable {
     let id: Int64
+}
+
+/// Was ein Tipp in «Heute auffällig» öffnet: das Aktionsblatt eines gespeicherten Paars oder die
+/// Vorschau eines Paars, das nicht in der Merkliste steht (`WatchPreview`, nur im Speicher).
+enum CycleCoinTarget: Identifiable, Hashable {
+    case stored(Int64)
+    case preview(Watch)
+
+    var id: String {
+        switch self {
+        case .stored(let id): return "watch:\(id)"
+        case .preview(let watch): return "preview:\(watch.baseAsset)"
+        }
+    }
 }

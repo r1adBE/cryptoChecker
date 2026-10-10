@@ -13,8 +13,9 @@ private struct PortfolioCoinCloses: Codable {
 /// data-api.binance.vision, sonst api.binance.com. Zwischenspeicher je Coin 12 h auf dem
 /// Gerät (`CycleCache`, Eintrag «phist_<COIN>», samt abgefragter Spanne) und im Speicher; ein
 /// Eintrag mit kürzerer Spanne als verlangt wird neu geholt. Ein Coin, den Binance nicht führt
-/// (HTTP 400), wird als «ohne Verlauf» ebenfalls 12 h gemerkt. Stablecoins brauchen keine
-/// Abfrage (Kurs 1, siehe `PortfolioHistory`).
+/// (HTTP 400), wird als «ohne Verlauf» ebenfalls 12 h gemerkt. Nur USDT braucht keine Abfrage;
+/// andere Stablecoins (z. B. USDCUSDT) werden wie jeder Coin geholt — fehlt ihr Kurs, gilt 1
+/// (`PortfolioStables`, `PortfolioHistory`).
 enum PortfolioHistorySource {
     private static let ttl: Int64 = 12 * 60 * 60_000
     private static let parallel = 4
@@ -43,7 +44,7 @@ enum PortfolioHistorySource {
     /// ohne Verlauf (kein Paar, Netz weg und nichts gespeichert) fehlen in der Rückgabe.
     static func dailyCloses(_ coins: [String], days: Int = PortfolioHistory.maxDays) async -> [String: [Int: Double]] {
         let symbols = Array(Set(coins.map { PortfolioCalculator.normalizeCoin($0) }))
-            .filter { isAsset($0) && !PortfolioHistory.isStable($0) }
+            .filter { isAsset($0) && PortfolioStables.needsQuote($0) }
             .sorted()
         let span = max(days, PortfolioHistory.maxDays)
         var result: [String: [Int: Double]] = [:]

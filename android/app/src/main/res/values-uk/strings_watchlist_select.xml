@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Вибрати</string>
+    <string name="watchlist_select_all">Вибрати все</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Вибрано: %1$d</item>
+        <item quantity="few">Вибрано: %1$d</item>
+        <item quantity="many">Вибрано: %1$d</item>
+        <item quantity="other">Вибрано: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Видалено пар: %1$d</item>
+        <item quantity="few">Видалено пар: %1$d</item>
+        <item quantity="many">Видалено пар: %1$d</item>
+        <item quantity="other">Видалено пар: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Показати лише застарілі</string>
+    <string name="watchlist_show_all">Показати всі</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Назва</string>
+    <string name="watchlist_sort_price">Ціна</string>
+    <string name="watchlist_sort_descending">за спаданням</string>
+    <string name="watchlist_sort_ascending">за зростанням</string>
+    <string name="watchlist_sort_own">Власний порядок</string>
+</resources>

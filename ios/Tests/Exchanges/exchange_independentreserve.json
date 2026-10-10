@@ -1,0 +1,67 @@
+{
+  "exchange": "Independent Reserve",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=Xbt&secondaryCurrencyCode=Aud"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "market summary Xbt/Aud (7 fraction digits, seconds precision)",
+      "market": "IndependentReserve",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "Xbt_Aud",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"CreatedTimestampUtc\":\"2024-10-10T06:00:00.1234567Z\",\"CurrentHighestBidPrice\":95000.12,\"CurrentLowestOfferPrice\":95010.5, \"DayAvgPrice\":94500.0,\"DayHighestPrice\":95500.0,\"DayLowestPrice\":93000.0,\"DayVolumeXbt\":123.456, \"DayVolumeXbtInSecondaryCurrrency\":11665432.1,\"LastPrice\":95005.0,\"PrimaryCurrencyCode\":\"Xbt\",\"SecondaryCurrencyCode\":\"Aud\"}",
+      "expect": {
+        "last": 95005.0,
+        "bid": 95000.12,
+        "ask": 95010.5,
+        "high": 95500.0,
+        "low": 93000.0,
+        "vol": 123.456,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "CreatedTimestampUtc without 'Z' is read as UTC",
+      "market": "IndependentReserve",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "Xbt_Aud",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"CreatedTimestampUtc\":\"2024-10-10T06:00:00.1234567\",\"LastPrice\":95005.0}",
+      "expect": {
+        "last": 95005.0,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "IndependentReserve",
+      "pair": {
+        "base": "FOO",
+        "quote": "AUD",
+        "id": "Foo_Aud",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"Message\":\"Primary currency code is invalid\"}",
+      "expect": {
+        "error": true,
+        "message": "Primary currency code is invalid"
+      }
+    }
+  ]
+}

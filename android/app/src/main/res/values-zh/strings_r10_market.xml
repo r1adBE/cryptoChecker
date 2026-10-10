@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">资金费率为负（%1$s）</string>
     <string name="unusual_source">约 30 个最大币种（不含稳定币）· Binance、CoinGecko</string>
     <string name="unusual_a11y_row">%1$s，%2$s。%3$s。</string>
-    <string name="unusual_action_why">为什么在波动？</string>
-    <string name="unusual_action_add">查找要添加的交易对</string>
 
     <string name="macro_title">经济数据</string>
     <string name="macro_cpi">美国消费者物价指数（CPI）</string>

@@ -62,13 +62,18 @@ struct PortfolioFile: Codable, Sendable {
     var transactions: [PortfolioTx] = []
     /// Nächste freie Id (Ids werden nie wiederverwendet).
     var nextId: Int64 = 1
+    /// Alter Bestand der Merkliste ist als Käufe übernommen — steht in derselben Datei wie die Käufe
+    /// und wird mit ihnen in einem Schreibvorgang gespeichert. So legt ein Abbruch vor dem Leeren der
+    /// Merkliste die Käufe beim nächsten Start nicht doppelt an (wie Android `holdings_import_done`).
+    var holdingsImportDone = false
 
-    init(transactions: [PortfolioTx] = [], nextId: Int64 = 1) {
+    init(transactions: [PortfolioTx] = [], nextId: Int64 = 1, holdingsImportDone: Bool = false) {
         self.transactions = transactions
         self.nextId = nextId
+        self.holdingsImportDone = holdingsImportDone
     }
 
-    private enum CodingKeys: String, CodingKey { case transactions, nextId }
+    private enum CodingKeys: String, CodingKey { case transactions, nextId, holdingsImportDone }
 
     /// Ein einzelner kaputter Eintrag macht nicht die ganze Datei unlesbar.
     private struct Lossy: Decodable {
@@ -80,12 +85,14 @@ struct PortfolioFile: Codable, Sendable {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         transactions = ((try? c.decodeIfPresent([Lossy].self, forKey: .transactions)) ?? nil)?.compactMap(\.tx) ?? []
         nextId = (try? c.decodeIfPresent(Int64.self, forKey: .nextId)) ?? 1
+        holdingsImportDone = (try? c.decodeIfPresent(Bool.self, forKey: .holdingsImportDone)) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(transactions, forKey: .transactions)
         try c.encode(nextId, forKey: .nextId)
+        if holdingsImportDone { try c.encode(true, forKey: .holdingsImportDone) }
     }
 }
 
@@ -105,9 +112,32 @@ enum PortfolioStore {
         return file
     }
 
-    static func save(_ file: PortfolioFile) {
+    /// Schreibt die Datei und setzt danach das Backup-Merkmal neu (das atomare Schreiben ersetzt die
+    /// Datei und verliert es). `includeInBackup` = Einstellung «Portfolio in Systemsicherung».
+    static func save(_ file: PortfolioFile, includeInBackup: Bool) {
         guard let data = try? JSONEncoder().encode(file) else { return }
         try? data.write(to: url, options: [.atomic])
+        BackupExclusion.set(excluded: !includeInBackup, for: url)
+    }
+
+    /// Dateien mit Portfolio-Daten, die dem Schalter folgen: Transaktionen, Portfolio-Alarme
+    /// (`SharedStorage`) und die gesicherte Kopie einer unlesbaren Alarm-Datei.
+    static var backupPolicyURLs: [URL] {
+        let alarms = SharedStorage.portfolioAlarmsURL
+        return [url, alarms, SharedStorage.unreadableCopyURL(of: alarms)]
+    }
+
+    /// «Portfolio in Systemsicherung» (wie Android, Standard aus): aus = Portfolio-Daten nicht in
+    /// iCloud-/Geräte-Backups (`backupPolicyURLs`). Beim Start und beim Umschalten aufrufen; die
+    /// Schreibstellen setzen das Merkmal nach jedem Schreiben selbst neu.
+    /// Die Momentaufnahme des Portfolio-Widgets ist nie im Backup (wie Android `portfolio_widget`); beim
+    /// Start zieht sie zudem aus den App-Group-Einstellungen (die sich nicht ausnehmen lassen) in ihre Datei.
+    static func applyBackupPolicy(includeInBackup: Bool) {
+        PortfolioWidgetStore.migrateSnapshotToFile()
+        BackupExclusion.set(excluded: true, for: PortfolioWidgetStore.snapshotURL)
+        for file in backupPolicyURLs {
+            BackupExclusion.set(excluded: !includeInBackup, for: file)
+        }
     }
 
     static var holdingsMigrated: Bool {

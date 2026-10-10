@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">پرتفوی در پشتیبان سیستم</string>
+    <string name="settings_portfolio_system_backup_hint">خاموش: تراکنش‌های شما در پشتیبان سیستم دستگاه و انتقال به گوشی جدید قرار نمی‌گیرند. برای انتقال، از پشتیبان خود برنامه با گذرواژه استفاده کنید.</string>
+</resources>

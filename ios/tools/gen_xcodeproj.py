@@ -13,6 +13,7 @@ time, object IDs are derived from hashes, so the output is deterministic (same t
 
 Shared test cases: ../android/testdata/parity/*.json (here also ../cryptoChecker/...) are copied
 to Tests/Parity/ on every run, so Android and iOS test the same inputs and expected results.
+Exchange contract fixtures: ../android/testdata/exchanges/exchange_*.json -> Tests/Exchanges/.
 
 Usage: python3 tools/gen_xcodeproj.py            (generate + validate)
        python3 tools/gen_xcodeproj.py --check    (only validate the existing project file)
@@ -49,6 +50,16 @@ BOTH_TARGET_RESOURCES = {os.path.join("App", "PrivacyInfo.xcprivacy")}
 # lokal auch cryptoChecker/), Kopie im Testziel.
 PARITY_SOURCES = [os.path.join(os.path.dirname(ROOT), d, "testdata", "parity") for d in ("android", "cryptoChecker")]
 PARITY_COPY = os.path.join(ROOT, "Tests", "Parity")
+# Vertragstests der Börsen-Adapter (Antworten im Format der Börsen + erwartete Ticker):
+# android/testdata/exchanges/exchange_*.json -> Tests/Exchanges (ExchangeContractTests.swift).
+EXCHANGE_SOURCES = [os.path.join(os.path.dirname(ROOT), d, "testdata", "exchanges") for d in ("android", "cryptoChecker")]
+EXCHANGE_COPY = os.path.join(ROOT, "Tests", "Exchanges")
+# (Name, Quellen, Kopie). Die Dateinamen müssen über alle Sätze eindeutig sein: Xcode legt die
+# Ressourcen flach ins Test-Bundle.
+FIXTURE_SETS = [
+    ("parity", PARITY_SOURCES, PARITY_COPY),
+    ("exchanges", EXCHANGE_SOURCES, EXCHANGE_COPY),
+]
 
 FILE_TYPES = {
     ".swift": "sourcecode.swift",
@@ -69,20 +80,20 @@ FILE_TYPES = {
 RESOURCE_EXTS = {".xcassets", ".xcstrings", ".strings", ".json", ".png", ".storyboard", ".xcprivacy", ".wav", ".txt"}
 
 
-def parity_source():
-    return next((p for p in PARITY_SOURCES if os.path.isdir(p)), None)
+def parity_source(sources=PARITY_SOURCES):
+    return next((p for p in sources if os.path.isdir(p)), None)
 
 
-def parity_differences():
-    """Dateien in Tests/Parity, die nicht (mehr) der Quelle entsprechen; leer ohne Quelle."""
-    src = parity_source()
+def parity_differences(sources=PARITY_SOURCES, copy=PARITY_COPY):
+    """Dateien in Tests/Parity (bzw. `copy`), die nicht (mehr) der Quelle entsprechen; leer ohne Quelle."""
+    src = parity_source(sources)
     if src is None:
         return []
     wanted = sorted(f for f in os.listdir(src) if f.endswith(".json"))
-    have = sorted(f for f in os.listdir(PARITY_COPY) if f.endswith(".json")) if os.path.isdir(PARITY_COPY) else []
+    have = sorted(f for f in os.listdir(copy) if f.endswith(".json")) if os.path.isdir(copy) else []
     diffs = [f for f in have if f not in wanted]
     for name in wanted:
-        target = os.path.join(PARITY_COPY, name)
+        target = os.path.join(copy, name)
         with open(os.path.join(src, name), "rb") as a:
             data = a.read()
         if not os.path.exists(target):
@@ -94,28 +105,29 @@ def parity_differences():
     return diffs
 
 
-def sync_parity():
-    """Gemeinsame Testfälle aus dem Android-Projekt nach Tests/Parity kopieren (überzählige löschen)."""
-    src = parity_source()
+def sync_parity(label="parity", sources=PARITY_SOURCES, copy=PARITY_COPY):
+    """Gemeinsame Testfälle aus dem Android-Projekt nach Tests/Parity (bzw. `copy`) kopieren (überzählige löschen)."""
+    src = parity_source(sources)
     if src is None:
-        print("note: android/testdata/parity not found next to the iOS folder; Tests/Parity left as is")
+        print(f"note: android/testdata/{label} not found next to the iOS folder; "
+              f"{os.path.relpath(copy, ROOT)} left as is")
         return
-    os.makedirs(PARITY_COPY, exist_ok=True)
+    os.makedirs(copy, exist_ok=True)
     wanted = sorted(f for f in os.listdir(src) if f.endswith(".json"))
-    for name in os.listdir(PARITY_COPY):
+    for name in os.listdir(copy):
         if name.endswith(".json") and name not in wanted:
-            os.remove(os.path.join(PARITY_COPY, name))
+            os.remove(os.path.join(copy, name))
     for name in wanted:
         with open(os.path.join(src, name), "rb") as a:
             data = a.read()
-        target = os.path.join(PARITY_COPY, name)
+        target = os.path.join(copy, name)
         if os.path.exists(target):
             with open(target, "rb") as b:
                 if b.read() == data:
                     continue
         with open(target, "wb") as b:
             b.write(data)
-    print(f"parity fixtures: {len(wanted)} file(s) from {os.path.relpath(src, ROOT)}")
+    print(f"{label} fixtures: {len(wanted)} file(s) from {os.path.relpath(src, ROOT)}")
 
 
 def known_regions():
@@ -706,7 +718,8 @@ def validate(path, expect_sources=None):
 
 def main():
     if "--check" not in sys.argv:
-        sync_parity()
+        for label, sources, copy in FIXTURE_SETS:
+            sync_parity(label, sources, copy)
         objs, root_id, targets, phases = build()
         os.makedirs(os.path.join(PROJ_DIR, "xcshareddata", "xcschemes"), exist_ok=True)
         os.makedirs(os.path.join(PROJ_DIR, "project.xcworkspace"), exist_ok=True)
@@ -717,8 +730,9 @@ def main():
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n<Workspace\n   version = "1.0">\n'
                     '   <FileRef\n      location = "self:">\n   </FileRef>\n</Workspace>\n')
     errors, summary = validate(os.path.join(PROJ_DIR, "project.pbxproj"))
-    errors += [f"Tests/Parity/{f} differs from android/testdata/parity (run without --check)"
-               for f in parity_differences()]
+    for label, sources, copy in FIXTURE_SETS:
+        errors += [f"{os.path.relpath(copy, ROOT)}/{f} differs from android/testdata/{label} (run without --check)"
+                   for f in parity_differences(sources, copy)]
     for tgt, phases in summary.items():
         print(f"{tgt}: " + ", ".join(f"{k.replace('PBX', '').replace('BuildPhase', '')}={len(v)}"
                                      for k, v in phases.items()))

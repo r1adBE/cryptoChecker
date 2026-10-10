@@ -40,6 +40,9 @@ extension WatchlistScreen {
         } else {
             text = L("watchlist_pull_to_refresh")
         }
+        // Tipp auf den Status: nur die veralteten Paare zeigen bzw. wieder alle (wie Android)
+        let staleOnly = quickView == .stale
+        let tappable = staleOnly || staleCount > 0
         return HStack(spacing: 8) {
             HStack(spacing: 8) {
                 Circle()
@@ -57,10 +60,21 @@ extension WatchlistScreen {
                     .contentTransition(.opacity)
                 // Kurse kommen per WebSocket (Runde 31)
                 if !data.liveExchanges.isEmpty { WatchlistLiveBadge(color: tone) }
+                if staleOnly {
+                    Image(systemName: "xmark")
+                        .scaledFont(size: 10, weight: .bold, relativeTo: .caption)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .accessibilityHidden(true)
+                }
             }
             .padding(.horizontal, 12)
             .padding(.vertical, Spacing.sm)
             .background(tone.opacity(0.12), in: Capsule())
+            .contentShape(Capsule())
+            .onTapGesture { if tappable { toggleQuickView(.stale) } }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(tappable ? .isButton : [])
+            .accessibilityHint(tappable ? L(staleOnly ? "watchlist_show_all" : "watchlist_show_only_stale") : "")
             // Nach einer Aktualisierung wechseln Farbe und Text weich (nicht hart)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
 
@@ -84,8 +98,8 @@ extension WatchlistScreen {
                 .accessibilityLabel(L("watchlist_refresh_report"))
             }
 
-            // Lupe und «+»: in der Sortieransicht ausgeblendet
-            if !sorting {
+            // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
+            if !sorting && !selecting {
                 Button { openSearch() } label: {
                     // Gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe)
                     Image(systemName: "magnifyingglass")
@@ -100,19 +114,8 @@ extension WatchlistScreen {
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L("watchlist_search_open"))
 
-                // «+» rechts neben der Lupe: Seite «Paar hinzufügen»
-                Button { router.openExplorer() } label: {
-                    Image(systemName: "plus")
-                        .scaledFont(size: 13, weight: .bold, relativeTo: .caption)
-                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                        .foregroundStyle(accent.onPrimary)
-                        .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
-                        .background(accent.primary, in: Circle())
-                        // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
-                        .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L("shortcut_add"))
+                // «+» rechts neben der Lupe: Seite «Paar hinzufügen» (gleicher Knopf wie in der Start-Auswahl)
+                addPairButton
             }
         }
     }

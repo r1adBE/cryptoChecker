@@ -5,7 +5,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -43,16 +42,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.WatchFilter
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 
 /**
- * Gruppen-Auswahl oben: «Alle · Favoriten · Gruppe 1 · Gruppe 2 … · +».
+ * Gruppen-Auswahl oben: «Alle · ★ · ⚡ · Gruppe 1 · Gruppe 2 … · +».
  * Tippen filtert, lange drücken öffnet «Gruppe bearbeiten», «+» legt eine an.
- * Nur was es gibt: «Favoriten» erst mit mindestens einem Favoriten, «+» erst mit einer Gruppe (die
- * erste legt man über das Aktionsblatt eines Paars an). Gibt es weder noch, bleibt die Zeile leer —
- * ein einzelnes «Alle» wäre nur ein weiterer Knopf ([showsGroupChips]).
+ * Nur was es gibt: ★ (Favoriten) erst mit mindestens einem Favoriten, ⚡ (Paare, bei denen gerade
+ * etwas passiert; [QuickView.ACTIVITY], ohne Zahl) nur mit solchen Paaren, «+» erst mit einer
+ * Gruppe (die erste legt man über das Aktionsblatt eines Paars an). Gibt es nichts davon, bleibt
+ * die Zeile leer — ein einzelnes «Alle» wäre nur ein weiterer Knopf ([showsGroupChips]).
+ * Ist eine vorübergehende Ansicht ([quickView]) an, ist keine Gruppe markiert (ausser ⚡ selbst).
  */
 @Composable
 internal fun GroupChips(
@@ -62,33 +66,51 @@ internal fun GroupChips(
     onSelect: (String?) -> Unit,
     onEdit: (String) -> Unit,
     onAdd: () -> Unit,
+    hasActivity: Boolean = false,
+    quickView: QuickView? = null,
+    onToggleActivity: () -> Unit = {},
 ) {
+    val activitySelected = quickView == QuickView.ACTIVITY
+    val groupSelected: (String?) -> Boolean = { it == selected && quickView == null }
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (!showsGroupChips(groups, selected, hasFavorites)) return@LazyRow
+        if (!showsGroupChips(groups, selected, hasFavorites, hasActivity || activitySelected)) return@LazyRow
         item(key = "all") {
             GroupChip(
                 text = stringResource(R.string.group_all),
-                selected = selected == null,
+                selected = groupSelected(null),
                 onClick = { onSelect(null) }
             )
         }
-        // Auch ohne Favoriten sichtbar, solange die Ansicht gewählt ist (sonst gäbe es keinen Weg zurück)
+        // Nur der Stern (Screenreader: «Favoriten»); auch ohne Favoriten sichtbar, solange die
+        // Ansicht gewählt ist (sonst gäbe es keinen Weg zurück)
         if (hasFavorites || WatchFilter.isFavorites(selected)) {
             item(key = "favorites") {
                 GroupChip(
-                    text = stringResource(R.string.group_favorites),
-                    selected = WatchFilter.isFavorites(selected),
+                    icon = R.drawable.ic_star,
+                    description = stringResource(R.string.group_favorites),
+                    selected = groupSelected(WatchFilter.FAVORITES),
                     onClick = { onSelect(WatchFilter.FAVORITES) }
+                )
+            }
+        }
+        // ⚡ wie in den Zeilen (neutral, gewählt in der Themenfarbe); Screenreader: «Hier passiert gerade etwas»
+        if (hasActivity || activitySelected) {
+            item(key = "activity") {
+                GroupChip(
+                    icon = R.drawable.ic_bolt,
+                    description = stringResource(R.string.activity_card_title),
+                    selected = activitySelected,
+                    onClick = onToggleActivity
                 )
             }
         }
         items(groups, key = { "group:$it" }) { group ->
             GroupChip(
                 text = group,
-                selected = selected == group,
+                selected = groupSelected(group),
                 onClick = { onSelect(group) },
                 onLongClick = { onEdit(group) }
             )
@@ -107,7 +129,8 @@ internal fun GroupChips(
                 Icon(
                     painterResource(R.drawable.ic_add),
                     contentDescription = stringResource(R.string.group_add),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    // Neutral wie die übrigen Chips
+                    tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(18.dp)
                 )
             }
@@ -116,23 +139,33 @@ internal fun GroupChips(
 }
 
 /** Gruppen-Chips zeigen? Nur wenn es neben «Alle» etwas zu wählen gibt (oder eine Auswahl aktiv ist). */
-internal fun showsGroupChips(groups: List<String>, selected: String?, hasFavorites: Boolean): Boolean =
-    groups.isNotEmpty() || hasFavorites || selected != null
+internal fun showsGroupChips(
+    groups: List<String>,
+    selected: String?,
+    hasFavorites: Boolean,
+    hasActivity: Boolean = false,
+): Boolean = groups.isNotEmpty() || hasFavorites || hasActivity || selected != null
 
 /**
  * Chip im Stil des Material-FilterChips, aber mit langem Drücken
- * (FilterChip kennt das nicht).
+ * (FilterChip kennt das nicht). Alle Chips neutral: Text und Symbol in onSurface, grauer Rand,
+ * keine Füllung. Der gewählte bekommt Rand, Text und Symbol in der Themenfarbe (orange) —
+ * ebenfalls ohne Füllung. Screenreader: Tab mit Zustand «ausgewählt» (wie iOS `.isSelected`).
  */
 @Composable
 private fun GroupChip(
-    text: String,
     selected: Boolean,
     onClick: () -> Unit,
+    text: String? = null,
+    /** Nur ein Symbol statt [text] (★ Favoriten, ⚡ Aktivität); dann [description] angeben. */
+    icon: Int? = null,
     onLongClick: (() -> Unit)? = null,
-    /** Vorgelesen statt [text] (z. B. «Favoriten» für «FAV»). */
+    /** Vorgelesen statt [text] bzw. für das Symbol. */
     description: String? = null,
 ) {
     val shape = RoundedCornerShape(8.dp)
+    val accent = MaterialTheme.colorScheme.primary
+    val chipSelected = selected
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -140,22 +173,34 @@ private fun GroupChip(
             .minimumInteractiveComponentSize()
             .height(32.dp)
             .clip(shape)
-            .then(
-                if (selected) Modifier.background(MaterialTheme.colorScheme.secondaryContainer)
-                else Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant, shape)
+            .border(
+                if (selected) 1.5.dp else 1.dp,
+                if (selected) accent else MaterialTheme.colorScheme.outlineVariant,
+                shape
             )
-            .combinedClickable(onClick = onClick, onLongClick = onLongClick)
-            .padding(horizontal = 16.dp)
+            .combinedClickable(role = Role.Tab, onClick = onClick, onLongClick = onLongClick)
+            .semantics { this.selected = chipSelected }
+            .padding(horizontal = if (icon != null) 12.dp else 16.dp)
     ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelLarge,
-            color = if (selected) MaterialTheme.colorScheme.onSecondaryContainer
-            else MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = if (description != null) Modifier.semantics { contentDescription = description } else Modifier
-        )
+        val contentColor = if (selected) accent else MaterialTheme.colorScheme.onSurface
+        val a11y = if (description != null) Modifier.semantics { contentDescription = description } else Modifier
+        if (icon != null) {
+            Icon(
+                painterResource(icon),
+                contentDescription = null,
+                tint = contentColor,
+                modifier = Modifier.size(18.dp).then(a11y)
+            )
+        } else {
+            Text(
+                text = text.orEmpty(),
+                style = MaterialTheme.typography.labelLarge,
+                color = contentColor,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = a11y
+            )
+        }
     }
 }
 

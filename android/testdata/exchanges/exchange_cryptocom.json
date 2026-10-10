@@ -1,0 +1,109 @@
+{
+  "exchange": "Crypto.com",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.crypto.com/exchange/v1/public/get-tickers?instrument_name=BTC_USDT",
+    "bulk": "GET https://api.crypto.com/exchange/v1/public/get-tickers"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "get-tickers BTC_USDT (single letters; c = fraction)",
+      "market": "CryptoCom",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"62000.10\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123}]}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.2,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.5234,
+        "volQuote": 744460123.45,
+        "change24hPercent": 2.48,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "no trades: c = null -> no change",
+      "market": "CryptoCom",
+      "pair": {
+        "base": "NEW",
+        "quote": "USDT",
+        "id": "NEW_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"NEW_USDT\",\"h\":null,\"l\":null,\"a\":\"0.5\", \"v\":\"0\",\"vv\":\"0\",\"c\":null,\"b\":\"0.49\",\"k\":\"0.51\",\"oi\":\"0\",\"t\":1728540000123}]}}",
+      "expect": {
+        "last": 0.5,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 0.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "CryptoCom",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":40004,\"message\":\"Invalid instrument_name\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid instrument_name"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty data list",
+      "market": "CryptoCom",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[]}}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk get-tickers",
+      "market": "CryptoCom",
+      "requestId": 0,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"62000.10\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"ETH_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"2450.12\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"BAD_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123}]}}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "BAD_USDT"
+        ],
+        "tickers": {
+          "BTC_USDT": {
+            "last": 62000.1
+          },
+          "ETH_USDT": {
+            "last": 2450.12
+          }
+        }
+      }
+    }
+  ]
+}

@@ -45,7 +45,7 @@
     { "name": "other conditions are never a volume spike", "alarm": { "condition": "PRICE_ABOVE", "threshold": 3 }, "ratio": 9, "candleOpenTime": 1699992800000, "cooldownMinutes": 0, "expected": false }
   ],
   "sequences": {
-    "description": "Price sequence as the refresher plays it: at step i (time now + i * stepMillis) a disabled alarm is skipped; if shouldRearmLevel, referenceAt = 0 and nothing else happens; else if shouldTrigger (previousPrice null), count it and set lastTriggeredAt = referenceAt = time, lastTriggeredPrice = price, enabled = repeating.",
+    "description": "Price sequence as the refresher plays it: at step i (time now + i * stepMillis) a disabled alarm is skipped; if needsReference, referencePrice = price and referenceAt = time (no report); else if shouldRearmLevel, referenceAt = 0 and nothing else happens; else if shouldTrigger (previousPrice null, moveHistory = the history so far), count it and apply triggered(alarm, price, time). After each step (also skipped ones) the price is appended to the move history: MoveWindow.append(history, [time, price], time).",
     "cases": [
       { "name": "repeating above fires twice", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 101000, 100200, 99700, 100100], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 2 },
       { "name": "repeating below fires twice", "alarm": { "condition": "PRICE_BELOW", "threshold": 100000, "repeating": true }, "prices": [101000, 99500, 99000, 99800, 100300, 99900], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 2 },
@@ -53,7 +53,75 @@
       { "name": "already beyond on the first evaluation fires once", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [105000, 105000, 105000, 105000, 105000, 105000, 105000, 105000, 105000, 105000], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 1 },
       { "name": "one-shot fires once and switches off", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": false }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 0, "stepMillis": 15000, "expectedFires": 1 },
       { "name": "cooldown on top of re-arming", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 30, "stepMillis": 15000, "expectedFires": 1 },
-      { "name": "after the cooldown it fires again", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 30, "stepMillis": 1200000, "expectedFires": 2 }
+      { "name": "after the cooldown it fires again", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100000, "repeating": true }, "prices": [99000, 100500, 99000, 100500], "cooldownMinutes": 30, "stepMillis": 1200000, "expectedFires": 2 },
+      { "name": "move: hourly background run checks the expired window before starting a new one", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1 }, "prices": [100, 106], "cooldownMinutes": 0, "stepMillis": 3660000, "expectedFires": 1 },
+      { "name": "move: hourly background run without enough movement", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1 }, "prices": [100, 104, 108], "cooldownMinutes": 0, "stepMillis": 3660000, "expectedFires": 0 },
+      { "name": "move: two hours between runs is too long for a one-hour window", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1 }, "prices": [100, 120], "cooldownMinutes": 0, "stepMillis": 7200000, "expectedFires": 0 },
+      { "name": "move: the window slides across the old block boundary", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1 }, "prices": [100, 100, 100, 100, 100, 100, 101, 103, 105.5], "cooldownMinutes": 0, "stepMillis": 600000, "expectedFires": 1 },
+      { "name": "move: a repeating alarm reports the same move once, a continued move again", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "repeating": true }, "prices": [100, 106, 106, 106, 112.5], "cooldownMinutes": 0, "stepMillis": 600000, "expectedFires": 2 },
+      { "name": "move: four-hour window", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 4 }, "prices": [100, 102, 104, 105], "cooldownMinutes": 0, "stepMillis": 3600000, "expectedFires": 1 },
+      { "name": "move: an old window start does not hide a fresh move", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "referencePrice": 50, "referenceAt": 1699900000000 }, "prices": [100, 100, 95], "cooldownMinutes": 0, "stepMillis": 600000, "expectedFires": 1 },
+      { "name": "percent up without a reference measures from the first price", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5 }, "prices": [100, 104, 106], "cooldownMinutes": 0, "stepMillis": 60000, "expectedFires": 1 },
+      { "name": "percent down without a reference measures from the first price", "alarm": { "condition": "CHANGE_PERCENT_DOWN", "threshold": 5 }, "prices": [200, 195, 189], "cooldownMinutes": 0, "stepMillis": 60000, "expectedFires": 1 },
+      { "name": "repeating percent alarm measures from the last report", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referencePrice": 100, "repeating": true }, "prices": [105, 108, 110.3], "cooldownMinutes": 0, "stepMillis": 60000, "expectedFires": 2 }
+    ]
+  },
+  "reference": [
+    { "name": "move without a reference", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5 }, "expected": true },
+    { "name": "move with a reference but no start", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100 }, "expected": true },
+    { "name": "move with an old reference keeps sliding", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "referenceAt": 1699000000000 }, "expected": false },
+    { "name": "move with a reference in the future", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "referenceAt": 1700000600000 }, "expected": true },
+    { "name": "move with a reference up to a minute ahead", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "referenceAt": 1700000060000 }, "expected": false },
+    { "name": "percent up without a reference", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5 }, "expected": true },
+    { "name": "percent down with a zero reference", "alarm": { "condition": "CHANGE_PERCENT_DOWN", "threshold": 5, "referencePrice": 0 }, "expected": true },
+    { "name": "percent with a reference", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referencePrice": 100 }, "expected": false },
+    { "name": "price alarm never needs one", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100 }, "expected": false },
+    { "name": "near high never needs one", "alarm": { "condition": "NEAR_HIGH", "threshold": 0 }, "expected": false }
+  ],
+  "triggered": {
+    "description": "Fields after a report: triggered(alarm, price, time = now, candleOpenTime, nearLevel). Expected referencePrice null = none.",
+    "cases": [
+      { "name": "price above: reported until re-armed", "alarm": { "condition": "PRICE_ABOVE", "threshold": 100 }, "price": 101, "expected": { "referencePrice": null, "referenceAt": 1700000000000, "enabled": false, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 101 } },
+      { "name": "price below repeating stays on", "alarm": { "condition": "PRICE_BELOW", "threshold": 100, "repeating": true }, "price": 99, "expected": { "referencePrice": null, "referenceAt": 1700000000000, "enabled": true, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 99 } },
+      { "name": "percent up measures from the report, start unchanged", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referencePrice": 100, "referenceAt": 1699990000000 }, "price": 105, "expected": { "referencePrice": 105, "referenceAt": 1699990000000, "enabled": false, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 105 } },
+      { "name": "percent down", "alarm": { "condition": "CHANGE_PERCENT_DOWN", "threshold": 5, "referencePrice": 100, "repeating": true }, "price": 95, "expected": { "referencePrice": 95, "referenceAt": 0, "enabled": true, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 95 } },
+      { "name": "move starts a new window", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "referencePrice": 100, "referenceAt": 1699996400000, "repeating": true }, "price": 106, "expected": { "referencePrice": 106, "referenceAt": 1700000000000, "enabled": true, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 106 } },
+      { "name": "volume spike remembers the candle", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3 }, "price": 50, "candleOpenTime": 1699992800000, "expected": { "referencePrice": null, "referenceAt": 1699992800000, "enabled": false, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 50 } },
+      { "name": "volume spike without a candle keeps the old one", "alarm": { "condition": "VOLUME_SPIKE", "threshold": 3, "referenceAt": 1699989200000, "repeating": true }, "price": 50, "expected": { "referencePrice": null, "referenceAt": 1699989200000, "enabled": true, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 50 } },
+      { "name": "near high remembers the reported mark", "alarm": { "condition": "NEAR_HIGH", "threshold": 0, "repeating": true }, "price": 101, "nearLevel": 101, "expected": { "referencePrice": 101, "referenceAt": 1700000000000, "enabled": true, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 101 } },
+      { "name": "near low near the low remembers the low", "alarm": { "condition": "NEAR_LOW", "threshold": 2 }, "price": 50.5, "nearLevel": 50, "expected": { "referencePrice": 50, "referenceAt": 1700000000000, "enabled": false, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 50.5 } },
+      { "name": "near high without a level uses the price", "alarm": { "condition": "NEAR_HIGH", "threshold": 2 }, "price": 99, "expected": { "referencePrice": 99, "referenceAt": 1700000000000, "enabled": false, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 99 } },
+      { "name": "funding above", "alarm": { "condition": "FUNDING_ABOVE", "threshold": 0.05, "repeating": true }, "price": 60000, "expected": { "referencePrice": null, "referenceAt": 1700000000000, "enabled": true, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 60000 } },
+      { "name": "open interest down", "alarm": { "condition": "OI_DOWN", "threshold": 10, "windowHours": 4 }, "price": 60000, "expected": { "referencePrice": null, "referenceAt": 1700000000000, "enabled": false, "lastTriggeredAt": 1700000000000, "lastTriggeredPrice": 60000 } }
+    ]
+  },
+  "moveChange": {
+    "description": "MoveWindow.changePercent: history and reference are [minutesAgo, price] relative to 'now' (negative = in the future); 'sinceMinutesAgo' = referenceAt as minutes before 'now'. Expected = the largest change in % (signed) or null.",
+    "cases": [
+      { "name": "reference inside the window", "history": [], "reference": [30, 100], "sinceMinutesAgo": 30, "hours": 1, "price": 105, "expected": 5.0 },
+      { "name": "reference just past the window is the bridge", "history": [], "reference": [61, 100], "sinceMinutesAgo": 61, "hours": 1, "price": 106, "expected": 6.0 },
+      { "name": "oldest allowed bridge for one hour", "history": [], "reference": [90, 100], "sinceMinutesAgo": 90, "hours": 1, "price": 94, "expected": -6.0 },
+      { "name": "too old for one hour", "history": [], "reference": [91, 100], "sinceMinutesAgo": 91, "hours": 1, "price": 120, "expected": null },
+      { "name": "largest move inside the window wins", "history": [[50, 100], [30, 110], [10, 104]], "reference": [200, 90], "sinceMinutesAgo": 200, "hours": 1, "price": 116, "expected": 16.0 },
+      { "name": "a fall can be the largest move", "history": [[50, 100], [30, 110], [10, 104]], "reference": null, "sinceMinutesAgo": 2000, "hours": 1, "price": 99, "expected": -10.0 },
+      { "name": "only the newest point before the window bridges", "history": [[80, 50], [65, 100], [40, 102]], "reference": null, "sinceMinutesAgo": 2000, "hours": 1, "price": 103, "expected": 3.0 },
+      { "name": "points before the last report do not count", "history": [[50, 100], [20, 104]], "reference": [20, 104], "sinceMinutesAgo": 20, "hours": 1, "price": 106, "expected": 1.9230769230769231 },
+      { "name": "points from the future do not count", "history": [[-5, 50]], "reference": [10, 100], "sinceMinutesAgo": 10, "hours": 1, "price": 101, "expected": 1.0 },
+      { "name": "invalid points are ignored", "history": [[20, 0], [15, "NaN"]], "reference": null, "sinceMinutesAgo": 2000, "hours": 1, "price": 101, "expected": null },
+      { "name": "no valid price", "history": [[20, 100]], "reference": null, "sinceMinutesAgo": 2000, "hours": 1, "price": 0, "expected": null },
+      { "name": "24 hours with a six-hour bridge", "history": [[1800, 100]], "reference": null, "sinceMinutesAgo": 2000, "hours": 24, "price": 110, "expected": 10.000000000000009 },
+      { "name": "24 hours: too old", "history": [[1801, 100]], "reference": null, "sinceMinutesAgo": 2000, "hours": 24, "price": 110, "expected": null }
+    ]
+  },
+  "nearExtremeSequences": {
+    "description": "«Near the high/low» as the refresher plays it: at step i (time now + i * stepMillis) a disabled alarm gives 'skip'; else NearExtreme.decide(side, price, range, threshold, armed = referenceAt <= 0, lastLevel = NearExtreme.reportedMark(referencePrice, lastTriggeredAt, windowDays, time), inCooldown(lastTriggeredAt, time, cooldownMinutes), lastTriggeredAt, time): 'rearm' sets referenceAt = 0 (the reported mark in referencePrice stays), 'fire' applies triggered(alarm, price, time, nearLevel = level). 'windowDays' is stored in windowHours.",
+    "cases": [
+      { "name": "new high does not repeat the same day after re-arming", "condition": "NEAR_HIGH", "threshold": 0, "windowDays": 30, "repeating": true, "range": { "high": 100, "low": 50 }, "prices": [101, 99.4, 100.1, 101.2], "stepMillis": 600000, "cooldownMinutes": 0, "expected": ["fire", "rearm", "none", "fire"] },
+      { "name": "new low mirrored", "condition": "NEAR_LOW", "threshold": 0, "windowDays": 30, "repeating": true, "range": { "high": 100, "low": 50 }, "prices": [49, 50.4, 49.9, 48.9], "stepMillis": 600000, "cooldownMinutes": 0, "expected": ["fire", "rearm", "none", "fire"] },
+      { "name": "near the high: report, leave the zone, report again, no new-high report within the hour", "condition": "NEAR_HIGH", "threshold": 2, "windowDays": 30, "repeating": true, "range": { "high": 100, "low": 50 }, "prices": [97, 98.5, 95, 98.5, 100.5], "stepMillis": 600000, "cooldownMinutes": 0, "expected": ["none", "fire", "rearm", "fire", "none"] },
+      { "name": "one-shot new low switches off", "condition": "NEAR_LOW", "threshold": 0, "windowDays": 30, "repeating": false, "range": { "high": 100, "low": 50 }, "prices": [49, 51, 48], "stepMillis": 600000, "cooldownMinutes": 0, "expected": ["fire", "skip", "skip"] },
+      { "name": "the reported mark expires with the window", "condition": "NEAR_HIGH", "threshold": 0, "windowDays": 30, "repeating": true, "range": { "high": 100, "low": 50 }, "prices": [101, 99, 100.5], "stepMillis": 1296000000, "cooldownMinutes": 0, "expected": ["fire", "rearm", "fire"] },
+      { "name": "a further new high while reported needs an hour and half a percent", "condition": "NEAR_HIGH", "threshold": 0, "windowDays": 30, "repeating": true, "range": { "high": 100, "low": 50 }, "prices": [101, 101.4, 101.6, 101.9], "stepMillis": 1800000, "cooldownMinutes": 0, "expected": ["fire", "none", "fire", "none"] }
     ]
   }
 }

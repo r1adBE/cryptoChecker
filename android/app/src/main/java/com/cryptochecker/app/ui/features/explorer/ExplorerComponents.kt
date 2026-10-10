@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -53,7 +54,52 @@ internal fun StepHint(text: String, modifier: Modifier = Modifier) {
  */
 internal object ExplorerSections {
     var precise by mutableStateOf(false)
+    /** Register «Mehrere Paare auf einmal» gewählt (sonst «Paar wählen»). */
     var bulk by mutableStateOf(false)
+}
+
+/**
+ * Zwei Register über der Paar-Auswahl: «Paar wählen» | «Mehrere Paare auf einmal». Beide gleich
+ * breit und gleich hoch (der längere Text darf umbrechen, das andere Register wächst mit).
+ * Gewählt: graue Fläche mit Schrift in der Themenfarbe, wie die Gruppen-Chips.
+ * Wie `ExplorerModeTabs` (iOS).
+ */
+@Composable
+internal fun ExplorerModeTabs(bulk: Boolean, onSelect: (Boolean) -> Unit, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min)
+            .padding(bottom = 12.dp)
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        listOf(false to R.string.explorer_step_pair, true to R.string.explorer_bulk_title).forEach { (isBulk, label) ->
+            val selected = bulk == isBulk
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .heightIn(min = 44.dp)
+                    .clip(MaterialTheme.shapes.small)
+                    .background(if (selected) MaterialTheme.colorScheme.secondaryContainer else androidx.compose.ui.graphics.Color.Transparent)
+                    .selectable(selected = selected, role = Role.Tab, onClick = { onSelect(isBulk) })
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
+            ) {
+                Text(
+                    text = stringResource(label),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = if (selected) MaterialTheme.colorScheme.onSecondaryContainer
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                    maxLines = 2
+                )
+            }
+        }
+    }
 }
 
 /** Kopfzeile eines aufklappbaren Bereichs: Titel und Pfeil, als Ganzes antippbar. */

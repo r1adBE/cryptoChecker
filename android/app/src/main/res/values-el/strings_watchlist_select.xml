@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Επιλογή</string>
+    <string name="watchlist_select_all">Επιλογή όλων</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Επιλεγμένα: %1$d</item>
+        <item quantity="other">Επιλεγμένα: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Αφαιρέθηκε %1$d ζεύγος</item>
+        <item quantity="other">Αφαιρέθηκαν %1$d ζεύγη</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Εμφάνιση μόνο των παρωχημένων</string>
+    <string name="watchlist_show_all">Εμφάνιση όλων</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Όνομα</string>
+    <string name="watchlist_sort_price">Τιμή</string>
+    <string name="watchlist_sort_descending">φθίνουσα</string>
+    <string name="watchlist_sort_ascending">αύξουσα</string>
+    <string name="watchlist_sort_own">Δική σας σειρά</string>
+</resources>

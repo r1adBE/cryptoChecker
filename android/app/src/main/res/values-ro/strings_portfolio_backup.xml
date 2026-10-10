@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portofoliu în copia de sistem</string>
+    <string name="settings_portfolio_system_backup_hint">Dezactivat: tranzacțiile tale nu sunt incluse în copia de sistem a dispozitivului și nici în transferul pe un telefon nou. Pentru a le muta, folosește copia de rezervă a aplicației cu parolă.</string>
+</resources>

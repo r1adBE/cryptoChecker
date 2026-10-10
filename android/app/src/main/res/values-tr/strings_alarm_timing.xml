@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker artık %1$s için takipte. %1$s sınırına ulaştığında, uygulama fiyatı kontrol eder etmez bildirim alırsın. Uygulama kapalıyken Android arka plan aralığında kontrol eder – en sık 15 dakikada bir, pil optimizasyonu uygulamayı kısıtlarsa daha geç. Daha hızlı alarmlar için: Ayarlar › Güncelleme › Sık güncelle.</string>
+</resources>

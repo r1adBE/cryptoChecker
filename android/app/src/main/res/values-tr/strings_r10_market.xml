@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Fonlama negatif (%1$s)</string>
     <string name="unusual_source">Stablecoin\'ler hariç en büyük yaklaşık 30 coin · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">Bu neden hareket ediyor?</string>
-    <string name="unusual_action_add">Eklenecek çifti bul</string>
 
     <string name="macro_title">Ekonomik veriler</string>
     <string name="macro_cpi">ABD enflasyonu (TÜFE)</string>

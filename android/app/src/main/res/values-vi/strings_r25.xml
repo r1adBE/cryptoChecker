@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Khóa bảo vệ nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu. Bản sao lưu toàn bộ thiết bị (sao lưu hệ thống) vẫn chứa dữ liệu này.</string>
+    <string name="settings_portfolio_lock_footer">Khóa bảo vệ nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu.</string>
     <string name="backup_protect">Bảo vệ bằng mật khẩu</string>
     <string name="backup_protect_hint">Mã hóa tệp (AES-256). Nên dùng khi tệp chứa dữ liệu danh mục.</string>
     <string name="backup_password">Mật khẩu</string>

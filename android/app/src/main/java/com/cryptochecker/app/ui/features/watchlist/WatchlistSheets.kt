@@ -144,6 +144,7 @@ internal fun WatchlistSheets(
                 cachedChart = viewModel::cachedSheetChart,
                 loadChart = viewModel::loadSheetChart,
                 satsRate = viewModel::satsRate,
+                candleSource = viewModel.foreignCandleSource(watch),
             )
         }
     }
@@ -193,7 +194,9 @@ internal fun WatchlistSheets(
             watch = watch,
             signals = activeSignals[watch.id].orEmpty(),
             load = viewModel::explain,
-            onDismiss = { ui.whyFor = null; ui.reopenActions() }
+            onDismiss = { ui.whyFor = null; ui.reopenActions() },
+            // «Warum?» zeigt bei rollender Basis die Pille selbst; bei «seit 00:00» rechnet es eigene Kerzen
+            candleSource = viewModel.foreignCandleSource(watch).takeIf { rollingBasis },
         )
     }
 }

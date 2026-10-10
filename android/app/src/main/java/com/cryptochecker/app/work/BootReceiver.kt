@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /** Plant die Hintergrund-Aktualisierung nach einem Neustart bzw. App-Update neu. */
@@ -33,6 +35,11 @@ class BootReceiver : BroadcastReceiver() {
                 // Vordergrunddienst nicht aus BOOT_COMPLETED starten, und auch sonst kommt der
                 // Start aus dem Hintergrund. Er startet wieder, wenn der Nutzer die App öffnet
                 // (MainActivity.onStart); bis dahin läuft die geplante Hintergrund-Aktualisierung.
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // Einstellungen/WorkManager nicht verfügbar: nur protokollieren, kein Absturz beim Neustart
+                Timber.w(e, "Neuplanung nach Neustart fehlgeschlagen")
             } finally {
                 pendingResult.finish()
             }

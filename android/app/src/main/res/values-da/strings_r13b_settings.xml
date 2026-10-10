@@ -7,7 +7,6 @@
     </plurals>
     <string name="settings_summary_on">Til</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker holder nu øje med %1$s for dig. Når %1$s når din grænse, får du en notifikation, så snart appen tjekker kursen. Når appen er lukket, sker det med intervallet for opdatering i baggrunden – senere, hvis batterioptimering begrænser appen.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker holder nu øje med %1$s for dig. Du får en notifikation, så snart appen tjekker kursen. Når appen er lukket, bestemmer iOS, hvornår det sker – det kan tage et stykke tid. Mens appen er åben, tjekkes kurserne til tiden.</string>
 
     <string name="about_request_exchange">Ønsk en børs</string>

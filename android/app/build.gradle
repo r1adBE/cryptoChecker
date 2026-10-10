@@ -148,6 +148,9 @@ dependencies {
     baselineProfile project(':baselineprofile')
 
     testImplementation 'junit:junit:4.13.2'
+    // Echtes org.json (AOSP-Code) für Unit-Tests: die Börsen-Parser (ExchangeContractTest) laufen sonst
+    // gegen die Android-Stubs («Method … not mocked»). Muss vor android.jar im Test-Classpath liegen.
+    testImplementation 'com.vaadin.external.google:android-json:0.0.20131108.vaadin1'
 
     // Instrumentierte Tests (Kernablauf, CoreFlowTest): nicht Teil der App, nur androidTest
     androidTestImplementation "androidx.test:runner:$androidx_test_version"

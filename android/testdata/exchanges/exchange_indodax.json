@@ -1,0 +1,71 @@
+{
+  "exchange": "Indodax",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://indodax.com/api/ticker/btcidr",
+    "bulk": "GET https://indodax.com/api/ticker_all"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker btcidr (vol_<base>/vol_<quote>, server_time in s)",
+      "market": "Indodax",
+      "pair": {
+        "base": "BTC",
+        "quote": "IDR",
+        "id": "btcidr",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_btc\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"1040000000\", \"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"}}",
+      "expect": {
+        "last": 1040000000.0,
+        "bid": 1039000000.0,
+        "ask": 1040500000.0,
+        "high": 1050000000.0,
+        "low": 1000000000.0,
+        "vol": 123.45678901,
+        "volQuote": 128000000000.0,
+        "change24hPercent": null,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Indodax",
+      "pair": {
+        "base": "FOO",
+        "quote": "IDR",
+        "id": "fooidr",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":\"invalid_pair\",\"error_description\":\"Invalid Pair\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid Pair"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker_all: btc_idr -> btcidr",
+      "market": "Indodax",
+      "requestId": 0,
+      "body": "{\"tickers\":{\"btc_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_btc\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"1040000000\", \"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"},\"eth_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_eth\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"38000000\", \"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"},\"weird\":{\"last\":\"1\"}}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "btcidr": {
+            "last": 1040000000.0,
+            "vol": 123.45678901
+          },
+          "ethidr": {
+            "last": 38000000.0,
+            "vol": 123.45678901
+          }
+        }
+      }
+    }
+  ]
+}

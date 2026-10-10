@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Pilih</string>
+    <string name="watchlist_select_all">Pilih semua</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">%1$d dipilih</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">%1$d pasangan dihapus</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Tampilkan yang usang saja</string>
+    <string name="watchlist_show_all">Tampilkan semua</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Nama</string>
+    <string name="watchlist_sort_price">Harga</string>
+    <string name="watchlist_sort_descending">menurun</string>
+    <string name="watchlist_sort_ascending">menaik</string>
+    <string name="watchlist_sort_own">Urutan sendiri</string>
+</resources>

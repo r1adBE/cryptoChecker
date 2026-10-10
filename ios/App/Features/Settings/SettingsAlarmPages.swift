@@ -27,8 +27,7 @@ struct AlarmSettingsPage: View {
                         data.settings.priceNotifications = on
                         if on { Task { _ = await Notifier.requestPermission() } }
                     }
-                ),
-                icon: "eye"
+                )
             )
             .settingsAnchor("alarms.price")
             if settings.priceNotifications {

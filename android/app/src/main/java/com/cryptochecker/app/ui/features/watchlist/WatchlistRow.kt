@@ -5,6 +5,12 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.ListSegment
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.toggleable
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import androidx.compose.animation.animateContentSize
@@ -13,6 +19,7 @@ import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -74,7 +81,8 @@ import com.cryptochecker.app.util.PriceFormat
  * Kompakte Zeile: Coin-Logo (mit Stern bei Favoriten), Paar, Börse, Kurs und Prozent-Pille.
  * Tippen öffnet die Aktionen sofort (kein Doppeltippen mehr, das jeden Tipp ~0,3 s
  * verzögert hätte); Favorit per Wischen nach rechts oder Aktionsblatt;
- * lange drücken startet das Sortieren.
+ * lange drücken startet die Mehrfachauswahl mit dieser Zeile ([onLongClick]; wie ⋯ › «Auswählen»),
+ * in der Auswahl hakt es an/ab wie Tippen. Sortieren nur über ⋯ › Sortieren.
  */
 @Composable
 internal fun WatchRow(
@@ -89,6 +97,9 @@ internal fun WatchRow(
     elevation: Dp = 0.dp,
     highlighted: Boolean = false,
     sortMode: Boolean = false,
+    /** Mehrfachauswahl: Häkchen-Kreis links statt Abstand, Zeile als Ankreuzfeld. */
+    selecting: Boolean = false,
+    selected: Boolean = false,
     onMove: (WatchMove) -> Unit = {},
     /** Screenreader-Aktion «Löschen» (wie nach links wischen); null = keine. */
     onDeleteAction: (() -> Unit)? = null,
@@ -96,6 +107,11 @@ internal fun WatchRow(
     onFavoriteAction: (() -> Unit)? = null,
     /** TalkBack-Aktionen «Nach oben»/«Nach unten» anbieten. */
     canReorder: Boolean = false,
+    /**
+     * Lange drücken (ausserhalb von Sortier- und Auswahlmodus): Mehrfachauswahl mit dieser Zeile
+     * starten; auch als Screenreader-Aktion «Auswählen». null = keine.
+     */
+    onLongClick: (() -> Unit)? = null,
     handleModifier: Modifier = Modifier,
     hasActivity: Boolean = false,
     onActivityClick: () -> Unit = {},
@@ -109,6 +125,8 @@ internal fun WatchRow(
     celebrateIndex: Int? = null,
     /** Animationen im System ausgeschaltet: nur erscheinen, nichts gleitet oder zeichnet. */
     reduceMotion: Boolean = false,
+    /** Form je nach Platz in der Liste ([ListSegment.shape]); Liste wirkt wie eine Einheit. */
+    shape: Shape = MaterialTheme.shapes.medium,
 ) {
     val accent = MaterialTheme.colorScheme.primary
     val hasSparkline = sparkline != null && sparkline.size >= 2
@@ -132,6 +150,7 @@ internal fun WatchRow(
     val moveDownLabel = stringResource(R.string.a11y_move_down)
     val deleteLabel = stringResource(R.string.action_delete)
     val favoriteLabel = stringResource(if (watch.favorite) R.string.favorite_remove else R.string.favorite_add)
+    val selectLabel = stringResource(R.string.watchlist_select)
     val changeView = LocalChangeView.current
     val name = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
     val rowDescription = A11yText.row(
@@ -147,7 +166,9 @@ internal fun WatchRow(
             watch.note?.let { stringResource(R.string.a11y_note, it) },
             if (watch.favorite) stringResource(R.string.a11y_favorite) else null,
             if (alarmCount > 0) stringResource(R.string.a11y_alarm_count, alarmCount) else null,
-            if (watch.notificationEnabled) stringResource(R.string.watchlist_notification) else null,
+            // Benachrichtigung an bzw. «Benachrichtigung Aus» (durchgestrichene Glocke)
+            if (watch.notificationEnabled) stringResource(R.string.watchlist_notification)
+            else stringResource(R.string.watchlist_notification) + " " + stringResource(R.string.option_off),
             status.warning,
             status.error,
             status.stale,
@@ -155,7 +176,7 @@ internal fun WatchRow(
     )
 
     Card(
-        shape = MaterialTheme.shapes.medium,
+        shape = shape,
         elevation = CardDefaults.cardElevation(defaultElevation = elevation),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         border = when {
@@ -171,14 +192,26 @@ internal fun WatchRow(
             }
             .fillMaxWidth()
             .animateContentSize()
-            .clickable(onClick = onClick)
+            .then(
+                // Auswahl: langes Drücken löst beim Loslassen wie ein Tipp aus (hakt an/ab)
+                if (selecting) Modifier.toggleable(value = selected, role = Role.Checkbox, onValueChange = { onClick() })
+                // Lange drücken startet die Mehrfachauswahl; im Sortiermodus nicht (dort zieht man)
+                else if (!sortMode && onLongClick != null) Modifier.combinedClickable(
+                    onLongClickLabel = selectLabel,
+                    onLongClick = onLongClick,
+                    onClick = onClick,
+                )
+                else Modifier.clickable(onClick = onClick)
+            )
             .semantics {
                 contentDescription = rowDescription
                 val actions = buildList {
-                    // Wie die Wisch-Gesten; im Sortiermodus nur Verschieben
-                    if (!sortMode) {
+                    // Wie die Wisch-Gesten; im Sortier- und Auswahlmodus nicht
+                    if (!sortMode && !selecting) {
                         onFavoriteAction?.let { action -> add(CustomAccessibilityAction(favoriteLabel) { action(); true }) }
                         onDeleteAction?.let { action -> add(CustomAccessibilityAction(deleteLabel) { action(); true }) }
+                        // «Auswählen» wie langes Drücken (startet die Mehrfachauswahl mit dieser Zeile)
+                        onLongClick?.let { action -> add(CustomAccessibilityAction(selectLabel) { action(); true }) }
                     }
                     if (canReorder) {
                         add(CustomAccessibilityAction(moveUpLabel) { onMove(WatchMove.UP); true })
@@ -198,6 +231,8 @@ internal fun WatchRow(
             Box(Modifier.align(Alignment.CenterVertically)) {
                 RowLeading(
                     sortMode = sortMode,
+                    selecting = selecting,
+                    selected = selected,
                     accent = accent,
                     handleModifier = handleModifier,
                 )
@@ -208,7 +243,8 @@ internal fun WatchRow(
                 Icon(
                     painterResource(R.drawable.ic_star),
                     contentDescription = null,
-                    tint = accent,
+                    // Textfarbe wie der Stern am Logo; die Themenfarbe bleibt Bedienbarem
+                    tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 4.dp, end = 6.dp)
@@ -268,8 +304,8 @@ internal fun WatchRow(
     }
 }
 
-/** Coin-Plakette in der Zeile (24–32 dp), damit die Zeile nicht höher wird. */
-private val ROW_BADGE_SIZE = 28.dp
+/** Coin-Plakette in der Zeile: in allen Coin-Listen gleich gross ([ListSegment.Logo]). */
+private val ROW_BADGE_SIZE = ListSegment.Logo
 
 /**
  * Links: Griff im Sortiermodus, sonst etwas Abstand. Favoriten zeigt der Akzent-Rand der Karte
@@ -279,10 +315,35 @@ private val ROW_BADGE_SIZE = 28.dp
 @Composable
 private fun RowLeading(
     sortMode: Boolean,
+    selecting: Boolean,
+    selected: Boolean,
     accent: Color,
     handleModifier: Modifier,
 ) {
-    if (sortMode) {
+    if (selecting) {
+        // Häkchen-Kreis: gefüllt in der Themenfarbe = ausgewählt, sonst nur Rand (Zustand liest
+        // der Screenreader über das Ankreuzfeld der Zeile)
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .padding(start = Spacing.sm, end = Spacing.sm)
+                .size(22.dp)
+                .clip(CircleShape)
+                .then(
+                    if (selected) Modifier.background(accent)
+                    else Modifier.border(1.5.dp, MaterialTheme.colorScheme.outline, CircleShape)
+                )
+        ) {
+            if (selected) {
+                Icon(
+                    painterResource(R.drawable.ic_check),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.size(16.dp)
+                )
+            }
+        }
+    } else if (sortMode) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = handleModifier

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">A Crypto Checker most figyeli neked a(z) %1$s árfolyamát. Ha a(z) %1$s eléri a határt, értesítést kapsz, amint az app ellenőrzi az árfolyamot. Bezárt appnál az Android a háttérfrissítés időközében ellenőriz – legfeljebb 15 percenként, később, ha az akkumulátor-optimalizálás korlátozza az appot. Gyorsabb riasztásokhoz: Beállítások › Frissítés › Gyakori frissítés.</string>
+</resources>

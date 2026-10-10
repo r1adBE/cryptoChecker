@@ -35,20 +35,22 @@ final class Kraken: SimpleMarket {
     override func parseTicker(requestId: Int, json: JObject, ticker: inout Ticker, info: CheckerInfo) throws {
         let result = try json.object("result")
         // Einziger Eintrag; bei Swift-Dictionaries ist "erster" ohnehin der einzige.
-        guard let firstName = result.keys.first else { throw JSONError(message: "result ist leer") }
+        guard let firstName = result.keys.first else { throw JSONError(message: "Empty result") }
         try readTicker(result.object(firstName), &ticker)
     }
 
     /// Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur.
     private func readTicker(_ json: JObject, _ ticker: inout Ticker) throws {
-        ticker.bid = try Kraken.doubleFromArray(json, "b")
-        ticker.ask = try Kraken.doubleFromArray(json, "a")
+        // a/b/c: [Preis, …] – Index 0 ist der Kurs
+        ticker.bid = try Kraken.doubleFromArray(json, "b", 0)
+        ticker.ask = try Kraken.doubleFromArray(json, "a", 0)
 
-        ticker.high = try Kraken.doubleFromArray(json, "h")
-        ticker.low = try Kraken.doubleFromArray(json, "l")
+        // h/l/v: [heute seit 00:00 UTC, gleitende 24 h] – die App zeigt 24-h-Werte, also Index 1
+        ticker.high = try Kraken.doubleFromArray(json, "h", 1)
+        ticker.low = try Kraken.doubleFromArray(json, "l", 1)
 
-        ticker.vol = try Kraken.doubleFromArray(json, "v")
-        ticker.last = try Kraken.doubleFromArray(json, "c")
+        ticker.vol = try Kraken.doubleFromArray(json, "v", 1)
+        ticker.last = try Kraken.doubleFromArray(json, "c", 0)
         // Kein 24-h-Wert: „o“ ist die Eröffnung des UTC-Tages, nicht der Kurs vor 24 h.
     }
 
@@ -84,6 +86,8 @@ final class Kraken: SimpleMarket {
         for (pairId, pairJson) in named {
             var ticker = Ticker()
             try readTicker(pairJson, &ticker)
+            // Ohne letzten Kurs (leeres «c») kein Eintrag – der Einzelabruf meldet dann den Fehler
+            if ticker.last <= Ticker.noData { continue }
             tickers[pairId] = ticker
         }
         return tickers
@@ -99,10 +103,10 @@ final class Kraken: SimpleMarket {
         return currency == VirtualCurrency.DOGE ? VirtualCurrency.XDG : currency
     }
 
-    private static func doubleFromArray(_ json: JObject, _ arrayKey: String) throws -> Double {
-        let array = try json.array(arrayKey)
-        if array.count > 0 { return try array.double(0) }
-        return 0.0
+    /// Wert an `index` der Liste `arrayKey`; fehlt die Liste oder ist sie zu kurz: kein Wert (nicht 0).
+    private static func doubleFromArray(_ json: JObject, _ arrayKey: String, _ index: Int) throws -> Double {
+        guard let array = json.optArray(arrayKey), array.count > index else { return Ticker.noData }
+        return try array.double(index)
     }
 
     private static func parseCurrency(_ currency: String) -> String {

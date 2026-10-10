@@ -14,6 +14,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -102,8 +103,32 @@ class DayReferences @Inject constructor(
      * Kerzen mit [DayChange.select] (Kursabstand-Prüfung); null ohne Bezug — nie die
      * Veränderung seit der letzten Abfrage.
      */
-    internal fun change24h(watch: WatchEntity, price: Double, ticker: Ticker, basis: ChangeBasis, dayStart: Long?): Double? =
-        ChangeBasisMath.choose(basis, ticker.change24hPercent) { candleChange(watch, price, dayStart) }
+    internal fun change24h(watch: WatchEntity, price: Double, ticker: Ticker, basis: ChangeBasis, dayStart: Long?): Double? {
+        val value = ChangeBasisMath.choose(basis, ticker.change24hPercent) { candleChange(watch, price, dayStart) }
+        notePillSource(watch.id, if (value != null && ChangeBasisMath.needsCandles(basis, ticker.change24hPercent)) candleProvider(watch) else null)
+        return value
+    }
+
+    /**
+     * Anbieter der Kerzen hinter der Pille je Paar (Id) — nur, wenn sie zuletzt aus Kerzen kam;
+     * nur im Speicher (nach dem Start bis zur ersten Aktualisierung leer).
+     */
+    private val pillSources = ConcurrentHashMap<Long, String>()
+
+    /** Kerzen-Anbieter der zuletzt berechneten Pille von [watchId]; null = aus dem Ticker oder unbekannt. */
+    fun pillCandleSource(watchId: Long): String? = pillSources[watchId]
+
+    /** Merkt (oder vergisst mit null) den Kerzen-Anbieter der Pille von [watchId]. */
+    internal fun notePillSource(watchId: Long, provider: String?) {
+        if (provider != null) pillSources[watchId] = provider else pillSources.remove(watchId)
+    }
+
+    /** Anbieter der Reihe, die [DayChange.select] nimmt: eigene Reihe, sonst (Fiat-Quote) die USDT-Reihe. */
+    private fun candleProvider(watch: WatchEntity): String? {
+        val quote = DayChange.candleQuote(watch.quoteAsset)
+        return sparklineRepository.cachedProvider(watch.baseAsset, quote)
+            ?: if (quote != DAY_QUOTE && isFiat(watch.quoteAsset)) sparklineRepository.cachedProvider(watch.baseAsset, DAY_QUOTE) else null
+    }
 
     /** Veränderung aus gemerkten Kerzen: rollend ([dayStart] null) oder seit Tagesbeginn. */
     internal fun candleChange(watch: WatchEntity, price: Double, dayStart: Long?): Double? {

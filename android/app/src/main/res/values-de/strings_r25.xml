@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Runde 25: Schutz der Portfolio-Daten — Passwort für die Sicherungsdatei, Hinweis zur Portfolio-Sperre -->
-    <string name="settings_portfolio_lock_footer">Die Sperre schützt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen. Sicherungen des ganzen Geräts (Systemsicherung) enthalten diese Daten trotzdem.</string>
+    <string name="settings_portfolio_lock_footer">Die Sperre schützt die Anzeige. Die Daten liegen auf diesem Gerät und sind durch die Geräteverschlüsselung geschützt. Sicherungen kannst du mit einem Passwort schützen.</string>
     <string name="backup_protect">Mit Passwort schützen</string>
     <string name="backup_protect_hint">Verschlüsselt die Datei (AES-256). Empfohlen, wenn sie Portfolio-Daten enthält.</string>
     <string name="backup_password">Passwort</string>

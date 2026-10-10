@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Valitse</string>
+    <string name="watchlist_select_all">Valitse kaikki</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d valittu</item>
+        <item quantity="other">%1$d valittu</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pari poistettu</item>
+        <item quantity="other">%1$d paria poistettu</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Näytä vain vanhentuneet</string>
+    <string name="watchlist_show_all">Näytä kaikki</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Nimi</string>
+    <string name="watchlist_sort_price">Hinta</string>
+    <string name="watchlist_sort_descending">laskeva</string>
+    <string name="watchlist_sort_ascending">nouseva</string>
+    <string name="watchlist_sort_own">Oma järjestys</string>
+</resources>

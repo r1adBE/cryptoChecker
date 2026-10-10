@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Τι ξεχωρίζει</string>
-    <string name="pulse_why_action">Γιατί; →</string>
+    <string name="pulse_why_action">Γιατί;</string>
     <string name="pulse_section_factors">Παράγοντες</string>
 
     <string name="pulse_lead_btc_leads">Το Bitcoin οδηγεί την αγορά.</string>

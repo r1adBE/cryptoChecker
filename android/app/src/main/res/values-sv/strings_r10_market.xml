@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
     <string name="unusual_source">De cirka 30 största mynten utan stablecoins · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">Varför rör den sig?</string>
-    <string name="unusual_action_add">Hitta par att lägga till</string>
 
     <string name="macro_title">Ekonomisk statistik</string>
     <string name="macro_cpi">amerikansk inflation (KPI)</string>

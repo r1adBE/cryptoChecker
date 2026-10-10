@@ -8,7 +8,6 @@
     </plurals>
     <string name="settings_summary_on">Sim</string>
 
-    <string name="alarm_first_text_checked">O Crypto Checker está agora a vigiar %1$s por si. Quando %1$s atingir o seu limite, recebe uma notificação assim que a app verificar o preço. Com a app fechada, isso acontece no intervalo da atualização em segundo plano – mais tarde se a otimização da bateria restringir a app.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">O Crypto Checker está agora a vigiar %1$s por si. Recebe uma notificação assim que a app verificar o preço. Com a app fechada, é o iOS que decide quando isso acontece – pode demorar. Com a app aberta, os preços são verificados a tempo.</string>
 
     <string name="about_request_exchange">Pedir uma exchange</string>

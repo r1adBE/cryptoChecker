@@ -164,6 +164,38 @@ actor CoinLogoStore {
         return added
     }
 
+    /// Erster Start: die Logos der Start-Coins (`symbols`) vor dem übrigen Abgleich holen, damit die
+    /// Start-Auswahl nicht erst Initialen zeigt und nach ein paar Sekunden umspringt. Die Start-Coins
+    /// sind für alle gleich (die grössten Coins) — die Abrufe verraten also nichts über eine
+    /// Merkliste; einzelne Coins einer Merkliste werden weiterhin nie einzeln geholt. Wie Android
+    /// `ensureStarterLogos`. true = danach sind alle da (fehlt eines, zeigt die Zeile Initialen).
+    @discardableResult
+    func ensureStarterLogos(_ symbols: [String]) async -> Bool {
+        let current = await symbolMap()
+        let fm = FileManager.default
+        var jobs: [(name: String, url: String)] = []
+        var complete = true
+        for symbol in symbols {
+            guard let name = CoinLogos.fileName(symbol) else { continue }
+            if fm.fileExists(atPath: Self.directory.appendingPathComponent(name).path) { continue }
+            guard let url = current[symbol.uppercased()] else {
+                complete = false
+                continue
+            }
+            jobs.append((name, url))
+        }
+        guard !jobs.isEmpty else { return complete }
+        var added = 0
+        await withTaskGroup(of: Bool.self) { group in
+            for job in jobs { group.addTask { await Self.download(name: job.name, url: job.url) } }
+            for await ok in group {
+                if ok { added += 1 } else { complete = false }
+            }
+        }
+        if added > 0 { await CoinLogoRevision.bump() }
+        return complete
+    }
+
     /// Erst die kleine Fassung, sonst das Bild aus der Rangliste.
     /// Lädt das Paket (`CoinLogos.packURL`) und legt die Bilder für `missing` ab; gibt die Dateinamen
     /// der abgelegten Bilder zurück (leer bei Fehler).

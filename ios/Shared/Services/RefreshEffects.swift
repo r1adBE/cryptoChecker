@@ -11,6 +11,8 @@ extension PriceRefresher {
         var nearRanges: [Int64: [Int: NearExtreme.Range]] = [:]
         /// «Watch-Id|Währung» → Faktor Quote → Währung.
         var convertRates: [String: Double] = [:]
+        /// Mitteilungen erlaubt? Ohne bleiben einmalige Alarme scharf, statt still verbraucht zu werden.
+        var alarmsDeliverable = true
     }
 
     /// Lädt, was die Alarme brauchen: Volumen, Funding/Open Interest, Hoch/Tief und Umrechnungen.
@@ -107,17 +109,53 @@ extension PriceRefresher {
                 }
             }
         }
+        // Mitteilungs-Erlaubnis einmal je Durchlauf (nur wenn Alarme ausgewertet werden)
+        var deliverable = true
+        if !prefetchByWatch.isEmpty { deliverable = await Notifier.isAuthorized() }
         return AlarmInputs(volumes: volumes, derivatives: derivatives, nearRanges: nearRanges,
-                           convertRates: convertRates)
+                           convertRates: convertRates, alarmsDeliverable: deliverable)
     }
 
     /// Prüft die Alarme eines Paars mit neuem Kurs; Änderungen, Mitteilungen und Ansagen landen
     /// in `outcome`. `updated`: das Paar mit dem neuen Kurs. Rückgabe: ein Alarm wurde angesagt.
+    ///
+    /// Änderungen tragen den ausgewerteten Stand mit (`AlarmUpdate.matches`): Hat der Nutzer den
+    /// Alarm inzwischen bearbeitet oder abgeschaltet, verwirft `Outcome.apply(to:)` sie und die
+    /// Mitteilung entfällt. Einmalige Alarme lösen ohne Mitteilungs-Erlaubnis nicht aus
+    /// (`AlarmInputs.alarmsDeliverable`): Sie bleiben scharf und melden, sobald es wieder geht.
     static func checkAlarms(_ alarms: [Alarm], watch: Watch, updated: Watch, price: Double, now: Int64,
                             settings: AppSettings, speechAllowed: Bool, inputs: AlarmInputs,
                             outcome: inout Outcome) -> Bool {
         var spokeAlarm = false
-        for var alarm in alarms {
+        // Bewegungs-Alarm: Kursverlauf des Paars (nur wenn es so einen Alarm hat)
+        let hasMove = alarms.contains { $0.condition == .MOVE_PERCENT_WINDOW }
+        let moveHistory = hasMove ? MoveHistoryStore.history(watch.id) : []
+
+        /// Ausgelösten Alarm melden: Zustand nach dem Auslösen (`AlarmEvaluator.triggered`),
+        /// Mitteilung (erst nach dem Speichern, siehe `PendingAlarm`), Ansage. Einmalige Alarme
+        /// ohne zustellbare Mitteilung bleiben unverändert scharf.
+        func report(_ alarm: Alarm, _ pending: PendingAlarm, candleOpenTime: Int64? = nil, nearLevel: Double? = nil) {
+            if !alarm.repeating && !inputs.alarmsDeliverable { return }
+            let after = AlarmEvaluator.triggered(alarm, price: price, time: now, candleOpenTime: candleOpenTime,
+                                                 nearLevel: nearLevel)
+            outcome.pendingAlarms.append(pending)
+            outcome.alarmsTriggered += 1
+            outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true)
+            if speechAllowed && alarm.speak {
+                outcome.speech.append((SpokenText.alarm(updated, alarm.condition, price), true))
+                spokeAlarm = true
+            }
+        }
+
+        /// Wieder scharf stellen (`referenceAt` = 0); die gemeldete Marke von «Nahe am Hoch/Tief»
+        /// bleibt (`NearExtreme.reportedMark`), `enabled` bleibt unberührt.
+        func rearm(_ alarm: Alarm) {
+            var after = alarm
+            after.referenceAt = 0
+            outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
+        }
+
+        for alarm in alarms {
             // Funding/Open Interest: wie Kursmarken (scharf/gemeldet in `referenceAt`), Wert aus dem Vorladen
             if alarm.condition.isDerivatives {
                 guard let values = inputs.derivatives[watch.id] else { continue }
@@ -130,24 +168,13 @@ extension PriceRefresher {
                 case .idle:
                     continue
                 case .rearm:
-                    outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: alarm.referencePrice,
-                                                           referenceAt: 0, lastTriggeredAt: alarm.lastTriggeredAt,
-                                                           lastTriggeredPrice: alarm.lastTriggeredPrice)
+                    rearm(alarm)
                     continue
                 case let .fire(measured):
                     // «Funding über 0,05 % — jetzt 0,061 %»
                     let text = L("notification_alarm_text", AlarmTexts.describe(alarm),
                                  AlarmTexts.derivativesValue(alarm.condition, measured))
-                    outcome.pendingAlarms.append(PendingAlarm(watch: updated, alarm: alarm, price: price, text: text))
-                    outcome.alarmsTriggered += 1
-                    // Wie markAlarmTriggered: gemeldet (referenceAt > 0), einmalige abschalten.
-                    alarm.enabled = alarm.repeating
-                    outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: alarm.referencePrice,
-                                                           referenceAt: now, lastTriggeredAt: now, lastTriggeredPrice: price)
-                    if speechAllowed && alarm.speak {
-                        outcome.speech.append((SpokenText.alarm(updated, alarm.condition, price), true))
-                        spokeAlarm = true
-                    }
+                    report(alarm, PendingAlarm(watch: updated, alarm: alarm, price: price, text: text))
                     continue
                 }
             }
@@ -155,7 +182,9 @@ extension PriceRefresher {
                 guard let range = inputs.nearRanges[watch.id]?[NearExtreme.windowDays(alarm.windowHours)] else { continue }
                 let decision = NearExtreme.decide(
                     side: alarm.condition == .NEAR_HIGH ? .high : .low, price: price, range: range,
-                    thresholdPercent: alarm.threshold, armed: alarm.referenceAt <= 0, lastLevel: alarm.referencePrice,
+                    thresholdPercent: alarm.threshold, armed: alarm.referenceAt <= 0,
+                    lastLevel: NearExtreme.reportedMark(lastLevel: alarm.referencePrice, lastTriggeredAt: alarm.lastTriggeredAt,
+                                                        windowDays: alarm.windowHours, now: now),
                     inCooldown: NearExtreme.inCooldown(lastTriggeredAt: alarm.lastTriggeredAt, now: now,
                                                        cooldownMinutes: settings.alarmCooldownMinutes),
                     lastTriggeredAt: alarm.lastTriggeredAt, now: now)
@@ -163,24 +192,13 @@ extension PriceRefresher {
                 case .idle:
                     continue
                 case .rearm:
-                    outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: nil, referenceAt: 0,
-                                                           lastTriggeredAt: alarm.lastTriggeredAt,
-                                                           lastTriggeredPrice: alarm.lastTriggeredPrice)
+                    rearm(alarm)
                     continue
                 case let .fire(newExtreme, distancePercent, extreme, level):
                     let text = AlarmTexts.nearExtremeText(alarm, symbol: watch.baseAsset, currency: watch.quoteAsset,
                                                           price: price, newExtreme: newExtreme,
                                                           distancePercent: distancePercent, extreme: extreme)
-                    outcome.pendingAlarms.append(PendingAlarm(watch: updated, alarm: alarm, price: price, text: text))
-                    outcome.alarmsTriggered += 1
-                    // Wie markAlarmTriggered: Marke merken, gemeldet (referenceAt > 0), einmalige abschalten.
-                    alarm.enabled = alarm.repeating
-                    outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: level, referenceAt: now,
-                                                           lastTriggeredAt: now, lastTriggeredPrice: price)
-                    if speechAllowed && alarm.speak {
-                        outcome.speech.append((SpokenText.alarm(updated, alarm.condition, price), true))
-                        spokeAlarm = true
-                    }
+                    report(alarm, PendingAlarm(watch: updated, alarm: alarm, price: price, text: text), nearLevel: level)
                     continue
                 }
             }
@@ -190,24 +208,17 @@ extension PriceRefresher {
                                                               candleOpenTime: spike.candleOpenTime, now: now,
                                                               cooldownMinutes: settings.alarmCooldownMinutes)
                 else { continue }
-                outcome.pendingAlarms.append(PendingAlarm(watch: updated, alarm: alarm, price: price,
-                                                          volumeRatio: spike.ratio))
-                outcome.alarmsTriggered += 1
-                // Wie markAlarmTriggered: dieselbe Kerze nicht nochmals melden (referenceAt),
-                // einmalige Alarme abschalten.
-                alarm.enabled = alarm.repeating
-                outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: alarm.referencePrice,
-                                                       referenceAt: spike.candleOpenTime, lastTriggeredAt: now,
-                                                       lastTriggeredPrice: price)
-                if speechAllowed && alarm.speak {
-                    outcome.speech.append((SpokenText.alarm(updated, alarm.condition, price), true))
-                    spokeAlarm = true
-                }
+                // Dieselbe Kerze nicht nochmals melden (referenceAt)
+                report(alarm, PendingAlarm(watch: updated, alarm: alarm, price: price, volumeRatio: spike.ratio),
+                       candleOpenTime: spike.candleOpenTime)
                 continue
             }
-            if AlarmEvaluator.needsWindowReset(alarm: alarm, now: now) {
-                outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: price, referenceAt: now,
-                                                       lastTriggeredAt: alarm.lastTriggeredAt, lastTriggeredPrice: alarm.lastTriggeredPrice)
+            // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
+            if AlarmEvaluator.needsReference(alarm: alarm, now: now) {
+                var after = alarm
+                after.referencePrice = price
+                after.referenceAt = now
+                outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
                 continue
             }
             // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
@@ -218,29 +229,16 @@ extension PriceRefresher {
             }
             // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
             if AlarmEvaluator.shouldRearmLevel(alarm: alarm, price: comparePrice) {
-                outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: alarm.referencePrice,
-                                                       referenceAt: 0, lastTriggeredAt: alarm.lastTriggeredAt,
-                                                       lastTriggeredPrice: alarm.lastTriggeredPrice)
+                rearm(alarm)
                 continue
             }
             guard AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
-                                               now: now, cooldownMinutes: settings.alarmCooldownMinutes) else { continue }
-            outcome.pendingAlarms.append(PendingAlarm(watch: updated, alarm: alarm, price: price))
-            outcome.alarmsTriggered += 1
-            // Wie markAlarmTriggered: Bezug neu setzen, Kursmarke als gemeldet merken
-            // (referenceAt > 0 bis zur Rückkehr), einmalige Alarme abschalten.
-            alarm.lastTriggeredAt = now
-            alarm.lastTriggeredPrice = price
-            if alarm.condition.isPercent { alarm.referencePrice = price }
-            if alarm.condition == .MOVE_PERCENT_WINDOW || alarm.condition.isPriceThreshold { alarm.referenceAt = now }
-            alarm.enabled = alarm.repeating
-            outcome.alarms[alarm.id] = AlarmUpdate(enabled: alarm.enabled, referencePrice: alarm.referencePrice,
-                                                   referenceAt: alarm.referenceAt, lastTriggeredAt: now, lastTriggeredPrice: price)
-            if speechAllowed && alarm.speak {
-                outcome.speech.append((SpokenText.alarm(updated, alarm.condition, price), true))
-                spokeAlarm = true
-            }
+                                               now: now, cooldownMinutes: settings.alarmCooldownMinutes,
+                                               moveHistory: moveHistory) else { continue }
+            report(alarm, PendingAlarm(watch: updated, alarm: alarm, price: price))
         }
+        // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
+        if hasMove { MoveHistoryStore.append(watch.id, MoveWindow.PricePoint(price: price, time: now), now: now) }
         return spokeAlarm
     }
 

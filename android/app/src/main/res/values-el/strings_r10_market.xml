@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">Funding αρνητικό (%1$s)</string>
     <string name="unusual_source">Περίπου 30 μεγαλύτερα νομίσματα χωρίς stablecoins · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">Γιατί κινείται;</string>
-    <string name="unusual_action_add">Εύρεση ζεύγους για προσθήκη</string>
 
     <string name="macro_title">Οικονομικά στοιχεία</string>
     <string name="macro_cpi">πληθωρισμός ΗΠΑ (CPI)</string>

@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.settings.inputDecimalSeparator
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -34,7 +35,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.math.BigDecimal
 import java.math.MathContext
-import java.text.DecimalFormatSymbols
 import javax.inject.Inject
 
 @HiltViewModel
@@ -378,9 +378,11 @@ data class AlarmDraft(
             BigDecimal.valueOf(value).round(MathContext(6)).stripTrailingZeros().toPlainString()
                 .replace('.', ThresholdParser.normalized(decimalSeparator))
 
-        /** Dezimalzeichen der Region, auf Punkt oder Komma abgebildet. */
-        fun localeDecimalSeparator(): Char =
-            ThresholdParser.normalized(DecimalFormatSymbols.getInstance().decimalSeparator)
+        /**
+         * Dezimalzeichen der Region (Sprache der App, Region des Geräts — wie iOS), auf Punkt
+         * oder Komma abgebildet ([inputDecimalSeparator]).
+         */
+        fun localeDecimalSeparator(): Char = inputDecimalSeparator()
 
         /** Schwellwert fürs Eingabefeld: ohne Exponent und Tausendertrennung, Dezimalzeichen der Region. */
         fun formatThreshold(value: Double, decimalSeparator: Char = localeDecimalSeparator()): String =

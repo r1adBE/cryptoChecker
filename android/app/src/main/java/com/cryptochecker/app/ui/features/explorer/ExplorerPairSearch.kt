@@ -1,9 +1,11 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.marketdata.model.CurrencyPairInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
+import java.util.Locale
 
 /** Ein Treffer der Suche über alle Börsen. */
 data class SearchHit(val market: MarketInfo, val pair: CurrencyPairInfo)
@@ -50,7 +52,9 @@ object PairSearch {
     )
 
     internal fun parse(query: String): Query? {
-        val tokens = query.uppercase().split(' ', '/', '-', ':', '_', '.').filter { it.isNotBlank() }
+        // Arabische/persische Ziffern wie 0–9 («BTC ١٢٢٥» = Verfallsdatum 1225), Richtungszeichen weg
+        val tokens = ThresholdParser.latinDigits(query).uppercase()
+            .split(' ', '/', '-', ':', '_', '.').filter { it.isNotBlank() }
         var contracts: Set<FuturesContractType>? = null
         var date: String? = null
         val words = ArrayList<String>()
@@ -76,7 +80,8 @@ object PairSearch {
         pair.currencyPairId?.substringAfterLast('_', "")?.takeIf { it.length == 6 && it.all { c -> c in '0'..'9' } }
             ?.let { return it }
         val date = FuturesContractType.getDeliveryDate(pair.contractType) ?: return null
-        return "%02d%02d%02d".format(date.year % 100, date.monthValue, date.dayOfMonth)
+        // Locale.ROOT: Kennung mit lateinischen Ziffern, auch in arabischer/persischer App-Sprache
+        return String.format(Locale.ROOT, "%02d%02d%02d", date.year % 100, date.monthValue, date.dayOfMonth)
     }
 
     /** Reihenfolge der Kontrakte: Spot, Perpetual, dann die Laufzeiten (nächste zuerst). */

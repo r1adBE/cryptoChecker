@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Vybrat</string>
+    <string name="watchlist_select_all">Vybrat vše</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Vybráno: %1$d</item>
+        <item quantity="few">Vybráno: %1$d</item>
+        <item quantity="many">Vybráno: %1$d</item>
+        <item quantity="other">Vybráno: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Odebráno párů: %1$d</item>
+        <item quantity="few">Odebráno párů: %1$d</item>
+        <item quantity="many">Odebráno párů: %1$d</item>
+        <item quantity="other">Odebráno párů: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Zobrazit jen zastaralé</string>
+    <string name="watchlist_show_all">Zobrazit vše</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Název</string>
+    <string name="watchlist_sort_price">Cena</string>
+    <string name="watchlist_sort_descending">sestupně</string>
+    <string name="watchlist_sort_ascending">vzestupně</string>
+    <string name="watchlist_sort_own">Vlastní pořadí</string>
+</resources>

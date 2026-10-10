@@ -13,13 +13,17 @@ import com.cryptochecker.app.data.remote.WindowRanges
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
+import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.tts.SpokenText
 import com.cryptochecker.app.tts.TtsSpeaker
+import com.cryptochecker.app.data.MoveHistoryStore
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -41,6 +45,8 @@ class RefreshEffects @Inject constructor(
     private val nearExtremeDataSource: NearExtremeDataSource,
     /** Funding/Open Interest für die Futures-Alarme (je Paar höchstens alle 5 Min.). */
     private val derivativesAlarmData: DerivativesAlarmData,
+    /** Kursverlauf je Paar für den Bewegungs-Alarm (gleitendes Fenster, [MoveWindow]). */
+    private val moveHistoryStore: MoveHistoryStore,
 ) {
     internal suspend fun checkAlarms(
         watch: WatchEntity,
@@ -98,6 +104,27 @@ class RefreshEffects @Inject constructor(
         var derivatives: DerivativesAlarmData.Values? = null
         var derivativesLoaded = false
 
+        // Bewegungs-Alarm: Kursverlauf des Paars (nur wenn es so einen Alarm hat)
+        val hasMove = enabledAlarms.any { it.condition == AlarmCondition.MOVE_PERCENT_WINDOW }
+        val moveHistory = if (hasMove) moveHistoryStore.history(watch.id) else emptyList()
+
+        /**
+         * Ausgelösten Alarm melden: Einmalige Alarme ohne zustellbare Benachrichtigung (keine
+         * Erlaubnis, Kanal stumm) bleiben scharf und melden, sobald es wieder geht — statt sich
+         * still abzuschalten. Sonst ZUERST speichern (auch bei Abbruch des Durchlaufs), dann
+         * melden: Scheitert das Speichern, gibt es keine Meldung, die beim nächsten Mal nochmals
+         * käme. Hat der Nutzer den Alarm inzwischen geändert oder abgeschaltet, speichert
+         * [mark] nichts (false) und es wird nicht gemeldet.
+         */
+        suspend fun report(alarm: AlarmEntity, mark: suspend () -> Boolean, show: () -> Unit) {
+            if (!alarm.repeating && !notifier.canShowAlarm(alarm)) return
+            val saved = withContext(NonCancellable) { mark() }
+            if (!saved) return
+            show()
+            count++
+            speakIfWanted(alarm)
+        }
+
         for (alarm in enabledAlarms) {
             if (alarm.condition.isDerivatives) {
                 // Nicht bei Live-Kursen (WebSocket): die normale Aktualisierung prüft sie
@@ -120,13 +147,12 @@ class RefreshEffects @Inject constructor(
                     cooldownMinutes = settings.alarmCooldownMinutes,
                 )) {
                     DerivativesAlarm.Decision.None -> Unit
-                    DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarm(alarm.id)
-                    is DerivativesAlarm.Decision.Fire -> {
-                        notifier.showAlarm(watch, alarm, price, derivativesValue = decision.value)
-                        watchRepository.markAlarmTriggered(alarm, price, now)
-                        count++
-                        speakIfWanted(alarm)
-                    }
+                    DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
+                    is DerivativesAlarm.Decision.Fire -> report(
+                        alarm,
+                        mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
+                        show = { notifier.showAlarm(watch, alarm, price, derivativesValue = decision.value) },
+                    )
                 }
                 continue
             }
@@ -157,20 +183,19 @@ class RefreshEffects @Inject constructor(
                     range = range,
                     thresholdPercent = alarm.threshold,
                     armed = alarm.referenceAt <= 0L,
-                    lastLevel = alarm.referencePrice,
+                    lastLevel = NearExtreme.reportedMark(alarm.referencePrice, alarm.lastTriggeredAt, alarm.windowHours, now),
                     inCooldown = NearExtreme.inCooldown(alarm.lastTriggeredAt, now, settings.alarmCooldownMinutes),
                     lastTriggeredAt = alarm.lastTriggeredAt,
                     now = now,
                 )
                 when (decision) {
                     NearExtreme.Decision.None -> Unit
-                    NearExtreme.Decision.Rearm -> watchRepository.rearmAlarm(alarm.id)
-                    is NearExtreme.Decision.Fire -> {
-                        notifier.showAlarm(watch, alarm, price, nearFire = decision)
-                        watchRepository.markAlarmTriggered(alarm, price, now, nearLevel = decision.level)
-                        count++
-                        speakIfWanted(alarm)
-                    }
+                    NearExtreme.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
+                    is NearExtreme.Decision.Fire -> report(
+                        alarm,
+                        mark = { watchRepository.markAlarmTriggered(alarm, price, now, nearLevel = decision.level) },
+                        show = { notifier.showAlarm(watch, alarm, price, nearFire = decision) },
+                    )
                 }
                 continue
             }
@@ -190,16 +215,17 @@ class RefreshEffects @Inject constructor(
                 )
                 if (!spikeFires) continue
 
-                notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio)
-                watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime)
-                count++
-                speakIfWanted(alarm)
+                report(
+                    alarm,
+                    mark = { watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime) },
+                    show = { notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio) },
+                )
                 continue
             }
 
-            // Bewegungs-Alarm: abgelaufenes Fenster neu beginnen, ohne auszulösen
-            if (alarmEvaluator.needsWindowReset(alarm, now)) {
-                watchRepository.setAlarmReference(alarm.id, price, now)
+            // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
+            if (alarmEvaluator.needsReference(alarm, now)) {
+                watchRepository.setAlarmReferenceIfUnchanged(alarm, price, now)
                 continue
             }
             // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
@@ -210,7 +236,7 @@ class RefreshEffects @Inject constructor(
             }
             // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
             if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice)) {
-                watchRepository.rearmAlarm(alarm.id)
+                watchRepository.rearmAlarmIfUnchanged(alarm)
                 continue
             }
             val fires = alarmEvaluator.shouldTrigger(
@@ -218,15 +244,19 @@ class RefreshEffects @Inject constructor(
                 price = comparePrice,
                 previousPrice = previousPrice,
                 now = now,
-                cooldownMinutes = settings.alarmCooldownMinutes
+                cooldownMinutes = settings.alarmCooldownMinutes,
+                moveHistory = moveHistory,
             )
             if (!fires) continue
 
-            notifier.showAlarm(watch, alarm, price)
-            watchRepository.markAlarmTriggered(alarm, price, now)
-            count++
-            speakIfWanted(alarm)
+            report(
+                alarm,
+                mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
+                show = { notifier.showAlarm(watch, alarm, price) },
+            )
         }
+        // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
+        if (hasMove) moveHistoryStore.append(watch.id, MoveWindow.PricePoint(price, now), now)
         return count
     }
 

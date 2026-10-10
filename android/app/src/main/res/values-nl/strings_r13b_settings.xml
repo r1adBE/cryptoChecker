@@ -7,7 +7,6 @@
     </plurals>
     <string name="settings_summary_on">Aan</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker houdt nu %1$s voor je in de gaten. Bereikt %1$s je grens, dan krijg je een melding zodra de app de koers controleert. Als de app gesloten is, gebeurt dat met het interval van updates op de achtergrond – later als batterijoptimalisatie de app beperkt.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker houdt nu %1$s voor je in de gaten. Je krijgt een melding zodra de app de koers controleert. Als de app gesloten is, bepaalt iOS wanneer dat gebeurt – dat kan even duren. Zolang de app open is, worden koersen op tijd gecontroleerd.</string>
 
     <string name="about_request_exchange">Beurs aanvragen</string>

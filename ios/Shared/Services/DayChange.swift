@@ -88,6 +88,21 @@ enum DayChange {
         return value
     }
 
+    /// Anbieter der Kerzen, wenn er NICHT die Börse des Paars ist — z. B. Kraken-Paar ohne 24-h-Wert
+    /// im Ticker, Pille aus Binance-Kerzen; dann sagt das Aktionsblatt «Veränderung aus
+    /// Binance-Kerzen». Gleich gilt die Börse selbst oder ihr Futures-Markt; Vergleich ohne
+    /// Gross-/Kleinschreibung, Leer- und Satzzeichen — wie `DayChange.foreignCandleSource` (Android).
+    /// - Parameters:
+    ///   - markets: Schlüssel und Name der Börse des Paars
+    ///   - provider: Anbieter der Kerzen («Binance», «Binance.US», «Coinbase»); nil = keine Kerzen
+    static func foreignCandleSource(markets: [String], provider: String?) -> String? {
+        guard let p = provider?.trimmingCharacters(in: .whitespaces), !p.isEmpty else { return nil }
+        func norm(_ s: String) -> String { String(s.lowercased().filter { $0.isLetter || $0.isNumber }) }
+        let n = norm(p)
+        let own = markets.map(norm).contains { $0 == n || $0 == n + "futures" }
+        return own ? nil : p
+    }
+
     /// Quote ist eine Landeswährung (gleiche Liste wie die Umrechnung).
     static func isFiat(_ quote: String) -> Bool {
         FxRateSource.currencies.contains(quote.trimmingCharacters(in: .whitespaces).uppercased())

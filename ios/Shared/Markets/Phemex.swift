@@ -103,7 +103,14 @@ class PhemexBase: SimpleMarket {
     override var bulkTickersNumOfRequests: Int { 1 }
 
     override func parseBulkTickers(requestId: Int, response: String) throws -> [String: Ticker] {
-        guard let list = try JObject(string: response).optArray("result") else { return [:] }
+        let json = try JObject(string: response)
+        // Fehlerantwort ({"code":…,"msg":…} oder {"error":{…}}) statt Liste: Abfrage scheitert mit dem
+        // Text der Börse – nicht stillschweigend leer. Wie Android.
+        guard let list = json.optArray("result") else {
+            let message = json.optObject("error")?.optString("message") ?? ""
+            let msg = json.optString("msg")
+            throw JSONError(message: !message.isEmpty ? message : (!msg.isEmpty ? msg : "No result"))
+        }
         var tickers: [String: Ticker] = [:]
         for item in list.objects {
             let symbol = item.optString("symbol")
@@ -119,7 +126,8 @@ class PhemexBase: SimpleMarket {
     static func nanosToMillis(_ json: JObject) -> Int64 {
         let raw = json.optString("timestamp")
         if let n = Int64(raw) { return n / 1_000_000 }
-        if let d = Double(raw) { return Int64(d / 1_000_000) }
+        // Wie Android (BigDecimal): NaN/∞ sind keine Zahl → 0; riesige Werte begrenzen statt abzustürzen
+        if let d = JSONValue.double(raw), d.isFinite { return JSONValue.int64(d / 1_000_000) }
         return 0
     }
 }

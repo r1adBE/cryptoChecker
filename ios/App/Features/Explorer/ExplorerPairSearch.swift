@@ -52,7 +52,8 @@ enum ExplorerPairSearch {
     }
 
     static func parse(_ query: String) -> Query? {
-        let tokens = query.uppercased()
+        // Arabische/persische Ziffern wie 0–9 («BTC ١٢٢٥» = Verfallsdatum 1225), Richtungszeichen weg
+        let tokens = ThresholdParser.latinDigits(query).uppercased()
             .split(whereSeparator: { " /-:_.".contains($0) })
             .map(String.init)
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
@@ -89,7 +90,9 @@ enum ExplorerPairSearch {
         var cal = Calendar(identifier: .gregorian)
         cal.timeZone = TimeZone(identifier: "UTC")!
         let c = cal.dateComponents([.year, .month, .day], from: date)
-        return String(format: "%02d%02d%02d", (c.year ?? 0) % 100, c.month ?? 0, c.day ?? 0)
+        // POSIX: Kennung mit lateinischen Ziffern, unabhängig von der App-Sprache
+        return String(format: "%02d%02d%02d", locale: Locale(identifier: "en_US_POSIX"),
+                      (c.year ?? 0) % 100, c.month ?? 0, c.day ?? 0)
     }
 
     /// Reihenfolge der Kontrakte: Spot, Perpetual, dann die Laufzeiten (nächste zuerst).

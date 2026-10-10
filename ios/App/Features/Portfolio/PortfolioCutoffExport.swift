@@ -115,15 +115,15 @@ struct CutoffCsvTexts: Sendable {
 /// Reine Rechnung und CSV: UTF-8 mit BOM (für Excel), Trennzeichen «;»,
 /// Dezimalpunkt «.», Zeilenende CRLF.
 enum CutoffExport {
-    /// Gelten als 1 USD (ohne Abfrage).
-    static let stables: Set<String> = ["USDT", "USDC", "BUSD", "FDUSD", "TUSD", "USDP", "DAI", "USD"]
+    /// Stablecoins: die eine Liste aus `PortfolioStables` (Tagesschluss, sonst 1; USDT immer 1).
+    static var stables: Set<String> { PortfolioStables.coins }
 
     private static let separator = ";"
     private static let bom = "\u{FEFF}"
     private static let eol = "\r\n"
     private static let posix = Locale(identifier: "en_US_POSIX")
 
-    static func isStable(_ coin: String) -> Bool { stables.contains(PortfolioCalculator.normalizeCoin(coin)) }
+    static func isStable(_ coin: String) -> Bool { PortfolioStables.isStable(coin) }
 
     static func fileName(_ day: CutoffDay) -> String { "cryptochecker-stichtag-\(day.iso).csv" }
 
@@ -143,12 +143,12 @@ enum CutoffExport {
         .sorted { $0.coin < $1.coin }
     }
 
-    /// Zeilen aus Bestand, Kursen (Coin → USDT; Stablecoins = 1) und Devisenkurs (nil = unbekannt).
+    /// Zeilen aus Bestand, Kursen (Coin → Tagesschluss in USDT) und Devisenkurs (nil = unbekannt).
+    /// Stablecoins nach `PortfolioStables.price`: USDT = 1, die übrigen ihr Tagesschluss, fehlt er, 1.
     static func rows(_ holdings: [CutoffHolding], prices: [String: Double], fxRate: Double?) -> [CutoffRow] {
         let rate = fxRate.flatMap { $0 > 0 && $0.isFinite ? $0 : nil }
         return holdings.map { h in
-            let known = prices[h.coin].flatMap { $0 > 0 && $0.isFinite ? $0 : nil }
-            let price: Double? = known ?? (isStable(h.coin) ? 1.0 : nil)
+            let price = PortfolioStables.price(h.coin, market: prices[h.coin])
             let value = price.map { h.amount * $0 }
             var target: Double?
             if let value, let rate { target = value * rate }
@@ -214,24 +214,20 @@ enum CutoffExport {
 
     // MARK: Zahlen (Dezimalpunkt, ohne Tausendertrennung)
 
-    static func amount(_ v: Double) -> String { trimmed(v, 10) }
-    static func price(_ v: Double) -> String { trimmed(v, 10) }
-    static func rate(_ v: Double) -> String { trimmed(v, 6) }
-    static func money(_ v: Double) -> String { fixed(v, 2) }
+    // Gerundet wird kaufmännisch (HALF_UP) ab der kürzesten Dezimaldarstellung (`DecimalText`),
+    // gleich wie Android (`CutoffExport.kt`): 1.005 → «1.01». Nicht endlich → leeres Feld.
 
-    private static func fixed(_ v: Double, _ decimals: Int) -> String {
-        let s = String(format: "%.\(decimals)f", locale: posix, v)
-        // «-0.00» vermeiden
-        let unsigned = s.hasPrefix("-") ? String(s.dropFirst()) : s
-        return unsigned.allSatisfy { $0 == "0" || $0 == "." } ? unsigned : s
-    }
+    /// Menge: bis 10 Nachkommastellen, unter 1 bis 10 gültige Stellen (3e-11 → «0.00000000003»), ohne Nullen am Ende.
+    static func amount(_ v: Double) -> String { significant(v) }
+    /// Kurs: wie `amount` — auch Kleinstkurse (3e-11) bleiben lesbar statt «0».
+    static func price(_ v: Double) -> String { significant(v) }
+    /// Devisenkurs: bis 6 Nachkommastellen.
+    static func rate(_ v: Double) -> String { DecimalText.plain(v, scale: 6) }
+    /// Geldbetrag: genau 2 Nachkommastellen; «-0.00» → «0.00».
+    static func money(_ v: Double) -> String { DecimalText.fixed(v, scale: 2) }
 
-    private static func trimmed(_ v: Double, _ decimals: Int) -> String {
-        var s = fixed(v, decimals)
-        guard s.contains(".") else { return s }
-        while s.hasSuffix("0") { s.removeLast() }
-        if s.hasSuffix(".") { s.removeLast() }
-        return s
+    private static func significant(_ v: Double) -> String {
+        DecimalText.plain(v, scale: DecimalText.significantScale(v, minDecimals: 10, significant: 10))
     }
 }
 
@@ -246,7 +242,13 @@ struct HistoricFx: Sendable {
 /// Tagesschlusskurse (UTC-Tageskerze) in USDT und Devisenkurs eines Tags.
 /// Kerzen-Kette wie `CandleDataSource`: data-api.binance.vision → api.binance.com →
 /// fapi.binance.com → api.binance.us (USDT, sonst USD) → Coinbase (USD, sonst USDC).
-/// Es zählt nur die Kerze, die genau an diesem Tag beginnt. Kein Zwischenspeicher.
+/// Es zählt nur die Kerze, die genau an diesem Tag beginnt. Kurse ohne Zwischenspeicher.
+/// Plausibilität (`PricePlausibility.acceptSourceClose`): Ausweich-Quellen (Futures, Binance.US,
+/// Coinbase) zählen nur, wenn dieselbe Quelle den Coin heute höchstens 25 % vom aktuellen
+/// Portfolio-Kurs entfernt führt (eine Abfrage mehr, nur bei einem Treffer dort).
+/// Stablecoins nach `PortfolioStables`: USDT = 1 ohne Abfrage, andere wie jeder Coin.
+/// Dazu die Devisen-Tageskurse eines Zeitraums für den Wertverlauf (`usdToSeries`, Frankfurter,
+/// 6 h im Speicher).
 enum HistoricPriceSource {
     private static let parallel = 4
 
@@ -261,8 +263,10 @@ enum HistoricPriceSource {
         return URLSession(configuration: c)
     }()
 
-    /// Schlusskurse der Coins am Tag `day`; Coins ohne Kurs fehlen in der Rückgabe.
-    static func dailyClosesUsdt(_ coins: [String], day: CutoffDay) async -> [String: Double] {
+    /// Schlusskurse der Coins am Tag `day`; Coins ohne (plausiblen) Kurs fehlen in der Rückgabe.
+    /// `current`: aktuelle Portfolio-Kurse in USDT für die Plausibilitätsprüfung (fehlt einer, gilt
+    /// der Kurs der ersten Quelle ungeprüft).
+    static func dailyClosesUsdt(_ coins: [String], day: CutoffDay, current: [String: Double] = [:]) async -> [String: Double] {
         var symbols: [String] = []
         for c in coins.map(PortfolioCalculator.normalizeCoin) where isAsset(c) && !symbols.contains(c) {
             symbols.append(c)
@@ -276,7 +280,7 @@ enum HistoricPriceSource {
             let found = await withTaskGroup(of: (String, Double?).self, returning: [String: Double].self) { group in
                 for coin in chunk {
                     group.addTask {
-                        let price = await dailyCloseUsdt(coin, day: day)
+                        let price = await dailyCloseUsdt(coin, day: day, current: current[coin])
                         return (coin, price)
                     }
                 }
@@ -291,41 +295,52 @@ enum HistoricPriceSource {
         return result
     }
 
-    /// Schlusskurs eines Coins; nil, wenn keine Quelle ihn hat. Stablecoins = 1.
-    static func dailyCloseUsdt(_ coin: String, day: CutoffDay) async -> Double? {
+    /// Schlusskurs eines Coins; nil, wenn keine Quelle einen plausiblen hat. USDT = 1, andere
+    /// Stablecoins werden wie jeder Coin abgefragt. `current` = aktueller Portfolio-Kurs (Plausibilität).
+    static func dailyCloseUsdt(_ coin: String, day: CutoffDay, current: Double? = nil) async -> Double? {
         let b = PortfolioCalculator.normalizeCoin(coin)
-        if CutoffExport.isStable(b) { return 1.0 }
+        if !PortfolioStables.needsQuote(b) { return 1.0 }
         guard isAsset(b) else { return nil }
         let start = day.utcStartMillis
 
-        let binance: [(host: String, endpoint: String)] = [
-            ("data-api.binance.vision", "https://data-api.binance.vision/api/v3/klines"),
-            ("api.binance.com", "https://api.binance.com/api/v3/klines"),
-            ("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines"),
+        // Binance-Spot liefert auch die aktuellen Portfolio-Kurse — keine Prüfung nötig
+        let binance: [(host: String, endpoint: String, trusted: Bool)] = [
+            ("data-api.binance.vision", "https://data-api.binance.vision/api/v3/klines", true),
+            ("api.binance.com", "https://api.binance.com/api/v3/klines", true),
+            ("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines", false),
         ]
         for source in binance {
-            if let close = await binanceClose(host: source.host, endpoint: source.endpoint, symbol: b + "USDT", start: start) {
+            if let close = await binanceClose(host: source.host, endpoint: source.endpoint, symbol: b + "USDT",
+                                              start: start, trusted: source.trusted, current: current) {
                 return close
             }
         }
         for symbol in [b + "USDT", b + "USD"] {
             if let close = await binanceClose(host: "api.binance.us", endpoint: "https://api.binance.us/api/v3/klines",
-                                              symbol: symbol, start: start) {
+                                              symbol: symbol, start: start, trusted: false, current: current) {
                 return close
             }
         }
-        return await coinbaseClose(b, day: day, start: start)
+        return await coinbaseClose(b, day: day, start: start, current: current)
     }
 
-    private static func binanceClose(host: String, endpoint: String, symbol: String, start: Int64) async -> Double? {
+    private static func binanceClose(host: String, endpoint: String, symbol: String, start: Int64,
+                                     trusted: Bool, current: Double?) async -> Double? {
         if BlockedSources.isBlocked(host) { return nil }
         guard let body = await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&startTime=\(start)&limit=1"),
-              let candles = try? CandleDataSource.parseBinance(body)
+              let candles = try? CandleDataSource.parseBinance(body),
+              let close = closeOf(candles, start: start)
         else { return nil }
-        return closeOf(candles, start: start)
+        if trusted || current == nil { return close }
+        // Ausweich-Quelle: führt sie den Coin heute zum aktuellen Kurs? (jüngste Tageskerze)
+        var latest: Double?
+        if let recent = await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&limit=1") {
+            latest = (try? CandleDataSource.parseBinance(recent))?.last?.close
+        }
+        return PricePlausibility.acceptSourceClose(close, trusted: false, sourceLatest: latest, current: current) ? close : nil
     }
 
-    private static func coinbaseClose(_ b: String, day: CutoffDay, start: Int64) async -> Double? {
+    private static func coinbaseClose(_ b: String, day: CutoffDay, start: Int64, current: Double?) async -> Double? {
         let host = "api.exchange.coinbase.com"
         // Fenster genau über den einen Tag (ISO 8601, UTC)
         let from = "\(day.iso)T00:00:00Z"
@@ -334,9 +349,18 @@ enum HistoricPriceSource {
             if BlockedSources.isBlocked(host) { return nil }
             let url = "https://\(host)/products/\(b)-\(quote)/candles?granularity=86400&start=\(from)&end=\(to)"
             guard let body = await get(host, url),
-                  let candles = try? CandleDataSource.parseCoinbase(body)
+                  let candles = try? CandleDataSource.parseCoinbase(body),
+                  let close = closeOf(candles, start: start)
             else { continue }
-            if let close = closeOf(candles, start: start) { return close }
+            guard let current else { return close }
+            // Jüngste Tageskerzen desselben Produkts (ohne Zeitfenster = die neuesten)
+            var latest: Double?
+            if let recent = await get(host, "https://\(host)/products/\(b)-\(quote)/candles?granularity=86400") {
+                latest = (try? CandleDataSource.parseCoinbase(recent))?.max(by: { $0.openTime < $1.openTime })?.close
+            }
+            if PricePlausibility.acceptSourceClose(close, trusted: false, sourceLatest: latest, current: current) {
+                return close
+            }
         }
         return nil
     }
@@ -379,6 +403,57 @@ enum HistoricPriceSource {
         return nil
     }
 
+    // MARK: Devisen-Tageskurse für den Wertverlauf
+
+    private static let fxSeriesTtlMillis: Int64 = 6 * 60 * 60_000
+    private static let fxSeriesLock = NSLock()
+    /// «Währung|von|bis» → (Tageskurse, Abfragezeit); nur im Speicher.
+    nonisolated(unsafe) private static var fxSeriesCache: [String: (rates: [Int: Double], at: Int64)] = [:]
+
+    /// Tageskurse USD → `currency` von `from` bis `to` (EZB über Frankfurter, eine Abfrage für den
+    /// ganzen Zeitraum): Tag (epochDay) → Kurs, nur Geschäftstage — Wochenenden und Feiertage
+    /// füllt `PortfolioHistoryFx.rateOn` mit dem Vortag. USD: leer (kein Bedarf). 6 h im Speicher.
+    /// nil, wenn kein Kurs zu haben ist.
+    static func usdToSeries(_ currency: String, from: LocalDay, to: LocalDay) async -> [Int: Double]? {
+        let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        if target == "USD" { return [:] }
+        guard FxRateSource.isCurrencyCode(target), from <= to else { return nil }
+        let key = "\(target)|\(from)|\(to)"
+        let now = TimeUtils.nowMillis
+        let cached: [Int: Double]? = fxSeriesLock.withLock {
+            guard let entry = fxSeriesCache[key], now - entry.at >= 0, now - entry.at < fxSeriesTtlMillis else { return nil }
+            return entry.rates
+        }
+        if let cached { return cached }
+        let symbols = PortfolioHistoryFx.requestCurrencies(target).joined(separator: ",")
+        let urls = [
+            "https://api.frankfurter.app/\(from)..\(to)?from=USD&to=\(symbols)",
+            "https://api.frankfurter.dev/v1/\(from)..\(to)?from=USD&to=\(symbols)",
+        ]
+        for url in urls {
+            guard let body = try? await MarketHTTP.call(url, session: session),
+                  let data = body.data(using: .utf8),
+                  let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+                  let rates = root["rates"] as? [String: Any]
+            else { continue }
+            var byDate: [String: [String: Double]] = [:]
+            for (date, value) in rates {
+                guard let day = value as? [String: Any] else { continue }
+                var parsed: [String: Double] = [:]
+                for (code, rate) in day {
+                    if let number = rate as? NSNumber { parsed[code] = number.doubleValue }
+                }
+                byDate[date] = parsed
+            }
+            let series = PortfolioHistoryFx.ratesByDay(target, byDate: byDate)
+            if !series.isEmpty {
+                fxSeriesLock.withLock { fxSeriesCache[key] = (rates: series, at: TimeUtils.nowMillis) }
+                return series
+            }
+        }
+        return nil
+    }
+
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).
     private static func get(_ host: String, _ url: String) async -> String? {
         do {
@@ -401,8 +476,12 @@ enum PortfolioCutoffExporter {
     static func build(transactions: [PortfolioTx], day: CutoffDay, currency: String, texts: CutoffCsvTexts) async -> String {
         let cutoff = day.endOfDayMillis(in: .current)
         let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff)
-        let coins = holdings.map(\.coin).filter { !CutoffExport.isStable($0) }
-        let prices = await HistoricPriceSource.dailyClosesUsdt(coins, day: day)
+        // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs, gilt 1)
+        let coins = holdings.map(\.coin).filter { PortfolioStables.needsQuote($0) }
+        // Aktuelle Kurse als Bezug der Plausibilitätsprüfung (Ausweich-Quellen); ohne sie ungeprüft
+        var current: [String: Double] = [:]
+        if !coins.isEmpty { current = await PortfolioPriceSource.prices(coins).prices }
+        let prices = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: current)
         var fx: HistoricFx?
         if !holdings.isEmpty || currency == "USD" {
             fx = await HistoricPriceSource.usdTo(currency, day: day)

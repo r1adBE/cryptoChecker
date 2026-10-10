@@ -58,6 +58,47 @@ final class ThresholdParserTests: XCTestCase {
         XCTAssertNil(p("\u{0660}"))
     }
 
+    /// Wie `zero is allowed for amounts, everything else like parse` (ThresholdParserTest.kt).
+    func testZeroIsAllowedForAmountsEverythingElseLikeParse() {
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("0", decimalSeparator: "."), 0)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("0,00", decimalSeparator: ","), 0)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero(".0", decimalSeparator: "."), 0)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("\u{0660}", decimalSeparator: "."), 0)
+        // Mehrdeutig: Region bzw. Kurs entscheidet wie bei den Schwellwerten
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: ","), 60_000)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: "."), 60)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: ",", priceHint: 58), 60)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("1,234", decimalSeparator: "."), 1_234)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("1.234,56", decimalSeparator: "."), 1_234.56)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("1\u{00A0}234,5", decimalSeparator: ","), 1_234.5)
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("1\u{202F}234.5", decimalSeparator: "."), 1_234.5)
+        for bad in ["1.5f", "2d", "1e3", "-5", "NaN", "Infinity", "", " ", "0,0,0"] {
+            XCTAssertNil(ThresholdParser.parseAllowingZero(bad, decimalSeparator: "."), bad)
+        }
+    }
+
+    /// Melde-Schwelle in den Einstellungen: «5%», «5 %», «٥٪» = 5 (wie `parsePercent` in Android).
+    func testSettingsPercentParse() {
+        XCTAssertEqual(SettingsPercentOption.parse("5%"), 5)
+        XCTAssertEqual(SettingsPercentOption.parse("5\u{00A0}%"), 5)
+        XCTAssertEqual(SettingsPercentOption.parse("\u{0665}\u{066A}"), 5)
+        XCTAssertEqual(SettingsPercentOption.parse("2,5"), 2.5)
+        XCTAssertEqual(SettingsPercentOption.parse(".5"), 0.5)
+        for bad in ["1e1", "nan", "5f", "101", "-1", "", "%", "1.2.3"] {
+            XCTAssertNil(SettingsPercentOption.parse(bad), bad)
+        }
+    }
+
+    /// Gespeicherter Wert fürs Eingabefeld ohne Stellenbegrenzung (wie `toPlainString` in Android).
+    func testAmountForInputKeepsTinyValuesAndZero() {
+        XCTAssertEqual(PriceFormat.amountForInput(0), "0")
+        XCTAssertEqual(PriceFormat.amountForInput(nil), "")
+        XCTAssertEqual(PriceFormat.amountForInput(1.2345e-10), "0.00000000012345")
+        XCTAssertEqual(PriceFormat.amountForInput(1234.5, decimalSeparator: ","), "1234,5")
+        XCTAssertEqual(DecimalText.rounded(1.005, 2), 1.01)
+        XCTAssertEqual(PriceFormat.changePercent(1.005).map(BidiText.strip)?.hasSuffix("01%"), true)
+    }
+
     func testBidiTextOnlyForRightToLeftLanguages() {
         XCTAssertEqual(BidiText.ltr("+1.20%", language: "en"), "+1.20%")
         XCTAssertEqual(BidiText.ltr("+1.20%", language: "ar"), "\u{2066}+1.20%\u{2069}")

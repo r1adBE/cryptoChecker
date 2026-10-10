@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.components.ExpandToggleButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -209,16 +210,12 @@ private fun MarketPhaseDetails(report: CycleReport, onScoreInfo: () -> Unit) {
         )
     }
 
-    TextButton(
+    ExpandToggleButton(
+        text = stringResource(if (showIndicators) R.string.market_hide_indicators else R.string.market_show_indicators),
+        expanded = showIndicators,
         onClick = { showIndicators = !showIndicators },
         modifier = Modifier.padding(top = 2.dp)
-    ) {
-        Text(
-            stringResource(
-                if (showIndicators) R.string.market_hide_indicators else R.string.market_show_indicators
-            )
-        )
-    }
+    )
 
     if (showIndicators) {
         report.signals.forEach { SignalRow(it) }

@@ -53,7 +53,9 @@ class IndependentReserve : Market("Independent Reserve", "Independent Reserve") 
         // Heisst immer „…Xbt“, gilt aber für den jeweiligen Coin
         ticker.vol = jsonObject.optDoubleNoData("DayVolumeXbt")
         ticker.timestamp = runCatching {
-            TimeUtils.convertISODateToTimestamp(jsonObject.optString("CreatedTimestampUtc"))
+            // „…Utc“ kommt teils ohne „Z“; ohne Zone scheitert ZonedDateTime – dann als UTC lesen (wie iOS)
+            val text = jsonObject.optString("CreatedTimestampUtc")
+            TimeUtils.convertISODateToTimestamp(if (text.endsWith("Z") || text.contains('+')) text else text + "Z")
         }.getOrDefault(0L)
     }
 

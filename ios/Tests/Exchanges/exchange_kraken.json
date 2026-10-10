@@ -1,0 +1,266 @@
+{
+  "exchange": "Kraken",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD",
+    "bulk": "GET https://api.kraken.com/0/public/Ticker[?pair=A,B]",
+    "ws": "wss://ws.kraken.com/v2  channel ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker XXBTZUSD: 'o' (UTC day open) must not become a 24 h change",
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"}}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.1,
+        "ask": 62000.2,
+        "change24hPercent": null,
+        "volQuote": -1.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "today vs. last 24 h: h/l/v index 1 is the rolling window",
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"}}}",
+      "expect": {
+        "high": 62600.0,
+        "low": 59800.0,
+        "vol": 3456.78901234
+      },
+      "note": "Kraken h/l/v = [today (since 00:00 UTC), last 24 hours]; the adapter reads index 1"
+    },
+    {
+      "kind": "single",
+      "name": "very small price (SHIBUSD)",
+      "market": "Kraken",
+      "pair": {
+        "base": "SHIB",
+        "quote": "USD",
+        "id": "SHIBUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"SHIBUSD\":{\"a\":[\"0.000017690\",\"12345678\",\"12345678.000\"],\"b\":[\"0.000017680\",\"2000000\",\"2000000.000\"], \"c\":[\"0.000017680\",\"1500000.00000\"],\"v\":[\"123456789012.1\",\"234567890123.4\"],\"p\":[\"0.000017700\",\"0.000017750\"], \"t\":[1234,5678],\"l\":[\"0.000017550\",\"0.000017500\"],\"h\":[\"0.000018120\",\"0.000018200\"],\"o\":\"0.000017900\"}}}",
+      "expect": {
+        "last": 1.768e-05,
+        "bid": 1.768e-05,
+        "ask": 1.769e-05,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown pair: error array",
+      "market": "Kraken",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "FOOUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[\"EQuery:Unknown asset pair\"]}",
+      "expect": {
+        "error": true,
+        "message": "EQuery:Unknown asset pair"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty result without error text",
+      "market": "Kraken",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "FOOUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{}}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty arrays are missing values, not 0: no last -> error",
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[],\"b\":[],\"c\":[],\"v\":[],\"l\":[],\"h\":[],\"o\":\"0\"}}}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty b/a arrays: no bid/ask, last still valid",
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[],\"b\":[],\"c\":[\"62000.10000\",\"0.001\"],\"v\":[\"1\",\"2\"],\"l\":[\"60100\",\"59800\"],\"h\":[\"62500\",\"62600\"],\"o\":\"61000\"}}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 62600.0,
+        "low": 59800.0,
+        "vol": 2.0
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk filtered ?pair=XXBTZUSD,XETHZEUR",
+      "market": "Kraken",
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"},\"XETHZEUR\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"2250.55000\",\"0.10000000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"}}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "XXBTZUSD": {
+            "last": 62000.1,
+            "change24hPercent": null
+          },
+          "XETHZEUR": {
+            "last": 2250.55
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: entry with empty c (no last) is left out",
+      "market": "Kraken",
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"},\"XNEWZUSD\":{\"a\":[],\"b\":[],\"c\":[],\"v\":[],\"l\":[],\"h\":[],\"o\":\"0\"}}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "XNEWZUSD"
+        ],
+        "tickers": {
+          "XXBTZUSD": {
+            "last": 62000.1,
+            "high": 62600.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk with unknown pair in the list: whole request fails",
+      "market": "Kraken",
+      "requestId": 0,
+      "body": "{\"error\":[\"EQuery:Unknown asset pair\"]}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "live",
+      "name": "ws v2 ticker: change_pct ignored",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"ticker\",\"type\":\"update\",\"data\":[{\"symbol\":\"BTC/USD\",\"bid\":62000.1,\"bid_qty\":0.5,\"ask\":62000.2, \"ask_qty\":0.8,\"last\":62000.1,\"volume\":3456.78901234,\"vwap\":61400.54321,\"low\":59800.0,\"high\":62600.0, \"change\":1000.1,\"change_pct\":1.64}]}",
+      "ticks": [
+        {
+          "symbol": "BTC/USD",
+          "price": 62000.1,
+          "change24h": null,
+          "time": null
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws v2 snapshot with two symbols and an exponent",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"ticker\",\"type\":\"snapshot\",\"data\":[{\"symbol\":\"ETH/EUR\",\"last\":2250.55,\"change_pct\":-0.5}, {\"symbol\":\"SHIB/USD\",\"last\":1.768e-5,\"change_pct\":0.1}]}",
+      "ticks": [
+        {
+          "symbol": "ETH/EUR",
+          "price": 2250.55,
+          "change24h": null,
+          "time": null
+        },
+        {
+          "symbol": "SHIB/USD",
+          "price": 1.768e-05,
+          "change24h": null,
+          "time": null
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws v2 price exactly 1 (JSON number)",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"ticker\",\"type\":\"update\",\"data\":[{\"symbol\":\"USDC/USD\",\"bid\":0.9999,\"ask\":1.0001,\"last\":1,\"change_pct\":0.0}]}",
+      "ticks": [
+        {
+          "symbol": "USDC/USD",
+          "price": 1.0,
+          "change24h": null,
+          "time": null
+        }
+      ],
+      "note": "iOS: JSONSerialization's NSNumber 1 also matches `is Bool`; the parser checks CFBoolean instead"
+    },
+    {
+      "kind": "live",
+      "name": "ws v2 price true (JSON boolean) is not a price",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"ticker\",\"type\":\"update\",\"data\":[{\"symbol\":\"USDC/USD\",\"last\":true}]}",
+      "ticks": [
+        {
+          "symbol": "USDC/USD",
+          "price": null,
+          "change24h": null,
+          "time": null
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws heartbeat",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"heartbeat\"}",
+      "ticks": []
+    },
+    {
+      "kind": "live",
+      "name": "ws subscribe ack",
+      "exchange": "KRAKEN",
+      "message": "{\"method\":\"subscribe\",\"result\":{\"channel\":\"ticker\",\"snapshot\":true,\"symbol\":\"BTC/USD\"},\"success\":true,\"time_in\":\"2024-10-10T06:00:00.000000Z\",\"time_out\":\"2024-10-10T06:00:00.000100Z\"}",
+      "ticks": []
+    }
+  ]
+}

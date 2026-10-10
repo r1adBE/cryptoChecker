@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portafoglio nel backup di sistema</string>
+    <string name="settings_portfolio_system_backup_hint">Disattivato: le tue transazioni non sono incluse nel backup di sistema del dispositivo né nel trasferimento a un nuovo telefono. Per spostarle, usa il backup dell’app con password.</string>
+</resources>

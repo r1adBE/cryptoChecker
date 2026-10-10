@@ -43,7 +43,7 @@ struct WatchEditSheet: View {
                         .padding(.bottom, 4)
                     form
                     if WatchEdit.warnAlarms(current: current, target: target, alarmCount: alarmCount) {
-                        Label(L("watch_edit_alarms_warning"), systemImage: "bell")
+                        Label(L("watch_edit_alarms_warning"), systemImage: "bell.and.waves.left.and.right")
                             .font(.subheadline)
                             .foregroundStyle(AppColors.onSurface)
                             .fixedSize(horizontal: false, vertical: true)

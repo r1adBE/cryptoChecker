@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Velg</string>
+    <string name="watchlist_select_all">Velg alle</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d valgt</item>
+        <item quantity="other">%1$d valgt</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d par fjernet</item>
+        <item quantity="other">%1$d par fjernet</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Vis bare utdaterte</string>
+    <string name="watchlist_show_all">Vis alle</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Navn</string>
+    <string name="watchlist_sort_price">Kurs</string>
+    <string name="watchlist_sort_descending">synkende</string>
+    <string name="watchlist_sort_ascending">stigende</string>
+    <string name="watchlist_sort_own">Egen rekkefølge</string>
+</resources>

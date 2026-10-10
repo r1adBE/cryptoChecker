@@ -502,3 +502,45 @@ struct ExplorerLogBox: View {
         }
     }
 }
+
+/// Zwei Register über der Paar-Auswahl: «Paar wählen» | «Mehrere Paare auf einmal». Beide gleich
+/// breit und gleich hoch (der längere Text darf umbrechen, das andere Register wächst mit).
+/// Gewählt: graue Fläche mit Schrift in der Themenfarbe, wie die Gruppen-Chips.
+/// Wie `ExplorerModeTabs` (Android).
+struct ExplorerModeTabs: View {
+    let bulk: Bool
+    let onSelect: (Bool) -> Void
+    @Environment(\.appAccent) private var accent
+
+    var body: some View {
+        HStack(spacing: 4) {
+            tab(L("explorer_step_pair"), isBulk: false)
+            tab(L("explorer_bulk_title"), isBulk: true)
+        }
+        // Gleich hoch: beide füllen die Höhe des höheren Registers
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(4)
+        .background(AppColors.container, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .padding(.bottom, 12)
+    }
+
+    private func tab(_ title: String, isBulk: Bool) -> some View {
+        let selected = bulk == isBulk
+        return Button { onSelect(isBulk) } label: {
+            Text(title)
+                .font(.subheadline.weight(selected ? .semibold : .regular))
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .foregroundStyle(selected ? accent.onContainer : AppColors.onSurfaceVariant)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(minHeight: 44)
+                .background(selected ? accent.container : Color.clear,
+                            in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? [.isSelected] : [])
+    }
+}

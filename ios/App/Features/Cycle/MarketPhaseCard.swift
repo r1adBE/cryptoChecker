@@ -117,15 +117,8 @@ struct MarketPhaseRow: View {
         Button {
             withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) { showDetails.toggle() }
         } label: {
-            HStack(spacing: 4) {
-                Text(L(showDetails ? "market_hide_indicators" : "market_show_indicators"))
-                Image(systemName: showDetails ? "chevron.up" : "chevron.down")
-                    .font(.caption.weight(.semibold))
-            }
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(accent.primary)
-            .padding(.vertical, 8)
-            .contentShape(Rectangle())
+            ExpandToggleLabel(title: L(showDetails ? "market_hide_indicators" : "market_show_indicators"),
+                              expanded: showDetails)
         }
         .buttonStyle(.plain)
         .padding(.top, Spacing.xs)

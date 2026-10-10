@@ -9,8 +9,8 @@ import Foundation
 /// (`fundingHysteresis` bzw. `oiHysteresis` Prozentpunkte). Abklingzeit und «einmalig» wie sonst.
 ///
 /// Open Interest: Verlauf in Coins je Paar, `oiRetentionMillis` lang; verglichen wird mit der
-/// jüngsten Messung, die mindestens N Stunden alt ist (höchstens `oiMaxAgeMillis`). Fehlt sie,
-/// meldet der Alarm nicht.
+/// jüngsten Messung, die mindestens N Stunden alt ist (höchstens `oiMaxAgeMillis`), sonst mit der
+/// ältesten der letzten N Stunden (`oiChangePercent`). Ohne Vergleichsmessung meldet der Alarm nicht.
 enum DerivativesAlarm {
 
     /// Funding: Wiederscharfstellung 0,005 Prozentpunkte jenseits der Schwelle.
@@ -161,15 +161,21 @@ enum DerivativesAlarm {
     }
 
     /// Veränderung des Open Interest in % gegenüber der jüngsten Messung, die mindestens `hours`
-    /// Stunden alt ist (und höchstens `oiMaxAgeMillis`); nil ohne solche Messung oder ohne
-    /// gültigen aktuellen Wert.
+    /// Stunden alt ist (und höchstens `oiMaxAgeMillis`). Fehlt sie, zählt die älteste Messung
+    /// innerhalb der letzten `hours` Stunden (eine Veränderung in kürzerer Zeit ist auch «in N
+    /// Stunden») — sonst meldete ein 1-Stunden-Alarm bei einer Hintergrund-Aktualisierung im
+    /// Stundentakt nie. nil ohne Vergleichsmessung oder ohne gültigen aktuellen Wert.
     static func oiChangePercent(history: [OiPoint], currentUnits: Double?, hours: Int, now: Int64) -> Double? {
         guard let current = currentUnits, current.isFinite, current > 0 else { return nil }
         let window = Int64(max(hours, 1)) * hourMillis
         let maxAge = oiMaxAgeMillis(hours)
-        let past = history
-            .filter { $0.units.isFinite && $0.units > 0 && now - $0.time >= window && now - $0.time <= maxAge }
+        let valid = history.filter { $0.units.isFinite && $0.units > 0 }
+        let past = valid
+            .filter { now - $0.time >= window && now - $0.time <= maxAge }
             .max { $0.time < $1.time }
+            ?? valid
+            .filter { now - $0.time >= 1 && now - $0.time < window }
+            .min { $0.time < $1.time }
         guard let past else { return nil }
         return (current / past.units - 1) * 100
     }

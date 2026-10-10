@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.HistoricFx
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -40,6 +42,7 @@ class PortfolioExportViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val repository: PortfolioRepository,
     private val historic: HistoricPriceSource,
+    private val priceSource: PortfolioPriceSource,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CutoffExportState>(CutoffExportState.Idle)
@@ -74,10 +77,17 @@ class PortfolioExportViewModel @Inject constructor(
         val trades = repository.getTransactions().map { it.toTrade() }
         val cutoff = CutoffExport.endOfDayMillis(date, ZoneId.systemDefault())
         val holdings = CutoffExport.holdingsAt(trades, cutoff)
-        val prices = historic.dailyClosesUsdt(
-            holdings.map { it.coin }.filterNot { CutoffExport.isStable(it) },
-            date,
-        )
+        // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs, gilt 1)
+        val coins = holdings.map { it.coin }.filter { PortfolioStables.needsQuote(it) }
+        // Aktuelle Kurse als Bezug der Plausibilitätsprüfung (Ausweich-Quellen); ohne sie ungeprüft
+        val current = try {
+            if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).prices
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            emptyMap()
+        }
+        val prices = historic.dailyClosesUsdt(coins, date, current)
         val fx: HistoricFx? = if (holdings.isEmpty() && currency != "USD") null else historic.usdTo(currency, date)
         val rows = CutoffExport.rows(holdings, prices, fx?.rate)
         return CutoffExport.csv(date, currency, fx?.date, rows, texts)

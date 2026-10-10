@@ -1,0 +1,117 @@
+{
+  "exchange": "Bitfinex",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api-pub.bitfinex.com/v2/ticker/tBTCUSD",
+    "bulk": "GET https://api-pub.bitfinex.com/v2/tickers?symbols=ALL|tBTCUSD,..."
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker tBTCUSD (array; DAILY_CHANGE_RELATIVE fraction)",
+      "market": "Bitfinex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "tBTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[62000,10.51,62000.1,8.23,1500.1,0.0248,62000.1,1234.567,62500,60000]",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 1234.567,
+        "volQuote": -1.0,
+        "change24hPercent": 2.48
+      }
+    },
+    {
+      "kind": "single",
+      "name": "tiny price in scientific notation (tSHIB:USD)",
+      "market": "Bitfinex",
+      "pair": {
+        "base": "SHIB",
+        "quote": "USD",
+        "id": "tSHIB:USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[1.767e-05,12345678,1.769e-05,2345678,-3.2e-07,-0.0178,1.768e-05,98765432101.2,1.812e-05,1.755e-05]",
+      "expect": {
+        "last": 1.768e-05,
+        "bid": 1.767e-05,
+        "ask": 1.769e-05,
+        "high": 1.812e-05,
+        "low": 1.755e-05,
+        "vol": 98765432101.2,
+        "change24hPercent": -1.78
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error array",
+      "market": "Bitfinex",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "tFOOUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[\"error\",10020,\"symbol: invalid\"]",
+      "expect": {
+        "error": true,
+        "message": "symbol: invalid",
+        "thrown": "symbol: invalid"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty array",
+      "market": "Bitfinex",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "tFOOUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[]",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk tickers: funding entries (f...) skipped",
+      "market": "Bitfinex",
+      "requestId": 0,
+      "body": "[[\"tBTCUSD\",62000,10.51,62000.1,8.23,1500.1,0.0248,62000.1,1234.567,62500,60000], [\"fUSD\",0.0001,0.00009,2,1234.5,0.0001,2,345.6,0.00001,0.05,0.0001,1234567,0.0002,0.00005,null,null,1234.5], [\"tETHUSD\",2450,50.1,2450.1,40.2,-12.3,-0.005,2450.12,34567.8,2490,2430], [\"tTESTBTC:TESTUSD\",null]]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "fUSD",
+          "tTESTBTC:TESTUSD"
+        ],
+        "tickers": {
+          "tBTCUSD": {
+            "last": 62000.1,
+            "bid": 62000.0,
+            "ask": 62000.1,
+            "change24hPercent": 2.48
+          },
+          "tETHUSD": {
+            "last": 2450.12,
+            "vol": 34567.8,
+            "change24hPercent": -0.5
+          }
+        }
+      }
+    }
+  ]
+}

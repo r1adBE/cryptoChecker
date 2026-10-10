@@ -441,14 +441,21 @@ class PriceRefresher @Inject constructor(
             val price = ticker?.last ?: 0.0
 
             if (ticker == null || result.error != null ||
-                price <= Ticker.NO_DATA.toDouble() || price <= 0.0
+                // NaN/∞ aus einer Antwort nie als Kurs übernehmen (∞ löste sonst «über» aus)
+                !price.isFinite() || price <= Ticker.NO_DATA.toDouble() || price <= 0.0
             ) {
                 errorWrites += ErrorWrite(watch.id, result?.error, now)
                 continue
             }
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
-            val dayChange = if (live) ticker.change24hPercent else dayReferences.change24h(watch, price, ticker, settings.changeBasis, dayStart)
+            val dayChange = if (live) {
+                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis
+                dayReferences.notePillSource(watch.id, null)
+                ticker.change24hPercent
+            } else {
+                dayReferences.change24h(watch, price, ticker, settings.changeBasis, dayStart)
+            }
             priceWrites += PriceWrite(watch.id, price, time, dayChange)
             // Entspricht dem, was das UPDATE in der Datenbank setzt.
             updatedWatches += watch.copy(
@@ -481,10 +488,18 @@ class PriceRefresher @Inject constructor(
 
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
-            val triggered = effects.checkAlarms(
-                watch, price, watch.previousPrice,
-                alarmsByWatch[watch.id].orEmpty(), settings, now, live,
-            )
+            // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
+            val triggered = try {
+                effects.checkAlarms(
+                    watch, price, watch.previousPrice,
+                    alarmsByWatch[watch.id].orEmpty(), settings, now, live,
+                )
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Alarme für %s nicht geprüft", watch.displayName)
+                0
+            }
             alarms += triggered
 
             if (effects.updateNotification(watch, settings, shownNotifications)) notifiedPrices += watch.id to price

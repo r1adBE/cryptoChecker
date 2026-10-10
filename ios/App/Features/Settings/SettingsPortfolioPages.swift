@@ -39,6 +39,17 @@ struct PortfolioSettingsPage: View {
                     )
                     .settingsAnchor("portfolio.hide")
                 }
+                RowDivider()
+                // Immer sichtbar: Die Daten bleiben auch bei ausgeblendetem Portfolio gespeichert
+                SwitchRow(
+                    title: L("settings_portfolio_system_backup"),
+                    subtitle: L("settings_portfolio_system_backup_hint"),
+                    isOn: Binding(
+                        get: { data.settings.portfolioSystemBackup },
+                        set: { on in setPortfolioSystemBackup(on) }
+                    )
+                )
+                .settingsAnchor("portfolio.system_backup")
             }
             // Ehrlich: Die Sperre schützt die Anzeige; die Daten schützt die Geräteverschlüsselung
             if PortfolioLockPolicy.showSetting(portfolioEnabled: data.settings.portfolioEnabled) {
@@ -47,6 +58,17 @@ struct PortfolioSettingsPage: View {
             }
         }
         .toast($toast)
+    }
+
+    /// «Portfolio in Systemsicherung»: Einschalten verlangt Entsperren, solange das Portfolio gesperrt ist
+    /// (sonst gelangten die Trades über das Geräte-Backup an der Sperre vorbei); Ausschalten geht immer.
+    private func setPortfolioSystemBackup(_ on: Bool) {
+        Task {
+            let open = await AppLock.shared.requireUnlock { locked in
+                PortfolioLockPolicy.systemBackupNeedsUnlock(locked: locked, enabling: on)
+            }
+            if open { data.settings.portfolioSystemBackup = on }
+        }
     }
 
     /// Einschalten erst nach einmaligem Entsperren; ohne Displaysperre bleibt es aus.

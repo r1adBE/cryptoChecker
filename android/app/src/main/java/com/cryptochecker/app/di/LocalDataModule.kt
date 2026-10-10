@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.local.MarketDao
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDao
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +32,20 @@ object LocalDataModule {
             .build()
     }
 
+    /**
+     * Portfolio in eigener Datei (Systemsicherung nur mit Erlaubnis, siehe PortfolioBackupMirror).
+     * Der Callback übernimmt beim Öffnen einmalig den Altbestand aus [AppDatabase].
+     */
+    @Provides
+    @Singleton
+    fun providePortfolioDatabase(
+        @ApplicationContext context: Context,
+        appDatabase: AppDatabase,
+    ): PortfolioDatabase =
+        Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
+            .addCallback(PortfolioDatabase.callback(context, appDatabase))
+            .build()
+
     @Provides
     fun provideMarketDao(database: AppDatabase): MarketDao = database.getMarketDao()
 
@@ -38,8 +53,8 @@ object LocalDataModule {
     fun provideWatchDao(database: AppDatabase): WatchDao = database.getWatchDao()
 
     @Provides
-    fun providePortfolioDao(database: AppDatabase): PortfolioDao = database.getPortfolioDao()
+    fun providePortfolioDao(database: PortfolioDatabase): PortfolioDao = database.getPortfolioDao()
 
     @Provides
-    fun providePortfolioAlarmDao(database: AppDatabase): PortfolioAlarmDao = database.getPortfolioAlarmDao()
+    fun providePortfolioAlarmDao(database: PortfolioDatabase): PortfolioAlarmDao = database.getPortfolioAlarmDao()
 }

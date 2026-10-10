@@ -1,0 +1,92 @@
+{
+  "exchange": "KuCoin",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.kucoin.com/api/v1/market/stats?symbol=BTC-USDT",
+    "bulk": "GET https://api.kucoin.com/api/v1/market/allTickers"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "market stats BTC-USDT",
+      "market": "Kucoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000123,\"symbol\":\"BTC-USDT\",\"buy\":\"62000\",\"sell\":\"62000.1\", \"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\", \"last\":\"62000.1\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\", \"makerCoefficient\":\"1\"}}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.52,
+        "volQuote": 744460123.45,
+        "change24hPercent": 2.48,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown symbol: data with null values -> no price",
+      "market": "Kucoin",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000123,\"symbol\":\"FOO-USDT\",\"buy\":null,\"sell\":null,\"changeRate\":null, \"changePrice\":null,\"high\":null,\"low\":null,\"vol\":null,\"volValue\":null,\"last\":null,\"averagePrice\":null, \"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\"}}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload without data",
+      "market": "Kucoin",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"400100\",\"msg\":\"This pair is not provided at present\"}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk allTickers: entry with null last is kept with NO_DATA",
+      "market": "Kucoin",
+      "requestId": 0,
+      "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000999,\"ticker\":[ {\"symbol\":\"BTC-USDT\",\"symbolName\":\"BTC-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"last\":\"62000.1\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\"}, {\"symbol\":\"NEW-USDT\",\"symbolName\":\"NEW-USDT\",\"buy\":null,\"bestBidSize\":null,\"sell\":null,\"bestAskSize\":null,\"changeRate\":null,\"changePrice\":null,\"high\":null,\"low\":null,\"vol\":\"0\",\"volValue\":\"0\",\"last\":null,\"averagePrice\":null,\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\"} ]}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-USDT": {
+            "last": 62000.1,
+            "change24hPercent": 2.48,
+            "timestamp": 1728540000999
+          },
+          "NEW-USDT": {
+            "last": -1.0,
+            "bid": -1.0,
+            "vol": 0.0,
+            "change24hPercent": null,
+            "timestamp": 1728540000999
+          }
+        }
+      }
+    }
+  ]
+}

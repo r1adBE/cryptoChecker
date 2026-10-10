@@ -1,0 +1,111 @@
+{
+  "exchange": "Hyperliquid",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single+bulk": "POST https://api.hyperliquid.xyz/info {\"type\":\"metaAndAssetCtxs\"}"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "metaAndAssetCtxs: BTC uses midPx and prevDayPx",
+      "market": "Hyperliquid",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDC",
+        "id": "BTC",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56}, {\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55}, {\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true}, {\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]}, [{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\", \"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}, {\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\", \"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"}, {\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"}, {\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\", \"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"}]]",
+      "expect": {
+        "last": 62000.5,
+        "vol": 20000.1,
+        "volQuote": 1234567890.12,
+        "bid": -1.0,
+        "ask": -1.0,
+        "change24hPercent": 2.4801652892561985
+      }
+    },
+    {
+      "kind": "single",
+      "name": "midPx null -> markPx",
+      "market": "Hyperliquid",
+      "pair": {
+        "base": "ETH",
+        "quote": "USDC",
+        "id": "ETH",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56}, {\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55}, {\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true}, {\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]}, [{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\", \"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}, {\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\", \"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"}, {\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"}, {\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\", \"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"}]]",
+      "expect": {
+        "last": 2450.2,
+        "vol": 403000.5,
+        "change24hPercent": -0.49545159194283106
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown coin: error text is the start of the body",
+      "market": "Hyperliquid",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDC",
+        "id": "FOO",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56}, {\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55}, {\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true}, {\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]}, [{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\", \"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}, {\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\", \"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"}, {\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"}, {\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\", \"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"}]]",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "Unknown coin: FOO",
+        "messageBodyPrefix": 200
+      }
+    },
+    {
+      "kind": "single",
+      "name": "delisted coin is not offered",
+      "market": "Hyperliquid",
+      "pair": {
+        "base": "OLD",
+        "quote": "USDC",
+        "id": "OLD",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56}, {\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55}, {\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true}, {\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]}, [{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\", \"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}, {\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\", \"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"}, {\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"}, {\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\", \"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"}]]",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "Unknown coin: OLD",
+        "messageBodyPrefix": 200
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: same request, delisted skipped",
+      "market": "Hyperliquid",
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56}, {\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55}, {\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true}, {\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]}, [{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\", \"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}, {\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\", \"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"}, {\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"}, {\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\", \"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"}]]",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "OLD"
+        ],
+        "tickers": {
+          "BTC": {
+            "last": 62000.5
+          },
+          "ETH": {
+            "last": 2450.2
+          },
+          "kPEPE": {
+            "last": 0.0091205,
+            "change24hPercent": -3.292333792810943
+          }
+        }
+      }
+    }
+  ]
+}

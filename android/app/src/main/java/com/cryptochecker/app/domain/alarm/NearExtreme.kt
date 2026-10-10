@@ -12,7 +12,8 @@ import kotlin.math.max
  *  - `threshold` = Abstand in Prozent (Standard 2 %)
  *  - `windowHours` = Zeitraum in TAGEN (30, 90, 365; alles andere gilt als 30)
  *  - `referenceAt` = 0 → scharf; > 0 → schon gemeldet (Zeitpunkt), wartet auf Wiederscharfstellung
- *  - `referencePrice` = zuletzt gemeldete Marke (Hoch/Tief bzw. Kurs beim neuen Hoch/Tief)
+ *  - `referencePrice` = zuletzt gemeldete Marke (Hoch/Tief bzw. Kurs beim neuen Hoch/Tief); bleibt
+ *    beim Wiederscharfstellen erhalten, siehe [reportedMark]
  *
  * Wiederscharfstellung: Wer gemeldet hat, meldet erst wieder, wenn sich der Kurs
  * deutlich aus der Zone entfernt hat ([rearmDistance]) — oder bei einem weiteren,
@@ -79,7 +80,7 @@ object NearExtreme {
         /** Nichts tun. */
         data object None : Decision
 
-        /** Alarm wieder scharf stellen (referenceAt = 0, referencePrice = null). */
+        /** Alarm wieder scharf stellen (referenceAt = 0; die gemeldete Marke in referencePrice bleibt). */
         data object Rearm : Decision
 
         /**
@@ -108,8 +109,22 @@ object NearExtreme {
     fun rearmDistance(thresholdPercent: Double): Double = thresholdPercent + max(thresholdPercent * 0.5, 0.5)
 
     /**
+     * Gemeldete Marke, die noch zählt: [lastLevel] (referencePrice), solange die letzte Meldung
+     * ([lastTriggeredAt]) jünger als der Zeitraum ([windowDays]) ist — sonst null. Hoch/Tief kommen
+     * nur aus ABGESCHLOSSENEN Tageskerzen (6 h zwischengespeichert): Ohne die Marke meldete ein
+     * wieder scharfer «Neues Hoch»-Alarm denselben Tag nochmals, sobald der Kurs wieder über das
+     * alte Hoch steigt (101k gemeldet, 99,4k scharf, 100,1k erneut «neu»).
+     */
+    fun reportedMark(lastLevel: Double?, lastTriggeredAt: Long, windowDays: Int, now: Long): Double? {
+        val level = lastLevel?.takeIf { it.isFinite() && it > 0.0 } ?: return null
+        if (lastTriggeredAt <= 0L) return null
+        val age = now - lastTriggeredAt
+        return if (age < windowDays(windowDays) * DAY_MILLIS) level else null
+    }
+
+    /**
      * @param armed true, wenn noch nicht gemeldet (referenceAt == 0)
-     * @param lastLevel zuletzt gemeldete Marke (referencePrice), null = keine
+     * @param lastLevel zuletzt gemeldete Marke, die noch zählt ([reportedMark]), null = keine
      * @param inCooldown true, solange die allgemeine Pause zwischen Alarmen läuft
      * @param lastTriggeredAt letzte Meldung dieses Alarms (Epoch-ms, 0 = nie)
      * @param now jetzt (Epoch-ms)
@@ -135,11 +150,13 @@ object NearExtreme {
         val distance = kotlin.math.abs(price - extreme) / extreme * 100.0
 
         if (beyond) {
-            // Neues Hoch/Tief: scharf — oder deutlich weiter als die zuletzt gemeldete Marke
-            // (max(Schwelle/2, 0,5 %)) UND frühestens 1 h nach der letzten Meldung, damit eine
-            // Rally nicht bei jeder Aktualisierung meldet.
+            // Neues Hoch/Tief: scharf (und jenseits der gemeldeten Marke: «neu» heisst über
+            // max(Hoch des Zeitraums, gemeldete Marke)) — oder deutlich weiter als die zuletzt
+            // gemeldete Marke (max(Schwelle/2, 0,5 %)) UND frühestens 1 h nach der letzten Meldung,
+            // damit eine Rally nicht bei jeder Aktualisierung meldet.
             val further = when {
-                armed || lastLevel == null || lastLevel <= 0.0 -> true
+                lastLevel == null || lastLevel <= 0.0 -> true
+                armed -> if (side == Side.HIGH) price > lastLevel else price < lastLevel
                 lastTriggeredAt > 0 && now - lastTriggeredAt in 0 until FURTHER_EXTREME_MIN_MILLIS -> false
                 side == Side.HIGH -> (price - lastLevel) / lastLevel * 100.0 >= furtherStepPercent(thresholdPercent)
                 else -> (lastLevel - price) / lastLevel * 100.0 >= furtherStepPercent(thresholdPercent)

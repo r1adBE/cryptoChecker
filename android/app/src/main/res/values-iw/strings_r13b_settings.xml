@@ -8,7 +8,6 @@
     </plurals>
     <string name="settings_summary_on">פועל</string>
 
-    <string name="alarm_first_text_checked">Crypto Checker עוקב עכשיו בשבילכם אחרי %1$s. כש-%1$s יגיע לגבול שלכם, תקבלו התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, זה קורה במרווח של העדכון ברקע – מאוחר יותר אם מיטוב הסוללה מגביל את האפליקציה.</string>
     <string name="alarm_first_text_ios" tools:ignore="UnusedResources">Crypto Checker עוקב עכשיו בשבילכם אחרי %1$s. תקבלו התראה ברגע שהאפליקציה תבדוק את המחיר. כשהאפליקציה סגורה, iOS מחליט מתי זה קורה – זה עלול לקחת זמן. כשהאפליקציה פתוחה, המחירים נבדקים בזמן.</string>
 
     <string name="about_request_exchange">בקשת בורסה</string>

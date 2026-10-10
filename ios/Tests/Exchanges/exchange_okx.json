@@ -1,0 +1,307 @@
+{
+  "exchange": "OKX / OKX Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT",
+    "bulk": "GET https://www.okx.com/api/v5/market/tickers?instType=SPOT|SWAP",
+    "ws": "wss://ws.okx.com:8443/ws/v5/public  channel tickers"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot ticker: open24h used, sodUtc0/sodUtc8 ignored",
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.1,
+        "ask": 62000.2,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 12100.523,
+        "volQuote": 750123456.789,
+        "change24hPercent": 2.4795041322314026,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot ticker without open24h: no fallback to sodUtc0",
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "expect": {
+        "last": 62000.1,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "swap ticker",
+      "market": "OkexFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT-SWAP",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SWAP\",\"instId\":\"BTC-USDT-SWAP\",\"last\":\"61990.2\",\"lastSz\":\"3\",\"askPx\":\"61990.3\",\"askSz\":\"120\", \"bidPx\":\"61990.2\",\"bidSz\":\"80\",\"open24h\":\"60510\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"volCcy24h\":\"215432.12\", \"vol24h\":\"21543212\",\"ts\":\"1728540000456\",\"sodUtc0\":\"61500\",\"sodUtc8\":\"61200\"}]}",
+      "expect": {
+        "last": 61990.2,
+        "bid": 61990.2,
+        "ask": 61990.3,
+        "high": 62480.0,
+        "low": 59980.1,
+        "vol": 215432.12,
+        "volQuote": -1.0,
+        "change24hPercent": 2.446207238472975,
+        "timestamp": 1728540000456
+      },
+      "note": "for SWAP, vol24h counts contracts and volCcy24h is the base-coin amount (vol); OKX has no quote volume for swaps (not estimated)"
+    },
+    {
+      "kind": "single",
+      "name": "spot error: instrument does not exist",
+      "market": "Okex",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"51001\",\"msg\":\"Instrument ID does not exist\",\"data\":[]}",
+      "expect": {
+        "error": true,
+        "message": "Instrument ID does not exist"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "swap error: message from the thrown exception (no error property)",
+      "market": "OkexFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT-SWAP",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"51001\",\"msg\":\"Instrument ID does not exist\",\"data\":[]}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "Instrument ID does not exist"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "illiquid pair with empty bidPx/askPx still has a last price",
+      "market": "Okex",
+      "pair": {
+        "base": "NEW",
+        "quote": "USDT",
+        "id": "NEW-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"NEW-USDT\",\"last\":\"0.0123\",\"lastSz\":\"100\",\"askPx\":\"\", \"askSz\":\"\",\"bidPx\":\"\",\"bidSz\":\"\",\"open24h\":\"0.0120\",\"high24h\":\"0.0125\",\"low24h\":\"0.0119\",\"volCcy24h\":\"1234.5\", \"vol24h\":\"100370.7\",\"ts\":\"1728540000123\",\"sodUtc0\":\"0.0121\",\"sodUtc8\":\"0.0122\"}]}",
+      "expect": {
+        "last": 0.0123,
+        "bid": -1.0,
+        "ask": -1.0,
+        "change24hPercent": 2.4999999999999996
+      },
+      "note": "OKX sends \"\" for bidPx/askPx without orders: no bid/ask, the quote itself stays valid"
+    },
+    {
+      "kind": "single",
+      "name": "ts \"NaN\": no crash, ticker still valid",
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"NaN\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.1
+      },
+      "note": "getLong(\"NaN\") = 0 on Android (then: now); iOS Int64(.nan) used to trap"
+    },
+    {
+      "kind": "single",
+      "name": "ts \"1e20\": clamped, no crash",
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1e20\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "expect": {
+        "last": 62000.1
+      },
+      "note": "getLong(\"1e20\") clamps to Long.MAX on Android; iOS Int64(1e20) used to trap"
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk spot (instType=SPOT)",
+      "market": "Okex",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"},{\"instType\":\"SPOT\",\"instId\":\"ETH-BTC\",\"last\":\"0.0396\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"0.0397\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-USDT": {
+            "last": 62000.1,
+            "change24hPercent": 2.4795041322314026,
+            "timestamp": 1728540000123
+          },
+          "ETH-BTC": {
+            "last": 0.0396,
+            "change24hPercent": -0.2518891687657328
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk swap (instType=SWAP)",
+      "market": "OkexFutures",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SWAP\",\"instId\":\"BTC-USDT-SWAP\",\"last\":\"61990.2\",\"lastSz\":\"3\",\"askPx\":\"61990.3\",\"askSz\":\"120\", \"bidPx\":\"61990.2\",\"bidSz\":\"80\",\"open24h\":\"60510\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"volCcy24h\":\"215432.12\", \"vol24h\":\"21543212\",\"ts\":\"1728540000456\",\"sodUtc0\":\"61500\",\"sodUtc8\":\"61200\"}]}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTC-USDT-SWAP": {
+            "last": 61990.2,
+            "vol": 215432.12,
+            "volQuote": -1.0,
+            "timestamp": 1728540000456
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: one entry with empty bidPx should not drop every other ticker",
+      "market": "Okex",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"},{\"instType\":\"SPOT\",\"instId\":\"NEW-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-USDT": {
+            "last": 62000.1
+          },
+          "NEW-USDT": {
+            "last": 62000.1,
+            "bid": -1.0,
+            "ask": 62000.2
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: one unreadable entry (no last) is skipped, the rest stays",
+      "market": "OkexFutures",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SWAP\",\"instId\":\"BTC-USDT-SWAP\",\"last\":\"61990.2\",\"lastSz\":\"3\",\"askPx\":\"61990.3\",\"askSz\":\"120\", \"bidPx\":\"61990.2\",\"bidSz\":\"80\",\"open24h\":\"60510\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"volCcy24h\":\"215432.12\", \"vol24h\":\"21543212\",\"ts\":\"1728540000456\",\"sodUtc0\":\"61500\",\"sodUtc8\":\"61200\"},{\"instType\":\"SWAP\",\"instId\":\"NEW-USDT-SWAP\",\"last\":\"\",\"lastSz\":\"3\",\"askPx\":\"61990.3\",\"askSz\":\"120\", \"bidPx\":\"61990.2\",\"bidSz\":\"80\",\"open24h\":\"60510\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"volCcy24h\":\"215432.12\", \"vol24h\":\"21543212\",\"ts\":\"1728540000456\",\"sodUtc0\":\"61500\",\"sodUtc8\":\"61200\"}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "NEW-USDT-SWAP"
+        ],
+        "tickers": {
+          "BTC-USDT-SWAP": {
+            "last": 61990.2
+          }
+        }
+      }
+    },
+    {
+      "kind": "live",
+      "name": "ws tickers push: open24h used, sodUtc ignored",
+      "exchange": "OKX",
+      "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1728540000123\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "ticks": [
+        {
+          "symbol": "BTC-USDT",
+          "price": 62000.1,
+          "change24h": 2.4795041322314026,
+          "time": 1728540000123
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws swap push",
+      "exchange": "OKX_SWAP",
+      "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT-SWAP\"},\"data\":[{\"instType\":\"SWAP\",\"instId\":\"BTC-USDT-SWAP\",\"last\":\"61990.2\",\"lastSz\":\"3\",\"askPx\":\"61990.3\",\"askSz\":\"120\", \"bidPx\":\"61990.2\",\"bidSz\":\"80\",\"open24h\":\"60510\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"volCcy24h\":\"215432.12\", \"vol24h\":\"21543212\",\"ts\":\"1728540000456\",\"sodUtc0\":\"61500\",\"sodUtc8\":\"61200\"}]}",
+      "ticks": [
+        {
+          "symbol": "BTC-USDT-SWAP",
+          "price": 61990.2,
+          "change24h": 2.446207238472975,
+          "time": 1728540000456
+        }
+      ]
+    },
+    {
+      "kind": "live",
+      "name": "ws ts \"NaN\" and huge ts: no time / clamped, no crash",
+      "exchange": "OKX",
+      "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"NaN\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"},{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1e30\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
+      "ticks": [
+        {
+          "symbol": "BTC-USDT",
+          "price": 62000.1,
+          "change24h": 2.4795041322314026,
+          "time": null
+        },
+        {
+          "symbol": "BTC-USDT",
+          "price": 62000.1,
+          "change24h": 2.4795041322314026,
+          "time": 9223372036854775807
+        }
+      ],
+      "note": "Kotlin toLong() clamps to Long.MAX; iOS Int64(1e30) used to trap"
+    },
+    {
+      "kind": "live",
+      "name": "ws subscribe event",
+      "exchange": "OKX",
+      "message": "{\"event\":\"subscribe\",\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"connId\":\"a4d3ae55\"}",
+      "ticks": []
+    },
+    {
+      "kind": "live",
+      "name": "ws error event",
+      "exchange": "OKX",
+      "message": "{\"event\":\"error\",\"code\":\"60018\",\"msg\":\"Wrong URL or channel:tickers,instId:FOO-USDT doesn't exist.\",\"connId\":\"a4d3ae55\"}",
+      "ticks": []
+    }
+  ]
+}

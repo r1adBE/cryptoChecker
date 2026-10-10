@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">Ami most feltűnő</string>
-    <string name="pulse_why_action">Miért? →</string>
+    <string name="pulse_why_action">Miért?</string>
     <string name="pulse_section_factors">Tényezők</string>
 
     <string name="pulse_lead_btc_leads">A Bitcoin vezeti a piacot.</string>

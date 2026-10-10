@@ -16,7 +16,7 @@
     <string name="settings_tradfi_futures">Akcie, komodity a měny (TradFi)</string>
     <string name="settings_tradfi_futures_hint">Při výběru páru zobrazí i futures na akcie, zlato a další komodity, měny a firmy před vstupem na burzu. Jsou to kontrakty, ne tokeny.</string>
     <string name="settings_watchlist_activity_card">Neobvyklá aktivita v seznamu</string>
-    <string name="settings_watchlist_activity_card_hint">Zobrazí kartu „Právě se něco děje“ nad páry. Upozornění nastavíte v sekci „Tržní upozornění“.</string>
+    <string name="settings_watchlist_activity_card_hint">Zobrazí čip ⚡ u skupin: klepnutím uvidíte jen páry, u kterých se právě něco děje. Upozornění nastavíte v sekci „Tržní upozornění“.</string>
     <string name="settings_row_about">O aplikaci</string>
     <string name="price_colors_green_up">Zelená roste / červená klesá</string>
     <string name="price_colors_red_up">Červená roste / zelená klesá</string>

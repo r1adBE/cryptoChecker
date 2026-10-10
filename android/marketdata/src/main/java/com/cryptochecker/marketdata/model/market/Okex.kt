@@ -7,6 +7,7 @@ import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
+import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONObject
 
 class Okex : SimpleMarket(
@@ -47,8 +48,9 @@ class Okex : SimpleMarket(
     /** Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur. */
     @Throws(Exception::class)
     private fun readTicker(json: JSONObject, ticker: Ticker) {
-        ticker.bid = json.getDouble("bidPx")
-        ticker.ask = json.getDouble("askPx")
+        // Ohne Orders im Buch sendet OKX "" für bidPx/askPx: dann kein Geld-/Briefkurs statt Fehler
+        ticker.bid = json.optDoubleNoData("bidPx")
+        ticker.ask = json.optDoubleNoData("askPx")
 
         ticker.vol = json.getDouble("vol24h")
         ticker.volQuote = json.getDouble("volCcy24h")
@@ -80,8 +82,9 @@ class Okex : SimpleMarket(
             .forEachJSONObject { entry ->
                 val instId = entry.optString("instId").ifEmpty { return@forEachJSONObject }
 
+                // Ein unlesbarer Eintrag lässt nur dieses Paar aus, nicht die ganze Abfrage
                 val ticker = SimpleTicker()
-                readTicker(entry, ticker)
+                runCatching { readTicker(entry, ticker) }.onFailure { return@forEachJSONObject }
                 tickers[instId] = ticker
             }
     }

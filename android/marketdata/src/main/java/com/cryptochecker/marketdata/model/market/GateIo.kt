@@ -8,6 +8,7 @@ import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
+import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -43,8 +44,9 @@ class GateIo : SimpleMarket(
     /** Einzelabruf und Massenabfrage liefern je Paar dieselbe Struktur. */
     @Throws(Exception::class)
     private fun readTicker(json: JSONObject, ticker: Ticker) {
-        ticker.bid = json.getDouble("highest_bid")
-        ticker.ask = json.getDouble("lowest_ask")
+        // Ohne Orderbuch sendet Gate "" für highest_bid/lowest_ask: dann kein Geld-/Briefkurs statt Fehler
+        ticker.bid = json.optDoubleNoData("highest_bid")
+        ticker.ask = json.optDoubleNoData("lowest_ask")
 
         ticker.vol = json.getDouble("base_volume")
         ticker.volQuote = json.getDouble("quote_volume")
@@ -72,8 +74,9 @@ class GateIo : SimpleMarket(
         JSONArray(responseString).forEachJSONObject { entry ->
             val pairId = entry.optString("currency_pair").ifEmpty { return@forEachJSONObject }
 
+            // Ein unlesbarer Eintrag lässt nur dieses Paar aus, nicht die ganze Abfrage
             val ticker = SimpleTicker()
-            readTicker(entry, ticker)
+            runCatching { readTicker(entry, ticker) }.onFailure { return@forEachJSONObject }
             tickers[pairId] = ticker
         }
     }

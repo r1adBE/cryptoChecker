@@ -1,0 +1,66 @@
+{
+  "exchange": "ZebPay",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://sapi.zebpay.com/api/v2/market/ticker?symbol=BTC-INR",
+    "bulk": "GET https://sapi.zebpay.com/api/v2/market/allTickers"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker BTC-INR",
+      "market": "ZebPay",
+      "pair": {
+        "base": "BTC",
+        "quote": "INR",
+        "id": "BTC-INR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"statusCode\":200,\"statusDescription\":\"Success\",\"data\":{\"symbol\":\"BTC-INR\",\"bid\":\"5300000\",\"ask\":\"5310000\",\"last\":\"5305000\",\"high\":\"5350000\",\"low\":\"5200000\", \"baseVolume\":\"12.345\",\"quoteVolume\":\"65432100.5\",\"timestamp\":1728540000123,\"percentage\":\"1.2\"}}",
+      "expect": {
+        "last": 5305000.0,
+        "bid": 5300000.0,
+        "ask": 5310000.0,
+        "high": 5350000.0,
+        "low": 5200000.0,
+        "vol": 12.345,
+        "volQuote": 65432100.5,
+        "change24hPercent": null,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "ZebPay",
+      "pair": {
+        "base": "FOO",
+        "quote": "INR",
+        "id": "FOO-INR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"statusCode\":400,\"statusDescription\":\"Bad Request\",\"message\":\"Invalid symbol\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk allTickers",
+      "market": "ZebPay",
+      "requestId": 0,
+      "body": "{\"statusCode\":200,\"data\":[{\"symbol\":\"BTC-INR\",\"bid\":\"5300000\",\"ask\":\"5310000\",\"last\":\"5305000\",\"high\":\"5350000\",\"low\":\"5200000\", \"baseVolume\":\"12.345\",\"quoteVolume\":\"65432100.5\",\"timestamp\":1728540000123,\"percentage\":\"1.2\"}]}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTC-INR": {
+            "last": 5305000.0
+          }
+        }
+      }
+    }
+  ]
+}

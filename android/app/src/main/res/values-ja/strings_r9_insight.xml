@@ -2,7 +2,7 @@
 <resources>
     <!-- r9_insight -->
     <string name="pulse_now_title">いま目立つこと</string>
-    <string name="pulse_why_action">なぜ？ →</string>
+    <string name="pulse_why_action">なぜ？</string>
     <string name="pulse_section_factors">要因</string>
 
     <string name="pulse_lead_btc_leads">ビットコインが市場をけん引しています。</string>

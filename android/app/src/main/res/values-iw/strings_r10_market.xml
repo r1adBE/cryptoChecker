@@ -11,8 +11,6 @@
     <string name="unusual_fact_funding_negative">מימון שלילי (%1$s)</string>
     <string name="unusual_source">כ־30 המטבעות הגדולים ללא מטבעות יציבים · Binance, CoinGecko</string>
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
-    <string name="unusual_action_why">למה זה זז?</string>
-    <string name="unusual_action_add">חיפוש צמד להוספה</string>
 
     <string name="macro_title">נתונים כלכליים</string>
     <string name="macro_cpi">אינפלציה בארה״ב (CPI)</string>

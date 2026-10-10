@@ -1,0 +1,63 @@
+{
+  "exchange": "DexScreener",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "pairs/<chain>/<address>: priceUsd string, priceChange.h24 in %",
+      "market": "DexScreener",
+      "pair": {
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "id": "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\", \"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"], \"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"}, \"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"}, \"priceNative\":\"0.000000003722\",\"priceUsd\":\"0.000009120\",\"txns\":{\"m5\":{\"buys\":12,\"sells\":8},\"h24\":{\"buys\":4567,\"sells\":3456}}, \"volume\":{\"h24\":1234567.89,\"h6\":345678.9,\"h1\":56789.01,\"m5\":1234.5},\"priceChange\":{\"m5\":0.1,\"h1\":-0.5,\"h6\":1.2,\"h24\":-3.29}, \"liquidity\":{\"usd\":45678901.23,\"base\":2500000000000,\"quote\":9300.5},\"fdv\":3836000000,\"marketCap\":3836000000,\"pairCreatedAt\":1681234567000}],\"pair\":{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\", \"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"], \"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"}, \"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"}, \"priceNative\":\"0.000000003722\",\"priceUsd\":\"0.000009120\",\"txns\":{\"m5\":{\"buys\":12,\"sells\":8},\"h24\":{\"buys\":4567,\"sells\":3456}}, \"volume\":{\"h24\":1234567.89,\"h6\":345678.9,\"h1\":56789.01,\"m5\":1234.5},\"priceChange\":{\"m5\":0.1,\"h1\":-0.5,\"h6\":1.2,\"h24\":-3.29}, \"liquidity\":{\"usd\":45678901.23,\"base\":2500000000000,\"quote\":9300.5},\"fdv\":3836000000,\"marketCap\":3836000000,\"pairCreatedAt\":1681234567000}}",
+      "expect": {
+        "last": 9.12e-06,
+        "volQuote": 1234567.89,
+        "change24hPercent": -3.29,
+        "bid": -1.0,
+        "ask": -1.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "only 'pair' present",
+      "market": "DexScreener",
+      "pair": {
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "id": "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pair\":{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\", \"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"], \"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"}, \"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"}, \"priceNative\":\"0.000000003722\",\"priceUsd\":\"9.12e-6\",\"txns\":{\"m5\":{\"buys\":12,\"sells\":8},\"h24\":{\"buys\":4567,\"sells\":3456}}, \"volume\":{\"h24\":1234567.89,\"h6\":345678.9,\"h1\":56789.01,\"m5\":1234.5},\"priceChange\":{\"m5\":0.1,\"h1\":-0.5,\"h6\":1.2,\"h24\":-3.29}, \"liquidity\":{\"usd\":45678901.23,\"base\":2500000000000,\"quote\":9300.5},\"fdv\":3836000000,\"marketCap\":3836000000,\"pairCreatedAt\":1681234567000}}",
+      "expect": {
+        "last": 9.12e-06
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pool not found",
+      "market": "DexScreener",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD (ethereum)",
+        "id": "ethereum/0xdead",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":null,\"pair\":null}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "Pool not found"
+      }
+    }
+  ]
+}

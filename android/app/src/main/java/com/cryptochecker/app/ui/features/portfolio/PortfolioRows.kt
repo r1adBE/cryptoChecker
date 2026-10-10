@@ -2,6 +2,8 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ListSegment
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -59,11 +61,13 @@ internal fun CoinRow(
     basis: ChangeBasis? = null,
     onDelete: (() -> Unit)? = null,
     txCount: Int = 0,
+    /** Form je nach Platz in der Liste ([ListSegment.shape]); Positionen wirken wie eine Einheit. */
+    shape: Shape = MaterialTheme.shapes.medium,
 ) {
     // Screenreader: Löschen (sonst nur per Wischen) als eigene Aktion der Zeile
     val deleteLabel = stringResource(R.string.action_delete)
     Card(
-        shape = MaterialTheme.shapes.medium,
+        shape = shape,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
         modifier = Modifier
@@ -77,10 +81,11 @@ internal fun CoinRow(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = Spacing.md, vertical = 12.dp)
+            // Gleicher Innenabstand und gleich grosses Logo wie in der Merkliste
+            modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.md)
         ) {
             // Abstand an der Plakette: Logos aus → keine Plakette, kein Einzug
-            CoinBadge(position.coin, portfolio = true, modifier = Modifier.padding(end = 12.dp))
+            CoinBadge(position.coin, size = ListSegment.Logo, portfolio = true, modifier = Modifier.padding(end = 8.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker seuraa nyt %1$s puolestasi. Kun %1$s saavuttaa rajasi, saat ilmoituksen heti kun sovellus tarkistaa kurssin. Kun sovellus on suljettu, Android tarkistaa taustapäivityksen välein – enintään 15 minuutin välein, myöhemmin jos akun optimointi rajoittaa sovellusta. Nopeampiin hälytyksiin: Asetukset › Päivitys › Päivitä tiheästi.</string>
+</resources>

@@ -5,10 +5,12 @@ import SwiftUI
 
 // MARK: Gruppen-Chips
 
-/// Gruppen-Auswahl oben: «Alle · Favoriten · Gruppe 1 · Gruppe 2 … · +», waagrecht scrollbar.
+/// Gruppen-Auswahl oben: «Alle · ★ · ⚡ · Gruppe 1 · Gruppe 2 … · +», waagrecht scrollbar.
 /// Tippen filtert, lange drücken öffnet «Gruppe bearbeiten», «+» legt eine an.
-/// Nur was es gibt (wie Android): «Favoriten» erst mit einem Favoriten, «+» erst mit einer Gruppe
-/// (die erste entsteht über das Aktionsblatt eines Paars); gibt es weder noch, bleibt die Zeile leer.
+/// Nur was es gibt (wie Android): ★ (Favoriten) erst mit einem Favoriten, ⚡ (Paare, bei denen
+/// gerade etwas passiert; `QuickView.activity`, ohne Zahl) nur mit solchen Paaren, «+» erst mit
+/// einer Gruppe (die erste entsteht über das Aktionsblatt eines Paars); sonst bleibt die Zeile leer.
+/// Ist eine vorübergehende Ansicht an, ist keine Gruppe markiert (ausser ⚡ selbst).
 @MainActor
 struct WatchlistGroupChips: View {
     let groups: [String]
@@ -20,30 +22,44 @@ struct WatchlistGroupChips: View {
     var onEdit: ((String) -> Void)? = nil
     /// «+»: neue Gruppe.
     var onAdd: (() -> Void)? = nil
+    /// ⚡-Chip zeigen.
+    var hasActivity: Bool = false
+    var quickView: QuickView? = nil
+    var onToggleActivity: () -> Void = {}
 
     @Environment(\.appAccent) private var accent
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-              if Self.showsChips(groups: groups, selected: selected, hasFavorites: hasFavorites) {
-                chip(L("group_all"), isSelected: selected == nil, action: { onSelect(nil) })
-                // Auch ohne Favoriten sichtbar, solange die Ansicht gewählt ist (sonst kein Weg zurück)
+              let activitySelected = quickView == .activity
+              if Self.showsChips(groups: groups, selected: selected, hasFavorites: hasFavorites,
+                                 hasActivity: hasActivity || activitySelected) {
+                chip(L("group_all"), isSelected: isGroupSelected(nil), action: { onSelect(nil) })
+                // Nur der Stern (VoiceOver: «Favoriten»); auch ohne Favoriten sichtbar, solange die
+                // Ansicht gewählt ist (sonst kein Weg zurück)
                 if hasFavorites || WatchFilter.isFavorites(selected) {
-                    chip(L("group_favorites"), isSelected: WatchFilter.isFavorites(selected),
+                    chip(L("group_favorites"), symbol: "star.fill",
+                         isSelected: isGroupSelected(WatchFilter.favorites),
                          action: { onSelect(WatchFilter.favorites) })
                 }
+                // ⚡ wie in den Zeilen (neutral, gewählt in der Themenfarbe); VoiceOver: «Hier passiert gerade etwas»
+                if hasActivity || activitySelected {
+                    chip(L("activity_card_title"), symbol: "bolt.fill",
+                         isSelected: activitySelected, action: onToggleActivity)
+                }
                 ForEach(groups, id: \.self) { group in
-                    chip(group, isSelected: selected == group, action: { onSelect(group) },
+                    chip(group, isSelected: isGroupSelected(group), action: { onSelect(group) },
                          longPress: onEdit.map { edit -> () -> Void in { edit(group) } })
                 }
                 if let onAdd, !groups.isEmpty {
                     Button(action: onAdd) {
                         Image(systemName: "plus")
                             .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            // Neutral wie die übrigen Chips: Textfarbe, grauer Rand, keine Füllung
+                            .foregroundStyle(AppColors.onSurface)
                             .frame(width: 34, height: 32)
-                            .background(AppColors.containerHigh, in: Capsule())
+                            .overlay(Capsule().strokeBorder(AppColors.outlineVariant, lineWidth: 1))
                             // Tippfläche 44 pt hoch, sichtbar bleibt das kleine Feld
                             .contentShape(Capsule().inset(by: -6))
                     }
@@ -56,23 +72,40 @@ struct WatchlistGroupChips: View {
         }
         .scrollClipDisabled()
         .sensoryFeedback(.selection, trigger: selected)
+        .sensoryFeedback(.selection, trigger: quickView)
     }
+
+    private func isGroupSelected(_ group: String?) -> Bool { quickView == nil && selected == group }
 
     /// Chips zeigen? Nur wenn es neben «Alle» etwas zu wählen gibt (oder eine Auswahl aktiv ist).
-    static func showsChips(groups: [String], selected: String?, hasFavorites: Bool) -> Bool {
-        !groups.isEmpty || hasFavorites || selected != nil
+    static func showsChips(groups: [String], selected: String?, hasFavorites: Bool, hasActivity: Bool = false) -> Bool {
+        !groups.isEmpty || hasFavorites || hasActivity || selected != nil
     }
 
-    private func chip(_ title: String, isSelected: Bool, action: @escaping () -> Void,
+    /// `symbol`: nur ein Symbol statt `title` (★, ⚡); `title` ist dann der VoiceOver-Name.
+    /// Alle Chips neutral: Text und Symbol in der Textfarbe, grauer Rand, keine Füllung. Der gewählte
+    /// bekommt Rand, Text und Symbol in der Themenfarbe (orange) — ebenfalls ohne Füllung (wie Android).
+    private func chip(_ title: String, symbol: String? = nil,
+                      isSelected: Bool, action: @escaping () -> Void,
                       longPress: (() -> Void)? = nil, spoken: String? = nil) -> some View {
-        Text(title)
-            .font(.subheadline.weight(isSelected ? .semibold : .regular))
-            .lineLimit(1)
+        let tint = isSelected ? accent.primary : AppColors.onSurface
+        return Group {
+            if let symbol {
+                Image(systemName: symbol)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(tint)
+                    .padding(.horizontal, -2)
+            } else {
+                Text(title)
+                    .font(.subheadline.weight(isSelected ? .semibold : .regular))
+                    .lineLimit(1)
+            }
+        }
             .padding(.horizontal, Spacing.md)
             .padding(.vertical, Spacing.sm)
-            .foregroundStyle(isSelected ? accent.onContainer : AppColors.onSurface)
-            .background(isSelected ? accent.container : AppColors.containerHigh, in: Capsule())
-            .overlay(Capsule().strokeBorder(isSelected ? accent.primary.opacity(0.6) : .clear, lineWidth: 1))
+            .foregroundStyle(tint)
+            .overlay(Capsule().strokeBorder(isSelected ? accent.primary : AppColors.outlineVariant,
+                                            lineWidth: isSelected ? 1.5 : 1))
             // Tippfläche höher als der Chip (44 pt), ohne die Zeile höher zu machen
             .contentShape(Rectangle().inset(by: -6))
             // Tippen und langes Drücken getrennt (ein Button kennt kein langes Drücken)

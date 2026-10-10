@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker が %1$s を見守っています。%1$s が設定した値に達すると、アプリが価格を確認した時点で通知します。アプリを閉じている間は、Android がバックグラウンドの間隔で確認します（最短 15 分ごと。電池の最適化で制限されるとさらに遅くなります）。より速いアラーム：設定 › 更新 › 頻繁に更新。</string>
+</resources>

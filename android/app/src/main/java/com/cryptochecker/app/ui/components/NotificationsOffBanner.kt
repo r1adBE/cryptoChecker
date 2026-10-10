@@ -60,7 +60,7 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(Spacing.md),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(painterResource(R.drawable.ic_notifications), contentDescription = null)
+            Icon(painterResource(R.drawable.ic_notifications_off), contentDescription = null)
             Text(
                 stringResource(R.string.alarms_notifications_off),
                 style = MaterialTheme.typography.bodyMedium,

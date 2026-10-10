@@ -73,6 +73,21 @@ extension AppData {
         }
     }
 
+    /// Mehrfachauswahl › «Gruppe»: alle Paare `ids` in `groupName` (nil = keine Gruppe).
+    func setGroup(ids: Set<Int64>, _ groupName: String?) {
+        let value = Watch.validGroupName(groupName)
+        mutate { s in
+            for i in s.watches.indices where ids.contains(s.watches[i].id) { s.watches[i].groupName = value }
+        }
+    }
+
+    /// Mehrfachauswahl › «Favorit»: alle Paare `ids` zu Favoriten machen bzw. entfernen.
+    func setFavorite(ids: Set<Int64>, _ favorite: Bool) {
+        mutate { s in
+            for i in s.watches.indices where ids.contains(s.watches[i].id) { s.watches[i].favorite = favorite }
+        }
+    }
+
     /// Favorit an/aus (Stern, Wischen nach rechts, Aktionen-Menü).
     func toggleFavorite(_ watch: Watch) {
         mutate { s in

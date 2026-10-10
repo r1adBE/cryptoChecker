@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portföy sistem yedeğinde</string>
+    <string name="settings_portfolio_system_backup_hint">Kapalı: işlemleriniz cihazın sistem yedeğine ve yeni telefona aktarıma dahil edilmez. Taşımak için uygulamanın parolalı kendi yedeğini kullanın.</string>
+</resources>

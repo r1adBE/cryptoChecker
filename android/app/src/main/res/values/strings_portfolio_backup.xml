@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio › «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfolio in system backup</string>
+    <string name="settings_portfolio_system_backup_hint">Off: your transactions stay out of the device’s system backup and phone-to-phone transfers. To move them to a new phone, use the app’s own backup with a password.</string>
+</resources>

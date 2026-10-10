@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// «Mehr» im Aktionsblatt: auf- oder zugeklappt, für die Dauer der Sitzung gemerkt (Standard zu).
 enum WatchSheetMoreState {
@@ -11,6 +12,12 @@ enum WatchSheetMoreState {
 /// Widget, Vorlesen, Mitteilung, Sperrbildschirm (nur iOS), Sortieren und zuletzt Löschen — im
 /// aufklappbaren Abschnitt «Mehr» (zu; für die Sitzung gemerkt). Das Blatt steht immer in voller
 /// Höhe, Aufklappen ändert nur den Inhalt der Liste.
+///
+/// `preview`: Paar steht (noch) nicht in der Merkliste (Coin aus «Heute auffällig», nur im Speicher,
+/// `watchId` = `WatchPreview.watchId`): Kopf, Kurs, Chart und «Warum?» wie sonst, dazu gross «Zur
+/// Merkliste hinzufügen». Alles, was einen gespeicherten Eintrag braucht — Paar bearbeiten, Alarm,
+/// Favorit, Notiz und der ganze Abschnitt «Mehr» —, fehlt. Nach dem Hinzufügen wird daraus dasselbe
+/// Blatt für den neuen Eintrag. Wie Android `WatchActionsSheet(preview = true)`.
 @MainActor
 struct WatchActionsSheet: View {
     let watchId: Int64
@@ -24,6 +31,10 @@ struct WatchActionsSheet: View {
     let onWhy: (Int64) -> Void
     /// Erfassen-Blatt des Portfolios öffnen (nach dem Schliessen des Blatts).
     var onAddToPortfolio: (Int64) -> Void = { _ in }
+    /// Vorschau eines Paars, das nicht in der Merkliste steht (siehe oben); nil = normales Blatt.
+    var preview: Watch? = nil
+    /// Vorschau: «Warum bewegt sich das?» mit dem Vorschau-Paar samt Kurs (nach dem Schliessen des Blatts).
+    var onWhyPreview: (Watch) -> Void = { _ in }
 
     @EnvironmentObject var data: AppData
     @Environment(\.appAccent) var accent
@@ -32,6 +43,8 @@ struct WatchActionsSheet: View {
     @State private var futures: FuturesInfo? = nil
     /// Bitcoin-Paar: Faktor Quote → Umrechnungswährung für «1 CHF = … Sats»; nil = keine Zeile.
     @State private var satsRate: Double? = nil
+    /// Pille aus den Kerzen einer anderen Börse (z. B. «Binance» bei einem Kraken-Paar); nil = nicht.
+    @State private var candleSource: String? = nil
     @State var editGroup = false
     @State var editNote = false
     /// «Paar bearbeiten» (Stift neben dem Paar): Börse, Paar, Kontrakt desselben Eintrags.
@@ -44,40 +57,104 @@ struct WatchActionsSheet: View {
     @State var liveActivityDisabled = false
     /// «Mehr» aufgeklappt (Startwert: zuletzt in dieser Sitzung).
     @State private var moreExpanded = WatchSheetMoreState.expanded
+    /// Vorschau hinzugefügt: Id des neuen Eintrags (das Blatt zeigt dann ihn).
+    @State private var addedId: Int64? = nil
+    /// Vorschau mit Kurs (Ticker-Abfrage ohne Speichern); nil = noch keiner.
+    @State private var previewQuoted: Watch? = nil
+    /// Vorschau wird gerade hinzugefügt (Knopf gesperrt, «Zur Merkliste hinzugefügt.»).
+    @State private var adding = false
+    /// «Erneut versuchen» der Vorschau.
+    @State private var previewReload = 0
+
+    /// Gezeigter Eintrag: der hinzugefügte (Vorschau) bzw. der übergebene.
+    var currentId: Int64 { addedId ?? watchId }
 
     var body: some View {
-        if let watch = data.watch(watchId) {
+        // Eben hinzugefügt: die Vorschau bleibt stehen, bis der neue Eintrag einen Kurs (oder
+        // Fehler) hat — kein «—» dazwischen; höchstens kurz (`addHoldNanos`)
+        if let watch = data.watch(currentId),
+           !(adding && preview != nil && watch.lastUpdate <= 0 && watch.lastError == nil) {
             content(watch)
+        } else if let preview {
+            previewContent(previewQuoted ?? preview)
         } else {
             // Paar wurde inzwischen gelöscht
             Color.clear.onAppear { dismiss() }
         }
     }
 
-    private func content(_ watch: Watch) -> some View {
+    /// Vorschau: Kurs holen (neu mit «Erneut versuchen»); nach dem Hinzufügen höchstens kurz warten.
+    private func previewContent(_ watch: Watch) -> some View {
+        content(watch, isPreview: true)
+            // Rollende 24 h aus dem Ticker — so heisst es auch neben der Pille
+            .environment(\.changeView, ChangeView(basis: .ROLLING_24H, current: true,
+                                                   showPeriod: data.settings.showChangePeriod))
+            .task(id: "\(watch.baseAsset)|\(previewReload)") {
+                guard let preview else { return }
+                previewQuoted = await WatchPreview.fetchQuote(previewQuoted ?? preview)
+            }
+            .task(id: adding) {
+                guard adding else { return }
+                try? await Task.sleep(nanoseconds: Self.addHoldNanos)
+                adding = false
+            }
+    }
+
+    /// So lange bleibt die Vorschau nach «Hinzufügen» höchstens stehen, bis der erste Kurs da ist.
+    private static let addHoldNanos: UInt64 = 6_000_000_000
+
+    /// Vorschau › «Zur Merkliste hinzufügen»: wie der Hinzufügen-Tab — Dublettenprüfung
+    /// (`addWatch`), Kurs-Mitteilung an, Erst-Moment beim allerersten Paar, Erlaubnis für
+    /// Mitteilungen jetzt fragen; danach gleich den Kurs holen. Stand das Paar schon in der
+    /// Merkliste, zeigt das Blatt einfach jenes.
+    func addPreview() {
+        guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
+        let firstEver = data.isFirstPairAdd
+        if let id = data.addWatch(market: market, pair: preview.pairInfo) {
+            adding = true
+            addedId = id
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            if firstEver { _ = data.celebrateFirstAdd(id, announceInWatchlist: true) }
+            Task { _ = await Notifier.requestPermission() }
+            Task { await data.refreshOne(id) }
+        } else if let existing = data.watches.first(where: { $0.samePair(as: preview) }) {
+            addedId = existing.id
+        }
+    }
+
+    private func content(_ watch: Watch, isPreview: Bool = false) -> some View {
         let alarmCount = data.activeAlarmCounts[watch.id] ?? 0
         let refreshingThis = data.refreshingWatchIds.contains(watch.id)
         let scroll = ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                header(watch)
-                priceBlock(watch)
+                header(watch, isPreview: isPreview)
+                priceBlock(watch, isPreview: isPreview)
 
                 // Kurs-Chart (24h · 7T · 30T, Kerzen/Linie); ohne Kerzenquelle (DEX) ganz ausgeblendet
                 WatchSheetChartView(watch: watch)
 
-                // Die drei häufigsten Aktionen zuerst und gleich gross: Alarm, Warum?, Favorit
-                primaryActions(watch, alarmCount: alarmCount)
+                if isPreview {
+                    // Vorschau: gross «Zur Merkliste hinzufügen», daneben nur «Warum?» (Alarm und
+                    // Favorit brauchen einen gespeicherten Eintrag)
+                    previewActions(watch, adding: adding)
+                } else {
+                    // Die drei häufigsten Aktionen zuerst und gleich gross: Alarm, Warum?, Favorit
+                    primaryActions(watch, alarmCount: alarmCount)
+                }
 
                 if let futures {
                     WatchlistFuturesSection(info: futures)
                         .transition(.opacity.combined(with: .move(edge: .top)))
                 }
 
-                // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt)
-                moreToggle
-                if moreExpanded {
-                    moreContent(watch, refreshing: refreshingThis)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
+                // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt); Vorschau: kein «Mehr»
+                // (alles darin braucht einen gespeicherten Eintrag)
+                if !isPreview {
+                    moreToggle
+                    if moreExpanded {
+                        moreContent(watch, refreshing: refreshingThis)
+                            .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
                 }
             }
             .padding(.horizontal, Spacing.lg)
@@ -106,6 +183,10 @@ struct WatchActionsSheet: View {
             } else {
                 satsRate = await CurrencyConverter.rate(quote: watch.quoteAsset, target: target)
             }
+        }
+        // Woher die Pille kommt (neu nach jeder Aktualisierung des Paars)
+        .task(id: "\(watch.id)|\(watch.lastUpdate)|\(watch.change24h ?? .nan)") {
+            candleSource = await PriceRefresher.foreignCandleSource(watch)
         }
         return subSheets(scroll, watch: watch, alarmCount: alarmCount)
     }
@@ -144,19 +225,19 @@ struct WatchActionsSheet: View {
                 // Vorlesen und Mitteilung
                 VStack(spacing: 0) {
                     SwitchRow(title: L("watchlist_tts"), isOn: Binding(
-                        get: { data.watch(watchId)?.ttsEnabled ?? false },
+                        get: { data.watch(currentId)?.ttsEnabled ?? false },
                         set: { enabled in
-                            if let w = data.watch(watchId) { data.setTtsEnabled(w, enabled) }
+                            if let w = data.watch(currentId) { data.setTtsEnabled(w, enabled) }
                         }
                     ), icon: "speaker.wave.2")
                     RowDivider()
                     SwitchRow(title: L("watchlist_notification"), isOn: Binding(
-                        get: { data.watch(watchId)?.notificationEnabled ?? false },
+                        get: { data.watch(currentId)?.notificationEnabled ?? false },
                         set: { enabled in
                             if enabled { Task { _ = await Notifier.requestPermission() } }
-                            if let w = data.watch(watchId) { data.setNotificationEnabled(w, enabled) }
+                            if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
                         }
-                    ), icon: "eye")  // dasselbe Auge wie in der Zeile der Merkliste
+                    ), icon: data.watch(currentId)?.notificationEnabled == true ? "bell" : "bell.slash")  // wie in der Zeile; aus = durchgestrichen
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
@@ -201,7 +282,7 @@ struct WatchActionsSheet: View {
         }
         .sheet(isPresented: $editNote) {
             WatchNoteSheet(initial: watch.note) { note in
-                if let w = data.watch(watchId) { data.setNote(w, note) }
+                if let w = data.watch(currentId) { data.setNote(w, note) }
             }
             .environment(\.appAccent, accent)
             // Volle Höhe: das Feld fokussiert beim Öffnen, die Tastatur schiebt das Blatt so nicht hoch
@@ -219,7 +300,7 @@ struct WatchActionsSheet: View {
         }
         .sheet(isPresented: $editGroup) {
             WatchGroupSheet(current: watch.groupName, groups: data.watchGroups) { group in
-                if let w = data.watch(watchId) { data.setGroup(w, group) }
+                if let w = data.watch(currentId) { data.setGroup(w, group) }
             }
             .environment(\.appAccent, accent)
             // Volle Höhe: «Neue Gruppe» blendet ein Feld samt Tastatur ein, das Blatt springt nicht
@@ -232,7 +313,7 @@ struct WatchActionsSheet: View {
 
     // MARK: Kopf
 
-    private func header(_ watch: Watch) -> some View {
+    private func header(_ watch: Watch, isPreview: Bool) -> some View {
         HStack(spacing: Spacing.md) {
             CoinBadge(symbol: watch.baseAsset, size: 48, logo: CoinLogos.allowed(forMarket: watch.marketKey),
                       pair: watch.logoPairKey)
@@ -241,28 +322,37 @@ struct WatchActionsSheet: View {
                     .font(AppFont.headline)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                Text(watch.marketName)
+                // Vorschau: «Binance · Nicht in der Merkliste»
+                Text(isPreview ? "\(watch.marketName) · \(L("watch_preview_not_watched"))" : watch.marketName)
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
             Spacer(minLength: 0)
-            // «Paar bearbeiten»: 48 pt Tippfläche
-            Button {
-                WatchlistHaptics.selection()
-                editPair = true
-            } label: {
-                Image(systemName: "pencil")
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(accent.primary)
-                    .frame(width: 48, height: 48)
-                    .contentShape(Rectangle())
+            // «Paar bearbeiten»: 48 pt Tippfläche; Vorschau: nichts zu bearbeiten
+            if !isPreview {
+                Button {
+                    WatchlistHaptics.selection()
+                    editPair = true
+                } label: {
+                    Image(systemName: "pencil")
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(accent.primary)
+                        .frame(width: 48, height: 48)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(L("watch_edit_title"))
             }
-            .buttonStyle(.plain)
-            .accessibilityLabel(L("watch_edit_title"))
         }
     }
 
-    private func priceBlock(_ watch: Watch) -> some View {
+    /// «Veränderung aus Binance-Kerzen», wenn die Pille aus fremden Kerzen kommt; sonst nil.
+    private func candleNote(_ watch: Watch) -> String? {
+        guard watch.lastPrice != nil, let candleSource else { return nil }
+        return L("change_candle_source", candleSource)
+    }
+
+    private func priceBlock(_ watch: Watch, isPreview: Bool) -> some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             HStack(alignment: .firstTextBaseline, spacing: 12) {
                 Text(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
@@ -271,8 +361,14 @@ struct WatchActionsSheet: View {
                     .minimumScaleFactor(0.5)
                     .contentTransition(.numericText(value: watch.lastPrice ?? 0))
                 if watch.lastPrice != nil {
-                    WatchlistDayChangePill(watch: watch, large: true)
+                    WatchlistDayChangePill(watch: watch, large: true, note: candleNote(watch))
                 }
+            }
+            // Pille aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
+            if let note = candleNote(watch) {
+                Text(note)
+                    .font(.caption2)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
             }
             // Bitcoin: «1 CHF = 1’234 Sats» in der Umrechnungswährung (Kurs mit dem bestehenden Faktor)
             if Sats.isBitcoin(watch.baseAsset), !watch.isNotTraded,
@@ -290,7 +386,7 @@ struct WatchActionsSheet: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Button(L("try_again")) {
-                        Task { await data.refreshOne(watch.id) }
+                        if isPreview { previewReload += 1 } else { Task { await data.refreshOne(watch.id) } }
                     }
                     .font(.footnote.weight(.semibold))
                     .buttonStyle(.borderless)
@@ -301,6 +397,11 @@ struct WatchActionsSheet: View {
                 Text(ConnectionErrors.display(error))
                     .font(.footnote)
                     .foregroundStyle(ConnectionErrors.isNotTraded(error) ? AppColors.onSurfaceVariant : AppColors.error)
+            } else if isPreview && watch.lastUpdate <= 0 {
+                // Vorschau: Kurs wird noch geholt
+                Text(L("loading_hint"))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
             } else {
                 Text(L("watchlist_updated", PriceFormat.time(watch.lastUpdate)))
                     .font(.footnote.monospacedDigit())

@@ -22,8 +22,8 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.marketdata.model.market.DexPool
+import com.cryptochecker.marketdata.util.FormatUtilsBase
 
 internal const val DEX_MARKET_KEY = "DexScreener"
 
@@ -125,8 +125,9 @@ internal fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
 private fun formatDexPrice(value: Double): String = when {
     value >= 1 -> "%,.2f".format(value)
     value >= 0.0001 -> "%.6f".format(value)
-    // Ohne Nullen am Ende — auch mit arabischen/persischen Ziffern (trimEnd('0') fände sie nicht)
-    else -> LocaleNumbers.decimal(value, 10, minDecimals = 0)
+    // Ganz kleine Preise mit höchstens vier gültigen Stellen wie die Kursanzeige («@###»,
+    // FormatUtilsBase) — eine feste Stellenzahl ergäbe für 3e-11 «0»; wie iOS (PriceFormat.formatDouble)
+    else -> FormatUtilsBase.formatDoubleWithFourMax(value)
 }
 
 private fun formatCompact(value: Double): String = when {

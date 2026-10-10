@@ -119,6 +119,9 @@ data class AppSettings(
     /** Gewählte Gruppe in der Merkliste. null = «Alle». */
     val watchlistGroup: String? = null,
 
+    /** Sortieren nach Spalte in der Merkliste ([com.cryptochecker.app.domain.watch.ColumnSort.encode]); null = eigene Reihenfolge. */
+    val watchlistColumnSort: String? = null,
+
     /**
      * Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Benachrichtigung melden. Ab Werk aus;
      * das ⚡ in der Merkliste und die Karte «Hier passiert gerade etwas» bleiben.
@@ -225,6 +228,15 @@ data class AppSettings(
     val hidePortfolioAmounts: Boolean = false,
 
     /**
+     * «Portfolio in Systemsicherung» (Schlüssel «portfolio_system_backup», iOS/Sicherung
+     * «portfolioSystemBackup»): an = Transaktionen und Portfolio-Alarme kommen in die Android-
+     * Systemsicherung (über eine Kopie, siehe PortfolioBackupMirror). Standard aus: Wer die Sicherung
+     * des Geräts wiederherstellt, bekäme sonst die Trades ohne die Portfolio-Sperre. Umziehen geht mit
+     * der eigenen (verschlüsselten) Sicherung. Auch in der Sicherung.
+     */
+    val portfolioSystemBackup: Boolean = false,
+
+    /**
      * Die Bestätigung nach dem ersten Alarm wurde gezeigt (oder es gab schon Alarme).
      * Nur auf diesem Gerät, nicht in der Sicherung.
      */
@@ -290,6 +302,13 @@ internal fun deviceRegionLocale(): java.util.Locale =
     runCatching { android.content.res.Resources.getSystem().configuration.locales[0] }.getOrNull()
         ?.takeIf { it.country.isNotEmpty() }
         ?: java.util.Locale.getDefault()
+
+/**
+ * Dezimalzeichen für Zahleneingaben (Schwellwerte, Menge/Kurs im Bestand): Sprache der App,
+ * Region des Geräts — gleich wie `ThresholdParser.localeDecimalSeparator` (iOS, `Locale.current`).
+ */
+internal fun inputDecimalSeparator(): Char =
+    com.cryptochecker.app.util.LocaleNumbers.inputDecimalSeparator(java.util.Locale.getDefault(), deviceRegionLocale().country)
 
 /**
  * Standard-Umrechnungswährung: die Währung des Geräte-Landes (Schweiz → CHF,

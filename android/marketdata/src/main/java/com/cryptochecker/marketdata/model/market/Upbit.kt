@@ -9,6 +9,7 @@ import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleNoData
 import org.json.JSONArray
 import org.json.JSONObject
+import com.cryptochecker.marketdata.util.getText
 
 /** Upbit (Korea). Paare im Format QUOTE-BASE, z. B. KRW-BTC. https://docs.upbit.com */
 class Upbit : UpbitStyleMarket(
@@ -54,8 +55,8 @@ abstract class UpbitStyleMarket(
 
     private fun read(json: JSONObject, ticker: Ticker) {
         ticker.last = json.getDouble("trade_price")
-        ticker.high = json.optDoubleNoData("high_price")
-        ticker.low = json.optDoubleNoData("low_price")
+        // high_price/low_price sind Tageswerte (seit Tagesbeginn der Börse), keine gleitenden 24 h –
+        // wie beim 24-h-Wechsel nicht übernehmen statt als 24-h-Hoch/-Tief anzuzeigen.
         ticker.vol = json.optDoubleNoData("acc_trade_volume_24h")
         ticker.volQuote = json.optDoubleNoData("acc_trade_price_24h")
         ticker.timestamp = json.optLong("timestamp")
@@ -63,8 +64,8 @@ abstract class UpbitStyleMarket(
     }
 
     override fun parseErrorFromJsonObject(requestId: Int, jsonObject: JSONObject, checkerInfo: CheckerInfo): String? {
-        jsonObject.optJSONObject("error")?.let { return it.getString("message") }
-        return jsonObject.getString("message")
+        jsonObject.optJSONObject("error")?.let { return it.getText("message") }
+        return jsonObject.getText("message")
     }
 
     override val bulkTickersNumOfRequests: Int get() = 1

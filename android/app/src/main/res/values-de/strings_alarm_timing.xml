@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Erster Alarm (Android): ehrlich, wann bei geschlossener App geprüft wird -->
+    <string name="alarm_first_text_android">Crypto Checker beobachtet jetzt %1$s für dich. Erreicht %1$s deine Grenze, bekommst du eine Mitteilung, sobald die App den Kurs prüft. Bei geschlossener App prüft Android im Hintergrund-Intervall – höchstens alle 15 Minuten, später, wenn die Akku-Optimierung die App einschränkt. Für schnellere Alarme: Einstellungen › Aktualisierung › Häufig aktualisieren.</string>
+</resources>

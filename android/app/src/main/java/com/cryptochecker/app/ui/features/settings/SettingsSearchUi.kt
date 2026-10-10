@@ -293,6 +293,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("portfolio.hide", stringResource(R.string.portfolio_hide_amounts), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.hide"),
         stringResource(R.string.portfolio_hide_amounts_hint))
+    add("portfolio.system_backup", stringResource(R.string.settings_portfolio_system_backup), portfolio,
+        SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.system_backup"),
+        stringResource(R.string.settings_portfolio_system_backup_hint))
 
     // 5 Daten
     val dataGroup = stringResource(R.string.settings_group_data_only)

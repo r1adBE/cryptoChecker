@@ -6,16 +6,19 @@ extension WatchlistScreen {
     /// Fester Kopf über der Liste: Kopfzeile (Logo, Gruppen-Chips, Knöpfe) und darunter
     /// Status mit Lupe bzw. das Suchfeld. Höchstens `ReadableWidth.max` breit wie die Zeilen;
     /// eigener Hintergrund, damit gescrollte Zeilen darunter verschwinden.
-    func pinnedHeader(_ watches: [Watch], groups: [String], selectedGroup: String?) -> some View {
+    /// `watches`: gezeigte Paare; `statusWatches`: worüber der Status zählt (bei «nur veraltete» die
+    /// ganze Gruppe); `hasActivity`: ⚡-Chip zeigen.
+    func pinnedHeader(_ watches: [Watch], statusWatches: [Watch], groups: [String], selectedGroup: String?,
+                      hasActivity: Bool) -> some View {
         VStack(spacing: 4) {
-            headerRow(watches, groups: groups, selectedGroup: selectedGroup)
+            headerRow(watches, groups: groups, selectedGroup: selectedGroup, hasActivity: hasActivity)
             // Status links, Lupe rechts — beim Suchen wird die Zeile zum Suchfeld.
             ZStack {
                 if searching {
                     searchField
                         .transition(.opacity.combined(with: .scale(scale: 0.97, anchor: .trailing)))
                 } else {
-                    statusRow(watches)
+                    statusRow(statusWatches)
                         .transition(.opacity)
                 }
             }
@@ -31,26 +34,42 @@ extension WatchlistScreen {
     /// eine neue Gruppe), rechts die Glocke (nur mit aktiven Alarmen) und fest das Menü (darin oben Logo und
     /// App-Name). «Paar hinzufügen» steht neben der Lupe (`statusRow`). Tippflächen 44 pt; Knöpfe
     /// mit `.borderless`, sonst löste ein Tipp in der Listenzeile alle Knöpfe zugleich aus.
-    private func headerRow(_ watches: [Watch], groups: [String], selectedGroup: String?) -> some View {
+    private func headerRow(_ watches: [Watch], groups: [String], selectedGroup: String?,
+                           hasActivity: Bool) -> some View {
         HStack(spacing: 0) {
-            WatchlistGroupChips(
-                groups: groups,
-                selected: selectedGroup,
-                hasFavorites: watches.contains { $0.favorite },
-                onSelect: { group in
-                    withAnimation(.spring(duration: 0.35)) { data.selectWatchlistGroup(group) }
-                },
-                onEdit: { group in
-                    groupEdit = WatchGroupEditTarget(name: group, isNew: false)
-                },
-                onAdd: {
-                    newGroupName = ""
-                    askNewGroup = true
-                }
-            )
-            // Gescrollte Chips nicht unter die Knöpfe zeichnen
-            .clipped()
-            .padding(.trailing, 4)
+            if selecting {
+                // Mehrfachauswahl: statt der Chips «n ausgewählt»
+                Text(L("watchlist_selected_count", count: selectedIds.count))
+                    .font(.headline)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityAddTraits(.updatesFrequently)
+            } else {
+                WatchlistGroupChips(
+                    groups: groups,
+                    selected: selectedGroup,
+                    hasFavorites: data.watches.contains { $0.favorite },
+                    onSelect: { group in
+                        withAnimation(.spring(duration: 0.35)) {
+                            quickView = nil
+                            data.selectWatchlistGroup(group)
+                        }
+                    },
+                    onEdit: { group in
+                        groupEdit = WatchGroupEditTarget(name: group, isNew: false)
+                    },
+                    onAdd: {
+                        newGroupName = ""
+                        askNewGroup = true
+                    },
+                    hasActivity: hasActivity && !sorting,
+                    quickView: quickView,
+                    onToggleActivity: { toggleQuickView(.activity) }
+                )
+                // Gescrollte Chips nicht unter die Knöpfe zeichnen
+                .clipped()
+                .padding(.trailing, 4)
+            }
             headerActions(watches)
                 // Symbole bündig mit dem Kartenrand; die Tippfläche ragt in den Seitenrand
                 .padding(.trailing, -10)
@@ -66,7 +85,31 @@ extension WatchlistScreen {
 
     private func headerActions(_ watches: [Watch]) -> some View {
         HStack(spacing: 0) {
-            if sorting {
+            if selecting {
+                if selectedIds.count < watches.count {
+                    Button {
+                        selectedIds = Set(watches.map(\.id))
+                    } label: {
+                        Text(L("watchlist_select_all"))
+                            .padding(.horizontal, Spacing.sm)
+                            .frame(minHeight: Self.headerHeight)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.borderless)
+                    .tint(accent.primary)
+                }
+                Button {
+                    endSelection()
+                } label: {
+                    Text(L("action_sort_done"))
+                        .font(.body.weight(.semibold))
+                        .padding(.horizontal, Spacing.sm)
+                        .frame(minHeight: Self.headerHeight)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.borderless)
+                .tint(accent.primary)
+            } else if sorting {
                 Button {
                     withAnimation { editMode = .inactive }
                 } label: {
@@ -85,7 +128,7 @@ extension WatchlistScreen {
                     Button {
                         showOverview = true
                     } label: {
-                        Image(systemName: "bell")
+                        Image(systemName: "bell.and.waves.left.and.right")
                             .symbolRenderingMode(.hierarchical)
                             .phaseAnimator([1.0, AlarmPulse.scale, 1.0], trigger: bellPulse) { view, scale in
                                 view.scaleEffect(scale)
@@ -108,19 +151,32 @@ extension WatchlistScreen {
                         onRefresh: {
                             WatchlistHaptics.impact(.light)
                             Task { await refreshByUser() }
-                        }
+                        },
+                        // Eben erst aktualisiert: grau statt Meldung «Gerade aktualisiert»
+                        refreshEnabled: data.canRefreshNow
                     )
                     Button {
                         showOverview = true
                     } label: {
-                        Label(L("alarms_overview_title"), systemImage: "bell")
+                        Label(L("alarms_overview_title"), systemImage: "bell.and.waves.left.and.right")
                     }
                     if watches.count > 1 {
                         Button {
                             if searching { closeSearch() }
+                            quickView = nil
+                            // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
+                            columnSortRaw = ""
                             withAnimation { editMode = .active }
                         } label: {
                             Label(L("action_sort"), systemImage: "arrow.up.arrow.down")
+                        }
+                    }
+                    // Mehrfachauswahl: Favorit, Gruppe oder Löschen für mehrere Paare auf einmal
+                    if !watches.isEmpty {
+                        Button {
+                            startSelection()
+                        } label: {
+                            Label(L("watchlist_select"), systemImage: "checkmark.circle")
                         }
                     }
                     Button {
@@ -162,19 +218,20 @@ extension WatchlistScreen {
         .imageScale(.large)
     }
 
-    /// «+»: Seite «Paar hinzufügen» (Runde 31, ersetzt den Tab «Suchen»).
+    /// «+»: Seite «Paar hinzufügen» — überall derselbe gefüllte Kreis in der Themenfarbe (neben der
+    /// Lupe und oben rechts in der Start-Auswahl), wie Android `AddPairButton`.
     var addPairButton: some View {
-        Button {
-            router.openExplorer()
-        } label: {
+        Button { router.openExplorer() } label: {
             Image(systemName: "plus")
-                .frame(width: Self.headerHeight, height: Self.headerHeight)
-                .contentShape(Rectangle())
+                .scaledFont(size: 13, weight: .bold, relativeTo: .caption)
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                .foregroundStyle(accent.onPrimary)
+                .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
+                .background(accent.primary, in: Circle())
+                // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
+                .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
         }
         .buttonStyle(.borderless)
-        .tint(accent.primary)
-        .font(.body)
-        .imageScale(.large)
         .accessibilityLabel(L("shortcut_add"))
     }
 

@@ -7,9 +7,13 @@ import com.cryptochecker.app.domain.alarm.PortfolioReading
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -76,13 +80,24 @@ class PortfolioAlarmChecker @Inject constructor(
         )
         val now = System.currentTimeMillis()
         for (alarm in alarms) {
-            when (val decision = PortfolioAlarmLogic.decide(alarm.toInput(), reading, now, settings.alarmCooldownMinutes)) {
-                PortfolioAlarmDecision.None -> Unit
-                PortfolioAlarmDecision.Rearm -> dao.rearm(alarm.id)
-                is PortfolioAlarmDecision.Fire -> {
-                    notifier.showPortfolioAlarm(alarm, decision.measured)
-                    dao.markTriggered(alarm.id, now, decision.measured, PortfolioAlarmLogic.enabledAfterFire(alarm.repeating))
+            // Ein scheiternder Alarm hält die übrigen nicht auf
+            try {
+                when (val decision = PortfolioAlarmLogic.decide(alarm.toInput(), reading, now, settings.alarmCooldownMinutes)) {
+                    PortfolioAlarmDecision.None -> Unit
+                    PortfolioAlarmDecision.Rearm -> dao.rearm(alarm.id)
+                    is PortfolioAlarmDecision.Fire -> {
+                        // Erst speichern (auch bei Abbruch), dann melden: keine doppelte Meldung,
+                        // falls das Speichern scheitert
+                        withContext(NonCancellable) {
+                            dao.markTriggered(alarm.id, now, decision.measured, PortfolioAlarmLogic.enabledAfterFire(alarm.repeating))
+                        }
+                        notifier.showPortfolioAlarm(alarm, decision.measured)
+                    }
                 }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Portfolio-Alarm %d nicht geprüft", alarm.id)
             }
         }
     }

@@ -1,0 +1,88 @@
+{
+  "exchange": "Bitstamp",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://www.bitstamp.net/api/v2/ticker/btcusd/",
+    "bulk": "GET https://www.bitstamp.net/api/v2/ticker/"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker btcusd: open_24 (rolling) used, open (day) ignored",
+      "market": "Bitstamp",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "btcusd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"62000\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\"}",
+      "expect": {
+        "last": 62000.0,
+        "bid": 61999.0,
+        "ask": 62001.0,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 1234.56789012,
+        "volQuote": -1.0,
+        "change24hPercent": 2.479338842975207,
+        "timestamp": 1728540000000
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker without open_24: percent_change_24 fallback",
+      "market": "Bitstamp",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "btcusd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"62000\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"percent_change_24\":\"2.48\"}",
+      "expect": {
+        "last": 62000.0,
+        "change24hPercent": 2.48
+      }
+    },
+    {
+      "kind": "single",
+      "name": "missing last -> no price, no error text",
+      "market": "Bitstamp",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "btcusd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\"}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk ticker/: pair BTC/USD -> key btcusd",
+      "market": "Bitstamp",
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTC/USD\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"62000\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\"},{\"pair\":\"ETH/EUR\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"2250.5\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"2260\",\"percent_change_24\":\"2.48\"}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "btcusd": {
+            "last": 62000.0,
+            "timestamp": 1728540000000
+          },
+          "etheur": {
+            "last": 2250.5,
+            "change24hPercent": -0.42035398230088494
+          }
+        }
+      }
+    }
+  ]
+}

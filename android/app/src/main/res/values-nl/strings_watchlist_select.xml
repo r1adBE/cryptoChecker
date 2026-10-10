@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Mehrfachauswahl, Ansicht «nur veraltete» -->
+    <string name="watchlist_select">Selecteren</string>
+    <string name="watchlist_select_all">Alles selecteren</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d geselecteerd</item>
+        <item quantity="other">%1$d geselecteerd</item>
+    </plurals>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d paar verwijderd</item>
+        <item quantity="other">%1$d paren verwijderd</item>
+    </plurals>
+    <string name="watchlist_show_only_stale">Alleen verouderde tonen</string>
+    <string name="watchlist_show_all">Alles tonen</string>
+    <!-- Sortieren nach Spalte -->
+    <string name="watchlist_sort_name">Naam</string>
+    <string name="watchlist_sort_price">Koers</string>
+    <string name="watchlist_sort_descending">aflopend</string>
+    <string name="watchlist_sort_ascending">oplopend</string>
+    <string name="watchlist_sort_own">Eigen volgorde</string>
+</resources>

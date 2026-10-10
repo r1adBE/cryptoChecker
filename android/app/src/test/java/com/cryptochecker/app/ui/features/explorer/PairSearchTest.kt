@@ -84,4 +84,20 @@ class PairSearchTest {
         assertEquals("261225", PairSearch.deliveryCode(CurrencyPairInfo("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY)))
         assertNull(PairSearch.deliveryCode(CurrencyPairInfo("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL)))
     }
+
+    @Test
+    fun arabicDigitsCountAsDate() {
+        // «BTCUSDT ١٢٢٥» (arabisch-indisch) und «۲۶۱۲۲۵» (persisch) = Verfallsdatum
+        assertEquals("1225", PairSearch.parse("BTCUSDT ١٢٢٥")!!.date)
+        assertEquals("261225", PairSearch.parse("BTCUSDT ۲۶۱۲۲۵")!!.date)
+        // Berechnetes Datum immer mit lateinischen Ziffern, auch in arabischer App-Sprache
+        val saved = java.util.Locale.getDefault()
+        try {
+            java.util.Locale.setDefault(java.util.Locale.forLanguageTag("ar-EG-u-nu-arab"))
+            val code = PairSearch.deliveryCode(CurrencyPairInfo("BTC", "USDT", "BTCUSDT", FuturesContractType.QUARTERLY))
+            assertTrue(code == null || code.all { it in '0'..'9' })
+        } finally {
+            java.util.Locale.setDefault(saved)
+        }
+    }
 }

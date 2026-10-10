@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.components.ExpandToggleButton
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -41,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -87,6 +89,8 @@ internal fun WhySheet(
     signals: List<ActivitySignal>,
     load: suspend (WatchEntity) -> WhyReport?,
     onDismiss: () -> Unit,
+    /** 24-h-Wert (= Pille, rollend) aus den Kerzen einer anderen Börse; null = nicht. */
+    candleSource: String? = null,
 ) {
     var attempt by remember { mutableIntStateOf(0) }
     val state by produceState<WhyState>(initialValue = WhyState.Loading, watch.id, attempt) {
@@ -156,6 +160,8 @@ internal fun WhySheet(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             val report = (state as? WhyState.Loaded)?.report
+            val candleNote = candleSource?.takeIf { report?.change24h != null }
+                ?.let { stringResource(R.string.change_candle_source, it) }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm, bottom = Spacing.md)
@@ -171,7 +177,17 @@ internal fun WhySheet(
                 )
                 ChangeBadge(stringResource(R.string.why_change_1h), report?.change1h)
                 Spacer(Modifier.width(8.dp))
-                ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h)
+                ChangeBadge(stringResource(R.string.why_change_24h), report?.change24h, note = candleNote)
+            }
+            // 24-h-Wert aus fremden Kerzen (z. B. Kraken-Paar → Binance): klein darunter sagen, woher
+            if (candleNote != null) {
+                Text(
+                    candleNote,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.fillMaxWidth().padding(top = 2.dp, bottom = Spacing.sm),
+                    textAlign = TextAlign.End
+                )
             }
 
             // Was gerade auffällt (die Signale hinter dem ⚡)
@@ -245,9 +261,9 @@ internal fun WhySheet(
 
 /** «1h» und daneben die Änderung als [ChangePill] («—» ohne Daten). */
 @Composable
-private fun ChangeBadge(label: String, change: Double?) {
-    // Screenreader: «1h, gestiegen um 2.31%» statt «1h +2.31 %»
-    val spoken = change?.let { "$label, " + A11yText.change(LocalContext.current, it) }
+private fun ChangeBadge(label: String, change: Double?, note: String? = null) {
+    // Screenreader: «1h, gestiegen um 2.31%» statt «1h +2.31 %»; mit [note] danach der Hinweis
+    val spoken = change?.let { "$label, " + A11yText.change(LocalContext.current, it) + (note?.let { n -> ", $n" } ?: "") }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)
@@ -275,9 +291,11 @@ private fun ReasonDetails(reasons: List<Reason>, animate: Boolean) {
             // Details auf-/zuklappen: wächst weich, das Blatt bleibt stehen
             .then(if (animate) Modifier.animateContentSize(tween(SWAP_MILLIS)) else Modifier)
     ) {
-        TextButton(onClick = { showDetails = !showDetails }) {
-            Text(stringResource(if (showDetails) R.string.why_details_hide else R.string.why_details))
-        }
+        ExpandToggleButton(
+            text = stringResource(if (showDetails) R.string.why_details_hide else R.string.why_details),
+            expanded = showDetails,
+            onClick = { showDetails = !showDetails },
+        )
         if (showDetails) {
             Column(
                 modifier = Modifier

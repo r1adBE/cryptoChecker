@@ -2,7 +2,7 @@
 <resources>
     <!-- Runde 9 · Crypto Pulse «Was gerade auffällt» -->
     <string name="pulse_now_title">Was gerade auffällt</string>
-    <string name="pulse_why_action">Warum? →</string>
+    <string name="pulse_why_action">Warum?</string>
     <string name="pulse_section_factors">Faktoren</string>
 
     <!-- Leitsatz unter der Schlagzeile -->

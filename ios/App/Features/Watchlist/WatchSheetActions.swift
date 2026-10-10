@@ -8,7 +8,7 @@ extension WatchActionsSheet {
     func primaryActions(_ watch: Watch, alarmCount: Int) -> some View {
         HStack(spacing: 8) {
             WatchActionTile(
-                systemImage: alarmCount > 0 ? "bell.fill" : "bell",
+                systemImage: alarmCount > 0 ? "bell.and.waves.left.and.right.fill" : "bell.and.waves.left.and.right",
                 title: alarmCount > 0 ? L("watchlist_alarms_count", count: alarmCount) : L("watch_action_alarm")
             ) {
                 WatchlistHaptics.selection()
@@ -34,6 +34,51 @@ extension WatchActionsSheet {
             ) {
                 WatchlistHaptics.impact()
                 data.toggleFavorite(watch)
+            }
+        }
+        // Gleich hoch, auch wenn ein Text umbricht
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    // MARK: Vorschau
+
+    /// Vorschau (Paar nicht in der Merkliste): gross «Zur Merkliste hinzufügen» in der Themenfarbe,
+    /// daneben «Warum?» als Kachel wie sonst. `adding`: Knopf gesperrt, «Zur Merkliste hinzugefügt.»
+    /// bis das Blatt zum gespeicherten Eintrag wechselt. Wie Android `PreviewSheetActions`.
+    func previewActions(_ watch: Watch, adding: Bool) -> some View {
+        HStack(spacing: 8) {
+            Button {
+                addPreview()
+            } label: {
+                HStack(spacing: Spacing.sm) {
+                    Image(systemName: adding ? "checkmark" : "plus")
+                        .scaledFont(size: 19, weight: .semibold, relativeTo: .body)
+                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                    Text(L(adding ? "explorer_added_to_watchlist" : "explorer_add_to_watchlist"))
+                        .font(.subheadline.weight(.semibold))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
+                }
+                .foregroundStyle(adding ? AppColors.onSurfaceVariant : accent.onPrimary)
+                .padding(.horizontal, Spacing.md)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, minHeight: 76, maxHeight: .infinity)
+                .background(adding ? AppColors.containerHigh : accent.primary,
+                            in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .disabled(adding)
+            .layoutPriority(1)
+            // Nicht mehr gehandelt: kein «Warum?» (es gäbe nur alte Daten)
+            if !watch.isNotTraded {
+                WatchActionTile(systemImage: "lightbulb", title: L("watch_action_why")) {
+                    WatchlistHaptics.selection()
+                    onWhyPreview(watch)
+                    dismiss()
+                }
+                .frame(maxWidth: 140)
             }
         }
         // Gleich hoch, auch wenn ein Text umbricht
@@ -194,5 +239,56 @@ private struct WatchActionTile: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(badge ? title + ", " + L("activity_indicator") : title)
         .accessibilityAddTraits(selected ? AccessibilityTraits([.isButton, .isSelected]) : AccessibilityTraits.isButton)
+    }
+}
+
+// MARK: - Vorschau-Paar
+
+/// Vorschau-Paar aus «Heute auffällig» (Coin nicht in der Merkliste): Binance Spot «COIN/USDT»,
+/// nur im Speicher — nichts wird gespeichert, bis der Nutzer es hinzufügt. Wie Android
+/// `InfoViewModel.previewWatch` / `previewQuote`.
+enum WatchPreview {
+    /// Id des Vorschau-Paars (nie gespeichert): negativ, fällt mit keinem Eintrag, Alarm oder Signal zusammen.
+    static let watchId: Int64 = -1
+    /// Börse und Quote wie die Start-Merkliste.
+    static let marketKey = "Binance"
+    static let quoteAsset = "USDT"
+
+    /// Vorschau-Paar zu `symbol`; nil, wenn es Binance nicht gibt oder die gespeicherte Paarliste das
+    /// Spot-Paar nicht führt (dann wie bisher die Suche im Hinzufügen-Tab). Die Zeilen kommen ohnehin
+    /// aus den Binance-Tickern «…USDT», die Prüfung ist nur die Absicherung.
+    static func watch(symbol: String) async -> Watch? {
+        let base = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard !base.isEmpty, let market = MarketsConfig.market(marketKey) else { return nil }
+        let pairs = await PairCache.shared.pairs(for: market.key).pairs
+        var pairId = base + quoteAsset
+        // Leere Liste (noch nie geladen): den Ticker selbst entscheiden lassen
+        if !pairs.isEmpty {
+            guard let listed = pairs.first(where: {
+                $0.contractType == .none &&
+                    $0.base.caseInsensitiveCompare(base) == .orderedSame &&
+                    $0.quote.caseInsensitiveCompare(quoteAsset) == .orderedSame
+            }) else { return nil }
+            if let id = listed.pairId { pairId = id }
+        }
+        return Watch(id: watchId, marketKey: market.key, marketName: market.name,
+                     baseAsset: base, quoteAsset: quoteAsset, pairId: pairId)
+    }
+
+    /// Kurs und rollende 24-h-Veränderung — eine Ticker-Abfrage wie beim Aktualisieren eines Paars,
+    /// aber ohne Speichern, Alarme oder Mitteilungen. Fehler stehen in `lastError`.
+    static func fetchQuote(_ watch: Watch) async -> Watch {
+        let fetched = await PriceFetcher.fetchSingle(watch)
+        var shown = watch
+        if let ticker = fetched.ticker, ticker.last.isFinite, ticker.last > 0 {
+            shown.lastPrice = ticker.last
+            shown.change24h = ticker.change24hPercent.flatMap { $0.isFinite ? $0 : nil }
+            shown.lastUpdate = TimeUtils.nowMillis
+            shown.lastError = nil
+        } else {
+            // Älterer Kurs bleibt stehen (das Blatt bietet dann «Erneut versuchen» an)
+            shown.lastError = fetched.error ?? L("market_unavailable_error")
+        }
+        return shown
     }
 }

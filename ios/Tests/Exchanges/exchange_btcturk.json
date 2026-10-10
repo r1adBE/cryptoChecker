@@ -1,0 +1,65 @@
+{
+  "exchange": "BtcTurk",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.btcturk.com/api/v2/ticker?pairSymbol=BTCTRY",
+    "bulk": "GET https://api.btcturk.com/api/v2/ticker"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker BTCTRY",
+      "market": "Btcturk",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTCTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":[{\"pair\":\"BTCTRY\",\"pairNormalized\":\"BTC_TRY\",\"timestamp\":1728540000123,\"last\":2150000,\"high\":2180000,\"low\":2100000, \"bid\":2149000,\"ask\":2151000,\"open\":2110000,\"volume\":123.45,\"average\":2140000,\"daily\":40000,\"dailyPercent\":1.9, \"denominatorSymbol\":\"TRY\",\"numeratorSymbol\":\"BTC\",\"order\":1000}],\"success\":true,\"message\":null,\"code\":0}",
+      "expect": {
+        "last": 2150000.0,
+        "bid": 2149000.0,
+        "ask": 2151000.0,
+        "high": 2180000.0,
+        "low": 2100000.0,
+        "vol": 123.45,
+        "change24hPercent": 1.8957345971563981,
+        "timestamp": 1728540000123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Btcturk",
+      "pair": {
+        "base": "FOO",
+        "quote": "TRY",
+        "id": "FOOTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":null,\"success\":false,\"message\":\"pairSymbol is invalid\",\"code\":1003}",
+      "expect": {
+        "error": true,
+        "message": "pairSymbol is invalid"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk ticker",
+      "market": "Btcturk",
+      "requestId": 0,
+      "body": "{\"data\":[{\"pair\":\"BTCTRY\",\"pairNormalized\":\"BTC_TRY\",\"timestamp\":1728540000123,\"last\":2150000,\"high\":2180000,\"low\":2100000, \"bid\":2149000,\"ask\":2151000,\"open\":2110000,\"volume\":123.45,\"average\":2140000,\"daily\":40000,\"dailyPercent\":1.9, \"denominatorSymbol\":\"TRY\",\"numeratorSymbol\":\"BTC\",\"order\":1000}],\"success\":true,\"message\":null,\"code\":0}",
+      "expect": {
+        "count": 1,
+        "tickers": {
+          "BTCTRY": {
+            "last": 2150000.0
+          }
+        }
+      }
+    }
+  ]
+}

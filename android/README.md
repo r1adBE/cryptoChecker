@@ -22,6 +22,23 @@ r1AD — riad.work@outlook.com
 
 ### Zuletzt dazugekommen
 
+* **Befunde der technischen Prüfung behoben** — Alarme (gleitendes Fenster `domain/alarm/MoveWindow.kt`,
+  speichern vor melden, Hoch/Tief-Marke, ohne Mitteilungs-Erlaubnis nicht verbraucht), Wiederherstellung prüft
+  zuerst (`data/WatchlistRestoreCleanup.kt`), DataStore übersteht beschädigte Datei, Zahlen-Eingabe im Portfolio
+  wie Alarm-Schwellen (`ThresholdParser.parseAllowingZero`, `util/DecimalText.kt`), Börsen-Parser (OKX, Gate,
+  Kraken, Volumen). «Heute auffällig» öffnet das Aktionsblatt (Vorschau für nicht beobachtete Coins,
+  `ui/features/info/MarketCoinSheets.kt`); langes Drücken = Auswählen; Gruppen-Chips mit Rand in der Themenfarbe.
+* **Portfolio-Zahlen und Sicherung** — eine Stablecoin-Regel (`domain/portfolio/PortfolioStables.kt`),
+  Wertverlauf mit EZB-Tageskursen (`PortfolioHistoryFx.kt`), 25-%-Sperre für Verlauf und Stichtag
+  (`PricePlausibility.kt`), Hinweis «Veränderung aus …-Kerzen» bei fremden Kerzen; Portfolio in eigener
+  Datenbank `cryptochecker_portfolio.db` (`data/portfolio/PortfolioDatabase.kt`, Übernahme aus
+  AppDatabase v13 durch `PortfolioLegacyImport`), standardmässig nicht in der Systemsicherung (Schalter
+  «Portfolio in Systemsicherung», `PortfolioBackupMirror`); Börsen-Vertragstests mit
+  `android/testdata/exchanges` (`ExchangeContractTest`); ehrlicher Text beim ersten Alarm.
+* **Listen einheitlich** — Merkliste, Start-Auswahl, «Heute auffällig» und Portfolio mit gleichem
+  Logo (36 dp) und gleicher Schrift; jede Zeile eine eigene Karte mit 2 dp Fuge, aussen 16 dp,
+  innen 4 dp gerundet (`ui/components/ListSegment.kt`). Markt: Status-Pille
+  «Alles aktuell · vor …» statt Titel «Jetzt» (`MarketStatusPill`).
 * **Feinschliff vor dem Store-Test** — eine Frische-Schwelle für Pille, Zeile und Screenreader
   (`OutdatedRule`); «Häufig aktualisieren» bei dunklem Bildschirm höchstens alle 5 Minuten
   (`LiveInterval`, Hintergrund-15-Min.-Takt unverändert); «Favoriten»-Chip und Gruppen-«+» nur
@@ -29,8 +46,11 @@ r1AD — riad.work@outlook.com
   48-dp-Tippflächen; Favorit-Stern ohne Logos; leere Alarm-Übersicht mit «Neuer Alarm»; Suche
   ohne Treffer mit «Börse und Paar selbst wählen»; Hinweis «Mitteilungen sind aus» bei den Alarmen;
   Überschriften mit Strich statt Orange-Schrift, keine bräunlichen Flächen im Dunkelmodus;
-  klare Zeichen: Auge = Kurs-Benachrichtigung (auch am Schalter im Aktionsblatt und in den
-  Einstellungen), Glocke = Alarme; Glocke oben nur mit aktiven Alarmen und ohne Zahl («Alle Alarme»
+  ★- und ⚡-Chip bei den Gruppen statt Aktivitätskarte (`QuickView`), Tipp auf «veraltet» zeigt
+  nur diese, Mehrfachauswahl (⋯ › Auswählen: Favorit · Gruppe · Löschen), Zeit in der Zeile nur
+  wenn nicht aktuell, «Aktualisieren» grau statt «Gerade aktualisiert»;
+  zwei Glocken: schlicht = Kurs-Benachrichtigung (auch am Schalter im Aktionsblatt), mit Wellen
+  = Alarme (`ic_notifications_active`); Glocke oben nur mit aktiven Alarmen und ohne Zahl («Alle Alarme»
   immer im ⋯-Menü); Start-Paare mit Kurs-Benachrichtigung wie jedes Paar.
 
 * **Coin-Logos** — echte Logos in Merkliste, Aktionsblatt, Portfolio,
@@ -202,7 +222,7 @@ r1AD — riad.work@outlook.com
   zweiten Satz zu Volumen und Funding, darunter BTC, ETH, SOL (24 h), ein
   Funding-Chip (nur wenn erhöht/negativ), die Marktbreite «Top 30 ▲ 22 · ▼ 8» (grösste Coins
   ohne Stablecoins, 24 h) und der Krypto-Markt gesamt mit Veränderung; ein Satz zur Marktbreite
-  nur in deutlichen Fällen. «Warum? →» klappt «Markt heute»
+  nur in deutlichen Fällen. «Warum? ⌄» klappt «Markt heute»
   (nur Altcoins vs. Bitcoin — die Kurse stehen schon in den Pillen) und die Faktor-Checkliste auf — nur Funding (! / –);
   Volumen, Fear & Greed und Gas stehen nicht doppelt, sie haben eigene Karten
   im Tab. Feste Regeln, keine Prognose (`domain/market/CryptoPulse.kt`,
@@ -280,7 +300,7 @@ r1AD — riad.work@outlook.com
 * **Akku-Hinweis erst nach dem ersten Alarm** — nie beim ersten Start oder beim
   Hinzufügen der ersten Coins; er erscheint, sobald man nach dem ersten Alarm
   wieder auf einem Haupt-Tab ist (`ui/features/about/BatteryOptimizationDialog.kt`).
-* **Markt-Tab in drei Abschnitten** — «Jetzt» (Crypto Pulse, «Heute auffällig»,
+* **Markt-Tab in drei Abschnitten** — oben ohne Titel mit Status-Pille (Crypto Pulse, «Heute auffällig»,
   Fear & Greed), «Einordnung» (Marktphase, Dominanz mit Altcoin-Saison, Halving)
   und «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin; Wirtschaftsdaten nur bei einem Termin in ±2 h oben); die Überschriften sind für TalkBack Überschriften.
 * **Markt-Tab sofort da** — zeigt beim Öffnen die zuletzt gespeicherten Daten
