@@ -184,69 +184,97 @@ struct WatchlistScreen: View {
         return events(content, visible: visible, activityChip: activityChip, changeView: changeView)
     }
 
-    /// Zweiter Teil der Modifikatoren von `screen` (aufgeteilt, damit der Swift-Compiler den
-    /// Ausdruck in vernünftiger Zeit prüfen kann): Uhr-Anstösse, Sprünge aus Mitteilungen,
-    /// Ende der vorübergehenden Ansichten, Live-Kurse und App-Start-Messung.
+    /// Zweiter Teil der Modifikatoren von `screen`, in drei kleine Ausdrücke aufgeteilt, damit der
+    /// Swift-Compiler sie in vernünftiger Zeit prüfen kann: Uhr und Sprünge aus Mitteilungen
+    /// (`routeEvents`), Ende der vorübergehenden Ansichten (`viewEvents`), Live-Kurse und
+    /// App-Start-Messung (`liveEvents`).
     private func events(_ content: some View, visible: [Watch], activityChip: Bool,
                         changeView: ChangeView) -> some View {
-        content
-        .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
-        .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }
-        // Erster Stand gilt als gesehen; nur spätere Auslösungen lassen die Glocke pulsieren
-        .onChange(of: data.alarms.map(\.lastTriggeredAt).max() ?? 0) { old, new in
-            if !reduceMotion && AlarmPulse.isNew(previous: old, current: new) { bellPulse += 1 }
-        }
-        .onChange(of: router.showAlarmsOverview, initial: true) { _, show in
-            guard show else { return }
-            router.showAlarmsOverview = false
-            actionsFor = nil
-            showOverview = true
-        }
-        // «Warum?» aus einer Alarm-Mitteilung: Erklärung des Paars öffnen (nur gehandelte Paare)
-        .onChange(of: router.openWhyWatchId, initial: true) { _, id in
-            guard let id else { return }
-            router.openWhyWatchId = nil
-            guard data.watch(id)?.isNotTraded == false else { return }
-            actionsFor = nil
-            showOverview = false
-            whyFor = WatchlistSheetTarget(id: id)
-        }
-        // «Alarm setzen» von der Seite «Paar hinzufügen»: Alarme des Paars öffnen (wie aus dem Aktionsblatt)
-        .onChange(of: router.openAlarmsWatchId, initial: true) { _, id in
-            guard let id else { return }
-            router.openAlarmsWatchId = nil
-            actionsFor = nil
-            showOverview = false
-            alarmsFor = id
-        }
-        .onChange(of: visible.count) { _, count in
-            if count < 2 { editMode = .inactive }
-        }
-        // Vorübergehende Ansicht endet von selbst, wenn nichts mehr hineinpasst
-        .onChange(of: activityChip) { _, shown in
-            if !shown && quickView == .activity { quickView = nil }
-        }
-        .onChange(of: visible.isEmpty) { _, empty in
-            if empty && quickView == .stale { quickView = nil }
-        }
-        // Mehrfachauswahl: nur Paare, die es noch gibt und die zu sehen sind
-        .onChange(of: visible.map(\.id)) { _, ids in
-            selectedIds.formIntersection(ids)
-        }
-        .environment(\.changeView, changeView)
-        .sensoryFeedback(.impact(weight: .medium), trigger: reorderTick)
-        // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
-        // (auch in der ⚡-Ansicht über alle Gruppen)
-        .onChange(of: visible.map(\.livePair), initial: true) { _, pairs in
-            Task { await LivePriceStream.shared.setPairs(pairs) }
-        }
-        .onAppear { Task { await LivePriceStream.shared.setScreenVisible(true) } }
-        .onDisappear { Task { await LivePriceStream.shared.setScreenVisible(false) } }
-        // App-Start messen: erstes Bild der Merkliste (nächster Durchlauf nach dem Erscheinen)
-        .onAppear {
-            Task { @MainActor in
-                if let millis = AppStartClock.onFirstWatchlistFrame() { data.recordAppStart(millis) }
+        let routed = routeEvents(content)
+        let viewed = viewEvents(routed, visible: visible, activityChip: activityChip)
+        return liveEvents(viewed, visible: visible, changeView: changeView)
+    }
+
+    private func routeEvents(_ content: some View) -> some View {
+        let lastTriggered: Int64 = data.alarms.map { $0.lastTriggeredAt }.max() ?? 0
+        return content
+            .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
+            .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }
+            // Erster Stand gilt als gesehen; nur spätere Auslösungen lassen die Glocke pulsieren
+            .onChange(of: lastTriggered) { old, new in
+                if !reduceMotion && AlarmPulse.isNew(previous: old, current: new) { bellPulse += 1 }
             }
-        }
+            .onChange(of: router.showAlarmsOverview, initial: true) { _, show in
+                guard show else { return }
+                router.showAlarmsOverview = false
+                actionsFor = nil
+                showOverview = true
+            }
+            // «Warum?» aus einer Alarm-Mitteilung: Erklärung des Paars öffnen (nur gehandelte Paare)
+            .onChange(of: router.openWhyWatchId, initial: true) { _, id in
+                openWhyFromRouter(id)
+            }
+            // «Alarm setzen» von der Seite «Paar hinzufügen»: Alarme des Paars öffnen (wie aus dem Aktionsblatt)
+            .onChange(of: router.openAlarmsWatchId, initial: true) { _, id in
+                openAlarmsFromRouter(id)
+            }
+    }
+
+    private func openWhyFromRouter(_ id: Int64?) {
+        guard let id else { return }
+        router.openWhyWatchId = nil
+        guard data.watch(id)?.isNotTraded == false else { return }
+        actionsFor = nil
+        showOverview = false
+        whyFor = WatchlistSheetTarget(id: id)
+    }
+
+    private func openAlarmsFromRouter(_ id: Int64?) {
+        guard let id else { return }
+        router.openAlarmsWatchId = nil
+        actionsFor = nil
+        showOverview = false
+        alarmsFor = id
+    }
+
+    private func viewEvents(_ content: some View, visible: [Watch], activityChip: Bool) -> some View {
+        let count: Int = visible.count
+        let empty: Bool = visible.isEmpty
+        let ids: [Int64] = visible.map { $0.id }
+        return content
+            .onChange(of: count) { _, count in
+                if count < 2 { editMode = .inactive }
+            }
+            // Vorübergehende Ansicht endet von selbst, wenn nichts mehr hineinpasst
+            .onChange(of: activityChip) { _, shown in
+                if !shown && quickView == .activity { quickView = nil }
+            }
+            .onChange(of: empty) { _, empty in
+                if empty && quickView == .stale { quickView = nil }
+            }
+            // Mehrfachauswahl: nur Paare, die es noch gibt und die zu sehen sind
+            .onChange(of: ids) { _, ids in
+                selectedIds.formIntersection(ids)
+            }
+    }
+
+    private func liveEvents(_ content: some View, visible: [Watch], changeView: ChangeView) -> some View {
+        let pairs = visible.map { $0.livePair }
+        return content
+            .environment(\.changeView, changeView)
+            .sensoryFeedback(.impact(weight: .medium), trigger: reorderTick)
+            // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
+            // (auch in der ⚡-Ansicht über alle Gruppen)
+            .onChange(of: pairs, initial: true) { _, pairs in
+                Task { await LivePriceStream.shared.setPairs(pairs) }
+            }
+            .onAppear { Task { await LivePriceStream.shared.setScreenVisible(true) } }
+            .onDisappear { Task { await LivePriceStream.shared.setScreenVisible(false) } }
+            // App-Start messen: erstes Bild der Merkliste (nächster Durchlauf nach dem Erscheinen)
+            .onAppear {
+                Task { @MainActor in
+                    if let millis = AppStartClock.onFirstWatchlistFrame() { data.recordAppStart(millis) }
+                }
+            }
     }
 }

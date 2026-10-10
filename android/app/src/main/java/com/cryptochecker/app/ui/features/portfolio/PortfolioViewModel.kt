@@ -230,7 +230,7 @@ class PortfolioViewModel @Inject constructor(
             todayEpochDay = today,
             dayEndMillis = dayEndIn(zone),
         )
-        if (!converted || fx == null) return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false)
+        if (!converted) return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false)
         val result = PortfolioHistoryFx.convert(series, fxSeries?.rates, fx, today)
         PortfolioHistoryUi(range, result.series, code, true, result.approximate)
     }
