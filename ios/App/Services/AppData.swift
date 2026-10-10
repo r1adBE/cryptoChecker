@@ -690,10 +690,6 @@ final class AppData: ObservableObject {
         analyzeActivity()
     }
 
-    /// Nach unten ziehen bzw. Knopf oben: gesperrt, solange eine Aktualisierung läuft oder die
-    /// letzte vollständige keine 15 s her ist (`RefreshDebounce`). Dann kein neuer Durchlauf —
-    /// die Merkliste zeigt kurz «Gerade aktualisiert». Live-Takt und neue Paare laufen ohne Sperre.
-    @discardableResult
     /// Würde «Aktualisieren» jetzt etwas tun? Nein, solange eine läuft oder die letzte erst 15 s
     /// her ist — dann ist der Menüpunkt grau statt einer Meldung (wie Android `canRefreshNow`).
     var canRefreshNow: Bool {
@@ -701,6 +697,10 @@ final class AppData: ObservableObject {
                                now: TimeUtils.nowMillis) == .start
     }
 
+    /// Nach unten ziehen bzw. Knopf oben: gesperrt, solange eine Aktualisierung läuft oder die
+    /// letzte vollständige keine 15 s her ist (`RefreshDebounce`). Dann kein neuer Durchlauf —
+    /// der Menüpunkt ist grau (`canRefreshNow`). Live-Takt und neue Paare laufen ohne Sperre.
+    @discardableResult
     func refreshAllByUser() async -> RefreshDebounce.Decision {
         let decision = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
                                               now: TimeUtils.nowMillis)

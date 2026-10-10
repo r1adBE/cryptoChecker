@@ -291,36 +291,37 @@ internal fun WatchActionsSheet(
                     onAdd = onAddToWatchlist,
                     onWhy = onWhy,
                 )
-            } else
-            // Die drei häufigsten Aktionen zuerst und gleich gross: Alarm, Warum?, Favorit
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                // Gleich hoch, auch wenn ein Text umbricht
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 12.dp)
-            ) {
-                PrimarySheetAction(
-                    icon = R.drawable.ic_notifications_active,
-                    text = if (alarmCount > 0) pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount)
-                    else stringResource(R.string.watch_action_alarm),
-                    onClick = onOpenAlarms,
-                    modifier = Modifier.weight(1f)
-                )
-                // Nicht mehr gehandelt: kein «Warum?» (es gäbe nur alte Daten)
-                if (!watch.isNotTraded) {
+            } else {
+                // Die drei häufigsten Aktionen zuerst und gleich gross: Alarm, Warum?, Favorit
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    // Gleich hoch, auch wenn ein Text umbricht
+                    modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 12.dp)
+                ) {
                     PrimarySheetAction(
-                        icon = R.drawable.ic_lightbulb,
-                        text = stringResource(R.string.watch_action_why),
-                        onClick = onWhy,
+                        icon = R.drawable.ic_notifications_active,
+                        text = if (alarmCount > 0) pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount)
+                        else stringResource(R.string.watch_action_alarm),
+                        onClick = onOpenAlarms,
+                        modifier = Modifier.weight(1f)
+                    )
+                    // Nicht mehr gehandelt: kein «Warum?» (es gäbe nur alte Daten)
+                    if (!watch.isNotTraded) {
+                        PrimarySheetAction(
+                            icon = R.drawable.ic_lightbulb,
+                            text = stringResource(R.string.watch_action_why),
+                            onClick = onWhy,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    PrimarySheetAction(
+                        icon = if (watch.favorite) R.drawable.ic_star else R.drawable.ic_star_outline,
+                        text = stringResource(R.string.watch_action_favorite),
+                        onClick = onToggleFavorite,
+                        checked = watch.favorite,
                         modifier = Modifier.weight(1f)
                     )
                 }
-                PrimarySheetAction(
-                    icon = if (watch.favorite) R.drawable.ic_star else R.drawable.ic_star_outline,
-                    text = stringResource(R.string.watch_action_favorite),
-                    onClick = onToggleFavorite,
-                    checked = watch.favorite,
-                    modifier = Modifier.weight(1f)
-                )
             }
 
             watch.note?.takeIf { !preview }?.let { note ->
