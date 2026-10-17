@@ -146,7 +146,20 @@ final class CryptoCheckerUITests: XCTestCase {
     @MainActor
     private func openBackupPage(_ app: XCUIApplication) {
         tap(app, UiTestTags.tabSettings)
-        tap(app, UiTestTags.settingsBackup)
+        // Die Zeile «Sicherung» steht weit unten: erst sichtbar scrollen, sonst trifft der Tipp nichts
+        // (das Element existiert, ist aber nicht antippbar) – auf GitHub fehlte danach «backup_export»
+        let row = app.tagged(UiTestTags.settingsBackup)
+        XCTAssertTrue(row.waitForExistence(timeout: uiTimeout), "\(UiTestTags.settingsBackup) missing")
+        var swipes = 0
+        while !row.isHittable && swipes < 6 {
+            app.swipeUp()
+            swipes += 1
+        }
+        row.tap()
+        if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: 5) {
+            // Ein zweiter Tipp, falls der erste noch in eine Scroll-Bewegung fiel
+            if row.exists && row.isHittable { row.tap() }
+        }
     }
 
     // MARK: Hilfen

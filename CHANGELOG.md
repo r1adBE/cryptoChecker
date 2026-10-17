@@ -1,5 +1,10 @@
 # Changelog
 
+## 16.2.2 (build 67)
+
+* GitHub: Android (unit tests, lint, debug and release build) and iOS (build and unit tests) are green. Three of the
+  four iOS UI tests passed on the first run; the backup test now scrolls the settings row into view before tapping.
+
 ## 16.2.2 (build 66)
 
 * iOS builds on GitHub for the first time since the rewrite. One unit test compared watched-address networks in the
