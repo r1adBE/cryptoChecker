@@ -44,10 +44,16 @@ struct WatchEditSheet: View {
                         .padding(.bottom, 4)
                     form
                     if WatchEdit.warnAlarms(current: current, target: target, alarmCount: alarmCount) {
-                        Label(L("watch_edit_alarms_warning"), systemImage: "bell.and.waves.left.and.right")
-                            .font(.subheadline)
-                            .foregroundStyle(AppColors.onSurface)
-                            .fixedSize(horizontal: false, vertical: true)
+                        // Symbol in Bernstein («Achtung», wie Android `AppColors.warning`), Text in der Textfarbe
+                        Label {
+                            Text(L("watch_edit_alarms_warning"))
+                                .foregroundStyle(AppColors.onSurface)
+                        } icon: {
+                            Image(systemName: "bell.and.waves.left.and.right")
+                                .foregroundStyle(AppColors.warning)
+                        }
+                        .font(.subheadline)
+                        .fixedSize(horizontal: false, vertical: true)
                     }
                     if duplicate {
                         Text(L("explorer_already_in_watchlist"))

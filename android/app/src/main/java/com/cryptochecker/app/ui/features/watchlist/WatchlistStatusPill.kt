@@ -13,8 +13,11 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -24,11 +27,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -39,6 +44,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.offset
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
@@ -178,12 +184,31 @@ internal fun DisabledChip(
 ) {
     val tone = MaterialTheme.colorScheme.onSurfaceVariant
     val clickLabel = stringResource(if (selected) R.string.watchlist_show_all else R.string.watchlist_show_only_disabled)
+    // Druck-Rückmeldung nur auf der sichtbaren Pille, nicht auf der höheren Tippfläche
+    val interaction = remember { MutableInteractionSource() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            // Tippfläche 48 dp hoch (Review 19, wie Gruppe, Suche und ⚡): je 8 dp über und unter der Pille; nach
+            // aussen meldet sie nur die Pillen-Höhe, die Statuszeile wächst nicht
+            .layout { measurable, constraints ->
+                val extra = DISABLED_TOUCH_EXTRA.roundToPx()
+                val placeable = measurable.measure(constraints.offset(vertical = 2 * extra))
+                layout(placeable.width, (placeable.height - 2 * extra).coerceAtLeast(0)) {
+                    placeable.placeRelative(0, -extra)
+                }
+            }
+            .clickable(
+                interactionSource = interaction,
+                indication = null,
+                onClickLabel = clickLabel,
+                role = Role.Button,
+                onClick = onClick
+            )
+            .padding(vertical = DISABLED_TOUCH_EXTRA)
             .clip(RoundedCornerShape(50))
-            .clickable(onClickLabel = clickLabel, role = Role.Button, onClick = onClick)
             .background(tone.copy(alpha = if (selected) 0.22f else 0.12f))
+            .indication(interaction, LocalIndication.current)
             .padding(horizontal = 10.dp, vertical = Spacing.sm)
     ) {
         Icon(
@@ -209,3 +234,6 @@ internal fun DisabledChip(
         }
     }
 }
+
+/** Tippfläche über und unter der Pille «N deaktiviert»: 32 + 2 × 8 = 48 dp. */
+private val DISABLED_TOUCH_EXTRA = 8.dp

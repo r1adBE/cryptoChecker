@@ -8,8 +8,17 @@ import UIKit
 extension WatchlistRow {
     /// Paar in zwei Teilen: Basis gross und halbfett («BTC»), dahinter klein und grau «/USDT», auf
     /// gemeinsamer Grundlinie. Die Basis — das Wichtigste der Zeile — wird nie zugunsten der Quote
-    /// gekürzt: «/QUOTE» erscheint nur, wenn es ganz Platz hat, sonst entfällt es (die Quote steht
+    /// gekürzt: «/QUOTE» (bei Futures «/QUOTE PERP») erscheint nur, wenn es ganz Platz hat, sonst entfällt es (die Quote steht
     /// ohnehin beim Kurs). Wie Android `PairName`.
+    /// Rest hinter der Basis: «/USDT», bei Futures «/USDT PERP» — klein und grau wie Android
+    /// (`displayName` ohne die Basis; Review 19: keine eigene Akzent-Kapsel mehr für den Kontrakt).
+    private var pairRest: String {
+        let name = watch.displayName
+        if name.hasPrefix(watch.baseAsset) { return String(name.dropFirst(watch.baseAsset.count)) }
+        if let contract = watch.contractType.shortName { return "/" + watch.quoteAsset + " " + contract }
+        return "/" + watch.quoteAsset
+    }
+
     private var pairName: some View {
         // Deaktiviert: onSurfaceVariant statt abgeblasst (Kontrast AA, L-13)
         let base = Text(watch.baseAsset)
@@ -18,7 +27,7 @@ extension WatchlistRow {
         return ViewThatFits(in: .horizontal) {
             HStack(alignment: .firstTextBaseline, spacing: 0) {
                 base.lineLimit(1)
-                Text(verbatim: "/" + watch.quoteAsset)
+                Text(verbatim: pairRest)
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)
@@ -49,17 +58,6 @@ extension WatchlistRow {
                     WatchlistActivityBolt(action: onActivity)
                         .padding(.leading, Spacing.xs)
                         .transition(.scale.combined(with: .opacity))
-                }
-                if let contract = watch.contractType.shortName {
-                    Text(contract)
-                        .scaledFont(size: 11, weight: .bold, design: .rounded, relativeTo: .caption2)
-                        .foregroundStyle(accent.primary)
-                        .padding(.horizontal, Spacing.xs)
-                        .padding(.vertical, 2)
-                        .background(accent.tint(0.12), in: Capsule())
-                        .lineLimit(1)
-                        .fixedSize()
-                        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
                 }
             }
             .frame(minHeight: namesEnabled ? line1 : nil, alignment: .leading)
