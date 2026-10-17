@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Lettera</string>
     <string name="ticker_bid">Denaro</string>
+    <string name="explain_bid_ask">Denaro è il prezzo più alto che i compratori offrono ora, Lettera il prezzo più basso che i venditori accettano.</string>
     <string name="ticker_high">Massimo</string>
     <string name="ticker_low">Minimo</string>
     <string name="ticker_timestamp">Ora</string>

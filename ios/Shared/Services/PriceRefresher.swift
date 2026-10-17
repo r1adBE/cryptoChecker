@@ -18,6 +18,10 @@ enum PriceRefresher {
         var priceChangedAt: Int64 = 0
         /// Zeit laut Börse, nil = keine (`Ticker.exchangeTime`).
         var exchangeTime: Int64? = nil
+        /// Abgefragtes Paar (`Watch.identity`): Wurde der Eintrag inzwischen auf ein anderes Paar geändert (oder
+        /// durch eine Wiederherstellung mit gleicher Id ersetzt), gehört das Ergebnis nicht mehr zu ihm (`apply`).
+        /// nil = ohne Prüfung.
+        var pair: WatchIdentity.Key? = nil
     }
 
     /// Änderung eines Alarms durch die Auswertung. Übernommen wird sie nur, wenn der Alarm noch so
@@ -84,6 +88,10 @@ enum PriceRefresher {
         var update: AlarmUpdate
         /// Ansage, sobald gemeldet und gespeichert; nil = keine.
         var speech: String? = nil
+        /// Kurs und Währung für den Text «jetzt …», wenn die Schwelle in einer anderen Währung steht
+        /// (`Alarm.convertCurrency`); nil = `price` in der Quote-Währung des Paars.
+        var shownPrice: Double? = nil
+        var shownCurrency: String? = nil
     }
 
     /// Mitteilungs-Weg der Paar-Alarme für `Outcome.deliverAlarms`; Tests setzen einen Fake ein.
@@ -96,8 +104,8 @@ enum PriceRefresher {
         static let system = AlarmNotifier(
             canShow: { await Notifier.isAuthorized() },
             show: { item in
-                await Notifier.showAlarm(item.watch, item.alarm, price: item.price, volumeRatio: item.volumeRatio,
-                                         text: item.text)
+                await Notifier.showAlarm(item.watch, item.alarm, price: item.shownPrice ?? item.price,
+                                         volumeRatio: item.volumeRatio, text: item.text, currency: item.shownCurrency)
             })
     }
 
@@ -180,8 +188,9 @@ enum PriceRefresher {
             for item in pendingAlarms {
                 guard let stored = byId[item.alarm.id], item.update.matches(stored) else { continue }
                 // Lease vor jeder Meldung auffrischen: Langes Melden (viele Alarme) liesse sie sonst nach
-                // `AlarmLease.staleAfterSeconds` verwaisen, ein zweiter Prozess übernähme und meldete doppelt
-                alarmLease?.refresh()
+                // `AlarmLease.staleAfterSeconds` verwaisen, ein zweiter Prozess übernähme und meldete doppelt.
+                // Lease verloren (übernommen): keine weiteren Meldungen — die Alarme bleiben scharf
+                if let lease = alarmLease, !lease.refresh() { break }
                 // Frisch von der Platte: Hat ein anderer Prozess den Alarm seit der Auswertung schon
                 // ausgelöst (z. B. nach übernommener Lease), bearbeitet oder gelöscht → nicht noch einmal melden
                 if let onDisk = await reloadStored() {
@@ -206,8 +215,14 @@ enum PriceRefresher {
 
         /// Überträgt die Ergebnisse auf den aktuellen Stand.
         func apply(to snapshot: inout SharedStorage.Snapshot) {
+            // Einträge, deren Paar sich seit der Abfrage geändert hat: weder Kurs noch Alarm-Bezug übernehmen
+            var changedPair = Set<Int64>()
             for i in snapshot.watches.indices {
                 let id = snapshot.watches[i].id
+                if let pair = prices[id]?.pair, pair != snapshot.watches[i].identity {
+                    changedPair.insert(id)
+                    continue
+                }
                 if let u = prices[id] {
                     if let price = u.price {
                         snapshot.watches[i].previousPrice = snapshot.watches[i].lastPrice
@@ -232,7 +247,11 @@ enum PriceRefresher {
                 }
             }
             // Nur auf unveränderte Alarme: eine Bearbeitung während der Abfrage bleibt
-            for (id, update) in alarms { update.apply(toAlarm: id, in: &snapshot) }
+            for (id, update) in alarms {
+                if !changedPair.isEmpty, let alarm = snapshot.alarms.first(where: { $0.id == id }),
+                   changedPair.contains(alarm.watchId) { continue }
+                update.apply(toAlarm: id, in: &snapshot)
+            }
         }
     }
 
@@ -273,10 +292,15 @@ enum PriceRefresher {
         let started = TimeUtils.nowMillis
         var outcome = Outcome()
         // Kein Netz: gar nicht erst versuchen — Kurse und Zustände bleiben, die Merkliste zeigt
-        // «Offline · Stand …». Kommt das Netz zurück, aktualisiert `AppData` einmal.
-        guard NetworkStatus.shared.isOnline else { return outcome }
-        // Pausierte Börsen (zu viele Anfragen, wiederholte Zeitüberschreitungen): diesmal aussen vor
-        var backoff = SharedStorage.exchangeBackoff
+        // «Offline · Stand …». Kommt das Netz zurück, aktualisiert `AppData` einmal. Mit Endzeit (Hintergrund,
+        // Widget) nie nach dem gemerkten Stand aussetzen: der kann nach einer Pause des Prozesses veraltet sein —
+        // dann einfach versuchen; sonst ein gemerktes «offline» frisch nachprüfen.
+        guard deadline != nil || NetworkStatus.shared.isOnlineFresh else { return outcome }
+        // Pausierte Börsen (zu viele Anfragen, wiederholte Zeitüberschreitungen): diesmal aussen vor.
+        // Beim Speichern mit dem dann gespeicherten Stand zusammenführen (`ExchangeBackoff.merge`): ein anderer
+        // Prozess (Widget, Hintergrund) kann inzwischen eine Pause gemerkt haben
+        let initialBackoff = SharedStorage.exchangeBackoff
+        var backoff = initialBackoff
         // Live-Kurse: nur diese Paare (nicht mehr gehandelte bleiben unberührt), keine Pause je Börse.
         // Deaktivierte Paare nie: keine Abfrage, keine Alarme, keine Mitteilungen (wie Android)
         let all = snapshot.watches.filter { w in
@@ -308,7 +332,8 @@ enum PriceRefresher {
             // Alle Börsen pausiert: der Bericht sagt bis wann
             if onlyWatchId == nil && !paused.isEmpty {
                 // Übernommene gemeinsame Binance-Pause mit speichern (wie Android)
-                SharedStorage.exchangeBackoff = backoff
+                SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
+                                                                      stored: SharedStorage.exchangeBackoff)
                 outcome.report = RefreshReport(at: TimeUtils.nowMillis, totalMillis: outcome.durationMillis,
                                                pairs: all.count, networkMillis: 0,
                                                markets: pausedMarkets(paused, backoff: backoff))
@@ -407,7 +432,8 @@ enum PriceRefresher {
                     markets.append(market)
                 }
                 markets.append(contentsOf: pausedMarkets(paused, backoff: backoff))
-                SharedStorage.exchangeBackoff = backoff
+                SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
+                                                                      stored: SharedStorage.exchangeBackoff)
             }
             let needingCandles = watchesNeedingCandles(watches, fetched: fetched, basis: basis, remember: onlyWatchId == nil)
             let startedKeys = Set(earlyKeys.map { "\($0.base)|\($0.quote)" })
@@ -470,7 +496,7 @@ enum PriceRefresher {
             // NaN/∞ nie als Kurs übernehmen — wie PriceRefresher.kt
             guard let ticker = result?.ticker, result?.error == nil, ticker.last.isFinite, ticker.last > 0 else {
                 outcome.failed += 1
-                outcome.prices[watch.id] = PriceUpdate(price: nil, time: now, error: result?.error)
+                outcome.prices[watch.id] = PriceUpdate(price: nil, time: now, error: result?.error, pair: watch.identity)
                 cancelIds.append(watch.id)
                 continue
             }
@@ -489,7 +515,8 @@ enum PriceRefresher {
                                                               previousChangedAt: watch.priceChangedAt,
                                                               price: price, time: time)
             outcome.prices[watch.id] = PriceUpdate(price: price, time: time, error: nil, change24h: dayChange,
-                                                   priceChangedAt: changedAt, exchangeTime: ticker.exchangeTime)
+                                                   priceChangedAt: changedAt, exchangeTime: ticker.exchangeTime,
+                                                   pair: watch.identity)
             if dayChange == nil && dayStart != nil && liveQuotes == nil { outcome.missingDayChange[watch.id] = (price, time) }
 
             var updated = watch

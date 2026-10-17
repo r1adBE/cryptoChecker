@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">El exchange no está disponible ahora – los últimos precios siguen visibles.</string>
     <string name="error_market_unreachable_short">Exchange no disponible ahora</string>
     <string name="loading_hint">Cargando…</string>
-    <string name="no_internet_connection">Sin conexión a Internet</string>
+    <string name="no_internet_connection">Sin conexión a Internet. Comprueba el wifi o los datos móviles y vuelve a intentarlo.</string>
     <string name="option_off">No</string>
     <string name="something_went_wrong">Algo salió mal</string>
     <string name="time_just_now">ahora mismo</string>
-    <string name="timeout_error_message">El exchange no responde en este momento.</string>
+    <string name="timeout_error_message">El exchange no responde en este momento. Vuelve a intentarlo en un momento.</string>
     <string name="try_again">Reintentar</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

@@ -23,7 +23,7 @@ import com.cryptochecker.marketdata.util.CurrencyText
 import com.cryptochecker.marketdata.util.FormatUtilsBase
 
 /**
- * Letzter Kurs gross, darunter Hoch/Tief, Bid/Ask und Volumen kleiner in
+ * Letzter Kurs gross, darunter Hoch/Tief, Bid/Ask (mit einem erklärenden Satz) und Volumen kleiner in
  * zwei Spalten. Ziffern gleich breit.
  */
 @Composable
@@ -71,6 +71,13 @@ fun Ticker(
             StatRow(
                 R.string.ticker_bid, StatValue(FormatUtilsBase.formatDouble(bid), quoteSymbol),
                 R.string.ticker_ask, StatValue(FormatUtilsBase.formatDouble(ask), quoteSymbol)
+            )
+            // Ein Satz, was Geld und Brief heissen (wie iOS)
+            Text(
+                text = stringResource(R.string.explain_bid_ask),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(bottom = Spacing.sm)
             )
         }
         if (volBase > Ticker.MISSING || volQuote > Ticker.MISSING) {

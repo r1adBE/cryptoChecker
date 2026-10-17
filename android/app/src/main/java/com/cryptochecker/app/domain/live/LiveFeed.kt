@@ -379,6 +379,18 @@ class LiveBuffer {
         unsaved.retainAll(ids)
     }
 
+    /**
+     * Stand dieser Paare vergessen («Paar bearbeiten»: gleiche Id, anderes Paar). Sonst bliebe der
+     * Kurs des alten Paars stehen — und mit ihm, als Ausweich-Wert eines Deltas ohne 24-h-Feld in
+     * [offer], dessen 24-h-Veränderung.
+     */
+    fun forget(ids: Collection<Long>) {
+        for (id in ids) {
+            if (latest.remove(id) != null) uiDirty = true
+            unsaved.remove(id)
+        }
+    }
+
     fun clear() {
         if (latest.isNotEmpty()) uiDirty = true
         latest.clear()

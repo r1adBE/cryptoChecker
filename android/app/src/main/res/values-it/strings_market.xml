@@ -169,7 +169,7 @@
     <string name="unusual_title">Insolito oggi</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Sta succedendo qualcosa</string>
+    <string name="activity_card_title">Attività insolita</string>
     <string name="activity_indicator">Attività insolita</string>
     <string name="activity_sensitivity_less">Meno</string>
     <string name="activity_sensitivity_more">Più</string>

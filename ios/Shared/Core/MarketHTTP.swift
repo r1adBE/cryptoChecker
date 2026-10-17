@@ -86,16 +86,48 @@ enum MarketHTTP {
     static let maxBodyBytes = 2 * 1024 * 1024
     static let maxBulkBodyBytes = 16 * 1024 * 1024
 
-    /// Antwort zu gross → `ResponseTooLargeError` (fester Text, wird so gespeichert). Nur die
-    /// Einzelabfrage-Session hat die kleine Grenze, alle anderen (Listen, Sammelabfragen) die grosse.
-    static func checkBodySize(_ byteCount: Int, session: URLSession) throws {
+    /// Widget-Erweiterung (wenig Speicher): Listen höchstens 8 MB.
+    static let maxExtensionBodyBytes = 8 * 1024 * 1024
+
+    /// Läuft der Code in einer Erweiterung (Widget)?
+    static let isAppExtension = Bundle.main.bundlePath.hasSuffix(".appex")
+
+    /// Grenze je Session: Nur die Einzelabfrage-Session hat die kleine Grenze, alle anderen (Listen,
+    /// Sammelabfragen) die grosse — in der Widget-Erweiterung höchstens `maxExtensionBodyBytes`.
+    static func bodyLimit(session: URLSession, inExtension: Bool = isAppExtension) -> Int {
         let limit = session === MarketHTTP.session ? maxBodyBytes : maxBulkBodyBytes
-        if byteCount > limit { throw ResponseTooLargeError() }
+        return inExtension ? min(limit, maxExtensionBodyBytes) : limit
+    }
+
+    /// Antwort zu gross → `ResponseTooLargeError` (fester Text, wird so gespeichert).
+    static func checkBodySize(_ byteCount: Int, session: URLSession, inExtension: Bool = isAppExtension) throws {
+        if byteCount > bodyLimit(session: session, inExtension: inExtension) { throw ResponseTooLargeError() }
+    }
+
+    /// Antwort gestreamt lesen und abbrechen, sobald sie die Grenze überschreitet — eine angekündigte zu grosse
+    /// Antwort (`expectedContentLength`) gar nicht erst lesen. So landet nie mehr als die Grenze im Speicher.
+    private static func readLimited(_ request: URLRequest, session: URLSession) async throws -> (Data, URLResponse) {
+        let (bytes, response) = try await session.bytes(for: request)
+        let limit = bodyLimit(session: session)
+        let expected = response.expectedContentLength
+        if expected > Int64(limit) {
+            bytes.task.cancel()
+            throw ResponseTooLargeError()
+        }
+        var buffer: [UInt8] = []
+        if expected > 0 { buffer.reserveCapacity(Int(expected)) }
+        for try await byte in bytes {
+            buffer.append(byte)
+            if buffer.count > limit {
+                bytes.task.cancel()
+                throw ResponseTooLargeError()
+            }
+        }
+        return (Data(buffer), response)
     }
 
     private static func load(_ request: URLRequest, url: String, session: URLSession) async throws -> String {
-        let (data, response) = try await session.data(for: request)
-        try checkBodySize(data.count, session: session)
+        let (data, response) = try await readLimited(request, session: session)
         let text = String(data: data, encoding: .utf8) ?? String(decoding: data, as: UTF8.self)
         if let http = response as? HTTPURLResponse {
             // «Zu viele Anfragen» auch ohne 429/418 (Kraken 200, Bybit 403/10006, OKX 50011) als 429 weiterreichen

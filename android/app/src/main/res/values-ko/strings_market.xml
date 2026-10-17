@@ -167,7 +167,7 @@
     <string name="unusual_title">오늘 눈에 띄는 코인</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">지금 무언가 일어나고 있습니다</string>
+    <string name="activity_card_title">이상 움직임</string>
     <string name="activity_indicator">이상 움직임</string>
     <string name="activity_sensitivity_less">적게</string>
     <string name="activity_sensitivity_more">많이</string>

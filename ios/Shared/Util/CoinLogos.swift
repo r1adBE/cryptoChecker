@@ -37,9 +37,24 @@ enum CoinLogos {
     /// Seiten à 250 Coins: die grössten 1000 zuerst (vor der Binance-Liste).
     static let pages = 4
     /// Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken (AIN, LUNA …), erst nach der
-    /// Binance- und der Alpha-Liste — wie `EXTRA_PAGES` (Android).
+    /// Binance- und der Alpha-Liste — wie `EXTRA_PAGES` (Android). Nur auf nicht teuren Netzen (WLAN,
+    /// Ethernet; `NWPath.isExpensive`/`isConstrained` false): Auf mobilen Daten fehlen die Zusatzseiten, und
+    /// die Logos der Kürzel, die nur sie bringen, werden nicht geladen (`downloadable`) — die grössten 1000
+    /// sowie die Binance- und Alpha-Liste laden wie bisher.
     static let extraPages = 6
     static let perPage = 250
+
+    /// Logos für den Sammel-Abruf: auf teuren Netzen (`unmetered` false) ohne die Kürzel, die nur die
+    /// Zusatzseiten (`extraPages`) bringen (`extraOnly`); sonst alle aus `wanted` — wie Android.
+    static func downloadable(_ wanted: [String: String], extraOnly: Set<String>, unmetered: Bool) -> [String: String] {
+        if unmetered || extraOnly.isEmpty { return wanted }
+        return wanted.filter { !extraOnly.contains($0.key) }
+    }
+
+    /// Kürzel, die erst die Zusatzseiten in die Zuordnung bringen (`all` ohne die Kürzel von `top`).
+    static func extraOnlyKeys(all: [String: String], top: [String: String]) -> Set<String> {
+        Set(all.keys).subtracting(top.keys)
+    }
 
     /// Pause vor jeder weiteren Seite der Rangliste: Ohne Schlüssel erlaubt CoinGecko nur wenige
     /// Abrufe pro Minute; ohne Pause scheiterten Seiten mit «429» und die Liste blieb unvollständig.

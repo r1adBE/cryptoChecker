@@ -14,8 +14,9 @@ import javax.inject.Singleton
 
 /**
  * Funding und Open Interest für die Alarme FUNDING_* / OI_* — je Paar höchstens alle
- * [DerivativesAlarm.FETCH_INTERVAL_MILLIS] abgefragt (auch Fehlschläge zählen, damit eine
- * gesperrte Quelle nicht jede Aktualisierung bremst). Jede neue Open-Interest-Messung kommt in
+ * [DerivativesAlarm.FETCH_INTERVAL_MILLIS] abgefragt. Ein Fehlschlag (keine Werte) gilt nur
+ * [NO_DATA_CACHE_MILLIS]: Eine gesperrte Quelle bremst nicht jede Aktualisierung, die Alarme
+ * bleiben nach einem kurzen Aussetzer aber nicht 5 Minuten blind. Jede neue Open-Interest-Messung kommt in
  * den Verlauf ([ActivityRepository.appendOiHistory]), gegen den die OI-Alarme vergleichen.
  */
 @Singleton
@@ -53,8 +54,8 @@ class DerivativesAlarmData @Inject constructor(
      */
     suspend fun prefetch(watch: WatchEntity, now: Long) {
         if (!supports(watch)) return
-        cache[key(watch)]?.let { if (now - it.fetchedAt in 0 until DerivativesAlarm.FETCH_INTERVAL_MILLIS) return }
-        prefetched[key(watch)]?.let { if (now - it.first in 0 until DerivativesAlarm.FETCH_INTERVAL_MILLIS) return }
+        cache[key(watch)]?.let { if (isFresh(it.fetchedAt, hasData(it), now)) return }
+        prefetched[key(watch)]?.let { if (isFresh(it.first, it.second != null, now)) return }
         prefetched[key(watch)] = now to fetchInfo(watch)
     }
 
@@ -78,10 +79,10 @@ class DerivativesAlarmData @Inject constructor(
     suspend fun values(watch: WatchEntity, price: Double, now: Long): Values? {
         if (!supports(watch)) return null
         cache[key(watch)]?.let { cached ->
-            if (now - cached.fetchedAt in 0 until DerivativesAlarm.FETCH_INTERVAL_MILLIS) return cached
+            if (isFresh(cached.fetchedAt, hasData(cached), now)) return cached
         }
         // Vorab geholt (frisch): verwenden statt erneut abzufragen
-        val early = prefetched.remove(key(watch))?.takeIf { now - it.first in 0 until DerivativesAlarm.FETCH_INTERVAL_MILLIS }
+        val early = prefetched.remove(key(watch))?.takeIf { isFresh(it.first, it.second != null, now) }
         val info = if (early != null) early.second else fetchInfo(watch)
         // Richtwert einer anderen Börse: Funding meldet weiter (Text nennt die Quelle); Open Interest
         // nicht — es gilt je Börse und passt nicht zum Verlauf der beobachteten Börse
@@ -103,7 +104,17 @@ class DerivativesAlarmData @Inject constructor(
     fun oiChange(watch: WatchEntity, values: Values, hours: Int, now: Long): Double? =
         DerivativesAlarm.oiChangePercent(activityRepository.oiHistory(watch.id), values.oiUnits, hours, now)
 
-    private companion object {
-        const val TIMEOUT_MILLIS = 10_000L
+    companion object {
+        private const val TIMEOUT_MILLIS = 10_000L
+
+        /** So lange gilt «keine Werte» (Fehlschlag, gesperrte Quelle), bevor wieder gefragt wird. */
+        const val NO_DATA_CACHE_MILLIS = 60_000L
+
+        /** Mindestens ein Wert da (Funding oder Open Interest)? Sonst nur kurz zwischenspeichern. */
+        fun hasData(values: Values): Boolean = values.fundingPercent != null || values.oiUnits != null
+
+        /** Abruf von [fetchedAt] noch gültig? Mit Werten [DerivativesAlarm.FETCH_INTERVAL_MILLIS], ohne [NO_DATA_CACHE_MILLIS]. */
+        fun isFresh(fetchedAt: Long, hasData: Boolean, now: Long): Boolean =
+            now - fetchedAt in 0 until (if (hasData) DerivativesAlarm.FETCH_INTERVAL_MILLIS else NO_DATA_CACHE_MILLIS)
     }
 }

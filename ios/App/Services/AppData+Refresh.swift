@@ -17,7 +17,12 @@ extension AppData {
     func refreshAll() async -> PriceRefresher.Outcome? {
         guard !refreshing else { return nil }
         refreshing = true
-        defer { refreshing = false }
+        // Geht die App währenddessen in den Hintergrund: zu Ende abfragen und speichern
+        let backgroundTask = BackgroundTaskGuard.begin("refreshAll")
+        defer {
+            refreshing = false
+            backgroundTask.end()
+        }
         await waitForLiveApply()
         let liveIds = liveCoveredIds()
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveIds: liveIds)
@@ -177,14 +182,22 @@ extension AppData {
         // `mutate` schreibt im Hintergrund: Kurse und Alarm-Änderungen erst auf die Platte, bevor die Lease
         // frei wird — sonst wertet der nächste Prozess den alten Stand aus
         if outcome.alarmLease != nil { SharedStorage.flushSnapshotWrites() }
+        // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
+        var outcome = outcome
+        let identities = Dictionary(snapshot.watches.map { ($0.id, $0.identity) }, uniquingKeysWith: { first, _ in first })
+        outcome.pendingAlarms.removeAll { identities[$0.watch.id] != $0.watch.identity }
         guard !outcome.pendingAlarms.isEmpty else {
             outcome.releaseAlarmLease()
             return
         }
         let settings = self.settings
         let current = snapshot.alarms
+        let pending = outcome
         Task { @MainActor in
-            let delivered = await outcome.deliverAlarms(settings: settings, current: current,
+            // Melden und Speichern zu Ende führen, auch wenn die App gerade in den Hintergrund geht
+            let backgroundTask = BackgroundTaskGuard.begin("deliverAlarms")
+            defer { backgroundTask.end() }
+            let delivered = await pending.deliverAlarms(settings: settings, current: current,
                                                         save: { id, update in await self.saveDeliveredAlarm(id, update) })
             for item in delivered {
                 if let text = item.speech { Speaker.shared.enqueue(text, rate: settings.ttsSpeechRate, alarm: true) }

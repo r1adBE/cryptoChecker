@@ -167,10 +167,10 @@ private struct WatchlistListView: View {
     /// Logo · «Merkliste» links, rechts «Uhrzeit · Dauer» und der Aktualisieren-Knopf.
     private var header: some View {
         HStack(spacing: 6) {
-            // L-19: Logo 18 wie Android (`widget_list.xml`), Titel 13 fett, Uhrzeit 11
+            // L-19: Logo 18 wie Android (`widget_list.xml`), Titel 13 fett, Uhrzeit 12
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 18)
             WatchlistHeaderTitle(entry: entry, palette: palette,
-                                 titleSizes: (normal: 13, small: 11), metaSize: 11)
+                                 titleSizes: (normal: 13, small: 11), metaSize: 12)
             WidgetRefreshButton(palette: palette, size: 26)
         }
         .frame(height: 26)
@@ -340,7 +340,7 @@ private struct WatchlistWidgetRow: View {
                     .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
                     .lineLimit(1)
                 Text(marketLine)
-                    .font(.system(size: 11))
+                    .font(.system(size: 12))
                     .foregroundStyle(palette.secondary)
                     .lineLimit(1)
             }
@@ -386,7 +386,7 @@ private struct WatchlistSmallView: View {
                 WidgetLogo(accent: entry.accent, dark: palette.dark, size: 14)
                 // «Merkliste» · «Uhrzeit · Dauer»; eng: ohne Dauer, kleinerer Titel, ohne Uhrzeit
                 WatchlistHeaderTitle(entry: entry, palette: palette,
-                                     titleSizes: (normal: 12, small: 11), metaSize: 11)
+                                     titleSizes: (normal: 12, small: 11), metaSize: 12)
                 WidgetRefreshButton(palette: palette, size: 24)
             }
             Spacer(minLength: 4)
@@ -411,7 +411,7 @@ private struct WatchlistSmallView: View {
                                     color: watch.disabled ? palette.secondary : nil)
                         .padding(.top, 2)
                     HStack {
-                        WidgetChangeLabel(change: entry.changeView.shown(watch), palette: palette, size: 11,
+                        WidgetChangeLabel(change: entry.changeView.shown(watch), palette: palette, size: 12,
                                           showsArrow: true, day: true, basis: entry.changeBasis, neutral: watch.disabled)
                         Spacer(minLength: 4)
                         // Kein Platz für «Kurs unverändert seit …»: dann die Zeit der letzten Änderung

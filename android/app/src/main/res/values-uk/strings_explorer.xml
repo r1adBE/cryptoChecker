@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Нічого не знайдено.</string>
     <string name="explorer_search_hint">Пошук монети, пари або біржі</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Введіть назву або тикер монети, наприклад Bitcoin чи BTC, потім виберіть пару.</string>
+    <string name="explorer_search_intro">Введіть назву або тикер монети, наприклад Bitcoin чи BTC, потім виберіть пару. Пара — це монета на біржі в певній валюті, наприклад BTC/USDT на Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Додати до списку</string>

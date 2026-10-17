@@ -142,9 +142,20 @@ class PortfolioLockPolicyTest {
 
     @Test
     fun secureWindowOnlyWithLockAndVisiblePortfolio() {
-        assertTrue(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = true))
-        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = false))
-        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = true))
-        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = false))
+        assertTrue(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = true, sdkInt = 33))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = false, sdkInt = 33))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = true, sdkInt = 33))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = false, sdkInt = 33))
+    }
+
+    @Test
+    fun secureWindowEverywhereWithLockBeforeAndroid13() {
+        // Android 8–12: kein setRecentsScreenshotEnabled → mit Sperre jeder Bildschirm geschützt
+        assertTrue(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = false, sdkInt = 26))
+        assertTrue(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = false, sdkInt = 32))
+        assertTrue(PortfolioLockPolicy.secureWindow(lockSetting = true, portfolioVisible = true, sdkInt = 32))
+        // ohne Sperre unverändert: nichts geschützt
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = false, sdkInt = 26))
+        assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = true, sdkInt = 26))
     }
 }

@@ -169,7 +169,7 @@
     <string name="unusual_title">Em destaque hoje</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Algo está a acontecer agora</string>
+    <string name="activity_card_title">Atividade invulgar</string>
     <string name="activity_indicator">Atividade invulgar</string>
     <string name="activity_sensitivity_less">Menos</string>
     <string name="activity_sensitivity_more">Mais</string>

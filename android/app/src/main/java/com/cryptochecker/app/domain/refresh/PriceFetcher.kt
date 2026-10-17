@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.watch.NotTraded
@@ -143,7 +144,8 @@ class PriceFetcher @Inject constructor(
         val plan = BulkDelisted.plan(delisted[sample.marketKey], pairIds, notTradedIds, System.currentTimeMillis())
 
         var cut = false
-        val tickers = runCatching {
+        // Abbruch des Durchlaufs weiterreichen (nicht als gescheiterte Massenabfrage werten)
+        val tickers = runCatchingCancellable {
             if (!marketRepository.isMarketSupportsBulkTickers(market)) return BulkResult(BulkTickers())
             // Alle beobachteten Paare nicht mehr gehandelt: keine Abfrage, die Liste gilt als vollständig ohne sie
             if (plan.request.isEmpty()) return BulkResult(BulkTickers(complete = true))

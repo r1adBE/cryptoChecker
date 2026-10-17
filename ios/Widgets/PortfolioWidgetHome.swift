@@ -202,7 +202,7 @@ struct PortfolioHomeView: View {
 
     private func positionRow(_ p: PortfolioWidgetPosition, currency: String, basis: ChangeBasis) -> some View {
         HStack(spacing: 8) {
-            quantityPrefixed(p, size: 11) {
+            quantityPrefixed(p, size: 12) {
                 Text(p.symbol)
                     .font(.system(size: 12.5, weight: .bold))
                     .foregroundStyle(palette.text)
@@ -219,7 +219,7 @@ struct PortfolioHomeView: View {
             }
             .frame(height: 3)
             Text(PortfolioWidgetText.share(p.sharePercent))
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 12, weight: .medium))
                 .monospacedDigit()
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
@@ -329,7 +329,7 @@ struct PortfolioHomeView: View {
     }
 
     private func secondLine(_ text: String) -> some View {
-        Text.quoted(text, quote: "USDT", size: 11, weight: .medium, quoteColor: palette.secondary)
+        Text.quoted(text, quote: "USDT", size: 12, weight: .medium, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.secondary)
             .lineLimit(1)
@@ -347,7 +347,7 @@ struct PortfolioHomeView: View {
                                 hidden: entry.hideAmounts || redactionReasons.contains(.privacy))
         } else {
             Text(L("widget_portfolio_chart_pending"))
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 12, weight: .medium))
                 .foregroundStyle(palette.secondary)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)

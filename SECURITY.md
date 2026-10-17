@@ -91,7 +91,9 @@ keys or other secrets never belong in this repository.
   with a random 16-byte salt). New backups use 600 000 iterations (earlier
   versions wrote 210 000); the iteration count is read from the file, so older
   backups can still be opened. A new backup password needs at least 12
-  characters (since build 69; 10 before); a password that is only digits, one repeated character or contains
+  characters (since build 69; 10 before); a password that is only digits, one repeated character (also with digits or
+  symbols only at the start or end, e.g. «aaaaaaaaaaa1»), mostly one character
+  (75 % or more), at most 3 different characters or contains
   a common sequence (e.g. «12345678», «qwertz», «password») is blocked for new
   backups – the protection of an exported file depends on the password. Older
   files (minimum 8 characters back then) still decrypt with their password. The
@@ -103,7 +105,8 @@ keys or other secrets never belong in this repository.
   and settings, each only in an end-to-end encrypted cloud backup or a
   device-to-device transfer. Because the main database is encrypted with a key that never
   leaves the device, the backup agent writes a verified plaintext copy of it
-  only for the duration of a backup and deletes it afterwards; after a restore
+  only for the duration of a backup and deletes it afterwards (if the backup is
+  killed midway, the next app start deletes the leftover copy); after a restore
   the copy becomes the database again and is encrypted on the next start.
   Android 8/8.1 ignore `requireFlags="clientSideEncryption"`, so there the
   copy is not in the backup rules and the agent does not create it (since
@@ -133,7 +136,10 @@ keys or other secrets never belong in this repository.
   anonymous. Futures figures go to the exchange of the watched pair; only reference
   data and the funding history of the «Why?» sheet ask Binance Futures, Bybit or
   OKX with the coin's contract symbol. Market breadth comes from the same mirror
-  file for everyone.
+  file for everyone. Watched addresses (and, for an xpub, the addresses derived
+  from it on the device – the xpub itself never leaves the device) go to the
+  public blockchain nodes named in the privacy policy, together with your IP
+  address.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.
@@ -155,7 +161,8 @@ Verschlüsselung aus (kein Schlüssel möglich), nennt das Einstellungen › Sic
 versiegelt (AES-256-GCM, eigener Keystore-Schlüssel); ohne Schlüssel zeigt das
 Widget keine Werte statt Klartext. Unverschlüsselt bleiben Einstellungen,
 Kurs-Zwischenspeicher und Coin-Listen, Sicherungen ohne Passwort sowie die
-Android-Kopien für die Systemsicherung (Merkliste nur während des Sicherens und
+Android-Kopien für die Systemsicherung (Merkliste nur während des Sicherens – eine bei
+abgebrochener Sicherung liegengebliebene Kopie löscht der nächste App-Start – und
 erst ab Android 9, Portfolio nur mit Schalter). Verbindungen nur über HTTPS
 bzw. verschlüsselte WebSockets (`wss://`) für Live-Kurse.
 Die Portfolio-Sperre verbirgt Werte im App-Umschalter, in Widgets und auf dem
@@ -165,8 +172,15 @@ Sicherungen gehen nur über die Dateiauswahl des Systems und lassen sich mit
 einem Passwort verschlüsseln (AES-256-GCM, PBKDF2 mit 600 000 Durchläufen für
 neue Sicherungen; ältere Dateien bleiben lesbar), das nirgends gespeichert wird.
 Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen (seit Build 69); leicht zu erratende
-(nur Ziffern, ein wiederholtes Zeichen, häufige Folgen) sind gesperrt, ältere
+(nur Ziffern, ein wiederholtes Zeichen – auch mit Ziffern oder Zeichen nur am
+Anfang oder Ende –, zu 75 % dasselbe Zeichen, höchstens 3 verschiedene Zeichen,
+häufige Folgen) sind gesperrt, ältere
 Dateien lassen sich weiter öffnen. Eine unverschlüsselte Sicherung warnt beim
 Einspielen und kann die Portfolio-Sperre nicht ausschalten.
+Kurse kommen direkt von den Börsen: Sie sehen die abgefragten Paare und die
+IP-Adresse. Beobachtete Adressen (beim xpub die auf dem Gerät abgeleiteten
+Adressen – der xpub selbst bleibt auf dem Gerät) gehen zusammen mit der
+IP-Adresse an die in der Datenschutzerklärung genannten öffentlichen
+Blockchain-Knoten.
 Keine sensiblen Daten im Protokoll, kein Tracking, keine Werbung. Links und
 Verknüpfungen öffnen nur feste Bereiche und ändern keine Daten.

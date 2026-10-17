@@ -25,7 +25,7 @@
     <string name="explorer_search_empty">Không có kết quả.</string>
     <string name="explorer_search_hint">Tìm coin, cặp hoặc sàn</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Nhập tên hoặc ký hiệu coin, ví dụ Bitcoin hoặc BTC – rồi chọn cặp.</string>
+    <string name="explorer_search_intro">Nhập tên hoặc ký hiệu coin, ví dụ Bitcoin hoặc BTC – rồi chọn cặp. Cặp là một coin trên một sàn theo một loại tiền, ví dụ BTC/USDT trên Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Thêm vào danh sách</string>

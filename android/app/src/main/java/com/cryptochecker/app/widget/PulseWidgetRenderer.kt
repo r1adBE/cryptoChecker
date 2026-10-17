@@ -213,7 +213,7 @@ class PulseWidgetRenderer @Inject constructor(
                     breadthText,
                 ).firstOrNull { text ->
                     PulseWidgetMath.showsFearGreed(
-                        widgetWidthDp, heightDp, headlineStyle.lines, toolkit.textWidthDp(text, 11f, bold = false, tabular = true)
+                        widgetWidthDp, heightDp, headlineStyle.lines, toolkit.textWidthDp(text, 12f, bold = false, tabular = true)
                     )
                 }
                 val showFng = sideText != null && fearGreedShown != null && sideText.contains(fearGreedShown)
@@ -227,9 +227,9 @@ class PulseWidgetRenderer @Inject constructor(
 
                 // Nur so viele Coins, wie ganz in die Breite passen (nie ein abgeschnittener)
                 val allCoins = PulseWidgetMath.coins(report, 3)
-                val chipWidths = allCoins.map { toolkit.textWidthDp(PulseWidgetMath.chipText(it), 11f, tabular = true) }
+                val chipWidths = allCoins.map { toolkit.textWidthDp(PulseWidgetMath.chipText(it), 12f, tabular = true) }
                 // «24h» klein und grau vor den Coins (die Veränderungen sind 24-h-Werte); Platz dafür abziehen
-                val periodLeading = PulseWidgetMath.periodLeadingDp(toolkit.textWidthDp(period24h, 11f, bold = false))
+                val periodLeading = PulseWidgetMath.periodLeadingDp(toolkit.textWidthDp(period24h, 12f, bold = false))
                 val coins = allCoins.take(PulseWidgetMath.coinCount(widgetWidthDp, chipWidths, periodLeading))
                 views.setViewVisibility(R.id.pulse_coins_period, if (coins.isEmpty()) View.GONE else View.VISIBLE)
                 views.setTextViewText(R.id.pulse_coins_period, period24h)

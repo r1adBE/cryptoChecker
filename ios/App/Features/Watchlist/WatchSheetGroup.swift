@@ -33,7 +33,7 @@ extension WatchActionsSheet {
                             .foregroundStyle(AppColors.onSurface)
                             .lineLimit(1)
                         Spacer(minLength: 8)
-                        Image(systemName: "chevron.right")
+                        Image(systemName: "chevron.forward")
                             .font(.footnote.weight(.semibold))
                             .foregroundStyle(AppColors.outline)
                     }
@@ -63,7 +63,7 @@ extension WatchActionsSheet {
                         .foregroundStyle(AppColors.onSurface)
                         .lineLimit(1)
                     Spacer(minLength: 8)
-                    Image(systemName: "chevron.right")
+                    Image(systemName: "chevron.forward")
                         .font(.footnote.weight(.semibold))
                         .foregroundStyle(AppColors.outline)
                 }
@@ -172,7 +172,7 @@ extension WatchActionsSheet {
                     }
                 }
                 Spacer(minLength: 8)
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(AppColors.outline)
                     .padding(.top, 4)
@@ -221,7 +221,7 @@ private struct WatchValueRow: View {
                             .lineLimit(1)
                     }
                 }
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(AppColors.outline)
             }

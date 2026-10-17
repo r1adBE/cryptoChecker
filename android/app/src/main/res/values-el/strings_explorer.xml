@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Κανένα αποτέλεσμα.</string>
     <string name="explorer_search_hint">Αναζήτηση νομίσματος, ζεύγους ή ανταλλακτηρίου</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Πληκτρολογήστε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επιλέξτε ζεύγος.</string>
+    <string name="explorer_search_intro">Πληκτρολογήστε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επιλέξτε ζεύγος. Ζεύγος είναι ένα κρυπτονόμισμα σε ένα ανταλλακτήριο έναντι ενός νομίσματος, π.χ. BTC/USDT στο Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Προσθήκη στη λίστα</string>

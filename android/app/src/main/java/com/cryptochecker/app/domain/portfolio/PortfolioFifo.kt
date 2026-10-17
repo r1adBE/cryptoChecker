@@ -531,8 +531,20 @@ internal object PortfolioFifo {
     /** Summe der Einstände (ohne Kaufpreis = 0). */
     private fun List<Slice>.costSum(): BigDecimal = fold(BigDecimal.ZERO) { acc, s -> acc + (s.cost ?: BigDecimal.ZERO) }
 
-    /** UTC-Kalendertage zwischen [from] und [to]. */
-    fun holdingDays(from: Long, to: Long): Long = Math.floorDiv(to, DAY_MILLIS) - Math.floorDiv(from, DAY_MILLIS)
+    /**
+     * Kalendertage zwischen [from] und [to] in [zone] (Standard UTC — so im Feld `holdingDays` der
+     * Veräusserungen, gleich wie iOS). Die Steuer-Liste ([TaxExport.gainRows]) rechnet mit derselben
+     * Funktion in ihrer Zeitzone — beide Wege können sich nicht widersprechen.
+     */
+    fun holdingDays(from: Long, to: Long, zone: java.time.ZoneId = java.time.ZoneOffset.UTC): Long =
+        if (zone == java.time.ZoneOffset.UTC) {
+            Math.floorDiv(to, DAY_MILLIS) - Math.floorDiv(from, DAY_MILLIS)
+        } else {
+            java.time.temporal.ChronoUnit.DAYS.between(
+                java.time.Instant.ofEpochMilli(from).atZone(zone).toLocalDate(),
+                java.time.Instant.ofEpochMilli(to).atZone(zone).toLocalDate(),
+            )
+        }
 
     /** Posten [a] liegt vor [b]: Erwerb, dann Zeit, dann Id. */
     private fun before(a: Lot, b: Lot): Boolean = when {

@@ -60,6 +60,8 @@ extension AppData {
         var chosen: [Int64: LiveQuote] = [:]
         for (id, quote) in quotes {
             guard let watch = byId[id] else { continue }
+            // Kurs von vor «Paar bearbeiten»: gehört zum alten Paar
+            if let changedAt = pairChangedAt[id], quote.time < changedAt { continue }
             let change = LiveRules.chooseChange(
                 rollingBasis: rolling, stampCurrent: stampCurrent,
                 exchangeRolling: LiveExchange.from(marketKey: watch.marketKey)?.rollingChange == true,

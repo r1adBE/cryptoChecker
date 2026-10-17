@@ -1,5 +1,55 @@
 # Changelog
 
+## 16.2.2 – first public release
+
+* Last price straight from the exchange that lists the pair – 32 exchanges, including futures and DEX pools.
+* Price alarms run locally on the device: no account, no server.
+* Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
+* «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
+* Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
+* Watchlist, alarms and portfolio are stored encrypted on the device.
+* Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
+* 31 languages.
+* Full source code of both apps under the MIT license.
+* No tracking, no ads, no analytics.
+
+Detailed build history below.
+
+## 16.2.2 (build 73)
+
+Twenty-first and twenty-second review plus two follow-up checks.
+
+* Android: after «Edit pair» or a restore, a price fetched or streamed for the previous pair can no longer be written
+  into the row (the write is bound to the pair; the live buffer forgets edited rows; edit and restore run under the
+  refresh lock) – no false alarm from a stale reference. iOS drops such results the same way.
+* iPhone: settings and the app lock are only trusted once protected data is readable – the lock counts as on and
+  nothing is saved before the first unlock after a reboot; reloaded when the device is unlocked.
+* iPhone: refresh, alarm delivery, backup export/restore and CSV loading finish as background tasks when the app is
+  swiped away; an alarm being delivered is marked first (no repeat after a crash); the alarm lease can no longer be
+  taken over twice; the backoff table is merged between app and widget; large downloads are streamed with a limit.
+* Alarm notifications with a threshold in another currency show «now» in that currency too.
+* Funding/open-interest alarms without data count as «not checked» instead of «checked».
+* Android: demand tracking restarts after a read error; a backward clock jump no longer extends exchange pauses;
+  portfolio alarms re-arm no sooner than 60 s; volume spikes use a clock-hour grid; one failing alarm no longer
+  skips the others of the pair.
+* Android: a leftover plaintext system-backup copy (backup killed midway) is deleted at the next start.
+* Android 8–12: with the app lock on, the whole window is protected from screenshots and the recents preview.
+* Weak backup passwords such as «aaaaaaaaaaa1» are refused (same rules on both platforms).
+* Bitfinex: OPX is shown and found as OP (Optimism).
+* Licenses: SQLCipher (BSD notice), OpenSSL, SQLite and the missing Apache libraries; «Rates By Exchange Rate API».
+* Privacy page: DEX token search terms go to DexScreener; SECURITY.md: watched addresses go to public nodes.
+* CoinGecko: the extra rank pages are only fetched on unmetered networks.
+* Add pair: no «no pair for this coin» while pair lists are still loading or missing; one sentence explains «pair».
+* Stale / unreachable rows in amber with a warning icon (no longer like a falling price); row icons scale with text.
+* Widgets: text at least 12 sp/pt, background opacity at least 30 %.
+* Selected tab easier to see; Retry button grows with its text; «+» shows its label while the list is short.
+* %-basis moved to Settings › Watchlist; one name for unusual activity; bid/ask and gas units explained; English
+  «Update frequency», «Market alerts»; empty groups offer «Edit group».
+* iPhone: forward chevrons mirror in right-to-left languages; price notifications don't pop up as banners while the
+  app is open; widget may send time-sensitive alarms.
+* Upload script stops when the private review data is missing, scans the local history before a first push and
+  explains the order with the settings script.
+
 ## 16.2.2 (build 72)
 
 Twentieth review.

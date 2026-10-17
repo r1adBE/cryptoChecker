@@ -125,9 +125,11 @@ struct BackupSettingsPage: View {
             BackupImportPasswordSheet { password in
                 // Schlüsselableitung (PBKDF2, bis ~1 s) im Hintergrund — die Oberfläche bleibt bedienbar
                 let encrypted = file.data
+                let backgroundTask = BackgroundTaskGuard.begin("backupDecrypt")
                 let result = await Task.detached(priority: .userInitiated) {
                     Result { try BackupManager.plainJSON(encrypted, password: password) }
                 }.value
+                backgroundTask.end()
                 // Während der Prüfung wieder gesperrt: Blatt ist schon zu, keine Rückfrage
                 if lock.locked {
                     encryptedFile = nil
@@ -227,6 +229,9 @@ struct BackupSettingsPage: View {
             return
         }
         Task {
+            // Verschlüsseln zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
+            let backgroundTask = BackgroundTaskGuard.begin("backupExport")
+            defer { backgroundTask.end() }
             let file = await Task.detached(priority: .userInitiated) {
                 try? BackupManager.encryptedFile(plain, password: password)
             }.value
@@ -287,6 +292,15 @@ struct BackupSettingsPage: View {
         pendingRestore = nil
         pendingInvalid = 0
         pendingEncrypted = false
+        // Wiederhergestellten Stand ganz auf die Platte bringen, auch wenn die App gleich in den Hintergrund geht
+        // (`mutate` schreibt im Hintergrund); abgemeldet erst nach dem Schreiben
+        let backgroundTask = BackgroundTaskGuard.begin("restore")
+        defer {
+            Task.detached(priority: .utility) {
+                SharedStorage.flushSnapshotWrites()
+                await MainActor.run { backgroundTask.end() }
+            }
+        }
         do {
             let result = try BackupManager.restore(json, into: data, acceptInvalid: acceptInvalid, encrypted: encrypted)
             UINotificationFeedbackGenerator().notificationOccurred(.success)

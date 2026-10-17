@@ -119,6 +119,11 @@ enum AppTabBarMetrics {
     /// Anzeiger (Pille) hinter dem Symbol des gewählten Tabs — wie `TAB_INDICATOR_WIDTH`/`_HEIGHT` (Android).
     static let indicatorWidth: CGFloat = 64
     static let indicatorHeight: CGFloat = 32
+    /// Pille deutlich sichtbar (Review D11; vorher Auswahlfläche: hell 1.11:1, dunkel 1.30:1). Hell: Akzent zu 30 %
+    /// auf #F1EEE9 → Pille/Leiste 1.52–1.59:1, Symbol (Akzent) auf der Pille 3.18–3.33:1. Dunkel: #404040 auf
+    /// #1F1F1F → 1.59:1, Symbol 3.88–4.44:1. Gewählt zudem an Akzentsymbol und fetter Beschriftung erkennbar (wie Android).
+    static let indicatorLightOpacity: Double = 0.30
+    static let indicatorDark = Color(hex: 0x404040)
     /// Dauer der Vergrösserung beim Wechsel des Tabs (s) — wie `TAB_ICON_SCALE_MILLIS` (Android).
     static let scaleDuration: Double = 0.15
 }
@@ -172,6 +177,7 @@ private struct AppTabBarButton: View {
 
     @Environment(\.appAccent) private var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.colorScheme) private var colorScheme
 
     /// Beschriftung: im Dunkeln weiss, hell die normale Textfarbe (weiss wäre dort unlesbar).
     private static let labelColor = Color.dynamic(light: ColorTokens.onSurface.light, dark: 0xFFFFFF)
@@ -190,7 +196,8 @@ private struct AppTabBarButton: View {
                     .frame(height: AppTabBarMetrics.indicatorHeight)
                     .background {
                         Capsule()
-                            .fill(accent.container)
+                            .fill(colorScheme == .dark ? AppTabBarMetrics.indicatorDark
+                                  : accent.primary.opacity(AppTabBarMetrics.indicatorLightOpacity))
                             .scaleEffect(x: selected ? 1 : 0.5, y: 1)
                             .opacity(selected ? 1 : 0)
                             .animation(scaleAnimation, value: selected)

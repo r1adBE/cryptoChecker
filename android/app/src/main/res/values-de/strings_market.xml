@@ -67,7 +67,7 @@
     <string name="market_info_pulse_how">Die Schlagzeile nennt die Richtung, aufgeklappt stehen die Einzelheiten. Eine breite Bewegung heisst: Die meisten grossen Coins bewegen sich in dieselbe Richtung. Ein hohes Funding heisst: Viele setzen mit Hebel auf steigende Kurse. Eine Momentaufnahme, keine Prognose.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · etwa alle 5 Minuten neu geladen</string>
     <string name="market_info_pulse_what">Eine kurze Zusammenfassung des Markts der letzten 24 Stunden: wie sich Bitcoin, Ethereum und Solana bewegen, wie viele der grössten Coins steigen oder fallen, wie viel Bitcoin gerade gehandelt wird und wie die Funding-Rate bei Bitcoin-Futures steht.</string>
-    <string name="market_info_totals_how">Rechts steht die Veränderung des Gesamtwerts in 24 Stunden. Hohes Volumen heisst: Es wird viel gehandelt – in welche Richtung, sagt es nicht. Wenn möglich in der Umrechnungswährung, sonst in US-Dollar.</string>
+    <string name="market_info_totals_how">Rechts steht die Veränderung des Gesamtwerts in 24 Stunden. Hohes Volumen heisst: Es wird viel gehandelt – in welche Richtung, sagt es nicht. Wenn möglich in deiner Währung, sonst in US-Dollar.</string>
     <string name="market_info_totals_source">Alle Coins · CoinGecko · etwa alle 30 Minuten neu geladen</string>
     <string name="market_info_totals_what">Der Gesamtwert aller Kryptowährungen (Marktkapitalisierung: Kurs mal umlaufende Menge, über alle Coins zusammengezählt) und das Handelsvolumen der letzten 24 Stunden.</string>
     <string name="market_info_unusual_how">Je Coin steht die auffälligste Beobachtung, rechts die Veränderung über 24 Stunden. Ein Volumen von 2× heisst: doppelt so viel Umsatz wie üblich. Auffällig heisst weder gut noch schlecht.</string>
@@ -168,7 +168,7 @@
     <string name="unusual_title">Heute auffällig</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Hier passiert gerade etwas</string>
+    <string name="activity_card_title">Ungewöhnliche Aktivität</string>
     <string name="activity_indicator">Ungewöhnliche Aktivität</string>
     <string name="activity_sensitivity_less">Weniger</string>
     <string name="activity_sensitivity_more">Mehr</string>

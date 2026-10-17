@@ -168,7 +168,7 @@
     <string name="unusual_title">Bie në sy sot</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Diçka po ndodh tani</string>
+    <string name="activity_card_title">Aktivitet i pazakontë</string>
     <string name="activity_indicator">Aktivitet i pazakontë</string>
     <string name="activity_sensitivity_less">Më pak</string>
     <string name="activity_sensitivity_more">Më shumë</string>

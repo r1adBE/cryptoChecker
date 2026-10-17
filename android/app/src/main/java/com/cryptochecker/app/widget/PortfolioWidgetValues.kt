@@ -115,7 +115,7 @@ private const val TOTAL_MAX_SP = 26f
  * Schrift der Zeile «≈ … USDT», des Betrags einer Kennzahl und des Werts einer Position (die Betragszeile
  * wählt ihre Grösse aus [WidgetTextFit.CHANGE_LINE_SIZES_SP]).
  */
-private const val USDT_SP = 11f
+private const val USDT_SP = 12f
 
 /** Fusszeile «Stand 15:19» (wie textSize von portfolio_time in den Layouts). */
-private const val FOOTER_SP = 11f
+private const val FOOTER_SP = 12f

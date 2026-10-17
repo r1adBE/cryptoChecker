@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">지금은 거래소에 연결할 수 없습니다 – 마지막 시세는 계속 표시됩니다.</string>
     <string name="error_market_unreachable_short">지금은 거래소에 연결할 수 없음</string>
     <string name="loading_hint">불러오는 중…</string>
-    <string name="no_internet_connection">인터넷 연결 없음</string>
+    <string name="no_internet_connection">인터넷에 연결되어 있지 않습니다. Wi-Fi 또는 모바일 데이터를 확인한 뒤 다시 시도하세요.</string>
     <string name="option_off">끔</string>
     <string name="something_went_wrong">문제가 발생했습니다</string>
     <string name="time_just_now">방금</string>
-    <string name="timeout_error_message">거래소가 지금 응답하지 않습니다.</string>
+    <string name="timeout_error_message">거래소가 지금 응답하지 않습니다. 잠시 후 다시 시도하세요.</string>
     <string name="try_again">다시 시도</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

@@ -53,7 +53,7 @@
         android:ellipsize="end"
         android:text="@string/widget_preview_market"
         android:textColor="@color/widget_preview_text_secondary"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 
     <!-- Kurs 20 sp (zwei Nachkommastellen ab 10, «83’142.00» passt sonst in 2 × 2 nicht — das Widget
          verkleinert ebenso), Währung klein und grau (mindestens 11 sp, WidgetQuoteText) -->
@@ -79,7 +79,7 @@
             android:maxLines="1"
             android:text="@string/widget_preview_quote_usdt"
             android:textColor="@color/widget_preview_text_secondary"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -104,7 +104,7 @@
             android:maxLines="1"
             android:text="@string/widget_preview_time_sep"
             android:textColor="@color/widget_preview_text_secondary"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -112,6 +112,6 @@
             android:maxLines="1"
             android:text="@string/widget_range_short_24h"
             android:textColor="@color/widget_preview_text_secondary"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

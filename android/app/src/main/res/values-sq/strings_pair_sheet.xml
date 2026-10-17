@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Shitje</string>
     <string name="ticker_bid">Blerje</string>
+    <string name="explain_bid_ask">Blerje është çmimi më i lartë që ofrojnë blerësit tani, Shitje çmimi më i ulët që pranojnë shitësit.</string>
     <string name="ticker_high">Më i larti</string>
     <string name="ticker_low">Më i ulëti</string>
     <string name="ticker_timestamp">Koha</string>

@@ -35,6 +35,8 @@ private val BITFINEX_ALIASES: Map<String, String> = hashMapOf(
     "DSH" to "DASH",
     "IOT" to "IOTA",
     "MNA" to "MANA",
+    // Optimism (Bitfinex ordnet OPX selbst OP zu)
+    "OPX" to "OP",
     "QSH" to "QASH",
     "QTM" to "QTUM",
     "SNG" to "SNGLS",

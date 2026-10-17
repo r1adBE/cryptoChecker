@@ -75,13 +75,28 @@ extension WatchlistScreen {
 
             // Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche
             if watches.isEmpty && !filtering {
-                Text(L(WatchFilter.isFavorites(selectedGroup) ? "watchlist_favorites_empty_hint" : "watchlist_group_empty_hint"))
-                    .font(.footnote)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 24)
-                    .plainRow(top: 2, bottom: 2)
+                // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch): Knopf «Gruppe bearbeiten»
+                // unter dem Hinweis — langes Drücken ist nicht auffindbar (wie Android)
+                let editable = selectedGroup.flatMap { group in
+                    quickView == nil && groups.contains(group) && group != AutoGroup.tradFi ? group : nil
+                }
+                VStack(spacing: Spacing.xs) {
+                    Text(L(WatchFilter.isFavorites(selectedGroup) ? "watchlist_favorites_empty_hint" : "watchlist_group_empty_hint"))
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .multilineTextAlignment(.center)
+                    if let editable, !WatchFilter.isFavorites(editable) {
+                        Button(L("group_edit_title")) {
+                            groupEdit = WatchGroupEditTarget(name: editable, isNew: false)
+                        }
+                        .font(.subheadline.weight(.semibold))
+                        .tint(accent.primary)
+                        .buttonStyle(.borderless)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 24)
+                .plainRow(top: 2, bottom: 2)
             }
 
             if sorting {

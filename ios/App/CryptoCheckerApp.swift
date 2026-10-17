@@ -124,7 +124,7 @@ struct CryptoCheckerApp: App {
                 // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
                 // Sichtschutz im App-Umschalter, solange die Sperre an ist
                 .overlay {
-                    if data.settings.appLock && scenePhase != .active {
+                    if data.appLockEffective && scenePhase != .active {
                         AppPrivacyCover()
                     }
                 }
@@ -198,9 +198,14 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         return config
     }
 
-    // Mitteilungen auch zeigen, wenn die App offen ist.
+    // Mitteilungen auch zeigen, wenn die App offen ist — passive Kurs-Mitteilungen (Gruppe «prices») nur in der
+    // Mitteilungszentrale: Die Kurse stehen ohnehin in der offenen App, ein Banner je Aktualisierung störte nur.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        if notification.request.content.threadIdentifier == "prices" {
+            completionHandler([.list])
+            return
+        }
         completionHandler([.banner, .list, .sound])
     }
 

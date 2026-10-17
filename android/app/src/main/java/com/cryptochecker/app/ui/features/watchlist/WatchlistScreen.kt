@@ -536,6 +536,7 @@ fun WatchlistScreen(
                         disabledCount = disabledCount,
                         disabledOnly = ui.quickView == QuickView.DISABLED,
                         onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
+                        addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
                     )
                 }
                 // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
@@ -566,6 +567,9 @@ fun WatchlistScreen(
                         query = trimmedQuery,
                         groupEmpty = visible.isEmpty() && !filtering,
                         favoritesEmpty = visible.isEmpty() && !filtering && WatchFilter.isFavorites(selectedGroup),
+                        // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch)
+                        onEditGroup = selectedGroup?.takeIf { ui.quickView == null && it in groups && it != AutoGroup.TRADFI }
+                            ?.let { group -> { ui.startEditingGroup(group) } },
                         shown = listed,
                     ) { watch, shape ->
                         WatchlistItem(

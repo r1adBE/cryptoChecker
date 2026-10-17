@@ -175,6 +175,15 @@ struct WatchlistSettingsPage: View {
                 )
                 .settingsAnchor("watchlist.activity")
             }
+            // Basis der %-Änderung (Review D13: von «Erweitert» hierher — sie bestimmt, was jede Zeile zeigt;
+            // gilt auch für Puls und Widgets). Wie Android
+            SettingsCard {
+                SettingsNavRow(title: L("settings_change_basis", "%"), icon: .system("percent"),
+                               value: A11y.changeSummary(data.settings.changeBasis)) {
+                    ChangeBasisSettingsPage()
+                }
+                .settingsAnchor("watchlist.change_basis")
+            }
         }
     }
 }

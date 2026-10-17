@@ -216,8 +216,10 @@ extension PriceRefresher {
         /// gemeldet, gespeichert und angesagt erst in `Outcome.deliverAlarms` (zuerst die Mitteilung, wie
         /// Android `AlarmDelivery`). Alarme ohne zustellbare Mitteilung (einmalige wie wiederholende)
         /// bleiben unverändert scharf.
+        /// `shownPrice`/`shownCurrency`: Kurs in der Alarmwährung (Schwelle in anderer Währung), damit «jetzt» in
+        /// derselben Währung steht wie die Schwelle; nil = Kurs in der Quote-Währung des Paars.
         func report(_ alarm: Alarm, text: String? = nil, volumeRatio: Double? = nil, candleOpenTime: Int64? = nil,
-                    nearLevel: Double? = nil) {
+                    nearLevel: Double? = nil, shownPrice: Double? = nil, shownCurrency: String? = nil) {
             // Nachtruhe oder keine Mitteilungs-Erlaubnis (auch bei wiederholenden): nicht auslösen,
             // Alarm bleibt unverändert scharf (`QuietHours.mayFire`)
             if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: inputs.alarmsDeliverable) { return }
@@ -227,7 +229,8 @@ extension PriceRefresher {
             outcome.pendingAlarms.append(PendingAlarm(
                 watch: updated, alarm: alarm, price: price, volumeRatio: volumeRatio, text: text,
                 update: AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true),
-                speech: speak ? SpokenText.alarm(updated, alarm.condition, price) : nil))
+                speech: speak ? SpokenText.alarm(updated, alarm.condition, price) : nil,
+                shownPrice: shownPrice, shownCurrency: shownCurrency))
             if speak { spokeAlarm = true }
         }
 
@@ -246,6 +249,10 @@ extension PriceRefresher {
             // Funding/Open Interest: wie Kursmarken (scharf/gemeldet in `referenceAt`), Wert aus dem Vorladen
             if alarm.condition.isDerivatives {
                 guard let values = inputs.derivatives[watch.id] else { continue }
+                // Nur als geprüft vermerken, wenn der benötigte Wert da ist (Funding bzw. Open Interest) — wie Android;
+                // ohne Wert diesmal auslassen, ohne einen Hinweis «nicht geprüft» zu löschen
+                let raw = alarm.condition.isFunding ? values.fundingPercent : values.oiUnits
+                guard raw != nil else { continue }
                 // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
                 checkStatus.markChecked(alarm.id)
                 let value = DerivativesAlarmData.value(for: alarm, watchId: watch.id, values: values, now: now)
@@ -345,7 +352,12 @@ extension PriceRefresher {
             guard AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
                                                now: now, cooldownMinutes: settings.alarmCooldownMinutes,
                                                moveHistory: moveHistory) else { continue }
-            report(alarm)
+            // Umgerechnet: «jetzt» in der Währung der Schwelle (sonst stünde ein USDT-Kurs neben einer EUR-Marke)
+            if let currency = alarm.convertCurrency {
+                report(alarm, shownPrice: comparePrice, shownCurrency: currency)
+            } else {
+                report(alarm)
+            }
         }
         // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
         if hasMove { MoveHistoryStore.append(watch.id, MoveWindow.PricePoint(price: price, time: now), now: now) }

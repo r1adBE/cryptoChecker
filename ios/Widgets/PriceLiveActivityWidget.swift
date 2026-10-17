@@ -22,7 +22,7 @@ struct PriceLiveActivityWidget: Widget {
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
                         Text(context.attributes.exchangeName)
-                            .font(.system(size: 11))
+                            .font(.system(size: 12))
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     }
@@ -41,7 +41,7 @@ struct PriceLiveActivityWidget: Widget {
                             .minimumScaleFactor(0.6)
                         Spacer(minLength: 6)
                         Text(PriceActivityText.updated(context.state.updatedAt))
-                            .font(.system(size: 11, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .monospacedDigit()
                             .foregroundStyle(.secondary)
                             .lineLimit(1)

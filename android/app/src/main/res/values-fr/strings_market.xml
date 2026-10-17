@@ -169,7 +169,7 @@
     <string name="unusual_title">Inhabituel aujourd\'hui</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Il se passe quelque chose en ce moment</string>
+    <string name="activity_card_title">Activité inhabituelle</string>
     <string name="activity_indicator">Activité inhabituelle</string>
     <string name="activity_sensitivity_less">Moins</string>
     <string name="activity_sensitivity_more">Plus</string>

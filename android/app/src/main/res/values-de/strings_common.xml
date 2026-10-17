@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Börse gerade nicht erreichbar – letzte Kurse bleiben sichtbar.</string>
     <string name="error_market_unreachable_short">Börse gerade nicht erreichbar</string>
     <string name="loading_hint">Wird geladen…</string>
-    <string name="no_internet_connection">Keine Internetverbindung</string>
+    <string name="no_internet_connection">Keine Internetverbindung. Prüfe WLAN oder mobile Daten und versuche es dann erneut.</string>
     <string name="option_off">Aus</string>
     <string name="something_went_wrong">Da ist etwas schiefgelaufen</string>
     <string name="time_just_now">gerade eben</string>
-    <string name="timeout_error_message">Die Börse antwortet gerade nicht.</string>
+    <string name="timeout_error_message">Die Börse antwortet gerade nicht. Versuche es gleich noch einmal.</string>
     <string name="try_again">Erneut versuchen</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

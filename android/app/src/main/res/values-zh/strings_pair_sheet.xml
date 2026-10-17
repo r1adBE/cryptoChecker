@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">卖价</string>
     <string name="ticker_bid">买价</string>
+    <string name="explain_bid_ask">买价是买方当前愿出的最高价，卖价是卖方愿接受的最低价。</string>
     <string name="ticker_high">最高</string>
     <string name="ticker_low">最低</string>
     <string name="ticker_timestamp">时间</string>

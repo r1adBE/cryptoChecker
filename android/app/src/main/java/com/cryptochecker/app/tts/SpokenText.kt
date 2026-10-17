@@ -24,7 +24,12 @@ class SpokenText @Inject constructor(
             PriceFormat.spokenPrice(price)
         )
 
-    fun alarm(watch: WatchEntity, condition: AlarmCondition, price: Double): String {
+    /**
+     * [currency]: Währung von [price], wenn nicht die Quote des Paars (Kursmarke mit eigener
+     * Alarm-Währung, [price] schon umgerechnet) — wird dann hinter dem Kurs genannt, wie in der
+     * Benachrichtigung; null = Quote des Paars (steht schon im Paarnamen).
+     */
+    fun alarm(watch: WatchEntity, condition: AlarmCondition, price: Double, currency: String? = null): String {
         val direction = context.getString(
             when (condition) {
                 AlarmCondition.PRICE_ABOVE, AlarmCondition.CHANGE_PERCENT_UP -> R.string.tts_direction_up
@@ -45,8 +50,15 @@ class SpokenText @Inject constructor(
             watch.baseAsset,
             watch.quoteAsset,
             direction,
-            PriceFormat.spokenPrice(price)
+            spokenAlarmPrice(PriceFormat.spokenPrice(price), watch.quoteAsset, currency)
         )
+    }
+
+    companion object {
+        /** Gesprochener Kurs, mit Währung nur, wenn sie von der Quote abweicht («60000 CHF»). */
+        internal fun spokenAlarmPrice(spoken: String, quote: String, currency: String?): String =
+            if (currency.isNullOrBlank() || currency.equals(quote, ignoreCase = true)) spoken
+            else "$spoken ${currency.uppercase()}"
     }
 
     /** Börsen liefern einen aussprechbaren Namen mit (z. B. "MCX now"). */

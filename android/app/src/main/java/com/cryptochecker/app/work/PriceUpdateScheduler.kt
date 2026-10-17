@@ -26,12 +26,13 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.flow.update
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -178,8 +179,15 @@ class PriceUpdateScheduler @Inject constructor(
             BackgroundWorkPolicy.periodicNeeded(demand(settings, watches, alarmWatchIds.toSet(), portfolioAlarmOn, widgets))
         }
             .distinctUntilChanged()
-            // Lesefehler beenden nur das Nachführen; geplant bleibt, was zuletzt galt
-            .catch { Timber.w(it, "Bedarf der Hintergrund-Aktualisierung nicht mehr verfolgt") }
+            // Lesefehler: geplant bleibt, was zuletzt galt; nach einer wachsenden Pause (höchstens 60 s)
+            // neu beginnen — statt das Nachführen für die ganze Lebensdauer des Prozesses zu beenden
+            .retryWhen { cause, attempt ->
+                if (cause is CancellationException) return@retryWhen false
+                val wait = BackgroundWorkPolicy.followRetryDelayMillis(attempt)
+                Timber.w(cause, "Bedarf der Hintergrund-Aktualisierung: Lesefehler, neuer Versuch in %d ms", wait)
+                delay(wait)
+                true
+            }
             .collect { needed -> syncPeriodic(needed, settingsRepository.current().backgroundIntervalMinutes) }
     }
 

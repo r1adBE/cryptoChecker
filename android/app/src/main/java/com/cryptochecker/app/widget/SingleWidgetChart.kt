@@ -36,10 +36,10 @@ internal fun SingleWidgetRenderer.drawChart(
     val widgetH = options?.getInt(
         if (landscape) AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT else AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0
     ) ?: 0
-    // Feste Teile des Layouts: Rand 2 × 12 dp; Kopfzeile 14 sp, Börse 11 sp, Kurs 24 sp
-    // (+4 dp), Chart-Abstand 6 dp, Uhrzeit 11 sp (+2 dp). Zeilenhöhe ≈ 1.35 × Schriftgrösse.
+    // Feste Teile des Layouts: Rand 2 × 12 dp; Kopfzeile 14 sp, Börse 12 sp, Kurs 24 sp
+    // (+4 dp), Chart-Abstand 6 dp, Uhrzeit 12 sp (+2 dp). Zeilenhöhe ≈ 1.35 × Schriftgrösse.
     val chartWDp = if (widgetW > 0) (widgetW - 24f) else DEFAULT_CHART_WIDTH_DP
-    val chartHDp = if (widgetH > 0) (widgetH - 24f - 12f - (14f + 11f + 24f + 11f) * 1.35f * fontScale) else DEFAULT_CHART_HEIGHT_DP
+    val chartHDp = if (widgetH > 0) (widgetH - 24f - 12f - (14f + 12f + 24f + 12f) * 1.35f * fontScale) else DEFAULT_CHART_HEIGHT_DP
     val wDp = chartWDp.coerceAtLeast(60f)
     val hDp = chartHDp.coerceAtLeast(32f)
     // Bitmap-Speicher begrenzen (RemoteViews-Grenze): höchstens ~1 MP; fitXY skaliert gleichmässig zurück.

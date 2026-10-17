@@ -27,6 +27,6 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:text="@string/widget_portfolio_chart_pending"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:visibility="gone" />
 </FrameLayout>

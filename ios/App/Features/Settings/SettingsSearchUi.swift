@@ -15,15 +15,16 @@ enum SettingsSearchPage: Hashable {
     case advanced, markets, licenses
 
     /// Wo die Zeile zu dieser Seite steht (Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter
-    /// «Darstellung»); nil = Unterseite einer Unterseite (Lizenzen unter «Über die App»). Die Suche zeigt
+    /// «Darstellung»); nil = Unterseite einer Unterseite (Lizenzen unter «Über die App», %-Änderung unter «Merkliste»). Die Suche zeigt
     /// daraus den Pfad ihrer Treffer, damit er zur Anordnung passt — wie `SettingsPage.home` (Android).
     var home: SettingsHome? {
         switch self {
         case .currency, .watchlist, .alarms, .updates: return .general
         case .displayMode, .theme, .priceColors, .widgets: return .appearance
         case .backup, .advanced, .about: return .more
-        case .markets, .portfolio, .marketAlerts, .speech, .changeBasis, .coinLogos, .developer: return .advanced
-        case .licenses: return nil
+        case .markets, .portfolio, .marketAlerts, .speech, .coinLogos, .developer: return .advanced
+        // %-Änderung steht auf «Merkliste» (Review D13)
+        case .licenses, .changeBasis: return nil
         }
     }
 }
@@ -186,9 +187,9 @@ enum SettingsSearchCatalog {
             [L("settings_price_colors_hint")] + PriceColorScheme.allCases.map { L($0.labelKey) })
         add("price_colors.swap", L("price_colors_swap"), L("settings_price_colors"), .page(.priceColors, anchor: "price_colors.swap"),
             [L("price_colors_red_up_hint")])
-        // %-Änderung und Coin-Logos unter «Erweitert», Widgets unter «Darstellung» (Build 55)
+        // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung» (Build 55)
         let changeBasis = L("settings_change_basis", "%")
-        addPage("page.change_basis", .changeBasis, changeBasis,
+        add("page.change_basis", changeBasis, watchlist, .page(.changeBasis, anchor: nil),
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_since_last"), L("change_basis_device", "UTC"),
              // Alle Zonen in einem Text: «UTC+8» findet die Seite einmal, nicht 27 fast gleiche Treffer
              ChangeBasis.allCases.filter { $0.kind == .utcDay }.map { A11y.changeZoneChoice($0) }.joined(separator: " ")])

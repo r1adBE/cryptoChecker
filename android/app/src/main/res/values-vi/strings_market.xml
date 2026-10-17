@@ -167,7 +167,7 @@
     <string name="unusual_title">Nổi bật hôm nay</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Đang có điều gì đó xảy ra</string>
+    <string name="activity_card_title">Hoạt động bất thường</string>
     <string name="activity_indicator">Hoạt động bất thường</string>
     <string name="activity_sensitivity_less">Ít hơn</string>
     <string name="activity_sensitivity_more">Nhiều hơn</string>

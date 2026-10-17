@@ -92,8 +92,16 @@ object PortfolioLockPolicy {
      * Bildschirmfotos), solange die Sperre an ist und Portfolio-Beträge sichtbar sein können
      * (Portfolio-Tab, Coin-Detail mit Verlauf, Erfassen-Blätter). Unabhängig vom Entsperr-Zustand:
      * Entsperrt zeigt der Bildschirm Beträge.
+     * Vor Android 13 ([sdkInt] < 33, ohne `setRecentsScreenshotEnabled`) mit Sperre auf jedem Bildschirm: Beträge
+     * stehen auch ausserhalb des Portfolios (Alarm-Übersicht mit Portfolio-Alarmen, Widget-Einstellungen …), und
+     * nur FLAG_SECURE hält sie dort aus dem Vorschaubild. Ab 13 verdeckt `MainActivity` das Vorschaubild mit der
+     * Sperre ohnehin; ohne Sperre bleibt alles wie bisher (nur Portfolio-Bildschirme, und die nur mit Sperre).
      */
-    fun secureWindow(lockSetting: Boolean, portfolioVisible: Boolean): Boolean = lockSetting && portfolioVisible
+    fun secureWindow(lockSetting: Boolean, portfolioVisible: Boolean, sdkInt: Int): Boolean =
+        lockSetting && (portfolioVisible || sdkInt < RECENTS_SCREENSHOT_API)
+
+    /** Ab Android 13 (API 33) gibt es `Activity.setRecentsScreenshotEnabled`. */
+    private const val RECENTS_SCREENSHOT_API = 33
 
     /** Portfolio-Widget: ohne App-Sitzung, also gesperrt, solange die Einstellung an ist. */
     fun widgetLocked(lockSetting: Boolean): Boolean = lockSetting

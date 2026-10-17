@@ -125,11 +125,12 @@ class RefreshEffects @Inject constructor(
         val holdAlarms = holdsAlarms(settings)
 
         // Nicht abwarten: Die Ansage läuft in der Warteschlange der Sprachausgabe (Reihenfolge bleibt)
-        fun speakIfWanted(alarm: AlarmEntity) {
+        // [spokenPrice]/[currency]: wie in der Benachrichtigung (Kursmarke mit Alarm-Währung: umgerechnet)
+        fun speakIfWanted(alarm: AlarmEntity, spokenPrice: Double, currency: String?) {
             // Nachtruhe: keine Sprachausgabe (Alarme lösen dann ohnehin nicht aus, siehe holdAlarms)
             if (settings.ttsEnabled && alarm.speak && !isQuiet(settings)) {
                 ttsSpeaker.enqueue(
-                    spokenText.alarm(watch, alarm.condition, price),
+                    spokenText.alarm(watch, alarm.condition, spokenPrice, currency),
                     speechRate = settings.ttsSpeechRate,
                     flush = true
                 )
@@ -178,7 +179,13 @@ class RefreshEffects @Inject constructor(
          * Durchlauf erneut — frühestens nach der Abklingzeit ([NotificationBudget.retryBlocked]).
          * Hat der Nutzer den Alarm inzwischen geändert oder abgeschaltet, speichert [mark] nichts.
          */
-        suspend fun report(alarm: AlarmEntity, mark: suspend () -> Boolean, show: suspend () -> Boolean) {
+        suspend fun report(
+            alarm: AlarmEntity,
+            mark: suspend () -> Boolean,
+            show: suspend () -> Boolean,
+            spokenPrice: Double = price,
+            currency: String? = null,
+        ) {
             // Nachtruhe oder keine zustellbare Meldung (auch bei wiederholenden): nicht auslösen,
             // Alarm bleibt unverändert scharf (QuietHours.mayFire)
             // Nachtruhe / keine zustellbare Meldung / unbestätigter Versuch: Alarm bleibt scharf. Sonst zuerst melden,
@@ -189,7 +196,7 @@ class RefreshEffects @Inject constructor(
             )
             if (!saved) return
             count++
-            speakIfWanted(alarm)
+            speakIfWanted(alarm, spokenPrice, currency)
         }
 
         // Ausgelassen (kein Devisenkurs/keine Kerzen) bzw. wieder geprüft: für den Hinweis in der Alarmliste
@@ -197,165 +204,185 @@ class RefreshEffects @Inject constructor(
             alarmCheckStatus.markUnchecked(alarm.id, reason, now)
 
         for (alarm in enabledAlarms) {
-            if (alarm.condition.isDerivatives) {
-                // Nicht bei Live-Kursen (WebSocket): die normale Aktualisierung prüft sie
-                if (live) continue
-                if (!derivativesLoaded) {
-                    derivatives = derivativesAlarmData.values(watch, price, now)
-                    derivativesLoaded = true
+            // Ein scheiternder Alarm (Datenbank, Daten einer Quelle) hält die übrigen des Paars nicht auf
+            try {
+                if (alarm.condition.isDerivatives) {
+                    // Nicht bei Live-Kursen (WebSocket): die normale Aktualisierung prüft sie
+                    if (live) continue
+                    if (!derivativesLoaded) {
+                        derivatives = derivativesAlarmData.values(watch, price, now)
+                        derivativesLoaded = true
+                    }
+                    // null = Paar ohne solche Daten (kein Perpetual einer unterstützten Börse)
+                    val values = derivatives ?: continue
+                    // Nur als geprüft vermerken, wenn der benötigte Wert da ist (Funding bzw. Open Interest);
+                    // sonst «nicht geprüft» statt stiller Lücke
+                    val raw = if (alarm.condition.isFunding) values.fundingPercent else values.oiUnits
+                    if (raw == null) {
+                        unchecked(alarm, AlarmCheckStatus.Reason.NO_DATA)
+                        continue
+                    }
+                    // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
+                    alarmCheckStatus.markChecked(alarm.id)
+                    // Open Interest: ohne alte genug Messung (Verlauf im Aufbau) null — geprüft, aber noch keine Entscheidung
+                    val value = if (alarm.condition.isFunding) values.fundingPercent
+                    else derivativesAlarmData.oiChange(watch, values, DerivativesAlarm.oiWindowHours(alarm.windowHours), now)
+                    when (val decision = DerivativesAlarm.decide(
+                        condition = alarm.condition,
+                        threshold = alarm.threshold,
+                        value = value,
+                        armed = alarm.referenceAt <= 0L,
+                        enabled = alarm.enabled,
+                        lastTriggeredAt = alarm.lastTriggeredAt,
+                        now = now,
+                        cooldownMinutes = settings.alarmCooldownMinutes,
+                    )) {
+                        DerivativesAlarm.Decision.None -> Unit
+                        DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
+                        is DerivativesAlarm.Decision.Fire -> report(
+                            alarm,
+                            mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
+                            show = {
+                                notifier.showAlarm(
+                                    watch, alarm, price,
+                                    derivativesValue = decision.value,
+                                    derivativesReference = values.referenceSource,
+                                )
+                            },
+                        )
+                    }
+                    continue
                 }
-                val values = derivatives ?: continue
-                // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
+                if (alarm.condition.isNearExtreme) {
+                    if (!nearLoaded) {
+                        nearRanges = try {
+                            nearExtremeDataSource.ranges(watch.baseAsset, watch.quoteAsset)
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Exception) {
+                            Timber.d(e, "Alarm: Hoch/Tief für %s nicht verfügbar", watch.displayName)
+                            null
+                        }
+                        nearLoaded = true
+                    }
+                    val ranges = nearRanges
+                    val raw = ranges?.ranges?.get(NearExtreme.windowDays(alarm.windowHours))
+                    if (ranges == null || raw == null) {
+                        unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
+                        continue
+                    }
+                    // Nur USDT-Kerzen: Hoch/Tief in die Quote des Paars umrechnen; ohne Faktor diesmal auslassen.
+                    // rateFor = Faktor Quote → Kerzenwährung; Hoch/Tief also dadurch teilen
+                    val sameCurrency = ranges.currency.equals(watch.quoteAsset, ignoreCase = true)
+                    val rate = if (sameCurrency) 1.0 else rateFor(ranges.currency)?.takeIf { it > 0.0 }
+                    if (rate == null) {
+                        unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
+                        continue
+                    }
+                    // Reihe der Ausweich-Kette nur bei gleichem Namen und Kurs ±25 % (wie der Mini-Chart) — sonst
+                    // kein Hoch/Tief-Alarm statt der Werte eines anderen Tokens
+                    if (!nearExtremeDataSource.seriesAllowed(ranges, watch.marketKey, watch.baseAsset, price, rate)) {
+                        unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
+                        continue
+                    }
+                    val range = if (sameCurrency) raw else raw.scaled(1.0 / rate)
+                    alarmCheckStatus.markChecked(alarm.id)
+                    val decision = NearExtreme.decide(
+                        side = if (alarm.condition == AlarmCondition.NEAR_HIGH) NearExtreme.Side.HIGH else NearExtreme.Side.LOW,
+                        price = price,
+                        range = range,
+                        thresholdPercent = alarm.threshold,
+                        armed = alarm.referenceAt <= 0L,
+                        lastLevel = NearExtreme.reportedMark(alarm.referencePrice, alarm.lastTriggeredAt, alarm.windowHours, now),
+                        inCooldown = NearExtreme.inCooldown(alarm.lastTriggeredAt, now, settings.alarmCooldownMinutes),
+                        lastTriggeredAt = alarm.lastTriggeredAt,
+                        now = now,
+                    )
+                    when (decision) {
+                        NearExtreme.Decision.None -> Unit
+                        NearExtreme.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
+                        is NearExtreme.Decision.Fire -> report(
+                            alarm,
+                            mark = { watchRepository.markAlarmTriggered(alarm, price, now, nearLevel = decision.level) },
+                            show = { notifier.showAlarm(watch, alarm, price, nearFire = decision) },
+                        )
+                    }
+                    continue
+                }
+                if (alarm.condition == AlarmCondition.VOLUME_SPIKE) {
+                    if (live) continue
+                    if (!volumeLoaded) {
+                        volume = volumeDataSource.hourlySpike(watch, price)
+                        volumeLoaded = true
+                    }
+                    val spike = volume
+                    if (spike == null) {
+                        unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
+                        continue
+                    }
+                    alarmCheckStatus.markChecked(alarm.id)
+                    val spikeFires = alarmEvaluator.shouldTriggerVolumeSpike(
+                        alarm = alarm,
+                        ratio = spike.ratio,
+                        candleOpenTime = spike.candleOpenTime,
+                        now = now,
+                        cooldownMinutes = settings.alarmCooldownMinutes
+                    )
+                    if (!spikeFires) continue
+
+                    report(
+                        alarm,
+                        mark = { watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime) },
+                        show = { notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio) },
+                    )
+                    continue
+                }
+
+                // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
+                if (alarmEvaluator.needsReference(alarm, now)) {
+                    watchRepository.setAlarmReferenceIfUnchanged(alarm, price, now)
+                    continue
+                }
+                // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen.
+                // Vorheriger Kurs mit demselben Faktor — verglichen wird durchgehend in der Alarm-Währung
+                val convertTo = alarm.convertCurrency
+                val rate = if (convertTo == null) 1.0 else rateFor(convertTo)?.takeIf { it.isFinite() && it > 0.0 }
+                if (rate == null) {
+                    unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
+                    continue
+                }
+                val comparePrice = if (convertTo == null) price else price * rate
+                val comparePrevious = if (convertTo == null) previousPrice else previousPrice?.let { it * rate }
                 alarmCheckStatus.markChecked(alarm.id)
-                val value = if (alarm.condition.isFunding) values.fundingPercent
-                else derivativesAlarmData.oiChange(watch, values, DerivativesAlarm.oiWindowHours(alarm.windowHours), now)
-                when (val decision = DerivativesAlarm.decide(
-                    condition = alarm.condition,
-                    threshold = alarm.threshold,
-                    value = value,
-                    armed = alarm.referenceAt <= 0L,
-                    enabled = alarm.enabled,
-                    lastTriggeredAt = alarm.lastTriggeredAt,
+                // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
+                if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
+                    watchRepository.rearmAlarmIfUnchanged(alarm)
+                    continue
+                }
+                val fires = alarmEvaluator.shouldTrigger(
+                    alarm = alarm,
+                    price = comparePrice,
+                    previousPrice = comparePrevious,
                     now = now,
                     cooldownMinutes = settings.alarmCooldownMinutes,
-                )) {
-                    DerivativesAlarm.Decision.None -> Unit
-                    DerivativesAlarm.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
-                    is DerivativesAlarm.Decision.Fire -> report(
-                        alarm,
-                        mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
-                        show = {
-                            notifier.showAlarm(
-                                watch, alarm, price,
-                                derivativesValue = decision.value,
-                                derivativesReference = values.referenceSource,
-                            )
-                        },
-                    )
-                }
-                continue
-            }
-            if (alarm.condition.isNearExtreme) {
-                if (!nearLoaded) {
-                    nearRanges = try {
-                        nearExtremeDataSource.ranges(watch.baseAsset, watch.quoteAsset)
-                    } catch (e: CancellationException) {
-                        throw e
-                    } catch (e: Exception) {
-                        Timber.d(e, "Alarm: Hoch/Tief für %s nicht verfügbar", watch.displayName)
-                        null
-                    }
-                    nearLoaded = true
-                }
-                val ranges = nearRanges
-                val raw = ranges?.ranges?.get(NearExtreme.windowDays(alarm.windowHours))
-                if (ranges == null || raw == null) {
-                    unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
-                    continue
-                }
-                // Nur USDT-Kerzen: Hoch/Tief in die Quote des Paars umrechnen; ohne Faktor diesmal auslassen.
-                // rateFor = Faktor Quote → Kerzenwährung; Hoch/Tief also dadurch teilen
-                val sameCurrency = ranges.currency.equals(watch.quoteAsset, ignoreCase = true)
-                val rate = if (sameCurrency) 1.0 else rateFor(ranges.currency)?.takeIf { it > 0.0 }
-                if (rate == null) {
-                    unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
-                    continue
-                }
-                // Reihe der Ausweich-Kette nur bei gleichem Namen und Kurs ±25 % (wie der Mini-Chart) — sonst
-                // kein Hoch/Tief-Alarm statt der Werte eines anderen Tokens
-                if (!nearExtremeDataSource.seriesAllowed(ranges, watch.marketKey, watch.baseAsset, price, rate)) {
-                    unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
-                    continue
-                }
-                val range = if (sameCurrency) raw else raw.scaled(1.0 / rate)
-                alarmCheckStatus.markChecked(alarm.id)
-                val decision = NearExtreme.decide(
-                    side = if (alarm.condition == AlarmCondition.NEAR_HIGH) NearExtreme.Side.HIGH else NearExtreme.Side.LOW,
-                    price = price,
-                    range = range,
-                    thresholdPercent = alarm.threshold,
-                    armed = alarm.referenceAt <= 0L,
-                    lastLevel = NearExtreme.reportedMark(alarm.referencePrice, alarm.lastTriggeredAt, alarm.windowHours, now),
-                    inCooldown = NearExtreme.inCooldown(alarm.lastTriggeredAt, now, settings.alarmCooldownMinutes),
-                    lastTriggeredAt = alarm.lastTriggeredAt,
-                    now = now,
+                    moveHistory = moveHistory,
                 )
-                when (decision) {
-                    NearExtreme.Decision.None -> Unit
-                    NearExtreme.Decision.Rearm -> watchRepository.rearmAlarmIfUnchanged(alarm)
-                    is NearExtreme.Decision.Fire -> report(
-                        alarm,
-                        mark = { watchRepository.markAlarmTriggered(alarm, price, now, nearLevel = decision.level) },
-                        show = { notifier.showAlarm(watch, alarm, price, nearFire = decision) },
-                    )
-                }
-                continue
-            }
-            if (alarm.condition == AlarmCondition.VOLUME_SPIKE) {
-                if (live) continue
-                if (!volumeLoaded) {
-                    volume = volumeDataSource.hourlySpike(watch, price)
-                    volumeLoaded = true
-                }
-                val spike = volume
-                if (spike == null) {
-                    unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
-                    continue
-                }
-                alarmCheckStatus.markChecked(alarm.id)
-                val spikeFires = alarmEvaluator.shouldTriggerVolumeSpike(
-                    alarm = alarm,
-                    ratio = spike.ratio,
-                    candleOpenTime = spike.candleOpenTime,
-                    now = now,
-                    cooldownMinutes = settings.alarmCooldownMinutes
-                )
-                if (!spikeFires) continue
+                if (!fires) continue
 
+                // Gespeichert wird der Kurs in der Quote (wie bisher); gemeldet und angesagt in der Währung
+                // der Schwelle — sonst stünde «Über 60’000 CHF — jetzt 66’000 USDT» in der Meldung
                 report(
                     alarm,
-                    mark = { watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime) },
-                    show = { notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio) },
+                    mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
+                    show = { notifier.showAlarm(watch, alarm, comparePrice, priceCurrency = convertTo) },
+                    spokenPrice = comparePrice,
+                    currency = convertTo,
                 )
-                continue
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Alarm %d für %s nicht geprüft", alarm.id, watch.displayName)
             }
-
-            // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
-            if (alarmEvaluator.needsReference(alarm, now)) {
-                watchRepository.setAlarmReferenceIfUnchanged(alarm, price, now)
-                continue
-            }
-            // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
-            val convertTo = alarm.convertCurrency
-            val comparePrice = if (convertTo == null) price else {
-                val rate = rateFor(convertTo)
-                if (rate == null) {
-                    unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
-                    continue
-                }
-                price * rate
-            }
-            alarmCheckStatus.markChecked(alarm.id)
-            // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
-            if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
-                watchRepository.rearmAlarmIfUnchanged(alarm)
-                continue
-            }
-            val fires = alarmEvaluator.shouldTrigger(
-                alarm = alarm,
-                price = comparePrice,
-                previousPrice = previousPrice,
-                now = now,
-                cooldownMinutes = settings.alarmCooldownMinutes,
-                moveHistory = moveHistory,
-            )
-            if (!fires) continue
-
-            report(
-                alarm,
-                mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
-                show = { notifier.showAlarm(watch, alarm, price) },
-            )
         }
         // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
         if (hasMove) moveHistoryStore.append(watch.id, MoveWindow.PricePoint(price, now), now)

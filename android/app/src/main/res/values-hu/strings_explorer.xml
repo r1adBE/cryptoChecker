@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Nincs találat.</string>
     <string name="explorer_search_hint">Érme, pár vagy tőzsde keresése</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Írja be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válassza ki a párt.</string>
+    <string name="explorer_search_intro">Írja be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válassza ki a párt. A pár egy érme egy tőzsdén egy adott pénznemben, pl. BTC/USDT a Binance-en.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Hozzáadás a figyelőlistához</string>

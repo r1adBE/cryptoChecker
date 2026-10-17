@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">매도호가</string>
     <string name="ticker_bid">매수호가</string>
+    <string name="explain_bid_ask">매수호가는 지금 매수자가 제시하는 가장 높은 가격이고, 매도호가는 매도자가 받아들이는 가장 낮은 가격입니다.</string>
     <string name="ticker_high">고가</string>
     <string name="ticker_low">저가</string>
     <string name="ticker_timestamp">시간</string>

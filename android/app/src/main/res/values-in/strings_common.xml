@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Bursa sedang tidak dapat dijangkau – harga terakhir tetap terlihat.</string>
     <string name="error_market_unreachable_short">Bursa sedang tidak dapat dijangkau</string>
     <string name="loading_hint">Memuat…</string>
-    <string name="no_internet_connection">Tidak ada koneksi internet</string>
+    <string name="no_internet_connection">Tidak ada koneksi internet. Periksa Wi-Fi atau data seluler, lalu coba lagi.</string>
     <string name="option_off">Mati</string>
     <string name="something_went_wrong">Terjadi kesalahan</string>
     <string name="time_just_now">baru saja</string>
-    <string name="timeout_error_message">Bursa sedang tidak merespons.</string>
+    <string name="timeout_error_message">Bursa sedang tidak merespons. Coba lagi sebentar lagi.</string>
     <string name="try_again">Coba lagi</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

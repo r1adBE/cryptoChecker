@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Το ανταλλακτήριο δεν είναι διαθέσιμο αυτή τη στιγμή – οι τελευταίες τιμές παραμένουν ορατές.</string>
     <string name="error_market_unreachable_short">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
     <string name="loading_hint">Φόρτωση…</string>
-    <string name="no_internet_connection">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="no_internet_connection">Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε το Wi-Fi ή τα δεδομένα κινητής και δοκιμάστε ξανά.</string>
     <string name="option_off">Ανενεργό</string>
     <string name="something_went_wrong">Κάτι πήγε στραβά</string>
     <string name="time_just_now">μόλις τώρα</string>
-    <string name="timeout_error_message">Το ανταλλακτήριο δεν απαντά αυτή τη στιγμή.</string>
+    <string name="timeout_error_message">Το ανταλλακτήριο δεν απαντά αυτή τη στιγμή. Δοκιμάστε ξανά σε λίγο.</string>
     <string name="try_again">Δοκιμάστε ξανά</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

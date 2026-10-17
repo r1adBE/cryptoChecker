@@ -167,7 +167,7 @@
     <string name="unusual_title">โดดเด่นวันนี้</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">มีบางอย่างเกิดขึ้นตอนนี้</string>
+    <string name="activity_card_title">ความเคลื่อนไหวผิดปกติ</string>
     <string name="activity_indicator">ความเคลื่อนไหวผิดปกติ</string>
     <string name="activity_sensitivity_less">น้อยลง</string>
     <string name="activity_sensitivity_more">มากขึ้น</string>

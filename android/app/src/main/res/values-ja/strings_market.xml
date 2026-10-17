@@ -167,7 +167,7 @@
     <string name="unusual_title">今日の注目</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">今まさに動きがあります</string>
+    <string name="activity_card_title">異常な動き</string>
     <string name="activity_indicator">異常な動き</string>
     <string name="activity_sensitivity_less">少なめ</string>
     <string name="activity_sensitivity_more">多め</string>

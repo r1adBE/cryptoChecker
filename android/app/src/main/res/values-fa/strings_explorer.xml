@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">نتیجه‌ای نیست.</string>
     <string name="explorer_search_hint">جستجوی کوین، جفت یا صرافی</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">نام یا نماد یک کوین را بنویسید، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کنید.</string>
+    <string name="explorer_search_intro">نام یا نماد یک کوین را بنویسید، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کنید. جفت یعنی یک کوین در یک صرافی با یک ارز، مثلاً BTC/USDT در Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">افزودن به واچ‌لیست</string>

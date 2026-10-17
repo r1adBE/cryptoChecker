@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Ничего не найдено.</string>
     <string name="explorer_search_hint">Поиск монеты, пары или биржи</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Введите название или тикер монеты, например Bitcoin или BTC, затем выберите пару.</string>
+    <string name="explorer_search_intro">Введите название или тикер монеты, например Bitcoin или BTC, затем выберите пару. Пара — это монета на бирже в определённой валюте, например BTC/USDT на Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Добавить в список</string>

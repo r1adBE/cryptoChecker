@@ -158,6 +158,10 @@ enum PortfolioAlarmLogic {
         let below = alarm.kind == .VALUE_BELOW
         let h = AlarmEvaluator.levelHysteresis
         if alarm.referenceAt > 0 {
+            // Frühestens `minLevelRearmMillis` nach der Meldung wieder scharf (wie die Kursmarken,
+            // `AlarmEvaluator.shouldRearmLevel`); Meldung in der Zukunft (Uhr zurückgestellt) blockiert nicht
+            let elapsed = now - alarm.referenceAt
+            if elapsed >= 0 && elapsed < AlarmEvaluator.minLevelRearmMillis { return .nothing }
             let back: Bool
             if below { back = value > threshold * (1 + h) }
             else if alarm.kind.isValue { back = value < threshold * (1 - h) }

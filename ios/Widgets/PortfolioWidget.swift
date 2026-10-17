@@ -68,7 +68,9 @@ struct PortfolioEntry: TimelineEntry {
     }
 
     static func current(_ config: PortfolioWidgetIntent? = nil) -> PortfolioEntry {
-        let settings = SharedStorage.loadSettings()
+        // Einstellungen nicht zugänglich (vor dem ersten Entsperren): Portfolio-Sperre gilt als an
+        let loaded = SharedStorage.loadSettingsChecked()
+        let settings = loaded.settings
         // %-Basis: Stand mit anderer Basis oder von einem früheren Tag → Veränderung «—»
         // In der eingestellten Umrechnungswährung (ohne Kurs in USD aufgenommen oder Währung inzwischen gewechselt):
         // mit dem gemerkten Kurs umrechnen, damit «Umrechnung» sofort greift (wie Android)
@@ -80,7 +82,7 @@ struct PortfolioEntry: TimelineEntry {
                 .shown(basis: settings.changeBasis.storage, now: now)
         }
         var entry = PortfolioEntry(date: Date(), snapshot: snapshot,
-                                   locked: PortfolioLockPolicy.widgetLocked(lockSetting: settings.appLock),
+                                   locked: PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed),
                                    portfolioEnabled: settings.portfolioEnabled,
                                    accent: settings.accentColor,
                                    priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
@@ -170,10 +172,11 @@ struct PortfolioProvider: AppIntentTimelineProvider {
     func timeline(for configuration: PortfolioWidgetIntent, in context: Context) async -> Timeline<PortfolioEntry> {
         // Alter Stand: selbst nachrechnen (Kurse 60 s zwischengespeichert), damit
         // das Widget nicht vom Öffnen der App abhängt. Gesperrt oder Portfolio aus: nichts holen.
-        let settings = SharedStorage.loadSettings()
+        let loaded = SharedStorage.loadSettingsChecked()
+        let settings = loaded.settings
         let snapshot = PortfolioWidgetStore.load()
         let age = TimeUtils.nowMillis - (snapshot?.updatedAt ?? 0)
-        if settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(lockSetting: settings.appLock)
+        if settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed)
             && age >= WidgetRefresh.staleAfterMillis {
             await PortfolioWidgetStore.refresh(reload: false)
         }

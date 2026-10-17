@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 
     <!-- Wert «↗ +1.50%» als Text in der Kursfarbe (keine Pille), ohne Wert grau «—» -->
     <TextView
@@ -25,7 +25,7 @@
         android:layout_marginTop="2dp"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:fontFeatureSettings="tnum" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_marginTop="1dp"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:fontFeatureSettings="tnum"
         android:visibility="gone" />
 </LinearLayout>

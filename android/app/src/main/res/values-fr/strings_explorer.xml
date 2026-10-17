@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Aucun résultat.</string>
     <string name="explorer_search_hint">Rechercher une crypto, une paire ou une plateforme</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Saisissez le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisissez la paire.</string>
+    <string name="explorer_search_intro">Saisissez le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisissez la paire. Une paire, c’est une crypto sur une plateforme dans une devise, p. ex. BTC/USDT sur Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Ajouter à la liste de suivi</string>

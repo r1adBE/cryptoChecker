@@ -156,11 +156,11 @@ object PortfolioWidgetViews {
 
     /**
      * Höhe einer Listenzeile (dp): einzeilig Logo 20 dp bzw. 13 sp; zweizeilig Logo 24 dp bzw.
-     * 13 sp + 11 sp; je 8 dp Abstand (Innenrand und Trennlinie).
+     * 13 sp + 12 sp; je 8 dp Abstand (Innenrand und Trennlinie).
      */
     fun rowHeightDp(wide: Boolean, fontScale: Float): Float =
         if (wide) maxOf(20f, 13f * 1.3f * fontScale) + 8f
-        else maxOf(24f, (13f + 11f) * 1.2f * fontScale + 2f) + 8f
+        else maxOf(24f, (13f + 12f) * 1.2f * fontScale + 2f) + 8f
 
     /**
      * Zeilen und Fusszeile in [available] (dp für Zeilen und Fusszeile; null = unbekannt): so viele
@@ -179,11 +179,11 @@ object PortfolioWidgetViews {
 
     /**
      * Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 13 sp, sonst
-     * zweizeilig 13 sp + 11 sp; je 8 dp Innenrand) und die Trennlinie darüber (1 dp).
+     * zweizeilig 13 sp + 12 sp; je 8 dp Innenrand) und die Trennlinie darüber (1 dp).
      */
     fun listTotalHeightDp(fontScale: Float, wide: Boolean = false): Float =
         if (wide) 13f * 1.3f * fontScale + 8f + 1f
-        else (13f + 11f) * 1.2f * fontScale + 2f + 8f + 1f
+        else (13f + 12f) * 1.2f * fontScale + 2f + 8f + 1f
 
     /**
      * Gewinn/Verlust «Heute» bzw. 24 h des Gesamtwerts ([PortfolioSnapshot.changeAmount], schon um Käufe/
@@ -238,12 +238,12 @@ object PortfolioWidgetViews {
     }
 
     /**
-     * Kennzahlen (Text in der Kursfarbe, keine Pille), Abstand darüber: als Spalten Beschriftung 11 sp,
-     * 2 dp, Wert 11 sp; als Zeilen je 2 dp und 11 sp (widget_portfolio_figure_*.xml).
+     * Kennzahlen (Text in der Kursfarbe, keine Pille), Abstand darüber: als Spalten Beschriftung 12 sp,
+     * 2 dp, Wert 12 sp; als Zeilen je 2 dp und 12 sp (widget_portfolio_figure_*.xml).
      */
     fun figuresHeightDp(wide: Boolean, fontScale: Float): Float =
-        if (wide) FIGURES_GAP_DP + line(11f, fontScale) + 2f + line(11f, fontScale)
-        else FIGURES_GAP_DP + 3 * (line(11f, fontScale) + 2f)
+        if (wide) FIGURES_GAP_DP + line(12f, fontScale) + 2f + line(12f, fontScale)
+        else FIGURES_GAP_DP + 3 * (line(12f, fontScale) + 2f)
 
     /**
      * Wert einer Kennzahl als Text (keine Pille): «↗ +1.50%» / «↘ −0.85%» — Pfeil nach der Richtung
@@ -255,8 +255,8 @@ object PortfolioWidgetViews {
         else -> percent
     }
 
-    /** Betrag unter dem Wert (nur Spalten): 11 sp und 1 dp Abstand. */
-    fun figureAmountHeightDp(fontScale: Float): Float = line(11f, fontScale) + 1f
+    /** Betrag unter dem Wert (nur Spalten): 12 sp und 1 dp Abstand. */
+    fun figureAmountHeightDp(fontScale: Float): Float = line(12f, fontScale) + 1f
 
     /**
      * Übersicht in der Grösse [widthDp] × [heightDp] (0 = unbekannt: alles Gewünschte). Ein Teil

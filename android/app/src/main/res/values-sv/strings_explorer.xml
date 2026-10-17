@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Inga träffar.</string>
     <string name="explorer_search_hint">Sök mynt, par eller börs</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par.</string>
+    <string name="explorer_search_intro">Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par. Ett par är ett mynt på en börs i en valuta, t.ex. BTC/USDT på Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Lägg till i bevakningslistan</string>

@@ -195,6 +195,8 @@ struct ExplorerPickerSheet: View {
         }
         .contentShape(Rectangle())
         .onTapGesture { pick(entry) }
+        // VoiceOver: Zeile ist wählbar (Tipp statt Button wegen des Stern-Knopfs in der Zeile)
+        .accessibilityAddTraits(chosen ? [.isButton, .isSelected] : .isButton)
         .listRowBackground(chosen ? accent.container.opacity(0.45) : AppColors.containerLow)
         .contextMenu {
             if let kind = favoriteKind {

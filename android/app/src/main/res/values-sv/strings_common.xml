@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Börsen går inte att nå just nu – de senaste kurserna visas fortfarande.</string>
     <string name="error_market_unreachable_short">Börsen går inte att nå just nu</string>
     <string name="loading_hint">Läser in…</string>
-    <string name="no_internet_connection">Ingen internetanslutning</string>
+    <string name="no_internet_connection">Ingen internetanslutning. Kontrollera wifi eller mobildata och försök igen.</string>
     <string name="option_off">Av</string>
     <string name="something_went_wrong">Något gick fel</string>
     <string name="time_just_now">nyss</string>
-    <string name="timeout_error_message">Börsen svarar inte just nu.</string>
+    <string name="timeout_error_message">Börsen svarar inte just nu. Försök igen om en stund.</string>
     <string name="try_again">Försök igen</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

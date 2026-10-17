@@ -135,7 +135,7 @@ class ListWidgetRenderer @Inject constructor(
             time = if (outdated) WidgetOutdated.label(context, lastRefresh) else PriceFormat.time(lastRefresh).takeIf { it != "—" },
             duration = if (outdated) null else PriceFormat.duration(refreshStats.lastDuration()),
             titleWidthDp = { toolkit.textWidthDp(title, it) },
-            statusWidthDp = { toolkit.textWidthDp(it, 11f, bold = false, tabular = true) },
+            statusWidthDp = { toolkit.textWidthDp(it, 12f, bold = false, tabular = true) },
             fallback = if (outdated) context.getString(R.string.widget_outdated) else null,
         )
         views.setTextViewText(R.id.widget_title, title)

@@ -170,7 +170,7 @@
     <string name="unusual_title">Dziś wyróżnia się</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Coś się właśnie dzieje</string>
+    <string name="activity_card_title">Nietypowa aktywność</string>
     <string name="activity_indicator">Nietypowa aktywność</string>
     <string name="activity_sensitivity_less">Mniej</string>
     <string name="activity_sensitivity_more">Więcej</string>

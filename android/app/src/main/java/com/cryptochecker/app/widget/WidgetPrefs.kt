@@ -25,7 +25,7 @@ class WidgetPrefs @Inject constructor(
      */
     fun setOpacity(appWidgetId: Int, opacityPercent: Int) {
         prefs.edit {
-            putInt(opacityKey(appWidgetId), opacityPercent.coerceIn(0, 100))
+            putInt(opacityKey(appWidgetId), opacityPercent.coerceIn(WidgetColors.MIN_OPACITY, 100))
             // Frühere Hintergrundwahl wird nicht mehr gebraucht.
             remove(backgroundKey(appWidgetId))
         }
@@ -56,7 +56,8 @@ class WidgetPrefs @Inject constructor(
     }
 
     fun getOpacity(appWidgetId: Int): Int =
-        prefs.getInt(opacityKey(appWidgetId), WidgetColors.DEFAULT_OPACITY)
+        // Früher ab 0 % wählbar: tiefere gespeicherte Werte gelten als Minimum
+        prefs.getInt(opacityKey(appWidgetId), WidgetColors.DEFAULT_OPACITY).coerceIn(WidgetColors.MIN_OPACITY, 100)
 
     fun remove(appWidgetId: Int) {
         prefs.edit {

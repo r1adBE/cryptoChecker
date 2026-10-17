@@ -75,6 +75,25 @@ enum ExchangeBackoff {
         }
     }
 
+    /// Eigenen Stand (`ours`, ausgehend von `initial`) mit dem inzwischen gespeicherten (`stored`) zusammenführen:
+    /// Schlüssel, die dieser Durchlauf nicht geändert hat, bleiben wie gespeichert; hat ein anderer Prozess einen
+    /// geänderten Schlüssel inzwischen ebenfalls neu gemerkt, gilt die spätere Pause. Eine bei uns aufgehobene
+    /// Pause (Erfolg) fällt nur weg, wenn niemand sie seither neu gemerkt hat.
+    static func merge(ours: [String: State], initial: [String: State], stored: [String: State]) -> [String: State] {
+        var result = stored
+        for key in Set(ours.keys).union(initial.keys) where ours[key] != initial[key] {
+            let theirs = stored[key]
+            let theirsChanged = theirs != initial[key]
+            guard let mine = ours[key] else {
+                if !theirsChanged { result[key] = nil }
+                continue
+            }
+            if let theirs, theirsChanged, theirs.pausedUntil > mine.pausedUntil { continue }
+            result[key] = mine
+        }
+        return result
+    }
+
     /// Ergebnis einer Börse aus den Ursachen ihrer Fehler: Schon ein «zu viele Anfragen»
     /// pausiert; sonst zählt jeder Kurs als Erfolg; nur Zeitüberschreitungen → `.timeout`.
     static func outcome(failures: [RefreshFailure], updated: Int) -> Outcome {

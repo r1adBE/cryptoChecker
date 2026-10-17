@@ -72,6 +72,8 @@ enum WatchlistSearch {
     static let buttonSize: CGFloat = 34
     /// Symbol in Lupe und «+».
     static let buttonSymbolSize: CGFloat = 14
+    /// Bis zu so vielen Paaren in der Merkliste zeigt «+» auch den Text «Paar hinzufügen» (wie Android).
+    static let addLabelMaxPairs = 3
 
     /// Gross-/Kleinschreibung und Akzente egal; mehrere Wörter müssen alle passen
     /// (z. B. «btc kraken», «bitcoin usdt»). Geprüft werden Basis, Quote, «BASIS/QUOTE»,

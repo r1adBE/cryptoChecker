@@ -232,6 +232,8 @@ fun MarketAlertsSettingsScreen(
                     }
                 )
             }
+            // Was gwei und sat/vB bedeuten (Text der Gas-Karte im Markt-Tab), dann wann gemeldet wird
+            Hint(stringResource(R.string.market_info_gas_what))
             Hint(stringResource(R.string.settings_gas_alert_hint))
             RowDivider()
             // Eigene Grenzen für Bitcoin-Kennzahlen: feste Zahlen zur Wahl, keine Zonen und keine Wertung

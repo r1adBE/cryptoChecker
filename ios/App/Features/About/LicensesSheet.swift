@@ -4,6 +4,10 @@ import SwiftUI
 /// `App/Resources/Licenses/MIT-cryptochecker.txt`, gleich wie `LICENSE`), Schrift und Ersatz-Icons.
 /// Swift-Pakete von Dritten nutzt die App nicht (wie `LicensesSheet.kt`).
 enum LicenseNotices {
+    /// Quellenangabe für den Ersatz-Wechselkurs (open.er-api.com, `FxRateSource`): von ExchangeRate-API
+    /// verlangte Nennung, nicht übersetzt (wie Android `RATES_BY_EXCHANGERATE_API`).
+    static let ratesByExchangeRateApi = "Rates By Exchange Rate API (https://www.exchangerate-api.com)"
+
     /// Lizenztext aus dem App-Bundle (leer, falls die Datei fehlt).
     static func text(_ name: String) -> String {
         guard let url = Bundle.main.url(forResource: name, withExtension: "txt"),
@@ -53,6 +57,10 @@ struct LicensesSheet: View {
                 }
                 // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
                 Text(verbatim: DataFreshness.poweredByCoinGecko)
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                // Ersatz-Wechselkurse von open.er-api.com: verlangte Quellenangabe (nicht übersetzt)
+                Text(verbatim: LicenseNotices.ratesByExchangeRateApi)
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurface)
                     .padding(.bottom, Spacing.xs)

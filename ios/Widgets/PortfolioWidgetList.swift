@@ -132,7 +132,7 @@ extension PortfolioHomeView {
 
     private func listTotalShare() -> some View {
         Text(PortfolioWidgetText.share(PortfolioWidgetViews.listTotalShare))
-            .font(.system(size: 11, weight: .medium))
+            .font(.system(size: 12, weight: .medium))
             .monospacedDigit()
             .foregroundStyle(palette.secondary)
             .lineLimit(1)
@@ -184,7 +184,7 @@ extension PortfolioHomeView {
         if wide {
             HStack(spacing: 6) {
                 listBadge(p, size: 20)
-                quantityPrefixed(p, size: 11) {
+                quantityPrefixed(p, size: 12) {
                     listSymbol(p)
                         .frame(minWidth: 38, alignment: .leading)
                 }
@@ -199,7 +199,7 @@ extension PortfolioHomeView {
             HStack(spacing: 6) {
                 listBadge(p, size: 22)
                 VStack(alignment: .leading, spacing: 1) {
-                    quantityPrefixed(p, size: 11) { listSymbol(p) }
+                    quantityPrefixed(p, size: 12) { listSymbol(p) }
                     listShare(p)
                 }
                 .layoutPriority(1)
@@ -248,7 +248,7 @@ extension PortfolioHomeView {
 
     private func listShare(_ p: PortfolioWidgetPosition) -> some View {
         Text(PortfolioWidgetText.share(p.sharePercent))
-            .font(.system(size: 11, weight: .medium))
+            .font(.system(size: 12, weight: .medium))
             .monospacedDigit()
             .foregroundStyle(palette.secondary)
             .lineLimit(1)

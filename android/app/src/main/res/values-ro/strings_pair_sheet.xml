@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Ofertă</string>
     <string name="ticker_bid">Cerere</string>
+    <string name="explain_bid_ask">Cerere este cel mai mare preț oferit acum de cumpărători, Ofertă cel mai mic preț acceptat de vânzători.</string>
     <string name="ticker_high">Maxim</string>
     <string name="ticker_low">Minim</string>
     <string name="ticker_timestamp">Ora</string>

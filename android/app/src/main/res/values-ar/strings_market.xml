@@ -172,7 +172,7 @@
     <string name="unusual_title">لافت اليوم</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">شيء ما يحدث الآن</string>
+    <string name="activity_card_title">نشاط غير عادي</string>
     <string name="activity_indicator">نشاط غير عادي</string>
     <string name="activity_sensitivity_less">أقل</string>
     <string name="activity_sensitivity_more">أكثر</string>

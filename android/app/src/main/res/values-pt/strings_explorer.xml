@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Sem resultados.</string>
     <string name="explorer_search_hint">Pesquisar moeda, par ou exchange</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Escreva o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par.</string>
+    <string name="explorer_search_intro">Escreva o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par. Um par é uma moeda numa exchange, cotada noutra moeda, p. ex. BTC/USDT na Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Adicionar à lista de acompanhamento</string>

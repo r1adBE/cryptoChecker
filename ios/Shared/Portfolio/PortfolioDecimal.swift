@@ -4,8 +4,10 @@ import Foundation
 /// Einstand, realisierter Gewinn) — wie `PortfolioDecimal.kt` (Android, `BigDecimal`). Ein Bitcoin
 /// hat 8 Nachkommastellen (1 Satoshi = 0.00000001 BTC), Ethereum-Tokens bis 18 (1 Wei); mit
 /// `Double` summieren sich Rundungsfehler («0.1 + 0.2 = 0.30000000000000004»), mit `Decimal` nicht.
-/// Exakt sind Addition, Subtraktion und Multiplikation; Teilungen (und anteilige Produkte) runden auf
-/// 34 gültige Stellen (`divide`, `multiply`) — wie Android (`MathContext.DECIMAL128`, halbe auf gerade).
+/// `Decimal` hält rund 38 gültige Stellen (Mantisse 128 Bit): Addition, Subtraktion und Multiplikation sind
+/// exakt, solange das Ergebnis darin Platz hat — für Portfolio-Beträge immer; anders als `BigDecimal` (Android)
+/// ist die Genauigkeit aber nicht unbegrenzt. Teilungen (und anteilige Produkte) runden auf 34 gültige Stellen
+/// (`divide`, `multiply`) — wie Android (`MathContext.DECIMAL128`, halbe auf gerade).
 /// Börsenkurse kommen als `Double` an; Wert und unrealisierter Gewinn rechnen exakt mit ihrer kürzesten
 /// Darstellung (`of`).
 enum PortfolioDecimal {

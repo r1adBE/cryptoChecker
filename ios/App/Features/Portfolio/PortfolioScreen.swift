@@ -157,6 +157,9 @@ struct PortfolioScreen: View {
             guard case .success(let url) = result else { return }
             let keys = data.portfolioImportKeys
             Task {
+                // Lesen und Zuordnen zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
+                let backgroundTask = BackgroundTaskGuard.begin("csvImport")
+                defer { backgroundTask.end() }
                 if let loaded = await PortfolioCsvImporter.load(url, existingKeys: keys) {
                     csvPreview = loaded
                 } else {

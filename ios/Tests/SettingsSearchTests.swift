@@ -90,19 +90,20 @@ final class SettingsSearchTests: XCTestCase {
     }
 
     /// Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
-    /// Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, %-Änderung, Coin-Logos und Entwickler —
-    /// wie `SettingsPlacementTest.kt`.
+    /// Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler; %-Änderung steht auf
+    /// «Merkliste» (Review D13) — wie `SettingsPlacementTest.kt`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
         XCTAssertEqual(SettingsSearchPage.alarms.home, .general)
         XCTAssertEqual(SettingsSearchPage.widgets.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.priceColors.home, .appearance)
-        let advanced: [SettingsSearchPage] = [.markets, .portfolio, .marketAlerts, .speech, .changeBasis, .coinLogos, .developer]
+        let advanced: [SettingsSearchPage] = [.markets, .portfolio, .marketAlerts, .speech, .coinLogos, .developer]
         for page in advanced {
             XCTAssertEqual(page.home, .advanced, "\(page)")
         }
         XCTAssertEqual(SettingsSearchPage.advanced.home, .more)
         XCTAssertNil(SettingsSearchPage.licenses.home)
+        XCTAssertNil(SettingsSearchPage.changeBasis.home)
     }
 
     /// Der Pfad eines Treffers folgt dem Ort der Seite (Build 55).

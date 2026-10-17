@@ -18628,187 +18628,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "شيء ما يحدث الآن"
+            "value" : "نشاط غير عادي"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Právě se něco děje"
+            "value" : "Neobvyklá aktivita"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Her sker der noget lige nu"
+            "value" : "Usædvanlig aktivitet"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hier passiert gerade etwas"
+            "value" : "Ungewöhnliche Aktivität"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Κάτι συμβαίνει αυτή τη στιγμή"
+            "value" : "Ασυνήθιστη δραστηριότητα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Something is happening right now"
+            "value" : "Unusual activity"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Algo está pasando ahora mismo"
+            "value" : "Actividad inusual"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "همین حالا اتفاقی در جریان است"
+            "value" : "فعالیت غیرعادی"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nyt tapahtuu jotain"
+            "value" : "Epätavallista aktiivisuutta"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il se passe quelque chose en ce moment"
+            "value" : "Activité inhabituelle"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "משהו קורה עכשיו"
+            "value" : "פעילות חריגה"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अभी कुछ हो रहा है"
+            "value" : "असामान्य गतिविधि"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Most éppen történik valami"
+            "value" : "Szokatlan aktivitás"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sesuatu sedang terjadi"
+            "value" : "Aktivitas tidak biasa"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sta succedendo qualcosa"
+            "value" : "Attività insolita"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今まさに動きがあります"
+            "value" : "異常な動き"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금 무언가 일어나고 있습니다"
+            "value" : "이상 움직임"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Her skjer det noe akkurat nå"
+            "value" : "Uvanlig aktivitet"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Er gebeurt nu iets"
+            "value" : "Ongewone activiteit"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coś się właśnie dzieje"
+            "value" : "Nietypowa aktywność"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Algo está a acontecer agora"
+            "value" : "Atividade invulgar"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Algo está acontecendo agora"
+            "value" : "Atividade incomum"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se întâmplă ceva chiar acum"
+            "value" : "Activitate neobișnuită"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Прямо сейчас что-то происходит"
+            "value" : "Необычная активность"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diçka po ndodh tani"
+            "value" : "Aktivitet i pazakontë"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Något händer just nu"
+            "value" : "Ovanlig aktivitet"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "มีบางอย่างเกิดขึ้นตอนนี้"
+            "value" : "ความเคลื่อนไหวผิดปกติ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Şu anda bir şeyler oluyor"
+            "value" : "Olağandışı etkinlik"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Просто зараз щось відбувається"
+            "value" : "Незвичайна активність"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đang có điều gì đó xảy ra"
+            "value" : "Hoạt động bất thường"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此刻正有异动"
+            "value" : "异常活动"
           }
         }
       }
@@ -74749,6 +74749,197 @@
         }
       }
     },
+    "explain_bid_ask" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سعر الشراء هو أعلى سعر يعرضه المشترون الآن، وسعر البيع هو أدنى سعر يقبله البائعون."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nákup je nejvyšší cena, kterou kupující právě nabízejí, Prodej nejnižší cena, kterou prodávající přijmou."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bud er den højeste pris, købere byder lige nu, Udbud den laveste pris, sælgere vil acceptere."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geld ist der höchste Preis, den Käufer gerade bieten, Brief der tiefste, den Verkäufer verlangen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bid είναι η υψηλότερη τιμή που προσφέρουν τώρα οι αγοραστές, Ask η χαμηλότερη τιμή που δέχονται οι πωλητές."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bid is the highest price buyers are offering right now, ask the lowest price sellers will accept."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra es el precio más alto que ofrecen ahora los compradores; Venta, el más bajo que aceptan los vendedores."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خرید بالاترین قیمتی است که خریداران همین حالا پیشنهاد می‌دهند و فروش پایین‌ترین قیمتی که فروشندگان می‌پذیرند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Osto on korkein hinta, jota ostajat juuri nyt tarjoavat, Myynti alin hinta, jonka myyjät hyväksyvät."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achat est le prix le plus élevé que proposent les acheteurs en ce moment, Vente le prix le plus bas qu’acceptent les vendeurs."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ביקוש הוא המחיר הגבוה ביותר שקונים מציעים כרגע, והיצע הוא המחיר הנמוך ביותר שמוכרים מוכנים לקבל."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बिड वह सबसे ऊँची कीमत है जो खरीदार अभी दे रहे हैं, आस्क वह सबसे कम कीमत जिस पर विक्रेता बेचने को तैयार हैं।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A vételi ár a legmagasabb ár, amelyet a vevők most kínálnak, az eladási ár pedig a legalacsonyabb, amelyet az eladók elfogadnak."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bid adalah harga tertinggi yang ditawarkan pembeli saat ini, Ask harga terendah yang diterima penjual."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denaro è il prezzo più alto che i compratori offrono ora, Lettera il prezzo più basso che i venditori accettano."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "買気配は買い手がいま提示している最も高い価格、売気配は売り手が応じる最も低い価格です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매수호가는 지금 매수자가 제시하는 가장 높은 가격이고, 매도호가는 매도자가 받아들이는 가장 낮은 가격입니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kjøp er den høyeste prisen kjøpere byr akkurat nå, Salg den laveste prisen selgere godtar."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bied is de hoogste prijs die kopers nu bieden, Laat de laagste prijs die verkopers accepteren."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kupno to najwyższa cena, jaką kupujący oferują w tej chwili, a Sprzedaż – najniższa, jaką akceptują sprzedający."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra é o preço mais alto que os compradores oferecem agora; Venda, o preço mais baixo que os vendedores aceitam."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra é o maior preço que os compradores oferecem agora; Venda, o menor preço que os vendedores aceitam."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerere este cel mai mare preț oferit acum de cumpărători, Ofertă cel mai mic preț acceptat de vânzători."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Покупка — самая высокая цена, которую сейчас предлагают покупатели, Продажа — самая низкая цена, на которую согласны продавцы."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blerje është çmimi më i lartë që ofrojnë blerësit tani, Shitje çmimi më i ulët që pranojnë shitësit."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köp är det högsta pris köpare bjuder just nu, Sälj det lägsta pris säljare accepterar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคาเสนอซื้อคือราคาสูงสุดที่ผู้ซื้อเสนออยู่ตอนนี้ ส่วนราคาเสนอขายคือราคาต่ำสุดที่ผู้ขายยอมรับ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alış, alıcıların şu anda teklif ettiği en yüksek fiyat; Satış, satıcıların kabul ettiği en düşük fiyattır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Купівля — найвища ціна, яку зараз пропонують покупці, Продаж — найнижча ціна, на яку погоджуються продавці."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá mua là mức giá cao nhất người mua đang trả lúc này, giá bán là mức giá thấp nhất người bán chấp nhận."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "买价是买方当前愿出的最高价，卖价是卖方愿接受的最低价。"
+          }
+        }
+      }
+    },
     "explain_funding" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -83755,7 +83946,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gegenwert"
+            "value" : "Gegenwährung"
           }
         },
         "el" : {
@@ -83767,7 +83958,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quote"
+            "value" : "Quote currency"
           }
         },
         "es" : {
@@ -89531,187 +89722,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج."
+            "value" : "اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج. الزوج هو عملة على منصة بعملة معيّنة، مثل BTC/USDT على Binance."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zadejte název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyberte pár."
+            "value" : "Zadejte název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyberte pár. Pár je mince na burze v jedné měně, např. BTC/USDT na Binance."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret."
+            "value" : "Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret. Et par er en mønt på en børs i én valuta, f.eks. BTC/USDT på Binance."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar."
+            "value" : "Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar. Ein Paar ist ein Coin an einer Börse in einer Währung, z. B. BTC/USDT bei Binance."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Πληκτρολογήστε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επιλέξτε ζεύγος."
+            "value" : "Πληκτρολογήστε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επιλέξτε ζεύγος. Ζεύγος είναι ένα κρυπτονόμισμα σε ένα ανταλλακτήριο έναντι ενός νομίσματος, π.χ. BTC/USDT στο Binance."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Type a coin’s name or symbol, e.g. Bitcoin or BTC – then pick the pair."
+            "value" : "Type a coin’s name or symbol, e.g. Bitcoin or BTC – then pick the pair. A pair is a coin on an exchange in one currency, e.g. BTC/USDT on Binance."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par."
+            "value" : "Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par. Un par es una moneda en un exchange en una divisa, p. ej. BTC/USDT en Binance."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نام یا نماد یک کوین را بنویسید، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کنید."
+            "value" : "نام یا نماد یک کوین را بنویسید، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کنید. جفت یعنی یک کوین در یک صرافی با یک ارز، مثلاً BTC/USDT در Binance."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari."
+            "value" : "Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari. Pari on kolikko tietyssä pörssissä tietyssä valuutassa, esim. BTC/USDT Binancessa."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saisissez le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisissez la paire."
+            "value" : "Saisissez le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisissez la paire. Une paire, c’est une crypto sur une plateforme dans une devise, p. ex. BTC/USDT sur Binance."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד."
+            "value" : "הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד. צמד הוא מטבע בבורסה מסוימת מול מטבע מסוים, למשל BTC/USDT ב-Binance."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "किसी कॉइन का नाम या चिह्न लिखें, जैसे Bitcoin या BTC – फिर पेयर चुनें।"
+            "value" : "किसी कॉइन का नाम या चिह्न लिखें, जैसे Bitcoin या BTC – फिर पेयर चुनें। पेयर किसी एक्सचेंज पर किसी मुद्रा में एक कॉइन है, जैसे Binance पर BTC/USDT।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Írja be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válassza ki a párt."
+            "value" : "Írja be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válassza ki a párt. A pár egy érme egy tőzsdén egy adott pénznemben, pl. BTC/USDT a Binance-en."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketik nama atau simbol koin, mis. Bitcoin atau BTC – lalu pilih pasangannya."
+            "value" : "Ketik nama atau simbol koin, mis. Bitcoin atau BTC – lalu pilih pasangannya. Pasangan adalah koin di sebuah bursa dalam satu mata uang, mis. BTC/USDT di Binance."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia."
+            "value" : "Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia. Una coppia è una moneta su un exchange in una valuta, ad es. BTC/USDT su Binance."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コイン名かシンボル（例：Bitcoin、BTC）を入力して、ペアを選びます。"
+            "value" : "コイン名かシンボル（例：Bitcoin、BTC）を入力して、ペアを選びます。ペアとは、ある取引所で特定の通貨建てで取引されるコインのことです（例：Binance の BTC/USDT）。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요."
+            "value" : "코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요. 거래쌍은 한 거래소에서 특정 통화로 거래되는 코인입니다(예: Binance의 BTC/USDT)."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skriv navnet eller symbolet til en mynt, f.eks. Bitcoin eller BTC – og velg så paret."
+            "value" : "Skriv navnet eller symbolet til en mynt, f.eks. Bitcoin eller BTC – og velg så paret. Et par er en mynt på en børs i én valuta, f.eks. BTC/USDT på Binance."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar."
+            "value" : "Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar. Een paar is een munt op een beurs in één valuta, bijv. BTC/USDT op Binance."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę."
+            "value" : "Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę. Para to moneta na giełdzie w jednej walucie, np. BTC/USDT na Binance."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Escreva o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par."
+            "value" : "Escreva o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par. Um par é uma moeda numa exchange, cotada noutra moeda, p. ex. BTC/USDT na Binance."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Digite o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par."
+            "value" : "Digite o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par. Um par é uma moeda em uma exchange, cotada em outra moeda, p. ex. BTC/USDT na Binance."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea."
+            "value" : "Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea. O pereche este o monedă pe o bursă, cotată într-o valută, de ex. BTC/USDT pe Binance."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введите название или тикер монеты, например Bitcoin или BTC, затем выберите пару."
+            "value" : "Введите название или тикер монеты, например Bitcoin или BTC, затем выберите пару. Пара — это монета на бирже в определённой валюте, например BTC/USDT на Binance."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shkruaj emrin ose simbolin e një monedhe, p.sh. Bitcoin ose BTC, pastaj zgjidh çiftin."
+            "value" : "Shkruaj emrin ose simbolin e një monedhe, p.sh. Bitcoin ose BTC, pastaj zgjidh çiftin. Një çift është një monedhë në një bursë në një valutë, p.sh. BTC/USDT në Binance."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par."
+            "value" : "Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par. Ett par är ett mynt på en börs i en valuta, t.ex. BTC/USDT på Binance."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด"
+            "value" : "พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด คู่เทรดคือเหรียญหนึ่งบนกระดานเทรดหนึ่งในสกุลเงินหนึ่ง เช่น BTC/USDT บน Binance"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir coinin adını veya sembolünü yazın, ör. Bitcoin veya BTC – ardından çifti seçin."
+            "value" : "Bir coinin adını veya sembolünü yazın, ör. Bitcoin veya BTC – ardından çifti seçin. Çift, bir borsada belirli bir para birimiyle işlem gören bir coindir, ör. Binance'te BTC/USDT."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введіть назву або тикер монети, наприклад Bitcoin чи BTC, потім виберіть пару."
+            "value" : "Введіть назву або тикер монети, наприклад Bitcoin чи BTC, потім виберіть пару. Пара — це монета на біржі в певній валюті, наприклад BTC/USDT на Binance."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nhập tên hoặc ký hiệu coin, ví dụ Bitcoin hoặc BTC – rồi chọn cặp."
+            "value" : "Nhập tên hoặc ký hiệu coin, ví dụ Bitcoin hoặc BTC – rồi chọn cặp. Cặp là một coin trên một sàn theo một loại tiền, ví dụ BTC/USDT trên Binance."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。"
+            "value" : "输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。交易对是某个交易所中以某种货币计价的币种，例如 Binance 上的 BTC/USDT。"
           }
         }
       }
@@ -111140,7 +111331,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Counts new alerts and market notices; back to 0 when you open the app."
+            "value" : "Counts new price alerts and market alerts; back to 0 when you open the app."
           }
         },
         "es" : {
@@ -128764,7 +128955,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rechts steht die Veränderung des Gesamtwerts in 24 Stunden. Hohes Volumen heisst: Es wird viel gehandelt – in welche Richtung, sagt es nicht. Wenn möglich in der Umrechnungswährung, sonst in US-Dollar."
+            "value" : "Rechts steht die Veränderung des Gesamtwerts in 24 Stunden. Hohes Volumen heisst: Es wird viel gehandelt – in welche Richtung, sagt es nicht. Wenn möglich in deiner Währung, sonst in US-Dollar."
           }
         },
         "el" : {
@@ -136225,7 +136416,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Market notices"
+            "value" : "Market alerts"
           }
         },
         "es" : {
@@ -140427,7 +140618,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Each value comes with one sentence on what it measures, and where it sits in its own history since 2016. The app does not rate the values and derives no market phase; limits for market notices are only the ones you set. Past patterns do not have to repeat."
+            "value" : "Each value comes with one sentence on what it measures, and where it sits in its own history since 2016. The app does not rate the values and derives no market phase; limits for market alerts are only the ones you set. Past patterns do not have to repeat."
           }
         },
         "es" : {
@@ -141543,187 +141734,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لا يوجد اتصال بالإنترنت"
+            "value" : "لا يوجد اتصال بالإنترنت. تحقّق من Wi-Fi أو بيانات الجوال، ثم حاول مجددًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Žádné připojení k internetu"
+            "value" : "Žádné připojení k internetu. Zkontrolujte Wi-Fi nebo mobilní data a zkuste to znovu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingen internetforbindelse"
+            "value" : "Ingen internetforbindelse. Tjek wi-fi eller mobildata, og prøv igen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keine Internetverbindung"
+            "value" : "Keine Internetverbindung. Prüfe WLAN oder mobile Daten und versuche es dann erneut."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Δεν υπάρχει σύνδεση στο διαδίκτυο"
+            "value" : "Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε το Wi-Fi ή τα δεδομένα κινητής και δοκιμάστε ξανά."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "No internet connection. Check Wi-Fi or mobile data, then try again."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sin conexión a Internet"
+            "value" : "Sin conexión a Internet. Comprueba el wifi o los datos móviles y vuelve a intentarlo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اتصال اینترنت برقرار نیست"
+            "value" : "اتصال اینترنت برقرار نیست. وای‌فای یا داده تلفن همراه را بررسی کنید و دوباره امتحان کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ei internetyhteyttä"
+            "value" : "Ei internetyhteyttä. Tarkista Wi-Fi tai mobiilidata ja yritä uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pas de connexion Internet"
+            "value" : "Pas de connexion Internet. Vérifiez le Wi-Fi ou les données mobiles, puis réessayez."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "אין חיבור לאינטרנט"
+            "value" : "אין חיבור לאינטרנט. בדקו את ה-Wi-Fi או את הנתונים הסלולריים ונסו שוב."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "इंटरनेट कनेक्शन नहीं है"
+            "value" : "इंटरनेट कनेक्शन नहीं है। Wi-Fi या मोबाइल डेटा जाँचें, फिर दोबारा कोशिश करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nincs internetkapcsolat"
+            "value" : "Nincs internetkapcsolat. Ellenőrizze a Wi-Fi-t vagy a mobiladatot, majd próbálja újra."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tidak ada koneksi internet"
+            "value" : "Tidak ada koneksi internet. Periksa Wi-Fi atau data seluler, lalu coba lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nessuna connessione a Internet"
+            "value" : "Nessuna connessione a Internet. Controlla il Wi-Fi o i dati mobili, poi riprova."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "インターネットに接続されていません"
+            "value" : "インターネットに接続されていません。Wi-Fi またはモバイルデータを確認して、もう一度お試しください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "인터넷 연결 없음"
+            "value" : "인터넷에 연결되어 있지 않습니다. Wi-Fi 또는 모바일 데이터를 확인한 뒤 다시 시도하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingen internettforbindelse"
+            "value" : "Ingen internettforbindelse. Sjekk Wi-Fi eller mobildata, og prøv igjen."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geen internetverbinding"
+            "value" : "Geen internetverbinding. Controleer wifi of mobiele data en probeer het opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Brak połączenia z internetem"
+            "value" : "Brak połączenia z internetem. Sprawdź Wi-Fi lub dane komórkowe i spróbuj ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sem ligação à Internet"
+            "value" : "Sem ligação à Internet. Verifique o Wi-Fi ou os dados móveis e tente novamente."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sem conexão com a internet"
+            "value" : "Sem conexão com a internet. Verifique o Wi-Fi ou os dados móveis e tente de novo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nicio conexiune la internet"
+            "value" : "Nicio conexiune la internet. Verifică Wi-Fi-ul sau datele mobile, apoi încearcă din nou."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нет подключения к интернету"
+            "value" : "Нет подключения к интернету. Проверьте Wi-Fi или мобильные данные и повторите попытку."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nuk ka lidhje interneti"
+            "value" : "Nuk ka lidhje interneti. Kontrollo Wi-Fi-n ose të dhënat celulare dhe provo përsëri."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingen internetanslutning"
+            "value" : "Ingen internetanslutning. Kontrollera wifi eller mobildata och försök igen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่มีการเชื่อมต่ออินเทอร์เน็ต"
+            "value" : "ไม่มีการเชื่อมต่ออินเทอร์เน็ต ตรวจสอบ Wi-Fi หรืออินเทอร์เน็ตมือถือ แล้วลองอีกครั้ง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İnternet bağlantısı yok"
+            "value" : "İnternet bağlantısı yok. Wi-Fi'yi veya mobil veriyi kontrol edip tekrar deneyin."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Немає з'єднання з інтернетом"
+            "value" : "Немає з'єднання з інтернетом. Перевірте Wi-Fi або мобільні дані й спробуйте ще раз."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Không có kết nối internet"
+            "value" : "Không có kết nối internet. Hãy kiểm tra Wi-Fi hoặc dữ liệu di động rồi thử lại."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无网络连接"
+            "value" : "无网络连接。请检查 Wi-Fi 或移动数据，然后重试。"
           }
         }
       }
@@ -236952,7 +237143,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "How easily a coin counts as unusual – the same for the watchlist card and the market notices. With “Less”, the card shows only the 3 strongest."
+            "value" : "How easily a coin counts as unusual – the same for the watchlist card and market alerts. With “Less”, the card shows only the 3 strongest."
           }
         },
         "es" : {
@@ -246490,7 +246681,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Umrechnungswährung"
+            "value" : "Anzeigewährung"
           }
         },
         "el" : {
@@ -254524,7 +254715,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Market notices"
+            "value" : "Market alerts"
           }
         },
         "es" : {
@@ -267580,7 +267771,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Notifications for it are set under Market notices."
+            "value" : "Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Notifications for it are set under Market alerts."
           }
         },
         "es" : {
@@ -312244,187 +312435,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "المنصة لا تستجيب حاليًا."
+            "value" : "المنصة لا تستجيب حاليًا. حاول مجددًا بعد قليل."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Burza právě neodpovídá."
+            "value" : "Burza právě neodpovídá. Zkuste to za chvíli znovu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Børsen svarer ikke lige nu."
+            "value" : "Børsen svarer ikke lige nu. Prøv igen om lidt."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Börse antwortet gerade nicht."
+            "value" : "Die Börse antwortet gerade nicht. Versuche es gleich noch einmal."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το ανταλλακτήριο δεν απαντά αυτή τη στιγμή."
+            "value" : "Το ανταλλακτήριο δεν απαντά αυτή τη στιγμή. Δοκιμάστε ξανά σε λίγο."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The exchange isn’t responding right now."
+            "value" : "The exchange isn’t responding right now. Try again in a moment."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El exchange no responde en este momento."
+            "value" : "El exchange no responde en este momento. Vuelve a intentarlo en un momento."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "صرافی در حال حاضر پاسخ نمی‌دهد."
+            "value" : "صرافی در حال حاضر پاسخ نمی‌دهد. کمی بعد دوباره امتحان کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pörssi ei vastaa juuri nyt."
+            "value" : "Pörssi ei vastaa juuri nyt. Yritä hetken kuluttua uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La plateforme ne répond pas pour le moment."
+            "value" : "La plateforme ne répond pas pour le moment. Réessayez dans un instant."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הבורסה לא מגיבה כרגע."
+            "value" : "הבורסה לא מגיבה כרגע. נסו שוב בעוד רגע."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "एक्सचेंज अभी जवाब नहीं दे रहा।"
+            "value" : "एक्सचेंज अभी जवाब नहीं दे रहा। थोड़ी देर में दोबारा कोशिश करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A tőzsde most nem válaszol."
+            "value" : "A tőzsde most nem válaszol. Próbálja újra egy kis idő múlva."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bursa sedang tidak merespons."
+            "value" : "Bursa sedang tidak merespons. Coba lagi sebentar lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L'exchange non risponde al momento."
+            "value" : "L'exchange non risponde al momento. Riprova tra poco."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "取引所が現在応答していません。"
+            "value" : "取引所が現在応答していません。しばらくしてからもう一度お試しください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래소가 지금 응답하지 않습니다."
+            "value" : "거래소가 지금 응답하지 않습니다. 잠시 후 다시 시도하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Børsen svarer ikke akkurat nå."
+            "value" : "Børsen svarer ikke akkurat nå. Prøv igjen om litt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De beurs reageert op dit moment niet."
+            "value" : "De beurs reageert op dit moment niet. Probeer het zo opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giełda w tej chwili nie odpowiada."
+            "value" : "Giełda w tej chwili nie odpowiada. Spróbuj ponownie za chwilę."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A exchange não está a responder neste momento."
+            "value" : "A exchange não está a responder neste momento. Tente novamente daqui a pouco."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A exchange não está respondendo no momento."
+            "value" : "A exchange não está respondendo no momento. Tente de novo daqui a pouco."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bursa nu răspunde acum."
+            "value" : "Bursa nu răspunde acum. Încearcă din nou peste puțin timp."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Биржа сейчас не отвечает."
+            "value" : "Биржа сейчас не отвечает. Повторите попытку чуть позже."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bursa nuk po përgjigjet tani."
+            "value" : "Bursa nuk po përgjigjet tani. Provo përsëri pas pak."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Börsen svarar inte just nu."
+            "value" : "Börsen svarar inte just nu. Försök igen om en stund."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "กระดานเทรดไม่ตอบสนองในขณะนี้"
+            "value" : "กระดานเทรดไม่ตอบสนองในขณะนี้ ลองอีกครั้งในอีกสักครู่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Borsa şu anda yanıt vermiyor."
+            "value" : "Borsa şu anda yanıt vermiyor. Biraz sonra tekrar deneyin."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Біржа зараз не відповідає."
+            "value" : "Біржа зараз не відповідає. Спробуйте ще раз трохи згодом."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sàn hiện không phản hồi."
+            "value" : "Sàn hiện không phản hồi. Hãy thử lại sau giây lát."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易所暂时无响应。"
+            "value" : "交易所暂时无响应。请稍后重试。"
           }
         }
       }
@@ -318577,7 +318768,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "How current?"
+            "value" : "Update frequency"
           }
         },
         "es" : {
@@ -372484,7 +372675,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die USDT-Zeile entfällt, wenn die Umrechnungswährung USD ist."
+            "value" : "Die USDT-Zeile entfällt, wenn deine Währung USD ist."
           }
         },
         "el" : {

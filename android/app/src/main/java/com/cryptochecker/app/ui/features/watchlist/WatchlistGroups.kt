@@ -184,7 +184,7 @@ internal fun GroupChips(
             }
         }
         // ⚡ wie in den Zeilen (neutral, gewählt in der Themenfarbe), nur wenn gerade etwas passiert;
-        // Screenreader: «Hier passiert gerade etwas»
+        // Screenreader: «Ungewöhnliche Aktivität» (wie die Einstellung und das ⚡ in der Zeile)
         if (hasActivity || activitySelected) {
             item(key = "activity") {
                 GroupChip(
@@ -261,6 +261,7 @@ private fun GroupChip(
     showHint: Boolean = false,
 ) {
     val shape = ChipShape
+    val longClickLabel = stringResource(R.string.group_edit_title)
     val accent = MaterialTheme.colorScheme.primary
     val chipSelected = selected
     Box(
@@ -276,7 +277,13 @@ private fun GroupChip(
                 if (selected) accent else MaterialTheme.colorScheme.outline,
                 shape
             )
-            .combinedClickable(role = Role.Tab, onClick = onClick, onLongClick = onLongClick)
+            // Screenreader: «Gruppe bearbeiten» als benannte Aktion des langen Drückens
+            .combinedClickable(
+                role = Role.Tab,
+                onClick = onClick,
+                onLongClick = onLongClick,
+                onLongClickLabel = if (onLongClick != null) longClickLabel else null,
+            )
             .semantics { this.selected = chipSelected }
             .padding(horizontal = if (icon != null || kind != null) 12.dp else 16.dp)
     ) {

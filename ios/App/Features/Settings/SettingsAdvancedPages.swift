@@ -41,13 +41,7 @@ struct AdvancedSettingsPage: View {
                 .settingsAnchor("advanced.speech")
             }
             SettingsCard {
-                // Basis der %-Änderung (Änderung, Puls, Widgets)
-                SettingsNavRow(title: L("settings_change_basis", "%"), icon: .system("percent"),
-                               value: A11y.changeSummary(settings.changeBasis)) {
-                    ChangeBasisSettingsPage()
-                }
-                .settingsAnchor("advanced.change_basis")
-                RowDivider()
+                // Basis der %-Änderung steht seit Review D13 auf «Merkliste» (`WatchlistSettingsPage`)
                 SettingsNavRow(title: L("settings_coin_logos"), icon: .system("circle.circle"),
                                value: SettingsSummary.coinLogosText(settings)) {
                     CoinLogosSettingsPage()

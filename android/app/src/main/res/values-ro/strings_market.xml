@@ -169,7 +169,7 @@
     <string name="unusual_title">Neobișnuit azi</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Se întâmplă ceva chiar acum</string>
+    <string name="activity_card_title">Activitate neobișnuită</string>
     <string name="activity_indicator">Activitate neobișnuită</string>
     <string name="activity_sensitivity_less">Mai puțin</string>
     <string name="activity_sensitivity_more">Mai mult</string>

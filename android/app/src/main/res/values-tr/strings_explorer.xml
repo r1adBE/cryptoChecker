@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Sonuç yok.</string>
     <string name="explorer_search_hint">Coin, çift veya borsa ara</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Bir coinin adını veya sembolünü yazın, ör. Bitcoin veya BTC – ardından çifti seçin.</string>
+    <string name="explorer_search_intro">Bir coinin adını veya sembolünü yazın, ör. Bitcoin veya BTC – ardından çifti seçin. Çift, bir borsada belirli bir para birimiyle işlem gören bir coindir, ör. Binance\'te BTC/USDT.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">İzleme listesine ekle</string>

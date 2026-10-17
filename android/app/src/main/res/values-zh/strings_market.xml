@@ -167,7 +167,7 @@
     <string name="unusual_title">今日异动</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">此刻正有异动</string>
+    <string name="activity_card_title">异常活动</string>
     <string name="activity_indicator">异常活动</string>
     <string name="activity_sensitivity_less">较少</string>
     <string name="activity_sensitivity_more">较多</string>

@@ -41,8 +41,32 @@ data class WatchSnapshot(val watch: WatchEntity, val alarms: List<AlarmEntity>)
 enum class PairEditResult { SAVED, UNCHANGED, DUPLICATE, MISSING }
 
 /**
+ * Welches Paar ein Eintrag zeigt — genau die Spalten, nicht der normalisierte Schlüssel
+ * ([WatchIdentity]). Ein Kurs gilt nur für den Eintrag, solange er noch dieses Paar ist
+ * («Paar bearbeiten» und Sicherungen behalten bzw. vergeben Ids neu).
+ */
+data class PairIdentity(
+    val marketKey: String,
+    val baseAsset: String,
+    val quoteAsset: String,
+    /** Name von `FuturesContractType`, wie in der Datenbank gespeichert. */
+    val contractType: String,
+    val pairId: String?,
+) {
+    companion object {
+        fun of(watch: WatchEntity): PairIdentity =
+            PairIdentity(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
+    }
+}
+
+/** Paar dieses Eintrags ([PairIdentity]). */
+val WatchEntity.pairIdentity: PairIdentity get() = PairIdentity.of(this)
+
+/**
  * Neuer Kurs für ein Paar; [change24h] siehe `WatchEntity.change24h` (null = kein 24-h-Bezug),
  * [priceChangedAt] und [exchangeTime] siehe `WatchEntity` bzw. `PriceFreshness`.
+ * [pair]: für welches Paar der Kurs geholt wurde — gespeichert wird nur, wenn der Eintrag noch
+ * dieses Paar ist ([WatchDao.updatePriceForPair]); null = ohne Prüfung.
  */
 data class PriceWrite(
     val id: Long,
@@ -51,10 +75,11 @@ data class PriceWrite(
     val change24h: Double?,
     val priceChangedAt: Long = time,
     val exchangeTime: Long? = null,
+    val pair: PairIdentity? = null,
 )
 
-/** Fehlgeschlagene Abfrage für ein Paar. */
-data class ErrorWrite(val id: Long, val error: String?, val time: Long)
+/** Fehlgeschlagene Abfrage für ein Paar; [pair] wie bei [PriceWrite]. */
+data class ErrorWrite(val id: Long, val error: String?, val time: Long, val pair: PairIdentity? = null)
 
 /** Zugriff auf Watchlist und Alarme. */
 @Singleton
@@ -104,7 +129,9 @@ class WatchRepository @Inject constructor(
         pair: MarketPair,
         group: String? = null,
         notificationEnabled: Boolean = DEFAULT_NOTIFICATION_ENABLED,
-    ): Long? {
+    ): Long? = database.withTransaction {
+        // Suchen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
+        // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
         // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
         val contractType = FuturesContractType.normalized(market.key, pair.pairId, pair.contractType)
         val existing = watchDao.findWatchId(
@@ -114,7 +141,7 @@ class WatchRepository @Inject constructor(
             contractType.name,
             WatchIdentity.pool(market.key, pair.pairId),
         )
-        if (existing != null) return null
+        if (existing != null) return@withTransaction null
 
         val id = watchDao.insertWatch(
             WatchEntity(
@@ -131,7 +158,7 @@ class WatchRepository @Inject constructor(
                 notificationEnabled = notificationEnabled,
             )
         )
-        return if (id > 0) id else null
+        if (id > 0) id else null
     }
 
     /**
@@ -357,8 +384,33 @@ class WatchRepository @Inject constructor(
     suspend fun setNotifiedPrice(id: Long, price: Double?, time: Long = System.currentTimeMillis()) =
         watchDao.setNotifiedPrice(id, price, if (price == null) 0 else time)
 
-    suspend fun updatePrice(write: PriceWrite) =
-        watchDao.updatePrice(write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime)
+    /** Einen Kurs speichern; mit [PriceWrite.pair] nur für dasselbe Paar. @return true = gespeichert */
+    suspend fun updatePrice(write: PriceWrite): Boolean = writePrice(write)
+
+    private suspend fun writePrice(write: PriceWrite): Boolean {
+        val pair = write.pair
+        if (pair == null) {
+            watchDao.updatePrice(write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime)
+            return true
+        }
+        return watchDao.updatePriceForPair(
+            write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime,
+            pair.marketKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
+        ) > 0
+    }
+
+    private suspend fun writeError(write: ErrorWrite) {
+        // Nur kurze Codes speichern, keine rohen Ausnahmetexte (Hosts, URLs)
+        val error = StoredError.sanitize(write.error)
+        val pair = write.pair
+        if (pair == null) {
+            watchDao.updateError(write.id, error)
+        } else {
+            watchDao.updateErrorForPair(
+                write.id, error, pair.marketKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
+            )
+        }
+    }
 
     suspend fun updateError(id: Long, error: String?) =
         watchDao.updateError(id, StoredError.sanitize(error))
@@ -377,13 +429,17 @@ class WatchRepository @Inject constructor(
      * Schreibt die Ergebnisse eines ganzen Durchlaufs in einem Vorgang.
      * Einzeln wäre das bei vielen Paaren eine Transaktion je Paar, und nach
      * jeder würde die Watchlist komplett neu geladen.
+     *
+     * @return Ids, deren Kurs gespeichert wurde. Fehlt eine Id, war der Eintrag inzwischen ein
+     * anderes Paar ([PriceWrite.pair]) — dann darf auch kein Alarm mit diesem Kurs geprüft werden.
      */
-    suspend fun applyRefresh(prices: List<PriceWrite>, errors: List<ErrorWrite>) {
-        if (prices.isEmpty() && errors.isEmpty()) return
-        database.withTransaction {
-            prices.forEach { watchDao.updatePrice(it.id, it.price, it.time, it.change24h, it.priceChangedAt, it.exchangeTime) }
-            // Nur kurze Codes speichern, keine rohen Ausnahmetexte (Hosts, URLs)
-            errors.forEach { watchDao.updateError(it.id, StoredError.sanitize(it.error)) }
+    suspend fun applyRefresh(prices: List<PriceWrite>, errors: List<ErrorWrite>): Set<Long> {
+        if (prices.isEmpty() && errors.isEmpty()) return emptySet()
+        return database.withTransaction {
+            val written = HashSet<Long>()
+            prices.forEach { if (writePrice(it)) written += it.id }
+            errors.forEach { writeError(it) }
+            written
         }
     }
 

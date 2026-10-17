@@ -140,4 +140,4 @@ internal fun PortfolioWidgetRenderer.bindFigures(
     return spoken.joinToString("; ")
 }
 
-private const val FIGURE_AMOUNT_SP = 11f
+private const val FIGURE_AMOUNT_SP = 12f

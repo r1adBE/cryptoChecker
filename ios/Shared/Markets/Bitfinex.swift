@@ -21,6 +21,8 @@ private let bitfinexAliases: [String: String] = [
     "DSH": "DASH",
     "IOT": "IOTA",
     "MNA": "MANA",
+    // Optimism (Bitfinex ordnet OPX selbst OP zu)
+    "OPX": "OP",
     "QSH": "QASH",
     "QTM": "QTUM",
     "SNG": "SNGLS",

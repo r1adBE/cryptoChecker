@@ -168,6 +168,12 @@ object PortfolioAlarmLogic {
         if (alarm.kind.isValue && !(value > 0.0)) return PortfolioAlarmDecision.None
         val armed = alarm.referenceAt <= 0L
         if (!armed) {
+            // Frühestens [AlarmEvaluator.MIN_LEVEL_REARM_MILLIS] nach der Meldung wieder scharf (wie die Kursmarken):
+            // sonst meldete ein Wert, der mit Abklingzeit 0 um mehr als die Hysterese pendelt, bei fast jeder Prüfung.
+            // Meldung in der Zukunft (Uhr zurückgestellt): nicht blockieren
+            if (alarm.lastTriggeredAt > 0 && now - alarm.lastTriggeredAt in 0 until AlarmEvaluator.MIN_LEVEL_REARM_MILLIS) {
+                return PortfolioAlarmDecision.None
+            }
             val back = when {
                 below(alarm.kind) -> value > threshold * (1.0 + AlarmEvaluator.LEVEL_HYSTERESIS)
                 alarm.kind.isValue -> value < threshold * (1.0 - AlarmEvaluator.LEVEL_HYSTERESIS)

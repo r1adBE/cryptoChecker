@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">فروش</string>
     <string name="ticker_bid">خرید</string>
+    <string name="explain_bid_ask">خرید بالاترین قیمتی است که خریداران همین حالا پیشنهاد می‌دهند و فروش پایین‌ترین قیمتی که فروشندگان می‌پذیرند.</string>
     <string name="ticker_high">بیشترین</string>
     <string name="ticker_low">کمترین</string>
     <string name="ticker_timestamp">زمان</string>

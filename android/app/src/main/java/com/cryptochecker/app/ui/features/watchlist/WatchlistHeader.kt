@@ -9,6 +9,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenu
@@ -26,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import com.cryptochecker.app.ui.theme.Spacing
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
@@ -115,14 +117,21 @@ internal fun WatchlistHeader(
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }
                 )
             } else if (showsGroupsHint(groups, selectedGroup, hasFavorites, hasActivity, quickView, searching, sortMode, hasAlpha, pairCount)) {
-                // Noch keine Chips: grauer Hinweis statt leerer Zeile (ohne Aktion)
-                Text(
-                    stringResource(R.string.watchlist_groups_empty_hint),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                // Noch keine Chips: grauer Hinweis statt leerer Zeile, daneben «Neue Gruppe» (wie iOS) — sonst
+                // fände man Gruppen nur über langes Drücken bzw. das Aktionsblatt
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        stringResource(R.string.watchlist_groups_empty_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                    TextButton(onClick = onAddGroup, contentPadding = PaddingValues(horizontal = Spacing.sm)) {
+                        Text(stringResource(R.string.group_add), maxLines = 1)
+                    }
+                }
             } else {
                 GroupChips(
                     groups = groups,

@@ -25,7 +25,7 @@
     <string name="explorer_search_empty">无匹配结果。</string>
     <string name="explorer_search_hint">搜索币种、交易对或交易所</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。</string>
+    <string name="explorer_search_intro">输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。交易对是某个交易所中以某种货币计价的币种，例如 Binance 上的 BTC/USDT。</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">加入自选</string>

@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
 import android.util.LruCache
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callMarket
@@ -649,7 +650,9 @@ class CoinLogoRepository @Inject constructor(
      * gleichzeitig je Server ([PER_HOST_PARALLEL], insgesamt [MAX_PARALLEL_DOWNLOADS]). Bremst ein Server
      * nur kurz (Pause bis [SHORT_PAUSE_MAX_MILLIS]), werden seine Bilder nach der Pause gleich nachgeholt.
      */
-    private suspend fun downloadMissing(wanted: Map<String, String>): Downloads {
+    private suspend fun downloadMissing(all: Map<String, String>): Downloads {
+        // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
+        val wanted = CoinLogos.downloadable(all, loadExtraOnly(), isUnmetered())
         if (wanted.isEmpty()) return Downloads()
         val now = System.currentTimeMillis()
         val failed = loadFailures(now)
@@ -711,6 +714,22 @@ class CoinLogoRepository @Inject constructor(
         return jobs.mapNotNull { CoinLogoRetry.hostOf(it.second) }.distinct()
             .mapNotNull { host -> imagePauses[host]?.let { (it - now).coerceAtLeast(0L) } }
             .minOrNull()
+    }
+
+    /**
+     * Nicht getaktetes Netz (WLAN, Ethernet)? Unbekannt oder kein Netz → false (lieber sparsam).
+     * Nur für die Zusatzseiten der Rangliste und deren Logos ([CoinLogos.downloadable]).
+     */
+    private fun isUnmetered(): Boolean = runCatching {
+        val manager = context.getSystemService(ConnectivityManager::class.java) ?: return@runCatching false
+        !manager.isActiveNetworkMetered
+    }.getOrDefault(false)
+
+    private fun loadExtraOnly(): Set<String> =
+        runCatching { prefs.getStringSet(KEY_EXTRA_ONLY, null)?.toSet() }.getOrNull() ?: emptySet()
+
+    private fun saveExtraOnly(keys: Set<String>) {
+        runCatching { prefs.edit { putStringSet(KEY_EXTRA_ONLY, keys) } }
     }
 
     /** Anzeigen auffrischen: höchstens alle [REVISION_INTERVAL_MILLIS] (sonst bei jedem Bild), [force] sofort. */
@@ -844,13 +863,23 @@ class CoinLogoRepository @Inject constructor(
             handled += dropChangedImages(known, partial)
             onTop(partial)
         }
-        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken
+        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken — und nur ohne getaktetes Netz (mobile
+        // Daten): sonst gilt die Liste als unvollständig und wird nach einigen Stunden erneut versucht
         val extra = ArrayList<CoinMeta.GeckoRow>()
+        var extraFetched = false
         if (complete) {
-            complete = fetchCoinGecko(extra, (CoinLogos.PAGES + 1)..(CoinLogos.PAGES + CoinLogos.EXTRA_PAGES), net)
+            if (isUnmetered()) {
+                complete = fetchCoinGecko(extra, (CoinLogos.PAGES + 1)..(CoinLogos.PAGES + CoinLogos.EXTRA_PAGES), net)
+                extraFetched = complete
+            } else {
+                complete = false
+                Timber.i("Coin-Logos: getaktetes Netz, Zusatzseiten der Rangliste erst im WLAN")
+            }
         }
         prefs.edit { putLong(KEY_MAP_ATTEMPT, now) }
         val merged = CoinMeta.merge(top, binance, alpha, extra)
+        // Kürzel nur aus den Zusatzseiten merken: ihre Logos lädt der Sammel-Abruf nur ohne getaktetes Netz
+        if (extraFetched) saveExtraOnly(CoinLogos.extraOnlyKeys(merged.map, CoinMeta.merge(top, binance, alpha).map))
         // Unvollständig (eine Quelle fehlte): Bekanntes behalten und in einigen Stunden erneut
         val full = complete && binance != null && alpha != null
         val fresh = if (full) merged.map else CoinLogos.withKnown(merged.map, known)
@@ -1067,6 +1096,8 @@ class CoinLogoRepository @Inject constructor(
         const val OLD_KEY_INDEX_ETAG = "index_etag_v5"
         const val OLD_KEY_STOCKS_ETAG = "stocks_etag_v1"
         const val KEY_TRADFI_PAIRS = "tradfi_pairs"
+        /** Kürzel, die nur die Zusatzseiten der Rangliste bringen ([CoinLogos.extraOnlyKeys]). */
+        const val KEY_EXTRA_ONLY = "extra_only_v1"
         const val KEY_TRADFI_BASES = "tradfi_bases"
         const val KEY_ALPHA_SYMBOLS = "alpha_symbols_v1"
         /** Zeitpunkt der zuletzt geholten Alpha-Liste bzw. des letzten Versuchs allein ([refreshAlphaOnly]). */

@@ -25,11 +25,13 @@ final class AppLock: ObservableObject {
     private var coverWindow: UIWindow?
 
     private init() {
-        // Kaltstart der App-Oberfläche: Portfolio gesperrt, wenn eingeschaltet
-        locked = SharedStorage.loadSettings().appLock
+        // Kaltstart der App-Oberfläche: Portfolio gesperrt, wenn eingeschaltet — oder solange die
+        // Einstellungen nicht zugänglich sind (vorgewärmt vor dem ersten Entsperren)
+        locked = AppData.shared.appLockEffective
     }
 
-    private var enabled: Bool { AppData.shared.settings.appLock }
+    /// Sperre an — auch, solange die Einstellung unbekannt ist (`AppData.appLockEffective`).
+    private var enabled: Bool { AppData.shared.appLockEffective }
 
     /// Zustand des Portfolio-Bereichs (die Einstellungen sind auf iOS immer schon gelesen).
     var access: PortfolioAccess {
@@ -100,6 +102,12 @@ final class AppLock: ObservableObject {
         guard needsUnlock(PortfolioLockPolicy.isLocked(lockSetting: enabled, lockRequested: locked)) else { return true }
         await unlock()
         return !locked
+    }
+
+    /// Einstellungen nachgelesen (vorher nicht zugänglich): gesperrt bleibt nur, wenn die Sperre wirklich an ist.
+    func settingsReloaded() {
+        if !enabled && locked { locked = false }
+        updateCoverWindow()
     }
 
     /// Einstellung ausgeschaltet: sofort frei.

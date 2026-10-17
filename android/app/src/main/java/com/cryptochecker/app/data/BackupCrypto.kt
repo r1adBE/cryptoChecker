@@ -261,7 +261,10 @@ object BackupPasswordStrength {
      *  - eine häufige Folge oder ein Tastatur-Spaziergang (6 Zeichen einer Reihe, auch rückwärts);
      *  - ein Wort (Jahreszeit, Monat, häufiges Wort, Name der App) mit höchstens 6 Ziffern/Zeichen davor bzw. danach
      *    («Summer2026!», «Winter2025», «CryptoChecker1!»);
-     *  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»).
+     *  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»);
+     *  - fast nur ein Zeichen: höchstens 3 verschiedene Zeichen, mindestens 75 % dasselbe Zeichen oder ein einziges
+     *    wiederholtes Zeichen, wenn man Ziffern/Zeichen vorne und hinten weglässt («aaaaaaaaaaa1», «!!bbbbbbbbbb»).
+     * Gleiche Regeln wie iOS `BackupPasswordStrength.isWeak` (Fälle in `testdata/parity/backup_passwords.json`).
      * Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt seit Build 69 die
      * Mindestlänge 12 ab (Zeichenklassen spielen ab 12 Zeichen keine Rolle).
      */
@@ -271,6 +274,7 @@ object BackupPasswordStrength {
         if (codePoints.size < BackupCrypto.MIN_PASSWORD_LENGTH) return true
         if (codePoints.all { it in '0'.code..'9'.code }) return true
         if (codePoints.distinct().size == 1) return true
+        if (mostlyOneChar(codePoints)) return true
         val lower = normalized.lowercase(Locale.ROOT)
         if (COMMON.any { lower.contains(it) }) return true
         if (keyboardWalk(lower)) return true
@@ -293,6 +297,21 @@ object BackupPasswordStrength {
             from = lower.indexOf(w, from + 1)
         }
         hit
+    }
+
+    /**
+     * Fast nur ein Zeichen: höchstens 3 verschiedene Zeichen, mindestens 75 % dasselbe Zeichen, oder ohne
+     * Ziffern/Zeichen (alles ausser Buchstaben) vorne und hinten bleibt ein einziges wiederholtes Zeichen.
+     * Buchstabe = Unicode-Kategorie L* ([Character.isLetter], wie iOS `isLetterScalar`).
+     */
+    private fun mostlyOneChar(cp: IntArray): Boolean {
+        if (cp.distinct().size <= 3) return true
+        val most = cp.groupBy { it }.values.maxOf { it.size }
+        if (most * 4 >= cp.size * 3) return true
+        val first = cp.indexOfFirst { Character.isLetter(it) }
+        if (first < 0) return false
+        val last = cp.indexOfLast { Character.isLetter(it) }
+        return (first..last).all { cp[it] == cp[first] }
     }
 
     /** Ganzes Passwort = ein Stück, mindestens zweimal wiederholt. */

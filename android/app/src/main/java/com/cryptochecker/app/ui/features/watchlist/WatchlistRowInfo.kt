@@ -39,6 +39,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
@@ -73,6 +75,9 @@ internal fun RowInfo(
     val iconAlpha = if (off) DISABLED_ICON_ALPHA else 1f
     // Grosse Schrift: Paar und Zeitzeile umbrechen (zwei Zeilen) statt abschneiden — wie iOS
     val lines = DenseRowText.maxLines(LocalDensity.current.fontScale)
+    // Symbole der Zeile wachsen mit der Schriftgrösse (13 sp ≙ 13 dp bei Standardschrift) — wie iOS @ScaledMetric
+    val rowIcon = with(LocalDensity.current) { 13.sp.toDp() }
+    val noteIcon = with(LocalDensity.current) { 12.sp.toDp() }
     Column(modifier = modifier) {
         // Build 46: Das Paar geht vor — es bekommt den Platz bis auf einen ⚡-Chip ohne Text; «Was bewegt sich mit?»
         // steht nur, wenn danach noch Platz ist ([ActivityBolt] klappt sonst auf ⚡ zusammen)
@@ -152,14 +157,16 @@ internal fun RowInfo(
             // Mit Namen: gleicher Abstand wie die ≈ Umrechnung rechts
             modifier = Modifier.padding(top = if (namesOn) 2.dp else 0.dp).clearAndSetSemantics { }
         ) {
-            // Warnung (nicht erreichbar / veraltet) ersetzt die normale Zeitzeile
+            // Warnung (nicht erreichbar / veraltet) ersetzt die normale Zeitzeile. Bernstein mit ⚠ statt Fehlerrot:
+            // Rot ist dunkel kaum vom fallenden Kurs zu unterscheiden (wie iOS)
             val warning = status.warning
-            if (warning != null) {
+            val staleTime = stale && watch.lastUpdate > 0
+            if ((warning != null || staleTime) && !watch.disabled) {
                 Icon(
-                    painterResource(R.drawable.ic_error),
+                    painterResource(R.drawable.ic_warning),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.padding(end = 4.dp).size(13.dp)
+                    tint = AppColors.warning,
+                    modifier = Modifier.padding(end = 4.dp).size(rowIcon)
                 )
             }
             Text(
@@ -169,7 +176,7 @@ internal fun RowInfo(
                     warning != null -> warning
                     // Zeit nur, wenn das Paar nicht aktuell ist — sonst steht sie oben im Status
                     // («Kurse der gewählten Börsen · vor 2 Min.») und wäre in jeder Zeile doppelt
-                    stale && watch.lastUpdate > 0 -> "${BidiText.isolate(watch.marketName)} · ${ago(watch.lastUpdate, now)}"
+                    staleTime -> "${BidiText.isolate(watch.marketName)} · ${ago(watch.lastUpdate, now)}"
                     // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
                     status.unchanged != null -> "${BidiText.isolate(watch.marketName)} · ${status.unchanged}"
                     // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht seit L-14 nur im Aktionsblatt
@@ -179,9 +186,9 @@ internal fun RowInfo(
                 // rechts steht dieselbe Stufe (≈ Umrechnung), die Linien bleiben gleich hoch
                 style = MaterialTheme.typography.body,
                 color = when {
-                    warning != null -> MaterialTheme.colorScheme.error
-                    // Volle Fehlerfarbe (mit 0.8 Deckkraft unter 4.5:1 auf hellen Flächen)
-                    stale && watch.lastUpdate > 0 -> MaterialTheme.colorScheme.error
+                    watch.disabled -> MaterialTheme.colorScheme.onSurfaceVariant
+                    // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
+                    warning != null || staleTime -> AppColors.warningText
                     else -> MaterialTheme.colorScheme.onSurfaceVariant
                 },
                 maxLines = lines,
@@ -199,7 +206,7 @@ internal fun RowInfo(
             AssetKindIcon(
                 kind = kind,
                 tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
-                size = 13.dp,
+                size = rowIcon,
                 modifier = Modifier.padding(start = Spacing.xs).alpha(iconAlpha)
             )
             // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an, durchgestrichene
@@ -215,7 +222,7 @@ internal fun RowInfo(
                     if (priceOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off
                 ),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = Spacing.xs).size(13.dp).alpha(iconAlpha)
+                modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
             )
             if (alarmCount > 0) {
                 Icon(
@@ -223,7 +230,7 @@ internal fun RowInfo(
                     contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
                     // Textfarbe (weiss bzw. dunkel im Hellmodus), nicht die Themenfarbe
                     tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(start = Spacing.xs).size(13.dp).alpha(iconAlpha)
+                    modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
                 )
                 Text(
                     text = LocaleNumbers.integer(alarmCount),
@@ -254,7 +261,7 @@ internal fun RowInfo(
                     painterResource(R.drawable.ic_note),
                     contentDescription = stringResource(R.string.note_title),
                     tint = accent.copy(alpha = 0.8f),
-                    modifier = Modifier.size(12.dp).alpha(iconAlpha)
+                    modifier = Modifier.size(noteIcon).alpha(iconAlpha)
                 )
                 Text(
                     text = note,

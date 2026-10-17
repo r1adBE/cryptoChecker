@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Plateforme injoignable pour le moment – les derniers cours restent affichés.</string>
     <string name="error_market_unreachable_short">Plateforme injoignable pour le moment</string>
     <string name="loading_hint">Chargement…</string>
-    <string name="no_internet_connection">Pas de connexion Internet</string>
+    <string name="no_internet_connection">Pas de connexion Internet. Vérifiez le Wi-Fi ou les données mobiles, puis réessayez.</string>
     <string name="option_off">Non</string>
     <string name="something_went_wrong">Une erreur s\'est produite</string>
     <string name="time_just_now">à l\'instant</string>
-    <string name="timeout_error_message">La plateforme ne répond pas pour le moment.</string>
+    <string name="timeout_error_message">La plateforme ne répond pas pour le moment. Réessayez dans un instant.</string>
     <string name="try_again">Réessayer</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

@@ -307,3 +307,38 @@ final class BulkDelistedTests: XCTestCase {
         }
     }
 }
+
+/// Ergebnis einer Abfrage nur auf dasselbe Paar übertragen: «Paar bearbeiten» oder eine Wiederherstellung mit
+/// gleicher Id während der Abfrage → weder Kurs noch Alarm-Bezug des alten Paars in die Zeile.
+final class OutcomePairIdentityTests: XCTestCase {
+    private func watch(base: String) -> Watch {
+        Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: base, quoteAsset: "USDT")
+    }
+
+    func testPriceOfOldPairIsDropped() {
+        let old = watch(base: "BTC")
+        var outcome = PriceRefresher.Outcome()
+        outcome.prices[1] = PriceRefresher.PriceUpdate(price: 60_000, time: 1_000, error: nil, pair: old.identity)
+        var alarm = Alarm(id: 7, watchId: 1, condition: .CHANGE_PERCENT_UP, threshold: 5)
+        var after = alarm
+        after.referencePrice = 60_000
+        after.referenceAt = 1_000
+        outcome.alarms[7] = PriceRefresher.AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
+
+        var snapshot = SharedStorage.Snapshot()
+        snapshot.watches = [watch(base: "ETH")]
+        alarm.referencePrice = nil
+        snapshot.alarms = [alarm]
+        outcome.apply(to: &snapshot)
+        XCTAssertNil(snapshot.watches[0].lastPrice)
+        XCTAssertNil(snapshot.alarms[0].referencePrice)
+
+        // Gleiches Paar: wie bisher übernommen
+        var same = SharedStorage.Snapshot()
+        same.watches = [old]
+        same.alarms = [alarm]
+        outcome.apply(to: &same)
+        XCTAssertEqual(same.watches[0].lastPrice, 60_000)
+        XCTAssertEqual(same.alarms[0].referencePrice, 60_000)
+    }
+}

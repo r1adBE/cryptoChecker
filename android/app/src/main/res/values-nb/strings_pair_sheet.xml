@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Salg</string>
     <string name="ticker_bid">Kjøp</string>
+    <string name="explain_bid_ask">Kjøp er den høyeste prisen kjøpere byr akkurat nå, Salg den laveste prisen selgere godtar.</string>
     <string name="ticker_high">Høy</string>
     <string name="ticker_low">Lav</string>
     <string name="ticker_timestamp">Tid</string>

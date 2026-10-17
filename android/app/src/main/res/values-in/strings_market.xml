@@ -167,7 +167,7 @@
     <string name="unusual_title">Menonjol hari ini</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Sesuatu sedang terjadi</string>
+    <string name="activity_card_title">Aktivitas tidak biasa</string>
     <string name="activity_indicator">Aktivitas tidak biasa</string>
     <string name="activity_sensitivity_less">Lebih sedikit</string>
     <string name="activity_sensitivity_more">Lebih banyak</string>

@@ -4,7 +4,6 @@ import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.time.temporal.ChronoUnit
 
 /**
  * Eine Zeile «Realisierte Gewinne»: eine Veräusserung ([PortfolioDisposal]; FIFO je Posten, Ø je Verkauf).
@@ -775,7 +774,8 @@ object TaxExport {
             coin = d.coin,
             acquiredDate = acquired ?: d.matchedTime?.let { localDate(it, zone) },
             soldDate = sold,
-            holdingDays = acquired?.let { ChronoUnit.DAYS.between(it, sold) },
+            // Dieselbe Rechnung wie PortfolioFifo (dort UTC), hier in der Zeitzone der Liste
+            holdingDays = d.acquiredTime?.let { PortfolioFifo.holdingDays(it, d.sellTime, zone) },
             longTerm = acquired?.let { isLongTerm(it, sold) },
             amount = d.amount,
             costUsdt = d.costUsdt,

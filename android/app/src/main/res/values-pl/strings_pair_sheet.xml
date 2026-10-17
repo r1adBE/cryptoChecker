@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Sprzedaż</string>
     <string name="ticker_bid">Kupno</string>
+    <string name="explain_bid_ask">Kupno to najwyższa cena, jaką kupujący oferują w tej chwili, a Sprzedaż – najniższa, jaką akceptują sprzedający.</string>
     <string name="ticker_high">Maks.</string>
     <string name="ticker_low">Min.</string>
     <string name="ticker_timestamp">Czas</string>
