@@ -6,7 +6,7 @@ buildscript {
         min_sdk_version = 26
 
         agp_version = '9.2.1'
-        kotlin_version = '2.3.21'
+        kotlin_version = '2.4.21'
         ksp_version = '2.3.12'
 
         core_ktx_version = '1.19.1'
