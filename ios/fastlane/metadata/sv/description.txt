@@ -33,7 +33,7 @@ MARKNAD
 
 DESSUTOM
 • Widgetar för hemskärmen och låsskärmen, Live Activity för ett mynt
-• Portfölj som tillval (slås på under Inställningar): köp, försäljningar, byten, överföringar, rewards, insättningar och uttag; FIFO (standard) eller genomsnitt (Ø); adresser endast för läsning, utan seed, för BTC (även xpub), ETH & EVM-kedjor, SOL, TRX, XRP, LTC och TON; CSV-import från Relai, Swissquote och Kraken; årsöversikt som CSV; eget lås
+• Portfölj som tillval (slås på under Inställningar): köp, försäljningar, byten, överföringar, rewards, insättningar och uttag; FIFO (standard) eller genomsnitt (Ø); adresser endast för läsning, utan seed, för BTC (även xpub), ETH & EVM-kedjor, SOL, TRX, XRP, LTC och TON; CSV-import från Relai, Swissquote, Bitpanda, Kraken, Binance och Coinbase; årsöversikt som CSV; eget lås. Bitpanda och Swissquote har inget öppet kursflöde och därför ingen livekurs – deras affärer kommer in via CSV-import.
 • Läsbar för alla: grönt/rött eller blått/orange, tecken och pil i stället för bara färg, Dynamic Type; VoiceOver läser varje rad som en mening
 • Säkerhetskopiera och återställ via appen Filer
 • Ljust och mörkt läge, fem accentfärger, 31 språk

@@ -1,4 +1,4 @@
-Hälytys, kun Bitcoin saavuttaa hintasi – siitä pörssistä, jota oikeasti käytät. Oman pörssisi hinta, ei keskiarvo – ilmainen, ei tiliä.
+Hälytys, kun Bitcoin saavuttaa hintasi – siitä pörssistä, jota oikeasti käytät. Ilmainen, ei tiliä.
 
 MIKÄ TEKEE SIITÄ ERILAISEN
 • Oma pörssisi, ei keskiarvo: jokainen rivi näyttää parin viimeisimmän hinnan valitsemassasi pörssissä – Binance, Coinbase, Kraken, OKX, Bybit ja monta muuta.
@@ -18,13 +18,12 @@ SEURANTALISTA
 • Toinen rivi ”≈ arvo” yhdessä 31 valuutasta (EUR, CHF, USD …), muunnettuna valuuttakurssilla
 • Minikaavio ja %-muutos 24 tunnin ajalta tai klo 00:00 lähtien omassa aikavyöhykkeessäsi
 • Ryhmät, suosikit, järjestys vetämällä ja muistiinpano kolikkoa kohden
-• Rivit kertovat ”vanhentunut” tai ”pörssiin ei saada yhteyttä”
 
 HÄLYTYKSET
 • Hinta rajan ylä- tai alapuolella, tai nousu tai lasku prosentilla – myös omassa valuutassasi, esim. 60 000 EUR USDT-parilla
 • Liike x % aikaikkunassa, volyymipiikki
 • Aikaherkkä ilmoitus, valittava hälytysääni, valinnainen ääneen luku
-• Hiljaiset tunnit ja ”Testaa hälytys”: kuule etukäteen, miten hälytys saapuu
+• Hiljaiset tunnit ja ”Testaa hälytys”
 
 MARKKINA
 • Poikkeava aktiivisuus: epätavalliset hinta- ja volyymiliikkeet listallasi, halutessasi ilmoituksena
@@ -33,7 +32,7 @@ MARKKINA
 
 LISÄKSI
 • Widgetit Koti- ja lukitusnäytölle, Live Activity yhdelle kolikolle
-• Salkku valinnaisena (kytketään asetuksista): ostot, myynnit, vaihdot, siirrot, palkkiot, talletukset ja nostot; FIFO (oletus) tai keskiarvo (Ø); osoitteet vain luku -tilassa, ilman seediä: BTC (myös xpub), ETH ja EVM-ketjut, SOL, TRX, XRP, LTC ja TON; CSV-tuonti Relaista, Swissquotesta ja Krakenista; vuosikooste CSV-tiedostona; oma lukitus
+• Salkku valinnaisena (kytketään asetuksista): ostot, myynnit, vaihdot, siirrot, palkkiot, talletukset ja nostot; FIFO (oletus) tai keskiarvo (Ø); osoitteet vain luku -tilassa, ilman seediä: BTC (myös xpub), ETH ja EVM-ketjut, SOL, TRX, XRP, LTC ja TON; CSV-tuonti Relaista, Swissquotesta, Bitpandasta, Krakenista, Binancesta ja Coinbasesta; vuosikooste CSV-tiedostona; oma lukitus. Bitpandalla ja Swissquotella ei ole julkista hintasyötettä, joten niillä ei ole live-hintaa – niiden kaupat tuodaan CSV-tuonnilla.
 • Luettava kaikille: vihreä/punainen tai sininen/oranssi, etumerkki ja nuoli pelkän värin sijaan, Dynamic Type; VoiceOver lukee jokaisen rivin yhtenä lauseena
 • Varmuuskopiointi ja palautus Tiedostot-apin kautta
 • Vaalea ja tumma tila, viisi korostusväriä, 31 kieltä

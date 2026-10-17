@@ -1,8 +1,8 @@
-Alarm ketika Bitcoin mencapai harga Anda – dari bursa yang benar-benar Anda gunakan. Harga bursa Anda, bukan rata-rata – gratis, tanpa akun.
+Alarm ketika Bitcoin mencapai harga Anda – dari bursa yang Anda gunakan. Gratis, tanpa akun.
 
 YANG MEMBUATNYA BERBEDA
 • Bursa Anda, bukan rata-rata: setiap baris menampilkan harga terakhir pasangan itu di bursa yang Anda pilih – Binance, Coinbase, Kraken, OKX, Bybit, dan banyak lagi.
-• Alarm yang memberi tahu sekali: “Beri tahu saya saat BTC naik di atas 100.000 USDT.” Alarm berbunyi saat level terlewati, bukan di setiap pembaruan – “Sekali” lalu menonaktifkannya, “Setiap kali” menyiapkannya lagi saat harga kembali.
+• Alarm yang memberi tahu sekali: “Beri tahu saya saat BTC naik di atas 100.000 USDT.” Berbunyi saat level terlewati, bukan di setiap pembaruan – “Sekali” lalu menonaktifkannya, “Setiap kali” menyiapkannya lagi saat harga kembali.
 • “Apa yang ikut bergerak?”: daftar faktor untuk satu koin – pasar umum, volume, volatilitas, funding dan open interest, jarak ke titik tertinggi atau terendah, Fear & Greed. Menunjukkan apa yang bergerak bersamaan – bukan penyebab, bukan berita, bukan saran investasi.
 • Tanpa akun, tanpa iklan, tanpa pelacakan. Pengembang tidak menerima data Anda.
 
@@ -15,7 +15,7 @@ JUJUR SOAL DATA
 
 DAFTAR PANTAUAN
 • 41 pasar di 32 bursa: spot dan futures, token DEX via DexScreener, opsional saham, emas, dan valas (TradFi)
-• Baris kedua “≈ nilai” dalam salah satu dari 31 mata uang (EUR, CHF, USD …), dikonversi dengan kurs valuta
+• Baris kedua “≈ nilai” dalam satu dari 31 mata uang (EUR, CHF, USD …), dikonversi dengan kurs valuta
 • Grafik mini dan perubahan % selama 24 jam atau sejak 00:00 di zona waktu Anda
 • Grup, favorit, urutkan dengan seret, dan catatan untuk tiap koin
 
@@ -23,7 +23,7 @@ ALARM
 • Harga di atas atau di bawah level, atau naik/turun sekian persen – juga dalam mata uang Anda, mis. 60.000 EUR pada pasangan USDT
 • Pergerakan x % dalam rentang waktu, lonjakan volume
 • Notifikasi Sensitif Waktu, pilihan suara alarm, dibacakan opsional
-• Jam tenang dan “Uji alarm”: dengar lebih dulu bagaimana alarm datang
+• Jam tenang dan “Uji alarm”
 
 PASAR
 • Aktivitas tidak biasa: pergerakan harga dan volume tak lazim di daftar Anda, opsional dengan notifikasi
@@ -32,7 +32,7 @@ PASAR
 
 LAINNYA
 • Widget untuk Layar Utama dan Layar Terkunci, Aktivitas Langsung untuk satu koin
-• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, dan TON; impor CSV dari Relai, Swissquote dan Kraken; ringkasan tahunan sebagai CSV; kunci tersendiri
+• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote tidak punya feed harga publik, jadi tanpa harga langsung – transaksinya masuk lewat impor CSV.
 • Mudah dibaca semua orang: hijau/merah atau biru/oranye, tanda dan panah, bukan hanya warna, Dynamic Type; VoiceOver membacakan tiap baris sebagai satu kalimat
 • Cadangkan & pulihkan lewat app File
 • Mode terang dan gelap, lima warna aksen, 31 bahasa

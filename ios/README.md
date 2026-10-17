@@ -24,7 +24,7 @@ Zuletzt dazugekommen:
   `portfolio.json`), Portfolio-Datenbank 3 (`MIGRATION_2_3`: Umbuchung von/nach, Gebühr-Coin, `importKey`, Tabelle für
   beobachtete Adressen). Beobachtete BTC-/ETH-Adressen nur lesend (`AddressValidation`, `AddressBalance`,
   `WatchedAddressSource`; mempool.space/blockstream.info, publicnode.com/llamarpc.com), zählen ohne Kaufpreis.
-  CSV-Import Relai/Swissquote/Kraken-Ledger (`csvimport/`, Kraken: `CsvImportKraken`, Vorschau, Duplikate per `importKey`, Tageskurs-Umrechnung).
+  CSV-Import Relai/Swissquote/Bitpanda/Kraken-Ledger/Binance/Coinbase (`csvimport/`, Kraken: `CsvImportKraken`, Vorschau, Duplikate per `importKey`, Tageskurs-Umrechnung).
   Stichtag-CSV exakt (BigDecimal/Decimal). Portfolio-Widgets mit Menge vor dem Kürzel (`WidgetQuantityFormat`).
   Store-Texte zugespitzt. Wertverlauf mit Umschalter «Wert | Gewinn/Verlust» (Gewinnkurve = Wert minus netto
   eingesetztes Geld, Kopfzeile «Wert · Gewinn»); Coin-Zeilen in App und Widgets zeigen den eigenen Gewinn/Verlust

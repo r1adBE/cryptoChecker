@@ -33,7 +33,7 @@ MARKED
 
 I TILLEGG
 • Widgeter for Hjem-skjermen og låseskjermen, Live Activity for én coin
-• Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote og Kraken; årsoversikt som CSV; egen lås
+• Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversikt som CSV; egen lås. Bitpanda og Swissquote har ingen offentlig kursfeed og derfor ingen livekurs – handlene deres kommer inn via CSV-import.
 • Lesbar for alle: grønn/rød eller blå/oransje, fortegn og pil i stedet for bare farge, Dynamic Type; VoiceOver leser hver rad som én setning
 • Sikkerhetskopi og gjenoppretting via Filer-appen
 • Lys og mørk modus, fem aksentfarger, 31 språk

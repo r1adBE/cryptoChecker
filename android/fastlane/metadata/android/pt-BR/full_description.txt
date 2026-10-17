@@ -1,4 +1,4 @@
-Um alarme quando o Bitcoin atingir o seu preço – da exchange que você realmente usa. O preço da sua exchange, não uma média – grátis, sem conta.
+Um alarme quando o Bitcoin atingir o seu preço – da exchange que você realmente usa. Grátis, sem conta.
 
 O QUE O TORNA DIFERENTE
 • Sua exchange, não uma média: cada linha mostra o último preço do par na exchange que você escolheu – Binance, Coinbase, Kraken, OKX, Bybit e muitas outras.
@@ -24,7 +24,7 @@ ALARMES
 • Preço acima ou abaixo de um nível, ou alta ou queda de uma porcentagem – também na sua moeda, ex.: 60.000 EUR em um par USDT
 • Movimento de x % em uma janela de tempo, pico de volume
 • Som (inclusive um arquivo de áudio seu), vibração e aviso falado opcional
-• Horário de silêncio e “Testar alarme”: ouça antes como um alarme chega
+• Horário de silêncio e “Testar alarme”
 
 MERCADO
 • Atividade incomum: movimentos de preço e volume fora do comum na sua lista, com notificação opcional
@@ -33,7 +33,7 @@ MERCADO
 
 E MAIS
 • Widgets: lista, valor total do portfólio, uma moeda com gráfico
-• Portfólio opcional (ative nas configurações): compras, vendas, swaps, transferências, recompensas, depósitos e saques; FIFO (padrão) ou média (Ø); endereços somente leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC e TON; importação CSV da Relai, da Swissquote e da Kraken; resumo anual em CSV; bloqueio próprio
+• Portfólio opcional (ative nas configurações): compras, vendas, swaps, transferências, recompensas, depósitos e saques; FIFO (padrão) ou média (Ø); endereços somente leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. Bitpanda e Swissquote não têm feed público de preços, então não mostram preço ao vivo – suas operações entram por importação CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor; o TalkBack lê cada linha como uma frase
 • Backup e restauração em um arquivo – também entre Android e iPhone
 • Modo claro e escuro, cinco cores de destaque, 31 idiomas
