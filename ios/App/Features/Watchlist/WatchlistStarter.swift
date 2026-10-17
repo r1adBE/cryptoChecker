@@ -359,10 +359,9 @@ extension WatchlistScreen {
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(accent.primary)
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(
-                                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                    .strokeBorder(accent.primary.opacity(0.5), lineWidth: 1)
-                            )
+                            // Echter Rahmen wie Android `OutlinedButton` (Farbe `outline`, ≥ 3:1; Review 18 – der
+                            // halbdurchsichtige Akzentstrich lag dunkel unter 3:1)
+                            .background(Capsule().strokeBorder(AppColors.outline, lineWidth: 1))
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)

@@ -161,7 +161,7 @@ final class A11ySpeechTests: XCTestCase {
         XCTAssertEqual(AppTabBarMetrics.scaledHeight(labelLine: AppTabBarMetrics.labelLineHeight), AppTabBarMetrics.height)
         XCTAssertGreaterThan(AppTabBarMetrics.scaledHeight(labelLine: 48), AppTabBarMetrics.height)
         XCTAssertGreaterThanOrEqual(AppTabBarMetrics.scaledHeight(labelLine: 48),
-                                    AppTabBarMetrics.iconSize * AppTabBarMetrics.selectedScale + 48)
+                                    AppTabBarMetrics.indicatorHeight + 48)
     }
 
     /// Tableiste wächst nur bis `.xxxLarge` (≈ 1,3 ×, wie Android `TAB_LABEL_MAX_SCALE`); darüber Large Content Viewer.

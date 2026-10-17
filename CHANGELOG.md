@@ -6,6 +6,12 @@ Eighteenth review and the last red iOS UI test.
 
 * Right-to-left languages: the drop-down arrows in the alarm editor (above/below) and the group picker of «Add pair»
   point down instead of up (own arrow that is not mirrored).
+* «What is moving with it?» chip: tap area also 48 dp / 44 pt wide, so the bolt-only chip is no longer missed.
+* Search field and group-name field: real control border (`outline`, at least 3:1), checked in the contrast test.
+* iOS start page: «Search coin» has a real outline like Android instead of a faint accent line.
+* Group selector in «Add pair»: tap area at least 48 dp / 44 pt high.
+* iOS tab bar: the selected tab has the same 64 × 32 pill as Android.
+* iOS: the widget's daily price file is also in the backup-exclusion repair at start.
 * Docs: backup passwords need at least 12 characters everywhere (SECURITY, README, test plan).
 * iOS UI test: the Backup row is scrolled clear of the tab bar before it is tapped – the CI screen recording showed
   the tap landing on the Portfolio tab behind it.

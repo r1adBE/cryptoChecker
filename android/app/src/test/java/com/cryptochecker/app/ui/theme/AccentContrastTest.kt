@@ -235,8 +235,32 @@ class AccentContrastTest {
         }
     }
 
-    private fun schemesSource(): String? {
-        val rel = "src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt"
+    /**
+     * Review 18: Eingabefelder (Suche der Merkliste, Gruppenname) haben einen Kontroll-Rand (`outline`,
+     * WCAG 1.4.11 ≥ 3:1 auf allen Flächen), keinen Trennlinien-Ton (`outlineVariant`).
+     */
+    @Test
+    fun `Rand der Eingabefelder erreicht 3 zu 1`() {
+        for (bg in LIGHT_SURFACES + WARM_SURFACES) {
+            val r = ratio(0xFF777777.toInt(), bg)
+            assertTrue("light outline on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 3.0)
+        }
+        for (bg in DARK_SURFACES) {
+            val r = ratio(0xFF919191.toInt(), bg)
+            assertTrue("dark outline on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 3.0)
+        }
+        val source = schemesSource() ?: return
+        assertTrue(source.contains("outline = Color(0xFF777777)") && source.contains("outline = Color(0xFF919191)"))
+        for (file in listOf("watchlist/WatchlistSearch.kt", "watchlist/WatchGroupEditSheet.kt")) {
+            val text = sourceFile("src/main/java/com/cryptochecker/app/ui/features/$file") ?: continue
+            assertTrue("$file: Feldrand", text.contains("BorderStroke(1.dp, MaterialTheme.colorScheme.outline)"))
+            assertTrue("$file: Trennlinien-Ton als Feldrand", !text.contains("outlineVariant.copy(alpha = 0.6f)"))
+        }
+    }
+
+    private fun schemesSource(): String? = sourceFile("src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt")
+
+    private fun sourceFile(rel: String): String? {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null) {
             for (prefix in listOf("", "app/", "android/app/")) {
