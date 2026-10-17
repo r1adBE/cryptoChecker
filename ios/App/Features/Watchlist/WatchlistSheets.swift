@@ -98,7 +98,10 @@ extension WatchlistScreen {
             // Glocke ohne Alarm, mehrere Paare: Paar wählen → dessen Alarm-Seite (gleiche Zeilen wie die leere Übersicht)
             .confirmationDialog(L("alarms_add"), isPresented: $pickAlarmPair, titleVisibility: .visible) {
                 ForEach(data.watches) { watch in
-                    Button(verbatim: "\(watch.displayName) · \(watch.marketName)") { alarmsFor = watch.id }
+                    // String statt Interpolation im Titel: wird nicht als Übersetzungsschlüssel gesucht und bleibt für
+                    // den Typprüfer einfach (Button(_ title: some StringProtocol))
+                    let title: String = watch.displayName + " · " + watch.marketName
+                    Button(title) { alarmsFor = watch.id }
                 }
                 Button(L("action_cancel"), role: .cancel) {}
             }
