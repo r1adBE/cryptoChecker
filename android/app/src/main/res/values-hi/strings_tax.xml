@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">लेंडिंग ब्याज (मिलने के समय का मूल्य)</string>
-    <string name="tax_line_at_old_long">1.3.2021 से पहले प्राप्त – &gt; 1 वर्ष रखा गया: कर योग्य नहीं</string>
-    <string name="tax_line_at_rate">विशेष दर 27.5 प्रतिशत: 1.3.2021 से प्राप्त का शुद्ध + ब्याज</string>
+    <string name="tax_line_at_old_long">1.3.2021 से पहले प्राप्त – &gt; 1 वर्ष रखा गया: आम तौर पर कर योग्य नहीं – जाँचें</string>
+    <string name="tax_line_at_rate">विशेष दर 27.5 प्रतिशत: 1.3.2021 से प्राप्त का शुद्ध + ब्याज (1.3.2021–28.2.2022: टिप्पणी देखें)</string>
     <string name="tax_line_au_discounted">हानि और 50 प्रतिशत छूट के बाद शुद्ध पूँजीगत लाभ</string>
     <string name="tax_line_ca_taxable">कर योग्य पूँजीगत लाभ (समावेशन दर 1/2)</string>
     <string name="tax_line_ch_income">रिवॉर्ड सूचीबद्ध – व्यवहार के लिए ESTV कार्य-पत्र देखें</string>
     <string name="tax_line_ch_private">निजी संपत्ति में पूँजीगत लाभ: गणना नहीं की गई – वर्गीकरण के लिए ESTV देखें</string>
     <string name="tax_line_ch_wealth">संपत्ति कर: गणना नहीं – होल्डिंग CSV 31 दिसंबर का एक्सचेंज मूल्य × USD/CHF लेता है – कर मूल्य: ESTV मूल्य सूची</string>
-    <string name="tax_line_de_long">&gt; 1 वर्ष रखा गया: DE में कर योग्य नहीं (§ 23 EStG)</string>
+    <string name="tax_line_de_long">&gt; 1 वर्ष रखा गया: § 23 EStG के अनुसार आम तौर पर कर योग्य नहीं – जाँचें</string>
     <string name="tax_line_denied_loss">अस्वीकृत हानियाँ (दिखावटी हानि / superficial loss)</string>
     <string name="tax_line_fr_outflow">बिना बिक्री के निकासी (विदड्रॉअल) – कुल अधिग्रहण लागत आनुपातिक रूप से घटाई गई</string>
     <string name="tax_line_fr_rate">फ्लैट दर 12.8 प्रतिशत और सामाजिक अंशदान (या विकल्प पर स्लैब)</string>
-    <string name="tax_line_fr_threshold">साल में 305 € तक के निपटान छूट प्राप्त (बिक्री मूल्यों का योग)</string>
+    <string name="tax_line_fr_threshold">साल में 305 € तक के निपटान: आम तौर पर छूट प्राप्त (बिक्री मूल्यों का योग) – जाँचें</string>
     <string name="tax_line_gains">लाभ</string>
     <string name="tax_line_income">आय (रिवॉर्ड मिलने के समय के मूल्य पर)</string>
     <string name="tax_line_jp_misc">विविध आय (雑所得): शुद्ध लाभ + आय</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">बिक्री आय</string>
     <string name="tax_line_short_net">शुद्ध – ≤ 1 वर्ष रखा गया</string>
     <string name="tax_line_transfer_fees">ट्रांसफ़र शुल्क (अपने वॉलेट)</string>
-    <string name="tax_line_uk_after_exempt">छूट राशि से ऊपर शुद्ध लाभ</string>
-    <string name="tax_line_uk_exempt">वार्षिक छूट राशि (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">छूट राशि से ऊपर शुद्ध लाभ (केवल क्रिप्टो)</string>
+    <string name="tax_line_uk_exempt">वार्षिक छूट राशि (Annual Exempt Amount) – सभी निपटानों पर कुल मिलाकर लागू, यहाँ पूरी घटाई गई</string>
     <string name="tax_line_us_terms">अल्पकालिक (≤ 1 वर्ष): सामान्य दरें – दीर्घकालिक (&gt; 1 वर्ष): पूँजीगत लाभ दरें</string>
     <string name="tax_line_withdrawal_fees">निकासी शुल्क</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">EUR मूल्य चाहिए (विनिमय दरें नहीं हैं)</string>
     <string name="tax_de_needs_holding">होल्डिंग अवधि नहीं है (औसत पद्धति) – जाँच के लिए FIFO चुनें</string>
     <string name="tax_de_private_limit">निजी बिक्री की छूट सीमा (§ 23 EStG)</string>
-    <string name="tax_de_reached">सीमा पूरी – पूरी राशि कर योग्य है</string>
+    <string name="tax_de_reached">सीमा पूरी – आम तौर पर पूरी राशि गिनी जाती है – जाँचें</string>
     <string name="tax_de_short_gains">लाभ – ≤ 1 वर्ष रखा गया</string>
     <string name="tax_de_short_losses">हानि – ≤ 1 वर्ष रखा गया</string>
     <string name="tax_de_unclassified">बिना होल्डिंग अवधि</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">टेम्पलेट: %1$s · पद्धति: %2$s · मुद्रा: %3$s</string>
     <string name="tax_template_de">जर्मनी</string>
     <string name="tax_template_fr">फ़्रांस</string>
-    <string name="tax_template_hint">सिर्फ़ मार्गदर्शन के लिए: कार्य-पत्र की पद्धति / कर वर्ष और सारांश तय करता है। पंक्तियाँ हमेशा तटस्थ तथ्य दिखाती हैं।</string>
+    <string name="tax_template_hint">सिर्फ़ मार्गदर्शन के लिए: कार्य-पत्र की पद्धति / कर वर्ष और सारांश तय करता है। पोर्टफ़ोलियो कार्ड तटस्थ रहता है – उपहार और ट्रांसफ़र शुल्क कार्य-पत्र से अलग हो सकते हैं।</string>
     <string name="tax_template_jp">जापान</string>
     <string name="tax_template_neutral">तटस्थ (सभी देश)</string>
     <string name="tax_template_suggestion">आपके क्षेत्र के लिए सुझाव: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">जिस स्टेबलकॉइन (USDT/USDC/DAI …) को आप रखते हैं, उसके बदले बिक्री यहाँ क्रिप्टो से क्रिप्टो है और कर योग्य नहीं – इसे स्टेबलकॉइन में स्वैप के रूप में दर्ज करें। केवल यूरो के बदले बिक्री कर योग्य है – «बिक्री» यूरो के बदले बिक्री मानी जाती है।</string>
     <string name="tax_note_transfer_fee">अपने वॉलेट के बीच ट्रांसफ़र पर USDT या नकद शुल्क पर भी यही लागू है: यह लागत में नहीं जुड़ता और केवल जानकारी के लिए दिखाया जाता है।</string>
     <string name="tax_note_uk">HMRC के अनुसार मिलान: उसी दिन → फिर अगले 30 दिन → फिर Section 104 के अनुसार साझा पूल (Section 104 pool)।</string>
-    <string name="tax_note_us_transition">1.1.2025 का बदलाव (Rev. Proc. 2024-28, safe harbor): अगर पिछले वर्षों में सभी वॉलेट पर FIFO लगा था, तो 31.12.2024 के बचे लॉट उन वॉलेट में जाते हैं जिनमें कॉइन हैं – सबसे पुराने कॉइन वाले वॉलेट को सबसे पुरानी लागत मिलती है।</string>
+    <string name="tax_note_us_transition">1.1.2025 का बदलाव (Rev. Proc. 2024-28, safe harbor): अगर पिछले वर्षों में सभी वॉलेट पर FIFO लगा था, तो 31.12.2024 के बचे लॉट उन वॉलेट में जाते हैं जिनमें कॉइन हैं – सबसे पुराने कॉइन वाले वॉलेट को सबसे पुरानी लागत मिलती है। यह आवंटन ऐप का नियम है – इसे अपने रिकॉर्ड से मिलाएँ।</string>
     <string name="tax_note_us_wallet">कर वर्ष 2025 से IRS हर वॉलेट/एक्सचेंज के लिए लागत माँगता है (Rev. Proc. 2024-28) – एक्सपोर्ट 2025 से हर वॉलेट के लिए FIFO लगाता है – 2025 से पहले आपकी लागत पद्धति लागू होती है।</string>
     <string name="tax_note_withdrawal_fee">USDT या नकद में निकासी शुल्क हानि नहीं है: नकद शुल्क घटाया नहीं जा सकता, USDT शुल्क बिना लाभ के अंकित मूल्य पर निपटान है – यह केवल जानकारी के लिए दिखाया जाता है (%1$s)।</string>
     <string name="tax_summary_at_interest_income">गिना जाता है: मिलने पर 27.5 प्रतिशत की विशेष दर से आय (§ 27b(2) सं. 1 EStG / BMF) – कॉइन यही मूल्य अधिग्रहण लागत के रूप में रखते हैं</string>

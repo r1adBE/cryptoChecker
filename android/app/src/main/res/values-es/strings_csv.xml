@@ -56,6 +56,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">comisión ≥ cantidad recibida</string>
     <string name="portfolio_csv_skip_internal_move">movimiento entre tus propias cuentas – nada que registrar</string>
     <string name="portfolio_csv_skip_missing">falta un campo</string>
+    <string name="portfolio_csv_skip_ambiguous">varias operaciones en el mismo segundo que no se pueden separar – regístralas a mano</string>
     <string name="portfolio_csv_skip_not_crypto">no es cripto</string>
     <string name="portfolio_csv_skip_possible_duplicate">posiblemente ya importado (operación casi idéntica) – revísalo a mano</string>
     <string name="portfolio_csv_skip_two_fees">dos comisiones en unidades distintas – registra el intercambio a mano</string>

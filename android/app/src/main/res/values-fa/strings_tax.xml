@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">سود وام‌دهی (ارزش هنگام دریافت)</string>
-    <string name="tax_line_at_old_long">کسب‌شده پیش از 1.3.2021، نگهداری &gt; 1 سال: مشمول مالیات نیست</string>
-    <string name="tax_line_at_rate">نرخ ویژه 27.5 درصد: خالصِ کسب‌شده از 1.3.2021 + سود</string>
+    <string name="tax_line_at_old_long">کسب‌شده پیش از 1.3.2021، نگهداری &gt; 1 سال: معمولاً مشمول مالیات نیست – بررسی کن</string>
+    <string name="tax_line_at_rate">نرخ ویژه 27.5 درصد: خالصِ کسب‌شده از 1.3.2021 + سود (1.3.2021–28.2.2022: یادداشت را ببین)</string>
     <string name="tax_line_au_discounted">سود سرمایهٔ خالص پس از زیان‌ها و تخفیف 50 درصد</string>
     <string name="tax_line_ca_taxable">سود سرمایهٔ مشمول مالیات (نرخ شمول 1/2)</string>
     <string name="tax_line_ch_income">پاداش‌ها فهرست شده‌اند – برای نحوهٔ برخورد برگهٔ کاری ESTV را ببین</string>
     <string name="tax_line_ch_private">سود سرمایه در دارایی شخصی: محاسبه نشده – برای طبقه‌بندی ESTV را ببین</string>
     <string name="tax_line_ch_wealth">مالیات بر ثروت: محاسبه نمی‌شود – CSV دارایی قیمت صرافی × USD/CHF در 31 دسامبر را به کار می‌برد – ارزش مالیاتی: فهرست نرخ ESTV</string>
-    <string name="tax_line_de_long">نگهداری &gt; 1 سال: در DE مشمول مالیات نیست (§ 23 EStG)</string>
+    <string name="tax_line_de_long">نگهداری &gt; 1 سال: طبق § 23 EStG معمولاً مشمول مالیات نیست – بررسی کن</string>
     <string name="tax_line_denied_loss">زیان‌های غیرقابل کسر (زیان ظاهری / superficial loss)</string>
     <string name="tax_line_fr_outflow">خروج بدون فروش (برداشت‌ها) – جمع بهای تحصیل به‌نسبت کاهش یافت</string>
     <string name="tax_line_fr_rate">نرخ ثابت 12.8 درصد به‌علاوهٔ حق بیمه‌های اجتماعی (یا جدول در صورت انتخاب)</string>
-    <string name="tax_line_fr_threshold">واگذاری‌ها تا 305 € در سال معاف (جمع قیمت‌های فروش)</string>
+    <string name="tax_line_fr_threshold">واگذاری‌ها تا 305 € در سال: معمولاً معاف (جمع قیمت‌های فروش) – بررسی کن</string>
     <string name="tax_line_gains">سودها</string>
     <string name="tax_line_income">درآمد (پاداش‌ها با ارزش هنگام دریافت)</string>
     <string name="tax_line_jp_misc">درآمد متفرقه (雑所得): سود خالص + درآمد</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">درآمدهای فروش</string>
     <string name="tax_line_short_net">خالص، نگهداری ≤ 1 سال</string>
     <string name="tax_line_transfer_fees">کارمزدهای انتقال (کیف پول‌های خودت)</string>
-    <string name="tax_line_uk_after_exempt">سود خالص بالاتر از مبلغ معاف</string>
-    <string name="tax_line_uk_exempt">مبلغ معاف سالانه (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">سود خالص بالاتر از مبلغ معاف (فقط رمزارز)</string>
+    <string name="tax_line_uk_exempt">مبلغ معاف سالانه (Annual Exempt Amount) – برای همهٔ واگذاری‌ها با هم است، اینجا کامل کسر شده</string>
     <string name="tax_line_us_terms">کوتاه‌مدت (≤ 1 سال): نرخ‌های عادی؛ بلندمدت (&gt; 1 سال): نرخ‌های سود سرمایه</string>
     <string name="tax_line_withdrawal_fees">کارمزد برداشت</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">به ارزش‌های EUR نیاز دارد (نرخ ارز موجود نیست)</string>
     <string name="tax_de_needs_holding">مدت نگهداری موجود نیست (روش میانگین) – برای بررسی FIFO را انتخاب کن</string>
     <string name="tax_de_private_limit">سقف معافیت فروش‌های شخصی (§ 23 EStG)</string>
-    <string name="tax_de_reached">سقف رسید – کل مبلغ مشمول مالیات است</string>
+    <string name="tax_de_reached">سقف رسید – معمولاً کل مبلغ حساب می‌شود – بررسی کن</string>
     <string name="tax_de_short_gains">سودها، نگهداری ≤ 1 سال</string>
     <string name="tax_de_short_losses">زیان‌ها، نگهداری ≤ 1 سال</string>
     <string name="tax_de_unclassified">بدون مدت نگهداری</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">الگو: %1$s · روش: %2$s · ارز: %3$s</string>
     <string name="tax_template_de">آلمان</string>
     <string name="tax_template_fr">فرانسه</string>
-    <string name="tax_template_hint">فقط برای راهنمایی: روش، سال مالیاتی و خلاصهٔ برگهٔ کاری را تعیین می‌کند. ردیف‌ها همیشه واقعیت‌های بی‌طرف را نشان می‌دهند.</string>
+    <string name="tax_template_hint">فقط برای راهنمایی: روش، سال مالیاتی و خلاصهٔ برگهٔ کاری را تعیین می‌کند. کارت پرتفوی بی‌طرف می‌ماند – هدیه‌ها و کارمزدهای انتقال ممکن است با برگهٔ کاری فرق داشته باشند.</string>
     <string name="tax_template_jp">ژاپن</string>
     <string name="tax_template_neutral">بی‌طرف (همهٔ کشورها)</string>
     <string name="tax_template_suggestion">پیشنهاد برای منطقهٔ تو: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">فروش در برابر استیبل‌کوینی (USDT/USDC/DAI …) که نگه می‌داری اینجا رمزارز در برابر رمزارز است و مشمول مالیات نیست – آن را به‌صورت تبادل به استیبل‌کوین ثبت کن. فقط فروش در برابر یورو مشمول مالیات است – «فروش» فروش در برابر یورو حساب می‌شود.</string>
     <string name="tax_note_transfer_fee">همین برای کارمزد USDT یا نقدی در انتقال بین کیف پول‌های خودت هم صدق می‌کند: به بهای تمام‌شده اضافه نمی‌شود و فقط برای اطلاع نشان داده می‌شود.</string>
     <string name="tax_note_uk">تطبیق طبق HMRC: همان روز، سپس 30 روز بعد، سپس استخر مشترک طبق Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">انتقال در 1.1.2025 (Rev. Proc. 2024-28، safe harbor): اگر سال‌های قبل FIFO روی همهٔ کیف‌پول‌ها حساب می‌شد، بسته‌های باقی‌مانده در 31.12.2024 به کیف‌پول‌هایی می‌روند که کوین‌ها را نگه می‌دارند – کیف‌پول با قدیمی‌ترین کوین‌ها قدیمی‌ترین بهای تمام‌شده را می‌گیرد.</string>
+    <string name="tax_note_us_transition">انتقال در 1.1.2025 (Rev. Proc. 2024-28، safe harbor): اگر سال‌های قبل FIFO روی همهٔ کیف‌پول‌ها حساب می‌شد، بسته‌های باقی‌مانده در 31.12.2024 به کیف‌پول‌هایی می‌روند که کوین‌ها را نگه می‌دارند – کیف‌پول با قدیمی‌ترین کوین‌ها قدیمی‌ترین بهای تمام‌شده را می‌گیرد. این تخصیص قاعدهٔ برنامه است – آن را با سوابق خودت مقایسه کن.</string>
     <string name="tax_note_us_wallet">از سال مالیاتی 2025 IRS بهای تمام‌شده را برای هر کیف پول/صرافی می‌خواهد (Rev. Proc. 2024-28) – خروجی از 2025 FIFO برای هر کیف پول حساب می‌کند – پیش از 2025 روش محاسبهٔ بهای تمام‌شدهٔ تو اعمال می‌شود.</string>
     <string name="tax_note_withdrawal_fee">کارمزد برداشت به USDT یا پول نقد زیان نیست: کارمزد نقدی کسرشدنی نیست، کارمزد USDT واگذاری به ارزش اسمی بدون سود است – فقط برای اطلاع نشان داده می‌شود (%1$s).</string>
     <string name="tax_summary_at_interest_income">شمرده می‌شود: درآمد هنگام دریافت با نرخ ویژهٔ 27.5 درصد (§ 27b بند 2 شمارهٔ 1 EStG / BMF) – سکه‌ها همین ارزش را به‌عنوان بهای تحصیل نگه می‌دارند</string>

@@ -873,6 +873,43 @@
       ]
     },
     {
+      "name": "kraken_two_fees",
+      "_comment": "Kraken-Geschäft mit Gebühr auf beiden Seiten in verschiedenen Einheiten (EUR und BTC): nicht mehr überspringen — die Fiat-Gebühr bleibt am Kauf, die BTC-Gebühr wird eine eigene Gebühr-Zeile (FEE, Kennung «refid/fee», Veräusserung zum Tageskurs)",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"T1\",\"2024-06-01 10:00:00\",\"trade\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"-500.0000\",\"1.0000\",\"499.0000\"\n\"L2\",\"T1\",\"2024-06-01 10:00:00\",\"trade\",\"\",\"currency\",\"XXBT\",\"spot / main\",\"0.0100000000\",\"0.0000200000\",\"0.0099800000\"\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "trade",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "50000",
+          "quote": "EUR",
+          "fee": "1",
+          "feeUnit": "EUR",
+          "time": "2024-06-01T10:00:00Z",
+          "externalId": "T1",
+          "key": "KRAKEN|T1"
+        },
+        {
+          "line": 2,
+          "kind": "FEE",
+          "rawKind": "trade",
+          "coin": "BTC",
+          "amount": "0.00002",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-06-01T10:00:00Z",
+          "externalId": "T1/fee",
+          "key": "KRAKEN|T1/fee"
+        }
+      ],
+      "skipped": []
+    },
+    {
       "name": "generic_crypto_quote",
       "_comment": "Build 48 (K7): Kauf/Verkauf gegen einen Krypto-Coin (Paar «ETH/BTC») = Tausch: Kauf ETH mit BTC → Tausch BTC → ETH (BTC-Menge = Preis × Menge), Verkauf ETH gegen BTC → Tausch ETH → BTC (Gebühr im erhaltenen BTC = weniger erhalten), Fiat-Betrag der Datei = Menge des gegebenen Coins; Wert unbekannt (Tagesschluss), kein Stablecoin-Hinweis. Fiat mit Tageskurs (TRY) bleibt Kauf, ohne Preis bleibt Kauf.",
       "format": "GENERIC",

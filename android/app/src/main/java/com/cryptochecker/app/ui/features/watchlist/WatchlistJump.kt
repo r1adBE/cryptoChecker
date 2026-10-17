@@ -14,14 +14,20 @@ import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SmallFloatingActionButton
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -38,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -48,29 +55,59 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-/** Sprungknopf: Durchmesser und Abstand zum unteren und seitlichen Rand. */
+/** Sprungknopf: sichtbarer Durchmesser und Abstand des sichtbaren Kreises zum unteren und seitlichen Rand. */
 internal val JumpButtonSize = 40.dp
 
 internal val JumpButtonMargin = 16.dp
 
+/**
+ * Tippfläche des Sprungknopfs: 48 dp (Material-Mindestgrösse, Review). Der Kreis bleibt 40 dp gross und
+ * steht mittig darin; der Rand aussen wird um die Hälfte des Überstands kleiner, damit der Kreis an
+ * derselben Stelle bleibt wie vorher.
+ */
+internal val JumpTouchSize = 48.dp
+private val JumpTouchInset = (JumpTouchSize - JumpButtonSize) / 2
+
 /** So weit rückt der Sprungknopf nach oben, solange ein Banner unten steht. */
 private val JumpBannerLift = 64.dp
 
-/** Kleiner runder Knopf mit Pfeil: «Zum Ende» (nach unten) bzw. «Zum Anfang» (nach oben). */
+/**
+ * Kleiner runder Knopf mit Pfeil: «Zum Ende» (nach unten) bzw. «Zum Anfang» (nach oben).
+ * Getippt wird auf der ganzen 48-dp-Fläche; Ripple und Schatten zeigt nur der 40-dp-Kreis (wie der
+ * frühere SmallFloatingActionButton: secondaryContainer, Schatten 6 dp).
+ */
 @Composable
 private fun JumpButton(down: Boolean, onClick: () -> Unit) {
-    SmallFloatingActionButton(
-        onClick = onClick,
-        shape = CircleShape,
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        modifier = Modifier.size(JumpButtonSize)
+    val interaction = remember { MutableInteractionSource() }
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(JumpTouchSize)
+            .clickable(
+                interactionSource = interaction,
+                indication = null,
+                role = Role.Button,
+                onClick = onClick,
+            )
     ) {
-        Icon(
-            painterResource(if (down) R.drawable.ic_arrow_downward else R.drawable.ic_arrow_upward),
-            contentDescription = stringResource(if (down) R.string.watchlist_jump_end else R.string.watchlist_jump_start),
-            modifier = Modifier.size(20.dp)
-        )
+        Surface(
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            shadowElevation = 6.dp,
+            modifier = Modifier.size(JumpButtonSize)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize().indication(interaction, LocalIndication.current)
+            ) {
+                Icon(
+                    painterResource(if (down) R.drawable.ic_arrow_downward else R.drawable.ic_arrow_upward),
+                    contentDescription = stringResource(if (down) R.string.watchlist_jump_end else R.string.watchlist_jump_start),
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
     }
 }
 
@@ -180,7 +217,7 @@ internal fun BoxScope.WatchlistJumpButton(
         exit = if (reduceMotion) ExitTransition.None else fadeOut(tween(250)),
         modifier = Modifier
             .align(Alignment.BottomEnd)
-            .padding(end = 16.dp + endInset, bottom = JumpButtonMargin + lift)
+            .padding(end = 16.dp - JumpTouchInset + endInset, bottom = JumpButtonMargin - JumpTouchInset + lift)
     ) {
         JumpButton(down = jump.down, onClick = jump::jump)
     }

@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">کارمزد ≥ مقدار دریافتی</string>
     <string name="portfolio_csv_skip_internal_move">جابه‌جایی بین حساب‌های خودت – چیزی برای ثبت نیست</string>
     <string name="portfolio_csv_skip_missing">فیلد ناقص</string>
+    <string name="portfolio_csv_skip_ambiguous">چند معامله در همان ثانیه که قابل تفکیک نیستند – دستی وارد کن</string>
     <string name="portfolio_csv_skip_not_crypto">رمزارز نیست</string>
     <string name="portfolio_csv_skip_possible_duplicate">احتمالاً قبلاً وارد شده (معامله‌ای تقریباً یکسان) – دستی بررسی کن</string>
     <string name="portfolio_csv_skip_two_fees">دو کارمزد با واحدهای متفاوت – معاوضه را دستی وارد کن</string>

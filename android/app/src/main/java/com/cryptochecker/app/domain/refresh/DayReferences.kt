@@ -180,12 +180,13 @@ class DayReferences @Inject constructor(
     }
 
     /**
-     * Gemerkter Bezug in Quote [q]: rollend ([dayStart] null) oder seit Tagesbeginn. Reihe eines klar anders
-     * benannten Tokens ([TokenIdentityStore.fallbackSeriesAllowed]) → null: lieber «—» als ein fremder Wert.
+     * Gemerkter Bezug in Quote [q]: rollend ([dayStart] null) oder seit Tagesbeginn. Reihe einer anderen Börse nur
+     * bei belegt gleichem Namen ([TokenIdentityStore.fallbackChangeAllowed]; Kürzel + Kursband reichen für die
+     * %-Veränderung nicht) → sonst null: lieber «—» als ein fremder Wert.
      */
     private fun reference(watch: WatchEntity, q: String, dayStart: Long?): com.cryptochecker.app.domain.watch.DayReference? {
         val provider = sparklineRepository.cachedProvider(watch.baseAsset, q)
-        if (!tokenIdentityStore.fallbackSeriesAllowed(watch.marketKey, watch.baseAsset, provider)) return null
+        if (!tokenIdentityStore.fallbackChangeAllowed(watch.marketKey, watch.marketName, watch.baseAsset, provider)) return null
         return if (dayStart != null) sparklineRepository.cachedDayStartReference(watch.baseAsset, q, dayStart)
         else sparklineRepository.cachedDayReference(watch.baseAsset, q)
     }

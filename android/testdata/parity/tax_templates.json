@@ -3595,6 +3595,43 @@
           "gain": "95"
         }
       ]
+    },
+    {
+      "name": "[R12] Belohnung ohne Wert (Kraken/Binance-Import kennen keinen Preis): im Steuer-Export zum Tagesschluss — Einstand 1 × 2000, Verkauf vollständig statt aus der Summe zu fallen",
+      "method": "FIFO",
+      "prices": {
+        "ETH": "2000"
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1736510400000,
+          "note": "staking"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1741608000000,
+          "price": "2900"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-03-10",
+          "acquired": "2025-01-10",
+          "amount": "1",
+          "cost": "2000",
+          "proceeds": "2900",
+          "gain": "900",
+          "valueEstimated": false
+        }
+      ]
     }
   ],
   "summaries": [
@@ -5695,6 +5732,102 @@
           null
         ]
       ]
+    },
+    {
+      "_comment": "[R12] Belohnung ohne Wert zum Tagesschluss: Einkünfte 2000 (geschätzt) statt «unvollständig», Verkauf mit Einstand",
+      "template": "DE",
+      "method": "FIFO",
+      "year": 2025,
+      "prices": {
+        "ETH": "2000"
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1736510400000,
+          "note": "staking"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1741608000000,
+          "price": "2900"
+        }
+      ],
+      "lines": [
+        [
+          "SHORT_GAINS",
+          "900",
+          "900",
+          null
+        ],
+        [
+          "SHORT_LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "SHORT_NET",
+          "900",
+          "900",
+          null
+        ],
+        [
+          "LONG_GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LONG_LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "2900",
+          "2900",
+          null
+        ],
+        [
+          "INCOME",
+          "2000",
+          "2000",
+          null
+        ],
+        [
+          "DE_LONG",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "DE_PRIVATE_LIMIT",
+          null,
+          "1000",
+          "BELOW"
+        ],
+        [
+          "DE_INCOME_LIMIT",
+          null,
+          "256",
+          "REACHED"
+        ]
+      ],
+      "incompleteLines": []
     }
   ],
   "_lostFeeComment": "Netzwerkgebühr verbraucht den letzten Teil mit Kaufpreis: Einstand (10) wird vermerkt (TaxExport.lostFeeCostsIn), gleich für FIFO, FIFO je Wallet, Ø (ohne Vorlage-Regeln) und AT; UK, CA, JP (Build 56: TaxEventRules.networkFeeIsDisposal, Standard dieser Rechnungen): die Gebühr ist eine eigene Veräusserung zum Marktwert, nichts vermerkt; FR kennt keinen Gebühr-Einstand je Coin.",

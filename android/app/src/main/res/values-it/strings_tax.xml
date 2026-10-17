@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Interessi da lending (valore alla ricezione)</string>
-    <string name="tax_line_at_old_long">Acquistato prima dell’1.3.2021 – detenuto &gt; 1 anno: non imponibile</string>
-    <string name="tax_line_at_rate">Aliquota speciale 27,5 per cento: netto acquistato dall’1.3.2021 + interessi</string>
+    <string name="tax_line_at_old_long">Acquistato prima dell’1.3.2021 – detenuto &gt; 1 anno: di norma non imponibile – verifica</string>
+    <string name="tax_line_at_rate">Aliquota speciale 27,5 per cento: netto acquistato dall’1.3.2021 + interessi (1.3.2021–28.2.2022: vedi nota)</string>
     <string name="tax_line_au_discounted">Plusvalenza netta dopo perdite e sconto del 50 per cento</string>
     <string name="tax_line_ca_taxable">Plusvalenza imponibile (tasso di inclusione 1/2)</string>
     <string name="tax_line_ch_income">Ricompense elencate – trattamento vedi documento di lavoro AFC</string>
     <string name="tax_line_ch_private">Plusvalenze del patrimonio privato: non calcolate – classificazione vedi AFC</string>
     <string name="tax_line_ch_wealth">Imposta sulla sostanza: non calcolata – il CSV del saldo usa il prezzo della piattaforma × USD/CHF al 31.12 – valori fiscali: lista dei corsi AFC</string>
-    <string name="tax_line_de_long">Detenuto &gt; 1 anno: non imponibile in DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Detenuto &gt; 1 anno: secondo § 23 EStG di norma non imponibile – verifica</string>
     <string name="tax_line_denied_loss">Perdite non deducibili (perdita superficiale / superficial loss)</string>
     <string name="tax_line_fr_outflow">Uscite senza vendita (prelievi) – costo totale d’acquisto ridotto proporzionalmente</string>
     <string name="tax_line_fr_rate">Aliquota forfettaria 12,8 per cento più contributi sociali (o scaglioni su opzione)</string>
-    <string name="tax_line_fr_threshold">Cessioni fino a 305 € l’anno esenti (totale dei prezzi di vendita)</string>
+    <string name="tax_line_fr_threshold">Cessioni fino a 305 € l’anno: di norma esenti (totale dei prezzi di vendita) – verifica</string>
     <string name="tax_line_gains">Guadagni</string>
     <string name="tax_line_income">Redditi (ricompense al valore alla ricezione)</string>
     <string name="tax_line_jp_misc">Redditi diversi (雑所得): guadagni netti + redditi</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Ricavi</string>
     <string name="tax_line_short_net">Netto – detenuto ≤ 1 anno</string>
     <string name="tax_line_transfer_fees">Commissioni di trasferimento (propri wallet)</string>
-    <string name="tax_line_uk_after_exempt">Guadagni netti oltre la franchigia</string>
-    <string name="tax_line_uk_exempt">Franchigia annuale (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Guadagni netti oltre la franchigia (solo cripto)</string>
+    <string name="tax_line_uk_exempt">Franchigia annuale (Annual Exempt Amount) – vale per tutte le cessioni insieme, qui applicata per intero</string>
     <string name="tax_line_us_terms">Breve termine (≤ 1 anno): aliquote ordinarie – lungo termine (&gt; 1 anno): aliquote sulle plusvalenze</string>
     <string name="tax_line_withdrawal_fees">Commissioni di prelievo</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">servono valori in EUR (mancano i tassi di cambio)</string>
     <string name="tax_de_needs_holding">periodo di detenzione mancante (metodo medio) – scegli FIFO per la verifica</string>
     <string name="tax_de_private_limit">Soglia di esenzione vendite private (§ 23 EStG)</string>
-    <string name="tax_de_reached">soglia raggiunta – l’intero importo è imponibile</string>
+    <string name="tax_de_reached">soglia raggiunta – di norma conta l’intero importo – verifica</string>
     <string name="tax_de_short_gains">Guadagni – detenuto ≤ 1 anno</string>
     <string name="tax_de_short_losses">Perdite – detenuto ≤ 1 anno</string>
     <string name="tax_de_unclassified">Senza periodo di detenzione</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Modello: %1$s · Metodo: %2$s · Valuta: %3$s</string>
     <string name="tax_template_de">Germania</string>
     <string name="tax_template_fr">Francia</string>
-    <string name="tax_template_hint">Solo orientativo: imposta metodo / anno fiscale e riepilogo del documento di lavoro. Le righe mostrano sempre fatti neutri.</string>
+    <string name="tax_template_hint">Solo orientativo: imposta metodo / anno fiscale e riepilogo del documento di lavoro. La scheda Portafoglio resta neutra – donazioni e commissioni di trasferimento possono differire dal documento di lavoro.</string>
     <string name="tax_template_jp">Giappone</string>
     <string name="tax_template_neutral">Neutro (tutti i paesi)</string>
     <string name="tax_template_suggestion">Suggerimento per la tua regione: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Una vendita contro uno stablecoin (USDT/USDC/DAI …) che tieni è qui cripto contro cripto e non è tassata – registrala come scambio nello stablecoin. È tassata solo la vendita contro euro – «Vendita» vale come vendita contro euro.</string>
     <string name="tax_note_transfer_fee">Lo stesso vale per una commissione in USDT o contanti su un trasferimento tra i tuoi wallet: non si aggiunge al costo di carico e compare solo come informazione.</string>
     <string name="tax_note_uk">Abbinamento secondo HMRC: stesso giorno → poi i 30 giorni successivi → poi il pool comune (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Transizione all’1.1.2025 (Rev. Proc. 2024-28, safe harbor): se gli anni precedenti usavano FIFO su tutti i wallet, i lotti residui al 31.12.2024 vanno ai wallet che detengono i coin – il wallet con i coin più vecchi riceve il costo più vecchio.</string>
+    <string name="tax_note_us_transition">Transizione all’1.1.2025 (Rev. Proc. 2024-28, safe harbor): se gli anni precedenti usavano FIFO su tutti i wallet, i lotti residui al 31.12.2024 vanno ai wallet che detengono i coin – il wallet con i coin più vecchi riceve il costo più vecchio. Questa ripartizione è una regola dell’app – confrontala con i tuoi documenti.</string>
     <string name="tax_note_us_wallet">Dall’anno fiscale 2025 l’IRS richiede il costo di carico per wallet/exchange (Rev. Proc. 2024-28) – l’export usa FIFO per wallet dal 2025 – prima del 2025 vale il tuo metodo del costo di carico.</string>
     <string name="tax_note_withdrawal_fee">Una commissione di prelievo in USDT o contanti non è una perdita: in contanti non è deducibile, in USDT è una cessione alla pari senza guadagno – compare solo come informazione (%1$s).</string>
     <string name="tax_summary_at_interest_income">conta: reddito alla ricezione con aliquota speciale del 27,5 per cento (§ 27b c. 2 n. 1 EStG / BMF) – le monete mantengono questo valore come costo d’acquisto</string>

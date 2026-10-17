@@ -183,6 +183,26 @@ object TokenIdentity {
     }
 
     /**
+     * Darf die Reihe der Ausweich-Kette von [provider] (eine ANDERE Börse) die %-Veränderung des Paars liefern?
+     * Strenger als [fallbackSeriesAllowed]: Kurs des Paars gegen die Eröffnung einer fremden Reihe ist nur
+     * sinnvoll, wenn es belegt derselbe Token ist — Kürzel + Kursband (±25 %) allein liessen einen anderen Token
+     * oder eine fremde Prämie als Veränderung durch (bis gut 20 Punkte daneben). Verlangt also den eigenen Namen
+     * und einen gleichen Namen ([Match.MEDIUM]) beim Anbieter ([providerName], sonst [binanceName]). Unbekannt →
+     * false: lieber «—» als ein geratener Wert. Kerzen der eigenen Börse prüft der Aufrufer nicht hiermit.
+     */
+    fun fallbackChangeAllowed(
+        symbol: String,
+        ownName: String?,
+        provider: String?,
+        binanceName: String?,
+        providerName: String? = null,
+    ): Boolean {
+        if (provider?.trim().isNullOrEmpty()) return false
+        if (!fallbackSeriesAllowed(symbol, ownName, provider, binanceName, providerName)) return false
+        return matchNames(symbol, ownName, providerName ?: binanceName) == Match.MEDIUM
+    }
+
+    /**
      * Darf die Quelle [host] der Kerzen-Kette (Aktionsblatt-Chart, Volumen-Reihe) für [symbol] einspringen?
      * Gleiche Regel wie [fallbackSeriesAllowed] mit dem Anbieter des Hosts
      * ([com.cryptochecker.app.domain.market.DataFreshness.candleProvider]): Widerspricht der eigene Name

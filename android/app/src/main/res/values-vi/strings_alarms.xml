@@ -135,8 +135,8 @@
     <string name="alarm_saved_notifications_off">Thông báo đang tắt</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Khi đóng ứng dụng, Android kiểm tra không đều (khoảng mỗi 15 phút với «%1$s»), nên có thể bỏ lỡ các biến động ngắn.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Khi ứng dụng đóng, iOS quyết định lúc nào kiểm tra, nên có thể bỏ lỡ các biến động ngắn; khi đang mở, việc kiểm tra đáng tin cậy.</string>
+    <string name="alarm_timing_hint_android">Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật «%1$s». Có thể bỏ lỡ các biến động ngắn.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Khi đóng ứng dụng, iOS thường kiểm tra muộn hơn 15 phút, đôi khi chỉ khi bạn mở lại ứng dụng. Có thể bỏ lỡ các biến động ngắn.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Khi nào cảnh báo được kiểm tra</string>
     <string name="alarm_timing_where">Chỉnh tần suất cập nhật giá trong %1$s.</string>

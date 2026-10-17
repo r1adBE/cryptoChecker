@@ -6,7 +6,7 @@ private let phemexProducts = "https://api.phemex.com/public/products"
 private let phemexMD = "https://api.phemex.com/md"
 
 /// Phemex Spot. Symbole beginnen mit «s» (sBTCUSDT). Die Börse liefert ganze Zahlen (Ep/Ev), die erst mit
-/// `PhemexScales` zu Kursen werden: Preise (Ep) durch 10^`priceScale` des Produkts (Spot laut Public-Spot-API 8),
+/// `PhemexScales` zu Kursen werden: Preise (Ep) durch 10^`priceScale` des Produkts (ohne Angabe kein Kurs),
 /// Menge (volumeEv, Basis) und Umsatz (turnoverEv, Kotierung) durch 10^`valueScale` der jeweiligen Währung aus
 /// `/public/products` (meist 8; SHIB 2, VPAD 4). Doku: github.com/phemex/phemex-api-docs.
 /// `PhemexFutures` bekommt Dezimaltexte (Rp) und braucht keine Faktoren.
@@ -76,7 +76,10 @@ final class Phemex: PhemexBase {
         // Ohne Faktoren aus der Produktliste (oder ihrer Kopie) kein Kurs: geraten läge er Zehnerpotenzen daneben
         let scales = PhemexScales.current
         guard scales.loaded else { throw JSONError(message: PhemexScales.notLoaded) }
-        let priceDivisor = scales.priceDivisor(symbol)
+        // Symbol ohne priceScale in der Liste (fehlt oder neu): ebenfalls kein Kurs statt geratener 10^8
+        guard let priceDivisor = scales.priceDivisor(symbol) else {
+            throw JSONError(message: PhemexScales.unknownScale(symbol))
+        }
         let codes = scales.currencies(symbol, base: base, quote: quote)
 
         let last = try row.double("lastEp") / priceDivisor
@@ -249,8 +252,8 @@ class PhemexBase: SimpleMarket {
 }
 
 /// Faktoren der Phemex-Spot-Produkte aus `/public/products` — mit der Paarliste geladen, im Speicher gehalten und als
-/// Datei in der App Group abgelegt (`storeURL`). Wie `PhemexScales` (Android): `priceScale` je Symbol (Ep; ohne Feld 8
-/// laut Public-Spot-API), `valueScale` je Währung (Ev, Liste `currencies`), `pairs` Symbol → Basis/Kotierung. Ohne
+/// Datei in der App Group abgelegt (`storeURL`). Wie `PhemexScales` (Android): `priceScale` je Symbol (Ep; ohne Feld kein
+/// Kurs — nie geraten), `valueScale` je Währung (Ev, Liste `currencies`), `pairs` Symbol → Basis/Kotierung. Ohne
 /// Produktliste (`loaded` false) zeigt Phemex keinen Kurs; die Sammelabfrage holt dann zuerst die Liste — nie ein
 /// geratener Faktor. `documentedValueScales` gelten nur für Währungen, die die Liste nicht nennt.
 struct PhemexScales: Sendable {
@@ -266,6 +269,8 @@ struct PhemexScales: Sendable {
     static let formatVersion = 1
     /// Fehlertext, solange die Produktliste fehlt (lieber kein Kurs als einer um Zehnerpotenzen daneben).
     static let notLoaded = "Phemex: product list not loaded yet"
+    /// Fehlertext für ein Symbol ohne `priceScale` in der Produktliste. Wie Android `UNKNOWN_SCALE`.
+    static func unknownScale(_ symbol: String) -> String { "Phemex: no price scale for \(symbol) in the product list" }
     /// Fehlertext der Einzelabfrage, deren erste Anfrage eben die fehlende Produktliste geladen hat.
     static let justLoaded = "Phemex: product list loaded, price follows with the next update"
     /// Faktoren einmal täglich neu laden.
@@ -367,8 +372,10 @@ struct PhemexScales: Sendable {
 
     // MARK: Abfragen
 
-    /// Teiler der Preise (Ep) von `symbol`.
-    func priceDivisor(_ symbol: String) -> Double { Self.tenToThe(priceScale[symbol] ?? Self.defaultScale) }
+    /// Teiler der Preise (Ep) von `symbol`; nil, wenn die Produktliste für das Symbol keinen `priceScale` nennt
+    /// (fehlt in der Liste, neu gelistet). Dann zeigt das Paar einen Fehler: 8 zu raten läge bei anderen Faktoren
+    /// Zehnerpotenzen daneben. Wie Android.
+    func priceDivisor(_ symbol: String) -> Double? { priceScale[symbol].map { Self.tenToThe($0) } }
 
     /// Teiler der Werte (Ev) in `currency`; unbekannt: dokumentierte Ausnahme, sonst 8.
     func valueDivisor(_ currency: String?) -> Double {

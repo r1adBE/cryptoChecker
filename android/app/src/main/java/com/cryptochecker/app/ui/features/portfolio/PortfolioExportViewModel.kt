@@ -265,7 +265,9 @@ class PortfolioExportViewModel @Inject constructor(
             }
             TaxExportKind.INCOME -> {
                 val rates = rates(currency, period.start, period.end)
-                TaxExport.incomeCsv(TaxExport.incomeRows(trades, period, zone, currency, rates), texts, header, format)
+                // Belohnungen ohne Wert (Kraken/Binance) zum Tagesschluss geschätzt, wie in der Jahresübersicht
+                val priceAt = feeDisposalPrices(trades, period)
+                TaxExport.incomeCsv(TaxExport.incomeRows(trades, period, zone, currency, rates, priceAt), texts, header, format)
             }
         }
     }

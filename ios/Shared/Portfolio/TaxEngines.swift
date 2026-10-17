@@ -262,7 +262,8 @@ enum TaxEngines {
                           rules: TaxEventRules? = nil,
                           walletFrom: LocalDay? = nil) -> [PortfolioDisposal] {
         let applied = rules ?? .of(method)
-        let input = applyRules(trades, rules: applied, priceAt: priceAt)
+        // Belohnungen ohne Wert zum Tagesschluss (Einstand statt unbekannt, `PortfolioLedger.valueRewardsAtDayClose`)
+        let input = applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, price: priceAt), rules: applied, priceAt: priceAt)
         let rows: [PortfolioDisposal]
         if let cm = method.costMethod {
             let valued = PortfolioLedger.valueAtDayClose(input, price: priceAt)
@@ -467,7 +468,7 @@ enum TaxEngines {
     static func outflows(_ trades: [PortfolioTx], method: TaxMethod,
                          priceAt: ((String, Int64) -> Decimal?)? = nil) -> [TaxOutflow] {
         guard method == .FR_PTA else { return [] }
-        let input = applyRules(trades, rules: .of(method), priceAt: priceAt)
+        let input = applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, price: priceAt), rules: .of(method), priceAt: priceAt)
         return run(input, method: method, timeZone: TimeZone(identifier: "UTC") ?? .current, priceAt: priceAt).outflows
     }
 

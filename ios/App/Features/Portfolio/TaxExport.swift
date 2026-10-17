@@ -93,6 +93,8 @@ struct TaxIncomeRow: Equatable, Sendable {
     let fxMissing: Bool
     /// Zins (Lending, `TaxEngines.interestReward`) — AT: beim Zufluss Einkunft zum Sondersteuersatz (`TaxLine.AT_INTEREST`).
     var interest = false
+    /// Wert ohne Preis in der Datei zum Tagesschluss geschätzt (`PortfolioLedger.valueRewardsAtDayClose`): Vermerk.
+    var estimated = false
 
     var valueMissing: Bool { valueUsdt == nil }
 }
@@ -798,10 +800,12 @@ enum TaxExport {
         incomeRows(trades, period: calendar(year), timeZone: timeZone, currency: currency, rates: rates)
     }
 
-    /// Belohnungen des Steuerjahrs `period` mit Wert beim Erhalt (Menge × Wert je Coin), zum Kurs des Tags.
+    /// Belohnungen des Steuerjahrs `period` mit Wert beim Erhalt (Menge × Wert je Coin), zum Kurs des Tags. Ohne Wert in
+    /// der Datei mit `priceAt` zum Tagesschluss geschätzt (`PortfolioLedger.valueRewardsAtDayClose`, `estimated`); ohne
+    /// Kurs bleibt der Wert leer. Wie Android.
     static func incomeRows(_ trades: [PortfolioTx], period: TaxPeriod, timeZone: TimeZone, currency: String,
-                           rates: [Int: Decimal]?) -> [TaxIncomeRow] {
-        rewards(in: trades, period: period, timeZone: timeZone).map { t -> TaxIncomeRow in
+                           rates: [Int: Decimal]?, priceAt: ((String, Int64) -> Decimal?)? = nil) -> [TaxIncomeRow] {
+        PortfolioLedger.valueRewardsAtDayClose(rewards(in: trades, period: period, timeZone: timeZone), price: priceAt).map { t -> TaxIncomeRow in
             let date = localDay(t.time, timeZone: timeZone)
             let value = t.validPriceExact.map { t.amountExact * $0 }
             let rate = rateOn(rates, date: date, currency: currency)
@@ -811,7 +815,7 @@ enum TaxExport {
             }()
             return TaxIncomeRow(date: date, coin: PortfolioCalculator.normalizeCoin(t.coin), amount: t.amountExact,
                                 valueUsdt: value, valueTarget: target, fxMissing: value != nil && rate == nil,
-                                interest: TaxEngines.interestReward(t.note))
+                                interest: TaxEngines.interestReward(t.note), estimated: t.valueEstimated)
         }
     }
 
@@ -993,6 +997,7 @@ enum TaxExport {
         for r in rows {
             var notes: [String] = []
             if r.valueMissing { notes.append(texts.valueMissing) }
+            if r.estimated && !texts.valueEstimated.isEmpty { notes.append(texts.valueEstimated) }
             if r.fxMissing { notes.append(texts.noFx) }
             out += line([t(r.date.description), t(r.coin), CsvCell(text: n(CutoffExport.amount(r.amount)), numeric: true),
                          money(r.valueUsdt), money(r.valueTarget), t(notes.joined(separator: ", "))], format)
@@ -1193,7 +1198,8 @@ enum TaxExport {
         let transferFees = sales.filter { $0.feeExpense == .TRANSFER }
         let rows = sales.filter { $0.feeExpense != .TRANSFER }
         // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
-        let allIncome = incomeRows(trades, period: period, timeZone: timeZone, currency: currency, rates: rates ?? [:])
+        let allIncome = incomeRows(trades, period: period, timeZone: timeZone, currency: currency, rates: rates ?? [:],
+                                   priceAt: priceAt)
         let interest = template == .AT ? allIncome.filter(\.interest) : []
         let income = template == .AT ? allIncome.filter { !$0.interest } : allIncome
         let pos: (Decimal) -> Bool = { $0 > 0 }
@@ -1773,7 +1779,10 @@ enum PortfolioTaxExporter {
                                                                                timeZone: zone, rules: template.eventRules))
         case .income:
             let fx = await rates(currency, from: period.start, to: period.end)
-            let rows = TaxExport.incomeRows(transactions, period: period, timeZone: zone, currency: currency, rates: fx)
+            // Belohnungen ohne Wert (Kraken/Binance) zum Tagesschluss geschätzt, wie in der Jahresübersicht
+            let priceAt = await feeDisposalPrices(transactions, period: period)
+            let rows = TaxExport.incomeRows(transactions, period: period, timeZone: zone, currency: currency, rates: fx,
+                                            priceAt: priceAt)
             return TaxExport.incomeCsv(rows, texts: texts, header: header, format: format)
         }
     }

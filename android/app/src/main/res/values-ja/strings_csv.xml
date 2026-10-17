@@ -48,6 +48,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">手数料 ≥ 受取数量</string>
     <string name="portfolio_csv_skip_internal_move">自分のアカウント間の移動 – 記録するものはありません</string>
     <string name="portfolio_csv_skip_missing">項目が不足</string>
+    <string name="portfolio_csv_skip_ambiguous">同じ秒に区別できない複数の取引 – 手動で入力</string>
     <string name="portfolio_csv_skip_not_crypto">暗号資産ではない</string>
     <string name="portfolio_csv_skip_possible_duplicate">インポート済みの可能性（ほぼ同じ取引） – 手動で確認してください</string>
     <string name="portfolio_csv_skip_two_fees">単位の異なる手数料が2つ – スワップを手動で入力</string>

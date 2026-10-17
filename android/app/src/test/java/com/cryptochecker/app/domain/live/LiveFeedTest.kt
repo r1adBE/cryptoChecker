@@ -180,9 +180,9 @@ class LiveFeedTest {
         assertFalse(buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.0, null, 1000), now = 1000))
         assertNull(buffer.takeForUi())
 
-        // Geänderter Kurs: neue Zeit
+        // Geänderter Kurs: neue Zeit, im Strom belegte Handelszeit
         assertTrue(buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.5, null, 1100), now = 1100))
-        assertEquals(LiveQuote(100.5, 2.0, 1100), buffer.takeForUi()!![1L])
+        assertEquals(LiveQuote(100.5, 2.0, 1100, tradeTime = 1100), buffer.takeForUi()!![1L])
     }
 
     @Test
@@ -199,7 +199,7 @@ class LiveFeedTest {
         assertEquals(LiveQuote(100.0, 1.6, 1_000), buffer.takeForUi()!![1L])
         // Kurs ändert sich: neue Zeit
         LiveParser.parse(LiveExchange.BINANCE, text("100.1", 5_000)).forEach { buffer.offer(listOf(1L), it, now = 5_000) }
-        assertEquals(LiveQuote(100.1, 1.5, 5_000), buffer.takeForUi()!![1L])
+        assertEquals(LiveQuote(100.1, 1.5, 5_000, tradeTime = 5_000), buffer.takeForUi()!![1L])
     }
 
     @Test
@@ -215,7 +215,7 @@ class LiveFeedTest {
 
         // Delta mit Kurs, ohne Veränderung: Veränderung bleibt; ohne Zeit → Empfangszeit
         assertTrue(buffer.offer(listOf(1L), LiveTick("BTCUSDT", 101.0, null, null), now = 200))
-        assertEquals(LiveQuote(101.0, 1.5, 200), buffer.takeForUi()!![1L])
+        assertEquals(LiveQuote(101.0, 1.5, 200, tradeTime = 200), buffer.takeForUi()!![1L])
 
         val batch = buffer.takeForDb()
         assertEquals(setOf(1L, 2L), batch.keys)
@@ -243,6 +243,31 @@ class LiveFeedTest {
 
         buffer.clear()
         assertTrue(buffer.takeForUi()!!.isEmpty())
+    }
+
+    @Test
+    fun firstTickIsNoTradeAndNeverBecomesTheExchangeTime() {
+        val buffer = LiveBuffer()
+        // Erster Takt nach dem Verbinden (Binance «E» = Ereigniszeit): Momentaufnahme, keine Handelszeit
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.0, 1.5, 9_000), now = 9_000)
+        val first = buffer.takeForUi()!!.getValue(1L)
+        assertNull(first.tradeTime)
+        // Gleicher Kurs wie gespeichert: bisherige Börsenzeit bleibt (null bleibt null → «Unverändert seit» geht)
+        assertNull(LiveRules.exchangeTime(first, storedPrice = 100.0, storedExchangeTime = null))
+        assertEquals(1_000L, LiveRules.exchangeTime(first, storedPrice = 100.0, storedExchangeTime = 1_000L))
+        // Anderer Kurs als gespeichert, aber ohne belegte Zeit: keine (alte Zeit wäre falsch, Takt-Zeit geraten)
+        assertNull(LiveRules.exchangeTime(first, storedPrice = 99.0, storedExchangeTime = 1_000L))
+        // Gleicher Kurs, neue Ereigniszeit: weiterhin keine Handelszeit
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.0, 1.5, 10_000), now = 10_000)
+        assertNull(buffer.takeForUi())
+        // Kurswechsel im Strom: belegt, wird Börsenzeit
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.2, 1.5, 11_000), now = 11_000)
+        val traded = buffer.takeForUi()!!.getValue(1L)
+        assertEquals(11_000L, traded.tradeTime)
+        assertEquals(11_000L, LiveRules.exchangeTime(traded, storedPrice = 100.0, storedExchangeTime = 1_000L))
+        // Delta ohne Kurs danach: Handelszeit bleibt die des Kurswechsels
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", null, 1.7, 12_000), now = 12_000)
+        assertEquals(11_000L, buffer.takeForUi()!!.getValue(1L).tradeTime)
     }
 
     @Test

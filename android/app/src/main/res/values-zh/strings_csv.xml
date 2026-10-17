@@ -48,6 +48,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">手续费 ≥ 收到的数量</string>
     <string name="portfolio_csv_skip_internal_move">你自己账户之间的移动 – 无需记账</string>
     <string name="portfolio_csv_skip_missing">缺少字段</string>
+    <string name="portfolio_csv_skip_ambiguous">同一秒内多笔无法区分的交易 – 请手动录入</string>
     <string name="portfolio_csv_skip_not_crypto">非加密货币</string>
     <string name="portfolio_csv_skip_possible_duplicate">可能已导入（几乎相同的交易）– 请手动检查</string>
     <string name="portfolio_csv_skip_two_fees">两笔不同单位的手续费 – 请手动录入兑换</string>

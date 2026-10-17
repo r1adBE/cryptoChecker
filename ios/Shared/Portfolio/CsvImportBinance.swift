@@ -5,12 +5,12 @@ import Foundation
 ///
 /// Transaktionsverlauf «User_ID, UTC_Time, Account, Operation, Coin, Change, Remark»: Handel und Gebühr mit gleicher Zeit
 /// und gleichem Konto = ein Geschäft (Fiat-Seite → Kauf/Verkauf, sonst Tausch; nur eine Seite → ohne Preis; nur Gebühr →
-/// Gebühr-Zeile; zwei Gebühr-Coins → `.TWO_FEES`; mehrere Coins je Seite → `.MISSING_FIELD`), «Deposit»/«Withdraw» →
+/// Gebühr-Zeile; weitere Gebühr-Coins → eigene Gebühr-Zeilen; mehrere Coins je Seite → `.AMBIGUOUS_GROUP`), «Deposit»/«Withdraw» →
 /// Ein-/Auszahlung, Gutschriften → Belohnung, Verschiebungen zwischen eigenen Konten → `.INTERNAL_MOVE`, Rest → Prüfliste.
 /// Handelsverlauf heute «Date(UTC), Pair, Side, Price, Executed, Amount, Fee» (Einheit an der Zahl), früher «Date(UTC),
 /// Market, Type, Price, Amount, Total, Fee, Fee Coin»: je Ausführung Kauf/Verkauf, gegen Stablecoin/Krypto ein Tausch.
 /// Nie doppelt aus beiden Exporten: Schlüssel ohne Preis mit Kalenderzeit, beide Leser fassen Ausführungen je Sekunde
-/// zusammen; Kauf und Verkauf desselben Coins in einer Sekunde → Prüfliste; nur fast Gleiches hält die Vorschau als
+/// zusammen; Kauf und Verkauf desselben Coins in einer Sekunde nur mit genau zwei Coins getrennt, sonst Prüfliste; nur fast Gleiches hält die Vorschau als
 /// möglichen Doppelten zurück (`possibleDuplicates`).
 enum CsvImportBinance {
 
@@ -140,77 +140,123 @@ enum CsvImportBinance {
         }
     }
 
-    /// Ein Geschäft aus den Zeilen einer Gruppe (gleiche Zeit, gleiches Konto) — wie Android `trade`.
+    /// Ein Geschäft aus den Zeilen einer Gruppe (gleiche Zeit, gleiches Konto) — wie Android `trade`. Kauf UND Verkauf
+    /// desselben Coins in der Sekunde: eindeutig nur mit genau zwei Coins, die beide in beide Richtungen gehen (A → B und
+    /// B → A; Gebühren nur in A oder B, je am Geschäft, das diesen Coin erhält) → zwei Geschäfte; sonst wie mehrere Coins
+    /// je Seite `.AMBIGUOUS_GROUP`.
     private static func trade(_ group: [Leg], _ rows: inout [CsvImportRow], _ skipped: inout [CsvImportSkip]) {
-        guard let first = group.first else { return }
+        guard !group.isEmpty else { return }
         func skipAll(_ reason: CsvImportSkipReason) {
             for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: reason)) }
         }
+        let tradeLegs = group.filter { $0.op == .trade }
+        let feeLegs = group.filter { $0.op == .fee }
         // Summen je Coin in Reihenfolge des ersten Auftretens (wie `LinkedHashMap`)
+        var feeCoins: [String] = []
+        var feeSums: [String: Decimal] = [:]
+        for leg in feeLegs {
+            if feeSums[leg.coin] == nil { feeCoins.append(leg.coin) }
+            feeSums[leg.coin, default: 0] += leg.change
+        }
+        let fees: [(unit: String, amount: Decimal)] = feeCoins.compactMap { c in
+            let v = feeSums[c] ?? 0
+            return v == 0 ? nil : (unit: c, amount: abs(v))
+        }
+        var coins: [String] = []
+        for leg in tradeLegs where !coins.contains(leg.coin) { coins.append(leg.coin) }
+        let bothWays = coins.filter { c in
+            tradeLegs.contains { $0.coin == c && $0.change > 0 } && tradeLegs.contains { $0.coin == c && $0.change < 0 }
+        }
+        if !bothWays.isEmpty {
+            guard coins.count == 2, bothWays.count == 2, fees.allSatisfy({ coins.contains($0.unit) }) else {
+                skipAll(.AMBIGUOUS_GROUP)
+                return
+            }
+            for (out, inn) in [(coins[0], coins[1]), (coins[1], coins[0])] {
+                let outLegs = tradeLegs.filter { $0.coin == out && $0.change < 0 }
+                let inLegs = tradeLegs.filter { $0.coin == inn && $0.change > 0 }
+                let outSum = abs(outLegs.reduce(Decimal(0)) { $0 + $1.change })
+                let inSum = inLegs.reduce(Decimal(0)) { $0 + $1.change }
+                let ownFeeLegs = feeLegs.filter { $0.coin == inn }
+                emit((outLegs + inLegs + ownFeeLegs).sorted { $0.line < $1.line }, (coin: out, amount: outSum), (coin: inn, amount: inSum),
+                     fees.filter { $0.unit == inn }, &rows, &skipped)
+            }
+            return
+        }
         var netCoins: [String] = []
         var nets: [String: Decimal] = [:]
-        var feeCoins: [String] = []
-        var fees: [String: Decimal] = [:]
-        for leg in group {
-            if leg.op == .fee {
-                if fees[leg.coin] == nil { feeCoins.append(leg.coin) }
-                fees[leg.coin, default: 0] += leg.change
-            } else {
-                if nets[leg.coin] == nil { netCoins.append(leg.coin) }
-                nets[leg.coin, default: 0] += leg.change
-            }
+        for leg in tradeLegs {
+            if nets[leg.coin] == nil { netCoins.append(leg.coin) }
+            nets[leg.coin, default: 0] += leg.change
         }
-        // Ein Coin in derselben Sekunde gekauft UND verkauft: Summen verschleiern zwei Geschäfte — prüfen lassen (wie Android)
-        var directions: [String: Set<Int>] = [:]
-        for leg in group where leg.op == .trade { directions[leg.coin, default: []].insert(leg.change < 0 ? -1 : (leg.change > 0 ? 1 : 0)) }
-        if directions.values.contains(where: { $0.contains(1) && $0.contains(-1) }) { skipAll(.MISSING_FIELD); return }
         let given = netCoins.filter { (nets[$0] ?? 0) < 0 }
         let received = netCoins.filter { (nets[$0] ?? 0) > 0 }
-        let feeList = feeCoins.filter { (fees[$0] ?? 0) != 0 }
-        if feeList.count > 1 { skipAll(.TWO_FEES); return }
-        let feeUnit: String? = feeList.first
-        let feeAmount: Decimal? = feeUnit.map { abs(fees[$0] ?? 0) }
-        let line = group.map(\.line).min() ?? first.line
+        if given.count > 1 || received.count > 1 { skipAll(.AMBIGUOUS_GROUP); return }
+        emit(group, given.first.map { (coin: $0, amount: abs(nets[$0] ?? 0)) }, received.first.map { (coin: $0, amount: nets[$0] ?? 0) },
+             fees, &rows, &skipped)
+    }
+
+    /// Zeilen eines Geschäfts aus `legs` — wie Android `emit`: höchstens ein Coin ab (`given`) und einer zu (`received`),
+    /// Gebühren in mehreren Einheiten: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen (`CsvImport.splitFees`).
+    private static func emit(_ legs: [Leg], _ given: (coin: String, amount: Decimal)?, _ received: (coin: String, amount: Decimal)?,
+                             _ fees: [(unit: String, amount: Decimal)],
+                             _ rows: inout [CsvImportRow], _ skipped: inout [CsvImportSkip]) {
+        guard let first = legs.first else { return }
+        func skipAll(_ reason: CsvImportSkipReason) {
+            for leg in legs { skipped.append(CsvImportSkip(line: leg.line, reason: reason)) }
+        }
+        let line = legs.map(\.line).min() ?? first.line
         // Art wie in der Datei: Zeile des gekauften Coins beim Kauf, sonst des abgegebenen
-        func rawKind(_ coin: String) -> String { group.first { $0.op == .trade && $0.coin == coin }?.rawKind ?? first.rawKind }
-        if given.isEmpty && received.isEmpty {
-            // Nur Gebühr: Veräusserung der Gebühr-Coins zum Tageskurs
-            guard let unit = feeUnit, let amount = feeAmount else { skipAll(.BAD_NUMBER); return }
-            if CsvImport.isFiat(unit) { skipAll(.NOT_CRYPTO); return }
-            rows.append(row(line, .FEE, first.rawKind, unit, amount, nil, nil, nil, nil, first))
-        } else if given.count > 1 || received.count > 1 {
-            skipAll(.MISSING_FIELD)
-        } else if given.isEmpty || received.isEmpty {
-            // Nur eine Seite (Kartenkauf, P2P): Kauf bzw. Verkauf ohne Preis
-            let coin = received.first ?? given[0]
-            if CsvImport.isFiat(coin) { skipAll(.NOT_CRYPTO); return }
-            let kind: CsvImportKind = received.isEmpty ? .SELL : .BUY
-            rows.append(row(line, kind, rawKind(coin), coin, abs(nets[coin] ?? 0), nil, nil, feeAmount, feeUnit, first))
-        } else {
-            let out = given[0]
-            let inn = received[0]
-            let outAmount = abs(nets[out] ?? 0)
-            let inAmount = nets[inn] ?? 0
-            let outFiat = CsvImport.isFiat(out)
-            let inFiat = CsvImport.isFiat(inn)
-            if outFiat && inFiat {
-                skipAll(.NOT_CRYPTO)
-            } else if outFiat {
+        func rawKind(_ coin: String) -> String { legs.first { $0.op == .trade && $0.coin == coin }?.rawKind ?? first.rawKind }
+        func feeRow(_ unit: String, _ amount: Decimal, _ at: Int) -> CsvImportRow {
+            let kind = legs.first { $0.op == .fee && $0.coin == unit }?.rawKind ?? first.rawKind
+            return row(at, .FEE, kind, unit, amount, nil, nil, nil, nil, first)
+        }
+        if given == nil && received == nil {
+            // Nur Gebühr: Veräusserung der Gebühr-Coins zum Tageskurs (je Einheit eine Zeile; Fiat ist kein Krypto)
+            if fees.isEmpty { skipAll(.BAD_NUMBER); return }
+            if fees.allSatisfy({ CsvImport.isFiat($0.unit) }) { skipAll(.NOT_CRYPTO); return }
+            if fees.count == 1 { rows.append(feeRow(fees[0].unit, fees[0].amount, line)); return }
+            for f in fees {
+                let own = legs.filter { $0.coin == f.unit }
+                if CsvImport.isFiat(f.unit) {
+                    for leg in own { skipped.append(CsvImportSkip(line: leg.line, reason: .NOT_CRYPTO)) }
+                } else {
+                    rows.append(feeRow(f.unit, f.amount, own.map(\.line).min() ?? line))
+                }
+            }
+            return
+        }
+        guard let split = CsvImport.splitFees(fees, given: given?.coin, received: received?.coin) else { skipAll(.TWO_FEES); return }
+        if let g = given, let r = received, CsvImport.isFiat(g.coin) && CsvImport.isFiat(r.coin) { skipAll(.NOT_CRYPTO); return }
+        let feeAmount: Decimal? = split.primary?.amount
+        let feeUnit: String? = split.primary?.unit
+        if let g = given, let r = received {
+            let (out, outAmount) = (g.coin, g.amount)
+            let (inn, inAmount) = (r.coin, r.amount)
+            if CsvImport.isFiat(out) {
                 rows.append(row(line, .BUY, rawKind(inn), inn, inAmount, CsvImport.divide(outAmount, inAmount), out,
                                 feeAmount, feeUnit, first))
-            } else if inFiat {
+            } else if CsvImport.isFiat(inn) {
                 rows.append(row(line, .SELL, rawKind(out), out, outAmount, CsvImport.divide(inAmount, outAmount), inn,
                                 feeAmount, feeUnit, first))
             } else {
                 let value = CsvImport.stableSwapValue(coin: out, amount: outAmount, toCoin: inn, toAmount: inAmount)
-                var r = row(line, .SWAP, rawKind(out), out, outAmount, nil, value.quote, feeAmount, feeUnit, first)
-                r.toCoin = inn
-                r.toAmount = inAmount
-                r.swapValue = value.value
-                r.stableSwap = CsvImport.isStable(out) || CsvImport.isStable(inn)
-                rows.append(r)
+                var swap = row(line, .SWAP, rawKind(out), out, outAmount, nil, value.quote, feeAmount, feeUnit, first)
+                swap.toCoin = inn
+                swap.toAmount = inAmount
+                swap.swapValue = value.value
+                swap.stableSwap = CsvImport.isStable(out) || CsvImport.isStable(inn)
+                rows.append(swap)
             }
+        } else if let side = received ?? given {
+            // Nur eine Seite (Kartenkauf, P2P): Kauf bzw. Verkauf ohne Preis
+            if CsvImport.isFiat(side.coin) { skipAll(.NOT_CRYPTO); return }
+            let kind: CsvImportKind = received == nil ? .SELL : .BUY
+            rows.append(row(line, kind, rawKind(side.coin), side.coin, side.amount, nil, nil, feeAmount, feeUnit, first))
         }
+        // Weitere Gebühren (andere Einheit): eigene Gebühr-Zeilen statt das Geschäft zu überspringen
+        for f in split.extra { rows.append(feeRow(f.unit, f.amount, line)) }
     }
 
     /// Zeile mit Schlüssel ohne Preis (siehe Kopf), Zeit von `leg`.
@@ -321,32 +367,51 @@ enum CsvImportBinance {
             if groups[key] == nil { groupOrder.append(key) }
             groups[key, default: []].append(fill)
         }
-        let rows = groupOrder.compactMap { order(groups[$0] ?? [], &skipped) }
+        let rows = groupOrder.flatMap { order(groups[$0] ?? [], &skipped) }
         return CsvImport.finish(.BINANCE, rows: rows, skipped: skipped, zone: zone, localTimes: true)
     }
 
     /// Ausführungen einer Order in derselben Sekunde → ein Kauf/Verkauf mit Summen (so fasst sie auch der
-    /// Transaktionsverlauf zusammen) — wie Android `order`. Gebühren in verschiedenen Einheiten → `.TWO_FEES`.
-    private static func order(_ fills: [Fill], _ skipped: inout [CsvImportSkip]) -> CsvImportRow? {
-        guard let first = fills.first else { return nil }
-        let feeUnits = Set(fills.compactMap(\.feeUnit))
-        if feeUnits.count > 1 {
+    /// Transaktionsverlauf zusammen) — wie Android `order`. Gebühren in verschiedenen Einheiten: eine am Geschäft, die
+    /// übrigen als eigene Gebühr-Zeilen (`CsvImport.splitFees`, gleiche Wahl wie im Transaktionsverlauf).
+    private static func order(_ fills: [Fill], _ skipped: inout [CsvImportSkip]) -> [CsvImportRow] {
+        guard let first = fills.first else { return [] }
+        var feeUnits: [String] = []
+        var feeSums: [String: Decimal] = [:]
+        for f in fills {
+            guard let unit = f.feeUnit, let fee = f.fee else { continue }
+            if feeSums[unit] == nil { feeUnits.append(unit) }
+            feeSums[unit, default: 0] += fee
+        }
+        let buy = first.kind == .BUY
+        guard let split = CsvImport.splitFees(feeUnits.map { (unit: $0, amount: feeSums[$0] ?? 0) },
+                                              given: buy ? first.quote : first.base,
+                                              received: buy ? first.base : first.quote) else {
             for f in fills { skipped.append(CsvImportSkip(line: f.line, reason: .TWO_FEES)) }
-            return nil
+            return []
         }
         let amount = fills.reduce(Decimal(0)) { $0 + $1.amount }
         let total = fills.reduce(Decimal(0)) { $0 + $1.total }
-        let fees = fills.compactMap(\.fee)
-        let fee: Decimal? = fees.isEmpty ? nil : fees.reduce(Decimal(0), +)
+        let fee: Decimal? = split.primary?.amount
         let price = fills.count == 1 ? first.price : CsvImport.divide(total, amount)
         let draft = CsvImportRow(
             line: first.line, kind: first.kind, rawKind: first.rawKind, coin: first.base, amount: amount, price: price,
-            quote: first.quote, fee: fee, feeUnit: fee == nil ? nil : feeUnits.first, timeMillis: first.time, externalId: nil,
+            quote: first.quote, fee: fee, feeUnit: fee == nil ? nil : split.primary?.unit, timeMillis: first.time, externalId: nil,
             key: CsvImport.key(format: .BINANCE, kind: first.kind, coin: first.base, amount: amount, price: nil,
                                timeMillis: first.time, externalId: nil, localTime: first.local),
             localTime: first.local)
         // Gegen Stablecoin oder Krypto-Coin: Tausch mit dem Quote-Betrag der Datei
-        return CsvImportParser.stableSwap(.BINANCE, draft, stableAmount: total) ?? draft
+        let trade = CsvImportParser.stableSwap(.BINANCE, draft, stableAmount: total) ?? draft
+        // Weitere Gebühren: Veräusserung zum Tageskurs (Schlüssel wie im Transaktionsverlauf)
+        let extra = split.extra.map { f in
+            CsvImportRow(
+                line: first.line, kind: .FEE, rawKind: "Fee", coin: f.unit, amount: f.amount, price: nil, quote: nil,
+                fee: nil, feeUnit: nil, timeMillis: first.time, externalId: nil,
+                key: CsvImport.key(format: .BINANCE, kind: .FEE, coin: f.unit, amount: f.amount, price: nil,
+                                   timeMillis: first.time, externalId: nil, localTime: first.local),
+                localTime: first.local)
+        }
+        return [trade] + extra
     }
 
     /// Zeitraum, in dem ein Binance-Geschäft mit gleicher Art und gleichem Coin als möglicherweise dasselbe gilt.

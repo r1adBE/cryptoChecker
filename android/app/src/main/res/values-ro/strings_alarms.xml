@@ -147,8 +147,8 @@
     <string name="alarm_saved_notifications_off">Notificări dezactivate</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Cu aplicația închisă, Android verifică neregulat (cu «%1$s» cam la fiecare 15 minute), așa că salturile scurte pot fi ratate.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Cu aplicația închisă, iOS decide când verifică, așa că salturile scurte pot fi ratate; cât timp e deschisă, verificarea e sigură.</string>
+    <string name="alarm_timing_hint_android">Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu «%1$s». Salturile scurte pot fi ratate.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Cu aplicația închisă, iOS verifică adesea mai târziu de 15 minute, uneori abia la următoarea deschidere. Salturile scurte pot fi ratate.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Când sunt verificate alarmele</string>
     <string name="alarm_timing_where">Setează cât de des se actualizează prețurile în %1$s.</string>

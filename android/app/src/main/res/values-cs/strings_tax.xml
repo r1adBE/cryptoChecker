@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Úroky z lendingu (hodnota při přijetí)</string>
-    <string name="tax_line_at_old_long">Nabyto před 1. 3. 2021 – drženo &gt; 1 rok: nezdanitelné</string>
-    <string name="tax_line_at_rate">Zvláštní sazba 27,5 procenta: netto z nabytého od 1. 3. 2021 + úroky</string>
+    <string name="tax_line_at_old_long">Nabyto před 1. 3. 2021 – drženo &gt; 1 rok: zpravidla nezdanitelné – ověřte</string>
+    <string name="tax_line_at_rate">Zvláštní sazba 27,5 procenta: netto z nabytého od 1. 3. 2021 + úroky (1. 3. 2021–28. 2. 2022: viz poznámka)</string>
     <string name="tax_line_au_discounted">Čistý kapitálový zisk po ztrátách a 50procentní slevě</string>
     <string name="tax_line_ca_taxable">Zdanitelný kapitálový zisk (míra zahrnutí 1/2)</string>
     <string name="tax_line_ch_income">Odměny uvedeny – zacházení viz pracovní dokument ESTV</string>
     <string name="tax_line_ch_private">Kapitálové zisky v soukromém majetku: nepočítáno – zařazení viz ESTV</string>
     <string name="tax_line_ch_wealth">Daň z majetku: nepočítá se – CSV stavu používá kurz burzy × USD/CHF k 31. 12. – daňové hodnoty: kurzovní lístek ESTV</string>
-    <string name="tax_line_de_long">Drženo &gt; 1 rok: v DE nezdanitelné (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Drženo &gt; 1 rok: podle § 23 EStG zpravidla nezdanitelné – ověřte</string>
     <string name="tax_line_denied_loss">Neodečitatelné ztráty (zdánlivá ztráta / superficial loss)</string>
     <string name="tax_line_fr_outflow">Odchody bez prodeje (výběry) – celková pořizovací cena poměrně snížena</string>
     <string name="tax_line_fr_rate">Paušálně 12,8 procenta plus sociální odvody (nebo sazebník na žádost)</string>
-    <string name="tax_line_fr_threshold">Úplaty do 305 € ročně osvobozeny (součet prodejních cen)</string>
+    <string name="tax_line_fr_threshold">Úplaty do 305 € ročně: zpravidla osvobozeny (součet prodejních cen) – ověřte</string>
     <string name="tax_line_gains">Zisky</string>
     <string name="tax_line_income">Příjmy (odměny v hodnotě při přijetí)</string>
     <string name="tax_line_jp_misc">Ostatní příjmy (雑所得): čistý zisk + příjmy</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Výnosy</string>
     <string name="tax_line_short_net">Netto – drženo ≤ 1 rok</string>
     <string name="tax_line_transfer_fees">Poplatky za převod (vlastní peněženky)</string>
-    <string name="tax_line_uk_after_exempt">Čistý zisk nad osvobozenou částkou</string>
-    <string name="tax_line_uk_exempt">Roční osvobozená částka (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Čistý zisk nad osvobozenou částkou (jen kryptoměny)</string>
+    <string name="tax_line_uk_exempt">Roční osvobozená částka (Annual Exempt Amount) – platí pro všechny úplaty dohromady, zde započtena celá</string>
     <string name="tax_line_us_terms">Krátkodobé (≤ 1 rok): běžné sazby – dlouhodobé (&gt; 1 rok): sazby pro kapitálové zisky</string>
     <string name="tax_line_withdrawal_fees">Poplatky za výběr</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">vyžaduje hodnoty v EUR (chybí směnné kurzy)</string>
     <string name="tax_de_needs_holding">chybí doba držení (průměrová metoda) – pro kontrolu zvol FIFO</string>
     <string name="tax_de_private_limit">Hranice osvobození soukromé prodeje (§ 23 EStG)</string>
-    <string name="tax_de_reached">hranice dosažena – celá částka je zdanitelná</string>
+    <string name="tax_de_reached">hranice dosažena – zpravidla se počítá celá částka – ověřte</string>
     <string name="tax_de_short_gains">Zisky – drženo ≤ 1 rok</string>
     <string name="tax_de_short_losses">Ztráty – drženo ≤ 1 rok</string>
     <string name="tax_de_unclassified">Bez doby držení</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Šablona: %1$s · Metoda: %2$s · Měna: %3$s</string>
     <string name="tax_template_de">Německo</string>
     <string name="tax_template_fr">Francie</string>
-    <string name="tax_template_hint">Jen orientačně: určuje metodu / zdaňovací období a přehled pracovního podkladu. Řádky vždy ukazují neutrální fakta.</string>
+    <string name="tax_template_hint">Jen orientačně: určuje metodu / zdaňovací období a přehled pracovního podkladu. Karta Portfolio zůstává neutrální – dary a poplatky za převody se mohou od pracovního podkladu lišit.</string>
     <string name="tax_template_jp">Japonsko</string>
     <string name="tax_template_neutral">Neutrální (všechny země)</string>
     <string name="tax_template_suggestion">Návrh pro tvůj region: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Prodej za stablecoin (USDT/USDC/DAI …), který si ponecháš, je zde krypto za krypto a nedaní se – zapiš ho jako směnu do stablecoinu. Daní se až prodej za eura – «Prodej» se počítá jako prodej za eura.</string>
     <string name="tax_note_transfer_fee">Totéž platí pro poplatek v USDT nebo hotovosti při převodu mezi vlastními peněženkami: nepřičítá se k pořizovací ceně a uvádí se jen pro informaci.</string>
     <string name="tax_note_uk">Párování podle HMRC: stejný den → pak následujících 30 dnů → pak společný soubor dle Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Přechod 1. 1. 2025 (Rev. Proc. 2024-28, safe harbor): pokud se v dřívějších letech počítalo FIFO přes všechny peněženky, zbývající položky k 31. 12. 2024 připadnou peněženkám, v nichž coiny jsou – peněženka s nejstaršími coiny dostane nejstarší pořizovací cenu.</string>
+    <string name="tax_note_us_transition">Přechod 1. 1. 2025 (Rev. Proc. 2024-28, safe harbor): pokud se v dřívějších letech počítalo FIFO přes všechny peněženky, zbývající položky k 31. 12. 2024 připadnou peněženkám, v nichž coiny jsou – peněženka s nejstaršími coiny dostane nejstarší pořizovací cenu. Toto přiřazení je pravidlo aplikace – porovnejte je s vlastními záznamy.</string>
     <string name="tax_note_us_wallet">Od zdaňovacího roku 2025 vyžaduje IRS pořizovací cenu zvlášť pro peněženku/burzu (Rev. Proc. 2024-28) – export počítá od roku 2025 FIFO zvlášť pro peněženku – předtím platí tvá metoda pořizovací ceny.</string>
     <string name="tax_note_withdrawal_fee">Poplatek za výběr v USDT nebo hotovosti není ztráta: poplatek v hotovosti není odčitatelný, poplatek v USDT je prodej za nominální hodnotu bez zisku – uvádí se jen pro informaci (%1$s).</string>
     <string name="tax_summary_at_interest_income">počítá se: příjem při přijetí se zvláštní sazbou 27,5 procenta (§ 27b odst. 2 bod 1 EStG / BMF) – mince si tuto hodnotu ponechají jako pořizovací cenu</string>

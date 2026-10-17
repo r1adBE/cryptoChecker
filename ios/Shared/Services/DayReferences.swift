@@ -150,13 +150,15 @@ extension PriceRefresher {
     /// Anbieter der gemerkten Ausweich-Bezüge («BASE|QUOTE»), gefüllt von `cachedDayReferences`.
     static let referenceProviders = ReferenceProviders()
 
-    /// Bezug der Ausweich-Reihe `key` beim Paar `watch` — nil, wenn der Token des Anbieters klar anders heisst
-    /// (`TokenIdentityStore.fallbackSeriesAllowed`, K-8): lieber «—» als ein fremder Wert. Wie Android `DayReferences.reference`.
+    /// Bezug der Ausweich-Reihe `key` beim Paar `watch` — Reihe einer anderen Börse nur bei belegt gleichem Namen
+    /// (`TokenIdentityStore.fallbackChangeAllowed`; Kürzel + Kursband reichen für die %-Veränderung nicht), sonst
+    /// nil: lieber «—» als ein fremder Wert. Wie Android `DayReferences.reference`.
     static func fallbackReference(_ watch: Watch, key: String, references: [String: DayReference]) -> DayReference? {
         guard let ref = references[key] else { return nil }
         let provider: String? = referenceProviders.provider(key)
-        let allowed: Bool = TokenIdentityStore.shared.fallbackSeriesAllowed(marketKey: watch.marketKey, base: watch.baseAsset,
-                                                                            provider: provider)
+        let allowed: Bool = TokenIdentityStore.shared.fallbackChangeAllowed(marketKey: watch.marketKey,
+                                                                            marketName: watch.marketName,
+                                                                            base: watch.baseAsset, provider: provider)
         return allowed ? ref : nil
     }
 

@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">kulu ≥ saatu määrä</string>
     <string name="portfolio_csv_skip_internal_move">siirto omien tiliesi välillä – ei kirjattavaa</string>
     <string name="portfolio_csv_skip_missing">kenttä puuttuu</string>
+    <string name="portfolio_csv_skip_ambiguous">useita kauppoja samassa sekunnissa, ei voi erottaa – syötä käsin</string>
     <string name="portfolio_csv_skip_not_crypto">ei kryptoa</string>
     <string name="portfolio_csv_skip_possible_duplicate">ehkä jo tuotu (lähes sama kauppa) – tarkista käsin</string>
     <string name="portfolio_csv_skip_two_fees">kaksi kulua eri yksiköissä – syötä vaihto käsin</string>

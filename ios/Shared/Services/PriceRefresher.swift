@@ -354,9 +354,10 @@ enum PriceRefresher {
             // Live-Kurse: schon da — kein Netz, keine Kerzen
             for w in watches {
                 guard let q = liveQuotes[w.id] else { continue }
-                // Ein neuer Kurs aus dem Strom ist selbst der Beleg: seine Zeit gilt als Börsenzeit
+                // Börsenzeit nur als im Strom belegte Handelszeit (`LiveRules.exchangeTime`), nie die Takt-Zeit
+                let exchangeTime = LiveRules.exchangeTime(q, storedPrice: w.lastPrice, storedExchangeTime: w.exchangeTime)
                 fetched[w.id] = Fetched(ticker: Ticker(last: q.price, timestamp: q.time, change24hPercent: q.change24h,
-                                                       exchangeTime: q.time),
+                                                       exchangeTime: exchangeTime),
                                         error: nil)
             }
             dayLoads = Task {}
@@ -504,8 +505,10 @@ enum PriceRefresher {
             let time = ticker.timestamp > 0 ? ticker.timestamp : now
             let dayChange: Double?
             if liveQuotes != nil {
-                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis
-                candlePills.set(watch.id, series: nil)
+                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
+                // Bleibt die bisherige (`LiveRules.chooseChange`, z. B. Tages-Basis), bleibt auch ihr Anbieter:
+                // sonst stünde ein Wert aus fremden Kerzen ohne Hinweis da, als käme er von der eigenen Börse
+                if ticker.change24hPercent != watch.change24h { candlePills.set(watch.id, series: nil) }
                 dayChange = ticker.change24hPercent
             } else {
                 dayChange = change24h(watch, price: price, ticker: ticker, basis: basis, references: dayReferences)

@@ -106,6 +106,23 @@ class TokenIdentityTest {
     }
 
     @Test
+    fun fallbackChangeNeedsAVerifiedName() {
+        // Ohne eigenen Namen reicht die Preisnähe für die %-Veränderung NICHT (Reihe/Chart dürfte noch)
+        assertTrue(TokenIdentity.fallbackSeriesAllowed("ABC", null, "Binance", "Alpha Beta"))
+        assertFalse(TokenIdentity.fallbackChangeAllowed("ABC", null, "Binance", "Alpha Beta"))
+        // Anbieter ohne Namen oder unbekannter Anbieter: ebenfalls keine Veränderung
+        assertFalse(TokenIdentity.fallbackChangeAllowed("ABC", "Alpha Beta", "Binance", null))
+        assertFalse(TokenIdentity.fallbackChangeAllowed("ABC", "Alpha Beta", null, "Alpha Beta"))
+        // Nur ähnlich (WEAK) oder klar anders: keine
+        assertFalse(TokenIdentity.fallbackChangeAllowed("CAT", "Simon's Cat", "Binance", "Catcoin"))
+        // Gleicher Name (MEDIUM): ja — beim Anbieter selbst, sonst bei Binance
+        assertTrue(TokenIdentity.fallbackChangeAllowed("CAT", "Simon's Cat", "Binance", "Simons Cat"))
+        assertTrue(TokenIdentity.fallbackChangeAllowed("CAT", "Simon's Cat", "Coinbase", "Simons Cat", "Simon's Cat"))
+        // Binance gleich, Anbieter selbst klar anders: nein
+        assertFalse(TokenIdentity.fallbackChangeAllowed("CAT", "Simon's Cat", "Coinbase", "Simons Cat", "Catcoin"))
+    }
+
+    @Test
     fun contractKeyNormalizesEvmOnly() {
         assertEquals("ethereum:0xabc", TokenIdentity.contractKey(" Ethereum ", "0xABC"))
         assertEquals("solana:AbC", TokenIdentity.contractKey("SOLANA", "AbC"))

@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Renter fra lending (verdi ved mottak)</string>
-    <string name="tax_line_at_old_long">Ervervet før 1.3.2021 – eid &gt; 1 år: ikke skattepliktig</string>
-    <string name="tax_line_at_rate">Særskilt sats 27,5 prosent: netto ervervet fra 1.3.2021 + renter</string>
+    <string name="tax_line_at_old_long">Ervervet før 1.3.2021 – eid &gt; 1 år: normalt ikke skattepliktig – kontroller</string>
+    <string name="tax_line_at_rate">Særskilt sats 27,5 prosent: netto ervervet fra 1.3.2021 + renter (1.3.2021–28.2.2022: se merknad)</string>
     <string name="tax_line_au_discounted">Netto kapitalgevinst etter tap og 50 prosent rabatt</string>
     <string name="tax_line_ca_taxable">Skattepliktig kapitalgevinst (inkluderingsrate 1/2)</string>
     <string name="tax_line_ch_income">Belønninger oppført – behandling se ESTVs arbeidsdokument</string>
     <string name="tax_line_ch_private">Kapitalgevinster i privat formue: ikke beregnet – klassifisering se ESTV</string>
     <string name="tax_line_ch_wealth">Formuesskatt: beregnes ikke – beholdnings-CSV bruker børskurs × USD/CHF per 31.12. – skatteverdier: ESTV-kursliste</string>
-    <string name="tax_line_de_long">Eid &gt; 1 år: ikke skattepliktig i DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Eid &gt; 1 år: etter § 23 EStG normalt ikke skattepliktig – kontroller</string>
     <string name="tax_line_denied_loss">Ikke fradragsberettigede tap (tilsynelatende tap / superficial loss)</string>
     <string name="tax_line_fr_outflow">Utganger uten salg (uttak) – samlet anskaffelseskost redusert forholdsmessig</string>
     <string name="tax_line_fr_rate">Flat sats 12,8 prosent pluss sosiale avgifter (eller skala etter valg)</string>
-    <string name="tax_line_fr_threshold">Avhendelser opptil 305 € i året fritatt (sum av salgspriser)</string>
+    <string name="tax_line_fr_threshold">Avhendelser opptil 305 € i året: normalt fritatt (sum av salgspriser) – kontroller</string>
     <string name="tax_line_gains">Gevinster</string>
     <string name="tax_line_income">Inntekter (belønninger til verdi ved mottak)</string>
     <string name="tax_line_jp_misc">Annen inntekt (雑所得): nettogevinst + inntekter</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Salgssummer</string>
     <string name="tax_line_short_net">Netto – eid ≤ 1 år</string>
     <string name="tax_line_transfer_fees">Overføringsgebyrer (egne wallets)</string>
-    <string name="tax_line_uk_after_exempt">Nettogevinst over bunnfradraget</string>
-    <string name="tax_line_uk_exempt">Årlig bunnfradrag (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Nettogevinst over bunnfradraget (kun krypto)</string>
+    <string name="tax_line_uk_exempt">Årlig bunnfradrag (Annual Exempt Amount) – gjelder alle avhendelser samlet, her trukket fra fullt ut</string>
     <string name="tax_line_us_terms">Kort sikt (≤ 1 år): ordinære satser – lang sikt (&gt; 1 år): kapitalgevinstsatser</string>
     <string name="tax_line_withdrawal_fees">Uttaksgebyrer</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">krever EUR-verdier (valutakurser mangler)</string>
     <string name="tax_de_needs_holding">eiertid mangler (gjennomsnittsmetode) – velg FIFO for kontrollen</string>
     <string name="tax_de_private_limit">Fritaksgrense private salg (§ 23 EStG)</string>
-    <string name="tax_de_reached">grensen nådd – hele beløpet er skattepliktig</string>
+    <string name="tax_de_reached">grensen nådd – normalt teller hele beløpet – kontroller</string>
     <string name="tax_de_short_gains">Gevinster – eid ≤ 1 år</string>
     <string name="tax_de_short_losses">Tap – eid ≤ 1 år</string>
     <string name="tax_de_unclassified">Uten eiertid</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Mal: %1$s · Metode: %2$s · Valuta: %3$s</string>
     <string name="tax_template_de">Tyskland</string>
     <string name="tax_template_fr">Frankrike</string>
-    <string name="tax_template_hint">Bare veiledende: bestemmer metode / skatteår og oversikt i arbeidsdokumentet. Linjene viser alltid nøytrale fakta.</string>
+    <string name="tax_template_hint">Bare veiledende: bestemmer metode / skatteår og oversikt i arbeidsdokumentet. Porteføljekortet forblir nøytralt – gaver og overføringsgebyrer kan avvike fra arbeidsdokumentet.</string>
     <string name="tax_template_jp">Japan</string>
     <string name="tax_template_neutral">Nøytral (alle land)</string>
     <string name="tax_template_suggestion">Forslag for regionen din: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Et salg mot en stablecoin (USDT/USDC/DAI …) som du beholder, er her krypto mot krypto og ikke skattepliktig – registrer det som bytte til stablecoinen. Bare et salg mot euro er skattepliktig – «Salg» regnes som salg mot euro.</string>
     <string name="tax_note_transfer_fee">Det samme gjelder et gebyr i USDT eller kontanter ved en overføring mellom dine egne wallets: det legges ikke til inngangsverdien og vises kun som informasjon.</string>
     <string name="tax_note_uk">Matching etter HMRC: samme dag → så de neste 30 dagene → så samlet beholdning etter Section 104 (Section 104 pool)en.</string>
-    <string name="tax_note_us_transition">Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brukte tidligere år FIFO på tvers av alle lommebøker, går restpostene per 31.12.2024 til lommebøkene som har coinsene – lommeboken med de eldste coinsene får den eldste kostprisen.</string>
+    <string name="tax_note_us_transition">Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brukte tidligere år FIFO på tvers av alle lommebøker, går restpostene per 31.12.2024 til lommebøkene som har coinsene – lommeboken med de eldste coinsene får den eldste kostprisen. Denne fordelingen er en regel i appen – sammenlign med egne opptegnelser.</string>
     <string name="tax_note_us_wallet">Fra skatteåret 2025 krever IRS inngangsverdi per wallet/børs (Rev. Proc. 2024-28) – eksporten bruker FIFO per wallet fra 2025 – før 2025 gjelder din metode for inngangsverdi.</string>
     <string name="tax_note_withdrawal_fee">Et uttaksgebyr i USDT eller kontanter er intet tap: et kontantgebyr er ikke fradragsberettiget, et USDT-gebyr er en avhendelse til pari uten gevinst – det vises kun som informasjon (%1$s).</string>
     <string name="tax_summary_at_interest_income">teller: inntekt ved mottak til særskilt sats på 27,5 prosent (§ 27b ledd 2 nr. 1 EStG / BMF) – myntene beholder denne verdien som inngangsverdi</string>

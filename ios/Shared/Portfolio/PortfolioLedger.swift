@@ -155,7 +155,7 @@ enum PortfolioLedger {
         func add(_ coin: String, _ time: Int64) {
             if seen.insert("\(coin)|\(time)").inserted { out.append((coin: coin, time: time)) }
         }
-        for t in trades where t.amountExact > 0 && (needsDayClose(t) || (t.type == .GIFT && t.validPriceExact == nil)) {
+        for t in trades where t.amountExact > 0 && (needsDayClose(t) || (t.type == .GIFT && t.validPriceExact == nil) || rewardNeedsDayClose(t)) {
             add(PortfolioCalculator.normalizeCoin(t.coin), t.time)
             if t.type == .SWAP, let to = t.swapToCoin { add(to, t.time) }
         }
@@ -191,6 +191,26 @@ enum PortfolioLedger {
                 v.swapValueExact = value
                 v.valueEstimated = true
             }
+            return v
+        }
+    }
+
+    /// Belohnung ohne Wert (Kraken-/Binance-Import kennen keinen Preis), gültige Menge — wie Android.
+    static func rewardNeedsDayClose(_ t: PortfolioTx) -> Bool {
+        t.type == .REWARD && t.validPriceExact == nil && t.amountExact > 0
+    }
+
+    /// Nur Steuer-Export (`TaxEngines.disposals`, `TaxExport.incomeRows`): Belohnung ohne Wert zum Tagesschluss ihres Tags
+    /// `price` (> 0) — Wert je Coin = Kurs, `valueEstimated` (Vermerk «Wert geschätzt»). Einkünfte zählen, der spätere
+    /// Verkauf hat einen Einstand. Ohne Kurs bleibt sie ohne Wert («unvollständig»). Karte und Wertverlauf unverändert.
+    /// Wie Android `valueRewardsAtDayClose`.
+    static func valueRewardsAtDayClose(_ trades: [PortfolioTx], price: ((String, Int64) -> Decimal?)?) -> [PortfolioTx] {
+        guard let price, trades.contains(where: { rewardNeedsDayClose($0) }) else { return trades }
+        return trades.map { t in
+            guard rewardNeedsDayClose(t), let p = price(PortfolioCalculator.normalizeCoin(t.coin), t.time), p > 0 else { return t }
+            var v = t
+            v.priceExact = p
+            v.valueEstimated = true
             return v
         }
     }

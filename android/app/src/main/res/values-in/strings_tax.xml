@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Bunga lending (nilai saat diterima)</string>
-    <string name="tax_line_at_old_long">Diperoleh sebelum 1.3.2021 – disimpan &gt; 1 tahun: tidak kena pajak</string>
-    <string name="tax_line_at_rate">Tarif khusus 27,5 persen: neto yang diperoleh sejak 1.3.2021 + bunga</string>
+    <string name="tax_line_at_old_long">Diperoleh sebelum 1.3.2021 – disimpan &gt; 1 tahun: biasanya tidak kena pajak – periksa</string>
+    <string name="tax_line_at_rate">Tarif khusus 27,5 persen: neto yang diperoleh sejak 1.3.2021 + bunga (1.3.2021–28.2.2022: lihat catatan)</string>
     <string name="tax_line_au_discounted">Keuntungan modal neto setelah rugi dan diskon 50 persen</string>
     <string name="tax_line_ca_taxable">Keuntungan modal kena pajak (tingkat inklusi 1/2)</string>
     <string name="tax_line_ch_income">Hadiah dicantumkan – perlakuan lihat kertas kerja ESTV</string>
     <string name="tax_line_ch_private">Keuntungan modal dalam harta pribadi: tidak dihitung – klasifikasi lihat ESTV</string>
     <string name="tax_line_ch_wealth">Pajak kekayaan: tidak dihitung – CSV kepemilikan memakai harga bursa × USD/CHF per 31 Des – nilai pajak: daftar kurs ESTV</string>
-    <string name="tax_line_de_long">Disimpan &gt; 1 tahun: tidak kena pajak di DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Disimpan &gt; 1 tahun: menurut § 23 EStG biasanya tidak kena pajak – periksa</string>
     <string name="tax_line_denied_loss">Rugi yang tidak dapat dikurangkan (kerugian semu / superficial loss)</string>
     <string name="tax_line_fr_outflow">Arus keluar tanpa penjualan (penarikan) – total biaya perolehan dikurangi secara proporsional</string>
     <string name="tax_line_fr_rate">Tarif tetap 12,8 persen ditambah iuran sosial (atau tarif progresif jika dipilih)</string>
-    <string name="tax_line_fr_threshold">Pengalihan hingga 305 € per tahun dibebaskan (total harga jual)</string>
+    <string name="tax_line_fr_threshold">Pengalihan hingga 305 € per tahun: biasanya dibebaskan (total harga jual) – periksa</string>
     <string name="tax_line_gains">Untung</string>
     <string name="tax_line_income">Pendapatan (hadiah dengan nilai saat diterima)</string>
     <string name="tax_line_jp_misc">Penghasilan lain-lain (雑所得): untung neto + pendapatan</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Hasil penjualan</string>
     <string name="tax_line_short_net">Neto – disimpan ≤ 1 tahun</string>
     <string name="tax_line_transfer_fees">Biaya transfer (dompet sendiri)</string>
-    <string name="tax_line_uk_after_exempt">Untung neto di atas jumlah bebas pajak</string>
-    <string name="tax_line_uk_exempt">Jumlah bebas pajak tahunan (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Untung neto di atas jumlah bebas pajak (hanya kripto)</string>
+    <string name="tax_line_uk_exempt">Jumlah bebas pajak tahunan (Annual Exempt Amount) – berlaku untuk semua pelepasan bersama, di sini dipotong penuh</string>
     <string name="tax_line_us_terms">Jangka pendek (≤ 1 tahun): tarif biasa – jangka panjang (&gt; 1 tahun): tarif keuntungan modal</string>
     <string name="tax_line_withdrawal_fees">Biaya penarikan</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">perlu nilai EUR (kurs tidak ada)</string>
     <string name="tax_de_needs_holding">lama simpan tidak ada (metode rata-rata) – pilih FIFO untuk pemeriksaan</string>
     <string name="tax_de_private_limit">Batas bebas pajak penjualan pribadi (§ 23 EStG)</string>
-    <string name="tax_de_reached">batas tercapai – seluruh jumlah kena pajak</string>
+    <string name="tax_de_reached">batas tercapai – biasanya seluruh jumlah dihitung – periksa</string>
     <string name="tax_de_short_gains">Untung – disimpan ≤ 1 tahun</string>
     <string name="tax_de_short_losses">Rugi – disimpan ≤ 1 tahun</string>
     <string name="tax_de_unclassified">Tanpa lama simpan</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Templat: %1$s · Metode: %2$s · Mata uang: %3$s</string>
     <string name="tax_template_de">Jerman</string>
     <string name="tax_template_fr">Prancis</string>
-    <string name="tax_template_hint">Hanya orientasi: menentukan metode / tahun pajak / dan ringkasan kertas kerja. Baris selalu menampilkan fakta netral.</string>
+    <string name="tax_template_hint">Hanya orientasi: menentukan metode / tahun pajak / dan ringkasan kertas kerja. Kartu Portofolio tetap netral – hadiah dan biaya transfer bisa berbeda dari kertas kerja.</string>
     <string name="tax_template_jp">Jepang</string>
     <string name="tax_template_neutral">Netral (semua negara)</string>
     <string name="tax_template_suggestion">Saran untuk wilayahmu: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Penjualan ke stablecoin (USDT/USDC/DAI …) yang kamu simpan di sini dianggap kripto ke kripto dan tidak dikenai pajak – catat sebagai tukar ke stablecoin. Hanya penjualan ke euro yang dikenai pajak – «Jual» dihitung sebagai penjualan ke euro.</string>
     <string name="tax_note_transfer_fee">Hal yang sama berlaku untuk biaya dalam USDT atau tunai pada transfer antar dompetmu sendiri: tidak ditambahkan ke biaya perolehan dan hanya ditampilkan sebagai informasi.</string>
     <string name="tax_note_uk">Pencocokan menurut HMRC: hari yang sama → lalu 30 hari berikutnya → lalu kumpulan gabungan menurut Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Transisi 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jika tahun-tahun sebelumnya memakai FIFO lintas semua dompet, lot sisa per 31.12.2024 dialihkan ke dompet yang menyimpan koin – dompet dengan koin tertua mendapat biaya perolehan tertua.</string>
+    <string name="tax_note_us_transition">Transisi 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jika tahun-tahun sebelumnya memakai FIFO lintas semua dompet, lot sisa per 31.12.2024 dialihkan ke dompet yang menyimpan koin – dompet dengan koin tertua mendapat biaya perolehan tertua. Alokasi ini adalah aturan aplikasi – cocokkan dengan catatan Anda sendiri.</string>
     <string name="tax_note_us_wallet">Mulai tahun pajak 2025 IRS mewajibkan biaya perolehan per dompet/bursa (Rev. Proc. 2024-28) – ekspor memakai FIFO per dompet mulai 2025 – sebelum 2025 berlaku metode biaya perolehanmu.</string>
     <string name="tax_note_withdrawal_fee">Biaya penarikan dalam USDT atau tunai bukan rugi: biaya tunai tidak dapat dikurangkan, biaya USDT adalah pelepasan pada nilai nominal tanpa untung – hanya ditampilkan sebagai informasi (%1$s).</string>
     <string name="tax_summary_at_interest_income">dihitung: pendapatan saat diterima dengan tarif khusus 27,5 persen (§ 27b ayat 2 no. 1 EStG / BMF) – koin mempertahankan nilai ini sebagai biaya perolehan</string>

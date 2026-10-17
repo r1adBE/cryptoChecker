@@ -45997,187 +45997,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عند إغلاق التطبيق يفحص Android بشكل غير منتظم (كل 15 دقيقة تقريبًا مع «%1$@»)، لذا قد تفوتك القفزات القصيرة."
+            "value" : "عند إغلاق التطبيق يفحص Android بشكل غير منتظم – غالبًا بعد أكثر من 15 دقيقة، حتى مع «%1$@». قد تفوتك القفزات القصيرة."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Při zavřené aplikaci kontroluje Android nepravidelně (s «%1$@» zhruba každých 15 minut), krátké výkyvy tak mohou uniknout."
+            "value" : "Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s «%1$@». Krátké výkyvy mohou uniknout."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, tjekker Android uregelmæssigt (med «%1$@» ca. hvert 15. minut), så korte udsving kan blive overset."
+            "value" : "Når appen er lukket, tjekker Android uregelmæssigt – ofte senere end 15 minutter, også med «%1$@». Korte udsving kan blive overset."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bei geschlossener App prüft Android unregelmässig (mit «%1$@» etwa alle 15 Minuten), kurze Spitzen können also fehlen."
+            "value" : "Bei geschlossener App prüft Android unregelmässig – oft später als 15 Minuten, auch mit «%1$@». Kurze Spitzen können fehlen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Με κλειστή εφαρμογή, το Android ελέγχει ακανόνιστα (με «%1$@» περίπου κάθε 15 λεπτά), οπότε σύντομες αιχμές μπορεί να χαθούν."
+            "value" : "Με κλειστή εφαρμογή, το Android ελέγχει ακανόνιστα – συχνά αργότερα από 15 λεπτά, ακόμη και με «%1$@». Σύντομες αιχμές μπορεί να χαθούν."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "With the app closed, Android checks irregularly (about every 15 minutes with “%1$@”), so short spikes can be missed."
+            "value" : "With the app closed, Android checks irregularly – often later than 15 minutes, even with “%1$@”. Short spikes can be missed."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con la app cerrada, Android comprueba de forma irregular (cada 15 minutos aprox. con «%1$@»), así que pueden escaparse picos breves."
+            "value" : "Con la app cerrada, Android comprueba de forma irregular – a menudo tras más de 15 minutos, incluso con «%1$@». Pueden escaparse picos breves."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی برنامه بسته است، Android نامنظم بررسی می‌کند (با «%1$@» حدود هر 15 دقیقه)، پس جهش‌های کوتاه ممکن است از دست بروند."
+            "value" : "وقتی برنامه بسته است، Android نامنظم بررسی می‌کند – اغلب دیرتر از 15 دقیقه، حتی با «%1$@». جهش‌های کوتاه ممکن است از دست بروند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sovellus suljettuna Android tarkistaa epäsäännöllisesti («%1$@»: noin 15 min välein), joten lyhyet piikit voivat jäädä huomaamatta."
+            "value" : "Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella «%1$@». Lyhyet piikit voivat jäädä huomaamatta."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App fermée, Android vérifie de façon irrégulière (environ toutes les 15 min avec « %1$@ ») : de brefs pics peuvent passer inaperçus."
+            "value" : "App fermée, Android vérifie irrégulièrement – souvent après plus de 15 minutes, même avec « %1$@ ». De brefs pics peuvent passer inaperçus."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כשהאפליקציה סגורה, Android בודק באופן לא סדיר (עם «%1$@» בערך כל 15 דקות), ולכן קפיצות קצרות עלולות להתפספס."
+            "value" : "כשהאפליקציה סגורה, Android בודק באופן לא סדיר – לעיתים קרובות אחרי יותר מ-15 דקות, גם עם «%1$@». קפיצות קצרות עלולות להתפספס."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर Android अनियमित रूप से जाँचता है («%1$@» के साथ लगभग हर 15 मिनट), इसलिए छोटे उछाल छूट सकते हैं।"
+            "value" : "ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, «%1$@» के साथ भी। छोटे उछाल छूट सकते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bezárt alkalmazásnál az Android rendszertelenül ellenőriz («%1$@» mellett kb. 15 percenként), így rövid kiugrások kimaradhatnak."
+            "value" : "Bezárt alkalmazásnál az Android rendszertelenül ellenőriz – gyakran 15 percnél később, «%1$@» mellett is. Rövid kiugrások kimaradhatnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saat aplikasi ditutup, Android memeriksa tidak teratur (kira-kira setiap 15 menit dengan «%1$@»), jadi lonjakan singkat bisa terlewat."
+            "value" : "Saat aplikasi ditutup, Android memeriksa tidak teratur – sering lebih lambat dari 15 menit, bahkan dengan «%1$@». Lonjakan singkat bisa terlewat."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con l’app chiusa, Android controlla in modo irregolare (circa ogni 15 minuti con «%1$@»), quindi brevi picchi possono sfuggire."
+            "value" : "Con l’app chiusa, Android controlla in modo irregolare – spesso dopo più di 15 minuti, anche con «%1$@». Brevi picchi possono sfuggire."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリを閉じていると Android の確認は不定期（「%1$@」なら約15分ごと）なので、短い急変を見逃すことがあります。"
+            "value" : "アプリを閉じていると Android の確認は不定期で、「%1$@」でも15分より遅れることがよくあります。短い急変を見逃すことがあります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱을 닫으면 Android는 불규칙하게 확인하므로(«%1$@» 사용 시 약 15분마다) 짧은 급등락을 놓칠 수 있습니다."
+            "value" : "앱을 닫으면 Android는 불규칙하게 확인하며, «%1$@»을 켜도 15분보다 늦을 때가 많습니다. 짧은 급등락을 놓칠 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, sjekker Android uregelmessig (med «%1$@» omtrent hvert 15. minutt), så korte topper kan bli oversett."
+            "value" : "Når appen er lukket, sjekker Android uregelmessig – ofte senere enn 15 minutter, også med «%1$@». Korte topper kan bli oversett."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Met de app gesloten controleert Android onregelmatig (met «%1$@» ongeveer elke 15 minuten), dus korte pieken kunnen worden gemist."
+            "value" : "Met de app gesloten controleert Android onregelmatig – vaak later dan na 15 minuten, ook met «%1$@». Korte pieken kunnen worden gemist."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przy zamkniętej aplikacji Android sprawdza nieregularnie (z «%1$@» mniej więcej co 15 minut), więc krótkie skoki mogą umknąć."
+            "value" : "Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z «%1$@». Krótkie skoki mogą umknąć."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com a app fechada, o Android verifica de forma irregular (cerca de 15 em 15 minutos com «%1$@»), por isso picos curtos podem escapar."
+            "value" : "Com a app fechada, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com «%1$@». Picos curtos podem escapar."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com o app fechado, o Android verifica de forma irregular (a cada 15 minutos mais ou menos com «%1$@»), então picos curtos podem passar."
+            "value" : "Com o app fechado, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com «%1$@». Picos curtos podem passar."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cu aplicația închisă, Android verifică neregulat (cu «%1$@» cam la fiecare 15 minute), așa că salturile scurte pot fi ratate."
+            "value" : "Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu «%1$@». Salturile scurte pot fi ratate."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "При закрытом приложении Android проверяет нерегулярно (с «%1$@» примерно каждые 15 минут), поэтому короткие скачки можно пропустить."
+            "value" : "При закрытом приложении Android проверяет нерегулярно – часто реже чем раз в 15 минут, даже с «%1$@». Короткие скачки можно пропустить."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Me aplikacionin të mbyllur, Android kontrollon në mënyrë të parregullt (me «%1$@» rreth çdo 15 minuta), ndaj kulmet e shkurtra mund të humbasin."
+            "value" : "Me aplikacion të mbyllur, Android kontrollon parregullisht – shpesh më vonë se 15 minuta, edhe me «%1$@». Kulmet e shkurtra mund të humbasin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "När appen är stängd kontrollerar Android oregelbundet (med «%1$@» ungefär var 15:e minut), så korta toppar kan missas."
+            "value" : "När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med «%1$@». Korta toppar kan missas."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ (ประมาณทุก 15 นาทีเมื่อเปิด «%1$@») จึงอาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ"
+            "value" : "เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด «%1$@» อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama kapalıyken Android düzensiz kontrol eder («%1$@» ile yaklaşık 15 dakikada bir), bu yüzden kısa sıçramalar kaçabilir."
+            "value" : "Uygulama kapalıyken Android düzensiz kontrol eder – «%1$@» açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Коли застосунок закрито, Android перевіряє нерегулярно (з «%1$@» приблизно кожні 15 хвилин), тож короткі стрибки можна пропустити."
+            "value" : "Коли застосунок закрито, Android перевіряє нерегулярно – часто рідше ніж раз на 15 хвилин, навіть з «%1$@». Короткі стрибки можна пропустити."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khi đóng ứng dụng, Android kiểm tra không đều (khoảng mỗi 15 phút với «%1$@»), nên có thể bỏ lỡ các biến động ngắn."
+            "value" : "Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật «%1$@». Có thể bỏ lỡ các biến động ngắn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用关闭时，Android 的检查不规律（开启«%1$@»时约每 15 分钟一次），因此可能错过短暂的波动。"
+            "value" : "应用关闭时，Android 的检查不规律——即使开启«%1$@»，也常常晚于 15 分钟。可能错过短暂的波动。"
           }
         }
       }
@@ -46188,187 +46188,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عند إغلاق التطبيق يقرر iOS متى يتم الفحص، لذا قد تفوتك القفزات القصيرة؛ وما دام التطبيق مفتوحًا يتم الفحص بشكل موثوق."
+            "value" : "عند إغلاق التطبيق يفحص iOS غالبًا بعد أكثر من 15 دقيقة، وأحيانًا فقط عند فتحه التالي. قد تفوتك القفزات القصيرة."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Po zavření aplikace rozhoduje iOS, kdy kontrolovat – krátké výkyvy tak mohou uniknout; dokud je aplikace otevřená, kontroluje se spolehlivě."
+            "value" : "Při zavřené aplikaci kontroluje iOS často později než po 15 minutách, někdy až při dalším otevření. Krátké výkyvy mohou uniknout."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, bestemmer iOS, hvornår der tjekkes, så korte udsving kan blive overset; mens den er åben, tjekkes der pålideligt."
+            "value" : "Når appen er lukket, tjekker iOS ofte senere end 15 minutter, nogle gange først når du åbner appen igen. Korte udsving kan blive overset."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bei geschlossener App entscheidet iOS, wann geprüft wird – kurze Spitzen können fehlen; solange die App offen ist, wird zuverlässig geprüft."
+            "value" : "Bei geschlossener App prüft iOS oft später als 15 Minuten, manchmal erst beim nächsten Öffnen. Kurze Spitzen können fehlen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Με κλειστή εφαρμογή το iOS αποφασίζει πότε γίνεται έλεγχος, οπότε σύντομες αιχμές μπορεί να χαθούν· όσο είναι ανοιχτή, ο έλεγχος είναι αξιόπιστος."
+            "value" : "Με κλειστή εφαρμογή, το iOS συχνά ελέγχει αργότερα από 15 λεπτά, μερικές φορές μόνο στο επόμενο άνοιγμα. Σύντομες αιχμές μπορεί να χαθούν."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "When the app is closed, iOS decides when to check, so short spikes can be missed; while it is open, checks are reliable."
+            "value" : "With the app closed, iOS often checks later than 15 minutes, sometimes only when you next open the app. Short spikes can be missed."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con la app cerrada, iOS decide cuándo comprobar, así que pueden escaparse picos breves; mientras está abierta, la comprobación es fiable."
+            "value" : "Con la app cerrada, iOS suele comprobar tras más de 15 minutos, a veces solo al volver a abrirla. Pueden escaparse picos breves."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی برنامه بسته است، iOS تصمیم می‌گیرد کی بررسی شود، پس جهش‌های کوتاه ممکن است از دست بروند؛ تا وقتی باز است، بررسی مطمئن است."
+            "value" : "وقتی برنامه بسته است، iOS اغلب دیرتر از 15 دقیقه بررسی می‌کند، گاهی فقط در باز کردن بعدی. جهش‌های کوتاه ممکن است از دست بروند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suljettuna iOS päättää, milloin tarkistetaan, joten lyhyet piikit voivat jäädä huomaamatta; sovelluksen ollessa auki tarkistus on luotettava."
+            "value" : "Sovellus suljettuna iOS tarkistaa usein yli 15 minuutin välein, joskus vasta seuraavalla avauskerralla. Lyhyet piikit voivat jäädä huomaamatta."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App fermée, iOS décide quand vérifier : de brefs pics peuvent passer inaperçus ; tant que l’app est ouverte, la vérification est fiable."
+            "value" : "App fermée, iOS vérifie souvent après plus de 15 minutes, parfois seulement à la prochaine ouverture. De brefs pics peuvent passer inaperçus."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כשהאפליקציה סגורה, iOS מחליט מתי לבדוק, ולכן קפיצות קצרות עלולות להתפספס; כל עוד היא פתוחה, הבדיקה אמינה."
+            "value" : "כשהאפליקציה סגורה, iOS בודק לעיתים קרובות אחרי יותר מ-15 דקות, לפעמים רק בפתיחה הבאה. קפיצות קצרות עלולות להתפספס."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर iOS तय करता है कि जाँच कब हो, इसलिए छोटे उछाल छूट सकते हैं; ऐप खुला रहने तक भरोसेमंद जाँच होती है।"
+            "value" : "ऐप बंद होने पर iOS अक्सर 15 मिनट से देर से जाँचता है, कभी-कभी अगली बार ऐप खोलने पर ही। छोटे उछाल छूट सकते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bezárt alkalmazásnál az iOS dönti el, mikor ellenőriz, így rövid kiugrások kimaradhatnak; amíg nyitva van, az ellenőrzés megbízható."
+            "value" : "Bezárt alkalmazásnál az iOS gyakran 15 percnél később ellenőriz, néha csak a következő megnyitáskor. Rövid kiugrások kimaradhatnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saat aplikasi ditutup, iOS yang menentukan kapan diperiksa, jadi lonjakan singkat bisa terlewat; selama terbuka, pemeriksaan andal."
+            "value" : "Saat aplikasi ditutup, iOS sering memeriksa lebih lambat dari 15 menit, kadang baru saat aplikasi dibuka lagi. Lonjakan singkat bisa terlewat."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con l’app chiusa decide iOS quando controllare, quindi brevi picchi possono sfuggire; finché l’app è aperta il controllo è affidabile."
+            "value" : "Con l’app chiusa, iOS controlla spesso dopo più di 15 minuti, a volte solo alla successiva apertura. Brevi picchi possono sfuggire."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリを閉じているときは iOS が確認のタイミングを決めるため、短い急変を見逃すことがあります。開いている間は確実に確認します。"
+            "value" : "アプリを閉じていると iOS の確認は15分より遅れることが多く、次に開くまで行われないこともあります。短い急変を見逃すことがあります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱이 닫혀 있으면 iOS가 확인 시점을 정하므로 짧은 급등락을 놓칠 수 있습니다. 앱이 열려 있는 동안에는 확실히 확인합니다."
+            "value" : "앱을 닫으면 iOS는 15분보다 늦게 확인할 때가 많고, 다음에 앱을 열 때에야 확인하기도 합니다. 짧은 급등락을 놓칠 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, bestemmer iOS når det sjekkes, så korte topper kan bli oversett; mens den er åpen, sjekkes det pålitelig."
+            "value" : "Når appen er lukket, sjekker iOS ofte senere enn 15 minutter, noen ganger først neste gang du åpner appen. Korte topper kan bli oversett."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Met de app gesloten bepaalt iOS wanneer er wordt gecontroleerd, dus korte pieken kunnen worden gemist; zolang de app open is, is het betrouwbaar."
+            "value" : "Met de app gesloten controleert iOS vaak later dan na 15 minuten, soms pas bij de volgende keer openen. Korte pieken kunnen worden gemist."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Po zamknięciu aplikacji iOS decyduje, kiedy sprawdzać, więc krótkie skoki mogą umknąć; gdy aplikacja jest otwarta, sprawdzanie jest niezawodne."
+            "value" : "Przy zamkniętej aplikacji iOS często sprawdza później niż po 15 minutach, czasem dopiero przy następnym otwarciu. Krótkie skoki mogą umknąć."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com a app fechada, o iOS decide quando verificar, por isso picos curtos podem escapar; enquanto está aberta, a verificação é fiável."
+            "value" : "Com a app fechada, o iOS verifica muitas vezes após mais de 15 minutos, por vezes só quando voltar a abri-la. Picos curtos podem escapar."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com o app fechado, o iOS decide quando verificar, então picos curtos podem passar; enquanto ele está aberto, a verificação é confiável."
+            "value" : "Com o app fechado, o iOS muitas vezes verifica após mais de 15 minutos, às vezes só quando você abre o app de novo. Picos curtos podem passar."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cu aplicația închisă, iOS decide când verifică, așa că salturile scurte pot fi ratate; cât timp e deschisă, verificarea e sigură."
+            "value" : "Cu aplicația închisă, iOS verifică adesea mai târziu de 15 minute, uneori abia la următoarea deschidere. Salturile scurte pot fi ratate."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "При закрытом приложении iOS решает, когда проверять, поэтому короткие скачки можно пропустить; пока приложение открыто, проверка надёжна."
+            "value" : "При закрытом приложении iOS часто проверяет позже чем через 15 минут, иногда только при следующем открытии. Короткие скачки можно пропустить."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kur aplikacioni mbyllet, iOS vendos kur kontrollohet, ndaj kulmet e shkurtra mund të humbasin; sa është i hapur, kontrolli është i besueshëm."
+            "value" : "Me aplikacionin të mbyllur, iOS shpesh kontrollon më vonë se 15 minuta, ndonjëherë vetëm kur e hap herën tjetër. Kulmet e shkurtra mund të humbasin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "När appen är stängd bestämmer iOS när kontrollen sker, så korta toppar kan missas; medan den är öppen kontrolleras pålitligt."
+            "value" : "När appen är stängd kontrollerar iOS ofta senare än efter 15 minuter, ibland först när du öppnar appen nästa gång. Korta toppar kan missas."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เมื่อปิดแอป iOS จะเป็นผู้ตัดสินว่าจะตรวจเมื่อใด จึงอาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ ส่วนขณะเปิดแอปจะตรวจได้อย่างเชื่อถือได้"
+            "value" : "เมื่อปิดแอป iOS มักตรวจช้ากว่า 15 นาที บางครั้งจนกว่าจะเปิดแอปครั้งถัดไป อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama kapalıyken kontrol zamanına iOS karar verir, bu yüzden kısa sıçramalar kaçabilir; açıkken güvenilir şekilde kontrol edilir."
+            "value" : "Uygulama kapalıyken iOS çoğu zaman 15 dakikadan geç kontrol eder, bazen ancak uygulamayı yeniden açtığınızda. Kısa sıçramalar kaçabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Коли застосунок закрито, iOS вирішує, коли перевіряти, тож короткі стрибки можна пропустити; поки його відкрито, перевірка надійна."
+            "value" : "Коли застосунок закрито, iOS часто перевіряє пізніше ніж через 15 хвилин, іноді лише під час наступного відкриття. Короткі стрибки можна пропустити."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khi ứng dụng đóng, iOS quyết định lúc nào kiểm tra, nên có thể bỏ lỡ các biến động ngắn; khi đang mở, việc kiểm tra đáng tin cậy."
+            "value" : "Khi đóng ứng dụng, iOS thường kiểm tra muộn hơn 15 phút, đôi khi chỉ khi bạn mở lại ứng dụng. Có thể bỏ lỡ các biến động ngắn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用关闭时由 iOS 决定何时检查，因此可能错过短暂的波动；应用打开时会可靠地检查。"
+            "value" : "应用关闭时，iOS 常常晚于 15 分钟才检查，有时要等到下次打开应用。可能错过短暂的波动。"
           }
         }
       }
@@ -171236,6 +171236,197 @@
         }
       }
     },
+    "portfolio_csv_skip_ambiguous" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدة صفقات في الثانية نفسها لا يمكن فصلها – أدخلها يدويًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "více obchodů ve stejné sekundě, nelze je rozlišit – zadejte je ručně"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "flere handler i samme sekund, kan ikke skilles ad – indtast dem manuelt"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mehrere Geschäfte in derselben Sekunde, nicht eindeutig trennbar – von Hand erfassen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "πολλές συναλλαγές στο ίδιο δευτερόλεπτο που δεν ξεχωρίζουν – καταχώρισέ τις χειροκίνητα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "several trades in the same second that cannot be told apart – enter them by hand"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "varias operaciones en el mismo segundo que no se pueden separar – regístralas a mano"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چند معامله در همان ثانیه که قابل تفکیک نیستند – دستی وارد کن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "useita kauppoja samassa sekunnissa, ei voi erottaa – syötä käsin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "plusieurs opérations dans la même seconde, impossibles à distinguer – les saisir à la main"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כמה עסקאות באותה שנייה שאי אפשר להפריד – הזן ידנית"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एक ही सेकंड में कई सौदे जिन्हें अलग नहीं किया जा सकता – हाथ से दर्ज करें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "több ügylet ugyanabban a másodpercben, nem választhatók szét – rögzítsd kézzel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "beberapa transaksi di detik yang sama yang tak bisa dipisahkan – catat secara manual"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "più operazioni nello stesso secondo, non separabili – inseriscile a mano"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同じ秒に区別できない複数の取引 – 手動で入力"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "같은 초에 구분할 수 없는 여러 거래 – 직접 입력"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "flere handler i samme sekund som ikke kan skilles – legg dem inn manuelt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "meerdere transacties in dezelfde seconde, niet te scheiden – handmatig invoeren"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kilka transakcji w tej samej sekundzie, nie da się ich rozdzielić – wprowadź ręcznie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "várias operações no mesmo segundo que não se distinguem – registe-as à mão"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "várias operações no mesmo segundo que não dá para separar – registre manualmente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mai multe tranzacții în aceeași secundă, imposibil de separat – introdu-le manual"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "несколько сделок в одну секунду, их нельзя разделить – введите вручную"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "disa tregtime në të njëjtën sekondë që s’ndahen dot – futi me dorë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "flera affärer i samma sekund som inte går att skilja åt – ange dem manuellt"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หลายรายการในวินาทีเดียวกันที่แยกไม่ได้ – บันทึกด้วยตนเอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aynı saniyede ayırt edilemeyen birden çok işlem – elle girin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "кілька угод в одну секунду, їх не можна розділити – введіть вручну"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nhiều giao dịch trong cùng một giây không tách được – nhập thủ công"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同一秒内多笔无法区分的交易 – 请手动录入"
+          }
+        }
+      }
+    },
     "portfolio_csv_skip_bad_date" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -282066,187 +282257,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بلغ الحد – المبلغ كله خاضع للضريبة"
+            "value" : "بلغ الحد – عادةً يُحتسب المبلغ كله – تحقّق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "hranice dosažena – celá částka je zdanitelná"
+            "value" : "hranice dosažena – zpravidla se počítá celá částka – ověřte"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "grænsen nået – hele beløbet er skattepligtigt"
+            "value" : "grænsen nået – normalt tæller hele beløbet – kontrollér"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Freigrenze erreicht – der ganze Betrag ist steuerpflichtig"
+            "value" : "Freigrenze erreicht – in der Regel zählt der ganze Betrag – prüfen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "όριο καλύφθηκε – όλο το ποσό φορολογείται"
+            "value" : "όριο καλύφθηκε – κατά κανόνα μετρά όλο το ποσό – έλεγξε"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "limit reached – the whole amount is taxable"
+            "value" : "limit reached – the whole amount usually counts – check"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "límite alcanzado – todo el importe tributa"
+            "value" : "límite alcanzado – normalmente cuenta todo el importe – compruébalo"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سقف رسید – کل مبلغ مشمول مالیات است"
+            "value" : "سقف رسید – معمولاً کل مبلغ حساب می‌شود – بررسی کن"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "raja ylittyi – koko summa on veronalainen"
+            "value" : "raja ylittyi – yleensä koko summa lasketaan – tarkista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "seuil atteint – tout le montant est imposable"
+            "value" : "seuil atteint – en règle générale tout le montant compte – à vérifier"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "התקרה הושגה – כל הסכום חייב במס"
+            "value" : "התקרה הושגה – בדרך כלל כל הסכום נספר – יש לבדוק"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सीमा पूरी – पूरी राशि कर योग्य है"
+            "value" : "सीमा पूरी – आम तौर पर पूरी राशि गिनी जाती है – जाँचें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "határ elérve – a teljes összeg adóköteles"
+            "value" : "határ elérve – általában a teljes összeg számít – ellenőrizd"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "batas tercapai – seluruh jumlah kena pajak"
+            "value" : "batas tercapai – biasanya seluruh jumlah dihitung – periksa"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "soglia raggiunta – l’intero importo è imponibile"
+            "value" : "soglia raggiunta – di norma conta l’intero importo – verifica"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "限度到達 – 全額が課税対象"
+            "value" : "限度到達 – 通常は全額が対象 – 要確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "한도 도달 – 전액 과세 대상"
+            "value" : "한도 도달 – 일반적으로 전액이 대상 – 확인 필요"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "grensen nådd – hele beløpet er skattepliktig"
+            "value" : "grensen nådd – normalt teller hele beløpet – kontroller"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "grens bereikt – het hele bedrag is belastbaar"
+            "value" : "grens bereikt – doorgaans telt het hele bedrag – controleer"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "próg osiągnięty – cała kwota podlega opodatkowaniu"
+            "value" : "próg osiągnięty – zwykle liczy się cała kwota – sprawdź"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "limite atingido – todo o valor é tributável"
+            "value" : "limite atingido – em regra conta todo o valor – verifique"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "limite atingido – todo o valor é tributável"
+            "value" : "limite atingido – em geral conta todo o valor – verifique"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "prag atins – întreaga sumă este impozabilă"
+            "value" : "prag atins – de regulă contează întreaga sumă – verifică"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "порог достигнут – вся сумма облагается налогом"
+            "value" : "порог достигнут – как правило, учитывается вся сумма – проверьте"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "pragu u arrit – e gjithë shuma tatohet"
+            "value" : "pragu u arrit – zakonisht llogaritet e gjithë shuma – kontrollo"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "gränsen nådd – hela beloppet är skattepliktigt"
+            "value" : "gränsen nådd – normalt räknas hela beloppet – kontrollera"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ถึงเกณฑ์แล้ว – ทั้งจำนวนต้องเสียภาษี"
+            "value" : "ถึงเกณฑ์แล้ว – โดยทั่วไปนับทั้งจำนวน – โปรดตรวจสอบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sınıra ulaşıldı – tutarın tamamı vergiye tabi"
+            "value" : "sınıra ulaşıldı – genellikle tutarın tamamı sayılır – kontrol edin"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "поріг досягнуто – уся сума оподатковується"
+            "value" : "поріг досягнуто – як правило, враховується вся сума – перевірте"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "đạt ngưỡng – toàn bộ số tiền chịu thuế"
+            "value" : "đạt ngưỡng – thường tính toàn bộ số tiền – hãy kiểm tra"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已达限额——全部金额需纳税"
+            "value" : "已达限额——通常全部金额计入——请核实"
           }
         }
       }
@@ -295436,187 +295627,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مكتسب قبل 1.3.2021، احتفاظ > سنة: غير خاضع للضريبة"
+            "value" : "مكتسب قبل 1.3.2021، احتفاظ > سنة: عادةً غير خاضع للضريبة – تحقّق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nabyto před 1. 3. 2021 – drženo > 1 rok: nezdanitelné"
+            "value" : "Nabyto před 1. 3. 2021 – drženo > 1 rok: zpravidla nezdanitelné – ověřte"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erhvervet før 1.3.2021 – ejet > 1 år: ikke skattepligtigt"
+            "value" : "Erhvervet før 1.3.2021 – ejet > 1 år: normalt ikke skattepligtigt – kontrollér"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erworben vor 1.3.2021 – gehalten > 1 Jahr: nicht steuerbar"
+            "value" : "Erworben vor 1.3.2021 – gehalten > 1 Jahr: in der Regel nicht steuerbar – prüfen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αποκτήθηκε πριν από 1.3.2021 – διακράτηση > 1 έτος: αφορολόγητο"
+            "value" : "Αποκτήθηκε πριν από 1.3.2021 – διακράτηση > 1 έτος: κατά κανόνα αφορολόγητο – έλεγξε"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acquired before 1 Mar 2021 – held > 1 year: not taxable"
+            "value" : "Acquired before 1 Mar 2021 – held > 1 year: usually not taxable – check"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adquirido antes del 1.3.2021 – mantenido > 1 año: no tributa"
+            "value" : "Adquirido antes del 1.3.2021 – mantenido > 1 año: normalmente no tributa – compruébalo"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "کسب‌شده پیش از 1.3.2021، نگهداری > 1 سال: مشمول مالیات نیست"
+            "value" : "کسب‌شده پیش از 1.3.2021، نگهداری > 1 سال: معمولاً مشمول مالیات نیست – بررسی کن"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hankittu ennen 1.3.2021 – omistettu > 1 vuosi: ei veronalaista"
+            "value" : "Hankittu ennen 1.3.2021 – omistettu > 1 vuosi: yleensä ei veronalaista – tarkista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acquis avant le 1.3.2021 – détenu > 1 an : non imposable"
+            "value" : "Acquis avant le 1.3.2021 – détenu > 1 an : en règle générale non imposable – à vérifier"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נרכש לפני 1.3.2021 – החזקה > שנה: לא חייב במס"
+            "value" : "נרכש לפני 1.3.2021 – החזקה > שנה: בדרך כלל לא חייב במס – יש לבדוק"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1.3.2021 से पहले प्राप्त – > 1 वर्ष रखा गया: कर योग्य नहीं"
+            "value" : "1.3.2021 से पहले प्राप्त – > 1 वर्ष रखा गया: आम तौर पर कर योग्य नहीं – जाँचें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2021.03.01. előtt szerzett – tartva > 1 év: nem adóköteles"
+            "value" : "2021.03.01. előtt szerzett – tartva > 1 év: általában nem adóköteles – ellenőrizd"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diperoleh sebelum 1.3.2021 – disimpan > 1 tahun: tidak kena pajak"
+            "value" : "Diperoleh sebelum 1.3.2021 – disimpan > 1 tahun: biasanya tidak kena pajak – periksa"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acquistato prima dell’1.3.2021 – detenuto > 1 anno: non imponibile"
+            "value" : "Acquistato prima dell’1.3.2021 – detenuto > 1 anno: di norma non imponibile – verifica"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2021年3月1日より前に取得・保有1年超：課税対象外"
+            "value" : "2021年3月1日より前に取得・保有1年超：通常は課税対象外 – 要確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2021년 3월 1일 이전 취득 – 보유 1년 초과: 과세 대상 아님"
+            "value" : "2021년 3월 1일 이전 취득 – 보유 1년 초과: 일반적으로 과세 대상 아님 – 확인 필요"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ervervet før 1.3.2021 – eid > 1 år: ikke skattepliktig"
+            "value" : "Ervervet før 1.3.2021 – eid > 1 år: normalt ikke skattepliktig – kontroller"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verworven vóór 1-3-2021 – aangehouden > 1 jaar: niet belastbaar"
+            "value" : "Verworven vóór 1-3-2021 – aangehouden > 1 jaar: doorgaans niet belastbaar – controleer"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nabyte przed 1.03.2021 – posiadane > 1 rok: nieopodatkowane"
+            "value" : "Nabyte przed 1.03.2021 – posiadane > 1 rok: zwykle nieopodatkowane – sprawdź"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adquirido antes de 1.3.2021 – detido > 1 ano: não tributável"
+            "value" : "Adquirido antes de 1.3.2021 – detido > 1 ano: em regra não tributável – verifique"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adquirido antes de 1/3/2021 – mantido > 1 ano: não tributável"
+            "value" : "Adquirido antes de 1/3/2021 – mantido > 1 ano: em geral não tributável – verifique"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dobândit înainte de 1.03.2021 – deținut > 1 an: neimpozabil"
+            "value" : "Dobândit înainte de 1.03.2021 – deținut > 1 an: de regulă neimpozabil – verifică"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приобретено до 01.03.2021 – владение > 1 года: не облагается"
+            "value" : "Приобретено до 01.03.2021 – владение > 1 года: как правило, не облагается – проверьте"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fituar para 1.3.2021 – mbajtur > 1 vit: nuk tatohet"
+            "value" : "Fituar para 1.3.2021 – mbajtur > 1 vit: zakonisht nuk tatohet – kontrollo"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Förvärvat före 1.3.2021 – innehaft > 1 år: inte skattepliktigt"
+            "value" : "Förvärvat före 1.3.2021 – innehaft > 1 år: normalt inte skattepliktigt – kontrollera"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ได้มาก่อน 1.3.2021 ถือ > 1 ปี: ไม่ต้องเสียภาษี"
+            "value" : "ได้มาก่อน 1.3.2021 ถือ > 1 ปี: โดยทั่วไปไม่ต้องเสียภาษี – โปรดตรวจสอบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1.3.2021’den önce edinildi – elde tutma > 1 yıl: vergiye tabi değil"
+            "value" : "1.3.2021’den önce edinildi – elde tutma > 1 yıl: genellikle vergiye tabi değil – kontrol edin"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Придбано до 01.03.2021 – володіння > 1 року: не оподатковується"
+            "value" : "Придбано до 01.03.2021 – володіння > 1 року: як правило, не оподатковується – перевірте"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mua trước 1.3.2021 – nắm giữ > 1 năm: không chịu thuế"
+            "value" : "Mua trước 1.3.2021 – nắm giữ > 1 năm: thường không chịu thuế – hãy kiểm tra"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2021年3月1日前取得、持有 > 1 年：不征税"
+            "value" : "2021年3月1日前取得、持有 > 1 年：通常不征税——请核实"
           }
         }
       }
@@ -295627,187 +295818,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نسبة خاصة 27.5 بالمئة: الصافي للمكتسب منذ 1.3.2021 + الفوائد"
+            "value" : "نسبة خاصة 27.5 بالمئة: الصافي للمكتسب منذ 1.3.2021 + الفوائد (1.3.2021–28.2.2022: انظر الملاحظة)"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zvláštní sazba 27,5 procenta: netto z nabytého od 1. 3. 2021 + úroky"
+            "value" : "Zvláštní sazba 27,5 procenta: netto z nabytého od 1. 3. 2021 + úroky (1. 3. 2021–28. 2. 2022: viz poznámka)"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Særlig sats 27,5 procent: netto erhvervet fra 1.3.2021 + renter"
+            "value" : "Særlig sats 27,5 procent: netto erhvervet fra 1.3.2021 + renter (1.3.2021–28.2.2022: se note)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sondersteuersatz 27,5 Prozent: netto erworben ab 1.3.2021 + Zinsen"
+            "value" : "Sondersteuersatz 27,5 Prozent: netto erworben ab 1.3.2021 + Zinsen (1.3.2021–28.2.2022: siehe Hinweis)"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ειδικός συντελεστής 27,5 τοις εκατό: καθαρό από αποκτήσεις από 1.3.2021 + τόκοι"
+            "value" : "Ειδικός συντελεστής 27,5 τοις εκατό: καθαρό από αποκτήσεις από 1.3.2021 + τόκοι (1.3.2021–28.2.2022: δες σημείωση)"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Special rate 27.5 percent: net acquired from 1 Mar 2021 + interest"
+            "value" : "Special rate 27.5 percent: net acquired from 1 Mar 2021 + interest (1 Mar 2021–28 Feb 2022: see note)"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipo especial 27,5 por ciento: neto adquirido desde el 1.3.2021 + intereses"
+            "value" : "Tipo especial 27,5 por ciento: neto adquirido desde el 1.3.2021 + intereses (1.3.2021–28.2.2022: ver nota)"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نرخ ویژه 27.5 درصد: خالصِ کسب‌شده از 1.3.2021 + سود"
+            "value" : "نرخ ویژه 27.5 درصد: خالصِ کسب‌شده از 1.3.2021 + سود (1.3.2021–28.2.2022: یادداشت را ببین)"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erityisverokanta 27,5 prosenttia: netto 1.3.2021 alkaen hankitusta + korot"
+            "value" : "Erityisverokanta 27,5 prosenttia: netto 1.3.2021 alkaen hankitusta + korot (1.3.2021–28.2.2022: katso huomautus)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taux spécial 27,5 pour cent : net acquis à partir du 1.3.2021 + intérêts"
+            "value" : "Taux spécial 27,5 pour cent : net acquis à partir du 1.3.2021 + intérêts (1.3.2021–28.2.2022: voir la remarque)"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שיעור מיוחד 27.5 אחוז: נטו של הנרכש מ-1.3.2021 + ריבית"
+            "value" : "שיעור מיוחד 27.5 אחוז: נטו של הנרכש מ-1.3.2021 + ריבית (1.3.2021–28.2.2022: ראה הערה)"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "विशेष दर 27.5 प्रतिशत: 1.3.2021 से प्राप्त का शुद्ध + ब्याज"
+            "value" : "विशेष दर 27.5 प्रतिशत: 1.3.2021 से प्राप्त का शुद्ध + ब्याज (1.3.2021–28.2.2022: टिप्पणी देखें)"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Különadókulcs 27,5 százalék: 2021.03.01-től szerzett nettó + kamatok"
+            "value" : "Különadókulcs 27,5 százalék: 2021.03.01-től szerzett nettó + kamatok (2021.03.01.–2022.02.28.: lásd a megjegyzést)"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tarif khusus 27,5 persen: neto yang diperoleh sejak 1.3.2021 + bunga"
+            "value" : "Tarif khusus 27,5 persen: neto yang diperoleh sejak 1.3.2021 + bunga (1.3.2021–28.2.2022: lihat catatan)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aliquota speciale 27,5 per cento: netto acquistato dall’1.3.2021 + interessi"
+            "value" : "Aliquota speciale 27,5 per cento: netto acquistato dall’1.3.2021 + interessi (1.3.2021–28.2.2022: vedi nota)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "特別税率 27.5パーセント：2021年3月1日以降取得分の純額 + 利息"
+            "value" : "特別税率 27.5パーセント：2021年3月1日以降取得分の純額 + 利息（2021年3月1日～2022年2月28日：注記参照）"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "특별세율 27.5퍼센트: 2021년 3월 1일 이후 취득분 순액 + 이자"
+            "value" : "특별세율 27.5퍼센트: 2021년 3월 1일 이후 취득분 순액 + 이자 (2021년 3월 1일~2022년 2월 28일: 비고 참조)"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Særskilt sats 27,5 prosent: netto ervervet fra 1.3.2021 + renter"
+            "value" : "Særskilt sats 27,5 prosent: netto ervervet fra 1.3.2021 + renter (1.3.2021–28.2.2022: se merknad)"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bijzonder tarief 27,5 procent: netto verworven vanaf 1-3-2021 + rente"
+            "value" : "Bijzonder tarief 27,5 procent: netto verworven vanaf 1-3-2021 + rente (1-3-2021–28-2-2022: zie opmerking)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stawka specjalna 27,5 procent: netto z nabytych od 1.03.2021 + odsetki"
+            "value" : "Stawka specjalna 27,5 procent: netto z nabytych od 1.03.2021 + odsetki (1.03.2021–28.02.2022: zob. uwagę)"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxa especial 27,5 por cento: líquido adquirido a partir de 1.3.2021 + juros"
+            "value" : "Taxa especial 27,5 por cento: líquido adquirido a partir de 1.3.2021 + juros (1.3.2021–28.2.2022: ver nota)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alíquota especial 27,5 por cento: líquido adquirido a partir de 1/3/2021 + juros"
+            "value" : "Alíquota especial 27,5 por cento: líquido adquirido a partir de 1/3/2021 + juros (1/3/2021–28/2/2022: ver nota)"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cotă specială 27,5 la sută: net dobândit de la 1.03.2021 + dobânzi"
+            "value" : "Cotă specială 27,5 la sută: net dobândit de la 1.03.2021 + dobânzi (1.03.2021–28.02.2022: vezi nota)"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Специальная ставка 27,5 процента: нетто по приобретённому с 01.03.2021 + проценты"
+            "value" : "Специальная ставка 27,5 процента: нетто по приобретённому с 01.03.2021 + проценты (01.03.2021–28.02.2022: см. примечание)"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Normë e veçantë 27,5 përqind: neto e fituar nga 1.3.2021 + interesa"
+            "value" : "Normë e veçantë 27,5 përqind: neto e fituar nga 1.3.2021 + interesa (1.3.2021–28.2.2022: shih shënimin)"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Särskild skattesats 27,5 procent: netto förvärvat från 1.3.2021 + ränta"
+            "value" : "Särskild skattesats 27,5 procent: netto förvärvat från 1.3.2021 + ränta (1.3.2021–28.2.2022: se anmärkning)"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อัตราพิเศษ 27.5 เปอร์เซ็นต์: สุทธิของที่ได้มาตั้งแต่ 1.3.2021 + ดอกเบี้ย"
+            "value" : "อัตราพิเศษ 27.5 เปอร์เซ็นต์: สุทธิของที่ได้มาตั้งแต่ 1.3.2021 + ดอกเบี้ย (1.3.2021–28.2.2022: ดูหมายเหตุ)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Özel oran yüzde 27,5: 1.3.2021’den itibaren edinilenlerin neti + faiz"
+            "value" : "Özel oran yüzde 27,5: 1.3.2021’den itibaren edinilenlerin neti + faiz (1.3.2021–28.2.2022: nota bakın)"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Спеціальна ставка 27,5 відсотка: нетто з придбаного з 01.03.2021 + відсотки"
+            "value" : "Спеціальна ставка 27,5 відсотка: нетто з придбаного з 01.03.2021 + відсотки (01.03.2021–28.02.2022: див. примітку)"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thuế suất đặc biệt 27,5 phần trăm: ròng của phần mua từ 1.3.2021 + lãi"
+            "value" : "Thuế suất đặc biệt 27,5 phần trăm: ròng của phần mua từ 1.3.2021 + lãi (1.3.2021–28.2.2022: xem ghi chú)"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "特别税率 百分之 27.5：2021年3月1日起取得部分的净额 + 利息"
+            "value" : "特别税率 百分之 27.5：2021年3月1日起取得部分的净额 + 利息（2021年3月1日至2022年2月28日：见备注）"
           }
         }
       }
@@ -296773,187 +296964,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "احتفاظ > سنة: غير خاضع للضريبة في DE (§ 23 EStG)"
+            "value" : "احتفاظ > سنة: عادةً غير خاضع للضريبة وفق § 23 EStG – تحقّق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Drženo > 1 rok: v DE nezdanitelné (§ 23 EStG)"
+            "value" : "Drženo > 1 rok: podle § 23 EStG zpravidla nezdanitelné – ověřte"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ejet > 1 år: ikke skattepligtigt i DE (§ 23 EStG)"
+            "value" : "Ejet > 1 år: efter § 23 EStG normalt ikke skattepligtigt – kontrollér"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gehalten > 1 Jahr: in DE nicht steuerbar (§ 23 EStG)"
+            "value" : "Gehalten > 1 Jahr: nach § 23 EStG in der Regel nicht steuerbar – prüfen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Διακράτηση > 1 έτος: αφορολόγητο στη DE (§ 23 EStG)"
+            "value" : "Διακράτηση > 1 έτος: κατά § 23 EStG κατά κανόνα αφορολόγητο – έλεγξε"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Held > 1 year: not taxable in DE (§ 23 EStG)"
+            "value" : "Held > 1 year: usually not taxable under § 23 EStG – check"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mantenido > 1 año: no tributa en DE (§ 23 EStG)"
+            "value" : "Mantenido > 1 año: según § 23 EStG normalmente no tributa – compruébalo"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نگهداری > 1 سال: در DE مشمول مالیات نیست (§ 23 EStG)"
+            "value" : "نگهداری > 1 سال: طبق § 23 EStG معمولاً مشمول مالیات نیست – بررسی کن"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Omistettu > 1 vuosi: ei veronalaista DE:ssä (§ 23 EStG)"
+            "value" : "Omistettu > 1 vuosi: § 23 EStG:n mukaan yleensä ei veronalaista – tarkista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Détenu > 1 an : non imposable en DE (§ 23 EStG)"
+            "value" : "Détenu > 1 an : en règle générale non imposable selon § 23 EStG – à vérifier"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "החזקה > שנה: לא חייב במס ב-DE (§ 23 EStG)"
+            "value" : "החזקה > שנה: לפי § 23 EStG בדרך כלל לא חייב במס – יש לבדוק"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "> 1 वर्ष रखा गया: DE में कर योग्य नहीं (§ 23 EStG)"
+            "value" : "> 1 वर्ष रखा गया: § 23 EStG के अनुसार आम तौर पर कर योग्य नहीं – जाँचें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tartva > 1 év: DE-ben nem adóköteles (§ 23 EStG)"
+            "value" : "Tartva > 1 év: a § 23 EStG szerint általában nem adóköteles – ellenőrizd"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disimpan > 1 tahun: tidak kena pajak di DE (§ 23 EStG)"
+            "value" : "Disimpan > 1 tahun: menurut § 23 EStG biasanya tidak kena pajak – periksa"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Detenuto > 1 anno: non imponibile in DE (§ 23 EStG)"
+            "value" : "Detenuto > 1 anno: secondo § 23 EStG di norma non imponibile – verifica"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保有1年超：DE では課税対象外（§ 23 EStG）"
+            "value" : "保有1年超：§ 23 EStG により通常は課税対象外 – 要確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "보유 1년 초과: DE에서 과세 대상 아님(§ 23 EStG)"
+            "value" : "보유 1년 초과: § 23 EStG에 따라 일반적으로 과세 대상 아님 – 확인 필요"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eid > 1 år: ikke skattepliktig i DE (§ 23 EStG)"
+            "value" : "Eid > 1 år: etter § 23 EStG normalt ikke skattepliktig – kontroller"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aangehouden > 1 jaar: niet belastbaar in DE (§ 23 EStG)"
+            "value" : "Aangehouden > 1 jaar: volgens § 23 EStG doorgaans niet belastbaar – controleer"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Posiadane > 1 rok: nieopodatkowane w DE (§ 23 EStG)"
+            "value" : "Posiadane > 1 rok: wg § 23 EStG zwykle nieopodatkowane – sprawdź"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Detido > 1 ano: não tributável na DE (§ 23 EStG)"
+            "value" : "Detido > 1 ano: segundo o § 23 EStG, em regra não tributável – verifique"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mantido > 1 ano: não tributável na DE (§ 23 EStG)"
+            "value" : "Mantido > 1 ano: pelo § 23 EStG, em geral não tributável – verifique"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deținut > 1 an: neimpozabil în DE (§ 23 EStG)"
+            "value" : "Deținut > 1 an: conform § 23 EStG de regulă neimpozabil – verifică"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Владение > 1 года: в DE не облагается (§ 23 EStG)"
+            "value" : "Владение > 1 года: по § 23 EStG, как правило, не облагается – проверьте"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mbajtur > 1 vit: nuk tatohet në DE (§ 23 EStG)"
+            "value" : "Mbajtur > 1 vit: sipas § 23 EStG zakonisht nuk tatohet – kontrollo"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Innehaft > 1 år: inte skattepliktigt i DE (§ 23 EStG)"
+            "value" : "Innehaft > 1 år: enligt § 23 EStG normalt inte skattepliktigt – kontrollera"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ถือ > 1 ปี: ไม่ต้องเสียภาษีใน DE (§ 23 EStG)"
+            "value" : "ถือ > 1 ปี: ตาม § 23 EStG โดยทั่วไปไม่ต้องเสียภาษี – โปรดตรวจสอบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elde tutma > 1 yıl: DE'de vergiye tabi değil (§ 23 EStG)"
+            "value" : "Elde tutma > 1 yıl: § 23 EStG'ye göre genellikle vergiye tabi değil – kontrol edin"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Володіння > 1 року: у DE не оподатковується (§ 23 EStG)"
+            "value" : "Володіння > 1 року: за § 23 EStG, як правило, не оподатковується – перевірте"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nắm giữ > 1 năm: không chịu thuế tại DE (§ 23 EStG)"
+            "value" : "Nắm giữ > 1 năm: theo § 23 EStG thường không chịu thuế – hãy kiểm tra"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "持有 > 1 年：在 DE 不征税（§ 23 EStG）"
+            "value" : "持有 > 1 年：依 § 23 EStG 通常不征税——请核实"
           }
         }
       }
@@ -297537,187 +297728,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "التنازلات حتى 305 € سنويًا معفاة (مجموع أسعار البيع)"
+            "value" : "التنازلات حتى 305 € سنويًا: معفاة عادةً (مجموع أسعار البيع) – تحقّق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Úplaty do 305 € ročně osvobozeny (součet prodejních cen)"
+            "value" : "Úplaty do 305 € ročně: zpravidla osvobozeny (součet prodejních cen) – ověřte"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Afhændelser op til 305 € om året fritaget (sum af salgspriser)"
+            "value" : "Afhændelser op til 305 € om året: normalt fritaget (sum af salgspriser) – kontrollér"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abtretungen bis 305 € im Jahr befreit (Summe der Verkaufspreise)"
+            "value" : "Abtretungen bis 305 € im Jahr: in der Regel befreit (Summe der Verkaufspreise) – prüfen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Εκχωρήσεις έως 305 € τον χρόνο απαλλάσσονται (σύνολο τιμών πώλησης)"
+            "value" : "Εκχωρήσεις έως 305 € τον χρόνο: κατά κανόνα απαλλάσσονται (σύνολο τιμών πώλησης) – έλεγξε"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disposals up to €305 a year exempt (total of sale prices)"
+            "value" : "Disposals up to €305 a year: generally exempt (total of sale prices) – check"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cesiones de hasta 305 € al año exentas (total de precios de venta)"
+            "value" : "Cesiones de hasta 305 € al año: normalmente exentas (total de precios de venta) – compruébalo"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "واگذاری‌ها تا 305 € در سال معاف (جمع قیمت‌های فروش)"
+            "value" : "واگذاری‌ها تا 305 € در سال: معمولاً معاف (جمع قیمت‌های فروش) – بررسی کن"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Luovutukset 305 € asti vuodessa verovapaita (myyntihintojen summa)"
+            "value" : "Luovutukset 305 € asti vuodessa: yleensä verovapaita (myyntihintojen summa) – tarkista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cessions jusqu’à 305 € par an exonérées (total des prix de cession)"
+            "value" : "Cessions jusqu’à 305 € par an : en règle générale exonérées (total des prix de cession) – à vérifier"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "העברות עד 305 € בשנה פטורות (סך מחירי המכירה)"
+            "value" : "העברות עד 305 € בשנה: בדרך כלל פטורות (סך מחירי המכירה) – יש לבדוק"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "साल में 305 € तक के निपटान छूट प्राप्त (बिक्री मूल्यों का योग)"
+            "value" : "साल में 305 € तक के निपटान: आम तौर पर छूट प्राप्त (बिक्री मूल्यों का योग) – जाँचें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Évi 305 €-ig az elidegenítések mentesek (eladási árak összege)"
+            "value" : "Évi 305 €-ig az elidegenítések: általában mentesek (eladási árak összege) – ellenőrizd"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pengalihan hingga 305 € per tahun dibebaskan (total harga jual)"
+            "value" : "Pengalihan hingga 305 € per tahun: biasanya dibebaskan (total harga jual) – periksa"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cessioni fino a 305 € l’anno esenti (totale dei prezzi di vendita)"
+            "value" : "Cessioni fino a 305 € l’anno: di norma esenti (totale dei prezzi di vendita) – verifica"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "年間 305 € までの譲渡は非課税（売却価格の合計）"
+            "value" : "年間 305 € までの譲渡：通常は非課税（売却価格の合計）– 要確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "연간 305 €까지의 양도는 면제(매도가 합계)"
+            "value" : "연간 305 €까지의 양도: 일반적으로 면제(매도가 합계) – 확인 필요"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avhendelser opptil 305 € i året fritatt (sum av salgspriser)"
+            "value" : "Avhendelser opptil 305 € i året: normalt fritatt (sum av salgspriser) – kontroller"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overdrachten tot € 305 per jaar vrijgesteld (totaal van verkoopprijzen)"
+            "value" : "Overdrachten tot € 305 per jaar: doorgaans vrijgesteld (totaal van verkoopprijzen) – controleer"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zbycia do 305 € rocznie zwolnione (suma cen sprzedaży)"
+            "value" : "Zbycia do 305 € rocznie: zwykle zwolnione (suma cen sprzedaży) – sprawdź"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cessões até 305 € por ano isentas (total dos preços de venda)"
+            "value" : "Cessões até 305 € por ano: em regra isentas (total dos preços de venda) – verifique"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cessões até 305 € por ano isentas (total dos preços de venda)"
+            "value" : "Cessões até 305 € por ano: em geral isentas (total dos preços de venda) – verifique"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cesiuni de până la 305 € pe an scutite (totalul prețurilor de vânzare)"
+            "value" : "Cesiuni de până la 305 € pe an: de regulă scutite (totalul prețurilor de vânzare) – verifică"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Отчуждения до 305 € в год освобождены (сумма цен продажи)"
+            "value" : "Отчуждения до 305 € в год: как правило, освобождены (сумма цен продажи) – проверьте"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tjetërsimet deri në 305 € në vit të përjashtuara (shuma e çmimeve të shitjes)"
+            "value" : "Tjetërsimet deri në 305 € në vit: zakonisht të përjashtuara (shuma e çmimeve të shitjes) – kontrollo"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avyttringar upp till 305 € per år undantagna (summa av försäljningspriser)"
+            "value" : "Avyttringar upp till 305 € per år: normalt undantagna (summa av försäljningspriser) – kontrollera"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "การจำหน่ายไม่เกิน 305 € ต่อปีได้รับยกเว้น (ผลรวมราคาขาย)"
+            "value" : "การจำหน่ายไม่เกิน 305 € ต่อปี: โดยทั่วไปได้รับยกเว้น (ผลรวมราคาขาย) – โปรดตรวจสอบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yılda 305 €’ya kadar elden çıkarmalar muaf (satış fiyatları toplamı)"
+            "value" : "Yılda 305 €’ya kadar elden çıkarmalar: genellikle muaf (satış fiyatları toplamı) – kontrol edin"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Відчуження до 305 € на рік звільнені (сума цін продажу)"
+            "value" : "Відчуження до 305 € на рік: як правило, звільнені (сума цін продажу) – перевірте"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chuyển nhượng tới 305 € mỗi năm được miễn (tổng giá bán)"
+            "value" : "Chuyển nhượng tới 305 € mỗi năm: thường được miễn (tổng giá bán) – hãy kiểm tra"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每年不超过 305 € 的转让免税（卖出价格合计）"
+            "value" : "每年不超过 305 € 的转让：通常免税（卖出价格合计）——请核实"
           }
         }
       }
@@ -300020,187 +300211,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "صافي الأرباح فوق المبلغ المعفى"
+            "value" : "صافي الأرباح فوق المبلغ المعفى (العملات المشفرة فقط)"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Čistý zisk nad osvobozenou částkou"
+            "value" : "Čistý zisk nad osvobozenou částkou (jen kryptoměny)"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nettogevinst over bundfradraget"
+            "value" : "Nettogevinst over bundfradraget (kun krypto)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Netto über dem Freibetrag"
+            "value" : "Netto über dem Freibetrag (nur Krypto)"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Καθαρά κέρδη πάνω από το αφορολόγητο ποσό"
+            "value" : "Καθαρά κέρδη πάνω από το αφορολόγητο ποσό (μόνο κρυπτο)"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Net gains above the exempt amount"
+            "value" : "Net gains above the exempt amount (crypto only)"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ganancias netas por encima del importe exento"
+            "value" : "Ganancias netas por encima del importe exento (solo cripto)"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سود خالص بالاتر از مبلغ معاف"
+            "value" : "سود خالص بالاتر از مبلغ معاف (فقط رمزارز)"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nettovoitot verovapaan määrän ylittävältä osin"
+            "value" : "Nettovoitot verovapaan määrän ylittävältä osin (vain kryptot)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gains nets au-delà de l’abattement"
+            "value" : "Gains nets au-delà de l’abattement (crypto uniquement)"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "רווח נטו מעל הסכום הפטור"
+            "value" : "רווח נטו מעל הסכום הפטור (קריפטו בלבד)"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "छूट राशि से ऊपर शुद्ध लाभ"
+            "value" : "छूट राशि से ऊपर शुद्ध लाभ (केवल क्रिप्टो)"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nettó nyereség a mentes összeg felett"
+            "value" : "Nettó nyereség a mentes összeg felett (csak kripto)"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Untung neto di atas jumlah bebas pajak"
+            "value" : "Untung neto di atas jumlah bebas pajak (hanya kripto)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Guadagni netti oltre la franchigia"
+            "value" : "Guadagni netti oltre la franchigia (solo cripto)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "非課税額を超える純利益"
+            "value" : "非課税額を超える純利益（暗号資産のみ）"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비과세 금액을 넘는 순이익"
+            "value" : "비과세 금액을 넘는 순이익 (암호화폐만)"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nettogevinst over bunnfradraget"
+            "value" : "Nettogevinst over bunnfradraget (kun krypto)"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nettowinst boven de vrijstelling"
+            "value" : "Nettowinst boven de vrijstelling (alleen crypto)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zysk netto powyżej kwoty wolnej"
+            "value" : "Zysk netto powyżej kwoty wolnej (tylko krypto)"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ganhos líquidos acima do montante isento"
+            "value" : "Ganhos líquidos acima do montante isento (só cripto)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ganhos líquidos acima do valor isento"
+            "value" : "Ganhos líquidos acima do valor isento (só cripto)"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Câștiguri nete peste suma scutită"
+            "value" : "Câștiguri nete peste suma scutită (doar cripto)"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Чистая прибыль сверх необлагаемой суммы"
+            "value" : "Чистая прибыль сверх необлагаемой суммы (только крипто)"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fitime neto mbi shumën e përjashtuar"
+            "value" : "Fitime neto mbi shumën e përjashtuar (vetëm kripto)"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nettovinst över fribeloppet"
+            "value" : "Nettovinst över fribeloppet (endast krypto)"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "กำไรสุทธิที่เกินจำนวนยกเว้น"
+            "value" : "กำไรสุทธิที่เกินจำนวนยกเว้น (เฉพาะคริปโต)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Muaf tutarın üzerindeki net kâr"
+            "value" : "Muaf tutarın üzerindeki net kâr (yalnızca kripto)"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Чистий прибуток понад неоподатковувану суму"
+            "value" : "Чистий прибуток понад неоподатковувану суму (лише крипто)"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lãi ròng vượt mức miễn thuế"
+            "value" : "Lãi ròng vượt mức miễn thuế (chỉ tiền mã hóa)"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "超出免税额的净收益"
+            "value" : "超出免税额的净收益（仅加密资产）"
           }
         }
       }
@@ -300211,187 +300402,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "المبلغ السنوي المعفى (Annual Exempt Amount)"
+            "value" : "المبلغ السنوي المعفى (Annual Exempt Amount) – يسري على كل التصرفات معًا، ومُحتسب هنا بالكامل"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Roční osvobozená částka (Annual Exempt Amount)"
+            "value" : "Roční osvobozená částka (Annual Exempt Amount) – platí pro všechny úplaty dohromady, zde započtena celá"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Årligt bundfradrag (Annual Exempt Amount)"
+            "value" : "Årligt bundfradrag (Annual Exempt Amount) – gælder for alle afhændelser samlet, her fratrukket fuldt ud"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jährlicher Freibetrag (Annual Exempt Amount)"
+            "value" : "Jährlicher Freibetrag (Annual Exempt Amount) – gilt für alle Veräusserungen zusammen, hier voll angerechnet"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ετήσιο αφορολόγητο ποσό (Annual Exempt Amount)"
+            "value" : "Ετήσιο αφορολόγητο ποσό (Annual Exempt Amount) – ισχύει για όλες τις διαθέσεις μαζί, εδώ αφαιρείται ολόκληρο"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Annual exempt amount"
+            "value" : "Annual exempt amount – applies to all disposals together, fully applied here"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importe exento anual (Annual Exempt Amount)"
+            "value" : "Importe exento anual (Annual Exempt Amount) – se aplica a todas las transmisiones juntas; aquí se descuenta entero"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مبلغ معاف سالانه (Annual Exempt Amount)"
+            "value" : "مبلغ معاف سالانه (Annual Exempt Amount) – برای همهٔ واگذاری‌ها با هم است، اینجا کامل کسر شده"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vuotuinen verovapaa määrä (Annual Exempt Amount)"
+            "value" : "Vuotuinen verovapaa määrä (Annual Exempt Amount) – koskee kaikkia luovutuksia yhteensä, tässä vähennetty kokonaan"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abattement annuel (Annual Exempt Amount)"
+            "value" : "Abattement annuel (Annual Exempt Amount) – vaut pour toutes les cessions ensemble, ici imputé en totalité"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "סכום פטור שנתי (Annual Exempt Amount)"
+            "value" : "סכום פטור שנתי (Annual Exempt Amount) – חל על כל המימושים יחד, כאן מנוכה במלואו"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वार्षिक छूट राशि (Annual Exempt Amount)"
+            "value" : "वार्षिक छूट राशि (Annual Exempt Amount) – सभी निपटानों पर कुल मिलाकर लागू, यहाँ पूरी घटाई गई"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Éves mentes összeg (Annual Exempt Amount)"
+            "value" : "Éves mentes összeg (Annual Exempt Amount) – az összes elidegenítésre együtt érvényes, itt teljes egészében levonva"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jumlah bebas pajak tahunan (Annual Exempt Amount)"
+            "value" : "Jumlah bebas pajak tahunan (Annual Exempt Amount) – berlaku untuk semua pelepasan bersama, di sini dipotong penuh"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Franchigia annuale (Annual Exempt Amount)"
+            "value" : "Franchigia annuale (Annual Exempt Amount) – vale per tutte le cessioni insieme, qui applicata per intero"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "年間非課税額（Annual Exempt Amount）"
+            "value" : "年間非課税額（Annual Exempt Amount） – すべての譲渡の合計に適用、ここでは全額を控除"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "연간 비과세 금액(Annual Exempt Amount)"
+            "value" : "연간 비과세 금액(Annual Exempt Amount) – 모든 처분 합계에 적용, 여기서는 전액 공제"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Årlig bunnfradrag (Annual Exempt Amount)"
+            "value" : "Årlig bunnfradrag (Annual Exempt Amount) – gjelder alle avhendelser samlet, her trukket fra fullt ut"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jaarlijkse vrijstelling (Annual Exempt Amount)"
+            "value" : "Jaarlijkse vrijstelling (Annual Exempt Amount) – geldt voor alle vervreemdingen samen, hier volledig verrekend"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Roczna kwota wolna (Annual Exempt Amount)"
+            "value" : "Roczna kwota wolna (Annual Exempt Amount) – dotyczy wszystkich zbyć łącznie, tu odliczona w całości"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Montante isento anual (Annual Exempt Amount)"
+            "value" : "Montante isento anual (Annual Exempt Amount) – aplica-se a todas as alienações em conjunto, aqui deduzido na totalidade"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valor isento anual (Annual Exempt Amount)"
+            "value" : "Valor isento anual (Annual Exempt Amount) – vale para todas as alienações em conjunto, aqui deduzido integralmente"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sumă anuală scutită (Annual Exempt Amount)"
+            "value" : "Sumă anuală scutită (Annual Exempt Amount) – se aplică tuturor înstrăinărilor împreună, aici scăzută integral"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Годовая необлагаемая сумма (Annual Exempt Amount)"
+            "value" : "Годовая необлагаемая сумма (Annual Exempt Amount) – действует для всех отчуждений вместе, здесь учтена полностью"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shuma vjetore e përjashtuar (Annual Exempt Amount)"
+            "value" : "Shuma vjetore e përjashtuar (Annual Exempt Amount) – vlen për të gjitha tjetërsimet së bashku, këtu e zbritur plotësisht"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Årligt fribelopp (Annual Exempt Amount)"
+            "value" : "Årligt fribelopp (Annual Exempt Amount) – gäller alla avyttringar sammantaget, här avdraget i sin helhet"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "จำนวนยกเว้นรายปี (Annual Exempt Amount)"
+            "value" : "จำนวนยกเว้นรายปี (Annual Exempt Amount) – ใช้กับการจำหน่ายทั้งหมดรวมกัน ที่นี่หักเต็มจำนวน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yıllık muaf tutar (Annual Exempt Amount)"
+            "value" : "Yıllık muaf tutar (Annual Exempt Amount) – tüm elden çıkarmalar için birlikte geçerli, burada tamamı düşüldü"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Річна неоподатковувана сума (Annual Exempt Amount)"
+            "value" : "Річна неоподатковувана сума (Annual Exempt Amount) – діє для всіх відчужень разом, тут враховано повністю"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mức miễn thuế hằng năm (Annual Exempt Amount)"
+            "value" : "Mức miễn thuế hằng năm (Annual Exempt Amount) – áp dụng chung cho mọi lần chuyển nhượng, ở đây trừ toàn bộ"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "年度免税额（Annual Exempt Amount）"
+            "value" : "年度免税额（Annual Exempt Amount） – 适用于全部处置合计，此处全额扣除"
           }
         }
       }
@@ -303458,187 +303649,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الانتقال في 1.1.2025 (Rev. Proc. 2024-28، الملاذ الآمن): إذا استُخدم FIFO عبر كل المحافظ في السنوات السابقة، تذهب الدفعات المتبقية في 31.12.2024 إلى المحافظ التي تحتفظ بالعملات – وتحصل المحفظة ذات العملات الأقدم على التكلفة الأقدم."
+            "value" : "الانتقال في 1.1.2025 (Rev. Proc. 2024-28، الملاذ الآمن): إذا استُخدم FIFO عبر كل المحافظ في السنوات السابقة، تذهب الدفعات المتبقية في 31.12.2024 إلى المحافظ التي تحتفظ بالعملات – وتحصل المحفظة ذات العملات الأقدم على التكلفة الأقدم. هذا التوزيع قاعدة من التطبيق – قارنه بسجلاتك."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Přechod 1. 1. 2025 (Rev. Proc. 2024-28, safe harbor): pokud se v dřívějších letech počítalo FIFO přes všechny peněženky, zbývající položky k 31. 12. 2024 připadnou peněženkám, v nichž coiny jsou – peněženka s nejstaršími coiny dostane nejstarší pořizovací cenu."
+            "value" : "Přechod 1. 1. 2025 (Rev. Proc. 2024-28, safe harbor): pokud se v dřívějších letech počítalo FIFO přes všechny peněženky, zbývající položky k 31. 12. 2024 připadnou peněženkám, v nichž coiny jsou – peněženka s nejstaršími coiny dostane nejstarší pořizovací cenu. Toto přiřazení je pravidlo aplikace – porovnejte je s vlastními záznamy."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brugte tidligere år FIFO på tværs af alle wallets, går restposterne pr. 31.12.2024 til de wallets, der rummer coinsene – walletten med de ældste coins får den ældste anskaffelsessum."
+            "value" : "Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brugte tidligere år FIFO på tværs af alle wallets, går restposterne pr. 31.12.2024 til de wallets, der rummer coinsene – walletten med de ældste coins får den ældste anskaffelsessum. Denne fordeling er en regel i appen – sammenhold den med dine egne optegnelser."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Übergang 1.1.2025 (Rev. Proc. 2024-28, Safe Harbor): Rechneten die Jahre davor FIFO über alle Wallets, gehen die Restposten per 31.12.2024 an die Wallets, in denen die Coins liegen – die Wallet mit den ältesten Coins erhält den ältesten Einstand."
+            "value" : "Übergang 1.1.2025 (Rev. Proc. 2024-28, Safe Harbor): Rechneten die Jahre davor FIFO über alle Wallets, gehen die Restposten per 31.12.2024 an die Wallets, in denen die Coins liegen – die Wallet mit den ältesten Coins erhält den ältesten Einstand. Diese Zuordnung ist eine Regel der App – mit eigenen Unterlagen abgleichen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μετάβαση 1.1.2025 (Rev. Proc. 2024-28, safe harbor): αν τα προηγούμενα έτη χρησιμοποιούσαν FIFO σε όλα τα πορτοφόλια, οι υπόλοιπες παρτίδες στις 31.12.2024 πηγαίνουν στα πορτοφόλια που κρατούν τα coins – το πορτοφόλι με τα παλαιότερα coins παίρνει το παλαιότερο κόστος."
+            "value" : "Μετάβαση 1.1.2025 (Rev. Proc. 2024-28, safe harbor): αν τα προηγούμενα έτη χρησιμοποιούσαν FIFO σε όλα τα πορτοφόλια, οι υπόλοιπες παρτίδες στις 31.12.2024 πηγαίνουν στα πορτοφόλια που κρατούν τα coins – το πορτοφόλι με τα παλαιότερα coins παίρνει το παλαιότερο κόστος. Αυτή η κατανομή είναι κανόνας της εφαρμογής – σύγκρινέ την με τα δικά σου αρχεία."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transition 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): if earlier years used FIFO across all wallets, the remaining lots as of 31 Dec 2024 go to the wallets holding the coins – the wallet with the oldest coins gets the oldest cost basis."
+            "value" : "Transition 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): if earlier years used FIFO across all wallets, the remaining lots as of 31 Dec 2024 go to the wallets holding the coins – the wallet with the oldest coins gets the oldest cost basis. This allocation is an app rule – check it against your own records."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transición al 1.1.2025 (Rev. Proc. 2024-28, safe harbor): si los años anteriores usaban FIFO en todas las carteras, los lotes restantes al 31.12.2024 pasan a las carteras que tienen las monedas; la cartera con las monedas más antiguas recibe el coste más antiguo."
+            "value" : "Transición al 1.1.2025 (Rev. Proc. 2024-28, safe harbor): si los años anteriores usaban FIFO en todas las carteras, los lotes restantes al 31.12.2024 pasan a las carteras que tienen las monedas; la cartera con las monedas más antiguas recibe el coste más antiguo. Este reparto es una regla de la app: contrástalo con tus propios registros."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "انتقال در 1.1.2025 (Rev. Proc. 2024-28، safe harbor): اگر سال‌های قبل FIFO روی همهٔ کیف‌پول‌ها حساب می‌شد، بسته‌های باقی‌مانده در 31.12.2024 به کیف‌پول‌هایی می‌روند که کوین‌ها را نگه می‌دارند – کیف‌پول با قدیمی‌ترین کوین‌ها قدیمی‌ترین بهای تمام‌شده را می‌گیرد."
+            "value" : "انتقال در 1.1.2025 (Rev. Proc. 2024-28، safe harbor): اگر سال‌های قبل FIFO روی همهٔ کیف‌پول‌ها حساب می‌شد، بسته‌های باقی‌مانده در 31.12.2024 به کیف‌پول‌هایی می‌روند که کوین‌ها را نگه می‌دارند – کیف‌پول با قدیمی‌ترین کوین‌ها قدیمی‌ترین بهای تمام‌شده را می‌گیرد. این تخصیص قاعدهٔ برنامه است – آن را با سوابق خودت مقایسه کن."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Siirtymä 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jos aiempina vuosina käytettiin FIFOa kaikkien lompakoiden yli, jäljellä olevat erät 31.12.2024 siirtyvät lompakoihin, joissa coinit ovat – vanhimmat coinit sisältävä lompakko saa vanhimman hankintamenon."
+            "value" : "Siirtymä 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jos aiempina vuosina käytettiin FIFOa kaikkien lompakoiden yli, jäljellä olevat erät 31.12.2024 siirtyvät lompakoihin, joissa coinit ovat – vanhimmat coinit sisältävä lompakko saa vanhimman hankintamenon. Tämä kohdistus on sovelluksen sääntö – vertaa sitä omiin tietoihisi."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transition au 1.1.2025 (Rev. Proc. 2024-28, safe harbor) : si les années précédentes utilisaient le FIFO sur tous les portefeuilles, les lots restants au 31.12.2024 vont aux portefeuilles qui détiennent les coins – le portefeuille aux coins les plus anciens reçoit le coût le plus ancien."
+            "value" : "Transition au 1.1.2025 (Rev. Proc. 2024-28, safe harbor) : si les années précédentes utilisaient le FIFO sur tous les portefeuilles, les lots restants au 31.12.2024 vont aux portefeuilles qui détiennent les coins – le portefeuille aux coins les plus anciens reçoit le coût le plus ancien. Cette répartition est une règle de l’app – à comparer avec vos propres relevés."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מעבר ב-1.1.2025 (Rev. Proc. 2024-28, safe harbor): אם בשנים קודמות חושב FIFO על פני כל הארנקים, היתרות ב-31.12.2024 עוברות לארנקים שבהם המטבעות – הארנק עם המטבעות הוותיקים ביותר מקבל את העלות המוקדמת ביותר."
+            "value" : "מעבר ב-1.1.2025 (Rev. Proc. 2024-28, safe harbor): אם בשנים קודמות חושב FIFO על פני כל הארנקים, היתרות ב-31.12.2024 עוברות לארנקים שבהם המטבעות – הארנק עם המטבעות הוותיקים ביותר מקבל את העלות המוקדמת ביותר. הקצאה זו היא כלל של האפליקציה – השווה לרישומים שלך."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1.1.2025 का बदलाव (Rev. Proc. 2024-28, safe harbor): अगर पिछले वर्षों में सभी वॉलेट पर FIFO लगा था, तो 31.12.2024 के बचे लॉट उन वॉलेट में जाते हैं जिनमें कॉइन हैं – सबसे पुराने कॉइन वाले वॉलेट को सबसे पुरानी लागत मिलती है।"
+            "value" : "1.1.2025 का बदलाव (Rev. Proc. 2024-28, safe harbor): अगर पिछले वर्षों में सभी वॉलेट पर FIFO लगा था, तो 31.12.2024 के बचे लॉट उन वॉलेट में जाते हैं जिनमें कॉइन हैं – सबसे पुराने कॉइन वाले वॉलेट को सबसे पुरानी लागत मिलती है। यह आवंटन ऐप का नियम है – इसे अपने रिकॉर्ड से मिलाएँ।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Átmenet 2025.1.1. (Rev. Proc. 2024-28, safe harbor): ha a korábbi években az összes tárcán átívelő FIFO-t használtad, a 2024.12.31-i maradék tételek azokhoz a tárcákhoz kerülnek, amelyekben az érmék vannak – a legrégebbi érméket tartó tárca kapja a legrégebbi bekerülési értéket."
+            "value" : "Átmenet 2025.1.1. (Rev. Proc. 2024-28, safe harbor): ha a korábbi években az összes tárcán átívelő FIFO-t használtad, a 2024.12.31-i maradék tételek azokhoz a tárcákhoz kerülnek, amelyekben az érmék vannak – a legrégebbi érméket tartó tárca kapja a legrégebbi bekerülési értéket. Ez a hozzárendelés az alkalmazás szabálya – vesd össze a saját nyilvántartásoddal."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transisi 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jika tahun-tahun sebelumnya memakai FIFO lintas semua dompet, lot sisa per 31.12.2024 dialihkan ke dompet yang menyimpan koin – dompet dengan koin tertua mendapat biaya perolehan tertua."
+            "value" : "Transisi 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jika tahun-tahun sebelumnya memakai FIFO lintas semua dompet, lot sisa per 31.12.2024 dialihkan ke dompet yang menyimpan koin – dompet dengan koin tertua mendapat biaya perolehan tertua. Alokasi ini adalah aturan aplikasi – cocokkan dengan catatan Anda sendiri."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transizione all’1.1.2025 (Rev. Proc. 2024-28, safe harbor): se gli anni precedenti usavano FIFO su tutti i wallet, i lotti residui al 31.12.2024 vanno ai wallet che detengono i coin – il wallet con i coin più vecchi riceve il costo più vecchio."
+            "value" : "Transizione all’1.1.2025 (Rev. Proc. 2024-28, safe harbor): se gli anni precedenti usavano FIFO su tutti i wallet, i lotti residui al 31.12.2024 vanno ai wallet che detengono i coin – il wallet con i coin più vecchi riceve il costo più vecchio. Questa ripartizione è una regola dell’app – confrontala con i tuoi documenti."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025年1月1日の移行（Rev. Proc. 2024-28、セーフハーバー）：過去の年が全ウォレット共通のFIFOだった場合、2024年12月31日時点の残りのロットはコインを保有するウォレットに配分され、最も古いコインを持つウォレットが最も古い取得原価を受け取ります。"
+            "value" : "2025年1月1日の移行（Rev. Proc. 2024-28、セーフハーバー）：過去の年が全ウォレット共通のFIFOだった場合、2024年12月31日時点の残りのロットはコインを保有するウォレットに配分され、最も古いコインを持つウォレットが最も古い取得原価を受け取ります。この配分はアプリ独自のルールです。ご自身の記録と照合してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025년 1월 1일 전환(Rev. Proc. 2024-28, 세이프 하버): 이전 연도에 모든 지갑에 걸쳐 FIFO를 썼다면 2024년 12월 31일 기준 남은 로트는 코인을 보유한 지갑으로 배분되며, 가장 오래된 코인이 있는 지갑이 가장 오래된 취득가를 받습니다."
+            "value" : "2025년 1월 1일 전환(Rev. Proc. 2024-28, 세이프 하버): 이전 연도에 모든 지갑에 걸쳐 FIFO를 썼다면 2024년 12월 31일 기준 남은 로트는 코인을 보유한 지갑으로 배분되며, 가장 오래된 코인이 있는 지갑이 가장 오래된 취득가를 받습니다. 이 배분은 앱의 규칙입니다. 본인 기록과 대조하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brukte tidligere år FIFO på tvers av alle lommebøker, går restpostene per 31.12.2024 til lommebøkene som har coinsene – lommeboken med de eldste coinsene får den eldste kostprisen."
+            "value" : "Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brukte tidligere år FIFO på tvers av alle lommebøker, går restpostene per 31.12.2024 til lommebøkene som har coinsene – lommeboken med de eldste coinsene får den eldste kostprisen. Denne fordelingen er en regel i appen – sammenlign med egne opptegnelser."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overgang 1-1-2025 (Rev. Proc. 2024-28, safe harbor): gebruikten eerdere jaren FIFO over alle wallets, dan gaan de resterende posten per 31-12-2024 naar de wallets waarin de coins staan – de wallet met de oudste coins krijgt de oudste kostprijs."
+            "value" : "Overgang 1-1-2025 (Rev. Proc. 2024-28, safe harbor): gebruikten eerdere jaren FIFO over alle wallets, dan gaan de resterende posten per 31-12-2024 naar de wallets waarin de coins staan – de wallet met de oudste coins krijgt de oudste kostprijs. Deze toewijzing is een regel van de app – vergelijk met je eigen administratie."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przejście 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jeśli wcześniejsze lata liczono FIFO dla wszystkich portfeli, pozostałe partie na 31.12.2024 trafiają do portfeli, w których są coiny – portfel z najstarszymi coinami otrzymuje najstarszy koszt."
+            "value" : "Przejście 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jeśli wcześniejsze lata liczono FIFO dla wszystkich portfeli, pozostałe partie na 31.12.2024 trafiają do portfeli, w których są coiny – portfel z najstarszymi coinami otrzymuje najstarszy koszt. Ten podział to reguła aplikacji – porównaj go z własnymi zapisami."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transição a 1.1.2025 (Rev. Proc. 2024-28, safe harbor): se os anos anteriores usavam FIFO em todas as carteiras, os lotes restantes a 31.12.2024 vão para as carteiras que detêm as moedas – a carteira com as moedas mais antigas recebe o custo mais antigo."
+            "value" : "Transição a 1.1.2025 (Rev. Proc. 2024-28, safe harbor): se os anos anteriores usavam FIFO em todas as carteiras, os lotes restantes a 31.12.2024 vão para as carteiras que detêm as moedas – a carteira com as moedas mais antigas recebe o custo mais antigo. Esta atribuição é uma regra da app – compare-a com os seus registos."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transição em 1º/1/2025 (Rev. Proc. 2024-28, safe harbor): se os anos anteriores usavam FIFO em todas as carteiras, os lotes restantes em 31/12/2024 vão para as carteiras que detêm as moedas – a carteira com as moedas mais antigas recebe o custo mais antigo."
+            "value" : "Transição em 1º/1/2025 (Rev. Proc. 2024-28, safe harbor): se os anos anteriores usavam FIFO em todas as carteiras, os lotes restantes em 31/12/2024 vão para as carteiras que detêm as moedas – a carteira com as moedas mais antigas recebe o custo mais antigo. Essa atribuição é uma regra do app – compare com seus próprios registros."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tranziție la 1.1.2025 (Rev. Proc. 2024-28, safe harbor): dacă anii anteriori foloseau FIFO pe toate portofelele, loturile rămase la 31.12.2024 trec la portofelele care dețin monedele – portofelul cu cele mai vechi monede primește cel mai vechi cost."
+            "value" : "Tranziție la 1.1.2025 (Rev. Proc. 2024-28, safe harbor): dacă anii anteriori foloseau FIFO pe toate portofelele, loturile rămase la 31.12.2024 trec la portofelele care dețin monedele – portofelul cu cele mai vechi monede primește cel mai vechi cost. Această alocare este o regulă a aplicației – compar-o cu evidențele tale."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Переход 1.1.2025 (Rev. Proc. 2024-28, safe harbor): если в прошлые годы применялся FIFO по всем кошелькам, остатки партий на 31.12.2024 переходят в кошельки, где лежат монеты – кошелёк с самыми старыми монетами получает самую раннюю стоимость."
+            "value" : "Переход 1.1.2025 (Rev. Proc. 2024-28, safe harbor): если в прошлые годы применялся FIFO по всем кошелькам, остатки партий на 31.12.2024 переходят в кошельки, где лежат монеты – кошелёк с самыми старыми монетами получает самую раннюю стоимость. Это распределение — правило приложения; сверьте его со своими записями."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kalimi më 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nëse vitet e mëparshme përdornin FIFO për të gjitha portofolet, njësitë e mbetura më 31.12.2024 shkojnë te portofolet që mbajnë monedhat – portofoli me monedhat më të vjetra merr koston më të vjetër."
+            "value" : "Kalimi më 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nëse vitet e mëparshme përdornin FIFO për të gjitha portofolet, njësitë e mbetura më 31.12.2024 shkojnë te portofolet që mbajnë monedhat – portofoli me monedhat më të vjetra merr koston më të vjetër. Ky caktim është rregull i aplikacionit – krahasoje me të dhënat e tua."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Övergång 1.1.2025 (Rev. Proc. 2024-28, safe harbor): användes FIFO över alla plånböcker tidigare år, går restposterna per 31.12.2024 till de plånböcker som innehåller coinsen – plånboken med de äldsta coinsen får det äldsta anskaffningsvärdet."
+            "value" : "Övergång 1.1.2025 (Rev. Proc. 2024-28, safe harbor): användes FIFO över alla plånböcker tidigare år, går restposterna per 31.12.2024 till de plånböcker som innehåller coinsen – plånboken med de äldsta coinsen får det äldsta anskaffningsvärdet. Fördelningen är en regel i appen – jämför med ditt eget underlag."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "การเปลี่ยนผ่าน 1.1.2025 (Rev. Proc. 2024-28, safe harbor): หากปีก่อนหน้าใช้ FIFO รวมทุกกระเป๋า ล็อตที่เหลือ ณ 31.12.2024 จะไปอยู่ในกระเป๋าที่ถือเหรียญ – กระเป๋าที่มีเหรียญเก่าสุดได้ต้นทุนเก่าสุด"
+            "value" : "การเปลี่ยนผ่าน 1.1.2025 (Rev. Proc. 2024-28, safe harbor): หากปีก่อนหน้าใช้ FIFO รวมทุกกระเป๋า ล็อตที่เหลือ ณ 31.12.2024 จะไปอยู่ในกระเป๋าที่ถือเหรียญ – กระเป๋าที่มีเหรียญเก่าสุดได้ต้นทุนเก่าสุด การจัดสรรนี้เป็นกฎของแอป – โปรดเทียบกับบันทึกของคุณเอง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1.1.2025 geçişi (Rev. Proc. 2024-28, safe harbor): önceki yıllarda tüm cüzdanlarda FIFO kullanıldıysa, 31.12.2024 itibarıyla kalan partiler coin’leri tutan cüzdanlara gider – en eski coin’leri tutan cüzdan en eski maliyeti alır."
+            "value" : "1.1.2025 geçişi (Rev. Proc. 2024-28, safe harbor): önceki yıllarda tüm cüzdanlarda FIFO kullanıldıysa, 31.12.2024 itibarıyla kalan partiler coin’leri tutan cüzdanlara gider – en eski coin’leri tutan cüzdan en eski maliyeti alır. Bu dağıtım uygulamanın kuralıdır – kendi kayıtlarınızla karşılaştırın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Перехід 1.1.2025 (Rev. Proc. 2024-28, safe harbor): якщо в попередні роки застосовувався FIFO по всіх гаманцях, залишки партій на 31.12.2024 переходять до гаманців, де лежать монети – гаманець із найстарішими монетами отримує найранішу вартість."
+            "value" : "Перехід 1.1.2025 (Rev. Proc. 2024-28, safe harbor): якщо в попередні роки застосовувався FIFO по всіх гаманцях, залишки партій на 31.12.2024 переходять до гаманців, де лежать монети – гаманець із найстарішими монетами отримує найранішу вартість. Цей розподіл — правило застосунку; звірте його з власними записами."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chuyển tiếp 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nếu các năm trước dùng FIFO trên mọi ví, các lô còn lại tại 31.12.2024 chuyển sang các ví đang giữ coin – ví có coin cũ nhất nhận giá vốn cũ nhất."
+            "value" : "Chuyển tiếp 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nếu các năm trước dùng FIFO trên mọi ví, các lô còn lại tại 31.12.2024 chuyển sang các ví đang giữ coin – ví có coin cũ nhất nhận giá vốn cũ nhất. Cách phân bổ này là quy tắc của ứng dụng – hãy đối chiếu với hồ sơ của bạn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。"
+            "value" : "2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与你自己的记录核对。"
           }
         }
       }
@@ -308806,187 +308997,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "للاسترشاد فقط: يحدد الطريقة والسنة الضريبية وملخص ورقة العمل. تعرض الأسطر دائمًا حقائق محايدة."
+            "value" : "للاسترشاد فقط: يحدد الطريقة والسنة الضريبية وملخص ورقة العمل. تبقى بطاقة المحفظة محايدة – قد تختلف الهدايا ورسوم التحويل عن ورقة العمل."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jen orientačně: určuje metodu / zdaňovací období a přehled pracovního podkladu. Řádky vždy ukazují neutrální fakta."
+            "value" : "Jen orientačně: určuje metodu / zdaňovací období a přehled pracovního podkladu. Karta Portfolio zůstává neutrální – dary a poplatky za převody se mohou od pracovního podkladu lišit."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kun vejledende: bestemmer metode / skatteår og oversigt i arbejdspapiret. Linjerne viser altid neutrale fakta."
+            "value" : "Kun vejledende: bestemmer metode / skatteår og oversigt i arbejdspapiret. Porteføljekortet forbliver neutralt – gaver og overførselsgebyrer kan afvige fra arbejdspapiret."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nur Orientierung: bestimmt Methode / Steuerjahr und Übersicht der Arbeitsunterlage. Die Zeilen zeigen immer neutrale Fakten."
+            "value" : "Nur Orientierung: bestimmt Methode / Steuerjahr und Übersicht der Arbeitsunterlage. Die Portfolio-Karte bleibt neutral – Schenkungen und Umbuchungsgebühren können von der Arbeitsunterlage abweichen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μόνο ενδεικτικά: ορίζει μέθοδο / φορολογικό έτος και σύνοψη του εγγράφου εργασίας. Οι γραμμές δείχνουν πάντα ουδέτερα στοιχεία."
+            "value" : "Μόνο ενδεικτικά: ορίζει μέθοδο / φορολογικό έτος και σύνοψη του εγγράφου εργασίας. Η κάρτα Χαρτοφυλακίου μένει ουδέτερη – δωρεές και τέλη μεταφοράς μπορεί να διαφέρουν από το έγγραφο εργασίας."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "For guidance only: sets the method, tax year and summary of the tax worksheet. Rows always show neutral facts."
+            "value" : "For guidance only: sets the method, tax year and summary of the tax worksheet. The Portfolio card stays neutral – gifts and transfer fees can differ from the worksheet."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solo orientativo: define el método / el ejercicio fiscal y el resumen del documento de trabajo. Las filas siempre muestran datos neutros."
+            "value" : "Solo orientativo: define el método / el ejercicio fiscal y el resumen del documento de trabajo. La tarjeta de Cartera sigue siendo neutral: las donaciones y las comisiones de traspaso pueden diferir del documento de trabajo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فقط برای راهنمایی: روش، سال مالیاتی و خلاصهٔ برگهٔ کاری را تعیین می‌کند. ردیف‌ها همیشه واقعیت‌های بی‌طرف را نشان می‌دهند."
+            "value" : "فقط برای راهنمایی: روش، سال مالیاتی و خلاصهٔ برگهٔ کاری را تعیین می‌کند. کارت پرتفوی بی‌طرف می‌ماند – هدیه‌ها و کارمزدهای انتقال ممکن است با برگهٔ کاری فرق داشته باشند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vain suuntaa antava: määrittää menetelmän / verovuoden ja työpaperin koosteen. Rivit näyttävät aina neutraalit tiedot."
+            "value" : "Vain suuntaa antava: määrittää menetelmän / verovuoden ja työpaperin koosteen. Salkku-kortti pysyy neutraalina – lahjat ja siirtokulut voivat poiketa työpaperista."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "À titre indicatif uniquement : définit la méthode / l’année fiscale et le récapitulatif du document de travail. Les lignes montrent toujours des faits neutres."
+            "value" : "À titre indicatif uniquement : définit la méthode / l’année fiscale et le récapitulatif du document de travail. La carte Portefeuille reste neutre – dons et frais de transfert peuvent différer du document de travail."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "להתמצאות בלבד: קובע שיטה / שנת מס וסיכום של מסמך העבודה. השורות תמיד מציגות עובדות ניטרליות."
+            "value" : "להתמצאות בלבד: קובע שיטה / שנת מס וסיכום של מסמך העבודה. הכרטיס בתיק ההשקעות נשאר ניטרלי – מתנות ועמלות העברה עשויות להיות שונות ממסמך העבודה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सिर्फ़ मार्गदर्शन के लिए: कार्य-पत्र की पद्धति / कर वर्ष और सारांश तय करता है। पंक्तियाँ हमेशा तटस्थ तथ्य दिखाती हैं।"
+            "value" : "सिर्फ़ मार्गदर्शन के लिए: कार्य-पत्र की पद्धति / कर वर्ष और सारांश तय करता है। पोर्टफ़ोलियो कार्ड तटस्थ रहता है – उपहार और ट्रांसफ़र शुल्क कार्य-पत्र से अलग हो सकते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Csak tájékoztató: meghatározza a módszert / az adóévet és a munkaanyag összesítőjét. A sorok mindig semleges tényeket mutatnak."
+            "value" : "Csak tájékoztató: meghatározza a módszert / az adóévet és a munkaanyag összesítőjét. A Portfólió kártya semleges marad – az ajándékok és az átvezetési díjak eltérhetnek a munkaanyagtól."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hanya orientasi: menentukan metode / tahun pajak / dan ringkasan kertas kerja. Baris selalu menampilkan fakta netral."
+            "value" : "Hanya orientasi: menentukan metode / tahun pajak / dan ringkasan kertas kerja. Kartu Portofolio tetap netral – hadiah dan biaya transfer bisa berbeda dari kertas kerja."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solo orientativo: imposta metodo / anno fiscale e riepilogo del documento di lavoro. Le righe mostrano sempre fatti neutri."
+            "value" : "Solo orientativo: imposta metodo / anno fiscale e riepilogo del documento di lavoro. La scheda Portafoglio resta neutra – donazioni e commissioni di trasferimento possono differire dal documento di lavoro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "目安のみ：作業資料の方法・課税年度・サマリーを決めます。各行は常に中立的な事実を示します。"
+            "value" : "目安のみ：作業資料の方法・課税年度・サマリーを決めます。ポートフォリオのカードは中立のままです。贈与や振替手数料は作業資料と異なることがあります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "참고용: 작업 자료의 방식 / 과세 연도 / 요약을 정합니다. 각 행은 항상 중립적인 사실을 보여 줍니다."
+            "value" : "참고용: 작업 자료의 방식 / 과세 연도 / 요약을 정합니다. 포트폴리오 카드는 중립을 유지합니다. 증여와 이체 수수료는 작업 자료와 다를 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bare veiledende: bestemmer metode / skatteår og oversikt i arbeidsdokumentet. Linjene viser alltid nøytrale fakta."
+            "value" : "Bare veiledende: bestemmer metode / skatteår og oversikt i arbeidsdokumentet. Porteføljekortet forblir nøytralt – gaver og overføringsgebyrer kan avvike fra arbeidsdokumentet."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alleen ter oriëntatie: bepaalt methode / belastingjaar en overzicht van het werkdocument. De regels tonen altijd neutrale feiten."
+            "value" : "Alleen ter oriëntatie: bepaalt methode / belastingjaar en overzicht van het werkdocument. De Portfolio-kaart blijft neutraal – schenkingen en overboekingskosten kunnen afwijken van het werkdocument."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tylko orientacyjnie: określa metodę / rok podatkowy i podsumowanie dokumentu roboczego. Wiersze zawsze pokazują neutralne fakty."
+            "value" : "Tylko orientacyjnie: określa metodę / rok podatkowy i podsumowanie dokumentu roboczego. Karta Portfel pozostaje neutralna – darowizny i opłaty za przeniesienia mogą różnić się od dokumentu roboczego."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apenas orientativo: define o método / o ano fiscal e o resumo do documento de trabalho. As linhas mostram sempre factos neutros."
+            "value" : "Apenas orientativo: define o método / o ano fiscal e o resumo do documento de trabalho. O cartão Portfólio mantém-se neutro – doações e taxas de transferência podem diferir do documento de trabalho."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apenas orientativo: define o método / o ano fiscal e o resumo do documento de trabalho. As linhas sempre mostram fatos neutros."
+            "value" : "Apenas orientativo: define o método / o ano fiscal e o resumo do documento de trabalho. O cartão Portfólio continua neutro – doações e taxas de transferência podem diferir do documento de trabalho."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doar orientativ: stabilește metoda / anul fiscal și rezumatul documentului de lucru. Rândurile arată mereu fapte neutre."
+            "value" : "Doar orientativ: stabilește metoda / anul fiscal și rezumatul documentului de lucru. Cardul Portofoliu rămâne neutru – donațiile și comisioanele de transfer pot diferi de documentul de lucru."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Только ориентир: задаёт метод / налоговый год и сводку рабочего документа. Строки всегда показывают нейтральные факты."
+            "value" : "Только ориентир: задаёт метод / налоговый год и сводку рабочего документа. Карточка «Портфель» остаётся нейтральной – подарки и комиссии за переводы могут отличаться от рабочего документа."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vetëm orientuese: përcakton metodën / vitin tatimor dhe përmbledhjen e dokumentit të punës. Rreshtat tregojnë gjithmonë fakte neutrale."
+            "value" : "Vetëm orientuese: përcakton metodën / vitin tatimor dhe përmbledhjen e dokumentit të punës. Karta e Portofolit mbetet neutrale – dhuratat dhe tarifat e transferimit mund të ndryshojnë nga dokumenti i punës."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Endast vägledande: bestämmer metod / beskattningsår och översikt i underlaget. Raderna visar alltid neutrala fakta."
+            "value" : "Endast vägledande: bestämmer metod / beskattningsår och översikt i underlaget. Portföljkortet förblir neutralt – gåvor och överföringsavgifter kan skilja sig från underlaget."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เพื่อเป็นแนวทางเท่านั้น: กำหนดวิธี ปีภาษี และสรุปของเอกสารประกอบงาน แถวต่าง ๆ แสดงข้อเท็จจริงที่เป็นกลางเสมอ"
+            "value" : "เพื่อเป็นแนวทางเท่านั้น: กำหนดวิธี ปีภาษี และสรุปของเอกสารประกอบงาน การ์ดพอร์ตโฟลิโอยังคงเป็นกลาง – ของขวัญและค่าธรรมเนียมการโอนอาจต่างจากเอกสารประกอบงาน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yalnızca yol gösterici: çalışma belgesinin yöntemini / vergi yılını ve özetini belirler. Satırlar her zaman tarafsız bilgileri gösterir."
+            "value" : "Yalnızca yol gösterici: çalışma belgesinin yöntemini / vergi yılını ve özetini belirler. Portföy kartı tarafsız kalır – hediyeler ve transfer ücretleri çalışma belgesinden farklı olabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Лише орієнтир: визначає метод / податковий рік і підсумок робочого документа. Рядки завжди показують нейтральні факти."
+            "value" : "Лише орієнтир: визначає метод / податковий рік і підсумок робочого документа. Картка «Портфель» лишається нейтральною – подарунки й комісії за перекази можуть відрізнятися від робочого документа."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chỉ để tham khảo: xác định phương pháp / năm tính thuế và phần tổng hợp của tài liệu làm việc. Các dòng luôn hiển thị dữ kiện trung lập."
+            "value" : "Chỉ để tham khảo: xác định phương pháp / năm tính thuế và phần tổng hợp của tài liệu làm việc. Thẻ Danh mục vẫn trung lập – quà tặng và phí chuyển có thể khác với tài liệu làm việc."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅供参考：决定工作底稿的方法、纳税年度和汇总。各行始终显示中性的事实。"
+            "value" : "仅供参考：决定工作底稿的方法、纳税年度和汇总。投资组合卡片保持中性——赠与和转账手续费可能与工作底稿不同。"
           }
         }
       }

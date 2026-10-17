@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">اعلان‌ها خاموش</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">وقتی برنامه بسته است، Android نامنظم بررسی می‌کند (با «%1$s» حدود هر 15 دقیقه)، پس جهش‌های کوتاه ممکن است از دست بروند.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">وقتی برنامه بسته است، iOS تصمیم می‌گیرد کی بررسی شود، پس جهش‌های کوتاه ممکن است از دست بروند؛ تا وقتی باز است، بررسی مطمئن است.</string>
+    <string name="alarm_timing_hint_android">وقتی برنامه بسته است، Android نامنظم بررسی می‌کند – اغلب دیرتر از 15 دقیقه، حتی با «%1$s». جهش‌های کوتاه ممکن است از دست بروند.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">وقتی برنامه بسته است، iOS اغلب دیرتر از 15 دقیقه بررسی می‌کند، گاهی فقط در باز کردن بعدی. جهش‌های کوتاه ممکن است از دست بروند.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">هشدارها چه زمانی بررسی می‌شوند</string>
     <string name="alarm_timing_where">تعداد دفعات به‌روزرسانی قیمت‌ها را در %1$s تنظیم کن.</string>

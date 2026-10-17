@@ -135,8 +135,8 @@
     <string name="alarm_saved_notifications_off">Notifikasi nonaktif</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Saat aplikasi ditutup, Android memeriksa tidak teratur (kira-kira setiap 15 menit dengan «%1$s»), jadi lonjakan singkat bisa terlewat.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Saat aplikasi ditutup, iOS yang menentukan kapan diperiksa, jadi lonjakan singkat bisa terlewat; selama terbuka, pemeriksaan andal.</string>
+    <string name="alarm_timing_hint_android">Saat aplikasi ditutup, Android memeriksa tidak teratur – sering lebih lambat dari 15 menit, bahkan dengan «%1$s». Lonjakan singkat bisa terlewat.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Saat aplikasi ditutup, iOS sering memeriksa lebih lambat dari 15 menit, kadang baru saat aplikasi dibuka lagi. Lonjakan singkat bisa terlewat.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Kapan alarm diperiksa</string>
     <string name="alarm_timing_where">Atur seberapa sering harga diperbarui di %1$s.</string>

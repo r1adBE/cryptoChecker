@@ -48,6 +48,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">수수료 ≥ 받은 수량</string>
     <string name="portfolio_csv_skip_internal_move">내 계정 간 이동 – 기록할 내용 없음</string>
     <string name="portfolio_csv_skip_missing">항목 누락</string>
+    <string name="portfolio_csv_skip_ambiguous">같은 초에 구분할 수 없는 여러 거래 – 직접 입력</string>
     <string name="portfolio_csv_skip_not_crypto">암호화폐 아님</string>
     <string name="portfolio_csv_skip_possible_duplicate">이미 가져왔을 수 있음(거의 같은 거래) – 직접 확인하세요</string>
     <string name="portfolio_csv_skip_two_fees">단위가 다른 수수료 2건 – 스왑을 직접 입력</string>

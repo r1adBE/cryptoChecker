@@ -12,8 +12,8 @@ import java.math.RoundingMode
  *    Krypto (auch Stablecoin) gegen Fiat ([CsvImport.FIAT]) → Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge, ohne
  *    Gebühr); Krypto gegen Krypto → Tausch, auch gegen Stablecoins ([CsvImport.STABLES]: BTC → USDT, USDT → ETH,
  *    USDC → USDT; Wert nur mit USDT-Seite = USDT-Menge, [CsvImport.stableSwapValue], sonst unbekannt). Gebühren beider
- *    Seiten wie [CsvImport.swapFee]; zwei Gebühren in verschiedenen Einheiten → beide Zeilen übersprungen
- *    ([CsvImportSkipReason.TWO_FEES]). Fiat gegen Fiat → [CsvImportSkipReason.NOT_CRYPTO].
+ *    Seiten in derselben Einheit zusammen; in verschiedenen Einheiten bleibt eine am Geschäft, die andere wird eine eigene
+ *    Gebühr-Zeile (Kennung «refid/fee», [CsvImport.splitFees]). Fiat gegen Fiat → [CsvImportSkipReason.NOT_CRYPTO].
  *  - type «deposit» / «withdrawal» (Krypto, auch Stablecoins) → Einzahlung / Auszahlung; Fiat-Ein- und -Auszahlungen →
  *    [CsvImportSkipReason.NOT_CRYPTO].
  *  - type «staking», oder «earn» mit subtype «reward» → Belohnung.
@@ -193,11 +193,17 @@ internal object CsvImportKraken {
         }
         val out = given[0]
         val inn = received[0]
-        val fees = CsvImport.swapFee(out.fee, out.fee?.let { out.asset }, inn.fee, inn.fee?.let { inn.asset })
-        if (fees == null) {
+        // Gebühren beider Seiten: gleiche Einheit zusammen; verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile
+        val feeList = when {
+            out.fee != null && inn.fee != null && out.asset == inn.asset -> listOf(out.asset to out.fee.add(inn.fee))
+            else -> listOfNotNull(out.fee?.let { out.asset to it }, inn.fee?.let { inn.asset to it })
+        }
+        val split = CsvImport.splitFees(feeList, out.asset, inn.asset)
+        if (split == null) {
             group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.TWO_FEES) }
             return
         }
+        val fees = split.first?.second to split.first?.first
         val line = minOf(out.line, inn.line)
         val outAmount = out.signed.abs()
         val inAmount = inn.signed
@@ -235,6 +241,13 @@ internal object CsvImportKraken {
                     swapValue = value,
                     stableSwap = CsvImport.isStable(out.asset) || CsvImport.isStable(inn.asset),
                 )
+            }
+        }
+        // Weitere Gebühr (andere Einheit): eigene Gebühr-Zeile nach dem Geschäft, eigene Kennung (die refid trägt das Geschäft)
+        if (!(isMoney(out.asset) && isMoney(inn.asset))) {
+            for ((unit, amount) in split.second) {
+                val leg = if (unit == out.asset) out else inn
+                rows += row(line, CsvImportKind.FEE, rawKind(leg), unit, amount, null, null, null, null, leg.time, "$refid/fee")
             }
         }
     }

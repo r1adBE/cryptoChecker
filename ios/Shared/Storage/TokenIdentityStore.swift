@@ -106,6 +106,22 @@ final class TokenIdentityStore: @unchecked Sendable {
                                                    providerName: providerName)
     }
 
+    /// Darf die Ausweich-Reihe von `provider` die %-Veränderung des Paars `base` an `marketKey` (`marketName`)
+    /// liefern? Kerzen derselben Börse (`DayChange.foreignCandleSource` nil): wie `fallbackSeriesAllowed`. Kerzen
+    /// einer anderen Börse oder unbekannter Anbieter: nur mit belegt gleichem Namen (`TokenIdentity.fallbackChangeAllowed`)
+    /// — sonst keine Veränderung statt eines fremden Werts. Wie `TokenIdentityStore.fallbackChangeAllowed` (Android).
+    func fallbackChangeAllowed(marketKey: String, marketName: String, base: String, provider: String?) -> Bool {
+        guard let p = provider?.trimmingCharacters(in: .whitespaces), !p.isEmpty else { return false }
+        if DayChange.foreignCandleSource(markets: [marketKey, marketName], provider: p) == nil {
+            return fallbackSeriesAllowed(marketKey: marketKey, base: base, provider: p)
+        }
+        let providerKey: String? = TokenIdentity.providerMarkets[p]
+        let providerName: String? = providerKey.flatMap { pairName(marketKey: $0, base: base) }
+        return TokenIdentity.fallbackChangeAllowed(symbol: base, ownName: pairName(marketKey: marketKey, base: base),
+                                                   provider: p, binanceName: binanceName(base),
+                                                   providerName: providerName)
+    }
+
     /// Darf die Quelle `host` der Kerzen-Kette für `base` einspringen, wenn die eigene Seite `ownName` heisst?
     /// Gleiche Namenssperre wie Mini-Chart und Widget. Wie `TokenIdentityStore.chainSourceAllowed` (Android).
     func chainSourceAllowed(base: String, ownName: String?, host: String) -> Bool {

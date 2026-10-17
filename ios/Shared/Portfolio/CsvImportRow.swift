@@ -40,6 +40,8 @@ enum CsvImportFormat: String, CaseIterable {
 enum CsvImportSkipReason: String {
     case UNSUPPORTED_KIND, NOT_CRYPTO, BAD_NUMBER, BAD_DATE, MISSING_FIELD, FEE_EXCEEDS_AMOUNT, TWO_FEES, INTERNAL_MOVE
     case POSSIBLE_DUPLICATE
+    /// Mehrere Geschäfte in derselben Sekunde, nicht eindeutig trennbar (Binance: mehrere Coins je Seite) — wie Android.
+    case AMBIGUOUS_GROUP
 }
 
 /// Übersprungene Zeile; `line` = Zeilennummer in der Datei (1 = erste Zeile).
@@ -242,6 +244,22 @@ enum CsvImport {
         guard gu == ru else { return nil }
         let sum: Decimal = gFee + rFee
         return (sum, givenUnit)
+    }
+
+    /// Gebühren eines Geschäfts in mehreren Einheiten (Binance, Kraken; `fees` = (Einheit, Menge > 0), je Einheit
+    /// höchstens einmal) — wie Android `CsvImport.splitFees`: eine bleibt am Geschäft, jede weitere wird eine eigene
+    /// Gebühr-Zeile (`.FEE`, Veräusserung zum Tageskurs). Am Geschäft bleibt, unabhängig von der Reihenfolge: die
+    /// Fiat-Gebühr, sonst die im abgegebenen, dann im erhaltenen Coin, sonst die alphabetisch erste. Zwei Fiat-Gebühren
+    /// → nil (`.TWO_FEES`).
+    static func splitFees(_ fees: [(unit: String, amount: Decimal)], given: String?,
+                          received: String?) -> (primary: (unit: String, amount: Decimal)?, extra: [(unit: String, amount: Decimal)])? {
+        if fees.count <= 1 { return (fees.first, []) }
+        if fees.filter({ isFiat($0.unit) }).count > 1 { return nil }
+        let primary = fees.first(where: { isFiat($0.unit) })
+            ?? fees.first(where: { $0.unit == given })
+            ?? fees.first(where: { $0.unit == received })
+            ?? fees.sorted(by: { $0.unit < $1.unit })[0]
+        return (primary, fees.filter { $0.unit != primary.unit })
     }
 
     /// Gebühr verbraucht die ganze erhaltene Menge (wie `PortfolioTxForm.feeConsumesReceived`): Kauf/Einzahlung/Belohnung

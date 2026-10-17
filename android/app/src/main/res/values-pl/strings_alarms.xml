@@ -153,8 +153,8 @@
     <string name="alarm_saved_notifications_off">Powiadomienia wyłączone</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Przy zamkniętej aplikacji Android sprawdza nieregularnie (z «%1$s» mniej więcej co 15 minut), więc krótkie skoki mogą umknąć.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Po zamknięciu aplikacji iOS decyduje, kiedy sprawdzać, więc krótkie skoki mogą umknąć; gdy aplikacja jest otwarta, sprawdzanie jest niezawodne.</string>
+    <string name="alarm_timing_hint_android">Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z «%1$s». Krótkie skoki mogą umknąć.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Przy zamkniętej aplikacji iOS często sprawdza później niż po 15 minutach, czasem dopiero przy następnym otwarciu. Krótkie skoki mogą umknąć.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Kiedy alarmy są sprawdzane</string>
     <string name="alarm_timing_where">Częstotliwość aktualizacji kursów ustawisz w %1$s.</string>

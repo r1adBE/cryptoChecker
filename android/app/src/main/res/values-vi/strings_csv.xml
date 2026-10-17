@@ -48,6 +48,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">phí ≥ số lượng nhận về</string>
     <string name="portfolio_csv_skip_internal_move">di chuyển giữa các tài khoản của chính bạn – không có gì để ghi</string>
     <string name="portfolio_csv_skip_missing">thiếu trường</string>
+    <string name="portfolio_csv_skip_ambiguous">nhiều giao dịch trong cùng một giây không tách được – nhập thủ công</string>
     <string name="portfolio_csv_skip_not_crypto">không phải tiền mã hóa</string>
     <string name="portfolio_csv_skip_possible_duplicate">có thể đã nhập (giao dịch gần giống hệt) – hãy kiểm tra thủ công</string>
     <string name="portfolio_csv_skip_two_fees">hai khoản phí khác đơn vị – nhập giao dịch hoán đổi thủ công</string>

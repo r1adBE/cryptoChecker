@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">kosten ≥ ontvangen hoeveelheid</string>
     <string name="portfolio_csv_skip_internal_move">verplaatsing tussen je eigen rekeningen – niets te boeken</string>
     <string name="portfolio_csv_skip_missing">veld ontbreekt</string>
+    <string name="portfolio_csv_skip_ambiguous">meerdere transacties in dezelfde seconde, niet te scheiden – handmatig invoeren</string>
     <string name="portfolio_csv_skip_not_crypto">geen crypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">mogelijk al geïmporteerd (bijna dezelfde transactie) – handmatig controleren</string>
     <string name="portfolio_csv_skip_two_fees">twee kosten in verschillende eenheden – ruil handmatig invoeren</string>

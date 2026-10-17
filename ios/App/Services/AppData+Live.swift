@@ -66,7 +66,7 @@ extension AppData {
                 rollingBasis: rolling, stampCurrent: stampCurrent,
                 exchangeRolling: LiveExchange.from(marketKey: watch.marketKey)?.rollingChange == true,
                 live: quote.change24h, existing: watch.change24h)
-            chosen[id] = LiveQuote(price: quote.price, change24h: change, time: quote.time)
+            chosen[id] = LiveQuote(price: quote.price, change24h: change, time: quote.time, tradeTime: quote.tradeTime)
         }
         guard !chosen.isEmpty else { return true }
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveQuotes: chosen)

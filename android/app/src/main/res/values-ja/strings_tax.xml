@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">レンディング利息（受取時の価値）</string>
-    <string name="tax_line_at_old_long">2021年3月1日より前に取得・保有1年超：課税対象外</string>
-    <string name="tax_line_at_rate">特別税率 27.5パーセント：2021年3月1日以降取得分の純額 + 利息</string>
+    <string name="tax_line_at_old_long">2021年3月1日より前に取得・保有1年超：通常は課税対象外 – 要確認</string>
+    <string name="tax_line_at_rate">特別税率 27.5パーセント：2021年3月1日以降取得分の純額 + 利息（2021年3月1日～2022年2月28日：注記参照）</string>
     <string name="tax_line_au_discounted">損失と 50パーセント割引後の純キャピタルゲイン</string>
     <string name="tax_line_ca_taxable">課税対象のキャピタルゲイン（算入率 1/2）</string>
     <string name="tax_line_ch_income">報酬を記載 – 取扱いは ESTV の作業資料を参照</string>
     <string name="tax_line_ch_private">私有財産のキャピタルゲイン：未計算 – 区分は ESTV を参照</string>
     <string name="tax_line_ch_wealth">財産税：計算しない – 保有 CSV は 12月31日の取引所価格 × USD/CHF を使用 – 課税評価額：ESTV 価格リスト</string>
-    <string name="tax_line_de_long">保有1年超：DE では課税対象外（§ 23 EStG）</string>
+    <string name="tax_line_de_long">保有1年超：§ 23 EStG により通常は課税対象外 – 要確認</string>
     <string name="tax_line_denied_loss">控除不可の損失（見かけ上の損失 / superficial loss）</string>
     <string name="tax_line_fr_outflow">売却なしの出庫（引き出し）– 取得価額の合計を按分して減額</string>
     <string name="tax_line_fr_rate">定率 12.8パーセント ＋社会保障負担（選択により累進税率）</string>
-    <string name="tax_line_fr_threshold">年間 305 € までの譲渡は非課税（売却価格の合計）</string>
+    <string name="tax_line_fr_threshold">年間 305 € までの譲渡：通常は非課税（売却価格の合計）– 要確認</string>
     <string name="tax_line_gains">利益</string>
     <string name="tax_line_income">所得（報酬は受取時の価値）</string>
     <string name="tax_line_jp_misc">雑所得：純利益＋所得</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">売却額</string>
     <string name="tax_line_short_net">純額、保有1年以内</string>
     <string name="tax_line_transfer_fees">振替手数料（自分のウォレット間）</string>
-    <string name="tax_line_uk_after_exempt">非課税額を超える純利益</string>
-    <string name="tax_line_uk_exempt">年間非課税額（Annual Exempt Amount）</string>
+    <string name="tax_line_uk_after_exempt">非課税額を超える純利益（暗号資産のみ）</string>
+    <string name="tax_line_uk_exempt">年間非課税額（Annual Exempt Amount） – すべての譲渡の合計に適用、ここでは全額を控除</string>
     <string name="tax_line_us_terms">短期（1年以内）：通常税率／長期（1年超）：キャピタルゲイン税率</string>
     <string name="tax_line_withdrawal_fees">出庫手数料</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">EUR 建ての値が必要（為替レートなし）</string>
     <string name="tax_de_needs_holding">保有期間なし（平均法）– 確認には FIFO を選択</string>
     <string name="tax_de_private_limit">私的譲渡の非課税限度（§ 23 EStG）</string>
-    <string name="tax_de_reached">限度到達 – 全額が課税対象</string>
+    <string name="tax_de_reached">限度到達 – 通常は全額が対象 – 要確認</string>
     <string name="tax_de_short_gains">利益、保有1年以内</string>
     <string name="tax_de_short_losses">損失、保有1年以内</string>
     <string name="tax_de_unclassified">保有期間なし</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">テンプレート：%1$s · 方法：%2$s · 通貨：%3$s</string>
     <string name="tax_template_de">ドイツ</string>
     <string name="tax_template_fr">フランス</string>
-    <string name="tax_template_hint">目安のみ：作業資料の方法・課税年度・サマリーを決めます。各行は常に中立的な事実を示します。</string>
+    <string name="tax_template_hint">目安のみ：作業資料の方法・課税年度・サマリーを決めます。ポートフォリオのカードは中立のままです。贈与や振替手数料は作業資料と異なることがあります。</string>
     <string name="tax_template_jp">日本</string>
     <string name="tax_template_neutral">中立（全ての国）</string>
     <string name="tax_template_suggestion">お住まいの地域の候補：%1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">保有し続けるステーブルコイン（USDT/USDC/DAI …）への売却は、ここでは暗号資産同士の交換で課税されません – ステーブルコインへのスワップとして記録してください。課税されるのはユーロへの売却のみです – 「売却」はユーロへの売却として扱われます。</string>
     <string name="tax_note_transfer_fee">自分のウォレット間の振替で USDT または法定通貨で払った手数料も同様です：取得原価には加えず、参考情報としてのみ表示します。</string>
     <string name="tax_note_uk">HMRC に基づく対応付け：同日、次に翌30日間、次に Section 104 に基づく合算保有（Section 104 pool）。</string>
-    <string name="tax_note_us_transition">2025年1月1日の移行（Rev. Proc. 2024-28、セーフハーバー）：過去の年が全ウォレット共通のFIFOだった場合、2024年12月31日時点の残りのロットはコインを保有するウォレットに配分され、最も古いコインを持つウォレットが最も古い取得原価を受け取ります。</string>
+    <string name="tax_note_us_transition">2025年1月1日の移行（Rev. Proc. 2024-28、セーフハーバー）：過去の年が全ウォレット共通のFIFOだった場合、2024年12月31日時点の残りのロットはコインを保有するウォレットに配分され、最も古いコインを持つウォレットが最も古い取得原価を受け取ります。この配分はアプリ独自のルールです。ご自身の記録と照合してください。</string>
     <string name="tax_note_us_wallet">2025 課税年度から IRS はウォレット/取引所ごとの取得原価を求めています（Rev. Proc. 2024-28）– エクスポートは 2025 年以降ウォレットごとの FIFO で計算します – 2025 年より前は設定した取得原価の計算方法が適用されます。</string>
     <string name="tax_note_withdrawal_fee">USDT または法定通貨の出庫手数料は損失ではありません：法定通貨の手数料は控除できず、USDT の手数料は額面での譲渡で利益はありません – 参考情報としてのみ表示します（%1$s）。</string>
     <string name="tax_summary_at_interest_income">算入：受取時に特別税率 27.5パーセントの所得（§ 27b 第2項第1号 EStG / BMF）– コインはこの価値を取得原価として保持します</string>

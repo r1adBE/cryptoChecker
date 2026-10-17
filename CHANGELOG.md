@@ -15,6 +15,25 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 74)
+
+Twenty-third review.
+
+* Phemex Spot: a symbol without a price scale in the product list is an error, never a guessed 10^8.
+* Live prices: a stream tick is no longer stored as the exchange's trade time – «unchanged since» works again and a
+  quiet book no longer looks freshly traded.
+* % change from another exchange's candles only when the coin name matches (otherwise «—»); a foreign source is no
+  longer shown as the own exchange after a live update.
+* Rewards without a price (e.g. Kraken staking) get the day's close in the tax export (marked as estimated).
+* CSV: trades with two fees in different assets are kept (second fee as its own row); a Binance buy and sell of the
+  same coin in one second becomes two trades; truly ambiguous groups are listed as skipped with a clear reason.
+* Watched addresses: a chain balance within ±5 % of the booked balance is only displayed (no double count).
+* Tax lines no longer read like a ruling («usually not taxable – check», UK allowance applies to all disposals,
+  US wallet allocation is an app rule, AT transition period refers to the note).
+* Alarm hint on both systems: often later than 15 minutes, on iPhone sometimes only at the next opening.
+* Watchlist jump button has a 48 dp touch target.
+* Room schema 16 committed.
+
 ## 16.2.2 (build 73)
 
 Twenty-first and twenty-second review plus two follow-up checks.

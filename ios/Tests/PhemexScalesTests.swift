@@ -1,24 +1,27 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Phemex-Faktoren aus `/public/products` (`PhemexScales`): Preis (Ep) je Produkt, Werte (Ev) je Währung, Standard 8
-/// nur ohne Angabe — wie `PhemexScalesTest.kt`.
+/// Phemex-Faktoren aus `/public/products` (`PhemexScales`): Preis (Ep) je Produkt (ohne Angabe kein Kurs), Werte (Ev)
+/// je Währung, Standard 8 nur ohne Angabe — wie `PhemexScalesTest.kt`.
 final class PhemexScalesTests: XCTestCase {
 
     private let json = """
         {"currencies":[{"currency":"BTC","valueScale":8},{"currency":"SHIB","valueScale":2},{"currency":"VPAD","valueScale":4},
         {"currency":"USDT","valueScale":8},{"currency":"NEW","valueScale":6}],
-        "products":[{"symbol":"sBTCUSDT","type":"Spot","baseCurrency":"BTC","quoteCurrency":"USDT"},
+        "products":[{"symbol":"sBTCUSDT","type":"Spot","baseCurrency":"BTC","quoteCurrency":"USDT","priceScale":8},
+        {"symbol":"sNOSCALEUSDT","type":"Spot","baseCurrency":"NOSCALE","quoteCurrency":"USDT"},
         {"symbol":"sNEWUSDT","type":"Spot","baseCurrency":"NEW","quoteCurrency":"USDT","priceScale":6},
         {"symbol":"BTCUSD","type":"Perpetual","priceScale":4,"baseCurrency":"BTC","quoteCurrency":"USD"}]}
         """
 
     func testScalesFromProducts() throws {
         let s = PhemexScales.parse(try JObject(string: json))
-        // Spot ohne priceScale: 8 (Public-Spot-API), mit Angabe die Angabe; Kontrakte zählen nicht
+        // Preis je Produkt aus der Angabe; Spot ohne priceScale, fremdes Symbol und Kontrakte: kein Teiler (nie 8 geraten)
         XCTAssertEqual(s.priceDivisor("sBTCUSDT"), 1e8)
         XCTAssertEqual(s.priceDivisor("sNEWUSDT"), 1e6)
-        XCTAssertEqual(s.priceDivisor("BTCUSD"), 1e8)
+        XCTAssertNil(s.priceDivisor("sNOSCALEUSDT"))
+        XCTAssertNil(s.priceDivisor("sMISSINGUSDT"))
+        XCTAssertNil(s.priceDivisor("BTCUSD"))
         // Werte je Währung: SHIB 2, VPAD 4, NEW 6 aus der Liste
         XCTAssertEqual(s.valueDivisor("SHIB"), 1e2)
         XCTAssertEqual(s.valueDivisor("VPAD"), 1e4)
@@ -31,8 +34,8 @@ final class PhemexScalesTests: XCTestCase {
 
     func testFallbackWithoutProductList() {
         let s = PhemexScales()
-        // Ohne Produktliste: 10^8, nur die dokumentierten Ausnahmen (SHIB 2, VPAD 4)
-        XCTAssertEqual(s.priceDivisor("sSHIBUSDT"), 1e8)
+        // Ohne Produktliste: kein Preisteiler; Werte 10^8, nur die dokumentierten Ausnahmen (SHIB 2, VPAD 4)
+        XCTAssertNil(s.priceDivisor("sSHIBUSDT"))
         XCTAssertEqual(s.valueDivisor("SHIB"), 1e2)
         XCTAssertEqual(s.valueDivisor("vpad"), 1e4)
         XCTAssertEqual(s.valueDivisor("ETH"), 1e8)
@@ -156,5 +159,31 @@ final class PhemexScalesTests: XCTestCase {
         // Inaktiv (0/null) still weg; fehlendes Feld bleibt ein Fehler
         XCTAssertEqual(Set(parsed.tickers.keys), ["sBTCUSDT"])
         XCTAssertEqual(parsed.failed, ["sBADUSDT"])
+    }
+
+    func testSymbolWithoutPriceScaleIsAnErrorNotAGuess() throws {
+        let market = Phemex()
+        let previousURL = PhemexScales.storeURL
+        defer {
+            PhemexScales.storeURL = nil
+            if let parsed = try? JObject(string: json) { PhemexScales.current = PhemexScales.parse(parsed) }
+            PhemexScales.storeURL = previousURL
+        }
+        PhemexScales.storeURL = nil
+        PhemexScales.current = PhemexScales.parse(try JObject(string: json))
+        // Sammelabfrage: fremdes oder skalenloses Symbol landet in «failed», statt durch 10^8 geteilt zu werden
+        // (zwei lesbare Zeilen, sonst gälte die Antwort als Formatfehler: mehr unlesbare als lesbare)
+        let body = #"{"result":[{"symbol":"sBTCUSDT","lastEp":6200010000000},{"symbol":"sNEWUSDT","lastEp":1500000},"# +
+            #"{"symbol":"sMISSINGUSDT","lastEp":123456},{"symbol":"sNOSCALEUSDT","lastEp":123456}]}"#
+        let parsed = try market.parseBulkTickersDetailed(call: 0, body: body)
+        XCTAssertEqual(Set(parsed.tickers.keys), ["sBTCUSDT", "sNEWUSDT"])
+        XCTAssertEqual(parsed.failed, ["sMISSINGUSDT", "sNOSCALEUSDT"])
+        // Einzelabfrage: Fehler mit Symbol
+        let info = PairQuery("MISSING", "USDT", "sMISSINGUSDT")
+        let single = #"{"error":null,"id":0,"result":{"lastEp":123456,"symbol":"sMISSINGUSDT"}}"#
+        var ticker = Ticker()
+        XCTAssertThrowsError(try market.readTicker(call: 0, body: single, ticker: &ticker, info: info)) {
+            XCTAssertEqual(($0 as? JSONError)?.message, PhemexScales.unknownScale("sMISSINGUSDT"))
+        }
     }
 }

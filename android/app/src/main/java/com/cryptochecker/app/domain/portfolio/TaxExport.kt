@@ -102,6 +102,8 @@ data class TaxIncomeRow(
     val fxMissing: Boolean,
     /** Zins (Lending, [PortfolioTrade.interestIncome]) — AT: beim Zufluss Einkunft zum Sondersteuersatz ([TaxLine.AT_INTEREST]). */
     val interest: Boolean = false,
+    /** Wert ohne Preis in der Datei zum Tagesschluss geschätzt ([PortfolioLedger.valueRewardsAtDayClose]): Vermerk. */
+    val estimated: Boolean = false,
 ) {
     val valueMissing: Boolean get() = valueUsdt == null
 }
@@ -824,14 +826,19 @@ object TaxExport {
         rates: Map<Long, BigDecimal>?,
     ): List<TaxIncomeRow> = incomeRows(trades, calendar(year), zone, currency, rates)
 
-    /** Belohnungen des Steuerjahrs [period] mit Wert beim Erhalt (Menge × Wert je Coin), zum Kurs des Tags. */
+    /**
+     * Belohnungen des Steuerjahrs [period] mit Wert beim Erhalt (Menge × Wert je Coin), zum Kurs des Tags. Ohne Wert in der
+     * Datei mit [priceAt] zum Tagesschluss geschätzt ([PortfolioLedger.valueRewardsAtDayClose], [TaxIncomeRow.estimated]);
+     * ohne Kurs bleibt der Wert leer («unvollständig»).
+     */
     fun incomeRows(
         trades: List<PortfolioTrade>,
         period: TaxPeriod,
         zone: ZoneId,
         currency: String,
         rates: Map<Long, BigDecimal>?,
-    ): List<TaxIncomeRow> = rewardsIn(trades, period, zone).map { t ->
+        priceAt: ((String, Long) -> BigDecimal?)? = null,
+    ): List<TaxIncomeRow> = PortfolioLedger.valueRewardsAtDayClose(rewardsIn(trades, period, zone), priceAt).map { t ->
         val date = localDate(t.time, zone)
         val value = t.validPrice?.let { t.amount * it }
         val rate = rateOn(rates, date, currency)
@@ -843,6 +850,7 @@ object TaxExport {
             valueTarget = value?.let { v -> rate?.let { v.multiply(it, PortfolioDecimal.MC) } },
             fxMissing = value != null && rate == null,
             interest = t.interestIncome,
+            estimated = t.valueEstimated,
         )
     }
 
@@ -1036,6 +1044,7 @@ object TaxExport {
         for (r in rows) {
             val notes = listOfNotNull(
                 texts.valueMissing.takeIf { r.valueMissing },
+                texts.valueEstimated.takeIf { r.estimated && it.isNotEmpty() },
                 texts.noFx.takeIf { r.fxMissing },
             ).joinToString(", ")
             sb.append(
@@ -1318,7 +1327,7 @@ object TaxExport {
         // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER], Build 57): eigener Posten
         val (transferFees, rows) = sales.partition { it.feeExpense == PortfolioFeeExpense.TRANSFER }
         // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
-        val (interest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap())
+        val (interest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap(), priceAt)
             .partition { template == TaxTemplate.AT && it.interest }
         val pos: (BigDecimal) -> Boolean = { it.signum() > 0 }
         val neg: (BigDecimal) -> Boolean = { it.signum() <= 0 }

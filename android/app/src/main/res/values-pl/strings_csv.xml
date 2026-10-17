@@ -60,6 +60,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">opłata ≥ otrzymana ilość</string>
     <string name="portfolio_csv_skip_internal_move">przesunięcie między twoimi kontami – nic do zaksięgowania</string>
     <string name="portfolio_csv_skip_missing">brak pola</string>
+    <string name="portfolio_csv_skip_ambiguous">kilka transakcji w tej samej sekundzie, nie da się ich rozdzielić – wprowadź ręcznie</string>
     <string name="portfolio_csv_skip_not_crypto">to nie krypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">możliwe, że już zaimportowano (prawie ta sama transakcja) – sprawdź ręcznie</string>
     <string name="portfolio_csv_skip_two_fees">dwie opłaty w różnych jednostkach – wprowadź wymianę ręcznie</string>

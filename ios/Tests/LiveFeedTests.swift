@@ -157,9 +157,9 @@ final class LiveFeedTests: XCTestCase {
         XCTAssertFalse(buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100, change24h: nil, time: 1000), now: 1000))
         XCTAssertNil(buffer.takeForUi())
 
-        // Geänderter Kurs: neue Zeit
+        // Geänderter Kurs: neue Zeit, im Strom belegte Handelszeit
         XCTAssertTrue(buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100.5, change24h: nil, time: 1100), now: 1100))
-        XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 100.5, change24h: 2, time: 1100))
+        XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 100.5, change24h: 2, time: 1100, tradeTime: 1100))
     }
 
     func testUnchangedPriceKeepsTheTimeOfTheLastChange() {
@@ -178,7 +178,7 @@ final class LiveFeedTests: XCTestCase {
         XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 100, change24h: 1.6, time: 1_000))
         // Kurs ändert sich: neue Zeit
         for tick in LiveParser.parse(.BINANCE, text("100.1", 5_000)) { buffer.offer([1], tick, now: 5_000) }
-        XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 100.1, change24h: 1.5, time: 5_000))
+        XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 100.1, change24h: 1.5, time: 5_000, tradeTime: 5_000))
     }
 
     func testBufferMergesDeltasAndTracksUnsaved() {
@@ -191,7 +191,7 @@ final class LiveFeedTests: XCTestCase {
         XCTAssertNil(buffer.takeForUi())
 
         XCTAssertTrue(buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 101, change24h: nil, time: nil), now: 200))
-        XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 101, change24h: 1.5, time: 200))
+        XCTAssertEqual(buffer.takeForUi()?[1], LiveQuote(price: 101, change24h: 1.5, time: 200, tradeTime: 200))
 
         let batch = buffer.takeForDb()
         XCTAssertEqual(Set(batch.keys), [1, 2])
@@ -217,6 +217,37 @@ final class LiveFeedTests: XCTestCase {
 
         buffer.clear()
         XCTAssertEqual(buffer.takeForUi()?.isEmpty, true)
+    }
+
+    func testFirstTickIsNoTradeAndNeverBecomesTheExchangeTime() throws {
+        var buffer = LiveBuffer()
+        // Erster Takt nach dem Verbinden (Binance «E» = Ereigniszeit): Momentaufnahme, keine Handelszeit
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100, change24h: 1.5, time: 9_000), now: 9_000)
+        let first = try XCTUnwrap(buffer.takeForUi()?[1])
+        XCTAssertNil(first.tradeTime)
+        // Gleicher Kurs wie gespeichert: bisherige Börsenzeit bleibt (nil bleibt nil → «Unverändert seit» geht)
+        XCTAssertNil(LiveRules.exchangeTime(first, storedPrice: 100, storedExchangeTime: nil))
+        XCTAssertEqual(LiveRules.exchangeTime(first, storedPrice: 100, storedExchangeTime: 1_000), 1_000)
+        // Anderer Kurs als gespeichert, aber ohne belegte Zeit: keine (alte Zeit wäre falsch, Takt-Zeit geraten)
+        XCTAssertNil(LiveRules.exchangeTime(first, storedPrice: 99, storedExchangeTime: 1_000))
+        // Gleicher Kurs, neue Ereigniszeit: weiterhin keine Handelszeit
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100, change24h: 1.5, time: 10_000), now: 10_000)
+        XCTAssertNil(buffer.takeForUi())
+        // Kurswechsel im Strom: belegt, wird Börsenzeit
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100.2, change24h: 1.5, time: 11_000), now: 11_000)
+        let traded = try XCTUnwrap(buffer.takeForUi()?[1])
+        XCTAssertEqual(traded.tradeTime, 11_000)
+        XCTAssertEqual(LiveRules.exchangeTime(traded, storedPrice: 100, storedExchangeTime: 1_000), 11_000)
+        // Delta ohne Kurs danach: Handelszeit bleibt die des Kurswechsels
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: nil, change24h: 1.7, time: 12_000), now: 12_000)
+        XCTAssertEqual(buffer.takeForUi()?[1]?.tradeTime, 11_000)
+
+        // Anzeige: ein erster Takt mit gleichem Kurs macht kein stehendes Buch frisch
+        var watch = Watch(id: 7, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        watch.lastPrice = 100
+        watch.lastUpdate = 5_000
+        XCTAssertNil(watch.withLive(first, rollingBasis: true).exchangeTime)
+        XCTAssertEqual(watch.withLive(traded, rollingBasis: true).exchangeTime, 11_000)
     }
 
     func testOverlayKeepsChangeOutsideRollingBasis() {

@@ -147,8 +147,8 @@
     <string name="alarm_saved_notifications_off">ההתראות כבויות</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">כשהאפליקציה סגורה, Android בודק באופן לא סדיר (עם «%1$s» בערך כל 15 דקות), ולכן קפיצות קצרות עלולות להתפספס.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">כשהאפליקציה סגורה, iOS מחליט מתי לבדוק, ולכן קפיצות קצרות עלולות להתפספס; כל עוד היא פתוחה, הבדיקה אמינה.</string>
+    <string name="alarm_timing_hint_android">כשהאפליקציה סגורה, Android בודק באופן לא סדיר – לעיתים קרובות אחרי יותר מ-15 דקות, גם עם «%1$s». קפיצות קצרות עלולות להתפספס.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">כשהאפליקציה סגורה, iOS בודק לעיתים קרובות אחרי יותר מ-15 דקות, לפעמים רק בפתיחה הבאה. קפיצות קצרות עלולות להתפספס.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">מתי התראות המחיר נבדקות</string>
     <string name="alarm_timing_where">אפשר לקבוע באיזו תדירות המחירים מתעדכנים ב־%1$s.</string>

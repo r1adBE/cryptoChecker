@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">gebyr ≥ mottatt mengde</string>
     <string name="portfolio_csv_skip_internal_move">flytting mellom dine egne kontoer – ingenting å bokføre</string>
     <string name="portfolio_csv_skip_missing">felt mangler</string>
+    <string name="portfolio_csv_skip_ambiguous">flere handler i samme sekund som ikke kan skilles – legg dem inn manuelt</string>
     <string name="portfolio_csv_skip_not_crypto">ikke krypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">muligens allerede importert (nesten samme handel) – kontroller manuelt</string>
     <string name="portfolio_csv_skip_two_fees">to gebyrer i ulike enheter – legg inn byttet manuelt</string>
