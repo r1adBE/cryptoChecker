@@ -145,7 +145,15 @@ final class CryptoCheckerUITests: XCTestCase {
 
     @MainActor
     private func openBackupPage(_ app: XCUIApplication) {
-        tap(app, UiTestTags.tabSettings)
+        // Nach dem Import liegt kurz eine Rückmeldung (Toast mit «Rückgängig») über der Tab-Leiste und fängt
+        // den Tipp ab – auf GitHub blieb die App danach im Portfolio. Erst warten, bis sie weg ist, dann den Tab
+        // wechseln und prüfen, dass die Einstellungen wirklich offen sind.
+        _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
+        var attempts = 0
+        repeat {
+            tap(app, UiTestTags.tabSettings)
+            attempts += 1
+        } while !app.tagged(UiTestTags.settingsBackup).waitForExistence(timeout: 4) && attempts < 3
         // Die Zeile «Sicherung» steht weit unten: erst sichtbar scrollen, sonst trifft der Tipp nichts
         // (das Element existiert, ist aber nicht antippbar) – auf GitHub fehlte danach «backup_export»
         let row = app.tagged(UiTestTags.settingsBackup)

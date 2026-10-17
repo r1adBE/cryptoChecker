@@ -584,6 +584,8 @@ struct ToastModifier: ViewModifier {
                     .padding(.vertical, 12)
                     .background(AppColors.toastBackground, in: Capsule())
                     .accessibilityIdentifier(UiTestTags.toast)
+                    // Nur Anzeige: fängt keine Tipps ab (sonst blockiert sie kurz Tab-Leiste und Knöpfe darunter)
+                    .allowsHitTesting(false)
                     .padding(.bottom, 24)
                     .padding(.horizontal, 16)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
