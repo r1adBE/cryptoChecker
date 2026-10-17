@@ -22,6 +22,9 @@ class AlarmCheckStatus @Inject constructor() {
 
         /** Keine Tages- bzw. Stundenkerzen. */
         NO_CANDLES,
+
+        /** Keine Funding- bzw. Open-Interest-Werte der Quelle (Fehlschlag, gesperrt, nicht geliefert). */
+        NO_DATA,
     }
 
     /** [since] = erste ausgelassene Prüfung in Folge; [reason] = Grund der letzten. */

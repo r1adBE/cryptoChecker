@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.live
 
+import com.cryptochecker.app.data.PairIdentity
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.live.LiveBackoff
 import com.cryptochecker.app.domain.live.LiveBuffer
@@ -113,6 +114,13 @@ class LivePriceStream @Inject constructor(
     private val lock = Any()
     private val buffer = LiveBuffer()
     private var watchIds: Map<LiveExchange, Map<String, List<Long>>> = emptyMap()
+
+    /**
+     * Für welches Paar jede Watch-Id abonniert ist. Geht mit jedem Kurs an [PriceRefresher.applyLive]:
+     * ein Kurs des alten Paars nach «Paar bearbeiten» wird dort verworfen. Ändert sich das Paar einer
+     * Id, vergisst [reconcile] ihren Stand im Puffer (unter derselben Sperre).
+     */
+    private var pairKeys: Map<Long, PairIdentity> = emptyMap()
     private val lastDataAt = HashMap<LiveExchange, Long>()
     private var marketNames: Map<String, String> = emptyMap()
 
@@ -168,8 +176,12 @@ class LivePriceStream @Inject constructor(
             return
         }
         val ids = plan.watchIds.values.flatMap { it.values.flatten() }.toSet()
+        val keys = pairs.filter { it.watchId in ids }.associate { it.watchId to it.identity() }
         synchronized(lock) {
+            // Gleiche Id, anderes Paar: Stand des alten Paars nicht weiterführen
+            buffer.forget(keys.filter { (id, key) -> pairKeys[id].let { it != null && it != key } }.keys)
             watchIds = plan.watchIds
+            pairKeys = keys
             marketNames = pairs.associate { it.marketKey to it.marketName }
             buffer.retain(ids)
             lastDataAt.keys.retainAll(plan.watchIds.keys)
@@ -199,10 +211,11 @@ class LivePriceStream @Inject constructor(
         connections.clear()
         // Zuerst den Zustand leeren (ohne Unterbrechung), dann das zuletzt Empfangene speichern: So kann
         // nach dem Speichern nichts mehr den Stand einer schon neu gestarteten Sitzung löschen.
-        val batch = synchronized(lock) {
-            buffer.takeForDb().also {
+        val (batch, keys) = synchronized(lock) {
+            (buffer.takeForDb() to pairKeys).also {
                 buffer.clear()
                 watchIds = emptyMap()
+                pairKeys = emptyMap()
                 lastDataAt.clear()
             }
         }
@@ -211,7 +224,22 @@ class LivePriceStream @Inject constructor(
         _liveExchanges.value = emptyList()
         _liveWatchIds.value = emptySet()
         // Widgets und Alarme sollen den neuesten Stand haben
-        withContext(NonCancellable) { save(batch, force = true) }
+        withContext(NonCancellable) { save(batch, keys, force = true) }
+    }
+
+    /**
+     * Gepufferte Kurse dieser Paare vergessen («Paar bearbeiten», unter der Refresh-Sperre aufrufen).
+     * Die Paar-Zuordnung bleibt bis zum nächsten [reconcile] die alte: Takte des alten Symbols, die
+     * bis dahin noch kommen, tragen das alte Paar und werden in [PriceRefresher.applyLive] verworfen.
+     */
+    fun forget(watchIds: Collection<Long>) {
+        if (watchIds.isEmpty()) return
+        synchronized(lock) { buffer.forget(watchIds) }
+    }
+
+    /** Alle gepufferten Kurse vergessen (Sicherung wiederherstellen: Ids können andere Paare werden). */
+    fun forgetAll() {
+        synchronized(lock) { buffer.clear() }
     }
 
     /** Anzeige alle 500 ms, Datenbank alle 10 s — nur solange Verbindungen bestehen. */
@@ -248,15 +276,17 @@ class LivePriceStream @Inject constructor(
     }
 
     private suspend fun flush(force: Boolean) {
-        save(synchronized(lock) { buffer.takeForDb() }, force)
+        val (batch, keys) = synchronized(lock) { buffer.takeForDb() to pairKeys }
+        save(batch, keys, force)
     }
 
-    private suspend fun save(batch: Map<Long, LiveQuote>, force: Boolean) {
+    private suspend fun save(batch: Map<Long, LiveQuote>, keys: Map<Long, PairIdentity>, force: Boolean) {
         if (batch.isEmpty()) return
         val now = System.currentTimeMillis()
         val redraw = force || now - lastWidgetAt >= LiveRules.WIDGET_INTERVAL_MILLIS
         val saved = try {
-            priceRefresher.applyLive(batch, redrawWidgets = redraw)
+            // Mit dem abonnierten Paar je Id: ohne Zuordnung (sollte nicht vorkommen) wird verworfen
+            priceRefresher.applyLive(batch, redrawWidgets = redraw, pairs = keys.filterKeys { it in batch })
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -380,6 +410,9 @@ class LivePriceStream @Inject constructor(
     }
 
     private class Ended(val receivedData: Boolean, val rateLimited: Boolean)
+
+    /** Paar der Merkliste in der Form der Datenbank-Spalten ([PairIdentity]). */
+    private fun LivePair.identity(): PairIdentity = PairIdentity(marketKey, base, quote, contract, pairId)
 
     private companion object {
         /** WebSocket-Ping-Frames (OkHttp); bleibt die Antwort aus, gilt die Verbindung als getrennt. */

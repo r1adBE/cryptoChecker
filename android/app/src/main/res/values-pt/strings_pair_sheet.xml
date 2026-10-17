@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Venda</string>
     <string name="ticker_bid">Compra</string>
+    <string name="explain_bid_ask">Compra é o preço mais alto que os compradores oferecem agora; Venda, o preço mais baixo que os vendedores aceitam.</string>
     <string name="ticker_high">Máxima</string>
     <string name="ticker_low">Mínima</string>
     <string name="ticker_timestamp">Hora</string>

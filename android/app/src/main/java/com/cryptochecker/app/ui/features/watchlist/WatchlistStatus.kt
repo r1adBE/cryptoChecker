@@ -183,6 +183,8 @@ internal fun WatchlistStatusRow(
     disabledOnly: Boolean = false,
     /** Tipp auf den Hinweis «3 deaktiviert». */
     onToggleDisabled: () -> Unit = {},
+    /** «+ Paar hinzufügen» mit Text statt nur «+» (kleine Merkliste, [ADD_PAIR_LABEL_MAX_PAIRS]). */
+    addLabelled: Boolean = false,
 ) {
     val status = WatchlistStatus.of(visible, now, staleAfter, online, liveIds)
     // Alle Paare der Ansicht deaktiviert: eigener ruhiger Satz statt «Keine gehandelten Paare»
@@ -250,15 +252,19 @@ internal fun WatchlistStatusRow(
                     // Lupe und «+» als Paar rechts (SpaceBetween verteilt sonst drei Teile über die Breite)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         SearchButton(onClick = onOpenSearch)
-                        // Nur «+» (Beschreibung «Paar hinzufügen»): lässt dem Status mehr Breite; ist es trotzdem
-                        // zu eng, kürzt die Pille selbst («Börsenkurse · vor 1 Min.», [FirstFitText])
-                        AddPairButton(onClick = onAddPair, labelled = false)
+                        // Kleine Merkliste (bis 3 Paare): «+ Paar hinzufügen» mit Text, damit der Weg zum nächsten
+                        // Paar klar ist. Sonst nur «+» (Beschreibung «Paar hinzufügen»): lässt dem Status mehr Breite;
+                        // ist es trotzdem zu eng, kürzt die Pille selbst («Börsenkurse · vor 1 Min.», [FirstFitText])
+                        AddPairButton(onClick = onAddPair, labelled = addLabelled)
                     }
                 }
             }
         }
     }
 }
+
+/** Bis zu so vielen Paaren in der Merkliste zeigt «+» auch den Text «Paar hinzufügen» (wie iOS). */
+internal const val ADD_PAIR_LABEL_MAX_PAIRS = 3
 
 /**
  * «+ Paar hinzufügen»: Seite «Paar hinzufügen» — gefüllte Pille in der Themenfarbe mit Symbol und

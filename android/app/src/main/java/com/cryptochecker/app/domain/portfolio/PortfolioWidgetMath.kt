@@ -117,11 +117,11 @@ object PortfolioWidgetMath {
     /** «↘ −1’968.40 CHF  −2.31% · 24h»: 12 sp, 2 dp Abstand. */
     fun changeLineHeightDp(fontScale: Float): Float = line(12f, fontScale) + 2f
 
-    /** ≈ USDT: 11 sp, 1 dp Abstand. */
-    fun usdtHeightDp(fontScale: Float): Float = line(11f, fontScale) + 1f
+    /** ≈ USDT: 12 sp, 1 dp Abstand. */
+    fun usdtHeightDp(fontScale: Float): Float = line(12f, fontScale) + 1f
 
-    /** Fusszeile: 11 sp (J-18, vorher 10), 4 dp Abstand. */
-    fun footerHeightDp(fontScale: Float): Float = line(11f, fontScale) + 4f
+    /** Fusszeile: 12 sp (vorher 11, J-18: 10), 4 dp Abstand. */
+    fun footerHeightDp(fontScale: Float): Float = line(12f, fontScale) + 4f
 
     /** Zeile der Positionsliste: 12 sp und 4 dp Abstand. */
     fun rowHeightDp(fontScale: Float): Float = line(12f, fontScale) + 4f

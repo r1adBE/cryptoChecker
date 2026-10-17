@@ -95,7 +95,8 @@ internal object BlockedSources {
     fun pauseGroup(hostOrMarketKey: String, until: Long) {
         val group = ExchangeBackoff.sharedGroup(hostOrMarketKey) ?: return
         groupPauses.compute(group) { _, old ->
-            if (old != null && old.pausedUntil >= until) old
+            // Eine unmögliche alte Pause (ExchangeBackoff.isPaused: zu weit in der Zukunft) blockiert die neue nicht
+            if (old != null && old.pausedUntil >= until && ExchangeBackoff.isPaused(old, System.currentTimeMillis())) old
             else ExchangeBackoff.State(old?.strikes ?: 1, until, RefreshFailure.RATE_LIMIT, 0)
         }
     }

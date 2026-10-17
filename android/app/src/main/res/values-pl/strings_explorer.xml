@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Brak wyników.</string>
     <string name="explorer_search_hint">Szukaj monety, pary lub giełdy</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę.</string>
+    <string name="explorer_search_intro">Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę. Para to moneta na giełdzie w jednej walucie, np. BTC/USDT na Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Dodaj do obserwowanych</string>

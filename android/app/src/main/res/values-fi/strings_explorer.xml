@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Ei tuloksia.</string>
     <string name="explorer_search_hint">Hae kolikkoa, paria tai pörssiä</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari.</string>
+    <string name="explorer_search_intro">Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari. Pari on kolikko tietyssä pörssissä tietyssä valuutassa, esim. BTC/USDT Binancessa.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Lisää seurantalistaan</string>

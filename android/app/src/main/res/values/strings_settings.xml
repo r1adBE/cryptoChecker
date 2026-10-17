@@ -80,9 +80,9 @@
     <string name="settings_activity_alerts">Report unusual activity</string>
     <string name="settings_activity_alerts_hint">At most once an hour per pair: unusual price moves, volume spikes and futures extremes (data from Binance).</string>
     <string name="settings_activity_sensitivity">Sensitivity</string>
-    <string name="settings_activity_sensitivity_hint">How easily a coin counts as unusual – the same for the watchlist card and the market notices. With “Less”, the card shows only the 3 strongest.</string>
+    <string name="settings_activity_sensitivity_hint">How easily a coin counts as unusual – the same for the watchlist card and market alerts. With “Less”, the card shows only the 3 strongest.</string>
     <string name="settings_watchlist_activity_card">Unusual activity in the list</string>
-    <string name="settings_watchlist_activity_card_hint">Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Notifications for it are set under Market notices.</string>
+    <string name="settings_watchlist_activity_card_hint">Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Notifications for it are set under Market alerts.</string>
     <string name="settings_watchlist_names">Show names</string>
     <string name="settings_watchlist_names_hint">Name under the pair, e.g. Bitcoin or NVIDIA. Comes with the logo lists, loaded once for all coins.</string>
     <string name="settings_watchlist_sparkline">Mini chart in watchlist</string>
@@ -183,7 +183,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin indicators, checked twice a day. You choose the limits – the app does not rate the values.</string>
     <string name="settings_macro_notifications">Economic calendar</string>
     <string name="settings_macro_notifications_hint">At 08:00 on days with important US economic data (inflation, jobs report, Fed decision). The calendar comes from the app\'s website, loaded once a day.</string>
-    <string name="settings_market_alerts">Market notices</string>
+    <string name="settings_market_alerts">Market alerts</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d active</item>
@@ -264,5 +264,5 @@
     <!-- Nur iOS: Einstellungen -->
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration follows the iPhone settings (Sounds &amp; Haptics).</string>
-    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Counts new alerts and market notices; back to 0 when you open the app.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Counts new price alerts and market alerts; back to 0 when you open the app.</string>
 </resources>

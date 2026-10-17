@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Borsaya şu anda ulaşılamıyor – son fiyatlar görünür kalır.</string>
     <string name="error_market_unreachable_short">Borsaya şu anda ulaşılamıyor</string>
     <string name="loading_hint">Yükleniyor…</string>
-    <string name="no_internet_connection">İnternet bağlantısı yok</string>
+    <string name="no_internet_connection">İnternet bağlantısı yok. Wi-Fi\'yi veya mobil veriyi kontrol edip tekrar deneyin.</string>
     <string name="option_off">Kapalı</string>
     <string name="something_went_wrong">Bir şeyler ters gitti</string>
     <string name="time_just_now">az önce</string>
-    <string name="timeout_error_message">Borsa şu anda yanıt vermiyor.</string>
+    <string name="timeout_error_message">Borsa şu anda yanıt vermiyor. Biraz sonra tekrar deneyin.</string>
     <string name="try_again">Tekrar dene</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

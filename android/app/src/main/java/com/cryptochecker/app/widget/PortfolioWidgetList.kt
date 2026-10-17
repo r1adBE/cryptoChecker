@@ -136,7 +136,7 @@ internal fun PortfolioWidgetRenderer.bindListTotal(
         // Wie die Zeilen: Betrag vor Prozent; Farbe nach dem Vorzeichen des Betrags (0 grau)
         val label = ChangeBasisText.shortLabel(context, rowBasis)
         // Platz wie in den Zeilen ([listRow]): schmal neben dem Anteil, breit neben «Gesamt», Anteil und Wert
-        val shareDp = toolkit.textWidthDp(share, 11f, bold = false, tabular = true)
+        val shareDp = toolkit.textWidthDp(share, 12f, bold = false, tabular = true)
         val budget = textWidth?.let {
             if (wide) it - toolkit.textWidthDp(totalLabel, 13f) - 6f - shareDp - 6f -
                 toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 10f
@@ -203,9 +203,9 @@ internal fun PortfolioWidgetRenderer.listRow(
         val label = ChangeBasisText.shortLabel(context, rowBasis)
         // Platz für «24h …»: schmal neben dem Anteil, breit neben Menge, Kürzel, Anteil und Wert
         val logoDp = if (logo != null) (if (wide) 28f else 32f) else 0f
-        val shareDp = toolkit.textWidthDp(share, 11f, bold = false, tabular = true)
-        // Breit: Menge steht in derselben Zeile (11 sp, 3 dp Abstand zum Kürzel)
-        val quantityDp = if (wide && quantity != null) toolkit.textWidthDp(quantity, 11f, bold = false, tabular = true) + 3f else 0f
+        val shareDp = toolkit.textWidthDp(share, 12f, bold = false, tabular = true)
+        // Breit: Menge steht in derselben Zeile (12 sp, 3 dp Abstand zum Kürzel)
+        val quantityDp = if (wide && quantity != null) toolkit.textWidthDp(quantity, 12f, bold = false, tabular = true) + 3f else 0f
         val budget = textWidth?.let {
             if (wide) it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, 13f) - 6f - shareDp - 6f -
                 toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 10f
@@ -230,9 +230,9 @@ internal fun PortfolioWidgetRenderer.listRow(
 /** Gewinn/Verlust, der in [budget] dp passt (samt Zeitraum [label] davor): Betrag · Prozent, sonst nur der Betrag. */
 internal fun PortfolioWidgetRenderer.fitPnl(change: PortfolioListTotalChange, currency: String, style: PortfolioStyle, label: String, budget: Float?): String {
     val candidates = PortfolioWidgetViews.pnlTexts(change, currency, style.hideAmounts)
-    val prefixDp = if (label.isEmpty()) 0f else toolkit.textWidthDp("$label ", 11f * PERIOD_SCALE, bold = false)
+    val prefixDp = if (label.isEmpty()) 0f else toolkit.textWidthDp("$label ", 12f * PERIOD_SCALE, bold = false)
     return WidgetTextFit.firstFitting(candidates, budget?.minus(prefixDp + WidgetTextFit.SAFETY_DP)) {
-        toolkit.textWidthDp(it, 11f, tabular = true)
+        toolkit.textWidthDp(it, 12f, tabular = true)
     }
 }
 

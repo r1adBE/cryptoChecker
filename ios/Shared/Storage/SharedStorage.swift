@@ -414,18 +414,73 @@ enum SharedStorage {
     // MARK: Einstellungen
 
     private static let settingsKey = "settings"
+    /// Merker, der mit jeder gespeicherten Einstellung (und beim ersten lesbaren Start der App) geschrieben wird.
+    /// Fehlen Einstellungen UND Merker, ist die App-Group-Ablage vermutlich noch gesperrt (Neustart vor dem
+    /// ersten Entsperren) — so erkennen das auch die Widgets, die `isProtectedDataAvailable` nicht kennen.
+    private static let settingsMarkerKey = "settings_written"
 
-    static func loadSettings() -> AppSettings {
-        guard let data = defaults.data(forKey: settingsKey),
-              let s = try? JSONDecoder().decode(AppSettings.self, from: data)
-        else { return AppSettings() }
-        return s
+    /// Ergebnis beim Lesen der Einstellungen.
+    enum SettingsReadState: Equatable {
+        /// Gelesen.
+        case ok
+        /// Nicht vorhanden (bzw. vorhanden, aber unlesbar): Standardwerte, Speichern erlaubt (wie bisher).
+        case missing
+        /// Ablage (noch) nicht zugänglich, z. B. App nach einem Neustart vor dem ersten Entsperren vorgewärmt:
+        /// Standardwerte nur zur Anzeige — nie zurückschreiben, Portfolio-Sperre gilt als an.
+        case inaccessible
     }
 
+    /// Gelesene Einstellungen mit Zustand.
+    struct LoadedSettings {
+        var settings: AppSettings
+        var state: SettingsReadState
+
+        /// Portfolio-Sperre: unbekannt (Ablage nicht zugänglich) → an.
+        var appLockAssumed: Bool { state == .inaccessible || settings.appLock }
+    }
+
+    /// Entscheidung rein (testbar). `protectedDataAvailable`: in der App `UIApplication.isProtectedDataAvailable`,
+    /// in den Erweiterungen nil (unbekannt) — dann entscheidet der Merker.
+    static func settingsReadState(hasData: Bool, decodes: Bool, markerPresent: Bool,
+                                  protectedDataAvailable: Bool?) -> SettingsReadState {
+        if hasData && decodes { return .ok }
+        // Da, aber nicht lesbar: die Ablage war zugänglich — Standardwerte wie bisher
+        if hasData { return .missing }
+        switch protectedDataAvailable {
+        case .some(false): return .inaccessible
+        case .some(true): return .missing
+        case .none: return markerPresent ? .missing : .inaccessible
+        }
+    }
+
+    static func loadSettingsChecked(protectedDataAvailable: Bool? = nil) -> LoadedSettings {
+        let store = defaults
+        let data = store.data(forKey: settingsKey)
+        let decoded = data.flatMap { try? JSONDecoder().decode(AppSettings.self, from: $0) }
+        let state = settingsReadState(hasData: data != nil, decodes: decoded != nil,
+                                      markerPresent: store.object(forKey: settingsMarkerKey) != nil,
+                                      protectedDataAvailable: protectedDataAvailable)
+        return LoadedSettings(settings: decoded ?? AppSettings(), state: state)
+    }
+
+    /// Einstellungen oder Standardwerte (fehlend wie nicht zugänglich). Für die Portfolio-Sperre
+    /// `loadSettingsChecked().appLockAssumed` nehmen.
+    static func loadSettings() -> AppSettings {
+        loadSettingsChecked().settings
+    }
+
+    /// Nur aus der App aufrufen und nur, wenn die Einstellungen lesbar waren (`AppData.settingsAccessible`).
     static func saveSettings(_ settings: AppSettings) {
         if let data = try? JSONEncoder().encode(settings) {
             defaults.set(data, forKey: settingsKey)
+            defaults.set(true, forKey: settingsMarkerKey)
         }
+    }
+
+    /// Ablage ist zugänglich, aber (noch) ohne Einstellungen: Merker setzen, damit die Widgets das nicht
+    /// für eine gesperrte Ablage halten.
+    static func markSettingsReadable() {
+        defaults.set(true, forKey: settingsMarkerKey)
     }
 
     // MARK: Letzte Aktualisierung (Widget-Kopf)

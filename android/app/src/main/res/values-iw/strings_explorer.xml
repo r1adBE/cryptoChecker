@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">אין תוצאות.</string>
     <string name="explorer_search_hint">חיפוש מטבע, צמד או בורסה</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד.</string>
+    <string name="explorer_search_intro">הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד. צמד הוא מטבע בבורסה מסוימת מול מטבע מסוים, למשל BTC/USDT ב-Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">הוסף לרשימת המעקב</string>

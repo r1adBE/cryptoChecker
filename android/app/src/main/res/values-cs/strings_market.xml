@@ -170,7 +170,7 @@
     <string name="unusual_title">Dnes nápadné</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Právě se něco děje</string>
+    <string name="activity_card_title">Neobvyklá aktivita</string>
     <string name="activity_indicator">Neobvyklá aktivita</string>
     <string name="activity_sensitivity_less">Méně</string>
     <string name="activity_sensitivity_more">Více</string>

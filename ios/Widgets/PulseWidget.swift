@@ -407,13 +407,13 @@ private struct PulseWidgetChip: View {
         let color = palette.change(change)
         HStack(spacing: 3) {
             Text(PulseWidgetText.ticker(coin.name))
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
                 .foregroundStyle(palette.text)
             ChangeArrowIcon(change: change)
                 .font(.system(size: 8, weight: .bold))
                 .foregroundStyle(color)
             Text(ActivityTexts.percent(change, 1))
-                .font(.system(size: 11.5, weight: .semibold, design: .rounded))
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(color)
         }

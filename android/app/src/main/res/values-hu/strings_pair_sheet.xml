@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Eladási</string>
     <string name="ticker_bid">Vételi</string>
+    <string name="explain_bid_ask">A vételi ár a legmagasabb ár, amelyet a vevők most kínálnak, az eladási ár pedig a legalacsonyabb, amelyet az eladók elfogadnak.</string>
     <string name="ticker_high">Max.</string>
     <string name="ticker_low">Min.</string>
     <string name="ticker_timestamp">Idő</string>

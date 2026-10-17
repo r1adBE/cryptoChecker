@@ -209,7 +209,9 @@ internal fun CoinPairs(coin: CoinHit, search: SearchUi, groupTarget: GroupTarget
 
         val suggested = search.pickedCoinPairs.firstOrNull()
         if (suggested == null) {
-            if (search.lists.progress == null) {
+            // «Kein Paar» erst, wenn alle Listen gelesen sind; solange etwas lädt oder fehlt, spricht nur der Kasten darunter
+            val lists = search.lists
+            if (lists.progress == null && !lists.reading && lists.missing == 0) {
                 Text(
                     text = stringResource(R.string.explorer_coin_no_pairs),
                     style = MaterialTheme.typography.bodyMedium,

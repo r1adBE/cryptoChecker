@@ -3,7 +3,9 @@ import Foundation
 /// Ablauf «ausgelösten Alarm melden» — wie `AlarmDelivery.kt`: Nachtruhe oder keine zustellbare
 /// Mitteilung → nichts tun, Alarm bleibt scharf. Sonst ZUERST melden (`show`) und erst speichern
 /// (`mark`), wenn die Mitteilung bestätigt ist; unbestätigte Meldungen werden frühestens nach der
-/// Abklingzeit wiederholt (`retryBlocked`).
+/// Abklingzeit wiederholt (`retryBlocked`). Der Versuch wird schon VOR dem Melden als unbestätigt vermerkt und
+/// erst nach dem Speichern gelöscht: Beendet iOS den Prozess zwischen Melden und Speichern, greift beim nächsten
+/// Lauf die Abklingzeit statt einer sofortigen zweiten Meldung (Android hält den Prozess dafür mit `NonCancellable`).
 ///
 /// Anders als Android liegt der unbestätigte Versuch im App-Group-Speicher statt nur im Speicher des
 /// Prozesses: App, Hintergrund-Aufgabe und Widget melden Alarme, und ein Neuversuch im anderen Prozess
@@ -54,12 +56,13 @@ final class AlarmDelivery: @unchecked Sendable {
         // Melden, Prüfen und Speichern nicht abbrechbar (wie `NonCancellable`): ein eigener Task erbt den
         // Abbruch des Aufrufers nicht — sonst Mitteilung ohne gespeicherten Alarm
         return await Task {
-            guard await show() else {
-                self.setUnconfirmed(alarmId, at: now)
-                return false
-            }
+            // «Wird gemeldet» vor dem Melden vermerken (wie ein unbestätigter Versuch)
+            self.setUnconfirmed(alarmId, at: now)
+            // Nicht bestätigt: Vermerk bleibt — frühestens nach der Abklingzeit erneut
+            guard await show() else { return false }
+            let saved = await mark()
             self.setUnconfirmed(alarmId, at: nil)
-            return await mark()
+            return saved
         }.value
     }
 

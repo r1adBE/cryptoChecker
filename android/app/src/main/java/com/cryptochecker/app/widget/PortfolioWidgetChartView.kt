@@ -138,7 +138,7 @@ internal suspend fun PortfolioWidgetRenderer.portfolioViews(
     // Gross: die drei grössten Positionen mit MEINEM Gewinn/Verlust je Coin nach der %-Basis; Platz rechts
     // neben Kürzel (min. 3 em), Balken (min. ~24 dp samt Rändern 16 dp) und Anteil (min. 3 em)
     val positionsText = if (layout.size == PortfolioWidgetSize.LARGE) {
-        val budget = textWidth?.let { it - 3 * 12f - 16f - 24f - 3 * 11f - 8f }
+        val budget = textWidth?.let { it - 3 * 12f - 16f - 24f - 3 * 12f - 8f }
         PortfolioWidgetPositions.render(
             context, views, snapshot.positions.take(layout.rows), colors, style.basis, style.hideAmounts,
             pnlText = { change -> fitPnl(change, snapshot.currency, style, "", budget) },

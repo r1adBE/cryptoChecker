@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
@@ -84,6 +85,7 @@ class WatchEditViewModel @Inject constructor(
     private val notifier: AppNotifier,
     private val widgetUpdater: WidgetUpdater,
     private val activityRepository: ActivityRepository,
+    private val livePriceStream: LivePriceStream,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(WatchEditState())
@@ -190,7 +192,14 @@ class WatchEditViewModel @Inject constructor(
         if (s.saving) return
         _state.value = s.copy(saving = true, duplicate = false)
         viewModelScope.launch {
-            val result = watchRepository.changePair(watchId, market, pair)
+            // Unter der Refresh-Sperre: Kein laufender Durchlauf (REST oder Live) schreibt danach noch den
+            // Kurs des alten Paars, der sonst zum Bezug des neuen würde (riesiger %-Alarm, falsche Kursmarke).
+            // Gepufferte Live-Kurse des alten Paars gleich mit vergessen. Nie refreshOne in der Sperre (Verklemmung).
+            val result = priceRefresher.withRefreshLock {
+                watchRepository.changePair(watchId, market, pair).also {
+                    if (it == PairEditResult.SAVED) livePriceStream.forget(listOf(watchId))
+                }
+            }
             val done = result == PairEditResult.SAVED || result == PairEditResult.UNCHANGED
             _state.value = _state.value.copy(
                 saving = false,

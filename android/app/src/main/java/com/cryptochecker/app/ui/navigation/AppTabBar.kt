@@ -102,10 +102,14 @@ private val TAB_INDICATOR_WIDTH = 64.dp
 
 private val TAB_INDICATOR_HEIGHT = 32.dp
 
+/** Pille hell: Deckkraft der Akzentfarbe; dunkel: neutrales Grau (Kontrastwerte beim Anzeiger in [AppTabBar]). */
+private const val TAB_INDICATOR_LIGHT_ALPHA = 0.30f
+private val TAB_INDICATOR_DARK = Color(0xFF404040)
+
 /**
  * Eigene Tableiste statt `NavigationBar`. Fläche surfaceContainer wie zuvor, darunter der Abstand
  * zur Systemleiste. Symbole 24 dp; gewählt: das Symbol in der Themenfarbe auf dem Material-3-Anzeiger
- * (Pille 64 × 32 dp in secondaryContainer, Review 13 — wie `NavigationBarItem`) und kurz animiert
+ * (Pille 64 × 32 dp, hell Akzent 30 %, dunkel #404040 — Review D11) und kurz animiert
  * um 10 % vergrössert, sonst grau;
  * die Beschriftung bleibt immer gleich (dunkel: weiss, hell: onSurface). Für den Screenreader je
  * ein Tab mit «ausgewählt». Gleiches Aussehen wie `AppTabBar` (iOS).
@@ -162,7 +166,12 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (
                                 animationSpec = tween(if (reduceMotion) 0 else TAB_ICON_SCALE_MILLIS),
                                 label = "tabIndicator"
                             )
-                            val indicatorColor = MaterialTheme.colorScheme.secondaryContainer
+                            // Pille deutlich sichtbar (Review D11; vorher secondaryContainer: hell 1.11:1, dunkel 1.30:1).
+                            // Hell: Akzent zu 30 % auf surfaceContainer #F1EEE9 → Pille/Leiste 1.52–1.59:1, Symbol
+                            // (Akzent) auf der Pille 3.18–3.33:1. Dunkel: #404040 auf #1F1F1F → 1.59:1, Symbol 3.88–4.44:1.
+                            // Gewählt bleibt zudem an Akzentsymbol und fetter Beschriftung erkennbar. Gleiche Werte wie iOS.
+                            val indicatorColor = if (LocalDarkTheme.current) TAB_INDICATOR_DARK
+                            else MaterialTheme.colorScheme.primary.copy(alpha = TAB_INDICATOR_LIGHT_ALPHA)
                             Box(
                                 contentAlignment = Alignment.Center,
                                 // Schmale Tabs (viele Tabs, grosse Schrift): Pille höchstens so breit wie der Tab

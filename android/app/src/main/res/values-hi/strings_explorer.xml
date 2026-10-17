@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">कोई परिणाम नहीं।</string>
     <string name="explorer_search_hint">कॉइन, पेयर या एक्सचेंज खोजें</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">किसी कॉइन का नाम या चिह्न लिखें, जैसे Bitcoin या BTC – फिर पेयर चुनें।</string>
+    <string name="explorer_search_intro">किसी कॉइन का नाम या चिह्न लिखें, जैसे Bitcoin या BTC – फिर पेयर चुनें। पेयर किसी एक्सचेंज पर किसी मुद्रा में एक कॉइन है, जैसे Binance पर BTC/USDT।</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">वॉचलिस्ट में जोड़ें</string>

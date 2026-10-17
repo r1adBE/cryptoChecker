@@ -177,4 +177,32 @@ final class ExchangeBackoffTests: XCTestCase {
         XCTAssertTrue(ExchangeBackoff.banned(["HTTP 418"]))
         XCTAssertFalse(ExchangeBackoff.banned(["HttpCode: 429", nil]))
     }
+
+    // MARK: Zusammenführen mit dem inzwischen gespeicherten Stand (anderer Prozess)
+
+    func testMergeKeepsUntouchedKeysFromStore() {
+        let a = ExchangeBackoff.State(strikes: 1, pausedUntil: 1_000, reason: .RATE_LIMIT)
+        let b = ExchangeBackoff.State(strikes: 2, pausedUntil: 5_000, reason: .TIMEOUT)
+        // Dieser Lauf ändert nichts an «b»; ein anderer Prozess hat «b» inzwischen gemerkt → bleibt
+        let merged = ExchangeBackoff.merge(ours: ["a": a], initial: ["a": a], stored: ["a": a, "b": b])
+        XCTAssertEqual(merged["b"], b)
+        XCTAssertEqual(merged["a"], a)
+    }
+
+    func testMergeKeepsLaterPauseWhenBothChanged() {
+        let mine = ExchangeBackoff.State(strikes: 1, pausedUntil: 2_000, reason: .RATE_LIMIT)
+        let theirs = ExchangeBackoff.State(strikes: 3, pausedUntil: 9_000, reason: .RATE_LIMIT)
+        XCTAssertEqual(ExchangeBackoff.merge(ours: ["x": mine], initial: [:], stored: ["x": theirs])["x"], theirs)
+        let earlier = ExchangeBackoff.State(strikes: 1, pausedUntil: 1_000, reason: .TIMEOUT)
+        XCTAssertEqual(ExchangeBackoff.merge(ours: ["x": mine], initial: [:], stored: ["x": earlier])["x"], mine)
+    }
+
+    func testMergeClearsOnlyUnchangedPause() {
+        let old = ExchangeBackoff.State(strikes: 1, pausedUntil: 1_000, reason: .RATE_LIMIT)
+        // Erfolg bei uns, gespeichert noch der Stand vom Start → aufheben
+        XCTAssertNil(ExchangeBackoff.merge(ours: [:], initial: ["x": old], stored: ["x": old])["x"])
+        // Inzwischen neu pausiert (anderer Prozess) → bleibt
+        let fresh = ExchangeBackoff.State(strikes: 2, pausedUntil: 8_000, reason: .RATE_LIMIT)
+        XCTAssertEqual(ExchangeBackoff.merge(ours: [:], initial: ["x": old], stored: ["x": fresh])["x"], fresh)
+    }
 }

@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">הבורסה לא זמינה כרגע – המחירים האחרונים נשארים מוצגים.</string>
     <string name="error_market_unreachable_short">הבורסה לא זמינה כרגע</string>
     <string name="loading_hint">טוען…</string>
-    <string name="no_internet_connection">אין חיבור לאינטרנט</string>
+    <string name="no_internet_connection">אין חיבור לאינטרנט. בדקו את ה-Wi-Fi או את הנתונים הסלולריים ונסו שוב.</string>
     <string name="option_off">כבוי</string>
     <string name="something_went_wrong">משהו השתבש</string>
     <string name="time_just_now">הרגע</string>
-    <string name="timeout_error_message">הבורסה לא מגיבה כרגע.</string>
+    <string name="timeout_error_message">הבורסה לא מגיבה כרגע. נסו שוב בעוד רגע.</string>
     <string name="try_again">נסה שוב</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

@@ -27,6 +27,13 @@ final class NetworkStatus: @unchecked Sendable {
         return known ?? true
     }
 
+    /// Wie `isOnline`, aber ein gemerktes «offline» frisch am aktuellen Pfad des Monitors nachprüfen: Nach einer
+    /// Pause des Prozesses (Hintergrund-Aufgabe, Widget) kann der gemerkte Stand veraltet sein.
+    var isOnlineFresh: Bool {
+        if isOnline { return true }
+        return monitor.currentPath.status == .satisfied
+    }
+
     /// Meldet jede Änderung (auf einer Hintergrund-Warteschlange); Rückgabe zum Abmelden.
     @discardableResult
     func observe(_ handler: @escaping @Sendable (Bool) -> Void) -> UUID {

@@ -168,7 +168,7 @@
     <string name="unusual_title">आज ख़ास</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">अभी कुछ हो रहा है</string>
+    <string name="activity_card_title">असामान्य गतिविधि</string>
     <string name="activity_indicator">असामान्य गतिविधि</string>
     <string name="activity_sensitivity_less">कम</string>
     <string name="activity_sensitivity_more">अधिक</string>

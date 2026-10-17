@@ -110,7 +110,7 @@
                 android:layout_marginTop="4dp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:fontFeatureSettings="tnum"
                 android:visibility="gone" />
 
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:visibility="gone" />
 
             <!-- Coins «BTC ↗ +2.8%» als farbiger Text ohne Pille (Kürzel in der Textfarbe, Veränderung in der
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:fontFeatureSettings="tnum" />
 
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:fontFeatureSettings="tnum" />
 
@@ -165,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:fontFeatureSettings="tnum" />
             </LinearLayout>
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
 

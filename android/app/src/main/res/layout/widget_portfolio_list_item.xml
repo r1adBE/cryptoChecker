@@ -49,7 +49,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     android:fontFeatureSettings="tnum"
                     android:visibility="gone" />
 
@@ -71,7 +71,7 @@
                 android:layout_marginTop="1dp"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
 
@@ -100,7 +100,7 @@
                 android:layout_marginTop="1dp"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
     </LinearLayout>

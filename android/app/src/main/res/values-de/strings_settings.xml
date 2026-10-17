@@ -144,7 +144,7 @@
     <string name="settings_change_period_hint">Klein «24h», «heute» oder «letzter Stand» neben der Änderung in der Merkliste und im Einzel-Widget. Der Screenreader nennt ihn immer.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
-    <string name="settings_conversion_currency">Umrechnungswährung</string>
+    <string name="settings_conversion_currency">Anzeigewährung</string>
     <string name="settings_conversion_currency_hint">Gilt auch für Portfolio, Alarme in deiner Währung, die Karte Krypto-Markt und das Portfolio-Widget.</string>
     <string name="settings_cost_method">Einstandsmethode</string>
     <string name="settings_cost_method_average">Durchschnitt (Ø)</string>

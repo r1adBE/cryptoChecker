@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Keine Treffer.</string>
     <string name="explorer_search_hint">Coin, Paar oder Börse suchen</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar.</string>
+    <string name="explorer_search_intro">Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar. Ein Paar ist ein Coin an einer Börse in einer Währung, z. B. BTC/USDT bei Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Zur Merkliste hinzufügen</string>
@@ -91,7 +91,7 @@
     <string name="explorer_field_coin">Coin</string>
     <string name="explorer_field_contract">Kontrakt</string>
     <string name="explorer_field_exchange">Börse</string>
-    <string name="explorer_field_quote">Gegenwert</string>
+    <string name="explorer_field_quote">Gegenwährung</string>
     <string name="explorer_contract_spot">Spot</string>
     <string name="explorer_reload_pairs">Abgleichen</string>
     <string name="sync_pairs_count">Handelspaare: %1$d</string>

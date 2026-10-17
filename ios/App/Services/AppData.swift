@@ -58,10 +58,15 @@ final class AppData: ObservableObject {
     @Published var settings: AppSettings {
         didSet {
             guard settings != oldValue else { return }
-            SharedStorage.saveSettings(settings)
+            // Nicht zugängliche Einstellungen nie mit Standardwerten überschreiben
+            if settingsAccessible { SharedStorage.saveSettings(settings) }
             settingsChanged(from: oldValue)
         }
     }
+    /// false = Einstellungen beim Lesen nicht zugänglich (App nach einem Neustart vor dem ersten Entsperren
+    /// vorgewärmt): `settings` sind Standardwerte nur zur Anzeige, werden nie gespeichert, und die
+    /// Portfolio-Sperre gilt als an (`appLockEffective`). Neu gelesen in `reloadSettingsIfInaccessible`.
+    @Published private(set) var settingsAccessible: Bool
     @Published var refreshing = false
     @Published var lastRefreshMillis: Int64 = SharedStorage.lastRefreshDuration
     @Published var lastRefreshReport: RefreshReport? = SharedStorage.lastRefreshReport
@@ -95,6 +100,8 @@ final class AppData: ObservableObject {
     @Published var liveWatchIds: Set<Int64> = []
     /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
     var liveTickAt: [Int64: Int64] = [:]
+    /// «Paar bearbeiten» je Watch-Id (ms): Live-Kurse von davor gehören zum alten Paar (`applyLive` verwirft sie).
+    var pairChangedAt: [Int64: Int64] = [:]
     /// Live-Kurse werden gerade gespeichert (`applyLive`): eine volle bzw. einzelne Aktualisierung
     /// wartet so lange; umgekehrt lässt `applyLive` aus, solange eine Aktualisierung läuft.
     var liveApplying = false
@@ -119,7 +126,10 @@ final class AppData: ObservableObject {
         if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
         encryptionPending = protection.encryptionPending
         snapshot = SharedStorage.loadSnapshot()
-        settings = SharedStorage.loadSettings()
+        let loadedSettings = AppData.readSettings()
+        settings = loadedSettings.settings
+        settingsAccessible = loadedSettings.state != .inaccessible
+        if loadedSettings.state == .missing { SharedStorage.markSettingsReadable() }
         let loaded = PortfolioStore.loadChecked()
         portfolioFile = loaded.file
         portfolioIntact = loaded.intact
@@ -134,8 +144,9 @@ final class AppData: ObservableObject {
             && !FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path) {
             SharedStorage.updateSnapshot { _ in }
         }
-        // «Portfolio in Systemsicherung»: auch für eine schon vorhandene Datei (Update, Wiederherstellung)
-        PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup)
+        // «Portfolio in Systemsicherung»: auch für eine schon vorhandene Datei (Update, Wiederherstellung) —
+        // nicht mit Standardwerten, solange die Einstellungen nicht zugänglich sind
+        if settingsAccessible { PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup) }
         // didSet läuft im init nicht — Kursfarben hier setzen
         PriceColors.scheme = settings.priceColorScheme
         HighContrast.setting = settings.highContrast
@@ -151,12 +162,12 @@ final class AppData: ObservableObject {
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         migrateHoldingsOnce()
         // Update mit vorhandenen Alarmen: die Erst-Alarm-Bestätigung gilt als gezeigt
-        if !settings.firstAlarmShown && !snapshot.alarms.isEmpty {
+        if settingsAccessible && !settings.firstAlarmShown && !snapshot.alarms.isEmpty {
             settings.firstAlarmShown = true
             SharedStorage.saveSettings(settings)
         }
         // Update mit vorhandenen Paaren: das erste Hinzufügen gilt als erledigt
-        if !settings.firstPairAdded && !snapshot.watches.isEmpty {
+        if settingsAccessible && !settings.firstPairAdded && !snapshot.watches.isEmpty {
             settings.firstPairAdded = true
             SharedStorage.saveSettings(settings)
         }
@@ -164,6 +175,34 @@ final class AppData: ObservableObject {
         NetworkStatus.shared.observe { online in
             Task { @MainActor in AppData.shared.networkChanged(online) }
         }
+        // Gerät entsperrt: Einstellungen nachlesen, falls sie beim Start nicht zugänglich waren
+        _ = NotificationCenter.default.addObserver(forName: UIApplication.protectedDataDidBecomeAvailableNotification,
+                                                   object: nil, queue: .main) { _ in
+            Task { @MainActor in AppData.shared.reloadSettingsIfInaccessible() }
+        }
+    }
+
+    /// Einstellungen lesen; «nicht zugänglich» erkennt die App an `isProtectedDataAvailable`.
+    private static func readSettings() -> SharedStorage.LoadedSettings {
+        SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
+    }
+
+    /// Portfolio-Sperre wirksam: eingeschaltet — oder unbekannt, solange die Einstellungen nicht zugänglich sind.
+    var appLockEffective: Bool { !settingsAccessible || settings.appLock }
+
+    /// Einstellungen waren beim Start nicht zugänglich: jetzt neu lesen (Gerät entsperrt, App aktiv) und
+    /// übernehmen — mit allen Folgen (`settingsChanged`) und dem Sperrzustand.
+    func reloadSettingsIfInaccessible() {
+        guard !settingsAccessible else { return }
+        let loaded = AppData.readSettings()
+        guard loaded.state != .inaccessible else { return }
+        if loaded.state == .missing { SharedStorage.markSettingsReadable() }
+        settingsAccessible = true
+        // didSet: speichert denselben Stand und wendet die Folgen der Unterschiede an
+        settings = loaded.settings
+        PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup)
+        AppLock.shared.settingsReloaded()
+        BackgroundRefresh.schedule(settings: settings)
     }
 
     private func networkChanged(_ isOnline: Bool) {
@@ -209,6 +248,7 @@ final class AppData: ObservableObject {
         // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
         // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da)
         if let fresh = SharedStorage.readSnapshot().snapshot { snapshot = fresh }
+        reloadSettingsIfInaccessible()
         lastRefreshMillis = SharedStorage.lastRefreshDuration
         lastRefreshReport = SharedStorage.lastRefreshReport
         changeStamp = SharedStorage.changeStamp
@@ -252,6 +292,8 @@ final class AppData: ObservableObject {
         PortfolioStore.holdingsMigrated = true
         addTargetGroup = nil
         settings = AppSettings()
+        // Ablage geleert, aber zugänglich: Widgets sollen das nicht für eine gesperrte Ablage halten
+        SharedStorage.markSettingsReadable()
         WidgetCenter.shared.reloadAllTimelines()
     }
 

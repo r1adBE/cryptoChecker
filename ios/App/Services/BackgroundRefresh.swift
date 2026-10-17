@@ -234,7 +234,11 @@ enum BackgroundRefresh {
                 outcome.releaseAlarmLease()
             }
             AppData.shared.reloadFromDisk()
-            WidgetCenter.shared.reloadAllTimelines()
+            // Widgets nur neu laden, wenn sich der gespeicherte Stand geändert hat (Kurse, Fehler, %-Basis) — sonst
+            // verbraucht jeder Lauf ohne Ergebnis (offline, alles pausiert) Teile des Widget-Budgets
+            if saved != nil && (outcome.checked > 0 || outcome.changeStampChanged) {
+                WidgetCenter.shared.reloadAllTimelines()
+            }
             // Live-Aktivität (Sperrbildschirm) mit dem neuen Kurs
             await LiveActivityController.update(watches: current.watches)
 

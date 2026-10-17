@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -39,7 +39,7 @@ class ErrorScreenViewState(private val throwable: Throwable) {
     @DrawableRes
     fun getErrorImage(): Int = if (isNetwork) R.drawable.ic_no_connection else R.drawable.ic_error
 
-    /** Nur ein Satz, was schiefging — kein Ausnahme- oder Stack-Text. */
+    /** Was schiefging und was jetzt hilft — kein Ausnahme- oder Stack-Text. */
     fun getErrorMessage(context: Context): String = context.getString(messageRes())
 
     // Zeitüberschreitung ist auch eine IOException, darum zuerst
@@ -81,7 +81,10 @@ fun ErrorScreen(
             )
             Button(
                 onClick = onTryAgainButtonClick,
-                modifier = Modifier.width(250.dp).padding(top = 16.dp),
+                // Mindestens 250 dp, mit langer Übersetzung bzw. grosser Schrift breiter (Rand 32 dp wie der Satz)
+                modifier = Modifier
+                    .padding(top = 16.dp, start = 32.dp, end = 32.dp)
+                    .widthIn(min = 250.dp),
             ) {
                 Text(text = stringResource(id = R.string.try_again))
             }

@@ -89,7 +89,7 @@
                                 android:layout_marginEnd="3dp"
                                 android:maxLines="1"
                                 android:ellipsize="end"
-                                android:textSize="11sp"
+                                android:textSize="12sp"
                                 android:fontFeatureSettings="tnum"
                                 android:visibility="gone" />
 
@@ -140,7 +140,7 @@
                         android:minEms="3"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:fontFeatureSettings="tnum" />
 
                     <TextView
@@ -151,7 +151,7 @@
                         android:minEms="4"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:fontFeatureSettings="tnum" />
                 </LinearLayout>
@@ -187,7 +187,7 @@
                                 android:layout_marginEnd="3dp"
                                 android:maxLines="1"
                                 android:ellipsize="end"
-                                android:textSize="11sp"
+                                android:textSize="12sp"
                                 android:fontFeatureSettings="tnum"
                                 android:visibility="gone" />
 
@@ -239,7 +239,7 @@
                         android:minEms="3"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:fontFeatureSettings="tnum" />
 
                     <TextView
@@ -250,7 +250,7 @@
                         android:minEms="4"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:fontFeatureSettings="tnum" />
                 </LinearLayout>
@@ -286,7 +286,7 @@
                                 android:layout_marginEnd="3dp"
                                 android:maxLines="1"
                                 android:ellipsize="end"
-                                android:textSize="11sp"
+                                android:textSize="12sp"
                                 android:fontFeatureSettings="tnum"
                                 android:visibility="gone" />
 
@@ -338,7 +338,7 @@
                         android:minEms="3"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:fontFeatureSettings="tnum" />
 
                     <TextView
@@ -349,7 +349,7 @@
                         android:minEms="4"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:fontFeatureSettings="tnum" />
                 </LinearLayout>
@@ -362,7 +362,7 @@
                 android:layout_marginTop="6dp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
     </LinearLayout>

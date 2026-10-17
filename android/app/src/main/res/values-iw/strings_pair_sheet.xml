@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">היצע</string>
     <string name="ticker_bid">ביקוש</string>
+    <string name="explain_bid_ask">ביקוש הוא המחיר הגבוה ביותר שקונים מציעים כרגע, והיצע הוא המחיר הנמוך ביותר שמוכרים מוכנים לקבל.</string>
     <string name="ticker_high">גבוה</string>
     <string name="ticker_low">נמוך</string>
     <string name="ticker_timestamp">זמן</string>

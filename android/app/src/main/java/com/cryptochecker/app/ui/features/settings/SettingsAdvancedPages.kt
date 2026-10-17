@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
-import com.cryptochecker.app.util.ChangeBasisText
 
 // ── Erweitert ────────────────────────────────────────────────────────────────
 
@@ -74,15 +73,7 @@ internal fun AdvancedPage(
             }
         }
         NavCard {
-            // Basis der %-Änderung (Änderung, Puls, Widgets)
-            SettingsAnchor("advanced.change_basis") {
-                SettingsNavRow(
-                    title = stringResource(R.string.settings_change_basis, "%"),
-                    icon = R.drawable.ic_settings_change_basis,
-                    value = ChangeBasisText.summary(settings.changeBasis),
-                    onClick = { onOpenPage(SettingsPage.CHANGE_BASIS) }
-                )
-            }
+            // Basis der %-Änderung steht seit Review D13 auf «Merkliste» ([WatchlistPage])
             SettingsAnchor("advanced.coin_logos") {
                 SettingsNavRow(
                     title = stringResource(R.string.settings_coin_logos),

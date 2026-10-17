@@ -59,6 +59,8 @@ internal fun AlarmCard(
             when (it.reason) {
                 AlarmCheckStatus.Reason.NO_RATE -> R.string.alarm_unchecked_no_rate
                 AlarmCheckStatus.Reason.NO_CANDLES -> R.string.alarm_unchecked_no_candles
+                // Funding/Open Interest ohne Werte: vorhandener Text «Keine Futures-Daten …»
+                AlarmCheckStatus.Reason.NO_DATA -> R.string.futures_no_data
             }
         )
     }

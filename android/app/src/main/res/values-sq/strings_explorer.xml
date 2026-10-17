@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Asnjë rezultat.</string>
     <string name="explorer_search_hint">Kërko monedhë, çift ose bursë</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Shkruaj emrin ose simbolin e një monedhe, p.sh. Bitcoin ose BTC, pastaj zgjidh çiftin.</string>
+    <string name="explorer_search_intro">Shkruaj emrin ose simbolin e një monedhe, p.sh. Bitcoin ose BTC, pastaj zgjidh çiftin. Një çift është një monedhë në një bursë në një valutë, p.sh. BTC/USDT në Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Shto në listën e ndjekjes</string>

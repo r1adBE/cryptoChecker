@@ -100,13 +100,13 @@ struct WidgetThemed<Content: View>: View {
 
 // MARK: Schrift
 
-/// J-18: Nebentexte in Widgets (Uhrzeit, Börse, Fusszeilen) — mindestens 11 pt und mit Dynamic Type
+/// J-18: Nebentexte in Widgets (Uhrzeit, Börse, Fusszeilen) — mindestens 12 pt (wie Android 12 sp) und mit Dynamic Type
 /// (`@ScaledMetric` zu `.caption2`), höchstens 1.25 × gross, damit das Widget nicht überläuft.
 enum WidgetTextSize {
-    static let minSecondary: CGFloat = 11
+    static let minSecondary: CGFloat = 12
     static let maxScale: CGFloat = 1.25
 
-    /// Grösse für `base` beim Dynamic-Type-Faktor `scale`: nie unter 11 pt, nie kleiner als `base`,
+    /// Grösse für `base` beim Dynamic-Type-Faktor `scale`: nie unter 12 pt, nie kleiner als `base`,
     /// höchstens `maxScale` × `base`.
     static func secondary(_ base: CGFloat, scale: CGFloat = 1) -> CGFloat {
         max(base, minSecondary) * min(max(scale, 1), maxScale)
@@ -258,7 +258,7 @@ struct WidgetCoinBadge: View {
 struct WidgetChangeLabel: View {
     let change: Double?
     let palette: WidgetPalette
-    var size: CGFloat = 11
+    var size: CGFloat = 12
     var showsText = true
     /// Pfeil wie in der Prozent-Pille der App; folgt dem Vorzeichen (nie dem Farbtausch),
     /// bei «0.00%» keiner.

@@ -72,6 +72,12 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     }
 
     override fun onCreate() {
+        // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
+        // unverschlüsselte Kopie der Merkliste entfernen (Review 22)
+        if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {
+            runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
+                .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }
+        }
         super.onCreate()
 
         AppLanguages.restoreForActivities(this)

@@ -81,12 +81,14 @@ fun AppNavHost(
     val context = androidx.compose.ui.platform.LocalContext.current
     val unlockReason = stringResource(R.string.portfolio_lock_reason)
     val requestUnlock = { lockViewModel.requireUnlock(context.findFragmentActivity(), unlockReason) {} }
-    // Sperre an und Portfolio (Tab oder Coin-Detail mit Verlauf) sichtbar: Fenster schützen
+    // Sperre an und Portfolio (Tab oder Coin-Detail mit Verlauf) sichtbar: Fenster schützen;
+    // vor Android 13 mit Sperre jeder Bildschirm (dort fehlt setRecentsScreenshotEnabled)
     val lockEnabled by lockViewModel.lockEnabled.collectAsStateWithLifecycle()
     SecureWindowEffect(
         PortfolioLockPolicy.secureWindow(
             lockSetting = lockEnabled,
-            portfolioVisible = currentRoute == ScreenRoute.Portfolio || currentRoute == ScreenRoute.PortfolioCoin
+            portfolioVisible = currentRoute == ScreenRoute.Portfolio || currentRoute == ScreenRoute.PortfolioCoin,
+            sdkInt = android.os.Build.VERSION.SDK_INT,
         )
     )
     // Besitzer ausserhalb des Navigationsgraphen (die Activity): Der Markt-Tab behält

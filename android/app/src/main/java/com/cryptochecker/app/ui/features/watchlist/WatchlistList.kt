@@ -31,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -137,6 +138,8 @@ internal fun WatchlistList(
     groupEmpty: Boolean,
     /** «FAV» ohne Favoriten: Hinweis, wie man einen setzt (statt des Gruppen-Hinweises). */
     favoritesEmpty: Boolean = false,
+    /** Eigene Gruppe gewählt: Knopf «Gruppe bearbeiten» unter dem Hinweis (null = keiner, z. B. «FAV», TradFi). */
+    onEditGroup: (() -> Unit)? = null,
     shown: List<WatchEntity>,
     /** Zeile je Paar mit ihrer Form ([ListSegment.shape]: die Paare wirken wie eine Einheit). */
     row: @Composable LazyItemScope.(WatchEntity, Shape) -> Unit,
@@ -181,7 +184,21 @@ internal fun WatchlistList(
         }
         if (groupEmpty) {
             item(key = "group_empty") {
-                ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
+                val edit = onEditGroup?.takeIf { !favoritesEmpty }
+                if (edit == null) {
+                    ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
+                } else {
+                    // Langes Drücken ist nicht auffindbar: derselbe Weg als sichtbarer Knopf (wie iOS)
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 16.dp)
+                    ) {
+                        ListNote(stringResource(R.string.watchlist_group_empty_hint), vertical = 0.dp)
+                        TextButton(onClick = edit, modifier = Modifier.padding(top = Spacing.xs)) {
+                            Text(stringResource(R.string.group_edit_title))
+                        }
+                    }
+                }
             }
         }
         itemsIndexed(shown, key = { _, it -> it.id }) { index, watch -> row(watch, ListSegment.shape(index, shown.size)) }
@@ -190,13 +207,13 @@ internal fun WatchlistList(
 
 /** Ruhiger Hinweis mitten in der Liste (keine Treffer, leere Gruppe). */
 @Composable
-private fun ListNote(text: String) {
+private fun ListNote(text: String, vertical: Dp = 24.dp) {
     Text(
         text = text,
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp)
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = vertical)
     )
 }
 

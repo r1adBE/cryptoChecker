@@ -168,7 +168,7 @@
     <string name="unusual_title">Ξεχωρίζουν σήμερα</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Κάτι συμβαίνει αυτή τη στιγμή</string>
+    <string name="activity_card_title">Ασυνήθιστη δραστηριότητα</string>
     <string name="activity_indicator">Ασυνήθιστη δραστηριότητα</string>
     <string name="activity_sensitivity_less">Λιγότερα</string>
     <string name="activity_sensitivity_more">Περισσότερα</string>

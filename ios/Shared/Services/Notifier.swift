@@ -186,8 +186,9 @@ enum Notifier {
     /// Auch aus der Widget-Erweiterung: Dort liegen die Alarmtöne nicht im Bundle, iOS spielt dann den
     /// Standardton (`UNNotificationSound(named:)` ohne Datei).
     /// - Returns: true erst, wenn die Mitteilung zugestellt ist (`postConfirmed`) — sonst bleibt der Alarm scharf.
+    /// `currency`: Währung von `price`, wenn nicht die Quote-Währung des Paars (Schwelle umgerechnet).
     static func showAlarm(_ watch: Watch, _ alarm: Alarm, price: Double, volumeRatio: Double? = nil,
-                          text: String? = nil) async -> Bool {
+                          text: String? = nil, currency: String? = nil) async -> Bool {
         let content = UNMutableNotificationContent()
         content.title = L("notification_alarm_title", watch.displayName, watch.marketName)
         if let text {
@@ -196,7 +197,8 @@ enum Notifier {
             // «Volumen 4.2× normal in der letzten Stunde»
             content.body = L("notification_volume_spike_text", AlarmTexts.factor(volumeRatio))
         } else {
-            content.body = L("notification_alarm_text", AlarmTexts.describe(alarm), PriceFormat.priceWithCurrency(price, watch.quoteAsset))
+            content.body = L("notification_alarm_text", AlarmTexts.describe(alarm),
+                             PriceFormat.priceWithCurrency(price, currency ?? watch.quoteAsset))
         }
         let settings = SharedStorage.loadSettings()
         // «Alarm-Signal»: «Lautlos» = nur Mitteilung (zeitkritisch, ohne Ton); Vibration nach Töne & Haptik

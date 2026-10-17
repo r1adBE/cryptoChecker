@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Anzeige</string>
     <string name="widget_portfolio_display_conversion">Nur Umrechnung</string>
     <string name="widget_portfolio_display_conversion_usdt">Umrechnung + USDT</string>
-    <string name="widget_portfolio_display_hint">Die USDT-Zeile entfällt, wenn die Umrechnungswährung USD ist.</string>
+    <string name="widget_portfolio_display_hint">Die USDT-Zeile entfällt, wenn deine Währung USD ist.</string>
     <string name="widget_portfolio_display_usdt">Nur USDT</string>
     <string name="widget_portfolio_empty">Käufe im Portfolio-Tab erfassen</string>
     <string name="widget_portfolio_list_hint">App öffnen, um hier die Positionen zu zeigen.</string>

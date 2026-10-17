@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Geen resultaten.</string>
     <string name="explorer_search_hint">Zoek munt, paar of beurs</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar.</string>
+    <string name="explorer_search_intro">Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar. Een paar is een munt op een beurs in één valuta, bijv. BTC/USDT op Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Aan volglijst toevoegen</string>

@@ -144,7 +144,7 @@ private struct SingleHeader: View {
             .layoutPriority(1)
             Spacer(minLength: 4)
             // Veränderung gemäss %-Basis als farbiger Text (keine Pille); der Chart kann einen anderen Zeitraum zeigen
-            WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 11.5, showsArrow: true, day: true,
+            WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 12, showsArrow: true, day: true,
                               suffix: changeView.showPeriod ? A11y.changeShortLabel(changeView.basis) : nil, basis: changeView.basis,
                               neutral: watch.disabled)
                 .fixedSize(horizontal: true, vertical: false)
@@ -370,7 +370,7 @@ private struct SingleRectangularView: View {
         Text(verbatim: watch.disabled ? singleMarketLine(watch)
              : "\(BidiText.isolate(watch.marketName)) · "
                 + WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter, allowsHint: hint))
-            .font(.system(size: 11))
+            .font(.system(size: 12))
             .monospacedDigit()
             .foregroundStyle(.secondary)
             .lineLimit(1)

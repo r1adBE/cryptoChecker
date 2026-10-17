@@ -25,7 +25,7 @@
     <string name="explorer_search_empty">Tidak ada hasil.</string>
     <string name="explorer_search_hint">Cari koin, pasangan, atau bursa</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Ketik nama atau simbol koin, mis. Bitcoin atau BTC – lalu pilih pasangannya.</string>
+    <string name="explorer_search_intro">Ketik nama atau simbol koin, mis. Bitcoin atau BTC – lalu pilih pasangannya. Pasangan adalah koin di sebuah bursa dalam satu mata uang, mis. BTC/USDT di Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Tambah ke daftar pantau</string>

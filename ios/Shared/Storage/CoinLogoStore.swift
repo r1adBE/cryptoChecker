@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import Network
 import UIKit
 
 /// Coin-Logos, Namen und Alpha-Kennzeichen (Regeln in `CoinLogos`, `CoinMeta`, `CoinLists`), gleich
@@ -34,6 +35,8 @@ actor CoinLogoStore {
     private static let mapTimeKey = "coin_logos_map_time_v5"
     private static let mapAttemptKey = "coin_logos_map_attempt_v5"
     private static let failedKey = "coin_logos_failed"
+    /// Kürzel, die nur die Zusatzseiten der Rangliste bringen (`CoinLogos.extraOnlyKeys`).
+    private static let extraOnlyKey = "coin_logos_extra_only_v1"
     /// Zeitpunkt der zuletzt direkt geholten Binance-Symbolliste bzw. des letzten Versuchs.
     private static let binanceTimeKey = "coin_logos_binance_list_time_v1"
     private static let binanceAttemptKey = "coin_logos_binance_list_attempt_v1"
@@ -310,7 +313,11 @@ actor CoinLogoStore {
     /// Lädt alle Logos aus `wanted`, die noch fehlen (nicht fehlgeschlagen, keine Datei): je Server
     /// `perHostParallel` gleichzeitig. Bremst ein Server nur kurz (bis `shortPauseMaxMillis`), werden
     /// seine Bilder nach der Pause gleich nachgeholt — wie Android `downloadMissing`.
-    private static func downloadMissing(_ wanted: [String: String]) async -> DownloadResult {
+    private static func downloadMissing(_ all: [String: String]) async -> DownloadResult {
+        // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
+        let extraOnly = Set(SharedStorage.defaults.stringArray(forKey: extraOnlyKey) ?? [])
+        let unmetered = await UnmeteredNetwork.shared.isUnmetered()
+        let wanted = CoinLogos.downloadable(all, extraOnly: extraOnly, unmetered: unmetered)
         guard !wanted.isEmpty else { return DownloadResult() }
         let now = TimeUtils.nowMillis
         let failedBefore = loadFailures(now: now)
@@ -556,13 +563,24 @@ actor CoinLogoStore {
         let partial = CoinMeta.merge(geckoTop: top, binance: binance, alpha: alpha)
         let handled = Self.dropChangedImages(old: known, new: partial.map, skip: [])
         onTop(partial.map)
-        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken
+        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken — und nur ohne teures Netz (mobile
+        // Daten): sonst gilt die Liste als unvollständig und wird nach einigen Stunden erneut versucht
         var extra: [CoinMeta.GeckoRow] = []
+        var extraFetched = false
         if complete {
-            let range = (CoinLogos.pages + 1)...(CoinLogos.pages + CoinLogos.extraPages)
-            complete = await Self.fetchCoinGecko(pages: range, into: &extra, networkError: &networkError)
+            if await UnmeteredNetwork.shared.isUnmetered() {
+                let range = (CoinLogos.pages + 1)...(CoinLogos.pages + CoinLogos.extraPages)
+                complete = await Self.fetchCoinGecko(pages: range, into: &extra, networkError: &networkError)
+                extraFetched = complete
+            } else {
+                complete = false
+            }
         }
         var merged = CoinMeta.merge(geckoTop: top, binance: binance, alpha: alpha, geckoExtra: extra)
+        // Kürzel nur aus den Zusatzseiten merken: ihre Logos lädt der Sammel-Abruf nur ohne teures Netz
+        if extraFetched {
+            defaults.set(Array(CoinLogos.extraOnlyKeys(all: merged.map, top: partial.map)), forKey: Self.extraOnlyKey)
+        }
         // Unvollständig (eine Quelle fehlte): Bekanntes behalten und in einigen Stunden erneut
         let full = complete && binance != nil && alpha != nil
         if !full {
@@ -1003,5 +1021,41 @@ final class ImagePauseBox: @unchecked Sendable {
         map[host] = now + CoinLogoRetry.imagePauseMillis(retryAfterSeconds: retryAfterSeconds)
         pauses = map
         SharedStorage.defaults.set(CoinLogoRetry.encodePauses(map), forKey: key)
+    }
+}
+
+/// Nicht teures Netz (WLAN, Ethernet: `isExpensive` und `isConstrained` false)? Nur für die Zusatzseiten der
+/// Rangliste und deren Logos (`CoinLogos.downloadable`) — wie Android `isActiveNetworkMetered`. Eigener
+/// Beobachter, damit `NetworkStatus` (online/offline für die Aktualisierung) unverändert bleibt.
+final class UnmeteredNetwork: @unchecked Sendable {
+    static let shared = UnmeteredNetwork()
+
+    private let monitor = NWPathMonitor()
+    private let lock = NSLock()
+    private var known: Bool?
+
+    private init() {
+        monitor.pathUpdateHandler = { [weak self] path in
+            let unmetered = path.status == .satisfied && !path.isExpensive && !path.isConstrained
+            self?.lock.lock()
+            self?.known = unmetered
+            self?.lock.unlock()
+        }
+        monitor.start(queue: DispatchQueue(label: "cryptochecker.unmetered-network"))
+    }
+
+    private var current: Bool? {
+        lock.lock()
+        defer { lock.unlock() }
+        return known
+    }
+
+    /// Wartet höchstens 1 s auf den ersten gemeldeten Pfad; unbekannt → false (lieber sparsam).
+    func isUnmetered() async -> Bool {
+        for _ in 0..<10 {
+            if let value = current { return value }
+            try? await Task.sleep(nanoseconds: 100_000_000)
+        }
+        return current ?? false
     }
 }

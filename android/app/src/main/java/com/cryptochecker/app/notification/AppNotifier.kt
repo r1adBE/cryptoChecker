@@ -231,6 +231,12 @@ class AppNotifier @Inject constructor(
         derivativesValue: Double? = null,
         /** Funding/Open Interest nicht von der beobachteten Börse: Quelle des Richtwerts («Binance Futures»). */
         derivativesReference: String? = null,
+        /**
+         * Währung von [price], wenn nicht die Quote des Paars: Kursmarke mit eigener Alarm-Währung
+         * ([com.cryptochecker.app.data.local.model.convertCurrency]) — [price] ist dann schon umgerechnet,
+         * damit «jetzt …» in derselben Währung steht wie die Schwelle.
+         */
+        priceCurrency: String? = null,
     ): Boolean {
         val title = context.getString(
             R.string.notification_alarm_title,
@@ -260,7 +266,7 @@ class AppNotifier @Inject constructor(
             context.getString(
                 R.string.notification_alarm_text,
                 AlarmTexts.describe(context, alarm),
-                PriceFormat.priceWithCurrency(price, watch.quoteAsset)
+                PriceFormat.priceWithCurrency(price, priceCurrency ?: watch.quoteAsset)
             )
         }
 

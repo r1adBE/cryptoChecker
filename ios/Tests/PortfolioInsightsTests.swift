@@ -151,12 +151,22 @@ final class PortfolioAlarmLogicTests: XCTestCase {
         XCTAssertEqual(PortfolioAlarmLogic.decide(firedBelow, missing, now: start, cooldownMinutes: 0), .nothing)
         // Mit allen Kursen wie bisher
         XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.VALUE_BELOW, 100), reading(50), now: start, cooldownMinutes: 0), .fire(50))
-        XCTAssertEqual(PortfolioAlarmLogic.decide(firedBelow, reading(50), now: start, cooldownMinutes: 0), .rearm)
+        XCTAssertEqual(PortfolioAlarmLogic.decide(firedBelow, reading(50), now: start + 60_000, cooldownMinutes: 0), .rearm)
         // Fehlender Vergleichskurs in «heute» betrifft nur die %-Alarme
         var partial = reading(50, change: 12)
         partial.todaySkipped = 1
         XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.CHANGE_UP, 10), partial, now: start, cooldownMinutes: 0), .nothing)
         XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.VALUE_BELOW, 100), partial, now: start, cooldownMinutes: 0), .fire(50))
+    }
+
+    func testRearmNotBeforeMinimumAfterFire() {
+        // Wie die Kursmarken (`AlarmEvaluator.minLevelRearmMillis`): frühestens 60 s nach der Meldung wieder scharf
+        var fired = alarm(.VALUE_ABOVE, 100)
+        fired.referenceAt = start
+        XCTAssertEqual(PortfolioAlarmLogic.decide(fired, reading(90), now: start + 59_999, cooldownMinutes: 0), .nothing)
+        XCTAssertEqual(PortfolioAlarmLogic.decide(fired, reading(90), now: start + 60_000, cooldownMinutes: 0), .rearm)
+        // Meldung in der Zukunft (Uhr zurückgestellt): nicht blockieren
+        XCTAssertEqual(PortfolioAlarmLogic.decide(fired, reading(90), now: start - 1, cooldownMinutes: 0), .rearm)
     }
 
     func testStalePriceSkipsEveryAlarmKindNeitherFireNorRearm() {

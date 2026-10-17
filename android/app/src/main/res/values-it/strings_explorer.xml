@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Nessun risultato.</string>
     <string name="explorer_search_hint">Cerca moneta, coppia o exchange</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia.</string>
+    <string name="explorer_search_intro">Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia. Una coppia è una moneta su un exchange in una valuta, ad es. BTC/USDT su Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Aggiungi alla lista di osservazione</string>

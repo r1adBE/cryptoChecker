@@ -169,7 +169,7 @@
     <string name="unusual_title">בולט היום</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">משהו קורה עכשיו</string>
+    <string name="activity_card_title">פעילות חריגה</string>
     <string name="activity_indicator">פעילות חריגה</string>
     <string name="activity_sensitivity_less">פחות</string>
     <string name="activity_sensitivity_more">יותר</string>

@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">سعر البيع</string>
     <string name="ticker_bid">سعر الشراء</string>
+    <string name="explain_bid_ask">سعر الشراء هو أعلى سعر يعرضه المشترون الآن، وسعر البيع هو أدنى سعر يقبله البائعون.</string>
     <string name="ticker_high">الأعلى</string>
     <string name="ticker_low">الأدنى</string>
     <string name="ticker_timestamp">الوقت</string>

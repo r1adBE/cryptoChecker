@@ -150,8 +150,9 @@ extension WatchlistScreen {
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L("watchlist_search_open"))
 
-                // «+» rechts neben der Lupe (Label «Paar hinzufügen»): ohne Text bricht der Status nicht um
-                addPairButton(labelled: false)
+                // «+» rechts neben der Lupe: kleine Merkliste (bis 3 Paare) mit Text «Paar hinzufügen», damit der
+                // Weg zum nächsten Paar klar ist; sonst nur «+» (Label «Paar hinzufügen»), so bricht der Status nicht um
+                addPairButton(labelled: data.watches.count <= WatchlistSearch.addLabelMaxPairs)
             }
         }
     }

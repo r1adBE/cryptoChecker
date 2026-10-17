@@ -41,23 +41,41 @@ private const val ASSET_FONT = "licenses/Rubik-OFL.txt"
 private const val ASSET_APACHE = "licenses/Apache-2.0.txt"
 private const val APACHE_NAME = "Apache License 2.0"
 
-/** Wichtigste Fremdbibliotheken aus `app/build.gradle` (alle unter der Apache License 2.0). */
+/** Lizenz von SQLCipher (BSD-Stil, Zetetic LLC) — Text unverändert aus dem SQLCipher-Quellcode. */
+private const val ASSET_SQLCIPHER = "licenses/SQLCipher-BSD.txt"
+private const val SQLCIPHER_NAME = "SQLCipher for Android (net.zetetic:sqlcipher-android)"
+private const val SQLCIPHER_LICENSE_NAME = "BSD-style license, Zetetic LLC"
+
+/** In SQLCipher (libsqlcipher.so) enthalten: SQLite (gemeinfrei); libcrypto von OpenSSL steht unter Apache 2.0. */
+private const val SQLITE_LINE = "SQLite — Public Domain"
+
+/**
+ * Quellenangabe für den Ersatz-Wechselkurs (open.er-api.com, [com.cryptochecker.app.data.portfolio.FxRateSource]):
+ * von ExchangeRate-API verlangte Nennung, nicht übersetzt (wie iOS `LicenseNotices.ratesByExchangeRateApi`).
+ */
+private const val RATES_BY_EXCHANGERATE_API = "Rates By Exchange Rate API (https://www.exchangerate-api.com)"
+
+/** Fremdbibliotheken aus `app/build.gradle`, die in der App ausgeliefert werden (alle unter der Apache License 2.0). */
 private val ANDROID_LIBRARIES = listOf(
     "AndroidX Core, AppCompat, Activity, Lifecycle, Navigation",
-    "Jetpack Compose (UI, Material 3, ConstraintLayout)",
+    "Jetpack Compose (UI, UI Util, Material 3, ConstraintLayout)",
     "AndroidX Room",
     "AndroidX WorkManager",
     "AndroidX DataStore",
     "AndroidX Biometric",
+    "AndroidX ProfileInstaller",
+    "AndroidX Concurrent Futures",
     "Kotlin, kotlinx.coroutines",
-    "Dagger / Hilt",
-    "OkHttp",
+    "Dagger / Hilt (Hilt Navigation Compose, Hilt Work)",
+    "OkHttp, OkHttp Logging Interceptor",
+    "Okio",
+    "OpenSSL libcrypto (in SQLCipher for Android)",
     "Timber"
 )
 
 /**
- * Lizenzhinweise: die App selbst (MIT), Schrift Rubik (OFL), Ersatz-Icons (CC0) und
- * Android-Bibliotheken (Apache 2.0). Die Lizenztexte liegen unübersetzt in
+ * Lizenzhinweise: die App selbst (MIT), Schrift Rubik (OFL), Ersatz-Icons (CC0),
+ * Android-Bibliotheken (Apache 2.0) und SQLCipher (BSD-Stil, mit SQLite gemeinfrei). Die Lizenztexte liegen unübersetzt in
  * `assets/licenses/`; übersetzt sind nur Titel und Einleitungen.
  */
 @Composable
@@ -91,6 +109,7 @@ fun LicensesContent() {
     val app by produceState("") { value = readAsset(context, ASSET_APP) }
     val font by produceState("") { value = readAsset(context, ASSET_FONT) }
     val apache by produceState("") { value = readAsset(context, ASSET_APACHE) }
+    val sqlcipher by produceState("") { value = readAsset(context, ASSET_SQLCIPHER) }
     SelectionContainer {
         Column(modifier = Modifier.fillMaxWidth()) {
             // Die App selbst ist quelloffen (MIT); der ganze Lizenztext wie in `LICENSE`
@@ -98,6 +117,8 @@ fun LicensesContent() {
             LicenseText(app)
             // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
             BodyText(DataFreshness.POWERED_BY_COINGECKO)
+            // Ersatz-Wechselkurse von open.er-api.com: verlangte Quellenangabe (nicht übersetzt)
+            BodyText(RATES_BY_EXCHANGERATE_API)
 
             SectionDivider()
             SectionTitle(stringResource(R.string.licenses_font_title))
@@ -119,6 +140,22 @@ fun LicensesContent() {
                 )
             }
             LicenseText(apache)
+
+            // Verschlüsselte Datenbanken: SQLCipher (BSD-Stil, Zetetic) mit SQLite (gemeinfrei);
+            // Bibliotheksnamen und Lizenztext nicht übersetzt
+            SectionDivider()
+            SectionTitle(SQLCIPHER_NAME)
+            Text(
+                "• $SQLCIPHER_NAME — $SQLCIPHER_LICENSE_NAME",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+            Text(
+                "• $SQLITE_LINE",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+            LicenseText(sqlcipher)
         }
     }
 }

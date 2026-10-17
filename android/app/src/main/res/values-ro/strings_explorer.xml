@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Niciun rezultat.</string>
     <string name="explorer_search_hint">Caută monedă, pereche sau bursă</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea.</string>
+    <string name="explorer_search_intro">Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea. O pereche este o monedă pe o bursă, cotată într-o valută, de ex. BTC/USDT pe Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Adaugă în lista de urmărire</string>

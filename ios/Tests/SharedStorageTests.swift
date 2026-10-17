@@ -433,4 +433,43 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertEqual(passed, 1)
         XCTAssertFalse(gate.claim())
     }
+
+    // MARK: Einstellungen lesbar / fehlend / nicht zugänglich (Neustart vor dem ersten Entsperren)
+
+    func testSettingsReadStateOkWhenDecoded() {
+        for available in [Bool?.some(true), .some(false), .none] {
+            XCTAssertEqual(SharedStorage.settingsReadState(hasData: true, decodes: true, markerPresent: false,
+                                                           protectedDataAvailable: available), .ok)
+        }
+    }
+
+    func testSettingsReadStateInApp() {
+        // App: ohne Daten entscheidet `isProtectedDataAvailable`
+        XCTAssertEqual(SharedStorage.settingsReadState(hasData: false, decodes: false, markerPresent: false,
+                                                       protectedDataAvailable: false), .inaccessible)
+        XCTAssertEqual(SharedStorage.settingsReadState(hasData: false, decodes: false, markerPresent: true,
+                                                       protectedDataAvailable: false), .inaccessible)
+        XCTAssertEqual(SharedStorage.settingsReadState(hasData: false, decodes: false, markerPresent: false,
+                                                       protectedDataAvailable: true), .missing)
+        // Da, aber unlesbar: Ablage war zugänglich — Standardwerte wie bisher
+        XCTAssertEqual(SharedStorage.settingsReadState(hasData: true, decodes: false, markerPresent: true,
+                                                       protectedDataAvailable: false), .missing)
+    }
+
+    func testSettingsReadStateInExtensionUsesMarker() {
+        XCTAssertEqual(SharedStorage.settingsReadState(hasData: false, decodes: false, markerPresent: false,
+                                                       protectedDataAvailable: nil), .inaccessible)
+        XCTAssertEqual(SharedStorage.settingsReadState(hasData: false, decodes: false, markerPresent: true,
+                                                       protectedDataAvailable: nil), .missing)
+    }
+
+    func testAppLockAssumedWhileInaccessible() {
+        var settings = AppSettings()
+        settings.appLock = false
+        XCTAssertTrue(SharedStorage.LoadedSettings(settings: settings, state: .inaccessible).appLockAssumed)
+        XCTAssertFalse(SharedStorage.LoadedSettings(settings: settings, state: .missing).appLockAssumed)
+        XCTAssertFalse(SharedStorage.LoadedSettings(settings: settings, state: .ok).appLockAssumed)
+        settings.appLock = true
+        XCTAssertTrue(SharedStorage.LoadedSettings(settings: settings, state: .ok).appLockAssumed)
+    }
 }

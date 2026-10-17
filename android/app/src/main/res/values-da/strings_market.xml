@@ -168,7 +168,7 @@
     <string name="unusual_title">Påfaldende i dag</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Her sker der noget lige nu</string>
+    <string name="activity_card_title">Usædvanlig aktivitet</string>
     <string name="activity_indicator">Usædvanlig aktivitet</string>
     <string name="activity_sensitivity_less">Mindre</string>
     <string name="activity_sensitivity_more">Mere</string>

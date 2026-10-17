@@ -116,6 +116,15 @@ internal fun StarterPicker(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
             )
+            // Unterzeile «Ohne Konto. Ohne Werbung. Ohne Tracking.»: letzte Zeile von welcome_text (wie «Über die App»)
+            Text(
+                text = stringResource(R.string.welcome_text).substringAfterLast('\n'),
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.primary,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 4.dp, start = 16.dp, end = 16.dp)
+            )
             Text(
                 text = stringResource(R.string.starter_text),
                 style = MaterialTheme.typography.bodyMedium,

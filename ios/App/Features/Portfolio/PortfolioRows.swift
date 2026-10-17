@@ -9,7 +9,7 @@ extension PortfolioScreen {
             showClosed.toggle()
         } label: {
             HStack(spacing: Spacing.xs) {
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.caption.weight(.semibold))
                     .rotationEffect(.degrees(showClosed ? 90 : 0))
                 Text(L("portfolio_closed", count: closed.count))

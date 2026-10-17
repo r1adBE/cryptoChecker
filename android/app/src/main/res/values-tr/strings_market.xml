@@ -168,7 +168,7 @@
     <string name="unusual_title">Bugün öne çıkanlar</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Şu anda bir şeyler oluyor</string>
+    <string name="activity_card_title">Olağandışı etkinlik</string>
     <string name="activity_indicator">Olağandışı etkinlik</string>
     <string name="activity_sensitivity_less">Daha az</string>
     <string name="activity_sensitivity_more">Daha fazla</string>

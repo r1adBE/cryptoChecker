@@ -213,9 +213,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("price_colors.swap", stringResource(R.string.price_colors_swap), stringResource(R.string.settings_price_colors),
         SettingsSearchTarget.Page(SettingsPage.PRICE_COLORS, "price_colors.swap"),
         stringResource(R.string.price_colors_red_up_hint))
-    // %-Änderung und Coin-Logos unter «Erweitert», Widgets unter «Darstellung» (Build 55)
+    // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung» (Build 55)
     val changeBasis = stringResource(R.string.settings_change_basis, "%")
-    addPage(SettingsPage.CHANGE_BASIS, changeBasis,
+    add("page.change_basis", changeBasis, watchlist, SettingsSearchTarget.Page(SettingsPage.CHANGE_BASIS),
         stringResource(R.string.settings_change_basis_hint_1),
         stringResource(R.string.change_basis_rolling),
         stringResource(R.string.change_basis_since_last),

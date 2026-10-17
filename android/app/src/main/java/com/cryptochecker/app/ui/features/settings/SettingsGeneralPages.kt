@@ -43,6 +43,7 @@ import androidx.compose.ui.res.painterResource
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BatteryOptimization
+import com.cryptochecker.app.util.ChangeBasisText
 
 // ── Allgemein ────────────────────────────────────────────────────────────────
 
@@ -266,9 +267,13 @@ private fun UpdateModeCard(settings: AppSettings, onSelect: (UpdateMode) -> Unit
     }
 }
 
-/** Merkliste: Namen, Mini-Chart, «≈ Umrechnung», Karte «Hier passiert gerade etwas». */
+/** Merkliste: Namen, Mini-Chart, «≈ Umrechnung», ⚡ «Ungewöhnliche Aktivität» und die Basis der %-Änderung. */
 @Composable
-internal fun WatchlistPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
+internal fun WatchlistPage(
+    onBack: () -> Unit,
+    onOpenPage: (SettingsPage) -> Unit = {},
+    viewModel: SettingsViewModel = hiltViewModel(),
+) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     SettingsSubPage(title = stringResource(R.string.settings_row_watchlist), onBack = onBack) {
         GroupCard {
@@ -305,6 +310,18 @@ internal fun WatchlistPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     subtitle = stringResource(R.string.settings_watchlist_activity_card_hint),
                     checked = settings.watchlistActivityCard,
                     onCheckedChange = viewModel::setWatchlistActivityCard
+                )
+            }
+        }
+        // Basis der %-Änderung (Review D13: von «Erweitert» hierher — sie bestimmt, was jede Zeile zeigt;
+        // gilt auch für Puls und Widgets). Wie iOS
+        NavCard {
+            SettingsAnchor("watchlist.change_basis") {
+                SettingsNavRow(
+                    title = stringResource(R.string.settings_change_basis, "%"),
+                    icon = R.drawable.ic_settings_change_basis,
+                    value = ChangeBasisText.summary(settings.changeBasis),
+                    onClick = { onOpenPage(SettingsPage.CHANGE_BASIS) }
                 )
             }
         }

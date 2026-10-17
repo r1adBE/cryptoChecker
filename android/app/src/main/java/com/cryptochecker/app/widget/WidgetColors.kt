@@ -62,6 +62,9 @@ class WidgetColors(
     companion object {
         const val DEFAULT_OPACITY = 90
 
+        /** Kleinste wählbare Deckkraft; ältere, tiefere Werte werden beim Lesen angehoben ([WidgetPrefs.getOpacity]). */
+        const val MIN_OPACITY = 30
+
         fun of(
             accent: AccentColor,
             dark: Boolean,

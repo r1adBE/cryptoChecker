@@ -129,8 +129,8 @@ class PulseWidgetMathTest {
         assertTrue(PulseWidgetMath.showsFearGreed(250, 180, headlineLines = 1, textWidthDp = 130f))
         // Klein (2×2): unverändert ohne Zeile
         assertFalse(PulseWidgetMath.showsFearGreed(150, 150, headlineLines = 1, textWidthDp = 130f))
-        assertFalse(PulseWidgetMath.showsFearGreed(250, 166, headlineLines = 1, textWidthDp = 130f))
-        assertTrue(PulseWidgetMath.showsFearGreed(250, 167, headlineLines = 1, textWidthDp = 130f))
+        assertFalse(PulseWidgetMath.showsFearGreed(250, 167, headlineLines = 1, textWidthDp = 130f))
+        assertTrue(PulseWidgetMath.showsFearGreed(250, 168, headlineLines = 1, textWidthDp = 130f))
         // Zweizeilige Schlagzeile braucht mehr Höhe
         assertFalse(PulseWidgetMath.showsFearGreed(250, 180, headlineLines = 2, textWidthDp = 130f))
         // Zu schmal für den ganzen Text: nie abgeschnitten

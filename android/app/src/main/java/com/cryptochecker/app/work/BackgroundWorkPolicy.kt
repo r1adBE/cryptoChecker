@@ -166,4 +166,14 @@ object BackgroundWorkPolicy {
             it.hasEnabledAlarm || (d.priceNotifications && it.notificationEnabled) || (d.ttsPrices && it.ttsEnabled)
         }
     }
+
+    /** Höchste Pause, bevor das Nachführen des Bedarfs (PriceUpdateScheduler.followWork) neu beginnt. */
+    const val FOLLOW_RETRY_MAX_MILLIS = 60_000L
+
+    /**
+     * Pause vor dem [attempt]-ten Neubeginn (0 = erster) nach einem Lesefehler: 1, 2, 4 … höchstens
+     * [FOLLOW_RETRY_MAX_MILLIS]. Vorher beendete ein einziger Fehler das Nachführen bis zum Prozessende.
+     */
+    fun followRetryDelayMillis(attempt: Long): Long =
+        (1_000L shl attempt.coerceIn(0, 6).toInt()).coerceAtMost(FOLLOW_RETRY_MAX_MILLIS)
 }

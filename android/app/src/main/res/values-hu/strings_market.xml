@@ -168,7 +168,7 @@
     <string name="unusual_title">Ma feltűnő</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Most éppen történik valami</string>
+    <string name="activity_card_title">Szokatlan aktivitás</string>
     <string name="activity_indicator">Szokatlan aktivitás</string>
     <string name="activity_sensitivity_less">Kevesebb</string>
     <string name="activity_sensitivity_more">Több</string>

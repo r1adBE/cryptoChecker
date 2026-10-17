@@ -150,7 +150,9 @@ extension AppData {
         // gespeichert, beide würden sonst dieselben melden.
         let deliverable = await Notifier.isAuthorized()
         guard let widget, hasActivePortfolioAlarms, !portfolioAlarmsDelivering else { return }
-        let current = settings
+        var current = settings
+        // Einstellungen nicht zugänglich: Portfolio-Sperre gilt als an (Mitteilung ohne Beträge)
+        current.appLock = appLockEffective
         // Alarme in einer anderen Währung als der Stand (z. B. nach Wechsel CHF → EUR): mit Devisenkurs umrechnen
         var usdTo: [String: Double] = [:]
         for code in portfolioAlarmCurrencies(widget) {
@@ -183,7 +185,12 @@ extension AppData {
         }
         guard !fired.isEmpty else { return }
         portfolioAlarmsDelivering = true
-        defer { portfolioAlarmsDelivering = false }
+        // Melden und Speichern zu Ende führen, auch wenn die App gerade in den Hintergrund geht
+        let backgroundTask = BackgroundTaskGuard.begin("portfolioAlarms")
+        defer {
+            portfolioAlarmsDelivering = false
+            backgroundTask.end()
+        }
         for (alarm, value) in fired {
             // Nachtruhe oder keine Mitteilungs-Erlaubnis: nichts speichern, nichts melden — der Alarm bleibt
             // scharf, auch ein wiederholender; unbestätigte Mitteilung: frühestens nach der Abklingzeit erneut

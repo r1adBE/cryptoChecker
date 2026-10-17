@@ -201,7 +201,9 @@ extension ExplorerScreen {
                     }
                 }
             } else {
-                if vm.searchLists.progress == nil {
+                // «Kein Paar» erst, wenn alle Listen gelesen sind; solange etwas lädt oder fehlt, spricht nur der Kasten darunter
+                let lists = vm.searchLists
+                if lists.progress == nil && !lists.reading && lists.missing == 0 {
                     Text(L("explorer_coin_no_pairs"))
                         .font(.subheadline)
                         .foregroundStyle(AppColors.onSurfaceVariant)

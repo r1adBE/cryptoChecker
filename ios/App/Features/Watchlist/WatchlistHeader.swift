@@ -97,15 +97,27 @@ extension WatchlistScreen {
         .accessibilityLabel(L("tab_watchlist"))
     }
 
-    /// Grauer Hinweis in der leeren Chip-Zeile (ohne Aktion), einzeilig.
+    /// Grauer Hinweis in der leeren Chip-Zeile, einzeilig, daneben «Neue Gruppe» (wie Android) — sonst fände
+    /// man Gruppen nur über langes Drücken bzw. das Aktionsblatt.
     private var groupsHint: some View {
-        Text(L("watchlist_groups_empty_hint"))
-            .font(.footnote)
-            .foregroundStyle(AppColors.onSurfaceVariant)
+        HStack(spacing: Spacing.sm) {
+            Text(L("watchlist_groups_empty_hint"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            Button(L("group_add")) {
+                newGroupName = ""
+                askNewGroup = true
+            }
+            .font(.subheadline.weight(.semibold))
+            .tint(accent.primary)
+            .buttonStyle(.borderless)
             .lineLimit(1)
-            .truncationMode(.tail)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.trailing, 4)
+            .fixedSize()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.trailing, 4)
     }
 
     /// Mindest-Tippfläche der Knöpfe in der Kopfzeile.

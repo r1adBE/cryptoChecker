@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">المنصة غير متاحة حاليًا – تبقى آخر الأسعار ظاهرة.</string>
     <string name="error_market_unreachable_short">المنصة غير متاحة حاليًا</string>
     <string name="loading_hint">جارٍ التحميل…</string>
-    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت. تحقّق من Wi-Fi أو بيانات الجوال، ثم حاول مجددًا.</string>
     <string name="option_off">إيقاف</string>
     <string name="something_went_wrong">حدث خطأ ما</string>
     <string name="time_just_now">الآن</string>
-    <string name="timeout_error_message">المنصة لا تستجيب حاليًا.</string>
+    <string name="timeout_error_message">المنصة لا تستجيب حاليًا. حاول مجددًا بعد قليل.</string>
     <string name="try_again">إعادة المحاولة</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

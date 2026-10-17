@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Bursa nu poate fi accesată acum – ultimele prețuri rămân vizibile.</string>
     <string name="error_market_unreachable_short">Bursa nu poate fi accesată acum</string>
     <string name="loading_hint">Se încarcă…</string>
-    <string name="no_internet_connection">Nicio conexiune la internet</string>
+    <string name="no_internet_connection">Nicio conexiune la internet. Verifică Wi-Fi-ul sau datele mobile, apoi încearcă din nou.</string>
     <string name="option_off">Oprit</string>
     <string name="something_went_wrong">Ceva nu a funcționat</string>
     <string name="time_just_now">chiar acum</string>
-    <string name="timeout_error_message">Bursa nu răspunde acum.</string>
+    <string name="timeout_error_message">Bursa nu răspunde acum. Încearcă din nou peste puțin timp.</string>
     <string name="try_again">Reîncearcă</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

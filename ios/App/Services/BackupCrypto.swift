@@ -283,7 +283,10 @@ enum BackupPasswordStrength {
     ///  - kürzer als `BackupCrypto.minPasswordLength`, nur Ziffern oder ein einziges Zeichen wiederholt;
     ///  - eine häufige Folge oder ein Tastatur-Spaziergang (6 Zeichen einer Reihe, auch rückwärts);
     ///  - ein Wort (Jahreszeit, Monat, häufiges Wort, Name der App) mit höchstens 6 Ziffern/Zeichen davor bzw. danach;
-    ///  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»).
+    ///  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»);
+    ///  - fast nur ein Zeichen: höchstens 3 verschiedene Zeichen, mindestens 75 % dasselbe Zeichen oder ein einziges
+    ///    wiederholtes Zeichen, wenn man Ziffern/Zeichen vorne und hinten weglässt («aaaaaaaaaaa1», «!!bbbbbbbbbb»).
+    /// Fälle in `Tests/Parity/backup_passwords.json` (gleiche Datei wie Android).
     /// Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt seit Build 69 die
     /// Mindestlänge 12 ab (Zeichenklassen spielen ab 12 Zeichen keine Rolle).
     static func isWeak(_ password: String) -> Bool {
@@ -293,6 +296,7 @@ enum BackupPasswordStrength {
         let digits: ClosedRange<Unicode.Scalar> = "0"..."9"
         if scalars.allSatisfy({ digits.contains($0) }) { return true }
         if Set(scalars).count == 1 { return true }
+        if mostlyOneChar(scalars) { return true }
         let lower = normalized.lowercased()
         if common.contains(where: { lower.contains($0) }) { return true }
         if keyboardWalk(lower) { return true }
@@ -321,6 +325,25 @@ enum BackupPasswordStrength {
                 searchStart = lower.index(after: r.lowerBound)
             }
             return false
+        }
+    }
+
+    /// Fast nur ein Zeichen: höchstens 3 verschiedene Zeichen, mindestens 75 % dasselbe Zeichen, oder ohne
+    /// Ziffern/Zeichen (alles ausser Buchstaben) vorne und hinten bleibt ein einziges wiederholtes Zeichen.
+    private static func mostlyOneChar(_ s: [Unicode.Scalar]) -> Bool {
+        if Set(s).count <= 3 { return true }
+        var counts: [Unicode.Scalar: Int] = [:]
+        for c in s { counts[c, default: 0] += 1 }
+        if let most = counts.values.max(), most * 4 >= s.count * 3 { return true }
+        guard let first = s.firstIndex(where: isLetterScalar), let last = s.lastIndex(where: isLetterScalar) else { return false }
+        return s[first...last].allSatisfy { $0 == s[first] }
+    }
+
+    /// Buchstabe = Unicode-Kategorie L* (wie `Character.isLetter(codePoint)` unter Android).
+    private static func isLetterScalar(_ c: Unicode.Scalar) -> Bool {
+        switch c.properties.generalCategory {
+        case .uppercaseLetter, .lowercaseLetter, .titlecaseLetter, .modifierLetter, .otherLetter: return true
+        default: return false
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
@@ -23,6 +24,7 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressDao
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.SettingsRepository
@@ -66,6 +68,9 @@ class BackupManager @Inject constructor(
     private val portfolioAlarmRepository: PortfolioAlarmRepository,
     private val portfolioAlarmDao: PortfolioAlarmDao,
     private val watchedAddressDao: WatchedAddressDao,
+    /** Sperre der Aktualisierung: Merkliste ersetzen, ohne dass ein Durchlauf dazwischen Kurse schreibt. */
+    private val priceRefresher: PriceRefresher,
+    private val livePriceStream: LivePriceStream,
 ) {
     /**
      * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
@@ -240,10 +245,16 @@ class BackupManager @Inject constructor(
 
     /** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
     private suspend fun writeWatchlist(watches: List<WatchEntity>, alarms: List<AlarmEntity>) {
-        database.withTransaction {
-            watchDao.deleteAllWatches()          // Alarme fallen per Fremdschlüssel mit weg
-            watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
-            alarms.forEach { watchDao.insertAlarm(it) }
+        // Unter der Refresh-Sperre: Ein laufender Durchlauf schrieb sonst Kurse alter Paare unter Ids, die
+        // die Sicherung neu vergibt (zusätzlich verwirft WatchDao.updatePriceForPair Kurse anderer Paare).
+        // Gepufferte Live-Kurse gehören zu den alten Paaren: vorher vergessen.
+        priceRefresher.withRefreshLock {
+            livePriceStream.forgetAll()
+            database.withTransaction {
+                watchDao.deleteAllWatches()          // Alarme fallen per Fremdschlüssel mit weg
+                watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
+                alarms.forEach { watchDao.insertAlarm(it) }
+            }
         }
     }
 

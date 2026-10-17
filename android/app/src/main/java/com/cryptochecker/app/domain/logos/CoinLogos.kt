@@ -48,9 +48,22 @@ object CoinLogos {
      * Danach weitere Seiten (Rang 1001–2500) nur für die übrigen Lücken — kleinere Coins wie AIN
      * oder LUNA (Terra 2.0). Erst nach der Binance- und der Alpha-Liste, damit deren Logos bei
      * gleichem Kürzel vorgehen.
+     * Nur auf nicht getakteten Netzen (WLAN, Ethernet): Auf mobilen Daten fehlen die Zusatzseiten, und die
+     * Logos der Kürzel, die nur sie bringen, werden nicht geladen ([downloadable]) — die grössten 1000 sowie
+     * die Binance- und Alpha-Liste laden wie bisher. Gleich in iOS (`CoinLogos.extraPages`).
      */
     const val EXTRA_PAGES = 6
     const val PER_PAGE = 250
+
+    /**
+     * Logos für den Sammel-Abruf: auf getakteten Netzen ([unmetered] = false) ohne die Kürzel, die nur die
+     * Zusatzseiten ([EXTRA_PAGES]) bringen ([extraOnly]); sonst alle aus [wanted].
+     */
+    fun downloadable(wanted: Map<String, String>, extraOnly: Set<String>, unmetered: Boolean): Map<String, String> =
+        if (unmetered || extraOnly.isEmpty()) wanted else wanted.filterKeys { it !in extraOnly }
+
+    /** Kürzel, die erst die Zusatzseiten in die Zuordnung bringen ([all] ohne die Kürzel von [top]). */
+    fun extraOnlyKeys(all: Map<String, String>, top: Map<String, String>): Set<String> = all.keys - top.keys
 
     /**
      * Pause vor jeder weiteren Seite der Rangliste. Ohne Schlüssel erlaubt CoinGecko nur wenige

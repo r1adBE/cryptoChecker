@@ -45,7 +45,13 @@ object ExchangeBackoff {
         return (BASE_MILLIS shl shift).coerceAtMost(MAX_MILLIS)
     }
 
-    fun isPaused(state: State?, now: Long): Boolean = state != null && state.pausedUntil > now
+    /**
+     * Pausiert? Eine Pause, die weiter als die längste mögliche ([GROUP_MAX_MILLIS], auch mit
+     * «Retry-After» von Binance) in der Zukunft endet, gilt als abgelaufen: Uhr zurückgestellt oder
+     * gespeicherter Wert kaputt — sonst bliebe die Börse womöglich tage- oder jahrelang stumm.
+     */
+    fun isPaused(state: State?, now: Long): Boolean =
+        state != null && state.pausedUntil > now && state.pausedUntil - now <= GROUP_MAX_MILLIS
 
     /**
      * Neuer Zustand nach einem Durchlauf; null = nichts zu merken (alles gut).
@@ -70,8 +76,8 @@ object ExchangeBackoff {
                 val strikes = s.strikes + 1
                 val own = delayMillis(strikes).let { if (banned) maxOf(it, BAN_DEFAULT_MILLIS) else it }
                 val asked = (retryAfterMillis ?: 0L).coerceIn(0L, if (shared) GROUP_MAX_MILLIS else MAX_MILLIS)
-                // Eine laufende Pause (z. B. gemeinsame von Kerzen) nie verkürzen
-                State(strikes, maxOf(now + maxOf(own, asked), s.pausedUntil), RefreshFailure.RATE_LIMIT, 0)
+                // Eine laufende Pause (z. B. gemeinsame von Kerzen) nie verkürzen — eine unmögliche ([isPaused]) zählt nicht
+                State(strikes, maxOf(now + maxOf(own, asked), plausibleUntil(s.pausedUntil, now)), RefreshFailure.RATE_LIMIT, 0)
             }
             Outcome.TIMEOUT -> {
                 val runs = s.timeoutRuns + 1
@@ -192,7 +198,8 @@ object ExchangeBackoff {
      * [MAX_MILLIS] zurück, beginnt die Zählung neu.
      */
     fun groupPause(state: State?, now: Long, httpCode: Int, retryAfterSeconds: Long?): State {
-        val recent = state?.takeIf { now - it.pausedUntil <= MAX_MILLIS }
+        // Unmögliche Pause (weiter als [GROUP_MAX_MILLIS] in der Zukunft, [isPaused]): wie keine
+        val recent = state?.takeIf { now - it.pausedUntil <= MAX_MILLIS && it.pausedUntil - now <= GROUP_MAX_MILLIS }
         val running = recent != null && recent.pausedUntil > now
         val strikes = when {
             recent == null -> 1
@@ -204,6 +211,9 @@ object ExchangeBackoff {
         val until = maxOf(now + maxOf(own, asked), recent?.pausedUntil ?: 0L)
         return State(strikes, until, RefreshFailure.RATE_LIMIT, 0)
     }
+
+    /** Ende einer bestehenden Pause, sofern möglich ([isPaused]); sonst 0 (keine). */
+    private fun plausibleUntil(until: Long, now: Long): Long = if (until - now > GROUP_MAX_MILLIS) 0L else until
 
     private const val MAX_SHIFT = 10
 

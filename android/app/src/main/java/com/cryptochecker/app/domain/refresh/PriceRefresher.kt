@@ -1,10 +1,12 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.data.ErrorWrite
+import com.cryptochecker.app.data.PairIdentity
 import com.cryptochecker.app.data.PriceWrite
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.pairIdentity
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -88,6 +90,14 @@ class PriceRefresher @Inject constructor(
     private val effects: RefreshEffects,
 ) {
     private val mutex = Mutex()
+
+    /**
+     * [block] unter derselben Sperre wie Aktualisierung, Live-Speichern und späte Tages-Bezüge:
+     * Paar bearbeiten, Sicherung wiederherstellen — kein Durchlauf schreibt dazwischen Kurse mit
+     * den Daten von vorher. [block] darf selbst keine Aktualisierung aufrufen ([refreshAll],
+     * [refreshOne], [applyLive]): die Sperre ist nicht wiedereintrittsfähig (Verklemmung).
+     */
+    suspend fun <T> withRefreshLock(block: suspend () -> T): T = mutex.withLock { block() }
 
     private val _fullRefreshRunning = MutableStateFlow(false)
 
@@ -285,7 +295,7 @@ class PriceRefresher @Inject constructor(
         for (key in watches.mapTo(HashSet()) { it.marketKey }) {
             val until = BlockedSources.groupPausedUntil(key) ?: continue
             val state = backoff[key]
-            if (state == null || state.pausedUntil < until) {
+            if (state == null || state.pausedUntil < until || !ExchangeBackoff.isPaused(state, startedAt)) {
                 backoff[key] = (state ?: ExchangeBackoff.State(strikes = 1))
                     .copy(pausedUntil = until, reason = RefreshFailure.RATE_LIMIT, timeoutRuns = 0)
             }
@@ -450,8 +460,16 @@ class PriceRefresher @Inject constructor(
      * Läuft gerade eine Aktualisierung, wird nichts gespeichert: Rückgabe false, der Aufrufer
      * versucht es beim nächsten Mal wieder. [redrawWidgets]: danach die Widgets neu zeichnen
      * (Bildschirm aus: nur vormerken, [LiveWidgetGate] zeichnet beim Einschalten einmal).
+     *
+     * [pairs]: für welches Paar jeder Kurs abonniert war. Ein Kurs, dessen Eintrag inzwischen ein
+     * anderes Paar ist («Paar bearbeiten», Sicherung), wird verworfen — auch beim Speichern
+     * ([WatchDao.updatePriceForPair]). null = ohne diese Prüfung (nur Tests).
      */
-    suspend fun applyLive(quotes: Map<Long, LiveQuote>, redrawWidgets: Boolean): Boolean {
+    suspend fun applyLive(
+        quotes: Map<Long, LiveQuote>,
+        redrawWidgets: Boolean,
+        pairs: Map<Long, PairIdentity>? = null,
+    ): Boolean {
         if (quotes.isEmpty()) return true
         if (!mutex.tryLock()) return false
         try {
@@ -462,7 +480,11 @@ class PriceRefresher @Inject constructor(
                 val stampCurrent = refreshStats.changeStamp.value == ChangeBasisMath.stamp(settings.changeBasis, now)
                 // Nicht mehr gehandelte und deaktivierte Paare bleiben, wie sie sind (abonniert werden
                 // sie ohnehin nicht; ein später Takt nach dem Deaktivieren wird verworfen)
-                val watches = watchRepository.getWatches().filter { it.id in quotes && !it.isNotTraded && !it.disabled }
+                val watches = watchRepository.getWatches().filter {
+                    it.id in quotes && !it.isNotTraded && !it.disabled &&
+                        // Abo für ein anderes Paar (Eintrag inzwischen bearbeitet): alter Kurs, verwerfen
+                        (pairs == null || pairs[it.id] == it.pairIdentity)
+                }
                 val fetched = HashMap<Long, Fetched>()
                 for (watch in watches) {
                     val quote = quotes.getValue(watch.id)
@@ -527,7 +549,7 @@ class PriceRefresher @Inject constructor(
                 // NaN/∞ aus einer Antwort nie als Kurs übernehmen (∞ löste sonst «über» aus)
                 !price.isFinite() || price <= Ticker.MISSING || price <= 0.0
             ) {
-                errorWrites += ErrorWrite(watch.id, result?.error, now)
+                errorWrites += ErrorWrite(watch.id, result?.error, now, watch.pairIdentity)
                 continue
             }
 
@@ -543,7 +565,8 @@ class PriceRefresher @Inject constructor(
             // Live: ein neuer Kurs aus dem Strom ist selbst der Beleg, seine Zeit gilt als Börsenzeit.
             val changedAt = PriceFreshness.nextPriceChangedAt(watch.lastPrice, watch.priceChangedAt, price, time)
             val exchangeTime = if (live) time else ticker.exchangeTime
-            priceWrites += PriceWrite(watch.id, price, time, dayChange, changedAt, exchangeTime)
+            // Mit dem Paar, für das der Kurs geholt wurde: ist der Eintrag inzwischen ein anderes, wird nichts gespeichert
+            priceWrites += PriceWrite(watch.id, price, time, dayChange, changedAt, exchangeTime, watch.pairIdentity)
             // Entspricht dem, was das UPDATE in der Datenbank setzt.
             updatedWatches += watch.copy(
                 previousPrice = watch.lastPrice,
@@ -557,7 +580,9 @@ class PriceRefresher @Inject constructor(
         }
 
         val dbStartedAt = System.currentTimeMillis()
-        watchRepository.applyRefresh(priceWrites, errorWrites)
+        val written = watchRepository.applyRefresh(priceWrites, errorWrites)
+        // Nicht gespeichert (Eintrag ist inzwischen ein anderes Paar): weder Alarme noch Meldungen mit diesem Kurs
+        updatedWatches.retainAll { it.id in written }
         val dbMillis = System.currentTimeMillis() - dbStartedAt
 
         val effectsStartedAt = System.currentTimeMillis()

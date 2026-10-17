@@ -6,6 +6,7 @@ import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
+import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.Sourced
 import org.json.JSONArray
@@ -106,8 +107,6 @@ class VolumeDataSource @Inject constructor(
         /** Genug für 24 Vergleichsrenditen + letzte abgeschlossene + laufende Stunde, mit Reserve. */
         const val LIMIT = 30
 
-        /** 24 Vergleichsstunden + letzte abgeschlossene + laufende Stunde. */
-        private const val MIN_SPIKE_CANDLES = 26
         private const val CACHE_MILLIS = 5 * 60_000L
 
         /**
@@ -157,21 +156,42 @@ class VolumeDataSource @Inject constructor(
         }
 
         /**
-         * Die letzte Kerze läuft noch; bewertet wird die vorletzte gegen die 24 davor.
+         * Bewertet wird die letzte ABGESCHLOSSENE Stunde gegen die 24 davor — nach Uhrzeit, nicht nach
+         * Position: Kerzen werden je Stunde (`openTime / 1 h`) zusammengefasst, fehlende Stunden (Börsen
+         * lassen Stunden ohne Handel aus) zählen mit Volumen 0. Vorher war bei Lücken «die vorletzte Kerze»
+         * womöglich Stunden alt und der Schnitt über mehr als 24 Stunden gerechnet.
+         *
+         * Laufende Stunde = die spätere aus Uhr ([now]) und neuester Kerze (Uhr des Geräts etwas nach).
+         * null, wenn die Reihe nicht mehr läuft ([CandleSeries.isLive]) oder nicht alle 24 Vergleichsstunden
+         * abdeckt (sonst zählten unbekannte Stunden als 0 und blähten den Spike auf).
          */
-        fun spikeOf(candles: List<HourCandle>): VolumeSpike? {
-            val n = candles.size
-            if (n < MIN_SPIKE_CANDLES) return null
-            val lastIndex = n - 2
-            val average = (lastIndex - 24 until lastIndex).sumOf { candles[it].volume } / 24
+        fun spikeOf(candles: List<HourCandle>, now: Long = System.currentTimeMillis()): VolumeSpike? {
+            if (candles.size < 2 || !CandleSeries.isLive(candles, HOUR_MILLIS, now)) return null
+            val volumes = HashMap<Long, Double>()
+            for (candle in candles) {
+                if (!candle.volume.isFinite() || candle.volume < 0.0) continue
+                val hour = Math.floorDiv(candle.openTime, HOUR_MILLIS)
+                volumes[hour] = (volumes[hour] ?: 0.0) + candle.volume
+            }
+            if (volumes.isEmpty()) return null
+            val running = maxOf(Math.floorDiv(now, HOUR_MILLIS), volumes.keys.max())
+            val evaluated = running - 1
+            // Die Reihe muss bis an den Anfang der 24 Vergleichsstunden zurückreichen
+            if (volumes.keys.min() > evaluated - COMPARE_HOURS) return null
+            val average = (evaluated - COMPARE_HOURS until evaluated).sumOf { volumes[it] ?: 0.0 } / COMPARE_HOURS
             if (average <= 0.0) return null
             return VolumeSpike(
-                ratio = candles[lastIndex].volume / average,
-                candleOpenTime = candles[lastIndex].openTime,
+                ratio = (volumes[evaluated] ?: 0.0) / average,
+                candleOpenTime = evaluated * HOUR_MILLIS,
             )
         }
 
+        private const val HOUR_MILLIS = 3_600_000L
+
+        /** Vergleichsstunden vor der bewerteten. */
+        private const val COMPARE_HOURS = 24
+
         /** Wie früher: Spike direkt aus der Binance-Antwort. */
-        fun parse(json: String): VolumeSpike? = spikeOf(parseCandles(json))
+        fun parse(json: String, now: Long = System.currentTimeMillis()): VolumeSpike? = spikeOf(parseCandles(json), now)
     }
 }

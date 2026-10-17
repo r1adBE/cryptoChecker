@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Продажа</string>
     <string name="ticker_bid">Покупка</string>
+    <string name="explain_bid_ask">Покупка — самая высокая цена, которую сейчас предлагают покупатели, Продажа — самая низкая цена, на которую согласны продавцы.</string>
     <string name="ticker_high">Макс.</string>
     <string name="ticker_low">Мин.</string>
     <string name="ticker_timestamp">Время</string>

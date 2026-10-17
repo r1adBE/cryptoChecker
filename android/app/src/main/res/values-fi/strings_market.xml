@@ -168,7 +168,7 @@
     <string name="unusual_title">Tänään silmiinpistävää</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Nyt tapahtuu jotain</string>
+    <string name="activity_card_title">Epätavallista aktiivisuutta</string>
     <string name="activity_indicator">Epätavallista aktiivisuutta</string>
     <string name="activity_sensitivity_less">Vähemmän</string>
     <string name="activity_sensitivity_more">Enemmän</string>

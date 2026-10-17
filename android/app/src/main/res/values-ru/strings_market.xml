@@ -170,7 +170,7 @@
     <string name="unusual_title">Сегодня выделяется</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Прямо сейчас что-то происходит</string>
+    <string name="activity_card_title">Необычная активность</string>
     <string name="activity_indicator">Необычная активность</string>
     <string name="activity_sensitivity_less">Меньше</string>
     <string name="activity_sensitivity_more">Больше</string>

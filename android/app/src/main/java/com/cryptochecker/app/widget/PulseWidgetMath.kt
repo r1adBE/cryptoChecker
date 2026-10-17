@@ -145,8 +145,8 @@ object PulseWidgetMath {
     /** Fear & Greed im Widget höchstens so alt (nur Zwischenspeicher, kein eigener Abruf): 24 h. */
     const val FEAR_GREED_MAX_AGE_MILLIS = 24 * 3_600_000L
 
-    /** Höhe der Zeile «Fear & Greed 72 · Gier» samt Abstand (dp, 11 sp). */
-    const val FEAR_GREED_LINE_DP = 17
+    /** Höhe der Zeile «Fear & Greed 72 · Gier» samt Abstand (dp, 12 sp). */
+    const val FEAR_GREED_LINE_DP = 18
 
     /**
      * Fear-&-Greed-Wert fürs Widget aus vorhandenen Daten: der jüngere von Markt-Tab-Eintrag

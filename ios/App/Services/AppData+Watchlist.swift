@@ -132,6 +132,9 @@ extension AppData {
         Notifier.cancelActivity(watchId)
         activityReports[watchId] = nil
         ActivityRepository.forget(watchId)
+        // Live-Kurse und laufende Abfragen des alten Paars nicht mehr in die Zeile schreiben (`applyLive`,
+        // `Outcome.apply` prüft das abgefragte Paar)
+        pairChangedAt[watchId] = TimeUtils.nowMillis
         mutate { s in
             guard let i = s.watches.firstIndex(where: { $0.id == watchId }) else { return }
             s.watches[i].marketKey = market.key
@@ -158,6 +161,10 @@ extension AppData {
         noteTradFi(market: market, pair: pair)
         Task { [weak self] in
             guard let self else { return }
+            // Läuft noch eine Einzelabfrage des alten Paars: abwarten (ihr Ergebnis wird verworfen), höchstens 10 s
+            for _ in 0..<100 where self.refreshingWatchIds.contains(watchId) {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+            }
             await self.refreshOne(watchId)
             // Prozentalarme messen ab dem ersten Kurs des neuen Paars
             guard let price = self.watch(watchId)?.lastPrice, price > 0 else { return }

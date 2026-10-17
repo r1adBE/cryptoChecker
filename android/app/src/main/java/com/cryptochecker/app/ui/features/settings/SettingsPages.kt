@@ -72,9 +72,10 @@ val SettingsPage.home: SettingsHome?
         SettingsPage.DISPLAY_MODE, SettingsPage.THEME, SettingsPage.PRICE_COLORS, SettingsPage.WIDGETS ->
             SettingsHome.APPEARANCE
         SettingsPage.BACKUP, SettingsPage.ADVANCED, SettingsPage.ABOUT -> SettingsHome.MORE
-        SettingsPage.MARKETS, SettingsPage.PORTFOLIO, SettingsPage.CHANGE_BASIS, SettingsPage.COIN_LOGOS,
+        SettingsPage.MARKETS, SettingsPage.PORTFOLIO, SettingsPage.COIN_LOGOS,
         SettingsPage.DEVELOPER -> SettingsHome.ADVANCED
-        SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES -> null
+        // %-Änderung steht auf «Merkliste» (Review D13), Preis-Paare auf «Alarme», Lizenzen auf «Über die App»
+        SettingsPage.CHANGE_BASIS, SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES -> null
     }
 
 /**
@@ -94,7 +95,7 @@ fun SettingsPageScreen(
         SettingsPage.LANGUAGE -> LanguagePage(onBack)
         SettingsPage.CURRENCY -> CurrencyPage(onBack)
         SettingsPage.UPDATES -> UpdatesPage(onBack)
-        SettingsPage.WATCHLIST -> WatchlistPage(onBack)
+        SettingsPage.WATCHLIST -> WatchlistPage(onBack, onOpenPage)
         SettingsPage.DISPLAY_MODE -> DisplayModePage(onBack)
         SettingsPage.THEME -> ThemePage(onBack)
         SettingsPage.PRICE_COLORS -> PriceColorsPage(onBack)

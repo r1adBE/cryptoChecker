@@ -173,7 +173,7 @@ private struct PortfolioWalletShortfallBanner: View {
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
                         Spacer(minLength: 0)
-                        Image(systemName: "chevron.right")
+                        Image(systemName: "chevron.forward")
                             .font(.caption.weight(.semibold))
                     }
                     .foregroundStyle(AppColors.error)

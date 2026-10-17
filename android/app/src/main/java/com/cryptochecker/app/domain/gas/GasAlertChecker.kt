@@ -4,6 +4,7 @@ import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.GasDataSource
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.notification.AppNotifier
@@ -64,7 +65,8 @@ class GasAlertChecker @Inject constructor(
         if (now - prefs.getLong(KEY_LAST_CHECK, 0) < MIN_INTERVAL_MILLIS) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
 
-        val report = runCatching { gasDataSource.fetch() }
+        // Abbruch (Job beendet, Zeitgrenze des Hintergrund-Jobs) weiterreichen statt als «keine Daten» zu werten
+        val report = runCatchingCancellable { gasDataSource.fetch() }
             .onFailure { Timber.w(it, "Gas-Alarm: keine Daten") }
             .getOrNull()
         if (report == null) {

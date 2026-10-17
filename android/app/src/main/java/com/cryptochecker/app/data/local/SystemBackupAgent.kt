@@ -126,6 +126,23 @@ class DatabaseSystemBackup(
         }
     }
 
+    /**
+     * Beim App-Start: Liegt noch eine Kopie herum, ist eine Sicherung abgebrochen (Prozess beendet, `finally` lief nicht)
+     * — die unverschlüsselte Datei weg. Nur ohne Hauptdatenbank ist sie eine noch nicht übernommene Wiederherstellung,
+     * dann wird sie übernommen statt gelöscht. Muss vor dem ersten Öffnen der Datenbank laufen.
+     */
+    fun cleanUpLeftover() {
+        if (!export.exists()) {
+            delete() // verwaiste Nebendateien
+            return
+        }
+        if (main.exists()) {
+            delete()
+        } else {
+            runCatching { adoptRestored() }.onFailure { Timber.w(it, "Systemsicherung: liegengebliebene Kopie nicht übernommen") }
+        }
+    }
+
     /** Kopie samt Nebendateien entfernen (unverschlüsselt — nie länger als die Sicherung liegen lassen). */
     fun delete() {
         for (f in listOf(export, File(export.path + "-journal"), File(export.path + "-wal"), File(export.path + "-shm"))) {

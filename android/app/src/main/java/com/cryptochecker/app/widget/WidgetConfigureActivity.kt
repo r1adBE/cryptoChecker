@@ -258,8 +258,9 @@ private fun WidgetConfigureContent(
             Slider(
                 value = opacity.toFloat(),
                 onValueChange = { opacity = it.toInt() },
-                valueRange = 0f..100f,
-                steps = 19
+                // Mindestens 30 %: darunter ist die Schrift auf hellem Hintergrundbild kaum lesbar (5-%-Schritte)
+                valueRange = WidgetColors.MIN_OPACITY.toFloat()..100f,
+                steps = (100 - WidgetColors.MIN_OPACITY) / 5 - 1
             )
 
             // Gruppe: «Alle» (Standard), «FAV» (Favoriten), «Token» (alles ausser TradFi), «Alpha» (Alpha-Tokens)

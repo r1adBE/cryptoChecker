@@ -305,6 +305,12 @@ struct TickerView: View {
             }
             if ticker.ask > Ticker.missing {
                 statRow("ticker_bid", amount(ticker.bid), quote, "ticker_ask", amount(ticker.ask), quote)
+                // Ein Satz, was Geld und Brief heissen (wie Android)
+                Text(L("explain_bid_ask"))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.bottom, Spacing.sm)
             }
             if ticker.vol > Ticker.missing || ticker.volQuote > Ticker.missing {
                 let hasVol = ticker.vol > Ticker.missing

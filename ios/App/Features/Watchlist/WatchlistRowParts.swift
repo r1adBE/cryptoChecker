@@ -76,18 +76,20 @@ extension WatchlistRow {
 
             HStack(spacing: Spacing.xs) {
                 let line = timeLine
-                if line.warning {
+                // Veraltet / nicht erreichbar: Bernstein mit ⚠ statt Fehlerrot — Rot ist dunkel kaum vom
+                // fallenden Kurs zu unterscheiden (wie Android)
+                let caution = !off && (line.warning || (stale && watch.lastUpdate > 0))
+                if caution {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
-                        .foregroundStyle(AppColors.error)
+                        .foregroundStyle(AppColors.warning)
                         .accessibilityHidden(true)
                 }
                 // Build 57: Lesegrösse (`.subheadline`) statt `.footnote` — wie Android `body`
                 Text(line.text)
                     .font(.subheadline.monospacedDigit())
-                    // Veraltet in voller Fehlerfarbe (abgeschwächt unter 4.5:1 auf hellen Flächen)
-                    .foregroundStyle(line.warning || (stale && watch.lastUpdate > 0) ? AppColors.error
-                        : AppColors.onSurfaceVariant)
+                    // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
+                    .foregroundStyle(caution ? AppColors.warningText : AppColors.onSurfaceVariant)
                     .lineLimit(line.warning ? 2 : DenseRowText.maxLines(typeScale))
                     .layoutPriority(-1)
 

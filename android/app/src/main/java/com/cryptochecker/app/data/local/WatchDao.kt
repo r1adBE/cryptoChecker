@@ -94,6 +94,54 @@ interface WatchDao {
     )
 
     /**
+     * Wie [updatePrice], aber nur, wenn der Eintrag noch DASSELBE Paar ist (Börse, Basis, Quote,
+     * Kontrakt, Kennung — `IS`, weil die Kennung null sein darf). Nach «Paar bearbeiten» oder dem
+     * Wiederherstellen einer Sicherung (gleiche Id, anderes Paar) wird ein verspäteter Kurs des alten
+     * Paars so verworfen, statt zum Bezug des neuen zu werden. @return geänderte Zeilen (0 oder 1)
+     */
+    @Query(
+        """
+        UPDATE watches
+        SET previousPrice = lastPrice, lastPrice = :price,
+            lastUpdate = :time, lastError = NULL, change24h = :change24h,
+            priceChangedAt = :priceChangedAt, exchangeTime = :exchangeTime
+        WHERE id = :id AND marketKey = :marketKey AND baseAsset = :base AND quoteAsset = :quote
+            AND contractType = :contractType AND pairId IS :pairId
+        """
+    )
+    suspend fun updatePriceForPair(
+        id: Long,
+        price: Double,
+        time: Long,
+        change24h: Double?,
+        priceChangedAt: Long,
+        exchangeTime: Long?,
+        marketKey: String,
+        base: String,
+        quote: String,
+        contractType: String,
+        pairId: String?,
+    ): Int
+
+    /** Wie [updateError], aber nur für dasselbe Paar (siehe [updatePriceForPair]). */
+    @Query(
+        """
+        UPDATE watches SET lastError = :error
+        WHERE id = :id AND marketKey = :marketKey AND baseAsset = :base AND quoteAsset = :quote
+            AND contractType = :contractType AND pairId IS :pairId
+        """
+    )
+    suspend fun updateErrorForPair(
+        id: Long,
+        error: String?,
+        marketKey: String,
+        base: String,
+        quote: String,
+        contractType: String,
+        pairId: String?,
+    ): Int
+
+    /**
      * Veränderung nachtragen (später Bezug der Tages-Basis) — nur, wenn noch derselbe Kurs
      * ([time]) ohne Veränderung gespeichert ist. @return Anzahl geänderter Zeilen (0 oder 1)
      */

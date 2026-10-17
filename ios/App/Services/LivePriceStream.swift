@@ -63,6 +63,13 @@ actor LivePriceStream {
     /// Paare der angezeigten Merkliste (gewählte Gruppe). Gleiche Liste: nichts geschieht.
     func setPairs(_ newPairs: [LivePair]) async {
         guard newPairs != pairs else { return }
+        // Gleiche Watch-Id, anderes Paar («Paar bearbeiten»): gepufferte Kurse des alten Paars verwerfen
+        let old = Dictionary(pairs.map { ($0.watchId, $0) }, uniquingKeysWith: { first, _ in first })
+        let changed = Set(newPairs.filter { pair in old[pair.watchId].map { $0 != pair } ?? false }.map(\.watchId))
+        if !changed.isEmpty {
+            buffer.retain(Set(old.keys).subtracting(changed))
+            tickAt = tickAt.filter { !changed.contains($0.key) }
+        }
         pairs = newPairs
         await update()
     }

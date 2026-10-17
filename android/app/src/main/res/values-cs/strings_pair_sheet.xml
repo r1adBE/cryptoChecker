@@ -22,6 +22,7 @@
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Prodej</string>
     <string name="ticker_bid">Nákup</string>
+    <string name="explain_bid_ask">Nákup je nejvyšší cena, kterou kupující právě nabízejí, Prodej nejnižší cena, kterou prodávající přijmou.</string>
     <string name="ticker_high">Maximum</string>
     <string name="ticker_low">Minimum</string>
     <string name="ticker_timestamp">Čas</string>

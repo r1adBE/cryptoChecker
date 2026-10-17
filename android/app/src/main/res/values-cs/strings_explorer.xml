@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Žádné výsledky.</string>
     <string name="explorer_search_hint">Hledat minci, pár nebo burzu</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Zadejte název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyberte pár.</string>
+    <string name="explorer_search_intro">Zadejte název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyberte pár. Pár je mince na burze v jedné měně, např. BTC/USDT na Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Přidat do sledovaných</string>

@@ -168,7 +168,7 @@
     <string name="unusual_title">نکات قابل توجه امروز</string>
 
     <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">همین حالا اتفاقی در جریان است</string>
+    <string name="activity_card_title">فعالیت غیرعادی</string>
     <string name="activity_indicator">فعالیت غیرعادی</string>
     <string name="activity_sensitivity_less">کمتر</string>
     <string name="activity_sensitivity_more">بیشتر</string>

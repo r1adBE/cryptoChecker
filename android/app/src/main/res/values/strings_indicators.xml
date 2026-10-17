@@ -24,7 +24,7 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">The app only shows the count and does not label it as a season. The value usually changes over days, not hours.</string>
-    <string name="neutral_info_btc_how">Each value comes with one sentence on what it measures, and where it sits in its own history since 2016. The app does not rate the values and derives no market phase; limits for market notices are only the ones you set. Past patterns do not have to repeat.</string>
+    <string name="neutral_info_btc_how">Each value comes with one sentence on what it measures, and where it sits in its own history since 2016. The app does not rate the values and derives no market phase; limits for market alerts are only the ones you set. Past patterns do not have to repeat.</string>
     <string name="neutral_info_btc_what">Common Bitcoin indicators as plain measured values: Mayer Multiple, 200-week average, drop from the all-time high, change over 30 days, Pi Cycle gap and the on-chain values MVRV, Puell Multiple and hashrate.</string>
     <string name="neutral_info_coin_how">Each value comes with one sentence on what it measures, without rating. For coins with a short price history some values are missing. On-chain data is not included here.</string>
     <string name="neutral_info_coin_what">The same plain indicators for a coin of your choice, from price data only: Mayer Multiple, 200-week average, drop from the all-time high, change over 30 days, 50/200-day trend, RSI and strength against Bitcoin over 90 days.</string>

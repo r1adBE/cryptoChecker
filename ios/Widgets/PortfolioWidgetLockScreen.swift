@@ -38,7 +38,7 @@ struct PortfolioRectangularView: View {
                     HStack(spacing: 2) {
                         ChangeArrowIcon(change: PortfolioWidgetText.directionValue(plan))
                             .font(.system(size: 8, weight: .bold))
-                        Text.quoted(line, quote: s.currency, size: 11, weight: .regular, quoteColor: .secondary)
+                        Text.quoted(line, quote: s.currency, size: 12, weight: .regular, quoteColor: .secondary)
                             .monospacedDigit()
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)

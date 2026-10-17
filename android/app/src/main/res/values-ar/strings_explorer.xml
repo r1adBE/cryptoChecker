@@ -35,7 +35,7 @@
     <string name="explorer_search_empty">لا توجد نتائج.</string>
     <string name="explorer_search_hint">ابحث عن عملة أو زوج أو منصة</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج.</string>
+    <string name="explorer_search_intro">اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج. الزوج هو عملة على منصة بعملة معيّنة، مثل BTC/USDT على Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">إضافة إلى قائمة المتابعة</string>

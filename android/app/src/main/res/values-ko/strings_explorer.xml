@@ -25,7 +25,7 @@
     <string name="explorer_search_empty">결과가 없습니다.</string>
     <string name="explorer_search_hint">코인, 거래쌍 또는 거래소 검색</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요.</string>
+    <string name="explorer_search_intro">코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요. 거래쌍은 한 거래소에서 특정 통화로 거래되는 코인입니다(예: Binance의 BTC/USDT).</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">관심 목록에 추가</string>

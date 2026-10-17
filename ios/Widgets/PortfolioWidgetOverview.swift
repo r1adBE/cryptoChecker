@@ -55,7 +55,7 @@ extension PortfolioHomeView {
             VStack(alignment: .leading, spacing: 2) {
                 ForEach(figures, id: \.kind) { f in
                     HStack(spacing: 6) {
-                        figureLabel(f, currency: currency, size: 11)
+                        figureLabel(f, currency: currency, size: 12)
                         Spacer(minLength: 4)
                         figureValue(f)
                     }
@@ -96,7 +96,7 @@ extension PortfolioHomeView {
                 ChangeArrowIcon(change: direction)
                     .font(.system(size: 8.5, weight: .bold))
                 Text(PriceFormat.signedPercent(percent, decimals: 2))
-                    .font(.system(size: 11, weight: .bold))
+                    .font(.system(size: 12, weight: .bold))
                     .monospacedDigit()
                     .lineLimit(1)
             }
@@ -104,7 +104,7 @@ extension PortfolioHomeView {
             .fixedSize()
         } else {
             Text(verbatim: "—")
-                .font(.system(size: 11, weight: .bold))
+                .font(.system(size: 12, weight: .bold))
                 .foregroundStyle(palette.secondary)
         }
     }
@@ -114,7 +114,7 @@ extension PortfolioHomeView {
         let text = f.amount.map {
             entry.hideAmounts ? PortfolioInsights.hidden : PortfolioWidgetText.signedAmount($0, currency: currency)
         } ?? "—"
-        return Text.quoted(text, quote: currency, size: family == .systemLarge ? 12 : 11, quoteColor: palette.secondary)
+        return Text.quoted(text, quote: currency, size: 12, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)

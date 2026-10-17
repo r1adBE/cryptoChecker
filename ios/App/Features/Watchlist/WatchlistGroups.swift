@@ -76,7 +76,7 @@ struct WatchlistGroupChips: View {
                          action: { onSelect(WatchFilter.alpha) }, hint: "alpha")
                 }
                 if hasActivity || activitySelected {
-                    // ⚡ wie in den Zeilen, nur wenn gerade etwas passiert; VoiceOver: «Hier passiert gerade etwas»
+                    // ⚡ wie in den Zeilen, nur wenn gerade etwas passiert; VoiceOver: «Ungewöhnliche Aktivität»
                     chip(L("activity_card_title"), icon: .system("bolt.fill"),
                          isSelected: activitySelected, action: onToggleActivity, hint: "activity")
                 }

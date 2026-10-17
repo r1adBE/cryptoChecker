@@ -242,6 +242,37 @@ final class AlarmChainIntegrationTests: XCTestCase {
         XCTAssertTrue(notifier.posts.isEmpty)
     }
 
+    /// Vermerk «wird gemeldet» schon vor dem Melden: Endet der Prozess zwischen Melden und Speichern, sperrt er den
+    /// sofortigen Neuversuch (Abklingzeit); nach dem Speichern ist er wieder weg.
+    func testDeliveryMarkerSetBeforeShowAndClearedAfterSave() async {
+        let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
+        let at = now
+        let seen = LockedValue<Int64?>(nil)
+        let saved = await delivery.deliver(alarmId: 7, now: at, cooldownMinutes: 0, holdAlarms: false,
+                                           canShow: { true },
+                                           show: { seen.set(delivery.unconfirmedAt(7)); return true },
+                                           mark: { true })
+        XCTAssertTrue(saved)
+        XCTAssertEqual(seen.get(), at)
+        XCTAssertNil(delivery.unconfirmedAt(7))
+
+        // Gemeldet, Speichern läuft noch (wie «Prozess hier beendet»): Vermerk steht, Neuversuch gesperrt
+        let crashed = AlarmDelivery(storeKey: "pairs-crash", store: defaults)
+        let blocked = Task {
+            await crashed.deliver(alarmId: 8, now: at, cooldownMinutes: 0, holdAlarms: false, canShow: { true },
+                                  show: { true },
+                                  mark: { try? await Task.sleep(nanoseconds: 1_000_000_000); return true })
+        }
+        // Warten, bis gemeldet ist (Vermerk gesetzt), dann wie ein zweiter Prozess nachsehen
+        for _ in 0..<100 where crashed.unconfirmedAt(8) == nil { try? await Task.sleep(nanoseconds: 10_000_000) }
+        XCTAssertEqual(crashed.unconfirmedAt(8), at)
+        XCTAssertTrue(AlarmDelivery.retryBlocked(unconfirmedAt: crashed.unconfirmedAt(8), now: at + 60_000,
+                                                 cooldownMinutes: 0))
+        // Speichern fertig: Vermerk weg
+        _ = await blocked.value
+        XCTAssertNil(crashed.unconfirmedAt(8))
+    }
+
     /// Wie `NotificationBudget.retryBlocked` (Android): mindestens 5 Min., sonst die Abklingzeit; Uhr zurück: frei.
     func testRetryBlockedWindow() {
         XCTAssertFalse(AlarmDelivery.retryBlocked(unconfirmedAt: nil, now: now, cooldownMinutes: 0))
@@ -250,4 +281,13 @@ final class AlarmChainIntegrationTests: XCTestCase {
         XCTAssertTrue(AlarmDelivery.retryBlocked(unconfirmedAt: now, now: now + 20 * 60_000, cooldownMinutes: 30))
         XCTAssertFalse(AlarmDelivery.retryBlocked(unconfirmedAt: now, now: now - 1, cooldownMinutes: 30))
     }
+}
+
+/// Wert über Threads hinweg (für die @Sendable-Closures der Tests).
+private final class LockedValue<T>: @unchecked Sendable {
+    private let lock = NSLock()
+    private var value: T
+    init(_ value: T) { self.value = value }
+    func get() -> T { lock.lock(); defer { lock.unlock() }; return value }
+    func set(_ newValue: T) { lock.lock(); value = newValue; lock.unlock() }
 }

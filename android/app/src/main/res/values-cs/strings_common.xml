@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Burza je teď nedostupná – poslední ceny zůstávají vidět.</string>
     <string name="error_market_unreachable_short">Burza je teď nedostupná</string>
     <string name="loading_hint">Načítání…</string>
-    <string name="no_internet_connection">Žádné připojení k internetu</string>
+    <string name="no_internet_connection">Žádné připojení k internetu. Zkontrolujte Wi-Fi nebo mobilní data a zkuste to znovu.</string>
     <string name="option_off">Vyp.</string>
     <string name="something_went_wrong">Něco se pokazilo</string>
     <string name="time_just_now">právě teď</string>
-    <string name="timeout_error_message">Burza právě neodpovídá.</string>
+    <string name="timeout_error_message">Burza právě neodpovídá. Zkuste to za chvíli znovu.</string>
     <string name="try_again">Zkusit znovu</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->
