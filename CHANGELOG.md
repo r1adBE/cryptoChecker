@@ -1,5 +1,11 @@
 # Changelog
 
+## 16.2.2 (build 65)
+
+* iOS: the alarm pair picker (bell without alarms) used an interpolated button title that the compiler could not
+  type-check in time; it now builds the title as a plain string first.
+* GitHub: «Sponsor» button links to SUPPORT.md (the apps still contain no donation feature).
+
 ## 16.2.2 (build 64)
 
 * iOS: first GitHub build found a compile error in the Kraken CSV reader – a local constant was named `internal`, a
