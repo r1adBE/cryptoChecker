@@ -21,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -94,13 +93,12 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
                 modifier = Modifier.padding(start = Spacing.xs)
             )
             Icon(
-                painterResource(R.drawable.ic_chevron_right),
+                painterResource(R.drawable.ic_chevron_down),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .padding(start = 2.dp)
                     .size(16.dp)
-                    .graphicsLayer { rotationZ = 90f }
             )
         }
 

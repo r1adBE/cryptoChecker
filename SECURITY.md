@@ -90,8 +90,8 @@ keys or other secrets never belong in this repository.
   optionally encrypted with a password (AES-256-GCM, key from PBKDF2-HMAC-SHA256
   with a random 16-byte salt). New backups use 600 000 iterations (earlier
   versions wrote 210 000); the iteration count is read from the file, so older
-  backups can still be opened. A new backup password needs at least 10
-  characters; a password that is only digits, one repeated character or contains
+  backups can still be opened. A new backup password needs at least 12
+  characters (since build 69; 10 before); a password that is only digits, one repeated character or contains
   a common sequence (e.g. «12345678», «qwertz», «password») is blocked for new
   backups – the protection of an exported file depends on the password. Older
   files (minimum 8 characters back then) still decrypt with their password. The

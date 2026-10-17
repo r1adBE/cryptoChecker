@@ -41,7 +41,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -380,9 +379,9 @@ private fun SimpleSentence(
             ) {
                 Text(directionLabel, style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})
                 Icon(
-                    painterResource(R.drawable.ic_chevron_right),
+                    painterResource(R.drawable.ic_chevron_down),
                     contentDescription = null,
-                    modifier = Modifier.padding(start = Spacing.xs).rotate(90f)
+                    modifier = Modifier.padding(start = Spacing.xs)
                 )
             }
             DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
