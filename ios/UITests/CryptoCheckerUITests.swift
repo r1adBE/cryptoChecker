@@ -149,9 +149,13 @@ final class CryptoCheckerUITests: XCTestCase {
         // den Tipp ab – auf GitHub blieb die App danach im Portfolio. Erst warten, bis sie weg ist, dann den Tab
         // wechseln und prüfen, dass die Einstellungen wirklich offen sind.
         _ = wait(app.tagged(UiTestTags.toast), "exists == false", timeout: 12)
+        // Jeder Tab trägt seine eigene Leiste (safeAreaInset), auch die gerade nicht sichtbaren stehen im
+        // Baum: «firstMatch» kann die Leiste eines verdeckten Tabs treffen, ein Tipp darauf bewirkt nichts.
+        // Darum die sichtbare (antippbare) Taste nehmen.
         var attempts = 0
         repeat {
-            tap(app, UiTestTags.tabSettings)
+            let candidates = app.descendants(matching: .any).matching(identifier: UiTestTags.tabSettings).allElementsBoundByIndex
+            if let visible = candidates.first(where: { $0.isHittable }) { visible.tap() } else { tap(app, UiTestTags.tabSettings) }
             attempts += 1
         } while !app.tagged(UiTestTags.settingsBackup).waitForExistence(timeout: 4) && attempts < 3
         // Die Zeile «Sicherung» steht weit unten: erst sichtbar scrollen, sonst trifft der Tipp nichts
@@ -186,7 +190,13 @@ final class CryptoCheckerUITests: XCTestCase {
         let element = app.tagged(tag)
         XCTAssertTrue(element.waitForExistence(timeout: timeout), "\(tag) missing", file: file, line: line)
         XCTAssertTrue(wait(element, "isEnabled == true", timeout: timeout), "\(tag) disabled", file: file, line: line)
-        element.tap()
+        // Mehrere Treffer (z. B. Tab-Leisten verdeckter Tabs): den sichtbaren antippen
+        let matches = app.descendants(matching: .any).matching(identifier: tag).allElementsBoundByIndex
+        if matches.count > 1, let visible = matches.first(where: { $0.isHittable }) {
+            visible.tap()
+        } else {
+            element.tap()
+        }
     }
 
     /// Tippt ins Feld (Fokus zuerst) und gibt den Text ein.
