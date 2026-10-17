@@ -88,6 +88,8 @@ internal fun taxCsvTexts(currency: String): TaxCsvTexts = TaxCsvTexts(
     transferFeeInfo = stringResource(R.string.tax_export_transfer_fee_info),
     // Build 58: Umbuchungsgebühr auf Bestand ohne Kaufpreis (Info-Zeile, kein Gewinn/Verlust)
     unassignedFee = stringResource(R.string.tax_export_unassigned_fee),
+    // USDT zum Marktkurs: Tag ohne USDT/USD-Tagesschluss rechnet mit 1 — je Zeile vermerkt
+    usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
 )
 
 /** Texte des Stichtag-Exports ([CutoffCsvTexts]) in [currency]. */
@@ -111,6 +113,7 @@ internal fun cutoffTexts(currency: String): CutoffCsvTexts = CutoffCsvTexts(
     estvLanguage = LocalConfiguration.current.locales[0].language,
     fromAddress = stringResource(R.string.portfolio_export_from_address),
     addressUnobserved = stringResource(R.string.portfolio_export_address_unobserved),
+    usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
 )
 
 /** Name einer Vorlage. */

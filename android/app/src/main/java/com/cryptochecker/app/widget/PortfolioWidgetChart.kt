@@ -38,12 +38,12 @@ enum class PortfolioDisplay {
         fun fromName(name: String?): PortfolioDisplay? = entries.firstOrNull { it.name == name }
 
         /**
-         * Ohne Wahl: «Umrechnung», ist die Umrechnungswährung USD (bzw. ein USD-Stablecoin) «Nur USDT».
-         * (Beim Zeichnen fallen bei USD ohnehin alle drei auf «Nur USDT» zusammen, siehe
+         * Ohne Wahl: «Umrechnung» — auch für USD (USDT zum Marktkurs USDT/USD); ist die Umrechnungswährung ein
+         * USD-Stablecoin, «Nur USDT». (Beim Zeichnen fallen dort ohnehin alle drei auf «Nur USDT» zusammen, siehe
          * [PortfolioWidgetChart.effectiveDisplay].)
          */
         fun defaultFor(currency: String): PortfolioDisplay =
-            if (CurrencyConversion.normalize(currency) in CurrencyConversion.USD_STABLES) USDT else CONVERSION
+            if (PortfolioWidgetChart.collapsesToUsdt(currency)) USDT else CONVERSION
     }
 }
 
@@ -159,13 +159,20 @@ object PortfolioWidgetChart {
     private const val USDT_CODE = "USDT"
 
     /**
-     * Wirksame Anzeige: Ist die Anzeigewährung selbst USD bzw. ein USD-Stablecoin (auch ohne
-     * Devisenkurs), fallen die drei Möglichkeiten auf «Nur USDT» zusammen; ohne USDT-Wert (ältere
-     * Aufnahme) bleibt nur die Umrechnung.
+     * Anzeigewährung ein USD-Stablecoin (USDT, USDC …)? Dann fallen die drei Anzeigen auf «Nur USDT» zusammen. USD
+     * selbst nicht mehr: USDT gilt dort seinen Marktkurs USDT/USD ([usdtFactor]) wie in jeder anderen Fiat-Währung.
+     */
+    fun collapsesToUsdt(currency: String): Boolean =
+        CurrencyConversion.normalize(currency).let { it in CurrencyConversion.USD_STABLES && it != "USD" }
+
+    /**
+     * Wirksame Anzeige: Ist die Anzeigewährung ein USD-Stablecoin ([collapsesToUsdt]), fallen die drei Möglichkeiten
+     * auf «Nur USDT» zusammen (USD nicht: dort wie jede Fiat-Währung); ohne USDT-Wert (ältere Aufnahme) bleibt nur
+     * die Umrechnung.
      */
     fun effectiveDisplay(chosen: PortfolioDisplay, currency: String, hasUsdt: Boolean): PortfolioDisplay = when {
         !hasUsdt -> PortfolioDisplay.CONVERSION
-        CurrencyConversion.normalize(currency) in CurrencyConversion.USD_STABLES -> PortfolioDisplay.USDT
+        collapsesToUsdt(currency) -> PortfolioDisplay.USDT
         else -> chosen
     }
 
@@ -216,6 +223,18 @@ object PortfolioWidgetChart {
         if (CurrencyConversion.normalize(m.currency) != CurrencyConversion.normalize(currency)) return null
         if (now - m.fetchedAt !in 0 until FX_MEMO_MAX_AGE_MILLIS) return null
         return validRate(m.rate)
+    }
+
+    /**
+     * Faktor USDT → [currency] für die Aufnahme: Devisenkurs [fx] (USD → Währung) × Live-Kurs USDT/USD [usdtLive]
+     * ([PortfolioStables.usdtTo], USDT zum Marktkurs; ohne Messung × 1) — auch für USD ([fx] = 1). USD-Stablecoins:
+     * [fx] unverändert — das Widget zeigt dort USDT ([effectiveDisplay]).
+     */
+    fun usdtFactor(currency: String, fx: Double, usdtLive: Double?): Double {
+        if (collapsesToUsdt(currency)) return fx
+        return com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(
+            fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd(usdtLive),
+        ) ?: fx
     }
 
     /**

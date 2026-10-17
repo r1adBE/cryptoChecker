@@ -68,6 +68,9 @@ struct TaxGainRow: Equatable, Sendable {
     /// Auszahlungsgebühr in USDT/Fiat mit `quoteFeeIsInfo` (UK, US, CA, AU, JP): kein Verlust, nur Information — nicht
     /// in den Summen, Vermerk `TaxCsvTexts.withdrawalFeeInfo`. Wie Android.
     var feeInfoOnly = false
+    /// Mit USDT/USD-Tagesschluss umgerechnet (`TaxExport.rateOn` `usdtUsd`), aber an einem nötigen Tag ohne Schluss: dort
+    /// USDT = 1 USD als Näherung — Vermerk `TaxCsvTexts.usdtAssumed`, nie still. Wie Android.
+    var usdtApproximate = false
 
     /// Einstand aus einem Durchschnitt (Herkunftsteile je Kaufdatum umgerechnet) — wie `pooled` (Android); ein
     /// Gebühr-Aufwand ist kein Durchschnitt.
@@ -95,6 +98,8 @@ struct TaxIncomeRow: Equatable, Sendable {
     var interest = false
     /// Wert ohne Preis in der Datei zum Tagesschluss geschätzt (`PortfolioLedger.valueRewardsAtDayClose`): Vermerk.
     var estimated = false
+    /// Umrechnung mit USDT = 1 USD als Näherung (kein USDT/USD-Tagesschluss, `TaxGainRow.usdtApproximate`): Vermerk.
+    var usdtApproximate = false
 
     var valueMissing: Bool { valueUsdt == nil }
 }
@@ -180,6 +185,8 @@ struct TaxCsvTexts: Sendable {
     var withdrawalFeeInfo: String = ""
     /// Vermerk «Umbuchungsgebühr USDT/Fiat – kein Verlust, nicht im Einstand, nur Information» (`.TRANSFER`).
     var transferFeeInfo: String = ""
+    /// Vermerk «USDT = 1 USD angenommen» (`TaxGainRow.usdtApproximate`, `TaxIncomeRow.usdtApproximate`); leer = kein Vermerk.
+    var usdtAssumed: String = ""
 
     /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (Gerät).
     static func localized(currency: String, zone: TimeZone = .current) -> TaxCsvTexts {
@@ -236,7 +243,9 @@ struct TaxCsvTexts: Sendable {
             // Auszahlungsgebühr USDT/Fiat nur Information (UK, US, CA, AU, JP: `TaxTemplate.quoteFeeIsInfo`)
             withdrawalFeeInfo: L("tax_export_withdrawal_fee_info"),
             // Build 57: Umbuchungsgebühr USDT/Fiat nur Information (nicht im Einstand)
-            transferFeeInfo: L("tax_export_transfer_fee_info")
+            transferFeeInfo: L("tax_export_transfer_fee_info"),
+            // USDT zum Marktkurs: Tag ohne USDT/USD-Tagesschluss rechnet mit 1 — je Zeile vermerkt
+            usdtAssumed: L("portfolio_usdt_assumed")
         )
     }
 }
@@ -572,13 +581,36 @@ enum TaxExport {
 
     /// USD → Zielwährung am `date`: USD = 1; sonst der Kurs des Tags oder des letzten Tags davor (höchstens
     /// `fxMaxGapDays` Tage); `rates` = Tag (epochDay) → Kurs, nil = nicht geladen.
-    static func rateOn(_ rates: [Int: Decimal]?, date: LocalDay, currency: String) -> Decimal? {
-        if currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD" { return 1 }
-        let day = date.epochDay
-        let best = (rates ?? [:])
-            .filter { $0.key <= day && day - $0.key <= fxMaxGapDays && $0.value > 0 }
-            .max { $0.key < $1.key }
-        return best?.value
+    /// Mit `usdtUsd` (USDT/USD-Tagesschluss je Datum, Owner-Entscheid Okt. 2026): USDT → Zielwährung = Kurs × USDT/USD
+    /// DES Tags; ohne Schluss × 1 (`usdtApproximateOn` markiert die Zeile). nil = USDT gilt 1 USD (bisherige Rechnung).
+    static func rateOn(_ rates: [Int: Decimal]?, date: LocalDay, currency: String,
+                       usdtUsd: [Int: Decimal]? = nil) -> Decimal? {
+        let fx: Decimal
+        if currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD" {
+            fx = 1
+        } else {
+            let day = date.epochDay
+            let best = (rates ?? [:])
+                .filter { $0.key <= day && day - $0.key <= fxMaxGapDays && $0.value > 0 }
+                .max { $0.key < $1.key }
+            guard let value = best?.value else { return nil }
+            fx = value
+        }
+        guard usdtUsd != nil, let usdt = usdtUsdOn(usdtUsd, date: date) else { return fx }
+        return PortfolioDecimal.multiply(fx, usdt)
+    }
+
+    /// USDT/USD-Tagesschluss am `date` aus `usdtUsd` (Tag → Schluss), nur plausibel (`PortfolioStables.usdtUsd`); nil =
+    /// keiner (kein Schluss eines anderen Tags). Wie Android.
+    static func usdtUsdOn(_ usdtUsd: [Int: Decimal]?, date: LocalDay) -> Decimal? {
+        guard let close = usdtUsd?[date.epochDay],
+              !PortfolioStables.usdtUsd(PortfolioDecimal.double(close)).approximate else { return nil }
+        return close
+    }
+
+    /// Rechnet `rateOn` am `date` mit USDT = 1 als Näherung (USDT/USD-Kurse da, aber kein Schluss DES Tags)? Wie Android.
+    static func usdtApproximateOn(_ usdtUsd: [Int: Decimal]?, date: LocalDay) -> Bool {
+        usdtUsd != nil && usdtUsdOn(usdtUsd, date: date) == nil
     }
 
     /// Veräusserungen mit Verkaufsdatum im Jahr `year`, wie `PortfolioCalculator.disposals` sortiert.
@@ -702,21 +734,23 @@ enum TaxExport {
     static func gainRows(_ trades: [PortfolioTx], method: TaxMethod, period: TaxPeriod, timeZone: TimeZone,
                          currency: String, rates: [Int: Decimal]?,
                          priceAt: ((String, Int64) -> Decimal?)? = nil, rules: TaxEventRules? = nil,
-                         walletFrom: LocalDay? = nil) -> [TaxGainRow] {
+                         walletFrom: LocalDay? = nil, usdtUsd: [Int: Decimal]? = nil) -> [TaxGainRow] {
         // Verkäufe, die Gebühren sind (`PortfolioLedger.isFeeDisposal`) — einmal gesammelt
         let feeSales = Set(trades.filter { PortfolioLedger.isFeeDisposal($0) }.map(\.id))
         // Transaktionen ohne Verkauf (Umbuchung, Auszahlung, Tausch): ihre Veräusserungen ohne Tausch-Vermerk sind
         // Gebühren in Krypto (Netzwerkgebühr nach `networkFeeIsDisposal`, FR Gebühr-Abtretung) — Vermerk «Gebühr»
         let nonSales = Set(trades.filter { $0.type == .TRANSFER || $0.type.isWithdrawalLike || $0.type == .SWAP }.map(\.id))
         // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
-        let fx: (Int64) -> Decimal? = { t in rateOn(rates, date: localDay(t, timeZone: timeZone), currency: currency) }
+        let fx: (Int64) -> Decimal? = { t in
+            rateOn(rates, date: localDay(t, timeZone: timeZone), currency: currency, usdtUsd: usdtUsd)
+        }
         // Auszahlungsgebühr USDT/Fiat nur Information (`TaxEventRules.quoteFeeIsInfo`)
         let feeInfo = (rules ?? .of(method)).quoteFeeIsInfo
         return disposals(in: trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt,
                          fx: fx, rules: rules, walletFrom: walletFrom).map { d -> TaxGainRow in
             let sold = localDay(d.sellTime, timeZone: timeZone)
             let acquired = d.acquiredTime.map { localDay($0, timeZone: timeZone) }
-            let saleRate = rateOn(rates, date: sold, currency: currency)
+            let saleRate = rateOn(rates, date: sold, currency: currency, usdtUsd: usdtUsd)
             func atSale(_ v: Decimal?) -> Decimal? {
                 guard let v, let saleRate else { return nil }
                 return PortfolioDecimal.multiply(v, saleRate)
@@ -727,7 +761,8 @@ enum TaxExport {
                 if !d.costParts.isEmpty {
                     var sum: Decimal = 0
                     for part in d.costParts {
-                        guard let r = rateOn(rates, date: localDay(part.time, timeZone: timeZone), currency: currency) else {
+                        guard let r = rateOn(rates, date: localDay(part.time, timeZone: timeZone), currency: currency,
+                                             usdtUsd: usdtUsd) else {
                             return nil
                         }
                         sum += PortfolioDecimal.multiply(part.usdt, r)
@@ -735,7 +770,8 @@ enum TaxExport {
                     return sum
                 }
                 if let acquired {
-                    return rateOn(rates, date: acquired, currency: currency).map { PortfolioDecimal.multiply(c, $0) }
+                    return rateOn(rates, date: acquired, currency: currency, usdtUsd: usdtUsd)
+                        .map { PortfolioDecimal.multiply(c, $0) }
                 }
                 // Einstand 0 (z. B. Belohnung zum Wert 0): nichts umzurechnen
                 if c == 0 { return 0 }
@@ -791,6 +827,9 @@ enum TaxExport {
             row.spouseGift = d.spouseGift
             // `.TRANSFER`-Zeilen gibt es nur mit dieser Regel (`TaxEngines.disposals`)
             row.feeInfoOnly = d.feeExpense == .TRANSFER || (feeInfo && d.feeExpense == .WITHDRAWAL)
+            // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
+            let usdtDays = [sold] + (acquired.map { [$0] } ?? []) + d.costParts.map { localDay($0.time, timeZone: timeZone) }
+            row.usdtApproximate = usdtDays.contains { usdtApproximateOn(usdtUsd, date: $0) }
             return row
         }
     }
@@ -804,18 +843,20 @@ enum TaxExport {
     /// der Datei mit `priceAt` zum Tagesschluss geschätzt (`PortfolioLedger.valueRewardsAtDayClose`, `estimated`); ohne
     /// Kurs bleibt der Wert leer. Wie Android.
     static func incomeRows(_ trades: [PortfolioTx], period: TaxPeriod, timeZone: TimeZone, currency: String,
-                           rates: [Int: Decimal]?, priceAt: ((String, Int64) -> Decimal?)? = nil) -> [TaxIncomeRow] {
+                           rates: [Int: Decimal]?, priceAt: ((String, Int64) -> Decimal?)? = nil,
+                           usdtUsd: [Int: Decimal]? = nil) -> [TaxIncomeRow] {
         PortfolioLedger.valueRewardsAtDayClose(rewards(in: trades, period: period, timeZone: timeZone), price: priceAt).map { t -> TaxIncomeRow in
             let date = localDay(t.time, timeZone: timeZone)
             let value = t.validPriceExact.map { t.amountExact * $0 }
-            let rate = rateOn(rates, date: date, currency: currency)
+            let rate = rateOn(rates, date: date, currency: currency, usdtUsd: usdtUsd)
             let target: Decimal? = {
                 guard let value, let rate else { return nil }
                 return PortfolioDecimal.multiply(value, rate)
             }()
             return TaxIncomeRow(date: date, coin: PortfolioCalculator.normalizeCoin(t.coin), amount: t.amountExact,
                                 valueUsdt: value, valueTarget: target, fxMissing: value != nil && rate == nil,
-                                interest: TaxEngines.interestReward(t.note), estimated: t.valueEstimated)
+                                interest: TaxEngines.interestReward(t.note), estimated: t.valueEstimated,
+                                usdtApproximate: value != nil && usdtApproximateOn(usdtUsd, date: date))
         }
     }
 
@@ -876,6 +917,7 @@ enum TaxExport {
             if r.spouseGift && !texts.spouseGift.isEmpty { notes.append(texts.spouseGift) }
             if r.payment && !texts.payment.isEmpty { notes.append(texts.payment) }
             if r.valueEstimated && !texts.valueEstimated.isEmpty { notes.append(texts.valueEstimated) }
+            if r.usdtApproximate && !texts.usdtAssumed.isEmpty { notes.append(texts.usdtAssumed) }
             let matchText: String?
             switch r.match {
             case .some(.SAME_DAY): matchText = texts.matchSameDay
@@ -998,6 +1040,7 @@ enum TaxExport {
             var notes: [String] = []
             if r.valueMissing { notes.append(texts.valueMissing) }
             if r.estimated && !texts.valueEstimated.isEmpty { notes.append(texts.valueEstimated) }
+            if r.usdtApproximate && !texts.usdtAssumed.isEmpty { notes.append(texts.usdtAssumed) }
             if r.fxMissing { notes.append(texts.noFx) }
             out += line([t(r.date.description), t(r.coin), CsvCell(text: n(CutoffExport.amount(r.amount)), numeric: true),
                          money(r.valueUsdt), money(r.valueTarget), t(notes.joined(separator: ", "))], format)
@@ -1182,12 +1225,12 @@ enum TaxExport {
     static func yearSummary(_ trades: [PortfolioTx], template: TaxTemplate, method: TaxMethod, startYear: Int,
                             timeZone: TimeZone, currency: String, rates: [Int: Decimal]?,
                             priceAt: ((String, Int64) -> Decimal?)? = nil,
-                            walletFrom: LocalDay? = nil) -> TaxYearSummary {
+                            walletFrom: LocalDay? = nil, usdtUsd: [Int: Decimal]? = nil) -> TaxYearSummary {
         let period = template.period(startYear)
         let fx = rates != nil || currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD"
         let allRows = gainRows(trades, method: method, period: period, timeZone: timeZone, currency: currency,
                                rates: rates ?? [:], priceAt: priceAt, rules: template.eventRules,
-                               walletFrom: walletFrom)
+                               walletFrom: walletFrom, usdtUsd: usdtUsd)
         // DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten, nicht in den Summen (DE: § 23 und Freigrenze;
         // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG) — wie Android
         // UK, US, CA, AU, JP: kein Verlust, nur Information (`TaxTemplate.quoteFeeIsInfo`) — wie Android
@@ -1199,7 +1242,7 @@ enum TaxExport {
         let rows = sales.filter { $0.feeExpense != .TRANSFER }
         // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
         let allIncome = incomeRows(trades, period: period, timeZone: timeZone, currency: currency, rates: rates ?? [:],
-                                   priceAt: priceAt)
+                                   priceAt: priceAt, usdtUsd: usdtUsd)
         let interest = template == .AT ? allIncome.filter(\.interest) : []
         let income = template == .AT ? allIncome.filter { !$0.interest } : allIncome
         let pos: (Decimal) -> Bool = { $0 > 0 }
@@ -1306,7 +1349,8 @@ enum TaxExport {
                 for o in outs {
                     guard let r = o.ptaReductionUsdt else { continue }
                     outUsdt += r
-                    if let rate = rateOn(rates, date: localDay(o.time, timeZone: timeZone), currency: currency) {
+                    if let rate = rateOn(rates, date: localDay(o.time, timeZone: timeZone), currency: currency,
+                                         usdtUsd: usdtUsd) {
                         outTarget += PortfolioDecimal.multiply(r, rate)
                     } else if fx {
                         outFx = true
@@ -1615,6 +1659,18 @@ enum PortfolioTaxExporter {
         return exact
     }
 
+    /// USDT/USD-Tagesschlüsse ab `from` für den Steuer-Export (`TaxExport.rateOn` `usdtUsd`, USDT zum Marktkurs): Tag →
+    /// Schluss (Kraken, höchstens 720 Tage; Tage ohne Schluss rechnen mit 1 und sind je Zeile vermerkt). nil für eine
+    /// Währung ohne USDT-Umrechnung (USDT selbst). Wie Android `usdtUsdCloses`.
+    static func usdtUsdCloses(_ currency: String, from: LocalDay) async -> [Int: Decimal]? {
+        guard CutoffExport.convertsUsdt(currency) else { return nil }
+        let days = max(1, LocalDay.today().epochDay - from.epochDay + 1 + PortfolioHistoryFx.leadDays)
+        let closes = await PortfolioHistorySource.usdtUsdDaily(days: days)
+        var exact: [Int: Decimal] = [:]
+        for (day, close) in closes { if let c = PortfolioDecimal.of(close) { exact[day] = c } }
+        return exact
+    }
+
     /// FR: Gesamtwert des Portfolios samt beobachteter Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als
     /// Adress-Einträge (`AddressBalanceHistory.trades`, negative Id: keine Veräusserungen). Andere Vorlagen: nur die eigenen
     /// Transaktionen. Wie `withAddressTrades` (Android).
@@ -1744,8 +1800,10 @@ enum PortfolioTaxExporter {
         let from = TaxExport.fxFrom(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
                                     rules: template.eventRules, walletFrom: walletFrom)
         let fx = await rates(currency, from: from, to: period.end)
+        let usdtUsd = await usdtUsdCloses(currency, from: from)
         return TaxExport.yearSummary(transactions, template: template, method: method, startYear: year, timeZone: zone,
-                                     currency: currency, rates: fx, priceAt: priceAt, walletFrom: walletFrom)
+                                     currency: currency, rates: fx, priceAt: priceAt, walletFrom: walletFrom,
+                                     usdtUsd: usdtUsd)
     }
 
     /// CSV «Jahresübersicht» (Orientierung, keine Steuerberatung).
@@ -1768,9 +1826,11 @@ enum PortfolioTaxExporter {
             let from = TaxExport.fxFrom(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
                                     rules: template.eventRules, walletFrom: walletFrom)
             let fx = await rates(currency, from: from, to: period.end)
+            // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
+            let usdtUsd = await usdtUsdCloses(currency, from: from)
             let rows = TaxExport.gainRows(transactions, method: method, period: period, timeZone: zone,
                                           currency: currency, rates: fx, priceAt: priceAt,
-                                          rules: template.eventRules, walletFrom: walletFrom)
+                                          rules: template.eventRules, walletFrom: walletFrom, usdtUsd: usdtUsd)
             return TaxExport.gainsCsv(rows, texts: texts, header: header, format: format,
                                       lostFeeCosts: TaxExport.lostFeeCosts(in: transactions, method: method, period: period,
                                                                            timeZone: zone, rules: template.eventRules),
@@ -1779,10 +1839,11 @@ enum PortfolioTaxExporter {
                                                                                timeZone: zone, rules: template.eventRules))
         case .income:
             let fx = await rates(currency, from: period.start, to: period.end)
+            let usdtUsd = await usdtUsdCloses(currency, from: period.start)
             // Belohnungen ohne Wert (Kraken/Binance) zum Tagesschluss geschätzt, wie in der Jahresübersicht
             let priceAt = await feeDisposalPrices(transactions, period: period)
             let rows = TaxExport.incomeRows(transactions, period: period, timeZone: zone, currency: currency, rates: fx,
-                                            priceAt: priceAt)
+                                            priceAt: priceAt, usdtUsd: usdtUsd)
             return TaxExport.incomeCsv(rows, texts: texts, header: header, format: format)
         }
     }

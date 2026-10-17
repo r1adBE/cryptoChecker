@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">कॉइन</string>
     <string name="portfolio_export_col_note">नोट</string>
     <string name="portfolio_export_col_price">कीमत USDT</string>
-    <string name="portfolio_export_col_rate">दर USD→%1$s</string>
+    <string name="portfolio_export_col_rate">दर USDT→%1$s</string>
     <string name="portfolio_export_col_value">मूल्य USDT</string>
     <string name="portfolio_export_col_value_cur">मूल्य %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">समय क्षेत्र: %1$s</string>
     <string name="tax_export_transfer_fee_info">USDT/नकद में ट्रांसफ़र शुल्क – हानि नहीं, लागत में नहीं, केवल जानकारी</string>
     <string name="tax_export_unassigned_fee">शुल्क आवंटित नहीं – लागत अज्ञात</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD माना गया (डीपेग होने पर गलत)</string>
+    <string name="tax_export_usdt_usd_note">USDT को USDT/USD के दैनिक बंद भाव से बदला गया; बंद भाव न होने पर 1 USD (हर पंक्ति में अंकित)</string>
     <string name="tax_export_value_estimated">अनुमानित मूल्य (दैनिक क्लोज़)</string>
     <string name="tax_export_value_missing">मिलने के समय का मूल्य नहीं है</string>
     <string name="tax_export_wallet">वॉलेट: %1$s</string>

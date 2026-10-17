@@ -2,6 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -83,11 +84,40 @@ class DepegAlarmParityTest {
             val reading = c["price"].num()?.let { DepegAlarm.Reading(it, now - c["ageMillis"].num()!!.toLong()) }
             val note = DepegAlarm.cardNote(
                 c["holdings"].list().map { it as String }, c["valuesViaUsdt"] as Boolean, reading,
-                c["thresholdTenths"].num()!!.toInt(), now,
+                c["thresholdTenths"].num()!!.toInt(), now, usdtMarket = c["usdtMarket"] as? Boolean ?: false,
             )
             assertEquals("cardNote: $c", c["kind"], note?.kind?.name)
             assertEquals("cardNote reading: $c", if (note?.kind == DepegAlarm.CardNoteKind.DEVIATION) reading else null, note?.reading)
         }
+    }
+
+    /** Live-Kurs USDT/USD der Bewertung aus der letzten Messung (USDT zum Marktkurs, Owner-Entscheid Okt. 2026; 6 Std. gültig). */
+    @Test
+    fun liveUsdtUsd() {
+        val now = 1_800_000_000_000L
+        // 6 Std. statt der 30 Min. der Warnzeile (lange Hintergrund-Intervalle)
+        assertEquals(21_600_000L, DepegAlarm.LIVE_MAX_AGE_MILLIS)
+        assertEquals(1_800_000L, DepegAlarm.CARD_MAX_AGE_MILLIS)
+        val cases = data["liveUsdtUsd"].list().map { it.obj() }
+        assertTrue(cases.size >= 5)
+        cases.forEach { c ->
+            val reading = c["price"].num()?.let { DepegAlarm.Reading(it, now - c["ageMillis"].num()!!.toLong()) }
+            val live = DepegAlarm.liveUsdtUsd(reading, now)
+            val expected = c["expected"].num()
+            if (expected == null) assertNull("liveUsdtUsd: $c", live) else assertEquals("liveUsdtUsd: $c", expected, live!!, 1e-12)
+        }
+    }
+
+    /** Messen mit Alarm oder Portfolio (USDT zum Marktkurs braucht den Live-Kurs auch ohne Alarm). Wie iOS. */
+    @Test
+    fun shouldMeasure() {
+        assertTrue(DepegAlarm.shouldMeasure(depegAlarm = true, portfolioEnabled = false, hasPortfolioData = false))
+        assertTrue(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = true, hasPortfolioData = true))
+        assertTrue(DepegAlarm.shouldMeasure(depegAlarm = true, portfolioEnabled = true, hasPortfolioData = false))
+        // Portfolio aus oder leer: ohne Alarm keine Anfrage
+        assertFalse(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = true, hasPortfolioData = false))
+        assertFalse(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = true))
+        assertFalse(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = false))
     }
 
     @Test

@@ -33,6 +33,7 @@
     <string name="alarm_first_battery_hint">电池优化限制了此应用——提醒可能延迟送达。</string>
     <string name="alarm_first_title">一切就绪</string>
     <string name="alarm_last_triggered">上次触发：%1$s</string>
+    <string name="alarm_more_conditions">更多条件</string>
     <string name="alarm_new_extreme">刷新%1$s</string>
     <string name="alarm_once">一次</string>
     <string name="alarm_option_repeating">触发后保留提醒</string>

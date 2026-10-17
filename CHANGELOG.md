@@ -33,6 +33,14 @@ Twenty-third review.
 * Alarm hint on both systems: often later than 15 minutes, on iPhone sometimes only at the next opening.
 * Watchlist jump button has a 48 dp touch target.
 * Room schema 16 committed.
+* USDT is valued at its USDT/USD market price (Kraken) instead of a fixed 1 – portfolio card, history, widget,
+  portfolio alarms, «≈» conversion and tax export; past days use the USDT/USD daily close; without a price it falls
+  back to 1 and says «USDT = 1 assumed». USD as display currency converts too.
+* Alarm editor: price above/below and rises/falls by % up front, the other eight conditions behind «More conditions».
+* Settings start page: own «Portfolio» switch in «More» (the page under Advanced stays).
+* Price colours «Fresh», «Traditional» and «Colour vision» redefined as real exchange colours with fixed rules
+  (AA/7:1 contrast, lightness gap rise/fall, colour-blind simulation, distance to the other accents); in light mode
+  falling is the stronger red/orange, in dark mode the darker one; checked by android/tools/check_price_colors.py.
 
 ## 16.2.2 (build 73)
 

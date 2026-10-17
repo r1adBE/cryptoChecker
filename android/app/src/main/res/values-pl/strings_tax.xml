@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Moneta</string>
     <string name="portfolio_export_col_note">Uwaga</string>
     <string name="portfolio_export_col_price">Cena USDT</string>
-    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurs USDT→%1$s</string>
     <string name="portfolio_export_col_value">Wartość USDT</string>
     <string name="portfolio_export_col_value_cur">Wartość %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Strefa czasowa: %1$s</string>
     <string name="tax_export_transfer_fee_info">Opłata za przeniesienie w USDT/gotówce – nie strata, poza kosztem nabycia, tylko informacja</string>
     <string name="tax_export_unassigned_fee">opłata nieprzypisana – koszt nabycia nieznany</string>
-    <string name="tax_export_usdt_usd_note">Przyjęto USDT = 1 USD (błędne przy depegu)</string>
+    <string name="tax_export_usdt_usd_note">USDT przeliczone po dziennym kursie zamknięcia USDT/USD; bez zamknięcia 1 USD (oznaczone w wierszu)</string>
     <string name="tax_export_value_estimated">Wartość szacunkowa (kurs zamknięcia)</string>
     <string name="tax_export_value_missing">brak wartości w chwili otrzymania</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

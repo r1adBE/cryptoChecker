@@ -133,12 +133,24 @@ class AlarmTemplatesTest {
     }
 
     @Test
-    fun advancedOpensForEverythingButPlainPriceAlarms() {
+    fun advancedOpensOnlyForPriceAlarmsInOwnCurrency() {
         assertFalse(AlarmTemplates.opensAdvanced(AlarmCondition.PRICE_ABOVE, null))
         assertFalse(AlarmTemplates.opensAdvanced(AlarmCondition.PRICE_BELOW, ""))
         assertTrue(AlarmTemplates.opensAdvanced(AlarmCondition.PRICE_ABOVE, "CHF"))
         AlarmCondition.entries.filter { !it.isPriceThreshold }.forEach {
-            assertTrue(AlarmTemplates.opensAdvanced(it, null))
+            assertFalse(AlarmTemplates.opensAdvanced(it, null))
         }
+    }
+
+    @Test
+    fun moreConditionsOpenForEverythingButTheSimpleOnes() {
+        // Gleich sichtbar: Kursmarke über/unter, Steigt/Fällt um
+        assertEquals(4, AlarmTemplates.SIMPLE_CONDITIONS.size)
+        AlarmTemplates.SIMPLE_CONDITIONS.forEach { assertFalse(AlarmTemplates.opensMoreConditions(it)) }
+        AlarmCondition.entries.filter { it !in AlarmTemplates.SIMPLE_CONDITIONS }.forEach {
+            assertTrue(AlarmTemplates.opensMoreConditions(it))
+        }
+        assertTrue(AlarmTemplates.opensMoreConditions(AlarmCondition.MOVE_PERCENT_WINDOW))
+        assertTrue(AlarmTemplates.opensMoreConditions(AlarmCondition.VOLUME_SPIKE))
     }
 }

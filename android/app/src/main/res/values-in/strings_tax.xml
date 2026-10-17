@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Koin</string>
     <string name="portfolio_export_col_note">Catatan</string>
     <string name="portfolio_export_col_price">Harga USDT</string>
-    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurs USDT→%1$s</string>
     <string name="portfolio_export_col_value">Nilai USDT</string>
     <string name="portfolio_export_col_value_cur">Nilai %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Zona waktu: %1$s</string>
     <string name="tax_export_transfer_fee_info">Biaya transfer dalam USDT/tunai – bukan rugi, di luar biaya perolehan, hanya informasi</string>
     <string name="tax_export_unassigned_fee">biaya tidak dialokasikan – biaya perolehan tidak diketahui</string>
-    <string name="tax_export_usdt_usd_note">Diasumsikan USDT = 1 USD (salah jika depeg)</string>
+    <string name="tax_export_usdt_usd_note">USDT dikonversi dengan harga penutupan harian USDT/USD; tanpa penutupan 1 USD (ditandai per baris)</string>
     <string name="tax_export_value_estimated">Nilai perkiraan (harga penutupan harian)</string>
     <string name="tax_export_value_missing">nilai saat diterima tidak ada</string>
     <string name="tax_export_wallet">Dompet: %1$s</string>

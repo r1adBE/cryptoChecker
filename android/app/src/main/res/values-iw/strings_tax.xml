@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">מטבע</string>
     <string name="portfolio_export_col_note">הערה</string>
     <string name="portfolio_export_col_price">מחיר USDT</string>
-    <string name="portfolio_export_col_rate">שער USD→%1$s</string>
+    <string name="portfolio_export_col_rate">שער USDT→%1$s</string>
     <string name="portfolio_export_col_value">שווי USDT</string>
     <string name="portfolio_export_col_value_cur">שווי %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">אזור זמן: %1$s</string>
     <string name="tax_export_transfer_fee_info">עמלת העברה ב-USDT/מזומן – לא הפסד, מחוץ לעלות, לידיעה בלבד</string>
     <string name="tax_export_unassigned_fee">עמלה לא שויכה – העלות לא ידועה</string>
-    <string name="tax_export_usdt_usd_note">מניחים USDT = 1 USD (שגוי אם הצמדה נשברת)</string>
+    <string name="tax_export_usdt_usd_note">USDT מומר לפי שער הסגירה היומי של USDT/USD; בלי סגירה 1 USD (מסומן בכל שורה)</string>
     <string name="tax_export_value_estimated">שווי משוער (שער סגירה)</string>
     <string name="tax_export_value_missing">חסר שווי בעת הקבלה</string>
     <string name="tax_export_wallet">ארנק: %1$s</string>

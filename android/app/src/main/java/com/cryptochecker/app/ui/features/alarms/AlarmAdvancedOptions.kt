@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -27,16 +28,18 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.KeyboardType
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.components.ExpandChevronIcon
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 
-/** Kopf «Erweitert» zum Auf-/Zuklappen (Screenreader: «aufgeklappt/zugeklappt»). */
+/** Kopf «Mehr Bedingungen» bzw. «Erweitert» zum Auf-/Zuklappen (Screenreader: «aufgeklappt/zugeklappt»). */
 @Composable
-internal fun AdvancedHeader(expanded: Boolean, onToggle: () -> Unit) {
+internal fun AdvancedHeader(title: String, expanded: Boolean, onToggle: () -> Unit) {
     val stateText = stringResource(if (expanded) R.string.a11y_expanded else R.string.a11y_collapsed)
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -49,7 +52,7 @@ internal fun AdvancedHeader(expanded: Boolean, onToggle: () -> Unit) {
             .padding(vertical = Spacing.md)
     ) {
         Text(
-            stringResource(R.string.alarm_advanced),
+            title,
             style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.weight(1f)
         )
@@ -58,22 +61,15 @@ internal fun AdvancedHeader(expanded: Boolean, onToggle: () -> Unit) {
     }
 }
 
-/** Alle Bedingungen und Optionen wie bisher — Kursmarke ohne eigenes Feld (steht im Satz oben). */
+/** Bedingungen als Chips, zwei pro Zeile (wie die Kacheln in iOS). */
 @Composable
-internal fun AdvancedOptions(
+internal fun ConditionChips(
+    conditions: List<AlarmCondition>,
     draft: AlarmDraft,
-    derivatives: Boolean,
-    quoteAsset: String,
-    otherCurrency: String,
-    offerCurrency: Boolean,
-    rates: Map<String, Double>,
     onDraftChange: (AlarmDraft) -> Unit,
 ) {
     val context = LocalContext.current
-
-    // Bedingung als Chips, zwei pro Zeile; Funding/Open Interest nur bei Perpetuals mit Daten
-    // (ein bestehender Alarm dieser Art bleibt sichtbar, z. B. aus einer Sicherung)
-    AlarmCondition.entries.filter { !it.isDerivatives || derivatives || it == draft.condition }.chunked(2).forEach { row ->
+    conditions.chunked(2).forEach { row ->
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
@@ -86,8 +82,62 @@ internal fun AdvancedOptions(
                     modifier = Modifier.weight(1f)
                 )
             }
+            // Ungerade Anzahl: gleiche Chip-Breite wie in den vollen Zeilen
+            if (row.size == 1) androidx.compose.foundation.layout.Spacer(Modifier.weight(1f))
         }
     }
+}
+
+/**
+ * Eingabefeld für Prozent oder Abstand (Steigt/Fällt um, Zeitfenster, Hoch/Tief, Open Interest);
+ * die Kursmarke hat ihr Feld im Satz oben.
+ */
+@Composable
+internal fun ThresholdField(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Unit) {
+    OutlinedTextField(
+        value = draft.thresholdText,
+        onValueChange = { onDraftChange(draft.copy(thresholdText = it)) },
+        singleLine = true,
+        label = {
+            Text(
+                stringResource(
+                    if (draft.condition.isNearExtreme) R.string.alarm_near_field_distance
+                    else R.string.alarm_field_percent
+                )
+            )
+        },
+        suffix = { Text("%") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        isError = draft.thresholdProblem != null,
+        supportingText = thresholdErrorText(draft.thresholdProblem),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Spacing.lg, bottom = Spacing.sm)
+            .testTag(UiTestTags.ALARM_THRESHOLD)
+    )
+}
+
+/**
+ * «Mehr Bedingungen»: alle Bedingungen ausser den einfachen ([AlarmTemplates.SIMPLE_CONDITIONS]),
+ * dazu die Felder der gewählten. Funding/Open Interest nur bei Perpetuals mit Daten (ein bestehender
+ * Alarm dieser Art bleibt sichtbar, z. B. aus einer Sicherung).
+ */
+@Composable
+internal fun MoreConditionOptions(
+    draft: AlarmDraft,
+    derivatives: Boolean,
+    onDraftChange: (AlarmDraft) -> Unit,
+) {
+    val context = LocalContext.current
+    ConditionChips(
+        conditions = AlarmCondition.entries.filter {
+            it !in AlarmTemplates.SIMPLE_CONDITIONS && (!it.isDerivatives || derivatives || it == draft.condition)
+        },
+        draft = draft,
+        onDraftChange = onDraftChange,
+    )
+    // Felder nur für eine Bedingung aus diesem Abschnitt (die einfachen haben ihr Feld oben)
+    if (!AlarmTemplates.opensMoreConditions(draft.condition)) return
 
     if (draft.condition == AlarmCondition.VOLUME_SPIKE) {
         // Volumen-Spike: Faktor als Chips statt Eingabefeld
@@ -115,30 +165,6 @@ internal fun AdvancedOptions(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
         )
-    } else if (draft.condition.isPriceThreshold) {
-        // Kursalarm: Schwellwert in der Quote oder in der Umrechnungswährung (Betrag steht im Satz oben)
-        if (offerCurrency) {
-            Text(
-                stringResource(R.string.alarm_currency_label),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = Spacing.lg)
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
-                modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
-            ) {
-                listOf<String?>(null, otherCurrency).forEach { option ->
-                    FilterChip(
-                        selected = draft.currency?.uppercase() == option,
-                        onClick = {
-                            onDraftChange(draft.withCurrency(option, otherCurrency, rates[otherCurrency]))
-                        },
-                        label = { Text(option ?: quoteAsset.uppercase()) },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-        }
     } else if (draft.condition.isFunding) {
         // Funding: Prozent mit Vorzeichen; «±» wechselt es (Zifferntastaturen haben oft kein Minus)
         val signA11y = stringResource(R.string.alarm_funding_sign_a11y)
@@ -156,7 +182,7 @@ internal fun AdvancedOptions(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 isError = draft.thresholdProblem != null,
                 supportingText = thresholdErrorText(draft.thresholdProblem),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).testTag(UiTestTags.ALARM_THRESHOLD)
             )
             OutlinedButton(
                 onClick = { onDraftChange(draft.withToggledSign()) },
@@ -171,29 +197,9 @@ internal fun AdvancedOptions(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
         )
-    } else {
+    } else if (!(draft.condition.isNearExtreme && draft.newExtremeOnly)) {
         // Nur neue Hochs/Tiefs: kein Abstand nötig
-        val newOnly = draft.condition.isNearExtreme && draft.newExtremeOnly
-        if (!newOnly) {
-            OutlinedTextField(
-                value = draft.thresholdText,
-                onValueChange = { onDraftChange(draft.copy(thresholdText = it)) },
-                singleLine = true,
-                label = {
-                    Text(
-                        stringResource(
-                            if (draft.condition.isNearExtreme) R.string.alarm_near_field_distance
-                            else R.string.alarm_field_percent
-                        )
-                    )
-                },
-                suffix = if (draft.condition.isNearExtreme || draft.condition.isOpenInterest) { { Text("%") } } else null,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                isError = draft.thresholdProblem != null,
-                supportingText = thresholdErrorText(draft.thresholdProblem),
-                modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg, bottom = Spacing.sm)
-            )
-        }
+        ThresholdField(draft = draft, onDraftChange = onDraftChange)
     }
 
     // Zeitfenster nur für «bewegt sich um x % in y Stunden»
@@ -279,6 +285,41 @@ internal fun AdvancedOptions(
         )
     }
 
+}
+
+/** «Erweitert»: Währung der Kursmarke (Betrag steht im Satz oben), Ton, Vibration, Vorlesen. */
+@Composable
+internal fun AdvancedOptions(
+    draft: AlarmDraft,
+    quoteAsset: String,
+    otherCurrency: String,
+    offerCurrency: Boolean,
+    rates: Map<String, Double>,
+    onDraftChange: (AlarmDraft) -> Unit,
+) {
+    // Kursalarm: Schwellwert in der Quote oder in der Umrechnungswährung
+    if (offerCurrency) {
+        Text(
+            stringResource(R.string.alarm_currency_label),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(top = Spacing.sm)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+            modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
+        ) {
+            listOf<String?>(null, otherCurrency).forEach { option ->
+                FilterChip(
+                    selected = draft.currency?.uppercase() == option,
+                    onClick = {
+                        onDraftChange(draft.withCurrency(option, otherCurrency, rates[otherCurrency]))
+                    },
+                    label = { Text(option ?: quoteAsset.uppercase()) },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+    }
     SwitchRow(
         title = stringResource(R.string.alarm_option_sound),
         checked = draft.sound,

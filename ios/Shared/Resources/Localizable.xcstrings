@@ -29700,6 +29700,197 @@
         }
       }
     },
+    "alarm_more_conditions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروط إضافية"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Další podmínky"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flere betingelser"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Bedingungen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Περισσότερες συνθήκες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More conditions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más condiciones"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرط‌های بیشتر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisää ehtoja"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de conditions"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תנאים נוספים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "और शर्तें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "További feltételek"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kondisi lainnya"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altre condizioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "その他の条件"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추가 조건"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flere betingelser"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer voorwaarden"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Więcej warunków"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais condições"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais condições"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mai multe condiții"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Другие условия"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Më shumë kushte"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fler villkor"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เงื่อนไขเพิ่มเติม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha fazla koşul"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Інші умови"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm điều kiện"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多条件"
+          }
+        }
+      }
+    },
     "alarm_near_extreme_high_30" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -143644,187 +143835,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تظل القيم في التطبيق محسوبة على أساس USDT = 1."
+            "value" : "تُحسب القيم في التطبيق بسعر السوق هذا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hodnoty v aplikaci dál počítají s USDT = 1."
+            "value" : "Hodnoty v aplikaci počítají s tímto tržním kurzem."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Værdier i appen regner fortsat med USDT = 1."
+            "value" : "Værdier i appen regner med denne markedskurs."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Werte in der App rechnen weiter mit USDT = 1."
+            "value" : "Werte in der App rechnen mit diesem Marktkurs."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Οι τιμές στην εφαρμογή συνεχίζουν να χρησιμοποιούν USDT = 1."
+            "value" : "Οι τιμές στην εφαρμογή χρησιμοποιούν αυτή την τιμή αγοράς."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Values in the app keep using USDT = 1."
+            "value" : "Values in the app use this market price."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Los valores de la app siguen usando USDT = 1."
+            "value" : "Los valores de la app usan este precio de mercado."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مقادیر در برنامه همچنان با USDT = 1 حساب می‌شوند."
+            "value" : "مقادیر در برنامه با این قیمت بازار حساب می‌شوند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sovelluksen arvot käyttävät edelleen USDT = 1."
+            "value" : "Sovelluksen arvot käyttävät tätä markkinakurssia."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les valeurs de l’app continuent d’utiliser USDT = 1."
+            "value" : "Les valeurs de l’app utilisent ce cours de marché."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הערכים באפליקציה ממשיכים לחשב לפי USDT = 1."
+            "value" : "הערכים באפליקציה מחושבים לפי מחיר השוק הזה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप में मान अब भी USDT = 1 से गिने जाते हैं।"
+            "value" : "ऐप में मान इसी बाज़ार भाव से गिने जाते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az alkalmazás értékei továbbra is USDT = 1 alapon számolnak."
+            "value" : "Az alkalmazás értékei ezzel a piaci árfolyammal számolnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nilai di aplikasi tetap memakai USDT = 1."
+            "value" : "Nilai di aplikasi memakai harga pasar ini."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I valori nell’app continuano a usare USDT = 1."
+            "value" : "I valori nell’app usano questo prezzo di mercato."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリ内の値は引き続き USDT = 1 で計算されます。"
+            "value" : "アプリ内の値はこの市場価格で計算されます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱의 값은 계속 USDT = 1로 계산됩니다."
+            "value" : "앱의 값은 이 시장가로 계산됩니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verdier i appen regner fortsatt med USDT = 1."
+            "value" : "Verdier i appen regner med denne markedskursen."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Waarden in de app blijven rekenen met USDT = 1."
+            "value" : "Waarden in de app rekenen met deze marktkoers."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wartości w aplikacji nadal liczone są z USDT = 1."
+            "value" : "Wartości w aplikacji liczone są według tego kursu rynkowego."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os valores na app continuam a usar USDT = 1."
+            "value" : "Os valores na app usam este preço de mercado."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os valores no app continuam usando USDT = 1."
+            "value" : "Os valores no app usam este preço de mercado."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valorile din aplicație folosesc în continuare USDT = 1."
+            "value" : "Valorile din aplicație folosesc acest preț de piață."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Значения в приложении по-прежнему считаются с USDT = 1."
+            "value" : "Значения в приложении считаются по этому рыночному курсу."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vlerat në aplikacion vazhdojnë të përdorin USDT = 1."
+            "value" : "Vlerat në aplikacion përdorin këtë çmim tregu."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Värden i appen räknar fortfarande med USDT = 1."
+            "value" : "Värden i appen räknar med denna marknadskurs."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ค่าในแอปยังคงคำนวณด้วย USDT = 1"
+            "value" : "ค่าในแอปคำนวณด้วยราคาตลาดนี้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulamadaki değerler USDT = 1 ile hesaplanmaya devam eder."
+            "value" : "Uygulamadaki değerler bu piyasa fiyatıyla hesaplanır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Значення в застосунку й далі рахуються з USDT = 1."
+            "value" : "Значення в застосунку рахуються за цим ринковим курсом."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Các giá trị trong ứng dụng vẫn tính với USDT = 1."
+            "value" : "Các giá trị trong ứng dụng tính theo giá thị trường này."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用内的数值仍按 USDT = 1 计算。"
+            "value" : "应用内的数值按此市场价计算。"
           }
         }
       }
@@ -177927,187 +178118,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سعر USD→%1$@"
+            "value" : "سعر USDT→%1$@"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurz USD→%1$@"
+            "value" : "Kurz USDT→%1$@"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs USD→%1$@"
+            "value" : "Kurs USDT→%1$@"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs USD→%1$@"
+            "value" : "Kurs USDT→%1$@"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ισοτιμία USD→%1$@"
+            "value" : "Ισοτιμία USDT→%1$@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rate USD→%1$@"
+            "value" : "Rate USDT→%1$@"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipo USD→%1$@"
+            "value" : "Tipo USDT→%1$@"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نرخ USD→%1$@"
+            "value" : "نرخ USDT→%1$@"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurssi USD→%1$@"
+            "value" : "Kurssi USDT→%1$@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taux USD→%1$@"
+            "value" : "Taux USDT→%1$@"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שער USD→%1$@"
+            "value" : "שער USDT→%1$@"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "दर USD→%1$@"
+            "value" : "दर USDT→%1$@"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Árfolyam USD→%1$@"
+            "value" : "Árfolyam USDT→%1$@"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs USD→%1$@"
+            "value" : "Kurs USDT→%1$@"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cambio USD→%1$@"
+            "value" : "Cambio USDT→%1$@"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "レート USD→%1$@"
+            "value" : "レート USDT→%1$@"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "환율 USD→%1$@"
+            "value" : "환율 USDT→%1$@"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs USD→%1$@"
+            "value" : "Kurs USDT→%1$@"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koers USD→%1$@"
+            "value" : "Koers USDT→%1$@"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs USD→%1$@"
+            "value" : "Kurs USDT→%1$@"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Câmbio USD→%1$@"
+            "value" : "Câmbio USDT→%1$@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Câmbio USD→%1$@"
+            "value" : "Câmbio USDT→%1$@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Curs USD→%1$@"
+            "value" : "Curs USDT→%1$@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курс USD→%1$@"
+            "value" : "Курс USDT→%1$@"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursi USD→%1$@"
+            "value" : "Kursi USDT→%1$@"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs USD→%1$@"
+            "value" : "Kurs USDT→%1$@"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อัตรา USD→%1$@"
+            "value" : "อัตรา USDT→%1$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kur USD→%1$@"
+            "value" : "Kur USDT→%1$@"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курс USD→%1$@"
+            "value" : "Курс USDT→%1$@"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tỷ giá USD→%1$@"
+            "value" : "Tỷ giá USDT→%1$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "汇率 USD→%1$@"
+            "value" : "汇率 USDT→%1$@"
           }
         }
       }
@@ -193602,187 +193793,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الأسعار: Binance · ‏USDT = 1"
+            "value" : "الأسعار: Binance · ‏USDT بسعر السوق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurzy: Binance · USDT = 1"
+            "value" : "Kurzy: Binance · USDT za tržní kurz"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser: Binance · USDT = 1"
+            "value" : "Kurser: Binance · USDT til markedskurs"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurse: Binance · USDT = 1"
+            "value" : "Kurse: Binance · USDT zum Marktkurs"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Τιμές: Binance · USDT = 1"
+            "value" : "Τιμές: Binance · USDT σε τιμή αγοράς"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prices: Binance · USDT = 1"
+            "value" : "Prices: Binance · USDT at market price"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Precios: Binance · USDT = 1"
+            "value" : "Precios: Binance · USDT a precio de mercado"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قیمت‌ها: Binance · ‏USDT = 1"
+            "value" : "قیمت‌ها: Binance · ‏USDT به قیمت بازار"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurssit: Binance · USDT = 1"
+            "value" : "Kurssit: Binance · USDT markkinakurssiin"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cours : Binance · USDT = 1"
+            "value" : "Cours : Binance · USDT au cours du marché"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מחירים: Binance · ‏USDT = 1"
+            "value" : "מחירים: Binance · ‏USDT לפי מחיר השוק"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "भाव: Binance · USDT = 1"
+            "value" : "भाव: Binance · USDT बाज़ार भाव पर"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Árfolyamok: Binance · USDT = 1"
+            "value" : "Árfolyamok: Binance · USDT piaci árfolyamon"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Harga: Binance · USDT = 1"
+            "value" : "Harga: Binance · USDT dengan harga pasar"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prezzi: Binance · USDT = 1"
+            "value" : "Prezzi: Binance · USDT a prezzo di mercato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "価格：Binance · USDT = 1"
+            "value" : "価格：Binance · USDT は市場価格"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "시세: Binance · USDT = 1"
+            "value" : "시세: Binance · USDT는 시장가"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser: Binance · USDT = 1"
+            "value" : "Kurser: Binance · USDT til markedskurs"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koersen: Binance · USDT = 1"
+            "value" : "Koersen: Binance · USDT tegen marktkoers"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursy: Binance · USDT = 1"
+            "value" : "Kursy: Binance · USDT po kursie rynkowym"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cotações: Binance · USDT = 1"
+            "value" : "Cotações: Binance · USDT ao preço de mercado"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cotações: Binance · USDT = 1"
+            "value" : "Cotações: Binance · USDT ao preço de mercado"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prețuri: Binance · USDT = 1"
+            "value" : "Prețuri: Binance · USDT la prețul pieței"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курсы: Binance · USDT = 1"
+            "value" : "Курсы: Binance · USDT по рыночному курсу"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çmimet: Binance · USDT = 1"
+            "value" : "Çmimet: Binance · USDT me çmimin e tregut"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser: Binance · USDT = 1"
+            "value" : "Kurser: Binance · USDT till marknadskurs"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ราคา: Binance · USDT = 1"
+            "value" : "ราคา: Binance · USDT ตามราคาตลาด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fiyatlar: Binance · USDT = 1"
+            "value" : "Fiyatlar: Binance · USDT piyasa fiyatından"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курси: Binance · USDT = 1"
+            "value" : "Курси: Binance · USDT за ринковим курсом"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giá: Binance · USDT = 1"
+            "value" : "Giá: Binance · USDT theo giá thị trường"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "价格：Binance · USDT = 1"
+            "value" : "价格：Binance · USDT 按市场价"
           }
         }
       }
@@ -193793,187 +193984,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الأسعار: %1$@، وإلا Binance · ‏USDT = 1"
+            "value" : "الأسعار: %1$@، وإلا Binance · ‏USDT بسعر السوق"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurzy: %1$@, jinak Binance · USDT = 1"
+            "value" : "Kurzy: %1$@, jinak Binance · USDT za tržní kurz"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser: %1$@, ellers Binance · USDT = 1"
+            "value" : "Kurser: %1$@, ellers Binance · USDT til markedskurs"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurse: %1$@, sonst Binance · USDT = 1"
+            "value" : "Kurse: %1$@, sonst Binance · USDT zum Marktkurs"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Τιμές: %1$@, αλλιώς Binance · USDT = 1"
+            "value" : "Τιμές: %1$@, αλλιώς Binance · USDT σε τιμή αγοράς"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prices: %1$@, otherwise Binance · USDT = 1"
+            "value" : "Prices: %1$@, otherwise Binance · USDT at market price"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Precios: %1$@; si no, Binance · USDT = 1"
+            "value" : "Precios: %1$@; si no, Binance · USDT a precio de mercado"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قیمت‌ها: %1$@، در غیر این صورت Binance · ‏USDT = 1"
+            "value" : "قیمت‌ها: %1$@، در غیر این صورت Binance · ‏USDT به قیمت بازار"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurssit: %1$@, muuten Binance · USDT = 1"
+            "value" : "Kurssit: %1$@, muuten Binance · USDT markkinakurssiin"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cours : %1$@, sinon Binance · USDT = 1"
+            "value" : "Cours : %1$@, sinon Binance · USDT au cours du marché"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מחירים: %1$@, אחרת Binance · ‏USDT = 1"
+            "value" : "מחירים: %1$@, אחרת Binance · ‏USDT לפי מחיר השוק"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "भाव: %1$@, अन्यथा Binance · USDT = 1"
+            "value" : "भाव: %1$@, अन्यथा Binance · USDT बाज़ार भाव पर"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Árfolyamok: %1$@, egyébként Binance · USDT = 1"
+            "value" : "Árfolyamok: %1$@, egyébként Binance · USDT piaci árfolyamon"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Harga: %1$@, selain itu Binance · USDT = 1"
+            "value" : "Harga: %1$@, selain itu Binance · USDT dengan harga pasar"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prezzi: %1$@, altrimenti Binance · USDT = 1"
+            "value" : "Prezzi: %1$@, altrimenti Binance · USDT a prezzo di mercato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "価格：%1$@、それ以外は Binance · USDT = 1"
+            "value" : "価格：%1$@、それ以外は Binance · USDT は市場価格"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "시세: %1$@, 그 외 Binance · USDT = 1"
+            "value" : "시세: %1$@, 그 외 Binance · USDT는 시장가"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser: %1$@, ellers Binance · USDT = 1"
+            "value" : "Kurser: %1$@, ellers Binance · USDT til markedskurs"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koersen: %1$@, anders Binance · USDT = 1"
+            "value" : "Koersen: %1$@, anders Binance · USDT tegen marktkoers"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursy: %1$@, poza tym Binance · USDT = 1"
+            "value" : "Kursy: %1$@, poza tym Binance · USDT po kursie rynkowym"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cotações: %1$@; caso contrário, Binance · USDT = 1"
+            "value" : "Cotações: %1$@; caso contrário, Binance · USDT ao preço de mercado"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cotações: %1$@; senão, Binance · USDT = 1"
+            "value" : "Cotações: %1$@; senão, Binance · USDT ao preço de mercado"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prețuri: %1$@, altfel Binance · USDT = 1"
+            "value" : "Prețuri: %1$@, altfel Binance · USDT la prețul pieței"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курсы: %1$@, иначе Binance · USDT = 1"
+            "value" : "Курсы: %1$@, иначе Binance · USDT по рыночному курсу"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çmimet: %1$@, përndryshe Binance · USDT = 1"
+            "value" : "Çmimet: %1$@, përndryshe Binance · USDT me çmimin e tregut"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurser: %1$@, annars Binance · USDT = 1"
+            "value" : "Kurser: %1$@, annars Binance · USDT till marknadskurs"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ราคา: %1$@ นอกนั้น Binance · USDT = 1"
+            "value" : "ราคา: %1$@ นอกนั้น Binance · USDT ตามราคาตลาด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fiyatlar: %1$@, diğerleri Binance · USDT = 1"
+            "value" : "Fiyatlar: %1$@, diğerleri Binance · USDT piyasa fiyatından"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Курси: %1$@, інакше Binance · USDT = 1"
+            "value" : "Курси: %1$@, інакше Binance · USDT за ринковим курсом"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giá: %1$@, còn lại Binance · USDT = 1"
+            "value" : "Giá: %1$@, còn lại Binance · USDT theo giá thị trường"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "价格：%1$@，其余 Binance · USDT = 1"
+            "value" : "价格：%1$@，其余 Binance · USDT 按市场价"
           }
         }
       }
@@ -210669,187 +210860,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT محوّل بسعر USD"
+            "value" : "USDT محوّل بسعره السوقي بالدولار"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT přepočteno kurzem USD"
+            "value" : "USDT přepočteno tržním kurzem v USD"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT omregnet til USD-kurs"
+            "value" : "USDT omregnet til sin USD-markedskurs"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT zum USD-Kurs umgerechnet"
+            "value" : "USDT zum USD-Marktkurs umgerechnet"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT με ισοτιμία USD"
+            "value" : "USDT με την τιμή αγοράς του σε USD"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT converted at the USD rate"
+            "value" : "USDT converted at its USD market price"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT convertido al cambio del USD"
+            "value" : "USDT convertido a su precio de mercado en USD"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT با نرخ USD تبدیل شده"
+            "value" : "USDT با قیمت بازار آن به USD تبدیل شده"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT muunnettu USD-kurssilla"
+            "value" : "USDT muunnettu sen USD-markkinakurssilla"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT converti au cours de l’USD"
+            "value" : "USDT converti à son cours de marché en USD"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT מומר לפי שער USD"
+            "value" : "USDT מומר לפי מחיר השוק שלו ב-USD"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT को USD दर से बदला गया"
+            "value" : "USDT को उसके USD बाज़ार भाव से बदला गया"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT átszámítva USD-árfolyamon"
+            "value" : "USDT átszámítva USD-piaci árfolyamán"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT dikonversi dengan kurs USD"
+            "value" : "USDT dikonversi dengan harga pasarnya dalam USD"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT convertito al cambio USD"
+            "value" : "USDT convertito al suo prezzo di mercato in USD"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT は USD レートで換算"
+            "value" : "USDT は USD 建て市場価格で換算"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT는 USD 환율로 환산"
+            "value" : "USDT는 USD 시장가로 환산"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT omregnet til USD-kurs"
+            "value" : "USDT omregnet til sin USD-markedskurs"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT omgerekend tegen de USD-koers"
+            "value" : "USDT omgerekend tegen de USD-marktkoers"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT przeliczone po kursie USD"
+            "value" : "USDT przeliczone po rynkowym kursie w USD"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT convertido à taxa do USD"
+            "value" : "USDT convertido ao seu preço de mercado em USD"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT convertido pela taxa do USD"
+            "value" : "USDT convertido pelo seu preço de mercado em USD"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT convertit la cursul USD"
+            "value" : "USDT convertit la prețul său de piață în USD"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT пересчитан по курсу USD"
+            "value" : "USDT пересчитан по рыночному курсу в USD"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT e konvertuar me kursin e USD"
+            "value" : "USDT e konvertuar me çmimin e saj të tregut në USD"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT omräknat till USD-kurs"
+            "value" : "USDT omräknat till sin USD-marknadskurs"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แปลง USDT ด้วยอัตรา USD"
+            "value" : "แปลง USDT ด้วยราคาตลาดเป็น USD"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT USD kuruyla çevrildi"
+            "value" : "USDT, USD piyasa fiyatıyla çevrildi"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT перераховано за курсом USD"
+            "value" : "USDT перераховано за ринковим курсом у USD"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT quy đổi theo tỷ giá USD"
+            "value" : "USDT quy đổi theo giá thị trường bằng USD"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT 按 USD 汇率换算"
+            "value" : "USDT 按其 USD 市场价换算"
           }
         }
       }
@@ -211041,197 +211232,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "假定 USDT = 1"
-          }
-        }
-      }
-    },
-    "portfolio_usdt_depeg_warning" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يُفترض USDT = 1 – السوق عند %1$@ USD (%2$@)"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Předpokládá se USDT = 1 – trh na %1$@ USD (%2$@)"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 antaget – markedet på %1$@ USD (%2$@)"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 angenommen – Markt bei %1$@ USD (%2$@)"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Υποτίθεται USDT = 1 – αγορά στα %1$@ USD (%2$@)"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 assumed – market at %1$@ USD (%2$@)"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se asume USDT = 1 – mercado a %1$@ USD (%2$@)"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "فرض شده USDT = 1 – بازار روی %1$@ USD (%2$@)"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oletettu USDT = 1 – markkina %1$@ USD (%2$@)"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 supposé – marché à %1$@ USD (%2$@)"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "מניחים USDT = 1 – השוק ב-%1$@ USD (%2$@)"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 माना गया – बाज़ार %1$@ USD पर (%2$@)"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 feltételezve – piac: %1$@ USD (%2$@)"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diasumsikan USDT = 1 – pasar di %1$@ USD (%2$@)"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 presunto – mercato a %1$@ USD (%2$@)"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 と仮定 – 市場は %1$@ USD（%2$@）"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1로 가정 – 시장 %1$@ USD(%2$@)"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 antatt – markedet på %1$@ USD (%2$@)"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 aangenomen – markt op %1$@ USD (%2$@)"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Przyjęto USDT = 1 – rynek po %1$@ USD (%2$@)"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Assumido USDT = 1 – mercado a %1$@ USD (%2$@)"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Assumido USDT = 1 – mercado a %1$@ USD (%2$@)"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Presupus USDT = 1 – piața la %1$@ USD (%2$@)"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Принято USDT = 1 – рынок по %1$@ USD (%2$@)"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supozohet USDT = 1 – tregu në %1$@ USD (%2$@)"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 antaget – marknaden på %1$@ USD (%2$@)"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "สมมติ USDT = 1 – ตลาดอยู่ที่ %1$@ USD (%2$@)"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USDT = 1 varsayıldı – piyasa %1$@ USD (%2$@)"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Прийнято USDT = 1 – ринок по %1$@ USD (%2$@)"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Giả định USDT = 1 – thị trường ở mức %1$@ USD (%2$@)"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "假定 USDT = 1——市场为 %1$@ USD（%2$@）"
           }
         }
       }
@@ -248955,187 +248955,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ينبّه مرة واحدة عندما ينحرف USDT عن 1 USD بمقدار الحد (Kraken USDT/USD وBinance USDC/USDT). تظل القيم في التطبيق محسوبة على أساس USDT = 1."
+            "value" : "ينبّه مرة واحدة عندما ينحرف USDT عن 1 USD بمقدار الحد (Kraken USDT/USD وBinance USDC/USDT)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upozorní jednou, když se USDT odchýlí od 1 USD o hranici (Kraken USDT/USD, Binance USDC/USDT). Hodnoty v aplikaci dál počítají s USDT = 1."
+            "value" : "Upozorní jednou, když se USDT odchýlí od 1 USD o hranici (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giver besked én gang, når USDT afviger fra 1 USD med grænsen (Kraken USDT/USD, Binance USDC/USDT). Værdier i appen regner fortsat med USDT = 1."
+            "value" : "Giver besked én gang, når USDT afviger fra 1 USD med grænsen (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meldet einmal, wenn USDT um die Schwelle von 1 USD abweicht (Kraken USDT/USD, Binance USDC/USDT). Werte in der App rechnen weiter mit USDT = 1."
+            "value" : "Meldet einmal, wenn USDT um die Schwelle von 1 USD abweicht (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ειδοποιεί μία φορά όταν το USDT αποκλίνει από το 1 USD κατά το όριο (Kraken USDT/USD, Binance USDC/USDT). Οι τιμές στην εφαρμογή συνεχίζουν να χρησιμοποιούν USDT = 1."
+            "value" : "Ειδοποιεί μία φορά όταν το USDT αποκλίνει από το 1 USD κατά το όριο (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notifies once when USDT drifts from 1 USD by the threshold (Kraken USDT/USD, Binance USDC/USDT). Values in the app keep using USDT = 1."
+            "value" : "Notifies once when USDT drifts from 1 USD by the threshold (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisa una vez cuando USDT se desvía de 1 USD en el umbral (Kraken USDT/USD, Binance USDC/USDT). Los valores de la app siguen usando USDT = 1."
+            "value" : "Avisa una vez cuando USDT se desvía de 1 USD en el umbral (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی USDT به اندازهٔ حد از 1 USD فاصله بگیرد، یک بار خبر می‌دهد (Kraken USDT/USD، Binance USDC/USDT). مقادیر در برنامه همچنان با USDT = 1 حساب می‌شوند."
+            "value" : "وقتی USDT به اندازهٔ حد از 1 USD فاصله بگیرد، یک بار خبر می‌دهد (Kraken USDT/USD، Binance USDC/USDT)."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ilmoittaa kerran, kun USDT poikkeaa 1 USD:sta rajan verran (Kraken USDT/USD, Binance USDC/USDT). Sovelluksen arvot käyttävät edelleen USDT = 1."
+            "value" : "Ilmoittaa kerran, kun USDT poikkeaa 1 USD:sta rajan verran (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vous avertit une fois lorsque l’USDT s’écarte de 1 USD du seuil défini (Kraken USDT/USD, Binance USDC/USDT). Les valeurs de l’app continuent d’utiliser USDT = 1."
+            "value" : "Vous avertit une fois lorsque l’USDT s’écarte de 1 USD du seuil défini (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Binance USDC/USDT). הערכים באפליקציה ממשיכים לחשב לפי USDT = 1."
+            "value" : "מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जब USDT सीमा जितना 1 USD से हटता है, तो एक बार सूचना देता है (Kraken USDT/USD, Binance USDC/USDT)। ऐप में मान अब भी USDT = 1 से गिने जाते हैं।"
+            "value" : "जब USDT सीमा जितना 1 USD से हटता है, तो एक बार सूचना देता है (Kraken USDT/USD, Binance USDC/USDT)।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egyszer jelez, ha az USDT a határral eltér 1 USD-tól (Kraken USDT/USD, Binance USDC/USDT). Az alkalmazás értékei továbbra is USDT = 1 alapon számolnak."
+            "value" : "Egyszer jelez, ha az USDT a határral eltér 1 USD-tól (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Memberi tahu sekali saat USDT menyimpang dari 1 USD sebesar batas (Kraken USDT/USD, Binance USDC/USDT). Nilai di aplikasi tetap memakai USDT = 1."
+            "value" : "Memberi tahu sekali saat USDT menyimpang dari 1 USD sebesar batas (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvisa una volta quando USDT si discosta da 1 USD della soglia (Kraken USDT/USD, Binance USDC/USDT). I valori nell’app continuano a usare USDT = 1."
+            "value" : "Avvisa una volta quando USDT si discosta da 1 USD della soglia (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT が 1 USD からしきい値以上ずれたときに一度通知します（Kraken USDT/USD、Binance USDC/USDT）。アプリ内の値は引き続き USDT = 1 で計算されます。"
+            "value" : "USDT が 1 USD からしきい値以上ずれたときに一度通知します（Kraken USDT/USD、Binance USDC/USDT）。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT가 1 USD에서 기준만큼 벗어나면 한 번 알립니다(Kraken USDT/USD, Binance USDC/USDT). 앱의 값은 계속 USDT = 1로 계산됩니다."
+            "value" : "USDT가 1 USD에서 기준만큼 벗어나면 한 번 알립니다(Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Varsler én gang når USDT avviker fra 1 USD med grensen (Kraken USDT/USD, Binance USDC/USDT). Verdier i appen regner fortsatt med USDT = 1."
+            "value" : "Varsler én gang når USDT avviker fra 1 USD med grensen (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meldt één keer wanneer USDT met de grens van 1 USD afwijkt (Kraken USDT/USD, Binance USDC/USDT). Waarden in de app blijven rekenen met USDT = 1."
+            "value" : "Meldt één keer wanneer USDT met de grens van 1 USD afwijkt (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Powiadamia raz, gdy USDT odchyli się od 1 USD o próg (Kraken USDT/USD, Binance USDC/USDT). Wartości w aplikacji nadal liczone są z USDT = 1."
+            "value" : "Powiadamia raz, gdy USDT odchyli się od 1 USD o próg (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisa uma vez quando o USDT se afasta de 1 USD pelo limite (Kraken USDT/USD, Binance USDC/USDT). Os valores na app continuam a usar USDT = 1."
+            "value" : "Avisa uma vez quando o USDT se afasta de 1 USD pelo limite (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisa uma vez quando o USDT se afasta de 1 USD pelo limite (Kraken USDT/USD, Binance USDC/USDT). Os valores no app continuam usando USDT = 1."
+            "value" : "Avisa uma vez quando o USDT se afasta de 1 USD pelo limite (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anunță o dată când USDT se abate de la 1 USD cu pragul (Kraken USDT/USD, Binance USDC/USDT). Valorile din aplicație folosesc în continuare USDT = 1."
+            "value" : "Anunță o dată când USDT se abate de la 1 USD cu pragul (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сообщает один раз, когда USDT отклоняется от 1 USD на порог (Kraken USDT/USD, Binance USDC/USDT). Значения в приложении по-прежнему считаются с USDT = 1."
+            "value" : "Сообщает один раз, когда USDT отклоняется от 1 USD на порог (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Njofton një herë kur USDT largohet nga 1 USD me kufirin (Kraken USDT/USD, Binance USDC/USDT). Vlerat në aplikacion vazhdojnë të përdorin USDT = 1."
+            "value" : "Njofton një herë kur USDT largohet nga 1 USD me kufirin (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meddelar en gång när USDT avviker från 1 USD med gränsen (Kraken USDT/USD, Binance USDC/USDT). Värden i appen räknar fortfarande med USDT = 1."
+            "value" : "Meddelar en gång när USDT avviker från 1 USD med gränsen (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แจ้งหนึ่งครั้งเมื่อ USDT เบี่ยงจาก 1 USD ตามเกณฑ์ (Kraken USDT/USD, Binance USDC/USDT) ค่าในแอปยังคงคำนวณด้วย USDT = 1"
+            "value" : "แจ้งหนึ่งครั้งเมื่อ USDT เบี่ยงจาก 1 USD ตามเกณฑ์ (Kraken USDT/USD, Binance USDC/USDT)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT 1 USD’den eşik kadar saptığında bir kez bildirir (Kraken USDT/USD, Binance USDC/USDT). Uygulamadaki değerler USDT = 1 ile hesaplanmaya devam eder."
+            "value" : "USDT 1 USD’den eşik kadar saptığında bir kez bildirir (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Повідомляє один раз, коли USDT відхиляється від 1 USD на поріг (Kraken USDT/USD, Binance USDC/USDT). Значення в застосунку й далі рахуються з USDT = 1."
+            "value" : "Повідомляє один раз, коли USDT відхиляється від 1 USD на поріг (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Báo một lần khi USDT lệch khỏi 1 USD theo ngưỡng (Kraken USDT/USD, Binance USDC/USDT). Các giá trị trong ứng dụng vẫn tính với USDT = 1."
+            "value" : "Báo một lần khi USDT lệch khỏi 1 USD theo ngưỡng (Kraken USDT/USD, Binance USDC/USDT)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当 USDT 偏离 1 USD 达到阈值时通知一次（Kraken USDT/USD、Binance USDC/USDT）。应用内的数值仍按 USDT = 1 计算。"
+            "value" : "当 USDT 偏离 1 USD 达到阈值时通知一次（Kraken USDT/USD、Binance USDC/USDT）。"
           }
         }
       }
@@ -293335,187 +293335,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يُفترض USDT = 1 USD (خطأ عند فك الربط)"
+            "value" : "USDT محوّل بسعر إغلاق USDT/USD اليومي؛ 1 USD عند عدم وجود إغلاق (مُشار إليه في كل سطر)"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Předpokládá se USDT = 1 USD (při depegu chybné)"
+            "value" : "USDT přepočteno denní uzavírací cenou USDT/USD; bez ní 1 USD (označeno u řádku)"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD antaget (forkert ved depeg)"
+            "value" : "USDT omregnet til dagslukkekursen for USDT/USD; uden lukkekurs 1 USD (markeret pr. række)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD angenommen (bei Depeg falsch)"
+            "value" : "USDT zum USDT/USD-Tagesschluss umgerechnet; ohne Schluss 1 USD (je Zeile vermerkt)"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Υποτίθεται USDT = 1 USD (λάθος σε depeg)"
+            "value" : "USDT με την ημερήσια τιμή κλεισίματος USDT/USD· χωρίς κλείσιμο 1 USD (σημειώνεται ανά γραμμή)"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD assumed (wrong if it depegs)"
+            "value" : "USDT converted at the USDT/USD daily close; 1 USD where no close (marked per row)"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se asume USDT = 1 USD (incorrecto si pierde la paridad)"
+            "value" : "USDT convertido al cierre diario USDT/USD; sin cierre, 1 USD (indicado por fila)"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فرض شده USDT = 1 USD (در صورت جدا شدن از دلار نادرست)"
+            "value" : "USDT با قیمت پایانی روزانهٔ USDT/USD تبدیل شده؛ بدون قیمت پایانی 1 USD (در هر ردیف ذکر شده)"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oletettu USDT = 1 USD (väärin jos kytkös pettää)"
+            "value" : "USDT muunnettu USDT/USD-päivän päätöskurssilla; ilman päätöskurssia 1 USD (merkitty riville)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD supposé (faux en cas de depeg)"
+            "value" : "USDT converti au cours de clôture quotidien USDT/USD ; sans clôture 1 USD (indiqué par ligne)"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מניחים USDT = 1 USD (שגוי אם הצמדה נשברת)"
+            "value" : "USDT מומר לפי שער הסגירה היומי של USDT/USD; בלי סגירה 1 USD (מסומן בכל שורה)"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD माना गया (डीपेग होने पर गलत)"
+            "value" : "USDT को USDT/USD के दैनिक बंद भाव से बदला गया; बंद भाव न होने पर 1 USD (हर पंक्ति में अंकित)"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD feltételezve (depeg esetén hibás)"
+            "value" : "USDT átszámítva az USDT/USD napi záróárfolyamán; záró nélkül 1 USD (soronként jelölve)"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diasumsikan USDT = 1 USD (salah jika depeg)"
+            "value" : "USDT dikonversi dengan harga penutupan harian USDT/USD; tanpa penutupan 1 USD (ditandai per baris)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD presunto (errato in caso di depeg)"
+            "value" : "USDT convertito alla chiusura giornaliera USDT/USD; senza chiusura 1 USD (indicato per riga)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD と仮定（ペッグが外れると誤り）"
+            "value" : "USDT は USDT/USD の日次終値で換算。終値がない日は 1 USD（行ごとに注記）"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD로 가정(디페그 시 틀림)"
+            "value" : "USDT는 USDT/USD 일별 종가로 환산, 종가가 없으면 1 USD(행마다 표시)"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD antatt (feil ved depeg)"
+            "value" : "USDT omregnet til dagens sluttkurs for USDT/USD; uten sluttkurs 1 USD (merket per rad)"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD aangenomen (fout bij een depeg)"
+            "value" : "USDT omgerekend tegen de dagslotkoers USDT/USD; zonder slotkoers 1 USD (per regel vermeld)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przyjęto USDT = 1 USD (błędne przy depegu)"
+            "value" : "USDT przeliczone po dziennym kursie zamknięcia USDT/USD; bez zamknięcia 1 USD (oznaczone w wierszu)"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Assumido USDT = 1 USD (errado em caso de depeg)"
+            "value" : "USDT convertido ao fecho diário USDT/USD; sem fecho, 1 USD (indicado por linha)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Assumido USDT = 1 USD (errado em caso de depeg)"
+            "value" : "USDT convertido pelo fechamento diário USDT/USD; sem fechamento, 1 USD (indicado por linha)"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Presupus USDT = 1 USD (greșit la depeg)"
+            "value" : "USDT convertit la închiderea zilnică USDT/USD; fără închidere 1 USD (marcat pe rând)"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Принято USDT = 1 USD (неверно при отвязке курса)"
+            "value" : "USDT пересчитан по дневному закрытию USDT/USD; без закрытия 1 USD (отмечено в строке)"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Supozohet USDT = 1 USD (gabim nëse humbet lidhjen)"
+            "value" : "USDT e konvertuar me mbylljen ditore USDT/USD; pa mbyllje 1 USD (shënuar për rresht)"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD antaget (fel vid depeg)"
+            "value" : "USDT omräknat till dagens stängningskurs för USDT/USD; utan stängning 1 USD (markerat per rad)"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สมมติ USDT = 1 USD (ผิดหากหลุดหมุด)"
+            "value" : "แปลง USDT ด้วยราคาปิดรายวัน USDT/USD; หากไม่มีราคาปิดใช้ 1 USD (ระบุในแต่ละแถว)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 USD varsayıldı (depeg olursa yanlış)"
+            "value" : "USDT, USDT/USD günlük kapanışıyla çevrildi; kapanış yoksa 1 USD (satırda belirtilir)"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Прийнято USDT = 1 USD (хибно при відв’язці курсу)"
+            "value" : "USDT перераховано за денним закриттям USDT/USD; без закриття 1 USD (позначено в рядку)"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giả định USDT = 1 USD (sai nếu mất neo)"
+            "value" : "USDT quy đổi theo giá đóng cửa ngày USDT/USD; không có giá đóng cửa thì 1 USD (ghi chú theo dòng)"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "假定 USDT = 1 USD（脱锚时不准确）"
+            "value" : "USDT 按 USDT/USD 日收盘价换算；无收盘价时按 1 USD（逐行注明）"
           }
         }
       }

@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Τρέχουσα τιμή</string>
     <string name="portfolio_price_missing">Λείπει τιμή</string>
     <string name="portfolio_price_missing_hint">Σε ορισμένες αγορές λείπει η τιμή. Προσθέστε την τιμή αγοράς για να δείτε κέρδος/ζημία.</string>
-    <string name="portfolio_price_source">Τιμές: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Τιμές: %1$s, αλλιώς Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Τιμές: Binance · USDT σε τιμή αγοράς</string>
+    <string name="portfolio_price_source_routes">Τιμές: %1$s, αλλιώς Binance · USDT σε τιμή αγοράς</string>
     <string name="portfolio_price_unavailable">Η τιμή δεν είναι διαθέσιμη τώρα</string>
     <string name="portfolio_price_unchecked">Τιμή μη ελεγμένη</string>
     <string name="portfolio_price_via_base">≈ τιμή %1$s (bridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT με ισοτιμία USD</string>
+    <string name="portfolio_usdt_as_usd">USDT με την τιμή αγοράς του σε USD</string>
     <string name="portfolio_usdt_assumed">Υποτίθεται USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Υποτίθεται USDT = 1 – αγορά στα %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Προσθήκη στο χαρτοφυλάκιο</string>

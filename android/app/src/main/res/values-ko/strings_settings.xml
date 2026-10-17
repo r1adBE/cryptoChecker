@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT 디페그 알림</string>
-    <string name="settings_depeg_alarm_hint">USDT가 1 USD에서 기준만큼 벗어나면 한 번 알립니다(Kraken USDT/USD, Binance USDC/USDT). 앱의 값은 계속 USDT = 1로 계산됩니다.</string>
+    <string name="settings_depeg_alarm_hint">USDT가 1 USD에서 기준만큼 벗어나면 한 번 알립니다(Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">디페그 기준</string>
     <string name="settings_fng_above">Fear &amp; Greed: 이상일 때 알림</string>
     <string name="settings_fng_below">Fear &amp; Greed: 이하일 때 알림</string>

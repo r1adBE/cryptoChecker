@@ -172,7 +172,14 @@ Riad Work (r1AD) — riad.work@outlook.com
 * **Einstellungs-Symbole einfarbig** — Symbole der Hauptseite in der Textfarbe (dunkel weiss, hell schwarz), Alarme
   mit Glocke, Markt-Meldungen mit Blitz; nur «App zurücksetzen» bleibt in der Fehlerfarbe. Die Themenfarbe bleibt
   für Titel-Striche, Schalter und Auswahl.
-* **Ehrliche Portfolio-Kurse** — nur USDT gilt als Bewertungsbasis immer 1; USDC, DAI … ohne Marktkurs haben keinen
+* **USDT zum Marktkurs** (Owner-Entscheid Okt. 2026) — USDT bleibt die interne Rechenwährung, in Fiat gilt sein
+  Marktkurs USDT/USD: live die Messung von `DepegAlarmChecker` (Kraken USDT/USD, Binance USDC/USDT; gemessen, sobald ein
+  Portfolio da ist, auch ohne Depeg-Alarm; `DepegReadingStore.liveUsdtUsd`, höchstens 6 Std. alt), für vergangene Tage
+  der Kraken-Tagesschluss USDTZUSD (`PortfolioHistorySource.usdtUsdDaily`, 12 h gemerkt). Gesamtkarte, Zeilen,
+  Wertverlauf, «7 T»/«1 J», Widget, Portfolio-Alarme, «≈ Umrechnung», Kurse eigener Börsen in USD/Fiat, Steuer- und
+  Stichtag-Export rechnen damit (`UsdtUsdRates`, `PortfolioStables.usdtTo`). Ohne Kurs gilt 1 als Näherung und ist
+  markiert («USDT = 1 angenommen», im CSV je Zeile). Auch in USD: Karte, Verlauf und Widget zeigen USD (USDT × USDT/USD), nicht mehr USDT 1:1.
+* **Ehrliche Portfolio-Kurse** — USDT ist die Bewertungsbasis (1 USDT = 1 USDT, in Fiat zum Marktkurs, siehe oben); USDC, DAI … ohne Marktkurs haben keinen
   Wert (Position «—» und «ohne Kurs», zählt unter «ohne N Coins», Gesamtgewinn unbekannt; `PortfolioStables.price`
   gibt `null`), im Wertverlauf landen solche Stablecoins ohne Kerzen unter «ohne …»; die ≈-Umrechnung der Merkliste
   zeigt für sie seit Build 45 ohne Marktkurs keinen Wert (nur USD/USDT = 1). Kerzenkurs für Coins, die Binance Spot nicht führt, nur nach Identitätsprüfung 1/3…3
@@ -411,12 +418,13 @@ Riad Work (r1AD) — riad.work@outlook.com
   in der Status-Pille nur, wenn alle sichtbaren gehandelten Paare live und frisch sind (Build 44), Schalter unter Einstellungen › Erweitert › Aktualisierung
   (`domain/live/LiveFeed.kt`, `data/live/LivePriceStream.kt`, siehe `DEVELOPMENT.md`).
 * **4 Tabs** — Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Erweitert › Portfolio einschaltbar) · Einstellungen; «Paar
+  Erweitert › Portfolio oder direkt auf der Einstellungs-Startseite einschaltbar) · Einstellungen; «Paar
   hinzufügen» öffnet sich über «+» in der Merkliste, kein eigener Such-Tab mehr.
 * **Kein Willkommensdialog** — eine Neuinstallation zeigt direkt die Startauswahl;
   «Was die App kann» steht unter Einstellungen › Über.
 * **Alarm-Editor als Satz** — «Wenn BTC über … geht» mit Kurs-Vorschlag,
-  «Einmal / Jedes Mal», übrige Bedingungen unter «Erweitert»; **Vorlagen** ±1 %,
+  «Einmal / Jedes Mal»; gleich sichtbar nur Kurs über/unter und Steigt/Fällt um, alle übrigen Bedingungen
+  unter «Mehr Bedingungen», Währung, Ton und Vorlesen unter «Erweitert»; **Vorlagen** ±1 %,
   ±5 %, neues 30-Tage-Hoch/-Tief, Volumen ×3 mit einem Tipp (mit «Rückgängig»;
   `domain/alarm/AlarmTemplates.kt`).
 * **Funding- und Open-Interest-Alarme** für Perpetuals (Börsen mit eigenen Futures-Daten, siehe oben):
@@ -472,7 +480,7 @@ Riad Work (r1AD) — riad.work@outlook.com
 * **Zahl am App-Symbol** (Einstellungen › Alarme, ab Werk an): jede Alarm- und
   Marktmeldung zählt 1; ob Zahl oder Punkt, entscheidet der Startbildschirm
   (Samsung «Mit Zahl», Pixel nur Punkt). Kurs- und Dienst-Mitteilung zählen nie.
-* **Portfolio** — eigener Tab (unter Einstellungen › Erweitert › Portfolio ein- und ausschaltbar; bei
+* **Portfolio** — eigener Tab (unter Einstellungen › Erweitert › Portfolio oder direkt auf der Einstellungs-Startseite, Gruppe «Mehr», ein- und ausschaltbar; bei
   Neuinstallation seit Build 44 aus, bestehende Installationen behalten ihn): Käufe und
   Verkäufe mit Datum und Preis, Durchschnittspreis, Gewinn/Verlust, Summe in
   USDT plus Umrechnung in eine wählbare Währung (31 Währungen; Standard

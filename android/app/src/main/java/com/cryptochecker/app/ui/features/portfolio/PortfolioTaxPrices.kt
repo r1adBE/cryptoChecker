@@ -42,6 +42,38 @@ internal suspend fun PortfolioExportViewModel.rates(currency: String, from: Loca
 }
 
 /**
+ * USDT/USD-Tagesschlüsse ab [from] für den Steuer-Export ([TaxExport.rateOn] `usdtUsd`, USDT zum Marktkurs): Tag →
+ * Schluss (Kraken, höchstens 720 Tage; Tage ohne Schluss rechnen mit 1 und sind je Zeile vermerkt). null für eine
+ * Währung ohne USDT-Umrechnung (USDT selbst).
+ */
+internal suspend fun PortfolioExportViewModel.usdtUsdCloses(currency: String, from: LocalDate): Map<Long, BigDecimal>? {
+    if (!CutoffExport.convertsUsdt(currency)) return null
+    val today = LocalDate.now(ZoneId.systemDefault())
+    val days = (java.time.temporal.ChronoUnit.DAYS.between(from, today) + 1 + PortfolioHistoryFx.LEAD_DAYS)
+        .coerceIn(1L, Int.MAX_VALUE.toLong()).toInt()
+    val closes = try {
+        historySource.usdtUsdDaily(days)
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.w(e, "Arbeitsunterlage: USDT/USD-Tagesschlüsse fehlen")
+        emptyMap()
+    }
+    return closes.mapNotNull { (day, close) -> PortfolioDecimal.of(close)?.let { day to it } }.toMap()
+}
+
+/**
+ * USDT/USD am Stichtag [date] für den Stichtag-Export: heute der Live-Kurs, sonst der Tagesschluss DES Tags (plausibel,
+ * [TaxExport.usdtUsdOn]); null = keiner (dann 1, in der Datei vermerkt) oder keine USDT-Umrechnung ([CutoffExport.convertsUsdt]).
+ */
+internal suspend fun PortfolioExportViewModel.cutoffUsdtUsd(currency: String, date: LocalDate): BigDecimal? {
+    if (!CutoffExport.convertsUsdt(currency)) return null
+    val today = LocalDate.now(ZoneId.systemDefault())
+    if (!date.isBefore(today)) return depegReadings.liveUsdtUsd()?.let { PortfolioDecimal.of(it) }
+    return com.cryptochecker.app.domain.portfolio.TaxExport.usdtUsdOn(usdtUsdCloses(currency, date), date)
+}
+
+/**
  * Tageskurse der Vorlage: FR [frPrices], Netzwerkgebühren als Veräusserung ([TaxTemplate.networkFeeIsDisposal]: UK,
  * US, CA, AU, JP) [networkFeePrices]; dazu für alle Vorlagen die Gebühr-Zeilen, Verschenkt/bezahlt ohne Marktwert und
  * Tausch ohne Wert zum Tageskurs ([feeDisposalPrices]).

@@ -132,4 +132,56 @@ class PortfolioHistoryFxTest {
         // Karte zeigt Beträge × heutiger Kurs: Gegenwert so, dass genau die Zahl der Kurve erscheint
         assertEquals(curve.pnlChange!!, PortfolioHistoryFx.forCard(header, 1.25).amountUsd * 1.25, d)
     }
+
+    /**
+     * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
+     * ohne Schluss rechnet mit 1 und markiert die Näherung ([PortfolioHistoryConverted.usdtApproximate]). Wie iOS.
+     */
+    @Test
+    fun usdtAtMarketScalesEachDayAndFlagsMissingClose() {
+        val usdt = UsdtUsdRates(
+            live = 0.98,
+            daily = mapOf(day("2026-10-02") to 0.97, day("2026-10-03") to 0.97, day("2026-10-04") to 0.97),
+        )
+        val r = PortfolioHistoryFx.convert(flatUsd, rates, currentRate = 0.82, todayEpochDay = today, usdt = usdt)
+        assertFalse(r.approximate)
+        assertTrue(r.usdtApproximate)
+        // 800 × 0.97 (Fr–So), 810 × 1 (Mo ohne Schluss: Näherung), heute 820 × 0.98
+        assertEquals(listOf(776.0, 776.0, 776.0, 810.0, 803.6), r.series.points.map { Math.round(it.value * 1e6) / 1e6 })
+    }
+
+    @Test
+    fun usdtAt097LowersUsdValueByThreePercentWithAllCloses() {
+        val usdt = UsdtUsdRates(0.97, (day("2026-10-02")..day("2026-10-05")).associateWith { 0.97 })
+        val usd = PortfolioHistoryFx.usdParity(day("2026-10-02"), today)
+        val r = PortfolioHistoryFx.convert(flatUsd, usd, currentRate = 1.0, todayEpochDay = today, usdt = usdt)
+        assertFalse(r.approximate)
+        assertFalse(r.usdtApproximate)
+        assertTrue(r.series.points.all { kotlin.math.abs(it.value - 970.0) < 1e-6 })
+        // In USD wird mit USDT zum Marktkurs umgerechnet, in USDT nie
+        assertTrue(PortfolioHistoryFx.convertsUsdt("USD", usdtMarket = true))
+        assertFalse(PortfolioHistoryFx.convertsUsdt("USD", usdtMarket = false))
+        assertFalse(PortfolioHistoryFx.convertsUsdt(" usdt ", usdtMarket = true))
+        assertTrue(PortfolioHistoryFx.convertsUsdt("CHF", usdtMarket = false))
+    }
+
+    @Test
+    fun offlineUsdtFallsBackToOneAndFlags() {
+        val r = PortfolioHistoryFx.convert(flatUsd, rates, currentRate = 0.82, todayEpochDay = today, usdt = UsdtUsdRates(live = null))
+        assertTrue(r.usdtApproximate)
+        // Werte bleiben (nie leer): wie mit USDT = 1
+        assertEquals(listOf(800.0, 800.0, 800.0, 810.0, 820.0), r.series.points.map { Math.round(it.value * 1e6) / 1e6 })
+        // Ohne USDT/USD-Kurse (bisherige Rechnung) keine Markierung
+        assertFalse(PortfolioHistoryFx.convert(flatUsd, rates, currentRate = 0.82, todayEpochDay = today).usdtApproximate)
+    }
+
+    /** «7 T» im Kopf rechnet mit denselben USDT/USD-Tageskursen wie die Kurve ([PortfolioHistoryFx.rateFunction] `usdt`). */
+    @Test
+    fun rateFunctionMultipliesUsdtUsdOfTheDay() {
+        val usdt = UsdtUsdRates(0.98, mapOf(day("2026-10-02") to 0.97))
+        val f = PortfolioHistoryFx.rateFunction(rates, 0.82, today, usdt)
+        assertEquals(0.80 * 0.97, f(day("2026-10-02")), d)
+        assertEquals(0.80, f(day("2026-10-03")), d)
+        assertEquals(0.82 * 0.98, f(today), d)
+    }
 }

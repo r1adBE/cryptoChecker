@@ -129,6 +129,8 @@ struct CutoffCsvTexts: Sendable {
     var fromAddress: String = ""
     /// Hinweis, wenn eine Adresse am Stichtag nicht beobachtet war (Guthaben fehlt).
     var addressUnobserved: String = ""
+    /// Zeile «USDT = 1 angenommen» (kein USDT/USD-Kurs am Stichtag, `CutoffExport.csv` `usdtApproximate`); leer = keine.
+    var usdtAssumed: String = ""
 
     /// Aus den App-Texten, Spaltentitel mit der Zielwährung.
     static func localized(currency: String) -> CutoffCsvTexts {
@@ -151,7 +153,8 @@ struct CutoffCsvTexts: Sendable {
             estvLanguage: Bundle.main.preferredLocalizations.first ?? "en",
             // Beobachtete Adressen (zählen im Portfolio) als eigene Zeilen
             fromAddress: L("portfolio_export_from_address"),
-            addressUnobserved: L("portfolio_export_address_unobserved")
+            addressUnobserved: L("portfolio_export_address_unobserved"),
+            usdtAssumed: L("portfolio_usdt_assumed")
         )
     }
 }
@@ -272,10 +275,18 @@ enum CutoffExport {
         return market
     }
 
+    /// Rechnet der Export in `currency` USDT in Fiat um (USDT zum Marktkurs: Devisenkurs × USDT/USD)? Für jede Währung
+    /// ausser USDT selbst — auch USD. Wie Android `convertsUsdt`.
+    static func convertsUsdt(_ currency: String) -> Bool {
+        currency.trimmingCharacters(in: .whitespaces).uppercased() != PortfolioStables.valuation
+    }
+
     /// Ganze CSV-Datei (mit BOM). `fxDate` = tatsächliches Kursdatum (nil → «—»).
     /// `header` = Kopfzeilen davor (Arbeitsunterlage: Vorlage, Methode, Steuerjahr, Hinweis), je ein Feld; leer = keine.
+    /// `usdtApproximate`: Kurs ohne USDT/USD am Stichtag (USDT = 1 als Näherung) — Zeile `texts.usdtAssumed` nach dem Kommentar.
     static func csv(day: CutoffDay, currency: String, fxDate: String?, rows: [CutoffRow], texts: CutoffCsvTexts,
-                    format: CutoffCsvFormat = .semicolonPoint, header: [String] = []) -> String {
+                    format: CutoffCsvFormat = .semicolonPoint, header: [String] = [],
+                    usdtApproximate: Bool = false) -> String {
         // Zahlen ohne Tausendertrennung: Dezimalpunkt ggf. durch Komma ersetzen
         func n(_ text: String) -> CsvCell {
             CsvCell(text: format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text, numeric: true)
@@ -287,6 +298,8 @@ enum CutoffExport {
         for h in header { out += line([h]) }
         let comment = String(format: texts.commentFormat, locale: posix, day.iso, currency, fxDate ?? "—")
         out += line([comment])
+        // USDT zum Marktkurs, aber am Stichtag ohne USDT/USD-Kurs: Näherung 1 nie still
+        if usdtApproximate && !texts.usdtAssumed.isEmpty { out += line([texts.usdtAssumed]) }
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         if let estv = EstvKursliste.noteLine(format: texts.estvNoteFormat, day: day, currency: currency,
                                              language: texts.estvLanguage) {
@@ -716,13 +729,26 @@ enum PortfolioCutoffExporter {
         if !holdings.isEmpty || !addressAt.balances.isEmpty || currency == "USD" {
             fx = await HistoricPriceSource.usdTo(currency, day: day)
         }
-        // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»)
-        let rate = PortfolioDecimal.of(fx?.rate)
+        // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»); USDT zum Marktkurs:
+        // × USDT/USD des Stichtags (heute live, sonst Tagesschluss) — ohne Kurs 1, in der Datei vermerkt
+        let usdt = await cutoffUsdtUsd(currency, day: day)
+        let rate = PortfolioDecimal.of(fx?.rate).map { r in usdt.map { r * $0 } ?? r }
         let rows = CutoffExport.rows(holdings, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
             + CutoffExport.addressRows(addressAt, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
         // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
+        let usdtApproximate = rate != nil && usdt == nil && CutoffExport.convertsUsdt(currency)
         return CutoffExport.csv(day: day, currency: currency, fxDate: fx?.date, rows: rows, texts: texts,
-                                format: .current, header: header)
+                                format: .current, header: header, usdtApproximate: usdtApproximate)
+    }
+
+    /// USDT/USD am Stichtag `day`: heute der Live-Kurs, sonst der Tagesschluss DES Tags (plausibel, `TaxExport.usdtUsdOn`);
+    /// nil = keiner (dann 1, in der Datei vermerkt) oder keine USDT-Umrechnung. Wie Android `cutoffUsdtUsd`.
+    private static func cutoffUsdtUsd(_ currency: String, day: CutoffDay) async -> Decimal? {
+        guard CutoffExport.convertsUsdt(currency) else { return nil }
+        let date = LocalDay(day.year, day.month, day.day)
+        if date >= LocalDay.today() { return DepegAlarmCheck.liveUsdtUsd().flatMap { PortfolioDecimal.of($0) } }
+        let closes = await PortfolioTaxExporter.usdtUsdCloses(currency, from: date)
+        return TaxExport.usdtUsdOn(closes, date: date)
     }
 }
 

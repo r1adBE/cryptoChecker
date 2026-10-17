@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — nu %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Beurs openen</string>
-    <string name="notification_depeg_text">Waarden in de app blijven rekenen met USDT = 1.</string>
+    <string name="notification_depeg_text">Waarden in de app rekenen met deze marktkoers.</string>
     <string name="notification_depeg_title">USDT op %1$s USD (%2$s)</string>
     <string name="notification_fng_above">De index is boven %1$d gestegen – volgens deze index geldt de markt als hebzuchtig.</string>
     <string name="notification_fng_below">De index is onder %1$d gezakt – volgens deze index geldt de markt als angstig.</string>

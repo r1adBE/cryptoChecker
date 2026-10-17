@@ -84,14 +84,13 @@
     <string name="portfolio_current_price">Preț curent</string>
     <string name="portfolio_price_missing">Lipsește prețul</string>
     <string name="portfolio_price_missing_hint">Unele cumpărări nu au preț. Adaugă prețul de cumpărare pentru a vedea câștigul/pierderea.</string>
-    <string name="portfolio_price_source">Prețuri: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Prețuri: %1$s, altfel Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Prețuri: Binance · USDT la prețul pieței</string>
+    <string name="portfolio_price_source_routes">Prețuri: %1$s, altfel Binance · USDT la prețul pieței</string>
     <string name="portfolio_price_unavailable">Preț indisponibil momentan</string>
     <string name="portfolio_price_unchecked">Preț neverificat</string>
     <string name="portfolio_price_via_base">≈ preț %1$s (bridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT convertit la cursul USD</string>
+    <string name="portfolio_usdt_as_usd">USDT convertit la prețul său de piață în USD</string>
     <string name="portfolio_usdt_assumed">Presupus USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Presupus USDT = 1 – piața la %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Adaugă în portofoliu</string>

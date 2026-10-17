@@ -82,10 +82,12 @@ extension AppData {
         Task.detached(priority: .utility) {
             await GasAlertCheck.runIfDue(settings: settings)
         }
-        // USDT-Depeg-Alarm: eigener Task, nur wenn eingeschaltet, höchstens alle 5 Minuten
-        if settings.depegAlarm {
+        // USDT/USD messen und Depeg-Alarm prüfen: eigener Task, nur mit Alarm oder Portfolio, höchstens alle 5 Minuten
+        let hasPortfolio = hasPortfolioData
+        if DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
+                                    hasPortfolioData: hasPortfolio) {
             Task.detached(priority: .utility) {
-                await DepegAlarmCheck.runIfDue(settings: settings)
+                await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio)
             }
         }
     }

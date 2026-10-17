@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — acum %2$s</string>
     <string name="notification_alarm_title">Alarmă: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Deschide bursa</string>
-    <string name="notification_depeg_text">Valorile din aplicație folosesc în continuare USDT = 1.</string>
+    <string name="notification_depeg_text">Valorile din aplicație folosesc acest preț de piață.</string>
     <string name="notification_depeg_title">USDT la %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indicele a urcat peste %1$d – după acest indice, pe piață domină lăcomia.</string>
     <string name="notification_fng_below">Indicele a scăzut sub %1$d – după acest indice, pe piață domină frica.</string>

@@ -35,6 +35,7 @@
     <string name="alarm_first_battery_hint">אופטימיזציית הסוללה מגבילה את האפליקציה – התראות עלולות להגיע באיחור.</string>
     <string name="alarm_first_title">הכול מוכן</string>
     <string name="alarm_last_triggered">לאחרונה ב־%1$s</string>
+    <string name="alarm_more_conditions">תנאים נוספים</string>
     <string name="alarm_new_extreme">%1$s חדש</string>
     <string name="alarm_once">פעם אחת</string>
     <string name="alarm_option_repeating">השאר את ההתראה לאחר שהופעלה</string>

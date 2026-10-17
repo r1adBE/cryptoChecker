@@ -157,6 +157,10 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     fun addPage(page: SettingsPage, title: String, vararg synonyms: String) =
         add("page." + page.name.lowercase(), title, homePath(page), SettingsSearchTarget.Page(page), *synonyms)
     addPage(SettingsPage.ADVANCED, advanced)
+    // Schalter «Portfolio» der Hauptseite (Gruppe «Mehr»): früh im Index, damit er bei «Portfolio» vor der
+    // Seite Erweitert › Portfolio steht (gleich viele Punkte → frühere Stelle zuerst)
+    add("main.portfolio", stringResource(R.string.portfolio_title), more, SettingsSearchTarget.Main("main.portfolio"),
+        stringResource(R.string.settings_portfolio_tab), stringResource(R.string.portfolio_setting_hint))
     add("main.language", stringResource(R.string.settings_section_language), homePath(SettingsPage.LANGUAGE),
         SettingsSearchTarget.Page(SettingsPage.LANGUAGE), stringResource(R.string.settings_language_choose),
         stringResource(R.string.language_search))

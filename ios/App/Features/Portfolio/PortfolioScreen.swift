@@ -239,7 +239,8 @@ struct PortfolioScreen: View {
                 summary: summary,
                 updatedAt: model.prices.updatedAt,
                 currency: currency,
-                fxRate: model.rate(for: currency),
+                // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
+                fxRate: model.displayRate(for: currency),
                 today: model.today,
                 todaySkipped: model.todaySkipped,
                 weekChange: model.weekChange,
@@ -253,7 +254,7 @@ struct PortfolioScreen: View {
                 onShortfall: { id in
                     if let tx = data.portfolio.first(where: { $0.id == id }) { sheet = PortfolioTxDraft(tx: tx) }
                 },
-                // «USDT = 1»-Zeile: Messung 30 Min gültig, mit der Uhr der Ansicht (`DepegAlarm.cardNote` in der Karte)
+                // «USDT = 1 angenommen»: Messung 6 Std. gültig, mit der Uhr der Ansicht (`DepegAlarm.cardNote` in der Karte)
                 depegReading: DepegAlarmCheck.lastReading,
                 depegThresholdTenths: data.settings.depegThresholdTenths,
                 now: now
@@ -308,7 +309,7 @@ struct PortfolioScreen: View {
                         unchecked: model.prices.unchecked.contains(position.coin),
                         unavailable: model.prices.unavailable.contains(position.coin),
                         // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
-                        unit: PortfolioCardUnit(currency: currency, fxRate: model.rate(for: currency)),
+                        unit: PortfolioCardUnit(currency: currency, fxRate: model.displayRate(for: currency)),
                         // Build 46: Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
                         exchange: model.prices.sources[position.coin],
                         viaBase: model.prices.viaBase[position.coin]

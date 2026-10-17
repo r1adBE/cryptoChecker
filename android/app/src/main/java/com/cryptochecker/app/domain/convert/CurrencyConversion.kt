@@ -25,7 +25,7 @@ object CurrencyConversion {
     /**
      * Die eine Stablecoin-Liste der App. «≈ Umrechnung» der Merkliste und Portfolio bewerten sie
      * mit Marktkurs ([stableToUsd] bzw. [com.cryptochecker.app.domain.portfolio.PortfolioStables]):
-     * USD/USDT 1, andere ihr Marktkurs in USDT. Ohne Kurs: kein ≈-Wert bzw. Portfolio kein Wert
+     * USD 1, USDT sein Marktkurs USDT/USD (ohne Kurs 1), andere ihr Marktkurs in USDT. Ohne Kurs: kein ≈-Wert bzw. Portfolio kein Wert
      * («ohne Kurs»).
      */
     val USD_STABLES: Set<String> = setOf(
@@ -52,14 +52,21 @@ object CurrencyConversion {
 
     /**
      * Stablecoin-Regel der «≈ Umrechnung» wie das Portfolio
-     * ([com.cryptochecker.app.domain.portfolio.PortfolioStables]): USD und USDT (Bewertungswährung)
-     * genau 1, jeder andere Stablecoin sein Marktkurs in USDT [marketUsdt]; ohne gültigen Kurs null
-     * (kein ≈-Wert statt eines stillen 1). Ohne Kürzel gilt USD.
+     * ([com.cryptochecker.app.domain.portfolio.PortfolioStables]): USD genau 1; USDT sein Marktkurs USDT/USD
+     * [usdtUsd] (ohne Kurs 1, [com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd]); jeder andere
+     * Stablecoin sein Marktkurs in USDT [marketUsdt] × USDT/USD; ohne gültigen Kurs null (kein ≈-Wert statt eines
+     * stillen 1). Ohne Kürzel gilt USD. [usdtUsd] null = USDT gilt 1 USD (bisherige Rechnung).
      */
-    fun stableToUsd(code: String?, marketUsdt: Double?): Double? {
-        if (!stableNeedsMarket(code)) return 1.0
-        return marketUsdt?.takeIf { it.isValidRate() }
+    fun stableToUsd(code: String?, marketUsdt: Double?, usdtUsd: Double? = null): Double? {
+        val c = normalize(code)
+        if (c.isEmpty() || c == "USD") return 1.0
+        if (c == "USDT") return usdtFactor(usdtUsd)
+        return marketUsdt?.takeIf { it.isValidRate() }?.let { it * usdtFactor(usdtUsd) }
     }
+
+    /** USDT in USD für die Umrechnung: [usdtUsd] (plausibel) oder 1; null = 1 (bisherige Rechnung). */
+    private fun usdtFactor(usdtUsd: Double?): Double =
+        if (usdtUsd == null) 1.0 else com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd(usdtUsd).rate
 
     /** Braucht die Quote [code] (Stablecoin) einen Marktkurs? Alle ausser USD und USDT (leer = USD). */
     fun stableNeedsMarket(code: String?): Boolean = normalize(code).let { it.isNotEmpty() && it != "USD" && it != "USDT" }
@@ -82,13 +89,20 @@ object CurrencyConversion {
      * @param usdToQuote Einheiten der Quote-Währung je USD (nur bei FIAT nötig)
      * @param cryptoUsdt Kurs der Quote-Währung in USDT (bei CRYPTO nötig; bei USD = Marktkurs des
      *   Stablecoins, ohne gültigen Kurs null — siehe [stableToUsd])
-     * @param code Kürzel der Quote-Währung (nur bei USD: USD/USDT sind immer genau 1)
+     * @param code Kürzel der Quote-Währung (nur bei USD: USD ist immer genau 1, USDT siehe [stableToUsd])
+     * @param usdtUsd Marktkurs USDT/USD für USDT, andere Stablecoins und Krypto (über USDT bewertet); null = 1
      * @return null, wenn der nötige Kurs fehlt oder ungültig ist
      */
-    fun quoteToUsd(kind: QuoteKind, usdToQuote: Double?, cryptoUsdt: Double?, code: String? = null): Double? = when (kind) {
-        QuoteKind.USD -> stableToUsd(code, cryptoUsdt)
+    fun quoteToUsd(
+        kind: QuoteKind,
+        usdToQuote: Double?,
+        cryptoUsdt: Double?,
+        code: String? = null,
+        usdtUsd: Double? = null,
+    ): Double? = when (kind) {
+        QuoteKind.USD -> stableToUsd(code, cryptoUsdt, usdtUsd)
         QuoteKind.FIAT -> usdToQuote?.takeIf { it.isValidRate() }?.let { 1.0 / it }
-        QuoteKind.CRYPTO -> cryptoUsdt?.takeIf { it.isValidRate() }
+        QuoteKind.CRYPTO -> cryptoUsdt?.takeIf { it.isValidRate() }?.let { it * usdtFactor(usdtUsd) }
         QuoteKind.INVALID -> null
     }
 

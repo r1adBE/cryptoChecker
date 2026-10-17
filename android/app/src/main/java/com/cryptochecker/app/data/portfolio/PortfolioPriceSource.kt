@@ -124,6 +124,8 @@ class PortfolioPriceSource @Inject constructor(
     private val portfolioDao: PortfolioDao,
     private val fxSource: FxRateSource,
     private val tokenIdentityStore: TokenIdentityStore,
+    /** Live-Kurs USDT/USD: USD- und Fiat-Paare eigener Börsen in USDT ([PortfolioExchangeRoute.toUsdt]). */
+    private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     /** Coin → Börse, deren Kurs gerade im Zwischenspeicher steht (sonst Binance). */
     private val sourceOf = ConcurrentHashMap<String, String>()
@@ -460,7 +462,8 @@ class PortfolioPriceSource @Inject constructor(
         if (result.error != null) return null
         val quote = pick.quote.uppercase()
         val rate = if (quote == "USDT" || quote == "USD") null else fxSource.usdTo(quote)
-        return PortfolioExchangeRoute.toUsdt(result.ticker.last, quote) { rate }
+        // USDT zum Marktkurs: USD-/Fiat-Kurs durch USDT/USD (ohne frische Messung 1, Karte markiert die Näherung)
+        return PortfolioExchangeRoute.toUsdt(result.ticker.last, quote, depegReadings.liveUsdtUsd() ?: 1.0) { rate }
     }
 
     /** Sammelabfrage; Binance lehnt die ganze Anfrage ab, wenn ein Symbol unbekannt ist. */
@@ -577,7 +580,7 @@ class PortfolioPriceSource @Inject constructor(
         val last = result.ticker.last
         val quote = pick.quote.uppercase()
         val rate = if (quote == "USDT" || quote == "USD") null else fxSource.usdTo(quote)
-        return PortfolioExchangeRoute.toUsdt(last, quote) { rate }
+        return PortfolioExchangeRoute.toUsdt(last, quote, depegReadings.liveUsdtUsd() ?: 1.0) { rate }
     }
 
     private suspend fun spotPairs(market: MarketInfo) =

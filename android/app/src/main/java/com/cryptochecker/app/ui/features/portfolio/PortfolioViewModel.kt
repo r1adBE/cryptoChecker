@@ -88,8 +88,10 @@ class PortfolioViewModel @Inject constructor(
     internal val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
     /** Guthaben der beobachteten Adressen (10 min Zwischenspeicher, manuell 60 s). */
     internal val addressRefresher: com.cryptochecker.app.data.portfolio.WatchedAddressRefresher,
-    /** Letzte Messung des USDT-Depeg-Alarms: Warnzeile auf der Gesamtkarte. */
+    /** Letzte Messung USDT/USD: Live-Kurs der Bewertung (USDT zum Marktkurs) und Zeile zu «USDT = 1» der Gesamtkarte. */
     depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
+    /** USDT/USD messen, sobald ein Portfolio da ist (höchstens alle 5 Minuten, wie nach einer Kursaktualisierung). */
+    internal val depegChecker: com.cryptochecker.app.domain.alarm.DepegAlarmChecker,
 ) : ViewModel() {
 
     /** null, bis die Datenbank geantwortet hat. Neueste zuerst. */
@@ -147,8 +149,16 @@ class PortfolioViewModel @Inject constructor(
             PortfolioPriceFallback.staleAfterMillis(settingsRepository.cached.backgroundIntervalMinutes),
         )
 
-    /** Letzte Depeg-Messung ([com.cryptochecker.app.domain.alarm.DepegAlarm.cardNote] mit Schwelle und Uhr). */
+    /** Letzte Messung USDT/USD ([com.cryptochecker.app.domain.alarm.DepegAlarm.cardNote] mit Uhr). */
     val depegReading: StateFlow<com.cryptochecker.app.domain.alarm.DepegAlarm.Reading?> = depegReadings.reading
+
+    /**
+     * Live-Kurs USDT/USD der Bewertung ([com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd]): die letzte Messung,
+     * höchstens 6 Std. alt ([com.cryptochecker.app.domain.alarm.DepegAlarm.LIVE_MAX_AGE_MILLIS]) — jede Minute neu geprüft; null = keiner (USDT = 1 als Näherung, Karte markiert sie).
+     */
+    val liveUsdtUsd: StateFlow<Double?> = combine(depegReadings.reading, minuteTicks()) { reading, now ->
+        com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd(reading, now)
+    }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.Eagerly, depegReadings.liveUsdtUsd())
 
     /** Schwelle des Depeg-Alarms in Zehntel-Prozent (gilt auch für die Warnzeile der Karte). */
     val depegThresholdTenths: StateFlow<Int> = settingsRepository.settings
@@ -167,6 +177,14 @@ class PortfolioViewModel @Inject constructor(
     /** USD → [currency]; null = unbekannt (Umrechnungszeile ausblenden). */
     internal val _fxRate = MutableStateFlow<Double?>(null)
     val fxRate: StateFlow<Double?> = _fxRate.asStateFlow()
+
+    /**
+     * Faktor USDT → [currency] für Gesamtkarte und Zeilen: Devisenkurs USD → Währung × USDT/USD
+     * ([PortfolioStables.usdtTo], USDT zum Marktkurs; ohne Messung × 1). null = kein Devisenkurs.
+     */
+    val displayFxRate: StateFlow<Double?> = combine(_fxRate, liveUsdtUsd) { fx, live ->
+        com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd(live))
+    }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**
      * Veränderung «heute» in Prozent wie im Portfolio-Widget (aus der letzten
@@ -300,8 +318,10 @@ class PortfolioViewModel @Inject constructor(
      */
     private fun periodChange(days: Int, display: Boolean): StateFlow<TodayChange?> = combine(
         summary, _closes, calcTransactions, _prices,
-        combine(addressHistories, currency, _fxRate, _fxSeries) { a, code, fx, series -> PeriodFx(a, code, fx, series) },
-    ) { current, loaded, txs, p, (addresses, code, fxRate, fxSeries) ->
+        combine(addressHistories, currency, _fxRate, _fxSeries, liveUsdtUsd) { a, code, fx, series, live ->
+            PeriodFx(a, code, fx, series, live)
+        },
+    ) { current, loaded, txs, p, (addresses, code, fxRate, fxSeries, live) ->
         if (current == null || loaded == null || txs == null) return@combine null
         val holdings = current.open.associate { it.coin to it.holdings }
         if (holdings.isEmpty()) return@combine null
@@ -313,15 +333,23 @@ class PortfolioViewModel @Inject constructor(
         val today = LocalDate.now(ZoneId.systemDefault()).toEpochDay()
         // Tageskerzen der eingetragenen Börse, sonst Binance skaliert (PortfolioExchangeRoute.historyCloses)
         // Tageskurse, die bis zum Stichtag zurückreichen: umrechnen wie der Wertverlauf
-        val rate = fxRate?.takeIf { display && PortfolioHistoryFx.convertsUsdtAsUsd(code) && it > 0.0 && it.isFinite() }
-        val rates = fxSeries?.takeIf { it.currency == code && !it.from.isAfter(LocalDate.ofEpochDay(today - days)) }?.rates
-        val fx = if (rate != null && !rates.isNullOrEmpty()) PortfolioHistoryFx.rateFunction(rates, rate, today) else null
+        // Auch USD: USDT zum Marktkurs ([PortfolioHistoryFx.convertsUsdt]); Devisenkurs dort an jedem Tag 1
+        val rate = fxRate?.takeIf { display && PortfolioHistoryFx.convertsUsdt(code, usdtMarket = true) && it > 0.0 && it.isFinite() }
+        val rates = if (PortfolioHistoryFx.convertsUsdtAsUsd(code)) {
+            fxSeries?.takeIf { it.currency == code && !it.from.isAfter(LocalDate.ofEpochDay(today - days)) }?.rates
+        } else {
+            PortfolioHistoryFx.usdParity(today - days - PortfolioHistoryFx.LEAD_DAYS, today)
+        }
+        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss, ab heute × Live-Kurs (wie der Wertverlauf)
+        val usdt = com.cryptochecker.app.domain.portfolio.UsdtUsdRates(live, loaded.daily.usdtUsd)
+        val fx = if (rate != null && !rates.isNullOrEmpty()) PortfolioHistoryFx.rateFunction(rates, rate, today, usdt) else null
         // Bestände nach derselben Einstandsmethode wie die Karte (FIFO je Wallet: je Wallet gekappt)
         val change = PortfolioPeriodChange.gain(
             txs.map { it.toTrade() }, prices, loaded.routed(p).closes, today - days, addresses = addresses, method = current.method,
             fx = fx,
         )
-        if (change != null && fx != null && rate != null) PortfolioHistoryFx.forCard(change, rate) else change
+        // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, [displayFxRate])
+        if (change != null && fx != null && rate != null) PortfolioHistoryFx.forCard(change, rate * usdt.current().rate) else change
     }
         .flowOn(Dispatchers.Default)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -353,13 +381,15 @@ class PortfolioViewModel @Inject constructor(
         _closes,
         _prices,
         historyRange,
-        combine(currency, _fxRate, _fxSeries) { code, fx, series -> Triple(code, fx, series) },
-    ) { (txs, addresses, method), loaded, p, range, (code, fx, fxSeries) ->
+        combine(currency, _fxRate, _fxSeries, liveUsdtUsd) { code, fx, series, live -> HistoryFx(code, fx, series, live) },
+    ) { (txs, addresses, method), loaded, p, range, (code, fx, fxSeries, live) ->
         if (txs == null || loaded == null) return@combine null
         if (!loaded.covers(historyRequest(txs, range))) return@combine null
-        val converted = code != "USD" && fx != null
+        // Auch USD: USDT zum Marktkurs (je Tag × USDT/USD-Tagesschluss), Devisenkurs dort an jedem Tag 1
+        val converted = PortfolioHistoryFx.convertsUsdt(code, usdtMarket = true) && fx != null
+        val viaFx = PortfolioHistoryFx.convertsUsdtAsUsd(code)
         // Devisen-Tageskurse dieses Zeitraums noch nicht da: Platzhalter statt still falscher Kurve
-        if (converted && (fxSeries == null || fxSeries.currency != code || fxSeries.from.isAfter(fxSeriesFrom(txs, range)))) {
+        if (converted && viaFx && (fxSeries == null || fxSeries.currency != code || fxSeries.from.isAfter(fxSeriesFrom(txs, range)))) {
             return@combine null
         }
         val zone = ZoneId.systemDefault()
@@ -383,9 +413,14 @@ class PortfolioViewModel @Inject constructor(
             PortfolioExchangeRoute.scaledHint(routed.scaled, loaded.daily.binanceBefore, first.epochDay, drawn)
         }.orEmpty()
         if (!converted) return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false, scaled = scaled)
-        val result = PortfolioHistoryFx.convert(series, fxSeries?.rates, fx, today)
+        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss (Tag ohne Schluss: 1, als Näherung markiert)
+        val usdt = com.cryptochecker.app.domain.portfolio.UsdtUsdRates(live, loaded.daily.usdtUsd)
+        val dailyRates = if (viaFx) fxSeries?.rates else PortfolioHistoryFx.usdParity(fxSeriesFrom(txs, range).toEpochDay(), today)
+        val result = PortfolioHistoryFx.convert(series, dailyRates, fx, today, usdt)
         // Vergleich mit USDT nur mit Tageskursen — mit dem heutigen Kurs wäre er bedeutungslos
-        if (result.approximate) return@combine PortfolioHistoryUi(range, result.series, code, true, true, scaled = scaled)
+        if (result.approximate) {
+            return@combine PortfolioHistoryUi(range, result.series, code, true, true, scaled = scaled, usdtApproximate = result.usdtApproximate)
+        }
         PortfolioHistoryUi(
             range = range,
             series = result.series,
@@ -395,6 +430,7 @@ class PortfolioViewModel @Inject constructor(
             usdtSeries = series,
             compare = PortfolioCompare.build(result.series.points, series.points),
             scaled = scaled,
+            usdtApproximate = result.usdtApproximate,
         )
     }
         .flowOn(Dispatchers.Default)
@@ -470,8 +506,9 @@ class PortfolioViewModel @Inject constructor(
                     }
                     safe { snapshotUpdater.record(input.transactions, input.prices.prices, input.currency, input.fxRate, routing = input.prices) }
                         ?.let { snapshot ->
-                            // Betrag in der Anzeigewährung der Aufnahme → USDT (wie der Gesamtwert)
-                            val rate = if (snapshot.currency == "USD") 1.0 else input.fxRate?.takeIf { it > 0.0 }
+                            // Betrag in der Anzeigewährung der Aufnahme → USDT (wie der Gesamtwert): Faktor der Aufnahme
+                            // (Devisenkurs × USDT/USD, [snapshotUsdtFactor])
+                            val rate = snapshotUsdtFactor(snapshot, input.fxRate)
                             val amount = snapshot.changeAmount
                                 ?.takeUnless { snapshot.empty }
                                 ?.let { value -> rate?.let { value / it } }

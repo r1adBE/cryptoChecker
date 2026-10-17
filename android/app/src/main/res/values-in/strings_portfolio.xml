@@ -78,14 +78,13 @@
     <string name="portfolio_current_price">Harga saat ini</string>
     <string name="portfolio_price_missing">Harga belum ada</string>
     <string name="portfolio_price_missing_hint">Beberapa pembelian tidak memiliki harga. Tambahkan harga beli untuk melihat untung/rugi.</string>
-    <string name="portfolio_price_source">Harga: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Harga: %1$s, selain itu Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Harga: Binance · USDT dengan harga pasar</string>
+    <string name="portfolio_price_source_routes">Harga: %1$s, selain itu Binance · USDT dengan harga pasar</string>
     <string name="portfolio_price_unavailable">Harga tidak tersedia saat ini</string>
     <string name="portfolio_price_unchecked">Harga belum diperiksa</string>
     <string name="portfolio_price_via_base">≈ harga %1$s (bridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT dikonversi dengan kurs USD</string>
+    <string name="portfolio_usdt_as_usd">USDT dikonversi dengan harga pasarnya dalam USD</string>
     <string name="portfolio_usdt_assumed">Diasumsikan USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Diasumsikan USDT = 1 – pasar di %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Tambahkan ke portofolio</string>

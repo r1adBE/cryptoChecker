@@ -87,14 +87,13 @@
     <string name="portfolio_current_price">Aktuální kurz</string>
     <string name="portfolio_price_missing">Chybí cena</string>
     <string name="portfolio_price_missing_hint">U některých nákupů chybí cena. Doplňte nákupní cenu, abyste viděli zisk/ztrátu.</string>
-    <string name="portfolio_price_source">Kurzy: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Kurzy: %1$s, jinak Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Kurzy: Binance · USDT za tržní kurz</string>
+    <string name="portfolio_price_source_routes">Kurzy: %1$s, jinak Binance · USDT za tržní kurz</string>
     <string name="portfolio_price_unavailable">Kurz teď není k dispozici</string>
     <string name="portfolio_price_unchecked">Cena neověřena</string>
     <string name="portfolio_price_via_base">≈ kurz %1$s (přemostěný/zabalený)</string>
-    <string name="portfolio_usdt_as_usd">USDT přepočteno kurzem USD</string>
+    <string name="portfolio_usdt_as_usd">USDT přepočteno tržním kurzem v USD</string>
     <string name="portfolio_usdt_assumed">Předpokládá se USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Předpokládá se USDT = 1 – trh na %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Přidat do portfolia</string>

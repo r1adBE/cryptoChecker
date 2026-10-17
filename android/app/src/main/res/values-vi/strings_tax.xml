@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Ghi chú</string>
     <string name="portfolio_export_col_price">Giá USDT</string>
-    <string name="portfolio_export_col_rate">Tỷ giá USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Tỷ giá USDT→%1$s</string>
     <string name="portfolio_export_col_value">Giá trị USDT</string>
     <string name="portfolio_export_col_value_cur">Giá trị %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Múi giờ: %1$s</string>
     <string name="tax_export_transfer_fee_info">Phí chuyển bằng USDT/tiền mặt – không phải lỗ, không vào giá vốn, chỉ để tham khảo</string>
     <string name="tax_export_unassigned_fee">phí chưa phân bổ – không rõ giá vốn</string>
-    <string name="tax_export_usdt_usd_note">Giả định USDT = 1 USD (sai nếu mất neo)</string>
+    <string name="tax_export_usdt_usd_note">USDT quy đổi theo giá đóng cửa ngày USDT/USD; không có giá đóng cửa thì 1 USD (ghi chú theo dòng)</string>
     <string name="tax_export_value_estimated">Giá trị ước tính (giá đóng cửa ngày)</string>
     <string name="tax_export_value_missing">thiếu giá trị lúc nhận</string>
     <string name="tax_export_wallet">Ví: %1$s</string>

@@ -7,7 +7,8 @@ import UserNotifications
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
 /// Gruppen (Build 55, Review 14): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
-/// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
+/// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, Portfolio als Schalter,
+/// «Erweitert», Über die App)
 /// · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
 /// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. «Erweitert»
 /// (`AdvancedSettingsPage`) trägt Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, %-Änderung,
@@ -216,6 +217,11 @@ struct SettingsScreen: View {
                 BackupSettingsPage()
             }
             .accessibilityIdentifier(UiTestTags.settingsBackup)
+            RowDivider()
+            // Portfolio direkt einschalten — derselbe Schalter wie Erweitert › Portfolio
+            SettingsMainSwitchRow(title: L("portfolio_title"), icon: .asset("PortfolioIcon"),
+                                  subtitle: L("portfolio_setting_hint"), isOn: $data.settings.portfolioEnabled)
+                .settingsAnchor("main.portfolio")
             RowDivider()
             SettingsNavRow(title: L("settings_row_advanced"), icon: .system("slider.horizontal.3"), value: nil) {
                 AdvancedSettingsPage()

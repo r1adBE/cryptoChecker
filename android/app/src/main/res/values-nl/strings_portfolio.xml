@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Huidige koers</string>
     <string name="portfolio_price_missing">Prijs ontbreekt</string>
     <string name="portfolio_price_missing_hint">Bij sommige aankopen ontbreekt de prijs. Vul de aankoopprijs in om winst/verlies te zien.</string>
-    <string name="portfolio_price_source">Koersen: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Koersen: %1$s, anders Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Koersen: Binance · USDT tegen marktkoers</string>
+    <string name="portfolio_price_source_routes">Koersen: %1$s, anders Binance · USDT tegen marktkoers</string>
     <string name="portfolio_price_unavailable">Koers nu niet beschikbaar</string>
     <string name="portfolio_price_unchecked">Koers niet gecontroleerd</string>
     <string name="portfolio_price_via_base">≈ %1$s-koers (gebridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT omgerekend tegen de USD-koers</string>
+    <string name="portfolio_usdt_as_usd">USDT omgerekend tegen de USD-marktkoers</string>
     <string name="portfolio_usdt_assumed">USDT = 1 aangenomen</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 aangenomen – markt op %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Aan portfolio toevoegen</string>

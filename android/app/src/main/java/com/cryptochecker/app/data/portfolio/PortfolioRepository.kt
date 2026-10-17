@@ -44,6 +44,9 @@ class PortfolioRepository @Inject constructor(
 
     suspend fun getTransactions(): List<PortfolioTxEntity> = portfolioDao.getAll()
 
+    /** Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? */
+    suspend fun hasData(): Boolean = portfolioDao.getCoins().isNotEmpty() || watchedAddressDao.getAll().isNotEmpty()
+
     /** Neu anlegen (id 0) oder ändern. Coin wird vereinheitlicht (Grossbuchstaben). */
     suspend fun save(tx: PortfolioTxEntity): Long {
         // Gebühr nur gültig (> 0) und dann immer mit Einheit; ohne Gebühr keine Einheit

@@ -14,6 +14,7 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.marketdata.model.MarketPair
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
@@ -26,10 +27,12 @@ import javax.inject.Singleton
 import kotlin.math.abs
 
 /**
- * Prüft nach einer Kursaktualisierung (Vordergrund und Hintergrund) den USDT-Depeg-Alarm
- * ([DepegAlarm]): nur wenn eingeschaltet, höchstens alle [MIN_INTERVAL_MILLIS], mit den bestehenden
- * Ticker-Abrufen von Kraken (USDT/USD) und Binance (USDC/USDT). Pausierte Börsen (Backoff, gemeinsame
- * Binance-Pause) werden nicht abgefragt. Wie `DepegAlarmCheck` (iOS).
+ * Misst nach einer Kursaktualisierung (Vordergrund und Hintergrund) USDT in USD und prüft den USDT-Depeg-Alarm
+ * ([DepegAlarm]): gemessen wird mit eingeschaltetem Alarm ODER sobald ein Portfolio da ist
+ * ([DepegAlarm.shouldMeasure] — die Messung ist der Live-Kurs USDT/USD der Bewertung), höchstens alle
+ * [MIN_INTERVAL_MILLIS], mit den bestehenden Ticker-Abrufen von Kraken (USDT/USD) und Binance (USDC/USDT). Gemeldet
+ * wird nur mit eingeschaltetem Alarm. Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht abgefragt.
+ * Wie `DepegAlarmCheck` (iOS).
  */
 @Singleton
 class DepegAlarmChecker @Inject constructor(
@@ -39,15 +42,19 @@ class DepegAlarmChecker @Inject constructor(
     private val refreshStats: RefreshStats,
     private val settingsRepository: SettingsRepository,
     private val notifier: AppNotifier,
-    /** Letzte Messung für die Warnzeile der Portfolio-Karte. */
+    /** Letzte Messung: Live-Kurs USDT/USD der Bewertung ([DepegAlarm.liveUsdtUsd]). */
     private val readingStore: DepegReadingStore,
+    /** Portfolio vorhanden? Dann wird auch ohne Alarm gemessen. */
+    private val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
 ) {
     private val mutex = Mutex()
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
     suspend fun checkIfDue() = mutex.withLock {
         val settings = settingsRepository.current()
-        if (!settings.depegAlarm) return@withLock
+        // Datenbank nur fragen, wenn das Portfolio eingeschaltet ist und der Alarm allein nicht genügt
+        val hasPortfolio = !settings.depegAlarm && settings.portfolioEnabled && hasPortfolioData()
+        if (!DepegAlarm.shouldMeasure(settings.depegAlarm, settings.portfolioEnabled, hasPortfolio)) return@withLock
         val now = System.currentTimeMillis()
         if (now - prefs.getLong(KEY_LAST_CHECK, 0) < MIN_INTERVAL_MILLIS) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
@@ -58,8 +65,10 @@ class DepegAlarmChecker @Inject constructor(
             prefs.edit { putLong(KEY_LAST_CHECK, now - MIN_INTERVAL_MILLIS + RETRY_AFTER_FAILURE_MILLIS) }
             return@withLock
         }
-        // Messung merken: Portfolio-Karte zeigt dieselbe Abweichung (DepegAlarm.cardWarning)
+        // Messung merken: Live-Kurs USDT/USD der Bewertung (DepegAlarm.liveUsdtUsd)
         readingStore.save(price, now)
+        // Alarm aus: nur gemessen (Portfolio), nichts melden
+        if (!settings.depegAlarm) return@withLock
         val deviation = DepegAlarm.deviationPercent(price)
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Meldung scharf bleiben
         val hold = QuietHours.holdsAlarms(settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay())
@@ -68,6 +77,16 @@ class DepegAlarmChecker @Inject constructor(
         val decision = DepegAlarm.evaluate(deviation, DepegAlarm.thresholdPercent(settings.depegThresholdTenths), armedBefore, mayFire)
         val posted = decision.fire && notify(price, deviation)
         prefs.edit { putBoolean(KEY_ARMED, DepegAlarm.armedAfter(decision.fire, posted, armedBefore, decision.armed)) }
+    }
+
+    /** Transaktionen oder beobachtete Adressen vorhanden? Fehler still (false). */
+    private suspend fun hasPortfolioData(): Boolean = try {
+        portfolioRepository.hasData()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.d(e, "Depeg: Portfolio nicht lesbar")
+        false
     }
 
     private suspend fun notify(price: Double, deviation: Double): Boolean {

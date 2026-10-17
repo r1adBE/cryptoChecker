@@ -56,24 +56,27 @@ final class PriceColorSchemeTests: XCTestCase {
     }
 
     func testValuesAsSpecified() {
-        XCTAssertEqual(PriceColorScheme.GREEN_RED.upHex(dark: false), 0x0A6D3E)
-        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.downHex(dark: false), 0xB63900)
-        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.upHex(dark: false), 0x005ED6)
-        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.upHex(dark: true), 0x52A0FF)
-        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.downHex(dark: true), 0xFF7500)
-        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.downHex(dark: false, highContrast: true), 0x852800)
+        // Feste Börsenfarben (Entscheid 18. Oktober 2026): hell, dunkel, je normal und hoher Kontrast
+        assertTones(.GREEN_RED, up: true, [0x005A30, 0x18EA96, 0x00421E, 0x81FFBA])
+        assertTones(.GREEN_RED, up: false, [0xCC0015, 0xFF6F69, 0x960000, 0xFFB1AB])
+        assertTones(.TRADITIONAL, up: true, [0x033C00, 0x87FF7E, 0x002100, 0xE4FFE4])
+        assertTones(.TRADITIONAL, up: false, [0x990000, 0xFF9C99, 0x630000, 0xF9D2CD])
+        assertTones(.BLUE_ORANGE, up: true, [0x003372, 0x96D8FF, 0x002A5A, 0xC9E7FF])
+        assertTones(.BLUE_ORANGE, up: false, [0xAE4200, 0xED810C, 0x7B3300, 0xFFB469])
         // «Ruhig Farbsehschwäche»: die früheren Werte von «Farbsehschwäche»
         XCTAssertEqual(PriceColorScheme.CALM_COLOR_VISION.upHex(dark: false), 0x1460AB)
         XCTAssertEqual(PriceColorScheme.CALM_COLOR_VISION.downHex(dark: false), 0x9F4300)
         XCTAssertEqual(PriceColorScheme.CALM_COLOR_VISION.downHex(dark: false, highContrast: true), 0x6C2E00)
-        // J-16: Korallrot dunkel #FF6B6B → #FF6E6E (4.50:1 auf #353535)
-        XCTAssertEqual(PriceColorScheme.GREEN_RED.downHex(dark: true), 0xFF6E6E)
-        XCTAssertEqual(PriceColorScheme.TRADITIONAL.upHex(dark: false), 0x4A6410)
-        XCTAssertEqual(PriceColorScheme.TRADITIONAL.upHex(dark: true), 0x8FB532)
-        XCTAssertEqual(PriceColorScheme.TRADITIONAL.downHex(dark: false), 0xAA1850)
-        XCTAssertEqual(PriceColorScheme.TRADITIONAL.downHex(dark: true), 0xFF6A96)
-        XCTAssertEqual(PriceColorScheme.TRADITIONAL.upHex(dark: false, highContrast: true), 0x334509)
-        XCTAssertEqual(PriceColorScheme.TRADITIONAL.downHex(dark: true, highContrast: true), 0xFFB8CE)
+    }
+
+    /// Hell, dunkel, hell hoher Kontrast, dunkel hoher Kontrast.
+    private func assertTones(_ scheme: PriceColorScheme, up: Bool, _ expected: [UInt32],
+                             file: StaticString = #filePath, line: UInt = #line) {
+        let variants: [(dark: Bool, hc: Bool)] = [(false, false), (true, false), (false, true), (true, true)]
+        for (index, v) in variants.enumerated() {
+            let actual: UInt32 = up ? scheme.upHex(dark: v.dark, highContrast: v.hc) : scheme.downHex(dark: v.dark, highContrast: v.hc)
+            XCTAssertEqual(actual, expected[index], "\(scheme.rawValue) up=\(up) \(v)", file: file, line: line)
+        }
     }
 
     func testOrderAndDefault() {
@@ -263,7 +266,7 @@ final class PriceColorSchemeTests: XCTestCase {
         XCTAssertEqual(PriceColorScheme.CALM.downHex(dark: true, accent: .ORANGE), 0xFFB1BE)
         XCTAssertEqual(PriceColorScheme.CALM.downHex(dark: false, accent: .RED), 0x672B61)
         XCTAssertEqual(PriceColorScheme.CALM.upHex(dark: false, accent: .GREEN), 0x506299)
-        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.downHex(dark: false, accent: .ORANGE), 0xB63900)
+        XCTAssertEqual(PriceColorScheme.BLUE_ORANGE.downHex(dark: false, accent: .ORANGE), 0xAE4200)
         XCTAssertEqual(PriceColorScheme.CALM_COLOR_VISION.downHex(dark: false, accent: .ORANGE), 0x786200)
         XCTAssertTrue(PriceColorScheme.CALM_COLOR_VISION.clashes(with: .BLUE))
         XCTAssertFalse(PriceColorScheme.BLUE_ORANGE.clashes(with: .BLUE))
@@ -312,6 +315,137 @@ final class PriceColorSchemeTests: XCTestCase {
         }
         // Belegt: das frühere Weinrot war kein Rot
         XCTAssertTrue((300.0...340.0).contains(hslHue(0x701F4A)))
+    }
+
+    // MARK: Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche» (Entscheid 18. Oktober 2026)
+    // Wie PriceColorSchemeTest.kt; nachrechnen mit android/tools/check_price_colors.py.
+
+    private let fixedSchemes: [PriceColorScheme] = [.GREEN_RED, .TRADITIONAL, .BLUE_ORANGE]
+
+    /// Akzente derselben Farbfamilie (steigend, fallend): für sie gilt kein Mindestabstand.
+    private func sameFamily(_ scheme: PriceColorScheme) -> (rise: Set<AccentColor>, fall: Set<AccentColor>) {
+        scheme == .BLUE_ORANGE ? ([.BLUE], [.ORANGE]) : ([.GREEN, .MARRS_GREEN], [.RED])
+    }
+
+    /// Machado, Oliveira, Fernandes 2009, volle Ausprägung (lineares sRGB, zeilenweise).
+    private let cvd: [(name: String, m: [Double])] = [
+        ("prot", [0.152286, 1.052583, -0.204868, 0.114503, 0.786281, 0.099216, -0.003882, -0.048116, 1.051998]),
+        ("deut", [0.367322, 0.860646, -0.227968, 0.280085, 0.672501, 0.047413, -0.011820, 0.042940, 0.968881]),
+        ("trit", [1.255528, -0.076749, -0.178779, -0.078411, 0.930809, 0.147602, 0.004733, 0.691367, 0.303900]),
+    ]
+
+    /// Regel 3: hell ist fallend die hellere, kräftigere Farbe, dunkel die dunklere; Leuchtdichte ≥ 1.4
+    /// («Farbsehschwäche» ≥ 1.5), hoher Kontrast ≥ 1.25 — auch nach Deuteranopie-Simulation, bei
+    /// «Farbsehschwäche» nach allen drei Simulationen (Regel 5).
+    func testExchangeColorsDifferInLightness() {
+        for scheme in fixedSchemes {
+            for dark in [false, true] {
+                for hc in [false, true] {
+                    let up: UInt32 = scheme.upHex(dark: dark, highContrast: hc)
+                    let down: UInt32 = scheme.downHex(dark: dark, highContrast: hc)
+                    let minimum: Double = hc ? 1.25 : (scheme == .BLUE_ORANGE ? 1.5 : 1.4)
+                    let key: String = "\(scheme.rawValue)/dark=\(dark)/hc=\(hc)"
+                    // Hell fallend heller, dunkel fallend dunkler
+                    if dark {
+                        XCTAssertLessThan(luminance(down), luminance(up), key)
+                    } else {
+                        XCTAssertGreaterThan(luminance(down), luminance(up), key)
+                    }
+                    XCTAssertGreaterThanOrEqual(contrast(up, down), minimum, key)
+                    for sim in cvd where scheme == .BLUE_ORANGE || sim.name == "deut" {
+                        XCTAssertGreaterThanOrEqual(simulatedContrast(up, down, sim.m), minimum, "\(key) \(sim.name)")
+                    }
+                }
+            }
+        }
+    }
+
+    /// Regeln 4/5: ΔE2000 ≥ 10 («Farbsehschwäche» ≥ 15) zu jedem Akzent (primary desselben Modus, auch
+    /// für hohen Kontrast) ausser dem derselben Farbfamilie.
+    func testExchangeColorsClearlyDistinctFromOtherAccents() {
+        for scheme in fixedSchemes {
+            let minimum: Double = scheme == .BLUE_ORANGE ? 15 : 10
+            for dark in [false, true] {
+                for hc in [false, true] {
+                    for up in [true, false] {
+                        let color: UInt32 = up ? scheme.upHex(dark: dark, highContrast: hc) : scheme.downHex(dark: dark, highContrast: hc)
+                        let family: Set<AccentColor> = up ? sameFamily(scheme).rise : sameFamily(scheme).fall
+                        for accent in AccentColor.allCases where !family.contains(accent) {
+                            let d: Double = deltaE2000(color, accent.primaryHex(dark: dark))
+                            XCTAssertGreaterThanOrEqual(d, minimum, "\(scheme.rawValue)/\(accent.rawValue)/\(dark)/\(hc)/\(up)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// Regel 1: «Frisch» steigend 140–165°, fallend 350–10°; «Traditionell» 115–135° / 0–8°, je
+    /// ΔE2000 ≥ 10 zur selben Farbe von «Frisch».
+    func testFreshAndTraditionalTrueHuesAndDistinct() {
+        for dark in [false, true] {
+            for hc in [false, true] {
+                let key: String = "dark=\(dark)/hc=\(hc)"
+                let freshUp: UInt32 = PriceColorScheme.GREEN_RED.upHex(dark: dark, highContrast: hc)
+                let freshDown: UInt32 = PriceColorScheme.GREEN_RED.downHex(dark: dark, highContrast: hc)
+                let tradUp: UInt32 = PriceColorScheme.TRADITIONAL.upHex(dark: dark, highContrast: hc)
+                let tradDown: UInt32 = PriceColorScheme.TRADITIONAL.downHex(dark: dark, highContrast: hc)
+                XCTAssertTrue((140.0...165.0).contains(hslHue(freshUp)), key)
+                XCTAssertTrue(hslHue(freshDown) >= 350 || hslHue(freshDown) <= 10, key)
+                XCTAssertTrue((115.0...135.0).contains(hslHue(tradUp)), key)
+                XCTAssertTrue((0.0...8.0).contains(hslHue(tradDown)), key)
+                XCTAssertGreaterThanOrEqual(deltaE2000(freshUp, tradUp), 10, key)
+                XCTAssertGreaterThanOrEqual(deltaE2000(freshDown, tradDown), 10, key)
+            }
+        }
+    }
+
+    /// Regel 4: «Farbsehschwäche» nach Protanopie-, Deuteranopie-, Tritanopie-Simulation ΔE2000 ≥ 40,
+    /// hoher Kontrast ≥ 35 (dunkel erreicht Blau/Orange dort höchstens ≈ 38.7).
+    func testColorVisionSimulatedClearlyApart() {
+        for dark in [false, true] {
+            for hc in [false, true] {
+                let up: UInt32 = PriceColorScheme.BLUE_ORANGE.upHex(dark: dark, highContrast: hc)
+                let down: UInt32 = PriceColorScheme.BLUE_ORANGE.downHex(dark: dark, highContrast: hc)
+                for sim in cvd {
+                    let d: Double = ColorDifference.deltaE2000(labLinear(simulate(up, sim.m)), labLinear(simulate(down, sim.m)))
+                    XCTAssertGreaterThanOrEqual(d, hc ? 35 : 40, "dark=\(dark)/hc=\(hc)/\(sim.name)")
+                }
+            }
+        }
+        // Belegt: die früheren Werte lagen gleich hell und neben dem blauen Akzent
+        XCTAssertLessThan(contrast(0x005ED6, 0xB63900), 1.05)
+        XCTAssertLessThan(deltaE2000(0x005ED6, AccentColor.BLUE.primaryHex(dark: false)), 2.0)
+    }
+
+    /// Lineares sRGB nach Simulation `m` (3×3, zeilenweise), auf 0…1 begrenzt, ohne Rundung auf 8 Bit.
+    private func simulate(_ rgb: UInt32, _ m: [Double]) -> [Double] {
+        let r: Double = channel((rgb >> 16) & 0xFF)
+        let g: Double = channel((rgb >> 8) & 0xFF)
+        let b: Double = channel(rgb & 0xFF)
+        return (0..<3).map { i -> Double in
+            let v: Double = m[3 * i] * r + m[3 * i + 1] * g + m[3 * i + 2] * b
+            return min(1, max(0, v))
+        }
+    }
+
+    private func simulatedContrast(_ a: UInt32, _ b: UInt32, _ m: [Double]) -> Double {
+        func lum(_ c: [Double]) -> Double { 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2] }
+        let la: Double = lum(simulate(a, m))
+        let lb: Double = lum(simulate(b, m))
+        return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+    }
+
+    /// CIELAB (D65) aus linearem sRGB, wie `ColorDifference.lab`.
+    private func labLinear(_ c: [Double]) -> ColorDifference.Lab {
+        func f(_ t: Double) -> Double { t > 216.0 / 24389.0 ? cbrt(t) : (24389.0 / 27.0 * t + 16.0) / 116.0 }
+        let xs: Double = 0.4124 * c[0] + 0.3576 * c[1] + 0.1805 * c[2]
+        let y: Double = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+        let zs: Double = 0.0193 * c[0] + 0.1192 * c[1] + 0.9505 * c[2]
+        let fx: Double = f(xs / 0.95047)
+        let fy: Double = f(y)
+        let fz: Double = f(zs / 1.08883)
+        return ColorDifference.Lab(l: 116 * fy - 16, a: 500 * (fx - fy), b: 200 * (fy - fz))
     }
 
     private func hslHue(_ rgb: UInt32) -> Double {

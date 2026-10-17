@@ -110,7 +110,7 @@ fun PortfolioExportDialog(
     val disclaimer = stringResource(R.string.tax_export_workpaper_disclaimer)
     // Länder-Vorlagen: Stand der hinterlegten Regeln in jeder Kopfzeile
     val rulesLine = if (template != TaxTemplate.NEUTRAL) stringResource(R.string.tax_export_rules_date, TaxTemplate.RULES_DATE) else null
-    // Beträge in USDT, umgerechnet mit USD-Kursen: USDT = 1 USD angenommen (bei Depeg falsch) — in jeder Kopfzeile
+    // Beträge in USDT, umgerechnet mit USD-Kursen × USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) — in jeder Kopfzeile
     val usdtNote = stringResource(R.string.tax_export_usdt_usd_note)
     val rule = stringResource(R.string.tax_export_rule)
     // AT: Durchschnitt je Coin und Wallet (KryptowährungsVO § 2) — steht in der Kopfzeile

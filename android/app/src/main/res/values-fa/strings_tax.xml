@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">کوین</string>
     <string name="portfolio_export_col_note">یادداشت</string>
     <string name="portfolio_export_col_price">قیمت USDT</string>
-    <string name="portfolio_export_col_rate">نرخ USD→%1$s</string>
+    <string name="portfolio_export_col_rate">نرخ USDT→%1$s</string>
     <string name="portfolio_export_col_value">ارزش USDT</string>
     <string name="portfolio_export_col_value_cur">ارزش %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">منطقهٔ زمانی: %1$s</string>
     <string name="tax_export_transfer_fee_info">کارمزد انتقال به USDT/پول نقد – زیان نیست، خارج از بهای تمام‌شده، فقط برای اطلاع</string>
     <string name="tax_export_unassigned_fee">کارمزد تخصیص نیافت – بها نامشخص</string>
-    <string name="tax_export_usdt_usd_note">فرض شده USDT = 1 USD (در صورت جدا شدن از دلار نادرست)</string>
+    <string name="tax_export_usdt_usd_note">USDT با قیمت پایانی روزانهٔ USDT/USD تبدیل شده؛ بدون قیمت پایانی 1 USD (در هر ردیف ذکر شده)</string>
     <string name="tax_export_value_estimated">ارزش تخمینی (قیمت پایانی روز)</string>
     <string name="tax_export_value_missing">ارزش هنگام دریافت موجود نیست</string>
     <string name="tax_export_wallet">کیف پول: %1$s</string>

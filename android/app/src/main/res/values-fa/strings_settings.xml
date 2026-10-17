@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">اعلام جدا شدن USDT از دلار</string>
-    <string name="settings_depeg_alarm_hint">وقتی USDT به اندازهٔ حد از 1 USD فاصله بگیرد، یک بار خبر می‌دهد (Kraken USDT/USD، Binance USDC/USDT). مقادیر در برنامه همچنان با USDT = 1 حساب می‌شوند.</string>
+    <string name="settings_depeg_alarm_hint">وقتی USDT به اندازهٔ حد از 1 USD فاصله بگیرد، یک بار خبر می‌دهد (Kraken USDT/USD، Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">حد جدا شدن از دلار</string>
     <string name="settings_fng_above">Fear &amp; Greed: اعلان بالای</string>
     <string name="settings_fng_below">Fear &amp; Greed: اعلان زیر</string>

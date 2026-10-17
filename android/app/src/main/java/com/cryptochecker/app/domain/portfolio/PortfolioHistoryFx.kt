@@ -13,12 +13,16 @@ data class PortfolioHistoryConverted(
     val series: PortfolioHistorySeries,
     val approximate: Boolean,
     val includesFx: Boolean = !approximate,
+    /** Mit USDT/USD-Marktkursen ([UsdtUsdRates]) umgerechnet, aber an mindestens einem Tag ohne Kurs: dort USDT = 1. */
+    val usdtApproximate: Boolean = false,
 )
 
 /**
  * Wertverlauf in einer anderen Währung als USD mit historischen Tageskursen (reines Kotlin,
  * testbar; gespiegelt in `Shared/Portfolio/PortfolioHistoryFx.swift`):
- *  - Jeder Punkt (Wert in USDT, USDT = USD) × Kurs USD → Zielwährung SEINES Tags. Wochenenden und
+ *  - Jeder Punkt (Wert in USDT) × Kurs USD → Zielwährung SEINES Tags (× USDT/USD-Tagesschluss, wenn [UsdtUsdRates]
+ *    mitgegeben: USDT zum Marktkurs, Tag ohne Schluss = 1 als Näherung, [PortfolioHistoryConverted.usdtApproximate];
+ *    ohne sie USDT = USD wie bis Build 58). Wochenenden und
  *    Feiertage (keine EZB-Fixierung) nehmen den Kurs des letzten Geschäftstags davor ([rateOn]).
  *  - Der heutige Punkt nimmt den aktuellen Kurs (wie die Umrechnungszeile im Kopf).
  *  - Liegt ein Tag vor dem ersten Tageskurs, gilt der erste (die Abfrage beginnt ohnehin
@@ -40,6 +44,23 @@ object PortfolioHistoryFx {
      * Für den Hinweis «USDT zum USD-Kurs umgerechnet»; false für USD/USDT (keine Umrechnung).
      */
     fun convertsUsdtAsUsd(currency: String): Boolean = CurrencyConversion.normalize(currency).let { it != "USD" && it != "USDT" }
+
+    /**
+     * Werden USDT-Beträge für [currency] umgerechnet? Mit USDT zum Marktkurs ([usdtMarket]) auch für USD (USDT/USD ≠ 1);
+     * sonst wie [convertsUsdtAsUsd]. Nie für USDT selbst.
+     */
+    fun convertsUsdt(currency: String, usdtMarket: Boolean): Boolean {
+        val code = CurrencyConversion.normalize(currency)
+        return code != "USDT" && (usdtMarket || code != "USD")
+    }
+
+    /** Tageskurse USD → USD für [convert] in USD: an jedem Tag 1 (keine Devisen-Abfrage, nie «mit heutigem Kurs»). */
+    fun usdParity(fromEpochDay: Long, toEpochDay: Long): Map<Long, Double> =
+        (fromEpochDay..toEpochDay).associateWith { 1.0 }
+
+    /** Hängt an einem der Tage [days] die Umrechnung an USDT = 1 (kein USDT/USD-Kurs)? false ohne [usdt]. */
+    fun usdtApproximate(usdt: UsdtUsdRates?, days: Iterable<Long>, todayEpochDay: Long): Boolean =
+        usdt != null && days.any { usdt.on(it, todayEpochDay).approximate }
 
     /**
      * Wertverlauf in [currency] mit Tageskursen enthält die Bewegung des Devisenkurses (Punkte und Zuflüsse je zum Kurs
@@ -99,18 +120,24 @@ object PortfolioHistoryFx {
      * Kurs USD → Zielwährung je Tag, wie [convert] ihn nutzt: ab [todayEpochDay] (und ohne Tageskurse) der aktuelle
      * [currentRate], sonst der Kurs des Tags bzw. des letzten Geschäftstags davor ([rateOn]), vor dem ersten der erste.
      * Auch für «7 T»/«1 J» in der Anzeigewährung ([PortfolioPeriodChange.gain] `fx`) — damit Kopf und Kurve dieselbe
-     * Zahl zeigen.
+     * Zahl zeigen. Mit [usdt]: × USDT/USD des Tags ([UsdtUsdRates.on]) — Faktor USDT → Zielwährung.
      */
-    fun rateFunction(dailyRates: Map<Long, Double>?, currentRate: Double, todayEpochDay: Long): (Long) -> Double {
+    fun rateFunction(
+        dailyRates: Map<Long, Double>?,
+        currentRate: Double,
+        todayEpochDay: Long,
+        usdt: UsdtUsdRates? = null,
+    ): (Long) -> Double {
         val current = valid(currentRate) ?: 1.0
         val sorted = dailyRates.orEmpty().entries
             .mapNotNull { (day, rate) -> valid(rate)?.let { day to it } }
             .sortedBy { it.first }
         return { day ->
-            when {
+            val fx = when {
                 day >= todayEpochDay || sorted.isEmpty() -> current
                 else -> rateOn(sorted, day) ?: sorted.first().second
             }
+            if (usdt == null) fx else fx * usdt.on(day, todayEpochDay).rate
         }
     }
 
@@ -129,16 +156,24 @@ object PortfolioHistoryFx {
      * @param dailyRates Tag (Tage seit 1970-01-01) → Einheiten Zielwährung je USD; null = nicht geladen
      * @param currentRate aktueller Kurs USD → Zielwährung (für heute und als Ausweich)
      * @param todayEpochDay heutiger Tag (lokal)
+     * @param usdt Marktkurse USDT/USD; null = USDT gilt 1 USD (bisherige Rechnung)
      */
     fun convert(
         series: PortfolioHistorySeries,
         dailyRates: Map<Long, Double>?,
         currentRate: Double,
         todayEpochDay: Long,
+        usdt: UsdtUsdRates? = null,
     ): PortfolioHistoryConverted {
         val approximate = dailyRates.orEmpty().values.none { valid(it) != null }
         if (series.points.isEmpty()) return PortfolioHistoryConverted(series, approximate)
-        val rateFor = rateFunction(dailyRates, currentRate, todayEpochDay)
+        val rateFor = rateFunction(dailyRates, currentRate, todayEpochDay, usdt)
+        val usdtApprox = usdtApproximate(
+            usdt,
+            series.points.map { it.epochDay } + series.cashFlows.orEmpty().map { it.epochDay } +
+                series.pnlValues.map { it.epochDay } + series.pnlFlows.map { it.epochDay },
+            todayEpochDay,
+        )
         fun convertPoint(p: PortfolioHistoryPoint): PortfolioHistoryPoint {
             val rate = rateFor(p.epochDay)
             // Eröffnung/Hoch/Tief mit demselben Tageskurs wie der Wert
@@ -159,6 +194,7 @@ object PortfolioHistoryFx {
                 pnlValues = pnlValues, pnlFlows = pnlFlows,
             ),
             approximate,
+            usdtApproximate = usdtApprox,
         )
     }
 }

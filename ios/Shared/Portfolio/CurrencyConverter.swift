@@ -15,7 +15,8 @@ enum CurrencyConversion {
     }
 
     /// Die eine Stablecoin-Liste der App. «≈ Umrechnung» der Merkliste und Portfolio bewerten sie
-    /// mit Marktkurs (`stableToUsd` bzw. `PortfolioStables`): USD/USDT 1, andere ihr Marktkurs in USDT.
+    /// mit Marktkurs (`stableToUsd` bzw. `PortfolioStables`): USD 1, USDT sein Marktkurs USDT/USD (ohne Kurs 1),
+    /// andere ihr Marktkurs in USDT.
     /// Ohne Kurs: kein ≈-Wert bzw. Portfolio kein Wert («ohne Kurs»).
     static let usdStables: Set<String> = [
         "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
@@ -41,13 +42,22 @@ enum CurrencyConversion {
         return .crypto
     }
 
-    /// Stablecoin-Regel der «≈ Umrechnung» wie das Portfolio (`PortfolioStables`): USD und USDT
-    /// (Bewertungswährung) genau 1, jeder andere Stablecoin sein Marktkurs in USDT `marketUsdt`; ohne
-    /// gültigen Kurs nil (kein ≈-Wert statt eines stillen 1). Ohne Kürzel gilt USD. Wie Android.
-    static func stableToUsd(_ code: String?, marketUsdt: Double?) -> Double? {
-        if !stableNeedsMarket(code) { return 1 }
+    /// Stablecoin-Regel der «≈ Umrechnung» wie das Portfolio (`PortfolioStables`): USD genau 1; USDT sein
+    /// Marktkurs USDT/USD `usdtUsd` (ohne Kurs 1, `PortfolioStables.usdtUsd`); jeder andere Stablecoin sein
+    /// Marktkurs in USDT `marketUsdt` × USDT/USD; ohne gültigen Kurs nil (kein ≈-Wert statt eines stillen 1).
+    /// Ohne Kürzel gilt USD. `usdtUsd` nil = USDT gilt 1 USD (bisherige Rechnung). Wie Android.
+    static func stableToUsd(_ code: String?, marketUsdt: Double?, usdtUsd: Double? = nil) -> Double? {
+        let c = normalize(code)
+        if c.isEmpty || c == "USD" { return 1 }
+        if c == "USDT" { return usdtFactor(usdtUsd) }
         guard let m = marketUsdt, isValidRate(m) else { return nil }
-        return m
+        return m * usdtFactor(usdtUsd)
+    }
+
+    /// USDT in USD für die Umrechnung: `usdtUsd` (plausibel) oder 1; nil = 1 (bisherige Rechnung).
+    private static func usdtFactor(_ usdtUsd: Double?) -> Double {
+        guard let usdtUsd else { return 1 }
+        return PortfolioStables.usdtUsd(usdtUsd).rate
     }
 
     /// Braucht die Quote `code` (Stablecoin) einen Marktkurs? Alle ausser USD und USDT (leer = USD).
@@ -72,16 +82,18 @@ enum CurrencyConversion {
     ///   - usdToQuote: Einheiten der Quote-Währung je USD (nur bei `.fiat`)
     ///   - cryptoUsdt: Kurs der Quote-Währung in USDT (bei `.crypto` nötig; bei `.usd` = Marktkurs
     ///     des Stablecoins, ohne gültigen Kurs nil — siehe `stableToUsd`)
-    ///   - code: Kürzel der Quote-Währung (nur bei `.usd`: USD/USDT sind immer genau 1)
-    static func quoteToUsd(_ kind: QuoteKind, usdToQuote: Double?, cryptoUsdt: Double?, code: String? = nil) -> Double? {
+    ///   - code: Kürzel der Quote-Währung (nur bei `.usd`: USD ist immer genau 1, USDT siehe `stableToUsd`)
+    ///   - usdtUsd: Marktkurs USDT/USD für USDT, andere Stablecoins und Krypto (über USDT bewertet); nil = 1
+    static func quoteToUsd(_ kind: QuoteKind, usdToQuote: Double?, cryptoUsdt: Double?, code: String? = nil,
+                           usdtUsd: Double? = nil) -> Double? {
         switch kind {
-        case .usd: return stableToUsd(code, marketUsdt: cryptoUsdt)
+        case .usd: return stableToUsd(code, marketUsdt: cryptoUsdt, usdtUsd: usdtUsd)
         case .fiat:
             guard let r = usdToQuote, isValidRate(r) else { return nil }
             return 1 / r
         case .crypto:
             guard let p = cryptoUsdt, isValidRate(p) else { return nil }
-            return p
+            return p * usdtFactor(usdtUsd)
         case .invalid: return nil
         }
     }
@@ -110,7 +122,19 @@ enum CurrencyConversion {
 /// `PortfolioStables`), Fiat über `FxRateSource`, alles andere als Krypto über den USDT-Kurs der
 /// `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
 /// Hintergrund) sie braucht; beide Quellen haben eigene Zwischenspeicher.
+/// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
+/// (`DepegAlarmCheck.liveUsdtUsd`, gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1 (bisherige Rechnung).
 enum CurrencyConverter {
+
+    /// Live-Kurs USDT/USD (`DepegAlarmCheck.liveUsdtUsd`); nil = keiner (USDT gilt 1, bisherige Rechnung).
+    private static func liveUsdtUsd() -> Double? { DepegAlarmCheck.liveUsdtUsd() }
+
+    /// Einheiten der Ziel-Stablecoin-Währung `code` je USD: USDT = 1 ÷ USDT/USD (Marktkurs, ohne Messung 1); USD und
+    /// andere Stablecoins 1 (wie bisher). Wie Android `usdToStable`.
+    private static func usdToStable(_ code: String) -> Double {
+        guard code == "USDT" else { return 1 }
+        return 1 / (CurrencyConversion.stableToUsd("USDT", marketUsdt: nil, usdtUsd: liveUsdtUsd()) ?? 1)
+    }
 
     /// Faktor Quote → Ziel; gleiche Währung = 1, nil wenn ein Kurs fehlt.
     static func rate(quote: String, target: String) async -> Double? {
@@ -145,16 +169,19 @@ enum CurrencyConverter {
         let to = CurrencyConversion.normalize(target)
         let quoteUsd: Double?
         switch CurrencyConversion.classify(from) {
-        case .usd: quoteUsd = CurrencyConversion.quoteToUsd(.usd, usdToQuote: nil, cryptoUsdt: stableMarket(from), code: from)
+        case .usd:
+            quoteUsd = CurrencyConversion.quoteToUsd(.usd, usdToQuote: nil, cryptoUsdt: stableMarket(from), code: from,
+                                                     usdtUsd: liveUsdtUsd())
         case .fiat: quoteUsd = CurrencyConversion.quoteToUsd(.fiat, usdToQuote: FxRateSource.cached(from), cryptoUsdt: nil)
         case .crypto:
             quoteUsd = CurrencyConversion.quoteToUsd(.crypto, usdToQuote: nil,
-                                                     cryptoUsdt: PortfolioPriceSource.cached([from]).prices[from])
+                                                     cryptoUsdt: PortfolioPriceSource.cached([from]).prices[from],
+                                                     usdtUsd: liveUsdtUsd())
         case .invalid: quoteUsd = nil
         }
         let usdToTarget: Double?
         switch CurrencyConversion.classify(to) {
-        case .usd: usdToTarget = 1
+        case .usd: usdToTarget = usdToStable(to)
         case .fiat: usdToTarget = FxRateSource.cached(to)
         default: usdToTarget = nil
         }
@@ -176,7 +203,7 @@ enum CurrencyConverter {
     private static func usdTo(_ target: String) async -> Double? {
         let to = CurrencyConversion.normalize(target)
         switch CurrencyConversion.classify(to) {
-        case .usd: return 1
+        case .usd: return usdToStable(to)
         case .fiat: return await FxRateSource.usdTo(to)
         default: return nil
         }
@@ -217,16 +244,17 @@ enum CurrencyConverter {
         let kind = CurrencyConversion.classify(code)
         switch kind {
         case .usd:
-            // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor
+            // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor; USDT × USDT/USD
             var market: Double?
             if CurrencyConversion.stableNeedsMarket(code) { market = await PortfolioPriceSource.price(code) }
-            return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: market, code: code)
+            return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: market, code: code,
+                                                 usdtUsd: liveUsdtUsd())
         case .fiat:
             let usdToQuote = await FxRateSource.usdTo(code)
             return CurrencyConversion.quoteToUsd(kind, usdToQuote: usdToQuote, cryptoUsdt: nil)
         case .crypto:
             let price = await PortfolioPriceSource.price(code)
-            return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: price)
+            return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: price, usdtUsd: liveUsdtUsd())
         case .invalid: return nil
         }
     }

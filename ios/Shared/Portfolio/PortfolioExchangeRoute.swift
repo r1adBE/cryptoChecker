@@ -5,8 +5,9 @@ import Foundation
 ///  - Ein Coin wird mit der eingetragenen Börse bewertet, wenn ALLE seine Transaktionen mit Börse dieselbe
 ///    nennen; mehrere Börsen bei einem Coin → Binance und ein Hinweis.
 ///  - Nur Spot-Börsen der App; Binance ist ohnehin die Standardquelle.
-///  - Paar: USDT, dann USD (= 1 USDT wie überall in der App), dann Fiat über den Devisenkurs. Andere
-///    Stablecoins (USDC …) nicht — sie gelten im Portfolio nicht automatisch als 1.
+///  - Paar: USDT, dann USD (über den Marktkurs USDT/USD, ohne Kurs 1 als Näherung), dann Fiat über den
+///    Devisenkurs und denselben USDT/USD-Kurs (`toUsdt`). Andere Stablecoins (USDC …) nicht — sie gelten im
+///    Portfolio nicht automatisch als 1.
 ///  - Klappt es nicht, bleibt Binance und der Coin steht in `PortfolioPrices.exchangeFailed`.
 ///  - Wertverlauf, «7 T» und «1 J» (auch Widget und Alarme): Tageskerzen der eigenen Börse in USDT
 ///    (`ownDailyUsdt`, davor Binance angeglichen: `stitch`); nur ohne sie Binance auf den Börsenkurs skaliert
@@ -21,7 +22,7 @@ enum PortfolioExchangeRoute {
     /// Standardquelle des Portfolios.
     static let defaultMarket = "Binance"
 
-    /// Gegenwährungen in dieser Reihenfolge; USD = 1 USDT, Fiat über den Devisenkurs.
+    /// Gegenwährungen in dieser Reihenfolge; USD über USDT/USD, Fiat über den Devisenkurs (`toUsdt`).
     static let quotes = [
         "USDT", "USD", "EUR", "CHF", "GBP", "JPY", "KRW", "TRY", "BRL", "MXN", "INR", "IDR", "AUD", "CAD",
         "SGD", "HKD", "PLN", "SEK", "NOK", "DKK", "CZK", "HUF", "RON", "NZD", "ZAR", "THB",
@@ -110,13 +111,16 @@ enum PortfolioExchangeRoute {
         return nil
     }
 
-    /// Kurs in USDT: USDT und USD unverändert, Fiat geteilt durch den Kurs USD → Fiat; sonst nil.
-    static func toUsdt(_ price: Double, quote: String, usdTo: (String) -> Double?) -> Double? {
+    /// Kurs in USDT: USDT unverändert; USD geteilt durch den Marktkurs USDT/USD `usdtUsd` (ungültig oder Standard = 1,
+    /// USDT = USD wie bis Build 58); Fiat geteilt durch den Kurs USD → Fiat und durch `usdtUsd`; sonst nil. Wie Android.
+    static func toUsdt(_ price: Double, quote: String, usdtUsd: Double = 1, usdTo: (String) -> Double?) -> Double? {
         guard price > 0, price.isFinite else { return nil }
+        let usdt = usdtUsd > 0 && usdtUsd.isFinite ? usdtUsd : 1
         let q = quote.uppercased()
-        if q == "USDT" || q == "USD" { return price }
+        if q == "USDT" { return price }
+        if q == "USD" { return price / usdt }
         guard quotes.contains(q), let rate = usdTo(q), rate > 0, rate.isFinite else { return nil }
-        return price / rate
+        return price / rate / usdt
     }
 
     /// Binance-Tageskurse auf den Kurs der eigenen Börse skaliert (Faktor = Kurs der Börse ÷ Binance-Kurs).
@@ -179,8 +183,11 @@ enum PortfolioExchangeRoute {
 
     /// Tageskerzen der eigenen Börse (Gegenwährung `quote`) in USDT — wie Android `ownDailyUsdt`: USDT/USD
     /// unverändert, Fiat je Tag geteilt durch den Devisenkurs dieses Tags (sonst der letzte davor,
-    /// `PortfolioHistoryFx.rateOn`); Tage ohne Kurs fallen weg. nil = nicht umrechenbar oder nichts übrig.
-    static func ownDailyUsdt(_ daily: PortfolioCoinDaily, quote: String, usdToByDay: [Int: Double]?) -> PortfolioCoinDaily? {
+    /// `PortfolioHistoryFx.rateOn`); Tage ohne Kurs fallen weg. nil = nicht umrechenbar oder nichts übrig. Mit
+    /// `usdtUsdByDay` (USDT/USD-Tagesschluss): USD- und Fiat-Kerzen zusätzlich geteilt durch USDT/USD DES Tags (ohne
+    /// Schluss 1, `PortfolioStables.usdtUsd`); USDT-Kerzen unverändert.
+    static func ownDailyUsdt(_ daily: PortfolioCoinDaily, quote: String, usdToByDay: [Int: Double]?,
+                             usdtUsdByDay: [Int: Double]? = nil) -> PortfolioCoinDaily? {
         let q = quote.uppercased()
         guard quotes.contains(q) else { return nil }
         let direct = q == "USDT" || q == "USD"
@@ -194,8 +201,9 @@ enum PortfolioExchangeRoute {
         var ranges: [Int: PortfolioDayRange] = [:]
         for (day, close) in daily.closes {
             guard close > 0, close.isFinite else { continue }
-            let rate: Double? = direct ? 1.0 : PortfolioHistoryFx.rateOn(sorted, day: day)
-            guard let r = rate else { continue }
+            let fx: Double? = direct ? 1.0 : PortfolioHistoryFx.rateOn(sorted, day: day)
+            let usdt: Double = q == "USDT" || usdtUsdByDay == nil ? 1.0 : PortfolioStables.usdtUsd(usdtUsdByDay?[day]).rate
+            guard let r = fx.map({ $0 * usdt }) else { continue }
             closes[day] = close / r
             if let range = daily.ranges[day] {
                 let converted = PortfolioDayRange(open: range.open / r, high: range.high / r, low: range.low / r)
@@ -244,9 +252,10 @@ enum PortfolioExchangeRoute {
             .joined(separator: "; ")
     }
 
-    /// Hängen die Werte der Gesamtkarte an «USDT = 1»? Ja bei Umrechnung in eine Anzeigewährung,
-    /// bei USD (USDT steht für USD) oder wenn Kurse anderer Börsen in USD mit Binance-USDT gemischt
-    /// werden — dann steht der Hinweis auf der Karte selbst. Wie Android `usdtParityShown`.
+    /// Hängen die Werte der Gesamtkarte am Kurs USDT/USD? Ja bei Umrechnung in eine Anzeigewährung,
+    /// bei USD oder wenn Kurse anderer Börsen in USD mit Binance-USDT gemischt werden. Mit USDT zum
+    /// Marktkurs zählt das nur noch ohne Kurs (Ersatz 1, `DepegAlarm.cardNote`); bis dahin steht
+    /// «USDT = 1» auf der Karte selbst. Wie Android `usdtParityShown`.
     static func usdtParityShown(displayCurrency: String, converted: Bool, sources: [String: String]) -> Bool {
         let currency = displayCurrency.trimmingCharacters(in: .whitespaces).uppercased()
         return converted || currency == "USD" || !sources.isEmpty

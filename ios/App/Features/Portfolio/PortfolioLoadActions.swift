@@ -24,6 +24,14 @@ extension PortfolioModel {
             activeRefreshes -= 1
             refreshing = activeRefreshes > 0
         }
+        // USDT/USD messen (höchstens alle 5 Minuten, parallel zu den Kursen): Live-Kurs der Bewertung; danach Verlauf und
+        // «7 T»/«1 J» mit dem neuen Kurs (wie die Flows auf Android)
+        let settings = data.settings
+        let hasPortfolio = data.hasPortfolioData
+        Task { [weak self] in
+            await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio)
+            self?.recomputeHistory()
+        }
         // Adress-Guthaben zuerst (fällige Adressen), dann mit ihnen rechnen
         await refreshWatchedAddresses(force: force)
         let all = calcPortfolio

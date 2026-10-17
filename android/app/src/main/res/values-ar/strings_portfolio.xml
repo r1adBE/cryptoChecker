@@ -93,14 +93,13 @@
     <string name="portfolio_current_price">السعر الحالي</string>
     <string name="portfolio_price_missing">السعر غير متوفر</string>
     <string name="portfolio_price_missing_hint">بعض عمليات الشراء بلا سعر. أضف سعر الشراء لرؤية الربح/الخسارة.</string>
-    <string name="portfolio_price_source">الأسعار: Binance · ‏USDT = 1</string>
-    <string name="portfolio_price_source_routes">الأسعار: %1$s، وإلا Binance · ‏USDT = 1</string>
+    <string name="portfolio_price_source">الأسعار: Binance · ‏USDT بسعر السوق</string>
+    <string name="portfolio_price_source_routes">الأسعار: %1$s، وإلا Binance · ‏USDT بسعر السوق</string>
     <string name="portfolio_price_unavailable">السعر غير متاح حاليًا</string>
     <string name="portfolio_price_unchecked">السعر غير متحقق</string>
     <string name="portfolio_price_via_base">≈ سعر %1$s (مجسَّر/مغلَّف)</string>
-    <string name="portfolio_usdt_as_usd">USDT محوّل بسعر USD</string>
+    <string name="portfolio_usdt_as_usd">USDT محوّل بسعره السوقي بالدولار</string>
     <string name="portfolio_usdt_assumed">يُفترض USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">يُفترض USDT = 1 – السوق عند %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">إضافة إلى المحفظة</string>

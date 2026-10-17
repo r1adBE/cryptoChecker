@@ -34,7 +34,7 @@ struct PortfolioEntry: TimelineEntry {
     /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
     var showLogos = false
 
-    /// Wirksame Anzeige (bei USD «Nur USDT», ohne USDT-Wert nur Umrechnung).
+    /// Wirksame Anzeige (bei einem USD-Stablecoin «Nur USDT», ohne USDT-Wert nur Umrechnung).
     var effectiveDisplay: PortfolioWidgetDisplay {
         guard let snapshot else { return display.display }
         return PortfolioWidgetChart.effectiveDisplay(display.display, currency: snapshot.currency,
@@ -77,6 +77,9 @@ struct PortfolioEntry: TimelineEntry {
         let now = TimeUtils.nowMillis
         let rate = PortfolioWidgetChart.fxRate(for: settings.portfolioCurrency, fresh: nil,
                                                memo: PortfolioWidgetStore.loadFxMemo(), now: now)
+            // USDT zum Marktkurs: × USDT/USD (wie Android `PortfolioWidgetChart.usdtFactor`)
+            .map { PortfolioWidgetChart.usdtFactor(currency: settings.portfolioCurrency, fx: $0,
+                                                   usdtLive: DepegAlarmCheck.liveUsdtUsd(now: now)) }
         let snapshot = PortfolioWidgetStore.load().map {
             PortfolioWidgetChart.rebased($0, currency: settings.portfolioCurrency, rate: rate)
                 .shown(basis: settings.changeBasis.storage, now: now)

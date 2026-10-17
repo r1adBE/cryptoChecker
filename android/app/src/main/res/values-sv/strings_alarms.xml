@@ -34,6 +34,7 @@
     <string name="alarm_first_battery_hint">Batterioptimering begränsar appen – larm kan komma sent.</string>
     <string name="alarm_first_title">Allt klart</string>
     <string name="alarm_last_triggered">senast %1$s</string>
+    <string name="alarm_more_conditions">Fler villkor</string>
     <string name="alarm_new_extreme">Ny %1$s</string>
     <string name="alarm_once">En gång</string>
     <string name="alarm_option_repeating">Behåll larmet efter att det utlösts</string>

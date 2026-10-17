@@ -313,7 +313,7 @@ struct PortfolioExportSheet: View {
         let atNote: [String] = m == .AT_MOVING_AVERAGE ? [L("tax_export_at_wallet_note")] : []
         // Vorlage rechnet eine andere Methode als die App (wie Android: nach der Info-Zeile)
         let base: [String] = [texts.title, info(year: year)] + rulesLine + (methodNote.map { [$0] } ?? [])
-        // USDT = 1 USD angenommen (bei Depeg falsch) — in jeder Kopfzeile, wie Android
+        // USDT zum USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) — in jeder Kopfzeile, wie Android
         let header: [String] = TaxExport.withChWealthNote(
             template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_workpaper_disclaimer")],
             chWealthNote: Self.chWealthNote(year: year))

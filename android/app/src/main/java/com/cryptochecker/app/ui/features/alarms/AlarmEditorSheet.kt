@@ -65,9 +65,10 @@ import com.cryptochecker.app.util.LocaleNumbers
 
 /**
  * Alarm anlegen/bearbeiten als Blatt von unten. Oben die Schnell-Alarme (nur beim Anlegen),
- * dann der einfache Satz «Wenn BTC über [Betrag] geht» mit «Einmal / Jedes Mal»; alle
- * übrigen Bedingungen und Optionen unter «Erweitert» (zugeklappt, ausser beim Bearbeiten
- * eines Alarms, den der Satz nicht zeigt). Volle Höhe: Aufklappen scrollt im Inhalt.
+ * dann nur die einfachen Bedingungen (Kurs über/unter, Steigt/Fällt um) — die Kursmarke als Satz
+ * «Wenn BTC über [Betrag] geht». Alle übrigen Bedingungen unter «Mehr Bedingungen», Währung, Ton
+ * und Vorlesen unter «Erweitert» (beide zugeklappt, ausser beim Bearbeiten eines Alarms, der sie
+ * braucht), dazwischen «Einmal / Jedes Mal». Volle Höhe: Aufklappen scrollt im Inhalt.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,7 +89,9 @@ internal fun AlarmEditorSheet(
 ) {
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    // «Erweitert»: offen, wenn der einfache Satz den Alarm nicht zeigen kann (z. B. Volumen-Spike)
+    // «Mehr Bedingungen»: offen beim Bearbeiten eines Alarms mit einer davon (z. B. Volumen-Spike)
+    var moreConditions by remember { mutableStateOf(AlarmTemplates.opensMoreConditions(draft.condition)) }
+    // «Erweitert»: offen bei einer Kursmarke in eigener Währung
     var advanced by remember { mutableStateOf(AlarmTemplates.opensAdvanced(draft.condition, draft.currency)) }
 
     // Zweite Währung neben der Quote: die des Alarms (falls gesetzt), sonst die Umrechnungswährung
@@ -119,14 +122,30 @@ internal fun AlarmEditorSheet(
                 TemplateChips(templates = templates, onTemplate = onTemplate)
             }
 
-            // Einfacher Modus: «Wenn BTC [über ▾] [Betrag] geht»
+            // Einfache Bedingungen: Kurs über/unter, Steigt/Fällt um
+            Column(modifier = Modifier.padding(top = Spacing.sm)) {
+                ConditionChips(conditions = AlarmTemplates.SIMPLE_CONDITIONS, draft = draft, onDraftChange = onDraftChange)
+            }
             if (draft.condition.isPriceThreshold) {
+                // Kursmarke als Satz: «Wenn BTC [über ▾] [Betrag] geht»
                 SimpleSentence(
                     draft = draft,
                     symbol = baseAsset,
                     unit = priceUnit,
                     onDraftChange = onDraftChange,
                 )
+            } else if (draft.condition.isPercent && !AlarmTemplates.opensMoreConditions(draft.condition)) {
+                ThresholdField(draft = draft, onDraftChange = onDraftChange)
+            }
+
+            // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
+            AdvancedHeader(
+                title = stringResource(R.string.alarm_more_conditions),
+                expanded = moreConditions,
+                onToggle = { moreConditions = !moreConditions },
+            )
+            if (moreConditions) {
+                MoreConditionOptions(draft = draft, derivatives = derivatives, onDraftChange = onDraftChange)
             }
 
             // Einmal / Jedes Mal
@@ -146,12 +165,15 @@ internal fun AlarmEditorSheet(
                 }
             }
 
-            AdvancedHeader(expanded = advanced, onToggle = { advanced = !advanced })
+            AdvancedHeader(
+                title = stringResource(R.string.alarm_advanced),
+                expanded = advanced,
+                onToggle = { advanced = !advanced },
+            )
 
             if (advanced) {
                 AdvancedOptions(
                     draft = draft,
-                    derivatives = derivatives,
                     quoteAsset = quoteAsset,
                     otherCurrency = otherCurrency,
                     offerCurrency = offerCurrency,

@@ -5,7 +5,8 @@ import kotlin.math.abs
 
 /**
  * USDT-Depeg-Alarm (Build 46): meldet einmal je Abweichung, wenn USDT um mindestens die Schwelle
- * von 1 USD abweicht. Bewertungen in der App rechnen weiter mit USDT = 1 (nur ein Hinweis).
+ * von 1 USD abweicht. Dieselbe Messung ist der Live-Kurs USDT/USD der Bewertung ([liveUsdtUsd]): USDT gilt in Fiat seinen
+ * Marktkurs ([com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd]); ohne frische Messung 1 als Näherung.
  *
  * Quellen (bestehende Kurs-Abrufe, kein neuer Anbieter): Kraken USDT/USD (direkt) und Binance
  * USDC/USDT (USDT = 1 / Kurs, USDC als 1 USD angenommen). Beide da: der Wert näher bei 1 zählt —
@@ -17,6 +18,14 @@ import kotlin.math.abs
  * scharf ([QuietHours.mayFire]) — wie die Kursalarme. Reine Logik — wie `DepegAlarm.swift`.
  */
 object DepegAlarm {
+
+    /**
+     * Messen? Mit eingeschaltetem Alarm immer; sonst, sobald ein Portfolio da ist (eingeschaltet und mit Transaktionen
+     * oder beobachteten Adressen): Die Messung ist der Live-Kurs USDT/USD der Bewertung ([liveUsdtUsd], Owner-Entscheid
+     * Okt. 2026). Gemeldet wird weiterhin nur mit eingeschaltetem Alarm ([depegAlarm]).
+     */
+    fun shouldMeasure(depegAlarm: Boolean, portfolioEnabled: Boolean, hasPortfolioData: Boolean): Boolean =
+        depegAlarm || (portfolioEnabled && hasPortfolioData)
 
     /** Schwelle in Zehntel-Prozent: 0.3 / 0.5 / 1 / 2 %. */
     val THRESHOLD_CHOICES = listOf(3, 5, 10, 20)
@@ -84,6 +93,13 @@ object DepegAlarm {
     /** So lange gilt eine Messung auf der Portfolio-Karte (Prüfung höchstens alle 5 Minuten). */
     const val CARD_MAX_AGE_MILLIS = 30 * 60_000L
 
+    /**
+     * So lange gilt eine Messung als Live-Kurs USDT/USD der Bewertung ([liveUsdtUsd]): 6 Std. — mit langen
+     * Hintergrund-Intervallen fiele die Bewertung sonst oft auf Ersatz 1 («USDT = 1 angenommen») zurück; USDT bewegt
+     * sich in dieser Zeit kaum. Die Warnzeile der Karte ([cardWarning]) bleibt bei [CARD_MAX_AGE_MILLIS].
+     */
+    const val LIVE_MAX_AGE_MILLIS = 6 * 60 * 60_000L
+
     /** Uhr leicht vorgestellt/zurückgestellt: kleine Abweichung in die Zukunft noch gültig. */
     private const val CARD_FUTURE_TOLERANCE_MILLIS = 60_000L
 
@@ -100,13 +116,24 @@ object DepegAlarm {
         return reading.takeIf { magnitude(deviationPercent(it.price)) >= thresholdPercent(thresholdTenths) }
     }
 
+    /**
+     * Live-Kurs USDT/USD für die Bewertung ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates.live]): die letzte
+     * Messung, wenn höchstens [LIVE_MAX_AGE_MILLIS] alt und plausibel; sonst null (Bewertung mit Ersatz 1, Näherung).
+     */
+    fun liveUsdtUsd(reading: Reading?, now: Long): Double? {
+        reading ?: return null
+        val age = now - reading.atMillis
+        if (age > LIVE_MAX_AGE_MILLIS || age < -CARD_FUTURE_TOLERANCE_MILLIS) return null
+        return reading.price.takeIf { plausible(it) }
+    }
+
     /** Art der Zeile zu «USDT = 1» auf der Portfolio-Karte ([cardNote]). */
     enum class CardNoteKind {
         /** Frische Messung weicht um mindestens die Schwelle ab: «USDT = 1 angenommen – Markt bei …» (Warnfarbe). */
         DEVIATION,
         /** Werte hängen an USDT = USD (Anzeigewährung, USD, gemischte Börsen): «Kurse: Binance · USDT = 1». */
         PRICE_SOURCE,
-        /** Der Bestand enthält USDT (zählt immer genau 1): «USDT = 1 angenommen». */
+        /** Der Bestand enthält USDT (zählt 1) bzw. mit USDT zum Marktkurs: Ersatz 1 ohne Kurs — «USDT = 1 angenommen». */
         USDT_ASSUMED,
     }
 
@@ -120,6 +147,9 @@ object DepegAlarm {
      *  2. sonst [valuesViaUsdt] (`PortfolioExchangeRoute.usdtParityShown`) → [CardNoteKind.PRICE_SOURCE];
      *  3. sonst enthält der Bestand [holdingCoins] USDT ([PortfolioStables.isValuation]) → [CardNoteKind.USDT_ASSUMED];
      *  4. sonst keine Zeile (null).
+     * Mit USDT zum Marktkurs ([usdtMarket], Owner-Entscheid Okt. 2026): frischer Kurs ([liveUsdtUsd]) → keine Zeile
+     * (nichts angenommen, die Werte rechnen mit dem Markt); ohne ihn trägt Ersatz 1 die Zahlen → wie 2./3., aber immer
+     * [CardNoteKind.USDT_ASSUMED] («USDT = 1 angenommen» = Markierung der Näherung).
      */
     fun cardNote(
         holdingCoins: Collection<String>,
@@ -127,7 +157,13 @@ object DepegAlarm {
         reading: Reading?,
         thresholdTenths: Int,
         now: Long,
+        usdtMarket: Boolean = false,
     ): CardNote? {
+        if (usdtMarket) {
+            if (liveUsdtUsd(reading, now) != null) return null
+            val assumed = valuesViaUsdt || holdingCoins.any { PortfolioStables.isValuation(it) }
+            return if (assumed) CardNote(CardNoteKind.USDT_ASSUMED) else null
+        }
         cardWarning(reading, thresholdTenths, now)?.let { return CardNote(CardNoteKind.DEVIATION, it) }
         if (valuesViaUsdt) return CardNote(CardNoteKind.PRICE_SOURCE)
         if (holdingCoins.any { PortfolioStables.isValuation(it) }) return CardNote(CardNoteKind.USDT_ASSUMED)

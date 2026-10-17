@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Çmimi aktual</string>
     <string name="portfolio_price_missing">Mungon çmimi</string>
     <string name="portfolio_price_missing_hint">Disa blerje nuk kanë çmim. Shto çmimin e blerjes për të parë fitimin/humbjen.</string>
-    <string name="portfolio_price_source">Çmimet: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Çmimet: %1$s, përndryshe Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Çmimet: Binance · USDT me çmimin e tregut</string>
+    <string name="portfolio_price_source_routes">Çmimet: %1$s, përndryshe Binance · USDT me çmimin e tregut</string>
     <string name="portfolio_price_unavailable">Çmimi nuk është i disponueshëm tani</string>
     <string name="portfolio_price_unchecked">Çmim i paverifikuar</string>
     <string name="portfolio_price_via_base">≈ çmimi i %1$s (bridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT e konvertuar me kursin e USD</string>
+    <string name="portfolio_usdt_as_usd">USDT e konvertuar me çmimin e saj të tregut në USD</string>
     <string name="portfolio_usdt_assumed">Supozohet USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Supozohet USDT = 1 – tregu në %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Shto në portofol</string>

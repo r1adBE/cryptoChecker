@@ -6,7 +6,7 @@ import SwiftUI
 
 /// Kleine Überschrift «Gewinn/Verlust» über Heute · 7 T · Seit Kauf, rechts ein (i): erklärt in wenigen
 /// Sätzen, wie die Zahlen gerechnet sind (Käufe/Verkäufe im Zeitraum herausgerechnet, Einstand nach der gewählten
-/// Methode FIFO oder Ø, Gebühren, Bewertung mit Binance-Kursen, USDT = 1). Wie `GainHeader` (Android).
+/// Methode FIFO oder Ø, Gebühren, Bewertung mit Binance-Kursen, USDT zum Marktkurs). Wie `GainHeader` (Android).
 struct PortfolioGainHeader: View {
     let method: CostMethod
     @State private var showInfo = false
@@ -189,14 +189,16 @@ struct PortfolioRewardsNote: View {
     }
 }
 
-/// Einheit der Gesamtkarte: die Anzeigewährung mit dem Devisenkurs (USD → Währung, USDT = USD), sonst
-/// USDT mit Kurs 1 (auch bei USD). Beträge kommen in USDT und werden mit `of` umgerechnet. Wie `CardUnit` (Android).
+/// Einheit der Gesamtkarte: die Anzeigewährung mit dem Faktor USDT → Währung (Devisenkurs × USDT/USD, `displayRate`),
+/// sonst USDT mit Kurs 1. Beträge kommen in USDT und werden mit `of` umgerechnet. Wie `CardUnit` (Android).
 struct PortfolioCardUnit {
     let code: String
     private let rate: Double
 
     init(currency: String, fxRate: Double?) {
-        if let fx = fxRate, currency != "USD", currency != PortfolioFormat.usdt, fx > 0, fx.isFinite {
+        // Auch USD: USDT gilt dort seinen Marktkurs USDT/USD (Faktor = 1 × USDT/USD, ohne Messung 1 mit
+        // «USDT = 1 angenommen»), nicht mehr still 1:1. Wie Android `cardUnit`.
+        if let fx = fxRate, currency != PortfolioFormat.usdt, fx > 0, fx.isFinite {
             code = currency
             rate = fx
         } else {

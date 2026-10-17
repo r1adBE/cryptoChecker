@@ -70,6 +70,10 @@ class PortfolioExportViewModel @Inject constructor(
     internal val historic: HistoricPriceSource,
     internal val priceSource: PortfolioPriceSource,
     private val settingsRepository: SettingsRepository,
+    /** USDT/USD-Tagesschlüsse (Kraken, [com.cryptochecker.app.data.portfolio.PortfolioHistorySource.usdtUsdDaily]). */
+    internal val historySource: com.cryptochecker.app.data.portfolio.PortfolioHistorySource,
+    /** Live-Kurs USDT/USD für einen Stichtag heute. */
+    internal val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CutoffExportState>(CutoffExportState.Idle)
@@ -180,8 +184,9 @@ class PortfolioExportViewModel @Inject constructor(
         val walletFrom = tpl.walletFrom(costMethod.value, year)
         val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
         val rates = rates(currency, from, period.end)
+        val usdtUsd = usdtUsdCloses(currency, from)
         return withContext(Dispatchers.Default) {
-            TaxExport.yearSummary(trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom)
+            TaxExport.yearSummary(trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd)
         }
     }
 
@@ -251,11 +256,13 @@ class PortfolioExportViewModel @Inject constructor(
                 val walletFrom = tpl.walletFrom(costMethod.value, year)
                 val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
                 val rates = rates(currency, from, period.end)
+                // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
+                val usdtUsd = usdtUsdCloses(currency, from)
                 withContext(Dispatchers.Default) {
                     TaxExport.gainsCsv(
                         TaxExport.gainRows(
                             trades, method, period, zone, currency, rates, priceAt, rules = tpl.eventRules,
-                            walletFrom = walletFrom,
+                            walletFrom = walletFrom, usdtUsd = usdtUsd,
                         ), texts, header, format,
                         lostFeeCosts = TaxExport.lostFeeCostsIn(trades, method, period, zone, tpl.eventRules),
                         zone = zone,
@@ -265,9 +272,10 @@ class PortfolioExportViewModel @Inject constructor(
             }
             TaxExportKind.INCOME -> {
                 val rates = rates(currency, period.start, period.end)
+                val usdtUsd = usdtUsdCloses(currency, period.start)
                 // Belohnungen ohne Wert (Kraken/Binance) zum Tagesschluss geschätzt, wie in der Jahresübersicht
                 val priceAt = feeDisposalPrices(trades, period)
-                TaxExport.incomeCsv(TaxExport.incomeRows(trades, period, zone, currency, rates, priceAt), texts, header, format)
+                TaxExport.incomeCsv(TaxExport.incomeRows(trades, period, zone, currency, rates, priceAt, usdtUsd), texts, header, format)
             }
         }
     }
@@ -330,12 +338,15 @@ class PortfolioExportViewModel @Inject constructor(
         val closes = historic.dailyClosesUsdt(coins, date, current)
         val empty = holdings.isEmpty() && addressAt.balances.isEmpty()
         val fx: HistoricFx? = if (empty && currency != "USD") null else historic.usdTo(currency, date)
-        // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»)
-        val rate = PortfolioDecimal.of(fx?.rate)
+        // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»); USDT zum Marktkurs:
+        // × USDT/USD des Stichtags (heute live, sonst Tagesschluss) — ohne Kurs 1, in der Datei vermerkt
+        val usdt = cutoffUsdtUsd(currency, date)
+        val rate = PortfolioDecimal.of(fx?.rate)?.let { r -> usdt?.let { r.multiply(it, PortfolioDecimal.MC) } ?: r }
         val rows = CutoffExport.rows(holdings, closes.prices, rate, closes.unchecked) +
             CutoffExport.addressRows(addressAt, closes.prices, rate, closes.unchecked)
         // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
         val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
-        return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header)
+        val usdtApproximate = rate != null && usdt == null && CutoffExport.convertsUsdt(currency)
+        return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header, usdtApproximate)
     }
 }

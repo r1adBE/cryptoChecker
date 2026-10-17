@@ -35,6 +35,7 @@
     <string name="alarm_first_battery_hint">Optimizarea bateriei limitează aplicația – alarmele pot sosi mai târziu.</string>
     <string name="alarm_first_title">Totul e pregătit</string>
     <string name="alarm_last_triggered">ultima: %1$s</string>
+    <string name="alarm_more_conditions">Mai multe condiții</string>
     <string name="alarm_new_extreme">Nou %1$s</string>
     <string name="alarm_once">O dată</string>
     <string name="alarm_option_repeating">Păstrează alarma după declanșare</string>

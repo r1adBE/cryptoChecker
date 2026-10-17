@@ -89,7 +89,7 @@ internal fun TotalCard(
     walletShortfalls: List<com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall> = emptyList(),
     /** Hinweis «Bestand in … reicht nicht» angetippt: Transaktion mit dieser Id öffnen. */
     onShortfall: (Long) -> Unit = {},
-    /** Letzte Depeg-Messung und Schwelle (Zehntel-%): Zeile zu «USDT = 1» über [DepegAlarm.cardNote]. */
+    /** Letzte Messung USDT/USD und Schwelle (Zehntel-%): Zeile «USDT = 1 angenommen» über [DepegAlarm.cardNote]. */
     depegReading: DepegAlarm.Reading? = null,
     depegThresholdTenths: Int = DepegAlarm.DEFAULT_THRESHOLD_TENTHS,
     /** Uhr für die Frische der Messung (Bildschirm tickt alle 30 s). */
@@ -100,13 +100,14 @@ internal fun TotalCard(
     var showHints by rememberSaveable { mutableStateOf(false) }
     val expandedText = stringResource(R.string.a11y_expanded)
     val collapsedText = stringResource(R.string.a11y_collapsed)
-    // Woher die Kurse stammen: «Kurse: Binance · USDT = 1» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · USDT = 1»
+    // Woher die Kurse stammen: «Kurse: Binance · USDT zum Marktkurs» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · …»
     val priceSourceText = if (priceSources.isEmpty()) {
         stringResource(R.string.portfolio_price_source)
     } else {
         stringResource(R.string.portfolio_price_source_routes, com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(priceSources))
     }
-    // Zeile zu «USDT = 1» unabhängig vom Depeg-Alarm (Build 58): Abweichung, Kursquelle oder «USDT = 1 angenommen»
+    // USDT zum Marktkurs (Owner-Entscheid Okt. 2026): ohne frische Messung trägt Ersatz 1 die Zahlen — dann
+    // «USDT = 1 angenommen» auf der Karte (unabhängig vom Depeg-Alarm); mit Messung keine Zeile
     val usdtNote = DepegAlarm.cardNote(
         holdingCoins = summary.open.map { it.coin },
         valuesViaUsdt = com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.usdtParityShown(
@@ -115,6 +116,7 @@ internal fun TotalCard(
         reading = depegReading,
         thresholdTenths = depegThresholdTenths,
         now = now,
+        usdtMarket = true,
     )
     Column(modifier = Modifier.fillMaxWidth()) {
     // Hervorgehoben nur durch den Verlauf, ohne Akzentrand: eine einzige Hervorhebung (wie iOS)
@@ -156,7 +158,7 @@ internal fun TotalCard(
                     modifier = Modifier.padding(bottom = 2.dp)
                 )
             }
-            // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Devisenkurs da, nicht USD)
+            // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Faktor da; auch USD, USDT zum Marktkurs)
             if (unit.converted) {
                 Text(
                     withSmallQuote("≈ " + maskAmount(PortfolioFormat.usdt(summary.totalValue))),
@@ -164,16 +166,11 @@ internal fun TotalCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            // «USDT = 1» auf der Karte selbst, sobald die Annahme die Zahlen trägt ([DepegAlarm.cardNote]):
-            // USDT-Depeg (frische Messung ≥ Schwelle) als Warnzeile in Warnfarbe; sonst «Kurse: Binance · USDT = 1»
-            // (Anzeigewährung, USD oder gemischte Börsen) bzw. «USDT = 1 angenommen» (USDT im Bestand)
+            // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt ([DepegAlarm.cardNote]
+            // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
             when (usdtNote?.kind) {
-                DepegAlarm.CardNoteKind.DEVIATION -> Text(
-                    depegWarningText(requireNotNull(usdtNote.reading)),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = AppColors.warningText,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
+                // Mit usdtMarket nicht mehr geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
+                DepegAlarm.CardNoteKind.DEVIATION, null -> Unit
                 DepegAlarm.CardNoteKind.PRICE_SOURCE -> Text(
                     priceSourceText,
                     style = MaterialTheme.typography.bodySmall,
@@ -186,7 +183,6 @@ internal fun TotalCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 2.dp)
                 )
-                null -> Unit
             }
             // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
             // (Prozent ohne Betrag, z. B. ohne Devisenkurs, bleibt sichtbar); ohne Daten keine Zeile
@@ -388,19 +384,6 @@ private fun PartialMarker(text: String, onClick: () -> Unit, modifier: Modifier 
             .background(MaterialTheme.colorScheme.surfaceContainerHighest)
             .clickable(role = Role.Button, onClick = onClick)
             .padding(horizontal = 8.dp, vertical = 2.dp)
-    )
-}
-
-/** Eine Zeile unter «Hinweise»: [error] in Fehlerfarbe; mit [txId] antippbar (öffnet die Transaktion). */
-/** «USDT = 1 angenommen – Markt bei 0.9930 USD (−0.70 %)» — Zahlen wie in der Depeg-Meldung. */
-@Composable
-private fun depegWarningText(reading: DepegAlarm.Reading): String {
-    val deviation = DepegAlarm.deviationPercent(reading.price)
-    val sign = if (deviation < 0) "−" else "+"
-    return stringResource(
-        R.string.portfolio_usdt_depeg_warning,
-        com.cryptochecker.app.util.LocaleNumbers.decimal(reading.price, 4),
-        sign + com.cryptochecker.app.util.LocaleNumbers.decimal(kotlin.math.abs(deviation), 2) + " %",
     )
 }
 

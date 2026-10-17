@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">币种</string>
     <string name="portfolio_export_col_note">备注</string>
     <string name="portfolio_export_col_price">价格 USDT</string>
-    <string name="portfolio_export_col_rate">汇率 USD→%1$s</string>
+    <string name="portfolio_export_col_rate">汇率 USDT→%1$s</string>
     <string name="portfolio_export_col_value">市值 USDT</string>
     <string name="portfolio_export_col_value_cur">市值 %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">时区：%1$s</string>
     <string name="tax_export_transfer_fee_info">USDT/法币转移手续费——不算亏损，不计入成本，仅供参考</string>
     <string name="tax_export_unassigned_fee">手续费未分配——成本未知</string>
-    <string name="tax_export_usdt_usd_note">假定 USDT = 1 USD（脱锚时不准确）</string>
+    <string name="tax_export_usdt_usd_note">USDT 按 USDT/USD 日收盘价换算；无收盘价时按 1 USD（逐行注明）</string>
     <string name="tax_export_value_estimated">估算值（每日收盘价）</string>
     <string name="tax_export_value_missing">缺少收到时的价值</string>
     <string name="tax_export_wallet">钱包：%1$s</string>

@@ -405,10 +405,10 @@ enum PortfolioWidgetStore {
         return list
     }
 
-    /// Zweite Zeile «≈ … USDT» nur, wenn gewünscht und die Anzeigewährung nicht selbst
-    /// USD bzw. ein USD-Stablecoin ist (ohne Devisenkurs zeigt das Widget USD).
+    /// Zweite Zeile «≈ … USDT» nur, wenn gewünscht und die Anzeigewährung nicht selbst ein USD-Stablecoin ist (ohne
+    /// Devisenkurs zeigt das Widget USDT). USD zeigt sie wie jede Fiat-Währung (USDT zum Marktkurs USDT/USD). Wie Android.
     static func showsUsdt(enabled: Bool, currency: String) -> Bool {
-        enabled && !CurrencyConversion.usdStables.contains(CurrencyConversion.normalize(currency))
+        enabled && !PortfolioWidgetChart.collapsesToUsdt(currency)
     }
 
     /// Anteil von `value` an `total` in Prozent (0–100); ohne Gesamtwert 0.
@@ -567,7 +567,8 @@ enum PortfolioWidgetStore {
             saveHistory(history)
         }
 
-        // USD = USDT (wie die Umrechnungszeile im Portfolio); ohne Devisenkurs in USD (wie Android).
+        // Faktor USDT → Währung (Devisenkurs × USDT/USD, auch für USD); ohne Devisenkurs in USDT (1:1 gerechnet —
+        // nicht «USD», das in USD nun USDT zum Marktkurs meint; wie Android).
         // Der aktuelle Kurs gilt auch für die Punkte des Verlaufs: er reicht nur 24 h zurück,
         // EZB-Tageskurse (`PortfolioHistoryFx`) brächten dort nur einen künstlichen Sprung.
         let factor: Double
@@ -577,7 +578,7 @@ enum PortfolioWidgetStore {
             label = currency
         } else {
             factor = 1
-            label = "USD"
+            label = PortfolioStables.valuation
         }
         // Grösste Positionen (Wert = Menge × aktueller Kurs) und Wertverlauf; Zeitpunkt des
         // letzten Punkts = Kursstand, damit unveränderte Kurse den Stand nicht ändern.
@@ -739,7 +740,11 @@ enum PortfolioWidgetStore {
                                                         fetchedAt: FxRateSource.fetchedAt(currency), now: now) {
             saveFxMemo(memo)
         }
-        let resolvedRate = PortfolioWidgetChart.fxRate(for: currency, fresh: rate, memo: loadFxMemo(), now: now)
+        let fxRate = PortfolioWidgetChart.fxRate(for: currency, fresh: rate, memo: loadFxMemo(), now: now)
+        // USDT zum Marktkurs: Devisenkurs × USDT/USD (Widget, «Heute» und Portfolio-Alarme in der Währung)
+        let resolvedRate = fxRate.map {
+            PortfolioWidgetChart.usdtFactor(currency: currency, fx: $0, usdtLive: DepegAlarmCheck.liveUsdtUsd(now: now))
+        }
         let snapshot = compute(transactions: transactions, prices: prices, currency: currency, rate: resolvedRate,
                                extraHourly: extraHourly, basis: settings.changeBasis.storage,
                                method: settings.costMethod,

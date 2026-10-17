@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — hiện tại %2$s</string>
     <string name="notification_alarm_title">Cảnh báo: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Mở sàn</string>
-    <string name="notification_depeg_text">Các giá trị trong ứng dụng vẫn tính với USDT = 1.</string>
+    <string name="notification_depeg_text">Các giá trị trong ứng dụng tính theo giá thị trường này.</string>
     <string name="notification_depeg_title">USDT ở mức %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Chỉ số lên trên %1$d – theo chỉ số này, thị trường đang tham lam.</string>
     <string name="notification_fng_below">Chỉ số xuống dưới %1$d – theo chỉ số này, thị trường đang sợ hãi.</string>

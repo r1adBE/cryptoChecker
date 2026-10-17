@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — ahora %2$s</string>
     <string name="notification_alarm_title">Alarma: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Abrir exchange</string>
-    <string name="notification_depeg_text">Los valores de la app siguen usando USDT = 1.</string>
+    <string name="notification_depeg_text">Los valores de la app usan este precio de mercado.</string>
     <string name="notification_depeg_title">USDT a %1$s USD (%2$s)</string>
     <string name="notification_fng_above">El índice superó %1$d: según este índice, en el mercado domina la codicia.</string>
     <string name="notification_fng_below">El índice bajó de %1$d: según este índice, en el mercado domina el miedo.</string>

@@ -80,9 +80,31 @@ final class DepegAlarmParityTests: XCTestCase {
             }
             let note = DepegAlarm.cardNote(holdingCoins: c["holdings"] as? [String] ?? [],
                                            valuesViaUsdt: c["valuesViaUsdt"] as? Bool ?? false, reading: reading,
-                                           thresholdTenths: Int(TestSupport.number(c["thresholdTenths"]) ?? 0), now: now)
+                                           thresholdTenths: Int(TestSupport.number(c["thresholdTenths"]) ?? 0), now: now,
+                                           usdtMarket: c["usdtMarket"] as? Bool ?? false)
             XCTAssertEqual(note?.kind.rawValue, c["kind"] as? String, "\(c)")
             XCTAssertEqual(note?.reading, note?.kind == .DEVIATION ? reading : nil, "\(c)")
+        }
+    }
+
+    /// Live-Kurs USDT/USD der Bewertung aus der letzten Messung (USDT zum Marktkurs, Owner-Entscheid Okt. 2026; 6 Std. gültig).
+    func testLiveUsdtUsd() throws {
+        let now: Int64 = 1_800_000_000_000
+        // 6 Std. statt der 30 Min. der Warnzeile (lange Hintergrund-Intervalle)
+        XCTAssertEqual(DepegAlarm.liveMaxAgeMillis, 21_600_000)
+        XCTAssertEqual(DepegAlarm.cardMaxAgeMillis, 1_800_000)
+        let cases = TestSupport.list(try data()["liveUsdtUsd"])
+        XCTAssertGreaterThanOrEqual(cases.count, 5)
+        for c in cases {
+            let reading = TestSupport.number(c["price"]).map {
+                DepegAlarm.Reading(price: $0, atMillis: now - Int64(TestSupport.number(c["ageMillis"]) ?? 0))
+            }
+            let live = DepegAlarm.liveUsdtUsd(reading, now: now)
+            if let expected = TestSupport.number(c["expected"]) {
+                XCTAssertEqual(live ?? .nan, expected, accuracy: 1e-12, "\(c)")
+            } else {
+                XCTAssertNil(live, "\(c)")
+            }
         }
     }
 
@@ -112,5 +134,16 @@ final class DepegAlarmParityTests: XCTestCase {
     func testUrlsAreHttps() {
         for entry in DepegAlarm.exchangeUrls { XCTAssertTrue(entry.url.hasPrefix("https://"), entry.url) }
         XCTAssertTrue(DepegAlarm.exchangeUrls.contains { $0.key == DepegAlarm.fallbackExchange })
+    }
+
+    /// Messen mit Alarm oder Portfolio (USDT zum Marktkurs braucht den Live-Kurs auch ohne Alarm). Wie Android.
+    func testShouldMeasure() {
+        XCTAssertTrue(DepegAlarm.shouldMeasure(depegAlarm: true, portfolioEnabled: false, hasPortfolioData: false))
+        XCTAssertTrue(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: true, hasPortfolioData: true))
+        XCTAssertTrue(DepegAlarm.shouldMeasure(depegAlarm: true, portfolioEnabled: true, hasPortfolioData: false))
+        // Portfolio aus oder leer: ohne Alarm keine Anfrage
+        XCTAssertFalse(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: true, hasPortfolioData: false))
+        XCTAssertFalse(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: false, hasPortfolioData: true))
+        XCTAssertFalse(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: false, hasPortfolioData: false))
     }
 }

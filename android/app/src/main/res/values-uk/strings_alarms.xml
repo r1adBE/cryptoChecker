@@ -36,6 +36,7 @@
     <string name="alarm_first_battery_hint">Оптимізація батареї обмежує застосунок – сповіщення можуть надходити із запізненням.</string>
     <string name="alarm_first_title">Усе готово</string>
     <string name="alarm_last_triggered">востаннє о %1$s</string>
+    <string name="alarm_more_conditions">Інші умови</string>
     <string name="alarm_new_extreme">Оновлення %1$s</string>
     <string name="alarm_once">Один раз</string>
     <string name="alarm_option_repeating">Залишати сигнал після спрацювання</string>

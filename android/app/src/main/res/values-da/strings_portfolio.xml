@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Aktuel kurs</string>
     <string name="portfolio_price_missing">Pris mangler</string>
     <string name="portfolio_price_missing_hint">Nogle køb har ingen pris. Tilføj købsprisen for at se gevinst/tab.</string>
-    <string name="portfolio_price_source">Kurser: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Kurser: %1$s, ellers Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Kurser: Binance · USDT til markedskurs</string>
+    <string name="portfolio_price_source_routes">Kurser: %1$s, ellers Binance · USDT til markedskurs</string>
     <string name="portfolio_price_unavailable">Kurs ikke tilgængelig lige nu</string>
     <string name="portfolio_price_unchecked">Kurs ikke kontrolleret</string>
     <string name="portfolio_price_via_base">≈ %1$s-kurs (bridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT omregnet til USD-kurs</string>
+    <string name="portfolio_usdt_as_usd">USDT omregnet til sin USD-markedskurs</string>
     <string name="portfolio_usdt_assumed">USDT = 1 antaget</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 antaget – markedet på %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Føj til portefølje</string>

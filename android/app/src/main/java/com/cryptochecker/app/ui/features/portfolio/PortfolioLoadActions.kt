@@ -34,7 +34,8 @@ internal suspend fun PortfolioViewModel.showStoredToday(fxRate: Double?) {
     if (snapshot.empty || snapshot.time <= 0L) return
     if (!ChangeBasisMath.isCurrent(snapshot.stamp, changeBasis.value, snapshot.time)) return
     _todayPercent.value = snapshot.changePercent?.takeIf { it.isFinite() }
-    val rate = if (snapshot.currency == "USD") 1.0 else fxRate?.takeIf { it > 0.0 }
+    // Faktor der Aufnahme (Devisenkurs × USDT/USD), ohne USDT-Wert der Devisenkurs
+    val rate = snapshotUsdtFactor(snapshot, fxRate)
     _todayAmount.value = snapshot.changeAmount?.let { amount -> rate?.let { amount / it } }
     // Zeilen: Gewinn/Verlust je Coin aus derselben Aufnahme (Summe = «Heute»)
     _coinPnl.value = snapshot.coinPnl
@@ -127,6 +128,8 @@ fun PortfolioViewModel.refresh(force: Boolean) {
 
 internal suspend fun PortfolioViewModel.loadPrices(coins: Set<String>, force: Boolean) {
     if (coins.isEmpty()) return
+    // USDT/USD messen (höchstens alle 5 Minuten, parallel zu den Kursen): Live-Kurs der Bewertung
+    viewModelScope.launch { safe { depegChecker.checkIfDue() } }
     safe { priceSource.prices(coins, force) }
     // Frisch Geholtes, sonst der gemerkte Stand je Coin (ohne Netz bleibt der letzte Wert stehen)
     safe { priceSource.stored(coins) }?.let { _prices.value = it }

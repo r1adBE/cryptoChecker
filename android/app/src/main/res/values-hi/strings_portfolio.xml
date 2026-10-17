@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">वर्तमान भाव</string>
     <string name="portfolio_price_missing">मूल्य नहीं है</string>
     <string name="portfolio_price_missing_hint">कुछ खरीदों में मूल्य नहीं है। लाभ/हानि देखने के लिए खरीद मूल्य जोड़ें।</string>
-    <string name="portfolio_price_source">भाव: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">भाव: %1$s, अन्यथा Binance · USDT = 1</string>
+    <string name="portfolio_price_source">भाव: Binance · USDT बाज़ार भाव पर</string>
+    <string name="portfolio_price_source_routes">भाव: %1$s, अन्यथा Binance · USDT बाज़ार भाव पर</string>
     <string name="portfolio_price_unavailable">भाव अभी उपलब्ध नहीं</string>
     <string name="portfolio_price_unchecked">भाव अपुष्ट</string>
     <string name="portfolio_price_via_base">≈ %1$s भाव (ब्रिज्ड/रैप्ड)</string>
-    <string name="portfolio_usdt_as_usd">USDT को USD दर से बदला गया</string>
+    <string name="portfolio_usdt_as_usd">USDT को उसके USD बाज़ार भाव से बदला गया</string>
     <string name="portfolio_usdt_assumed">USDT = 1 माना गया</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 माना गया – बाज़ार %1$s USD पर (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">पोर्टफ़ोलियो में जोड़ें</string>

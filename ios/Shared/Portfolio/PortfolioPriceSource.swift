@@ -207,7 +207,9 @@ enum PortfolioPriceSource {
             if let ticker = try? await MarketService.fetchTicker(market: market, info: info) {
                 let quote = route.quote.uppercased()
                 let rate: Double? = (quote == "USDT" || quote == "USD") ? nil : await FxRateSource.usdTo(quote)
-                price = PortfolioExchangeRoute.toUsdt(ticker.last, quote: quote) { _ in rate }
+                // USDT zum Marktkurs: USD-/Fiat-Kurs durch USDT/USD (ohne frische Messung 1, Karte markiert die Näherung)
+                price = PortfolioExchangeRoute.toUsdt(ticker.last, quote: quote,
+                                                      usdtUsd: DepegAlarmCheck.liveUsdtUsd() ?? 1) { _ in rate }
             }
             if let price {
                 if let ref = fetched[coin] { refs[coin] = ref }
@@ -430,7 +432,8 @@ enum PortfolioPriceSource {
         guard let ticker = try? await MarketService.fetchTicker(market: market, info: info) else { return nil }
         let quote = pick.quote.uppercased()
         let rate: Double? = (quote == "USDT" || quote == "USD") ? nil : await FxRateSource.usdTo(quote)
-        return PortfolioExchangeRoute.toUsdt(ticker.last, quote: quote) { _ in rate }
+        return PortfolioExchangeRoute.toUsdt(ticker.last, quote: quote,
+                                             usdtUsd: DepegAlarmCheck.liveUsdtUsd() ?? 1) { _ in rate }
     }
 
     /// Unabhängige Bezüge für Kerzenkurse (`PricePlausibility.candleReference`): Kurse aktiver

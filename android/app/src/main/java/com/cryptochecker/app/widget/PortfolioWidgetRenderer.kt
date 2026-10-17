@@ -44,6 +44,8 @@ class PortfolioWidgetRenderer @Inject constructor(
     private val coinLogos: WidgetCoinLogos,
     /** Devisenkurs, falls noch keiner gemerkt ist ([fxMemoFor]). */
     private val fxSource: FxRateSource,
+    /** Live-Kurs USDT/USD für das Umrechnen beim Zeichnen ([PortfolioWidgetChart.usdtFactor]). */
+    private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     /**
      * Zuletzt gezeichneter Wertverlauf je Portfolio-Widget und Grösse (Schlüssel
@@ -106,9 +108,11 @@ class PortfolioWidgetRenderer @Inject constructor(
         val snapshot = stored?.let {
             // In der eingestellten Umrechnungswährung (ohne Kurs in USD aufgenommen oder Währung inzwischen
             // gewechselt): mit dem gemerkten Kurs umrechnen, damit «Umrechnung» sofort greift
+            val now = System.currentTimeMillis()
             PortfolioWidgetChart.rebased(
                 it, settings.portfolioCurrency,
-                PortfolioWidgetChart.fxRateFor(settings.portfolioCurrency, null, fxMemo, System.currentTimeMillis()),
+                PortfolioWidgetChart.fxRateFor(settings.portfolioCurrency, null, fxMemo, now)
+                    ?.let { fx -> PortfolioWidgetChart.usdtFactor(settings.portfolioCurrency, fx, depegReadings.liveUsdtUsd(now)) },
             )
         }?.let {
             if (ChangeBasisMath.isCurrent(it.stamp, settings.changeBasis, System.currentTimeMillis())) it
@@ -156,7 +160,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                     snapshot.totalUsdt != null,
                 )
                 val shown = PortfolioWidgetChart.displayed(snapshot, display)
-                // «≈ … USDT» nur bei «Umrechnung + USDT» (bei USD fällt die Wahl auf «Nur USDT» zurück)
+                // «≈ … USDT» nur bei «Umrechnung + USDT» (bei einem USD-Stablecoin fällt die Wahl auf «Nur USDT» zurück)
                 val wantUsdt = display == PortfolioDisplay.CONVERSION_USDT
                 val plan = PortfolioWidgetChart.plan(
                     snapshot = shown,

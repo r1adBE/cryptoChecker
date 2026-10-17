@@ -78,6 +78,8 @@ data class CutoffCsvTexts(
     val fromAddress: String = "",
     /** Hinweis, wenn eine Adresse am Stichtag nicht beobachtet war (Guthaben fehlt). */
     val addressUnobserved: String = "",
+    /** Zeile «USDT = 1 angenommen» (kein USDT/USD-Kurs am Stichtag, [CutoffExport.csv] `usdtApproximate`); leer = keine. */
+    val usdtAssumed: String = "",
 )
 
 /**
@@ -230,6 +232,12 @@ object CutoffExport {
         if (!PortfolioStables.needsQuote(coin)) BigDecimal.ONE else market?.takeIf { it.signum() > 0 }
 
     /**
+     * Rechnet der Export in [currency] USDT in Fiat um (USDT zum Marktkurs: Devisenkurs × USDT/USD)? Für jede Währung
+     * ausser USDT selbst — auch USD.
+     */
+    fun convertsUsdt(currency: String): Boolean = currency.trim().uppercase() != PortfolioStables.VALUATION
+
+    /**
      * Ganze CSV-Datei (mit BOM). [fxDate] = tatsächliches Datum des Devisenkurses
      * (null, z. B. bei USD oder ohne Kurs → «—»).
      */
@@ -242,6 +250,8 @@ object CutoffExport {
         format: CutoffCsvFormat = CutoffCsvFormat.SEMICOLON_POINT,
         /** Kopfzeilen davor (Arbeitsunterlage: Vorlage, Methode, Steuerjahr, Hinweis), je ein Feld; leer = keine. */
         header: List<String> = emptyList(),
+        /** Kurs ohne USDT/USD am Stichtag (USDT = 1 als Näherung): Zeile [CutoffCsvTexts.usdtAssumed] nach dem Kommentar. */
+        usdtApproximate: Boolean = false,
     ): String {
         // Zahlen ohne Tausendertrennung: Dezimalpunkt ggf. durch Komma ersetzen
         fun n(text: String): CsvCell = CsvCell(if (format.decimal == ',') text.replace('.', ',') else text, numeric = true)
@@ -251,6 +261,8 @@ object CutoffExport {
         val sb = StringBuilder(BOM)
         header.forEach { sb.append(line(listOf(it))) }
         sb.append(line(listOf(texts.commentFormat.format(date.toString(), currency, fxDate ?: "—"))))
+        // USDT zum Marktkurs, aber am Stichtag ohne USDT/USD-Kurs: Näherung 1 nie still
+        if (usdtApproximate && texts.usdtAssumed.isNotEmpty()) sb.append(line(listOf(texts.usdtAssumed)))
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         EstvKursliste.noteLine(texts.estvNoteFormat, date, currency, texts.estvLanguage)?.let { sb.append(line(listOf(it))) }
         sb.append(

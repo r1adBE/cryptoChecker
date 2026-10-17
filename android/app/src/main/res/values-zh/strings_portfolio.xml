@@ -78,14 +78,13 @@
     <string name="portfolio_current_price">当前价格</string>
     <string name="portfolio_price_missing">缺少价格</string>
     <string name="portfolio_price_missing_hint">部分买入没有价格。补充买入价即可查看盈亏。</string>
-    <string name="portfolio_price_source">价格：Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">价格：%1$s，其余 Binance · USDT = 1</string>
+    <string name="portfolio_price_source">价格：Binance · USDT 按市场价</string>
+    <string name="portfolio_price_source_routes">价格：%1$s，其余 Binance · USDT 按市场价</string>
     <string name="portfolio_price_unavailable">暂时无法获取价格</string>
     <string name="portfolio_price_unchecked">价格未核实</string>
     <string name="portfolio_price_via_base">≈ %1$s 价格（跨链/包装）</string>
-    <string name="portfolio_usdt_as_usd">USDT 按 USD 汇率换算</string>
+    <string name="portfolio_usdt_as_usd">USDT 按其 USD 市场价换算</string>
     <string name="portfolio_usdt_assumed">假定 USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">假定 USDT = 1——市场为 %1$s USD（%2$s）</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">添加到投资组合</string>

@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — most %2$s</string>
     <string name="notification_alarm_title">Riasztás: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Tőzsde megnyitása</string>
-    <string name="notification_depeg_text">Az alkalmazás értékei továbbra is USDT = 1 alapon számolnak.</string>
+    <string name="notification_depeg_text">Az alkalmazás értékei ezzel a piaci árfolyammal számolnak.</string>
     <string name="notification_depeg_title">USDT: %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Az index %1$d fölé emelkedett – az index szerint a piacon kapzsiság uralkodik.</string>
     <string name="notification_fng_below">Az index %1$d alá esett – az index szerint a piacon félelem uralkodik.</string>

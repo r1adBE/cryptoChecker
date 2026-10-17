@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Monedha</string>
     <string name="portfolio_export_col_note">Shënim</string>
     <string name="portfolio_export_col_price">Çmimi USDT</string>
-    <string name="portfolio_export_col_rate">Kursi USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kursi USDT→%1$s</string>
     <string name="portfolio_export_col_value">Vlera USDT</string>
     <string name="portfolio_export_col_value_cur">Vlera %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Zona kohore: %1$s</string>
     <string name="tax_export_transfer_fee_info">Tarifa e transferimit në USDT/para në dorë – jo humbje, jashtë kostos, vetëm informacion</string>
     <string name="tax_export_unassigned_fee">tarifë e pacaktuar – kostoja e panjohur</string>
-    <string name="tax_export_usdt_usd_note">Supozohet USDT = 1 USD (gabim nëse humbet lidhjen)</string>
+    <string name="tax_export_usdt_usd_note">USDT e konvertuar me mbylljen ditore USDT/USD; pa mbyllje 1 USD (shënuar për rresht)</string>
     <string name="tax_export_value_estimated">Vlerë e vlerësuar (mbyllja ditore)</string>
     <string name="tax_export_value_missing">mungon vlera në marrje</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

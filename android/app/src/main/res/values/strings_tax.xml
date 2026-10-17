@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Note</string>
     <string name="portfolio_export_col_price">Price USDT</string>
-    <string name="portfolio_export_col_rate">Rate USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Rate USDT→%1$s</string>
     <string name="portfolio_export_col_value">Value USDT</string>
     <string name="portfolio_export_col_value_cur">Value %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Time zone: %1$s</string>
     <string name="tax_export_transfer_fee_info">Transfer fee in USDT/cash – not a loss, not in the cost basis, information only</string>
     <string name="tax_export_unassigned_fee">fee not assigned – cost basis unknown</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD assumed (wrong if it depegs)</string>
+    <string name="tax_export_usdt_usd_note">USDT converted at the USDT/USD daily close; 1 USD where no close (marked per row)</string>
     <string name="tax_export_value_estimated">Value estimated (daily close)</string>
     <string name="tax_export_value_missing">value at receipt missing</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

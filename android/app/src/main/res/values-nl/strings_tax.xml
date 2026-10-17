@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Opmerking</string>
     <string name="portfolio_export_col_price">Koers USDT</string>
-    <string name="portfolio_export_col_rate">Koers USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Koers USDT→%1$s</string>
     <string name="portfolio_export_col_value">Waarde USDT</string>
     <string name="portfolio_export_col_value_cur">Waarde %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Tijdzone: %1$s</string>
     <string name="tax_export_transfer_fee_info">Overboekingskosten in USDT/contant – geen verlies, niet in de kostprijs, alleen ter informatie</string>
     <string name="tax_export_unassigned_fee">kosten niet toegewezen – kostprijs onbekend</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD aangenomen (fout bij een depeg)</string>
+    <string name="tax_export_usdt_usd_note">USDT omgerekend tegen de dagslotkoers USDT/USD; zonder slotkoers 1 USD (per regel vermeld)</string>
     <string name="tax_export_value_estimated">Waarde geschat (slotkoers)</string>
     <string name="tax_export_value_missing">waarde bij ontvangst ontbreekt</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

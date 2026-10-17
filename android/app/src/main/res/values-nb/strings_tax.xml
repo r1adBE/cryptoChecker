@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Merknad</string>
     <string name="portfolio_export_col_price">Kurs USDT</string>
-    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurs USDT→%1$s</string>
     <string name="portfolio_export_col_value">Verdi USDT</string>
     <string name="portfolio_export_col_value_cur">Verdi %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Tidssone: %1$s</string>
     <string name="tax_export_transfer_fee_info">Overføringsgebyr i USDT/kontanter – intet tap, ikke i inngangsverdien, kun informasjon</string>
     <string name="tax_export_unassigned_fee">gebyr ikke fordelt – inngangsverdi ukjent</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD antatt (feil ved depeg)</string>
+    <string name="tax_export_usdt_usd_note">USDT omregnet til dagens sluttkurs for USDT/USD; uten sluttkurs 1 USD (merket per rad)</string>
     <string name="tax_export_value_estimated">Verdi anslått (sluttkurs)</string>
     <string name="tax_export_value_missing">verdi ved mottak mangler</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

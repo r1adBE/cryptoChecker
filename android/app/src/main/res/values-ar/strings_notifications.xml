@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — الآن %2$s</string>
     <string name="notification_alarm_title">تنبيه: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">فتح المنصة</string>
-    <string name="notification_depeg_text">تظل القيم في التطبيق محسوبة على أساس USDT = 1.</string>
+    <string name="notification_depeg_text">تُحسب القيم في التطبيق بسعر السوق هذا.</string>
     <string name="notification_depeg_title">USDT عند %1$s USD (%2$s)</string>
     <string name="notification_fng_above">ارتفع المؤشر فوق %1$d – وفق هذا المؤشر يسود الطمع في السوق.</string>
     <string name="notification_fng_below">هبط المؤشر تحت %1$d – وفق هذا المؤشر يسود الخوف في السوق.</string>

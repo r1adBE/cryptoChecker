@@ -114,13 +114,23 @@ final class AlarmTemplatesTests: XCTestCase {
         }
     }
 
-    func testAdvancedOpensForEverythingButPlainPriceAlarms() {
+    func testAdvancedOpensOnlyForPriceAlarmsInOwnCurrency() {
         XCTAssertFalse(AlarmTemplates.opensAdvanced(condition: .PRICE_ABOVE, currency: nil))
         XCTAssertFalse(AlarmTemplates.opensAdvanced(condition: .PRICE_BELOW, currency: ""))
         XCTAssertTrue(AlarmTemplates.opensAdvanced(condition: .PRICE_ABOVE, currency: "CHF"))
         for c in AlarmCondition.allCases where !c.isPriceThreshold {
-            XCTAssertTrue(AlarmTemplates.opensAdvanced(condition: c, currency: nil))
+            XCTAssertFalse(AlarmTemplates.opensAdvanced(condition: c, currency: nil))
         }
+    }
+
+    func testMoreConditionsOpenForEverythingButTheSimpleOnes() {
+        // Gleich sichtbar: Kursmarke über/unter, Steigt/Fällt um
+        XCTAssertEqual(AlarmTemplates.simpleConditions.count, 4)
+        for c in AlarmCondition.allCases {
+            XCTAssertEqual(AlarmTemplates.opensMoreConditions(condition: c), !AlarmTemplates.simpleConditions.contains(c))
+        }
+        XCTAssertTrue(AlarmTemplates.opensMoreConditions(condition: .MOVE_PERCENT_WINDOW))
+        XCTAssertTrue(AlarmTemplates.opensMoreConditions(condition: .VOLUME_SPIKE))
     }
 
     // MARK: Nur neue Hochs/Tiefs (Abstand 0)

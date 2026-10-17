@@ -85,6 +85,9 @@ final class AppData: ObservableObject {
     @Published internal(set) var watchedAddresses: [WatchedAddress] = []
     /// Stand von `watched_addresses.json`; false = Datei da, aber nicht lesbar (dann vor dem Schreiben neu lesen).
     var watchedAddressFile = WatchedAddressFile()
+    /// Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? Dann misst
+    /// `DepegAlarmCheck` USDT/USD auch ohne Alarm — wie `PortfolioRepository.hasData` (Android).
+    var hasPortfolioData: Bool { !portfolio.isEmpty || !watchedAddresses.isEmpty }
     var watchedAddressIntact = true
     /// Ausstehender «Erst-Hinzufügen»-Moment; die Merkliste holt ihn ab (`takeAddCelebration`).
     @Published var addCelebration: AddCelebration?

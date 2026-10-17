@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">코인</string>
     <string name="portfolio_export_col_note">메모</string>
     <string name="portfolio_export_col_price">가격 USDT</string>
-    <string name="portfolio_export_col_rate">환율 USD→%1$s</string>
+    <string name="portfolio_export_col_rate">환율 USDT→%1$s</string>
     <string name="portfolio_export_col_value">평가액 USDT</string>
     <string name="portfolio_export_col_value_cur">평가액 %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">시간대: %1$s</string>
     <string name="tax_export_transfer_fee_info">USDT/현금 이체 수수료 – 손실 아님, 매입 원가 미포함, 참고용</string>
     <string name="tax_export_unassigned_fee">수수료 미배분 – 원가 알 수 없음</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD로 가정(디페그 시 틀림)</string>
+    <string name="tax_export_usdt_usd_note">USDT는 USDT/USD 일별 종가로 환산, 종가가 없으면 1 USD(행마다 표시)</string>
     <string name="tax_export_value_estimated">추정치(일일 종가)</string>
     <string name="tax_export_value_missing">받은 시점의 가치 없음</string>
     <string name="tax_export_wallet">지갑: %1$s</string>

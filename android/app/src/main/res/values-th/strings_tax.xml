@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">เหรียญ</string>
     <string name="portfolio_export_col_note">หมายเหตุ</string>
     <string name="portfolio_export_col_price">ราคา USDT</string>
-    <string name="portfolio_export_col_rate">อัตรา USD→%1$s</string>
+    <string name="portfolio_export_col_rate">อัตรา USDT→%1$s</string>
     <string name="portfolio_export_col_value">มูลค่า USDT</string>
     <string name="portfolio_export_col_value_cur">มูลค่า %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">เขตเวลา: %1$s</string>
     <string name="tax_export_transfer_fee_info">ค่าธรรมเนียมโอนย้ายเป็น USDT/เงินสด – ไม่ใช่ขาดทุน ไม่รวมในต้นทุน แสดงเพื่อทราบเท่านั้น</string>
     <string name="tax_export_unassigned_fee">ค่าธรรมเนียมยังไม่ได้ปันส่วน – ไม่ทราบต้นทุน</string>
-    <string name="tax_export_usdt_usd_note">สมมติ USDT = 1 USD (ผิดหากหลุดหมุด)</string>
+    <string name="tax_export_usdt_usd_note">แปลง USDT ด้วยราคาปิดรายวัน USDT/USD; หากไม่มีราคาปิดใช้ 1 USD (ระบุในแต่ละแถว)</string>
     <string name="tax_export_value_estimated">มูลค่าโดยประมาณ (ราคาปิดรายวัน)</string>
     <string name="tax_export_value_missing">ไม่มีมูลค่าตอนที่ได้รับ</string>
     <string name="tax_export_wallet">วอลเล็ต: %1$s</string>

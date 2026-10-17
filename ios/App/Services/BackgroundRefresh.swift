@@ -296,11 +296,15 @@ enum BackgroundRefresh {
                     extra.releaseAlarmLease()
                 }
             }
-            // USDT-Depeg-Alarm (ein Alarm, darum vor Aktivität und Gas): nur wenn eingeschaltet, höchstens alle
-            // 5 Minuten, höchstens bis zur Endzeit — gleiche Restzeit-Regel wie Gas
-            if settings.depegAlarm && !Task.isCancelled && RefreshBudget.shouldRun(.gas, remaining: deadline.remaining()) {
+            // USDT/USD messen und Depeg-Alarm prüfen (ein Alarm, darum vor Aktivität und Gas): nur mit Alarm oder
+            // Portfolio (Live-Kurs USDT/USD der Bewertung), höchstens alle 5 Minuten, höchstens bis zur Endzeit —
+            // gleiche Restzeit-Regel wie Gas
+            let hasPortfolio = await MainActor.run { AppData.shared.hasPortfolioData }
+            if DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
+                                        hasPortfolioData: hasPortfolio)
+                && !Task.isCancelled && RefreshBudget.shouldRun(.gas, remaining: deadline.remaining()) {
                 _ = await RefreshDeadline.run(within: deadline.allowance(wanted: Int64.max)) {
-                    await DepegAlarmCheck.runIfDue(settings: settings)
+                    await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio)
                 }
             }
             // Fear & Greed und Kennzahlen (bis Build 46 eigene Aufgabe): nur wenn fällig, höchstens bis zur Endzeit

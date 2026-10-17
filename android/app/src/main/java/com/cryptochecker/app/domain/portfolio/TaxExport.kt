@@ -79,6 +79,11 @@ data class TaxGainRow(
      * Verlust, nur Information — nicht in den Summen, Vermerk [TaxCsvTexts.withdrawalFeeInfo] bzw. [TaxCsvTexts.transferFeeInfo].
      */
     val feeInfoOnly: Boolean = false,
+    /**
+     * Mit USDT/USD-Tagesschluss umgerechnet ([TaxExport.rateOn] `usdtUsd`), aber an einem nötigen Tag ohne Schluss: dort
+     * USDT = 1 USD als Näherung — Vermerk [TaxCsvTexts.usdtAssumed], nie still.
+     */
+    val usdtApproximate: Boolean = false,
 ) {
     val costMissing: Boolean get() = costUsdt == null
     val proceedsMissing: Boolean get() = proceedsUsdt == null
@@ -104,6 +109,8 @@ data class TaxIncomeRow(
     val interest: Boolean = false,
     /** Wert ohne Preis in der Datei zum Tagesschluss geschätzt ([PortfolioLedger.valueRewardsAtDayClose]): Vermerk. */
     val estimated: Boolean = false,
+    /** Umrechnung mit USDT = 1 USD als Näherung (kein USDT/USD-Tagesschluss, [TaxGainRow.usdtApproximate]): Vermerk. */
+    val usdtApproximate: Boolean = false,
 ) {
     val valueMissing: Boolean get() = valueUsdt == null
 }
@@ -194,6 +201,8 @@ data class TaxCsvTexts(
     val withdrawalFeeInfo: String = "",
     /** Vermerk «Umbuchungsgebühr USDT/Fiat – kein Verlust, nicht im Einstand, nur Information» ([PortfolioFeeExpense.TRANSFER]). */
     val transferFeeInfo: String = "",
+    /** Vermerk «USDT = 1 USD angenommen» ([TaxGainRow.usdtApproximate], [TaxIncomeRow.usdtApproximate]); leer = kein Vermerk. */
+    val usdtAssumed: String = "",
 )
 
 /** Ergebnis einer Freigrenzen-Prüfung ([TaxYearSummaryDe]). */
@@ -578,15 +587,37 @@ object TaxExport {
     /**
      * USD → Zielwährung am [date]: USD = 1; sonst der Kurs des Tags oder des letzten Tags davor (höchstens
      * [FX_MAX_GAP_DAYS] Tage); [rates] = Tag (Tage seit 1970) → Kurs, null = nicht geladen.
+     * Mit [usdtUsd] (USDT/USD-Tagesschluss je Datum, Owner-Entscheid Okt. 2026): USDT → Zielwährung = Kurs × USDT/USD
+     * DES Tags; ohne Schluss × 1 ([usdtApproximateOn] markiert die Zeile). null = USDT gilt 1 USD (bisherige Rechnung).
      */
-    fun rateOn(rates: Map<Long, BigDecimal>?, date: LocalDate, currency: String): BigDecimal? {
-        if (currency.trim().uppercase() == "USD") return BigDecimal.ONE
-        val day = date.toEpochDay()
-        val best = rates.orEmpty().entries
-            .filter { it.key <= day && day - it.key <= FX_MAX_GAP_DAYS && it.value.signum() > 0 }
-            .maxByOrNull { it.key }
-        return best?.value
+    fun rateOn(
+        rates: Map<Long, BigDecimal>?,
+        date: LocalDate,
+        currency: String,
+        usdtUsd: Map<Long, BigDecimal>? = null,
+    ): BigDecimal? {
+        val fx = if (currency.trim().uppercase() == "USD") BigDecimal.ONE else {
+            val day = date.toEpochDay()
+            val best = rates.orEmpty().entries
+                .filter { it.key <= day && day - it.key <= FX_MAX_GAP_DAYS && it.value.signum() > 0 }
+                .maxByOrNull { it.key }
+            best?.value ?: return null
+        }
+        if (usdtUsd == null) return fx
+        val usdt = usdtUsdOn(usdtUsd, date) ?: return fx
+        return fx.multiply(usdt, PortfolioDecimal.MC)
     }
+
+    /**
+     * USDT/USD-Tagesschluss am [date] aus [usdtUsd] (Tag → Schluss), nur plausibel ([PortfolioStables.usdtUsd]); null =
+     * keiner (kein Schluss eines anderen Tags).
+     */
+    fun usdtUsdOn(usdtUsd: Map<Long, BigDecimal>?, date: LocalDate): BigDecimal? =
+        usdtUsd?.get(date.toEpochDay())?.takeIf { !PortfolioStables.usdtUsd(it.toDouble()).approximate }
+
+    /** Rechnet [rateOn] am [date] mit USDT = 1 als Näherung (USDT/USD-Kurse da, aber kein Schluss DES Tags)? */
+    fun usdtApproximateOn(usdtUsd: Map<Long, BigDecimal>?, date: LocalDate): Boolean =
+        usdtUsd != null && usdtUsdOn(usdtUsd, date) == null
 
     /** Veräusserungen mit Verkaufsdatum im Jahr [year], wie [PortfolioCalculator.disposals] sortiert. */
     fun disposalsIn(trades: List<PortfolioTrade>, method: CostMethod, year: Int, zone: ZoneId): List<PortfolioDisposal> =
@@ -740,16 +771,18 @@ object TaxExport {
         rules: TaxEventRules = TaxEventRules.of(method),
         /** US-Übergang ([TaxTemplate.walletFrom]); null = keiner. */
         walletFrom: LocalDate? = null,
+        /** USDT/USD-Tagesschluss je Datum ([rateOn]); null = USDT gilt 1 USD. */
+        usdtUsd: Map<Long, BigDecimal>? = null,
     ): List<TaxGainRow> = disposalsIn(
         trades, method, period, zone, priceAt,
         // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
-        fx = { t -> rateOn(rates, localDate(t, zone), currency) },
+        fx = { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) },
         rules = rules,
         walletFrom = walletFrom,
     ).map { d ->
         val sold = localDate(d.sellTime, zone)
         val acquired = d.acquiredTime?.let { localDate(it, zone) }
-        val saleRate = rateOn(rates, sold, currency)
+        val saleRate = rateOn(rates, sold, currency, usdtUsd)
         fun atSale(v: BigDecimal?): BigDecimal? = v?.let { x -> saleRate?.let { x.multiply(it, PortfolioDecimal.MC) } }
         // Herkunftsteile je zum Kurs ihres Datums (fehlt einer: leer); FIFO-Posten zum Kurs des Kaufdatums
         var costFxMissing = false
@@ -758,12 +791,12 @@ object TaxExport {
                 d.costParts.isNotEmpty() -> {
                     var sum: BigDecimal? = BigDecimal.ZERO
                     for (part in d.costParts) {
-                        val r = rateOn(rates, localDate(part.time, zone), currency)
+                        val r = rateOn(rates, localDate(part.time, zone), currency, usdtUsd)
                         sum = if (r == null || sum == null) null else sum + part.usdt.multiply(r, PortfolioDecimal.MC)
                     }
                     sum
                 }
-                acquired != null -> rateOn(rates, acquired, currency)?.let { c.multiply(it, PortfolioDecimal.MC) }
+                acquired != null -> rateOn(rates, acquired, currency, usdtUsd)?.let { c.multiply(it, PortfolioDecimal.MC) }
                 // Einstand 0 (z. B. Belohnung zum Wert 0): nichts umzurechnen
                 c.signum() == 0 -> BigDecimal.ZERO
                 else -> saleRate?.let { c.multiply(it, PortfolioDecimal.MC) }
@@ -815,6 +848,9 @@ object TaxExport {
             // TRANSFER-Zeilen gibt es nur mit dieser Regel ([TaxEngines.disposals])
             feeInfoOnly = d.feeExpense == PortfolioFeeExpense.TRANSFER ||
                 (rules.quoteFeeIsInfo && d.feeExpense == PortfolioFeeExpense.WITHDRAWAL),
+            // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
+            usdtApproximate = (listOf(sold) + listOfNotNull(acquired) + d.costParts.map { localDate(it.time, zone) })
+                .any { usdtApproximateOn(usdtUsd, it) },
         )
     }
 
@@ -838,10 +874,12 @@ object TaxExport {
         currency: String,
         rates: Map<Long, BigDecimal>?,
         priceAt: ((String, Long) -> BigDecimal?)? = null,
+        /** USDT/USD-Tagesschluss je Datum ([rateOn]); null = USDT gilt 1 USD. */
+        usdtUsd: Map<Long, BigDecimal>? = null,
     ): List<TaxIncomeRow> = PortfolioLedger.valueRewardsAtDayClose(rewardsIn(trades, period, zone), priceAt).map { t ->
         val date = localDate(t.time, zone)
         val value = t.validPrice?.let { t.amount * it }
-        val rate = rateOn(rates, date, currency)
+        val rate = rateOn(rates, date, currency, usdtUsd)
         TaxIncomeRow(
             date = date,
             coin = PortfolioCalculator.normalizeCoin(t.coin),
@@ -851,6 +889,7 @@ object TaxExport {
             fxMissing = value != null && rate == null,
             interest = t.interestIncome,
             estimated = t.valueEstimated,
+            usdtApproximate = value != null && usdtApproximateOn(usdtUsd, date),
         )
     }
 
@@ -919,6 +958,7 @@ object TaxExport {
                 texts.spouseGift.takeIf { r.spouseGift && it.isNotEmpty() },
                 texts.payment.takeIf { r.payment && it.isNotEmpty() },
                 texts.valueEstimated.takeIf { r.valueEstimated && it.isNotEmpty() },
+                texts.usdtAssumed.takeIf { r.usdtApproximate && it.isNotEmpty() },
                 when (r.match) {
                     TaxMatch.SAME_DAY -> texts.matchSameDay
                     TaxMatch.THIRTY_DAY -> texts.matchThirtyDay
@@ -1045,6 +1085,7 @@ object TaxExport {
             val notes = listOfNotNull(
                 texts.valueMissing.takeIf { r.valueMissing },
                 texts.valueEstimated.takeIf { r.estimated && it.isNotEmpty() },
+                texts.usdtAssumed.takeIf { r.usdtApproximate && it.isNotEmpty() },
                 texts.noFx.takeIf { r.fxMissing },
             ).joinToString(", ")
             sb.append(
@@ -1310,13 +1351,15 @@ object TaxExport {
         priceAt: ((String, Long) -> BigDecimal?)? = null,
         /** US-Übergang ([TaxTemplate.walletFrom]); null = keiner. */
         walletFrom: LocalDate? = null,
+        /** USDT/USD-Tagesschluss je Datum ([rateOn]); null = USDT gilt 1 USD. */
+        usdtUsd: Map<Long, BigDecimal>? = null,
     ): TaxYearSummary {
         val zero = BigDecimal.ZERO
         val period = template.period(startYear)
         val fx = rates != null || currency.trim().uppercase() == "USD"
         val allRows = gainRows(
             trades, method, period, zone, currency, rates ?: emptyMap(), priceAt, rules = template.eventRules,
-            walletFrom = walletFrom,
+            walletFrom = walletFrom, usdtUsd = usdtUsd,
         )
         // DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten, nicht in den Summen (DE: § 23 und Freigrenze;
         // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG); UK, US, CA, AU, JP: kein Verlust, nur
@@ -1327,7 +1370,7 @@ object TaxExport {
         // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER], Build 57): eigener Posten
         val (transferFees, rows) = sales.partition { it.feeExpense == PortfolioFeeExpense.TRANSFER }
         // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
-        val (interest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap(), priceAt)
+        val (interest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap(), priceAt, usdtUsd)
             .partition { template == TaxTemplate.AT && it.interest }
         val pos: (BigDecimal) -> Boolean = { it.signum() > 0 }
         val neg: (BigDecimal) -> Boolean = { it.signum() <= 0 }
@@ -1430,7 +1473,7 @@ object TaxExport {
                 for (o in outs) {
                     val r = o.ptaReductionUsdt ?: continue
                     outUsdt += r
-                    val rate = rateOn(rates, localDate(o.time, zone), currency)
+                    val rate = rateOn(rates, localDate(o.time, zone), currency, usdtUsd)
                     if (rate != null) outTarget += r.multiply(rate, PortfolioDecimal.MC) else if (fx) outFx = true
                 }
                 lines += TaxSummaryLine(TaxLine.FR_OUTFLOW, outUsdt, outTarget.takeIf { fx }, incomplete = true, noFx = outFx)

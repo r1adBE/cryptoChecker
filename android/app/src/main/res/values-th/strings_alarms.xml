@@ -33,6 +33,7 @@
     <string name="alarm_first_battery_hint">การเพิ่มประสิทธิภาพแบตเตอรี่จำกัดแอป – การแจ้งเตือนอาจมาช้า</string>
     <string name="alarm_first_title">พร้อมแล้ว</string>
     <string name="alarm_last_triggered">ล่าสุด %1$s</string>
+    <string name="alarm_more_conditions">เงื่อนไขเพิ่มเติม</string>
     <string name="alarm_new_extreme">%1$sใหม่</string>
     <string name="alarm_once">ครั้งเดียว</string>
     <string name="alarm_option_repeating">เก็บสัญญาณเตือนไว้หลังทำงาน</string>

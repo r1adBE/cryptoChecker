@@ -207,14 +207,16 @@ private fun HistoryContent(
     if (series.hasChart && history.converted && history.approximateFx) {
         HistoryCaption(stringResource(R.string.portfolio_history_converted))
     }
-    // Mit Tageskursen umgerechnet: Kurve enthält die Devisenbewegung; USDT gilt dabei als USD (je einmal, klein)
+    // Mit Tageskursen umgerechnet: Kurve enthält die Devisenbewegung; USDT zum USD-Marktkurs (je einmal, klein)
     if (series.hasChart && history.converted &&
         com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.includesFxMovement(history.unit, history.approximateFx)
     ) {
         HistoryCaption(stringResource(R.string.portfolio_history_incl_fx))
     }
+    // USDT zum USD-Marktkurs (Tagesschluss USDT/USD); an Tagen ohne Kurs 1 als Näherung — dann «USDT = 1 angenommen»
     if (series.hasChart && history.converted && com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.convertsUsdtAsUsd(history.unit)) {
         HistoryCaption(stringResource(R.string.portfolio_usdt_as_usd))
+        if (history.usdtApproximate) HistoryCaption(stringResource(R.string.portfolio_usdt_assumed))
     }
     if (series.skipped.isNotEmpty()) {
         // Grund: keine oder nicht passende Tageskurse (anderer Token, kein aktueller Kurs)

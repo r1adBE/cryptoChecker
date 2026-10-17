@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Anmärkning</string>
     <string name="portfolio_export_col_price">Kurs USDT</string>
-    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurs USDT→%1$s</string>
     <string name="portfolio_export_col_value">Värde USDT</string>
     <string name="portfolio_export_col_value_cur">Värde %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Tidszon: %1$s</string>
     <string name="tax_export_transfer_fee_info">Överföringsavgift i USDT/kontanter – ingen förlust, inte i anskaffningsvärdet, endast information</string>
     <string name="tax_export_unassigned_fee">avgift inte fördelad – anskaffningsvärde okänt</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD antaget (fel vid depeg)</string>
+    <string name="tax_export_usdt_usd_note">USDT omräknat till dagens stängningskurs för USDT/USD; utan stängning 1 USD (markerat per rad)</string>
     <string name="tax_export_value_estimated">Värde uppskattat (stängningskurs)</string>
     <string name="tax_export_value_missing">värde vid mottagandet saknas</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

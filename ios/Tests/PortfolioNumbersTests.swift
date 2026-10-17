@@ -120,6 +120,25 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertFalse(CurrencyConversion.stableNeedsMarket("USD"))
     }
 
+    func testConversionUsdtAtMarketPrice() {
+        // Owner-Entscheid Okt. 2026: USDT gilt seinen Marktkurs; USD bleibt 1 (wie CurrencyConversionTest.kt)
+        XCTAssertEqual(CurrencyConversion.stableToUsd("USDT", marketUsdt: nil, usdtUsd: 0.97) ?? .nan, 0.97, accuracy: 1e-12)
+        XCTAssertEqual(CurrencyConversion.stableToUsd("USD", marketUsdt: nil, usdtUsd: 0.97), 1)
+        // andere Stablecoins: Marktkurs in USDT × USDT/USD
+        XCTAssertEqual(CurrencyConversion.stableToUsd("USDC", marketUsdt: 0.9993, usdtUsd: 0.97) ?? .nan, 0.9993 * 0.97,
+                       accuracy: 1e-12)
+        // BTC/USDT in CHF: USDT/USD 0.97 senkt den Wert um 3 %
+        let rate = CurrencyConversion.rate(quoteUsd: CurrencyConversion.quoteToUsd(.usd, usdToQuote: nil, cryptoUsdt: nil,
+                                                                                  code: "USDT", usdtUsd: 0.97),
+                                           usdToTarget: 0.8)
+        XCTAssertEqual(rate ?? .nan, 0.776, accuracy: 1e-12)
+        // Krypto-Quote (über USDT bewertet): × USDT/USD
+        XCTAssertEqual(CurrencyConversion.quoteToUsd(.crypto, usdToQuote: nil, cryptoUsdt: 3000, code: "ETH", usdtUsd: 0.97) ?? .nan,
+                       3000 * 0.97, accuracy: 1e-9)
+        // unplausibler Kurs (Börsenfehler) → 1
+        XCTAssertEqual(CurrencyConversion.stableToUsd("USDT", marketUsdt: nil, usdtUsd: 7), 1)
+    }
+
     func testStaleFxTimeAfterThreeHours() {
         // Wie CurrencyConversionTest.kt
         let h: Int64 = 60 * 60_000
@@ -501,6 +520,57 @@ final class PortfolioNumbersTests: XCTestCase {
         let range = PortfolioHistoryFx.requestRange(days: 30, today: LocalDay(2026, 10, 6))
         XCTAssertEqual(range.from, LocalDay(2026, 8, 30))
         XCTAssertEqual(range.to, LocalDay(2026, 10, 6))
+    }
+
+    /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
+    /// ohne Schluss rechnet mit 1 und markiert die Näherung (`usdtApproximate`). Wie Android.
+    func testUsdtAtMarketScalesEachDayAndFlagsMissingClose() {
+        let usdt = UsdtUsdRates(live: 0.98, daily: [day("2026-10-02"): 0.97, day("2026-10-03"): 0.97, day("2026-10-04"): 0.97])
+        let r = PortfolioHistoryFx.convert(flatUsd, dailyRates: rates, currentRate: 0.82, todayEpochDay: today, usdt: usdt)
+        XCTAssertFalse(r.approximate)
+        XCTAssertTrue(r.usdtApproximate)
+        // 800 × 0.97 (Fr–So), 810 × 1 (Mo ohne Schluss: Näherung), heute 820 × 0.98
+        for (got, want) in zip(r.series.points.map(\.value), [776.0, 776, 776, 810, 803.6]) {
+            XCTAssertEqual(got, want, accuracy: 1e-6)
+        }
+    }
+
+    func testUsdtAt097LowersUsdValueByThreePercentWithAllCloses() {
+        var daily: [Int: Double] = [:]
+        for d in day("2026-10-02")...day("2026-10-05") { daily[d] = 0.97 }
+        let usdt = UsdtUsdRates(live: 0.97, daily: daily)
+        let usd = PortfolioHistoryFx.usdParity(fromEpochDay: day("2026-10-02"), toEpochDay: today)
+        let r = PortfolioHistoryFx.convert(flatUsd, dailyRates: usd, currentRate: 1, todayEpochDay: today, usdt: usdt)
+        XCTAssertFalse(r.approximate)
+        XCTAssertFalse(r.usdtApproximate)
+        XCTAssertTrue(r.series.points.allSatisfy { abs($0.value - 970) < 1e-6 })
+        // In USD wird mit USDT zum Marktkurs umgerechnet, in USDT nie
+        XCTAssertTrue(PortfolioHistoryFx.convertsUsdt("USD", usdtMarket: true))
+        XCTAssertFalse(PortfolioHistoryFx.convertsUsdt("USD", usdtMarket: false))
+        XCTAssertFalse(PortfolioHistoryFx.convertsUsdt(" usdt ", usdtMarket: true))
+        XCTAssertTrue(PortfolioHistoryFx.convertsUsdt("CHF", usdtMarket: false))
+    }
+
+    func testOfflineUsdtFallsBackToOneAndFlags() {
+        let r = PortfolioHistoryFx.convert(flatUsd, dailyRates: rates, currentRate: 0.82, todayEpochDay: today,
+                                           usdt: UsdtUsdRates(live: nil))
+        XCTAssertTrue(r.usdtApproximate)
+        // Werte bleiben (nie leer): wie mit USDT = 1
+        for (got, want) in zip(r.series.points.map(\.value), [800.0, 800, 800, 810, 820]) {
+            XCTAssertEqual(got, want, accuracy: 1e-6)
+        }
+        // Ohne USDT/USD-Kurse (bisherige Rechnung) keine Markierung
+        XCTAssertFalse(PortfolioHistoryFx.convert(flatUsd, dailyRates: rates, currentRate: 0.82,
+                                                  todayEpochDay: today).usdtApproximate)
+    }
+
+    /// «7 T» im Kopf rechnet mit denselben USDT/USD-Tageskursen wie die Kurve (`rateFunction` `usdt`).
+    func testRateFunctionMultipliesUsdtUsdOfTheDay() {
+        let usdt = UsdtUsdRates(live: 0.98, daily: [day("2026-10-02"): 0.97])
+        let f = PortfolioHistoryFx.rateFunction(dailyRates: rates, currentRate: 0.82, todayEpochDay: today, usdt: usdt)
+        XCTAssertEqual(f(day("2026-10-02")), 0.80 * 0.97, accuracy: d)
+        XCTAssertEqual(f(day("2026-10-03")), 0.80, accuracy: d)
+        XCTAssertEqual(f(today), 0.82 * 0.98, accuracy: d)
     }
 
     // MARK: Wertverlauf ohne Käufe/Verkäufe (zugeklappte Zahl) — wie PortfolioHistoryTest.kt

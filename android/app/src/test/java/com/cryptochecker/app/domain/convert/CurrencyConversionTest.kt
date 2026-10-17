@@ -64,6 +64,22 @@ class CurrencyConversionTest {
     }
 
     @Test
+    fun `USDT zum Marktkurs USDT-USD`() {
+        // Owner-Entscheid Okt. 2026: USDT gilt seinen Marktkurs; USD bleibt 1
+        assertEquals(0.97, CurrencyConversion.stableToUsd("USDT", null, usdtUsd = 0.97)!!, 1e-12)
+        assertEquals(1.0, CurrencyConversion.stableToUsd("USD", null, usdtUsd = 0.97)!!, 0.0)
+        // andere Stablecoins: Marktkurs in USDT × USDT/USD
+        assertEquals(0.9993 * 0.97, CurrencyConversion.stableToUsd("USDC", 0.9993, usdtUsd = 0.97)!!, 1e-12)
+        // BTC/USDT in CHF: USDT/USD 0.97 senkt den Wert um 3 %
+        val rate = CurrencyConversion.rate(CurrencyConversion.quoteToUsd(QuoteKind.USD, null, null, "USDT", usdtUsd = 0.97), 0.8)!!
+        assertEquals(0.776, rate, 1e-12)
+        // Krypto-Quote (über USDT bewertet): × USDT/USD
+        assertEquals(3000.0 * 0.97, CurrencyConversion.quoteToUsd(QuoteKind.CRYPTO, null, 3000.0, "ETH", usdtUsd = 0.97)!!, 1e-9)
+        // unplausibler Kurs (Börsenfehler) → 1
+        assertEquals(1.0, CurrencyConversion.stableToUsd("USDT", null, usdtUsd = 7.0)!!, 0.0)
+    }
+
+    @Test
     fun `devisenkurs aelter als drei stunden`() {
         val h = 60 * 60_000L
         val now = 100 * h

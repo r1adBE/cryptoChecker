@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — अभी %2$s</string>
     <string name="notification_alarm_title">अलार्म: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">एक्सचेंज खोलें</string>
-    <string name="notification_depeg_text">ऐप में मान अब भी USDT = 1 से गिने जाते हैं।</string>
+    <string name="notification_depeg_text">ऐप में मान इसी बाज़ार भाव से गिने जाते हैं।</string>
     <string name="notification_depeg_title">USDT %1$s USD पर (%2$s)</string>
     <string name="notification_fng_above">सूचकांक %1$d से ऊपर गया – इस सूचकांक के अनुसार बाज़ार में लालच है।</string>
     <string name="notification_fng_below">सूचकांक %1$d से नीचे गया – इस सूचकांक के अनुसार बाज़ार में डर है।</string>

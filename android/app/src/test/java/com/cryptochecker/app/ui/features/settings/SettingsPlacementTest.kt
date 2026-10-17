@@ -7,7 +7,8 @@ import org.junit.Test
 /**
  * Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
  * Token & TradFi, Portfolio, Coin-Logos und Entwickler; %-Änderung steht auf «Merkliste» (Review D13) (Markt-Meldungen und Sprachausgabe
- * haben eigene Routen). Die Suche zeigt den Pfad aus diesem Ort — wie
+ * haben eigene Routen). Der Schalter «Portfolio» steht zusätzlich direkt in «Mehr» (Anker «main.portfolio»,
+ * siehe SettingsSearchTest); die Seite bleibt unter «Erweitert». Die Suche zeigt den Pfad aus diesem Ort — wie
  * `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
  */
 class SettingsPlacementTest {

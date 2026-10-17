@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — 현재 %2$s</string>
     <string name="notification_alarm_title">경보: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">거래소 열기</string>
-    <string name="notification_depeg_text">앱의 값은 계속 USDT = 1로 계산됩니다.</string>
+    <string name="notification_depeg_text">앱의 값은 이 시장가로 계산됩니다.</string>
     <string name="notification_depeg_title">USDT %1$s USD(%2$s)</string>
     <string name="notification_fng_above">지수가 %1$d 위로 올랐습니다 – 이 지수에 따르면 시장에 탐욕 심리가 큽니다.</string>
     <string name="notification_fng_below">지수가 %1$d 아래로 떨어졌습니다 – 이 지수에 따르면 시장에 공포 심리가 큽니다.</string>

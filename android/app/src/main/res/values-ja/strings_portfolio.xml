@@ -78,14 +78,13 @@
     <string name="portfolio_current_price">現在価格</string>
     <string name="portfolio_price_missing">価格なし</string>
     <string name="portfolio_price_missing_hint">一部の購入に価格がありません。損益を表示するには取得価格を入力してください。</string>
-    <string name="portfolio_price_source">価格：Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">価格：%1$s、それ以外は Binance · USDT = 1</string>
+    <string name="portfolio_price_source">価格：Binance · USDT は市場価格</string>
+    <string name="portfolio_price_source_routes">価格：%1$s、それ以外は Binance · USDT は市場価格</string>
     <string name="portfolio_price_unavailable">現在価格を取得できません</string>
     <string name="portfolio_price_unchecked">価格未確認</string>
     <string name="portfolio_price_via_base">≈ %1$s の価格（ブリッジ/ラップ）</string>
-    <string name="portfolio_usdt_as_usd">USDT は USD レートで換算</string>
+    <string name="portfolio_usdt_as_usd">USDT は USD 建て市場価格で換算</string>
     <string name="portfolio_usdt_assumed">USDT = 1 と仮定</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 と仮定 – 市場は %1$s USD（%2$s）</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">ポートフォリオに追加</string>

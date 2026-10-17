@@ -1,15 +1,15 @@
 import SwiftUI
 
-/// «Erweitert» im Alarm-Blatt: alle Bedingungen und Optionen — wie `AlarmAdvancedOptions.kt`.
+/// «Mehr Bedingungen» und «Erweitert» im Alarm-Blatt — wie `AlarmAdvancedOptions.kt`.
 extension AlarmEditorSheet {
-    /// Kopf «Erweitert» zum Auf-/Zuklappen.
-    var advancedHeader: some View {
+    /// Kopf «Mehr Bedingungen» bzw. «Erweitert» zum Auf-/Zuklappen.
+    func sectionHeader(_ title: String, expanded: Binding<Bool>) -> some View {
         Button {
             WatchlistHaptics.selection()
-            advanced.toggle()
+            expanded.wrappedValue.toggle()
         } label: {
             HStack {
-                Text(L("alarm_advanced"))
+                Text(title)
                     .font(.headline)
                     .foregroundStyle(AppColors.onSurface)
                 Spacer()
@@ -17,35 +17,42 @@ extension AlarmEditorSheet {
                 Image(systemName: "chevron.down")
                     .scaledFont(size: 13, weight: .semibold, relativeTo: .subheadline)
                     .foregroundStyle(accent.primary)
-                    .rotationEffect(.degrees(advanced ? 180 : 0))
+                    .rotationEffect(.degrees(expanded.wrappedValue ? 180 : 0))
             }
             .padding(.vertical, Spacing.sm)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityValue(L(advanced ? "a11y_expanded" : "a11y_collapsed"))
+        .accessibilityValue(L(expanded.wrappedValue ? "a11y_expanded" : "a11y_collapsed"))
     }
 
-    /// Alle Bedingungen und Optionen wie bisher — Kursmarke ohne eigenes Feld (steht im Satz oben).
-    var advancedContent: some View {
+    /// Einfache Bedingungen als Kacheln, zwei pro Zeile: Kurs über/unter, Steigt/Fällt um.
+    var simpleConditionTiles: some View {
+        LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(AlarmTemplates.simpleConditions, id: \.self) { condition in
+                conditionTile(condition)
+            }
+        }
+    }
+
+    /// «Mehr Bedingungen»: alle übrigen Bedingungen als Kacheln, dazu die Felder der gewählten
+    /// (die einfachen haben ihr Feld oben).
+    var moreConditionsContent: some View {
         VStack(alignment: .leading, spacing: Spacing.lg) {
-            // Bedingung als Kacheln, zwei pro Zeile
             LazyVGrid(columns: columns, spacing: 8) {
-                ForEach(conditions, id: \.self) { condition in
+                ForEach(conditions.filter { AlarmTemplates.opensMoreConditions(condition: $0) }, id: \.self) { condition in
                     conditionTile(condition)
                 }
             }
 
-            if draft.condition == .VOLUME_SPIKE {
-                volumeFactorPicker
-            } else if draft.condition.isPriceThreshold {
-                if offerCurrency {
-                    currencyPicker
+            if AlarmTemplates.opensMoreConditions(condition: draft.condition) {
+                if draft.condition == .VOLUME_SPIKE {
+                    volumeFactorPicker
+                } else if draft.condition.isFunding {
+                    fundingField
+                } else if !(draft.condition.isNearExtreme && draft.newExtremeOnly) {
+                    thresholdField
                 }
-            } else if draft.condition.isFunding {
-                fundingField
-            } else if !(draft.condition.isNearExtreme && draft.newExtremeOnly) {
-                thresholdField
             }
 
             // Open Interest: Vergleich mit der Messung von vor 1, 4 oder 24 Stunden
@@ -87,6 +94,15 @@ extension AlarmEditorSheet {
                     .padding(.vertical, 4)
                     .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
                 nearWindowPicker
+            }
+        }
+    }
+
+    /// «Erweitert»: Währung der Kursmarke (Betrag steht im Satz oben), Ton, Vorlesen.
+    var advancedContent: some View {
+        VStack(alignment: .leading, spacing: Spacing.lg) {
+            if offerCurrency {
+                currencyPicker
             }
 
             VStack(spacing: 0) {
@@ -172,7 +188,8 @@ extension AlarmEditorSheet {
         }
     }
 
-    private var thresholdField: some View {
+    /// Prozent oder Abstand (Steigt/Fällt um, Zeitfenster, Hoch/Tief, Open Interest).
+    var thresholdField: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(L(draft.condition.isNearExtreme ? "alarm_near_field_distance"
                    : (draft.condition.isPercent || draft.condition.isDerivatives ? "alarm_field_percent" : "alarm_field_price")))

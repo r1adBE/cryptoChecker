@@ -71,7 +71,7 @@ class PriceRefresher @Inject constructor(
     private val refreshStats: RefreshStats,
     private val activityMonitor: ActivityMonitor,
     private val gasAlertChecker: GasAlertChecker,
-    /** USDT-Depeg-Alarm (nur wenn eingeschaltet, höchstens alle 5 Minuten). */
+    /** USDT/USD messen und Depeg-Alarm prüfen (mit Alarm oder Portfolio, höchstens alle 5 Minuten). */
     private val depegAlarmChecker: DepegAlarmChecker,
     private val portfolioSnapshotUpdater: PortfolioSnapshotUpdater,
     /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
@@ -147,7 +147,7 @@ class PriceRefresher @Inject constructor(
         }
         // Gas-Alarm (#167): höchstens alle 10 Minuten, nur wenn eingestellt
         val gasCheck: suspend () -> Unit = { gasAlertChecker.checkIfDue() }
-        // USDT-Depeg-Alarm: nur wenn eingeschaltet (sonst keine Anfrage)
+        // USDT/USD: nur mit Depeg-Alarm oder Portfolio (sonst keine Anfrage)
         val depegCheck: suspend () -> Unit = { depegAlarmChecker.checkIfDue() }
         if (awaitPortfolioSnapshot) {
             // WorkManager-Job: Nach doWork() friert Android den Prozess ein — losgelöste Jobs

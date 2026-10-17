@@ -41,7 +41,7 @@ struct PortfolioTotalCard: View {
     var walletShortfalls: [PortfolioWalletShortfall] = []
     /// Hinweis «Bestand in … reicht nicht» angetippt: Transaktion mit dieser Id öffnen.
     var onShortfall: (Int64) -> Void = { _ in }
-    /// Letzte Depeg-Messung und Schwelle (Zehntel-%): Zeile zu «USDT = 1» über `DepegAlarm.cardNote`.
+    /// Letzte Messung USDT/USD und Schwelle (Zehntel-%): Zeile «USDT = 1 angenommen» über `DepegAlarm.cardNote`.
     var depegReading: DepegAlarm.Reading? = nil
     var depegThresholdTenths: Int = DepegAlarm.defaultThresholdTenths
     /// Uhr für die Frische der Messung (Ansicht tickt mit ihrer Uhr).
@@ -71,28 +71,20 @@ struct PortfolioTotalCard: View {
     /// Einheit der Karte: Anzeigewährung mit Devisenkurs, sonst USDT.
     private var unit: PortfolioCardUnit { PortfolioCardUnit(currency: currency, fxRate: fxRate) }
 
-    /// Woher die Kurse stammen: «Kurse: Binance · USDT = 1» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · USDT = 1».
+    /// Woher die Kurse stammen: «Kurse: Binance · USDT zum Marktkurs» bzw. «Kurse: Kraken (BTC, ETH), sonst Binance · …».
     private var priceSourceText: String {
         priceSources.isEmpty ? L("portfolio_price_source")
             : L("portfolio_price_source_routes", PortfolioExchangeRoute.sourcesText(priceSources))
     }
 
-    /// «USDT = 1 angenommen – Markt bei 0.9930 USD (−0.70 %)» — Zahlen wie in der Depeg-Mitteilung.
-    static func depegWarningText(_ reading: DepegAlarm.Reading) -> String {
-        let deviation = DepegAlarm.deviationPercent(reading.price)
-        let sign = deviation < 0 ? "\u{2212}" : "+"
-        return L("portfolio_usdt_depeg_warning",
-                 LocaleNumbers.decimal(reading.price, maxDecimals: 4),
-                 sign + LocaleNumbers.decimal(abs(deviation), maxDecimals: 2) + " %")
-    }
-
-    /// Zeile zu «USDT = 1» unabhängig vom Depeg-Alarm (Build 58): Abweichung, Kursquelle oder «USDT = 1 angenommen».
+    /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): ohne frische Messung trägt Ersatz 1 die Zahlen — dann
+    /// «USDT = 1 angenommen» auf der Karte (unabhängig vom Depeg-Alarm); mit Messung keine Zeile. Wie Android.
     private var usdtNote: DepegAlarm.CardNote? {
         DepegAlarm.cardNote(
             holdingCoins: summary.open.map(\.coin),
             valuesViaUsdt: PortfolioExchangeRoute.usdtParityShown(displayCurrency: currency, converted: unit.converted,
                                                                   sources: priceSources),
-            reading: depegReading, thresholdTenths: depegThresholdTenths, now: now)
+            reading: depegReading, thresholdTenths: depegThresholdTenths, now: now, usdtMarket: true)
     }
 
     private var card: some View {
@@ -109,26 +101,20 @@ struct PortfolioTotalCard: View {
                 partialMarker(L("widget_portfolio_missing_coins", count: count))
                     .padding(.bottom, 2)
             }
-            // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Devisenkurs da, nicht USD)
+            // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Faktor da; auch USD, USDT zum Marktkurs)
             if unit.converted {
                 PriceWithQuote.text("≈ " + PortfolioInsights.mask(PortfolioFormat.usdtValue(summary.totalValue), hidden: hideAmounts))
                     .font(AppFont.amount(.subheadline))
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .contentTransition(.numericText())
             }
-            // «USDT = 1» auf der Karte selbst, sobald die Annahme die Zahlen trägt (`DepegAlarm.cardNote`):
-            // USDT-Depeg (frische Messung ≥ Schwelle) als Warnzeile in Warnfarbe; sonst «Kurse: Binance · USDT = 1»
-            // (Anzeigewährung, USD oder gemischte Börsen) bzw. «USDT = 1 angenommen» (USDT im Bestand)
+            // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt (`DepegAlarm.cardNote`
+            // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
             if let note = usdtNote {
                 switch note.kind {
                 case .DEVIATION:
-                    if let reading = note.reading {
-                        Text(verbatim: Self.depegWarningText(reading))
-                            .font(.footnote)
-                            .foregroundStyle(AppColors.warningText)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.top, 2)
-                    }
+                    // Mit usdtMarket nicht mehr geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
+                    EmptyView()
                 case .PRICE_SOURCE:
                     Text(verbatim: priceSourceText)
                         .font(.footnote)

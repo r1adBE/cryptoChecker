@@ -34,6 +34,7 @@
     <string name="alarm_first_battery_hint">Η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή – οι ειδοποιήσεις μπορεί να έρθουν αργότερα.</string>
     <string name="alarm_first_title">Όλα έτοιμα</string>
     <string name="alarm_last_triggered">τελευταία: %1$s</string>
+    <string name="alarm_more_conditions">Περισσότερες συνθήκες</string>
     <string name="alarm_new_extreme">Νέο %1$s</string>
     <string name="alarm_once">Μία φορά</string>
     <string name="alarm_option_repeating">Διατήρηση μετά την ενεργοποίηση</string>
