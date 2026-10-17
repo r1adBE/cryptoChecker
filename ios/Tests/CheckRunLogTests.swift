@@ -159,7 +159,9 @@ final class BackgroundScheduleTests: XCTestCase {
     /// Gleichzeitige Läufe gehen nicht verloren: Lesen und Schreiben sind ein abgestimmter Schritt.
     func testConcurrentAddsKeepEveryRun() throws {
         let url = try tempDir().appendingPathComponent(CheckRunStore.fileName)
-        DispatchQueue.concurrentPerform(iterations: 15) { i in CheckRunStore.add(run(Int64(i + 1)), to: url) }
+        DispatchQueue.concurrentPerform(iterations: 15) { i in
+            CheckRunStore.add(CheckRun(at: Int64(i + 1), trigger: .worker, result: .ok, durationMillis: 1_200), to: url)
+        }
         XCTAssertEqual(Set(CheckRunStore.load(from: url).map(\.at)), Set((1...15).map(Int64.init)))
     }
 
