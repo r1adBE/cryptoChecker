@@ -177,7 +177,9 @@ final class CryptoCheckerUITests: XCTestCase {
             let ids = app.descendants(matching: .any).allElementsBoundByIndex.prefix(400)
                 .map(\.identifier).filter { !$0.isEmpty }
             let bars = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
-            XCTFail("backup page not shown; bars=\(bars) hittable=\(row.isHittable) ids=\(Array(Set(ids)).sorted().prefix(60))")
+            let tabs = app.descendants(matching: .any).matching(identifier: UiTestTags.tabSettings).allElementsBoundByIndex
+                .map { "hit=\($0.isHittable) frame=\(Int($0.frame.minX)),\(Int($0.frame.minY)),\(Int($0.frame.width))x\(Int($0.frame.height))" }
+            XCTFail("backup page not shown; bars=\(bars) keyboards=\(app.keyboards.count) tabSettings=\(tabs) hittable=\(row.isHittable) ids=\(Array(Set(ids)).sorted().prefix(60))")
         }
     }
 
