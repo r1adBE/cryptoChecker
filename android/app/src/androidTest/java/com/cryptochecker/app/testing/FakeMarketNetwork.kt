@@ -27,7 +27,7 @@ import javax.inject.Singleton
 object FakeMarket {
     const val START_PRICE = 95_000.0
 
-    /** Aktueller BTC-Kurs (Binance BTC/USDT bzw. Coinbase BTC-USD); der Test setzt ihn neu. */
+    /** Aktueller BTC-Kurs (Binance bzw. Binance.US BTC/USDT, Coinbase BTC-USD); der Test setzt ihn neu. */
     @Volatile
     var btcPrice: Double = START_PRICE
 
@@ -43,7 +43,11 @@ object FakeMarket {
     }
 }
 
-/** Beantwortet Binance- und Coinbase-Abfragen aus [FakeMarket]; alles andere: 404 (die App zeigt dann «—»). */
+/**
+ * Beantwortet Binance-, Binance.US- und Coinbase-Abfragen aus [FakeMarket]; alles andere: 404 (die App zeigt
+ * dann «—»). Start-Paare: Binance, in der Geräte-Region USA Binance.US (StarterPairs) – der Emulator auf GitHub
+ * läuft in en-US, die App hält ihn darum für ein US-Gerät.
+ */
 class FakeMarketInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -61,7 +65,9 @@ class FakeMarketInterceptor : Interceptor {
     private fun answer(url: HttpUrl): String? {
         val path = url.encodedPath
         return when (url.host) {
-            "api.binance.com" -> when (path) {
+            "api.binance.com", "api.binance.us" -> when (path) {
+                // Erreichbarkeits-Prüfung des Startbildschirms (StarterPairs.BINANCE_PROBE_URL)
+                "/api/v3/ping" -> "{}"
                 "/api/v3/exchangeInfo" -> binanceExchangeInfo()
                 "/api/v3/ticker/24hr" -> binanceTickers(url)
                 else -> null
