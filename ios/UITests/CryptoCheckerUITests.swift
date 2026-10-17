@@ -158,38 +158,22 @@ final class CryptoCheckerUITests: XCTestCase {
             if let visible = candidates.first(where: { $0.isHittable }) { visible.tap() } else { tap(app, UiTestTags.tabSettings) }
             attempts += 1
         } while !app.tagged(UiTestTags.settingsBackup).waitForExistence(timeout: 4) && attempts < 3
-        // Die Zeile «Sicherung» steht weit unten: erst sichtbar scrollen, sonst trifft der Tipp nichts
-        // (das Element existiert, ist aber nicht antippbar) – auf GitHub fehlte danach «backup_export»
+        // Die Zeile «Sicherung» steht weit unten, anfangs hinter der eigenen Tab-Leiste. XCUITest hält sie dort
+        // schon für «antippbar», der Tipp auf ihre Mitte trifft aber den Tab «Portfolio» (Video der CI: die
+        // Einstellungen gingen auf und sprangen zurück). Darum scrollen, bis sie ganz über der Leiste steht.
         let row = app.tagged(UiTestTags.settingsBackup)
         XCTAssertTrue(row.waitForExistence(timeout: uiTimeout), "\(UiTestTags.settingsBackup) missing")
-        var swipes = 0
-        while !row.isHittable && swipes < 6 {
-            app.swipeUp()
-            swipes += 1
-        }
+        scrollAboveTabBar(app, row)
         row.tap()
         if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: 5) {
             // Ein zweiter Tipp, falls der erste noch in eine Scroll-Bewegung fiel
-            if row.exists && row.isHittable { row.tap() }
-        }
-        if !app.tagged(UiTestTags.settingsBackup).isHittable {
-            // Diagnose: lässt sich das Portfolio überhaupt verlassen? Erst Merkliste, dann Einstellungen
-            let before = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
-            tap(app, UiTestTags.tabWatchlist)
-            let afterWatchlist = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
-            let watchRowVisible = app.tagged(UiTestTags.watchRow).waitForExistence(timeout: 3)
-            tap(app, UiTestTags.tabSettings)
-            let afterSettings = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
-            let backupRow = app.tagged(UiTestTags.settingsBackup)
-            if backupRow.waitForExistence(timeout: 4) {
-                var s2 = 0
-                while !backupRow.isHittable && s2 < 6 { app.swipeUp(); s2 += 1 }
-                backupRow.tap()
+            if !row.exists {
+                let visible = app.descendants(matching: .any).matching(identifier: UiTestTags.tabSettings)
+                    .allElementsBoundByIndex.first(where: { $0.isHittable })
+                visible?.tap()
+                _ = row.waitForExistence(timeout: 4)
             }
-            print("UITEST-DIAG before=\(before) afterWatchlist=\(afterWatchlist) watchRow=\(watchRowVisible) afterSettings=\(afterSettings)")
-            if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: 6) {
-                XCTFail("tab switch from Portfolio: before=\(before) afterWatchlist=\(afterWatchlist) watchRow=\(watchRowVisible) afterSettings=\(afterSettings)")
-            }
+            if row.exists { scrollAboveTabBar(app, row); row.tap() }
         }
         if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout) {
             // Hinweis für die CI-Meldung: was ist stattdessen zu sehen? (Kennungen und Titel, gekürzt)
@@ -203,6 +187,19 @@ final class CryptoCheckerUITests: XCTestCase {
     }
 
     // MARK: Hilfen
+
+    /// Element so weit hochscrollen, dass es ganz zwischen Navigationsleiste und eigener Tab-Leiste liegt.
+    @MainActor
+    private func scrollAboveTabBar(_ app: XCUIApplication, _ element: XCUIElement) {
+        let bars = app.descendants(matching: .any).matching(identifier: UiTestTags.tabSettings).allElementsBoundByIndex
+        let tabTop = bars.first(where: { $0.isHittable })?.frame.minY ?? app.frame.maxY
+        var swipes = 0
+        while swipes < 8 && (!element.isHittable || element.frame.maxY > tabTop - 8) {
+            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.7))
+            start.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35)))
+            swipes += 1
+        }
+    }
 
     /// Wartet, bis das Element da und bedienbar ist, und tippt.
     @MainActor
