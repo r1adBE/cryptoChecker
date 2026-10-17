@@ -26,6 +26,10 @@ enum UiTestTags {
     static let watchlistAddPair = "watchlist_add_pair"
     static let watchActionAlarm = "watch_action_alarm"
 
+    // MARK: Mitteilungen
+    /// «Weiter» der Erklärung vor der System-Abfrage (`NotificationPrePrompt`).
+    static let notificationPrepromptContinue = "notification_preprompt_continue"
+
     // MARK: Paar hinzufügen (Coin-Suche)
     static let explorerSearch = "explorer_search"
     static let explorerListsLoad = "explorer_lists_load"

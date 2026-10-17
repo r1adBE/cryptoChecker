@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">आपकी सीमा %1$s से नीचे – मापा गया मान, सिफ़ारिश नहीं।</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">आज आर्थिक आँकड़े</string>
+    <string name="notification_permission_preprompt_continue">जारी रखें</string>
+    <string name="notification_permission_preprompt_later">बाद में</string>
+    <string name="notification_permission_preprompt_text">अलार्म और प्राइस नोटिफ़िकेशन आप तक पहुँचें, इसके लिए ऐप को नोटिफ़िकेशन की अनुमति चाहिए। इनका उपयोग केवल आपके अपने अलार्म के लिए होता है।</string>
+    <string name="notification_permission_preprompt_title">नोटिफ़िकेशन की अनुमति दें?</string>
     <string name="notification_portfolio_alarm_locked">आपका अलार्म बजा – विवरण के लिए ऐप खोलें।</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – अभी %2$s</string>

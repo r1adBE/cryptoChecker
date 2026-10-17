@@ -13,8 +13,8 @@ import Foundation
 // Schenkung und Netzwerkgebühr nach den Regeln der Vorlage (`TaxEventRules`, `applyRules`, Build 56): Verschenkt nur für
 // UK/CA/AU eine Veräusserung, an Ehe-/Lebenspartner in UK/CA ohne Gewinn/Verlust (TCGA 1992 s. 58, ITA 73(1));
 // Netzwerkgebühr in Krypto einer Umbuchung/Auszahlung bei UK/US/CA/AU/JP eine eigene Veräusserung zum Marktwert.
-// FR: Gesamtwert samt beobachteter Adressen. UK: Einzahlung mit früherem Kaufdatum erst ab Buchungstag
-// im Pool (nicht «gleicher Tag»/«30 Tage»). CA: ein Ersatz-Zugang deckt nur einen nicht abziehbaren Verlust (verbraucht).
+// FR: Gesamtwert samt beobachteter Adressen. UK: Einzahlung mit früherem Kaufdatum «gleicher Tag»/«30 Tage» am
+// Kaufdatum, Rest erst ab Buchungstag im Pool. CA: ein Ersatz-Zugang deckt nur einen nicht abziehbaren Verlust (verbraucht).
 // FR: Verkauf über den Bestand — nur der gedeckte Anteil hat Einstand, der Rest eine eigene Zeile ohne Einstand.
 
 /// FR: Abgang ohne Verkauf (Auszahlung) — wie `TaxOutflow` (Android): Menge ohne Gebühr (die ist eine Abtretung), Wert beim Abgang,
@@ -712,21 +712,27 @@ enum TaxEngines {
                                _ unassigned: inout [PortfolioUnassignedFee]) -> [PortfolioDisposal] {
         // Netzwerkgebühren sind hier schon eigene Verkäufe (`applyRules`, HMRC CRYPTO22280) — sie zählen so in der
         // Same-Day-Gruppe ihres Tags und in der 30-Tage-Regel wie jeder andere Abgang
-        // Einzahlung mit früherem ursprünglichem Kaufdatum: erst ab dem Buchungstag bekannt → direkt in den Pool, nicht
-        // «gleicher Tag»/«30 Tage». Einzahlung ohne Kaufdatum ebenso: eigene Coins von anderswo sind kein Erwerb an diesem
-        // Tag (CRYPTO22200 ordnet nur Erwerbe zu) — sie dürfen keinen früheren Verkauf nach der 30-Tage-Regel umleiten
-        func late(_ s: TaxStep) -> Bool {
-            (s.trade.type == .DEPOSIT && s.trade.acquiredTime == nil) || day(s.acquired, zone) != day(s.time, zone)
-        }
+        // Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur
+        // Erwerbe zu) — direkt in den Pool, nicht «gleicher Tag»/«30 Tage»; sie dürfen keinen früheren Verkauf umleiten
+        func late(_ s: TaxStep) -> Bool { s.trade.type == .DEPOSIT && s.trade.acquiredTime == nil }
+        // Einzahlung mit früherem ursprünglichem Kaufdatum: Umbuchung zwischen eigenen Wallets ist kein Erwerb — erworben
+        // wurde am Kaufdatum, also «gleicher Tag»/«30 Tage» nach dem Kaufdatum (Teil des Tages-Zugangs dieses Tags); den
+        // Rest übernimmt der Pool erst am BUCHUNGSTAG (die App kennt die Coins erst ab da, siehe Schritt 3)
+        func moved(_ s: TaxStep) -> Bool { day(s.acquired, zone) != day(s.time, zone) }
         // Zugänge je Tag (Erwerbsdatum) als ein Zugang zum Durchschnitt
         var dayPools: [LocalDay: TaxPool] = [:]
         var dayFirst: [LocalDay: Int64] = [:]
+        // Menge je Tag noch nicht im Pool (alle Zugänge) bzw. am Tag selbst gebucht (ohne nachgebuchte Einzahlungen)
+        var dayLeft: [LocalDay: Decimal] = [:]
+        var dayOwn: [LocalDay: Decimal] = [:]
         for s in steps where s.kind == .acquire && !late(s) {
             let d = day(s.acquired, zone)
             var pool = dayPools[d] ?? TaxPool()
             pool.add(s.qty, cost: s.cost, time: s.acquired)
             dayPools[d] = pool
             dayFirst[d] = min(dayFirst[d] ?? Int64.max, s.acquired)
+            dayLeft[d] = (dayLeft[d] ?? 0) + s.qty
+            if !moved(s) { dayOwn[d] = (dayOwn[d] ?? 0) + s.qty }
         }
         let poolDays = dayPools.keys.sorted()
         let disposeIdx: [Int] = steps.indices.filter { steps[$0].kind == .dispose }
@@ -777,21 +783,36 @@ enum TaxEngines {
                 pieces[i, default: []] += piecesOf(taken, match: .THIRTY_DAY, matchedTime: dayFirst[ad])
             }
         }
-        // 3. Section-104-Pool
+        // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
+        // Buchungstag), Rest der Abgänge aus dem Pool
         var pool = TaxPool(zone: zone)
         var added = Set<LocalDay>()
         var out: [PortfolioDisposal] = []
+        /// Anteil `q` der noch nicht übernommenen Menge des Tages `d` vom Rest seines Tages-Zugangs in den Pool (zuletzt: alles)
+        func enter(_ d: LocalDay, _ q: Decimal) {
+            guard var dp = dayPools[d] else { return }
+            let left = dayLeft[d] ?? 0
+            dayLeft[d] = left - q
+            if q >= left {
+                pool.absorb(&dp)
+                dayPools[d] = dp
+                return
+            }
+            let taken = dp.take(PortfolioDecimal.divide(dp.held * q, left))
+            dayPools[d] = dp
+            pool.addCarried(taken.removedPriced, from: taken.parts)
+            pool.add(taken.removedUnpriced, cost: nil, time: dayFirst[d] ?? 0)
+        }
         for (i, s) in steps.enumerated() {
             switch s.kind {
             case .acquire:
+                let d = day(s.acquired, zone)
                 if late(s) {
                     pool.add(s.qty, cost: s.cost, time: s.acquired)
-                } else {
-                    let d = day(s.acquired, zone)
-                    if added.insert(d).inserted, var dp = dayPools[d] {
-                        pool.absorb(&dp)
-                        dayPools[d] = dp
-                    }
+                } else if moved(s) {
+                    enter(d, s.qty)
+                } else if added.insert(d).inserted {
+                    enter(d, dayOwn[d] ?? 0)
                 }
             case .dispose:
                 var list = pieces[i] ?? []

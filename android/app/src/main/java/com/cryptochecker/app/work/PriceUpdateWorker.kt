@@ -62,7 +62,10 @@ class PriceUpdateWorker @AssistedInject constructor(
                 summary.checked, summary.failed, summary.alarmsTriggered
             )
 
-            // Nur wenn gar nichts geklappt hat, lohnt ein zweiter Versuch (nie bei einem Knopfdruck)
+            if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) {
+                Timber.w("Hintergrund-Aktualisierung: alle %d Paare fehlgeschlagen, nächster Lauf im normalen Takt", summary.checked)
+            }
+            // Kein Retry, auch wenn alles scheiterte: Der Backoff verschöbe den nächsten Lauf um Stunden
             BackgroundWorkPolicy.outcome(manual, summary.checked, summary.failed).toResult()
         } catch (ex: CancellationException) {
             // Abbruch (Bedingung weg, Auftrag ersetzt/abgebrochen) nicht als Fehlschlag melden
@@ -71,7 +74,7 @@ class PriceUpdateWorker @AssistedInject constructor(
             // Datenbank-Schlüssel gerade nicht lesbar (Keystore): Lauf überspringen, WorkManager versucht es später
             if (ex.isDatabaseKeyUnavailable()) {
                 Timber.d(ex, "Hintergrund-Aktualisierung: Datenbank-Schlüssel nicht verfügbar, später erneut")
-                return Result.retry()
+                return BackgroundWorkPolicy.outcomeOnKeyUnavailable().toResult()
             }
             Timber.w(ex, "Hintergrund-Aktualisierung fehlgeschlagen")
             if (BackgroundWorkPolicy.syncsExactAfterRun(manual)) syncExact()

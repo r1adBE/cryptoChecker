@@ -1699,18 +1699,6 @@
         "candleTimeMin": -30.0,
         "reasons": [
           {
-            "kind": "COIN_ONLY",
-            "tone": "UP",
-            "value": 4.892108303178966,
-            "secondary": 0.04821887373138711,
-            "strong": true,
-            "ref": "BTC",
-            "threshold": 2.0,
-            "approximate": false,
-            "similarOnly": false,
-            "mark": "NEUTRAL"
-          },
-          {
             "kind": "VOLUME_NORMAL",
             "tone": "NEUTRAL",
             "value": 1.0,
@@ -1742,18 +1730,6 @@
         },
         "fundingTrend": null,
         "factors": [
-          {
-            "kind": "MARKET",
-            "note": "MARKET_COIN_ALONE",
-            "direction": "NONE",
-            "value": 0.04821887373138711,
-            "secondary": 4.892108303178966,
-            "strength": 2.446054151589483,
-            "neutral": false,
-            "ref": "BTC",
-            "approximate": false,
-            "trend": null
-          },
           {
             "kind": "POSITION_3D",
             "note": "RANGE_ABOVE_LOW",
@@ -1791,7 +1767,7 @@
             "trend": null
           }
         ],
-        "brief": ["why_summary_coin"]
+        "brief": []
       }
     },
     {
@@ -3506,6 +3482,310 @@
             "note": "SENTIMENT",
             "direction": "NONE",
             "value": 60.0,
+            "secondary": null,
+            "strength": 0.0,
+            "neutral": true,
+            "ref": null,
+            "approximate": false,
+            "trend": null
+          }
+        ],
+        "brief": []
+      }
+    },
+    {
+      "name": "eth_btc_quote_no_market",
+      "input": {
+        "candles": {
+          "count": 100.0,
+          "start": 100.0,
+          "pattern": [0.1, -0.1],
+          "tail": [
+            [0.2035, 24.0],
+            [0.0, 1.0]
+          ]
+        },
+        "reference": {
+          "count": 100.0,
+          "start": 100.0,
+          "pattern": [0.1, -0.1],
+          "tail": [
+            [-0.0841, 24.0],
+            [0.0, 1.0]
+          ]
+        },
+        "base": "ETH",
+        "quote": "BTC"
+      },
+      "expected": {
+        "hasMarketData": true,
+        "stable": false,
+        "price": 104.99613695605413,
+        "change1h": 0.10051603299128242,
+        "change24h": 4.892108303178966,
+        "high30d": null,
+        "low30d": null,
+        "btcLink": null,
+        "oiMinutes": null,
+        "candleTimeMin": -30.0,
+        "reasons": [
+          {
+            "kind": "VOLUME_NORMAL",
+            "tone": "NEUTRAL",
+            "value": 1.0,
+            "secondary": null,
+            "strong": false,
+            "ref": null,
+            "threshold": null,
+            "approximate": true,
+            "similarOnly": false,
+            "mark": "NEUTRAL"
+          },
+          {
+            "kind": "VOLATILITY_NORMAL",
+            "tone": "NEUTRAL",
+            "value": 0.20412414523193156,
+            "secondary": 0.2035000000000009,
+            "strong": false,
+            "ref": null,
+            "threshold": null,
+            "approximate": false,
+            "similarOnly": false,
+            "mark": "NEUTRAL"
+          }
+        ],
+        "position3d": {
+          "kind": "ABOVE_LOW",
+          "percent": 5.000021886935202,
+          "threshold": 5.0
+        },
+        "fundingTrend": null,
+        "factors": [
+          {
+            "kind": "POSITION_3D",
+            "note": "RANGE_ABOVE_LOW",
+            "direction": "UP",
+            "value": 5.000021886935202,
+            "secondary": null,
+            "strength": 1.0000043773870404,
+            "neutral": false,
+            "ref": null,
+            "approximate": false,
+            "trend": null
+          },
+          {
+            "kind": "VOLUME",
+            "note": "VOLUME_USUAL",
+            "direction": "NONE",
+            "value": 1.0,
+            "secondary": null,
+            "strength": 0.0,
+            "neutral": true,
+            "ref": null,
+            "approximate": true,
+            "trend": null
+          },
+          {
+            "kind": "VOLATILITY",
+            "note": "VOLATILITY_USUAL",
+            "direction": "NONE",
+            "value": 0.20412414523193156,
+            "secondary": null,
+            "strength": 0.0,
+            "neutral": true,
+            "ref": null,
+            "approximate": false,
+            "trend": null
+          }
+        ],
+        "brief": []
+      }
+    },
+    {
+      "name": "sol_eur_quote_no_market",
+      "input": {
+        "candles": {
+          "count": 100.0,
+          "start": 100.0,
+          "pattern": [2.0, -2.0],
+          "tail": [
+            [0.4, 24.0],
+            [0.0, 1.0]
+          ]
+        },
+        "reference": {
+          "count": 100.0,
+          "start": 100.0,
+          "pattern": [0.1, -0.1]
+        },
+        "base": "SOL",
+        "quote": "EUR"
+      },
+      "expected": {
+        "hasMarketData": true,
+        "stable": false,
+        "price": 108.4376914494208,
+        "change1h": 0.19737863431725788,
+        "change24h": 9.83272385879761,
+        "high30d": null,
+        "low30d": null,
+        "btcLink": null,
+        "oiMinutes": null,
+        "candleTimeMin": -30.0,
+        "reasons": [
+          {
+            "kind": "VOLUME_NORMAL",
+            "tone": "NEUTRAL",
+            "value": 1.0,
+            "secondary": null,
+            "strong": false,
+            "ref": null,
+            "threshold": null,
+            "approximate": true,
+            "similarOnly": false,
+            "mark": "NEUTRAL"
+          },
+          {
+            "kind": "VOLATILITY_NORMAL",
+            "tone": "NEUTRAL",
+            "value": 0.20412414523193162,
+            "secondary": 0.40000000000000036,
+            "strong": false,
+            "ref": null,
+            "threshold": null,
+            "approximate": false,
+            "similarOnly": false,
+            "mark": "NEUTRAL"
+          }
+        ],
+        "position3d": {
+          "kind": "NEAR_HIGH",
+          "percent": 0.0,
+          "threshold": 28.092723733389835
+        },
+        "fundingTrend": null,
+        "factors": [
+          {
+            "kind": "POSITION_3D",
+            "note": "RANGE_NEAR_HIGH",
+            "direction": "NONE",
+            "value": 0.0,
+            "secondary": null,
+            "strength": 1.5,
+            "neutral": false,
+            "ref": null,
+            "approximate": false,
+            "trend": null
+          },
+          {
+            "kind": "VOLUME",
+            "note": "VOLUME_USUAL",
+            "direction": "NONE",
+            "value": 1.0,
+            "secondary": null,
+            "strength": 0.0,
+            "neutral": true,
+            "ref": null,
+            "approximate": true,
+            "trend": null
+          },
+          {
+            "kind": "VOLATILITY",
+            "note": "VOLATILITY_USUAL",
+            "direction": "NONE",
+            "value": 0.20412414523193162,
+            "secondary": null,
+            "strength": 0.0,
+            "neutral": true,
+            "ref": null,
+            "approximate": false,
+            "trend": null
+          }
+        ],
+        "brief": []
+      }
+    },
+    {
+      "name": "btc_eur_no_leader",
+      "input": {
+        "base": "BTC",
+        "candles": {
+          "count": 100.0,
+          "start": 100.0,
+          "pattern": [0.1, -0.1],
+          "tail": [
+            [0.0497, 24.0],
+            [0.0, 1.0]
+          ]
+        },
+        "reference": {
+          "count": 100.0,
+          "start": 100.0,
+          "pattern": [0.1, -0.1],
+          "tail": [
+            [0.03, 24.0],
+            [0.0, 1.0]
+          ]
+        },
+        "quote": "EUR"
+      },
+      "expected": {
+        "hasMarketData": true,
+        "stable": false,
+        "price": 101.19589804131921,
+        "change1h": 0.02456771597727503,
+        "change24h": 1.1742212134509211,
+        "high30d": null,
+        "low30d": null,
+        "btcLink": null,
+        "oiMinutes": null,
+        "candleTimeMin": -30.0,
+        "reasons": [
+          {
+            "kind": "VOLUME_NORMAL",
+            "tone": "NEUTRAL",
+            "value": 1.0,
+            "secondary": null,
+            "strong": false,
+            "ref": null,
+            "threshold": null,
+            "approximate": true,
+            "similarOnly": false,
+            "mark": "NEUTRAL"
+          },
+          {
+            "kind": "VOLATILITY_NORMAL",
+            "tone": "NEUTRAL",
+            "value": 0.2041241452319316,
+            "secondary": 0.04969999999999697,
+            "strong": false,
+            "ref": null,
+            "threshold": null,
+            "approximate": false,
+            "similarOnly": false,
+            "mark": "NEUTRAL"
+          }
+        ],
+        "position3d": null,
+        "fundingTrend": null,
+        "factors": [
+          {
+            "kind": "VOLUME",
+            "note": "VOLUME_USUAL",
+            "direction": "NONE",
+            "value": 1.0,
+            "secondary": null,
+            "strength": 0.0,
+            "neutral": true,
+            "ref": null,
+            "approximate": true,
+            "trend": null
+          },
+          {
+            "kind": "VOLATILITY",
+            "note": "VOLATILITY_USUAL",
+            "direction": "NONE",
+            "value": 0.2041241452319316,
             "secondary": null,
             "strength": 0.0,
             "neutral": true,

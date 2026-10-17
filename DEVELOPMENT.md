@@ -404,7 +404,7 @@ Rules:
 | KuCoin | `changeRate` | fraction × 100 |
 | LATOKEN | `change24h` | percent |
 | MEXC | `openPrice`, else `priceChangePercent` | price 24 h ago / **fraction** × 100 |
-| MEXC Futures | `riseFallRate` | fraction × 100; the day values in `riseFallRates` are not used |
+| MEXC Futures | – fallback candles | `riseFallRate` is the change since 00:00 UTC+8, not rolling; the day values in `riseFallRates` are not used either |
 | NonKYC | – fallback candles | no documented rolling 24 h field |
 | OKX, OKX Futures | `open24h` | price 24 h ago; `sodUtc0`/`sodUtc8` not used |
 | One Trading | `price_change_percentage` | percent |

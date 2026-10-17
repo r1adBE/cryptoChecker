@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Phí rút bằng USDT hoặc tiền mặt không phải là lỗ: phí tiền mặt không được khấu trừ, phí USDT là chuyển nhượng theo mệnh giá không có lãi – chỉ hiển thị để tham khảo (%1$s).</string>
     <string name="tax_summary_at_interest_income">được tính: thu nhập lúc nhận với thuế suất đặc biệt 27,5 phần trăm (§ 27b khoản 2 số 1 EStG / BMF) – coin giữ giá trị này làm giá mua</string>
     <string name="tax_summary_at_reward_info">chỉ để tham khảo – không nằm trong tổng nào: phần thưởng vào số nắm giữ mới với giá mua 0 và chỉ bị đánh thuế khi bán (đã nằm trong lãi) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Bán/hoán đổi số nắm giữ mới 1.3.2021–28.2.2022: quy định cũ (§ 31 EStG bản cũ) với lựa chọn thuế suất 27,5 phần trăm – hãy làm rõ với cố vấn thuế</string>
     <string name="tax_summary_at_withdrawal_fee">Phí rút – không bù trừ với số nắm giữ mới (chi phí không được khấu trừ ở thuế suất đặc biệt, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">chỉ để tham khảo – cách tính FIFO của ứng dụng – chưa phân loại – xem ESTV</string>
     <string name="tax_summary_ch_year_end_value">giá trị ngày 31.12 trong CSV nắm giữ = giá sàn × USD/CHF – không phải giá trị tính thuế trong bảng giá ESTV</string>

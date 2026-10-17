@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">پایین‌تر از مرز تو %1$s – مقدار اندازه‌گیری‌شده، نه توصیه.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">امروز داده‌های اقتصادی</string>
+    <string name="notification_permission_preprompt_continue">ادامه</string>
+    <string name="notification_permission_preprompt_later">بعداً</string>
+    <string name="notification_permission_preprompt_text">برای اینکه هشدارها و اعلان‌های قیمت به شما برسند، برنامه به اجازهٔ اعلان‌ها نیاز دارد. این اعلان‌ها فقط برای هشدارهای خودتان استفاده می‌شوند.</string>
+    <string name="notification_permission_preprompt_title">اجازهٔ اعلان‌ها داده شود؟</string>
     <string name="notification_portfolio_alarm_locked">هشدار شما فعال شد – برای جزئیات برنامه را باز کنید.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – اکنون %2$s</string>

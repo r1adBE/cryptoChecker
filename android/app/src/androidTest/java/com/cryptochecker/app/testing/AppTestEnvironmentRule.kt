@@ -15,7 +15,8 @@ import org.junit.runners.model.Statement
 /**
  * Was sonst `CryptoCheckerApp.onCreate` erledigt (die Tests laufen mit `HiltTestApplication`):
  * WorkManager (Test-Fassung, ohne Hintergrundarbeit) und Mitteilungskanäle. Dazu die
- * Mitteilungs-Erlaubnis (Android 13+), damit kein System-Dialog die Oberfläche verdeckt,
+ * Mitteilungs-Erlaubnis (Android 13+), damit kein System-Dialog die Oberfläche verdeckt (dann erscheint
+ * auch die Erklärung vor der Abfrage nicht, `NotificationPrePrompt`),
  * und feste Startkurse. Muss vor dem Start der Activity laufen (Regel-Reihenfolge).
  */
 class AppTestEnvironmentRule : TestRule {

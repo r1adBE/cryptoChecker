@@ -1,5 +1,31 @@
 # Changelog
 
+## 16.2.2 (build 72)
+
+Twentieth review.
+
+* MEXC Futures: the 24 h change is computed from hourly candles; the exchange's `riseFallRate` only counts since
+  00:00 UTC+8 (it showed +0.35 % while every other exchange showed −0.72 %). %-alarms were not affected.
+* «What is moving with it?»: the market and Bitcoin comparison only runs for pairs quoted in USD or a USD stablecoin;
+  ETH/BTC or SOL/EUR no longer get «strikingly independent» from a comparison with BTC/USDT.
+* Android: a background run in which every exchange failed no longer asks WorkManager for a retry – the exponential
+  backoff could delay the next check and alarms by up to 5 hours after an outage.
+* iOS: an unreadable watched-addresses file no longer blocks every backup restore (it is set aside, the undo puts it
+  back unchanged).
+* iOS: before each alarm notification the alarm is re-read from disk and the delivery lease refreshed – no second
+  notification when the app is suspended mid-delivery and the background task takes over.
+* Spoken prices below 1 keep 4 significant digits (PEPE was spoken as «0.000007» or «0»).
+* Alarm thresholds are shown exactly as stored (1.0005 instead of «1», 70,000 instead of 70,000.00).
+* UK: deposits from own wallets with an earlier purchase date take part in the same-day and 30-day rules on their
+  purchase date (HMRC); the rest enters the pool on the booking day.
+* Austria: sales or swaps of new holdings between 1.3.2021 and 28.2.2022 get a note – old rules with option for
+  27.5 percent, to be clarified with a tax adviser.
+* First pairs or first alarm: a short explanation before the system asks for notification permission («Continue» /
+  «Later»; «Later» asks once more at the first alarm).
+* Watchlist header: the alarm button always shows the bell with waves (the plain bell in a row means price
+  notification on).
+* Feature graphic redrawn: BTC/USDT priced in USDT, change as calm-green text, «No account · Price from the exchange».
+
 ## 16.2.2 (build 71)
 
 Nineteenth review.

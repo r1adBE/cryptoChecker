@@ -296,11 +296,10 @@ struct BackupSettingsPage: View {
             toast = result.appLockKept ? restored + "\n" + L("backup_restore_app_lock_kept") : restored
             // Wie Android: Erlaubnis für Mitteilungen erfragen (eine Neuinstallation hat nie gefragt — sonst
             // kommen Alarme der eingespielten Paare nie an) und gleich Kurse holen (Widgets, Alarme)
+            // (wie neue Paare: erst die kurze Erklärung, `NotificationPrePrompt`)
             if result.watches > 0 {
-                Task {
-                    _ = await Notifier.requestPermission()
-                    await data.refreshAll()
-                }
+                NotificationPrePrompt.request(.pairsAdded)
+                Task { await data.refreshAll() }
             }
         } catch BackupVersion.Failure.newer {
             UINotificationFeedbackGenerator().notificationOccurred(.error)

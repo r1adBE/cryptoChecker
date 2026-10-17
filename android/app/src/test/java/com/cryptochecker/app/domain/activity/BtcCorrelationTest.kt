@@ -1,8 +1,10 @@
 package com.cryptochecker.app.domain.activity
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.exp
 
@@ -97,6 +99,17 @@ class BtcCorrelationTest {
         val btc = series(wave(30))
         val flat = series(List(30) { 0.0 })
         assertNull(BtcCorrelation.correlation("USDC", flat, btc))
+    }
+
+    @Test
+    fun onlyUsdQuotesCompareWithBtc() {
+        // Referenz ist BTCUSDT: Gleichlauf und Markt-Vergleich nur bei USD bzw. USD-Stablecoin als Quote
+        listOf("USD", "USDT", " usdc ", "FDUSD", "DAI", null, "").forEach {
+            assertTrue("$it", ActivityAnalyzer.isUsdQuote(it))
+        }
+        listOf("BTC", "ETH", "EUR", "CHF", "TRY", "BNB").forEach {
+            assertFalse(it, ActivityAnalyzer.isUsdQuote(it))
+        }
     }
 
     @Test

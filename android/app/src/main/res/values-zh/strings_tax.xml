@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT 或法币支付的提取手续费不算亏损：法币手续费不可扣除，USDT 手续费是按面值处置、没有收益——仅作参考列出（%1$s）。</string>
     <string name="tax_summary_at_interest_income">计入：收到时按百分之 27.5 特别税率计为收入（§ 27b 第2款第1项 EStG / BMF）——币以该价值作为取得成本</string>
     <string name="tax_summary_at_reward_info">仅供参考——不计入任何合计：奖励以取得成本 0 计入新持仓，仅在出售时征税（已含在收益中）——§ 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2021年3月1日至2022年2月28日出售/兑换新持仓：适用旧法（§ 31 EStG 旧版），可选择百分之 27.5 税率——请咨询税务顾问</string>
     <string name="tax_summary_at_withdrawal_fee">提取手续费——不与新持仓抵扣（按特别税率费用不可扣除，§ 20(2) EStG）</string>
     <string name="tax_summary_ch_fifo_info">仅供参考——应用的 FIFO 计算——未分类——见 ESTV</string>
     <string name="tax_summary_ch_year_end_value">持仓 CSV 中 12 月 31 日的价值 = 交易所价格 × USD/CHF——不是 ESTV 价目表的计税价值</string>

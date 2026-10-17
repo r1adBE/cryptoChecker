@@ -31,7 +31,7 @@ object AlarmSentence {
     /**
      * @param threshold Schwellwert (Kurs, Prozent oder Faktor); null/≤ 0 = unvollständig
      * @param currency Währung des Kurs-Schwellwerts (Alarmwährung oder Quote)
-     * @param formatPrice Kurs mit Währung formatieren (in der App: PriceFormat.priceWithCurrency)
+     * @param formatPrice Kurs mit Währung formatieren (in der App: PriceFormat.thresholdWithCurrency)
      * @return null, wenn die Eingabe leer oder ungültig ist (→ alarm_sentence_incomplete).
      *   [Kind.NEAR_HIGH]/[Kind.NEAR_LOW] mit Abstand 0 ([NearExtreme.NEW_ONLY_DISTANCE]) →
      *   [Kind.NEW_HIGH]/[Kind.NEW_LOW] ohne Wert («… ein neues 30-Tage-Hoch erreicht»).

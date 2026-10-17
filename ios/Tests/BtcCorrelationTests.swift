@@ -82,6 +82,16 @@ final class BtcCorrelationTests: XCTestCase {
         XCTAssertNil(BtcCorrelation.correlation(base: "USDC", candles: flat, btc: btc))
     }
 
+    func testOnlyUsdQuotesCompareWithBtc() {
+        // Referenz ist BTCUSDT: Gleichlauf und Markt-Vergleich nur bei USD bzw. USD-Stablecoin als Quote
+        for quote in ["USD", "USDT", " usdc ", "FDUSD", "DAI", nil, ""] as [String?] {
+            XCTAssertTrue(ActivityAnalyzer.isUsdQuote(quote), "\(String(describing: quote))")
+        }
+        for quote in ["BTC", "ETH", "EUR", "CHF", "TRY", "BNB"] {
+            XCTAssertFalse(ActivityAnalyzer.isUsdQuote(quote), quote)
+        }
+    }
+
     func testPearsonBasics() throws {
         XCTAssertEqual(try XCTUnwrap(BtcCorrelation.pearson([1, 2, 3], [2, 4, 6])), 1, accuracy: 1e-12)
         XCTAssertEqual(try XCTUnwrap(BtcCorrelation.pearson([1, 2, 3], [3, 2, 1])), -1, accuracy: 1e-12)

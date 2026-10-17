@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">رسوم السحب بـ USDT أو نقدًا ليست خسارة: الرسوم النقدية غير قابلة للخصم، ورسوم USDT تصرّف بالقيمة الاسمية بلا ربح – تظهر للعلم فقط (%1$s).</string>
     <string name="tax_summary_at_interest_income">يُحتسب: دخل عند الاستلام بالنسبة الخاصة 27.5 بالمئة (§ 27b الفقرة 2 البند 1 EStG / BMF) – تحتفظ العملات بهذه القيمة كتكلفة اقتناء</string>
     <string name="tax_summary_at_reward_info">للعلم فقط – غير مُدرج في أي مجموع: تدخل المكافآت في الرصيد الجديد بتكلفة اقتناء 0 ولا تُفرض عليها الضريبة إلا عند البيع (ضمن الأرباح بالفعل) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">مبيعات/مبادلات الرصيد الجديد من 1.3.2021 إلى 28.2.2022: النظام القانوني السابق (§ 31 EStG بالصيغة القديمة) مع خيار نسبة 27.5 بالمئة – يُرجى التحقق مع مستشار ضريبي</string>
     <string name="tax_summary_at_withdrawal_fee">رسوم السحب – لا تُقاصّ مع الرصيد الجديد (المصروفات غير قابلة للخصم بالمعدل الخاص، § 20 فقرة 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">للعلم فقط – حساب FIFO من التطبيق – غير مصنّف – راجع ESTV</string>
     <string name="tax_summary_ch_year_end_value">القيمة في 31.12 في ملف CSV للأرصدة = سعر المنصة × USD/CHF – وليست القيم الضريبية في قائمة أسعار ESTV</string>

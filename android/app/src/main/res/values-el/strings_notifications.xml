@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">Κάτω από το όριό σου %1$s – μετρημένη τιμή, όχι σύσταση.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Οικονομικά στοιχεία σήμερα</string>
+    <string name="notification_permission_preprompt_continue">Συνέχεια</string>
+    <string name="notification_permission_preprompt_later">Αργότερα</string>
+    <string name="notification_permission_preprompt_text">Για να σας φτάνουν οι συναγερμοί και οι ειδοποιήσεις τιμής, η εφαρμογή χρειάζεται άδεια για ειδοποιήσεις. Χρησιμοποιούνται μόνο για τους δικούς σας συναγερμούς.</string>
+    <string name="notification_permission_preprompt_title">Να επιτρέπονται οι ειδοποιήσεις;</string>
     <string name="notification_portfolio_alarm_locked">Ο συναγερμός σου ενεργοποιήθηκε – άνοιξε την εφαρμογή για λεπτομέρειες.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – τώρα %2$s</string>

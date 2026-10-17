@@ -123,13 +123,44 @@ extension AppData {
     }
 
     /// Wiederherstellen (eigene Sicherung): ersetzen — alle bisherigen Adressen weg, dann die geprüften neuen.
+    /// Auch über eine unlesbare Datei (`replaceWatchedAddressFile`), sonst scheiterte jedes Wiederherstellen.
     /// - Returns: Anzahl übernommener Adressen; nil, wenn nicht geschrieben.
     @discardableResult
     func replaceWatchedAddresses(_ entries: [WatchedAddressBackupEntry]) -> Int? {
         let current = currentWatchedAddressFile()
         var file = WatchedAddressFile(addresses: [], nextId: current.nextId)
         let added = insertWatched(WatchedAddressRules.merge([], entries), into: &file)
-        return setWatchedAddressFile(file) ? added : nil
+        return replaceWatchedAddressFile(file) ? added : nil
+    }
+
+    /// Ganz ersetzen: braucht den alten Inhalt nicht. Ist die Datei unlesbar, wird sie vorher unverändert
+    /// daneben gelegt (`WatchedAddressStore.setAsideUnreadable`) und gilt nach dem Schreiben wieder als intakt;
+    /// scheitert das Schreiben, kommt sie unverändert zurück.
+    private func replaceWatchedAddressFile(_ file: WatchedAddressFile) -> Bool {
+        if watchedAddressIntact { return setWatchedAddressFile(file) }
+        guard WatchedAddressStore.setAsideUnreadable() else { return false }
+        watchedAddressIntact = true
+        guard setWatchedAddressFile(file) else {
+            WatchedAddressStore.putBackUnreadable()
+            watchedAddressIntact = false
+            return false
+        }
+        return true
+    }
+
+    /// Wiederherstellen gescheitert (`RestoreSteps`): War die Datei vorher lesbar (`wasIntact`), den alten Stand
+    /// zurückschreiben; war sie unlesbar, die daneben gelegte Datei unverändert zurücklegen — nie den leeren
+    /// Ersatzstand als «alten» Stand schreiben. Geht das Zurücklegen nicht, bleibt der wiederhergestellte Stand
+    /// (die unlesbare Datei liegt weiter daneben).
+    func rollBackWatchedAddresses(_ old: WatchedAddressFile, wasIntact: Bool) {
+        if wasIntact {
+            setWatchedAddressFile(old)
+            return
+        }
+        guard WatchedAddressStore.putBackUnreadable() else { return }
+        watchedAddressIntact = false
+        watchedAddressFile = WatchedAddressFile()
+        watchedAddresses = []
     }
 
     /// Wiederherstellen (eigene Sicherung): ergänzen — vorhandene bleiben, neue ohne Doppelte bis zur Höchstzahl.

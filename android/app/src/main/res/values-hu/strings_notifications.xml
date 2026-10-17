@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">A határod alatt: %1$s – mért érték, nem ajánlás.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Ma gazdasági adatok jönnek</string>
+    <string name="notification_permission_preprompt_continue">Tovább</string>
+    <string name="notification_permission_preprompt_later">Később</string>
+    <string name="notification_permission_preprompt_text">Ahhoz, hogy a riasztások és az árértesítések megérkezzenek, az alkalmazásnak engedély kell az értesítésekhez. Csak a saját riasztásaidhoz használja őket.</string>
+    <string name="notification_permission_preprompt_title">Engedélyezed az értesítéseket?</string>
     <string name="notification_portfolio_alarm_locked">A riasztásod megszólalt – nyisd meg az appot a részletekért.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – most %2$s</string>

@@ -330,10 +330,10 @@ enum AlarmTexts {
         if alarm.condition.isPercent {
             value = String(format: "%.2f%%", locale: Locale.current, alarm.threshold)
         } else if let currency = alarm.convertCurrency {
-            // Schwellwert in eigener Währung: «Über 60’000 CHF»
-            value = PriceFormat.priceWithCurrency(alarm.threshold, currency)
+            // Schwellwert in eigener Währung: «Über 60’000 CHF» — genau wie gespeichert (1.0005 bleibt 1.0005)
+            value = PriceFormat.thresholdWithCurrency(alarm.threshold, currency)
         } else {
-            value = PriceFormat.price(alarm.threshold)
+            value = PriceFormat.threshold(alarm.threshold)
         }
         if alarm.condition == .MOVE_PERCENT_WINDOW {
             return "\(name) \(value) " + L("alarm_window_hours", count: alarm.windowHours)
@@ -362,9 +362,9 @@ enum AlarmTexts {
         guard let threshold, threshold > 0, threshold.isFinite else { return L("alarm_sentence_incomplete") }
         switch condition {
         case .PRICE_ABOVE:
-            return L("alarm_sentence_above", base, PriceFormat.priceWithCurrency(threshold, currency))
+            return L("alarm_sentence_above", base, PriceFormat.thresholdWithCurrency(threshold, currency))
         case .PRICE_BELOW:
-            return L("alarm_sentence_below", base, PriceFormat.priceWithCurrency(threshold, currency))
+            return L("alarm_sentence_below", base, PriceFormat.thresholdWithCurrency(threshold, currency))
         case .CHANGE_PERCENT_UP:
             return L("alarm_sentence_up_percent", base, percent(threshold))
         case .CHANGE_PERCENT_DOWN:

@@ -77,6 +77,10 @@ fun rememberAlarmTest(run: suspend () -> AlarmTestResult): () -> Unit {
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
             PackageManager.PERMISSION_GRANTED
         // Noch nicht erlaubt: zuerst fragen (bei endgültiger Ablehnung meldet Android sofort «nein»)
-        if (needsPermission) launcher.launch(Manifest.permission.POST_NOTIFICATIONS) else execute()
+        if (needsPermission) {
+            // Gefragt: die Erklärung vor der Abfrage ([NotificationPrePrompt]) erscheint danach nicht mehr
+            NotificationPrePrompt.markSystemAsked(context)
+            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else execute()
     }
 }

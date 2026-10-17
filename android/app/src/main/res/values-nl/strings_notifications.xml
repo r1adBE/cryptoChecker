@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">Onder je grens %1$s – meetwaarde, geen advies.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Vandaag economische cijfers</string>
+    <string name="notification_permission_preprompt_continue">Doorgaan</string>
+    <string name="notification_permission_preprompt_later">Later</string>
+    <string name="notification_permission_preprompt_text">Zodat alarmen en koersmeldingen aankomen, heeft de app toestemming nodig voor meldingen. Ze worden alleen gebruikt voor je eigen alarmen.</string>
+    <string name="notification_permission_preprompt_title">Meldingen toestaan?</string>
     <string name="notification_portfolio_alarm_locked">Je alarm is afgegaan – open de app voor details.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – nu %2$s</string>

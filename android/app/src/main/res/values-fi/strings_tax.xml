@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Nostokulu USDT:nä tai käteisenä ei ole tappio: käteiskulu ei ole vähennyskelpoinen, USDT-kulu on luovutus nimellisarvoon ilman voittoa – se näytetään vain tiedoksi (%1$s).</string>
     <string name="tax_summary_at_interest_income">lasketaan: tuloa vastaanotettaessa 27,5 prosentin erityisverokannalla (§ 27b mom. 2 kohta 1 EStG / BMF) – kolikot säilyttävät tämän arvon hankintamenona</string>
     <string name="tax_summary_at_reward_info">vain tiedoksi – ei mukana missään summassa: palkkiot tulevat uuteen omistukseen hankintamenolla 0 ja verotetaan vasta myynnissä (jo voitoissa) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Uuden omistuksen myynnit/vaihdot 1.3.2021–28.2.2022: aiempi sääntely (§ 31 EStG vanha versio) ja mahdollisuus 27,5 prosenttiin – selvitä veroneuvojan kanssa</string>
     <string name="tax_summary_at_withdrawal_fee">Nostokulu – ei vähennetty uudesta omistuksesta (kulut eivät vähennyskelpoisia erityisverokannalla, § 20 mom. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">vain tiedoksi – sovelluksen FIFO-laskelma – ei luokiteltu – ks. ESTV</string>
     <string name="tax_summary_ch_year_end_value">arvo 31.12. omistus-CSV:ssä = pörssikurssi × USD/CHF – ei ESTV:n kurssiluettelon veroarvoja</string>

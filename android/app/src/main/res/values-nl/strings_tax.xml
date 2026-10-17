@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Opnamekosten in USDT of contant zijn geen verlies: contante kosten zijn niet aftrekbaar, kosten in USDT zijn een vervreemding tegen pari zonder winst – ze staan er alleen ter informatie (%1$s).</string>
     <string name="tax_summary_at_interest_income">telt mee: inkomen bij ontvangst tegen het bijzondere tarief van 27,5 procent (§ 27b lid 2 nr. 1 EStG / BMF) – de munten houden deze waarde als aanschaffingskosten</string>
     <string name="tax_summary_at_reward_info">alleen ter informatie – in geen enkel totaal: beloningen komen met aanschaffingskosten 0 in het nieuwe bezit en worden pas bij verkoop belast (al in de winsten) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Verkopen/ruil van nieuw bezit 1-3-2021–28-2-2022: oude regeling (§ 31 EStG oude versie) met optie voor 27,5 procent – met een belastingadviseur bespreken</string>
     <string name="tax_summary_at_withdrawal_fee">Opnamekosten – niet verrekend met nieuw bezit (kosten niet aftrekbaar bij het bijzondere tarief, § 20 lid 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">alleen ter informatie – FIFO-berekening van de app – niet ingedeeld – zie ESTV</string>
     <string name="tax_summary_ch_year_end_value">waarde per 31-12 in de bezit-CSV = beurskoers × USD/CHF – niet de fiscale waarden van de ESTV-koerslijst</string>

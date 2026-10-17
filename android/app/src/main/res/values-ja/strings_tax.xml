@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT または法定通貨の出庫手数料は損失ではありません：法定通貨の手数料は控除できず、USDT の手数料は額面での譲渡で利益はありません – 参考情報としてのみ表示します（%1$s）。</string>
     <string name="tax_summary_at_interest_income">算入：受取時に特別税率 27.5パーセントの所得（§ 27b 第2項第1号 EStG / BMF）– コインはこの価値を取得原価として保持します</string>
     <string name="tax_summary_at_reward_info">参考情報のみ – どの合計にも含まれません：報酬は取得原価 0 で新保有分に入り、売却時にのみ課税されます（利益に含まれ済み）– § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2021年3月1日～2022年2月28日の新規保有分の売却・交換：旧法（§ 31 EStG 旧規定）、27.5パーセントの選択可 – 税理士にご確認ください</string>
     <string name="tax_summary_at_withdrawal_fee">出庫手数料 – 新規保有分とは相殺されません（特別税率では経費控除不可、§ 20 (2) EStG）</string>
     <string name="tax_summary_ch_fifo_info">参考情報のみ – アプリによる FIFO 計算 – 区分なし – ESTV を参照</string>
     <string name="tax_summary_ch_year_end_value">保有 CSV の 12/31 時点の価値 = 取引所価格 × USD/CHF – ESTV 価格リストの課税価値ではありません</string>

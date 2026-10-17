@@ -60,9 +60,9 @@ object AlarmTexts {
         val value = if (alarm.condition.isPercent) {
             "%.2f%%".format(alarm.threshold)
         } else {
-            // Schwellwert in eigener Währung: «Über 60’000 CHF»
-            alarm.convertCurrency?.let { PriceFormat.priceWithCurrency(alarm.threshold, it) }
-                ?: PriceFormat.price(alarm.threshold)
+            // Schwellwert in eigener Währung: «Über 60’000 CHF» — genau wie gespeichert (1.0005 bleibt 1.0005)
+            alarm.convertCurrency?.let { PriceFormat.thresholdWithCurrency(alarm.threshold, it) }
+                ?: PriceFormat.threshold(alarm.threshold)
         }
         if (alarm.condition == AlarmCondition.MOVE_PERCENT_WINDOW) {
             return "$name $value " + context.resources.getQuantityString(R.plurals.alarm_window_hours, alarm.windowHours, alarm.windowHours)

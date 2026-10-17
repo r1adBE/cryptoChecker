@@ -682,6 +682,29 @@ enum WatchedAddressStore {
         return true
     }
 
+    /// Unlesbare Datei vor dem Ersetzen (Wiederherstellen) unverändert daneben legen
+    /// (`watched_addresses.unreadable.json`, wie `PortfolioStore.preserveUnreadable`) — verschoben, nicht
+    /// gelesen: geht auch bei kaputtem Inhalt, die Bytes bleiben exakt. Eine ältere daneben gelegte Datei
+    /// wird ersetzt. false = keine Datei da oder nicht verschiebbar (dann nicht schreiben).
+    static func setAsideUnreadable(at file: URL = url) -> Bool {
+        let fm = FileManager.default
+        guard fm.fileExists(atPath: file.path) else { return false }
+        let aside = SharedStorage.unreadableCopyURL(of: file)
+        try? fm.removeItem(at: aside)
+        return (try? fm.moveItem(at: file, to: aside)) != nil
+    }
+
+    /// Rückrollen eines Ersetzens über eine unlesbare Datei: die daneben gelegte Datei unverändert zurück an
+    /// ihren Platz (nie den Ersatzstand zurückschreiben). true = zurückgelegt.
+    @discardableResult
+    static func putBackUnreadable(at file: URL = url) -> Bool {
+        let fm = FileManager.default
+        let aside = SharedStorage.unreadableCopyURL(of: file)
+        guard fm.fileExists(atPath: aside.path) else { return false }
+        try? fm.removeItem(at: file)
+        return (try? fm.moveItem(at: aside, to: file)) != nil
+    }
+
     /// Hinzufügen (wie `INSERT … IGNORE`): doppelte Adresse oder volle Liste → nil, sonst neue Id.
     @discardableResult
     static func insert(_ address: WatchedAddress, into file: inout WatchedAddressFile) -> Int64? {

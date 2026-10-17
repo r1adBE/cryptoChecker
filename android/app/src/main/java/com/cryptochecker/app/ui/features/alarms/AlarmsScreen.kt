@@ -92,7 +92,10 @@ fun AlarmsScreen(
     val activeText = stringResource(R.string.alarm_saved_active)
     val testLabel = stringResource(R.string.alarm_test_action)
     val context = LocalContext.current
-    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest()
+    // Alarm angelegt: nach «Später» die Erklärung noch einmal (NotificationPrePrompt)
+    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
+        com.cryptochecker.app.ui.components.NotificationAsk.ALARM_CREATED
+    )
     var askDelete by remember { mutableStateOf<AlarmEntity?>(null) }
     val firstAlarm by viewModel.firstAlarm.collectAsStateWithLifecycle()
     val timingHint by viewModel.timingHint.collectAsStateWithLifecycle()
@@ -347,7 +350,7 @@ fun AlarmsScreen(
     confirmFiresNow?.let { pending ->
         val above = pending.condition == AlarmCondition.PRICE_ABOVE
         val currency = pending.currency ?: watch?.quoteAsset.orEmpty()
-        val amount = PriceFormat.priceWithCurrency(pending.threshold, currency)
+        val amount = PriceFormat.thresholdWithCurrency(pending.threshold, currency)
         AlertDialog(
             onDismissRequest = { confirmFiresNow = null },
             title = { Text(stringResource(R.string.alarm_fires_now_title)) },

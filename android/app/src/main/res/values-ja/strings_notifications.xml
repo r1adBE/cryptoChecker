@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">設定したしきい値 %1$s 以下です – 測定値であり推奨ではありません。</string>
     <string name="notification_indicator_title">%1$s：%2$s</string>
     <string name="notification_macro_title">今日は経済指標の発表日</string>
+    <string name="notification_permission_preprompt_continue">続ける</string>
+    <string name="notification_permission_preprompt_later">後で</string>
+    <string name="notification_permission_preprompt_text">アラームと価格通知を受け取るには、アプリに通知の許可が必要です。通知はご自身のアラームにのみ使われます。</string>
+    <string name="notification_permission_preprompt_title">通知を許可しますか？</string>
     <string name="notification_portfolio_alarm_locked">アラームが作動しました。詳細はアプリで確認してください。</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – 現在 %2$s</string>

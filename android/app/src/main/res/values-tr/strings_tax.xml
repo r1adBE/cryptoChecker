@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT veya nakit çekim ücreti zarar değildir: nakit ücret indirilemez, USDT ücreti kârsız bir nominal değerden elden çıkarmadır – yalnızca bilgi olarak gösterilir (%1$s).</string>
     <string name="tax_summary_at_interest_income">sayılır: alındığı anda yüzde 27,5 özel oranla gelir (§ 27b f. 2 no. 1 EStG / BMF) – coinler bu değeri edinim maliyeti olarak korur</string>
     <string name="tax_summary_at_reward_info">yalnızca bilgi için – hiçbir toplamda yok: ödüller yeni varlığa 0 edinim maliyetiyle girer ve yalnızca satışta vergilendirilir (zaten kazançlarda) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Yeni varlığın 1.3.2021–28.2.2022 arası satışları/takasları: eski mevzuat (§ 31 EStG eski hâli) ve yüzde 27,5 seçeneği – bir vergi danışmanıyla netleştir</string>
     <string name="tax_summary_at_withdrawal_fee">Çekim ücreti – yeni varlıkla mahsup edilmedi (özel oranda giderler indirilemez, § 20 f. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">yalnızca bilgi için – uygulamanın FIFO hesabı – sınıflandırılmadı – bkz. ESTV</string>
     <string name="tax_summary_ch_year_end_value">31.12 itibarıyla varlık CSV’sindeki değer = borsa fiyatı × USD/CHF – ESTV kur listesindeki vergi değerleri değil</string>

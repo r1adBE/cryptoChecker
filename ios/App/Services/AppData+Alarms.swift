@@ -60,7 +60,8 @@ extension AppData {
             let alarm = AlarmEdit.merged(existing: stored, edited: edited)
             if let i = s.alarms.firstIndex(where: { $0.id == alarmId }) { s.alarms[i] = alarm } else { s.alarms.append(alarm) }
         }, reloadWidgets: false)
-        Task { _ = await Notifier.requestPermission() }
+        // Alarm angelegt: nach «Später» die kurze Erklärung noch einmal (`NotificationPrePrompt`)
+        NotificationPrePrompt.request(.alarmCreated)
         return firstAlarm
     }
 
@@ -80,7 +81,8 @@ extension AppData {
                                   referencePrice: def.referencePrice, lastTriggeredAt: 0, lastTriggeredPrice: nil,
                                   windowHours: def.windowHours, referenceAt: 0, currency: nil))
         }, reloadWidgets: false)
-        Task { _ = await Notifier.requestPermission() }
+        // Alarm angelegt: nach «Später» die kurze Erklärung noch einmal (`NotificationPrePrompt`)
+        NotificationPrePrompt.request(.alarmCreated)
         return (newId, firstAlarm)
     }
 
@@ -105,7 +107,8 @@ extension AppData {
             s.portfolioAlarms = list
             s.nextPortfolioAlarmId = id + 1
         }, reloadWidgets: false)
-        Task { _ = await Notifier.requestPermission() }
+        // Alarm angelegt: nach «Später» die kurze Erklärung noch einmal (`NotificationPrePrompt`)
+        NotificationPrePrompt.request(.alarmCreated)
     }
 
     /// Ein-/Ausschalten; eingeschaltet wieder scharf (wie die Kursmarken der Paar-Alarme).

@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT 또는 현금 출금 수수료는 손실이 아닙니다: 현금 수수료는 공제할 수 없고, USDT 수수료는 이익 없는 액면가 처분입니다 – 참고용으로만 표시됩니다(%1$s).</string>
     <string name="tax_summary_at_interest_income">합산: 받은 시점에 특별세율 27.5퍼센트로 과세되는 소득(§ 27b 제2항 제1호 EStG / BMF) – 코인은 이 가치를 취득원가로 유지합니다</string>
     <string name="tax_summary_at_reward_info">참고용 – 어떤 합계에도 포함 안 됨: 보상은 취득원가 0으로 신규 보유분에 들어가며 매도 시에만 과세됩니다(이미 이익에 포함) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2021년 3월 1일–2022년 2월 28일 신규 보유분 매도/교환: 구법(§ 31 EStG 구 규정) 적용, 27.5퍼센트 선택 가능 – 세무사와 확인하세요</string>
     <string name="tax_summary_at_withdrawal_fee">출금 수수료 – 신규 보유분과 상계되지 않음 (특별세율에서는 경비 공제 불가, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">참고용 – 앱의 FIFO 계산 – 분류 안 함 – ESTV 참조</string>
     <string name="tax_summary_ch_year_end_value">보유 CSV의 12.31 기준 가치 = 거래소 시세 × USD/CHF – ESTV 시세표의 과세 가치 아님</string>

@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Poplatek za výběr v USDT nebo hotovosti není ztráta: poplatek v hotovosti není odčitatelný, poplatek v USDT je prodej za nominální hodnotu bez zisku – uvádí se jen pro informaci (%1$s).</string>
     <string name="tax_summary_at_interest_income">počítá se: příjem při přijetí se zvláštní sazbou 27,5 procenta (§ 27b odst. 2 bod 1 EStG / BMF) – mince si tuto hodnotu ponechají jako pořizovací cenu</string>
     <string name="tax_summary_at_reward_info">jen pro informaci – v žádném součtu: odměny vstupují do nového stavu s pořizovací cenou 0 a daní se až při prodeji (již v ziscích) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Prodeje/směny nové držby 1. 3. 2021–28. 2. 2022: dřívější právní úprava (§ 31 EStG ve starém znění) s možností 27,5 procenta – ověřte s daňovým poradcem</string>
     <string name="tax_summary_at_withdrawal_fee">Poplatek za výběr – nezapočten s novou držbou (výdaje neodečitatelné při zvláštní sazbě, § 20 odst. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">jen pro informaci – výpočet FIFO aplikace – nezařazeno – viz ESTV</string>
     <string name="tax_summary_ch_year_end_value">hodnota k 31. 12. v CSV stavu = burzovní kurz × USD/CHF – ne daňové hodnoty z kurzovního lístku ESTV</string>

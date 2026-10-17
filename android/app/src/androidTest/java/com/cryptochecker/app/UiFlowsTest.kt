@@ -165,6 +165,7 @@ class UiFlowsTest {
         inputTag(UiTestTags.BACKUP_RESTORE_PASSWORD_FIELD, TEST_PASSPHRASE)
         clickTag(UiTestTags.BACKUP_RESTORE_SUBMIT)
         clickTag(UiTestTags.BACKUP_RESTORE_CONFIRM)
+        allowNotificationsIfAsked()
         compose.waitUntil(TIMEOUT) { watches().any { it.baseAsset == "BTC" } && transactions().size == FIXTURE_TRANSACTIONS }
         assertEquals(setOf("BTC", "ETH"), transactions().map { it.coin }.toSet())
     }
@@ -182,6 +183,7 @@ class UiFlowsTest {
         clickTag(coin)
         // Vorschlag erscheint, sobald eine Liste mit BTC geladen ist
         clickTag(UiTestTags.EXPLORER_SUGGESTED_ADD, LIST_TIMEOUT)
+        allowNotificationsIfAsked()
 
         var watchId = 0L
         compose.waitUntil(TIMEOUT) {
@@ -247,6 +249,18 @@ class UiFlowsTest {
     private fun inputTag(tag: String, text: String) {
         node(tag).performTextInput(text)
         compose.waitForIdle()
+    }
+
+    /**
+     * Erklärung vor der Mitteilungs-Abfrage: «Weiter» tippen, falls sie erscheint — wie `allowNotificationsIfAsked`
+     * (iOS). Erscheint meist nicht: [AppTestEnvironmentRule] erteilt die Erlaubnis vorab (dann fragt weder die App
+     * noch das System); ohne Erklärung nichts.
+     */
+    private fun allowNotificationsIfAsked() {
+        val shown = runCatching {
+            compose.waitUntil(DIALOG_TIMEOUT) { exists(UiTestTags.NOTIFICATION_PREPROMPT_CONTINUE) }
+        }.isSuccess
+        if (shown) clickTag(UiTestTags.NOTIFICATION_PREPROMPT_CONTINUE)
     }
 
     /** Offene Dialoge mit «OK» schliessen (erster Alarm, Hinweis zur Prüfzeit); ohne Dialog nichts. */

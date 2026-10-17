@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">کارمزد برداشت به USDT یا پول نقد زیان نیست: کارمزد نقدی کسرشدنی نیست، کارمزد USDT واگذاری به ارزش اسمی بدون سود است – فقط برای اطلاع نشان داده می‌شود (%1$s).</string>
     <string name="tax_summary_at_interest_income">شمرده می‌شود: درآمد هنگام دریافت با نرخ ویژهٔ 27.5 درصد (§ 27b بند 2 شمارهٔ 1 EStG / BMF) – سکه‌ها همین ارزش را به‌عنوان بهای تحصیل نگه می‌دارند</string>
     <string name="tax_summary_at_reward_info">فقط برای اطلاع – در هیچ جمعی نیست: پاداش‌ها با بهای تحصیل 0 وارد دارایی جدید می‌شوند و فقط هنگام فروش مشمول مالیات‌اند (از قبل در سودها) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">فروش/معاوضهٔ دارایی جدید از 1.3.2021 تا 28.2.2022: قانون قبلی (§ 31 EStG نسخهٔ قدیم) با امکان انتخاب نرخ 27.5 درصد – با مشاور مالیاتی بررسی کنید</string>
     <string name="tax_summary_at_withdrawal_fee">کارمزد برداشت – با دارایی جدید تهاتر نمی‌شود (هزینه‌ها با نرخ ویژهٔ قابل کسر نیستند، § 20 بند 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">فقط برای اطلاع – محاسبهٔ FIFO برنامه – طبقه‌بندی نشده – ESTV را ببین</string>
     <string name="tax_summary_ch_year_end_value">ارزش در 31.12 در CSV دارایی = نرخ صرافی × USD/CHF – نه ارزش‌های مالیاتی فهرست نرخ ESTV</string>

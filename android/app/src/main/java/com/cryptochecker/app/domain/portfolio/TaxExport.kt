@@ -249,6 +249,12 @@ enum class TaxSummaryNote {
      * Einstand, nur Information.
      */
     TRANSFER_FEE_INFO,
+    /**
+     * AT Neubestand netto ([TaxLine.NEW_NET]): Verkäufe bzw. Tausch von Neuvermögen vom 1.3.2021 ([TaxTemplate.AT_NEW_FROM])
+     * bis 28.2.2022 (vor [TaxTemplate.AT_SWAP_NEUTRAL_FROM]) sind mit 27,5 % gebucht — rechtlich galt dort noch die alte
+     * Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 % (§ 124b Z 384 EStG): mit Steuerberatung klären.
+     */
+    AT_TRANSITION_2021,
 }
 
 /**
@@ -1336,7 +1342,11 @@ object TaxExport {
             net = Acc(rows.filter { it.oldHolding != true }, all, fx)
             lines += Acc(rows.filter { it.oldHolding != true }, pos, fx).line(TaxLine.GAINS, fx, false)
             lines += Acc(rows.filter { it.oldHolding != true }, neg, fx).line(TaxLine.LOSSES, fx, false)
-            lines += net.line(TaxLine.NEW_NET, fx)
+            // Verkäufe/Tausch von Neuvermögen 1.3.2021–28.2.2022: alte Rechtslage mit Option auf 27,5 % — Vermerk am Posten
+            val transition = rows.any {
+                it.oldHolding != true && it.soldDate >= TaxTemplate.AT_NEW_FROM && it.soldDate < TaxTemplate.AT_SWAP_NEUTRAL_FROM
+            }
+            lines += net.line(TaxLine.NEW_NET, fx, note = TaxSummaryNote.AT_TRANSITION_2021.takeIf { transition })
             if (old.isNotEmpty()) {
                 lines += Acc(old.filter { it.longTerm != true }, all, fx).line(TaxLine.OLD_SHORT_NET, fx)
                 lines += Acc(old.filter { it.longTerm == true }, all, fx).line(TaxLine.OLD_LONG_NET, fx)

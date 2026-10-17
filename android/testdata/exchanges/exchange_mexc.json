@@ -66,7 +66,7 @@
     },
     {
       "kind": "single",
-      "name": "futures ticker (numbers unquoted; riseFallRates = day values, ignored)",
+      "name": "futures ticker (numbers unquoted): riseFallRate (since 00:00 UTC+8) and riseFallRates (day values) must not become a 24 h change",
       "market": "MexcFutures",
       "pair": {
         "base": "BTC",
@@ -84,7 +84,7 @@
         "low": 59980.1,
         "vol": -1.0,
         "volQuote": 13248901234.56,
-        "change24hPercent": -0.56,
+        "change24hPercent": null,
         "exchangeTime": null
       }
     },
@@ -156,7 +156,7 @@
         "tickers": {
           "BTC_USDT": {
             "last": 61990.2,
-            "change24hPercent": -0.56
+            "change24hPercent": null
           }
         }
       }

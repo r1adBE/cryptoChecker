@@ -65,4 +65,30 @@ final class PortfolioBackupWatchedTests: XCTestCase {
     func testWatchedFileFollowsSystemBackupSwitch() {
         XCTAssertTrue(PortfolioStore.backupPolicyURLs.contains(WatchedAddressStore.url))
     }
+
+    /// Wiederherstellen über eine unlesbare Datei: unverändert daneben legen, beim Rückrollen exakt zurück.
+    func testUnreadableFileIsSetAsideAndPutBackUnchanged() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let file = dir.appendingPathComponent("watched_addresses.json")
+        let aside = dir.appendingPathComponent("watched_addresses.unreadable.json")
+        let garbage = Data("{kaputt".utf8)
+        try garbage.write(to: file)
+
+        XCTAssertTrue(WatchedAddressStore.setAsideUnreadable(at: file))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: file.path))
+        XCTAssertEqual(try Data(contentsOf: aside), garbage)
+
+        // Ersatzstand geschrieben, dann Rückrollen: die unlesbare Datei kommt unverändert zurück
+        try Data("{}".utf8).write(to: file)
+        XCTAssertTrue(WatchedAddressStore.putBackUnreadable(at: file))
+        XCTAssertEqual(try Data(contentsOf: file), garbage)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: aside.path))
+
+        // Nichts daneben bzw. keine Datei: nichts zu tun
+        XCTAssertFalse(WatchedAddressStore.putBackUnreadable(at: file))
+        try FileManager.default.removeItem(at: file)
+        XCTAssertFalse(WatchedAddressStore.setAsideUnreadable(at: file))
+    }
 }

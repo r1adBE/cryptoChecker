@@ -41,6 +41,35 @@ enum PriceFormat {
         return "\(price(value)) \(quote)"
     }
 
+    /// Höchstens so viele Nachkommastellen zeigt `threshold` (wie die exakte Menge).
+    static let thresholdMaxDecimals = 18
+
+    /// Schwellwert eines Kursalarms genau so, wie er gespeichert ist — nie gerundet wie `price`
+    /// (sonst stünde 1.0005 als «1» da): Tausendertrennung und Dezimalzeichen der Region wie
+    /// `price`, ohne Exponent und ohne Nullen am Ende (1.0005 → «1.0005», 65000 → «65,000»,
+    /// 0.00000712 → «0.00000712»). Gerechnet mit der kürzesten Dezimaldarstellung des Double
+    /// (wie `DecimalText`), höchstens `thresholdMaxDecimals` Nachkommastellen. Nicht positiv
+    /// oder nicht endlich → «—». Wie `PriceFormat.threshold` (Android).
+    static func threshold(_ value: Double?, locale: Locale = .current) -> String {
+        guard let value, value.isFinite, value > 0,
+              let exact = Decimal(string: DecimalText.plain(value), locale: Locale(identifier: "en_US_POSIX"))
+        else { return "—" }
+        let f = NumberFormatter()
+        f.locale = locale
+        f.numberStyle = .decimal
+        f.usesGroupingSeparator = true
+        f.minimumFractionDigits = 0
+        f.maximumFractionDigits = thresholdMaxDecimals
+        f.generatesDecimalNumbers = true
+        return f.string(from: NSDecimalNumber(decimal: exact)) ?? DecimalText.plain(value)
+    }
+
+    /// Schwellwert wie `threshold` mit Währung: «1.0005 USDT».
+    static func thresholdWithCurrency(_ value: Double?, _ quote: String) -> String {
+        guard let value, value.isFinite, value > 0 else { return "—" }
+        return "\(threshold(value)) \(quote)"
+    }
+
     // MARK: Bestand
 
     /// "#,##0.########"
@@ -182,20 +211,21 @@ enum PriceFormat {
         return String(format: "%.1f s", locale: Locale.current, Double(millis) / 1000)
     }
 
-    /// Kurs so, dass die Sprachausgabe ihn sinnvoll vorliest.
+    /// Signifikante Stellen eines vorgelesenen Kurses unter 1.
+    private static let spokenSignificant = 4
+
+    /// Kurs so, dass die Sprachausgabe ihn sinnvoll vorliest. Unter 1 vier signifikante Stellen
+    /// (kaufmännisch gerundet, ohne Exponent und Nullen am Ende), damit kleine Kurse nicht zu «0»
+    /// werden: 0.00000712 → «0.00000712», 0.123456 → «0.1235». Wie `PriceFormat.spokenPrice` (Android).
     static func spokenPrice(_ value: Double) -> String {
         let posix = Locale(identifier: "en_US_POSIX")
-        var s: String
         if value >= 1000 {
-            s = String(format: "%.0f", locale: posix, value)
+            return String(format: "%.0f", locale: posix, value)
         } else if value >= 1 {
-            s = String(format: "%.2f", locale: posix, value)
-        } else {
-            s = String(format: "%.6f", locale: posix, value)
-            while s.hasSuffix("0") { s.removeLast() }
-            if s.hasSuffix(".") { s.removeLast() }
+            return String(format: "%.2f", locale: posix, value)
         }
-        return s
+        return DecimalText.plain(value, scale: DecimalText.significantScale(value, minDecimals: 0,
+                                                                            significant: spokenSignificant))
     }
 
     /// Grosse Zahlen kurz: 1.2K, 3.4M, 5.6B, 7.8T.

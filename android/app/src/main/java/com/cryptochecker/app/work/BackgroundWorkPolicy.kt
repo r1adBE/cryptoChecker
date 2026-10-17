@@ -97,16 +97,30 @@ object BackgroundWorkPolicy {
 
     /**
      * Nach einem Lauf. [checked]/[failed] = null: übersprungen (eben erst geprüft, läuft bereits).
-     * Nur wenn gar nichts geklappt hat, lohnt ein zweiter Versuch — nicht bei einem Knopfdruck
-     * ([manual]): Der soll sofort fertig sein, sonst dreht die Anzeige bis zum nächsten Versuch.
+     * Immer Erfolg, auch wenn alle Paare scheiterten ([allFailed]): Ein Retry des periodischen
+     * Auftrags verschöbe mit dem Backoff von WorkManager (exponentiell, bis 5 h) den nächsten Lauf
+     * und damit die Alarme um Stunden nach einem Börsenausfall. Der nächste Lauf kommt im normalen
+     * Takt (bzw. über den Wecker «Pünktlich prüfen»); der Fehlschlag steht in «Letzte Prüfungen» und
+     * im Log. Knopfdruck ([manual]): soll sofort fertig sein, sonst dreht die Anzeige weiter.
      */
-    fun outcome(manual: Boolean, checked: Int?, failed: Int?): WorkOutcome {
-        if (checked == null || failed == null) return WorkOutcome.SUCCESS
-        return if (!manual && checked > 0 && failed == checked) WorkOutcome.RETRY else WorkOutcome.SUCCESS
-    }
+    @Suppress("UNUSED_PARAMETER")
+    fun outcome(manual: Boolean, checked: Int?, failed: Int?): WorkOutcome = WorkOutcome.SUCCESS
 
-    /** Ausnahme im Lauf: Knopfdruck scheitert sofort, geplanter Lauf versucht es erneut. */
-    fun outcomeOnError(manual: Boolean): WorkOutcome = if (manual) WorkOutcome.FAILURE else WorkOutcome.RETRY
+    /** Alle geprüften Paare gescheitert (nur fürs Log, ändert das Ergebnis nicht). */
+    fun allFailed(checked: Int, failed: Int): Boolean = checked > 0 && failed == checked
+
+    /**
+     * Ausnahme im Lauf: Knopfdruck scheitert sofort, geplanter Lauf wartet auf den nächsten Takt
+     * (kein Retry — gleicher Grund wie bei [outcome]; eine bleibende Ausnahme liefe sonst in
+     * immer neue Versuche).
+     */
+    fun outcomeOnError(manual: Boolean): WorkOutcome = if (manual) WorkOutcome.FAILURE else WorkOutcome.SUCCESS
+
+    /**
+     * Datenbank-Schlüssel gerade nicht lesbar (Keystore, vorübergehend): erneut versuchen, geplant wie
+     * angestoßen. Beide Aufträge setzen dafür einen kurzen linearen Backoff (PriceUpdateScheduler, 30 s).
+     */
+    fun outcomeOnKeyUnavailable(): WorkOutcome = WorkOutcome.RETRY
 
     /** Wecker «Pünktlich prüfen» nach dem Lauf abgleichen? Nur geplante Läufe (Netz darunter). */
     fun syncsExactAfterRun(manual: Boolean): Boolean = !manual

@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.activity
 
 import com.cryptochecker.app.data.remote.FuturesSources
+import com.cryptochecker.app.domain.convert.CurrencyConversion
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -356,6 +357,8 @@ object ActivityAnalyzer {
         val reference = CandleSeries.usable(input.referenceCandles, now, null)
         val stable = StablePeg.isPegged(input.baseAsset, input.quoteAsset)
         val isBtc = input.baseAsset.trim().equals("BTC", ignoreCase = true)
+        // Referenzen (BTCUSDT, ETHUSDT, breiter Markt) sind in USD: nur bei USD-Quote vergleichbar
+        val usdQuote = isUsdQuote(input.quoteAsset)
 
         // Deutliche Bewegung des Coins: relativ zur eigenen Schwankung vor dem 24-h-Fenster
         val coinThreshold = RelativeMove.coinThreshold(RelativeMove.sigmaBefore24h(candles, now))
@@ -375,6 +378,8 @@ object ActivityAnalyzer {
                     strong = notable,
                 )
             }
+        } else if (!usdQuote) {
+            // Quote nicht USD (z. B. ETH/BTC, SOL/EUR): Kerzen und Referenzen nicht vergleichbar — kein Markt-Grund
         } else if (isBtc) {
             if (change24h != null) {
                 // Bitcoin ist selbst der Markt: Schwelle aus seiner eigenen Schwankung
@@ -467,8 +472,8 @@ object ActivityAnalyzer {
             hasMarketData = candles != null,
             dataTime = now,
             high30d = if (withRange) high30d(input.dailyCandles, now) else null,
-            // Referenz ist BTCUSDT (bei Bitcoin selbst ETH — dann ohnehin kein Satz)
-            btcLink = if (stable) null else BtcCorrelation.link(input.baseAsset, candles, reference),
+            // Referenz ist BTCUSDT (bei Bitcoin selbst ETH — dann ohnehin kein Satz); nur bei USD-Quote
+            btcLink = if (stable || !usdQuote) null else BtcCorrelation.link(input.baseAsset, candles, reference),
             low30d = if (withRange) low30d(input.dailyCandles, now) else null,
             position3d = if (withRange) position3d(candles, now) else null,
             fundingTrend = if (input.fundingPercent != null) {
@@ -482,6 +487,15 @@ object ActivityAnalyzer {
             stable = stable,
             sources = input.sources,
         )
+    }
+
+    /**
+     * Quote USD oder ein USD-Stablecoin ([CurrencyConversion.classify] → USD)? Nur dann sind die Kerzen
+     * des Paars mit den USD-Referenzen vergleichbar. Ohne Quote (unbekannt) wie bisher USD.
+     */
+    fun isUsdQuote(quoteAsset: String?): Boolean {
+        val code = CurrencyConversion.normalize(quoteAsset)
+        return code.isEmpty() || CurrencyConversion.classify(code, emptyList()) == CurrencyConversion.QuoteKind.USD
     }
 
     /** Eine Markt-Referenz: 24-h-Veränderung in % und ihre Schwelle. */

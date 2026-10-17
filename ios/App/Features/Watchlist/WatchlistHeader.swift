@@ -151,12 +151,13 @@ extension WatchlistScreen {
                 .tint(accent.primary)
             } else {
                 // Glocke immer (ohne einen einzigen Alarm: gleich zum Anlegen statt in die leere Übersicht,
-                // `openBell`), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); mit aktiven
-                // Alarmen mit Wellen
+                // `openBell`), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); immer die
+                // Alarm-Glocke mit Wellen wie die Alarme in der Zeile (die schlichte Glocke heisst dort
+                // «Kurs-Mitteilung an»), mit aktiven Alarmen gefüllt
                 Button {
                     openBell()
                 } label: {
-                    Image(systemName: hasActiveAlarms ? "bell.and.waves.left.and.right" : "bell")
+                    Image(systemName: hasActiveAlarms ? "bell.and.waves.left.and.right.fill" : "bell.and.waves.left.and.right")
                         .symbolRenderingMode(.hierarchical)
                         .phaseAnimator([1.0, AlarmPulse.scale, 1.0], trigger: bellPulse) { view, scale in
                             view.scaleEffect(scale)
@@ -167,7 +168,7 @@ extension WatchlistScreen {
                 .buttonStyle(.borderless)
                 .tint(accent.primary)
                 .accessibilityLabel(L("alarms_overview_title"))
-                .largeContentLabel(L("alarms_overview_title"), systemImage: "bell")
+                .largeContentLabel(L("alarms_overview_title"), systemImage: "bell.and.waves.left.and.right")
                 // Build 46: volle 44 pt Platz — die Tippflächen von Glocke und Menü überlappen nicht mehr
                 // (früher 30 pt Platz, 14 pt der Glocke lagen unter dem Menü). Wie Android
 

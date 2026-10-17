@@ -261,6 +261,7 @@ class TaxTemplatesParityTest {
                     TaxSummaryNote.CH_FIFO_INFO to "chfifo", TaxSummaryNote.DE_WITHDRAWAL_FEE to "dewfee",
                     TaxSummaryNote.AT_WITHDRAWAL_FEE to "atwfee", TaxSummaryNote.AT_INTEREST_INCOME to "atinterest",
                     TaxSummaryNote.WITHDRAWAL_FEE_INFO to "wfeeinfo", TaxSummaryNote.TRANSFER_FEE_INFO to "tfeeinfo",
+                    TaxSummaryNote.AT_TRANSITION_2021 to "attransition",
                 ),
             )
             val lines = TaxExport.summaryCsv(s, texts, listOf("H")).removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }

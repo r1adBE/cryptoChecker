@@ -156,8 +156,9 @@ internal fun StarterPicker(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
             ) {
+                // Dieselbe Alarm-Glocke wie oben rechts (die schlichte Glocke = Kurs-Mitteilung)
                 Icon(
-                    painterResource(R.drawable.ic_notifications),
+                    painterResource(R.drawable.ic_notifications_active_outline),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
@@ -215,8 +216,9 @@ internal fun StarterPicker(
             modifier = Modifier.align(Alignment.TopEnd).padding(top = Spacing.sm, end = Spacing.md)
         ) {
             IconButton(onClick = onOpenAlarms) {
+                // Alarm-Glocke mit Wellen (Umriss: noch kein Alarm) wie im Kopf der Merkliste
                 Icon(
-                    painterResource(R.drawable.ic_notifications),
+                    painterResource(R.drawable.ic_notifications_active_outline),
                     contentDescription = stringResource(R.string.alarms_overview_title)
                 )
             }

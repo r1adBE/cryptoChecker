@@ -48,7 +48,8 @@ fun alarmSentence(
         currency = currency,
         windowHours = windowHours,
         locale = locale,
-        formatPrice = { value, code -> PriceFormat.priceWithCurrency(value, code) },
+        // Schwellwert genau wie gespeichert, nicht auf vier Stellen gerundet
+        formatPrice = { value, code -> PriceFormat.thresholdWithCurrency(value, code) },
     ) ?: return context.getString(R.string.alarm_sentence_incomplete)
 
     return when (parts.kind) {

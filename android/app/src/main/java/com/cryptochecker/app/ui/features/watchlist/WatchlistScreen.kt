@@ -215,7 +215,10 @@ fun WatchlistScreen(
     val starterCoins by viewModel.starterCoins.collectAsStateWithLifecycle()
     val starterDeselected by viewModel.starterDeselected.collectAsStateWithLifecycle()
     // Start-Auswahl: neue Paare haben Kurs-Mitteilungen an — Erlaubnis jetzt fragen (wie im Explorer)
-    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest()
+    // Start-Auswahl übernommen: erst kurz erklären, dann die System-Abfrage
+    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
+        com.cryptochecker.app.ui.components.NotificationAsk.PAIRS_ADDED
+    )
     val starterPrices by viewModel.starterPrices.collectAsStateWithLifecycle()
     val starterAdding by viewModel.starterAdding.collectAsStateWithLifecycle()
     val starterLogosReady by viewModel.starterLogosReady.collectAsStateWithLifecycle()

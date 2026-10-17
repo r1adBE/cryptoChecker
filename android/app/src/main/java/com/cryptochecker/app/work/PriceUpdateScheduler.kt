@@ -3,6 +3,7 @@ package com.cryptochecker.app.work
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
@@ -62,6 +63,9 @@ class PriceUpdateScheduler @Inject constructor(
 
         val request = PeriodicWorkRequestBuilder<PriceUpdateWorker>(minutes, TimeUnit.MINUTES)
             .setConstraints(constraints)
+            // Retry nur noch bei nicht lesbarem Datenbank-Schlüssel (BackgroundWorkPolicy): kurz und
+            // linear statt exponentiell (Vorgabe, bis 5 h), damit Alarme nicht stundenlang ausbleiben
+            .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_BACKOFF_SECONDS, TimeUnit.SECONDS)
             .build()
 
         workManager.enqueueUniquePeriodicWork(
@@ -82,6 +86,8 @@ class PriceUpdateScheduler @Inject constructor(
             .setConstraints(constraints)
             // Bevorzugt ausführen, damit der Knopf im Widget spürbar reagiert.
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            // Retry nur bei nicht lesbarem Datenbank-Schlüssel: kurz und linear, solange der Kreis dreht
+            .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_BACKOFF_SECONDS, TimeUnit.SECONDS)
             .setInputData(
                 workDataOf(
                     PriceUpdateWorker.KEY_MANUAL to true,
@@ -226,4 +232,9 @@ class PriceUpdateScheduler @Inject constructor(
     private fun hasWidgets(provider: Class<*>): Boolean = runCatching {
         AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, provider)).isNotEmpty()
     }.getOrDefault(true)
+
+    private companion object {
+        /** Linearer Backoff (Sekunden) für Retry der Aktualisierung; WorkManager-Minimum sind 10 s. */
+        const val RETRY_BACKOFF_SECONDS = 30L
+    }
 }

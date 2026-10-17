@@ -7,7 +7,8 @@ import Foundation
 /// angelegt (`O_CREAT | O_EXCL` ist atomar, auch zwischen Prozessen) und beim Freigeben
 /// gelöscht. Bewusst kein gehaltenes Datei-Lock (`flock`): Hält ein angehaltener Prozess
 /// ein Lock auf eine Datei im geteilten Container, beendet iOS ihn (0xdead10cc).
-/// Bleibt eine Lease liegen (Prozess beendet), gilt sie nach `staleAfterSeconds` als verwaist.
+/// Bleibt eine Lease liegen (Prozess beendet), gilt sie nach `staleAfterSeconds` ohne Auffrischen
+/// (`refresh`, vor jedem gemeldeten Alarm) als verwaist.
 ///
 /// Ablauf (siehe `PriceRefresher.refresh`): Kurse holen → Lease nehmen → Alarme frisch von
 /// der Platte lesen und auswerten → Aufrufer speichert die Kurse → `Outcome.deliverAlarms` meldet,
@@ -66,6 +67,17 @@ final class AlarmLease: @unchecked Sendable {
         _ = bytes.withUnsafeBytes { buffer in Darwin.write(fd, buffer.baseAddress, buffer.count) }
         _ = Darwin.close(fd)
         return AlarmLease(url: url, token: token)
+    }
+
+    /// Lease auffrischen (Änderungsdatum der Datei = jetzt), z. B. vor jedem gemeldeten Alarm: Das
+    /// Alter zählt ab dem letzten Auffrischen, so verliert ein langes Melden die Lease nicht nach
+    /// `staleAfterSeconds`. Nur die eigene, noch gehaltene Lease; ohne Lease (Fail-open) nichts.
+    func refresh() {
+        lock.lock()
+        let isHeld = held
+        lock.unlock()
+        guard isHeld, let content = try? String(contentsOf: url, encoding: .utf8), content == token else { return }
+        _ = Darwin.utimes(url.path, nil)
     }
 
     /// Freigeben (mehrfach aufrufbar). Löscht nur die eigene Lease — wurde sie als verwaist

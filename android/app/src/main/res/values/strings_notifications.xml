@@ -18,6 +18,11 @@
     <string name="notification_indicator_below">Below your limit %1$s – measured value, not a recommendation.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Economic data today</string>
+    <!-- Kurze Erklärung vor der System-Abfrage der Mitteilungs-Erlaubnis (NotificationPrePrompt) -->
+    <string name="notification_permission_preprompt_continue">Continue</string>
+    <string name="notification_permission_preprompt_later">Later</string>
+    <string name="notification_permission_preprompt_text">So that alerts and price notifications reach you, the app needs permission to send notifications. They are only used for your own alerts.</string>
+    <string name="notification_permission_preprompt_title">Allow notifications?</string>
     <string name="notification_portfolio_alarm_locked">Your alert was triggered – open the app for details.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – now %2$s</string>

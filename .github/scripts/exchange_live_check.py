@@ -84,7 +84,7 @@ EXCHANGES = [
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
     {"key": "mexcfutures", "name": "MEXC Futures",
      "url": "https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT",
-     "fields": [["data", "lastPrice"], ["data", "riseFallRate"]]},
+     "fields": [["data", "lastPrice"], ["data", "riseFallRate"]]},  # riseFallRate: nur Feldform prüfen, die App nutzt es nicht (Tageswert UTC+8)
     {"key": "htx", "name": "HTX",
      "url": "https://api.huobi.pro/market/detail/merged?symbol=btcusdt",
      "fields": [["tick", "close"], ["tick", "open"], ["tick", "vol"]]},

@@ -55,10 +55,18 @@ extension XCTestCase {
         return false
     }
 
-    /// Mitteilungs-Erlaubnis des Systems erteilen, falls die Abfrage erscheint (Alarm, Wiederherstellen).
-    /// Das System spricht seine eigene Sprache: «Allow», sonst der rechte Knopf.
+    /// Mitteilungs-Erlaubnis erteilen, falls gefragt wird (neue Paare, Alarm, Wiederherstellen): zuerst «Weiter»
+    /// der Erklärung der App (`NotificationPrePrompt`; erscheint nicht, wenn das System nicht mehr fragen würde),
+    /// dann die Abfrage des Systems. Das System spricht seine eigene Sprache: «Allow», sonst der rechte Knopf.
     @MainActor
     func allowNotificationsIfAsked(timeout: TimeInterval = 3) {
+        // Die laufende App (ohne Neustart); Kennung, sonst die Beschriftung im Abfrage-Fenster
+        let app = XCUIApplication()
+        let proceed = app.tagged(UiTestTags.notificationPrepromptContinue)
+        let proceedLabel = app.alerts.firstMatch.buttons["Continue"]
+        if waitForAny([proceed, proceedLabel], timeout: timeout) {
+            if proceed.exists { proceed.tap() } else { proceedLabel.tap() }
+        }
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         let alert = springboard.alerts.firstMatch
         guard alert.waitForExistence(timeout: timeout) else { return }

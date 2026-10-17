@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Et udbetalingsgebyr i USDT eller kontanter er intet tab: et kontantgebyr er ikke fradragsberettiget, et USDT-gebyr er en afhændelse til pari uden gevinst – det vises kun til information (%1$s).</string>
     <string name="tax_summary_at_interest_income">tæller: indkomst ved modtagelse til den særlige sats på 27,5 procent (§ 27b stk. 2 nr. 1 EStG / BMF) – mønterne beholder denne værdi som anskaffelsespris</string>
     <string name="tax_summary_at_reward_info">kun til orientering – indgår ikke i nogen sum: belønninger indgår i den nye beholdning med anskaffelsespris 0 og beskattes først ved salg (allerede i gevinsterne) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Salg/bytte af ny beholdning 1.3.2021–28.2.2022: tidligere regler (§ 31 EStG tidligere affattelse) med option på 27,5 procent – afklar med en skatterådgiver</string>
     <string name="tax_summary_at_withdrawal_fee">Udbetalingsgebyr – ikke modregnet i ny beholdning (udgifter ikke fradragsberettigede ved særsatsen, § 20 stk. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">kun til orientering – appens FIFO-beregning – ikke klassificeret – se ESTV</string>
     <string name="tax_summary_ch_year_end_value">værdi pr. 31.12. i beholdnings-CSV = børskurs × USD/CHF – ikke skatteværdierne i ESTV-kurslisten</string>
