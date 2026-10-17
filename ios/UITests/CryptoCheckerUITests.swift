@@ -125,9 +125,10 @@ final class CryptoCheckerUITests: XCTestCase {
         tap(app, UiTestTags.explorerCoin("BTC"))
         // Vorschlag erscheint, sobald eine Liste mit BTC geladen ist
         tap(app, UiTestTags.explorerSuggestedAdd, timeout: uiListTimeout)
+        // Erstes Paar: die App erklärt kurz und fragt dann nach Mitteilungen (nur beim ersten Mal je Installation).
+        // Zuerst wegtippen: Die Erklärung liegt in einem eigenen Fenster über allem und verdeckt den Knopf
+        allowNotificationsIfAsked(timeout: 6)
         XCTAssertTrue(wait(app.tagged(UiTestTags.explorerSuggestedAdd), "isEnabled == false"), "pair not added")
-        // Erstes Paar: die App fragt nach Mitteilungen (nur beim ersten Mal je Installation)
-        allowNotificationsIfAsked()
         // Zurück zur Merkliste (Zurück-Knopf der Navigationsleiste)
         app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.tagged(UiTestTags.watchRow).waitForExistence(timeout: uiTimeout), "pair missing in the watchlist")
