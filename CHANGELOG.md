@@ -37,7 +37,7 @@ Twenty-first and twenty-second review plus two follow-up checks.
 * Weak backup passwords such as «aaaaaaaaaaa1» are refused (same rules on both platforms).
 * Bitfinex: OPX is shown and found as OP (Optimism).
 * Licenses: SQLCipher (BSD notice), OpenSSL, SQLite and the missing Apache libraries; «Rates By Exchange Rate API».
-* Privacy page: DEX token search terms go to DexScreener; SECURITY.md: watched addresses go to public nodes.
+* Privacy page: postal address of the controller (c/o); DEX token search terms go to DexScreener; SECURITY.md: watched addresses go to public nodes.
 * CoinGecko: the extra rank pages are only fetched on unmetered networks.
 * Add pair: no «no pair for this coin» while pair lists are still loading or missing; one sentence explains «pair».
 * Stale / unreachable rows in amber with a warning icon (no longer like a falling price); row icons scale with text.
