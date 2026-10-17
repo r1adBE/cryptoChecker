@@ -16,7 +16,7 @@ buildscript {
         compose_bom_version = '2025.10.01'
         activity_compose_version = '1.13.0'
         lifecycle_version = '2.9.4'
-        navigation_version = '2.9.5'
+        navigation_version = '2.10.2'
 
         // Hilt 2.60 setzt AGP 9, Gradle 9.1 und Kotlin 2.3.21 voraus.
         hilt_version = '2.60.1'
