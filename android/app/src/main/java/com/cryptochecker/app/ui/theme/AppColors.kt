@@ -67,8 +67,8 @@ object AppColors {
 /**
  * Fünfstufige Skala von «Extrem Bear» bis «Extrem Bull» — feste Farben je Hell/Dunkel (Werte:
  * [MarketScalePalette.FIXED_LIGHT] / [MarketScalePalette.FIXED_DARK], M-8). Jede Stufe erreicht
- * auch als Schrift ≥ 4.5:1 auf den Flächen ihres Modus. Die Fear-&-Greed-Karte nimmt
- * [MarketScalePalette.steps] (aus den Kursfarben).
+ * auch als Schrift ≥ 4.5:1 auf den Flächen ihres Modus. Auch der Stufenpunkt der Fear-&-Greed-Karte (wie im
+ * Puls-Widget, seit Build 69 statt des Verlaufs aus [MarketScalePalette.steps]).
  */
 object MarketScaleColors {
     fun steps(dark: Boolean): List<Color> = MarketScalePalette.fixedSteps(dark).map { Color(it) }

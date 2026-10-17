@@ -59,6 +59,10 @@ protocol StorageKeychain: Sendable {
     func read() throws -> Data?
     /// Speichert einen neuen Schlüssel; false = es gibt schon einen (dann gilt der gespeicherte).
     func add(_ key: Data) throws -> Bool
+    /// Ist der gespeicherte Eintrag nur auf diesem Gerät lesbar (`…ThisDeviceOnly`)? nil = kein Eintrag.
+    func isDeviceOnly() throws -> Bool?
+    /// Den bestehenden Eintrag auf «nur dieses Gerät» umstellen — dieselben Schlüsselbytes, nie löschen und neu anlegen.
+    func makeDeviceOnly() throws
 }
 
 struct StorageKeychainError: Error, Equatable {
@@ -69,10 +73,13 @@ struct StorageKeychainError: Error, Equatable {
 /// vorhandene Berechtigung `com.apple.security.application-groups`; ein eigenes `keychain-access-groups` würde die
 /// Standardgruppe aller Schlüsselbund-Einträge der App ändern).
 ///
-/// `kSecAttrAccessibleAfterFirstUnlock`: lesbar ab dem ersten Entsperren nach dem Start (Widgets, Hintergrund) und —
-/// anders als `…ThisDeviceOnly` — Teil verschlüsselter iCloud-/Finder-Backups und der Übertragung auf ein neues iPhone.
-/// Sonst wären `watchlist.json` (im Backup) und das Portfolio (mit «Portfolio in Systemsicherung») nach einer
-/// Wiederherstellung unlesbar. Nicht mit dem iCloud-Schlüsselbund synchronisiert.
+/// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` (Entscheid 17. Oktober 2026, Build 69): lesbar ab dem ersten
+/// Entsperren nach dem Start (Widgets, Hintergrund), aber nie Teil eines iCloud-/Finder-Backups und nicht übertragbar
+/// auf ein anderes iPhone — wer ein Geräte-Backup in die Hände bekommt, hat die Dateien, aber nie ihren Schlüssel.
+/// Folge: Nach einem Gerätewechsel sind die verschlüsselten Dateien unlesbar; `prepareAtLaunch` legt sie beiseite
+/// und `StorageRecoveryNotice` nennt das einmal. Weg zurück ist die Sicherungsdatei (Einstellungen › Sicherung sagt
+/// das vorab). Bis Build 68 hiess der Zugriff `kSecAttrAccessibleAfterFirstUnlock`; `StorageKey.restrictToThisDevice`
+/// stellt einen solchen Eintrag beim Start um. Nicht mit dem iCloud-Schlüsselbund synchronisiert.
 struct SystemStorageKeychain: StorageKeychain {
     static let service = "com.cryptochecker.storage-key"
     static let account = "v1"
@@ -100,13 +107,39 @@ struct SystemStorageKeychain: StorageKeychain {
     func add(_ key: Data) throws -> Bool {
         var q = query
         q[kSecValueData as String] = key
-        q[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        q[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         let status = SecItemAdd(q as CFDictionary, nil)
         switch status {
         case errSecSuccess: return true
         case errSecDuplicateItem: return false
         default: throw StorageKeychainError(status: status)
         }
+    }
+
+    func isDeviceOnly() throws -> Bool? {
+        var q = query
+        q[kSecReturnAttributes as String] = true
+        q[kSecMatchLimit as String] = kSecMatchLimitOne
+        var result: CFTypeRef?
+        let status = SecItemCopyMatching(q as CFDictionary, &result)
+        switch status {
+        case errSecSuccess:
+            let attributes = result as? [String: Any] ?? [:]
+            let current = attributes[kSecAttrAccessible as String] as? String
+            let wanted = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly as String
+            return current == wanted
+        case errSecItemNotFound:
+            return nil
+        default:
+            throw StorageKeychainError(status: status)
+        }
+    }
+
+    func makeDeviceOnly() throws {
+        // Abfrage samt App-Group-Zugriffsgruppe unverändert: die Widgets lesen den Eintrag weiter
+        let change: [String: Any] = [kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly]
+        let status = SecItemUpdate(query as CFDictionary, change as CFDictionary)
+        guard status == errSecSuccess else { throw StorageKeychainError(status: status) }
     }
 }
 
@@ -159,6 +192,23 @@ final class StorageKey: @unchecked Sendable {
         // Gleichzeitig von einem anderen Prozess angelegt: der gespeicherte gilt
         if case .key(let stored) = lookupLocked() { return stored }
         return nil
+    }
+
+    /// Einen bis Build 68 angelegten Eintrag (`…AfterFirstUnlock`, im Geräte-Backup enthalten) auf «nur dieses Gerät»
+    /// umstellen. Ändert nur den Zugriff des bestehenden Eintrags (`SecItemUpdate`), nie die Schlüsselbytes — ein neuer
+    /// Schlüssel machte alle Dateien unlesbar. Scheitert es (z. B. vor dem ersten Entsperren), bleibt alles wie es ist
+    /// und der nächste Start versucht es erneut. true = umgestellt oder schon so (oder kein Eintrag).
+    @discardableResult
+    func restrictToThisDevice() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        do {
+            guard let deviceOnly = try keychain.isDeviceOnly(), !deviceOnly else { return true }
+            try keychain.makeDeviceOnly()
+            return true
+        } catch {
+            return false
+        }
     }
 
     private func lookupLocked() -> Lookup {
@@ -289,8 +339,13 @@ enum ProtectedStorage {
         /// Verschlüsselt, aber ohne Schlüssel unlesbar: unverändert beiseitegelegt (`<Name>.locked`).
         var setAside: [String] = []
         var encrypted: [String] = []
-        /// Überführung fehlgeschlagen: bleibt unverschlüsselt, nächster Start.
+        /// Bleibt unverschlüsselt (Überführung fehlgeschlagen, Schlüsselbund nicht lesbar oder kein Schlüssel möglich):
+        /// nächster Start versucht es erneut.
         var keptPlain: [String] = []
+
+        /// Hinweis «Verschlüsselung noch nicht aktiv» unter Einstellungen › Sicherung — wie Android
+        /// `EncryptionPending.showNotice`. Nicht, wenn alles verschlüsselt ist.
+        var encryptionPending: Bool { !keptPlain.isEmpty }
     }
 
     /// Beim Start der App, vor dem ersten Lesen: Schlüssel sicherstellen und Klartext-Dateien verschlüsseln.
@@ -303,18 +358,28 @@ enum ProtectedStorage {
         var outcome = LaunchOutcome()
         let fm = FileManager.default
         let present = files.filter { fm.fileExists(atPath: $0.url.path) }
+        /// Ohne Schlüssel bleibt jede Klartext-Datei, wie sie ist — vermerkt für den Hinweis (`encryptionPending`).
+        func keepingPlain() -> LaunchOutcome {
+            var kept = outcome
+            for file in present where fm.fileExists(atPath: file.url.path) && !ProtectedStorage.isSealedFile(file.url) {
+                kept.keptPlain.append(file.url.lastPathComponent)
+            }
+            return kept
+        }
         let key: SymmetricKey
         switch keys.lookup() {
         case .unavailable:
-            return outcome
+            return keepingPlain()
         case .key(let stored):
             key = stored
+            // Eintrag aus Build ≤ 68 auf «nur dieses Gerät» umstellen (gleiche Schlüsselbytes)
+            keys.restrictToThisDevice()
         case .absent:
             for file in present where isSealedFile(file.url) {
-                guard let aside = setAside(file.url) else { return outcome }
+                guard let aside = setAside(file.url) else { return keepingPlain() }
                 outcome.setAside.append(aside.lastPathComponent)
             }
-            guard let created = keys.createIfAbsent() else { return outcome }
+            guard let created = keys.createIfAbsent() else { return keepingPlain() }
             key = created
         }
         for file in present where fm.fileExists(atPath: file.url.path) && !isSealedFile(file.url) {

@@ -51678,6 +51678,388 @@
         }
       }
     },
+    "backup_device_bound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قبل تغيير الجهاز أنشئ ملف نسخة احتياطية – لا يمكن فتح البيانات المشفّرة إلا على هذا الجهاز."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Před výměnou zařízení si vytvořte soubor zálohy – šifrovaná data lze otevřít jen na tomto zařízení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opret en sikkerhedskopi-fil, før du skifter enhed – de krypterede data kan kun åbnes på denne enhed."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vor einem Gerätewechsel eine Sicherungsdatei erstellen – die verschlüsselten Daten lassen sich nur auf diesem Gerät öffnen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πριν αλλάξεις συσκευή, δημιούργησε αρχείο αντιγράφου ασφαλείας – τα κρυπτογραφημένα δεδομένα ανοίγουν μόνο σε αυτή τη συσκευή."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before switching devices, create a backup file – the encrypted data can only be opened on this device."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antes de cambiar de dispositivo, crea un archivo de copia de seguridad: los datos cifrados solo se pueden abrir en este dispositivo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیش از تعویض دستگاه یک فایل پشتیبان بسازید – داده‌های رمزگذاری‌شده فقط روی همین دستگاه باز می‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo varmuuskopiotiedosto ennen laitteen vaihtoa – salattuja tietoja voi avata vain tällä laitteella."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avant de changer d’appareil, crée un fichier de sauvegarde – les données chiffrées ne s’ouvrent que sur cet appareil."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לפני החלפת מכשיר צרו קובץ גיבוי – את הנתונים המוצפנים אפשר לפתוח רק במכשיר הזה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "डिवाइस बदलने से पहले बैकअप फ़ाइल बनाएँ – एन्क्रिप्ट किया गया डेटा केवल इसी डिवाइस पर खुलता है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eszközcsere előtt készíts biztonsági mentést – a titkosított adatok csak ezen az eszközön nyithatók meg."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sebelum ganti perangkat, buat file cadangan – data terenkripsi hanya bisa dibuka di perangkat ini."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prima di cambiare dispositivo, crea un file di backup: i dati crittografati si possono aprire solo su questo dispositivo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "機種変更の前にバックアップファイルを作成してください。暗号化されたデータはこの端末でしか開けません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기기를 바꾸기 전에 백업 파일을 만드세요. 암호화된 데이터는 이 기기에서만 열 수 있습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lag en sikkerhetskopifil før du bytter enhet – de krypterte dataene kan bare åpnes på denne enheten."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maak vóór een apparaatwissel een back-upbestand – de versleutelde gegevens zijn alleen op dit apparaat te openen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przed zmianą urządzenia utwórz plik kopii zapasowej – zaszyfrowane dane można otworzyć tylko na tym urządzeniu."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antes de mudar de dispositivo, cria um ficheiro de cópia de segurança – os dados encriptados só abrem neste dispositivo."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antes de trocar de aparelho, crie um arquivo de backup – os dados criptografados só podem ser abertos neste aparelho."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Înainte de a schimba dispozitivul, creează un fișier de backup – datele criptate se pot deschide doar pe acest dispozitiv."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перед сменой устройства создайте файл резервной копии – зашифрованные данные открываются только на этом устройстве."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para se të ndërrosh pajisjen, krijo një skedar kopjeje rezervë – të dhënat e enkriptuara hapen vetëm në këtë pajisje."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skapa en säkerhetskopia innan du byter enhet – krypterade data kan bara öppnas på den här enheten."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ก่อนเปลี่ยนอุปกรณ์ ให้สร้างไฟล์สำรองข้อมูล – ข้อมูลที่เข้ารหัสเปิดได้เฉพาะบนอุปกรณ์นี้เท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihaz değiştirmeden önce bir yedek dosyası oluştur – şifreli veriler yalnızca bu cihazda açılabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перед зміною пристрою створіть файл резервної копії – зашифровані дані відкриваються лише на цьому пристрої."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trước khi đổi thiết bị, hãy tạo tệp sao lưu – dữ liệu đã mã hóa chỉ mở được trên thiết bị này."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更换设备前请先创建备份文件——加密数据只能在本设备上打开。"
+          }
+        }
+      }
+    },
+    "backup_encryption_pending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التشفير غير مفعّل بعد – سيحاول التطبيق مجددًا عند التشغيل التالي."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šifrování ještě není aktivní – aplikace to zkusí znovu při příštím spuštění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kryptering er endnu ikke aktiv – appen prøver igen ved næste start."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verschlüsselung noch nicht aktiv – die App versucht es beim nächsten Start erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η κρυπτογράφηση δεν είναι ακόμη ενεργή – η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption not active yet – the app will try again at the next start."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El cifrado aún no está activo: la app lo intentará de nuevo en el próximo inicio."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزگذاری هنوز فعال نیست – برنامه در اجرای بعدی دوباره تلاش می‌کند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salaus ei ole vielä käytössä – sovellus yrittää uudelleen seuraavalla käynnistyskerralla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiffrement pas encore actif – l’app réessaiera au prochain démarrage."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ההצפנה עדיין לא פעילה – האפליקציה תנסה שוב בהפעלה הבאה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एन्क्रिप्शन अभी सक्रिय नहीं है – ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A titkosítás még nem aktív – az app a következő indításkor újra megpróbálja."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enkripsi belum aktif – aplikasi akan mencoba lagi saat dibuka berikutnya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crittografia non ancora attiva: l’app riproverà al prossimo avvio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化はまだ有効になっていません。次回の起動時にもう一度試します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 암호화가 적용되지 않았습니다. 다음 실행 시 다시 시도합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kryptering er ikke aktiv ennå – appen prøver igjen ved neste oppstart."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versleuteling nog niet actief – de app probeert het bij de volgende start opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szyfrowanie nie jest jeszcze aktywne – aplikacja spróbuje ponownie przy następnym uruchomieniu."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encriptação ainda não ativa – a app tenta novamente no próximo arranque."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criptografia ainda não ativa – o app tentará de novo na próxima abertura."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criptarea nu este încă activă – aplicația va încerca din nou la următoarea pornire."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Шифрование ещё не активно – приложение попробует снова при следующем запуске."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enkriptimi ende nuk është aktiv – aplikacioni do të provojë sërish në nisjen e ardhshme."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krypteringen är inte aktiv än – appen försöker igen vid nästa start."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การเข้ารหัสยังไม่ทำงาน – แอปจะลองใหม่เมื่อเปิดครั้งถัดไป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreleme henüz etkin değil – uygulama bir sonraki açılışta yeniden deneyecek."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Шифрування ще не активне – застосунок спробує знову під час наступного запуску."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mã hóa chưa được bật – ứng dụng sẽ thử lại ở lần khởi động tới."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密尚未启用——应用会在下次启动时重试。"
+          }
+        }
+      }
+    },
     "backup_export" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -318165,127 +318547,127 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ما يتحرك معه؟"
+            "value" : "ما الذي يتحرك معه؟"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Co se hýbe?"
+            "value" : "Co se hýbe s ním?"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bevæger med?"
+            "value" : "Hvad bevæger sig med?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mitbewegt?"
+            "value" : "Was bewegt sich mit?"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Τι κινείται;"
+            "value" : "Τι κινείται μαζί;"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What moves too?"
+            "value" : "What moves with it?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "¿Qué más se mueve?"
+            "value" : "¿Qué se mueve con él?"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "چه همراه است؟"
+            "value" : "چه همراهش حرکت می‌کند؟"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mukana liikkuu?"
+            "value" : "Mikä liikkuu mukana?"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ça bouge aussi ?"
+            "value" : "Qui bouge avec ?"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מה זז איתו?"
+            "value" : "מה זז יחד איתו?"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "साथ क्या चला?"
+            "value" : "साथ में क्या चल रहा है?"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mi mozog vele?"
+            "value" : "Mi mozog együtt?"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ikut bergerak?"
+            "value" : "Apa yang ikut bergerak?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si muove insieme?"
+            "value" : "Cosa si muove insieme?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "連動は？"
+            "value" : "一緒に動くのは？"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "함께 움직임?"
+            "value" : "함께 움직이는 건?"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beveger seg med?"
+            "value" : "Hva beveger seg med?"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beweegt mee?"
+            "value" : "Wat beweegt mee?"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Co się rusza?"
+            "value" : "Co rusza się razem?"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O que mexe junto?"
+            "value" : "O que mexe com ele?"
           }
         },
         "pt-BR" : {
@@ -318297,55 +318679,55 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce se mișcă?"
+            "value" : "Ce se mișcă la fel?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Что движется?"
+            "value" : "Что движется вместе?"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çfarë lëviz?"
+            "value" : "Çfarë lëviz bashkë?"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rör sig med?"
+            "value" : "Vad rör sig med?"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อะไรขยับด้วย?"
+            "value" : "อะไรขยับตามบ้าง?"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ne birlikte?"
+            "value" : "Birlikte ne oynuyor?"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Що рухається?"
+            "value" : "Що рухається разом?"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cùng biến động?"
+            "value" : "Cái gì biến động cùng?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同步波动？"
+            "value" : "哪些一起波动？"
           }
         }
       }
@@ -326319,13 +326701,13 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "مباشر"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "ŽIVĚ"
           }
         },
         "da" : {
@@ -326343,7 +326725,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "ΖΩΝΤΑΝΑ"
           }
         },
         "en" : {
@@ -326355,49 +326737,49 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "DIRECTO"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "زنده"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "SUORA"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "DIRECT"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "חי"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "लाइव"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "ÉLŐ"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "LANGSUNG"
           }
         },
         "it" : {
@@ -326409,13 +326791,13 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "ライブ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "실시간"
           }
         },
         "nb" : {
@@ -326433,19 +326815,19 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "NA ŻYWO"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "DIRETO"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "AO VIVO"
           }
         },
         "ro" : {
@@ -326457,13 +326839,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "ОНЛАЙН"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "DIREKT"
           }
         },
         "sv" : {
@@ -326475,31 +326857,31 @@
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "สด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "CANLI"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "НАЖИВО"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "TRỰC TIẾP"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIVE"
+            "value" : "实时"
           }
         }
       }

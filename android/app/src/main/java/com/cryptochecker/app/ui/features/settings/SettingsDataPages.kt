@@ -28,7 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
@@ -63,9 +67,19 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         ActivityResultContracts.OpenDocument()
     ) { uri -> uri?.let(viewModel::restorePicked) }
 
+    // Datenbank unverschlüsselt (Rückfall, DatabaseEncryptionNotice): bei jeder Änderung neu prüfen, nicht im Hauptthread
+    val encryptionChanges by DatabaseEncryptionNotice.changes.collectAsState()
+    var encryptionPending by remember { mutableStateOf(false) }
+    LaunchedEffect(encryptionChanges) {
+        encryptionPending = withContext(Dispatchers.IO) { DatabaseEncryptionNotice.isPending(context.applicationContext) }
+    }
+
     SettingsSubPage(title = stringResource(R.string.backup_title), onBack = onBack) {
         GroupCard {
             Hint(stringResource(R.string.backup_hint), top = 10.dp)
+            // Datenbank-Schlüssel liegt im Android Keystore dieses Geräts: ohne Sicherungsdatei kein Umzug
+            Hint(stringResource(R.string.backup_device_bound))
+            if (encryptionPending) Hint(stringResource(R.string.backup_encryption_pending))
             SettingsAnchor("backup.actions") {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),

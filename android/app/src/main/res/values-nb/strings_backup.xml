@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Lag en sikkerhetskopifil før du bytter enhet – de krypterte dataene kan bare åpnes på denne enheten.</string>
+    <string name="backup_encryption_pending">Kryptering er ikke aktiv ennå – appen prøver igjen ved neste oppstart.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Eksporter</string>
     <string name="backup_exported">Sikkerhetskopi lagret.</string>

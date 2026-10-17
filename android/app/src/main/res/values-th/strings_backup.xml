@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">ก่อนเปลี่ยนอุปกรณ์ ให้สร้างไฟล์สำรองข้อมูล – ข้อมูลที่เข้ารหัสเปิดได้เฉพาะบนอุปกรณ์นี้เท่านั้น</string>
+    <string name="backup_encryption_pending">การเข้ารหัสยังไม่ทำงาน – แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">ส่งออก</string>
     <string name="backup_exported">บันทึกข้อมูลสำรองแล้ว</string>

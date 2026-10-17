@@ -27,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getWatchDao(): WatchDao
 
     companion object {
-        const val VERSION = 15
+        const val VERSION = 16
         const val DB_NAME = "cryptochecker.db"
 
         /** Datenbank des Vorgängerprojekts; wird beim ersten Start entfernt. */
@@ -188,6 +188,21 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Eindeutiger Paar-Index mit `pairId`: Zwei DexScreener-Pools mit gleichem Symbol auf derselben Chain sind
+         * zwei Einträge (WatchIdentity). Der neue Index ist weniger streng als der alte, darum kann das Anlegen an
+         * bestehenden Daten nicht scheitern; Namen und Spalten wie die Entity (Room prüft das Schema).
+         */
+        val MIGRATION_15_16 = object : Migration(15, 16) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("DROP INDEX IF EXISTS `index_watches_marketKey_baseAsset_quoteAsset_contractType`")
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_marketKey_baseAsset_quoteAsset_contractType_pairId` " +
+                        "ON `watches` (`marketKey`, `baseAsset`, `quoteAsset`, `contractType`, `pairId`)"
+                )
+            }
+        }
+
         /** Fügt den Zeitpunkt der letzten Meldung hinzu. */
         val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -215,7 +230,7 @@ abstract class AppDatabase : RoomDatabase() {
             get() = arrayOf(
                 MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7,
                 MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12,
-                MIGRATION_12_13, MIGRATION_13_14, MIGRATION_14_15,
+                MIGRATION_12_13, MIGRATION_13_14, MIGRATION_14_15, MIGRATION_15_16,
             )
     }
 }

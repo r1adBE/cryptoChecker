@@ -44,6 +44,11 @@ struct BackupSettingsPage: View {
     var body: some View {
         SettingsSubPage(title: L("backup_title")) {
             SettingsHint(text: L("backup_hint"), top: 10)
+            // Schlüssel liegt im Schlüsselbund nur dieses Geräts (`SystemStorageKeychain`): ohne Sicherungsdatei kein Umzug
+            SettingsHint(text: L("backup_device_bound"))
+            if data.encryptionPending {
+                SettingsHint(text: L("backup_encryption_pending"))
+            }
             HStack(spacing: Spacing.sm) {
                 Button(action: startExport) {
                     Label(L("backup_export"), systemImage: "square.and.arrow.up")

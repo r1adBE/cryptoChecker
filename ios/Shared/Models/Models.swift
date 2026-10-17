@@ -86,10 +86,15 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
 
     var pairInfo: MarketPair { MarketPair(baseAsset, quoteAsset, pairId, contractType) }
 
-    /// Gleiches Paar an derselben Börse (eindeutiger Schlüssel wie in Android).
+    /// Eindeutiger Schlüssel des Eintrags (`WatchIdentity`): bei DexScreener mit Pool.
+    var identity: WatchIdentity.Key {
+        WatchIdentity.key(marketKey: marketKey, base: baseAsset, quote: quoteAsset,
+                          contract: String(contractType.rawValue), pairId: pairId)
+    }
+
+    /// Gleiches Paar an derselben Börse (eindeutiger Schlüssel wie in Android, `WatchIdentity`).
     func samePair(as other: Watch) -> Bool {
-        marketKey == other.marketKey && baseAsset == other.baseAsset &&
-            quoteAsset == other.quoteAsset && contractType == other.contractType
+        identity == other.identity
     }
 }
 

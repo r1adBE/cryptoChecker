@@ -85,7 +85,7 @@ internal fun WatchEditSheet(
     val savedAtOpen = rememberSaveable(watch.id) { viewModel.state.value.savedCount }
     LaunchedEffect(state.savedCount) { if (state.savedCount != savedAtOpen) onDismiss() }
 
-    val current = WatchEdit.Key(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
+    val current = WatchEdit.Key.of(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
     val target = state.key
     val changed = target != null && target != current
     val gap = 12.dp

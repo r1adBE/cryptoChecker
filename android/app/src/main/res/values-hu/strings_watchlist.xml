@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">Utolsó futás %1$s</string>
     <string name="watchlist_live_a11y">Élő árfolyamok bekapcsolva</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">ÉLŐ</string>
     <string name="watchlist_offline_since">Nincs kapcsolat · állapot: %1$s</string>
     <string name="watchlist_pull_to_refresh">Húzza le a frissítéshez</string>
     <string name="watchlist_refresh_report">Utolsó frissítés</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Riasztás</string>
     <string name="watch_action_favorite">Kedvenc</string>
     <string name="watch_action_why">Mi mozog vele együtt?</string>
-    <string name="watch_action_why_short">Mi mozog vele?</string>
+    <string name="watch_action_why_short">Mi mozog együtt?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Kikapcsolás</string>
     <string name="watch_disable_hint">Nincs lekérdezés, nincs értesítés</string>

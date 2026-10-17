@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">پیش از تعویض دستگاه یک فایل پشتیبان بسازید – داده‌های رمزگذاری‌شده فقط روی همین دستگاه باز می‌شوند.</string>
+    <string name="backup_encryption_pending">رمزگذاری هنوز فعال نیست – برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">خروجی گرفتن</string>
     <string name="backup_exported">پشتیبان ذخیره شد.</string>

@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.watch.ColumnSort
+import com.cryptochecker.app.domain.watch.WatchIdentity
 import android.content.Context
 import android.net.Uri
 import androidx.room.withTransaction
@@ -157,7 +158,7 @@ class BackupManager @Inject constructor(
             watches = parsedWatches,
             alarms = parsedAlarms,
             watchId = { it.id },
-            pairKey = { listOf(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name) },
+            pairKey = { WatchIdentity.key(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name, it.pairId) },
             alarmId = { it.id },
             alarmWatchId = { it.watchId },
             withWatchId = { a, id -> a.copy(watchId = id) },

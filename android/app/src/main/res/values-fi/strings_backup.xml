@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Luo varmuuskopiotiedosto ennen laitteen vaihtoa – salattuja tietoja voi avata vain tällä laitteella.</string>
+    <string name="backup_encryption_pending">Salaus ei ole vielä käytössä – sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Vie</string>
     <string name="backup_exported">Varmuuskopio tallennettu.</string>

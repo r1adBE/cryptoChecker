@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Alert</string>
     <string name="watch_action_favorite">Favorite</string>
     <string name="watch_action_why">What is moving with it?</string>
-    <string name="watch_action_why_short">What moves too?</string>
+    <string name="watch_action_why_short">What moves with it?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Disable</string>
     <string name="watch_disable_hint">No requests, no notifications</string>

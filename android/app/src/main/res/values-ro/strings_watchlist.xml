@@ -129,7 +129,7 @@
     <string name="watch_action_alarm">Alarmă</string>
     <string name="watch_action_favorite">Favorit</string>
     <string name="watch_action_why">Ce se mișcă odată cu el?</string>
-    <string name="watch_action_why_short">Ce se mișcă?</string>
+    <string name="watch_action_why_short">Ce se mișcă la fel?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Dezactivează</string>
     <string name="watch_disable_hint">Fără interogări, fără notificări</string>

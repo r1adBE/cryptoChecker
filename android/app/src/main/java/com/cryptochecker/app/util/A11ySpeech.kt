@@ -10,7 +10,7 @@ import java.util.Locale
  *  - Alter des Kurses in ganzen Einheiten («zuletzt aktualisiert vor 45 Minuten», mit Pluralform),
  *  - Frische einer Zeile (deaktiviert, nicht mehr gehandelt, veraltet nach [OutdatedRule],
  *    Börse nicht erreichbar) und der Satzteil dazu,
- *  - frisch ausgelöster Alarm («Alarm ausgelöst»),
+ *  - frisch ausgelöster Alarm («Alarm ausgelöst»), Kursmitteilung an/aus wie die Glocke der Zeile,
  *  - Status oben: nur ein Wechsel zwischen aktuell / veraltet / offline wird angesagt,
  *  - Währung als Wort, wo es hilft («61’234.00 US-Dollar» statt «U S D»),
  *  - Reihenfolge der Teile: Paar, Kurs, Veränderung, Frische, Details, Alarme, Rest.
@@ -122,6 +122,12 @@ object A11ySpeech {
      */
     fun firedRecently(lastTriggeredAt: Long, now: Long): Boolean =
         lastTriggeredAt > 0 && now >= lastTriggeredAt && now - lastTriggeredAt <= FIRED_MILLIS
+
+    /**
+     * Kursmitteilung der Zeile an — wie die schlichte Glocke (an) bzw. die durchgestrichene (aus): das Paar UND der
+     * Hauptschalter «Kursmitteilungen». Der Zeilensatz sagt es vor den Alarmen («Kursmitteilung an», «… aus»).
+     */
+    fun priceNotificationOn(pairOn: Boolean, masterOn: Boolean): Boolean = pairOn && masterOn
 
     /** Zustand der Status-Pille oben, soweit er angesagt wird. */
     enum class StatusKind { FRESH, STALE, OFFLINE }

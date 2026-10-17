@@ -10,7 +10,7 @@
     </plurals>
     <string name="watchlist_last_run">Última execução %1$s</string>
     <string name="watchlist_live_a11y">Cotações ao vivo ativas</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">AO VIVO</string>
     <string name="watchlist_offline_since">Sem conexão · dados de %1$s</string>
     <string name="watchlist_pull_to_refresh">Puxe para baixo para atualizar</string>
     <string name="watchlist_refresh_report">Última atualização</string>

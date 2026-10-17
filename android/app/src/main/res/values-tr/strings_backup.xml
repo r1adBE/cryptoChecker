@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Cihaz değiştirmeden önce bir yedek dosyası oluştur – şifreli veriler yalnızca bu cihazda açılabilir.</string>
+    <string name="backup_encryption_pending">Şifreleme henüz etkin değil – uygulama bir sonraki açılışta yeniden deneyecek.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Dışa aktar</string>
     <string name="backup_exported">Yedek kaydedildi.</string>

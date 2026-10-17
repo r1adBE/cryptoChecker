@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">機種変更の前にバックアップファイルを作成してください。暗号化されたデータはこの端末でしか開けません。</string>
+    <string name="backup_encryption_pending">暗号化はまだ有効になっていません。次回の起動時にもう一度試します。</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">エクスポート</string>
     <string name="backup_exported">バックアップを保存しました。</string>

@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">آخرین اجرا %1$s</string>
     <string name="watchlist_live_a11y">قیمت‌های زنده فعال است</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">زنده</string>
     <string name="watchlist_offline_since">اتصال برقرار نیست · آخرین به‌روزرسانی %1$s</string>
     <string name="watchlist_pull_to_refresh">برای به‌روزرسانی به پایین بکشید</string>
     <string name="watchlist_refresh_report">آخرین تازه‌سازی</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">هشدار</string>
     <string name="watch_action_favorite">علاقه‌مندی</string>
     <string name="watch_action_why">چه چیزی همراه آن حرکت می‌کند؟</string>
-    <string name="watch_action_why_short">چه همراه است؟</string>
+    <string name="watch_action_why_short">چه همراهش حرکت می‌کند؟</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">غیرفعال کردن</string>
     <string name="watch_disable_hint">بدون درخواست، بدون اعلان</string>

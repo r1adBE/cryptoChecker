@@ -10,7 +10,7 @@
     </plurals>
     <string name="watchlist_last_run">ריצה אחרונה %1$s</string>
     <string name="watchlist_live_a11y">מחירים חיים פעילים</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">חי</string>
     <string name="watchlist_offline_since">אין חיבור · עדכון אחרון %1$s</string>
     <string name="watchlist_pull_to_refresh">משכו למטה לרענון</string>
     <string name="watchlist_refresh_report">רענון אחרון</string>
@@ -129,7 +129,7 @@
     <string name="watch_action_alarm">התראה</string>
     <string name="watch_action_favorite">מועדף</string>
     <string name="watch_action_why">מה זז יחד איתו?</string>
-    <string name="watch_action_why_short">מה זז איתו?</string>
+    <string name="watch_action_why_short">מה זז יחד איתו?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">השבת</string>
     <string name="watch_disable_hint">בלי בקשות, בלי התראות</string>

@@ -101,7 +101,8 @@ extension WatchlistRow {
                 // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an,
                 // durchgestrichene = aus (Paar aus oder Hauptschalter aus). Danach die Alarmglocke (mit Wellen),
                 // nur bei mind. einem aktiven Alarm — wie Android
-                let priceOn: Bool = watch.notificationEnabled && priceNotificationsOn
+                let priceOn: Bool = A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
+                                                                   masterOn: priceNotificationsOn)
                 Image(systemName: priceOn ? "bell" : "bell.slash")
                     .scaledFont(size: 11, relativeTo: .caption2)
                     .foregroundStyle(AppColors.onSurfaceVariant)

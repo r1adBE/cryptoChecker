@@ -7,8 +7,23 @@ package com.cryptochecker.app.domain.watch
  * WatchEditTest), gespiegelt in `WatchEdit.swift`.
  */
 object WatchEdit {
-    /** Wie der eindeutige Schlüssel der Merkliste: Börse, Basis, Quote, Kontrakt (Name). */
-    data class Key(val marketKey: String, val base: String, val quote: String, val contract: String)
+    /**
+     * Wie der eindeutige Schlüssel der Merkliste ([WatchIdentity]): Börse, Basis, Quote, Kontrakt (Name), bei
+     * DexScreener der Pool ([WatchIdentity.pool], sonst null).
+     */
+    data class Key(
+        val marketKey: String,
+        val base: String,
+        val quote: String,
+        val contract: String,
+        val pool: String? = null,
+    ) {
+        companion object {
+            /** Schlüssel mit der Paar-Kennung; zum Schlüssel gehört sie nur bei DexScreener. */
+            fun of(marketKey: String, base: String, quote: String, contract: String, pairId: String?): Key =
+                Key(marketKey, base, quote, contract, WatchIdentity.pool(marketKey, pairId))
+        }
+    }
 
     enum class Outcome {
         /** Gleiche Auswahl wie bisher: nichts zu tun. */

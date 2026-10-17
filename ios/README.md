@@ -4,7 +4,7 @@
 Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 68 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 69 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -56,7 +56,7 @@ Zuletzt dazugekommen:
   Aktionsblatt); Gesamtkarte mit Hinweisen im Block «Hinweise» darunter und ruhigerem Verlauf; Aktionsblatt öffnet
   halb hoch (`WatchActionsDetents`); Sortierpfeile 11 pt ohne Deckkraft; leere Alarmliste mit Beispielsatz; Widgets flach wie Android (kein Verlauf, gleiche Masse, deaktiviert grau). Sicherung:
   unverschlüsselte Datei warnt beim Einspielen und kann die Portfolio-Sperre nicht ausschalten; neue Passwörter
-  mindestens 10 Zeichen, leicht zu erratende gesperrt (ältere Dateien bleiben lesbar); ungültige Einträge aus dem
+  mindestens 12 Zeichen, leicht zu erratende gesperrt (ältere Dateien bleiben lesbar); ungültige Einträge aus dem
   Geräte-Backup werden einmal gemeldet (`App/Services/PortfolioRestoreNotice.swift`).
 - **Build 44 – ehrliche Frische, eigene Kerzen** — «Live» in der Status-Pille nur, wenn alle sichtbaren gehandelten
   Paare am Live-Strom und frisch sind; «veraltet» je Paar (am Strom 2 Min., abgefragt 3 × Hintergrund-Intervall,
@@ -625,7 +625,7 @@ Passwort-Prüfung wird verworfen.
 
 Mit Passwort wird die Datei mit AES-256-GCM verschlüsselt, der Schlüssel per PBKDF2-HMAC-SHA256 abgeleitet: neue
 Sicherungen mit 600 000 Durchläufen, ältere Dateien (210 000) bleiben lesbar, weil die Zahl in der Datei steht. Ein
-neues Passwort braucht mindestens 10 Zeichen; ein leicht zu erratendes (nur Ziffern, ein wiederholtes Zeichen, häufige
+neues Passwort braucht mindestens 12 Zeichen; ein leicht zu erratendes (nur Ziffern, ein wiederholtes Zeichen, häufige
 Folge wie «12345678» oder «passwort») ist für neue Sicherungen gesperrt. Ältere Dateien (damals mindestens 8 Zeichen)
 lassen sich weiter öffnen. Eine Sicherung ohne Passwort zeigt beim Einspielen eine Warnung und kann die
 Portfolio-Sperre nicht ausschalten. Ver- und Entschlüsseln laufen im Hintergrund, «Weiter» bleibt während der Prüfung gesperrt.

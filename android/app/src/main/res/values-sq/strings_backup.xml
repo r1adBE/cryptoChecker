@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Para se të ndërrosh pajisjen, krijo një skedar kopjeje rezervë – të dhënat e enkriptuara hapen vetëm në këtë pajisje.</string>
+    <string name="backup_encryption_pending">Enkriptimi ende nuk është aktiv – aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Eksporto</string>
     <string name="backup_exported">Kopja u ruajt.</string>

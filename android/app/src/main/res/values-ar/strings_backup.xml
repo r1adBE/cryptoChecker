@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">قبل تغيير الجهاز أنشئ ملف نسخة احتياطية – لا يمكن فتح البيانات المشفّرة إلا على هذا الجهاز.</string>
+    <string name="backup_encryption_pending">التشفير غير مفعّل بعد – سيحاول التطبيق مجددًا عند التشغيل التالي.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">تصدير</string>
     <string name="backup_exported">تم حفظ النسخة الاحتياطية.</string>

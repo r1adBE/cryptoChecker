@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.StoredError
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchEdit
+import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.flow.Flow
@@ -110,7 +111,8 @@ class WatchRepository @Inject constructor(
             market.key,
             pair.base,
             pair.quote,
-            contractType.name
+            contractType.name,
+            WatchIdentity.pool(market.key, pair.pairId),
         )
         if (existing != null) return null
 
@@ -164,9 +166,12 @@ class WatchRepository @Inject constructor(
             if (watch == null) {
                 PairEditResult.MISSING
             } else {
-                val current = WatchEdit.Key(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
-                val target = WatchEdit.Key(market.key, pair.base, pair.quote, pair.contractType.name)
-                val existing = watchDao.findWatchId(target.marketKey, target.base, target.quote, target.contract)
+                val current = WatchEdit.Key.of(
+                    watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId,
+                )
+                val target = WatchEdit.Key.of(market.key, pair.base, pair.quote, pair.contractType.name, pair.pairId)
+                val existing =
+                    watchDao.findWatchId(target.marketKey, target.base, target.quote, target.contract, target.pool)
                 when (WatchEdit.decide(id, current, target, existing)) {
                     WatchEdit.Outcome.UNCHANGED -> PairEditResult.UNCHANGED
                     WatchEdit.Outcome.DUPLICATE -> PairEditResult.DUPLICATE
@@ -223,7 +228,10 @@ class WatchRepository @Inject constructor(
     suspend fun restore(snapshot: WatchSnapshot): Boolean = database.withTransaction {
         val watch = snapshot.watch
         val blocked = watchDao.getWatch(watch.id) != null ||
-            watchDao.findWatchId(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name) != null
+            watchDao.findWatchId(
+                watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name,
+                WatchIdentity.pool(watch.marketKey, watch.pairId),
+            ) != null
         if (blocked) {
             false
         } else {

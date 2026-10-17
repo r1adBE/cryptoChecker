@@ -53,10 +53,10 @@ object BackupCrypto {
     const val KEY_BITS = 256
 
     /**
-     * Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen). Gilt nur beim Sichern:
-     * ältere Dateien (Mindestlänge 8) lassen sich mit jedem Passwort entschlüsseln.
+     * Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen; seit Build 69 12, vorher 10 bzw. 8). Gilt
+     * nur beim Sichern: ältere Dateien lassen sich mit jedem Passwort entschlüsseln.
      */
-    const val MIN_PASSWORD_LENGTH = 10
+    const val MIN_PASSWORD_LENGTH = 12
 
     /** Grenzen für «iter» beim Lesen: Schutz vor unsinnigen oder absichtlich lähmenden Werten (umfasst 210 000 und 600 000). */
     private const val MIN_ITERATIONS = 10_000
@@ -222,8 +222,7 @@ object BackupVersion {
 /**
  * Schwache Passwörter im Blatt «Sichern» (gespiegelt in `BackupCrypto.swift`, gemeinsame Beispiele in
  * `testdata/parity/backup_passwords.json`): sperren das Sichern mit Passwort ([BackupCrypto.canExport]).
- * Entschlüsseln prüft das Passwort nicht. Zeichenklassen nur ASCII (a–z, A–Z, 0–9, alles andere), damit beide
- * Plattformen gleich zählen.
+ * Entschlüsseln prüft das Passwort nicht.
  */
 object BackupPasswordStrength {
     /** Häufige Folgen (klein geschrieben); kommt eine davon vor, ist das Passwort schwach. */
@@ -256,17 +255,15 @@ object BackupPasswordStrength {
     /** Höchstens so viele Ziffern/Zeichen um ein Wort herum gelten als Schmuck. */
     private const val DECORATION = 6
 
-    /** Unter dieser Länge sind ≤ 2 Zeichenklassen schwach. */
-    private const val CLASS_LENGTH = 12
-
     /**
      * Schwach (für neue Sicherungen gesperrt):
      *  - kürzer als [BackupCrypto.MIN_PASSWORD_LENGTH], nur Ziffern oder ein einziges Zeichen wiederholt;
      *  - eine häufige Folge oder ein Tastatur-Spaziergang (6 Zeichen einer Reihe, auch rückwärts);
      *  - ein Wort (Jahreszeit, Monat, häufiges Wort, Name der App) mit höchstens 6 Ziffern/Zeichen davor bzw. danach
      *    («Summer2026!», «Winter2025», «CryptoChecker1!»);
-     *  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»);
-     *  - höchstens 2 Zeichenklassen und kürzer als 12 Zeichen.
+     *  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»).
+     * Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt seit Build 69 die
+     * Mindestlänge 12 ab (Zeichenklassen spielen ab 12 Zeichen keine Rolle).
      */
     fun isWeak(password: String): Boolean {
         val normalized = Normalizer.normalize(password, Normalizer.Form.NFC)
@@ -278,8 +275,7 @@ object BackupPasswordStrength {
         if (COMMON.any { lower.contains(it) }) return true
         if (keyboardWalk(lower)) return true
         if (decoratedWord(lower)) return true
-        if (repeatedChunk(codePoints)) return true
-        return classes(codePoints) <= 2 && codePoints.size < CLASS_LENGTH
+        return repeatedChunk(codePoints)
     }
 
     /** 6 aufeinanderfolgende Zeichen einer Tastaturreihe (vorwärts oder rückwärts). */
@@ -309,18 +305,6 @@ object BackupPasswordStrength {
         return false
     }
 
-    /** Zeichenklassen (ASCII): Kleinbuchstaben, Grossbuchstaben, Ziffern, Übrige. */
-    private fun classes(cp: IntArray): Int {
-        var lower = false; var upper = false; var digit = false; var other = false
-        for (c in cp) when (c) {
-            in 'a'.code..'z'.code -> lower = true
-            in 'A'.code..'Z'.code -> upper = true
-            in '0'.code..'9'.code -> digit = true
-            else -> other = true
-        }
-        return listOf(lower, upper, digit, other).count { it }
-    }
-
-    /** Hinweis «zu leicht zu erraten» zeigen? Erst ab der Mindestlänge (vorher gilt «mindestens 10 Zeichen»). */
+    /** Hinweis «zu leicht zu erraten» zeigen? Erst ab der Mindestlänge (vorher gilt «mindestens 12 Zeichen»). */
     fun showWeakHint(password: String): Boolean = BackupCrypto.isPasswordLongEnough(password) && isWeak(password)
 }

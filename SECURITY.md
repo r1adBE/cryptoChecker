@@ -44,9 +44,16 @@ keys or other secrets never belong in this repository.
     portfolio widget snapshot and the copies of unreadable files) are sealed with
     AES-256-GCM (CryptoKit, versioned header). The 256-bit key lives in the
     keychain, shared with the widgets through the App Group
-    (`kSecAttrAccessibleAfterFirstUnlock`, not synced to iCloud Keychain, carried
-    only by encrypted iCloud/computer backups). File protection stays the
-    system default.
+    (`kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` since build 69, not synced
+    to iCloud Keychain and never part of an iCloud/computer backup or a device
+    transfer – a device backup holds the sealed files but never their key;
+    existing items are switched with `SecItemUpdate`, same key bytes). After a
+    restore on a new iPhone the files are set aside and the app asks for a backup
+    file; Settings › Backup says so up front on both platforms (Android Keystore
+    keys are device-bound too). File protection stays the system default.
+  * If encryption cannot be set up (no key, failed migration), the data stays
+    readable in plaintext as before and Settings › Backup says «Encryption not
+    active yet» until a later start succeeds.
   * Copying the files off the device does not reveal their content without the
     device's key. On an unlocked phone the app itself still reads and shows
     everything – the portfolio lock only hides the display.
@@ -141,8 +148,10 @@ keys or other secrets never belong in this repository.
 Alle Daten (Merkliste, Alarme, Portfolio) bleiben auf dem Gerät. Zusätzlich zur
 Verschlüsselung des Betriebssystems sind sie seit Build 59 verschlüsselt
 gespeichert (Android: SQLCipher, Schlüssel im Android Keystore; iOS: AES-256-GCM,
-Schlüssel im Schlüsselbund) – auf einem entsperrten Telefon zeigt die App sie
-trotzdem an. Seit Build 60 ist auch die Momentaufnahme des Android-Portfolio-Widgets
+Schlüssel im Schlüsselbund, seit Build 69 nur auf diesem Gerät und in keinem
+Geräte-Backup) – auf einem entsperrten Telefon zeigt die App sie trotzdem an. Vor
+einem Gerätewechsel braucht es darum eine Sicherungsdatei. Bleibt die
+Verschlüsselung aus (kein Schlüssel möglich), nennt das Einstellungen › Sicherung. Seit Build 60 ist auch die Momentaufnahme des Android-Portfolio-Widgets
 versiegelt (AES-256-GCM, eigener Keystore-Schlüssel); ohne Schlüssel zeigt das
 Widget keine Werte statt Klartext. Unverschlüsselt bleiben Einstellungen,
 Kurs-Zwischenspeicher und Coin-Listen, Sicherungen ohne Passwort sowie die
@@ -155,7 +164,7 @@ Sperrt sie sich wieder, schliessen sich offene Portfolio- und Sicherungs-Dialoge
 Sicherungen gehen nur über die Dateiauswahl des Systems und lassen sich mit
 einem Passwort verschlüsseln (AES-256-GCM, PBKDF2 mit 600 000 Durchläufen für
 neue Sicherungen; ältere Dateien bleiben lesbar), das nirgends gespeichert wird.
-Neue Sicherungs-Passwörter brauchen mindestens 10 Zeichen; leicht zu erratende
+Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen (seit Build 69); leicht zu erratende
 (nur Ziffern, ein wiederholtes Zeichen, häufige Folgen) sind gesperrt, ältere
 Dateien lassen sich weiter öffnen. Eine unverschlüsselte Sicherung warnt beim
 Einspielen und kann die Portfolio-Sperre nicht ausschalten.

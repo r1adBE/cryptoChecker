@@ -12,19 +12,11 @@ enum CycleFearGreedStyle {
         default: "fng_extreme_greed"
         }
     }
-
-    /// J-15: Stufenfarben aus den aktiven Kursfarben (Farbsehschwäche, hoher Kontrast, Tausch) —
-    /// nur für die Skala, nie für die Zahl.
-    static func colors(_ scheme: PriceColorScheme, dark: Bool, highContrast: Bool, inverted: Bool,
-                       accent: AccentColor? = nil) -> [Color] {
-        MarketScalePalette.steps(scheme, dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
-            .map { Color(hex: $0) }
-    }
 }
 
-/// Fear & Greed als erste Zeile unter «Einordnung»: Wert rechts, Stufe und Vortag darunter,
-/// die Skala 0–100 in voller Breite direkt unter der Zeile. Tippen zeigt Verlauf und Quelle.
-/// Wie `FearGreedRow` in Android.
+/// Fear & Greed als erste Zeile unter «Einordnung» im Stil des Puls-Widgets (Entscheid 17. Oktober 2026): die Zahl
+/// gross mit dem Wort der Stufe daneben, darunter eine neutrale Spur 0–100 mit EINEM Punkt in der Farbe der Stufe —
+/// kein Regenbogen-Verlauf. Tippen zeigt Gestern / Woche / Monat und die Quelle. Wie `FearGreedRow` in Android.
 struct CycleFearGreedRow: View {
     let state: CycleLoad<FearGreed>
     let onRetry: () -> Void
@@ -32,30 +24,19 @@ struct CycleFearGreedRow: View {
     /// Herkunft und Stand (alternative.me) für die Nebenzeile.
     var stamp: DataStamp? = nil
     @State private var expanded = false
-    @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.priceColorScheme) private var priceColorScheme
-    @Environment(\.priceHighContrast) private var priceHighContrast
-    @Environment(\.priceColorsInverted) private var priceColorsInverted
-    @Environment(\.appAccent) private var appAccent
 
     var body: some View {
         let fg = state.value
-        let label = fg.map { L(CycleFearGreedStyle.labelKey($0.value)) } ?? ""
         MarketRow(
             title: L("insights_fng_title"),
-            secondary: fg?.yesterday.map { L("market_row_fng_yesterday", label, LocaleNumbers.integer($0)) } ?? label,
-            value: fg.map { LocaleNumbers.integer($0.value) },
             state: Self.rowState(state),
             first: first,
             stamp: stamp,
             onRetry: onRetry,
             expanded: fg == nil ? nil : $expanded,
             info: .fearGreed,
-            // J-15: Zahl in der Textfarbe (Stufenfarben erreichten als Schrift kein AA); die Stufe zeigen
-            // Skala und Markierung, das Wort steht daneben
-            valueColor: fg.map { _ in AppColors.onSurface },
-            // Skala bleibt auch beim Laden und bei Fehler stehen (grau) — darunter springt nichts
-            below: AnyView(scale(fg?.value)),
+            // Spur bleibt auch beim Laden und bei Fehler stehen (grau) — darunter springt nichts
+            below: AnyView(CycleFearGreedGauge(value: fg?.value)),
             details: AnyView(VStack(alignment: .leading, spacing: 0) {
                 if let fg {
                     Text(L("insights_fng_history",
@@ -71,25 +52,6 @@ struct CycleFearGreedRow: View {
         )
     }
 
-    /// Skala 0–100 mit Markierung; nil = grauer Platzhalter in derselben Höhe (18 pt).
-    @ViewBuilder
-    private func scale(_ value: Int?) -> some View {
-        if let value {
-            CycleScaleBar(colors: CycleFearGreedStyle.colors(priceColorScheme, dark: colorScheme == .dark,
-                                                             highContrast: priceHighContrast,
-                                                             inverted: priceColorsInverted, accent: appAccent),
-                          fraction: Double(value) / 100)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(L("a11y_gauge", L("fng_extreme_fear"), L("fng_extreme_greed"), value))
-        } else {
-            Capsule()
-                .fill(AppColors.containerHighest)
-                .frame(height: 8)
-                .frame(maxWidth: .infinity, minHeight: 18, maxHeight: 18)
-                .accessibilityHidden(true)
-        }
-    }
-
     /// Zustand der Zeile aus dem Ladezustand; Fehler mit «Marktdaten gerade nicht verfügbar» (wie Android).
     static func rowState<T>(_ load: CycleLoad<T>, failure: String = L("pulse_unavailable")) -> MarketRowState {
         switch load {
@@ -97,5 +59,71 @@ struct CycleFearGreedRow: View {
         case .failed: .failed(failure)
         case .loaded: .shown
         }
+    }
+}
+
+/// Zahl gross und Wort der Stufe, darunter die neutrale Spur mit dem Stufenpunkt. Punktfarbe wie im Puls-Widget
+/// (feste Skala `MarketScaleColors`, je Stufe ≥ 3:1 als Grafik); Zahl und Wort in der Textfarbe — die Farbe trägt nie
+/// allein. nil = grauer Platzhalter in derselben Höhe. Wie `FearGreedGauge` in Android.
+struct CycleFearGreedGauge: View {
+    let value: Int?
+    private let marker: CGFloat = 14
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    var body: some View {
+        if let value {
+            content(value)
+        } else {
+            Capsule()
+                .fill(AppColors.containerHighest)
+                .frame(height: 4)
+                .frame(maxWidth: .infinity, minHeight: 18, maxHeight: 18)
+                .accessibilityHidden(true)
+        }
+    }
+
+    private func content(_ value: Int) -> some View {
+        let label: String = L(CycleFearGreedStyle.labelKey(value))
+        let number: String = LocaleNumbers.integer(value)
+        let gauge: String = L("a11y_gauge", L("fng_extreme_fear"), L("fng_extreme_greed"), value)
+        let dot: Color = MarketScaleColors.steps[CycleFearGreedStyle.level(value)]
+        return VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .lastTextBaseline, spacing: Spacing.sm) {
+                Text(verbatim: number)
+                    .font(.title.weight(.semibold).monospacedDigit())
+                    .foregroundStyle(AppColors.onSurface)
+                Text(label)
+                    .font(.callout.weight(.medium))
+                    .foregroundStyle(AppColors.onSurface)
+            }
+            track(fraction: Double(value) / 100, dot: dot)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        // Ein Satz: «72, Gier, Extreme Angst bis Extreme Gier: 72»
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(number + ", " + label + ", " + gauge)
+    }
+
+    /// Neutrale Spur mit dem Punkt; folgt der Leserichtung (bei RTL beginnt 0 rechts).
+    private func track(fraction: Double, dot: Color) -> some View {
+        let rtl: Bool = layoutDirection == .rightToLeft
+        let clamped: Double = min(max(fraction, 0), 1)
+        let position: Double = rtl ? 1 - clamped : clamped
+        return GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(AppColors.outlineVariant)
+                    .frame(height: 4)
+                // Rand in der Fläche, damit sich der Punkt von der Spur abhebt
+                Circle()
+                    .fill(AppColors.surface)
+                    .frame(width: marker, height: marker)
+                    .overlay(Circle().fill(dot).padding(2))
+                    .offset(x: max(geo.size.width - marker, 0) * position)
+            }
+            .frame(width: geo.size.width, height: 18)
+            .environment(\.layoutDirection, .leftToRight)
+        }
+        .frame(height: 18)
     }
 }

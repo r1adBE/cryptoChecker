@@ -8,7 +8,7 @@
     </plurals>
     <string name="watchlist_last_run">上次刷新 %1$s</string>
     <string name="watchlist_live_a11y">实时价格已开启</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">实时</string>
     <string name="watchlist_offline_since">无连接 · 数据时间 %1$s</string>
     <string name="watchlist_pull_to_refresh">下拉刷新</string>
     <string name="watchlist_refresh_report">上次刷新</string>
@@ -105,7 +105,7 @@
     <string name="watch_action_alarm">提醒</string>
     <string name="watch_action_favorite">收藏</string>
     <string name="watch_action_why">哪些在同步波动？</string>
-    <string name="watch_action_why_short">同步波动？</string>
+    <string name="watch_action_why_short">哪些一起波动？</string>
     <string name="watch_change_mark">标记</string>
     <string name="watch_disable">停用</string>
     <string name="watch_disable_hint">不查询、不通知</string>

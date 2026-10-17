@@ -4,9 +4,9 @@ import Foundation
 /// (`BackupManager.restore`) — wie `WatchlistRestoreCleanup.kt` (Android).
 ///
 /// - Gleiche Paar-Id mehrfach: der letzte Eintrag gilt, an der Stelle des ersten.
-/// - Gleiches Paar (Börse, Basis, Quote, Kontrakt) unter verschiedenen Ids: nur einmal (Android
-///   erlaubt es wegen des eindeutigen Index ohnehin nur einmal). Das erste bleibt; Alarme der
-///   weggelassenen Ids hängen danach am behaltenen Paar statt verloren zu gehen.
+/// - Gleiches Paar (Börse, Basis, Quote, Kontrakt, bei DexScreener der Pool — `WatchIdentity`) unter
+///   verschiedenen Ids: nur einmal (Android erlaubt es wegen des eindeutigen Index ohnehin nur einmal).
+///   Das erste bleibt; Alarme der weggelassenen Ids hängen danach am behaltenen Paar statt verloren zu gehen.
 /// - Alarme ohne (verbleibendes) Paar fallen weg; gleiche Alarm-Id mehrfach: der letzte gilt.
 ///
 /// Anders als Android heisst Id 0 (oder kleiner) hier nicht «neu vergeben»: iOS übernimmt die Ids
@@ -63,20 +63,12 @@ enum WatchlistRestoreCleanup {
         return (keptWatches, alarmOrder.compactMap { alarmsById[$0] })
     }
 
-    /// Paar-Schlüssel wie `Watch.samePair(as:)` (Börse, Basis, Quote, Kontrakt).
-    struct PairKey: Hashable {
-        let marketKey: String
-        let baseAsset: String
-        let quoteAsset: String
-        let contractType: FuturesContractType
-    }
-
     /// Merkliste und Alarme der Sicherung bereinigen (Regeln siehe oben).
     static func clean(watches: [Watch], alarms: [Alarm]) -> (watches: [Watch], alarms: [Alarm]) {
         clean(watches: watches, alarms: alarms,
               watchId: { $0.id },
-              pairKey: { PairKey(marketKey: $0.marketKey, baseAsset: $0.baseAsset,
-                                 quoteAsset: $0.quoteAsset, contractType: $0.contractType) },
+              // Paar-Schlüssel wie `Watch.samePair(as:)` (`WatchIdentity`: bei DexScreener mit Pool)
+              pairKey: { $0.identity },
               alarmId: { $0.id },
               alarmWatchId: { $0.watchId },
               withWatchId: { alarm, id in

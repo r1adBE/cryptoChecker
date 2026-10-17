@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Înainte de a schimba dispozitivul, creează un fișier de backup – datele criptate se pot deschide doar pe acest dispozitiv.</string>
+    <string name="backup_encryption_pending">Criptarea nu este încă activă – aplicația va încerca din nou la următoarea pornire.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportă</string>
     <string name="backup_exported">Backup salvat.</string>

@@ -65,7 +65,7 @@ data class WatchEditState(
         get() {
             val m = market ?: return null
             val p = pair ?: return null
-            return WatchEdit.Key(m.key, p.base, p.quote, p.contractType.name)
+            return WatchEdit.Key.of(m.key, p.base, p.quote, p.contractType.name, p.pairId)
         }
 }
 

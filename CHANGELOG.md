@@ -1,5 +1,25 @@
 # Changelog
 
+## 16.2.2 (build 69)
+
+Fixes from the seventeenth review and first green CI runs.
+
+* Kraken: pairs that are not "online" (e.g. cancel_only) are no longer offered; watched ones show «no longer traded»
+  instead of a frozen price.
+* DexScreener: two pools with the same symbol on one chain can both be watched (main database v16: the unique index
+  includes the pool id).
+* Settings › Backup says when encryption is not active yet, and that a backup file is needed before switching
+  devices.
+* iOS: the storage key is device-only (`…ThisDeviceOnly`) and no longer part of device backups; existing installs
+  are switched without changing the key.
+* Screen readers announce whether a pair's price notification is on.
+* Fear & Greed card shows number, word and one dot instead of a colour gradient.
+* New backup passwords need at least 12 characters.
+* "LIVE" badge and the «What is moving with it?» chip translated naturally.
+* Toasts never block taps (found by the iOS UI tests).
+* CI: Android unit tests, lint and builds green; iOS build and unit tests green; Android device tests (32, incl. the
+  new UI flows and the encryption migration) green.
+
 ## 16.2.2 (build 68)
 
 * iOS UI test for backup: reports what is on screen when the backup page does not open (diagnosis for CI).

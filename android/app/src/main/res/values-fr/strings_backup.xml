@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Avant de changer d’appareil, crée un fichier de sauvegarde – les données chiffrées ne s’ouvrent que sur cet appareil.</string>
+    <string name="backup_encryption_pending">Chiffrement pas encore actif – l’app réessaiera au prochain démarrage.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exporter</string>
     <string name="backup_exported">Sauvegarde enregistrée.</string>

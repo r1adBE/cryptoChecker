@@ -6,9 +6,9 @@ package com.cryptochecker.app.data
  * Alarmen scheitern (Eindeutigkeit der Paare, Fremdschlüssel der Alarme) und halb fertig stehen bleiben.
  *
  * - Gleiche Paar-Id mehrfach: der letzte Eintrag gilt, an der Stelle des ersten (wie iOS).
- * - Gleiches Paar (Börse, Basis, Quote, Kontrakt) unter verschiedenen Ids: Android erlaubt es nur
- *   einmal (eindeutiger Index). Das erste bleibt; Alarme der weggelassenen Ids hängen danach am
- *   behaltenen Paar statt verloren zu gehen.
+ * - Gleiches Paar (Börse, Basis, Quote, Kontrakt, bei DexScreener der Pool — [com.cryptochecker.app.domain.watch.WatchIdentity])
+ *   unter verschiedenen Ids: Android erlaubt es nur einmal (eindeutiger Index). Das erste bleibt; Alarme der
+ *   weggelassenen Ids hängen danach am behaltenen Paar statt verloren zu gehen.
  * - Alarme ohne (verbleibendes) Paar fallen weg; gleiche Alarm-Id mehrfach: der letzte gilt (wie iOS).
  * - Id 0 (oder kleiner) heisst «neu vergeben» (Room): solche Paare und Alarme werden nie
  *   zusammengelegt; ein Alarm kann nicht an einem Paar ohne feste Id hängen und fällt weg.

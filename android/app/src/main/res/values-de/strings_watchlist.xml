@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Favorit</string>
     <string name="watch_action_why">Was bewegt sich mit?</string>
-    <string name="watch_action_why_short">Mitbewegt?</string>
+    <string name="watch_action_why_short">Was bewegt sich mit?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Deaktivieren</string>
     <string name="watch_disable_hint">Keine Abfragen, keine Benachrichtigungen</string>

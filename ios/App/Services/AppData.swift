@@ -104,6 +104,9 @@ final class AppData: ObservableObject {
     /// bzw. die Datei sichern, statt sie mit einem leeren Stand zu überschreiben.
     var portfolioIntact = true
     var appActive = false
+    /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
+    /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
+    private(set) var encryptionPending = false
 
     /// «In Gruppe» beim Hinzufügen: nur für die laufende Sitzung, nicht gespeichert.
     /// nil = «Keine Gruppe».
@@ -114,6 +117,7 @@ final class AppData: ObservableObject {
         // unlesbare beiseitelegen und das einmal nennen (`StorageRecoveryNotice`)
         let protection = ProtectedStorage.prepareAtLaunch()
         if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
+        encryptionPending = protection.encryptionPending
         snapshot = SharedStorage.loadSnapshot()
         settings = SharedStorage.loadSettings()
         let loaded = PortfolioStore.loadChecked()

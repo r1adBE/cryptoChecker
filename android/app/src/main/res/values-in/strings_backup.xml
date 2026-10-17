@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Sebelum ganti perangkat, buat file cadangan – data terenkripsi hanya bisa dibuka di perangkat ini.</string>
+    <string name="backup_encryption_pending">Enkripsi belum aktif – aplikasi akan mencoba lagi saat dibuka berikutnya.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Ekspor</string>
     <string name="backup_exported">Cadangan disimpan.</string>

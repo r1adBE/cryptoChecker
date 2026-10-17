@@ -10,7 +10,7 @@
     </plurals>
     <string name="watchlist_last_run">Última execução %1$s</string>
     <string name="watchlist_live_a11y">Cotações ao vivo ativas</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">DIRETO</string>
     <string name="watchlist_offline_since">Sem ligação · dados de %1$s</string>
     <string name="watchlist_pull_to_refresh">Puxe para baixo para atualizar</string>
     <string name="watchlist_refresh_report">Última atualização</string>
@@ -129,7 +129,7 @@
     <string name="watch_action_alarm">Alarme</string>
     <string name="watch_action_favorite">Favorito</string>
     <string name="watch_action_why">O que se mexe com ele?</string>
-    <string name="watch_action_why_short">O que mexe junto?</string>
+    <string name="watch_action_why_short">O que mexe com ele?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Desativar</string>
     <string name="watch_disable_hint">Sem pedidos, sem notificações</string>

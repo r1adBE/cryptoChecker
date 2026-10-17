@@ -13,7 +13,7 @@
     </plurals>
     <string name="watchlist_last_run">آخر تشغيل %1$s</string>
     <string name="watchlist_live_a11y">الأسعار المباشرة مفعّلة</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">مباشر</string>
     <string name="watchlist_offline_since">لا يوجد اتصال · آخر تحديث %1$s</string>
     <string name="watchlist_pull_to_refresh">اسحب للأسفل للتحديث</string>
     <string name="watchlist_refresh_report">آخر تحديث</string>
@@ -165,7 +165,7 @@
     <string name="watch_action_alarm">تنبيه</string>
     <string name="watch_action_favorite">المفضلة</string>
     <string name="watch_action_why">ما الذي يتحرك معه؟</string>
-    <string name="watch_action_why_short">ما يتحرك معه؟</string>
+    <string name="watch_action_why_short">ما الذي يتحرك معه؟</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">تعطيل</string>
     <string name="watch_disable_hint">بلا طلبات وبلا إشعارات</string>

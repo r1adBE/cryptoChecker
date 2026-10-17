@@ -4,28 +4,33 @@ import Foundation
 /// Eintrags ändern — wie `WatchEdit.kt`. Der Eintrag bleibt derselbe (Id, Gruppe, Favorit,
 /// Notiz, Platz, Alarme); nur die Marktdaten des alten Paars werden verworfen.
 enum WatchEdit {
-    /// Wie der eindeutige Schlüssel der Merkliste: Börse, Basis, Quote, Kontrakt.
+    /// Wie der eindeutige Schlüssel der Merkliste (`WatchIdentity`): Börse, Basis, Quote, Kontrakt, bei
+    /// DexScreener der Pool (`WatchIdentity.pool`, sonst nil).
     struct Key: Hashable, Sendable {
         let marketKey: String
         let base: String
         let quote: String
         let contract: String
+        let pool: String?
 
-        init(marketKey: String, base: String, quote: String, contract: String) {
+        init(marketKey: String, base: String, quote: String, contract: String, pool: String? = nil) {
             self.marketKey = marketKey
             self.base = base
             self.quote = quote
             self.contract = contract
+            self.pool = pool
         }
 
         init(_ watch: Watch) {
             self.init(marketKey: watch.marketKey, base: watch.baseAsset, quote: watch.quoteAsset,
-                      contract: String(watch.contractType.rawValue))
+                      contract: String(watch.contractType.rawValue),
+                      pool: WatchIdentity.pool(marketKey: watch.marketKey, pairId: watch.pairId))
         }
 
         init(marketKey: String, pair: MarketPair) {
             self.init(marketKey: marketKey, base: pair.base, quote: pair.quote,
-                      contract: String(pair.contractType.rawValue))
+                      contract: String(pair.contractType.rawValue),
+                      pool: WatchIdentity.pool(marketKey: marketKey, pairId: pair.pairId))
         }
     }
 

@@ -160,25 +160,26 @@ final class BackupCryptoTests: XCTestCase {
     }
 
     func testPasswordRules() {
-        // Mindestlänge 10 (neue Sicherungen)
-        XCTAssertFalse(BackupCrypto.isPasswordLongEnough("123456789"))
-        XCTAssertTrue(BackupCrypto.isPasswordLongEnough("1234567890"))
+        // Mindestlänge 12 (neue Sicherungen, seit Build 69)
+        XCTAssertFalse(BackupCrypto.isPasswordLongEnough("12345678901"))
+        XCTAssertTrue(BackupCrypto.isPasswordLongEnough("123456789012"))
         // Emoji zählt als ein Zeichen
-        XCTAssertFalse(BackupCrypto.isPasswordLongEnough("12345678🔒"))
-        XCTAssertTrue(BackupCrypto.isPasswordLongEnough("123456789🔒"))
+        XCTAssertFalse(BackupCrypto.isPasswordLongEnough("1234567890🔒"))
+        XCTAssertTrue(BackupCrypto.isPasswordLongEnough("12345678901🔒"))
         let good = "Kryptö-Test 2026!"
         XCTAssertTrue(BackupCrypto.canExport(protect: false, password: "", repeated: ""))
         XCTAssertFalse(BackupCrypto.canExport(protect: true, password: good, repeated: "Kryptö-Test 2027!"))
         XCTAssertFalse(BackupCrypto.canExport(protect: true, password: "1234", repeated: "1234"))
         XCTAssertTrue(BackupCrypto.canExport(protect: true, password: good, repeated: good))
-        // Schwache Passwörter sperren das Sichern, auch ab 10 Zeichen
+        // Schwache Passwörter sperren das Sichern, auch ab 12 Zeichen
         // Liste statt Literal am Parameter: das Upload-Skript meldet sonst ein Passwort im Klartext
-        let weakSamples = ["1234567890", "aaaaaaaaaaaa", "MeinPasswort"]
+        let weakSamples = ["123456789012", "aaaaaaaaaaaa", "MeinPasswort"]
         for weak in weakSamples {
             XCTAssertFalse(BackupCrypto.canExport(protect: true, password: weak, repeated: weak), weak)
         }
-        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9x"))     // 9 Zeichen
-        XCTAssertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xy"))     // 10 Zeichen
+        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (bis Build 68 erlaubt)
+        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
+        XCTAssertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
     }
 
     func testOldFilesDecryptWithShortPassword() throws {
@@ -193,11 +194,12 @@ final class BackupCryptoTests: XCTestCase {
     func testPasswordStrengthShortIsWeak() {
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9"))
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9x"))        // 9 Zeichen
-        XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9xy"))      // 10 Zeichen
-        XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9xyz"))     // 11 Zeichen
+        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen (bis Build 68 erlaubt)
+        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xyZ"))      // 11 Zeichen
+        XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ2"))    // 12 Zeichen
         // Emoji zählt als ein Zeichen
-        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9🔒"))       // 9 Zeichen
-        XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9x🔒"))     // 10 Zeichen
+        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xy🔒"))     // 11 Zeichen
+        XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ🔒"))   // 12 Zeichen
     }
 
     func testPasswordStrengthOnlyDigitsOrOneRepeatedChar() {
@@ -223,10 +225,10 @@ final class BackupCryptoTests: XCTestCase {
 
     func testPasswordStrengthHintOnlyFromMinimumLength() {
         XCTAssertFalse(BackupPasswordStrength.showWeakHint(""))
-        XCTAssertFalse(BackupPasswordStrength.showWeakHint("123456789"))   // noch «mindestens 10 Zeichen»
+        XCTAssertFalse(BackupPasswordStrength.showWeakHint("12345678901"))   // noch «mindestens 12 Zeichen»
         XCTAssertFalse(BackupPasswordStrength.showWeakHint("Abc!def9"))
-        XCTAssertTrue(BackupPasswordStrength.showWeakHint("1234567890"))
-        XCTAssertTrue(BackupPasswordStrength.showWeakHint("Passwort123"))
+        XCTAssertTrue(BackupPasswordStrength.showWeakHint("123456789012"))
+        XCTAssertTrue(BackupPasswordStrength.showWeakHint("Passwort1234"))
         XCTAssertFalse(BackupPasswordStrength.showWeakHint("7Tg#kd92!mQz"))
     }
 }

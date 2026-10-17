@@ -9,6 +9,9 @@ private let krakenTicker = krakenPublic + "/Ticker"
 /// Ticker mit Paarliste («?pair=A,B,C»).
 private let krakenTickerFor = krakenTicker + "?pair="
 
+/// AssetPairs-`status` eines handelbaren Paars; andere Werte (z. B. «cancel_only») stehen nicht zur Wahl.
+private let krakenStatusOnline = "online"
+
 /// Grund, wenn `result` leer ist und Kraken keinen eigenen Fehler nennt.
 private let krakenEmptyResult = "Empty result"
 
@@ -33,7 +36,11 @@ final class Kraken: SimpleMarket {
         let result = try json.object("result")
         // Eine Anfrage = ein Paar: Der einzige Schlüssel ist dessen Kennung; ohne Schlüssel kein Kurs
         guard let onlyKey = result.keys.first else { throw JSONError(message: krakenEmptyResult) }
-        try copyRow(result.object(onlyKey), into: &ticker)
+        let row = try result.object(onlyKey)
+        // Schlusskurs 0 (z. B. «cancel_only»): kein Kurs statt 0 — sonst bliebe der alte Kurs still stehen.
+        // Ohne Kurs bestätigt die Einzelabfrage «nicht mehr gehandelt» (NotTraded.confirmedBySingle).
+        if Kraken.isDormant(row) { return }
+        try copyRow(row, into: &ticker)
     }
 
     override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
@@ -84,6 +91,9 @@ final class Kraken: SimpleMarket {
         // Kennungen mit Punkt (z. B. «.d») sind Varianten, keine eigenen Märkte
         for (pairId, asset) in try json.object("result").allNamedObjects() where !pairId.contains(".") {
             // Basis/Gegenwährung aus `wsname` («XBT/USD»), nicht aus `base`/`quote` mit alten Präfixen (KrakenAssetCodes)
+            // Nur handelbare Paare («online»); ältere Antworten ohne `status` gelten als handelbar
+            let status = asset.optString("status")
+            if !status.isEmpty && status != krakenStatusOnline { continue }
             guard let codes = KrakenAssetCodes.fromWsName(asset.optString("wsname")) else { continue }
             out.append(MarketPair(codes.base, codes.quote, pairId))
         }
@@ -105,7 +115,7 @@ final class Kraken: SimpleMarket {
         // «o» ist die Tageseröffnung (UTC), nicht der Kurs vor 24 h — darum keine 24-h-Veränderung
     }
 
-    /// Der Schlusskurs «c» ist leer — als Feld oder als erster Listeneintrag.
+    /// Der Schlusskurs «c» ist leer — als Feld oder als erster Listeneintrag (Einzel- und Sammelabfrage).
     private static func isDormant(_ row: JObject) -> Bool {
         if BulkTickerRows.inactivePrice(row, "c") { return true }
         guard let close = row.optArray("c") else { return false }

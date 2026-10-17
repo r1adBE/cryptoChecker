@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Prima di cambiare dispositivo, crea un file di backup: i dati crittografati si possono aprire solo su questo dispositivo.</string>
+    <string name="backup_encryption_pending">Crittografia non ancora attiva: l’app riproverà al prossimo avvio.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Esporta</string>
     <string name="backup_exported">Backup salvato.</string>

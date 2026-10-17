@@ -10,7 +10,7 @@
     </plurals>
     <string name="watchlist_last_run">Dernier passage %1$s</string>
     <string name="watchlist_live_a11y">Cours en direct actifs</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">DIRECT</string>
     <string name="watchlist_offline_since">Pas de connexion · état à %1$s</string>
     <string name="watchlist_pull_to_refresh">Tirer vers le bas pour actualiser</string>
     <string name="watchlist_refresh_report">Dernière actualisation</string>
@@ -129,7 +129,7 @@
     <string name="watch_action_alarm">Alerte</string>
     <string name="watch_action_favorite">Favori</string>
     <string name="watch_action_why">Qu’est-ce qui bouge avec ?</string>
-    <string name="watch_action_why_short">Ça bouge aussi ?</string>
+    <string name="watch_action_why_short">Qui bouge avec ?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Désactiver</string>
     <string name="watch_disable_hint">Aucune requête, aucune notification</string>

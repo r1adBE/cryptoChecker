@@ -8,7 +8,7 @@
     </plurals>
     <string name="watchlist_last_run">Lần chạy gần nhất %1$s</string>
     <string name="watchlist_live_a11y">Giá trực tiếp đang bật</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">TRỰC TIẾP</string>
     <string name="watchlist_offline_since">Không có kết nối · cập nhật %1$s</string>
     <string name="watchlist_pull_to_refresh">Kéo xuống để làm mới</string>
     <string name="watchlist_refresh_report">Lần làm mới gần nhất</string>
@@ -105,7 +105,7 @@
     <string name="watch_action_alarm">Cảnh báo</string>
     <string name="watch_action_favorite">Yêu thích</string>
     <string name="watch_action_why">Cái gì biến động cùng?</string>
-    <string name="watch_action_why_short">Cùng biến động?</string>
+    <string name="watch_action_why_short">Cái gì biến động cùng?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Tắt</string>
     <string name="watch_disable_hint">Không truy vấn, không thông báo</string>

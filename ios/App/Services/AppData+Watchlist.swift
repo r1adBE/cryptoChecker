@@ -88,9 +88,9 @@ extension AppData {
 
     func contains(marketKey: String, pair: MarketPair) -> Bool {
         let type = FuturesContractType.normalized(marketKey: marketKey, pairId: pair.pairId, pair.contractType)
-        return snapshot.watches.contains {
-            $0.marketKey == marketKey && $0.baseAsset == pair.base && $0.quoteAsset == pair.quote && $0.contractType == type
-        }
+        let wanted = WatchIdentity.key(marketKey: marketKey, base: pair.base, quote: pair.quote,
+                                       contract: String(type.rawValue), pairId: pair.pairId)
+        return snapshot.watches.contains { $0.identity == wanted }
     }
 
     static func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair rawPair: MarketPair,
@@ -98,9 +98,9 @@ extension AppData {
         // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
         var pair = rawPair
         pair.contractType = FuturesContractType.normalized(marketKey: market.key, pairId: pair.pairId, pair.contractType)
-        if s.watches.contains(where: {
-            $0.marketKey == market.key && $0.baseAsset == pair.base && $0.quoteAsset == pair.quote && $0.contractType == pair.contractType
-        }) { return nil }
+        let wanted = WatchIdentity.key(marketKey: market.key, base: pair.base, quote: pair.quote,
+                                       contract: String(pair.contractType.rawValue), pairId: pair.pairId)
+        if s.watches.contains(where: { $0.identity == wanted }) { return nil }
         let id = max(s.nextWatchId, (s.watches.map(\.id).max() ?? 0) + 1)
         s.nextWatchId = id + 1
         let nextOrder = (s.watches.map(\.sortOrder).max() ?? -1) + 1
@@ -206,10 +206,7 @@ extension AppData {
     @discardableResult
     func restore(_ deleted: DeletedWatch) -> Bool {
         let w = deleted.watch
-        guard !snapshot.watches.contains(where: {
-            $0.id == w.id || ($0.marketKey == w.marketKey && $0.baseAsset == w.baseAsset
-                && $0.quoteAsset == w.quoteAsset && $0.contractType == w.contractType)
-        }) else { return false }
+        guard !snapshot.watches.contains(where: { $0.id == w.id || $0.samePair(as: w) }) else { return false }
         mutate { s in
             s.watches.append(w)
             let taken = Set(s.alarms.map(\.id))

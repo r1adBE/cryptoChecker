@@ -426,8 +426,10 @@ struct WatchlistRow: View {
             alarmCount: alarmCount,
             // Alarm eben ausgelöst (Mitteilung kam bei offener App): bis 15 Min. danach
             fired: A11ySpeech.firedRecently(alarmFiredAt, now: now),
+            // Kursmitteilung wie die Glocke der Zeile (WatchlistRowParts): an bzw. aus — wie Android
+            priceNotificationOn: A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
+                                                                masterOn: priceNotificationsOn),
             details: [watch.favorite ? L("a11y_favorite") : nil],
-            // Kurs-Mitteilung steht (L-14) nicht mehr als Glocke in der Zeile, nur im Aktionsblatt — wie Android
             extra: [],
             // Frische, danach «Kurs unverändert seit …» (wie der Zeilensatz in Android)
             stale: staleText.map { text in unchangedText.map { "\(text), \($0)" } ?? text } ?? unchangedText,
