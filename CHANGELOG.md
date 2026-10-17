@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.2.2 (build 68)
+
+* iOS UI test for backup: reports what is on screen when the backup page does not open (diagnosis for CI).
+
 ## 16.2.2 (build 67)
 
 * GitHub: Android (unit tests, lint, debug and release build) and iOS (build and unit tests) are green. Three of the

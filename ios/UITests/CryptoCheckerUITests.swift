@@ -160,6 +160,13 @@ final class CryptoCheckerUITests: XCTestCase {
             // Ein zweiter Tipp, falls der erste noch in eine Scroll-Bewegung fiel
             if row.exists && row.isHittable { row.tap() }
         }
+        if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout) {
+            // Hinweis für die CI-Meldung: was ist stattdessen zu sehen? (Kennungen und Titel, gekürzt)
+            let ids = app.descendants(matching: .any).allElementsBoundByIndex.prefix(400)
+                .map(\.identifier).filter { !$0.isEmpty }
+            let bars = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
+            XCTFail("backup page not shown; bars=\(bars) hittable=\(row.isHittable) ids=\(Array(Set(ids)).sorted().prefix(60))")
+        }
     }
 
     // MARK: Hilfen
