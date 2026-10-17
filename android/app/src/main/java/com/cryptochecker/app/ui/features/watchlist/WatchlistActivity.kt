@@ -38,8 +38,8 @@ import com.cryptochecker.app.R
  * ⚡-Chip in der Zeile eines Paars mit aktiven Signalen, beschriftet mit der Kurzform von «Was bewegt sich mit?»
  * ([R.string.watch_action_why_short]); Tipp öffnet das Blatt «Was bewegt sich mit?».
  * Build 46: Tippfläche 48 dp hoch — sichtbar bleibt der 28-dp-Chip; nach aussen meldet der Knopf nur die
- * Chip-Höhe (Zeile wächst nicht), die Tippfläche ragt je 10 dp darüber und darunter, nie seitlich über den
- * Chip hinaus. Reicht die Breite nicht für «Was bewegt sich mit?», bleibt nur der ⚡ (das Paar geht vor, [RowInfo]).
+ * Chip-Grösse (Zeile wächst nicht), die Tippfläche ragt je 10 dp darüber und darunter und (Build 70) je 9 dp
+ * seitlich hinaus — so ist auch der Chip nur mit ⚡ 48 dp breit antippbar. Reicht die Breite nicht für «Was bewegt sich mit?», bleibt nur der ⚡ (das Paar geht vor, [RowInfo]).
  */
 @Composable
 internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -71,9 +71,10 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
             // Gemeldete Höhe = Chip; die Tippfläche darüber/darunter liegt ausserhalb (Treffer zählen trotzdem)
             .layout { measurable, constraints ->
                 val extra = WHY_TOUCH_EXTRA.roundToPx()
-                val placeable = measurable.measure(constraints.offset(vertical = 2 * extra))
-                layout(placeable.width, (placeable.height - 2 * extra).coerceAtLeast(0)) {
-                    placeable.place(0, -extra)
+                val side = WHY_TOUCH_SIDE.roundToPx()
+                val placeable = measurable.measure(constraints.offset(horizontal = 2 * side, vertical = 2 * extra))
+                layout((placeable.width - 2 * side).coerceAtLeast(0), (placeable.height - 2 * extra).coerceAtLeast(0)) {
+                    placeable.placeRelative(-side, -extra)
                 }
             }
             .clickable(interactionSource = interaction, indication = null, role = Role.Button, onClick = onClick)
@@ -82,7 +83,7 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
                 role = Role.Button
                 onClick { onClick(); true }
             }
-            .padding(vertical = WHY_TOUCH_EXTRA)
+            .padding(vertical = WHY_TOUCH_EXTRA, horizontal = WHY_TOUCH_SIDE)
             .heightIn(min = WHY_CHIP_HEIGHT)
             .clip(CircleShape)
             .background(tint.copy(alpha = 0.12f))
@@ -108,6 +109,9 @@ private val WHY_CHIP_HEIGHT = 28.dp
 
 /** Tippfläche über und unter dem Chip: 28 + 2 × 10 = 48 dp. */
 private val WHY_TOUCH_EXTRA = 10.dp
+
+/** Tippfläche links und rechts neben dem Chip (Review 18): nur ⚡ ist 30 dp breit, mit 2 × 9 dp also 48 dp. */
+private val WHY_TOUCH_SIDE = 9.dp
 private val WHY_ICON_SIZE = 14.dp
 private val WHY_GAP = 2.dp
 

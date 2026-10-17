@@ -64,7 +64,9 @@ struct ExplorerGroupTargetSelector: View {
             .padding(.horizontal, 12)
             .padding(.vertical, Spacing.sm)
             .background(AppColors.containerHigh, in: Capsule())
-            .contentShape(Capsule())
+            // Tippfläche mindestens 44 pt hoch (Review 18, wie Android 48 dp), sichtbar bleibt die schmale Kapsel
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
         }
         .alert(L("group_add"), isPresented: $naming) {
             TextField(L("group_name"), text: $newName)

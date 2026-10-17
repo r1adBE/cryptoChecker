@@ -117,7 +117,7 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
             .clip(RoundedCornerShape(50))
             .background(MaterialTheme.colorScheme.surfaceContainer)
             .border(
-                BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                 RoundedCornerShape(50)
             )
             .padding(start = 12.dp, top = 2.dp, bottom = 2.dp)

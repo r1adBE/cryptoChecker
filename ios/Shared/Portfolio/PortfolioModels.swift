@@ -565,15 +565,15 @@ enum PortfolioStore {
     /// Schreibstellen setzen das Merkmal nach jedem Schreiben selbst neu.
     /// Die Momentaufnahme des Portfolio-Widgets ist nie im Backup (wie Android `portfolio_widget`); beim
     /// Start zieht sie zudem aus den App-Group-Einstellungen (die sich nicht ausnehmen lassen) in ihre Datei.
-    /// Ebenso die gemerkten Kurs-Stände, Stundenkurse und Kerzen-Abrufe des Widgets (`historyURL`,
-    /// `hourlyURL`, `candleAttemptsURL`).
+    /// Ebenso die gemerkten Kurs-Stände, Stundenkurse, Kerzen-Abrufe und Tageskurse des Widgets (`historyURL`,
+    /// `hourlyURL`, `candleAttemptsURL`, `PortfolioWidgetDailyStore.url`; Letztere auch nach jedem Schreiben).
     static func applyBackupPolicy(includeInBackup: Bool) {
         PortfolioWidgetStore.migrateSnapshotToFile()
         PortfolioWidgetStore.migrateCachesToFiles()
         // Dazu die gemerkten Kurse des Portfolio-Tabs (`PortfolioPriceSource.storeURL`, nennen die Coins)
         let widgetFiles = [PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.historyURL,
                            PortfolioWidgetStore.hourlyURL, PortfolioWidgetStore.candleAttemptsURL,
-                           PortfolioPriceSource.storeURL]
+                           PortfolioWidgetDailyStore.url, PortfolioPriceSource.storeURL]
         for file in widgetFiles {
             BackupExclusion.set(excluded: true, for: file)
         }

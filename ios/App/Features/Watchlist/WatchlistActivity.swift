@@ -37,8 +37,8 @@ enum WatchlistActivity {
 
 /// ⚡-Chip neben dem Paar, beschriftet mit der Kurzform von «Was bewegt sich mit?» (`watch_action_why_short`); tippen
 /// öffnet das Blatt «Was bewegt sich mit?». Build 46: Tippfläche 44 pt hoch —
-/// sichtbar bleibt der 28-pt-Chip, das Layout unverändert; die Fläche ragt je 8 pt darüber und darunter, nie
-/// seitlich über den Chip hinaus. Reicht die Breite nicht, bleibt nur der ⚡ (das Paar geht vor; wie Android).
+/// sichtbar bleibt der 28-pt-Chip, das Layout unverändert; die Fläche ragt je 8 pt darüber und darunter und
+/// (Build 70) je 8 pt seitlich hinaus. Reicht die Breite nicht, bleibt nur der ⚡ (das Paar geht vor; wie Android).
 struct WatchlistActivityBolt: View {
     let action: () -> Void
     @Environment(\.appAccent) private var accent
@@ -52,10 +52,12 @@ struct WatchlistActivityBolt: View {
                 chip(tint: tint, withText: true)
                 chip(tint: tint, withText: false)
             }
-            // Tippfläche: 8 pt über und unter dem Chip, gleich breit; nach aussen wieder die Chip-Höhe
+            // Tippfläche: 8 pt über und unter dem Chip und 8 pt seitlich (Build 70); nach aussen wieder die Chip-Grösse
             .padding(.vertical, Self.touchExtra)
+            .padding(.horizontal, Self.touchSide)
             .contentShape(Rectangle())
             .padding(.vertical, -Self.touchExtra)
+            .padding(.horizontal, -Self.touchSide)
         }
         .buttonStyle(.borderless)
         // Screenreader: «Ungewöhnliche Aktivität, Was bewegt sich mit?»
@@ -66,6 +68,8 @@ struct WatchlistActivityBolt: View {
 
     /// 28 + 2 × 8 = 44 pt Tippfläche.
     private static let touchExtra: CGFloat = 8
+    /// Seitlich je 8 pt (Review 18): der Chip nur mit ⚡ ist etwa 28 pt breit, antippbar also gut 44 pt.
+    private static let touchSide: CGFloat = 8
 
     /// Sichtbarer Chip: ⚡ mit oder ohne «Was bewegt sich mit?».
     private func chip(tint: Color, withText: Bool) -> some View {

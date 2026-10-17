@@ -279,7 +279,7 @@ private fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, mod
                 .clip(RoundedCornerShape(50))
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                 .border(
-                    BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                    BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                     RoundedCornerShape(50)
                 )
                 .padding(start = 12.dp)

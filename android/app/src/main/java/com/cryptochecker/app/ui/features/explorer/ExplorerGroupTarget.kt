@@ -13,6 +13,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,6 +67,8 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
+                // Tippfläche mindestens 48 dp hoch (Review 18), sichtbar bleibt die schmale Kapsel
+                .minimumInteractiveComponentSize()
                 .clip(RoundedCornerShape(50))
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                 .clickable { menuOpen = true }

@@ -102,13 +102,13 @@ enum AppTabBarMetrics {
     static let maxTypeSize = DynamicTypeSize.xxxLarge
     /// Zeilenhöhe der Beschriftung (`.caption`) bei Standardgrösse; wird per `@ScaledMetric` mitskaliert.
     static let labelLineHeight: CGFloat = 16
-    /// Luft oben und unten im Tab, wenn die Leiste wächst.
-    static let verticalPadding: CGFloat = 8
+    /// Luft oben und unten im Tab, wenn die Leiste wächst (Pille 32 + 2 + Zeile 16 + 2 × 7 = 64, wie Android).
+    static let verticalPadding: CGFloat = 7
 
     /// Höhe der Leiste für die skalierte Zeilenhöhe der Beschriftung: nie unter `height` (Aussehen bei
     /// Standardgrösse bleibt), mit grosser Schrift so hoch, dass Symbol und Beschriftung Platz haben.
     static func scaledHeight(labelLine: CGFloat) -> CGFloat {
-        max(height, iconSize * selectedScale + 2 + labelLine + 2 * verticalPadding)
+        max(height, max(iconSize * selectedScale, indicatorHeight) + 2 + labelLine + 2 * verticalPadding)
     }
     /// Die übliche Grösse von 24 pt.
     static let iconSize: CGFloat = 24
@@ -116,12 +116,15 @@ enum AppTabBarMetrics {
     static let symbolPointSize: CGFloat = 19
     /// Das Symbol des gewählten Tabs ist 10 % grösser — wie `TAB_ICON_SELECTED_SCALE` (Android).
     static let selectedScale: CGFloat = 1.1
+    /// Anzeiger (Pille) hinter dem Symbol des gewählten Tabs — wie `TAB_INDICATOR_WIDTH`/`_HEIGHT` (Android).
+    static let indicatorWidth: CGFloat = 64
+    static let indicatorHeight: CGFloat = 32
     /// Dauer der Vergrösserung beim Wechsel des Tabs (s) — wie `TAB_ICON_SCALE_MILLIS` (Android).
     static let scaleDuration: Double = 0.15
 }
 
 /// Eigene Tableiste wie `AppTabBar` (Android): Fläche `container`, bis unter den Home-Indikator;
-/// gewählt ist das Symbol in der Themenfarbe und kurz animiert 10 % grösser (sonst grau), die Beschriftung bleibt immer gleich
+/// gewählt ist das Symbol in der Themenfarbe auf einer Pille (64 × 32, wie Android) und kurz animiert 10 % grösser (sonst grau), die Beschriftung bleibt immer gleich
 /// (dunkel: weiss, hell: onSurface). Für VoiceOver je eine Taste mit «ausgewählt».
 ///
 /// Ersetzt die System-Leiste (`UITabBar`) und übernimmt deren Verhalten bei grosser Schrift: Die Leiste
@@ -181,6 +184,17 @@ private struct AppTabBarButton: View {
                     .frame(width: AppTabBarMetrics.iconSize, height: AppTabBarMetrics.iconSize)
                     .scaleEffect(selected ? AppTabBarMetrics.selectedScale : 1)
                     .animation(scaleAnimation, value: selected)
+                    // Anzeiger hinter dem Symbol wie Android (Pille 64 × 32, Auswahlfläche des Themas; Review 18):
+                    // blendet ein und wächst aus der Mitte; in schmalen Tabs höchstens so breit wie der Tab
+                    .frame(minWidth: 0, maxWidth: AppTabBarMetrics.indicatorWidth)
+                    .frame(height: AppTabBarMetrics.indicatorHeight)
+                    .background {
+                        Capsule()
+                            .fill(accent.container)
+                            .scaleEffect(x: selected ? 1 : 0.5, y: 1)
+                            .opacity(selected ? 1 : 0)
+                            .animation(scaleAnimation, value: selected)
+                    }
                 label
             }
             .padding(.horizontal, 4)
